@@ -1,0 +1,1 @@
+Life one-liner corrected to Conway's rule (S=3)+c*(S=4) via inline dyadic lambda, verified in sw-apl; D11 decided; README/PRD/design/case updated. sw-checklist 0 failed: -V build info, long help with agent instructions, xetal-spec crate, tests in tests/ dirs; gate runs sw-checklist; version baseline excludes build info; .gitignore cleaned.
