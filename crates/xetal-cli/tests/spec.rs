@@ -6,7 +6,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-use xetal_cli::case::{CaseFile, StageOutput, bless, check_case, verdict};
+use xetal_spec::{CaseFile, StageOutput, bless, check_case, verdict};
 
 fn spec_root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../../spec")

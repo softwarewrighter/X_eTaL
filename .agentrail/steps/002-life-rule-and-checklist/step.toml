@@ -1,0 +1,9 @@
+number = 2
+slug = "life-rule-and-checklist"
+status = "in-progress"
+description = "foundations step 2 (inserted): (a) fix the Life one-liner so it is Conway's r..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T14:27:04"
+task_type = "scaffold"
+commits = []

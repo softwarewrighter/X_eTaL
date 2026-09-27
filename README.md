@@ -46,8 +46,16 @@ At a glance, versus classic APL:
 The design target is Conway's Life in one line:
 
 ```
-life = { (+^r -1 0 1 t_12 _r) = 3 + _r }
+life = { (+^r -1 0 1 t_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 ```
+
+Read right to left: rotate the board `_r` by every offset in `-1 0 1`
+along both axes (`t_12`) and sum the nine boards (`+^r`), giving S,
+each cell plus its neighbours. The inner lambda then gets S as `_l`
+and the board as `_r` and computes `(S = 3) + board * (S = 4)`: born
+or surviving with 3 neighbours when S is 3, surviving with 2 neighbours
+when a live cell has S of 4. The two tests never both hold, so `+`
+acts as "or".
 
 ## Status
 

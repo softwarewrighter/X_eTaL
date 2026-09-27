@@ -1,4 +1,4 @@
-number = 6
+number = 7
 slug = "core-desugar"
 status = "pending"
 description = "foundations step 6: TDD xetal-core: Core IR (Lit, Unit, Var, Prim(PrimId, axe..."

@@ -208,34 +208,44 @@ The research's Life one-liner assumes a plain `+^r` sums all nine
 boards. The M5 saga must pick one and pin it before M8; Life may then
 need `+^r_12` in option (a).
 
-### 6.2 The Life one-liner is not yet Conway's rule
+### 6.2 The Life one-liner (D11, decided)
+
+```
+life = { (+^r -1 0 1 t_12 _r) { (_l = 3) + _r * _l = 4 } _r }
+```
 
 Conway's rule, with N the count of the 8 neighbours and c the cell:
 a cell is alive next generation iff `N = 3`, or `c` and `N = 2`.
-With S = N + c (the 3x3 sum *including* the cell, which is what
-summing the nine rotated boards gives) the same rule is
-`(S = 3) or (c and S = 4)`.
+Summing the nine rotated boards gives S = N + c (the cell *included*),
+and the same rule is `(S = 3) or (c and S = 4)`. The two terms are
+mutually exclusive, so with 0/1 values "or" is `+`:
+`next = (S = 3) + c * (S = 4)`. The inner dyadic lambda receives S as
+`_l` and the board as `_r`, so S is computed once.
 
-Reference implementations (sw-apl, `samples/51-life.apl`), written
-here in ASCII transliteration:
+Reference implementations (sw-apl, `samples/51-life.apl`), in ASCII
+transliteration:
 
 - APL\360 (eight explicit rotations): `(3=N) or B and 2=N`.
 - The classic APL2 one-liner
   `life <- {disclose 1 w or.and 3 4 = +/ , -1 0 1 outer-rotate-first
   -1 0 1 rotate-each enclose w}`: `3 4 = S` gives the boards `S=3` and
-  `S=4`, and the inner product `1 w or.and ...` combines them as
+  `S=4`, and `1 w or.and ...` combines them as
   `(1 and S=3) or (w and S=4)`. Note the ravel `,` before `+/`: a
   plain `+/` on the nested 3x3 would reduce only the last axis (see
   6.1 and D7).
 
-The design target `life = { (+^r -1 0 1 t_12 _r) = 3 + _r }` computes
-`S = 3 + c`: a live cell survives only when S = 4 (N = 3), so a live
-cell with 2 neighbours dies. Checked with sw-apl on the 5x5 blinker:
-Conway's rule turns the vertical bar into `0 1 1 1 0` on row 3, while
-`S=3+B` gives `0 1 0 1 0` (the centre dies). The pending acceptance
-case `spec/integration/life-blinker.case` expects Conway's result, so
-the one-liner must change before M8 (it needs an `or` / `and` pair or
-an equivalent). OPEN (D11).
+History: the research's line `{ (+^r ... _r) = 3 + _r }` computed
+`S = 3 + c`, which keeps a live cell only when N = 3; a blinker's
+centre died. Verified with sw-apl: on the 5x5 blinker the old rule
+gives row 3 = `0 1 0 1 0`, Conway gives `0 1 1 1 0`; the corrected
+rule equals the APL\360 reference on the blinker, a glider (1, 2 and
+4 generations) and a random 8x8 torus (1 and 3 generations).
+Pinned by `spec/integration/life-blinker.case` (pending until M8).
+
+The line relies on rules still to be pinned: an inline lambda used
+dyadically (`X { ... } Y`), innermost-lambda scoping of `_l`/`_r`
+(saga 1 parser/desugar), Bool results of `=` used in `+` and `*` (D5),
+and `+^r` summing all nine boards (D7).
 
 ## 7. Evaluation
 
@@ -250,11 +260,11 @@ The evaluator consumes Core only and emits a trace tree:
 
 | Mode      | Example (Life)                                              |
 | --------- | ----------------------------------------------------------- |
-| Raw       | `life = { (+^r -1 0 1 t_12 _r) = 3 + _r }`                  |
+| Raw       | the line in 6.2, exactly as typed                           |
 | Decorated | same, with underline/subscript/superscript glyphs (Unicode) |
 | Canonical | fully parenthesized raw form                                |
-| Expanded  | long names: `reduce(add, rotate(axes=[1,2], ...)) == ...`  |
-| Core      | `Lam(r, App(App(eq, ...), ...))`                            |
+| Expanded  | long names: `reduce(add, rotate(axes=[1,2], ...))` etc.   |
+| Core      | `Lam(r, App(App(Lam(l, Lam(r, ...)), ...), Var(r)))`        |
 
 Decorated rendering uses Unicode combining low line (U+0332) for the
 underline, subscript digits (U+2080..U+2089) and modifier letters for
@@ -276,7 +286,7 @@ display, never destructive substitution).
 | D8 | Strict vs lazy; Y vs Z                    | Saga 6 combinators |
 | D9 | Dyadic train forms                        | Saga 7 trains |
 | D10| File extension (`.xtl` provisional)       | Saga 1 CLI |
-| D11| Life one-liner rule (see 6.2)             | Saga 8 life |
+| D11| Life one-liner rule                       | DECIDED: 6.2, `spec/integration/life-blinker.case` |
 
 Each decision is recorded here and in the test that pins it
 (test name or spec case referenced in the table when decided).

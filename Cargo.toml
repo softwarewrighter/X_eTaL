@@ -18,5 +18,6 @@ xetal-core = { path = "crates/xetal-core" }
 xetal-types = { path = "crates/xetal-types" }
 xetal-array = { path = "crates/xetal-array" }
 xetal-eval = { path = "crates/xetal-eval" }
+xetal-spec = { path = "crates/xetal-spec" }
 clap = { version = "4", features = ["derive"] }
 assert_cmd = "2"

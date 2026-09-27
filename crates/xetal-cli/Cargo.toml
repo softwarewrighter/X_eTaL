@@ -23,3 +23,8 @@ clap.workspace = true
 
 [dev-dependencies]
 assert_cmd.workspace = true
+xetal-spec.workspace = true
+
+[build-dependencies]
+hostname = "0.4"
+chrono = { version = "0.4", default-features = false, features = ["clock"] }

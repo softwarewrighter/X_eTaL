@@ -70,8 +70,9 @@ presentation layer, never the storage format.
   and an AST-driven right-to-left explainer showing value, type and
   shape of every sub-expression.
 - G9. Capstone: one-line Conway's Life passes golden generations:
-  `life = { (+^r -1 0 1 t_12 _r) = 3 + _r }` (exact spelling to be
-  pinned by the M5/M8 tests; see `docs/design.md`).
+  `life = { (+^r -1 0 1 t_12 _r) { (_l = 3) + _r * _l = 4 } _r }`
+  (Conway's rule, D11; the reduce spelling `+^r` vs `+^r_12` is pinned
+  by the M5 tests, D7; see `docs/design.md`).
 
 ## 4. Non-goals (for now)
 

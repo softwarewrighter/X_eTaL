@@ -1,4 +1,4 @@
-use super::*;
+use xetal_spec::*;
 
 const SQUARE: &str = "\
 # squaring via a monadic lambda

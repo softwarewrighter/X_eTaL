@@ -45,7 +45,8 @@ crates/
   xetal-types/             type inference
   xetal-array/             dense arrays + primitive kernels
   xetal-eval/              evaluator + trace tree
-  xetal-cli/               `xetal` binary
+  xetal-cli/               `xetal` binary (+ tests/spec.rs harness)
+  xetal-spec/              spec-case file parser, checker, blesser
   xetal-web/               (later) WASM playground
 spec/                      language spec corpus (*.case files)
 reg/                       reg-rs baselines (*.rgt, *.out) - committed
@@ -62,6 +63,7 @@ The display-name constant `xetal_base::LANG_NAME` lives in
 base -> lex -> syntax -> core -> types -> eval -> cli / web
 base -> render (depends on lex + syntax + core for printers)
 base -> array  (depends on nothing else; peer of the front end)
+spec           (no deps; dev-dependency of cli for the spec harness)
 eval -> array
 ```
 
@@ -78,7 +80,8 @@ Four layers, all run by `cargo test` except reg-rs:
 
 1. **Unit tests** inside each crate (TDD inner loop).
 2. **Spec corpus** `spec/<area>/*.case`, driven by a harness in
-   `xetal-cli/tests/spec.rs`. A case file has sections, each optional
+   `xetal-cli/tests/spec.rs` (case parsing and checking live in the
+   `xetal-spec` crate). A case file has sections, each optional
    except SOURCE:
 
    ```
@@ -113,6 +116,11 @@ Four layers, all run by `cargo test` except reg-rs:
    baseline lives in `reg/` (set `REG_RS_DATA_DIR=reg`). Only `.rgt`
    and `.out` files are committed; `*.tdb*` are gitignored (reg-rs
    regenerates them from `.rgt`). Helper: `scripts/reg.sh`.
+
+Unit tests live in each crate's `tests/` directory (public API only)
+so source modules stay small: `sw-checklist` (run by
+`scripts/gate.sh`) fails a module over 7 functions, a crate over 7
+modules or a function over 50 lines.
 
 Later: `cargo-fuzz` targets for lexer, parser, `fmt`, and evaluator
 (never panic; `parse(fmt(parse x)) == parse x`).

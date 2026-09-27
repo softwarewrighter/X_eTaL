@@ -5,8 +5,36 @@ use std::process::ExitCode;
 use clap::{Args, Parser, Subcommand};
 use xetal_base::{Diagnostic, LANG_NAME};
 
+/// Full `-V` / `--version` block: version, copyright, license,
+/// repository, then build information from `build.rs`.
+const VERSION: &str = concat!(
+    env!("CARGO_PKG_VERSION"),
+    "\nCopyright (c) 2026 Michael A Wright\n",
+    "License: ",
+    env!("CARGO_PKG_LICENSE"),
+    "\nRepository: ",
+    env!("CARGO_PKG_REPOSITORY"),
+    "\n\nBuild Information:\n  Host: ",
+    env!("BUILD_HOST"),
+    "\n  Commit: ",
+    env!("GIT_HASH"),
+    "\n  Timestamp: ",
+    env!("BUILD_TIMESTAMP"),
+);
+
+/// A terse, statically typed, functional array language in ASCII.
 #[derive(Parser)]
-#[command(name = LANG_NAME, bin_name = "xetal", version, about)]
+#[command(
+    name = LANG_NAME,
+    bin_name = "xetal",
+    version = VERSION,
+    about,
+    long_about = "A terse, statically typed, functional array language whose \
+                  source is plain ASCII. Typographic decoration changes what \
+                  a name means: `t` is a noun, `t_` the rotate function, \
+                  `t_2` rotate along axis 2, `+^r` reduce by `+`.",
+    after_long_help = include_str!("cli_help.txt")
+)]
 struct Cli {
     #[command(subcommand)]
     command: Command,

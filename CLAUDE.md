@@ -372,12 +372,14 @@ fails until the case is flipped to active in a deliberate commit.
    warnings; fix, never `#[allow]`)
 3. `cargo test` -- all pass
 4. `scripts/reg.sh run` -- all pass
-5. `sw-markdown-checker` on changed docs (ASCII-only markdown)
-6. docs updated if behavior changed (README, docs/design.md)
-7. detailed commit message; commit `.agentrail/` changes too
-8. then `agentrail complete`
+5. `sw-checklist` -- 0 failed (<=7 functions per module, <=7
+   modules per crate, functions <=50 lines, CLI version/help rules)
+6. `sw-markdown-checker` on changed docs (ASCII-only markdown)
+7. docs updated if behavior changed (README, docs/design.md)
+8. detailed commit message; commit `.agentrail/` changes too
+9. then `agentrail complete`, push
 
-`scripts/gate.sh` runs 1-5.
+`scripts/gate.sh` runs 1-6.
 
 ## User-facing docs: what and how, never when or plans
 

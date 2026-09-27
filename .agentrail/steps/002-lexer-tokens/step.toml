@@ -1,9 +1,0 @@
-number = 2
-slug = "lexer-tokens"
-status = "pending"
-description = "foundations step 2: TDD the xetal-lex lexer for the full v0 token set in docs..."
-role = "production"
-context_files = []
-created_at = "2026-09-27T13:08:17"
-task_type = "feature"
-commits = []

@@ -1,11 +1,10 @@
 # Acceptance test: Conway's Life, one generation of a 5x5 blinker.
 # The vertical bar in column 3 becomes a horizontal bar in row 3.
 # Must pass only through general rules (no Life-specific code).
-# See docs/design.md 6.2 (D11): the one-liner below is the design target,
-# but it keeps a live cell only with exactly 3 neighbours, so it kills
-# the blinker centre; RESULT is Conway (verified with sw-apl).
+# Rule (docs/design.md 6.2, D11): S = 9-cell sum, next = (S=3) + c*(S=4).
+# RESULT verified against the sw-apl APL\360 reference.
 == SOURCE
-life = { (+^r -1 0 1 t_12 _r) = 3 + _r }; life_ 5 5 p_ 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
+life = { (+^r -1 0 1 t_12 _r) { (_l = 3) + _r * _l = 4 } _r }; life_ 5 5 p_ 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
 == RESULT
 0 0 0 0 0
 0 0 0 0 0
