@@ -1,9 +1,10 @@
 number = 3
 slug = "lexer-tokens"
-status = "in-progress"
+status = "completed"
 description = "foundations step 2: TDD the xetal-lex lexer for the full v0 token set in docs..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T13:08:17"
+completed_at = "2026-09-27T15:29:04"
 task_type = "feature"
-commits = []
+commits = ["0828a4d1c9b3933024db38c9e109dc2ef1cc294c"]
