@@ -165,6 +165,17 @@ Class is decided from tokens alone, never from types or bindings.
 
 - `{ ... _r ... }` without `_l`: monadic `Lam(r, body)`.
 - `{ ... _l ... _r ... }`: dyadic `Lam(l, Lam(r, body))`.
+- Every function is monadic. A "dyadic" lambda is curried, and
+  `X f_ Y` is `App(App(f, X), Y)`; niladic `f_@` is `App(f, Unit)`.
+  So `f_ X` on a dyadic lambda is partial application: it fixes `_l`
+  and returns a function of `_r`.
+- Scoping (decided by the user; pinned by the parser/desugar tests):
+  `_l` / `_r` always refer to the innermost enclosing lambda, as APL
+  dfns treat alpha / omega. Outer arguments are passed in explicitly
+  (Life passes the board as the inner lambda's `_r`).
+- An inline lambda is an ordinary function, so `X { ... } Y` is a
+  dyadic application by the general rule (decided by the user; pinned
+  by the parser tests).
 - `{ _l }` (left only): OPEN -- reject or K-like; a test will decide.
 - `{ }` with neither: OPEN -- constant function taking `@`?
 
@@ -221,10 +232,15 @@ Scalar functions are typed on scalars and lifted over arrays by a
 single lifting rule (scalar extension), not per-function overloads.
 Shape is runtime metadata (not in types) in v0.
 
-OPEN: Bool as Num. Life adds Bool arrays (`+^r` over rotated boards)
-and compares Int with Bool. Options: (a) Bool is a `Num` instance
-(APL behavior), (b) explicit conversion, (c) boolean-to-int lifting
-rule. Decided by tests in the types saga before M8.
+Bool (D5, direction decided by the user; exact typing rule pinned by
+the types saga): there is a real `Bool` type and `=` `<` `>` return
+Bool. Coercion is implicit in both directions:
+
+- Bool -> Int in arithmetic: true is 1, false is 0, so
+  `(S = 3) + c * (S = 4)` type-checks and Life sums Bool boards.
+- Int -> Bool where a Bool is required: 1 is true, 0 is false, any
+  other value is an error (a runtime error when the value is only
+  known at run time).
 
 ## 6. Arrays
 
@@ -304,11 +320,63 @@ The evaluator consumes Core only and emits a trace tree:
 | Expanded  | long names: `reduce(add, rotate(axes=[1,2], ...))` etc.   |
 | Core      | `Lam(r, App(App(Lam(l, Lam(r, ...)), ...), Var(r)))`        |
 
-Decorated rendering uses Unicode combining low line (U+0332) for the
-underline, subscript digits (U+2080..U+2089) and modifier letters for
-superscripts; the renderer and its inverse are tested for lossless
-round-trips. Editing always happens on raw text (prettify-style
-display, never destructive substitution).
+Source is raw ASCII only (D13); the decorated and LaTeX forms are
+output. Editing always happens on raw text (prettify-style display,
+never destructive substitution). `xetal render` prints the decorated
+form, `xetal render --raw` converts it back (and lexes the result),
+and `xetal render --latex` prints LaTeX math for a post-processor.
+
+### 8.1 Decorated Unicode (`xetal render`)
+
+Whitespace between tokens is copied verbatim; only names change.
+
+| Raw           | Decorated                                            |
+| ------------- | ---------------------------------------------------- |
+| `r_`          | U+0332 COMBINING LOW LINE after each stem character   |
+| `t_12`        | underlined stem, then subscript digits U+2081 U+2082 |
+| `+_1`         | `+` then U+2081 (symbols are already functions)      |
+| `+^r`, `f^s`  | stem, then the word in superscript letters           |
+| `+^s_2`       | stem, superscript word, subscript digits             |
+| `now_@`       | underlined stem immediately followed by `@`          |
+| `+_@`         | underlined symbol immediately followed by `@`        |
+| `f^e_@`       | stem, superscript word, immediately `@`              |
+| `m.f_`        | `m.` then the decorated name                         |
+| other tokens  | unchanged (`_l`, `_r`, `@`, numbers, brackets)       |
+
+The underline is drawn only where it is what makes the name a
+function (a named stem without a superscript, or any stem that is
+niladic). `now_@` and `now_ @` differ only by the space, which is
+preserved. Unicode has no subscript `@`, so niladic is shown as the
+decorated name touching `@`.
+
+Superscript letters (lowercase only), code points:
+
+| a 1D43 | b 1D47 | c 1D9C | d 1D48 | e 1D49 | f 1DA0 | g 1D4D |
+| ------ | ------ | ------ | ------ | ------ | ------ | ------ |
+| h 02B0 | i 2071 | j 02B2 | k 1D4F | l 02E1 | m 1D50 | n 207F |
+| o 1D52 | p 1D56 | q none | r 02B3 | s 02E2 | t 1D57 | u 1D58 |
+| v 1D5B | w 02B7 | x 02E3 | y 02B8 | z 1DBB |        |        |
+
+A name whose superscript word contains `q` or any uppercase letter
+(no reliable superscript glyph) is shown in raw ASCII, so the inverse
+is still exact: ASCII passes through `--raw` unchanged.
+
+Inverse (`--raw`): an underlined run becomes `stem_`; subscript digits
+become `_digits`; superscript letters become `^word`; `@` touching an
+underlined or superscripted name becomes `_@`; any other non-ASCII
+character is `not-decorated`, a stray underline is `bad-underline`.
+Pinned by `crates/xetal-render/tests/render/` (proptest: raw ->
+decorated -> raw is the identity on lexable sources) and
+`spec/render/*.case`.
+
+### 8.2 LaTeX (`xetal render --latex`)
+
+One way, complete (LaTeX has every glyph): the body of a math
+environment for KaTeX, MathJax or pdflatex. Each token is braced so
+TeX adds no operator spacing; each source space is `\ ` and each
+newline `\\`. Names: `\underline{\mathrm{t}}_{12}`, `+^{\mathrm{r}}`,
+`\underline{\mathrm{now}}_{@}`; `*` is `\ast`, `|` is `\mid`, `{ }`
+are escaped, `_l` is `\_\mathrm{l}`.
 
 ## 9. Open decisions register
 
@@ -318,7 +386,7 @@ display, never destructive substitution).
 | D2 | Newline as statement separator            | Saga 1 parser |
 | D3 | `{ _l }` and `{ }` lambda semantics       | Saga 1 desugar |
 | D4 | Sections: is `2 +` a partial app (`+_` is a lex error) | Saga 1 parser |
-| D5 | Bool as Num                               | Saga 2 types |
+| D5 | Bool as Num                               | DIRECTION DECIDED (section 5): Bool type, implicit Bool <-> Int (1/0, other Int is an error); rule pinned in Saga 2 types |
 | D6 | Index origin                              | Saga 3 arrays |
 | D7 | Multi-axis rotate result shape            | Saga 5 rotate |
 | D8 | Strict vs lazy; Y vs Z                    | Saga 6 combinators |
@@ -326,7 +394,8 @@ display, never destructive substitution).
 | D10| File extension (`.xtl` provisional)       | Saga 1 CLI |
 | D11| Life one-liner rule                       | DECIDED: 6.2, `spec/integration/life-blinker.case` |
 | D12| Applying a function-valued lambda argument (`_l` / `_r` used as a function, needed by S, B, C combinators) | Saga 6 combinators; lexer rejects `_r_` until then |
-| D13| Accept decorated Unicode as input, or only via `xetal render --raw` | Saga 1 render (proposal: raw only) |
+| D13| Accept decorated Unicode as input          | DECIDED: raw ASCII only (revisit much later); section 8 |
+| D14| Namespaces as superscripts (user direction: user functions carry an explicit namespace such as `u`, libraries their own letter such as `c` for combinators, plus an `as`-style alias for clashes). Conflicts with superscript = derivation (`+^r`) and with the implemented dotted prefix `m.f_`; options to be put to the user | Before the Saga 1 parser step |
 
 Each decision is recorded here and in the test that pins it
 (test name or spec case referenced in the table when decided).

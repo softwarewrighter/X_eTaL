@@ -23,6 +23,7 @@ function from it (for example reduce or scan).
 | `t_2`      | t, underlined, subscript 2  | rotate along axis 2              |
 | `+^r`      | +, superscript r            | reduce by `+` (sum)              |
 | `+^s_2`    | +, superscript s, sub 2     | running sum along axis 2         |
+| `now_@`    | now, underlined, touching @ | apply `now` to Unit              |
 | `_l` `_r`  | _l _r                       | left / right lambda argument     |
 | `@`        | @                           | the Unit value                   |
 
@@ -59,13 +60,14 @@ acts as "or".
 
 ## Status
 
-Early. The lexer works (`xetal lex`); parsing, evaluation and the
-decorated renderer are not implemented yet, and those commands report
-`error[unsupported]`. The language is specified by its test suite as
+Early. The lexer (`xetal lex`) and the decorated renderer
+(`xetal render`) work; parsing and evaluation are not implemented
+yet, and those commands report `error[unsupported]`. The language is specified by its test suite as
 it is built; the design documents describe the intended language.
 
 ## Documentation
 
+- [`docs/input.md`](docs/input.md) -- how to type X_eTaL expressions
 - [`docs/PRD.md`](docs/PRD.md) -- product requirements and milestones
 - [`docs/design.md`](docs/design.md) -- language design and open decisions
 - [`docs/architecture.md`](docs/architecture.md) -- crates, pipeline, testing
@@ -97,9 +99,19 @@ cargo build --release
 
 Source is typed as plain ASCII: a trailing `_` underlines a name
 (makes it a function), digits after it are axis subscripts (`t_12`),
-and `^word` is a superscript derivation (`+^r`). Errors carry a code
-and a byte span, for example `xetal lex -e '3-1'` reports
+and `^word` is a superscript derivation (`+^r`); see
+[`docs/input.md`](docs/input.md). Errors carry a code and a byte
+span, for example `xetal lex -e '3-1'` reports
 `error[ambiguous-minus]` at `1..2`.
+
+`xetal render` shows the decorated form (underline, subscript and
+superscript glyphs) of the table above; `--raw` converts it back and
+`--latex` prints LaTeX math for a post-processor:
+
+```bash
+./target/release/xetal render -e 't t_ t_2 +^r +^s_2 _l _r @'
+./target/release/xetal render --latex -e 't_12 +^r'
+```
 
 ## Architecture
 

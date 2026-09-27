@@ -5,6 +5,7 @@
 pub enum Section {
     Source,
     Tokens,
+    Render,
     Surface,
     Canonical,
     Core,
@@ -15,9 +16,10 @@ pub enum Section {
 }
 
 impl Section {
-    pub const ALL: [Section; 9] = [
+    pub const ALL: [Section; 10] = [
         Section::Source,
         Section::Tokens,
+        Section::Render,
         Section::Surface,
         Section::Canonical,
         Section::Core,
@@ -31,6 +33,7 @@ impl Section {
         match self {
             Section::Source => "SOURCE",
             Section::Tokens => "TOKENS",
+            Section::Render => "RENDER",
             Section::Surface => "SURFACE",
             Section::Canonical => "CANONICAL",
             Section::Core => "CORE",
@@ -54,6 +57,7 @@ impl Section {
     pub fn stage(self) -> Option<&'static str> {
         match self {
             Section::Tokens => Some("lex"),
+            Section::Render => Some("render"),
             Section::Surface => Some("parse"),
             Section::Canonical => Some("fmt"),
             Section::Core => Some("core"),

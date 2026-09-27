@@ -1,0 +1,5 @@
+# Words with a letter lacking a superscript glyph (q, uppercase) stay raw.
+== SOURCE
++^q +^rq_2 f^R_@
+== RENDER
++^q +^rq_2 f^R_@

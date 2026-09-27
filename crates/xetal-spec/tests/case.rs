@@ -125,6 +125,7 @@ fn set_replaces_or_inserts_in_canonical_order() {
 #[test]
 fn sections_map_to_cli_stages() {
     assert_eq!(Section::Tokens.stage(), Some("lex"));
+    assert_eq!(Section::Render.stage(), Some("render"));
     assert_eq!(Section::Surface.stage(), Some("parse"));
     assert_eq!(Section::Canonical.stage(), Some("fmt"));
     assert_eq!(Section::Core.stage(), Some("core"));
@@ -237,4 +238,21 @@ fn bless_never_writes_unsupported_output() {
     });
     assert!(!bless(&mut case, &checks));
     assert_eq!(case.get(Section::Result), Some("3"));
+}
+
+#[test]
+fn render_section_sorts_after_tokens() {
+    let mut case = CaseFile::parse("== SOURCE\nr_\n== TYPE\nInt\n").unwrap();
+    case.set(Section::Render, "r".into());
+    case.set(Section::Tokens, "Func(r)".into());
+    let order: Vec<Section> = case.sections.iter().map(|(s, _)| *s).collect();
+    assert_eq!(
+        order,
+        vec![
+            Section::Source,
+            Section::Tokens,
+            Section::Render,
+            Section::Type
+        ]
+    );
 }

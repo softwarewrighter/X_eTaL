@@ -1,0 +1,3 @@
+command = "./target/debug/xetal render --latex -e 't_12 +^r'"
+exit_code = 0
+desc = "docs/input.md LaTeX example"

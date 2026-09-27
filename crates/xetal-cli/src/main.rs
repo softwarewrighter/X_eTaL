@@ -55,12 +55,25 @@ struct Input {
     file: Option<String>,
 }
 
+/// `render` options: decorated Unicode by default.
+#[derive(Args)]
+struct RenderArgs {
+    #[command(flatten)]
+    input: Input,
+    /// Convert decorated Unicode back to raw ASCII (validated by lexing).
+    #[arg(long)]
+    raw: bool,
+    /// Print LaTeX math for a post-processor (KaTeX, MathJax, pdflatex).
+    #[arg(long, conflicts_with = "raw")]
+    latex: bool,
+}
+
 #[derive(Subcommand)]
 enum Command {
     /// Print the token stream.
     Lex(Input),
-    /// Print the decorated Unicode form.
-    Render(Input),
+    /// Print the decorated Unicode form (or --raw, --latex).
+    Render(RenderArgs),
     /// Print the surface AST or an ambiguity report.
     Parse(Input),
     /// Print the canonical form.
@@ -96,12 +109,14 @@ impl Command {
     fn source(&self) -> Option<Result<String, Diagnostic>> {
         match self {
             Command::Lex(i)
-            | Command::Render(i)
             | Command::Parse(i)
             | Command::Fmt(i)
             | Command::Core(i)
             | Command::Type(i)
             | Command::Eval(i) => Some(read_input(i.expr.as_deref(), i.file.as_deref())),
+            Command::Render(r) => {
+                Some(read_input(r.input.expr.as_deref(), r.input.file.as_deref()))
+            }
             Command::Run { file } => Some(read_input(None, Some(file))),
             Command::Repl => None,
         }
@@ -126,7 +141,11 @@ fn run(command: &Command) -> Result<String, Diagnostic> {
     let Some(source) = command.source() else {
         return Err(Diagnostic::unsupported(command.stage()));
     };
-    let tokens = xetal_lex::lex(&source?)?;
+    let source = source?;
+    if let Command::Render(args) = command {
+        return render(args, &source);
+    }
+    let tokens = xetal_lex::lex(&source)?;
     match command {
         Command::Lex(_) => Ok(tokens
             .iter()
@@ -134,6 +153,18 @@ fn run(command: &Command) -> Result<String, Diagnostic> {
             .collect::<Vec<_>>()
             .join("\n")),
         _ => Err(Diagnostic::unsupported(command.stage())),
+    }
+}
+
+fn render(args: &RenderArgs, source: &str) -> Result<String, Diagnostic> {
+    if args.raw {
+        let raw = xetal_render::undecorate(source)?;
+        xetal_lex::lex(&raw)?;
+        Ok(raw)
+    } else if args.latex {
+        xetal_render::latex(source)
+    } else {
+        xetal_render::decorate(source)
     }
 }
 

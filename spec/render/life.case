@@ -1,0 +1,5 @@
+# The Life one-liner.
+== SOURCE
+life = { (+^r -1 0 1 t_12 _r) { (_l = 3) + _r * _l = 4 } _r }
+== RENDER
+life = { (+ʳ -1 0 1 t̲₁₂ _r) { (_l = 3) + _r * _l = 4 } _r }

@@ -89,6 +89,8 @@ Four layers, all run by `cargo test` except reg-rs:
    square = { _r * _r }; square_ 7
    == TOKENS
    ...
+   == RENDER
+   ...
    == CORE
    ...
    == TYPE
@@ -129,7 +131,8 @@ Later: `cargo-fuzz` targets for lexer, parser, `fmt`, and evaluator
 
 ```
 xetal lex    <src|-e expr>     token dump
-xetal render <src|-e expr>     decorated Unicode form (and --raw back)
+xetal render <src|-e expr>     decorated Unicode form (--raw back,
+                               --latex for LaTeX math)
 xetal parse  <src|-e expr>     surface AST or ambiguity report
 xetal fmt    <src|-e expr>     canonical form
 xetal core   <src|-e expr>     Core IR

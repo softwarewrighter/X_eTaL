@@ -127,3 +127,39 @@ fn expression_may_start_with_a_negative_literal() {
         .success()
         .stdout("0..2 Num(-1)\n3..4 Num(0)\n");
 }
+
+#[test]
+fn render_decorates_raw_source() {
+    xetal()
+        .args(["render", "-e", "t_12 +^r now_@"])
+        .assert()
+        .success()
+        .stdout("t\u{332}\u{2081}\u{2082} +\u{2b3} n\u{332}o\u{332}w\u{332}@\n");
+}
+
+#[test]
+fn render_raw_inverts_and_validates() {
+    xetal()
+        .args(["render", "--raw", "-e", "t\u{332}\u{2081}\u{2082} +\u{2b3}"])
+        .assert()
+        .success()
+        .stdout("t_12 +^r\n");
+    xetal()
+        .args(["render", "--raw", "-e", "t\u{332}\u{2080}"])
+        .assert()
+        .code(1)
+        .stderr(starts_with("error[bad-axis]: "));
+}
+
+#[test]
+fn render_latex_is_one_way_math() {
+    xetal()
+        .args(["render", "--latex", "-e", "+^r_2 x"])
+        .assert()
+        .success()
+        .stdout("{+^{\\mathrm{r}}_{2}}\\ {\\mathrm{x}}\n");
+    xetal()
+        .args(["render", "--latex", "--raw", "-e", "x"])
+        .assert()
+        .code(2);
+}

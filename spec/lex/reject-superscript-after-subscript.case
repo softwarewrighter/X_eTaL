@@ -1,0 +1,5 @@
+# docs/input.md: the superscript comes first.
+== SOURCE
++_2^s
+== ERROR
+error[non-canonical-order]: the superscript comes before the underline: write `stem^sup_sub` at 3..4

@@ -1,0 +1,5 @@
+# The README decoration table, in order.
+== SOURCE
+t t_ t_2 +^r +^s_2 _l _r @
+== RENDER
+t t̲ t̲₂ +ʳ +ˢ₂ _l _r @

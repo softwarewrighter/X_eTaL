@@ -1,0 +1,5 @@
+# Axis digits become subscript digits; symbols are not underlined.
+== SOURCE
+t_2 t_12 +_1
+== RENDER
+t̲₂ t̲₁₂ +₁

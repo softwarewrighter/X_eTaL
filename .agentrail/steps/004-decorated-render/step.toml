@@ -1,6 +1,6 @@
 number = 4
 slug = "decorated-render"
-status = "pending"
+status = "in-progress"
 description = "foundations step 3 (M0 demo): TDD xetal-render raw <-> decorated Unicode pres..."
 role = "production"
 context_files = []

@@ -1,0 +1,5 @@
+# Named functions are underlined (U+0332 on each stem char).
+== SOURCE
+r_ square_ 7 m.f_
+== RENDER
+r̲ s̲q̲u̲a̲r̲e̲ 7 m.f̲

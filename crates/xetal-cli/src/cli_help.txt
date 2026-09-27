@@ -2,7 +2,8 @@ STAGES:
   Every stage reads source given with -e EXPR or as a FILE path and
   prints deterministic text:
     lex     token stream (decoration decides each token's class)
-    render  decorated Unicode form (--raw converts back)
+    render  decorated Unicode form; --raw converts decorated text
+            back to source, --latex prints LaTeX math
     parse   surface AST, or an ambiguity report listing every parse
     fmt     canonical, fully parenthesized form
     core    Core IR after desugaring
@@ -14,6 +15,8 @@ STAGES:
 EXAMPLES:
   xetal eval -e '1 + 2'
   xetal lex -e 'square = { _r * _r }; square_ 7'
+  xetal render -e 't_12 +^r'
+  xetal render --latex -e 't_12 +^r'
   xetal run demos/life.xtl
 
 AI CODING AGENT INSTRUCTIONS:

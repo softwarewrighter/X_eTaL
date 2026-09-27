@@ -359,7 +359,7 @@ in output is intended, and say so in the commit message.
 
 ### Spec cases
 
-`spec/<area>/<name>.case` files with `== SOURCE`, `== TOKENS`,
+`spec/<area>/<name>.case` files with `== SOURCE`, `== TOKENS`, `== RENDER`,
 `== SURFACE`, `== CANONICAL`, `== CORE`, `== TYPE`, `== RESULT`,
 `== ERROR`, `== STATUS` sections (see docs/architecture.md). A
 `STATUS pending` case must fail; if it starts passing the harness

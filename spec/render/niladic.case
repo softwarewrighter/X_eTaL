@@ -1,0 +1,5 @@
+# Niladic: the decorated name touching @; spacing tells now_@ from now_ @.
+== SOURCE
+now_@ now_ @ +_@ f^e_@
+== RENDER
+n̲o̲w̲@ n̲o̲w̲ @ +̲@ fᵉ@
