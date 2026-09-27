@@ -1,9 +1,10 @@
 number = 4
 slug = "decorated-render"
-status = "in-progress"
+status = "completed"
 description = "foundations step 3 (M0 demo): TDD xetal-render raw <-> decorated Unicode pres..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T13:08:17"
+completed_at = "2026-09-27T15:48:03"
 task_type = "feature"
-commits = []
+commits = ["bfbc94100f3f471407ed6c6697b3a60e4d9a903c"]
