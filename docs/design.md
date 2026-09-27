@@ -24,6 +24,11 @@ slug `xetal` (crates, binary) and a single display-name constant
 
 ## 2. Lexical structure (raw ASCII source)
 
+UNDER REVIEW: sections 2, 3.5 and 8 describe the implemented syntax,
+which diverged from the research (superscript used for derivation
+instead of namespaces; `_` both underline and subscript). See
+`docs/syntax-proposal.md`; these sections change if it is approved.
+
 Source is ASCII (Latin-1 tolerated only inside string/char literals,
 which are deferred); any other character is a `non-ascii` error, and
 ASCII characters outside the token set (`# , : ' " $ % ! ? ~ &` ...)

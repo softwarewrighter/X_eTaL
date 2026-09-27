@@ -1,7 +1,7 @@
 number = 6
-slug = "canonical-fmt"
+slug = "parser-surface-ast"
 status = "pending"
-description = "foundations step 5: TDD the canonical formatter in xetal-render: fully parent..."
+description = "foundations step 4: TDD xetal-syntax parser to a surface AST with spans. Clas..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T13:08:18"

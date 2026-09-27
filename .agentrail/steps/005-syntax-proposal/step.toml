@@ -1,0 +1,9 @@
+number = 5
+slug = "syntax-proposal"
+status = "in-progress"
+description = "foundations step 5 (inserted): re-read docs/research.txt and docs/research2.t..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T15:59:03"
+task_type = "docs"
+commits = []

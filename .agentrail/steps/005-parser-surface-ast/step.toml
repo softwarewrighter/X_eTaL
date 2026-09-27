@@ -1,9 +1,0 @@
-number = 5
-slug = "parser-surface-ast"
-status = "pending"
-description = "foundations step 4: TDD xetal-syntax parser to a surface AST with spans. Clas..."
-role = "production"
-context_files = []
-created_at = "2026-09-27T13:08:18"
-task_type = "feature"
-commits = []

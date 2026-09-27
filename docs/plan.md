@@ -22,11 +22,12 @@ functional calculus evaluates (M1):
 | 2  | life-rule-and-checklist | (inserted) Life one-liner corrected to Conway's rule (D11, verified against sw-apl); sw-checklist conformance: `-V` build info, long help with agent instructions, small modules, `xetal-spec` crate; gate runs sw-checklist |
 | 3  | lexer-tokens         | full v0 token set, decoration grammar, negative-literal rule, spans; rejection tests; `xetal lex` |
 | 4  | decorated-render     | raw <-> Unicode decorated, lossless round-trip proptest; `xetal render` (M0 demo) |
-| 5  | parser-surface-ast   | noun/function classes, right-to-left application, strands, lambdas, bindings, `;`; ParseResult alternatives + AmbiguousExpression; ambiguity corpus; decide D1 D2 D4 |
-| 6  | canonical-fmt        | canonical printer, `xetal fmt`, parse/fmt round-trip proptest |
-| 7  | core-desugar         | Core IR with NodeId/spans, desugar lambdas / dyadic / niladic sugar; normalization-equivalence tests; decide D3; `xetal core` |
-| 8  | scalar-eval          | strict evaluator for Int/Float/Bool scalars, `+ - * / =`, bindings, lambdas, closures; `xetal eval`, `xetal run`; M1 demos as reg-rs goldens |
-| 9  | m1-docs-release      | README tour for M0/M1, docs sync, all demo commands in reg-rs, saga retrospective |
+| 5  | syntax-proposal      | (inserted) divergence from the research documented; `docs/syntax-proposal.md` for user review; no code changes |
+| 6  | parser-surface-ast   | noun/function classes, right-to-left application, strands, lambdas, bindings, `;`; ParseResult alternatives + AmbiguousExpression; ambiguity corpus; decide D1 D2 D4 |
+| 7  | canonical-fmt        | canonical printer, `xetal fmt`, parse/fmt round-trip proptest |
+| 8  | core-desugar         | Core IR with NodeId/spans, desugar lambdas / dyadic / niladic sugar; normalization-equivalence tests; decide D3; `xetal core` |
+| 9  | scalar-eval          | strict evaluator for Int/Float/Bool scalars, `+ - * / =`, bindings, lambdas, closures; `xetal eval`, `xetal run`; M1 demos as reg-rs goldens |
+| 10 | m1-docs-release      | README tour for M0/M1, docs sync, all demo commands in reg-rs, saga retrospective |
 
 ## Saga 2 -- types-and-unit (M2)
 

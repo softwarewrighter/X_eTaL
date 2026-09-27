@@ -1,7 +1,7 @@
 number = 7
-slug = "core-desugar"
+slug = "canonical-fmt"
 status = "pending"
-description = "foundations step 6: TDD xetal-core: Core IR (Lit, Unit, Var, Prim(PrimId, axe..."
+description = "foundations step 5: TDD the canonical formatter in xetal-render: fully parent..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T13:08:18"
