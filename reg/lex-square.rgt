@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lex -e 'square = { _r * _r }; square_ 7'"
+exit_code = 0
+desc = "xetal lex token dump of the square demo"

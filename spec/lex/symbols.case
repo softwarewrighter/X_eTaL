@@ -1,0 +1,13 @@
+# Symbol stems are always functions and may take a subscript.
+== SOURCE
++ - * / = < > | +_1
+== TOKENS
+0..1 Func(+)
+2..3 Func(-)
+4..5 Func(*)
+6..7 Func(/)
+8..9 Func(=)
+10..11 Func(<)
+12..13 Func(>)
+14..15 Func(|)
+16..19 Func(+, axes=[1])

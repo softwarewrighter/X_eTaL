@@ -113,8 +113,8 @@ Four layers, all run by `cargo test` except reg-rs:
    last == reduce, currying, sugar normalization, fork law.
 4. **CLI goldens** with `reg-rs`: each demo command
    (`xetal eval ...`, `xetal run demos/*.xtl`) is a reg-rs test whose
-   baseline lives in `reg/` (set `REG_RS_DATA_DIR=reg`). Only `.rgt`
-   and `.out` files are committed; `*.tdb*` are gitignored (reg-rs
+   baseline lives in `reg/` (set `REG_RS_DATA_DIR=reg`). Only `.rgt`,
+   `.out` and `.err` files are committed; `*.tdb*` are gitignored (reg-rs
    regenerates them from `.rgt`). Helper: `scripts/reg.sh`.
 
 Unit tests live in each crate's `tests/` directory (public API only)

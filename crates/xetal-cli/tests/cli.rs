@@ -1,4 +1,5 @@
 use assert_cmd::Command;
+use predicates::str::starts_with;
 use xetal_base::LANG_NAME;
 
 fn xetal() -> Command {
@@ -56,4 +57,73 @@ fn unimplemented_stage_reports_unsupported() {
 #[test]
 fn missing_subcommand_is_a_usage_error() {
     xetal().assert().failure().code(2);
+}
+
+#[test]
+fn lex_dumps_tokens_with_spans() {
+    xetal()
+        .args(["lex", "-e", "square_ 7"])
+        .assert()
+        .success()
+        .stdout("0..7 Func(square)\n8..9 Num(7)\n");
+}
+
+#[test]
+fn lex_reads_a_file() {
+    let dir = std::env::temp_dir().join(format!("xetal-cli-test-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("one.xtl");
+    std::fs::write(&path, "+^r_2\n").unwrap();
+    xetal()
+        .args(["lex", path.to_str().unwrap()])
+        .assert()
+        .success()
+        .stdout("0..5 Func(+, deriv=r, axes=[2])\n5..6 Newline\n");
+    std::fs::remove_dir_all(&dir).unwrap();
+}
+
+#[test]
+fn lex_error_is_a_diagnostic_on_stderr() {
+    xetal()
+        .args(["lex", "-e", "3-1"])
+        .assert()
+        .code(1)
+        .stdout("")
+        .stderr(starts_with("error[ambiguous-minus]: "));
+}
+
+#[test]
+fn later_stages_report_lex_errors_before_unsupported() {
+    xetal()
+        .args(["eval", "-e", "r__"])
+        .assert()
+        .code(1)
+        .stderr(starts_with("error[bad-decoration]: "));
+}
+
+#[test]
+fn missing_input_is_an_error() {
+    xetal()
+        .arg("lex")
+        .assert()
+        .code(1)
+        .stderr("error[no-input]: give source with -e EXPR or a FILE path\n");
+}
+
+#[test]
+fn unreadable_file_is_an_error() {
+    xetal()
+        .args(["lex", "/nonexistent/x.xtl"])
+        .assert()
+        .code(1)
+        .stderr(starts_with("error[io]: cannot read /nonexistent/x.xtl"));
+}
+
+#[test]
+fn expression_may_start_with_a_negative_literal() {
+    xetal()
+        .args(["lex", "-e", "-1 0"])
+        .assert()
+        .success()
+        .stdout("0..2 Num(-1)\n3..4 Num(0)\n");
 }

@@ -1,0 +1,10 @@
+# Plain stem is a noun; underline, axis subscript, _@ and namespace make functions.
+== SOURCE
+r r_ t_2 t_12 now_@ m.f_
+== TOKENS
+0..1 Noun(r)
+2..4 Func(r)
+5..8 Func(t, axes=[2])
+9..13 Func(t, axes=[1,2])
+14..19 Func(now, niladic)
+20..24 Func(f, ns=m)

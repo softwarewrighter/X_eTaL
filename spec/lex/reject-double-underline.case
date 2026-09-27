@@ -1,0 +1,5 @@
+# A second underline is not a decoration.
+== SOURCE
+r__
+== ERROR
+error[bad-decoration]: an underline cannot be doubled at 2..3

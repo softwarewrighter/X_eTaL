@@ -1,0 +1,30 @@
+# The Life one-liner (docs/design.md 6.2).
+== SOURCE
+life = { (+^r -1 0 1 t_12 _r) { (_l = 3) + _r * _l = 4 } _r }
+== TOKENS
+0..4 Noun(life)
+5..6 Func(=)
+7..8 LBrace
+9..10 LParen
+10..13 Func(+, deriv=r)
+14..16 Num(-1)
+17..18 Num(0)
+19..20 Num(1)
+21..25 Func(t, axes=[1,2])
+26..28 LamArg(r)
+28..29 RParen
+30..31 LBrace
+32..33 LParen
+33..35 LamArg(l)
+36..37 Func(=)
+38..39 Num(3)
+39..40 RParen
+41..42 Func(+)
+43..45 LamArg(r)
+46..47 Func(*)
+48..50 LamArg(l)
+51..52 Func(=)
+53..54 Num(4)
+55..56 RBrace
+57..59 LamArg(r)
+60..61 RBrace

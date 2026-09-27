@@ -1,0 +1,5 @@
+# Source is ASCII; Unicode is display only.
+== SOURCE
+x ← 3
+== ERROR
+error[non-ascii]: source is ASCII; Unicode appears only in rendered output at 2..5

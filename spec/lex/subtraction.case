@@ -1,0 +1,7 @@
+# Spaced minus is the subtraction function.
+== SOURCE
+3 - 1
+== TOKENS
+0..1 Num(3)
+2..3 Func(-)
+4..5 Num(1)

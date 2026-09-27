@@ -1,0 +1,1 @@
+error[ambiguous-minus]: `-` touching the previous token and a digit is ambiguous: write `3 - 1` to subtract or `3 -1` for a negative literal at 1..2

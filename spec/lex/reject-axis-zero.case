@@ -1,0 +1,5 @@
+# Axes are 1-based.
+== SOURCE
+r_0
+== ERROR
+error[bad-axis]: axes are numbered from 1 at 2..3

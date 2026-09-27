@@ -1,0 +1,6 @@
+# now_ @ is two tokens; now_@ is one (the parser equates them).
+== SOURCE
+now_ @
+== TOKENS
+0..4 Func(now)
+5..6 Unit

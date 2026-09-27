@@ -1,0 +1,5 @@
+# Characters outside the token set are rejected (no comments yet).
+== SOURCE
+x # comment
+== ERROR
+error[unexpected-char]: unexpected character at 2..3

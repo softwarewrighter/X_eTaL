@@ -1,0 +1,5 @@
+# Canonical order is stem^sup_sub.
+== SOURCE
+r_2^r
+== ERROR
+error[non-canonical-order]: the superscript comes before the underline: write `stem^sup_sub` at 3..4

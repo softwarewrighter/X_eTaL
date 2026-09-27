@@ -1,0 +1,5 @@
+# Only _l and _r are lambda arguments.
+== SOURCE
+_x
+== ERROR
+error[bad-lambda-arg]: lambda arguments are exactly `_l` and `_r`, undecorated at 0..2

@@ -1,0 +1,5 @@
+# An axis may appear only once.
+== SOURCE
+t_11
+== ERROR
+error[bad-axis]: an axis may appear only once at 3..4

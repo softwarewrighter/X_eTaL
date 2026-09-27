@@ -1,0 +1,11 @@
+# Undecorated symbols and brackets may touch names and numbers.
+== SOURCE
+1+2 f_(x)
+== TOKENS
+0..1 Num(1)
+1..2 Func(+)
+2..3 Num(2)
+4..6 Func(f)
+6..7 LParen
+7..8 Noun(x)
+8..9 RParen

@@ -1,36 +1,19 @@
-//! Lexer: raw ASCII source to decorated tokens with spans.
+//! Lexer: raw ASCII source to tokens with byte spans.
 //!
-//! Stub: the stage is not implemented yet; its error type already
-//! converts into `xetal_base::Diagnostic` like every other crate.
+//! Decoration decides a name's class: a plain stem is a noun; an
+//! underline, subscript or superscript (or a symbol stem) makes it a
+//! function. See docs/design.md section 2.
 
-use xetal_base::Diagnostic;
+mod cursor;
+mod error;
+mod name;
+mod number;
+mod scan;
+mod token;
+
+pub use error::{ErrorKind, LexError};
+pub use scan::lex;
+pub use token::{Name, Number, Side, Sub, Token, TokenKind};
 
 /// Pipeline stage name used in diagnostics and by the CLI.
 pub const STAGE: &str = "lex";
-
-/// Errors produced by this crate.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub enum LexError {
-    /// The stage has not been implemented yet.
-    Unsupported,
-}
-
-impl From<LexError> for Diagnostic {
-    fn from(err: LexError) -> Self {
-        match err {
-            LexError::Unsupported => Diagnostic::unsupported(STAGE),
-        }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn unsupported_converts_to_a_diagnostic_naming_the_stage() {
-        let d: Diagnostic = LexError::Unsupported.into();
-        assert_eq!(d.code, "unsupported");
-        assert!(d.message.contains("`lex`"), "{}", d.message);
-    }
-}

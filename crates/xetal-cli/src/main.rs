@@ -44,7 +44,12 @@ struct Cli {
 #[derive(Args)]
 struct Input {
     /// Source text to process.
-    #[arg(short = 'e', long = "expr", conflicts_with = "file")]
+    #[arg(
+        short = 'e',
+        long = "expr",
+        conflicts_with = "file",
+        allow_hyphen_values = true
+    )]
     expr: Option<String>,
     /// Source file to process.
     file: Option<String>,
@@ -86,17 +91,59 @@ impl Command {
             Command::Repl => "repl",
         }
     }
+
+    /// The source this command operates on, if it takes one.
+    fn source(&self) -> Option<Result<String, Diagnostic>> {
+        match self {
+            Command::Lex(i)
+            | Command::Render(i)
+            | Command::Parse(i)
+            | Command::Fmt(i)
+            | Command::Core(i)
+            | Command::Type(i)
+            | Command::Eval(i) => Some(read_input(i.expr.as_deref(), i.file.as_deref())),
+            Command::Run { file } => Some(read_input(None, Some(file))),
+            Command::Repl => None,
+        }
+    }
 }
 
+fn read_input(expr: Option<&str>, file: Option<&str>) -> Result<String, Diagnostic> {
+    match (expr, file) {
+        (Some(expr), _) => Ok(expr.to_string()),
+        (None, Some(path)) => std::fs::read_to_string(path)
+            .map_err(|e| Diagnostic::new("io", format!("cannot read {path}: {e}"))),
+        (None, None) => Err(Diagnostic::new(
+            "no-input",
+            "give source with -e EXPR or a FILE path",
+        )),
+    }
+}
+
+/// Run the pipeline as far as `command` asks. Every stage runs the
+/// earlier ones first, so an early error is reported by any command.
 fn run(command: &Command) -> Result<String, Diagnostic> {
-    Err(Diagnostic::unsupported(command.stage()))
+    let Some(source) = command.source() else {
+        return Err(Diagnostic::unsupported(command.stage()));
+    };
+    let tokens = xetal_lex::lex(&source?)?;
+    match command {
+        Command::Lex(_) => Ok(tokens
+            .iter()
+            .map(ToString::to_string)
+            .collect::<Vec<_>>()
+            .join("\n")),
+        _ => Err(Diagnostic::unsupported(command.stage())),
+    }
 }
 
 fn main() -> ExitCode {
     let cli = Cli::parse();
     match run(&cli.command) {
         Ok(text) => {
-            println!("{text}");
+            if !text.is_empty() {
+                println!("{text}");
+            }
             ExitCode::SUCCESS
         }
         Err(diag) => {

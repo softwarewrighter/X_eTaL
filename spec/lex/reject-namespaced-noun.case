@@ -1,0 +1,5 @@
+# Namespace prefixes apply to named functions only.
+== SOURCE
+m.x
+== ERROR
+error[bad-namespace]: a namespace prefix applies only to a decorated function name at 0..3

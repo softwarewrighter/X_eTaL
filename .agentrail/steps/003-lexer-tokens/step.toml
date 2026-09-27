@@ -1,6 +1,6 @@
 number = 3
 slug = "lexer-tokens"
-status = "pending"
+status = "in-progress"
 description = "foundations step 2: TDD the xetal-lex lexer for the full v0 token set in docs..."
 role = "production"
 context_files = []

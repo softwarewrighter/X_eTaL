@@ -1,0 +1,8 @@
+# Each newline is a token (D2: the parser decides its meaning).
+== SOURCE
+a
+b
+== TOKENS
+0..1 Noun(a)
+1..2 Newline
+2..3 Noun(b)

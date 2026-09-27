@@ -25,8 +25,18 @@ slug `xetal` (crates, binary) and a single display-name constant
 ## 2. Lexical structure (raw ASCII source)
 
 Source is ASCII (Latin-1 tolerated only inside string/char literals,
-which are deferred). Whitespace separates tokens; newlines act like
-`;` at top level (to be pinned).
+which are deferred); any other character is a `non-ascii` error, and
+ASCII characters outside the token set (`# , : ' " $ % ! ? ~ &` ...)
+are `unexpected-char` (so there are no comments yet). Spaces, tabs and
+carriage returns separate tokens. Each `\n` is a `Newline` token; the
+parser decides whether it acts like `;` (D2).
+
+The raw ASCII is also the typing shorthand: `_` underline, `_12`
+subscript, `^r` superscript. No input method is needed; `xetal render`
+shows the decorated Unicode form and `--raw` converts it back (section
+8). The lexer does not accept decorated Unicode input (D13).
+
+Pinned by `crates/xetal-lex/tests/lex/` and `spec/lex/*.case`.
 
 ### 2.1 Names and decoration
 
@@ -48,9 +58,34 @@ SUB  := digits       (axis list: 1..9, each digit one axis)
 | `t_2`      | `Func(t, axes=[2])`                     |
 | `t_12`     | `Func(t, axes=[1,2])`                   |
 | `now_@`    | `Func(now, niladic)` -> sugar           |
-| `+^r`      | `Func(+, deriv=reduce)`                 |
-| `+^r_2`    | `Func(+, deriv=reduce, axes=[2])`       |
+| `+^r`      | `Func(+, deriv=r)`                      |
+| `+^r_2`    | `Func(+, deriv=r, axes=[2])`            |
+| `f^s`      | `Func(f, deriv=s)`                      |
 | `m.f_`     | `Func(f, ns=m)`                         |
+
+The lexer keeps the superscript word as written (`r`, `reduce`); the
+dictionary resolves it later, so an unknown word is not a lex error.
+
+Pinned lexical rules (each has a rejection test):
+
+- A name is a function iff it has a symbol stem, a superscript or an
+  underline; a plain named stem is a noun.
+- A bare underline must add something: `+_` and `f^r_` are
+  `redundant-underline` (one spelling per meaning). `+_1`, `+^r_2`,
+  `f^r` are fine.
+- Axes are digits 1-9, each at most once: `r_0`, `t_11` are `bad-axis`.
+- Canonical order only: `r_2^r`, `r_^r` are `non-canonical-order`;
+  `r__`, `a_b`, `t_2x`, `now_@x`, `f_.g` are `bad-decoration`; one
+  superscript only (`+^r^s`); `r^` needs a word; `+^2` is not a word.
+- A decorated or named name must end at a delimiter (not a letter,
+  digit, `_ ^ . @`). An undecorated symbol may touch anything (`1+2`).
+- Namespace prefixes: one level, on named functions only. `m.x`,
+  `m.+`, `a.b.f_`, `m.` are `bad-namespace`.
+- Lambda arguments are exactly `_l` / `_r`, undecorated: `_x`, `_lx`,
+  `_r_`, `_l^r`, `_@`, `_` are `bad-lambda-arg` (D12).
+- Numbers are `[-]digits[.digits]`, 64-bit integers or floats; `1.`,
+  `1.2.3`, `2x`, `2_`, `2^r` are `bad-number`, `.5` is
+  `unexpected-char`, too-large integers are `number-out-of-range`.
 
 Symbol stems are always functions: `+ - * / = < > |` (set to be
 pinned; `%` etc. reserved). A symbol may carry `^SUP` and `_SUB`.
@@ -91,10 +126,13 @@ Terse and long spellings must desugar to the identical Core node
 | `-1`, `2.5`| numbers; negative-literal rule below           |
 
 Negative literals (no high-minus in ASCII): `-` immediately followed by
-a digit, and preceded by start-of-input, whitespace, `(`, `{`, `[` or
-`;`, lexes as part of a number. So `-1 0 1` is a 3-vector, `3 - 1` is
-subtraction, `3 -1` is the 2-vector `3 -1`, and `3-1` is an error
-(ambiguous; requires spaces). Each case is a pinned test.
+a digit, and preceded by start-of-input, whitespace (including a
+newline), `(`, `{`, `[` or `;`, lexes as part of a number. So `-1 0 1`
+is a 3-vector, `3 - 1` is subtraction, `3 -1` is the 2-vector `3 -1`,
+and `3-1` is an `ambiguous-minus` error (requires spaces). The same
+applies after any token: `a-1`, `(x)-1`, `2 +-1`, `--1`, `f_-1` are
+errors. `-x` (minus before a letter) is the function `-` then `x`.
+Each case is a pinned test.
 
 Rejected at lex time (examples): `r__`, `r_0` (axes are 1-based),
 `_x` (unknown lambda arg), `r^` (empty superscript), `r_2^r`
@@ -279,7 +317,7 @@ display, never destructive substitution).
 | D1 | Binding token: `name =` vs `<-` / `:=`    | Saga 1 parser |
 | D2 | Newline as statement separator            | Saga 1 parser |
 | D3 | `{ _l }` and `{ }` lambda semantics       | Saga 1 desugar |
-| D4 | Sections: is `2 +_` / `2 +` a partial app | Saga 1 parser |
+| D4 | Sections: is `2 +` a partial app (`+_` is a lex error) | Saga 1 parser |
 | D5 | Bool as Num                               | Saga 2 types |
 | D6 | Index origin                              | Saga 3 arrays |
 | D7 | Multi-axis rotate result shape            | Saga 5 rotate |
@@ -287,6 +325,8 @@ display, never destructive substitution).
 | D9 | Dyadic train forms                        | Saga 7 trains |
 | D10| File extension (`.xtl` provisional)       | Saga 1 CLI |
 | D11| Life one-liner rule                       | DECIDED: 6.2, `spec/integration/life-blinker.case` |
+| D12| Applying a function-valued lambda argument (`_l` / `_r` used as a function, needed by S, B, C combinators) | Saga 6 combinators; lexer rejects `_r_` until then |
+| D13| Accept decorated Unicode as input, or only via `xetal render --raw` | Saga 1 render (proposal: raw only) |
 
 Each decision is recorded here and in the test that pins it
 (test name or spec case referenced in the table when decided).

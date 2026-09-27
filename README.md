@@ -59,8 +59,10 @@ acts as "or".
 
 ## Status
 
-Pre-implementation. The language is specified by its test suite as it
-is built; the design documents describe the intended language.
+Early. The lexer works (`xetal lex`); parsing, evaluation and the
+decorated renderer are not implemented yet, and those commands report
+`error[unsupported]`. The language is specified by its test suite as
+it is built; the design documents describe the intended language.
 
 ## Documentation
 
@@ -75,7 +77,29 @@ is built; the design documents describe the intended language.
 ```bash
 cargo build --release
 ./target/release/xetal --version
+./target/release/xetal lex -e 'square = { _r * _r }; square_ 7'
 ```
+
+`xetal lex` prints one token per line with its byte span:
+
+```
+0..6 Noun(square)
+7..8 Func(=)
+9..10 LBrace
+11..13 LamArg(r)
+14..15 Func(*)
+16..18 LamArg(r)
+19..20 RBrace
+20..21 Semi
+22..29 Func(square)
+30..31 Num(7)
+```
+
+Source is typed as plain ASCII: a trailing `_` underlines a name
+(makes it a function), digits after it are axis subscripts (`t_12`),
+and `^word` is a superscript derivation (`+^r`). Errors carry a code
+and a byte span, for example `xetal lex -e '3-1'` reports
+`error[ambiguous-minus]` at `1..2`.
 
 ## Architecture
 

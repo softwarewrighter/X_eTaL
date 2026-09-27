@@ -1,0 +1,9 @@
+# Superscript derivations, optionally followed by a subscript.
+== SOURCE
++^r +^r_2 +^reduce f^s m.f^e_@
+== TOKENS
+0..3 Func(+, deriv=r)
+4..9 Func(+, deriv=r, axes=[2])
+10..18 Func(+, deriv=reduce)
+19..22 Func(f, deriv=s)
+23..30 Func(f, ns=m, deriv=e, niladic)

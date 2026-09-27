@@ -1,0 +1,5 @@
+# Stems cannot contain an underscore.
+== SOURCE
+my_name
+== ERROR
+error[bad-decoration]: names cannot contain `_`; an underline ends the name at 3..4

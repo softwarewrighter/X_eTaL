@@ -1,0 +1,5 @@
+# A superscript needs a derivation word.
+== SOURCE
+r^
+== ERROR
+error[bad-decoration]: `^` must be followed by a derivation word such as `r` at 1..2

@@ -352,7 +352,7 @@ sw-markdown-checker -f "docs/*.md"                  # ASCII-only markdown for ou
 
 CLI behavior is pinned with `reg-rs` baselines stored in the repo
 under `reg/` (always go through `scripts/reg.sh`, which sets
-`REG_RS_DATA_DIR`). Commit `reg/*.rgt` and `reg/*.out`; `reg/*.tdb*`
+`REG_RS_DATA_DIR`). Commit `reg/*.rgt`, `reg/*.out` and `reg/*.err`; `reg/*.tdb*`
 are regenerated caches and gitignored. Create a baseline only after
 the output has been reviewed; use `reg-rs rebase` only when a change
 in output is intended, and say so in the commit message.

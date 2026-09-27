@@ -1,0 +1,5 @@
+# A number must end at a delimiter.
+== SOURCE
+2x
+== ERROR
+error[bad-number]: a number must be followed by a space, symbol or bracket at 1..2

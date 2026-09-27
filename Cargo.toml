@@ -21,3 +21,5 @@ xetal-eval = { path = "crates/xetal-eval" }
 xetal-spec = { path = "crates/xetal-spec" }
 clap = { version = "4", features = ["derive"] }
 assert_cmd = "2"
+proptest = "1"
+predicates = "3"

@@ -1,0 +1,6 @@
+# 3 -1 is two numbers (the parser strands them).
+== SOURCE
+3 -1
+== TOKENS
+0..1 Num(3)
+2..4 Num(-1)
