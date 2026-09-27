@@ -99,10 +99,12 @@ scripts/gate.sh                                     # full pre-commit gate
 - [sw-mlpl](https://github.com/sw-ml-study/sw-mlpl) -- Software
   Wrighter's Machine Learning Programming Language, a Rust array
   language inspired by APL, APL2, J, and BQN.
-- [sw-apl](https://github.com/sw-vibe-coding/sw-apl) -- an APL
-  implementation.
+- [sw-apl](https://github.com/sw-vibe-coding/sw-apl) -- a clean-room
+  APL interpreter in Rust modelled on APL\360 and IBM 5100 APL, for
+  the terminal, a local service and the browser.
 - [web-sw-cor24-apl](https://github.com/sw-embed/web-sw-cor24-apl) --
-  web demo of APL on the COR24 platform.
+  browser-based APL environment running the sw-cor24-apl interpreter
+  on an emulated COR24 CPU via WebAssembly.
 
 ## Links
 

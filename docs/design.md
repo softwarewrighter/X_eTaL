@@ -210,14 +210,32 @@ need `+^r_12` in option (a).
 
 ### 6.2 The Life one-liner is not yet Conway's rule
 
+Conway's rule, with N the count of the 8 neighbours and c the cell:
+a cell is alive next generation iff `N = 3`, or `c` and `N = 2`.
+With S = N + c (the 3x3 sum *including* the cell, which is what
+summing the nine rotated boards gives) the same rule is
+`(S = 3) or (c and S = 4)`.
+
+Reference implementations (sw-apl, `samples/51-life.apl`), written
+here in ASCII transliteration:
+
+- APL\360 (eight explicit rotations): `(3=N) or B and 2=N`.
+- The classic APL2 one-liner
+  `life <- {disclose 1 w or.and 3 4 = +/ , -1 0 1 outer-rotate-first
+  -1 0 1 rotate-each enclose w}`: `3 4 = S` gives the boards `S=3` and
+  `S=4`, and the inner product `1 w or.and ...` combines them as
+  `(1 and S=3) or (w and S=4)`. Note the ravel `,` before `+/`: a
+  plain `+/` on the nested 3x3 would reduce only the last axis (see
+  6.1 and D7).
+
 The design target `life = { (+^r -1 0 1 t_12 _r) = 3 + _r }` computes
-`S = 3 + c`, where S is the 3x3 neighbourhood sum *including* the cell
-c. A live cell (c = 1) then survives only when S = 4 (exactly 3
-neighbours), so a live cell with 2 neighbours dies; a blinker's centre
-would die. Conway's rule is `(S = 3) or (c and S = 4)`. The pending
-acceptance case `spec/integration/life-blinker.case` expects the real
-next generation, so the one-liner (or an operator it relies on) must
-change before M8. OPEN (D11).
+`S = 3 + c`: a live cell survives only when S = 4 (N = 3), so a live
+cell with 2 neighbours dies. Checked with sw-apl on the 5x5 blinker:
+Conway's rule turns the vertical bar into `0 1 1 1 0` on row 3, while
+`S=3+B` gives `0 1 0 1 0` (the centre dies). The pending acceptance
+case `spec/integration/life-blinker.case` expects Conway's result, so
+the one-liner must change before M8 (it needs an `or` / `and` pair or
+an equivalent). OPEN (D11).
 
 ## 7. Evaluation
 
