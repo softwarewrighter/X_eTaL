@@ -1,0 +1,9 @@
+number = 1
+slug = "workspace-scaffold"
+status = "pending"
+description = "foundations step 1 (see .agentrail/plan.md and docs/plan.md): TDD-scaffold th..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T13:07:50"
+task_type = "scaffold"
+commits = []

@@ -1,0 +1,9 @@
+number = 8
+slug = "m1-docs-release"
+status = "pending"
+description = "foundations step 8: make the M0/M1 state user-visible and consistent. README:..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T13:08:18"
+task_type = "docs"
+commits = []

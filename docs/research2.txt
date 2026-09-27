@@ -1,0 +1,640 @@
+How about backronym from LaTeX reversed?
+
+Ah—reverse the LaTeX pattern itself. That's much more fertile.
+
+LaTeX reversed literally is:
+
+XeTaL
+
+and that is surprisingly good-looking as a language name:
+
+LaTeX
+XeTaL
+
+Both have the exact UlUlU pattern you wanted.
+
+XeTaL
+
+We can then backronym XeTaL around the actual language concepts.
+
+Some possibilities:
+
+eXpressive Typed Array Language
+eXpression Typeset Array Language
+eXtensible Typeset Array Language
+eXecutable Typographic Array Language
+eXpressive Typographic Array Language
+eXpression Transforming Array Language
+
+The strongest to me is:
+
+XeTaL — eXpressive Typographic Array Language
+
+because "typographic" covers the semantic-ligature idea while "expressive" covers the compositional/HOF side without over-specifying implementation.
+
+But we can get composition into it:
+
+XeTaL — eXpression-Transforming Array Language
+
+Less descriptive.
+
+Or:
+
+XeTaL — eXtensible Compositional Array Language
+
+doesn't fit the letters.
+
+The reversal has a nice conceptual joke
+
+LaTeX takes:
+
+keyboard text
+    ↓
+typesetting
+    ↓
+visual document
+
+XeTaL effectively takes:
+
+keyboard text
+    ↓
+typesetting / semantic ligatures
+    ↓
+program structure
+    ↓
+execution
+
+So in a loose sense it reverses the purpose of LaTeX.
+
+LaTeX uses textual commands to produce typography.
+
+XeTaL uses typography to express computation.
+
+That's a genuinely good naming story, rather than merely wordplay.
+
+Even better:
+
+LaTeX: text → typography
+XeTaL: typography → semantics
+
+Obviously the compiler really consumes the underlying representation, but conceptually that's what the programmer experiences.
+
+Possible backronyms
+
+I'd explore these:
+
+Expansion	Comment
+eXpressive Typographic Array Language	Best overall
+eXecutable Typographic Array Language	Very literal
+eXtensible Typographic Array Language	Good if user-defined notation becomes important
+eXpression Typeset Array Language	Strong typesetting emphasis
+eXpression-oriented Typographic Array Language	Accurate but expansion cheats a little
+eXpressive Typeset Array Language	Shorter than “Typographic”
+eXperimental Typographic Array Language	Appropriate now, bad if it matures
+eXpressive Typed Array Language	Good language-design name, loses typography
+
+I particularly like eXpressive because the language is trying to achieve a high ratio of semantics to visible source.
+
+Could X stand for cross/composition?
+
+There is another interpretation. X visually suggests crossing/composition/product, all highly relevant to arrays.
+
+So you don't necessarily have to pretend the acronym begins with a word starting in X.
+
+You could explicitly define:
+
+XeTaL — eXpressive Typographic Array Language
+
+and let the capital letters be a typographic construction rather than a conventional acronym—which is appropriate for this language.
+
+And the spelling itself demonstrates the philosophy
+
+This is perhaps the best part.
+
+X e T a L
+U l U l U
+
+The capitalization itself carries information that ordinary case-insensitive spelling loses.
+
+That's analogous to:
+
+t
+t_2
+t^m_2
+
+where the base characters are mundane but presentation carries structured information.
+
+You could even have a logo showing the relationship:
+
+LaTeX  →  XeTaL
+ text      code
+   ↓        ↑
+ typography
+
+Or more accurately:
+
+LaTeX                  XeTaL
+
+source                  source
+  ↓                       ↓
+semantic markup        semantic typography
+  ↓                       ↓
+typeset document       executable expression
+Searchability
+
+XeTaL also has a major advantage over TeCaL, TCAL, CoAL, etc.: it's an unusual letter sequence. I would still do a proper collision search before adopting it, particularly GitHub, package registries, programming-language lists, trademarks/products, and xetal.* domains.
+
+But purely as a language name, XeTaL is considerably stronger than HoFaL or TeCaL to me because it has three independent reasons for its spelling:
+
+LaTeX reversed — typesetting heritage.
+UlUlU — demonstrates typographic structure.
+eXpressive Typographic Array Language — accurately describes the project.
+
+And the conceptual slogan almost writes itself:
+
+LaTeX typesets expressions. XeTaL makes typesetting expressive.
+
+Or, more technically:
+
+XeTaL — an expressive typographic array language where ordinary keyboard characters gain computational meaning through semantic decoration.
+
+I'd definitely put XeTaL on the shortlist.
+
+So X could be experimental.  T could be for Typed, if we can introduce static typing without breaking what we have proposed so far.  eXperimental Extensible Typed Array Language.   This might be the tail wagging the dog, but I generally prefer statically typed languages, like Rust (Java, Haskell) for funtional programing.
+
+Yes. I think static typing actually strengthens what we've designed, rather than being a backronym-driven addition. Several questions we've encountered—niladic @, function-valued expressions, currying, trains, axes, and ambiguity—become cleaner with types.
+
+And XeTaL — eXperimental eXtensible Typed Array Language is a credible expansion. The two X words even explain the unusual Xe... beginning.
+
+Static typing fits the core particularly well
+
+We already reduced the semantic model toward:
+
+Value
+Function : A -> B
+
+with apparent valence expressed through currying:
+
+niladic: Unit -> A
+monadic: A -> B
+dyadic:  A -> B -> C
+
+Make that genuinely typed:
+
+@       : Unit
+
+now     : Unit -> Time
+
+neg     : Num a => a -> a
+
++       : Num a => a -> a -> a
+
+shape   : Array a -> Shape
+
+rotate  : Int -> Array a -> Array a
+
+reduce  : (a -> a -> a) -> Array a -> a
+
+scan    : (a -> a -> a) -> Array a -> Array a
+
+This is already starting to look pleasantly Haskell-ish underneath an APL-ish surface language.
+
+@ becomes much better
+
+Our previous decision:
+
+now @        OK
+now 42       ERROR
+
+no longer needs a special runtime check.
+
+Simply:
+
+now : Unit -> Time
+42  : Int
+
+Therefore:
+
+now 42
+
+doesn't type-check.
+
+And:
+
+f = now
+f @
+
+does.
+
+That's exactly the behavior we wanted.
+
+_l and _r can be inferred
+
+Consider:
+
+{ _r * _r }
+
+Inference sees * and determines something approximately like:
+
+Num a => a -> a
+
+For:
+
+{ _l - _r }
+
+we infer:
+
+Num a => a -> a -> a
+
+No type declarations required.
+
+That preserves APL terseness while giving Rust/Haskell-like compile-time checking.
+
+Explicit annotations can exist when useful:
+
+square : Int -> Int
+square = { _r * _r }
+
+but shouldn't normally be necessary.
+
+HOFs become particularly nice
+
+Reduce:
+
+r : (a -> a -> a) -> Array a -> a
+
+So:
+
++ r
+
+can be inferred as:
+
+Num a => Array a -> a
+
+Thus:
+
+sum = + r
+
+creates a statically typed derived function.
+
+Likewise:
+
++ s
+
+scan:
+
+Num a => Array a -> Array a
+
+This is a major argument for static typing in this language. The type checker can tell us what all these highly compact compositions mean.
+
+Types also help with trains
+
+Our fork:
+
+[f g h]
+
+means:
+
+{ (f _r) g (h _r) }
+
+Types constrain it.
+
+Suppose:
+
+f : A -> B
+h : A -> C
+g : B -> C -> D
+
+Then:
+
+[f g h] : A -> D
+
+That is a lovely inferred type.
+
+And a bad train such as:
+
+[f g h]
+
+where:
+
+f : A -> String
+g : Int -> Int -> Int
+h : A -> Int
+
+fails at compile time.
+
+For a language this terse, that is extremely valuable.
+
+Types can help detect—but should not define—syntax ambiguity
+
+I'd preserve our previous rule:
+
+Parsing ambiguity is an error; don't ask the type checker to arbitrarily select a parse.
+
+However, after an unambiguous syntactic parse, types can reject nonsensical compositions.
+
+That's an important distinction:
+
+characters
+    ↓
+lexer
+    ↓
+UNAMBIGUOUS grammar
+    ↓
+AST
+    ↓
+desugaring
+    ↓
+Core AST
+    ↓
+type/shape inference
+    ↓
+evaluation
+
+Don't do C++-style parsing where knowing what an identifier means can radically alter the grammar.
+
+Keep XeTaL's grammar clean.
+
+Arrays introduce the interesting typing problem: shape
+
+There are really two different questions:
+
+Array element type?
+Array shape?
+
+Start simple:
+
+Array<Int>
+Array<Float>
+Array<Bool>
+
+with shape as runtime metadata.
+
+So:
+
+A : Array<Int>
+shape A : Array<Int>
+
+or preferably a distinct:
+
+Shape
+
+type.
+
+Later XeTaL can explore shape typing:
+
+Array<Int, [3,4]>
+
+and eventually symbolic shapes:
+
+Array<a, [m,n]>
+
+But I would not put shape into the initial static type system.
+
+That's exactly the sort of feature that could make the experimental language disappear into type-system research before Life works.
+
+Broadcasting is where static typing gets interesting
+
+For:
+
+3 + A
+
+you want scalar extension.
+
+So + isn't really just:
+
+a -> a -> a
+
+at the surface.
+
+There is some lifting mechanism:
+
+Int + Int          -> Int
+Int + Array<Int>   -> Array<Int>
+Array<Int> + Int   -> Array<Int>
+Array<Int> + Array<Int> -> Array<Int>
+
+I would resist hardcoding those four overloads into every arithmetic function.
+
+Instead, XeTaL should eventually formalize lifting.
+
+Conceptually:
+
++ : Num a => a -> a -> a
+
+and the array machinery lifts it.
+
+That means the scalar function remains beautifully simple.
+
+This also supports our everything-composes philosophy.
+
+Extensible is arguably even more important than Experimental
+
+Your proposed name:
+
+eXperimental eXtensible Typed Array Language
+
+actually describes three goals we've independently arrived at.
+
+Experimental
+
+You're exploring:
+
+semantic typography;
+monadic function core;
+laziness;
+combinators;
+APL-like arrays;
+trains;
+static typing.
+
+Definitely experimental.
+
+Extensible
+
+User-defined functions should participate identically to built-ins:
+
+f
+f^m
+f_2
+
+And ideally user-defined HOFs/combinators should be able to create the same kinds of derived functions as core operations.
+
+That's genuine language extensibility rather than merely having libraries.
+
+Typed
+
+Types make terse composition safer and more explainable.
+
+Array Language
+
+That's the fundamental programming model.
+
+So the name isn't forcing the architecture very much at all.
+
+I'd borrow Hindley-Milner ideas before Rust's type system
+
+Despite your preference for Rust, I wouldn't start by reproducing Rust typing.
+
+For XeTaL's first type system I'd aim much closer to Haskell/ML:
+
+static;
+strong;
+inferred;
+parametric polymorphism;
+first-class functions;
+algebraic types eventually;
+type classes/traits later.
+
+You want:
+
+square = { _r * _r }
+
+not:
+
+square: fn<T: Numeric>(x: T) -> T = ...
+
+The compiler should infer approximately:
+
+square : Num a => a -> a
+
+The source remains APL-terse.
+
+Rust is an excellent implementation language, but ML/Haskell is probably the better conceptual model for XeTaL's initial type inference.
+
+A deliberately small v0 type system
+
+I'd start with:
+
+Unit
+Bool
+Int
+Float
+Char
+String
+Array<T>
+Function<A,B>
+
+plus type variables:
+
+a
+b
+c
+
+and inference/unification.
+
+Then the core library can express:
+
+id      : a -> a
+
+const   : a -> b -> a
+
+compose : (b -> c) -> (a -> b) -> a -> c
+
+fork    : (a -> b) ->
+          (b -> c -> d) ->
+          (a -> c) ->
+          a -> d
+
+reduce  : (a -> a -> a) -> Array<a> -> a
+
+scan    : (a -> a -> a) -> Array<a> -> Array<a>
+
+Already enough to make the language extremely interesting.
+
+Then test combinators through their types
+
+This could become one of XeTaL's showcase features.
+
+The compiler infers:
+
+I : a -> a
+
+K : a -> b -> a
+
+B : (b -> c) -> (a -> b) -> a -> c
+
+C : (a -> b -> c) -> b -> a -> c
+
+W : (a -> a -> b) -> a -> b
+
+Those inferred signatures are almost proofs that your combinator implementation is structurally correct.
+
+And your browser UI can show them on hover.
+
+Hover:
+
+[f g h]
+
+and see:
+
+A -> D
+
+where
+  f : A -> B
+  g : B -> C -> D
+  h : A -> C
+
+For a compact language, that's enormously useful.
+
+Life gets more interesting too
+
+Our target:
+
+life = { (+ r -1 0 1 t_12 _r) = 3 + _r }
+
+could infer something approximately like:
+
+life : Array<Bool> -> Array<Bool>
+
+perhaps with numeric coercion/lifting around booleans needing a deliberate design decision.
+
+I'd actually use the type checker to make us confront that: should Bool implicitly become 0/1?
+
+APL says effectively yes.
+
+A strongly typed language might say no.
+
+We could instead define a boolean numeric representation or a constrained lifting rule.
+
+That's exactly the kind of decision the tests should force us to make rather than accidentally inheriting from APL.
+
+This improves the browser idea substantially
+
+Now each expression can expose four dimensions:
+
+expression
+value
+type
+shape
+
+For example, stepping through Life:
+
+_r
+type:  Array<Bool>
+shape: [32,32]
+
+-1 0 1
+type:  Array<Int>
+shape: [3]
+
+-1 0 1 t_12 _r
+type:  Array<Bool>
+shape: [3,3,32,32]
+
++ r ...
+type:  Array<Int>
+shape: [32,32]
+
+... = 3 + _r
+type:  Array<Bool>
+shape: [32,32]
+
+That makes the right-to-left explainer not merely an evaluator debugger but a type + shape microscope.
+
+And that feels very aligned with your broader educational array/ML language work.
+
+So I wouldn't regard Typed in XeTaL as the tail wagging the dog. I think we've independently backed into a language where static type inference is particularly valuable precisely because the surface syntax is so compact.
+
+XeTaL — eXperimental eXtensible Typed Array Language is therefore a substantially better description of what we're designing than HoFaL was.
+

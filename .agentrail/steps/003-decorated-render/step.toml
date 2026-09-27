@@ -1,0 +1,9 @@
+number = 3
+slug = "decorated-render"
+status = "pending"
+description = "foundations step 3 (M0 demo): TDD xetal-render raw <-> decorated Unicode pres..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T13:08:17"
+task_type = "feature"
+commits = []

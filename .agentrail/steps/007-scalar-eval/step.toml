@@ -1,0 +1,9 @@
+number = 7
+slug = "scalar-eval"
+status = "pending"
+description = "foundations step 7 (M1 demo): TDD xetal-eval, a strict evaluator over Core on..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T13:08:18"
+task_type = "feature"
+commits = []

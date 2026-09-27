@@ -1,0 +1,1796 @@
+Today 10:15 AM
+I want to create a new array programming language, that is terse like APL but does not use characters other than Latin-1 (ASCII) but with a twist.  The idea is that a built-in or user defined function is distinguised from a character or string, by the use of subscripts and superscripts, possibly unerscore and strike-through, maybe even overbar.  Using Espanso, Emacs input mode, cut&paste, or a virtual keyboard, a programmer can define and use letters and numbers a operator or function names, nilidac, monadic, and dyadic.  (Even LaTeX might be a way to specify these sub/super scripted symbols.  Do you see where I am going with this.  Start with the two glyphs for rotate in APL.  how could we use r to be rotate which by itself always means the variable r, but with a subscript and/or superscript means rotate.  The presense of the decoration implies this is an operator.  The subscript/superscript could be the axis index, maybe starting with 1, so or possibly h or v for horizontal or vertical rotation.  What possible combinations would be readable (the goal is concise readable code, avoiding new symbols).  The programmer would learn/memorize some convention about when to use underscore, strike-through, overbar, subscript, superscript or combination.  Maybe the direction of rotation is a subscript.  maybe a user-defined function also called r would have the subscript u before (but parsing issues!) or the superscript u for user (or a-z for namespace).  This could extend to words, so rotate sub-2 means the same as r sub-2 but a user could have r or rotate super u with a sub-1 or 2.  What can you extrapolate from this?  generate some proposed syntax, focus on scan, reduce, rotate, range, indexing, shape-of, reshape
+
+Yes. The key idea I see is that decoration becomes syntax, while the underlying Latin letter or word remains ordinary data/identifier syntax.
+
+So rather than finding ASCII substitutes for ⌽, ⍉, ⍴, /, \, etc., you create a small visual morphology:
+
+base name = noun; decorated base name = function/operator
+
+That gives you an unusually large design space without introducing APL's symbol alphabet.
+
+1. I would make the decorations compositional
+
+I'd resist assigning arbitrary meanings to every combination. Instead, give each position a grammatical role:
+
+Visual feature	Proposed meaning
+plain r	variable/noun named r
+r₁, r₂	built-in function r, variant/axis 1 or 2
+r₋, r₊	directional variant
+rʰ, rᵛ	horizontal/vertical variant
+rᵘ	user-defined r
+rᵃ, rᵇ	function r in namespace/module a, b
+rotate₂	long-form spelling of r₂
+rotateᵘ₂	user rotate, variant/axis 2
+
+This immediately makes the parser easy:
+
+r       IDENTIFIER / noun
+r₂      FUNCTION-TOKEN
+rᵘ      FUNCTION-TOKEN
+rᵘ₂     FUNCTION-TOKEN
+rotate₂ FUNCTION-TOKEN
+
+The presence of decoration changes lexical class. That's a powerful idea.
+
+I'd make that one of the language's fundamental rules.
+
+2. Rotate is a good prototype
+
+APL has ⌽ for reverse/rotate along the last axis and ⊖ along the first axis.
+
+Your language could unify these under r:
+
+r₁      rotate/reverse axis 1
+r₂      rotate/reverse axis 2
+r₃      rotate/reverse axis 3
+
+For a matrix:
+
+r₁ A        reverse rows / rotate axis 1
+r₂ A        reverse columns / rotate axis 2
+
+2 r₁ A      rotate axis 1 by 2
+2 r₂ A      rotate axis 2 by 2
+
+That's actually more regular than APL because there isn't a separate primitive for each axis.
+
+For a vector:
+
+r₁ v
+2 r₁ v
+
+And the long form is:
+
+rotate₁ A
+2 rotate₁ A
+
+I strongly prefer axis as the subscript over h/v. h and v become ambiguous beyond matrices, whereas axis numbers generalize naturally to tensors.
+
+You could nevertheless allow mnemonic aliases:
+
+rʰ A        ≡ r₂ A
+rᵛ A        ≡ r₁ A
+
+but I would consider those library aliases rather than core semantics.
+
+3. Superscript and subscript should mean different dimensions of meaning
+
+Here's a convention I think scales particularly well:
+
+Subscript = structural parameter / axis / variant
+
+Superscript = function provenance or higher-order operation
+
+That means:
+
+r₂
+
+is built-in r, axis 2, while
+
+rᵘ₂
+
+is user-defined r, axis 2.
+
+And:
+
+rᵐ₂
+
+could be r from module/namespace m, axis 2.
+
+This gives a canonical visual order:
+
+       provenance
+          ↓
+         ᵘ
+        r
+         ₂
+          ↑
+         axis
+
+That is much easier to learn than saying "r₁ is rotate-left but r² is rotate-right."
+
+4. But there is an even more interesting use for superscripts: operators
+
+Consider reduce and scan.
+
+APL derives functions:
+
++/ A
++\ A
+×/ A
+×\ A
+
+Rather than inventing replacements for / and \, make reduce and scan grammatical decorations on functions.
+
+For example:
+
++ʳ A       reduce +
++ˢ A       scan +
+
+×ʳ A
+×ˢ A
+
+But you want ASCII/Latin bases, so operators could themselves be named:
+
+addʳ A
+addˢ A
+
+mulʳ A
+mulˢ A
+
+And terse aliases:
+
+aʳ A
+aˢ A
+mʳ A
+mˢ A
+
+This starts to look very interesting:
+
+aʳ v             sum
+aˢ v             prefix sums
+mʳ v             product
+maxʳ v           maximum
+maxˢ v           running maximum
+
+The superscript isn't identifying another primitive. It says:
+
+derive a function from this function.
+
+That is semantically very APL-like.
+
+5. Axis then composes naturally
+
+Now combine the two ideas:
+
+aʳ₁ A
+aʳ₂ A
+
+aˢ₁ A
+aˢ₂ A
+
+Read them as:
+
+add reduce axis 1
+add reduce axis 2
+
+add scan axis 1
+add scan axis 2
+
+For example:
+
+aʳ₂ A
+
+could mean:
+
+reduce(add, axis=2, A)
+
+while:
+
+aˢ₂ A
+
+means:
+
+scan(add, axis=2, A)
+
+That's extremely compact while still having a decipherable visual grammar.
+
+I think this is preferable to making r mean both rotate and reduce. Reserve bases for primitives and superscripts for higher-order transformations.
+
+6. Shape-of and reshape
+
+APL deliberately overloads ⍴:
+
+⍴ A       ⍝ shape
+2 3 ⍴ A   ⍝ reshape
+
+You could preserve exactly that beautiful niladic/monadic/dyadic idea with decorated s:
+
+sᵖ A
+
+But I think you can do better: let valence distinguish the operations, just as APL does.
+
+Suppose:
+
+ṣ
+
+means the shape primitive—the actual decoration doesn't matter yet.
+
+Then:
+
+ṣ A          shape-of A
+2 3 ṣ A      reshape A to 2×3
+
+Long form:
+
+shapẹ A
+2 3 shapẹ A
+
+Conceptually:
+
+     monadic
+s → shape-of
+
+     dyadic
+s → reshape
+
+I would absolutely preserve this APL behavior.
+
+So perhaps the basic vocabulary becomes:
+
+s̲ A            shape A
+2 3 s̲ A        reshape A
+
+r₁ A            reverse axis 1
+2 r₁ A          rotate 2 on axis 1
+
+Now underscore could simply mean "primitive function."
+
+That suggests another, possibly cleaner grammar.
+
+7. Underline could distinguish nouns from verbs
+
+Instead of requiring arbitrary superscripts:
+
+r          variable r
+r̲          primitive rotate
+
+rotate     variable rotate
+rotate̲     primitive rotate
+
+Then subscripts parameterize it:
+
+r̲₁
+r̲₂
+
+rotate̲₁
+rotate̲₂
+
+This is attractive because the decoration has a single obvious semantic:
+
+underline = this name is callable/function syntax
+
+Then:
+
+r             noun
+r̲             verb/function
+r̲₂            verb/function specialized to axis 2
+
+rotate        noun
+rotate̲       verb/function
+rotate̲₂       specialized function
+
+A user-defined function doesn't need another special marker because namespaces should solve that problem:
+
+u.r̲₂
+foo.rotate̲₂
+
+or, if you really want namespace encoded typographically:
+
+r̲ᵘ₂
+rotate̲ᵘ₂
+
+I prefer the former for source-code readability.
+
+8. Range / iota
+
+APL's ⍳ is another excellent case.
+
+Suppose i̲ = index/range primitive:
+
+i̲ 5
+
+produces:
+
+1 2 3 4 5
+
+if you deliberately choose 1-origin.
+
+Or:
+
+i̲ 5
+→ 0 1 2 3 4
+
+for 0-origin.
+
+But perhaps n̲ ("numbers") or range̲ is more readable:
+
+range̲ 5
+
+r̲ 5
+
+Except r is already rotate, demonstrating why the long name and short name need to belong to a standardized primitive dictionary.
+
+I'd suggest:
+
+i̲        iota/range
+r̲        rotate
+s̲        shape
+x̲        indexing
+
+with readable aliases:
+
+range̲
+rotate̲
+shape̲
+index̲
+
+Thus:
+
+i̲ 5
+range̲ 5
+
+are exactly equivalent.
+
+9. Indexing is especially interesting
+
+APL:
+
+A[2;3]
+
+Your language could retain conventional brackets, but that misses an opportunity.
+
+Let i̲ be iota and x̲ be indexing/select:
+
+2 x̲ v
+
+= item 2.
+
+For axes:
+
+2 x̲₁ A
+3 x̲₂ A
+
+Then:
+
+2 x̲₁ 3 x̲₂ A
+
+could select matrix [2,3], though parsing and evaluation order deserve thought.
+
+I'd probably instead make the index vector the left argument:
+
+2 3 x̲ A
+
+for coordinate indexing, and axis specialization:
+
+2 x̲₁ A
+3 x̲₂ A
+
+for slices.
+
+Long form:
+
+2 3 index̲ A
+2 index̲₁ A
+
+That gives indexing the same array-language character as everything else instead of making [] a completely separate mini-language.
+
+10. A coherent first vocabulary
+
+I'd experiment with this:
+
+Concept	Terse	Readable	Monadic	Dyadic
+range/iota	i̲	range̲	range	index-of perhaps
+rotate	r̲ₙ	rotate̲ₙ	reverse axis n	rotate by N
+shape	s̲	shape̲	shape-of	reshape
+index/select	x̲	index̲	perhaps identity/indices	select
+reduce	ᵣ decoration	reduce	derived function	—
+scan	ˢ decoration	scan	derived function	—
+
+For example:
+
+A = 1 2 3 4 5 6
+2 3 s̲ A
+
+produces a 2×3 matrix.
+
+Then:
+
+r̲₁ A
+r̲₂ A
+
+reverse respective axes.
+
+And:
+
+1 r̲₂ A
+
+rotates axis 2 by one.
+
+Then derived functions:
+
+add̲ʳ₁ A
+add̲ʳ₂ A
+
+add̲ˢ₁ A
+add̲ˢ₂ A
+
+or terse:
+
+a̲ʳ₁ A
+a̲ʳ₂ A
+a̲ˢ₁ A
+a̲ˢ₂ A
+
+There is a visible grammar here:
+
+ a̲ʳ₂
+ │││└── axis 2
+ ││└─── derivation: reduce
+ │└──── primitive/function marker
+ └───── function stem: add
+
+That is the direction I'd pursue.
+
+11. Strike-through and overbar should be saved for genuinely orthogonal concepts
+
+Don't spend all the visual dimensions immediately.
+
+You potentially have:
+
+x       ordinary identifier
+x̲       function
+x₁      specialization
+x¹      derivation/qualifier
+x̅       modifier
+x̶       something else
+
+That's already a visual type system.
+
+For example, much later you might discover that overbar is ideal for inverse:
+
+f̅
+
+= inverse of f.
+
+Then:
+
+log̅
+
+could mean inverse-log/exp if defined.
+
+Or strike-through could indicate complement/negation:
+
+eq̶
+
+= not-equal.
+
+That lets function algebra itself become typographic:
+
+f̲          function
+f̲ʳ         reduce f
+f̲ˢ         scan f
+f̲ₙ         f along axis n
+f̅          inverse f
+f̶          complement f
+
+I would not define those last two yet. Preserve the namespace until compelling abstractions emerge.
+
+12. There's also a neat source representation solution
+
+Your display language can use Unicode combining characters while your storage/input language remains ASCII.
+
+For example, source could accept:
+
+r_2
+add^reduce_2
+shape_
+
+and the editor renders them as:
+
+r̲₂
+add̲ʳ₂
+shape̲
+
+Likewise LaTeX-ish input:
+
+r_{2}
+add^{r}_{2}
+
+could render as the canonical source token.
+
+Espanso:
+
+;r2    → r̲₂
+;rr2   → rotate̲₂
+;ar2   → add̲ʳ₂
+;as2   → add̲ˢ₂
+
+Emacs can do something considerably smarter.
+
+So I wouldn't actually require programmers to hunt for Unicode subscript characters. Unicode is the presentation layer; ASCII sequences are an input serialization.
+
+That also makes Git diffs, terminals, compiler diagnostics and tooling much less painful.
+
+The deeper idea
+
+I think this is more interesting than merely "APL without funny symbols."
+
+APL uses:
+
+glyph identity to encode semantics.
+
+Your language could instead use:
+
+ordinary names + typographic morphology to encode grammar.
+
+So these aren't arbitrary characters to memorize:
+
+⌽ ⊖ ⍴ ⍳ / \
+
+Instead the programmer learns a small grammar:
+
+underline     → callable
+subscript     → axis/specialization
+superscript r → reduce
+superscript s → scan
+plain         → noun
+
+Then:
+
+rotate̲₂
+r̲₂
+
+add̲ʳ₂
+a̲ʳ₂
+
+add̲ˢ₂
+a̲ˢ₂
+
+are not six unrelated glyphs. They're compositions of a handful of rules.
+
+And that gives you something APL itself doesn't really have: the terse spelling and explanatory spelling can be syntactically and semantically identical.
+
+You could write teaching code as:
+
+2 3 reshape̲ range̲ 6
+add̲ʳ₂ 2 3 reshape̲ range̲ 6
+
+then progressively abbreviate it:
+
+2 3 s̲ i̲ 6
+a̲ʳ₂ 2 3 s̲ i̲ 6
+
+without changing the language paradigm at all.
+
+I think that progressive-disclosure property should be a central design goal: readable words when learning/debugging, single-letter stems when fluent, and exactly the same decoration grammar in both.
+
+Using the syntax we've converged on, I'd make the compact Life definition:
+
+life = { (+ r̲ shifts _r) = 3 + _r }; shifts = { -1 0 1 (e̲ t̲₁) (-1 0 1 (e̲ t̲₂) _r) }
+
+But that's backwards dependency-wise. More naturally:
+
+shifts = { -1 0 1 (e̲ t̲₁) (-1 0 1 (e̲ t̲₂) _r) }; life = { (+ r̲ shifts _r) = 3 + _r }
+
+If we can regularize each/lifting enough that the rotate of an array of offsets naturally produces an array of rotated arrays, then the target one-liner I'd want is closer to:
+
+life = { (+ r̲ -1 0 1 t̲₁ -1 0 1 t̲₂ _r) = 3 + _r }
+
+That is the compelling form.
+
+Read left-to-right:
+
+life = {
+          + r̲                    # sum/reduce
+          -1 0 1 t̲₁             # rotations along axis 1
+          -1 0 1 t̲₂             # rotations along axis 2
+          _r                      # input board
+          =
+          3 + _r                  # 3 if dead, 4 if alive
+       }
+
+So the compact form is only about:
+
+life = { (+ r̲ -1 0 1 t̲₁ -1 0 1 t̲₂ _r) = 3 + _r }
+
+I think this should be a design target, rather than introducing e̲ merely because our current semantics require it. APL gets much of its power from pervasive array semantics. If -1 0 1 t̲₁ A naturally means rotate A by each of -1,0,1, then the language becomes dramatically more concise, and this behavior should follow from a general lifting/broadcasting rule rather than being special to rotate.
+
+can APL2 magic make this less reduncant? -1 0 1 appears twice
+
+Yes. This is exactly where APL2-ish trains, outer products, and function composition should help. The duplicated -1 0 1 is a sign that we should be expressing “apply the same offset set over two axes” structurally.
+
+Let:
+
+d = -1 0 1
+
+Then even with a one-line local binding:
+
+d = -1 0 1; life = { (+ r̲ d t̲₁ d t̲₂ _r) = 3 + _r }
+
+That's already better.
+
+But I'd like the language to express the Cartesian product of d with itself.
+
+Outer/table is the APL-ish answer
+
+What we really want is the nine displacement vectors:
+
+-1 -1    -1 0    -1 1
+ 0 -1     0 0     0 1
+ 1 -1     1 0     1 1
+
+So conceptually:
+
+d outer d
+
+followed by "rotate the board by each coordinate pair."
+
+If b̲ is our terse tab̲le/outer combinator, something like:
+
+d = -1 0 1; life = { (+ r̲ d b̲ t̲ d _r) = 3 + _r }
+
+could mean:
+
+take the table of rotations for every (d₁,d₂) pair.
+
+That is much closer to the APL trick.
+
+But we can potentially eliminate d entirely.
+
+Self-table combinator
+
+A common functional pattern is:
+
+x -> f x x
+
+That's essentially the W combinator (duplication).
+
+Since you explicitly want combinators to be first-class, this is a great place to use one.
+
+Suppose w̲ᶜ is W from the combinator namespace:
+
+w̲ᶜ f̲ x  =  f̲ x x
+
+Then:
+
+w̲ᶜ b̲ -1 0 1
+
+means effectively:
+
+(-1 0 1) b̲ (-1 0 1)
+
+Now we're using an actual combinator to remove textual duplication.
+
+That's philosophically very aligned with the language.
+
+Or make repeated-axis application a primitive HOF
+
+An even more array-language-ish idea is that:
+
+t̲₁₂
+
+means rotate across axes 1 and 2.
+
+Then:
+
+-1 0 1 t̲₁₂ _r
+
+could generate the Cartesian set of rotations across both axes.
+
+So Life becomes:
+
+life = { (+ r̲ -1 0 1 t̲₁₂ _r) = 3 + _r }
+
+Now we're getting somewhere.
+
+Read:
+
++ r̲             reduce by addition
+-1 0 1           offsets
+t̲₁₂              rotate over axes 1 and 2
+_r                board
+= 3 + _r          Life condition
+
+That's very concise and still readable once you know the notation.
+
+But what exactly does t̲₁₂ mean?
+
+I'd define multiple numeric subscripts as an axis list:
+
+t̲₁          specialize rotate to axis 1
+t̲₂          specialize rotate to axis 2
+t̲₁₂         lift rotate across axes 1 and 2
+t̲₁₂₃        across axes 1,2,3
+
+With a vector left argument:
+
+-1 0 1 t̲₁₂ A
+
+takes the Cartesian product of offsets over the selected axes.
+
+For two axes, that's nine results.
+
+This isn't merely Life sugar. It could be generally useful for multidimensional array programming.
+
+There's an even terser possibility: t̲₂
+
+We could define:
+
+t̲₂
+
+not as "axis 2" but rank 2, meaning operate over the last two axes.
+
+But I don't like that.
+
+We've already established the intuitive:
+
+t̲₁ = axis 1
+t̲₂ = axis 2
+
+Breaking that would damage the regularity we're trying to build.
+
+So:
+
+t̲₁₂
+
+is much better.
+
+Then the Life one-liner becomes genuinely nice
+
+I'd nominate this as our current target:
+
+life = { (+ r̲ -1 0 1 t̲₁₂ _r) = 3 + _r }
+
+And possibly, after precedence rules are solid:
+
+life = { + r̲ -1 0 1 t̲₁₂ _r = 3 + _r }
+
+That's approaching the density we're after without recreating APL's glyph soup.
+
+It also exercises nearly the whole language:
+
+life = {
+    +           ordinary dyadic function
+    r̲           HOF: reduce
+    -1 0 1      array
+    t̲₁₂         rotate, axes 1 and 2
+    _r          lambda's right argument
+    =           elementwise equality
+    3 + _r      array arithmetic
+}
+
+And underneath it can desugar to something conceptually like:
+
+offsets = [-1,0,1]
+
+shifted =
+    for i in offsets
+        for j in offsets
+            rotate_axis_1(i,
+                rotate_axis_2(j, board))
+
+neighbors = reduce(add, shifted)
+
+neighbors == 3 + board
+
+So yes: the duplicate -1 0 1 is telling us something useful about the language design. I'd rather make multi-axis lifting/composition sufficiently powerful that the concise form becomes:
+
+life = { (+ r̲ -1 0 1 t̲₁₂ _r) = 3 + _r }
+
+than introduce a temporary d solely to save five characters.
+
+so if I ask an AI coding agent to implement this in Rust, what should it watch out for?  How can it test this language?  How can ensure that there are not ambiguous expressions that are silently accepted and do the wrong thing?  How do you test this language?  I believe that tests themselves are the specification for the language, so how would you design the tests to drive the completion of the language.  Does compact-1-line Life serve as a useful MVP or early milestone?  If not, what should demonstratable milestones be along the way?  Also if we want to showcase this in the browser via WASM, like: 
+sw-embed/web-sw-cor24-apl does, what kind of input method, output formatting, tooltips, callouts, and maybe even a step right to left debugger/explainer do? 
+
+You want the implementation process itself to force the language semantics into the open. That is the right instinct here. For a compact language, ambiguity is much more dangerous than verbosity, because a tiny parse mistake can still produce a plausible result.
+
+The core strategy I would use is:
+
+The executable test suite is the language specification.
+
+Every new syntax feature starts life as a failing parser/semantic test, then gains evaluator tests, ambiguity tests, and finally an interactive demo.
+
+And yes, the one-line Life program is a useful milestone—but not the first MVP. It is better as an integration milestone proving that several independently tested concepts compose correctly.
+
+1. Lock down the semantic kernel before adding primitives
+
+I would tell the Rust agent to start with a deliberately tiny core:
+
+Value :=
+    Unit
+  | Number
+  | Bool
+  | Char
+  | Array<Value>
+  | Function
+
+Function :=
+    Value -> Value
+
+Surface concepts like monadic/dyadic/niladic are sugar over that:
+
+niladic    Unit -> A
+
+monadic    A -> B
+
+dyadic     A -> B -> C
+
+with currying underneath.
+
+Then explicitly define:
+
+@          Unit
+
+f @        apply f to Unit
+f_@        sugar for f @
+
+_l         left lambda argument
+_r         right / monadic lambda argument
+
+;          expression boundary
+
+Critically:
+
+now @      valid
+now 42     type/application error
+now x      valid only if x == @ / has Unit type
+
+Do not implement "niladic means ignore whatever argument was supplied."
+
+That should be one of the earliest negative tests.
+
+2. The parser must never "pick something reasonable"
+
+For this language I would adopt a hard rule:
+
+If an expression admits two valid parses under the grammar, compilation fails.
+
+Do not use heuristic disambiguation.
+
+If:
+
+a f b g c
+
+could mean either:
+
+(a f b) g c
+
+or:
+
+a f (b g c)
+
+then one of three things must happen:
+
+the grammar explicitly gives it one meaning;
+valence/type information makes only one parse legal;
+the program is rejected as ambiguous.
+
+Never:
+
+"the parser happened to associate right"
+
+unless right association is an explicit language rule.
+
+Preserve ambiguity in the parser
+
+Architecturally, I would avoid having the parser immediately construct only:
+
+Expr
+
+Instead have parsing produce something closer to:
+
+ParseResult {
+    alternatives: Vec<Expr>,
+}
+
+during development.
+
+Then semantic resolution narrows it.
+
+Final invariant:
+
+0 parses  -> syntax error
+1 parse   -> accepted
+>1 parses -> ambiguity error
+
+You can optimize this later. Early in development, the ability to detect ambiguity mechanically is worth more than parser speed.
+
+3. Add an explicit normalized IR
+
+The agent should not evaluate surface syntax directly.
+
+Use something like:
+
+Surface AST
+    ↓ desugar
+Core AST
+    ↓ type/shape checks
+Evaluation
+
+For example:
+
+now_@
+
+must normalize to:
+
+Apply(now, Unit)
+
+And:
+
+{ _l + _r }
+
+might normalize toward something conceptually like:
+
+Lambda(l,
+    Lambda(r,
+        Apply(
+            Apply(add, l),
+            r)))
+
+A train:
+
+[f g h]
+
+should normalize into the same ordinary function calculus.
+
+That gives you a major testing advantage:
+
+surface syntax
+    ↓
+expected Core AST
+
+becomes part of the specification.
+
+If two superficially different expressions are supposed to mean the same thing:
+
+now_@
+now @
+
+test that their normalized ASTs are identical.
+
+4. Use golden parsing tests aggressively
+
+For compact syntax, parser golden tests are extraordinarily valuable.
+
+For every expression, store:
+
+source
+tokens
+surface AST
+core AST
+result / error
+
+For example:
+
+SOURCE
+------
+3 + 4
+
+TOKENS
+------
+Number(3)
+Function(+)
+Number(4)
+
+CORE
+----
+Apply(
+  Apply(Add, 3),
+  4
+)
+
+RESULT
+------
+7
+
+And:
+
+SOURCE
+------
+now 42
+
+CORE
+----
+Apply(Now, 42)
+
+TYPE CHECK
+----------
+ERROR:
+expected Unit
+found Number
+
+I would make these snapshots reviewable text files.
+
+A syntax change should produce a conspicuous diff in the test suite.
+
+5. Negative tests are at least as important as positive tests
+
+For this language, I'd aim for something like one negative test for every positive syntax test.
+
+If this works:
+
+now @
+
+also test:
+
+now 0
+now 1
+now "x"
+now 1 2 3
+
+must fail.
+
+If this works:
+
+t_2 A
+
+test:
+
+t_0 A
+t_-1 A
+t_99 A
+
+according to whatever axis rules you choose.
+
+If this works:
+
+{ _l - _r }
+
+test:
+
+{ _l }
+
+and explicitly decide whether that's:
+
+dyadic K-like function,
+illegal because _r is absent,
+legal with a warning.
+
+The tests force the design decision.
+
+6. Property-based testing should be central
+
+Rust gives you excellent options with proptest or quickcheck.
+
+For an array language, property tests can catch bugs ordinary examples won't.
+
+Examples:
+
+Rotate inverse
+
+For valid arrays and shifts:
+
+rotate(k, rotate(-k, A)) == A
+Shape/reshape
+
+Where element counts are compatible:
+
+shape(reshape(s, A)) == s
+Reduce
+
+For associative +:
+
+reduce(+, concat(A,B))
+==
+reduce(+, A) + reduce(+, B)
+
+subject to the empty-array identity semantics you choose.
+
+Scan
+last(scan(+, A)) == reduce(+, A)
+
+for nonempty arrays.
+
+Currying
+(a f b)
+==
+((f a) b)
+
+under the canonical core argument ordering.
+
+Niladic sugar
+normalize("now_@")
+==
+normalize("now @")
+Fork
+[f g h] x
+==
+(f x) g (h x)
+
+This one is especially valuable because it verifies trains independently of their implementation.
+
+7. Fuzz the lexer/parser
+
+This matters more than usual because you're creating syntax where visual decorations change meaning.
+
+Use cargo-fuzz/libFuzzer with targets for:
+
+lexer(random bytes)
+parser(random tokens)
+pretty_print(parse(x))
+parse(pretty_print(parse(x)))
+
+Important invariants:
+
+parser never panics
+evaluator never panics on malformed source
+formatter preserves semantics
+
+And ideally:
+
+parse(format(parse(x))) == parse(x)
+
+for valid programs.
+
+That last one is extremely valuable.
+
+8. Test ambiguity directly
+
+I'd add a dedicated test category:
+
+tests/
+  syntax/
+  semantics/
+  arrays/
+  combinators/
+  ambiguity/
+  errors/
+  integration/
+
+Examples in ambiguity/ should be source strings intentionally near grammar boundaries.
+
+For example:
+
+a f b g c
+f g x
++ r A
+_l + _r * _r
+f_1_2 x
+f^m_2 x
+f @; g x
+
+Each test must state explicitly:
+
+ACCEPTS AS:
+<AST>
+
+or:
+
+REJECTS:
+AmbiguousExpression
+
+That category becomes one of the most important parts of the language specification.
+
+9. Pretty-printing can serve as an ambiguity detector
+
+Require the formatter to emit an unambiguous canonical form.
+
+Suppose the user writes:
+
+a f b g c
+
+If accepted, the formatter might display:
+
+(a f b) g c
+
+or:
+
+a f (b g c)
+
+depending on its actual parse.
+
+This is useful in the browser too.
+
+I'd add a mode:
+
+Source
+Canonical
+Expanded
+Core
+
+For example:
+
+compact:
+life = { + r -1 0 1 t_12 _r = 3 + _r }
+
+canonical:
+life = { (+ r (-1 0 1 t_12 _r)) = (3 + _r) }
+
+expanded:
+life = { reduce(add, rotate_axes([1,2], [-1,0,1], _r))
+         = add(3, _r) }
+
+That immediately exposes surprising parses.
+
+10. Life should be a milestone, not milestone 1
+
+The compact Life expression:
+
+life = { (+ r -1 0 1 t_12 _r) = 3 + _r }
+
+is an excellent vertical integration test because it exercises:
+
+lambda argument _r
+arrays
+arithmetic
+equality
+rotate
+multi-axis application
+reduction
+broadcasting
+composition
+precedence
+shape preservation
+
+But if Life is the first thing you build, you'll be tempted to implement special-case semantics to make it work.
+
+I'd sequence the milestones instead.
+
+Milestone 0 — lexical/display proof
+
+No evaluator.
+
+Demonstrate:
+
+r
+r_
+r_2
+r^m_2
+_l
+_r
+@
+;
+
+The browser/editor must render the plain US-keyboard representation into the decorated presentation form and back losslessly.
+
+This validates the defining UI idea before building a language around it.
+
+Milestone 1 — scalar functional calculus
+
+Implement only:
+
+numbers
+@
++
+-
+*
+/
+=
+bindings
+functions
+{...}
+_l
+_r
+;
+
+Demonstrate:
+
+1 + 2
+square = { _r * _r }; square 7
+sub = { _l - _r }; 10 sub 3
+
+And currying:
+
+add2 = 2 +
+add2 3
+
+if sections/partial application are part of the language.
+
+This validates:
+
+everything executable reduces to application of monadic functions.
+
+Milestone 2 — Unit/niladic behavior
+
+Add:
+
+now @
+now_@
+
+and prove:
+
+now 42
+
+fails.
+
+The demo should show both syntax sugar and desugaring.
+
+Milestone 3 — arrays
+
+Add:
+
+1 2 3
+2 3 shape 1 2 3 4 5 6
+shape A
+index
+range
+
+No rotate/reduce yet.
+
+Get:
+
+shape algebra;
+scalar extension;
+broadcasting;
+rank;
+indexing;
+empty arrays
+
+specified by tests.
+
+These semantics are foundational.
+
+Milestone 4 — reduce and scan as HOFs
+
+Now introduce:
+
++ reduce A
++ scan A
+
+using whatever final abbreviated spelling we choose.
+
+Key demonstration:
+
++ r 1 2 3 4 5
+15
+
+But the critical test is:
+
+sum = + r
+sum 1 2 3 4
+
+If + r isn't itself a first-class function, we haven't really achieved your composability goal.
+
+Milestone 5 — rotate and axes
+
+Implement:
+
+1 t_1 A
+1 t_2 A
+
+Then multi-axis semantics:
+
+-1 0 1 t_12 A
+
+But only after its exact shape/result semantics are nailed down.
+
+This is likely the hardest array-semantics part needed by Life.
+
+Milestone 6 — combinators
+
+Implement/test ordinary combinators:
+
+I
+K
+S
+B
+C
+W
+Y
+
+not necessarily as built-ins.
+
+Ideally some are library definitions.
+
+This is a huge milestone because it demonstrates the claim that the calculus is expressive enough.
+
+For Y, if evaluation is lazy:
+
+Y f
+
+should genuinely work.
+
+Also test that strict evaluation would diverge—that distinction should be explicit.
+
+Milestone 7 — trains
+
+Now implement:
+
+[f g]
+[f g h]
+
+entirely through desugaring.
+
+Tests:
+
+[f g h] x
+==
+(f x) g (h x)
+
+and similarly for dyadic invocation once defined.
+
+Nothing train-specific should need to exist in the evaluator.
+
+Milestone 8 — Life
+
+Now:
+
+life = { (+ r -1 0 1 t_12 _r) = 3 + _r }
+
+becomes meaningful because every piece has already been independently specified.
+
+Run it on:
+
+block
+blinker
+glider
+random boards
+
+with golden expected generations.
+
+That is a strong early 1.0-language-demo milestone.
+
+11. Browser playground: borrow the strengths of your COR24 APL UI
+
+Your existing web-sw-cor24-apl already provides a useful precedent: browser REPL, multiple surface representations, demo programs, file loading, and WASM execution.
+
+For this language I would take that idea considerably further because the typography itself is part of the language.
+
+Input should remain ordinary keyboard input
+
+The underlying source should be easy to type:
+
+t_12
+f^m_2
+_l
+_r
+now_@
+
+Then the editor renders them visually as decorated tokens.
+
+The key requirement:
+
+Don't alter the underlying text while the user is typing unless they explicitly commit the transformation.
+
+That avoids cursor/editing disasters with Unicode combining characters.
+
+So internally perhaps:
+
+t_12
+
+while the display layer shows the 12 as a subscript.
+
+This is similar to Emacs prettify-symbols, not a destructive substitution.
+
+12. Give users three display modes
+
+Your COR24 APL environment already has representation/shorthand/literate display modes. I'd use the same concept here, perhaps as:
+
+Raw
+life = { (+ r_ -1 0 1 t_12 _r) = 3 + _r }
+Decorated
+
+Visually rendered underlines/subscripts/superscripts.
+
+Expanded
+life = {
+    reduce(add,
+        rotate(axes=[1,2], offsets=[-1,0,1], right))
+    == add(3, right)
+}
+
+Possibly a fourth:
+
+Core
+Lambda(r,
+  Equal(
+    Apply(Reduce(Add),
+      Rotate([1,2], [-1,0,1], r)),
+    Apply(Apply(Add, 3), r)))
+
+That would be extremely useful for teaching.
+
+13. Hover tooltips should expose role, not just name
+
+Hovering something like t_12 should show:
+
+rotate
+------
+
+kind: function
+core type:
+  Int -> Array a -> Array a
+
+surface valence:
+  dyadic
+
+specialization:
+  axes 1,2
+
+long form:
+  rotate_12
+
+namespace:
+  core
+
+Hover r in reduce position:
+
+reduce
+------
+
+kind: higher-order function
+
+input:
+  associative dyadic function
+
+result:
+  function Array a -> a
+
+Hover _r:
+
+right argument
+
+Current lambda:
+{ ... }
+
+inferred type:
+Array Bool
+
+This solves much of the readability issue without making the language verbose.
+
+14. Highlight by semantic role
+
+Don't merely syntax-color keywords.
+
+Use semantic highlighting:
+
+value
+function
+HOF
+combinator
+lambda argument
+namespace qualifier
+axis/specialization
+unit
+
+Even though HOF/combinator are not distinct syntactic categories, the compiler knows their inferred signatures.
+
+So you could visually distinguish:
+
++       dyadic value-function
+r       HOF
+t_12    specialized function
+_r      lambda-bound value
+
+without changing the source syntax.
+
+That helps answer your earlier concern:
+
+How can I easily see what an identifier is being used as?
+
+The language stays semantically uniform while the IDE provides richer information.
+
+15. A right-to-left explainer would be excellent
+
+APL programmers are already accustomed to right-to-left evaluation, and your compact expressions benefit enormously from it.
+
+Take:
+
+life = { (+ r -1 0 1 t_12 _r) = 3 + _r }
+
+The UI can dim everything and highlight:
+
+_r
+
+showing the board.
+
+Next:
+
+-1 0 1 t_12 _r
+
+show nine shifted boards, perhaps in a 3×3 mini-grid.
+
+Next:
+
++ r ...
+
+show neighbor-count matrix.
+
+Separately:
+
+3 + _r
+
+show the threshold matrix:
+
+3 for dead cells;
+4 for live cells.
+
+Finally:
+
+... = ...
+
+show resulting Life generation.
+
+This may be one of the best demos of the language because it turns an opaque one-liner into a visual derivation.
+
+16. But make the debugger AST-driven, not textual
+
+Do not implement stepping by splitting strings.
+
+The compiler should emit a traceable tree:
+
+Equal
+├── Reduce(Add)
+│   └── RotateAxes(...)
+│       ├── [-1,0,1]
+│       └── _r
+└── Add
+    ├── 3
+    └── _r
+
+Each AST node gets:
+
+NodeId
+source_span
+value
+shape
+type
+children
+
+Then the WASM UI can highlight the corresponding source range and display the intermediate value.
+
+This also makes the debugger useful beyond Life.
+
+17. Shape should always be visible
+
+For array programming, I'd show shape metadata beside every intermediate value:
+
+Bool[20,20]
+
+Int[3]
+
+Bool[3,3,20,20]
+
+Int[20,20]
+
+This is likely more useful than conventional scalar debugger information.
+
+For Life:
+
+_r
+Bool[32,32]
+
+-1 0 1 t_12 _r
+Bool[3,3,32,32]
+
++ r ...
+Int[32,32]
+
+3 + _r
+Int[32,32]
+
+=
+Bool[32,32]
+
+That immediately teaches what the multi-axis operation is doing.
+
+18. Add "Why did this parse this way?"
+
+This could be unusually valuable.
+
+Click an expression and expose:
+
+Why this parse?
+
+Rule 14:
+function application associates right-to-left
+
+Rule 22:
+numeric subscript specializes the function token
+
+Rule 31:
+reduce binds to the function immediately to its left
+
+Canonical form:
+...
+
+Or, if ambiguous:
+
+AMBIGUOUS
+
+Possible parse 1:
+...
+
+Possible parse 2:
+...
+
+Add parentheses or ';' to disambiguate.
+
+This is exactly how you keep terse syntax from becoming mysterious syntax.
+
+19. The AI coding agent needs explicit "do not invent semantics" instructions
+
+I'd put something like this near the top of AGENTS.md:
+
+LANGUAGE IMPLEMENTATION RULES
+
+1. Tests define the language.
+2. Do not add syntax or semantic behavior without a failing test.
+3. Never resolve an ambiguous expression heuristically.
+4. Surface syntax must desugar into the core calculus.
+5. Evaluator code must not inspect source spelling.
+6. Built-ins must follow the same function/application rules as user functions.
+7. Invalid valence/type usage is an error; never silently discard arguments.
+8. Every sugar form must have a normalization-equivalence test.
+9. Every accepted grammar rule needs at least one rejection/ambiguity test.
+10. Pretty-print(parse(source)) must preserve semantics.
+
+This is especially important when using an AI coding agent because language implementations invite "helpful" special cases.
+
+20. I would structure the Rust implementation so tests enforce layering
+
+Given your preference for small cohesive Rust components, I'd split roughly:
+
+lexer
+parser
+core
+eval
+array
+web
+
+Possibly:
+
+lang-syntax
+lang-core
+lang-eval
+lang-web
+
+The key dependency direction is:
+
+syntax
+   ↓
+core
+   ↓
+eval
+   ↓
+array primitives
+
+with the browser consuming public compiler/interpreter APIs.
+
+The evaluator should never know whether the programmer wrote:
+
+now_@
+
+or:
+
+now @
+
+because both already normalized to the same core AST.
+
+21. A test-driven roadmap
+
+I would make each milestone literally unlock one demo:
+
+Milestone	Demo
+M0	decorated editor renders raw keyboard source
+M1	{ _r * _r } 7
+M2	now_@, with now 42 visibly rejected
+M3	reshape/index/range matrix demo
+M4	+ reduce, + scan
+M5	animated 2D rotate
+M6	SKI/BCKW/Y combinator notebook
+M7	interactive hook/fork/train expansion
+M8	one-line Life with right-to-left visual execution
+
+That final Life demo then acts as a capstone proof that the pieces compose, rather than the source of their semantics.
+
+And I would put the compact Life expression in the test suite from day one, but initially mark it as the future acceptance test. Each milestone turns more of its parse tree from unsupported into implemented behavior until eventually:
+
+life = { (+ r -1 0 1 t_12 _r) = 3 + _r }
+
+passes against known block, blinker, and glider generations.
+
+That gives the coding agent a clear destination without encouraging it to hack directly toward Life.
+

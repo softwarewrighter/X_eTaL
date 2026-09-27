@@ -1,0 +1,18 @@
+/target/
+**/*.rs.bk
+
+# reg-rs: .rgt + .out baselines are committed; .tdb files are caches
+/reg/*.tdb
+/reg/*.tdb.lock
+
+# agentrail raw session transcripts (large, local only)
+.agentrail/sessions/*.jsonl
+.agentrail-archive/*/sessions/*.jsonl
+
+# Claude Code local state (shared slash commands may live in .claude/commands/)
+.claude/*
+!.claude/commands/
+
+.DS_Store
+**/.DS_Store
+/tmp/
