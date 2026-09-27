@@ -1,0 +1,16 @@
+# Acceptance test: Conway's Life, one generation of a 5x5 blinker.
+# The vertical bar in column 3 becomes a horizontal bar in row 3.
+# Must pass only through general rules (no Life-specific code).
+# See docs/design.md D11: the one-liner below is the design target, but
+# it keeps a live cell only when it has exactly 3 neighbours, so it
+# kills the blinker's centre; the expectation is Conway's real rule.
+== SOURCE
+life = { (+^r -1 0 1 t_12 _r) = 3 + _r }; life_ 5 5 p_ 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
+== RESULT
+0 0 0 0 0
+0 0 0 0 0
+0 1 1 1 0
+0 0 0 0 0
+0 0 0 0 0
+== STATUS
+pending  Life acceptance (M8); flip to active in the life saga

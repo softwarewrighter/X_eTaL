@@ -1,0 +1,25 @@
+[package]
+name = "xetal-cli"
+description = "The `xetal` command-line interface"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "xetal"
+path = "src/main.rs"
+
+[dependencies]
+xetal-base.workspace = true
+xetal-lex.workspace = true
+xetal-render.workspace = true
+xetal-syntax.workspace = true
+xetal-core.workspace = true
+xetal-types.workspace = true
+xetal-eval.workspace = true
+clap.workspace = true
+
+[dev-dependencies]
+assert_cmd.workspace = true

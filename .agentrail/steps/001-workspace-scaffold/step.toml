@@ -1,6 +1,6 @@
 number = 1
 slug = "workspace-scaffold"
-status = "pending"
+status = "in-progress"
 description = "foundations step 1 (see .agentrail/plan.md and docs/plan.md): TDD-scaffold th..."
 role = "production"
 context_files = []

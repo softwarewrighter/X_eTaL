@@ -208,6 +208,17 @@ The research's Life one-liner assumes a plain `+^r` sums all nine
 boards. The M5 saga must pick one and pin it before M8; Life may then
 need `+^r_12` in option (a).
 
+### 6.2 The Life one-liner is not yet Conway's rule
+
+The design target `life = { (+^r -1 0 1 t_12 _r) = 3 + _r }` computes
+`S = 3 + c`, where S is the 3x3 neighbourhood sum *including* the cell
+c. A live cell (c = 1) then survives only when S = 4 (exactly 3
+neighbours), so a live cell with 2 neighbours dies; a blinker's centre
+would die. Conway's rule is `(S = 3) or (c and S = 4)`. The pending
+acceptance case `spec/integration/life-blinker.case` expects the real
+next generation, so the one-liner (or an operator it relies on) must
+change before M8. OPEN (D11).
+
 ## 7. Evaluation
 
 Strict, call-by-value in v0. OPEN (M6): whether to add laziness so a
@@ -247,6 +258,7 @@ display, never destructive substitution).
 | D8 | Strict vs lazy; Y vs Z                    | Saga 6 combinators |
 | D9 | Dyadic train forms                        | Saga 7 trains |
 | D10| File extension (`.xtl` provisional)       | Saga 1 CLI |
+| D11| Life one-liner rule (see 6.2)             | Saga 8 life |
 
 Each decision is recorded here and in the test that pins it
 (test name or spec case referenced in the table when decided).

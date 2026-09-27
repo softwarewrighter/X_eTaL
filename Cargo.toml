@@ -1,0 +1,22 @@
+[workspace]
+resolver = "3"
+members = ["crates/*"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+authors = ["Michael A Wright"]
+repository = "https://github.com/softwarewrighter/X_eTaL"
+
+[workspace.dependencies]
+xetal-base = { path = "crates/xetal-base" }
+xetal-lex = { path = "crates/xetal-lex" }
+xetal-render = { path = "crates/xetal-render" }
+xetal-syntax = { path = "crates/xetal-syntax" }
+xetal-core = { path = "crates/xetal-core" }
+xetal-types = { path = "crates/xetal-types" }
+xetal-array = { path = "crates/xetal-array" }
+xetal-eval = { path = "crates/xetal-eval" }
+clap = { version = "4", features = ["derive"] }
+assert_cmd = "2"

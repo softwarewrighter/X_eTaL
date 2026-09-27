@@ -1,0 +1,3 @@
+command = "./target/debug/xetal --version"
+exit_code = 0
+desc = "xetal --version prints LANG_NAME and version"
