@@ -1,0 +1,11 @@
+{
+  "task_type": "code",
+  "state": {
+    "number": 1,
+    "step": "reduce-scan"
+  },
+  "action": "TDD spec cases first; new hof component; Caller trait in xetal-value; elaborator typed_result for r_/; sw-checklist splits; docs",
+  "result": "success",
+  "reward": 1,
+  "timestamp": "2026-09-28T07:38:56"
+}

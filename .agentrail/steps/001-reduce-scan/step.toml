@@ -1,9 +1,10 @@
 number = 1
 slug = "reduce-scan"
-status = "in-progress"
+status = "completed"
 description = "higher-order step 1: TDD a way for built-ins to apply function values (machin..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T23:54:53"
+completed_at = "2026-09-28T07:38:55"
 task_type = "code"
-commits = []
+commits = ["bf5601fda5d1ed546aa82d3d5d2be41e38475256"]
