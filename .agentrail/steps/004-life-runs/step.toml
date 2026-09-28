@@ -1,9 +1,10 @@
 number = 4
 slug = "life-runs"
-status = "in-progress"
+status = "completed"
 description = "rotate-and-axes step 4: the pending Life acceptance case passes by general ru..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T12:23:34"
+completed_at = "2026-09-28T12:46:23"
 task_type = "code"
-commits = []
+commits = ["e24b1db44cf60e6ac77d7c2c09a46262e4da16ab"]

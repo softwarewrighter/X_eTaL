@@ -1,0 +1,11 @@
+{
+  "task_type": "code",
+  "state": {
+    "number": 4,
+    "step": "life-runs"
+  },
+  "action": "demo + golden + README; golden command extension",
+  "result": "success",
+  "reward": 1,
+  "timestamp": "2026-09-28T12:46:23"
+}

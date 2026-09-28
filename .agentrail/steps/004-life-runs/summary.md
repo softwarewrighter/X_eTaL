@@ -1,0 +1,1 @@
+Life runs by general rules: demos/life.xtl (blinker, 2 generations), run-life golden, README shows command + real output, docs-life-line golden extended to demos. Case flipped active in step 3's commit. Gate green, pushed.
