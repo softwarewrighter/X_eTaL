@@ -6,8 +6,8 @@ use xetal_lex::Number;
 
 use crate::builtins::prim_type;
 use crate::infer::{Global, Infer};
-use crate::scheme::mono;
-use crate::ty::Type;
+use xetal_ty::Type;
+use xetal_ty::mono;
 
 fn fun(a: Type, b: Type) -> Type {
     Type::Fn(Box::new(a), Box::new(b))

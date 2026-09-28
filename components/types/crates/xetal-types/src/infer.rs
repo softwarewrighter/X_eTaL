@@ -6,9 +6,9 @@ use std::collections::{HashMap, HashSet};
 use xetal_base::{Diagnostic, NodeId, Span};
 use xetal_core::{Expr, Item, Kind, Program};
 
-use crate::scheme::mono;
-use crate::ty::{Scheme, Type};
-use crate::unify::Unifier;
+use xetal_ty::Unifier;
+use xetal_ty::mono;
+use xetal_ty::{Scheme, Type};
 
 pub(crate) enum Global {
     Defined(Scheme),
@@ -79,7 +79,7 @@ pub fn infer_program(program: &Program) -> Result<(Vec<String>, HashSet<NodeId>)
 
 impl Infer {
     fn item(&mut self, item: &Item) -> Result<(), Diagnostic> {
-        self.mark = self.u.next;
+        self.mark = self.u.mark();
         let line = match item {
             Item::Def { name, value } => return self.def(name, value),
             Item::Let { name, rec, value } => {

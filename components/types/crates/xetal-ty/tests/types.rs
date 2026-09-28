@@ -1,7 +1,7 @@
 //! Type foundations: unification, the Num constraint, schemes, display.
 
 use xetal_base::Span;
-use xetal_types::{Type, Unifier};
+use xetal_ty::{Type, Unifier};
 
 fn span() -> Span {
     Span::new(0, 1)
@@ -128,7 +128,7 @@ fn display() {
 mod props {
     use proptest::prelude::*;
     use xetal_base::Span;
-    use xetal_types::{Type, TypeVar, Unifier};
+    use xetal_ty::{Type, TypeVar, Unifier};
 
     fn arb_type() -> impl Strategy<Value = Type> {
         let leaf = prop_oneof![

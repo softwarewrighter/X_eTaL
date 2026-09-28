@@ -29,7 +29,7 @@ so a rename touches one constant plus docs.
 
 Source is ASCII only (lang-choices I1). Spaces, tabs, carriage returns
 and `#` comments (to the end of the line) separate tokens; each `\n`
-is a `Newline` token. Pinned by `crates/xetal-lex/tests/lex/` and
+is a `Newline` token. Pinned by `components/syntax/crates/xetal-lex/tests/lex/` and
 `spec/lex/*.case`; `xetal lex` prints the tokens with byte spans.
 
 | Token | Raw examples | Rules (lang-choices) |
@@ -56,7 +56,7 @@ complex-number literal `3j4` (reserved), and non-ASCII characters.
 
 ## 3. Grammar
 
-Pinned by `crates/xetal-syntax/tests/parse/`, `spec/syntax/*.case`
+Pinned by `components/syntax/crates/xetal-syntax/tests/parse/`, `spec/syntax/*.case`
 and the ambiguity corpus `spec/ambiguity/*.case`; `xetal parse` prints
 the surface tree as S-expressions (`10 u:s_ub 3` is `(u:s_ub 10 3)`).
 The grammar is deterministic: tokens decide every rule, so an input has
@@ -105,7 +105,7 @@ Expr := Lit | Str | Unit | Array(Expr*) | Var(Id) | Global(Name)
       | If(Expr, Expr, Expr) | NoMatch
 ```
 
-Pinned by `crates/xetal-core/tests/core/` and the `CORE` sections of
+Pinned by `components/core/crates/xetal-core/tests/core/` and the `CORE` sections of
 `spec/syntax/*.case`; `xetal core` prints it with built-ins marked `#`.
 
 - `x f y` lowers to `App2(f, x, y)`, which means `App(App(f, x), y)`
@@ -136,7 +136,7 @@ construct it came from.
 Hindley-Milner inference (Algorithm W) with let-polymorphism over
 `Unit Bool Int Float Char Array<T> T -> U`, type variables and two
 constraints, `Num` (Int, Float) and `Truthy` (Bool, Int); see
-`crates/xetal-types`. Lambda values are generalized (value
+`components/types/crates/xetal-types`. Lambda values are generalized (value
 restriction); other bindings are monomorphic, and at the top level
 their numbers default (Int; a condition Bool) when defined. Module
 definitions may refer to later ones: a use before the definition
@@ -225,7 +225,7 @@ arguments, and arguments right to left (APL order). The Y combinator
 works through a lazy self parameter; Z works too (E1-E4). Values are
 immutable; rebinding shadows; `!`-named variables are the mutation
 escape hatch (M1, M2). The evaluator consumes Core only
-(`crates/xetal-eval`, `spec/eval/*.case`): values are Int, Float,
+(`components/eval/crates/xetal-eval`, `spec/eval/*.case`): values are Int, Float,
 Bool, Unit and functions; variables live in a persistent environment
 of shared slots, so a closure keeps the values it captured while a `!`
 variable is updated in place; a `~` argument is a thunk forced on
@@ -290,7 +290,7 @@ passes through `--raw` unchanged. The inverse maps each glyph back to
 its ASCII spelling; a superscript namespace must precede a name
 (`bad-namespace`), an underline must be under a letter
 (`bad-underline`), and any other non-ASCII character is
-`not-decorated`. Pinned by `crates/xetal-render/tests/render/`
+`not-decorated`. Pinned by `components/render/crates/xetal-render/tests/render/`
 (proptest: raw -> decorated -> raw is the identity on lexable
 sources) and `spec/render/*.case`.
 

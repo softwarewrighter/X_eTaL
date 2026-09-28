@@ -11,6 +11,5 @@ repository.workspace = true
 xetal-base.workspace = true
 xetal-lex.workspace = true
 xetal-core.workspace = true
+xetal-ty.workspace = true
 
-[dev-dependencies]
-proptest.workspace = true

@@ -35,29 +35,42 @@ Side paths:
 
 ## 2. Workspace layout
 
-Single cargo workspace (split into component workspaces only if it
-grows large).
+The repository is a set of components. Each `components/<name>/` is
+its own Cargo workspace holding a few small crates; components depend
+on each other by path, and every build lands in one shared `target/`
+directory (`.cargo/config.toml`). There is no root workspace:
+`scripts/build-all.sh` builds every component and `scripts/gate.sh`
+checks every component.
 
 ```
-Cargo.toml                 workspace
-crates/
-  xetal-base/              spans, NodeId, Diagnostic, LANG_NAME
-  xetal-lex/               lexer + token types
-  xetal-render/            raw <-> decorated, canonical, expanded
-  xetal-syntax/            parser, surface AST, ambiguity detection
-  xetal-core/              Core IR + desugaring
-  xetal-types/             type inference
-  xetal-array/             dense arrays + primitive kernels
-  xetal-eval/              evaluator + trace tree
-  xetal-cli/               `xetal` binary (+ tests/spec.rs harness)
-  xetal-spec/              spec-case file parser, checker, blesser
-  xetal-web/               (later) WASM playground
+.cargo/config.toml         shared target dir for all components
+components/
+  base/                    xetal-base: spans, NodeId, Diagnostic, LANG_NAME
+  syntax/                  xetal-lex (lexer, tokens),
+                           xetal-syntax (parser, surface AST)
+  core/                    xetal-core: Core IR + desugaring
+  render/                  xetal-render: decorated, LaTeX, canonical
+  types/                   xetal-ty (types, unifier, schemes),
+                           xetal-types (inference, checking)
+  eval/                    xetal-array (dense arrays + kernels),
+                           xetal-eval (evaluator)
+  cli/                     xetal-cli (`xetal` binary + tests/spec.rs
+                           harness), xetal-spec (case files)
 spec/                      language spec corpus (*.case files)
 reg/                       reg-rs baselines (*.rgt, *.out, *.err) - committed
 demos/                     executable .xtl demo scripts (reg-rs goldens)
-scripts/                   quality gate, reg-rs helpers
+scripts/                   build-all, gate, check-locks, reg-rs helper
 docs/                      PRD, design, architecture, plan, research
 ```
+
+Growth follows the sw-checklist limits by expanding up and out, never
+by merging: a module with too many functions gets a sibling module, a
+crate with too many modules a sibling crate, a component with too many
+crates a sibling component (target gates: 25 lines per function, 5
+functions per module, 5 modules per crate, 5 crates per component;
+`lib.rs` is a facade). Each component has its own `Cargo.lock`;
+`scripts/check-locks.sh --fix` refreshes locks after a manifest
+change.
 
 The display-name constant `xetal_base::LANG_NAME` lives in
 `xetal-base` (kept tiny, depended on by all).
@@ -65,7 +78,7 @@ The display-name constant `xetal_base::LANG_NAME` lives in
 ## 3. Dependency rules
 
 ```
-base -> lex -> syntax -> core -> types -> eval -> cli / web
+base -> lex -> syntax -> core -> ty -> types -> eval -> cli / web
 base -> render (depends on lex + syntax + core for printers)
 base -> array  (depends on nothing else; peer of the front end)
 spec           (no deps; dev-dependency of cli for the spec harness)
@@ -81,7 +94,8 @@ eval -> array
 
 ## 4. Test architecture (tests are the spec)
 
-Four layers, all run by `cargo test` except reg-rs:
+Four layers, all run by `cargo test` in each component (or
+`scripts/gate.sh`) except reg-rs:
 
 1. **Unit tests** inside each crate (TDD inner loop).
 2. **Spec corpus** `spec/<area>/*.case`, driven by a harness in

@@ -1,6 +1,6 @@
 number = 1
 slug = "components-layout"
-status = "pending"
+status = "in-progress"
 description = "arrays step 1: restructure the repo into components/<name>/ multi-crate Cargo..."
 role = "production"
 context_files = []

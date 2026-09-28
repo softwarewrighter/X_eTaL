@@ -339,12 +339,11 @@ display name lives only in `xetal_base::LANG_NAME`; never hard-code
 ## Build / Test
 
 ```bash
-cargo build
-cargo test                                          # unit + spec corpus + proptest
-cargo test -p xetal-lex                             # one crate
-XETAL_BLESS=1 cargo test -p xetal-cli --test spec   # rewrite spec expectations (review the diff!)
-cargo clippy --all-targets --all-features -- -D warnings
-cargo fmt --all -- --check
+scripts/build-all.sh                                # build every component (shared target/)
+(cd components/syntax && cargo test)                # test one component
+(cd components/syntax && cargo test -p xetal-lex)   # one crate
+(cd components/cli && XETAL_BLESS=1 cargo test -p xetal-cli --test spec)   # rewrite spec expectations (review the diff!)
+scripts/check-locks.sh [--fix]                      # component Cargo.lock consistency
 scripts/reg.sh run                                  # reg-rs CLI goldens (REG_RS_DATA_DIR=reg)
 scripts/gate.sh                                     # full pre-commit gate
 sw-markdown-checker -f "docs/*.md"                  # ASCII-only markdown for our docs
@@ -369,10 +368,10 @@ fails until the case is flipped to active in a deliberate commit.
 
 ## Pre-commit gate (every commit)
 
-1. `cargo fmt --all` then `cargo fmt --all -- --check`
+1. `cargo fmt --all` then `cargo fmt --all -- --check` (per component)
 2. `cargo clippy --all-targets --all-features -- -D warnings` (zero
-   warnings; fix, never `#[allow]`)
-3. `cargo test` -- all pass
+   warnings; fix, never `#[allow]`) (per component)
+3. `cargo test` -- all pass (per component)
 4. `scripts/reg.sh run` -- all pass
 5. `sw-checklist` -- 0 failed (<=7 functions per module, <=7
    modules per crate, functions <=50 lines, CLI version/help rules)
@@ -394,16 +393,23 @@ baseline.
 ## Architecture
 
 ```
-base -> lex -> syntax -> core -> types -> eval -> cli / web
+base -> lex -> syntax -> core -> ty -> types -> eval -> cli / web
 render: raw <-> decorated, canonical, expanded printers
 array: dense arrays + primitive kernels (peer of the front end)
 ```
 
+- Components: each `components/<name>/` is its own Cargo workspace of
+  small crates (`crates/<crate>/`), with path dependencies across
+  components and one shared `target/` (`.cargo/config.toml`); no root
+  workspace. Pattern from ../../sw-ml-study/sw-mlpl.
+- Expand up and out, never merge: too many functions in a module, add
+  a module; too many modules in a crate, add a crate; too many crates
+  in a component, add a component (no limit on components). Design
+  new code to the stricter gates (25 LOC/fn, 5 fns/module, 5
+  modules/crate, 5 crates/component); `lib.rs` is a facade.
 - `xetal-array` knows nothing about syntax.
 - Each crate owns its error type; all convert to
   `xetal_base::Diagnostic`.
-- Keep crates small and cohesive; split files before they grow past
-  ~500 lines.
 
 ## Key Rules
 

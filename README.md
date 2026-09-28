@@ -84,7 +84,7 @@ the design documents describe the intended language.
 ## Quick Start
 
 ```bash
-cargo build --release
+scripts/build-all.sh --release
 ./target/release/xetal --version
 ./target/release/xetal eval -e '1 + 2'                     # 3
 ./target/release/xetal run demos/factorial.xtl             # 3628800
@@ -232,7 +232,7 @@ next sagas ([`docs/plan.md`](docs/plan.md)).
 ## Install
 
 ```bash
-cargo build --release
+scripts/build-all.sh --release
 cp target/release/xetal ~/.local/bin/          # any directory on PATH
 ln -sf xetal ~/.local/bin/x_etal               # the alias x_etal
 ```
@@ -242,7 +242,8 @@ With `xetal` on the PATH, `.xtl` scripts run directly:
 
 ## Architecture
 
-Single cargo workspace of small crates:
+Component workspaces (`components/<name>/`, each a few small crates)
+sharing one `target/` directory:
 
 `base -> lex -> syntax -> core -> types -> eval -> cli / web`
 
@@ -258,9 +259,8 @@ agentrail sagas; see
 rules.
 
 ```bash
-cargo test                                          # unit, spec corpus, property tests
-cargo clippy --all-targets --all-features -- -D warnings
-cargo fmt --all
+scripts/build-all.sh                                # build every component
+(cd components/syntax && cargo test)                # test one component
 scripts/reg.sh run                                  # reg-rs CLI golden tests
 scripts/gate.sh                                     # full pre-commit gate
 ```

@@ -1,17 +1,25 @@
 #!/usr/bin/env bash
-# Full pre-commit gate: format, lint, tests, reg-rs goldens,
-# sw-checklist conformance, markdown.
+# Full pre-commit gate: lock consistency, then format, lint and tests
+# in every component workspace, then reg-rs goldens, sw-checklist
+# conformance and markdown.
 set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$root"
 step() { printf '\n==> %s\n' "$*"; }
 
-step "cargo fmt --check"
-cargo fmt --all -- --check
-step "cargo clippy -D warnings"
-cargo clippy --all-targets --all-features -- -D warnings
-step "cargo test"
-cargo test --workspace
+source scripts/components.sh
+
+step "Cargo.lock consistency"
+scripts/check-locks.sh
+for c in "${COMPONENTS[@]}"; do
+    step "components/$c: fmt --check, clippy -D warnings, test"
+    (
+        cd "components/$c"
+        cargo fmt --all -- --check
+        cargo clippy -q --all-targets --all-features -- -D warnings
+        cargo test -q --workspace
+    )
+done
 step "reg-rs goldens"
 scripts/reg.sh run
 step "sw-checklist"

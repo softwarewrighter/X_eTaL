@@ -3,8 +3,8 @@
 
 use xetal_base::{Diagnostic, Span};
 
-use crate::ty::Type;
-use crate::unify::Unifier;
+use xetal_ty::Type;
+use xetal_ty::Unifier;
 
 fn fun(a: Type, b: Type) -> Type {
     Type::Fn(Box::new(a), Box::new(b))

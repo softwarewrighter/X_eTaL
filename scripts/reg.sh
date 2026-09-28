@@ -8,7 +8,7 @@ root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$root"
 export REG_RS_DATA_DIR="$root/reg"
 command -v reg-rs >/dev/null || { echo "reg-rs not found on PATH" >&2; exit 127; }
-cargo build -q -p xetal-cli
+(cd components/cli && cargo build -q -p xetal-cli)
 if [ "${1:-}" = "run" ] && [ "$#" -eq 1 ]; then
     exec reg-rs run -p .rgt
 fi

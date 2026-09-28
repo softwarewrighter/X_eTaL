@@ -1,0 +1,6 @@
+# One shared target directory for every component workspace under
+# components/: cargo finds this file by walking up from where it runs,
+# and `target-dir` is relative to this file's directory, so all builds
+# land in ./target (the reg-rs goldens run ./target/debug/xetal).
+[build]
+target-dir = "target"
