@@ -126,7 +126,7 @@ Named instead of symbols: `n_eg` (negate), `n_ot` (not), `m_od`
 | #  | Decision |
 | -- | -------- |
 | T1 | A real `Bool` type; `=` and the comparisons return Bool. Bool converts to Int implicitly in arithmetic (true 1, false 0). Int converts to Bool where a Bool is required: 1 is true, 0 is false, anything else is an error (at run time when only known then). |
-| M1 | Values are immutable. Rebinding a name creates a new binding (shadowing); a lambda keeps the value it captured. There is no indexed assignment; updates return new arrays. |
+| M1 | Values are immutable. Rebinding a variable creates a new binding (shadowing); a lambda keeps the value it captured. A top-level function name is defined once per file (MC8 row 12). There is no indexed assignment; updates return new arrays. |
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (`count! := count! + 1`), so every read and write shows it. |
 
 ## 10. Input and display
@@ -201,13 +201,33 @@ u:l_ife := { ... }
 c:K_ 1 2
 ```
 
-Errors found in the macro phase are reported before anything runs,
-which is better than combining libraries incorrectly. The full list
-is sub-decision 32d.
+Macro-phase errors (MC8), reported before anything runs with the
+file, span and the letters as written in that file:
+
+| #  | Condition | Example |
+| -- | --------- | ------- |
+| 1  | library not found (installed name or path) | `"c:" u_se< "Combinatorz"` |
+| 2  | import cycle (the chain is shown) | A uses B, B uses A |
+| 3  | missing alias | `u_se< "Combinators"` |
+| 4  | malformed alias | `"c" u_se< "A"`, `"3:" u_se< "A"` |
+| 5  | reserved alias | `"u:" u_se< "A"`, `"l:" u_se< "A"` |
+| 6  | one letter for two libraries in one file | `"c:"` used for A and for B |
+| 7  | one library under two letters in one file | A imported as `c:` and as `k:` |
+| 8  | a library defines `u:` names | `u:f_ := ...` in a used file |
+| 9  | a program defines `l:` names | `l:f_ := ...` in the main file (standalone library runs may be allowed later) |
+| 10 | unknown namespace letter in a file | `s:u_nion` without an `"s:"` import |
+| 11 | name not defined by the library (near matches listed) | `c:Z_` |
+| 12 | the same function name defined twice at top level of a file | `l:f_ := ...` twice |
+| 13 | `u_se<` anywhere but a top-level statement | inside a lambda or parentheses |
+| 14 | unknown macro | `x_yz< "a"` |
+| 15 | wrong argument shapes (both must be strings) | `c u_se< "A"`, `"c:" u_se< 3` |
+
+Row 12 narrows M1: rebinding stays allowed for variables, but a
+top-level function name is defined once per file, so a library's
+interface is unambiguous.
 
 ## 14. Queue of open questions
 
-- The list of macro-phase errors (32d).
 - Binary name: `xetal` or `x_etal`.
 - Optional, later: a spelling for axes above 9; function power on
   functions; an explicit `_` wildcard parameter (`{ x _ -> x }`);
