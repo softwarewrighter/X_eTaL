@@ -38,7 +38,7 @@ This document supersedes `docs/syntax-proposal.md`.
 | F1 | Every function takes one argument. There is no ambivalence: each function has exactly one arity, and dyadic use is currying (`X f Y` is `App(App(f, X), Y)`). Monadic meanings get their own names (negate `n_eg`, reverse `r_ev`). |
 | F2 | The underline is part of a function *name*. A name with an underlined letter is a function name; a name without one is a variable. The two are separate namespaces: `o\|` (if it were legal) and `o_\|` are unrelated. |
 | F3 | Juxtaposition applies: `f_ x`, `x f_ y`. |
-| F4 | A quote passes a function without applying it: `'r_/`, `'+`. Quoting a variable is an error (a variable is already a value). |
+| F4 | A quote passes a function without applying it: a function name (`'r_/`, `'+`, `'u:s_quare`), a lambda literal (`'{ x -> x * 2 }`) or a train (`'['+ r_/ / t_ally]`). Quoting a variable is an error (a variable is already a value). |
 | F5 | A function held in a value is applied by an underline after a lambda argument or a closing parenthesis: `_l_ x`, `(expr)_ x`, and `(f)_ x` for a variable `f`. |
 | F6 | Functions that take functions put them first, data last: `'+ r_/ A` is `reduce '+ A`; rotate takes the amount first: `1 o_- A`. Swapping order is done with a flip combinator (C, APL's commute), e.g. `u:o_ver := s_wap 'r_/` then `A u:o_ver '+`. |
 | F8 | A quoted function directly left of a function name binds to it as its operand, and the pair acts as one function: `A '* t_able B` (APL `A jot.times B`), `A '= e_ach B`, `'+ r_/ A`. This is the only reading the grammar gives; it produces the same Core as the curried dyadic reading (`App(App(reduce, plus), A)`), and it works for any function taking a function first, user functions included. |
@@ -377,6 +377,9 @@ u:S_ := { f_ g_ x -> x f_ g_ x }     # f x (g x)
 u:W_ := { f_ x -> x f_ x }           # f x x
 u:V_ := { x y f_ -> x f_ y }         # f x y
 u:T_ := { x f_ -> f_ x }             # f x
+c:Y_ := { f_ -> { x_ -> f_ x_ 'x_ } '{ x_ -> f_ x_ 'x_ } }
+u:F_ := { ~self_ n -> n <= 1 ? 1; n * self_ n - 1 }
+(c:Y_ 'u:F_)_ 5                      # 120: Y works because self_ is lazy (E1)
 ```
 
 Conway's Life (rule from design.md 6.2: S is the 3 by 3 sum including
