@@ -52,7 +52,7 @@ This document supersedes `docs/syntax-proposal.md`.
 | N1 | A name starts with a letter. A variable name is letters and digits only (`x`, `n`, `board2`). |
 | N2 | A function name contains exactly one `_`, directly after a letter, which underlines that letter (`r_ev`, `s_quare`, `o_-`). |
 | N3 | A function name may end in one punctuation character from `\| - / \ + * < > ~ ! ? % $ &` (`r_/`, `o_-`, `e_mpty?`). A trailing `<` marks a macro (MC2). |
-| N4 | A mutable variable name ends in `!` (see M2). |
+| N4 | A mutable variable name ends in `!` (see M2). A `!` touching a variable name and followed by `=` (`x!=3`) is an error asking for a space: `x != 3` (not equal) or `x! = 3` (compare the mutable variable), like the ambiguous-minus rule (review R2). |
 | N5 | Namespaces are a leading prefix: `u:` for the user's definitions, `c:` for the combinator library; no prefix means the system (built-ins). The display shows the prefix as a leading superscript. Plain variables (`x`, `n`) are in the user namespace implicitly. |
 | N6 | User functions are defined and called with the same full name: `u:l_ife := { ... }`, `u:l_ife board`. |
 | N7 | Libraries are brought in by the `u_se<` macro (section 14); the required left argument names the library's namespace in this file: `"k:" u_se< "Combinators"`. |
@@ -320,7 +320,9 @@ interface is unambiguous.
 Optional, later: a spelling for axes above 9; function power on
 functions; an explicit `_` wildcard parameter (`{ x _ -> x }`);
 count-from-the-end axes; raw strings `r"..."`; Unicode text as a
-library type; nested arrays (A7); checked `::` signatures (T4).
+library type; nested arrays (A7); checked `::` signatures (T4);
+complex numbers via the same type-extension mechanism (literal
+`3j4`, currently a lex error, reserved for them).
 
 ## 16. Style guide (conventions; a linter may check them later)
 
