@@ -144,9 +144,10 @@ xetal render <FILE|-e EXPR>    decorated Unicode (--raw back, --latex)
 xetal parse  <FILE|-e EXPR>    surface tree as S-expressions
 xetal fmt    <FILE|-e EXPR>    canonical form
 xetal core   <FILE|-e EXPR>    Core IR (built-ins marked #)
-xetal type   <FILE|-e EXPR>    inferred type (types saga)
-xetal eval   <FILE|-e EXPR>    evaluate; print each expression's value
-xetal run    FILE.xtl          run a script
+xetal type   <FILE|-e EXPR>    inferred type of each top-level item
+xetal eval   <FILE|-e EXPR>    type-check, evaluate; print each value
+                               (--untyped skips the checker)
+xetal run    FILE.xtl          type-check and run a script (--untyped)
 xetal FILE.xtl                 the same (for #!/usr/bin/env xetal)
 xetal repl                     interactive (arrays saga)
 ```

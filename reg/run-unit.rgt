@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/unit.xtl"
+exit_code = 0
+desc = "M2 demo: a niladic function applied to @"

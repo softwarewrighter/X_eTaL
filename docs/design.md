@@ -140,11 +140,18 @@ constraints, `Num` (Int, Float) and `Truthy` (Bool, Int); see
 restriction); other bindings are monomorphic, and at the top level
 their numbers default (Int; a condition Bool) when defined. Module
 definitions may refer to later ones: a use before the definition
-shares one monomorphic type until the definition is inferred.
-Laziness (`~`) is not part of the type. Scalar functions will be
+shares one monomorphic type until the definition is inferred, and
+mutually recursive definitions form a binding group generalized
+together once no forward reference is pending. A top-level item that
+is not a function is evaluated as soon as it is defined, so every
+constrained variable it introduces defaults then. After inference the
+program is elaborated: an integer literal whose type resolved to
+Float becomes a Float literal, so values agree with their types.
+`xetal eval` and `xetal run` type-check first and refuse ill-typed
+programs; `--untyped` skips the checker (T6). Laziness (`~`) is not part of the type. Scalar functions will be
 lifted over arrays by one scalar-extension rule. Shape is runtime
 metadata in v0. Self-application (`x_ 'x_`, as in the textbook Y)
-has no simple type: `infinite-type`.
+has no simple type: `infinite-type`; run it with `--untyped`.
 
 - Bool is a real type; Bool -> Int implicitly (true 1, false 0); Int
   -> Bool only from 1 or 0, anything else is an error (T1). Typed

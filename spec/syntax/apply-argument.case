@@ -7,3 +7,5 @@
 { f_ x -> (x f_ x) }
 == CORE
 (eval (lam f_ (lam x (app2 f_ x x))))
+== TYPE
+(a -> a -> b) -> a -> b

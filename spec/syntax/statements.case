@@ -14,3 +14,7 @@ y := (x + 1)
 (let x 3)
 (let y (app2 #+ x 1))
 (eval (app2 #+ x y))
+== TYPE
+x : Int
+y : Int
+Int

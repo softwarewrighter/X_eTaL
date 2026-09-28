@@ -13,6 +13,7 @@ use std::collections::HashMap;
 use std::io::Write;
 
 use xetal_base::{Diagnostic, Span};
+use xetal_core::Program;
 
 pub use value::Value;
 
@@ -34,11 +35,19 @@ pub fn eval_source(
     src: &str,
     out: &mut (dyn Write + Send),
 ) -> (Vec<Diagnostic>, Result<(), Diagnostic>) {
-    let program = match xetal_core::lower(src) {
-        Ok(p) => p,
-        Err(e) => return (Vec::new(), Err(e)),
-    };
-    let warnings = warn::warnings(&program);
+    match xetal_core::lower(src) {
+        Ok(program) => eval_program(&program, out),
+        Err(e) => (Vec::new(), Err(e)),
+    }
+}
+
+/// Evaluate an already lowered (and possibly type-elaborated) program;
+/// see [`eval_source`].
+pub fn eval_program(
+    program: &Program,
+    out: &mut (dyn Write + Send),
+) -> (Vec<Diagnostic>, Result<(), Diagnostic>) {
+    let warnings = warn::warnings(program);
     let result = std::thread::scope(|scope| {
         let worker = std::thread::Builder::new()
             .stack_size(STACK_BYTES)
@@ -48,7 +57,7 @@ pub fn eval_source(
                     out,
                     depth: 0,
                 };
-                machine.run(&program)
+                machine.run(program)
             });
         match worker {
             Ok(handle) => handle

@@ -1,6 +1,12 @@
 # Mutable variables are updated in place (M2).
 == SOURCE
 c! := 0; u:b_ump! := { @ -> c! := c! + 1 }; u:b_ump! @; u:b_ump! @; c!
+== TYPE
+c! : Int
+u:b_ump! : Unit -> Int
+Int
+Int
+Int
 == RESULT
 1
 2

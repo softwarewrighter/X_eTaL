@@ -1,5 +1,7 @@
 # Integer overflow is an error (D-4).
 == SOURCE
 2 ^ 100
+== TYPE
+Int
 == ERROR
 error[integer-overflow]: integer overflow (use a Float, e.g. 2.0 ^ n) at 0..7

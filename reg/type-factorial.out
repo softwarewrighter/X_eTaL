@@ -1,0 +1,2 @@
+u:f_act : Num a => a -> a
+Int

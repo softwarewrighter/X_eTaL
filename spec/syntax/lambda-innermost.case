@@ -7,3 +7,5 @@
 { x -> ({ _r } x) }
 == CORE
 (eval (lam x (app (lam _r _r) x)))
+== TYPE
+a -> a

@@ -1,5 +1,7 @@
 # Int ^ negative Int: use a Float base (D-10).
 == SOURCE
 2 ^ -1
+== TYPE
+Int
 == ERROR
 error[negative-exponent]: an Int raised to a negative Int: use a Float base, e.g. 2.0 ^ n at 0..6

@@ -8,3 +8,5 @@
 (1 + 2)
 == CORE
 (eval (app2 #+ 1 2))
+== TYPE
+Int

@@ -1,5 +1,7 @@
 # No precedence: 2 * (3 + 4).
 == SOURCE
 2 * 3 + 4
+== TYPE
+Int
 == RESULT
 14

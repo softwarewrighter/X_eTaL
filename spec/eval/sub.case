@@ -1,5 +1,8 @@
 # M1: a dyadic user function.
 == SOURCE
 u:s_ub := { _l - _r }; 10 u:s_ub 3
+== TYPE
+u:s_ub : Num a => a -> a -> a
+Int
 == RESULT
 7

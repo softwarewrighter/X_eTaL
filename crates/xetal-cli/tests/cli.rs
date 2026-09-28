@@ -47,11 +47,11 @@ fn long_help_extends_short_help_with_agent_instructions() {
 #[test]
 fn unimplemented_stage_reports_unsupported() {
     xetal()
-        .args(["type", "-e", "1 + 2"])
+        .arg("repl")
         .assert()
         .failure()
         .stdout("")
-        .stderr("error[unsupported]: stage `type` is not implemented\n");
+        .stderr("error[unsupported]: stage `repl` is not implemented\n");
 }
 
 #[test]
@@ -181,10 +181,10 @@ fn later_stages_report_parse_errors_before_unsupported() {
         .code(1)
         .stderr(starts_with("error[symbol-needs-left]: "));
     xetal()
-        .args(["type", "-e", "1 + 2"])
+        .args(["type", "-e", "- 3"])
         .assert()
         .code(1)
-        .stderr("error[unsupported]: stage `type` is not implemented\n");
+        .stderr(starts_with("error[symbol-needs-left]: "));
 }
 
 #[test]
@@ -273,4 +273,40 @@ fn deep_input_is_an_error_in_every_stage() {
             .code(1)
             .stderr(starts_with("error[too-deep]: "));
     }
+}
+
+#[test]
+fn type_prints_one_line_per_item() {
+    xetal()
+        .args(["type", "-e", "u:s_quare := { _r * _r }; u:s_quare 7; 7 / 2"])
+        .assert()
+        .success()
+        .stdout("u:s_quare : Num a => a -> a\nInt\nFloat\n");
+}
+
+#[test]
+fn eval_refuses_ill_typed_programs() {
+    xetal()
+        .args(["eval", "-e", "u:a_nswer := { @ -> 42 }; u:a_nswer 42"])
+        .assert()
+        .code(1)
+        .stdout("")
+        .stderr(starts_with(
+            "error[type-mismatch]: expected Unit, found a number",
+        ));
+}
+
+#[test]
+fn untyped_skips_the_checker() {
+    let y = "u:Y_ := { f_ -> { x_ -> f_ x_ 'x_ } '{ x_ -> f_ x_ 'x_ } }\nu:F_ := { ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }\n(u:Y_ 'u:F_)_ 5";
+    xetal()
+        .args(["eval", "-e", y])
+        .assert()
+        .code(1)
+        .stderr(starts_with("error[infinite-type]"));
+    xetal()
+        .args(["eval", "--untyped", "-e", y])
+        .assert()
+        .success()
+        .stdout("120\n");
 }

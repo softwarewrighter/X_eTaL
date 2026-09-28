@@ -1,5 +1,10 @@
 # A lambda keeps the value it captured (M1).
 == SOURCE
 n := 3; u:f_ := { x -> x + n }; n := 100; u:f_ 1
+== TYPE
+n : Int
+u:f_ : Int -> Int
+n : Int
+Int
 == RESULT
 4

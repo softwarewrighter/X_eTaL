@@ -148,3 +148,35 @@ fn type_errors() {
     assert_eq!(type_error("q_uux 1").0, "unknown-builtin");
     assert_eq!(type_error("- 3").0, "symbol-needs-left");
 }
+
+#[test]
+fn mutually_recursive_definitions_generalize_together() {
+    let src = "u:e_ven? := { n -> n = 0 ? 1; u:o_dd? n - 1 }\n\
+               u:o_dd? := { n -> n = 0 ? 0; u:e_ven? n - 1 }\n\
+               u:e_ven? 2.5\nu:e_ven? 7";
+    assert_eq!(
+        types(src),
+        "u:e_ven? : (Num a, Num b) => a -> b\n\
+         u:o_dd? : (Num a, Num b) => a -> b\nInt\nInt"
+    );
+}
+
+#[test]
+fn a_use_before_the_group_closes_is_monomorphic() {
+    let src = "u:f_ := { n -> u:g_ n }\nu:f_ 1\nu:g_ := { n -> n + 1 }";
+    assert_eq!(types(src), "u:f_ : Int -> Int\nInt\nu:g_ : Int -> Int");
+}
+
+#[test]
+fn integer_literals_used_as_float_become_float_literals() {
+    let mut program =
+        xetal_core::lower("{ @ -> 1 = 1 ? 42; 1 / 0 } @\nu:h_ := { x -> x + 1 + 2.5 }\n3 + 1")
+            .unwrap();
+    xetal_types::check_program(&mut program).unwrap();
+    assert_eq!(
+        program.to_string(),
+        xetal_core::lower("{ @ -> 1 = 1 ? 42.0; 1 / 0 } @\nu:h_ := { x -> x + 1.0 + 2.5 }\n3 + 1")
+            .unwrap()
+            .to_string()
+    );
+}

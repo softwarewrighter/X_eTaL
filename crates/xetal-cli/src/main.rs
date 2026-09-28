@@ -59,6 +59,16 @@ struct Input {
     file: Option<String>,
 }
 
+/// `eval` and `run` options: type-checked unless `--untyped`.
+#[derive(Args)]
+struct EvalArgs {
+    #[command(flatten)]
+    input: Input,
+    /// Skip the type checker (for experiments such as the Y combinator).
+    #[arg(long)]
+    untyped: bool,
+}
+
 /// `render` options: decorated Unicode by default.
 #[derive(Args)]
 struct RenderArgs {
@@ -84,12 +94,17 @@ enum Command {
     Fmt(Input),
     /// Print the Core IR.
     Core(Input),
-    /// Print the inferred type.
+    /// Print the inferred type of each top-level item.
     Type(Input),
-    /// Evaluate and print the result.
-    Eval(Input),
-    /// Run a program file.
-    Run { file: String },
+    /// Type-check, evaluate and print each result.
+    Eval(EvalArgs),
+    /// Type-check and run a program file.
+    Run {
+        file: String,
+        /// Skip the type checker.
+        #[arg(long)]
+        untyped: bool,
+    },
     /// Start an interactive session.
     Repl,
 }
@@ -117,11 +132,13 @@ impl Command {
             | Command::Fmt(i)
             | Command::Core(i)
             | Command::Type(i)
-            | Command::Eval(i) => Some(read_input(i.expr.as_deref(), i.file.as_deref())),
+            | Command::Eval(EvalArgs { input: i, .. }) => {
+                Some(read_input(i.expr.as_deref(), i.file.as_deref()))
+            }
             Command::Render(r) => {
                 Some(read_input(r.input.expr.as_deref(), r.input.file.as_deref()))
             }
-            Command::Run { file } => Some(read_input(None, Some(file))),
+            Command::Run { file, .. } => Some(read_input(None, Some(file))),
             Command::Repl => None,
         }
     }
@@ -149,8 +166,11 @@ fn run(command: &Command) -> Result<String, Diagnostic> {
     if let Command::Render(args) = command {
         return render(args, &source);
     }
-    if matches!(command, Command::Eval(_) | Command::Run { .. }) {
-        return evaluate(&source);
+    match command {
+        Command::Eval(EvalArgs { untyped, .. }) | Command::Run { untyped, .. } => {
+            return evaluate(&source, *untyped);
+        }
+        _ => {}
     }
     let tokens = xetal_lex::lex(&source)?;
     match command {
@@ -162,10 +182,8 @@ fn run(command: &Command) -> Result<String, Diagnostic> {
         Command::Parse(_) => Ok(xetal_syntax::parse(&source)?.to_string()),
         Command::Fmt(_) => xetal_render::canonical(&source),
         Command::Core(_) => Ok(xetal_core::lower(&source)?.to_string()),
-        _ => {
-            xetal_core::lower(&source)?;
-            Err(Diagnostic::unsupported(command.stage()))
-        }
+        Command::Type(_) => Ok(xetal_types::check_source(&source)?.join("\n")),
+        _ => Err(Diagnostic::unsupported(command.stage())),
     }
 }
 
@@ -181,10 +199,15 @@ fn render(args: &RenderArgs, source: &str) -> Result<String, Diagnostic> {
     }
 }
 
-/// Evaluate, streaming results to stdout; warnings go to stderr.
-fn evaluate(source: &str) -> Result<String, Diagnostic> {
+/// Type-check (unless `untyped`), then evaluate, streaming results to
+/// stdout; warnings go to stderr.
+fn evaluate(source: &str, untyped: bool) -> Result<String, Diagnostic> {
+    let mut program = xetal_core::lower(source)?;
+    if !untyped {
+        xetal_types::check_program(&mut program)?;
+    }
     let mut stdout = std::io::stdout();
-    let (warnings, result) = xetal_eval::eval_source(source, &mut stdout);
+    let (warnings, result) = xetal_eval::eval_program(&program, &mut stdout);
     for warning in warnings {
         eprintln!("{warning}");
     }
@@ -195,7 +218,10 @@ fn main() -> ExitCode {
     let cli = Cli::parse();
     let command = match (cli.command, cli.script) {
         (Some(command), _) => command,
-        (None, Some(file)) => Command::Run { file },
+        (None, Some(file)) => Command::Run {
+            file,
+            untyped: false,
+        },
         (None, None) => {
             use clap::CommandFactory;
             Cli::command()

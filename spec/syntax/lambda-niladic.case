@@ -7,3 +7,5 @@
 { @ -> 42 }
 == CORE
 (eval (lam @ 42))
+== TYPE
+Num a => Unit -> a

@@ -10,3 +10,6 @@ u:s_ub := { (_l - _r) }
 == CORE
 (def u:s_ub (lam _l (lam _r (app2 #- _l _r))))
 (eval (app2 u:s_ub 10 3))
+== TYPE
+u:s_ub : Num a => a -> a -> a
+Int

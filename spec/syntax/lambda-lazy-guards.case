@@ -7,3 +7,5 @@
 { ~s_elf n -> (n <= 1) ? 1; (n * (s_elf (n - 1))) }
 == CORE
 (eval (lam ~s_elf (lam n (if (app2 #<= n 1) 1 (app2 #* n (app s_elf (app2 #- n 1)))))))
+== TYPE
+Num a => (a -> a) -> a -> a

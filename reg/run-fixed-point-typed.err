@@ -1,0 +1,1 @@
+error[infinite-type]: a type would contain itself: a -> b at 204..210

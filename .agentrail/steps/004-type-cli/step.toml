@@ -1,6 +1,6 @@
 number = 4
 slug = "type-cli"
-status = "pending"
+status = "in-progress"
 description = "types-and-unit step 4 (M2 demo): xetal type prints the inferred type of each ..."
 role = "production"
 context_files = []

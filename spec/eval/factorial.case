@@ -5,5 +5,8 @@ u:f_act := { n ->
   n * u:f_act n - 1
 }
 u:f_act 10
+== TYPE
+u:f_act : Num a => a -> a
+Int
 == RESULT
 3628800

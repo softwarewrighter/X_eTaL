@@ -2,4 +2,4 @@
 == SOURCE
 u:a_nswer := { @ -> 42 }; u:a_nswer 1
 == ERROR
-error[not-unit]: this function takes @, got 1 at 26..37
+error[type-mismatch]: expected Unit, found a number at 26..37

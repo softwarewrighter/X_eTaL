@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type demos/unit.xtl"
+exit_code = 0
+desc = "M2: inferred types, one line per top-level item"

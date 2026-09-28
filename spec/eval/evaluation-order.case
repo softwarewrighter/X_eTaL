@@ -1,6 +1,8 @@
 # The function, then arguments right to left (E4).
 == SOURCE
 (p_rint! 1) + p_rint! 2
+== TYPE
+Int
 == RESULT
 2
 1

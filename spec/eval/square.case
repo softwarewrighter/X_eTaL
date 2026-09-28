@@ -1,5 +1,8 @@
 # M1: a monadic user function.
 == SOURCE
 u:s_quare := { _r * _r }; u:s_quare 7
+== TYPE
+u:s_quare : Num a => a -> a
+Int
 == RESULT
 49

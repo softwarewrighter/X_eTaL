@@ -1,5 +1,7 @@
 # Bool is 1 in arithmetic (T1).
 == SOURCE
 (3 = 3) + 1
+== TYPE
+Int
 == RESULT
 2

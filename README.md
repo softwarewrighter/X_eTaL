@@ -64,10 +64,11 @@ has S of 4. The two tests never both hold, so `+` acts as "or".
 
 Early. The lexer (`xetal lex`), the decorated renderer
 (`xetal render`), the parser (`xetal parse`) and the canonical
-formatter (`xetal fmt`), the desugaring to Core (`xetal core`) and a
-strict evaluator for scalars (`xetal eval`, `xetal run`, `xetal FILE`)
-work; type checking (`xetal type`) and arrays are not implemented yet
-and report `error[unsupported]`. The language is specified by its test suite as it is built;
+formatter (`xetal fmt`), the desugaring to Core (`xetal core`), type
+inference (`xetal type`) and a strict evaluator for scalars
+(`xetal eval`, `xetal run`, `xetal FILE`, which type-check first)
+work; arrays are not implemented yet and report `error[unsupported]`.
+The language is specified by its test suite as it is built;
 the design documents describe the intended language.
 
 ## Documentation
@@ -156,7 +157,7 @@ u:t_enMinus 3
 ./target/release/xetal run demos/square.xtl       # 49
 ./target/release/xetal run demos/sub.xtl          # 7 and 7
 ./target/release/xetal run demos/factorial.xtl    # 3628800
-./target/release/xetal run demos/fixed-point.xtl  # 120
+./target/release/xetal run --untyped demos/fixed-point.xtl  # 120
 ```
 
 `demos/factorial.xtl` uses guards, one statement per line:
@@ -170,7 +171,8 @@ u:f_act 10
 ```
 
 `demos/fixed-point.xtl` shows the Y combinator working because its
-self parameter is lazy (`~s_elf`):
+self parameter is lazy (`~s_elf`). Its self-applied argument has no
+finite type, so it runs with `--untyped`, which skips the checker:
 
 ```
 u:Y_ := { f_ -> { x_ -> f_ x_ 'x_ } '{ x_ -> f_ x_ 'x_ } }

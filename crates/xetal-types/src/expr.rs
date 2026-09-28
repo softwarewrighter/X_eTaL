@@ -5,7 +5,8 @@ use xetal_core::{Expr, Kind, Param};
 use xetal_lex::Number;
 
 use crate::builtins::prim_type;
-use crate::infer::{Global, Infer, mono};
+use crate::infer::{Global, Infer};
+use crate::scheme::mono;
 use crate::ty::Type;
 
 fn fun(a: Type, b: Type) -> Type {
@@ -15,7 +16,7 @@ fn fun(a: Type, b: Type) -> Type {
 impl Infer {
     pub(crate) fn expr(&mut self, e: &Expr) -> Result<Type, Diagnostic> {
         Ok(match &e.kind {
-            Kind::Lit(Number::Int(_)) => self.u.fresh_num(),
+            Kind::Lit(Number::Int(_)) => self.int_literal(e.id),
             Kind::Lit(Number::Float(_)) => Type::Float,
             Kind::Str(_) => Type::Array(Box::new(Type::Char)),
             Kind::Unit => Type::Unit,
@@ -123,7 +124,7 @@ impl Infer {
                 let scheme = scheme.clone();
                 self.u.instantiate(&scheme)
             }
-            Some(Global::Pending(t, _)) => t.clone(),
+            Some(Global::Pending(t, _) | Global::Open { ty: t, .. }) => t.clone(),
             None => {
                 let t = self.u.fresh();
                 self.globals

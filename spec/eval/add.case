@@ -1,5 +1,7 @@
 # M1: 1 + 2.
 == SOURCE
 1 + 2
+== TYPE
+Int
 == RESULT
 3

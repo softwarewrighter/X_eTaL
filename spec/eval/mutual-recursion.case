@@ -3,5 +3,9 @@
 u:e_ven? := { n -> n = 0 ? 1; u:o_dd? n - 1 }
 u:o_dd? := { n -> n = 0 ? 0; u:e_ven? n - 1 }
 u:e_ven? 7
+== TYPE
+u:e_ven? : (Num a, Num b) => a -> b
+u:o_dd? : (Num a, Num b) => a -> b
+Int
 == RESULT
 0

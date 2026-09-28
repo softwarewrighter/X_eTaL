@@ -7,3 +7,5 @@
 { (_r * _r) }
 == CORE
 (eval (lam _r (app2 #* _r _r)))
+== TYPE
+Num a => a -> a

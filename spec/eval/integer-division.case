@@ -3,6 +3,10 @@
 7 d_iv 2
 -7 d_iv 2
 -7 m_od 3
+== TYPE
+Int
+Int
+Int
 == RESULT
 3
 -4

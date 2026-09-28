@@ -1,5 +1,7 @@
 # / always returns a Float (T2).
 == SOURCE
 7 / 2
+== TYPE
+Float
 == RESULT
 3.5

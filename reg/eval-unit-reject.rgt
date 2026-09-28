@@ -1,0 +1,3 @@
+command = "./target/debug/xetal eval -e 'u:a_nswer := { @ -> 42 }; u:a_nswer 42'"
+exit_code = 1
+desc = "M2: a niladic function applied to a number is a type error"

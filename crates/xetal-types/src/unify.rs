@@ -13,7 +13,7 @@ use crate::ty::{Type, TypeVar};
 pub struct Unifier {
     pub(crate) subst: HashMap<TypeVar, Type>,
     pub(crate) classes: HashMap<TypeVar, Classes>,
-    next: u32,
+    pub(crate) next: u32,
 }
 
 impl Unifier {
