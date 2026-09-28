@@ -1,9 +1,10 @@
 number = 3
 slug = "parser"
-status = "in-progress"
+status = "completed"
 description = "calculus step 3: TDD xetal-syntax, a parser from tokens to a surface AST with..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T21:13:35"
+completed_at = "2026-09-27T21:45:19"
 task_type = "feature"
-commits = []
+commits = ["60aac2e2d07380b92c1e4acd5d4fc7021ac91ea8"]
