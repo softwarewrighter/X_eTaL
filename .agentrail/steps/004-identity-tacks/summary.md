@@ -1,0 +1,1 @@
+i_d/l_eft/r_ight built-ins (B9) typed and evaluated (not lifted); S as hook and lambda, S' as fork and lambda pinned by spec cases; rejections; golden

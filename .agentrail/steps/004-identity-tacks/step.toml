@@ -1,8 +1,9 @@
 number = 4
 slug = "identity-tacks"
-status = "in-progress"
+status = "completed"
 description = "arrays step 4: TDD the identity and tack built-ins (lang-choices B9, decided ..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T23:02:01"
-commits = []
+completed_at = "2026-09-27T23:12:39"
+commits = ["33aa5f3c727048d39ec8cc753c3510db437822d0"]
