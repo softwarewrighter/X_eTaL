@@ -1,9 +1,10 @@
 number = 4
 slug = "type-cli"
-status = "in-progress"
+status = "completed"
 description = "types-and-unit step 4 (M2 demo): xetal type prints the inferred type of each ..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T22:13:40"
+completed_at = "2026-09-27T22:39:08"
 task_type = "feature"
-commits = []
+commits = ["9c2df6c8a0546bfe872b99d691152914e35e5163"]
