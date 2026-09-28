@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/life.xtl"
+exit_code = 0
+desc = "the Life one-liner: a blinker, one and two generations"

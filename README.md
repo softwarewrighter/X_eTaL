@@ -62,6 +62,28 @@ its neighbours. The inner lambda then gets S as `_l` and the board as
 3 neighbours when S is 3, surviving with 2 neighbours when a live cell
 has S of 4. The two tests never both hold, so `+` acts as "or".
 
+It runs:
+
+```bash
+./target/release/xetal run demos/life.xtl
+```
+
+steps a blinker (a vertical bar of three live cells on a 5 by 5 board)
+one and two generations:
+
+```
+0 0 0 0 0
+0 0 0 0 0
+0 1 1 1 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 0 0 0
+```
+
 ## Status
 
 Early. The lexer (`xetal lex`), the decorated renderer

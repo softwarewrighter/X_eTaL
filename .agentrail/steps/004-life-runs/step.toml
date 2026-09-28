@@ -1,6 +1,6 @@
 number = 4
 slug = "life-runs"
-status = "pending"
+status = "in-progress"
 description = "rotate-and-axes step 4: the pending Life acceptance case passes by general ru..."
 role = "production"
 context_files = []
