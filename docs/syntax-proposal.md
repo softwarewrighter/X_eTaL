@@ -1,6 +1,8 @@
 # X_eTaL -- Syntax Proposal (raw ASCII input)
 
-Status: PROPOSAL, awaiting the user's review. Nothing here is
+Status: SUPERSEDED by `docs/lang-choices.md` (decisions made one at a
+time with the user). Kept for history. Originally: PROPOSAL, awaiting
+the user's review. Nothing here is
 implemented. Where this proposal and `docs/design.md` sections 2-3 /
 `docs/input.md` disagree, those documents describe what is currently
 implemented, not what has been agreed.

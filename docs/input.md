@@ -1,10 +1,10 @@
 # Typing X_eTaL
 
 > Under review: this page describes the syntax currently implemented.
-> A revised input syntax is proposed in
-> [`syntax-proposal.md`](syntax-proposal.md) (separate keys for
-> underline, superscript and subscript; superscripts as namespaces).
-> This page will be rewritten if the proposal is approved.
+> The language decisions now being made are recorded in
+> [`lang-choices.md`](lang-choices.md) (one key per job;
+> namespaces as a prefix; function names carry their underline).
+> This page will be rewritten once those decisions are complete.
 
 X_eTaL source is plain ASCII typed on a US keyboard. No input method,
 Espanso snippet or special font is needed. Decoration that the
