@@ -161,6 +161,7 @@ Named instead of symbols: `n_eg` (negate), `n_ot` (not), `m_od`
 | #  | Decision |
 | -- | -------- |
 | T1 | A real `Bool` type; `=` and the comparisons return Bool. Bool converts to Int implicitly in arithmetic (true 1, false 0). Int converts to Bool where a Bool is required: 1 is true, 0 is false, anything else is an error (at run time when only known then). |
+| T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and remainder are the named functions `d_iv` and `m_od`. Division by zero is an error (`error[division-by-zero]` with the span), including `d_iv` and `m_od` by 0 and element-wise inside arrays. There is no `inf` / `nan` result from division. |
 | M1 | Values are immutable. Rebinding a variable creates a new binding (shadowing); a lambda keeps the value it captured. A top-level function name is defined once per file (MC8 row 12). There is no indexed assignment; updates return new arrays. |
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (`count! := count! + 1`), so every read and write shows it. |
 
