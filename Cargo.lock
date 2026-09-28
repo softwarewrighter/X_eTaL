@@ -914,6 +914,7 @@ version = "0.1.0"
 name = "xetal-syntax"
 version = "0.1.0"
 dependencies = [
+ "proptest",
  "xetal-base",
  "xetal-lex",
 ]
