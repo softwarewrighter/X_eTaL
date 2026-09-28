@@ -30,7 +30,7 @@ syntax that later steps assumed. Archived in `.agentrail-archive/`.
 
 Steps 3 and 4 implement the earlier syntax; Saga 2 revises them.
 
-## Saga 2 -- calculus (M0 + M1)  [ACTIVE]
+## Saga 2 -- calculus (M0 + M1)  [DONE]
 
 Goal: the implemented syntax matches `lang-choices.md` and renders
 decorated and back losslessly (M0 again); the scalar functional
@@ -48,6 +48,42 @@ factorial works.
 | 5  | core-desugar     | Core IR with NodeId and spans; desugar currying, lambdas, named and lazy parameters, operand binding, trains, guards, statements; normalization-equivalence tests; `xetal core` |
 | 6  | scalar-eval      | strict evaluator over Core: Int / Float / Bool scalars with T1-T3 and D-10 rules, symbols, bindings and shadowing (M1), closures, currying, guards, `~` call-by-need (E1-E4), mutable `!` variables (M2), L7 shadowing warnings, printed results (10a) for scalars; `xetal eval`, `xetal run`, `xetal FILE`; M1 demos as reg-rs goldens |
 | 7  | m1-docs-release  | README tour for M0/M1 with every command a golden, docs sync, saga retrospective |
+
+### Saga 2 retrospective
+
+Delivered: the lexer and renderer rewritten to `lang-choices.md`, the
+parser (`xetal parse`), the canonical formatter (`xetal fmt`), Core
+desugaring (`xetal core`) and a strict scalar evaluator (`xetal eval`,
+`xetal run`, `xetal FILE`), with the M1 demos in `demos/` and every
+stage pinned by spec cases (lex, render, syntax, ambiguity, eval) and
+reg-rs goldens.
+
+What went well:
+
+- Deciding the language one question at a time before coding paid off:
+  steps 3-6 needed only two new decisions (train arity, TR4; the
+  deterministic-grammar reading of PRD F3), both put to the user.
+- Property tests caught real bugs early: touching underline runs in the
+  inverse renderer (saga 1), and the formatter is checked to preserve
+  both the tree and the Core.
+- The spec harness with blessing plus review kept expectations honest
+  and cheap to update when output changed on purpose.
+
+What to do differently:
+
+- A README rewrite in step 1 silently dropped the Status and
+  Documentation sections; restored in step 3. Review whole-section
+  replacements with a heading diff.
+- A step commit missed `Cargo.lock`; stage it explicitly.
+- A decision example was wrong (`0.1 + 0.2 = 0.3` needs parentheses
+  under right-to-left evaluation); examples in `lang-choices.md`
+  should be executed by tests, as user docs already are.
+- sw-checklist limits (7 functions per module, 50 lines per function)
+  forced several refactors after the fact; design modules to the limit
+  up front.
+- Deep recursion first crashed the test thread; the evaluator now runs
+  on a large stack with a depth limit. Keep the no-panic rule in mind
+  for every recursive component (parser and desugarer next).
 
 ## Saga 3 -- types-and-unit (M2)
 
@@ -132,5 +168,9 @@ parameter. Each gets a saga (or steps) when scheduled.
 ## Cross-cutting (insert as steps when due)
 
 - fuzzing (`cargo-fuzz` for lexer, parser, fmt, eval) -- after Saga 2.
+- nesting depth: the parser, desugarer and printers recurse, so a
+  pathologically nested input (tens of thousands of `(`) could overflow
+  the stack; add a nesting limit with a clear error (no-panic rule) --
+  first step of Saga 3.
 - install tooling: `x_etal` alias next to `xetal` (S7) -- with Saga 2's
   release step.

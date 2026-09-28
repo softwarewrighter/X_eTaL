@@ -1,6 +1,6 @@
 number = 7
 slug = "m1-docs-release"
-status = "pending"
+status = "in-progress"
 description = "calculus step 7: make M0/M1 user-visible and consistent: README tour where ev..."
 role = "production"
 context_files = []

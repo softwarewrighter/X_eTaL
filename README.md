@@ -134,6 +134,74 @@ S-expressions, one line per statement:
 (u:s_ub 10 3)
 ```
 
+## A tour of M0 and M1
+
+**M0 -- typing and display.** Source is plain ASCII; `xetal render`
+draws it decorated and `--raw` turns the decorated text back into the
+same source (see [`docs/input.md`](docs/input.md)).
+
+**M1 -- the scalar functional calculus.** Every function takes one
+argument; dyadic use is currying. The demo scripts in `demos/` are
+executable (`#!/usr/bin/env xetal`):
+
+```
+# demos/sub.xtl
+u:s_ub := { _l - _r }
+10 u:s_ub 3
+u:t_enMinus := u:s_ub 10    # partial application fixes the left argument
+u:t_enMinus 3
+```
+
+```bash
+./target/release/xetal run demos/square.xtl       # 49
+./target/release/xetal run demos/sub.xtl          # 7 and 7
+./target/release/xetal run demos/factorial.xtl    # 3628800
+./target/release/xetal run demos/fixed-point.xtl  # 120
+```
+
+`demos/factorial.xtl` uses guards, one statement per line:
+
+```
+u:f_act := { n ->
+  n <= 1 ? 1
+  n * u:f_act n - 1
+}
+u:f_act 10
+```
+
+`demos/fixed-point.xtl` shows the Y combinator working because its
+self parameter is lazy (`~s_elf`):
+
+```
+u:Y_ := { f_ -> { x_ -> f_ x_ 'x_ } '{ x_ -> f_ x_ 'x_ } }
+u:F_ := { ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }
+(u:Y_ 'u:F_)_ 5
+```
+
+Each stage of the pipeline is visible from the command line; for
+`u:s_ub := { _l - _r }; 10 u:s_ub 3`, `xetal parse` prints the tree
+shown above and `xetal core` the desugared Core, where built-ins are
+marked `#`:
+
+```
+(def u:s_ub (lam _l (lam _r (app2 #- _l _r))))
+(eval (app2 u:s_ub 10 3))
+```
+
+Arrays (reshape, rotate, reduce), types and the Life one-liner come in
+the next sagas ([`docs/plan.md`](docs/plan.md)).
+
+## Install
+
+```bash
+cargo build --release
+cp target/release/xetal ~/.local/bin/          # any directory on PATH
+ln -sf xetal ~/.local/bin/x_etal               # the alias x_etal
+```
+
+With `xetal` on the PATH, `.xtl` scripts run directly:
+`./demos/factorial.xtl`.
+
 ## Architecture
 
 Single cargo workspace of small crates:

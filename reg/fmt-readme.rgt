@@ -1,0 +1,3 @@
+command = "./target/debug/xetal fmt -e 'x := 3; a f_ b g_ c'"
+exit_code = 0
+desc = "README example: xetal fmt parenthesizes every application"

@@ -1,0 +1,2 @@
+(def u:s_ub (lam _l (lam _r (app2 #- _l _r))))
+(eval (app2 u:s_ub 10 3))

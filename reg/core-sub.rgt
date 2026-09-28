@@ -1,0 +1,3 @@
+command = "./target/debug/xetal core -e 'u:s_ub := { _l - _r }; 10 u:s_ub 3'"
+exit_code = 0
+desc = "README tour: xetal core of the subtraction demo"

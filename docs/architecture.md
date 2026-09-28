@@ -7,25 +7,28 @@ raw ASCII source
     |  xetal-lex        tokens + spans (decoration -> token class)
     v
 tokens
-    |  xetal-syntax     deterministic parse: 0 or 1 tree; boundary
-    |                   shapes rejected with specific errors
+    |  (macro phase)    u_se< libraries, per-file namespaces (libraries saga)
     v
-surface AST          (many parses => AmbiguousExpression error)
-    |  xetal-core       desugar: lambdas, niladic sugar, derivations,
-    v                   long/terse names, trains -> Core IR
+tokens
+    |  xetal-syntax     deterministic parse: 0 or 1 tree; boundary
+    v                   shapes rejected with specific errors
+surface AST
+    |  xetal-core       desugar: currying, lambdas, quotes and operands,
+    v                   trains by position, guards, statements -> Core IR
 Core IR
-    |  xetal-types      Hindley-Milner inference (+ Num constraint)
+    |  xetal-types      Hindley-Milner inference (types saga)
     v
 typed Core IR
-    |  xetal-eval       strict evaluator over Core only; trace tree
-    v                   (uses xetal-array primitives)
-value + trace
+    |  xetal-eval       strict evaluator over Core only (lazy ~ params);
+    v                   trace tree later; array kernels from xetal-array
+value (+ trace)
 ```
 
 Side paths:
 
 - `xetal-render`: raw <-> decorated Unicode presentation (lossless),
-  canonical (fully parenthesized) and expanded (long names) printers.
+  LaTeX output, and the canonical (fully parenthesized) printer; an
+  expanded (long names) printer comes later.
 - `xetal-cli`: the `xetal` binary exposing every stage as text.
 - `xetal-web` (later): Rust -> WASM playground consuming the public
   library APIs only.
@@ -50,7 +53,8 @@ crates/
   xetal-spec/              spec-case file parser, checker, blesser
   xetal-web/               (later) WASM playground
 spec/                      language spec corpus (*.case files)
-reg/                       reg-rs baselines (*.rgt, *.out) - committed
+reg/                       reg-rs baselines (*.rgt, *.out, *.err) - committed
+demos/                     executable .xtl demo scripts (reg-rs goldens)
 scripts/                   quality gate, reg-rs helpers
 docs/                      PRD, design, architecture, plan, research
 ```
@@ -87,10 +91,14 @@ Four layers, all run by `cargo test` except reg-rs:
 
    ```
    == SOURCE
-   square = { _r * _r }; square_ 7
+   u:s_quare := { _r * _r }; u:s_quare 7
    == TOKENS
    ...
    == RENDER
+   ...
+   == SURFACE
+   ...
+   == CANONICAL
    ...
    == CORE
    ...
@@ -104,8 +112,8 @@ Four layers, all run by `cargo test` except reg-rs:
    pending   (acceptance test not yet expected to pass)
    ```
 
-   Areas: `lex/ render/ syntax/ ambiguity/ core/ types/ arrays/
-   combinators/ trains/ errors/ integration/`. A `pending` case must
+   Areas so far: `lex/ render/ syntax/ ambiguity/ eval/ integration/`
+   (later: `types/ arrays/ combinators/ trains/`). A `pending` case must
    still FAIL; the harness errors if a pending case unexpectedly
    passes, so flipping it to active is a deliberate commit. The Life
    acceptance case exists from the first saga as `pending`.
@@ -131,19 +139,22 @@ Later: `cargo-fuzz` targets for lexer, parser, `fmt`, and evaluator
 ## 5. CLI surface
 
 ```
-xetal lex    <src|-e expr>     token dump
-xetal render <src|-e expr>     decorated Unicode form (--raw back,
-                               --latex for LaTeX math)
-xetal parse  <src|-e expr>     surface AST or ambiguity report
-xetal fmt    <src|-e expr>     canonical form
-xetal core   <src|-e expr>     Core IR
-xetal type   <src|-e expr>     inferred type
-xetal eval   -e expr           result
-xetal run    file.xtl          run a program
-xetal repl                     interactive
+xetal lex    <FILE|-e EXPR>    token dump with byte spans
+xetal render <FILE|-e EXPR>    decorated Unicode (--raw back, --latex)
+xetal parse  <FILE|-e EXPR>    surface tree as S-expressions
+xetal fmt    <FILE|-e EXPR>    canonical form
+xetal core   <FILE|-e EXPR>    Core IR (built-ins marked #)
+xetal type   <FILE|-e EXPR>    inferred type (types saga)
+xetal eval   <FILE|-e EXPR>    evaluate; print each expression's value
+xetal run    FILE.xtl          run a script
+xetal FILE.xtl                 the same (for #!/usr/bin/env xetal)
+xetal repl                     interactive (arrays saga)
 ```
 
-All outputs are deterministic text so they can be reg-rs baselines.
+Each command runs the earlier stages first, so an early error is
+reported by any later command. All outputs are deterministic text so
+they can be reg-rs baselines; errors and warnings go to stderr as
+`error[CODE]` / `warning[CODE]` with byte spans.
 
 ## 6. Web playground (later saga)
 
