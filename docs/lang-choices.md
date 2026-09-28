@@ -80,6 +80,7 @@ This document supersedes `docs/syntax-proposal.md`.
 | A3 | Reverse is `r_ev` (`r_ev_2` along axis 2). |
 | A5 | Index origin is 1: `r_ange 5` is `1 2 3 4 5` and index 1 is the first item, consistent with 1-based axes. Not configurable (no APL-style index-origin setting). |
 | A6 | An axis subscript works on any function by one rule: `f_k X` moves axis k to the front, applies f (which works on the leading axis) and moves it back. Built-ins and user functions alike: `u:n_ormalize_2 M`, and `'+ r_/_2 M` is reduce by this rule. Multi-digit subscripts (`_12`) mean something only where a function defines them (rotate, A4); on a user function they are an error for now. Moving an axis can be an index view, not a copy. |
+| A7 | Nested arrays follow APL2 / BQN: any element may itself be an array (`"ab" "cde"` is a 2-element vector of strings), with enclose / disclose built-ins and no explicit box type. Planned for after the Life milestone; v0 arrays are flat (a flat array is a nested array of scalars), and v0 rules such as "`e_ach` returns scalars" are written so nesting can be added without breaking programs. |
 | A4 | A list of amounts with a multi-axis subscript means every combination, with one leading result axis per subscripted axis: `-1 0 1 o_-_12 B` on an n by m board has shape 3 3 n m. |
 
 ## 6. Lambdas
