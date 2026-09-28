@@ -42,6 +42,7 @@ This document supersedes `docs/syntax-proposal.md`.
 | F5 | A function held in a value is applied by an underline after a lambda argument or a closing parenthesis: `_l_ x`, `(expr)_ x`, and `(f)_ x` for a variable `f`. |
 | F6 | Functions that take functions put them first, data last: `'+ r_/ A` is `reduce '+ A`; rotate takes the amount first: `1 o_- A`. Swapping order is done with a flip combinator (C, APL's commute), e.g. `u:o_ver := s_wap 'r_/` then `A u:o_ver '+`. |
 | F8 | A quoted function directly left of a function name binds to it as its operand, and the pair acts as one function: `A '* t_able B` (APL `A jot.times B`), `A '= e_ach B`, `'+ r_/ A`. This is the only reading the grammar gives; it produces the same Core as the curried dyadic reading (`App(App(reduce, plus), A)`), and it works for any function taking a function first, user functions included. |
+| F9 | Quoted operands chain: in `'+ '* i_nner` the operand nearest the function binds first, so a two-operand function takes its nearest operand first and reads in APL order at the use site: `A '+ '* i_nner B` (APL `A +.times B`), `'f_ 'g_ c_ompose x`. Its definition lists parameters nearest-first (`{ g_ f_ a b -> ... }`). |
 | F7 | There is no separate operator class. Reduce, scan, each and table are ordinary curried functions; the function-first convention gives the APL look (`'+ r_/ A` for APL `+/A`). |
 
 ## 3. Names
