@@ -1,0 +1,1 @@
+higher-order step 6: proptests: reduce over concat, last of scan equals reduce, each of identity, table shape, sort sorted and a permutation, grade selects the sort.

@@ -1,0 +1,9 @@
+number = 3
+slug = "inner-compose-swap"
+status = "pending"
+description = "higher-order step 3: TDD i_nner (last axis of A with first axis of B, APL/J),..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T23:54:53"
+task_type = "code"
+commits = []

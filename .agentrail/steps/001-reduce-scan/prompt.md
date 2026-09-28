@@ -1,0 +1,1 @@
+higher-order step 1: TDD a way for built-ins to apply function values (machine apply callback, new component for higher-order built-ins); r_/ (right fold, leading axis) and s_\ (prefix reductions) with empty identities; record the saga decisions (see plan.md) in lang-choices B6/B7 and design.md.

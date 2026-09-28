@@ -194,21 +194,32 @@ What to do differently:
   session (fine for interactive use; revisit when effects such as
   `r_oll!` make replay nondeterministic).
 
-## Saga 5 -- higher-order (M4)
+## Saga 5 -- higher-order (M4)  [ACTIVE]
 
 Quoted functions and lambdas as values (F4), operand binding and
-chaining (F8, F9), applying function values (F5). `r_/` and `s_\`
-(leading axis, multi-axis R1, empty-reduce identities), `e_ach`,
-`t_able`, `i_nner`, `c_ompose`, `s_wap`; the B7 arithmetic, search
-and effect built-ins. Properties: reduce over concat, last of scan
-equals reduce.
+chaining (F8, F9) and applying function values (F5) already work for
+user functions. This saga adds `r_/` (right fold) and `s_\` (prefix
+reductions) on the leading axis with empty-reduce identities, `e_ach`
+(dyadic by currying), `t_able`, `i_nner`, `c_ompose`, `s_wap`, and the
+B7 search and random built-ins. Properties: reduce over concat, last
+of scan equals reduce. Multi-axis reduce and scan (R1) move to Saga 6.
+
+| #  | Step slug          | Delivers                                                  |
+| -- | ------------------ | --------------------------------------------------------- |
+| 1  | reduce-scan        | built-ins applying function values; `r_/`, `s_\`, identities |
+| 2  | each-table         | `e_ach` (monadic and dyadic by currying), `t_able`         |
+| 3  | inner-compose-swap | `i_nner`, `c_ompose`, `s_wap`                              |
+| 4  | search-builtins    | `i_ndexOf` `m_ember?` `u_nique` `s_ort` `g_rade` `w_here`  |
+| 5  | roll               | `r_oll!`, test-only seed, goldens tolerant of random output |
+| 6  | hof-properties     | property tests                                            |
+| 7  | m4-docs-release    | README M4 tour, docs sync, retrospective                  |
 
 ## Saga 6 -- rotate-and-axes (M5)
 
 `o_-` rotate (leading axis), `r_ev`, axis subscripts on any function
-by the move-to-front rule (A6), multi-axis rotate giving every
-combination (A4). Axis validation. Properties: rotate inverse.
-Animated 2-D rotate demo via CLI frames.
+by the move-to-front rule (A6), multi-axis reduce and scan (R1),
+multi-axis rotate giving every combination (A4). Axis validation.
+Properties: rotate inverse. Animated 2-D rotate demo via CLI frames.
 
 ## Saga 7 -- combinators (M6)
 

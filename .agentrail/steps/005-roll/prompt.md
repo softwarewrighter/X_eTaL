@@ -1,0 +1,1 @@
+higher-order step 5: TDD r_oll! (random 1..n item-wise), --seed / XETAL_SEED only for tests that need it; reg-rs goldens tolerant of nondeterministic output; tests assert ranges and that values usually differ.

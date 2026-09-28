@@ -1,0 +1,1 @@
+higher-order step 2: TDD e_ach (monadic, and dyadic by currying: pending item-wise application zipped with the next argument) and t_able (outer product), typed, with shape errors and rejection tests.

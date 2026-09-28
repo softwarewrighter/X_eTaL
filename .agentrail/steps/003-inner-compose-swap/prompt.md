@@ -1,0 +1,1 @@
+higher-order step 3: TDD i_nner (last axis of A with first axis of B, APL/J), c_ompose and s_wap, typed, with rejection tests.

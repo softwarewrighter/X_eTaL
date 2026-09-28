@@ -1,0 +1,9 @@
+number = 2
+slug = "each-table"
+status = "pending"
+description = "higher-order step 2: TDD e_ach (monadic, and dyadic by currying: pending item..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T23:54:53"
+task_type = "code"
+commits = []

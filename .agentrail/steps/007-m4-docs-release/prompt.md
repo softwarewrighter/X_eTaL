@@ -1,0 +1,1 @@
+higher-order step 7: README M4 tour (every command a golden), docs sync (plan.md, PRD status, architecture), Saga 5 retrospective in docs/plan.md.
