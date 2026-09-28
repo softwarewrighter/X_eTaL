@@ -7,3 +7,6 @@ u:s_ub := { _l - _r }; 10 u:s_ub 3
 == CANONICAL
 u:s_ub := { (_l - _r) }
 (10 u:s_ub 3)
+== CORE
+(def u:s_ub (lam _l (lam _r (app2 #- _l _r))))
+(eval (app2 u:s_ub 10 3))

@@ -154,8 +154,9 @@ fn run(command: &Command) -> Result<String, Diagnostic> {
             .join("\n")),
         Command::Parse(_) => Ok(xetal_syntax::parse(&source)?.to_string()),
         Command::Fmt(_) => xetal_render::canonical(&source),
+        Command::Core(_) => Ok(xetal_core::lower(&source)?.to_string()),
         _ => {
-            xetal_syntax::parse(&source)?;
+            xetal_core::lower(&source)?;
             Err(Diagnostic::unsupported(command.stage()))
         }
     }

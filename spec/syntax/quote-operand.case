@@ -5,3 +5,5 @@
 ((operand + r_/) v)
 == CANONICAL
 ('+ r_/ v)
+== CORE
+(eval (app (app #r_/ #+) v))

@@ -7,3 +7,6 @@ u:s_quare := { _r * _r }; u:s_quare 7
 == CANONICAL
 u:s_quare := { (_r * _r) }
 (u:s_quare 7)
+== CORE
+(def u:s_quare (lam _r (app2 #* _r _r)))
+(eval (app u:s_quare 7))

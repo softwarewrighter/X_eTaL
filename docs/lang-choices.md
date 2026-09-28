@@ -101,6 +101,7 @@ This document supersedes `docs/syntax-proposal.md`.
 | -- | -------- |
 | TR1 | Trains are written in square brackets. A fork `[F G H] x` is `(F x) G (H x)`; dyadically `x [F G H] y` is `(x F y) G (x H y)`. Elements are function expressions: names, symbols, or quoted-operand derived functions (`'+ r_/`). |
 | TR2 | A two-element train is atop: `[F G] x` is `F (G x)` (BQN / Dyalog, not J's hook). |
+| TR4 | A train's arity comes from where it is written: `[F G H] x` is monadic, `x [F G H] y` dyadic. A train bound to a name or quoted is monadic (`u:a_vg := ['+ r_/ / t_ally]`); a named dyadic train is written as a lambda, `{ a b -> (a F b) G (a H b) }`. Decided with the user during the core-desugar step. |
 | TR3 | Longer trains group from the right into forks: `[A B C D E]` is `[A B [C D E]]`. Trains desugar to ordinary application; nothing train-specific reaches the evaluator. |
 
 ```

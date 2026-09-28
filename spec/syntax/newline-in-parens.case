@@ -6,3 +6,5 @@
 (+ 1 2)
 == CANONICAL
 (1 + 2)
+== CORE
+(eval (app2 #+ 1 2))

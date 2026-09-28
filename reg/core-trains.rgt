@@ -1,0 +1,3 @@
+command = """./target/debug/xetal core -e "u:a_vg := ['+ r_/ / t_ally]; x ['+ r_/ / t_ally] y""""
+exit_code = 0
+desc = "xetal core: a bound train is monadic, an inline dyadic train expands in place (TR4)"

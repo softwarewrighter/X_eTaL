@@ -5,3 +5,5 @@
 (lambda (x) ((lambda (_r) _r) x))
 == CANONICAL
 { x -> ({ _r } x) }
+== CORE
+(eval (lam x (app (lam _r _r) x)))

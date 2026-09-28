@@ -10,3 +10,7 @@ x + y
 x := 3
 y := (x + 1)
 (x + y)
+== CORE
+(let x 3)
+(let y (app2 #+ x 1))
+(eval (app2 #+ x y))

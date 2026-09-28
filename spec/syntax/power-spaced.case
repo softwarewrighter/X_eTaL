@@ -5,3 +5,5 @@ x ^ n + 1
 (^ x (+ n 1))
 == CANONICAL
 (x ^ (n + 1))
+== CORE
+(eval (app2 #^ x (app2 #+ n 1)))

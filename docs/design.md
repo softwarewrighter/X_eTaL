@@ -91,13 +91,39 @@ errors instead of being resolved.
 ## 4. Core IR
 
 ```
-Expr := Lit(Scalar | Array) | Unit | Var(Id) | Prim(PrimId, Axes)
-      | Lam(Id, Lazy, Expr) | App(Expr, Expr) | Let(Id, Expr, Expr)
+Item := Def(Global, Expr) | Let(Id, Rec, Expr) | Set(Id, Expr) | Eval(Expr)
+Expr := Lit | Str | Unit | Array(Expr*) | Var(Id) | Global(Name)
+      | Prim(Name) | Axes(Digits, Expr) | Lam(Param, Lazy, Expr)
+      | App(Expr, Expr) | App2(Expr, Expr, Expr)
+      | Let(Id, Rec, Expr, Expr) | Set(Id, Expr, Expr)
+      | If(Expr, Expr, Expr) | NoMatch
 ```
 
-Guards, trains, quotes, operand binding and statements desugar into
-these forms (saga calculus, step 5). Every Core node carries the
-NodeId and source span of the surface construct it came from.
+Pinned by `crates/xetal-core/tests/core/` and the `CORE` sections of
+`spec/syntax/*.case`; `xetal core` prints it with built-ins marked `#`.
+
+- `x f y` lowers to `App2(f, x, y)`, which means `App(App(f, x), y)`
+  but evaluates the function, then the right argument, then the left
+  (E4); `(f x)_ y` lowers to the nested `App`.
+- A quoted operand is curried: `'+ r_/ A` is `App(App(r_/, +), A)`,
+  the same Core as `(r_/ '+)_ A`. `x^2` is `App2(^, x, 2)`, the same as
+  `x ^ 2`.
+- Names: `ns:` names are module globals, defined once per file and
+  late-bound (so definitions may refer to each other); plain variables
+  and parameters are lexical, so a lambda keeps the values it captured
+  (M1); an unqualified function name is a parameter or local binding
+  if one is in scope (L7), otherwise a built-in.
+- A binding whose value is a lambda or train is recursive (`letrec`);
+  other bindings are not, so `x := x + 1` refers to the previous `x`.
+  Rebinding a mutable `!` variable already in scope is `Set`.
+- Lambda bodies fold into `Let` / `If` chains; a guard with nothing
+  after it falls through to `NoMatch` (G2).
+- Trains take their arity from position (TR4): monadic trains lower to
+  a lambda, a dyadic train written in place binds its arguments (right
+  first) and expands `(x F y) G (x H y)` in place.
+
+Every Core node carries the NodeId and source span of the surface
+construct it came from.
 
 ## 5. Types
 

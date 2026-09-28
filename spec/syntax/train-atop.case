@@ -5,3 +5,5 @@
 ((train n_eg a_bs) x)
 == CANONICAL
 ([n_eg a_bs] x)
+== CORE
+(eval (app (lam %1 (app #n_eg (app #a_bs %1))) x))

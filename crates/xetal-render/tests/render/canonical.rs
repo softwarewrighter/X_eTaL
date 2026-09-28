@@ -107,5 +107,8 @@ proptest! {
         let reparsed = parse(&formatted).map_err(|e| TestCaseError::fail(format!("{src:?} -> {formatted:?}: {e:?}")))?;
         prop_assert_eq!(reparsed.to_string(), tree.to_string(), "{:?} -> {:?}", src, formatted);
         prop_assert_eq!(canonical(&formatted).expect("formats"), formatted.clone());
+        let before = xetal_core::lower(&src).map(|p| p.to_string()).map_err(|e| e.code);
+        let after = xetal_core::lower(&formatted).map(|p| p.to_string()).map_err(|e| e.code);
+        prop_assert_eq!(after, before, "Core changed: {:?} -> {:?}", src, formatted);
     }
 }

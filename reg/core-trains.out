@@ -1,0 +1,2 @@
+(def u:a_vg (lam %1 (app2 #/ (app (app #r_/ #+) %1) (app #t_ally %1))))
+(eval (let %3 y (let %2 x (app2 #/ (app2 (app #r_/ #+) %2 %3) (app2 #t_ally %2 %3)))))

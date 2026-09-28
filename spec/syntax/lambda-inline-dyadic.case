@@ -5,3 +5,5 @@ S { (_l = 3) + _r } B
 ((lambda (_l _r) (+ (= _l 3) _r)) S B)
 == CANONICAL
 (S { ((_l = 3) + _r) } B)
+== CORE
+(eval (app2 (lam _l (lam _r (app2 #+ (app2 #= _l 3) _r))) S B))

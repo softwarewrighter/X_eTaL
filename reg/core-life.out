@@ -1,0 +1,1 @@
+(def u:l_ife (lam _r (app2 (lam _l (lam _r (app2 #+ (app2 #= _l 3) (app2 #* _r (app2 #= _l 4))))) (app (app (axes 12 #r_/) #+) (app2 (axes 12 #o_-) (array -1 0 1) _r)) _r)))

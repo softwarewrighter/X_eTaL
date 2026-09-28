@@ -5,3 +5,5 @@ A '* t_able B
 ((operand * t_able) A B)
 == CANONICAL
 (A '* t_able B)
+== CORE
+(eval (app2 (app #t_able #*) A B))

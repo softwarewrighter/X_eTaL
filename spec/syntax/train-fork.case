@@ -5,3 +5,5 @@
 (train (operand + r_/) / t_ally)
 == CANONICAL
 ['+ r_/ / t_ally]
+== CORE
+(eval (lam %1 (app2 #/ (app (app #r_/ #+) %1) (app #t_ally %1))))

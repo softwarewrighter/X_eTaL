@@ -5,3 +5,5 @@ f_ g_ x
 (f_ (g_ x))
 == CANONICAL
 (f_ (g_ x))
+== CORE
+(eval (app #f_ (app #g_ x)))

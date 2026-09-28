@@ -5,3 +5,5 @@ r_/ '+
 (r_/ (quote +))
 == CANONICAL
 (r_/ '+)
+== CORE
+(eval (app #r_/ #+))

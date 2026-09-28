@@ -64,9 +64,9 @@ has S of 4. The two tests never both hold, so `+` acts as "or".
 
 Early. The lexer (`xetal lex`), the decorated renderer
 (`xetal render`), the parser (`xetal parse`) and the canonical
-formatter (`xetal fmt`) work; desugaring, types and evaluation are not
-implemented yet, and those commands report `error[unsupported]` after
-checking that the source parses. The language is specified by its test suite as it is built;
+formatter (`xetal fmt`) and the desugaring to Core (`xetal core`)
+work; types and evaluation are not implemented yet, and those commands
+report `error[unsupported]` after checking that the source desugars. The language is specified by its test suite as it is built;
 the design documents describe the intended language.
 
 ## Documentation

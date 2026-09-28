@@ -1,36 +1,72 @@
-//! Core IR and desugaring of the surface AST.
+//! Core IR and desugaring of the surface AST (docs/design.md section 4).
 //!
-//! Stub: the stage is not implemented yet; its error type already
-//! converts into `xetal_base::Diagnostic` like every other crate.
+//! Every surface form lowers to a small calculus: literals, arrays,
+//! variables, globals, built-ins, lambdas, application, let, guards.
+//! Sugar forms lower to identical Core (normalization-equivalence tests).
 
-use xetal_base::Diagnostic;
+mod body;
+mod expr;
+mod ir;
+mod show;
+mod train;
+
+pub use ir::{Expr, Item, Kind, Param, Program};
+
+use std::collections::HashSet;
+
+use xetal_base::{Diagnostic, NodeId, Span};
 
 /// Pipeline stage name used in diagnostics and by the CLI.
 pub const STAGE: &str = "core";
 
-/// Errors produced by this crate.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub enum DesugarError {
-    /// The stage has not been implemented yet.
-    Unsupported,
+/// Parse and lower a whole program to Core.
+pub fn lower(src: &str) -> Result<Program, Diagnostic> {
+    let program = xetal_syntax::parse(src)?;
+    let mut lower = Lower {
+        next_id: 0,
+        fresh: 0,
+        scopes: vec![HashSet::new()],
+        lambdas: 0,
+    };
+    lower.program(&program)
 }
 
-impl From<DesugarError> for Diagnostic {
-    fn from(err: DesugarError) -> Self {
-        match err {
-            DesugarError::Unsupported => Diagnostic::unsupported(STAGE),
+pub(crate) fn err(code: &str, span: Span, message: impl Into<String>) -> Diagnostic {
+    Diagnostic::new(code, message).with_span(span)
+}
+
+pub(crate) struct Lower {
+    next_id: u32,
+    fresh: u32,
+    /// Names bound locally (parameters, local bindings), innermost last.
+    scopes: Vec<HashSet<String>>,
+    /// How many lambdas enclose the current point.
+    lambdas: usize,
+}
+
+impl Lower {
+    pub(crate) fn node(&mut self, span: Span, kind: Kind) -> Expr {
+        self.next_id += 1;
+        Expr {
+            id: NodeId(self.next_id),
+            span,
+            kind,
         }
     }
-}
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+    /// A fresh name no source program can spell (`%1`, `%2`, ...).
+    pub(crate) fn fresh_name(&mut self) -> String {
+        self.fresh += 1;
+        format!("%{}", self.fresh)
+    }
 
-    #[test]
-    fn unsupported_converts_to_a_diagnostic_naming_the_stage() {
-        let d: Diagnostic = DesugarError::Unsupported.into();
-        assert_eq!(d.code, "unsupported");
-        assert!(d.message.contains("`core`"), "{}", d.message);
+    pub(crate) fn is_bound(&self, name: &str) -> bool {
+        self.scopes.iter().any(|s| s.contains(name))
+    }
+
+    pub(crate) fn bind(&mut self, name: &str) {
+        if let Some(scope) = self.scopes.last_mut() {
+            scope.insert(name.to_string());
+        }
     }
 }

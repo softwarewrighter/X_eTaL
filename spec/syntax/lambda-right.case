@@ -5,3 +5,5 @@
 (lambda (_r) (* _r _r))
 == CANONICAL
 { (_r * _r) }
+== CORE
+(eval (lam _r (app2 #* _r _r)))

@@ -5,3 +5,5 @@
 ((apply (s_wap (quote -))) 3)
 == CANONICAL
 ((s_wap '-)_ 3)
+== CORE
+(eval (app (app #s_wap #-) 3))

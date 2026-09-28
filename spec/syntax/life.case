@@ -5,3 +5,5 @@ u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 (:= u:l_ife (lambda (_r) ((lambda (_l _r) (+ (= _l 3) (* _r (= _l 4)))) ((operand + r_/_12) (o_-_12 (strand -1 0 1) _r)) _r)))
 == CANONICAL
 u:l_ife := { (('+ r_/_12 (-1 0 1 o_-_12 _r)) { ((_l = 3) + (_r * (_l = 4))) } _r) }
+== CORE
+(def u:l_ife (lam _r (app2 (lam _l (lam _r (app2 #+ (app2 #= _l 3) (app2 #* _r (app2 #= _l 4))))) (app (app (axes 12 #r_/) #+) (app2 (axes 12 #o_-) (array -1 0 1) _r)) _r)))

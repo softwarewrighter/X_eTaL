@@ -195,3 +195,12 @@ fn fmt_prints_the_canonical_form() {
         .success()
         .stdout("x := 3\n(a f_ (b g_ c))\n");
 }
+
+#[test]
+fn core_prints_the_desugared_program() {
+    xetal()
+        .args(["core", "-e", "u:s_quare := { _r * _r }; u:s_quare 7"])
+        .assert()
+        .success()
+        .stdout("(def u:s_quare (lam _r (app2 #* _r _r)))\n(eval (app u:s_quare 7))\n");
+}

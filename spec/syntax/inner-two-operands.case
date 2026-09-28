@@ -5,3 +5,5 @@ A '+ '* i_nner B
 ((operand + (operand * i_nner)) A B)
 == CANONICAL
 (A '+ '* i_nner B)
+== CORE
+(eval (app2 (app (app #i_nner #*) #+) A B))

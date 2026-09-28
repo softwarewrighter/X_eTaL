@@ -8,3 +8,5 @@ u:f_act := { n ->
 (:= u:f_act (lambda (n) (? (<= n 1) 1) (* n (u:f_act (- n 1)))))
 == CANONICAL
 u:f_act := { n -> (n <= 1) ? 1; (n * (u:f_act (n - 1))) }
+== CORE
+(def u:f_act (lam n (if (app2 #<= n 1) 1 (app2 #* n (app u:f_act (app2 #- n 1))))))

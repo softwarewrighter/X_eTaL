@@ -1,6 +1,6 @@
 number = 5
 slug = "core-desugar"
-status = "pending"
+status = "in-progress"
 description = "calculus step 5: TDD xetal-core: Core IR (Lit, Unit, Var, Prim, Lam with a la..."
 role = "production"
 context_files = []

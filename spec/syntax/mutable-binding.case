@@ -5,3 +5,5 @@ count! := count! + 1
 (:= count! (+ count! 1))
 == CANONICAL
 count! := (count! + 1)
+== CORE
+(let count! (app2 #+ count! 1))

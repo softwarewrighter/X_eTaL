@@ -5,3 +5,5 @@
 ((operand (lambda (x) (* x 2)) e_ach) v)
 == CANONICAL
 ('{ x -> (x * 2) } e_ach v)
+== CORE
+(eval (app (app #e_ach (lam x (app2 #* x 2))) v))

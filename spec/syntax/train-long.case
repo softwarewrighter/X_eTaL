@@ -5,3 +5,5 @@
 (train a_ b_ (train c_ d_ e_))
 == CANONICAL
 [a_ b_ [c_ d_ e_]]
+== CORE
+(eval (lam %1 (app2 #b_ (app #a_ %1) (app2 #d_ (app #c_ %1) (app #e_ %1)))))
