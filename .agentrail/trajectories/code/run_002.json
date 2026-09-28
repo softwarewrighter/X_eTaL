@@ -1,0 +1,11 @@
+{
+  "task_type": "code",
+  "state": {
+    "number": 2,
+    "step": "each-table"
+  },
+  "action": "TDD spec cases; new crate by expand-out; Caller-based kernels; fake Caller tests",
+  "result": "success",
+  "reward": 1,
+  "timestamp": "2026-09-28T09:49:59"
+}

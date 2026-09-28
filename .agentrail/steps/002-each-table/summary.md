@@ -1,0 +1,1 @@
+e_ach (monadic, dyadic by currying via a pending #each value zipped with the next argument, scalar extension) and t_able (outer product) in new crate xetal-map (components/hof). Single-value results enforced until nested arrays. 3 spec cases + 6 rejections, crate tests for call order, docs. Gate green, pushed.
