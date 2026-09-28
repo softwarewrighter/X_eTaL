@@ -1,0 +1,9 @@
+number = 7
+slug = "lang-choices-2"
+status = "in-progress"
+description = "foundations step 7 (inserted): continue recording the user's one-at-a-time la..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T19:03:56"
+task_type = "docs"
+commits = []

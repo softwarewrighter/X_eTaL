@@ -1,4 +1,4 @@
-number = 7
+number = 8
 slug = "parser-surface-ast"
 status = "pending"
 description = "foundations step 4: TDD xetal-syntax parser to a surface AST with spans. Clas..."

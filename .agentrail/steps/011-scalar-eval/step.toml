@@ -1,4 +1,4 @@
-number = 10
+number = 11
 slug = "scalar-eval"
 status = "pending"
 description = "foundations step 7 (M1 demo): TDD xetal-eval, a strict evaluator over Core on..."

@@ -1,0 +1,1 @@
+foundations step 7 (inserted): continue recording the user's one-at-a-time language decisions (Q29 onward: sections, strings, aliasing, binary name, remaining built-in names) in docs/lang-choices.md; commit each update; complete when the open queue is decided. Docs only.

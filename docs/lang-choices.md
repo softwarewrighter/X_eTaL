@@ -137,14 +137,27 @@ Named instead of symbols: `n_eg` (negate), `n_ot` (not), `m_od`
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example superscript `q`, subscript `@`, superscript decimal point). |
 | I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` as the diamond, `#` as the lamp, `!=` `<=` `>=` `*` `/` `&` `\|` as their mathematical glyphs. |
 
-## 11. Pending: Question 29 (sections)
+## 11. Sections
 
-Applying a symbol function to one argument would, under currying,
-fill its *left* argument: `- 3` would mean "3 minus ...", not negate.
-Recommended: (b) a symbol applied to one argument is an error with a
-hint (use `n_eg`, or a lambda such as `{ x -> x - 3 }`); named
-functions still curry (`r_/ '+`, `o_- 1`). This also settles `2 +`
-(an error). Not yet decided.
+| #  | Decision |
+| -- | -------- |
+| S6 | A symbol function applied to one argument is an error (`- 3`, `/ 2`, `2 +`): under currying it would fill the *left* argument, so `- 3` would mean "3 minus ...". Named functions still curry (`r_/ '+`, `o_- 1`), and a quoted symbol may be partially applied explicitly (`('-)_ 3`). |
+
+What each reading of `- 3` is written as:
+
+```
+-3                        # the number negative three (negative literal)
+x - -3                    # x minus negative three
+n_eg 3                    # negate a value: -3
+n_eg 1 2 3                # -1 -2 -3 (element by element); -1 2 3 is a literal
+u:l_ess3 := { x -> x - 3 }        # "subtract 3"
+u:l_ess3 := (s_wap '-)_ 3         # the same, point-free (s_wap: flip, placeholder)
+u:f_romThree := { x -> 3 - x }    # "3 minus something"
+u:f_romThree := ('-)_ 3           # the same, point-free: quoted minus, left filled
+```
+
+The error for `- 3` names all three fixes: write `-3` for the
+number, `n_eg 3` to negate, `{ x -> x - 3 }` to subtract 3.
 
 ## 12. Queue of open questions
 
