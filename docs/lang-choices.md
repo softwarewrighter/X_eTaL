@@ -179,8 +179,27 @@ Planned enhancements (after the MVP milestones):
 | -- | -------- |
 | MC1 | A macro phase runs between the lexer and the parser. It works on the token stream (not raw text), and every token keeps its original file and span, so errors inside an inlined library point at the library's source. |
 | MC2 | A macro is a function-shaped name ending in `<` ("slurp in"): `u_se<`. Macros are system-provided. No keywords are introduced. The `<` suffix on function names is reserved for macros. |
-| MC3 | Macros follow the ordinary application shapes: monadic `u_se< "Combinators"` inlines the library under the namespace it declares; dyadic `"k:" u_se< "Combinators"` inlines it with that namespace rewritten to `k:` (Python's `as`). |
+| MC3 | `u_se<` is applied like a dyadic function: `"c:" u_se< "Combinators"` inlines the library with its namespace rewritten to `c:` (Python's `as`). The alias is always required; monadic `u_se< "X"` is an error, so every namespace is visible where it is introduced. |
 | MC4 | The library argument is a string: an installed library name (`"Combinators"`) or a file path (`"../lib/life.xtl"`). The alias string must be a namespace (letters followed by `:`); otherwise it is a macro-phase error. |
+
+| MC5 | A library defines its own names under `l:` ("this library"); a program defines under `u:`. The macro rewrites a library's `l:` to the importer's alias. There is no namespace-declaration macro. |
+| MC6 | Aliases are per file. A library's own imports are private to it. The macro phase renames every library instance to a hidden, globally unique internal namespace and rewrites each file's letters through that file's alias table, so letters in different files never collide. Error messages and the display use the letter written in the file being read. |
+| MC7 | Each library (identified by its resolved path) is instantiated once and shared by every file that imports it; values are immutable, so sharing is safe. |
+
+Example:
+
+```
+# Combinators.xtl  (a library)
+l:K_ := { x y -> x }
+l:B_ := { f_ g_ x -> f_ g_ x }
+```
+
+```
+# life.xtl  (a program)
+"c:" u_se< "Combinators"     # Combinators' l: is c: in this file
+u:l_ife := { ... }
+c:K_ 1 2
+```
 
 Errors found in the macro phase are reported before anything runs,
 which is better than combining libraries incorrectly. The full list
@@ -188,8 +207,7 @@ is sub-decision 32d.
 
 ## 14. Queue of open questions
 
-- How a library declares its default namespace (32c) and the list of
-  macro-phase errors (32d).
+- The list of macro-phase errors (32d).
 - Binary name: `xetal` or `x_etal`.
 - Optional, later: a spelling for axes above 9; function power on
   functions; an explicit `_` wildcard parameter (`{ x _ -> x }`);
