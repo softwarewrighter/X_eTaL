@@ -98,6 +98,7 @@ This document supersedes `docs/syntax-proposal.md`.
 | S3 | `;` separates statements on one line (APL's diamond), at the top level and inside `{ }`; it is an error inside `( )` and `[ ]`. Empty statements are ignored. The display may render `;` as the diamond. |
 | S4 | `#` starts a comment anywhere on a line and runs to the end of the line; the newline still separates statements. The display renders `#` as APL's lamp. |
 | S5 | Scripts use the extension `.xtl` and start with `#!/usr/bin/env xetal` (a plain comment). `xetal FILE` runs FILE. |
+| S7 | The command is `xetal` (easy to type, matches the crate slug). `x_etal` is installed as an alias (symlink), so `#!/usr/bin/env x_etal` also works. The display name stays `X_eTaL`, which decorates as X underlined, matching the logo. |
 
 ## 8. Symbols
 
@@ -228,7 +229,6 @@ interface is unambiguous.
 
 ## 14. Queue of open questions
 
-- Binary name: `xetal` or `x_etal`.
 - Optional, later: a spelling for axes above 9; function power on
   functions; an explicit `_` wildcard parameter (`{ x _ -> x }`);
   count-from-the-end axes.
