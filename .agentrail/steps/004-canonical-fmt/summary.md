@@ -1,0 +1,1 @@
+Canonical formatter (xetal-render::canonical, xetal fmt): fully parenthesized, one statement per line, lambdas keep parameter style, explicit train grouping; proptest parse(fmt(parse x)) == parse x and idempotence; CANONICAL sections on all spec/syntax cases; goldens fmt-life, fmt-factorial.
