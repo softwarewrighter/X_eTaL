@@ -1,6 +1,6 @@
 number = 2
 slug = "render-revision"
-status = "pending"
+status = "in-progress"
 description = "calculus step 2: TDD the xetal-render revision to docs/lang-choices.md sectio..."
 role = "production"
 context_files = []

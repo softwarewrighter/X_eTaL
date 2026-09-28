@@ -8,6 +8,7 @@ const PIECES: &[&str] = &[
     "x",
     "count!",
     "m:pi",
+    "q:x",
     "r_ev",
     "self_",
     "u:s_quare",
@@ -24,7 +25,12 @@ const PIECES: &[&str] = &[
     "+",
     "-",
     "*",
+    "/",
     "!=",
+    "<=",
+    ">=",
+    "&",
+    "|",
     ":=",
     "->",
     "?",
@@ -40,8 +46,8 @@ const PIECES: &[&str] = &[
     "]",
     "42",
     "-1",
-    "\"a_b\"",
-    "# note",
+    "\"a_b; *\"",
+    "# a; b * c # d",
 ];
 
 fn source() -> impl Strategy<Value = String> {

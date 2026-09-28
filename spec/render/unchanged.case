@@ -1,5 +1,5 @@
-# Variables, symbols, punctuation, strings and comments are shown as typed.
+# Variables, lambda arguments, + = < > ^, strings and Unit are shown as typed.
 == SOURCE
-x count! m:pi _l _r_ + != := -> "a_b" # note
+x count! _l _r_ + = < > ^ "a_b; *" @
 == RENDER
-x count! m:pi _l _r_ + != := -> "a_b" # note
+x count! _l _r_ + = < > ^ "a_b; *" @

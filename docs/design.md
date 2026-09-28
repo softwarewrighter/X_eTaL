@@ -1,276 +1,139 @@
-# X_eTaL -- Language Design (v0 proposal)
+# X_eTaL -- Language Design
 
-Status: PROPOSAL. Every rule below is provisional until a test pins
-it. When a test and this document disagree, the test wins and this
-document is updated in the same commit. Research transcripts
-(`docs/research*.txt`) are archival; where they disagree with each
-other this document records the chosen resolution and why.
+Status: the language decisions are recorded, with their reasons, in
+`docs/lang-choices.md`; this document summarizes the design and says
+where each part is pinned by tests. When a test and this document
+disagree, the test wins and this document is updated in the same
+commit. Research transcripts (`docs/research*.txt`) are archival.
 
-Name: X_eTaL (display name). Code uses the
-slug `xetal` (crates, binary) and a single display-name constant
-`xetal_base::LANG_NAME`, so a rename touches one constant plus docs.
+Name: X_eTaL (display name). Code uses the slug `xetal` (crates,
+binary) and a single display-name constant `xetal_base::LANG_NAME`,
+so a rename touches one constant plus docs.
 
 ## 1. Guiding rules
 
 1. Tests define the language.
-2. Decoration determines grammatical class; spelling never does
-   (except for the fixed built-in dictionary of names).
+2. Decoration determines grammatical class: an underlined letter
+   makes a function name. Spelling never does, except for the fixed
+   dictionary of built-in names and macros.
 3. Ambiguity is an error. The parser never "picks something
    reasonable"; types may reject a unique parse but never choose
    between parses.
 4. All surface sugar desugars to a small Core IR.
 5. Built-ins and user definitions follow identical application rules.
 6. Invalid valence/type is an error; arguments are never ignored.
+7. Code is read more often than written; definitions may be verbose,
+   uses should be terse (lang-choices P1, P2).
 
 ## 2. Lexical structure (raw ASCII source)
 
-OUT OF DATE: sections 2, 3 and 8 describe the earlier syntax (superscript
-derivations, `_` as both underline and subscript). The lexer now
-follows `docs/lang-choices.md`, which governs; these sections are
-rewritten in the next step of the current saga.
+Source is ASCII only (lang-choices I1). Spaces, tabs, carriage returns
+and `#` comments (to the end of the line) separate tokens; each `\n`
+is a `Newline` token. Pinned by `crates/xetal-lex/tests/lex/` and
+`spec/lex/*.case`; `xetal lex` prints the tokens with byte spans.
 
-Source is ASCII (Latin-1 tolerated only inside string/char literals,
-which are deferred); any other character is a `non-ascii` error, and
-ASCII characters outside the token set (`# , : ' " $ % ! ? ~ &` ...)
-are `unexpected-char` (so there are no comments yet). Spaces, tabs and
-carriage returns separate tokens. Each `\n` is a `Newline` token; the
-parser decides whether it acts like `;` (D2).
+| Token | Raw examples | Rules (lang-choices) |
+| ----- | ------------ | -------------------- |
+| variable | `x`, `board2`, `count!`, `m:pi` | letters and digits; trailing `!` marks a mutable variable (N1, N4, M2) |
+| function name | `r_ev`, `self_`, `u:s_quare`, `c:K_` | exactly one `_`, directly after a letter, which underlines that letter (N2) |
+| trailing mark | `r_/`, `o_-`, `e_mpty?`, `u_se<` | one of `\| - / \ + * < > ~ ! ? % $ &` ends a function name; `<` marks a macro (N3, MC2) |
+| namespace | `u:`, `c:`, `l:`, `m:` | letters then `:`, directly before a name (N5) |
+| axis subscript | `r_/_2`, `o_-_12`, `r__2` | `_digits` after a function name, one digit per axis, 1-9, no repeats (D-8, D-9) |
+| exponent | `x^2`, `x^-1`, `(a + b)^2` | `^` touching a value token or `)`, then a number literal (D-1 to D-5) |
+| number | `42`, `2.5`, `-1` | a `-` before a digit at a token boundary is a negative literal |
+| string | `"abc"`, `"a\"b"` | single line, ASCII, escapes `\"` `\\` `\n` `\t` (ST1, ST2) |
+| symbol | `+ - * / ^ = != < > <= >= & \|` | all dyadic; spaced `^` is power (section 8, D-6) |
+| lambda argument | `_l`, `_r`, `_l_`, `_r_` | `_l_` / `_r_` apply the argument's value (L1, F5) |
+| other | `:=` `->` `?` `'` `~` `@` `;` `( ) { } [ ]` | binding, parameter arrow, guard (spaced), quote, lazy marker, Unit, separators |
 
-The raw ASCII is also the typing shorthand: `_` underline, `_12`
-subscript, `^r` superscript. No input method is needed; `xetal render`
-shows the decorated Unicode form and `--raw` converts it back (section
-8). The lexer does not accept decorated Unicode input (D13).
-
-Pinned by `crates/xetal-lex/tests/lex/` and `spec/lex/*.case`.
-
-### 2.1 Names and decoration
-
-A *stem* is `[A-Za-z][A-Za-z0-9]*` (no underscores inside stems).
-Decoration suffixes, in fixed canonical order:
-
-```
-stem [ '^' SUP ] [ '_' [ SUB ] ]          -- canonical order
-SUP  := letter-word  (derivation: r reduce, s scan, e each, o outer)
-SUB  := digits       (axis list: 1..9, each digit one axis)
-      | '@'          (niladic application sugar)
-      | empty        (bare underline: "this is a function")
-```
-
-| Raw        | Token                                   |
-| ---------- | --------------------------------------- |
-| `r`        | `Noun(r)`                               |
-| `r_`       | `Func(r)`                               |
-| `t_2`      | `Func(t, axes=[2])`                     |
-| `t_12`     | `Func(t, axes=[1,2])`                   |
-| `now_@`    | `Func(now, niladic)` -> sugar           |
-| `+^r`      | `Func(+, deriv=r)`                      |
-| `+^r_2`    | `Func(+, deriv=r, axes=[2])`            |
-| `f^s`      | `Func(f, deriv=s)`                      |
-| `m.f_`     | `Func(f, ns=m)`                         |
-
-The lexer keeps the superscript word as written (`r`, `reduce`); the
-dictionary resolves it later, so an unknown word is not a lex error.
-
-Pinned lexical rules (each has a rejection test):
-
-- A name is a function iff it has a symbol stem, a superscript or an
-  underline; a plain named stem is a noun.
-- A bare underline must add something: `+_` and `f^r_` are
-  `redundant-underline` (one spelling per meaning). `+_1`, `+^r_2`,
-  `f^r` are fine.
-- Axes are digits 1-9, each at most once: `r_0`, `t_11` are `bad-axis`.
-- Canonical order only: `r_2^r`, `r_^r` are `non-canonical-order`;
-  `r__`, `a_b`, `t_2x`, `now_@x`, `f_.g` are `bad-decoration`; one
-  superscript only (`+^r^s`); `r^` needs a word; `+^2` is not a word.
-- A decorated or named name must end at a delimiter (not a letter,
-  digit, `_ ^ . @`). An undecorated symbol may touch anything (`1+2`).
-- Namespace prefixes: one level, on named functions only. `m.x`,
-  `m.+`, `a.b.f_`, `m.` are `bad-namespace`.
-- Lambda arguments are exactly `_l` / `_r`, undecorated: `_x`, `_lx`,
-  `_r_`, `_l^r`, `_@`, `_` are `bad-lambda-arg` (D12).
-- Numbers are `[-]digits[.digits]`, 64-bit integers or floats; `1.`,
-  `1.2.3`, `2x`, `2_`, `2^r` are `bad-number`, `.5` is
-  `unexpected-char`, too-large integers are `number-out-of-range`.
-
-Symbol stems are always functions: `+ - * / = < > |` (set to be
-pinned; `%` etc. reserved). A symbol may carry `^SUP` and `_SUB`.
-
-Resolved research conflict: the research used superscripts both for
-provenance (`r^u`, `r^m`) and for derivation (`a^r` reduce). v0
-reserves superscript for **derivation**; provenance/namespace uses a
-dotted prefix `m.f_` (the research's own stated preference).
-
-Resolved research conflict: the research used `r` for both rotate and
-reduce and `s` for both scan and shape. v0 dictionary (terse / long):
-
-| Terse | Long        | Monadic            | Dyadic                  |
-| ----- | ----------- | ------------------ | ----------------------- |
-| `i_`  | `range_`    | range 1..n         | (reserved: index-of)    |
-| `p_`  | `shape_`    | shape-of (rho)     | reshape                 |
-| `x_`  | `index_`    | (reserved)         | select / slice (axis)   |
-| `t_`  | `rotate_`   | reverse on axis    | rotate by n on axis     |
-| `^r`  | `^reduce`   | derivation: reduce |                         |
-| `^s`  | `^scan`     | derivation: scan   |                         |
-| `^e`  | `^each`     | derivation: each   |                         |
-| `^o`  | `^outer`    | derivation: outer  |                         |
-
-Terse and long spellings must desugar to the identical Core node
-(normalization-equivalence tests).
-
-### 2.2 Other tokens
-
-| Raw        | Token                                          |
-| ---------- | ---------------------------------------------- |
-| `_l` `_r`  | `LamArg(Left)`, `LamArg(Right)` (leading `_`)  |
-| `@`        | `Unit`                                         |
-| `;`        | statement separator                            |
-| `{ }`      | lambda                                         |
-| `( )`      | grouping                                       |
-| `[ ]`      | train                                          |
-| `=`        | equality function, or binding (see 3.4)        |
-| `-1`, `2.5`| numbers; negative-literal rule below           |
-
-Negative literals (no high-minus in ASCII): `-` immediately followed by
-a digit, and preceded by start-of-input, whitespace (including a
-newline), `(`, `{`, `[` or `;`, lexes as part of a number. So `-1 0 1`
-is a 3-vector, `3 - 1` is subtraction, `3 -1` is the 2-vector `3 -1`,
-and `3-1` is an `ambiguous-minus` error (requires spaces). The same
-applies after any token: `a-1`, `(x)-1`, `2 +-1`, `--1`, `f_-1` are
-errors. `-x` (minus before a letter) is the function `-` then `x`.
-Each case is a pinned test.
-
-Rejected at lex time (examples): `r__`, `r_0` (axes are 1-based),
-`_x` (unknown lambda arg), `r^` (empty superscript), `r_2^r`
-(non-canonical order), `a b_c` stems containing `_`.
+Rejections (each has a test): an underline after a digit (`a1_`), two
+underlines (`a_b_c`), anything after a trailing mark (`f_-1`), axis 0
+or a repeated axis, `x^n` (use `x ^ n`), superscripts on functions
+(`r_ev^2`, `+^r`), a bare namespace (`u:`), `_@` sugar (`n_ow@`),
+`x!=3` (write `x != 3` or `x! = 3`, R2), `3-1` (write `3 - 1` or
+`3 -1`), a name touching a string (reserved for `r"..."`), the
+complex-number literal `3j4` (reserved), and non-ASCII characters.
 
 ## 3. Grammar
 
-### 3.1 Classes
+The parser (saga calculus, step 3) will pin these rules; until then
+they are specified in `docs/lang-choices.md`.
 
-Every expression is syntactically a **noun** or a **function**:
-
-- noun: number, strand of numbers, `@`, plain name, `_l`, `_r`,
-  parenthesized noun, application result.
-- function: decorated name, symbol, `{ ... }`, `[ ... ]` train,
-  parenthesized function.
-
-Class is decided from tokens alone, never from types or bindings.
-
-### 3.2 Application (APL-style, right to left)
-
-- `f_ Y`         monadic: `App(f, Y)`
-- `X f_ Y`       dyadic: `App(App(f, X), Y)` where X is the single
-  noun (or strand) immediately left of `f_`.
-- Functions have long right scope: `f_ g_ X` = `f_ (g_ X)`.
-- No precedence among functions; parentheses group.
-- Strands: adjacent numeric literals form a vector literal. Adjacent
-  plain names (`a b`) are a v0 error, not a strand.
-
-### 3.3 Lambdas
-
-- `{ ... _r ... }` without `_l`: monadic `Lam(r, body)`.
-- `{ ... _l ... _r ... }`: dyadic `Lam(l, Lam(r, body))`.
-- Every function is monadic. A "dyadic" lambda is curried, and
-  `X f_ Y` is `App(App(f, X), Y)`; niladic `f_@` is `App(f, Unit)`.
-  So `f_ X` on a dyadic lambda is partial application: it fixes `_l`
-  and returns a function of `_r`.
-- Scoping (decided by the user; pinned by the parser/desugar tests):
-  `_l` / `_r` always refer to the innermost enclosing lambda, as APL
-  dfns treat alpha / omega. Outer arguments are passed in explicitly
-  (Life passes the board as the inner lambda's `_r`).
-- An inline lambda is an ordinary function, so `X { ... } Y` is a
-  dyadic application by the general rule (decided by the user; pinned
-  by the parser tests).
-- `{ _l }` (left only): OPEN -- reject or K-like; a test will decide.
-- `{ }` with neither: OPEN -- constant function taking `@`?
-
-### 3.4 Bindings and equality
-
-`=` is the equality function. A statement whose first two tokens are
-`plain-name =` is a binding. A comparison at statement start must be
-parenthesized: `(x = 3)`. Alternative under consideration: a distinct
-binding token (`<-` or `:=`). This choice is pinned by the first
-parser saga's ambiguity tests.
-
-Calling a bound function requires decoration: `square = { _r * _r };
-square_ 7`. Plain `square` is the function as a noun (a value passed
-to higher-order functions).
-
-### 3.5 Derivations (built-in operators)
-
-A superscript derives a new function from the function it decorates:
-`+^r` = `App(reduce, add)`. `sum = +^r; sum_ 1 2 3 4` must work: a
-derived function is an ordinary first-class value. Axis subscripts
-apply to the derived function: `+^r_2`.
-
-Research note: the research also wrote Life as `+ r_ ...` (reduce as a
-separately spaced HOF). With right-to-left application, `+ r_ A`
-parses as `+ (r_ A)`, so the operand relationship would need a
-separate operator class; the superscript form expresses the same
-thing lexically and cannot be misparsed.
-
-### 3.6 Niladic / Unit
-
-`@ : Unit`. `now_ @` applies `now : Unit -> Time`. `now_@` is sugar,
-normalizing to the identical Core. `now_ 42` is a type error.
-
-### 3.7 Trains
-
-`[f g]` hook/atop and `[f g h]` fork, defined purely by desugaring:
-`[f g h] x` == `(f x) g (h x)`; dyadic forms pinned in M7.
+- Application is right to left with long right scope and no
+  precedence: `f_ g_ x` is `f_ (g_ x)`; `x f_ y` is dyadic. Every
+  function has one arity and dyadic use is currying:
+  `x f_ y = App(App(f, x), y)` (F1, F3). A symbol applied to one
+  argument is an error (SC1).
+- Numeric strands form vector literals (`-1 0 1`).
+- A quote passes a function as a value: `'r_/`, `'+`,
+  `'{ x -> x * 2 }`, `'[F G]` (F4). A quoted function directly left of
+  a function name is its operand: `'+ r_/ A` (APL `+/A`),
+  `A '* t_able B`, `A '+ '* i_nner B` (F8, F9).
+- A function value is applied with an underline: `_l_ x`, `(expr)_ x`
+  (F5).
+- Lambdas: shorthand `{ _r * _r }` (monadic) and `{ _l - _r }`
+  (dyadic); named parameters `{ f_ g_ x -> f_ g_ x }` (function
+  parameters are underlined), niladic `{ @ -> ... }`, lazy
+  parameters `{ ~s_elf n -> ... }` (L1-L7, E1). `_l` / `_r` refer to
+  the innermost lambda. An inline lambda is an ordinary function:
+  `X { ... } Y`.
+- Trains: `[F G H]` fork, `[F G]` atop (TR1-TR3).
+- Guards inside lambdas: `condition ? result` (G1, G2).
+- Statements: binding `name := expr` (`=` is always equality); a
+  newline separates statements at the top level and inside `{ }`, `;`
+  separates them on one line (S1-S3).
 
 ## 4. Core IR
 
 ```
 Expr := Lit(Scalar | Array) | Unit | Var(Id) | Prim(PrimId, Axes)
-      | Lam(Id, Expr) | App(Expr, Expr) | Let(Id, Expr, Expr)
+      | Lam(Id, Lazy, Expr) | App(Expr, Expr) | Let(Id, Expr, Expr)
 ```
 
-Every Core node carries the NodeId and source span of the surface
-construct it came from (for traces and the explainer).
+Guards, trains, quotes, operand binding and statements desugar into
+these forms (saga calculus, step 5). Every Core node carries the
+NodeId and source span of the surface construct it came from.
 
-## 5. Types (v0)
+## 5. Types
 
-Types: `Unit Bool Int Float Char Array<T> T -> U`, type variables,
-constraint `Num a`. Algorithm W / unification with let-polymorphism.
-Scalar functions are typed on scalars and lifted over arrays by a
-single lifting rule (scalar extension), not per-function overloads.
-Shape is runtime metadata (not in types) in v0.
+Hindley-Milner inference with let-polymorphism over `Unit Bool Int
+Float Char Array<T> T -> U`, type variables and a `Num` constraint
+(saga types-and-unit). Scalar functions are lifted over arrays by one
+scalar-extension rule. Shape is runtime metadata in v0.
 
-Bool (D5, direction decided by the user; exact typing rule pinned by
-the types saga): there is a real `Bool` type and `=` `<` `>` return
-Bool. Coercion is implicit in both directions:
-
-- Bool -> Int in arithmetic: true is 1, false is 0, so
-  `(S = 3) + c * (S = 4)` type-checks and Life sums Bool boards.
-- Int -> Bool where a Bool is required: 1 is true, 0 is false, any
-  other value is an error (a runtime error when the value is only
-  known at run time).
+- Bool is a real type; Bool -> Int implicitly (true 1, false 0); Int
+  -> Bool only from 1 or 0, anything else is an error (T1).
+- `/` always returns Float; `d_iv` and `m_od` are the integer
+  operations; division by zero is an error (T2).
+- `=` is exact; `e_q~` is tolerant equality (T3).
+- `Int ^ Int` is Int, a negative exponent at run time is an error;
+  a Float anywhere gives Float (D-10).
+- No annotations in v0; `::` is reserved for checked signatures (T4).
 
 ## 6. Arrays
 
-- Index origin 1 (matches axis subscripts starting at 1). OPEN until
-  M3 tests pin it.
-- Row-major dense arrays, shape `Vec<usize>`, scalars are rank 0.
-- Scalar extension: scalar op array and array op scalar; equal-shape
-  elementwise; otherwise a shape error.
-- Empty arrays and reduce identities: `+^r` of empty = 0 etc. (pinned
-  in M4).
+- Leading-axis defaults: with no subscript, every axis-taking
+  function acts on the first axis (A1).
+- Index origin 1, not configurable; `o_ffsets n` gives `0 .. n-1` (A5,
+  B5).
+- An axis subscript works on any function: `f_k X` moves axis k to the
+  front, applies f and moves it back (A6).
+- Row-major dense arrays, rank-0 scalars; scalar extension; shape
+  errors otherwise. Nested arrays come later (A7).
+- Built-in names: see lang-choices B1-B7.
 
-### 6.1 Multi-axis rotate (M5 key question)
+### 6.1 Multi-axis rotate
 
-`-1 0 1 t_12 A` with A of shape `[n,m]` yields every rotation for the
-Cartesian product of offsets over axes 1 and 2. Result shape options:
-(a) rank-4 `[3,3,n,m]`, then Life reduces with `+^r_12`;
-(b) nested `3x3` array of boards, then `+^r` reduces items.
-The research's Life one-liner assumes a plain `+^r` sums all nine
-boards. The M5 saga must pick one and pin it before M8; Life may then
-need `+^r_12` in option (a).
+A list of amounts with a multi-axis subscript means every
+combination, one leading result axis per subscripted axis:
+`-1 0 1 o_-_12 B` on an n by m board has shape 3 3 n m (A4). Reduce
+and scan with a multi-digit subscript work over each listed axis in
+turn, so `'+ r_/_12` sums the nine boards (R1).
 
-### 6.2 The Life one-liner (D11, decided)
+### 6.2 The Life one-liner
 
 ```
-life = { (+^r -1 0 1 t_12 _r) { (_l = 3) + _r * _l = 4 } _r }
+u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 ```
 
 Conway's rule, with N the count of the 8 neighbours and c the cell:
@@ -289,9 +152,8 @@ transliteration:
   `life <- {disclose 1 w or.and 3 4 = +/ , -1 0 1 outer-rotate-first
   -1 0 1 rotate-each enclose w}`: `3 4 = S` gives the boards `S=3` and
   `S=4`, and `1 w or.and ...` combines them as
-  `(1 and S=3) or (w and S=4)`. Note the ravel `,` before `+/`: a
-  plain `+/` on the nested 3x3 would reduce only the last axis (see
-  6.1 and D7).
+  `(1 and S=3) or (w and S=4)`. Its ravel `,` before `+/` plays the
+  role of our `_12` on reduce.
 
 History: the research's line `{ (+^r ... _r) = 3 + _r }` computed
 `S = 3 + c`, which keeps a live cell only when N = 3; a blinker's
@@ -301,60 +163,53 @@ rule equals the APL\360 reference on the blinker, a glider (1, 2 and
 4 generations) and a random 8x8 torus (1 and 3 generations).
 Pinned by `spec/integration/life-blinker.case` (pending until M8).
 
-The line relies on rules still to be pinned: an inline lambda used
-dyadically (`X { ... } Y`), innermost-lambda scoping of `_l`/`_r`
-(saga 1 parser/desugar), Bool results of `=` used in `+` and `*` (D5),
-and `+^r` summing all nine boards (D7).
-
 ## 7. Evaluation
 
-Strict, call-by-value in v0. OPEN (M6): whether to add laziness so a
-genuine Y combinator works, or ship Z and a test that documents Y
-diverges under strict evaluation.
-
-The evaluator consumes Core only and emits a trace tree:
-`NodeId, span, value, type, shape, children`.
+Strict by default; parameters marked `~` are call-by-need (evaluated
+on first use, then remembered). A function is evaluated before its
+arguments, and arguments right to left (APL order). The Y combinator
+works through a lazy self parameter; Z works too (E1-E4). Values are
+immutable; rebinding shadows; `!`-named variables are the mutation
+escape hatch (M1, M2). The evaluator consumes Core only and emits a
+trace tree: `NodeId, span, value, type, shape, children`.
 
 ## 8. Display modes (CLI and web)
 
-| Mode      | Example (Life)                                              |
-| --------- | ----------------------------------------------------------- |
-| Raw       | the line in 6.2, exactly as typed                           |
-| Decorated | same, with underline/subscript/superscript glyphs (Unicode) |
-| Canonical | fully parenthesized raw form                                |
-| Expanded  | long names: `reduce(add, rotate(axes=[1,2], ...))` etc.   |
-| Core      | `Lam(r, App(App(Lam(l, Lam(r, ...)), ...), Var(r)))`        |
+| Mode      | What it shows                                              |
+| --------- | ---------------------------------------------------------- |
+| Raw       | the source exactly as typed (the stored form)              |
+| Decorated | Unicode glyphs (`xetal render`), losslessly invertible     |
+| LaTeX     | LaTeX math for a post-processor (`xetal render --latex`)   |
+| Canonical | fully parenthesized raw form (`xetal fmt`)                 |
+| Expanded  | long names (later)                                         |
+| Core      | the Core IR (`xetal core`)                                 |
 
-Source is raw ASCII only (D13); the decorated and LaTeX forms are
-output. Editing always happens on raw text (prettify-style display,
-never destructive substitution). `xetal render` prints the decorated
-form, `xetal render --raw` converts it back (and lexes the result),
-and `xetal render --latex` prints LaTeX math for a post-processor.
+Source is raw ASCII only; the decorated and LaTeX forms are output.
+Editing always happens on raw text (prettify-style display, never
+destructive substitution).
 
 ### 8.1 Decorated Unicode (`xetal render`)
 
-Whitespace between tokens is copied verbatim; only names change.
+Whitespace and comment text between tokens are copied verbatim.
 
-| Raw           | Decorated                                            |
-| ------------- | ---------------------------------------------------- |
-| `r_`          | U+0332 COMBINING LOW LINE after each stem character   |
-| `t_12`        | underlined stem, then subscript digits U+2081 U+2082 |
-| `+_1`         | `+` then U+2081 (symbols are already functions)      |
-| `+^r`, `f^s`  | stem, then the word in superscript letters           |
-| `+^s_2`       | stem, superscript word, subscript digits             |
-| `now_@`       | underlined stem immediately followed by `@`          |
-| `+_@`         | underlined symbol immediately followed by `@`        |
-| `f^e_@`       | stem, superscript word, immediately `@`              |
-| `m.f_`        | `m.` then the decorated name                         |
-| other tokens  | unchanged (`_l`, `_r`, `@`, numbers, brackets)       |
+| Raw | Decorated |
+| --- | --------- |
+| `r_ev` | U+0332 COMBINING LOW LINE after the underlined letter |
+| `u:s_quare`, `m:pi` | the namespace as leading superscript letters (U+1D58 for u) |
+| `o_-_12` | subscript digits U+2081 U+2082 after the name |
+| `x^2`, `x^-1` | superscript digits (U+00B2 ...) and U+207B for minus |
+| `:=` `->` `;` | U+2190 left arrow, U+2192 right arrow, U+22C4 diamond |
+| `#` (comment start) | U+235D APL lamp |
+| `-` `*` `/` (symbols) | U+2212 minus, U+00D7 times, U+00F7 division |
+| `!=` `<=` `>=` | U+2260, U+2264, U+2265 |
+| `&` `\|` | U+2227 logical and, U+2228 logical or |
+| everything else | unchanged |
 
-The underline is drawn only where it is what makes the name a
-function (a named stem without a superscript, or any stem that is
-niladic). `now_@` and `now_ @` differ only by the space, which is
-preserved. Unicode has no subscript `@`, so niladic is shown as the
-decorated name touching `@`.
+Ligatures apply to standalone tokens only: `r_/` keeps its slash, a
+negative literal keeps its ASCII `-`, strings and comment text are
+unchanged.
 
-Superscript letters (lowercase only), code points:
+Superscript letters for namespaces (lowercase), code points:
 
 | a 1D43 | b 1D47 | c 1D9C | d 1D48 | e 1D49 | f 1DA0 | g 1D4D |
 | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
@@ -362,26 +217,26 @@ Superscript letters (lowercase only), code points:
 | o 1D52 | p 1D56 | q none | r 02B3 | s 02E2 | t 1D57 | u 1D58 |
 | v 1D5B | w 02B7 | x 02E3 | y 02B8 | z 1DBB |        |        |
 
-A name whose superscript word contains `q` or any uppercase letter
-(no reliable superscript glyph) is shown in raw ASCII, so the inverse
-is still exact: ASCII passes through `--raw` unchanged.
-
-Inverse (`--raw`): an underlined run becomes `stem_`; subscript digits
-become `_digits`; superscript letters become `^word`; `@` touching an
-underlined or superscripted name becomes `_@`; any other non-ASCII
-character is `not-decorated`, a stray underline is `bad-underline`.
-Pinned by `crates/xetal-render/tests/render/` (proptest: raw ->
-decorated -> raw is the identity on lexable sources) and
-`spec/render/*.case`.
+A namespace containing `q` or an uppercase letter is shown raw
+(`q:x`), and an exponent with a decimal point (no superscript point
+exists) is shown raw (`x^0.5`), so the inverse stays exact: ASCII
+passes through `--raw` unchanged. The inverse maps each glyph back to
+its ASCII spelling; a superscript namespace must precede a name
+(`bad-namespace`), an underline must be under a letter
+(`bad-underline`), and any other non-ASCII character is
+`not-decorated`. Pinned by `crates/xetal-render/tests/render/`
+(proptest: raw -> decorated -> raw is the identity on lexable
+sources) and `spec/render/*.case`.
 
 ### 8.2 LaTeX (`xetal render --latex`)
 
-One way, complete (LaTeX has every glyph): the body of a math
-environment for KaTeX, MathJax or pdflatex. Each token is braced so
-TeX adds no operator spacing; each source space is `\ ` and each
-newline `\\`. Names: `\underline{\mathrm{t}}_{12}`, `+^{\mathrm{r}}`,
-`\underline{\mathrm{now}}_{@}`; `*` is `\ast`, `|` is `\mid`, `{ }`
-are escaped, `_l` is `\_\mathrm{l}`.
+One way and complete: the body of a math environment for KaTeX,
+MathJax or pdflatex. Each token is braced so TeX adds no operator
+spacing; each source space is `\ ` and each newline `\\`; comments are
+dropped. Names: `\mathrm{\underline{r}ev}`, namespaces as
+`{}^{\mathrm{u}}`, axes as `_{12}`, exponents as `^{0.5}`; symbols
+`\times \div \neq \leq \geq \wedge \vee`, binding `\leftarrow`, arrow
+`\to`, separator `\diamond`, lazy marker `\sim`.
 
 ## 9. Decisions register
 

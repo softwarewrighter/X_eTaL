@@ -40,9 +40,7 @@ fn spacing(gap: &str) -> String {
 fn token_tex(kind: &TokenKind, raw: &str) -> String {
     match kind {
         TokenKind::Var(v) => {
-            let ns =
-                v.ns.as_ref()
-                    .map_or(String::new(), |ns| format!(r"\mathrm{{{ns}}}{{:}}"));
+            let ns = ns_tex(&v.ns);
             let bang = if v.mutable { "!" } else { "" };
             format!(r"{ns}\mathrm{{{}}}{bang}", v.name)
         }
@@ -55,7 +53,8 @@ fn token_tex(kind: &TokenKind, raw: &str) -> String {
         TokenKind::Exp(_) => format!("^{{{}}}", &raw[1..]),
         TokenKind::Sym(sym) => symbol_tex(*sym).into(),
         TokenKind::Str(_) => format!(r"\text{{{}}}", raw.replace('\\', r"\textbackslash{}")),
-        TokenKind::Assign => r"\mathrel{:=}".into(),
+        TokenKind::Assign => r"\leftarrow".into(),
+        TokenKind::Semi => r"\diamond".into(),
         TokenKind::Arrow => r"\to".into(),
         TokenKind::Lazy => r"\sim".into(),
         TokenKind::Quote => r"\text{'}".into(),
@@ -66,10 +65,7 @@ fn token_tex(kind: &TokenKind, raw: &str) -> String {
 }
 
 fn func_tex(name: &FuncName) -> String {
-    let mut out = name
-        .ns
-        .as_ref()
-        .map_or(String::new(), |ns| format!(r"\mathrm{{{ns}}}{{:}}"));
+    let mut out = ns_tex(&name.ns);
     let (before, rest) = name.stem.split_at(name.underline);
     let (letter, after) = rest.split_at(1);
     out.push_str(&format!(
@@ -97,11 +93,18 @@ fn func_tex(name: &FuncName) -> String {
     out
 }
 
+/// A namespace as a leading superscript.
+fn ns_tex(ns: &Option<String>) -> String {
+    ns.as_ref()
+        .map_or(String::new(), |ns| format!(r"{{}}^{{\mathrm{{{ns}}}}}"))
+}
+
 fn symbol_tex(sym: Symbol) -> &'static str {
     match sym {
-        Symbol::Times => r"\ast",
-        Symbol::Or => r"\mid",
-        Symbol::And => r"\&",
+        Symbol::Times => r"\times",
+        Symbol::Divide => r"\div",
+        Symbol::Or => r"\vee",
+        Symbol::And => r"\wedge",
         Symbol::Ne => r"\neq",
         Symbol::Le => r"\leq",
         Symbol::Ge => r"\geq",

@@ -1,11 +1,11 @@
-//! Raw ASCII -> decorated Unicode. Everything between tokens (whitespace
-//! and comments) is copied verbatim; only function names and literal
-//! exponents change.
+//! Raw ASCII -> decorated Unicode (docs/lang-choices.md section 10).
+//! Whitespace and comment text between tokens are copied verbatim; a
+//! comment's `#` is drawn as APL's lamp.
 
 use xetal_base::Diagnostic;
 use xetal_lex::{FuncName, TokenKind, lex};
 
-use crate::glyphs::{UNDERLINE, subscript_digit, superscript_text};
+use crate::glyphs::{LIGATURES, UNDERLINE, subscript_digit, superscript_text, superscript_word};
 
 /// Render lexable raw source in decorated form.
 pub fn decorate(src: &str) -> Result<String, Diagnostic> {
@@ -13,26 +13,48 @@ pub fn decorate(src: &str) -> Result<String, Diagnostic> {
     let mut out = String::new();
     let mut pos = 0;
     for token in &tokens {
-        out.push_str(&src[pos..token.span.start]);
+        out.push_str(&gap(&src[pos..token.span.start]));
         let raw = &src[token.span.start..token.span.end];
-        match &token.kind {
-            TokenKind::Func(name) => out.push_str(&func_glyphs(name)),
-            TokenKind::Exp(_) => {
-                out.push_str(&superscript_text(&raw[1..]).unwrap_or_else(|| raw.into()))
+        let shown = match &token.kind {
+            TokenKind::Func(name) => func_glyphs(name),
+            TokenKind::Var(v) => format!(
+                "{}{}{}",
+                ns_glyphs(&v.ns),
+                v.name,
+                if v.mutable { "!" } else { "" }
+            ),
+            TokenKind::Exp(_) => superscript_text(&raw[1..]).unwrap_or_else(|| raw.into()),
+            TokenKind::Sym(_) | TokenKind::Assign | TokenKind::Arrow | TokenKind::Semi => {
+                ligature(raw).map_or_else(|| raw.into(), String::from)
             }
-            _ => out.push_str(raw),
-        }
+            _ => raw.into(),
+        };
+        out.push_str(&shown);
         pos = token.span.end;
     }
-    out.push_str(&src[pos..]);
+    out.push_str(&gap(&src[pos..]));
     Ok(out)
 }
 
+/// A gap holds whitespace and at most one comment; its `#` becomes a lamp.
+fn gap(text: &str) -> String {
+    text.replacen('#', &ligature("#").map_or('#', |g| g).to_string(), 1)
+}
+
+fn ligature(ascii: &str) -> Option<char> {
+    LIGATURES.iter().find(|(a, _)| *a == ascii).map(|(_, g)| *g)
+}
+
+/// A namespace as leading superscript letters, or raw `ns:` if a letter
+/// has no superscript form.
+fn ns_glyphs(ns: &Option<String>) -> String {
+    ns.as_ref().map_or(String::new(), |ns| {
+        superscript_word(ns).unwrap_or_else(|| format!("{ns}:"))
+    })
+}
+
 fn func_glyphs(name: &FuncName) -> String {
-    let mut out = name
-        .ns
-        .as_ref()
-        .map_or(String::new(), |ns| format!("{ns}:"));
+    let mut out = ns_glyphs(&name.ns);
     for (i, c) in name.stem.char_indices() {
         out.push(c);
         if i == name.underline {

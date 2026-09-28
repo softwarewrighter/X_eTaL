@@ -1,100 +1,116 @@
 # Typing X_eTaL
 
-> Out of date: this page describes the earlier syntax. The lexer now
-> follows [`lang-choices.md`](lang-choices.md) (function names carry
-> their underline, namespaces are prefixes, `_digits` are axes, `^`
-> after a value is an exponent); this page is rewritten in the next
-> step of the current saga.
-
 X_eTaL source is plain ASCII typed on a US keyboard. No input method,
-Espanso snippet or special font is needed. Decoration that the
-renderer draws as an underline, a subscript or a superscript is typed
-as a short ASCII suffix on a name, so a few characters in become one
-decorated glyph out: `t_2` (three keys) displays as t underlined with
-a subscript 2.
+Espanso snippet or special font is needed. What the display draws as
+an underline, a subscript or a superscript is typed as a short ASCII
+mark on a name, so a few keys in become one decorated glyph out:
+`o_-_2` (five keys) displays as o underlined, a minus, and a
+subscript 2.
 
 Espanso or editor snippets still work if you like them, but they must
-produce the ASCII spelling: the language does not accept the decorated
-Unicode form as input. Use `xetal render --raw` to turn decorated text
-back into source.
+produce the ASCII spelling: decorated Unicode is not accepted as
+input. `xetal render --raw` turns decorated text back into source.
 
-## Names and decoration
+## Variables and function names
 
-A *stem* is a letter followed by letters or digits (`r`, `square2`),
-or one of the symbols `+ - * / = < > |`. Decoration follows the stem
-in this fixed order:
+A name starts with a letter and continues with letters and digits.
 
-```
-stem ^word _sub
-```
+- A **variable** has no underline: `x`, `n`, `board2`.
+- A **function name** has exactly one underline, typed as `_`
+  directly after the letter it underlines: `r_ev` (reverse, r
+  underlined), `s_quare`, `self_` (f underlined).
+- A function name may end in one **mark**:
+  `| - / \ + * < > ~ ! ? % $ &`. Built-ins use marks only where APL
+  gives them meaning (`r_/` reduce, `s_\` scan, `o_-` rotate); by
+  convention `?` ends a predicate (`e_mpty?`) and `!` a function with
+  a side effect (`p_rint!`). A name ending in `<` is a macro
+  (`u_se<`).
+- A trailing `!` on a variable makes it mutable: `count!`.
 
-| Type       | Means                                   | Displayed as                    |
-| ---------- | --------------------------------------- | ------------------------------- |
-| `r`        | the value `r` (a noun)                  | r                               |
-| `r_`       | `r` as a function (trailing underline)  | r underlined                    |
-| `t_2`      | function `t` along axis 2               | t underlined, subscript 2       |
-| `t_12`     | function `t` along axes 1 and 2         | t underlined, subscript 12      |
-| `+^r`      | derived function: reduce by `+`         | +, superscript r                |
-| `+^s_2`    | derived function on axis 2              | +, superscript s, subscript 2   |
-| `now_@`    | apply `now` to the Unit value `@`       | now underlined, touching @      |
-| `m.f_`     | function `f` from namespace `m`         | m. then f underlined            |
+| Type        | Means                                       | Displayed as                    |
+| ----------- | ------------------------------------------- | ------------------------------- |
+| `x`         | the variable x                              | x                               |
+| `r_ev`      | the built-in function reverse               | rev, r underlined               |
+| `r_/`       | reduce                                      | r underlined, then /            |
+| `o_-_12`    | rotate along axes 1 and 2                   | o underlined, -, subscript 12   |
+| `u:s_quare` | the user function square                    | superscript u, square           |
+| `c:K_`      | K from the library imported as c            | superscript c, K underlined     |
+| `m:pi`      | the variable pi from the library m          | superscript m, pi               |
+| `x^2`       | x squared                                   | x, superscript 2                |
 
-Rules that follow from the table:
+Rules that follow (each is rejected with an error and a hint):
 
-- Only one underline, and it ends the name: `my_name` is an error
-  (stems cannot contain `_`), and so is `r__`.
-- Axes are the digits 1 to 9, each used once: `r_0` and `t_11` are
-  errors.
-- The superscript comes first: write `+^s_2`, not `+_2^s`.
-- A symbol is already a function, so a bare underline on it is an
-  error (`+_`); a subscript is fine (`+_1`). The same holds after a
-  superscript: `f^r` is already a function, `f^r_` is an error.
-- A superscript word is letters only (`+^r`, `+^reduce`).
-- A namespace prefix goes on a function name only, one level deep
-  (`m.f_`, not `m.x` or `a.b.f_`).
+- The underline must directly follow a letter (`a1_` is an error) and
+  appears once (`a_b_c` is an error).
+- The name ends after its mark: `f_-1` is an error; write `f_- 1`.
+- Axes come after the function name as `_` and digits, one digit per
+  axis, 1 to 9, each once: `o_-_0` and `o_-_11` are errors. The
+  function `r_` on axis 2 is written `r__2`.
+- `x!=3` is ambiguous: write `x != 3` (not equal) or `x! = 3`.
 
-## Lambda arguments and Unit
+## Namespaces
 
-Inside `{ ... }`, type `_l` for the left argument and `_r` for the
-right one. They take no decoration. `@` is the Unit value.
+`u:` marks your own functions, `l:` a library's own names, and other
+letters name imported libraries: `u:s_quare`, `c:K_`, `m:pi`. Plain
+variables like `x` need no prefix. A prefix on its own (`u:`) is an
+error.
 
-```
-square = { _r * _r }; square_ 7
-```
+## Exponents and power
+
+A `^` touching a value, followed by a number, is an exponent: `x^2`,
+`x^-1`, `x^0.5`, `(a + b)^2`. For a computed power, use the spaced
+power function: `x ^ n`. `x^n` is an error with that hint, and
+superscripts on functions (`r_ev^2`) are reserved.
+
+## Symbols
+
+`+ - * / ^ = != < > <= >= & |` are functions of two arguments:
+`1+2`, `x+y`, `3 - 1`. They may touch names and numbers, except
+where that is ambiguous: `3-1` is an error (write `3 - 1` to subtract
+or `3 -1` for the numbers 3 and -1).
 
 ## Numbers and minus
 
-Numbers are integers or decimals: `42`, `2.5`. There is no high minus
-key, so a negative literal is `-` directly before a digit, at the
-start of the input or after a space, a newline, `(`, `{`, `[` or `;`:
+Numbers are integers or decimals: `42`, `2.5`. A negative literal is
+`-` directly before a digit, at the start or after a space, a newline,
+`(`, `{`, `[` or `;`:
 
 | Type      | Means                                       |
 | --------- | ------------------------------------------- |
 | `-1 0 1`  | the three numbers -1, 0, 1                  |
 | `3 - 1`   | 3 minus 1                                   |
 | `3 -1`    | the two numbers 3 and -1                    |
-| `3-1`     | error: add a space to say which you mean    |
+| `x - -3`  | x minus negative 3                          |
 
-## Spacing
+## Lambdas, quotes and statements
 
-Spaces separate tokens. An undecorated symbol may touch its neighbours
-(`1+2`), but a decorated name must end at a space, a bracket or a
-symbol. Newlines are kept as separate tokens.
+```
+u:s_quare := { _r * _r }; u:s_quare 7
+```
+
+- `:=` binds a name; `=` is always equality.
+- In `{ ... }`, `_l` and `_r` are the left and right arguments; named
+  parameters come before `->`: `{ ~s_elf n -> n <= 1 ? 1 }` (the `~`
+  makes a parameter lazy, and a spaced `?` is a guard).
+- `'` passes a function as a value: `'+ r_/ v` reduces v by plus.
+- A newline or `;` separates statements; `#` starts a comment that
+  runs to the end of the line.
+- Strings are `"..."` with the escapes `\"`, `\\`, `\n`, `\t`, on one
+  line: `"c:" u_se< "Combinators"`.
 
 ## Seeing what you typed
 
 ```bash
-xetal lex -e 't_12 +^r'       # tokens with byte spans
-xetal render -e 't_12 +^r'    # decorated Unicode
-xetal render --latex -e 't_12 +^r'   # LaTeX math for a post-processor
+xetal lex -e 'u:s_quare := { _r * _r }; u:s_quare 7'   # tokens with byte spans
+xetal render -e 'x r_ev o_-_2 u:s_quare c:K_ x^2 _l _r @'  # decorated Unicode
+xetal render --latex -e 'o_-_12 x^2'                    # LaTeX math
 ```
 
-Unicode has no superscript `q` and no reliable uppercase superscripts,
-so a name using them in a superscript word is displayed exactly as
-typed (`+^q`). The LaTeX output has no such gaps.
-
-Errors name the rule and the byte span, for example
-`xetal lex -e '3-1'` prints `error[ambiguous-minus]` at `1..2`.
+The decorated form also draws `:=` as an arrow, `;` as a diamond,
+`#` as APL's lamp and `*` `/` `!=` `<=` `>=` `&` `|` as their
+mathematical signs. Unicode has no superscript `q` and no superscript
+decimal point, so `q:x` and `x^0.5` are displayed as typed; the LaTeX
+output has no such gaps.
 
 Every example on this page is checked by the test suite
 (`spec/lex/`, `spec/render/`, `reg/`).

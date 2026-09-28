@@ -1,0 +1,5 @@
+# Namespace prefixes become leading superscript letters; q has none, so q:x is shown raw (N5, I2).
+== SOURCE
+u:s_quare c:K_ m:pi q:x
+== RENDER
+ᵘs̲quare ᶜK̲ ᵐpi q:x

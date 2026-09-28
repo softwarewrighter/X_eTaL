@@ -23,8 +23,8 @@ a value is an exponent. The language decisions are recorded in
 | `r_ev`        | rev, r underlined                     | the built-in function reverse        |
 | `o_-_2`       | o-, o underlined, subscript 2         | rotate along axis 2                  |
 | `'+ r_/ A`    | quote +, then r/ with r underlined    | reduce A by plus (APL `+/A`)         |
-| `u:s_quare`   | square, s underlined, namespace u     | a user-defined function              |
-| `c:K_`        | K underlined, namespace c             | K from the combinator library        |
+| `u:s_quare`   | superscript u, square, s underlined   | a user-defined function              |
+| `c:K_`        | superscript c, K underlined           | K from the combinator library        |
 | `x^2`         | x squared                             | exponent on a value                  |
 | `_l` `_r`     | _l _r                                 | left / right lambda argument         |
 | `@`           | @                                     | the Unit value                       |

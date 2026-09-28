@@ -1,0 +1,5 @@
+# A comment's # becomes a lamp; comment text and negative literals stay as typed (I3).
+== SOURCE
+x - -1 # a; b * c
+== RENDER
+x − -1 ⍝ a; b * c

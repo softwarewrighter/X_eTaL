@@ -1,5 +1,4 @@
-//! Raw ASCII -> decorated Unicode (interim rules; step 2 adds namespace
-//! superscripts and ligatures).
+//! Raw ASCII -> decorated Unicode (docs/lang-choices.md section 10).
 
 use crate::UL;
 use xetal_render::decorate;
@@ -9,10 +8,20 @@ fn dec(src: &str) -> String {
 }
 
 #[test]
-fn variables_symbols_and_punctuation_are_unchanged() {
+fn plain_tokens_are_unchanged() {
     for src in [
-        "x", "board2", "count!", "m:pi", "_l _r", "@", "{ }", "( )", "[ ]", "-1 2.5", "+ != <=",
-        ":= -> ?", "\"a_b\"",
+        "x",
+        "board2",
+        "count!",
+        "_l _r_",
+        "@",
+        "{ }",
+        "( )",
+        "[ ]",
+        "-1 2.5",
+        "+ = < > ^",
+        "? '+ ~x",
+        "\"a_b; *\"",
     ] {
         assert_eq!(dec(src), src);
     }
@@ -22,37 +31,50 @@ fn variables_symbols_and_punctuation_are_unchanged() {
 fn the_underlined_letter_is_underlined() {
     assert_eq!(dec("r_ev"), format!("r{UL}ev"));
     assert_eq!(dec("self_"), format!("self{UL}"));
-    assert_eq!(dec("u:s_quare 7"), format!("u:s{UL}quare 7"));
     assert_eq!(dec("r_/ o_-"), format!("r{UL}/ o{UL}-"));
 }
 
 #[test]
-fn axis_subscripts_become_subscript_digits() {
-    assert_eq!(dec("o_-_12"), format!("o{UL}-\u{2081}\u{2082}"));
-    assert_eq!(dec("r__2"), format!("r{UL}\u{2082}"));
+fn namespace_prefixes_become_leading_superscripts() {
+    assert_eq!(dec("u:s_quare"), format!("\u{1d58}s{UL}quare"));
+    assert_eq!(dec("c:K_"), format!("\u{1d9c}K{UL}"));
+    assert_eq!(dec("m:pi"), "\u{1d50}pi");
+    assert_eq!(dec("q:x"), "q:x"); // no superscript q: shown raw
 }
 
 #[test]
-fn literal_exponents_become_superscripts() {
-    assert_eq!(dec("x^2"), "x\u{b2}");
-    assert_eq!(dec("x^-1"), "x\u{207b}\u{b9}");
-    assert_eq!(dec("2^10"), "2\u{b9}\u{2070}");
+fn axis_subscripts_and_exponents() {
+    assert_eq!(dec("o_-_12"), format!("o{UL}-\u{2081}\u{2082}"));
+    assert_eq!(dec("r__2"), format!("r{UL}\u{2082}"));
+    assert_eq!(
+        dec("x^2 x^-1 2^10"),
+        "x\u{b2} x\u{207b}\u{b9} 2\u{b9}\u{2070}"
+    );
     assert_eq!(dec("x^0.5"), "x^0.5"); // no superscript decimal point: shown raw
 }
 
 #[test]
-fn whitespace_and_comments_are_preserved() {
+fn standalone_tokens_become_single_glyphs() {
+    assert_eq!(dec("x := 3"), "x \u{2190} 3");
+    assert_eq!(dec("{ x -> x }"), "{ x \u{2192} x }");
+    assert_eq!(dec("a; b"), "a\u{22c4} b");
     assert_eq!(
-        dec("a  \t b # r_ev\n c_"),
-        format!("a  \t b # r_ev\n c{UL}")
+        dec("a - b * c / d != e <= f >= g & h | i"),
+        "a \u{2212} b \u{d7} c \u{f7} d \u{2260} e \u{2264} f \u{2265} g \u{2227} h \u{2228} i"
     );
+    assert_eq!(dec("x - -3"), "x \u{2212} -3"); // a negative literal keeps its ASCII minus
+}
+
+#[test]
+fn comments_get_a_lamp_and_keep_their_text() {
+    assert_eq!(dec("x # a; b * c # d\ny"), "x \u{235d} a; b * c # d\ny");
 }
 
 #[test]
 fn life_line() {
     let src = "u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }";
     let want = format!(
-        "u:l{UL}ife := {{ ('+ r{UL}/\u{2081}\u{2082} -1 0 1 o{UL}-\u{2081}\u{2082} _r) {{ (_l = 3) + _r * _l = 4 }} _r }}"
+        "\u{1d58}l{UL}ife \u{2190} {{ ('+ r{UL}/\u{2081}\u{2082} -1 0 1 o{UL}-\u{2081}\u{2082} _r) {{ (_l = 3) + _r \u{d7} _l = 4 }} _r }}"
     );
     assert_eq!(dec(src), want);
 }
