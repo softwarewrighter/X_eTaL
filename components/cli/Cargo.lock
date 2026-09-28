@@ -633,6 +633,7 @@ dependencies = [
  "xetal-eval",
  "xetal-lex",
  "xetal-render",
+ "xetal-repl",
  "xetal-spec",
  "xetal-syntax",
  "xetal-types",
@@ -715,6 +716,16 @@ dependencies = [
  "xetal-core",
  "xetal-lex",
  "xetal-syntax",
+]
+
+[[package]]
+name = "xetal-repl"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-eval",
+ "xetal-types",
 ]
 
 [[package]]

@@ -13,8 +13,11 @@ STAGES:
             expression's value (--untyped skips the checker)
     run     type-check and run a .xtl script (also: xetal FILE, for
             #! scripts; --untyped skips the checker)
-  A stage that is not implemented yet exits 1 with
-  error[unsupported]. Warnings print as warning[CODE] on stderr.
+    repl    interactive session reading lines from stdin: definitions
+            and types persist, a failing line is dropped, an unclosed
+            bracket continues on the next line
+  A built-in that is not implemented yet is error[unsupported].
+  Errors and warnings print as error[CODE] / warning[CODE] on stderr.
 
 EXAMPLES:
   xetal eval -e '1 + 2'

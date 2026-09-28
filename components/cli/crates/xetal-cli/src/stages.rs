@@ -19,6 +19,10 @@ pub(crate) fn read_input(expr: Option<&str>, file: Option<&str>) -> Result<Strin
 /// Run the pipeline as far as `command` asks. Every stage runs the
 /// earlier ones first, so an early error is reported by any command.
 pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
+    if matches!(command, Command::Repl) {
+        xetal_repl::stdio().map_err(|e| Diagnostic::new("io", e.to_string()))?;
+        return Ok(String::new());
+    }
     let Some(source) = command.source() else {
         return Err(Diagnostic::unsupported(command.stage()));
     };

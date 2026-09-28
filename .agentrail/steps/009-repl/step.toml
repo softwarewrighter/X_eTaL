@@ -1,6 +1,6 @@
 number = 9
 slug = "repl"
-status = "pending"
+status = "in-progress"
 description = "arrays step 6: TDD xetal repl: persistent definitions and types across lines,..."
 role = "production"
 context_files = []

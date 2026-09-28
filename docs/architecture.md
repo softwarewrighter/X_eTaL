@@ -64,7 +64,8 @@ components/
                            xetal-struct (structural built-ins),
                            xetal-eval (evaluator)
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
-                           harness), xetal-spec (case files)
+                           harness), xetal-spec (case files),
+                           xetal-repl (interactive session)
 spec/                      language spec corpus (*.case files)
 reg/                       reg-rs baselines (*.rgt, *.out, *.err) - committed
 demos/                     executable .xtl demo scripts (reg-rs goldens)
@@ -176,7 +177,7 @@ xetal eval   <FILE|-e EXPR>    type-check, evaluate; print each value
                                (--untyped skips the checker)
 xetal run    FILE.xtl          type-check and run a script (--untyped)
 xetal FILE.xtl                 the same (for #!/usr/bin/env xetal)
-xetal repl                     interactive (arrays saga)
+xetal repl                     interactive session (lines from stdin)
 ```
 
 Each command runs the earlier stages first, so an early error is

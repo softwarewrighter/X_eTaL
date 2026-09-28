@@ -1,0 +1,2 @@
+error[type-mismatch]: expected Int, found Float at 0..7
+error[division-by-zero]: division by zero at 11..16

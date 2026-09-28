@@ -19,6 +19,7 @@ xetal-syntax.workspace = true
 xetal-core.workspace = true
 xetal-types.workspace = true
 xetal-eval.workspace = true
+xetal-repl.workspace = true
 clap.workspace = true
 
 [dev-dependencies]

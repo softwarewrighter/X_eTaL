@@ -1,3 +1,0 @@
-command = "./target/debug/xetal repl"
-exit_code = 1
-desc = "an unimplemented stage reports error[unsupported]"

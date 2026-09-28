@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-cli", "crates/xetal-spec"]
+members = ["crates/xetal-cli", "crates/xetal-spec", "crates/xetal-repl"]
 
 [workspace.package]
 version = "0.1.0"
@@ -25,6 +25,7 @@ xetal-ty = { path = "../types/crates/xetal-ty" }
 xetal-types = { path = "../types/crates/xetal-types" }
 xetal-array = { path = "../eval/crates/xetal-array" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
+xetal-repl = { path = "crates/xetal-repl" }
 xetal-spec = { path = "crates/xetal-spec" }
 clap = { version = "4", features = ["derive"] }
 assert_cmd = "2"
