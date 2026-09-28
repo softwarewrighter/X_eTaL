@@ -1,0 +1,1 @@
+xetal-types foundations: Type/TypeVar/Scheme, Unifier (fresh, fresh_num, resolve, unify with occurs check and Num constraint, generalize, instantiate), readable display, type errors with spans; 9 tests incl. proptests.
