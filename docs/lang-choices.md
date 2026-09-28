@@ -41,9 +41,9 @@ This document supersedes `docs/syntax-proposal.md`.
 | F4 | A quote passes a function without applying it: a function name (`'r_/`, `'+`, `'u:s_quare`), a lambda literal (`'{ x -> x * 2 }`) or a train (`'['+ r_/ / t_ally]`). Quoting a variable is an error (a variable is already a value). |
 | F5 | A function held in a value is applied by an underline after a lambda argument or a closing parenthesis: `_l_ x`, `(expr)_ x`, and `(f)_ x` for a variable `f`. |
 | F6 | Functions that take functions put them first, data last: `'+ r_/ A` is `reduce '+ A`; rotate takes the amount first: `1 o_- A`. Swapping order is done with a flip combinator (C, APL's commute), e.g. `u:o_ver := s_wap 'r_/` then `A u:o_ver '+`. |
+| F7 | There is no separate operator class. Reduce, scan, each and table are ordinary curried functions; the function-first convention gives the APL look (`'+ r_/ A` for APL `+/A`). |
 | F8 | A quoted function directly left of a function name binds to it as its operand, and the pair acts as one function: `A '* t_able B` (APL `A jot.times B`), `A '= e_ach B`, `'+ r_/ A`. This is the only reading the grammar gives; it produces the same Core as the curried dyadic reading (`App(App(reduce, plus), A)`), and it works for any function taking a function first, user functions included. |
 | F9 | Quoted operands chain: in `'+ '* i_nner` the operand nearest the function binds first, so a two-operand function takes its nearest operand first and reads in APL order at the use site: `A '+ '* i_nner B` (APL `A +.times B`), `'f_ 'g_ c_ompose x`. Its definition lists parameters nearest-first (`{ g_ f_ a b -> ... }`). |
-| F7 | There is no separate operator class. Reduce, scan, each and table are ordinary curried functions; the function-first convention gives the APL look (`'+ r_/ A` for APL `+/A`). |
 
 ## 3. Names
 
@@ -78,10 +78,10 @@ This document supersedes `docs/syntax-proposal.md`.
 | A1 | Leading-axis theory: with no subscript, every axis-taking function acts on the first axis (as in J and BQN). |
 | A2 | Rotate is `o_-` (like APL's circle-minus, first-axis rotate). `o_\|` is reserved; `o_\` (transpose) and `o_/` are future candidates for the mirror family. |
 | A3 | Reverse is `r_ev` (`r_ev_2` along axis 2). |
+| A4 | A list of amounts with a multi-axis subscript means every combination, with one leading result axis per subscripted axis: `-1 0 1 o_-_12 B` on an n by m board has shape 3 3 n m. |
 | A5 | Index origin is 1: `r_ange 5` is `1 2 3 4 5` and index 1 is the first item, consistent with 1-based axes. Not configurable (no APL-style index-origin setting). |
 | A6 | An axis subscript works on any function by one rule: `f_k X` moves axis k to the front, applies f (which works on the leading axis) and moves it back. Built-ins and user functions alike: `u:n_ormalize_2 M`, and `'+ r_/_2 M` is reduce by this rule. Multi-digit subscripts (`_12`) mean something only where a function defines them (rotate, A4); on a user function they are an error for now. Moving an axis can be an index view, not a copy. |
 | A7 | Nested arrays follow APL2 / BQN: any element may itself be an array (`"ab" "cde"` is a 2-element vector of strings), with enclose / disclose built-ins and no explicit box type. Planned for after the Life milestone; v0 arrays are flat (a flat array is a nested array of scalars), and v0 rules such as "`e_ach` returns scalars" are written so nesting can be added without breaking programs. |
-| A4 | A list of amounts with a multi-axis subscript means every combination, with one leading result axis per subscripted axis: `-1 0 1 o_-_12 B` on an n by m board has shape 3 3 n m. |
 
 ## 6. Lambdas
 
@@ -92,7 +92,21 @@ This document supersedes `docs/syntax-proposal.md`.
 | L3 | An inline lambda is an ordinary function, so `X { ... } Y` is a dyadic application. |
 | L4 | Named parameters, decorated like names, separated from the body by `->`: `{ f_ g_ x -> f_ g_ x }`. A function parameter (`f_`) is called directly. They desugar to nested one-argument lambdas. |
 | L5 | Shorthand and named parameters may not be mixed in one lambda. |
-| L6 | A niladic function is defined with `@` as its only parameter: `u:n_ow := { @ -> ... }`, and called as `u:n_ow @`. There is no `_@` call sugar; the subscript slot is for axes only. |
+| L6 | A niladic function is defined with `@` as its only parameter: `u:n_ow! := { @ -> ... }`, and called as `u:n_ow! @` (the `!` marks the effect, by the style guide). There is no `_@` call sugar; the subscript slot is for axes only. |
+
+## 6a. Trains
+
+| #  | Decision |
+| -- | -------- |
+| TR1 | Trains are written in square brackets. A fork `[F G H] x` is `(F x) G (H x)`; dyadically `x [F G H] y` is `(x F y) G (x H y)`. Elements are function expressions: names, symbols, or quoted-operand derived functions (`'+ r_/`). |
+| TR2 | A two-element train is atop: `[F G] x` is `F (G x)` (BQN / Dyalog, not J's hook). |
+| TR3 | Longer trains group from the right into forks: `[A B C D E]` is `[A B [C D E]]`. Trains desugar to ordinary application; nothing train-specific reaches the evaluator. |
+
+```
+u:a_vg := ['+ r_/ / t_ally]      # fork: sum divided by count
+u:a_vg 1 2 3 4                   # 2.5
+[n_eg a_bs] x                    # atop: negate the absolute value
+```
 
 ## 6b. Conditionals
 
@@ -107,20 +121,6 @@ u:f_act := { n ->
   n * u:f_act n - 1
 }
 u:s_ign := { x -> x < 0 ? -1; x = 0 ? 0; 1 }
-```
-
-## 6a. Trains
-
-| #  | Decision |
-| -- | -------- |
-| TR1 | Trains are written in square brackets. A fork `[F G H] x` is `(F x) G (H x)`; dyadically `x [F G H] y` is `(x F y) G (x H y)`. Elements are function expressions: names, symbols, or quoted-operand derived functions (`'+ r_/`). |
-| TR2 | A two-element train is atop: `[F G] x` is `F (G x)` (BQN / Dyalog, not J's hook). |
-| TR3 | Longer trains group from the right into forks: `[A B C D E]` is `[A B [C D E]]`. Trains desugar to ordinary application; nothing train-specific reaches the evaluator. |
-
-```
-u:a_vg := ['+ r_/ / t_ally]      # fork: sum divided by count
-u:a_vg 1 2 3 4                   # 2.5
-[n_eg a_bs] x                    # atop: negate the absolute value
 ```
 
 ## 7. Statements, bindings and comments
@@ -163,6 +163,7 @@ Named instead of symbols: `n_eg` (negate), `n_ot` (not), `m_od`
 | T1 | A real `Bool` type; `=` and the comparisons return Bool. Bool converts to Int implicitly in arithmetic (true 1, false 0). Int converts to Bool where a Bool is required: 1 is true, 0 is false, anything else is an error (at run time when only known then). |
 | T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and remainder are the named functions `d_iv` and `m_od`. Division by zero is an error (`error[division-by-zero]` with the span), including `d_iv` and `m_od` by 0 and element-wise inside arrays. There is no `inf` / `nan` result from division. |
 | T3 | `=` is exact (IEEE) equality and transitive; `0.1 + 0.2 = 0.3` is 0. Tolerant equality is the named function `e_q~` with a fixed relative tolerance (about 1e-14): `0.1 + 0.2 e_q~ 0.3` is 1. There is no comparison-tolerance setting. Int versus Float comparison is exact numeric comparison (`3 = 3.0` is 1); `<` `<=` `>` `>=` are exact too (tolerant versions may be added later with the `~` suffix). |
+| T4 | Type annotations: none in v0 (types are inferred). `::` is reserved for later signature lines (`u:s_quare :: Int -> Int`), which will be checked against inference so they cannot drift, and shown by hover and doc tools. Until then, a comment `# :: Int -> Int` above a definition is an unchecked documentation convention. |
 | M1 | Values are immutable. Rebinding a variable creates a new binding (shadowing); a lambda keeps the value it captured. A top-level function name is defined once per file (MC8 row 12). There is no indexed assignment; updates return new arrays. |
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (`count! := count! + 1`), so every read and write shows it. |
 
@@ -170,7 +171,7 @@ Named instead of symbols: `n_eg` (negate), `n_ot` (not), `m_od`
 
 | #  | Decision |
 | -- | -------- |
-| E1 | Evaluation is strict by default. A lambda parameter may be declared lazy with a `~` prefix in the parameter list (`{ ~self_ n -> ... }`): its argument is not evaluated at the call but on first use in the body, then remembered (call-by-need); unused, it is never evaluated. The body uses the parameter normally (`self_`, not `~self_`). |
+| E1 | Evaluation is strict by default. A lambda parameter may be declared lazy with a `~` prefix in the parameter list (`{ ~s_elf n -> ... }`): its argument is not evaluated at the call but on first use in the body, then remembered (call-by-need); unused, it is never evaluated. The body uses the parameter normally (`s_elf`, not `~s_elf`). |
 | E2 | A function is evaluated before its argument, so the evaluator knows whether the parameter is lazy. Laziness is carried by the function value at run time and is not part of the static type. |
 | E3 | The Y combinator works in its textbook shape when its functional marks its self parameter lazy; Z also works. Lazy parameters also let users write their own control structures (`u:w_hen := { c ~a ~b -> c ? a; b }`). |
 
@@ -190,7 +191,7 @@ stream type later.
 | -- | -------- |
 | I1 | Source is ASCII only. Decorated Unicode input is not accepted (revisit much later). |
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example superscript `q`, subscript `@`, superscript decimal point). |
-| I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` as the diamond, `#` as the lamp, `!=` `<=` `>=` `*` `/` `&` `\|` as their mathematical glyphs. |
+| I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` as the diamond, `#` as the lamp, `!=` `<=` `>=` `*` `/` `&` `\|` as their mathematical glyphs. Ligatures apply to standalone tokens only, never to punctuation inside a function name (`r_/` keeps its slash). |
 
 ## 10a. Printed results
 
@@ -220,7 +221,6 @@ printed values are valid input where possible.
 | B4 | Structural built-ins (one arity each, leading axis default, `_digits` for other axes, 1-origin): `s_hape` (shape vector), `r_eshape` (dyadic, reuses elements cyclically), `r_ange` (1..n), `t_ally` (items along the leading axis), `f_irst` (first major cell), `t_ake` / `d_rop` (first n / all but first n; negative counts from the end), `s_elect` (items at indices; "index of" would be a separate `i_ndexOf`), `r_avel` (all elements as a vector), `c_at` (join along the leading axis). |
 | B5 | `o_ffsets n` gives `0 1 ... n-1`: a distinct built-in for offset arithmetic (place values, wrap-around), so 1-origin stays fixed with no index-origin setting: `10 ^ r_ev o_ffsets 3` is `100 10 1`. |
 | B6 | Higher-order built-ins: `r_/` reduce and `s_\` scan (leading axis; empty reduce gives the operand's identity, or an error if it has none), `e_ach` (apply to each element; monadic or dyadic; results must be scalars until nested arrays exist), `t_able` (outer product: `1 2 3 '* t_able 1 2 3`), `i_nner` (inner product: `A '+ '* i_nner B`), `c_ompose` (`'n_eg 'a_bs c_ompose x` is `n_eg a_bs x`), `s_wap` (APL commute, the C combinator: `A '/ s_wap B` is `B / A`). A quoted function is written exactly as its name is spelled (`'u:s_quare`, `'n_eg`, `'f_`). |
-
 | B7 | Arithmetic, search and effect built-ins: `n_eg`, `a_bs`, `f_loor`, `c_eiling`, `m_ax` / `m_in` (dyadic; `'m_ax r_/ v` is the maximum), `d_iv` and `m_od` in maths order (`7 d_iv 2` is `3`, `7 m_od 3` is `1`), `n_ot`, `e_q~` (T3), `e_xp`, `l_og` (natural), `i_ndexOf` (`5 6 7 i_ndexOf 7 9` is `3 4`; not found gives tally + 1), `m_ember?` (`2 9 m_ember? 1 2 3` is `1 0`), `u_nique` (first-seen order), `s_ort` (ascending; descending is `r_ev s_ort v`), `g_rade` (sorting indices), `w_here` (indices of 1s), `r_oll!` (random 1..n), `p_rint!` (print and return the value). |
 
 The Life one-liner is unaffected (it uses only `r_/` and `o_-`);
@@ -231,7 +231,7 @@ words appear in the surrounding code, e.g.
 
 | #  | Decision |
 | -- | -------- |
-| S6 | A symbol function applied to one argument is an error (`- 3`, `/ 2`, `2 +`): under currying it would fill the *left* argument, so `- 3` would mean "3 minus ...". Named functions still curry (`r_/ '+`, `o_- 1`), and a quoted symbol may be partially applied explicitly (`('-)_ 3`). |
+| SC1 | A symbol function applied to one argument is an error (`- 3`, `/ 2`, `2 +`): under currying it would fill the *left* argument, so `- 3` would mean "3 minus ...". Named functions still curry (`r_/ '+`, `o_- 1`), and a quoted symbol may be partially applied explicitly (`('-)_ 3`). |
 
 What each reading of `- 3` is written as:
 
@@ -271,7 +271,6 @@ Planned enhancements (after the MVP milestones):
 | MC2 | A macro is a function-shaped name ending in `<` ("slurp in"): `u_se<`. Macros are system-provided. No keywords are introduced. The `<` suffix on function names is reserved for macros. |
 | MC3 | `u_se<` is applied like a dyadic function: `"c:" u_se< "Combinators"` inlines the library with its namespace rewritten to `c:` (Python's `as`). The alias is always required; monadic `u_se< "X"` is an error, so every namespace is visible where it is introduced. |
 | MC4 | The library argument is a string: an installed library name (`"Combinators"`) or a file path (`"../lib/life.xtl"`). The alias string must be a namespace (letters followed by `:`); otherwise it is a macro-phase error. |
-
 | MC5 | A library defines its own names under `l:` ("this library"); a program defines under `u:`. The macro rewrites a library's `l:` to the importer's alias. There is no namespace-declaration macro. |
 | MC6 | Aliases are per file. A library's own imports are private to it. The macro phase renames every library instance to a hidden, globally unique internal namespace and rewrites each file's letters through that file's alias table, so letters in different files never collide. Error messages and the display use the letter written in the file being read. |
 | MC7 | Each library (identified by its resolved path) is instantiated once and shared by every file that imports it; values are immutable, so sharing is safe. |
@@ -318,11 +317,10 @@ interface is unambiguous.
 
 ## 15. Queue of open questions
 
-- Optional, later: a spelling for axes above 9; function power on
-  functions; an explicit `_` wildcard parameter (`{ x _ -> x }`);
-  count-from-the-end axes.
-- Names for the remaining built-ins (reshape, shape, range, index,
-  each, table, tally, and others) under the naming rules above.
+Optional, later: a spelling for axes above 9; function power on
+functions; an explicit `_` wildcard parameter (`{ x _ -> x }`);
+count-from-the-end axes; raw strings `r"..."`; Unicode text as a
+library type; nested arrays (A7); checked `::` signatures (T4).
 
 ## 16. Style guide (conventions; a linter may check them later)
 
@@ -366,8 +364,8 @@ u:s_quare := { _r * _r }         # shorthand lambda
 u:s_quare := { x -> x * x }      # named-parameter lambda
 u:h_yp := { a b -> (a^2 + b^2)^0.5 }
 3 u:h_yp 4                       # 5.0
-u:n_ow := { @ -> s_ysclock @ }   # niladic
-u:n_ow @
+u:n_ow! := { @ -> s_ysclock! @ } # niladic, an effect (!)
+u:n_ow! @
 count! := 0                      # mutable variable
 count! := count! + 1
 ```
@@ -383,9 +381,9 @@ u:S_ := { f_ g_ x -> x f_ g_ x }     # f x (g x)
 u:W_ := { f_ x -> x f_ x }           # f x x
 u:V_ := { x y f_ -> x f_ y }         # f x y
 u:T_ := { x f_ -> f_ x }             # f x
-c:Y_ := { f_ -> { x_ -> f_ x_ 'x_ } '{ x_ -> f_ x_ 'x_ } }
-u:F_ := { ~self_ n -> n <= 1 ? 1; n * self_ n - 1 }
-(c:Y_ 'u:F_)_ 5                      # 120: Y works because self_ is lazy (E1)
+u:Y_ := { f_ -> { x_ -> f_ x_ 'x_ } '{ x_ -> f_ x_ 'x_ } }
+u:F_ := { ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }
+(u:Y_ 'u:F_)_ 5                      # 120: Y works because s_elf is lazy (E1)
 ```
 
 Conway's Life (rule from design.md 6.2: S is the 3 by 3 sum including
