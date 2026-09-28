@@ -1,0 +1,1 @@
+A6 axis subscripts on any function: Core Axes.arity filled from the type by elaboration (visible arity untyped), #axes built-in value collects args, xetal-axes moves the data argument's axis k to front, applies, moves back by result-rank rule; error[axis] cases incl. c_at_k and multi-digit (until step 3). Gate green, pushed.
