@@ -1,0 +1,1 @@
+New components/search (xetal-search): i_ndexOf (major cells, tally+1), m_ember? (item-wise), u_nique (first-seen), s_ort/g_rade (stable, Ord, rows lexicographic, 1-origin), w_here (vector of 1/0). major_cells moved to xetal-value. 2 spec cases + 4 rejections, crate tests, docs. Gate green, pushed.
