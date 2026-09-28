@@ -1,0 +1,1 @@
+Multi-axis rotate (every combination, A4) and sequential multi-axis reduce/scan (R1); fixed elaboration hiding r_/ under a subscript in polymorphic functions. The Life acceptance case passes by general rules and was flipped to active in the same commit (gate requires it). Gate green, pushed.

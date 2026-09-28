@@ -1,9 +1,10 @@
 number = 3
 slug = "multi-axis"
-status = "in-progress"
+status = "completed"
 description = "rotate-and-axes step 3: TDD multi-axis rotate o_-_12 giving every combination..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T12:23:34"
+completed_at = "2026-09-28T12:44:16"
 task_type = "code"
-commits = []
+commits = ["ce66e11aafa8c19b3aadbc2739b1d004dde8c47e"]
