@@ -134,7 +134,7 @@ What to do differently:
   component a sibling component. Saga 4 starts by moving to the
   components layout.
 
-## Saga 4 -- arrays (M3)  [DONE]
+## Saga 4 -- arrays (M3)  [DONE, ARCHIVED]
 
 `xetal-array`: dense row-major arrays, rank-0 scalars, strands, scalar
 extension via one lifting rule, empty arrays, shape errors, 1-origin
