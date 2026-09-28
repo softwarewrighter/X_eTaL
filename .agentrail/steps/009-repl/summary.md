@@ -1,0 +1,1 @@
+xetal repl via new xetal-repl crate: replay-based session (persistent defs/types, failing lines dropped, continuation lines), stdio loop, goldens
