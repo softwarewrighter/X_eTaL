@@ -1,0 +1,6 @@
+# `c_ompose : (a -> b) -> (b -> c) -> a -> c`: the first result must
+# suit the second function.
+== SOURCE
+'n_eg '{ _r c_at "ab" } c_ompose "x"
+== ERROR
+error[type-mismatch]: expected Char, found a number at 0..32

@@ -7,7 +7,7 @@ items deliberately left for later. The lexer, renderer, parser,
 formatter, Core desugaring, a scalar evaluator (saga calculus), type
 inference with type-checked evaluation (saga types-and-unit), dense
 arrays with the structural built-ins and a REPL (saga arrays), and
-reduce, scan, each and table (saga higher-order) implement it; the rest follows the sagas in `docs/plan.md`.
+the higher-order built-ins of B6 (saga higher-order) implement it; the rest follows the sagas in `docs/plan.md`.
 
 This document supersedes `docs/syntax-proposal.md`.
 

@@ -1,0 +1,23 @@
+# Swap `s_wap` (B6, the C combinator, APL's commute): `A '/ s_wap B`
+# is `B / A`. Partially applied it makes a section: `(s_wap '-)_ 3`
+# subtracts 3 (SC1).
+== SOURCE
+2 '/ s_wap 1
+10 '- s_wap 3
+2 4 '/ s_wap 1
+u:l_ess3 := (s_wap '-)_ 3
+u:l_ess3 10
+"ab" 'c_at s_wap "cd"
+== TYPE
+Float
+Int
+Float
+u:l_ess3 : Int -> Int
+Int
+Char
+== RESULT
+0.5
+-7
+0.5 0.25
+7
+cdab

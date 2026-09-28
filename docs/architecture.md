@@ -67,7 +67,7 @@ components/
   hof/                     xetal-hof (higher-order built-ins: reduce,
                            scan, dispatch; operands applied through
                            the evaluator's callback), xetal-map
-                           (item by item: each, table)
+                           (item by item: each, table, inner)
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
                            harness), xetal-spec (case files),
                            xetal-repl (interactive session)

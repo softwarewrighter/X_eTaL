@@ -30,7 +30,7 @@ pub(crate) enum Args {
 #[derive(Default)]
 pub(crate) struct Record {
     lits: Vec<(NodeId, Type)>,
-    prims: Vec<(NodeId, Type)>,
+    prims: Vec<(NodeId, (Type, usize))>,
     args: Vec<(NodeId, Args)>,
     params: HashMap<NodeId, Vec<TypeVar>>,
     globals: HashMap<String, NodeId>,
@@ -60,12 +60,12 @@ impl Infer {
     /// `TYPED_IDENTITY`, its result type is recorded for elaboration.
     pub(crate) fn builtin(&mut self, name: &str, e: &Expr) -> Result<Type, Diagnostic> {
         let t = prim_type(name, &mut self.u, e.span)?;
-        let mut result = &t;
+        let (mut result, mut arity) = (&t, 0);
         while let Type::Fn(_, r) = result {
-            result = r;
+            (result, arity) = (r, arity + 1);
         }
         if TYPED_IDENTITY.contains(&name) {
-            self.rec.prims.push((e.id, result.clone()));
+            self.rec.prims.push((e.id, (result.clone(), arity)));
         }
         Ok(t)
     }
@@ -110,7 +110,11 @@ impl Infer {
                 .collect(),
             args: args.collect(),
             lits: resolve(&r.lits),
-            prims: resolve(&r.prims),
+            prims: r
+                .prims
+                .iter()
+                .map(|(id, (t, n))| (*id, (self.u.resolve(t), *n)))
+                .collect(),
         }
     }
 }

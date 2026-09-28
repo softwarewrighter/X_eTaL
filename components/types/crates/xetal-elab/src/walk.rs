@@ -65,8 +65,8 @@ impl Walker<'_> {
             }
             Kind::Var(_) | Kind::Global(_) => self.pass(e),
             Kind::Prim(_) => {
-                if let Some(t) = self.dicts.prims.get(&e.id) {
-                    *e = typed_result(e, t, &self.scope);
+                if let Some((t, arity)) = self.dicts.prims.get(&e.id) {
+                    *e = typed_result(e, t, *arity, &self.scope);
                 }
             }
             Kind::Let { value, body, .. } => {

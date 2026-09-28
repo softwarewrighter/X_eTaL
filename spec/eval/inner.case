@@ -1,0 +1,33 @@
+# Inner product `i_nner` (B6, F9): in `A '+ '* i_nner B` the nearest
+# operand '* pairs items and '+ reduces them (a right fold, like r_/).
+# The last axis of A pairs with the first axis of B, as in APL and J:
+# vectors give a scalar (dot product), matrices multiply, and a single
+# value extends along the paired axis.
+== SOURCE
+1 2 3 '+ '* i_nner 4 5 6
+(2 2 r_eshape 1 2 3 4) '+ '* i_nner 2 2 r_eshape 5 6 7 8
+(2 3 r_eshape r_ange 6) '+ '* i_nner 1 1 1
+2 '+ '* i_nner 1 2 3
+1 2 3 'm_ax '+ i_nner 3 2 1
+"abc" '& '= i_nner "abc"
+1 2 3 '- '* i_nner 1 1 1
+1 2 3 '+ '= i_nner 1 5 3
+== TYPE
+Int
+Int
+Int
+Int
+Int
+Bool
+Int
+Int
+== RESULT
+32
+19 22
+43 50
+6 15
+12
+4
+1
+2
+2

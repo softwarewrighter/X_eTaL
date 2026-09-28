@@ -1,0 +1,10 @@
+# An empty paired axis reduces to the identity of the reducing
+# function, with the element type (B6): 0, or 0.0 for Floats.
+== SOURCE
+(0 t_ake 1) '+ '* i_nner 0 t_ake 1
+(0 t_ake 1.5) '+ '* i_nner 0 t_ake 1.5
+(0 t_ake 1.5) '* '* i_nner 0 t_ake 1.5
+== RESULT
+0
+0.0
+1.0

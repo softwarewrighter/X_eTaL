@@ -1,0 +1,6 @@
+# `i_nner : (a -> b -> c) -> (c -> c -> c) -> a -> b -> c`: the
+# pairing function must accept the items.
+== SOURCE
+"ab" '+ '* i_nner "ab"
+== ERROR
+error[type-mismatch]: expected a number, found Char at 0..22

@@ -1,0 +1,5 @@
+# `s_wap : (a -> b -> c) -> b -> a -> c` needs a two-argument function.
+== SOURCE
+2 'n_eg s_wap 1
+== ERROR
+error[type-mismatch]: expected a -> b, found a number at 2..13

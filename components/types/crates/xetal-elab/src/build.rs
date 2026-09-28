@@ -45,12 +45,13 @@ pub(crate) fn app(f: Expr, x: Expr) -> Expr {
     node(&f.clone(), Kind::App(Box::new(f), Box::new(x)))
 }
 
-/// A two-argument built-in whose result must have number type `t`:
-/// `{ #f #x -> f_loat (#f prim #x) }` at Float, `... + zero` at a
-/// quantified number type, and the built-in itself otherwise.
-pub(crate) fn typed_result(prim: &Expr, t: &Type, scope: &Scope) -> Expr {
+/// A built-in of `arity` arguments whose result must have number type
+/// `t`: `{ #a1 ... #an -> f_loat (prim #a1 ... #an) }` at Float,
+/// `... + zero` at a quantified number type, else the built-in itself.
+pub(crate) fn typed_result(prim: &Expr, t: &Type, arity: usize, scope: &Scope) -> Expr {
     let var = |name: &str| node(prim, Kind::Var(name.into()));
-    let call = node(prim, app2(prim.clone(), var("#f"), var("#x")));
+    let names: Vec<String> = (1..=arity).map(|i| format!("#a{i}")).collect();
+    let call = names.iter().fold(prim.clone(), |f, n| app(f, var(n)));
     let body = match zero(prim, t, scope).kind {
         Kind::Lit(Number::Float(_)) => app(node(prim, Kind::Prim("f_loat".into())), call),
         Kind::Var(name) => node(
@@ -59,7 +60,7 @@ pub(crate) fn typed_result(prim: &Expr, t: &Type, scope: &Scope) -> Expr {
         ),
         _ => return prim.clone(),
     };
-    lam("#f".into(), lam("#x".into(), body))
+    names.into_iter().rev().fold(body, |body, n| lam(n, body))
 }
 
 fn app2(f: Expr, left: Expr, right: Expr) -> Kind {

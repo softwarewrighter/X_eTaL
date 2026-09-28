@@ -157,8 +157,9 @@ becomes `literal + zero`, one of type Float a Float literal. So
 `u:k_ := { @ -> 1 }` used where a Float is expected gives `1.0`, also
 through `p_rint!`, recursion, binding groups and local
 let-polymorphism. A built-in that makes a result with no typed item
-(reduce's identity for an empty axis) is elaborated at its result
-type: at Float `r_/` becomes `{ #f #x -> f_loat (#f r_/ #x) }`, at a
+(the identity of `r_/` or `i_nner` for an empty axis) is elaborated
+at its result type: at Float `r_/` becomes
+`{ #a1 #a2 -> f_loat (r_/ #a1 #a2) }`, at a
 quantified number type `... + zero`, so `'+ r_/` of an empty Float
 vector is `0.0`. The evaluator runs the result as ordinary Core; the
 Core shown by `xetal core` is before elaboration.
@@ -268,7 +269,11 @@ item-wise application (a built-in value `#each` holding them) that
 zips with the next argument, which is how dyadic each works by
 currying. `t_able` applies f to each item of A once, then the partial
 result to every item of B. Both require single values from every call
-until nested arrays exist.
+until nested arrays exist. `i_nner` pairs the last axis of A with the
+first of B (a single value extends), applies the nearest operand to
+each pair and reduces each run by calling `r_/` through the callback,
+so it shares reduce's right fold and identities. `c_ompose` and
+`s_wap` are one-line kernels.
 Evaluation runs on its own large stack; runaway recursion is a
 `stack-overflow` error. Each top-level expression's value is printed
 (section 10a of lang-choices); runtime errors are diagnostics with

@@ -1,0 +1,19 @@
+# Compose `c_ompose` (B6, F9): the nearest operand applies first, so
+# `'n_eg 'a_bs c_ompose x` is `n_eg a_bs x`.
+== SOURCE
+'n_eg 'a_bs c_ompose 3 -4
+'{ _r * 10 } '{ _r + 1 } c_ompose 2
+u:n_abs := { x -> 'n_eg 'a_bs c_ompose x }
+u:n_abs -7
+'f_loat 't_ally c_ompose 1 2 3
+== TYPE
+Int
+Int
+u:n_abs : Num a => a -> a
+Int
+Float
+== RESULT
+-3 -4
+30
+-7
+3.0

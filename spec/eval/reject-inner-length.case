@@ -1,0 +1,5 @@
+# The paired axes must have the same length.
+== SOURCE
+1 2 '+ '* i_nner 1 2 3
+== ERROR
+error[shape-mismatch]: shapes differ: 2 and 3 at 0..22
