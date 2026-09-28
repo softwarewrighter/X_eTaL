@@ -1,0 +1,5 @@
+# The function takes the items of the array: `e_ach : (a -> b) -> a -> b`.
+== SOURCE
+'n_eg e_ach "ab"
+== ERROR
+error[type-mismatch]: expected a number, found Char at 0..16

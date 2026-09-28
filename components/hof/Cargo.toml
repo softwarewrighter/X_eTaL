@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-hof"]
+members = ["crates/xetal-hof", "crates/xetal-map"]
 
 [workspace.package]
 version = "0.1.0"
@@ -26,6 +26,7 @@ xetal-types = { path = "../types/crates/xetal-types" }
 xetal-array = { path = "../eval/crates/xetal-array" }
 xetal-value = { path = "../eval/crates/xetal-value" }
 xetal-hof = { path = "crates/xetal-hof" }
+xetal-map = { path = "crates/xetal-map" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
 xetal-spec = { path = "../cli/crates/xetal-spec" }
 clap = { version = "4", features = ["derive"] }

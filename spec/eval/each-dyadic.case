@@ -1,0 +1,31 @@
+# Dyadic each is currying (B6): `A f e_ach B` is `(f e_ach A) B`. When
+# f applied to an item of A is itself a function, `f e_ach A` is a
+# pending item-wise application, and B is zipped with it; a single
+# value on either side extends to every item (T7).
+== SOURCE
+1 2 3 '+ e_ach 10 20 30
+1 2 3 '= e_ach 1 5 3
+5 '+ e_ach 1 2 3
+1 2 3 '- e_ach 1
+"abc" '= e_ach "abd"
+3 1 4 '{ x y -> x < y ? x; y } e_ach 2 2 2
+u:m_in2 := { x y -> x < y ? x; y }
+(2 2 r_eshape 1 5 3 7) 'u:m_in2 e_ach 4
+== TYPE
+Int
+Bool
+Int
+Int
+Bool
+Int
+u:m_in2 : Ord a => a -> a -> a
+Int
+== RESULT
+11 22 33
+1 0 1
+6 7 8
+0 1 2
+1 1 0
+2 1 2
+1 4
+3 4

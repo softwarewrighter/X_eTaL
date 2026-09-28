@@ -1,0 +1,5 @@
+# The function takes an item of each array: `t_able : (a -> b -> c) -> a -> b -> c`.
+== SOURCE
+1 2 '+ t_able "ab"
+== ERROR
+error[type-mismatch]: expected a number, found Char at 0..18

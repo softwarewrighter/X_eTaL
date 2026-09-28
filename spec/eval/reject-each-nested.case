@@ -1,0 +1,5 @@
+# Until nested arrays exist (A7), each call must give a single value.
+== SOURCE
+'r_ange e_ach 1 2
+== ERROR
+error[not-a-scalar]: e_ach needs a single value from each call (nested arrays come later), got 1 at 0..17

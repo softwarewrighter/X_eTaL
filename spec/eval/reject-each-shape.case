@@ -1,0 +1,5 @@
+# Dyadic each zips two arrays of the same shape (T7).
+== SOURCE
+1 2 '+ e_ach 1 2 3
+== ERROR
+error[shape-mismatch]: shapes differ: 2 and 3 at 0..18

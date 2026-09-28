@@ -73,6 +73,13 @@ entries = [
   ["s_\\", 2, "(a -> a -> a) -> a -> a"],
 ]
 
+[[group]]
+rule = "B6: each and table (item by item; dyadic each by currying)"
+entries = [
+  ["e_ach", 2, "(a -> b) -> a -> b"],
+  ["t_able", 3, "(a -> b -> c) -> a -> b -> c"],
+]
+
 [[later]]
 rule = "A2, A3: rotate and axes"
 names = ["r_ev", "o_-"]
@@ -80,6 +87,6 @@ names = ["r_ev", "o_-"]
 [[later]]
 rule = "B6, B7: higher-order, search and random"
 names = [
-  "e_ach", "t_able", "i_nner", "c_ompose", "s_wap",
+  "i_nner", "c_ompose", "s_wap",
   "i_ndexOf", "m_ember?", "u_nique", "s_ort", "g_rade", "w_here", "r_oll!",
 ]

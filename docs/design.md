@@ -262,7 +262,13 @@ one pass; item k of `s_\` is the reduce of the first k cells. A scan
 accumulates from the left in one pass only when that is provably the
 same: `m_ax m_in & |` always, Int `+` and `*` when the magnitudes of
 all items are small enough that no grouping can overflow; otherwise
-each prefix is folded (quadratic, exact).
+each prefix is folded (quadratic, exact). `e_ach` calls f on every
+item in order; when the results are functions it returns a pending
+item-wise application (a built-in value `#each` holding them) that
+zips with the next argument, which is how dyadic each works by
+currying. `t_able` applies f to each item of A once, then the partial
+result to every item of B. Both require single values from every call
+until nested arrays exist.
 Evaluation runs on its own large stack; runaway recursion is a
 `stack-overflow` error. Each top-level expression's value is printed
 (section 10a of lang-choices); runtime errors are diagnostics with

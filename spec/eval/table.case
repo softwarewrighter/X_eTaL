@@ -1,0 +1,32 @@
+# Table `t_able` (B6) is the outer product: `A f t_able B` applies f to
+# every item of A with every item of B, and the result has the shape of
+# A followed by the shape of B.
+== SOURCE
+1 2 3 '* t_able 1 2 3
+1 2 '+ t_able 10 20 30
+"ab" '= t_able "abc"
+1 2 '{ x y -> (10 * x) + y } t_able 3 4
+s_hape (2 2 r_eshape 1) '+ t_able 1 2 3
+5 '* t_able 1 2
+2 '* t_able 3
+== TYPE
+Int
+Int
+Bool
+Int
+Int
+Int
+Int
+== RESULT
+1 2 3
+2 4 6
+3 6 9
+11 21 31
+12 22 32
+1 0 0
+0 1 0
+13 14
+23 24
+2 2 3
+5 10
+6

@@ -1,6 +1,6 @@
 number = 2
 slug = "each-table"
-status = "pending"
+status = "in-progress"
 description = "higher-order step 2: TDD e_ach (monadic, and dyadic by currying: pending item..."
 role = "production"
 context_files = []

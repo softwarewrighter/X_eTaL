@@ -65,8 +65,9 @@ components/
                            xetal-eval (evaluator; implements the
                            callback that applies function values)
   hof/                     xetal-hof (higher-order built-ins: reduce,
-                           scan; operands applied through the
-                           evaluator's callback)
+                           scan, dispatch; operands applied through
+                           the evaluator's callback), xetal-map
+                           (item by item: each, table)
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
                            harness), xetal-spec (case files),
                            xetal-repl (interactive session)

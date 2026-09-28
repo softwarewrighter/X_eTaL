@@ -1,0 +1,30 @@
+# Each `e_ach` (B6) applies a function to every item and keeps the
+# shape. Scalar functions already apply item by item (T7); e_ach is for
+# the rest, such as a function with a guard, whose condition must be a
+# single value. Items are visited in order.
+== SOURCE
+'n_eg e_ach 1 2 3
+u:s_ign := { x -> x < 0 ? -1; x = 0 ? 0; 1 }
+'u:s_ign e_ach -5 0 7
+'u:s_ign e_ach 2 2 r_eshape -1 0 1 2
+'u:s_ign e_ach 4
+t_ally 'u:s_ign e_ach 0 t_ake 1 2
+'p_rint! e_ach 1 2
+== TYPE
+Int
+u:s_ign : (Num a, Num b) => a -> b
+Int
+Int
+Int
+Int
+Int
+== RESULT
+-1 -2 -3
+-1 0 1
+-1 0
+ 1 1
+1
+0
+1
+2
+1 2
