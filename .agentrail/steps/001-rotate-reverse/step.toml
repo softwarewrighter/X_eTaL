@@ -1,6 +1,6 @@
 number = 1
 slug = "rotate-reverse"
-status = "pending"
+status = "in-progress"
 description = "rotate-and-axes step 1: TDD o_- (amount left, leading axis, APL direction, a ..."
 role = "production"
 context_files = []

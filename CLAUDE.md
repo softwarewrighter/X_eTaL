@@ -398,6 +398,7 @@ render: raw <-> decorated, canonical, expanded printers
 array: dense arrays + primitive kernels (peer of the front end)
 hof: higher-order built-ins; operands applied through eval's Caller
 search: search and order built-ins over major cells
+axes: rotate, reverse and (later) axis subscripts
 ```
 
 - Components: each `components/<name>/` is its own Cargo workspace of

@@ -42,8 +42,8 @@ fn definitions_once_per_file() {
 }
 
 #[test]
-fn rotate_and_reverse_come_later() {
-    assert_eq!(fails("r_ev 1 2 3"), "unsupported");
+fn axis_subscripts_come_later() {
+    assert_eq!(fails("r_ev_1 1 2 3"), "unsupported");
 }
 
 #[test]

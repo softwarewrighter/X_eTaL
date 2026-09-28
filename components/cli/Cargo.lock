@@ -671,6 +671,7 @@ dependencies = [
  "xetal-hof",
  "xetal-lex",
  "xetal-lint",
+ "xetal-rotate",
  "xetal-search",
  "xetal-struct",
  "xetal-types",
@@ -748,6 +749,15 @@ dependencies = [
  "xetal-core",
  "xetal-eval",
  "xetal-types",
+]
+
+[[package]]
+name = "xetal-rotate"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
 ]
 
 [[package]]

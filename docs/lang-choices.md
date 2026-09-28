@@ -8,7 +8,8 @@ formatter, Core desugaring, a scalar evaluator (saga calculus), type
 inference with type-checked evaluation (saga types-and-unit), dense
 arrays with the structural built-ins and a REPL (saga arrays), and
 the higher-order built-ins of B6 and the search, order and random
-built-ins of B7 (saga higher-order) implement it; the rest follows the sagas in `docs/plan.md`.
+built-ins of B7 (saga higher-order), and rotate and reverse (saga
+rotate-and-axes) implement it; the rest follows the sagas in `docs/plan.md`.
 
 This document supersedes `docs/syntax-proposal.md`.
 
@@ -79,11 +80,11 @@ This document supersedes `docs/syntax-proposal.md`.
 | #  | Decision |
 | -- | -------- |
 | A1 | Leading-axis theory: with no subscript, every axis-taking function acts on the first axis (as in J and BQN). |
-| A2 | Rotate is `o_-` (like APL's circle-minus, first-axis rotate). `o_\|` is reserved; `o_\` (transpose) and `o_/` are future candidates for the mirror family. |
+| A2 | Rotate is `o_-` (like APL's circle-minus, first-axis rotate), amount on the left; a positive amount moves items toward the front as in APL, J and BQN (`1 o_- 1 2 3` is `2 3 1`), and amounts wrap around. `o_\|` is reserved; `o_\` (transpose) and `o_/` are future candidates for the mirror family. |
 | A3 | Reverse is `r_ev` (`r_ev_2` along axis 2). |
-| A4 | A list of amounts with a multi-axis subscript means every combination, with one leading result axis per subscripted axis: `-1 0 1 o_-_12 B` on an n by m board has shape 3 3 n m. |
+| A4 | A list of amounts with a multi-axis subscript means every combination, with one leading result axis per subscripted axis: `-1 0 1 o_-_12 B` on an n by m board has shape 3 3 n m. The same holds with one axis or none: `-1 0 1 o_- V` is three rotated copies, shape 3 n (decided with the user in the rotate-and-axes saga). |
 | A5 | Index origin is 1: `r_ange 5` is `1 2 3 4 5` and index 1 is the first item, consistent with 1-based axes. Not configurable (no APL-style index-origin setting). |
-| A6 | An axis subscript works on any function by one rule: `f_k X` moves axis k to the front, applies f (which works on the leading axis) and moves it back. Built-ins and user functions alike: `u:n_ormalize_2 M`, and `'+ r_/_2 M` is reduce by this rule. Multi-digit subscripts (`_12`) mean something only where a function defines them (rotate, A4); on a user function they are an error for now. Moving an axis can be an index view, not a copy. |
+| A6 | An axis subscript works on any function by one rule: `f_k X` moves axis k to the front, applies f (which works on the leading axis) and moves it back. Built-ins and user functions alike: `u:n_ormalize_2 M`, and `'+ r_/_2 M` is reduce by this rule. Multi-digit subscripts (`_12`) mean something only where a function defines them (rotate, A4); on a user function they are an error for now. Moving an axis can be an index view, not a copy. On a dyadic function `_k` moves axis k of the right (data) argument only, since control arguments sit on the left (F6, B10); `A c_at_2 B` is an error for now. After f runs, a result of the same rank has its axis 1 moved back to k, a result one rank lower (f consumed the leading axis, as reduce does) is left as it is, and any other change of rank is `error[axis]` (decided with the user in the rotate-and-axes saga). |
 | A7 | Nested arrays follow APL2 / BQN: any element may itself be an array (`"ab" "cde"` is a 2-element vector of strings), with enclose / disclose built-ins and no explicit box type. Planned for after the Life milestone; v0 arrays are flat (a flat array is a nested array of scalars), and v0 rules such as "`e_ach` returns scalars" are written so nesting can be added without breaking programs. |
 
 ## 6. Lambdas

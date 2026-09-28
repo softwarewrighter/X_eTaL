@@ -15,9 +15,9 @@ fn signatures_round_trip() {
 }
 
 #[test]
-fn later_and_unknown_names_are_errors() {
+fn unknown_names_are_errors() {
     let mut u = Unifier::default();
-    let code = |name, u: &mut Unifier| prim_type(name, u, Span::new(0, 1)).unwrap_err().code;
-    assert_eq!(code("r_ev", &mut u), "unsupported");
-    assert_eq!(code("q_uux", &mut u), "unknown-builtin");
+    assert!(prim_type("r_ev", &mut u, Span::new(0, 1)).is_ok());
+    let err = prim_type("q_uux", &mut u, Span::new(0, 1)).unwrap_err();
+    assert_eq!(err.code, "unknown-builtin");
 }

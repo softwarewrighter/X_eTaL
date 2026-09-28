@@ -36,8 +36,9 @@ pub fn call<'a>(
     out: &mut dyn Write,
     rng: &mut Rng,
 ) -> Result<Value<'a>, Diagnostic> {
-    if let Some(result) =
-        xetal_struct::call(name, args, span).or_else(|| xetal_search::call(name, args, span))
+    if let Some(result) = xetal_struct::call(name, args, span)
+        .or_else(|| xetal_search::call(name, args, span))
+        .or_else(|| xetal_rotate::call(name, args, span))
     {
         return result;
     }

@@ -389,4 +389,6 @@ The pinning tests are written as the implementing saga reaches them
 | D23| Inner product | pairs the last axis of A with the first of B, as APL and J (B6) |
 | D24| Random numbers | `r_oll!` is random by default; a seed only for tests that need it (B7) |
 | D25| Sorting | `s_ort` / `g_rade` stable ascending on `Ord` types over major cells; `g_rade` is 1-origin (B7) |
+| D26| Rotate direction and amounts | APL direction (positive toward the front); a list of amounts always means every combination, one leading axis per rotated axis (A2, A4) |
+| D27| Axis subscript on a dyadic function | moves axis k of the right (data) argument only; the axis moves back when the result keeps its rank, stays consumed when it loses one, else `error[axis]` (A6) |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

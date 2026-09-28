@@ -2,8 +2,8 @@
 # the type checker and the evaluator read. build.rs turns it into
 # `xetal_catalog::BUILTINS`. Each implemented entry is
 # [name, arity, type signature]; the arity must match the arrows of
-# the signature. Types are rank-erased (T7). Later groups list names
-# that exist but arrive with a later saga.
+# the signature. Types are rank-erased (T7). Optional [[later]] groups
+# list names that exist but arrive with a later saga.
 
 [[group]]
 rule = "B7, D-10: arithmetic"
@@ -100,6 +100,9 @@ entries = [
   ["w_here", 1, "Truthy a => a -> Int"],
 ]
 
-[[later]]
-rule = "A2, A3: rotate and axes"
-names = ["r_ev", "o_-"]
+[[group]]
+rule = "A2-A4: rotate and reverse (leading axis)"
+entries = [
+  ["r_ev", 1, "a -> a"],
+  ["o_-", 2, "Int -> a -> a"],
+]

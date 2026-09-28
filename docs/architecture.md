@@ -70,6 +70,8 @@ components/
                            (item by item: each, table, inner)
   search/                  xetal-search (search and order: index-of,
                            member, unique, sort, grade, where)
+  axes/                    xetal-rotate (rotate and reverse along the
+                           leading axis)
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
                            harness), xetal-spec (case files),
                            xetal-repl (interactive session)

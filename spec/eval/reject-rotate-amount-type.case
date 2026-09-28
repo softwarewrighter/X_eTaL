@@ -1,0 +1,5 @@
+# `o_- : Int -> a -> a`: the amount is a whole number.
+== SOURCE
+1.5 o_- 1 2 3
+== ERROR
+error[type-mismatch]: expected Int, found Float at 0..13

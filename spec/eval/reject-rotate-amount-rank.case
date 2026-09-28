@@ -1,0 +1,6 @@
+# Amounts are one number or a list: one leading result axis per
+# rotated axis (A4).
+== SOURCE
+(2 2 r_eshape 1) o_- 1 2 3
+== ERROR
+error[rank]: rotation amounts must be one number or a list at 1..26

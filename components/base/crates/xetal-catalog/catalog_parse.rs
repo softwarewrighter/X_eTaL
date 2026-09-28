@@ -5,6 +5,8 @@ use serde::Deserialize;
 #[derive(Deserialize)]
 pub struct Catalog {
     pub group: Vec<Group>,
+    /// Absent once every listed built-in is implemented.
+    #[serde(default)]
     pub later: Vec<Later>,
 }
 
