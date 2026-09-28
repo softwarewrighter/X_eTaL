@@ -150,10 +150,11 @@ cheap. Property tests (shape of reshape). REPL (`xetal repl`).
 | 2  | num-dictionaries    | the Saga 3 polymorphic-literal gap closed by passing a hidden number type to `Num`-quantified functions |
 | 3  | array-core          | dense arrays, strands, scalar extension, shape errors, printed arrays, Array types |
 | 4  | identity-tacks      | `i_d`, `l_eft`, `r_ight` (B9); S and S' as hook, fork and lambdas |
-| 5  | structural-builtins | B4/B5 structural built-ins, 1-origin, property tests |
-| 6  | strings             | strings as Char vectors |
-| 7  | repl                | `xetal repl` |
-| 8  | m3-docs-release     | README M3 tour, docs sync, retrospective |
+| 5  | structural-builtins | B4/B5/B10 structural built-ins, 1-origin, property tests |
+| 6  | concise-refactor    | built-in catalog (TOML + build.rs codegen), facade-only lib.rs, tests in files, reg-rs over test code; no behavior change |
+| 7  | strings             | strings as Char vectors |
+| 8  | repl                | `xetal repl` |
+| 9  | m3-docs-release     | README M3 tour, docs sync, retrospective |
 
 ## Saga 5 -- higher-order (M4)
 

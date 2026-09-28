@@ -1,6 +1,6 @@
 number = 5
 slug = "structural-builtins"
-status = "pending"
+status = "in-progress"
 description = "arrays step 4: TDD the structural built-ins s_hape r_eshape r_ange o_ffsets t..."
 role = "production"
 context_files = []

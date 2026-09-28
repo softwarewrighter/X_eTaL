@@ -1,0 +1,5 @@
+# f_irst of an empty array has no fill to give (B10).
+== SOURCE
+f_irst r_ange 0
+== ERROR
+error[empty]: the array is empty: there is no item to use (and no fill) at 0..15

@@ -1,0 +1,40 @@
+# r_ange (1-origin, A5), o_ffsets (B5), r_eshape reusing items
+# cyclically, s_hape, t_ally, r_avel (B4).
+== SOURCE
+r_ange 5
+o_ffsets 3
+2 3 r_eshape r_ange 6
+2 2 r_eshape 1 2 3
+5 r_eshape 7
+s_hape 2 3 r_eshape r_ange 6
+s_hape 5
+t_ally 2 3 r_eshape r_ange 6
+t_ally 5
+r_avel 2 2 r_eshape r_ange 4
+10 ^ o_ffsets 3
+== TYPE
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+== RESULT
+1 2 3 4 5
+0 1 2
+1 2 3
+4 5 6
+1 2
+3 1
+7 7 7 7 7
+2 3
+
+2
+1
+1 2 3 4
+1 10 100

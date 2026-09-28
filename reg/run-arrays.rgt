@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/arrays.xtl"
+exit_code = 0
+desc = "M3 demo: reshape, shape, select, take, scalar extension, first and cat, offsets"

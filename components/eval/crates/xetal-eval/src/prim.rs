@@ -10,7 +10,8 @@ use xetal_arith::{binary, compare, lift1, lift2, num, truth};
 use xetal_value::Value;
 
 /// Implemented built-ins with their arity: the scalar functions,
-/// `p_rint!`, and identity and the tacks (B9).
+/// `p_rint!`, identity and the tacks (B9), and the structural
+/// built-ins (B4, B5).
 const SCALAR: &[(&str, usize)] = &[
     ("+", 2),
     ("-", 2),
@@ -42,13 +43,23 @@ const SCALAR: &[(&str, usize)] = &[
     ("i_d", 1),
     ("l_eft", 2),
     ("r_ight", 2),
+    ("s_hape", 1),
+    ("t_ally", 1),
+    ("r_avel", 1),
+    ("f_irst", 1),
+    ("r_ange", 1),
+    ("o_ffsets", 1),
+    ("r_eshape", 2),
+    ("t_ake", 2),
+    ("d_rop", 2),
+    ("s_elect", 2),
+    ("c_at", 2),
 ];
 
 /// Built-ins that exist but arrive with arrays or higher-order functions.
 pub const LATER: &[&str] = &[
-    "r_ev", "o_-", "r_/", "s_\\", "s_hape", "r_eshape", "r_ange", "o_ffsets", "t_ally", "f_irst",
-    "t_ake", "d_rop", "s_elect", "r_avel", "c_at", "e_ach", "t_able", "i_nner", "c_ompose",
-    "s_wap", "i_ndexOf", "m_ember?", "u_nique", "s_ort", "g_rade", "w_here", "r_oll!",
+    "r_ev", "o_-", "r_/", "s_\\", "e_ach", "t_able", "i_nner", "c_ompose", "s_wap", "i_ndexOf",
+    "m_ember?", "u_nique", "s_ort", "g_rade", "w_here", "r_oll!",
 ];
 
 /// Every built-in name, for the shadowing warning (L7).
@@ -84,6 +95,9 @@ pub fn call<'a>(
     span: Span,
     out: &mut dyn Write,
 ) -> Result<Value<'a>, Diagnostic> {
+    if let Some(result) = xetal_struct::call(name, args, span) {
+        return result;
+    }
     match (name, args) {
         ("p_rint!", [v]) => {
             writeln!(out, "{v}").map_err(|e| err("io", span, e.to_string()))?;

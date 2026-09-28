@@ -190,7 +190,8 @@ has no simple type: `infinite-type`; run it with `--untyped`.
   scalar function applies item by item, a scalar extends to every
   item, and two arrays must have the same shape (`shape-mismatch`).
   Nested arrays come later (A7).
-- Built-in names: see lang-choices B1-B9.
+- Built-in names: see lang-choices B1-B10. Structural kernels live in
+  `xetal-struct`, generic over the item type.
 
 ### 6.1 Multi-axis rotate
 
@@ -347,3 +348,4 @@ The pinning tests are written as the implementing saga reaches them
 | D16| Checked evaluation | `eval` / `run` type-check first, `--untyped` skips; binding groups; number-type dictionary passing so literals follow their types (T6) |
 | D17| Array types | rank-erased: a type names the element type; shape checked at run time (T7) |
 | D18| Identity and tacks | `i_d`, `l_eft`, `r_ight` as separate built-ins (B9) |
+| D19| Structural built-in details | control argument on the left, 1-origin `s_elect`, overtake fill from the items, empty errors, leading-axis `c_at` (B10) |

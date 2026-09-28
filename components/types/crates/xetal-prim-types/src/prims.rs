@@ -56,7 +56,6 @@ pub fn prim_type(name: &str, u: &mut Unifier, span: Span) -> Result<Type, Diagno
 /// Built-ins that exist but are typed with the arrays and higher-order
 /// sagas.
 const LATER: &[&str] = &[
-    "r_ev", "o_-", "r_/", "s_\\", "s_hape", "r_eshape", "r_ange", "o_ffsets", "t_ally", "f_irst",
-    "t_ake", "d_rop", "s_elect", "r_avel", "c_at", "e_ach", "t_able", "i_nner", "c_ompose",
-    "s_wap", "i_ndexOf", "m_ember?", "u_nique", "s_ort", "g_rade", "w_here", "r_oll!",
+    "r_ev", "o_-", "r_/", "s_\\", "e_ach", "t_able", "i_nner", "c_ompose", "s_wap", "i_ndexOf",
+    "m_ember?", "u_nique", "s_ort", "g_rade", "w_here", "r_oll!",
 ];

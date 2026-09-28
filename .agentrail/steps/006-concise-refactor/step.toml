@@ -1,0 +1,8 @@
+number = 6
+slug = "concise-refactor"
+status = "pending"
+description = "arrays step 6 (user directive, no behavior change): apply the concise-code pa..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T23:22:09"
+commits = []

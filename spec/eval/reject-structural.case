@@ -1,0 +1,5 @@
+# Structural errors (B4, B10).
+== SOURCE
+4 s_elect 10 20 30
+== ERROR
+error[index]: index 4 is outside 1..3 at 0..18

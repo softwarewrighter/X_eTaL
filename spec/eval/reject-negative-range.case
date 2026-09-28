@@ -1,0 +1,5 @@
+# r_ange needs a count of zero or more (B4).
+== SOURCE
+r_ange -1
+== ERROR
+error[domain]: a count cannot be -1 at 0..9

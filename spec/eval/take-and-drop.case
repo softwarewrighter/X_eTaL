@@ -1,0 +1,22 @@
+# t_ake / d_rop count from the front, negative from the end;
+# overtake pads with a fill taken from the items (B4, B10).
+== SOURCE
+2 t_ake 10 20 30
+-2 t_ake 10 20 30
+5 t_ake 1 2 3
+-5 t_ake 1.5 2.5
+4 t_ake "ab"
+1 d_rop 10 20 30
+-1 d_rop 10 20 30
+5 d_rop 10 20 30
+1 t_ake 2 3 r_eshape r_ange 6
+== RESULT
+10 20
+20 30
+1 2 3 0 0
+0.0 0.0 0.0 1.5 2.5
+ab  
+20 30
+10 20
+
+1 2 3

@@ -1,0 +1,5 @@
+# r_eshape cannot fill a shape from no items (B10).
+== SOURCE
+3 r_eshape r_ange 0
+== ERROR
+error[empty]: the array is empty: there is no item to use (and no fill) at 0..19
