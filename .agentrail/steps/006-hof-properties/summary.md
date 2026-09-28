@@ -1,0 +1,1 @@
+Seven proptest properties through checker+evaluator: reduce over cat, last of scan = reduce (incl. non-associative), one-pass scan = definition, each of identity, table shape, sort/grade vs Rust stable sort and grade-select, unique/indexOf vs model. Mutation check confirmed detection; regression seed kept. Gate green, pushed.
