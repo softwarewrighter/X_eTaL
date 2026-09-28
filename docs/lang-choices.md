@@ -173,6 +173,7 @@ Named instead of symbols: `n_eg` (negate), `n_ot` (not), `m_od`
 | -- | -------- |
 | E1 | Evaluation is strict by default. A lambda parameter may be declared lazy with a `~` prefix in the parameter list (`{ ~s_elf n -> ... }`): its argument is not evaluated at the call but on first use in the body, then remembered (call-by-need); unused, it is never evaluated. The body uses the parameter normally (`s_elf`, not `~s_elf`). |
 | E2 | A function is evaluated before its argument, so the evaluator knows whether the parameter is lazy. Laziness is carried by the function value at run time and is not part of the static type. |
+| E4 | Evaluation order is the function first, then its arguments right to left (APL order): in `x f y`, `f`, then `y`, then `x`. `(p_rint! 1) + p_rint! 2` prints 2 then 1; in a fork `(F x) G (H x)`, H's result is computed before F's. Lazy (`~`) arguments are not evaluated in this sequence, only on first use. The trace explainer steps in the same order. (Review R4.) |
 | E3 | The Y combinator works in its textbook shape when its functional marks its self parameter lazy; Z also works. Lazy parameters also let users write their own control structures (`u:w_hen := { c ~a ~b -> c ? a; b }`). |
 
 Implementation note (no language change): because values are
