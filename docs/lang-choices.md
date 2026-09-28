@@ -154,7 +154,7 @@ tokens; the display may render each as one glyph.
 | `\|` | or | logical or |
 
 Named instead of symbols: `n_eg` (negate), `n_ot` (not), `m_od`
-(APL's residue), `m_ax`, `m_in`.
+(remainder, maths order: `7 m_od 3`), `d_iv`, `m_ax`, `m_in` (B7).
 
 ## 9. Types and values
 
@@ -220,6 +220,8 @@ printed values are valid input where possible.
 | B4 | Structural built-ins (one arity each, leading axis default, `_digits` for other axes, 1-origin): `s_hape` (shape vector), `r_eshape` (dyadic, reuses elements cyclically), `r_ange` (1..n), `t_ally` (items along the leading axis), `f_irst` (first major cell), `t_ake` / `d_rop` (first n / all but first n; negative counts from the end), `s_elect` (items at indices; "index of" would be a separate `i_ndexOf`), `r_avel` (all elements as a vector), `c_at` (join along the leading axis). |
 | B5 | `o_ffsets n` gives `0 1 ... n-1`: a distinct built-in for offset arithmetic (place values, wrap-around), so 1-origin stays fixed with no index-origin setting: `10 ^ r_ev o_ffsets 3` is `100 10 1`. |
 | B6 | Higher-order built-ins: `r_/` reduce and `s_\` scan (leading axis; empty reduce gives the operand's identity, or an error if it has none), `e_ach` (apply to each element; monadic or dyadic; results must be scalars until nested arrays exist), `t_able` (outer product: `1 2 3 '* t_able 1 2 3`), `i_nner` (inner product: `A '+ '* i_nner B`), `c_ompose` (`'n_eg 'a_bs c_ompose x` is `n_eg a_bs x`), `s_wap` (APL commute, the C combinator: `A '/ s_wap B` is `B / A`). A quoted function is written exactly as its name is spelled (`'u:s_quare`, `'n_eg`, `'f_`). |
+
+| B7 | Arithmetic, search and effect built-ins: `n_eg`, `a_bs`, `f_loor`, `c_eiling`, `m_ax` / `m_in` (dyadic; `'m_ax r_/ v` is the maximum), `d_iv` and `m_od` in maths order (`7 d_iv 2` is `3`, `7 m_od 3` is `1`), `n_ot`, `e_q~` (T3), `e_xp`, `l_og` (natural), `i_ndexOf` (`5 6 7 i_ndexOf 7 9` is `3 4`; not found gives tally + 1), `m_ember?` (`2 9 m_ember? 1 2 3` is `1 0`), `u_nique` (first-seen order), `s_ort` (ascending; descending is `r_ev s_ort v`), `g_rade` (sorting indices), `w_here` (indices of 1s), `r_oll!` (random 1..n), `p_rint!` (print and return the value). |
 
 The Life one-liner is unaffected (it uses only `r_/` and `o_-`);
 words appear in the surrounding code, e.g.
