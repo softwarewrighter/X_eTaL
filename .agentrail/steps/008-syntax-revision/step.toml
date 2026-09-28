@@ -1,0 +1,9 @@
+number = 8
+slug = "syntax-revision"
+status = "pending"
+description = "foundations step 8 (inserted): revise the implementation to docs/lang-choices..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T21:07:23"
+task_type = "feature"
+commits = []

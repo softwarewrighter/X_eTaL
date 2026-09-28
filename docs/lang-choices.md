@@ -1,12 +1,13 @@
 # X_eTaL -- Language Choices
 
-Status: DECISIONS IN PROGRESS. Each entry below was chosen by the
-user, one question at a time. Nothing here is implemented yet: the
-implemented lexer and renderer, `docs/design.md` sections 2, 3 and 8,
-and `docs/input.md` still describe the earlier syntax. Once all
-decisions are made and later ones no longer change earlier ones, this
-document becomes the specification, and design.md, input.md, the
-code, the spec cases and the goldens are updated to match.
+Status: DECISIONS COMPLETE FOR SAGA 1, CONSISTENCY-REVIEWED. Each
+entry was chosen by the user, one question at a time (Q1-Q50, sub-
+questions, and review items R1-R6). Section 15 lists the optional
+items deliberately left for later. Nothing here is implemented yet:
+the implemented lexer and renderer, `docs/design.md` sections 2, 3
+and 8, and `docs/input.md` still describe the earlier syntax. The next
+saga step revises them (code, spec cases, goldens and docs) to match
+this document, which is now the specification for that work.
 
 This document supersedes `docs/syntax-proposal.md`.
 
@@ -93,6 +94,7 @@ This document supersedes `docs/syntax-proposal.md`.
 | L3 | An inline lambda is an ordinary function, so `X { ... } Y` is a dyadic application. |
 | L4 | Named parameters, decorated like names, separated from the body by `->`: `{ f_ g_ x -> f_ g_ x }`. A function parameter (`f_`) is called directly. They desugar to nested one-argument lambdas. |
 | L5 | Shorthand and named parameters may not be mixed in one lambda. |
+| L7 | Names resolve lexically: the innermost enclosing lambda's parameter, then outer lambdas, then the program (variables) or the system (unqualified functions). A parameter or local variable may shadow a system name; the parameter wins and a non-fatal warning is reported ("parameter `r_ev` shadows the built-in reverse"). Warnings go to stderr, do not change the exit code, and a linter may treat them as errors. New built-ins therefore never break existing programs. (Review R6.) |
 | L6 | A niladic function is defined with `@` as its only parameter: `u:n_ow! := { @ -> ... }`, and called as `u:n_ow! @` (the `!` marks the effect, by the style guide). There is no `_@` call sugar; the subscript slot is for axes only. |
 
 ## 6a. Trains

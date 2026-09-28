@@ -24,11 +24,13 @@ functional calculus evaluates (M1):
 | 4  | decorated-render     | raw <-> Unicode decorated, lossless round-trip proptest; `xetal render` (M0 demo) |
 | 5  | syntax-proposal      | (inserted) divergence from the research documented; `docs/syntax-proposal.md` for user review; no code changes |
 | 6  | lang-choices         | (inserted) decisions made one at a time with the user recorded in `docs/lang-choices.md`; no code changes |
-| 7  | parser-surface-ast   | noun/function classes, right-to-left application, strands, lambdas, bindings, `;`; ParseResult alternatives + AmbiguousExpression; ambiguity corpus; decide D1 D2 D4 |
-| 8  | canonical-fmt        | canonical printer, `xetal fmt`, parse/fmt round-trip proptest |
-| 9  | core-desugar         | Core IR with NodeId/spans, desugar lambdas / dyadic / niladic sugar; normalization-equivalence tests; decide D3; `xetal core` |
-| 10 | scalar-eval          | strict evaluator for Int/Float/Bool scalars, `+ - * / =`, bindings, lambdas, closures; `xetal eval`, `xetal run`; M1 demos as reg-rs goldens |
-| 11 | m1-docs-release      | README tour for M0/M1, docs sync, all demo commands in reg-rs, saga retrospective |
+| 7  | lang-choices-2       | (inserted) remaining decisions Q29-Q50 and consistency review R1-R6 recorded in `docs/lang-choices.md` |
+| 8  | syntax-revision      | (inserted) lexer, renderer, spec cases, goldens, design.md, input.md, README revised to match `docs/lang-choices.md` |
+| 9  | parser-surface-ast   | noun/function classes, right-to-left application, strands, lambdas, bindings, `;`; ParseResult alternatives + AmbiguousExpression; ambiguity corpus; decide D1 D2 D4 |
+| 10 | canonical-fmt        | canonical printer, `xetal fmt`, parse/fmt round-trip proptest |
+| 11 | core-desugar         | Core IR with NodeId/spans, desugar lambdas / dyadic / niladic sugar; normalization-equivalence tests; decide D3; `xetal core` |
+| 12 | scalar-eval          | strict evaluator for Int/Float/Bool scalars, `+ - * / =`, bindings, lambdas, closures; `xetal eval`, `xetal run`; M1 demos as reg-rs goldens |
+| 13 | m1-docs-release      | README tour for M0/M1, docs sync, all demo commands in reg-rs, saga retrospective |
 
 ## Saga 2 -- types-and-unit (M2)
 
