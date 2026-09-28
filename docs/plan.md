@@ -268,6 +268,10 @@ The birds I K S B C W V T and more, written with named parameters
 (L4), with inferred types checked by tests; Y working through a lazy
 self parameter (E1-E3) and Z; user-written control structures with
 lazy parameters. Combinator notebook demo (`demos/combinators.xtl`).
+Monads with Church encodings: a Maybe (`n_othing`, `j_ust`, `b_ind`)
+with safe division chained by bind, type-checked, as spec cases and a
+demo (`demos/monads.xtl`); note what needs nested arrays (the list
+monad's bind) or named types.
 
 ## Saga 8 -- libraries (M6b)
 
