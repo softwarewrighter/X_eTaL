@@ -1,9 +1,10 @@
 number = 8
 slug = "strings"
-status = "in-progress"
+status = "completed"
 description = "arrays step 5: TDD strings as Char vectors (lang-choices section 13): printin..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T22:47:11"
+completed_at = "2026-09-27T23:41:00"
 task_type = "code"
-commits = []
+commits = ["4d2b8dfa05ba28babe1176c5172f07204f27a81b"]

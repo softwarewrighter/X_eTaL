@@ -1,0 +1,1 @@
+T8 comparisons (Eq/Ord table-driven classes), char compare at runtime, string structure spec, Float printing per 10a, golden
