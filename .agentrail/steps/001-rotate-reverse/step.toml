@@ -1,0 +1,9 @@
+number = 1
+slug = "rotate-reverse"
+status = "pending"
+description = "rotate-and-axes step 1: TDD o_- (amount left, leading axis, APL direction, a ..."
+role = "production"
+context_files = []
+created_at = "2026-09-28T12:23:34"
+task_type = "code"
+commits = []

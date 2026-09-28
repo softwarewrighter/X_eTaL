@@ -1,0 +1,1 @@
+rotate-and-axes step 7: README M5 tour (every command a golden), docs sync (plan.md, PRD, architecture), Saga 6 retrospective in docs/plan.md.

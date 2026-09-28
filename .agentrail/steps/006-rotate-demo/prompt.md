@@ -1,0 +1,1 @@
+rotate-and-axes step 6: animated 2-D rotate demo printing frames from the CLI; demo script and golden.

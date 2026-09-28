@@ -1,0 +1,1 @@
+rotate-and-axes step 5: proptests: rotate n then -n is identity, r_ev twice is identity, f_1 equals f, combination rotate then select equals one rotate, axis reduce vs a model.

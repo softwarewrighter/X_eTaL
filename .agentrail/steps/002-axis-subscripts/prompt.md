@@ -1,0 +1,1 @@
+rotate-and-axes step 2: TDD A6 axis subscripts on any function (built-ins and user functions): move axis k of the right argument to the front, apply, move back by the result-rank rule; argument count from the elaborated type (visible arity when untyped); axis validation and rejection tests.

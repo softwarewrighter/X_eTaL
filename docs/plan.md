@@ -255,12 +255,24 @@ What to do differently:
   today with Church encodings (a Maybe with bind type-checks); a
   worked example fits the combinators saga.
 
-## Saga 6 -- rotate-and-axes (M5)
+## Saga 6 -- rotate-and-axes (M5)  [ACTIVE]
 
 `o_-` rotate (leading axis), `r_ev`, axis subscripts on any function
 by the move-to-front rule (A6), multi-axis reduce and scan (R1),
 multi-axis rotate giving every combination (A4). Axis validation.
 Properties: rotate inverse. Animated 2-D rotate demo via CLI frames.
+With these the Life one-liner runs (step 4 flips its acceptance
+case to active); Saga 10 adds the other Life goldens.
+
+| #  | Step slug         | Delivers                                                   |
+| -- | ----------------- | ---------------------------------------------------------- |
+| 1  | rotate-reverse    | `o_-` (APL direction, amount lists as combinations), `r_ev` |
+| 2  | axis-subscripts   | A6 move-to-front on any function, axis validation          |
+| 3  | multi-axis        | `o_-_12` (A4), `r_/_12` and `s_\_12` (R1)                  |
+| 4  | life-runs         | the Life acceptance case active                            |
+| 5  | rotate-properties | property tests                                             |
+| 6  | rotate-demo       | animated 2-D rotate demo                                   |
+| 7  | m5-docs-release   | README M5 tour, docs sync, retrospective                   |
 
 ## Saga 7 -- combinators (M6)
 
@@ -288,7 +300,7 @@ fork-law property test; type errors for ill-typed trains.
 
 ## Saga 10 -- life (M8)
 
-Flip the pending Life case to active; block, blinker, glider and
+The Life case is active from Saga 6; block, blinker, glider and
 random-board goldens (random boards checked against a reference
 implementation in Rust test code). No Life-specific code paths.
 

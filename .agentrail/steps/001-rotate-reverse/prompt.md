@@ -1,0 +1,1 @@
+rotate-and-axes step 1: TDD o_- (amount left, leading axis, APL direction, a list of amounts = every combination with a leading result axis) and r_ev, typed, in a new component; record the saga decisions (plan.md) in lang-choices and design.md.

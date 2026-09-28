@@ -1,0 +1,1 @@
+rotate-and-axes step 3: TDD multi-axis rotate o_-_12 giving every combination (A4) and multi-axis reduce/scan r_/_12, s_\_12 over each listed axis in turn (R1).

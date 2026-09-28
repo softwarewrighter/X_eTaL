@@ -1,0 +1,1 @@
+rotate-and-axes step 4: the pending Life acceptance case passes by general rules only: flip it to active, confirm the docs-life-line golden, notify the user.

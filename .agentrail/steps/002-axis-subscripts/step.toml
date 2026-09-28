@@ -1,0 +1,9 @@
+number = 2
+slug = "axis-subscripts"
+status = "pending"
+description = "rotate-and-axes step 2: TDD A6 axis subscripts on any function (built-ins and..."
+role = "production"
+context_files = []
+created_at = "2026-09-28T12:23:34"
+task_type = "code"
+commits = []
