@@ -1,0 +1,1 @@
+Algorithm W (xetal-types): Num/Truthy classes with defaulting, built-in types, let-polymorphism with value restriction, letrec, late-bound defs, guards, mutation; T5 Haskell-style numeric typing decided with user and recorded (plus f_loat B8); 18 tests incl. bird types and Y infinite-type.
