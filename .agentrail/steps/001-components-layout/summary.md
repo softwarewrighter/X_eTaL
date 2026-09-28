@@ -1,0 +1,1 @@
+components/ layout (7 component workspaces, shared target, build-all/check-locks/gate scripts); xetal-types split into xetal-ty + xetal-types; docs updated; no behavior change
