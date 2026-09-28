@@ -85,7 +85,7 @@ What to do differently:
   on a large stack with a depth limit. Keep the no-panic rule in mind
   for every recursive component (parser and desugarer next).
 
-## Saga 3 -- types-and-unit (M2)  [DONE]
+## Saga 3 -- types-and-unit (M2)  [DONE, ARCHIVED]
 
 Goal: static types (M2). `u:a_nswer := { @ -> 42 }; u:a_nswer @`
 works and `u:a_nswer 42` is refused by the type checker before
@@ -128,11 +128,13 @@ What to do differently:
   evaluates as Int; runtime arithmetic promotes, so only printing can
   differ. Closing this needs dictionary passing or specialization;
   revisit with the arrays saga's printer.
-- The module-count limit (7 per crate) is full in `xetal-types`;
-  plan new typing features (arrays, higher-order built-ins) as a split
-  crate or module merge up front.
+- The module-count limit (7 per crate) is full in `xetal-types`.
+  Limits are met by expanding up and out, never by merging: a full
+  module gets a sibling module, a full crate a sibling crate, a full
+  component a sibling component. Saga 4 starts by moving to the
+  components layout.
 
-## Saga 4 -- arrays (M3)
+## Saga 4 -- arrays (M3)  [ACTIVE]
 
 `xetal-array`: dense row-major arrays, rank-0 scalars, strands, scalar
 extension via one lifting rule, empty arrays, shape errors, 1-origin
@@ -141,6 +143,16 @@ extension via one lifting rule, empty arrays, shape errors, 1-origin
 `c_at`. Division and equality rules (T2, T3), power (D-10). Strings as
 Char vectors (section 13). Printed arrays (10a). Virtual ranges where
 cheap. Property tests (shape of reshape). REPL (`xetal repl`).
+
+| #  | Step slug           | Delivers                                                |
+| -- | ------------------- | ------------------------------------------------------- |
+| 1  | components-layout   | `components/<name>/` multi-crate workspaces (as in sw-mlpl), shared target dir, `scripts/build-all.sh`, per-component gate, `xetal-types` split into crates; no behavior change |
+| 2  | num-dictionaries    | the Saga 3 polymorphic-literal gap closed by passing a hidden number type to `Num`-quantified functions |
+| 3  | array-core          | dense arrays, strands, scalar extension, shape errors, printed arrays, Array types |
+| 4  | structural-builtins | B4/B5 structural built-ins, 1-origin, property tests |
+| 5  | strings             | strings as Char vectors |
+| 6  | repl                | `xetal repl` |
+| 7  | m3-docs-release     | README M3 tour, docs sync, retrospective |
 
 ## Saga 5 -- higher-order (M4)
 

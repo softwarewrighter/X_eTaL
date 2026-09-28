@@ -1,0 +1,1 @@
+arrays step 4: TDD the structural built-ins s_hape r_eshape r_ange o_ffsets t_ally f_irst t_ake d_rop s_elect r_avel c_at (lang-choices B4, B5), 1-origin (A5), typed; rejection tests; property tests (shape of reshape, take/drop); goldens.

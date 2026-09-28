@@ -1,0 +1,9 @@
+number = 2
+slug = "num-dictionaries"
+status = "pending"
+description = "arrays step 2: TDD close the polymorphic-literal gap (docs/plan.md Saga 3 ret..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T22:47:11"
+task_type = "code"
+commits = []

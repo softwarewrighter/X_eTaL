@@ -1,0 +1,1 @@
+arrays step 7: README M3 tour (every command a golden), docs/design.md and lang-choices status in sync, docs/plan.md retrospective for Saga 4; agentrail complete --done; ask the user before archiving.

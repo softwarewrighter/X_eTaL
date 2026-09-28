@@ -1,0 +1,1 @@
+arrays step 5: TDD strings as Char vectors (lang-choices section 13): printing, equality, structural built-ins on strings; spec cases and goldens.

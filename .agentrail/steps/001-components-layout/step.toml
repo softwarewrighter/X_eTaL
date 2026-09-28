@@ -1,0 +1,9 @@
+number = 1
+slug = "components-layout"
+status = "pending"
+description = "arrays step 1: restructure the repo into components/<name>/ multi-crate Cargo..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T22:47:11"
+task_type = "refactor"
+commits = []

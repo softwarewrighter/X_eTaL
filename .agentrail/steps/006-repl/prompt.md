@@ -1,0 +1,1 @@
+arrays step 6: TDD xetal repl: persistent definitions and types across lines, errors do not end the session, scripted-input goldens.

@@ -1,0 +1,1 @@
+arrays step 3: TDD xetal-array dense row-major arrays, rank-0 scalars, strands, empty arrays, scalar extension by one lifting rule, shape errors, T2/T3/D-10 over arrays, printed arrays (lang-choices 10a), Array types in the checker; spec cases and goldens.
