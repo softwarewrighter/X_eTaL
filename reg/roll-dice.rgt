@@ -1,0 +1,4 @@
+command = "./target/debug/xetal eval -e 'r_oll! 6 6'"
+preprocess = '''tr ' ' '\n' | awk '$1 >= 1 && $1 <= 6 && $1 == int($1) { ok++ } END { print ok " of " NR " dice show 1..6" }''''
+exit_code = 0
+desc = "README tour: two dice, checked for range since the rolls are random"

@@ -1,6 +1,6 @@
 number = 7
 slug = "m4-docs-release"
-status = "pending"
+status = "in-progress"
 description = "higher-order step 7: README M4 tour (every command a golden), docs sync (plan..."
 role = "production"
 context_files = []

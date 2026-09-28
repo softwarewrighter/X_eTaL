@@ -194,7 +194,7 @@ What to do differently:
   session (fine for interactive use). Replaying `r_oll!` is
   deterministic: a session keeps one seed (Saga 5).
 
-## Saga 5 -- higher-order (M4)  [ACTIVE]
+## Saga 5 -- higher-order (M4)  [DONE, ARCHIVED]
 
 Quoted functions and lambdas as values (F4), operand binding and
 chaining (F8, F9) and applying function values (F5) already work for
@@ -213,6 +213,47 @@ of scan equals reduce. Multi-axis reduce and scan (R1) move to Saga 6.
 | 5  | roll               | `r_oll!`, test-only seed, goldens tolerant of random output |
 | 6  | hof-properties     | property tests                                            |
 | 7  | m4-docs-release    | README M4 tour, docs sync, retrospective                  |
+
+### Saga 5 retrospective
+
+Delivered: `r_/` (right fold) and `s_\` (prefix reductions) with
+typed empty identities, `e_ach` (dyadic by currying), `t_able`,
+`i_nner`, `c_ompose`, `s_wap`, the search and order built-ins
+(`i_ndexOf`, `m_ember?`, `u_nique`, `s_ort`, `g_rade`, `w_here`) and
+`r_oll!`, in two new components (`hof`, `search`); a README M4 tour.
+
+What went well:
+
+- Asking the open semantic questions in two batches at planning time
+  (fold direction, scan, dyadic each, identities, inner axes,
+  randomness, sorting, where R1 belongs) let seven steps run without
+  stopping, and every decision is the user's.
+- One callback (`Caller`) let every higher-order built-in run any
+  operand by the ordinary rules; `i_nner` reuses `r_/` through it
+  instead of duplicating the fold and the identities.
+- The elaborator, built for number dictionaries in Saga 4, carried
+  typed identities with a small extension: an empty Float sum is
+  `0.0` with nothing new in the evaluator.
+- A mutation check showed the property tests catch a wrong one-pass
+  scan at once; the shrunk case is kept as a regression seed.
+- reg-rs `preprocess` pins random output by property (every roll in
+  range) rather than by value, so goldens need no seed.
+
+What to do differently:
+
+- Expected spans and printed class contexts in new spec cases were
+  guessed and often off by one; write `PLACEHOLDER` and review the
+  blessed value instead of guessing.
+- A one-pass scan is only safe where it is provably identical to the
+  definition (exactly associative operands, Int sums that cannot
+  overflow); Float `+` and `*` scans stay quadratic. Revisit with a
+  compensated or blocked scheme if it matters.
+- Known gaps: a point-free definition such as `u:s_um := r_/ '+` is
+  monomorphic (value restriction, T5), so it is Int only; write
+  `{ '+ r_/ _r }` for a polymorphic one. Dyadic `e_ach` over an empty
+  array decides by the operand's visible arity. Monads can be written
+  today with Church encodings (a Maybe with bind type-checks); a
+  worked example fits the combinators saga.
 
 ## Saga 6 -- rotate-and-axes (M5)
 
