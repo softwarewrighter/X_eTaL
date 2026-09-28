@@ -1,102 +1,196 @@
-//! Accepted token forms (docs/design.md section 2).
+//! Accepted token forms (docs/lang-choices.md).
 
 use crate::common::{dump, kinds};
 
 #[test]
-fn plain_and_decorated_names() {
-    assert_eq!(kinds("r"), ["Noun(r)"]);
-    assert_eq!(kinds("square2"), ["Noun(square2)"]);
-    assert_eq!(kinds("r_"), ["Func(r)"]);
-    assert_eq!(kinds("t_2"), ["Func(t, axes=[2])"]);
-    assert_eq!(kinds("t_12"), ["Func(t, axes=[1,2])"]);
-    assert_eq!(kinds("now_@"), ["Func(now, niladic)"]);
-    assert_eq!(kinds("m.f_"), ["Func(f, ns=m)"]);
-    assert_eq!(kinds("m.t_12"), ["Func(t, ns=m, axes=[1,2])"]);
-}
-
-#[test]
-fn superscript_derivations() {
-    assert_eq!(kinds("+^r"), ["Func(+, deriv=r)"]);
-    assert_eq!(kinds("+^r_2"), ["Func(+, deriv=r, axes=[2])"]);
-    assert_eq!(kinds("+^reduce"), ["Func(+, deriv=reduce)"]);
-    assert_eq!(kinds("f^s"), ["Func(f, deriv=s)"]);
-    assert_eq!(kinds("m.f^e_@"), ["Func(f, ns=m, deriv=e, niladic)"]);
-}
-
-#[test]
-fn symbol_functions() {
+fn variables() {
     assert_eq!(
-        kinds("+ - * / = < > |"),
+        kinds("x board2 count! m:pi"),
+        ["Var(x)", "Var(board2)", "Var(count!)", "Var(m:pi)"]
+    );
+}
+
+#[test]
+fn function_names() {
+    assert_eq!(
+        kinds("r_ev s_quare self_ r_2 u:s_quare c:K_ l:B_"),
         [
-            "Func(+)", "Func(-)", "Func(*)", "Func(/)", "Func(=)", "Func(<)", "Func(>)", "Func(|)"
+            "Func(r_ev)",
+            "Func(s_quare)",
+            "Func(self_)",
+            "Func(r_2)",
+            "Func(u:s_quare)",
+            "Func(c:K_)",
+            "Func(l:B_)"
         ]
     );
-    assert_eq!(kinds("+_1"), ["Func(+, axes=[1])"]);
-    assert_eq!(kinds("-_@"), ["Func(-, niladic)"]);
 }
 
 #[test]
-fn lambda_args_unit_and_punctuation() {
+fn trailing_marks() {
     assert_eq!(
-        kinds("{ _l ; _r } ( @ ) [ ]"),
+        kinds("r_/ s_\\ o_- e_mpty? p_rint! u_se< e_q~"),
+        [
+            "Func(r_/)",
+            "Func(s_\\)",
+            "Func(o_-)",
+            "Func(e_mpty?)",
+            "Func(p_rint!)",
+            "Func(u_se<)",
+            "Func(e_q~)"
+        ]
+    );
+}
+
+#[test]
+fn axis_subscripts() {
+    assert_eq!(
+        kinds("r_/_2 o_-_12 r__2 n_eg_2"),
+        [
+            "Func(r_/, axes=[2])",
+            "Func(o_-, axes=[1,2])",
+            "Func(r_, axes=[2])",
+            "Func(n_eg, axes=[2])"
+        ]
+    );
+}
+
+#[test]
+fn lambda_arguments() {
+    assert_eq!(
+        kinds("_l _r _l_ _r_"),
+        [
+            "LamArg(l)",
+            "LamArg(r)",
+            "LamArg(l, applied)",
+            "LamArg(r, applied)"
+        ]
+    );
+}
+
+#[test]
+fn exponents_touch_values() {
+    assert_eq!(kinds("x^2"), ["Var(x)", "Exp(2)"]);
+    assert_eq!(
+        kinds("x^-1 x^0.5"),
+        ["Var(x)", "Exp(-1)", "Var(x)", "Exp(0.5)"]
+    );
+    assert_eq!(
+        kinds("_r^2 2^10"),
+        ["LamArg(r)", "Exp(2)", "Num(2)", "Exp(10)"]
+    );
+    assert_eq!(
+        kinds("(a + b)^2"),
+        ["LParen", "Var(a)", "Sym(+)", "Var(b)", "RParen", "Exp(2)"]
+    );
+}
+
+#[test]
+fn symbols() {
+    assert_eq!(
+        kinds("+ - * / ^ = != < > <= >= & |"),
+        [
+            "Sym(+)", "Sym(-)", "Sym(*)", "Sym(/)", "Sym(^)", "Sym(=)", "Sym(!=)", "Sym(<)",
+            "Sym(>)", "Sym(<=)", "Sym(>=)", "Sym(&)", "Sym(|)"
+        ]
+    );
+    assert_eq!(kinds("x ^ n"), ["Var(x)", "Sym(^)", "Var(n)"]);
+    assert_eq!(kinds("count! = 3"), ["Var(count!)", "Sym(=)", "Num(3)"]);
+}
+
+#[test]
+fn binding_arrow_guard_quote_lazy() {
+    assert_eq!(kinds("x := 3"), ["Var(x)", "Assign", "Num(3)"]);
+    assert_eq!(kinds("x:=3"), ["Var(x)", "Assign", "Num(3)"]);
+    assert_eq!(
+        kinds("{ ~s_elf n -> n <= 1 ? 1 }"),
         [
             "LBrace",
-            "LamArg(l)",
-            "Semi",
-            "LamArg(r)",
-            "RBrace",
-            "LParen",
-            "Unit",
-            "RParen",
-            "LBracket",
-            "RBracket"
+            "Lazy",
+            "Func(s_elf)",
+            "Var(n)",
+            "Arrow",
+            "Var(n)",
+            "Sym(<=)",
+            "Num(1)",
+            "Guard",
+            "Num(1)",
+            "RBrace"
         ]
     );
-    assert_eq!(kinds("now_ @"), ["Func(now)", "Unit"]);
+    assert_eq!(
+        kinds("'+ r_/ v"),
+        ["Quote", "Sym(+)", "Func(r_/)", "Var(v)"]
+    );
+    assert_eq!(
+        kinds("'u:s_quare '{ '["),
+        [
+            "Quote",
+            "Func(u:s_quare)",
+            "Quote",
+            "LBrace",
+            "Quote",
+            "LBracket"
+        ]
+    );
+}
+
+#[test]
+fn unit_separators_and_comments() {
+    assert_eq!(kinds("u:n_ow! @"), ["Func(u:n_ow!)", "Unit"]);
+    assert_eq!(
+        kinds("x := 3 # note\ny ; ( ) [ ]"),
+        [
+            "Var(x)", "Assign", "Num(3)", "Newline", "Var(y)", "Semi", "LParen", "RParen",
+            "LBracket", "RBracket"
+        ]
+    );
+    assert_eq!(kinds("#!/usr/bin/env xetal\n1"), ["Newline", "Num(1)"]);
+}
+
+#[test]
+fn strings() {
+    assert_eq!(kinds("\"ab\" \"# x\""), ["Str(\"ab\")", "Str(\"# x\")"]);
+    assert_eq!(kinds(r#""a\"b\\c\n\t""#), [r#"Str("a\"b\\c\n\t")"#]);
+    assert_eq!(
+        kinds("\"c:\" u_se< \"Combinators\""),
+        ["Str(\"c:\")", "Func(u_se<)", "Str(\"Combinators\")"]
+    );
 }
 
 #[test]
 fn numbers_and_the_negative_literal_rule() {
-    assert_eq!(kinds("42 2.5 0"), ["Num(42)", "Num(2.5)", "Num(0)"]);
-    assert_eq!(kinds("-1 0 1"), ["Num(-1)", "Num(0)", "Num(1)"]);
-    assert_eq!(kinds("3 - 1"), ["Num(3)", "Func(-)", "Num(1)"]);
+    assert_eq!(
+        kinds("42 2.5 -1 0 1"),
+        ["Num(42)", "Num(2.5)", "Num(-1)", "Num(0)", "Num(1)"]
+    );
+    assert_eq!(kinds("3 - 1"), ["Num(3)", "Sym(-)", "Num(1)"]);
     assert_eq!(kinds("3 -1"), ["Num(3)", "Num(-1)"]);
+    assert_eq!(kinds("x - -3"), ["Var(x)", "Sym(-)", "Num(-3)"]);
     assert_eq!(kinds("(-1)"), ["LParen", "Num(-1)", "RParen"]);
-    assert_eq!(kinds("{-1}"), ["LBrace", "Num(-1)", "RBrace"]);
-    assert_eq!(kinds("[-1]"), ["LBracket", "Num(-1)", "RBracket"]);
-    assert_eq!(kinds("x;-2.5"), ["Noun(x)", "Semi", "Num(-2.5)"]);
-    assert_eq!(kinds("- x"), ["Func(-)", "Noun(x)"]);
-    assert_eq!(kinds("-x"), ["Func(-)", "Noun(x)"]);
-    assert_eq!(kinds("-9223372036854775808"), ["Num(-9223372036854775808)"]);
 }
 
 #[test]
 fn symbols_and_brackets_abut_names() {
-    assert_eq!(kinds("1+2"), ["Num(1)", "Func(+)", "Num(2)"]);
-    assert_eq!(kinds("f_(x)"), ["Func(f)", "LParen", "Noun(x)", "RParen"]);
-    assert_eq!(kinds("x=y"), ["Noun(x)", "Func(=)", "Noun(y)"]);
-}
-
-#[test]
-fn newlines_are_tokens_other_whitespace_is_not() {
-    assert_eq!(
-        kinds("a\n b\r\n\tc"),
-        ["Noun(a)", "Newline", "Noun(b)", "Newline", "Noun(c)"]
-    );
-    assert_eq!(kinds("x\n-1"), ["Noun(x)", "Newline", "Num(-1)"]);
-    assert!(kinds("  \t ").is_empty());
+    assert_eq!(kinds("1+2"), ["Num(1)", "Sym(+)", "Num(2)"]);
+    assert_eq!(kinds("x+y"), ["Var(x)", "Sym(+)", "Var(y)"]);
+    assert_eq!(kinds("f_(x)"), ["Func(f_)", "LParen", "Var(x)", "RParen"]);
 }
 
 #[test]
 fn dump_shows_byte_spans() {
-    assert_eq!(dump("square_ 7"), ["0..7 Func(square)", "8..9 Num(7)"]);
+    assert_eq!(
+        dump("u:s_quare 7"),
+        ["0..9 Func(u:s_quare)", "10..11 Num(7)"]
+    );
 }
 
 #[test]
 fn life_line_lexes() {
-    let src = "life = { (+^r -1 0 1 t_12 _r) { (_l = 3) + _r * _l = 4 } _r }";
+    let src = "u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }";
     let got = kinds(src);
-    assert_eq!(got.len(), 26);
-    assert_eq!(got[4], "Func(+, deriv=r)");
-    assert_eq!(got[8], "Func(t, axes=[1,2])");
+    assert_eq!(got.len(), 28);
+    assert_eq!(got[4], "Quote");
+    assert_eq!(got[6], "Func(r_/, axes=[1,2])");
+    assert_eq!(got[10], "Func(o_-, axes=[1,2])");
 }

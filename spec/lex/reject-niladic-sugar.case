@@ -1,0 +1,5 @@
+# No _@ sugar: write n_ow @ (L6).
+== SOURCE
+n_ow@
+== ERROR
+error[no-niladic-sugar]: there is no `_@` sugar: write `n_ow @` at 4..5

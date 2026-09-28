@@ -1,170 +1,170 @@
-//! Names: `[ns.]stem[^deriv][_[sub]]` in canonical order.
+//! Names: `[ns:]stem`, where a `_` directly after a letter underlines it
+//! and makes the name a function name (N1-N5, D-8, D-9).
 
 use xetal_base::Span;
 
 use crate::cursor::Cursor;
 use crate::error::{ErrorKind, LexError};
-use crate::token::{Name, Sub, TokenKind};
+use crate::token::{FuncName, TokenKind, Var};
 
-pub(crate) fn is_symbol(b: u8) -> bool {
-    b"+-*/=<>|".contains(&b)
-}
+/// Characters that may end a function name (N3).
+const MARKS: &[u8] = b"|-/\\+*<>~!?%$&";
 
 pub(crate) fn lex_name(cur: &mut Cursor) -> Result<TokenKind, LexError> {
-    let start = cur.pos;
-    let (ns, stem, symbol) = stem_and_namespace(cur)?;
-    let deriv = superscript(cur)?;
-    let sub = subscript(cur, symbol || deriv.is_some())?;
-    let name = Name {
-        ns,
-        stem,
-        symbol,
-        deriv,
-        sub,
+    let ns = namespace(cur)?;
+    let (stem, underline) = stem(cur)?;
+    let kind = match underline {
+        Some(underline) => function(cur, ns, stem, underline)?,
+        None => variable(cur, ns, stem)?,
     };
-    check_follow(cur, &name)?;
-    if name.ns.is_some() && !name.is_function() {
+    follow(cur, &kind)?;
+    Ok(kind)
+}
+
+/// `letters:` directly followed by a letter is a namespace prefix.
+fn namespace(cur: &mut Cursor) -> Result<Option<String>, LexError> {
+    let mut i = 0;
+    while cur.peek_at(i).is_some_and(|b| b.is_ascii_alphabetic()) {
+        i += 1;
+    }
+    if cur.peek_at(i) != Some(b':') || cur.peek_at(i + 1) == Some(b'=') {
+        return Ok(None);
+    }
+    let start = cur.pos;
+    if !cur.peek_at(i + 1).is_some_and(|b| b.is_ascii_alphabetic()) {
         return Err(LexError::new(
             ErrorKind::BadNamespace,
-            Span::new(start, cur.pos),
-            "a namespace prefix applies only to a decorated function name",
+            Span::new(start, start + i + 1),
+            "a namespace prefix must be followed by a name (aliases are written as strings)",
         ));
     }
-    Ok(TokenKind::Name(name))
+    let ns = cur.eat_while(|b| b.is_ascii_alphabetic()).to_string();
+    cur.pos += 1;
+    Ok(Some(ns))
 }
 
-type Stem = (Option<String>, String, bool);
-
-fn stem_and_namespace(cur: &mut Cursor) -> Result<Stem, LexError> {
-    if cur.peek().is_some_and(is_symbol) {
-        let at = cur.pos;
+/// Letters and digits with at most one `_`, which must follow a letter.
+fn stem(cur: &mut Cursor) -> Result<(String, Option<usize>), LexError> {
+    let mut stem = String::new();
+    let mut underline = None;
+    while let Some(b) = cur.peek() {
+        if b.is_ascii_alphanumeric() {
+            stem.push(char::from(b));
+        } else if b == b'_' && underline.is_none() {
+            if !cur.prev().is_some_and(|p| p.is_ascii_alphabetic()) {
+                return Err(LexError::at(
+                    ErrorKind::BadName,
+                    cur.pos,
+                    "an underline must directly follow a letter",
+                ));
+            }
+            underline = Some(stem.len() - 1);
+        } else {
+            break;
+        }
         cur.pos += 1;
-        return Ok((None, cur.text(at).to_string(), true));
     }
-    let first = cur.eat_while(|b| b.is_ascii_alphanumeric()).to_string();
-    if cur.peek() != Some(b'.') {
-        return Ok((None, first, false));
-    }
-    if !cur.peek_at(1).is_some_and(|b| b.is_ascii_alphabetic()) {
-        return Err(LexError::at(
-            ErrorKind::BadNamespace,
-            cur.pos,
-            "a namespace prefix must be followed by a named function",
-        ));
-    }
-    cur.pos += 1;
-    let stem = cur.eat_while(|b| b.is_ascii_alphanumeric()).to_string();
-    if cur.peek() == Some(b'.') {
-        return Err(LexError::at(
-            ErrorKind::BadNamespace,
-            cur.pos,
-            "nested namespaces are not supported",
-        ));
-    }
-    Ok((Some(first), stem, false))
+    Ok((stem, underline))
 }
 
-fn superscript(cur: &mut Cursor) -> Result<Option<String>, LexError> {
-    if cur.peek() != Some(b'^') {
-        return Ok(None);
-    }
-    let caret = cur.pos;
-    cur.pos += 1;
-    let word = cur.eat_while(|b| b.is_ascii_alphabetic()).to_string();
-    if word.is_empty() {
-        return Err(LexError::at(
-            ErrorKind::BadDecoration,
-            caret,
-            "`^` must be followed by a derivation word such as `r`",
-        ));
-    }
-    if cur.peek() == Some(b'^') {
-        return Err(LexError::at(
-            ErrorKind::BadDecoration,
-            cur.pos,
-            "only one superscript is allowed",
-        ));
-    }
-    Ok(Some(word))
-}
-
-/// `already_function`: the stem is a symbol or carries a superscript, so
-/// a bare underline would be redundant.
-fn subscript(cur: &mut Cursor, already_function: bool) -> Result<Option<Sub>, LexError> {
-    if cur.peek() != Some(b'_') {
-        return Ok(None);
-    }
-    let underline = cur.pos;
-    cur.pos += 1;
-    match cur.peek() {
-        Some(b'@') => {
-            cur.pos += 1;
-            Ok(Some(Sub::Niladic))
+fn function(
+    cur: &mut Cursor,
+    ns: Option<String>,
+    stem: String,
+    underline: usize,
+) -> Result<TokenKind, LexError> {
+    let mut mark = None;
+    if let Some(b) = cur.peek().filter(|b| MARKS.contains(b)) {
+        if b == b'!' && cur.peek_at(1) == Some(b'=') {
+            return Err(LexError::bang_equals(cur.pos));
         }
-        Some(b'0'..=b'9') => axes(cur).map(|a| Some(Sub::Axes(a))),
-        Some(b'^') => Err(LexError::at(
-            ErrorKind::NonCanonicalOrder,
-            cur.pos,
-            "the superscript comes before the underline: write `stem^sup_sub`",
-        )),
-        Some(b'_') => Err(LexError::at(
-            ErrorKind::BadDecoration,
-            cur.pos,
-            "an underline cannot be doubled",
-        )),
-        Some(b) if b.is_ascii_alphabetic() => Err(LexError::at(
-            ErrorKind::BadDecoration,
-            cur.pos,
-            "names cannot contain `_`; an underline ends the name",
-        )),
-        _ if already_function => Err(LexError::at(
-            ErrorKind::RedundantUnderline,
-            underline,
-            "this name is already a function; drop the bare `_`",
-        )),
-        _ => Ok(Some(Sub::Bare)),
+        mark = Some(char::from(b));
+        cur.pos += 1;
     }
+    let axes = if cur.peek() == Some(b'_') {
+        axes(cur)?
+    } else {
+        Vec::new()
+    };
+    Ok(TokenKind::Func(FuncName {
+        ns,
+        stem,
+        underline,
+        mark,
+        axes,
+    }))
 }
 
+/// `_digits` after a function name: one digit per axis, 1-9, no repeats.
 fn axes(cur: &mut Cursor) -> Result<Vec<u8>, LexError> {
+    let underscore = cur.pos;
+    cur.pos += 1;
     let mut axes = Vec::new();
-    while let Some(b @ b'0'..=b'9') = cur.peek() {
-        let axis = b - b'0';
-        if axis == 0 {
+    while let Some(d @ b'0'..=b'9') = cur.peek() {
+        let axis = d - b'0';
+        if axis == 0 || axes.contains(&axis) {
             return Err(LexError::at(
                 ErrorKind::BadAxis,
                 cur.pos,
-                "axes are numbered from 1",
-            ));
-        }
-        if axes.contains(&axis) {
-            return Err(LexError::at(
-                ErrorKind::BadAxis,
-                cur.pos,
-                "an axis may appear only once",
+                "axes are the digits 1-9, each at most once",
             ));
         }
         axes.push(axis);
         cur.pos += 1;
     }
+    if axes.is_empty() {
+        return Err(LexError::at(
+            ErrorKind::BadName,
+            underscore,
+            "a function name has exactly one underline; a later `_` starts an axis subscript",
+        ));
+    }
     Ok(axes)
 }
 
-/// A name must end at a delimiter. Symbol stems without decoration may
-/// touch anything (`1+2`); other names may not touch name characters.
-fn check_follow(cur: &Cursor, name: &Name) -> Result<(), LexError> {
-    let plain_symbol = name.symbol && name.deriv.is_none() && name.sub.is_none();
+fn variable(cur: &mut Cursor, ns: Option<String>, name: String) -> Result<TokenKind, LexError> {
+    let mut mutable = false;
+    if cur.peek() == Some(b'!') {
+        if cur.peek_at(1) == Some(b'=') {
+            return Err(LexError::bang_equals(cur.pos));
+        }
+        mutable = true;
+        cur.pos += 1;
+    }
+    Ok(TokenKind::Var(Var { ns, name, mutable }))
+}
+
+/// What may not touch the end of a name.
+fn follow(cur: &Cursor, kind: &TokenKind) -> Result<(), LexError> {
+    let func = matches!(kind, TokenKind::Func(_));
+    let marked = matches!(kind, TokenKind::Func(f) if f.mark.is_some() && f.axes.is_empty());
     match cur.peek() {
-        _ if plain_symbol => Ok(()),
-        Some(b'^') => Err(LexError::at(
-            ErrorKind::NonCanonicalOrder,
+        Some(b'"') => Err(LexError::at(
+            ErrorKind::BadString,
             cur.pos,
-            "the superscript comes before the underline: write `stem^sup_sub`",
+            "a name touching `\"` is reserved (raw strings)",
         )),
-        Some(b) if b.is_ascii_alphanumeric() || b"_.@".contains(&b) => Err(LexError::at(
-            ErrorKind::BadDecoration,
+        Some(b'@') if func => Err(LexError::at(
+            ErrorKind::NoNiladicSugar,
             cur.pos,
-            "unexpected character after a decorated name",
+            "there is no `_@` sugar: write `n_ow @`",
+        )),
+        Some(b'_') => Err(LexError::at(
+            ErrorKind::BadName,
+            cur.pos,
+            "a function name has exactly one underline",
+        )),
+        Some(b) if marked && (b.is_ascii_alphanumeric() || MARKS.contains(&b)) => {
+            Err(LexError::at(
+                ErrorKind::BadMark,
+                cur.pos,
+                "a function name ends after one trailing mark",
+            ))
+        }
+        Some(b) if func && b.is_ascii_alphanumeric() => Err(LexError::at(
+            ErrorKind::BadName,
+            cur.pos,
+            "unexpected character after an axis subscript",
         )),
         _ => Ok(()),
     }

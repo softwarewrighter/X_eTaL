@@ -1,0 +1,5 @@
+# Literal exponents become superscripts; a decimal exponent stays raw in Unicode (D-4, I2).
+== SOURCE
+x^2 x^-1 2^10 x^0.5
+== RENDER
+x² x⁻¹ 2¹⁰ x^0.5

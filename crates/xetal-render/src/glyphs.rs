@@ -1,55 +1,16 @@
-//! Glyph tables (docs/design.md section 8).
+//! Glyph tables for the decorated display.
 
-/// U+0332 COMBINING LOW LINE, drawn under each stem character.
+/// U+0332 COMBINING LOW LINE, drawn under the underlined letter.
 pub const UNDERLINE: char = '\u{332}';
 
-/// Modifier letters for the superscript alphabet, `a..z`. `q` has no
-/// Unicode superscript form, so it is `None`; a word using it (or any
-/// uppercase letter) is shown raw.
-const SUPERSCRIPT: [Option<char>; 26] = [
-    Some('\u{1d43}'), // a
-    Some('\u{1d47}'), // b
-    Some('\u{1d9c}'), // c
-    Some('\u{1d48}'), // d
-    Some('\u{1d49}'), // e
-    Some('\u{1da0}'), // f
-    Some('\u{1d4d}'), // g
-    Some('\u{2b0}'),  // h
-    Some('\u{2071}'), // i
-    Some('\u{2b2}'),  // j
-    Some('\u{1d4f}'), // k
-    Some('\u{2e1}'),  // l
-    Some('\u{1d50}'), // m
-    Some('\u{207f}'), // n
-    Some('\u{1d52}'), // o
-    Some('\u{1d56}'), // p
-    None,             // q
-    Some('\u{2b3}'),  // r
-    Some('\u{2e2}'),  // s
-    Some('\u{1d57}'), // t
-    Some('\u{1d58}'), // u
-    Some('\u{1d5b}'), // v
-    Some('\u{2b7}'),  // w
-    Some('\u{2e3}'),  // x
-    Some('\u{2b8}'),  // y
-    Some('\u{1dbb}'), // z
+/// Superscript digits 0-9.
+const SUPERSCRIPT_DIGITS: [char; 10] = [
+    '\u{2070}', '\u{b9}', '\u{b2}', '\u{b3}', '\u{2074}', '\u{2075}', '\u{2076}', '\u{2077}',
+    '\u{2078}', '\u{2079}',
 ];
 
-/// The superscript form of a whole derivation word, if every letter has one.
-pub fn superscript_word(word: &str) -> Option<String> {
-    word.bytes()
-        .map(|b| match b {
-            b'a'..=b'z' => SUPERSCRIPT[usize::from(b - b'a')],
-            _ => None,
-        })
-        .collect()
-}
-
-/// The ASCII letter a superscript glyph stands for.
-pub fn from_superscript(c: char) -> Option<char> {
-    let idx = SUPERSCRIPT.iter().position(|s| *s == Some(c))?;
-    u8::try_from(idx).ok().map(|i| char::from(b'a' + i))
-}
+/// U+207B SUPERSCRIPT MINUS.
+pub const SUPERSCRIPT_MINUS: char = '\u{207b}';
 
 pub fn subscript_digit(d: u8) -> char {
     char::from_u32(0x2080 + u32::from(d)).unwrap_or('?')
@@ -59,4 +20,24 @@ pub fn subscript_digit(d: u8) -> char {
 pub fn from_subscript(c: char) -> Option<char> {
     let n = u32::from(c).checked_sub(0x2080)?;
     (n <= 9).then(|| char::from_digit(n, 10)).flatten()
+}
+
+/// The superscript form of an exponent's text (`-12`), if every
+/// character has one; a decimal point has none.
+pub fn superscript_text(text: &str) -> Option<String> {
+    text.chars()
+        .map(|c| match c {
+            '-' => Some(SUPERSCRIPT_MINUS),
+            d => d.to_digit(10).map(|d| SUPERSCRIPT_DIGITS[d as usize]),
+        })
+        .collect()
+}
+
+/// The ASCII character a superscript glyph stands for.
+pub fn from_superscript(c: char) -> Option<char> {
+    if c == SUPERSCRIPT_MINUS {
+        return Some('-');
+    }
+    let d = SUPERSCRIPT_DIGITS.iter().position(|s| *s == c)?;
+    char::from_digit(u32::try_from(d).ok()?, 10)
 }

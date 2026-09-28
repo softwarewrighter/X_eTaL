@@ -1,0 +1,5 @@
+# An underline must directly follow a letter (N2).
+== SOURCE
+a1_
+== ERROR
+error[bad-name]: an underline must directly follow a letter at 2..3

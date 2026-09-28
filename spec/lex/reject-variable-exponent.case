@@ -1,0 +1,5 @@
+# Exponents are number literals; use x ^ n (D-5).
+== SOURCE
+x^n
+== ERROR
+error[bad-exponent]: an exponent must be a number literal; for a computed power write `x ^ n` at 2..3

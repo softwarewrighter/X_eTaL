@@ -1,3 +1,3 @@
-command = "./target/debug/xetal render --latex -e 't_12 +^r'"
+command = "./target/debug/xetal render --latex -e 'o_-_12 x^2'"
 exit_code = 0
-desc = "docs/input.md LaTeX example"
+desc = "LaTeX example: rotate on axes 1 and 2, an exponent"

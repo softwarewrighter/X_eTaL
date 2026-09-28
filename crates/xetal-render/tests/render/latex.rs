@@ -8,29 +8,33 @@ fn tex(src: &str) -> String {
 
 #[test]
 fn names() {
-    assert_eq!(tex("square"), r"{\mathrm{square}}");
-    assert_eq!(tex("t_12"), r"{\underline{\mathrm{t}}_{12}}");
-    assert_eq!(tex("now_@"), r"{\underline{\mathrm{now}}_{@}}");
-    assert_eq!(tex("m.f_"), r"{\mathrm{m}.\underline{\mathrm{f}}}");
-    assert_eq!(tex("+^r_2"), r"{+^{\mathrm{r}}_{2}}");
-    assert_eq!(tex("+^q"), r"{+^{\mathrm{q}}}");
-    assert_eq!(tex("+_@"), r"{\underline{+}_{@}}");
-}
-
-#[test]
-fn symbols_numbers_and_punctuation() {
-    assert_eq!(tex("* |"), r"{\ast}\ {\mid}");
-    assert_eq!(tex("3 -1"), r"{3}\ {-1}");
-    assert_eq!(tex("3 - 1"), r"{3}\ {-}\ {1}");
+    assert_eq!(tex("x"), r"{\mathrm{x}}");
+    assert_eq!(tex("count!"), r"{\mathrm{count}!}");
+    assert_eq!(tex("r_ev"), r"{\mathrm{\underline{r}ev}}");
     assert_eq!(
-        tex("{ _l ; _r }"),
-        r"{\{}\ {\_\mathrm{l}}\ {;}\ {\_\mathrm{r}}\ {\}}"
+        tex("u:s_quare"),
+        r"{\mathrm{u}{:}\mathrm{\underline{s}quare}}"
     );
-    assert_eq!(tex("(@)[]"), r"{(}{@}{)}{[}{]}");
+    assert_eq!(tex("o_-_12"), r"{\mathrm{\underline{o}}-_{12}}");
+    assert_eq!(tex("r_/"), r"{\mathrm{\underline{r}}/}");
 }
 
 #[test]
-fn whitespace_is_explicit() {
-    assert_eq!(tex("a  b"), r"{\mathrm{a}}\ \ {\mathrm{b}}");
+fn exponents_and_symbols() {
+    assert_eq!(tex("x^0.5"), r"{\mathrm{x}}{^{0.5}}");
+    assert_eq!(
+        tex("* | & != <= >="),
+        r"{\ast}\ {\mid}\ {\&}\ {\neq}\ {\leq}\ {\geq}"
+    );
+    assert_eq!(tex("3 -1"), r"{3}\ {-1}");
+}
+
+#[test]
+fn punctuation_and_whitespace() {
+    assert_eq!(
+        tex("{ _l ; _r_ }"),
+        r"{\{}\ {\_\mathrm{l}}\ {;}\ {\_\mathrm{r}\_}\ {\}}"
+    );
+    assert_eq!(tex("x := y"), r"{\mathrm{x}}\ {\mathrel{:=}}\ {\mathrm{y}}");
     assert_eq!(tex("a\nb"), "{\\mathrm{a}}\\\\\n{\\mathrm{b}}");
 }

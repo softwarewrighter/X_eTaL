@@ -3,11 +3,11 @@
 Status: DECISIONS COMPLETE FOR SAGA 1, CONSISTENCY-REVIEWED. Each
 entry was chosen by the user, one question at a time (Q1-Q50, sub-
 questions, and review items R1-R6). Section 15 lists the optional
-items deliberately left for later. Nothing here is implemented yet:
-the implemented lexer and renderer, `docs/design.md` sections 2, 3
-and 8, and `docs/input.md` still describe the earlier syntax. The next
-saga step revises them (code, spec cases, goldens and docs) to match
-this document, which is now the specification for that work.
+items deliberately left for later. The lexer implements the token rules;
+the renderer has interim rules (underline, subscripts, exponents);
+`docs/design.md` sections 2, 3 and 8 and `docs/input.md` still describe
+the earlier syntax until the render-revision step. Everything later
+(parser onward) follows the sagas in `docs/plan.md`.
 
 This document supersedes `docs/syntax-proposal.md`.
 

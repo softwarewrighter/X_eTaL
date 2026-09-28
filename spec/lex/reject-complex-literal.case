@@ -1,5 +1,5 @@
-# A number must end at a delimiter.
+# Reserved for complex numbers (lang-choices section 15).
 == SOURCE
-2x
+3j4
 == ERROR
 error[bad-number]: a number must be followed by a space, symbol or bracket at 1..2

@@ -24,10 +24,10 @@ slug `xetal` (crates, binary) and a single display-name constant
 
 ## 2. Lexical structure (raw ASCII source)
 
-UNDER REVIEW: sections 2, 3.5 and 8 describe the implemented syntax,
-which diverged from the research (superscript used for derivation
-instead of namespaces; `_` both underline and subscript). See
-`docs/lang-choices.md`; these sections change once those decisions are complete.
+OUT OF DATE: sections 2, 3 and 8 describe the earlier syntax (superscript
+derivations, `_` as both underline and subscript). The lexer now
+follows `docs/lang-choices.md`, which governs; these sections are
+rewritten in the next step of the current saga.
 
 Source is ASCII (Latin-1 tolerated only inside string/char literals,
 which are deferred); any other character is a `non-ascii` error, and

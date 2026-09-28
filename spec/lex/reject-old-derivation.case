@@ -1,0 +1,5 @@
+# The old derivation syntax is gone; reduce is '+ r_/ (F7).
+== SOURCE
++^r
+== ERROR
+error[reserved-superscript]: superscripts on functions are reserved at 1..2

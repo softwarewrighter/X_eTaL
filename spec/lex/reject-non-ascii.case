@@ -1,4 +1,4 @@
-# Source is ASCII; Unicode is display only.
+# Source is ASCII (I1).
 == SOURCE
 x ← 3
 == ERROR

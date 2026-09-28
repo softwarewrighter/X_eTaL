@@ -5,12 +5,19 @@ use xetal_base::{Diagnostic, Span};
 /// What went wrong; `code()` is the stable diagnostic code.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ErrorKind {
-    BadDecoration,
+    BadName,
+    BadMark,
     BadAxis,
-    NonCanonicalOrder,
-    RedundantUnderline,
-    BadLambdaArg,
     BadNamespace,
+    BadExponent,
+    ReservedSuperscript,
+    AmbiguousBang,
+    NoNiladicSugar,
+    BadLambdaArg,
+    BadGuard,
+    BadQuote,
+    BadLazy,
+    BadString,
     AmbiguousMinus,
     BadNumber,
     NumberOutOfRange,
@@ -21,12 +28,19 @@ pub enum ErrorKind {
 impl ErrorKind {
     pub fn code(self) -> &'static str {
         match self {
-            ErrorKind::BadDecoration => "bad-decoration",
+            ErrorKind::BadName => "bad-name",
+            ErrorKind::BadMark => "bad-mark",
             ErrorKind::BadAxis => "bad-axis",
-            ErrorKind::NonCanonicalOrder => "non-canonical-order",
-            ErrorKind::RedundantUnderline => "redundant-underline",
-            ErrorKind::BadLambdaArg => "bad-lambda-arg",
             ErrorKind::BadNamespace => "bad-namespace",
+            ErrorKind::BadExponent => "bad-exponent",
+            ErrorKind::ReservedSuperscript => "reserved-superscript",
+            ErrorKind::AmbiguousBang => "ambiguous-bang",
+            ErrorKind::NoNiladicSugar => "no-niladic-sugar",
+            ErrorKind::BadLambdaArg => "bad-lambda-arg",
+            ErrorKind::BadGuard => "bad-guard",
+            ErrorKind::BadQuote => "bad-quote",
+            ErrorKind::BadLazy => "bad-lazy",
+            ErrorKind::BadString => "bad-string",
             ErrorKind::AmbiguousMinus => "ambiguous-minus",
             ErrorKind::BadNumber => "bad-number",
             ErrorKind::NumberOutOfRange => "number-out-of-range",
@@ -60,6 +74,15 @@ impl LexError {
 
     pub fn code(&self) -> &'static str {
         self.kind.code()
+    }
+
+    /// `!=` touching a name (review R2): ask for a space.
+    pub fn bang_equals(pos: usize) -> Self {
+        Self::new(
+            ErrorKind::AmbiguousBang,
+            Span::new(pos, pos + 2),
+            "`!=` touching a name is ambiguous: write `x != 3` (not equal) or `x! = 3` (compare a mutable variable)",
+        )
     }
 }
 

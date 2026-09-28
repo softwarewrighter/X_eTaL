@@ -1,25 +1,34 @@
-//! The main scanning loop: whitespace, punctuation, lambda arguments and
-//! the negative-literal rule; names and numbers are delegated.
+//! The main scanning loop: whitespace and comments, punctuation, the
+//! negative-literal rule, symbols and markers; names and literals are
+//! delegated.
 
 use xetal_base::Span;
 
 use crate::cursor::Cursor;
 use crate::error::{ErrorKind, LexError};
-use crate::token::{Side, Token, TokenKind};
-use crate::{name, number};
+use crate::token::{Side, Symbol, Token, TokenKind};
+use crate::{literal, name};
 
-/// Lex `src` into tokens. Spaces, tabs and carriage returns separate
-/// tokens; each `\n` is a `Newline` token.
+/// Lex `src` into tokens. Spaces, tabs, carriage returns and `#`
+/// comments separate tokens; each `\n` is a `Newline` token.
 pub fn lex(src: &str) -> Result<Vec<Token>, LexError> {
     let mut cur = Cursor::new(src);
-    let mut tokens = Vec::new();
+    let mut tokens: Vec<Token> = Vec::new();
     loop {
         cur.eat_while(|b| matches!(b, b' ' | b'\t' | b'\r'));
+        if cur.peek() == Some(b'#') {
+            cur.eat_while(|b| b != b'\n');
+            continue;
+        }
         let start = cur.pos;
         let Some(byte) = cur.peek() else {
             return Ok(tokens);
         };
-        let kind = next_token(&mut cur, byte)?;
+        let touching = tokens
+            .last()
+            .filter(|t| t.span.end == start)
+            .map(|t| &t.kind);
+        let kind = next_token(&mut cur, byte, touching)?;
         tokens.push(Token {
             kind,
             span: Span::new(start, cur.pos),
@@ -27,16 +36,25 @@ pub fn lex(src: &str) -> Result<Vec<Token>, LexError> {
     }
 }
 
-fn next_token(cur: &mut Cursor, byte: u8) -> Result<TokenKind, LexError> {
+/// `touching` is the previous token when no whitespace separates it.
+fn next_token(
+    cur: &mut Cursor,
+    byte: u8,
+    touching: Option<&TokenKind>,
+) -> Result<TokenKind, LexError> {
     if let Some(kind) = punct(byte) {
         cur.pos += 1;
         return Ok(kind);
     }
-    match byte {
-        b'0'..=b'9' => number::lex_number(cur, cur.pos),
-        b'-' if cur.peek_at(1).is_some_and(|b| b.is_ascii_digit()) => minus_literal(cur),
-        b'_' => lambda_arg(cur),
-        b if name::is_symbol(b) || b.is_ascii_alphabetic() => name::lex_name(cur),
+    match (byte, touching) {
+        (b'^', Some(prev)) => literal::lex_exponent(cur, prev),
+        (b'0'..=b'9', _) => literal::lex_number(cur, cur.pos),
+        (b'"', _) => literal::lex_string(cur),
+        (b'-', _) => literal::minus(cur),
+        (b'_', _) => lambda_arg(cur),
+        (b'\'' | b'~' | b'?' | b':' | b'!', _) => marker(cur, byte),
+        (b'+' | b'*' | b'/' | b'^' | b'=' | b'&' | b'|' | b'<' | b'>', _) => Ok(symbol(cur, byte)),
+        (b, _) if b.is_ascii_alphabetic() => name::lex_name(cur),
         _ => Err(unexpected(cur)),
     }
 }
@@ -56,55 +74,97 @@ fn punct(byte: u8) -> Option<TokenKind> {
     })
 }
 
-/// `-` before a digit is a negative literal only at a token boundary
-/// (start, whitespace, an opener or `;`); touching a previous token it
-/// is ambiguous.
-fn minus_literal(cur: &mut Cursor) -> Result<TokenKind, LexError> {
-    let boundary = match cur.prev() {
-        None => true,
-        Some(b) => b" \t\r\n({[;".contains(&b),
-    };
-    if !boundary {
-        return Err(LexError::new(
-            ErrorKind::AmbiguousMinus,
-            Span::new(cur.pos, cur.pos + 1),
-            "`-` touching the previous token and a digit is ambiguous: \
-             write `3 - 1` to subtract or `3 -1` for a negative literal",
-        ));
-    }
-    let start = cur.pos;
-    cur.pos += 1;
-    number::lex_number(cur, start)
-}
-
+/// `_l`, `_r`, and the applied forms `_l_`, `_r_`.
 fn lambda_arg(cur: &mut Cursor) -> Result<TokenKind, LexError> {
     let start = cur.pos;
-    cur.pos += 1;
-    let side = match cur.peek() {
-        Some(b'l') => Side::Left,
-        Some(b'r') => Side::Right,
-        _ => {
-            cur.eat_while(|b| b.is_ascii_alphanumeric() || b == b'@');
-            return Err(bad_arg(Span::new(start, cur.pos.max(start + 1))));
-        }
+    let side = if cur.peek_at(1) == Some(b'l') {
+        Side::Left
+    } else {
+        Side::Right
     };
-    cur.pos += 1;
-    match cur.peek() {
-        Some(b) if b.is_ascii_alphanumeric() => {
-            cur.eat_while(|b| b.is_ascii_alphanumeric());
-            Err(bad_arg(Span::new(start, cur.pos)))
-        }
-        Some(b'_' | b'^' | b'.' | b'@') => Err(bad_arg(Span::new(cur.pos, cur.pos + 1))),
-        _ => Ok(TokenKind::LamArg(side)),
+    let named = matches!(cur.peek_at(1), Some(b'l' | b'r'));
+    cur.pos += if named { 2 } else { 1 };
+    let applied = named && cur.peek() == Some(b'_');
+    if applied {
+        cur.pos += 1;
     }
+    if !named
+        || cur
+            .peek()
+            .is_some_and(|b| b.is_ascii_alphanumeric() || b == b'_' || b == b'@')
+    {
+        cur.eat_while(|b| b.is_ascii_alphanumeric() || b == b'_' || b == b'@');
+        return Err(LexError::new(
+            ErrorKind::BadLambdaArg,
+            Span::new(start, cur.pos),
+            "lambda arguments are `_l` and `_r` (and `_l_` / `_r_` to apply them)",
+        ));
+    }
+    Ok(TokenKind::LamArg { side, applied })
 }
 
-fn bad_arg(span: Span) -> LexError {
-    LexError::new(
-        ErrorKind::BadLambdaArg,
-        span,
-        "lambda arguments are exactly `_l` and `_r`, undecorated",
-    )
+/// Quote, lazy marker, guard, `:=` and `!=` (each with its spacing rule).
+fn marker(cur: &mut Cursor, byte: u8) -> Result<TokenKind, LexError> {
+    let next = cur.peek_at(1);
+    let (kind, len, error) = match byte {
+        b'\'' if next.is_some_and(|b| b.is_ascii_alphabetic() || b"{[+-*/^=!<>&|".contains(&b)) => {
+            (TokenKind::Quote, 1, None)
+        }
+        b'\'' => (
+            TokenKind::Quote,
+            1,
+            Some((
+                ErrorKind::BadQuote,
+                "a quote must touch a function name, `{`, `[` or a symbol",
+            )),
+        ),
+        b'~' if next.is_some_and(|b| b.is_ascii_alphabetic()) => (TokenKind::Lazy, 1, None),
+        b'~' => (
+            TokenKind::Lazy,
+            1,
+            Some((
+                ErrorKind::BadLazy,
+                "`~` marks a lazy parameter and must touch its name",
+            )),
+        ),
+        b'?' if cur.prev().is_none_or(|b| b" \t\r\n".contains(&b)) => (TokenKind::Guard, 1, None),
+        b'?' => (
+            TokenKind::Guard,
+            1,
+            Some((ErrorKind::BadGuard, "the guard `?` needs a space before it")),
+        ),
+        b':' if next == Some(b'=') => (TokenKind::Assign, 2, None),
+        b'!' if next == Some(b'=') => (TokenKind::Sym(Symbol::Ne), 2, None),
+        _ => (
+            TokenKind::Unit,
+            1,
+            Some((ErrorKind::UnexpectedChar, "unexpected character")),
+        ),
+    };
+    if let Some((kind, message)) = error {
+        return Err(LexError::at(kind, cur.pos, message));
+    }
+    cur.pos += len;
+    Ok(kind)
+}
+
+fn symbol(cur: &mut Cursor, byte: u8) -> TokenKind {
+    let equals = cur.peek_at(1) == Some(b'=');
+    let (sym, len) = match byte {
+        b'+' => (Symbol::Plus, 1),
+        b'*' => (Symbol::Times, 1),
+        b'/' => (Symbol::Divide, 1),
+        b'^' => (Symbol::Power, 1),
+        b'=' => (Symbol::Eq, 1),
+        b'&' => (Symbol::And, 1),
+        b'|' => (Symbol::Or, 1),
+        b'<' if equals => (Symbol::Le, 2),
+        b'<' => (Symbol::Lt, 1),
+        b'>' if equals => (Symbol::Ge, 2),
+        _ => (Symbol::Gt, 1),
+    };
+    cur.pos += len;
+    TokenKind::Sym(sym)
 }
 
 fn unexpected(cur: &Cursor) -> LexError {

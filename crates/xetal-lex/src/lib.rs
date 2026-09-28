@@ -1,19 +1,17 @@
-//! Lexer: raw ASCII source to tokens with byte spans.
-//!
-//! Decoration decides a name's class: a plain stem is a noun; an
-//! underline, subscript or superscript (or a symbol stem) makes it a
-//! function. See docs/design.md section 2.
+//! Lexer: raw ASCII source to tokens with byte spans, following
+//! docs/lang-choices.md. An underlined letter (`_` directly after it)
+//! makes a name a function name; a leading `ns:` names its namespace.
 
 mod cursor;
 mod error;
+mod literal;
 mod name;
-mod number;
 mod scan;
 mod token;
 
 pub use error::{ErrorKind, LexError};
 pub use scan::lex;
-pub use token::{Name, Number, Side, Sub, Token, TokenKind};
+pub use token::{FuncName, Number, Side, Symbol, Token, TokenKind, Var};
 
 /// Pipeline stage name used in diagnostics and by the CLI.
 pub const STAGE: &str = "lex";

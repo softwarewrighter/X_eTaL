@@ -1,0 +1,5 @@
+# Ambiguous: x != 3 or x! = 3; add a space (R2).
+== SOURCE
+x!=3
+== ERROR
+error[ambiguous-bang]: `!=` touching a name is ambiguous: write `x != 3` (not equal) or `x! = 3` (compare a mutable variable) at 1..3

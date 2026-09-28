@@ -1,0 +1,7 @@
+# Binding is := (S1).
+== SOURCE
+x := 3
+== TOKENS
+0..1 Var(x)
+2..4 Assign
+5..6 Num(3)

@@ -1,0 +1,5 @@
+# The name ends after one trailing mark: write f_- 1 (N3).
+== SOURCE
+f_-1
+== ERROR
+error[bad-mark]: a function name ends after one trailing mark at 3..4

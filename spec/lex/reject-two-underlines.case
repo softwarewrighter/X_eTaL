@@ -1,0 +1,5 @@
+# A function name has exactly one underline (N2).
+== SOURCE
+a_b_c
+== ERROR
+error[bad-name]: a function name has exactly one underline; a later `_` starts an axis subscript at 3..4

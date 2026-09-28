@@ -1,10 +1,10 @@
 # Typing X_eTaL
 
-> Under review: this page describes the syntax currently implemented.
-> The language decisions now being made are recorded in
-> [`lang-choices.md`](lang-choices.md) (one key per job;
-> namespaces as a prefix; function names carry their underline).
-> This page will be rewritten once those decisions are complete.
+> Out of date: this page describes the earlier syntax. The lexer now
+> follows [`lang-choices.md`](lang-choices.md) (function names carry
+> their underline, namespaces are prefixes, `_digits` are axes, `^`
+> after a value is an exponent); this page is rewritten in the next
+> step of the current saga.
 
 X_eTaL source is plain ASCII typed on a US keyboard. No input method,
 Espanso snippet or special font is needed. Decoration that the

@@ -1,5 +1,5 @@
-# Named functions are underlined (U+0332 on each stem char).
+# The underline is drawn under the underlined letter (N2).
 == SOURCE
-r_ square_ 7 m.f_
+r_ev self_ u:s_quare
 == RENDER
-r̲ s̲q̲u̲a̲r̲e̲ 7 m.f̲
+r̲ev self̲ u:s̲quare

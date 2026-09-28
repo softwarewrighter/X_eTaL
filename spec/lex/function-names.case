@@ -1,0 +1,11 @@
+# An underline directly after a letter makes a function name (N2, N5).
+== SOURCE
+r_ev s_quare self_ r_2 u:s_quare c:K_ l:B_
+== TOKENS
+0..4 Func(r_ev)
+5..12 Func(s_quare)
+13..18 Func(self_)
+19..22 Func(r_2)
+23..32 Func(u:s_quare)
+33..37 Func(c:K_)
+38..42 Func(l:B_)

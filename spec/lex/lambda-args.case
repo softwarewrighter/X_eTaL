@@ -1,0 +1,8 @@
+# Lambda arguments, and the applied forms (L1, F5).
+== SOURCE
+_l _r _l_ _r_
+== TOKENS
+0..2 LamArg(l)
+3..5 LamArg(r)
+6..9 LamArg(l, applied)
+10..13 LamArg(r, applied)

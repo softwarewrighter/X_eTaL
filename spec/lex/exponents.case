@@ -1,0 +1,18 @@
+# A touching ^ with a number literal is an exponent (D-1 to D-5).
+== SOURCE
+x^2 x^-1 x^0.5 _r^2 (a + b)^2
+== TOKENS
+0..1 Var(x)
+1..3 Exp(2)
+4..5 Var(x)
+5..8 Exp(-1)
+9..10 Var(x)
+10..14 Exp(0.5)
+15..17 LamArg(r)
+17..19 Exp(2)
+20..21 LParen
+21..22 Var(a)
+23..24 Sym(+)
+25..26 Var(b)
+26..27 RParen
+27..29 Exp(2)

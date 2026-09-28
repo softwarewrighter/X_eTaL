@@ -1,7 +1,0 @@
-# Integer and float literals.
-== SOURCE
-2.5 -0.25 10
-== TOKENS
-0..3 Num(2.5)
-4..9 Num(-0.25)
-10..12 Num(10)

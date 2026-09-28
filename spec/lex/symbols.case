@@ -1,13 +1,17 @@
-# Symbol stems are always functions and may take a subscript.
+# Symbol functions; digraphs are single tokens (section 8).
 == SOURCE
-+ - * / = < > | +_1
++ - * / ^ = != < > <= >= & |
 == TOKENS
-0..1 Func(+)
-2..3 Func(-)
-4..5 Func(*)
-6..7 Func(/)
-8..9 Func(=)
-10..11 Func(<)
-12..13 Func(>)
-14..15 Func(|)
-16..19 Func(+, axes=[1])
+0..1 Sym(+)
+2..3 Sym(-)
+4..5 Sym(*)
+6..7 Sym(/)
+8..9 Sym(^)
+10..11 Sym(=)
+12..14 Sym(!=)
+15..16 Sym(<)
+17..18 Sym(>)
+19..21 Sym(<=)
+22..24 Sym(>=)
+25..26 Sym(&)
+27..28 Sym(|)

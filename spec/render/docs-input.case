@@ -1,8 +1,0 @@
-# docs/input.md: the "Seeing what you typed" example.
-== SOURCE
-t_12 +^r
-== TOKENS
-0..4 Func(t, axes=[1,2])
-5..8 Func(+, deriv=r)
-== RENDER
-t̲₁₂ +ʳ

@@ -1,3 +1,3 @@
-command = "./target/debug/xetal lex -e 'life = { (+^r -1 0 1 t_12 _r) { (_l = 3) + _r * _l = 4 } _r }'"
+command = '''./target/debug/xetal lex -e 'u:l_ife := { ('\''+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }''''
 exit_code = 0
 desc = "xetal lex token dump of the Life one-liner"

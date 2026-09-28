@@ -1,5 +1,5 @@
-# Axis digits become subscript digits; symbols are not underlined.
+# Axis digits become subscript digits (D-8).
 == SOURCE
-t_2 t_12 +_1
+o_-_12 r__2
 == RENDER
-t̲₂ t̲₁₂ +₁
+o̲-₁₂ r̲₂

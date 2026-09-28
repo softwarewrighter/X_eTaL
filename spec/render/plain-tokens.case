@@ -1,5 +1,0 @@
-# Everything else is unchanged.
-== SOURCE
-{ _l ; _r } ( -1 2.5 ) [ ]
-== RENDER
-{ _l ; _r } ( -1 2.5 ) [ ]

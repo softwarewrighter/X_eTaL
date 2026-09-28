@@ -1,5 +1,5 @@
 # The Life one-liner.
 == SOURCE
-life = { (+^r -1 0 1 t_12 _r) { (_l = 3) + _r * _l = 4 } _r }
+u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 == RENDER
-life = { (+ʳ -1 0 1 t̲₁₂ _r) { (_l = 3) + _r * _l = 4 } _r }
+u:l̲ife := { ('+ r̲/₁₂ -1 0 1 o̲-₁₂ _r) { (_l = 3) + _r * _l = 4 } _r }

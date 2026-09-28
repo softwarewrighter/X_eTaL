@@ -1,0 +1,5 @@
+# Only the escapes \" \\ \n \t (ST1).
+== SOURCE
+"a\qb"
+== ERROR
+error[bad-string]: unknown escape: use \" \\ \n or \t at 2..4

@@ -1,0 +1,7 @@
+# Strings; an import is ordinary tokens (ST1, MC3).
+== SOURCE
+"c:" u_se< "Combinators"
+== TOKENS
+0..4 Str("c:")
+5..10 Func(u_se<)
+11..24 Str("Combinators")

@@ -1,5 +1,0 @@
-# Derivation words become superscript modifier letters.
-== SOURCE
-+^r +^reduce f^s_2
-== RENDER
-+ʳ +ʳᵉᵈᵘᶜᵉ fˢ₂

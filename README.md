@@ -10,35 +10,37 @@ X_eTaL is a terse, statically typed, functional array language in the
 APL / APL2 / J / BQN tradition, implemented in Rust. It uses no
 special glyph alphabet: source is plain ASCII typed on a US keyboard,
 and **typographic decoration** changes what an ordinary name means.
-A plain name is a noun; an underlined name is a function; a subscript
-specializes it (for example an axis); a superscript derives a new
-function from it (for example reduce or scan).
+An underlined letter makes a name a function, a leading superscript
+names its namespace, a subscript gives its axes, and a superscript on
+a value is an exponent. The language decisions are recorded in
+[`docs/lang-choices.md`](docs/lang-choices.md).
 
 <br clear="left">
 
-| Raw ASCII  | Displayed as                | Meaning                          |
-| ---------- | --------------------------- | -------------------------------- |
-| `t`        | t                           | the variable `t`                 |
-| `t_`       | t, underlined               | rotate                           |
-| `t_2`      | t, underlined, subscript 2  | rotate along axis 2              |
-| `+^r`      | +, superscript r            | reduce by `+` (sum)              |
-| `+^s_2`    | +, superscript s, sub 2     | running sum along axis 2         |
-| `now_@`    | now, underlined, touching @ | apply `now` to Unit              |
-| `_l` `_r`  | _l _r                       | left / right lambda argument     |
-| `@`        | @                           | the Unit value                   |
+| Raw ASCII     | Displayed as                          | Meaning                              |
+| ------------- | ------------------------------------- | ------------------------------------ |
+| `x`           | x                                     | the variable `x`                     |
+| `r_ev`        | rev, r underlined                     | the built-in function reverse        |
+| `o_-_2`       | o-, o underlined, subscript 2         | rotate along axis 2                  |
+| `'+ r_/ A`    | quote +, then r/ with r underlined    | reduce A by plus (APL `+/A`)         |
+| `u:s_quare`   | square, s underlined, namespace u     | a user-defined function              |
+| `c:K_`        | K underlined, namespace c             | K from the combinator library        |
+| `x^2`         | x squared                             | exponent on a value                  |
+| `_l` `_r`     | _l _r                                 | left / right lambda argument         |
+| `@`           | @                                     | the Unit value                       |
 
-Terse and long spellings are the same grammar -- `rotate_2` and `t_2`
-are the same function -- so code can be written in words while
-learning and abbreviated when fluent.
+Built-in names are words (`r_eshape`, `t_ally`) so code stays
+recognizable; a punctuation mark appears only where it carries APL
+meaning (`r_/` reduce, `s_\` scan, `o_-` rotate).
 
 At a glance, versus classic APL:
 
 | Category            | APL                          | X_eTaL                                  |
 | ------------------- | ---------------------------- | -------------------------------------- |
-| Character set       | APL glyphs                   | ASCII source; Unicode only for display |
-| Function vs noun    | fixed glyph identity         | typographic decoration of any name     |
-| Axis specification  | separate glyphs / brackets   | numeric subscript, e.g. `t_2`          |
-| Operators           | `/` `\` `.` etc.             | superscript derivations `^r` `^s`      |
+| Character set       | APL glyphs                   | ASCII source; Unicode/LaTeX for display |
+| Function vs value   | fixed glyph identity         | an underlined letter in the name       |
+| Axis specification  | separate glyphs / brackets   | subscript digits, e.g. `o_-_2`         |
+| Operators           | `/` `\` `.` etc.             | ordinary curried functions: `'+ r_/ A` |
 | Typing              | dynamic                      | static, inferred (Hindley-Milner)      |
 | Ambiguous syntax    | resolved by fixed rules      | rejected with an explanation           |
 | Core model          | niladic/monadic/dyadic       | curried one-argument functions         |
@@ -47,70 +49,53 @@ At a glance, versus classic APL:
 The design target is Conway's Life in one line:
 
 ```
-life = { (+^r -1 0 1 t_12 _r) { (_l = 3) + _r * _l = 4 } _r }
+u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 ```
 
 Read right to left: rotate the board `_r` by every offset in `-1 0 1`
-along both axes (`t_12`) and sum the nine boards (`+^r`), giving S,
-each cell plus its neighbours. The inner lambda then gets S as `_l`
-and the board as `_r` and computes `(S = 3) + board * (S = 4)`: born
-or surviving with 3 neighbours when S is 3, surviving with 2 neighbours
-when a live cell has S of 4. The two tests never both hold, so `+`
-acts as "or".
-
-## Status
-
-Early. The lexer (`xetal lex`) and the decorated renderer
-(`xetal render`) work; parsing and evaluation are not implemented
-yet, and those commands report `error[unsupported]`. The language is specified by its test suite as
-it is built; the design documents describe the intended language.
-
-## Documentation
-
-- [`docs/input.md`](docs/input.md) -- how to type X_eTaL expressions
-- [`docs/PRD.md`](docs/PRD.md) -- product requirements and milestones
-- [`docs/design.md`](docs/design.md) -- language design and open decisions
-- [`docs/architecture.md`](docs/architecture.md) -- crates, pipeline, testing
-- [`docs/plan.md`](docs/plan.md) -- implementation plan
-- `docs/research.txt`, `docs/research2.txt` -- archival design research
+along axes 1 and 2 (`o_-_12`), giving a 3 by 3 arrangement of boards,
+and sum over those two axes (`'+ r_/_12`), giving S, each cell plus
+its neighbours. The inner lambda then gets S as `_l` and the board as
+`_r` and computes `(S = 3) + board * (S = 4)`: born or surviving with
+3 neighbours when S is 3, surviving with 2 neighbours when a live cell
+has S of 4. The two tests never both hold, so `+` acts as "or".
 
 ## Quick Start
 
 ```bash
 cargo build --release
 ./target/release/xetal --version
-./target/release/xetal lex -e 'square = { _r * _r }; square_ 7'
+./target/release/xetal lex -e 'u:s_quare := { _r * _r }; u:s_quare 7'
 ```
 
 `xetal lex` prints one token per line with its byte span:
 
 ```
-0..6 Noun(square)
-7..8 Func(=)
-9..10 LBrace
-11..13 LamArg(r)
-14..15 Func(*)
-16..18 LamArg(r)
-19..20 RBrace
-20..21 Semi
-22..29 Func(square)
-30..31 Num(7)
+0..9 Func(u:s_quare)
+10..12 Assign
+13..14 LBrace
+15..17 LamArg(r)
+18..19 Sym(*)
+20..22 LamArg(r)
+23..24 RBrace
+24..25 Semi
+26..35 Func(u:s_quare)
+36..37 Num(7)
 ```
 
-Source is typed as plain ASCII: a trailing `_` underlines a name
-(makes it a function), digits after it are axis subscripts (`t_12`),
-and `^word` is a superscript derivation (`+^r`); see
-[`docs/input.md`](docs/input.md). Errors carry a code and a byte
-span, for example `xetal lex -e '3-1'` reports
-`error[ambiguous-minus]` at `1..2`.
+Source is typed as plain ASCII: a `_` directly after a letter
+underlines it and makes the name a function (`r_ev`), `_digits` after
+a function name are axis subscripts (`o_-_12`), `ns:` names a
+namespace (`u:s_quare`), and `^2` touching a value is an exponent.
+Errors carry a code and a byte span, for example `xetal lex -e '3-1'`
+reports `error[ambiguous-minus]` at `1..2`.
 
-`xetal render` shows the decorated form (underline, subscript and
-superscript glyphs) of the table above; `--raw` converts it back and
+`xetal render` shows the decorated form; `--raw` converts it back and
 `--latex` prints LaTeX math for a post-processor:
 
 ```bash
-./target/release/xetal render -e 't t_ t_2 +^r +^s_2 _l _r @'
-./target/release/xetal render --latex -e 't_12 +^r'
+./target/release/xetal render -e 'x r_ev o_-_2 u:s_quare c:K_ x^2 _l _r @'
+./target/release/xetal render --latex -e 'o_-_12 x^2'
 ```
 
 ## Architecture

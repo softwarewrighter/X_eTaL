@@ -1,0 +1,15 @@
+# Lazy marker, parameter arrow, guard (E1, L4, G1).
+== SOURCE
+{ ~s_elf n -> n <= 1 ? 1 }
+== TOKENS
+0..1 LBrace
+2..3 Lazy
+3..8 Func(s_elf)
+9..10 Var(n)
+11..13 Arrow
+14..15 Var(n)
+16..18 Sym(<=)
+19..20 Num(1)
+21..22 Guard
+23..24 Num(1)
+25..26 RBrace

@@ -1,5 +1,0 @@
-# render lexes first: raw errors are reported
-== SOURCE
-r__
-== ERROR
-error[bad-decoration]: an underline cannot be doubled at 2..3

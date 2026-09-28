@@ -1,1 +1,1 @@
-{\mathrm{life}}\ {=}\ {\{}\ {(}{+^{\mathrm{r}}}\ {-1}\ {0}\ {1}\ {\underline{\mathrm{t}}_{12}}\ {\_\mathrm{r}}{)}\ {\{}\ {(}{\_\mathrm{l}}\ {=}\ {3}{)}\ {+}\ {\_\mathrm{r}}\ {\ast}\ {\_\mathrm{l}}\ {=}\ {4}\ {\}}\ {\_\mathrm{r}}\ {\}}
+{\mathrm{u}{:}\mathrm{\underline{l}ife}}\ {\mathrel{:=}}\ {\{}\ {(}{\text{'}}{+}\ {\mathrm{\underline{r}}/_{12}}\ {-1}\ {0}\ {1}\ {\mathrm{\underline{o}}-_{12}}\ {\_\mathrm{r}}{)}\ {\{}\ {(}{\_\mathrm{l}}\ {=}\ {3}{)}\ {+}\ {\_\mathrm{r}}\ {\ast}\ {\_\mathrm{l}}\ {=}\ {4}\ {\}}\ {\_\mathrm{r}}\ {\}}

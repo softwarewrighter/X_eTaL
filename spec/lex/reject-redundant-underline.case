@@ -1,5 +1,0 @@
-# A symbol is already a function; one spelling per meaning.
-== SOURCE
-+_
-== ERROR
-error[redundant-underline]: this name is already a function; drop the bare `_` at 1..2

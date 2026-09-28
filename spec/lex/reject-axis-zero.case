@@ -1,5 +1,5 @@
-# Axes are 1-based.
+# Axes are 1-9 (D-9).
 == SOURCE
-r_0
+o_-_0
 == ERROR
-error[bad-axis]: axes are numbered from 1 at 2..3
+error[bad-axis]: axes are the digits 1-9, each at most once at 4..5

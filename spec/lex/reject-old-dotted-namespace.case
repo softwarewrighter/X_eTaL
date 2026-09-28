@@ -1,0 +1,5 @@
+# Namespaces are prefixes like m:f_ (N5).
+== SOURCE
+m.f_
+== ERROR
+error[unexpected-char]: unexpected character at 1..2

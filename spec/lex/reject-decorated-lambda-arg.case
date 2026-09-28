@@ -1,5 +1,0 @@
-# Lambda arguments are undecorated (D12).
-== SOURCE
-_r_
-== ERROR
-error[bad-lambda-arg]: lambda arguments are exactly `_l` and `_r`, undecorated at 2..3

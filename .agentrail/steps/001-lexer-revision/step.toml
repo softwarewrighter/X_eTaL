@@ -1,6 +1,6 @@
 number = 1
 slug = "lexer-revision"
-status = "pending"
+status = "in-progress"
 description = "calculus step 1: TDD the xetal-lex revision to docs/lang-choices.md (sections..."
 role = "production"
 context_files = []

@@ -1,0 +1,8 @@
+# Variables: letters and digits, a namespace prefix, a trailing ! for mutable (N1, N4, N5).
+== SOURCE
+x board2 count! m:pi
+== TOKENS
+0..1 Var(x)
+2..8 Var(board2)
+9..15 Var(count!)
+16..20 Var(m:pi)

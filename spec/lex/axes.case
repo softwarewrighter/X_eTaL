@@ -1,0 +1,8 @@
+# After the name, _digits is the axis subscript (D-8, D-9).
+== SOURCE
+r_/_2 o_-_12 r__2 n_eg_2
+== TOKENS
+0..5 Func(r_/, axes=[2])
+6..12 Func(o_-, axes=[1,2])
+13..17 Func(r_, axes=[2])
+18..24 Func(n_eg, axes=[2])

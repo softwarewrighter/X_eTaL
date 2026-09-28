@@ -1,0 +1,7 @@
+# Spaced ^ is the power function (D-6).
+== SOURCE
+x ^ n
+== TOKENS
+0..1 Var(x)
+2..3 Sym(^)
+4..5 Var(n)

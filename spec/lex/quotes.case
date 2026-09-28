@@ -1,0 +1,8 @@
+# A quote passes a function as a value (F4).
+== SOURCE
+'+ r_/ v
+== TOKENS
+0..1 Quote
+1..2 Sym(+)
+3..6 Func(r_/)
+7..8 Var(v)

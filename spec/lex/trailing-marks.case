@@ -1,0 +1,11 @@
+# One trailing mark ends a function name; < marks a macro (N3, MC2).
+== SOURCE
+r_/ s_\ o_- e_mpty? p_rint! u_se< e_q~
+== TOKENS
+0..3 Func(r_/)
+4..7 Func(s_\)
+8..11 Func(o_-)
+12..19 Func(e_mpty?)
+20..27 Func(p_rint!)
+28..33 Func(u_se<)
+34..38 Func(e_q~)

@@ -12,9 +12,23 @@ pub struct Token {
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum TokenKind {
-    Name(Name),
-    LamArg(Side),
+    Var(Var),
+    Func(FuncName),
+    /// `_l` / `_r`; `applied` for `_l_` / `_r_` (apply the value, F5).
+    LamArg {
+        side: Side,
+        applied: bool,
+    },
     Num(Number),
+    /// A literal exponent touching the value before it (`x^2`).
+    Exp(Number),
+    Sym(Symbol),
+    Str(String),
+    Assign,
+    Arrow,
+    Guard,
+    Quote,
+    Lazy,
     Unit,
     Semi,
     Newline,
@@ -26,27 +40,26 @@ pub enum TokenKind {
     RBracket,
 }
 
-/// A possibly decorated name: `[ns.]stem[^deriv][_[sub]]`.
+/// A variable: letters and digits, optional namespace, optional `!`.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub struct Name {
+pub struct Var {
     pub ns: Option<String>,
-    pub stem: String,
-    /// The stem is a symbol (`+ - * / = < > |`), always a function.
-    pub symbol: bool,
-    /// Superscript derivation word, spelled as written (`r`, `reduce`).
-    pub deriv: Option<String>,
-    pub sub: Option<Sub>,
+    pub name: String,
+    pub mutable: bool,
 }
 
-/// What follows the underline.
+/// A function name: `[ns:]stem` with exactly one underlined letter,
+/// an optional trailing mark and optional axis digits.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub enum Sub {
-    /// Bare underline: "this name is a function".
-    Bare,
-    /// Axis subscript, one digit per axis (1-based).
-    Axes(Vec<u8>),
-    /// `_@`: niladic application sugar.
-    Niladic,
+pub struct FuncName {
+    pub ns: Option<String>,
+    /// Letters and digits, without the `_`.
+    pub stem: String,
+    /// Byte index in `stem` of the underlined letter.
+    pub underline: usize,
+    pub mark: Option<char>,
+    /// Axis subscript digits; empty when there is none.
+    pub axes: Vec<u8>,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -61,53 +74,104 @@ pub enum Number {
     Float(f64),
 }
 
-impl Name {
-    /// Class comes from decoration only: a plain named stem is a noun.
-    pub fn is_function(&self) -> bool {
-        self.symbol || self.deriv.is_some() || self.sub.is_some()
-    }
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Symbol {
+    Plus,
+    Minus,
+    Times,
+    Divide,
+    Power,
+    Eq,
+    Ne,
+    Lt,
+    Gt,
+    Le,
+    Ge,
+    And,
+    Or,
 }
 
-impl fmt::Display for Name {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        if !self.is_function() {
-            return write!(f, "Noun({})", self.stem);
-        }
-        write!(f, "Func({}", self.stem)?;
-        if let Some(ns) = &self.ns {
-            write!(f, ", ns={ns}")?;
-        }
-        if let Some(deriv) = &self.deriv {
-            write!(f, ", deriv={deriv}")?;
-        }
-        match &self.sub {
-            Some(Sub::Axes(axes)) => {
-                let list: Vec<String> = axes.iter().map(u8::to_string).collect();
-                write!(f, ", axes=[{}]", list.join(","))?;
-            }
-            Some(Sub::Niladic) => write!(f, ", niladic")?,
-            Some(Sub::Bare) | None => {}
-        }
-        write!(f, ")")
-    }
-}
-
-impl fmt::Display for Number {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl Symbol {
+    pub fn text(self) -> &'static str {
         match self {
-            Number::Int(n) => write!(f, "{n}"),
-            Number::Float(x) => write!(f, "{x:?}"),
+            Symbol::Plus => "+",
+            Symbol::Minus => "-",
+            Symbol::Times => "*",
+            Symbol::Divide => "/",
+            Symbol::Power => "^",
+            Symbol::Eq => "=",
+            Symbol::Ne => "!=",
+            Symbol::Lt => "<",
+            Symbol::Gt => ">",
+            Symbol::Le => "<=",
+            Symbol::Ge => ">=",
+            Symbol::And => "&",
+            Symbol::Or => "|",
         }
     }
+}
+
+impl FuncName {
+    /// The name as written, without namespace or axes (`r_/`, `self_`).
+    pub fn spelled(&self) -> String {
+        let (before, after) = self.stem.split_at(self.underline + 1);
+        let mut out = format!("{before}_{after}");
+        out.extend(self.mark);
+        out
+    }
+
+    /// A function name ending in `<` is a macro (MC2).
+    pub fn is_macro(&self) -> bool {
+        self.mark == Some('<')
+    }
+}
+
+impl fmt::Display for Token {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}..{} {}", self.span.start, self.span.end, self.kind)
+    }
+}
+
+fn number_text(n: &Number) -> String {
+    match n {
+        Number::Int(i) => i.to_string(),
+        Number::Float(x) => format!("{x:?}"),
+    }
+}
+
+fn ns_text(ns: &Option<String>) -> String {
+    ns.as_ref().map_or(String::new(), |ns| format!("{ns}:"))
 }
 
 impl fmt::Display for TokenKind {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let fixed = match self {
-            TokenKind::Name(name) => return write!(f, "{name}"),
-            TokenKind::Num(n) => return write!(f, "Num({n})"),
-            TokenKind::LamArg(Side::Left) => "LamArg(l)",
-            TokenKind::LamArg(Side::Right) => "LamArg(r)",
+            TokenKind::Var(v) => {
+                let bang = if v.mutable { "!" } else { "" };
+                return write!(f, "Var({}{}{bang})", ns_text(&v.ns), v.name);
+            }
+            TokenKind::Func(n) => {
+                write!(f, "Func({}{}", ns_text(&n.ns), n.spelled())?;
+                if !n.axes.is_empty() {
+                    let axes: Vec<String> = n.axes.iter().map(u8::to_string).collect();
+                    write!(f, ", axes=[{}]", axes.join(","))?;
+                }
+                return write!(f, ")");
+            }
+            TokenKind::LamArg { side, applied } => {
+                let s = if *side == Side::Left { "l" } else { "r" };
+                let a = if *applied { ", applied" } else { "" };
+                return write!(f, "LamArg({s}{a})");
+            }
+            TokenKind::Num(n) => return write!(f, "Num({})", number_text(n)),
+            TokenKind::Exp(n) => return write!(f, "Exp({})", number_text(n)),
+            TokenKind::Sym(s) => return write!(f, "Sym({})", s.text()),
+            TokenKind::Str(s) => return write!(f, "Str({s:?})"),
+            TokenKind::Assign => "Assign",
+            TokenKind::Arrow => "Arrow",
+            TokenKind::Guard => "Guard",
+            TokenKind::Quote => "Quote",
+            TokenKind::Lazy => "Lazy",
             TokenKind::Unit => "Unit",
             TokenKind::Semi => "Semi",
             TokenKind::Newline => "Newline",
@@ -119,11 +183,5 @@ impl fmt::Display for TokenKind {
             TokenKind::RBracket => "RBracket",
         };
         f.write_str(fixed)
-    }
-}
-
-impl fmt::Display for Token {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}..{} {}", self.span.start, self.span.end, self.kind)
     }
 }

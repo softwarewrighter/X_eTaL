@@ -1,0 +1,5 @@
+# A namespace prefix needs a name; aliases are strings (N5, MC4).
+== SOURCE
+u:
+== ERROR
+error[bad-namespace]: a namespace prefix must be followed by a name (aliases are written as strings) at 0..2

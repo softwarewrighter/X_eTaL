@@ -1,0 +1,5 @@
+# Variables, symbols, punctuation, strings and comments are shown as typed.
+== SOURCE
+x count! m:pi _l _r_ + != := -> "a_b" # note
+== RENDER
+x count! m:pi _l _r_ + != := -> "a_b" # note

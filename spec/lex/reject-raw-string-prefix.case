@@ -1,0 +1,5 @@
+# A name touching a quote is reserved for raw strings (ST2).
+== SOURCE
+r"ab"
+== ERROR
+error[bad-string]: a name touching `"` is reserved (raw strings) at 1..2

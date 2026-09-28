@@ -1,0 +1,5 @@
+# The guard ? needs a space before it (G1).
+== SOURCE
+n <= 1? 1
+== ERROR
+error[bad-guard]: the guard `?` needs a space before it at 6..7
