@@ -1,0 +1,3 @@
+command = "./target/debug/xetal eval -e 'a_b_c'; ./target/debug/xetal type -e '- 3'"
+exit_code = 1
+desc = "later stages report lex and parse errors"

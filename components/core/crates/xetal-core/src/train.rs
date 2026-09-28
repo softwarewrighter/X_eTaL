@@ -3,8 +3,8 @@
 use xetal_base::{Diagnostic, Span};
 use xetal_syntax::{Fun, Lambda, Params, Target};
 
-use crate::Lower;
-use crate::ir::{Expr, Kind, Param};
+use crate::lower::Lower;
+use xetal_ir::{Expr, Kind, Param};
 
 impl Lower {
     /// Curried one-parameter lambdas; `_l` / `_r` are ordinary names

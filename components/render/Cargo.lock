@@ -316,6 +316,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1ebf944e87a7c253233ad6766e082e3cd714b5d03812acc24c318f549614536e"
 
 [[package]]
+name = "xetal-ast"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
+]
+
+[[package]]
 name = "xetal-base"
 version = "0.1.0"
 
@@ -324,8 +332,17 @@ name = "xetal-core"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+ "xetal-ir",
  "xetal-lex",
  "xetal-syntax",
+]
+
+[[package]]
+name = "xetal-ir"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
 ]
 
 [[package]]
@@ -350,6 +367,7 @@ dependencies = [
 name = "xetal-syntax"
 version = "0.1.0"
 dependencies = [
+ "xetal-ast",
  "xetal-base",
  "xetal-lex",
 ]

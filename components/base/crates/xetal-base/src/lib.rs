@@ -3,15 +3,9 @@
 //! crate-local error types convert into.
 
 mod diagnostic;
+mod lang;
 mod span;
 
 pub use diagnostic::{Diagnostic, Severity};
-pub use span::Span;
-
-/// Display name of the language. The only place the name is spelled in
-/// code; everything else refers to this constant.
-pub const LANG_NAME: &str = "X_eTaL";
-
-/// Identity of a Core node, used to link traces back to source.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct NodeId(pub u32);
+pub use lang::LANG_NAME;
+pub use span::{NodeId, Span};

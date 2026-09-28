@@ -1,0 +1,78 @@
+# The built-in functions (docs/lang-choices.md B1-B10): the one list
+# the type checker and the evaluator read. build.rs turns it into
+# `xetal_catalog::BUILTINS`. Each implemented entry is
+# [name, arity, type signature]; the arity must match the arrows of
+# the signature. Types are rank-erased (T7). Later groups list names
+# that exist but arrive with a later saga.
+
+[[group]]
+rule = "B7, D-10: arithmetic"
+entries = [
+  ["+", 2, "Num a => a -> a -> a"],
+  ["-", 2, "Num a => a -> a -> a"],
+  ["*", 2, "Num a => a -> a -> a"],
+  ["^", 2, "Num a => a -> a -> a"],
+  ["m_ax", 2, "Num a => a -> a -> a"],
+  ["m_in", 2, "Num a => a -> a -> a"],
+  ["/", 2, "Num a => a -> a -> Float"],
+  ["d_iv", 2, "Int -> Int -> Int"],
+  ["m_od", 2, "Int -> Int -> Int"],
+  ["n_eg", 1, "Num a => a -> a"],
+  ["a_bs", 1, "Num a => a -> a"],
+  ["f_loor", 1, "Num a => a -> Int"],
+  ["c_eiling", 1, "Num a => a -> Int"],
+  ["e_xp", 1, "Num a => a -> Float"],
+  ["l_og", 1, "Num a => a -> Float"],
+  ["f_loat", 1, "Num a => a -> Float"],
+]
+
+[[group]]
+rule = "T1, T3: comparisons and logic"
+entries = [
+  ["=", 2, "(Num a, Truthy b) => a -> a -> b"],
+  ["!=", 2, "(Num a, Truthy b) => a -> a -> b"],
+  ["<", 2, "(Num a, Truthy b) => a -> a -> b"],
+  [">", 2, "(Num a, Truthy b) => a -> a -> b"],
+  ["<=", 2, "(Num a, Truthy b) => a -> a -> b"],
+  [">=", 2, "(Num a, Truthy b) => a -> a -> b"],
+  ["e_q~", 2, "(Num a, Truthy b) => a -> a -> b"],
+  ["&", 2, "(Truthy a, Truthy b) => a -> a -> b"],
+  ["|", 2, "(Truthy a, Truthy b) => a -> a -> b"],
+  ["n_ot", 1, "(Truthy a, Truthy b) => a -> b"],
+]
+
+[[group]]
+rule = "B7, B9: effects, identity and the tacks"
+entries = [
+  ["p_rint!", 1, "a -> a"],
+  ["i_d", 1, "a -> a"],
+  ["l_eft", 2, "a -> b -> a"],
+  ["r_ight", 2, "a -> b -> b"],
+]
+
+[[group]]
+rule = "B4, B5, B10: structural"
+entries = [
+  ["s_hape", 1, "a -> Int"],
+  ["t_ally", 1, "a -> Int"],
+  ["r_ange", 1, "Int -> Int"],
+  ["o_ffsets", 1, "Int -> Int"],
+  ["f_irst", 1, "a -> a"],
+  ["r_avel", 1, "a -> a"],
+  ["r_eshape", 2, "Int -> a -> a"],
+  ["t_ake", 2, "Int -> a -> a"],
+  ["d_rop", 2, "Int -> a -> a"],
+  ["s_elect", 2, "Int -> a -> a"],
+  ["c_at", 2, "a -> a -> a"],
+]
+
+[[later]]
+rule = "A2, A3: rotate and axes"
+names = ["r_ev", "o_-"]
+
+[[later]]
+rule = "B6, B7: higher-order, search and random"
+names = [
+  "r_/", "s_\\", "e_ach", "t_able", "i_nner", "c_ompose", "s_wap",
+  "i_ndexOf", "m_ember?", "u_nique", "s_ort", "g_rade", "w_here", "r_oll!",
+]

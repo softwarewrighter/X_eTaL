@@ -7,6 +7,6 @@ mod expr;
 mod infer;
 mod record;
 
-pub use check::{STAGE, check_program, check_source};
+pub use check::{check_program, check_source};
 pub use infer::infer_program;
 pub use xetal_ty::{Scheme, Type, TypeVar, Unifier};

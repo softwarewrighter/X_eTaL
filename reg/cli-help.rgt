@@ -1,0 +1,3 @@
+command = "./target/debug/xetal -h | grep -c 'AI CODING AGENT'; ./target/debug/xetal --help | grep -c 'AI CODING AGENT'"
+exit_code = 0
+desc = "the agent instructions appear in --help only"

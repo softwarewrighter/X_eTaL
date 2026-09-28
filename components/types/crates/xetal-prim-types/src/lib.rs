@@ -1,7 +1,8 @@
-//! Types of the built-in functions (T5): number literals and variables
-//! are `Num`, conditions `Truthy`, comparisons return a `Truthy` value.
+//! Types of the built-in functions: each catalog signature
+//! (`xetal-catalog`) read into a fresh type.
 
-mod generic;
-mod prims;
+mod lookup;
+mod sig;
 
-pub use prims::prim_type;
+pub use lookup::prim_type;
+pub use sig::read;

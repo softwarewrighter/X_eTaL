@@ -5,8 +5,8 @@
 use xetal_base::{Diagnostic, Span};
 use xetal_syntax::{Expr as Surface, ExprKind, FunKind, Stmt, Target};
 
-use crate::ir::{Expr, Item, Kind, Program};
-use crate::{Lower, err};
+use crate::lower::{Lower, err};
+use xetal_ir::{Expr, Item, Kind, Program};
 
 /// A lowered statement, before the sequence is folded into Core.
 enum Piece {

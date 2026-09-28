@@ -3,10 +3,10 @@
 use xetal_base::{Diagnostic, Span};
 use xetal_lex::TokenKind;
 
-use crate::ast::{Fun, FunKind, Lambda, Param, Params, stmt_args};
 use crate::expr::{Item, bind_operands};
+use crate::parser::{Parser, err};
 use crate::stmt::target;
-use crate::{Parser, err};
+use xetal_ast::{Fun, FunKind, Lambda, Param, Params, stmt_args};
 
 impl Parser {
     /// `{ [params ->] body }`.

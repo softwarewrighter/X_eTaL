@@ -5,9 +5,6 @@ use xetal_core::Program;
 
 use crate::infer::infer_program;
 
-/// Pipeline stage name used in diagnostics and by the CLI.
-pub const STAGE: &str = "type";
-
 /// Lex, parse, desugar and infer a whole program; one line per item.
 pub fn check_source(src: &str) -> Result<Vec<String>, Diagnostic> {
     check_program(&mut xetal_core::lower(src)?)

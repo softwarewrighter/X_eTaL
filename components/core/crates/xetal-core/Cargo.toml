@@ -9,5 +9,6 @@ repository.workspace = true
 
 [dependencies]
 xetal-base.workspace = true
+xetal-ir.workspace = true
 xetal-lex.workspace = true
 xetal-syntax.workspace = true

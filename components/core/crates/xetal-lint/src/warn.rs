@@ -1,11 +1,11 @@
 //! Warnings: a parameter or local binding that shadows a built-in (L7).
 
 use xetal_base::Diagnostic;
-use xetal_core::{Expr, Item, Kind, Param, Program};
+use xetal_catalog::find;
+use xetal_ir::{Expr, Item, Kind, Param, Program};
 
-use crate::prim::is_builtin;
-
-pub(crate) fn warnings(program: &Program) -> Vec<Diagnostic> {
+/// The warnings for a lowered program.
+pub fn warnings(program: &Program) -> Vec<Diagnostic> {
     let mut out = Vec::new();
     for item in &program.items {
         match item {
@@ -22,7 +22,7 @@ pub(crate) fn warnings(program: &Program) -> Vec<Diagnostic> {
 
 fn walk(e: &Expr, out: &mut Vec<Diagnostic>) {
     let shadow = |name: &str, out: &mut Vec<Diagnostic>| {
-        if is_builtin(name) {
+        if find(name).is_some() {
             let message = format!("`{name}` here shadows the built-in {name}");
             out.push(Diagnostic::warning("shadows-builtin", message).with_span(e.span));
         }

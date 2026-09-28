@@ -1,0 +1,5 @@
+error: the argument '--latex' cannot be used with '--raw'
+
+Usage: xetal render --latex --expr <EXPR> [FILE]
+
+For more information, try '--help'.

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal"
+exit_code = 2
+desc = "no subcommand and no script is a usage error (exit 2)"

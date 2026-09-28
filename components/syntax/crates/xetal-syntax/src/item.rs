@@ -4,9 +4,9 @@
 use xetal_base::{Diagnostic, Span};
 use xetal_lex::{Token, TokenKind};
 
-use crate::ast::{Expr, ExprKind, Fun, FunKind};
 use crate::expr::Item;
-use crate::{Parser, err};
+use crate::parser::{Parser, err};
+use xetal_ast::{Expr, ExprKind, Fun, FunKind};
 
 impl Parser {
     pub(crate) fn item(&mut self, token: Token) -> Result<Item, Diagnostic> {

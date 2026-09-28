@@ -25,3 +25,7 @@ impl Span {
         Span::new(self.start.min(other.start), self.end.max(other.end))
     }
 }
+
+/// Identity of a Core node, used to link traces back to source.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub struct NodeId(pub u32);

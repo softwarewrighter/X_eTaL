@@ -407,6 +407,12 @@ array: dense arrays + primitive kernels (peer of the front end)
   in a component, add a component (no limit on components). Design
   new code to the stricter gates (25 LOC/fn, 5 fns/module, 5
   modules/crate, 5 crates/component); `lib.rs` is a facade.
+- Built-ins are listed once, in
+  `components/base/crates/xetal-catalog/builtins.toml` (name, arity,
+  type signature); `build.rs` generates the table both the checker and
+  the evaluator read. Add a built-in there first.
+- Tests live in `tests/` files (integration tests, one concern each);
+  CLI behavior is pinned by reg-rs goldens, not assert_cmd code.
 - `xetal-array` knows nothing about syntax.
 - Each crate owns its error type; all convert to
   `xetal_base::Diagnostic`.

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type -e 'u:s_quare := { _r * _r }; u:s_quare 7; 7 / 2'"
+exit_code = 0
+desc = "xetal type prints one line per top-level item"

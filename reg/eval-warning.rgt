@@ -1,0 +1,3 @@
+command = "./target/debug/xetal eval -e 'u:f_ := { r_ev x -> r_ev x }; 1'"
+exit_code = 0
+desc = "warnings go to stderr and do not fail"

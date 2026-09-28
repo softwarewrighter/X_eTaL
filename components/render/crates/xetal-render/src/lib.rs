@@ -11,6 +11,3 @@ pub use canonical::canonical;
 pub use inverse::undecorate;
 pub use latex::latex;
 pub use unicode::decorate;
-
-/// Pipeline stage name used in diagnostics and by the CLI.
-pub const STAGE: &str = "render";

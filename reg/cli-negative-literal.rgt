@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lex -e '-1 0'"
+exit_code = 0
+desc = "-e accepts source starting with a negative literal"

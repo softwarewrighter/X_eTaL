@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lex"
+exit_code = 1
+desc = "no -e and no FILE is error[no-input]"

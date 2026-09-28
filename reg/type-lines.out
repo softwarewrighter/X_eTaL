@@ -1,0 +1,3 @@
+u:s_quare : Num a => a -> a
+Int
+Float

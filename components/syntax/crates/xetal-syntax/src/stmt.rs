@@ -4,8 +4,8 @@
 use xetal_base::Diagnostic;
 use xetal_lex::{Token, TokenKind};
 
-use crate::ast::{Program, Stmt, Target};
-use crate::{Parser, err};
+use crate::parser::{Parser, err};
+use xetal_ast::{Program, Stmt, Target};
 
 impl Parser {
     pub(crate) fn program(&mut self) -> Result<Program, Diagnostic> {

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lex /nonexistent/x.xtl"
+exit_code = 1
+desc = "an unreadable FILE is error[io]"

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal render --raw -e 'o̲-₁₂ x²'; ./target/debug/xetal render --raw -e 'o̲-₀'"
+exit_code = 1
+desc = "render with raw turns decorated text back into source and validates it"

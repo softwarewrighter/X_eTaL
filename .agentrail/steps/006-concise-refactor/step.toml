@@ -1,6 +1,6 @@
 number = 6
 slug = "concise-refactor"
-status = "pending"
+status = "in-progress"
 description = "arrays step 6 (user directive, no behavior change): apply the concise-code pa..."
 role = "production"
 context_files = []

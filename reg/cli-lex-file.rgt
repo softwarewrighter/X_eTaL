@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lex demos/square.xtl"
+exit_code = 0
+desc = "a stage reads source from a FILE"

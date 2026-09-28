@@ -45,18 +45,23 @@ checks every component.
 ```
 .cargo/config.toml         shared target dir for all components
 components/
-  base/                    xetal-base: spans, NodeId, Diagnostic, LANG_NAME
-  syntax/                  xetal-lex (lexer, tokens),
-                           xetal-syntax (parser, surface AST)
-  core/                    xetal-core: Core IR + desugaring
+  base/                    xetal-base (spans, NodeId, Diagnostic,
+                           LANG_NAME), xetal-catalog (the built-in
+                           catalog, generated from builtins.toml)
+  syntax/                  xetal-lex (lexer, tokens), xetal-ast
+                           (surface AST, printer), xetal-syntax (parser)
+  core/                    xetal-ir (Core IR, printer), xetal-core
+                           (desugaring), xetal-lint (warnings)
   render/                  xetal-render: decorated, LaTeX, canonical
   types/                   xetal-ty (types, unifier, schemes),
-                           xetal-prim-types (built-in types),
+                           xetal-prim-types (built-in types, read from
+                           catalog signatures),
                            xetal-elab (number-type elaboration),
                            xetal-types (inference, checking)
   eval/                    xetal-array (dense arrays, layout),
                            xetal-value (runtime values, printing),
                            xetal-arith (scalar rules, scalar extension),
+                           xetal-struct (structural built-ins),
                            xetal-eval (evaluator)
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
                            harness), xetal-spec (case files)
@@ -72,7 +77,11 @@ by merging: a module with too many functions gets a sibling module, a
 crate with too many modules a sibling crate, a component with too many
 crates a sibling component (target gates: 25 lines per function, 5
 functions per module, 5 modules per crate, 5 crates per component;
-`lib.rs` is a facade). Each component has its own `Cargo.lock`;
+`lib.rs` holds only `mod` and `use`). Lists live in data files turned
+into Rust by `build.rs` (the built-in catalog: `builtins.toml` ->
+`OUT_DIR` -> `include!`), dispatch is by table or one-line arms, and
+CLI behavior is pinned by reg-rs goldens rather than hand-written test
+code. Each component has its own `Cargo.lock`;
 `scripts/check-locks.sh --fix` refreshes locks after a manifest
 change.
 

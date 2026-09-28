@@ -8,6 +8,6 @@ mod layout;
 mod ops;
 
 pub use array::Array;
-pub use error::{ArrayError, MAX_ITEMS, STAGE, size};
+pub use error::{ArrayError, MAX_ITEMS, size};
 pub use layout::layout;
 pub use ops::zip;

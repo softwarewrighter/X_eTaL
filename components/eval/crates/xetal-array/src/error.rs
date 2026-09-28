@@ -2,9 +2,6 @@
 
 use xetal_base::Diagnostic;
 
-/// Pipeline stage name used in diagnostics.
-pub const STAGE: &str = "array";
-
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum ArrayError {
     /// The data does not fill the shape.

@@ -6,8 +6,8 @@ use xetal_base::{Diagnostic, Span};
 use xetal_lex::{FuncName, Side};
 use xetal_syntax::{Expr as Surface, ExprKind, Fun, FunKind};
 
-use crate::ir::{Expr, Kind};
-use crate::{Lower, err};
+use crate::lower::{Lower, err};
+use xetal_ir::{Expr, Kind};
 
 impl Lower {
     pub(crate) fn expr(&mut self, e: &Surface) -> Result<Expr, Diagnostic> {

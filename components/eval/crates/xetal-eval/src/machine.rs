@@ -9,7 +9,8 @@ use xetal_base::{Diagnostic, Span};
 use xetal_core::{Expr, Item, Kind, Program};
 use xetal_lex::Number;
 
-use crate::{err, prim};
+use crate::prim;
+use crate::run::err;
 use xetal_arith::truth;
 use xetal_value::{Closure, Env, Prim, Slot, Value, extend, lookup};
 

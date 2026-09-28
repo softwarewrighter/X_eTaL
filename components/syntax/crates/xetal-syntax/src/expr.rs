@@ -4,8 +4,8 @@
 use xetal_base::{Diagnostic, Span};
 use xetal_lex::TokenKind;
 
-use crate::ast::{Expr, ExprKind, Fun, FunKind, check_depth};
-use crate::{Parser, err};
+use crate::parser::{Parser, err};
+use xetal_ast::{Expr, ExprKind, Fun, FunKind, check_depth};
 
 pub(crate) enum Item {
     Value(Expr),

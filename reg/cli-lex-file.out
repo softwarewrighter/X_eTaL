@@ -1,0 +1,13 @@
+20..21 Newline
+77..78 Newline
+78..87 Func(u:s_quare)
+88..90 Assign
+91..92 LBrace
+93..95 LamArg(r)
+96..97 Sym(*)
+98..100 LamArg(r)
+101..102 RBrace
+102..103 Newline
+103..112 Func(u:s_quare)
+113..114 Num(7)
+114..115 Newline

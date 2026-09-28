@@ -12,6 +12,3 @@ mod token;
 pub use error::{ErrorKind, LexError};
 pub use scan::lex;
 pub use token::{FuncName, Number, Side, Symbol, Token, TokenKind, Var};
-
-/// Pipeline stage name used in diagnostics and by the CLI.
-pub const STAGE: &str = "lex";
