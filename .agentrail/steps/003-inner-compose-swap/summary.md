@@ -1,0 +1,1 @@
+i_nner (last axis with first, reduction via r_/ through the Caller, scalar extension), c_ompose (nearest operand first), s_wap (C combinator, sections). Typed-identity elaboration generalized to any arity; empty Float inner product is 0.0. 4 spec cases + 4 rejections, docs. Gate green, pushed.
