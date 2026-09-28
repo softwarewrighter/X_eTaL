@@ -1,0 +1,53 @@
+# An axis subscript works on any function by one rule (A6): `f_k X`
+# moves axis k of X to the front, applies f (which works on the leading
+# axis) and moves it back. A result that lost the leading axis (as a
+# reduce does) stays as it is. On a dyadic function the axis is the
+# right (data) argument's. `f_1` is f.
+== SOURCE
+m := 2 3 r_eshape r_ange 6
+r_ev_2 m
+r_ev_1 m
+1 o_-_2 m
+'+ r_/_2 m
+'+ s_\_2 m
+2 t_ake_2 m
+u:f_lip := { r_ev _r }
+u:f_lip_2 m
+u:s_um := { '+ r_/ _r }
+u:s_um_2 m
+u:p_air := { a b -> a c_at b }
+9 u:p_air_2 m
+r_ev_1 5
+== TYPE
+m : Int
+Int
+Int
+Int
+Int
+Int
+Int
+u:f_lip : a -> a
+Int
+u:s_um : Num a => a -> a
+Int
+u:p_air : a -> a -> a
+Int
+Int
+== RESULT
+3 2 1
+6 5 4
+4 5 6
+1 2 3
+2 3 1
+5 6 4
+6 15
+1 3  6
+4 9 15
+1 2
+4 5
+3 2 1
+6 5 4
+6 15
+9 1 2 3
+9 4 5 6
+5

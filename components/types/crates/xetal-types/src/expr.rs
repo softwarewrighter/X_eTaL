@@ -31,7 +31,7 @@ impl Infer {
             Kind::Var(name) => self.variable(name, e)?,
             Kind::Global(name) => self.global(name, e),
             Kind::Prim(name) => self.builtin(name, e)?,
-            Kind::Axes { f, .. } => self.expr(f)?,
+            Kind::Axes { f, .. } => self.subscripted(e, f)?,
             Kind::Lam { param, body, .. } => self.lambda(param, body)?,
             Kind::App(f, x) => {
                 let (tf, tx, r) = (self.expr(f)?, self.expr(x)?, self.u.fresh());

@@ -19,4 +19,7 @@ pub struct Dicts {
     /// Built-ins that make a result with no typed item (reduce's
     /// identity), with their result types and arities.
     pub prims: HashMap<NodeId, (Type, usize)>,
+    /// Functions under an axis subscript (A6), and how many arguments
+    /// their types say they take.
+    pub axes: HashMap<NodeId, usize>,
 }

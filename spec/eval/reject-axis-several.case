@@ -1,0 +1,6 @@
+# Several axes mean something only where a function defines them
+# (rotate, reduce, scan); elsewhere they are an error (A6).
+== SOURCE
+r_ev_12 2 3 r_eshape r_ange 6
+== ERROR
+error[axis]: several axes mean something only for rotate, reduce and scan at 0..29

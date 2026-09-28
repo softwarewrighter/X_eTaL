@@ -6,6 +6,7 @@ mod check;
 mod expr;
 mod infer;
 mod record;
+mod subscript;
 
 pub use check::{check_program, check_source};
 pub use infer::infer_program;

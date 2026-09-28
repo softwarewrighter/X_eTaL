@@ -1,6 +1,6 @@
 number = 2
 slug = "axis-subscripts"
-status = "pending"
+status = "in-progress"
 description = "rotate-and-axes step 2: TDD A6 axis subscripts on any function (built-ins and..."
 role = "production"
 context_files = []

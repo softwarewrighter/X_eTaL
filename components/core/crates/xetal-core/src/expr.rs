@@ -118,6 +118,7 @@ impl Lower {
             span,
             Kind::Axes {
                 axes: n.axes.clone(),
+                arity: None,
                 f: Box::new(base),
             },
         )

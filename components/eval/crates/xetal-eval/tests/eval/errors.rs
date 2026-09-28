@@ -42,8 +42,15 @@ fn definitions_once_per_file() {
 }
 
 #[test]
-fn axis_subscripts_come_later() {
-    assert_eq!(fails("r_ev_1 1 2 3"), "unsupported");
+fn axis_subscripts_work_unchecked_by_visible_arity() {
+    let m = "m := 2 3 r_eshape r_ange 6\n";
+    assert_eq!(crate::run(&format!("{m}r_ev_2 m")), "3 2 1\n6 5 4");
+    assert_eq!(crate::run(&format!("{m}'+ r_/_2 m")), "6 15");
+    assert_eq!(
+        crate::run(&format!("{m}u:p_ := {{ a b -> a c_at b }}\n9 u:p__2 m")),
+        "9 1 2 3\n9 4 5 6"
+    );
+    assert_eq!(fails("u:k_ := 5\nu:k__2 1 2"), "not-a-function");
 }
 
 #[test]

@@ -88,7 +88,11 @@ impl Walker<'_> {
     fn children(&mut self, e: &mut Expr) {
         let kids: Vec<&mut Expr> = match &mut e.kind {
             Kind::Array(items) => items.iter_mut().collect(),
-            Kind::Axes { f: x, .. } | Kind::Lam { body: x, .. } => vec![x],
+            Kind::Axes { f: x, arity, .. } => {
+                *arity = self.dicts.axes.get(&e.id).copied().or(*arity);
+                vec![x]
+            }
+            Kind::Lam { body: x, .. } => vec![x],
             Kind::App(f, x) => vec![f, x],
             Kind::App2 { f, left, right } => vec![f, left, right],
             Kind::Set { value, body, .. } => vec![value, body],

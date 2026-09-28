@@ -8,8 +8,8 @@ formatter, Core desugaring, a scalar evaluator (saga calculus), type
 inference with type-checked evaluation (saga types-and-unit), dense
 arrays with the structural built-ins and a REPL (saga arrays), and
 the higher-order built-ins of B6 and the search, order and random
-built-ins of B7 (saga higher-order), and rotate and reverse (saga
-rotate-and-axes) implement it; the rest follows the sagas in `docs/plan.md`.
+built-ins of B7 (saga higher-order), and rotate, reverse and axis
+subscripts (saga rotate-and-axes) implement it; the rest follows the sagas in `docs/plan.md`.
 
 This document supersedes `docs/syntax-proposal.md`.
 

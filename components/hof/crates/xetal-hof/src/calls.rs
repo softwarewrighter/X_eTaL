@@ -4,7 +4,9 @@ use xetal_base::{Diagnostic, Span};
 use xetal_value::{Caller, Value};
 
 use crate::fold::{reduce, scan};
+use xetal_axes::on_axes;
 use xetal_map::{each, inner, table, zip};
+use xetal_value::as_array;
 
 type Out<'a> = Result<Value<'a>, Diagnostic>;
 
@@ -26,6 +28,7 @@ pub fn call<'a>(
         ("c_ompose", [g, f, x]) => c
             .call(g, x.clone(), span)
             .and_then(|gx| c.call(f, gx, span)),
+        ("#axes", [spec, f, rest @ ..]) => on_axes(&digits(spec), f, rest, span, c),
         ("s_wap", [f, x, y]) => c.call2(f, y.clone(), x.clone(), span),
         _ => return None,
     };
@@ -33,4 +36,13 @@ pub fn call<'a>(
         Some(_) => d,
         None => d.with_span(span),
     }))
+}
+
+/// The axis digits held by an `#axes` value.
+fn digits(spec: &Value<'_>) -> Vec<u8> {
+    let digit = |v: &Value<'_>| match v {
+        Value::Int(d) => u8::try_from(*d).unwrap_or(0),
+        _ => 0,
+    };
+    as_array(spec).data().iter().map(digit).collect()
 }

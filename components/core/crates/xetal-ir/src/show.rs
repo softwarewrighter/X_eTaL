@@ -50,7 +50,7 @@ impl fmt::Display for Expr {
             }
             Kind::Var(name) | Kind::Global(name) => f.write_str(name),
             Kind::Prim(name) => write!(f, "#{name}"),
-            Kind::Axes { axes, f: fun } => {
+            Kind::Axes { axes, f: fun, .. } => {
                 let digits: String = axes.iter().map(u8::to_string).collect();
                 write!(f, "(axes {digits} {fun})")
             }

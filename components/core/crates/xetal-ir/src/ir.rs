@@ -48,9 +48,12 @@ pub enum Kind {
     Global(String),
     /// A built-in function by its spelling (`+`, `r_/`, `o_-`).
     Prim(String),
-    /// A function specialized to axes (A6): `f_12`.
+    /// A function specialized to axes (A6): `f_12`. `arity` is how many
+    /// arguments f takes, the last being the data: filled in from f's
+    /// type by elaboration, else found at run time from f's value.
     Axes {
         axes: Vec<u8>,
+        arity: Option<usize>,
         f: Box<Expr>,
     },
     Lam {

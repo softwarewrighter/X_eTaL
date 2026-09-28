@@ -331,6 +331,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-axes"
+version = "0.1.0"
+dependencies = [
+ "proptest",
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
+]
+
+[[package]]
 name = "xetal-base"
 version = "0.1.0"
 

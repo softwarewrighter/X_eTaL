@@ -31,6 +31,8 @@ pub(crate) enum Args {
 pub(crate) struct Record {
     lits: Vec<(NodeId, Type)>,
     prims: Vec<(NodeId, (Type, usize))>,
+    /// Functions under an axis subscript, and their types.
+    pub axes: Vec<(NodeId, Type)>,
     args: Vec<(NodeId, Args)>,
     params: HashMap<NodeId, Vec<TypeVar>>,
     globals: HashMap<String, NodeId>,
@@ -52,6 +54,14 @@ impl Record {
 
     pub(crate) fn global(&mut self, name: &str, value: NodeId) {
         self.globals.insert(name.to_string(), value);
+    }
+}
+
+/// How many arguments a function of type `t` takes.
+fn arrows(t: &Type) -> usize {
+    match t {
+        Type::Fn(_, r) => 1 + arrows(r),
+        _ => 0,
     }
 }
 
@@ -110,6 +120,12 @@ impl Infer {
                 .collect(),
             args: args.collect(),
             lits: resolve(&r.lits),
+            axes: r
+                .axes
+                .iter()
+                .map(|(id, t)| (*id, arrows(&self.u.resolve(t))))
+                .filter(|(_, n)| *n > 0)
+                .collect(),
             prims: r
                 .prims
                 .iter()

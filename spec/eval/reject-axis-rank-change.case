@@ -1,0 +1,6 @@
+# The axis moves back when the result keeps its rank and stays consumed
+# when it loses one; any other change of rank is an error (A6).
+== SOURCE
+t_ally_2 2 3 r_eshape r_ange 6
+== ERROR
+error[axis]: a function under an axis subscript changed the rank from 2 to 0 at 0..30

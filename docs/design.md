@@ -284,6 +284,16 @@ seeded unpredictably unless `--seed N` or `XETAL_SEED` is given (for
 tests that need repeatable rolls). A REPL session picks one seed and
 replays every accepted line with it, so a rolled value keeps its
 value from line to line.
+An axis subscript (A6) is Core `Axes { axes, arity, f }`. The checker
+records f's type and the elaborator fills `arity`, the number of
+arguments f takes (unchecked programs use what f's value shows: a
+built-in's missing arguments, a lambda's parameters). The evaluator
+turns it into a built-in value `#axes` that collects those arguments;
+`xetal-axes` then moves axis k of the last (data) argument to the
+front, applies f, and moves the axis back when the result kept its
+rank (a result one rank lower consumed it; other rank changes and
+axes beyond the rank are `error[axis]`). `c_at_k` is refused because
+its left argument is data too.
 Evaluation runs on its own large stack; runaway recursion is a
 `stack-overflow` error. Each top-level expression's value is printed
 (section 10a of lang-choices); runtime errors are diagnostics with

@@ -1,0 +1,6 @@
+# `_k` moves the right argument's axis only, so joining along another
+# axis, which needs both arguments' axes, is an error for now (A6).
+== SOURCE
+(2 2 r_eshape 1) c_at_2 2 2 r_eshape 2
+== ERROR
+error[axis]: c_at_2 would move both arguments' axes; only the right one moves at 1..38

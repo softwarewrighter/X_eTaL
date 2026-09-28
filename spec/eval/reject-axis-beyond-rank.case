@@ -1,0 +1,5 @@
+# The axis must exist in the argument (A6).
+== SOURCE
+r_ev_2 1 2 3
+== ERROR
+error[axis]: axis 2 does not exist in an argument of rank 1 at 0..12

@@ -170,13 +170,11 @@ impl<'a> Machine<'a, '_> {
                 values.reverse();
                 Value::Array(Rc::new(Array::vector(values)))
             }
-            _ => {
-                return Err(err(
-                    "unsupported",
-                    e.span,
-                    "axis subscripts arrive with the rotate-and-axes saga",
-                ));
+            Kind::Axes { axes, arity, f } => {
+                let fv = self.eval(f, env)?;
+                return self.axes(axes, *arity, fv, e.span);
             }
+            _ => return Err(err("internal", e.span, "not a leaf")),
         })
     }
 
