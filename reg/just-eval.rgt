@@ -1,0 +1,3 @@
+command = """just eval "'+ r_/_2 2 3 r_eshape r_ange 6""""
+exit_code = 0
+desc = "just eval runs one expression (row sums by an axis subscript)"

@@ -1,0 +1,3 @@
+command = "just --list"
+exit_code = 0
+desc = "the justfile recipes"

@@ -1,6 +1,6 @@
 number = 5
 slug = "justfile"
-status = "pending"
+status = "in-progress"
 description = "rotate-and-axes step 5 (inserted at the user's request): add a justfile as th..."
 role = "production"
 context_files = []

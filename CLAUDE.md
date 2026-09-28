@@ -338,6 +338,10 @@ display name lives only in `xetal_base::LANG_NAME`; never hard-code
 
 ## Build / Test
 
+`just` lists the tasks (`just build`, `just test`, `just gate`, `just reg`,
+`just repl`, `just eval EXPR`, `just run FILE`, `just life`); each recipe
+calls the scripts below.
+
 ```bash
 scripts/build-all.sh                                # build every component (shared target/)
 (cd components/syntax && cargo test)                # test one component

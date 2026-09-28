@@ -1,0 +1,14 @@
+Available recipes:
+    build         # Build every component (debug) into the shared target/
+    build-release # Build every component optimized (target/release/xetal)
+    clippy        # Lint every component (warnings are errors)
+    default       # List the recipes
+    eval expr     # Evaluate an expression: just eval "'+ r_/ 1 2 3"
+    fmt           # Format every component
+    gate          # The full pre-commit gate: locks, fmt, clippy, tests, goldens, checklist, markdown
+    life          # Step the Life blinker (demos/life.xtl)
+    locks *args   # Check (or with --fix, regenerate) the component Cargo.lock files
+    reg           # Run the reg-rs CLI goldens in reg/
+    repl          # Start the interactive session
+    run file      # Type-check and run a script: just run demos/factorial.xtl
+    test          # Run every component's tests

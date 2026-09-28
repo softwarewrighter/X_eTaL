@@ -111,6 +111,18 @@ the design documents describe the intended language.
 
 ## Quick Start
 
+With [`just`](https://github.com/casey/just) installed, `just` lists
+the tasks:
+
+```bash
+just eval "'+ r_/_2 2 3 r_eshape r_ange 6"      # row sums: 6 15
+just life                                       # the Life blinker
+just repl                                       # interactive session (Ctrl-D ends it)
+just run demos/factorial.xtl
+```
+
+Without it, build and call the binary directly:
+
 ```bash
 scripts/build-all.sh --release
 ./target/release/xetal --version
@@ -425,11 +437,15 @@ agentrail sagas; see
 rules.
 
 ```bash
-scripts/build-all.sh                                # build every component
+just build                                          # build every component
+just test                                           # every component's tests
 (cd components/syntax && cargo test)                # test one component
-scripts/reg.sh run                                  # reg-rs CLI golden tests
-scripts/gate.sh                                     # full pre-commit gate
+just reg                                            # reg-rs CLI golden tests
+just gate                                           # full pre-commit gate
 ```
+
+Each recipe calls a script in `scripts/` (`build-all.sh`, `gate.sh`,
+`reg.sh`, `check-locks.sh`), which work without `just` too.
 
 ## Related Projects
 
