@@ -67,11 +67,12 @@ has S of 4. The two tests never both hold, so `+` acts as "or".
 Early. The lexer (`xetal lex`), the decorated renderer
 (`xetal render`), the parser (`xetal parse`) and the canonical
 formatter (`xetal fmt`), the desugaring to Core (`xetal core`), type
-inference (`xetal type`) and a strict evaluator for scalars
-(`xetal eval`, `xetal run`, `xetal FILE`, which type-check first)
-work, with number strands and strings as arrays and scalar functions
-applied item by item; the array built-ins are not implemented yet and
-report `error[unsupported]`.
+inference (`xetal type`), a strict evaluator (`xetal eval`,
+`xetal run`, `xetal FILE`, which type-check first) and an interactive
+session (`xetal repl`) work, with dense arrays, strings, scalar
+extension and the structural built-ins. Rotate, reduce, axis
+subscripts and the other higher-order built-ins are not implemented
+yet and report `error[unsupported]`.
 The language is specified by its test suite as it is built;
 the design documents describe the intended language.
 
@@ -229,6 +230,69 @@ Numbers are typed as in Haskell. A literal fits any number type, so
 Comparisons give Bool, which counts as 1 or 0 in arithmetic, and `/`
 always gives a Float. The Y combinator's self-applied argument has no
 finite type; `--untyped` skips the checker (see above).
+
+## A tour of M3
+
+**M3 -- arrays.** Arrays are dense and 1-origin. A type names only the
+element type (`1 2 3` and `7` are both Int), so a scalar function
+applies item by item and a scalar extends to every item; shapes are
+checked at run time. The count, shape or indices of a structural
+built-in go on its left.
+
+```
+# demos/arrays.xtl
+m := 2 3 r_eshape r_ange 6
+m
+s_hape m
+2 s_elect m
+-1 t_ake m
+m * 10
+(f_irst m) c_at 7 8 9
+10 ^ o_ffsets 3
+```
+
+```bash
+./target/release/xetal run demos/arrays.xtl
+```
+
+```
+1 2 3
+4 5 6
+2 3
+4 5 6
+4 5 6
+10 20 30
+40 50 60
+1 2 3 7 8 9
+1 10 100
+```
+
+A user function works on arrays unchanged, and a string is a Char
+vector:
+
+```bash
+./target/release/xetal eval -e 'u:s_quare := { _r * _r }; u:s_quare 1 2 3; 1 2 3 + 10; "hello"'
+./target/release/xetal type -e '1 2 3 + 10; "hello"'                  # Int, then Char
+./target/release/xetal eval -e '1 2 + 1 2 3'                          # error[shape-mismatch]
+./target/release/xetal eval -e '"hello" = "help!"; 3 t_ake "hello"; "ab" c_at "cd"; 10.0 ^ 20'
+```
+
+The first prints `1 4 9`, `11 12 13` and `hello`; the last prints
+`1 1 1 0 0`, `hel`, `abcd` and `100000000000000000000.0`. `=` and
+`!=` compare any one kind of scalar, and `<` `>` `<=` `>=` compare
+numbers and characters.
+
+`i_d` is the identity, `x l_eft y` is `x` and `x r_ight y` is `y`.
+With them the S combinator is the train `[i_d F G]` (`x F (G x)`),
+also written as a lambda:
+
+```bash
+./target/release/xetal eval -e "[i_d - n_eg] 5; u:S_ := { f_ g_ x -> x f_ g_ x }; 'n_eg '- u:S_ 5; 3 [l_eft + r_ight] 4"
+```
+
+prints `10`, `10` and `7`. `xetal repl` reads lines from standard
+input: definitions and types persist, a failing line is reported and
+dropped, and an unclosed bracket continues on the next line.
 
 Rotate, reduce and axis subscripts, and with them the Life one-liner,
 are not implemented yet ([`docs/plan.md`](docs/plan.md)).

@@ -1,6 +1,6 @@
 number = 10
 slug = "m3-docs-release"
-status = "pending"
+status = "in-progress"
 description = "arrays step 7: README M3 tour (every command a golden), docs/design.md and la..."
 role = "production"
 context_files = []

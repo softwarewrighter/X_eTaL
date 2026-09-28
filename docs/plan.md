@@ -134,7 +134,7 @@ What to do differently:
   component a sibling component. Saga 4 starts by moving to the
   components layout.
 
-## Saga 4 -- arrays (M3)  [ACTIVE]
+## Saga 4 -- arrays (M3)  [DONE]
 
 `xetal-array`: dense row-major arrays, rank-0 scalars, strands, scalar
 extension via one lifting rule, empty arrays, shape errors, 1-origin
@@ -152,9 +152,47 @@ cheap. Property tests (shape of reshape). REPL (`xetal repl`).
 | 4  | identity-tacks      | `i_d`, `l_eft`, `r_ight` (B9); S and S' as hook, fork and lambdas |
 | 5  | structural-builtins | B4/B5/B10 structural built-ins, 1-origin, property tests |
 | 6  | concise-refactor    | built-in catalog (TOML + build.rs codegen), facade-only lib.rs, tests in files, reg-rs over test code; no behavior change |
-| 7  | strings             | strings as Char vectors |
-| 8  | repl                | `xetal repl` |
-| 9  | m3-docs-release     | README M3 tour, docs sync, retrospective |
+| 7  | life-docs           | docs show only the tested Life line (golden `docs-life-line`) |
+| 8  | strings             | Char comparisons (T8, `Eq`/`Ord`), string structure, Float printing per 10a |
+| 9  | repl                | `xetal repl` (replaying session) |
+| 10 | m3-docs-release     | README M3 tour, docs sync, this retrospective |
+
+### Saga 4 retrospective
+
+Delivered: dense 1-origin arrays with rank-erased types (T7), scalar
+extension, strings as Char vectors with comparisons (T8), the
+structural built-ins (B4, B5, B10), identity and the tacks (B9),
+number-type dictionary passing (closing the Saga 3 gap), the REPL,
+and a restructure into component workspaces with a generated
+built-in catalog.
+
+What went well:
+
+- Asking before each open semantic question (array typing, fills,
+  select order, `c_at` ranks, comparisons) kept every decision the
+  user's; each is recorded in lang-choices and pinned by spec cases.
+- Blessing and reviewing whole-corpus output again found real bugs:
+  a quantified variable defaulted through an alias and through a
+  structure (local polymorphism), fixed with unit tests.
+- Data-driven code paid off at once: moving the built-ins into
+  `builtins.toml` replaced four hand-kept lists, and making the type
+  classes a table made `Eq` and `Ord` two rows.
+- Goldens replaced 312 lines of assert_cmd tests with no loss of
+  coverage.
+
+What to do differently:
+
+- Scripted text edits (Python replace with `count=1`) hit the wrong
+  occurrence twice (a table and a spec expectation); check the diff of
+  every scripted edit before building on it.
+- Design new code to the stricter gates from the start: three
+  functions or modules had to be split after sw-checklist failed.
+- reg-rs reads a `--desc` starting with `--` as a flag; describe
+  goldens in words.
+- Known gaps: `e_xp` overflow prints `inf` (not valid input); a REPL
+  session replays every accepted line, so its cost grows with the
+  session (fine for interactive use; revisit when effects such as
+  `r_oll!` make replay nondeterministic).
 
 ## Saga 5 -- higher-order (M4)
 

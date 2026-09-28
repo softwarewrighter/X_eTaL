@@ -4,9 +4,10 @@ Status: DECISIONS COMPLETE FOR SAGA 1, CONSISTENCY-REVIEWED. Each
 entry was chosen by the user, one question at a time (Q1-Q50, sub-
 questions, and review items R1-R6). Section 15 lists the optional
 items deliberately left for later. The lexer, renderer, parser,
-formatter, Core desugaring, a scalar evaluator (saga calculus) and
-type inference with type-checked evaluation (saga types-and-unit)
-implement it; arrays and the rest follow the sagas in `docs/plan.md`.
+formatter, Core desugaring, a scalar evaluator (saga calculus), type
+inference with type-checked evaluation (saga types-and-unit) and
+dense arrays with the structural built-ins and a REPL (saga arrays)
+implement it; the rest follows the sagas in `docs/plan.md`.
 
 This document supersedes `docs/syntax-proposal.md`.
 
