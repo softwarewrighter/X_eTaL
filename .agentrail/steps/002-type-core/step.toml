@@ -1,6 +1,6 @@
 number = 2
 slug = "type-core"
-status = "pending"
+status = "in-progress"
 description = "types-and-unit step 2: TDD xetal-types foundations: Type (Unit, Bool, Int, Fl..."
 role = "production"
 context_files = []

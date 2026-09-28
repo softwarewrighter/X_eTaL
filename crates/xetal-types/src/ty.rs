@@ -1,0 +1,137 @@
+//! Types, type variables and schemes, with a readable display
+//! (`Num a => a -> a -> a`).
+
+use std::collections::HashMap;
+use std::fmt;
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub struct TypeVar(pub u32);
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum Type {
+    Unit,
+    Bool,
+    Int,
+    Float,
+    Char,
+    Var(TypeVar),
+    Fn(Box<Type>, Box<Type>),
+    /// Arrays arrive with the arrays saga; the type exists already.
+    Array(Box<Type>),
+}
+
+/// A polymorphic type: `forall vars. ty`, with the variables that must
+/// be numbers.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Scheme {
+    pub vars: Vec<TypeVar>,
+    pub num: Vec<TypeVar>,
+    pub ty: Type,
+}
+
+impl Type {
+    /// Replace variables through `map`.
+    pub fn rename(&self, map: &HashMap<TypeVar, Type>) -> Type {
+        match self {
+            Type::Var(v) => map.get(v).cloned().unwrap_or_else(|| self.clone()),
+            Type::Fn(a, b) => Type::Fn(Box::new(a.rename(map)), Box::new(b.rename(map))),
+            Type::Array(t) => Type::Array(Box::new(t.rename(map))),
+            other => other.clone(),
+        }
+    }
+
+    /// Variables in order of first appearance.
+    pub fn vars(&self, out: &mut Vec<TypeVar>) {
+        match self {
+            Type::Var(v) if !out.contains(v) => out.push(*v),
+            Type::Fn(a, b) => {
+                a.vars(out);
+                b.vars(out);
+            }
+            Type::Array(t) => t.vars(out),
+            _ => {}
+        }
+    }
+}
+
+/// Write `ty`, naming variables through `names`.
+fn write(ty: &Type, names: &HashMap<TypeVar, String>, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    match ty {
+        Type::Unit => f.write_str("Unit"),
+        Type::Bool => f.write_str("Bool"),
+        Type::Int => f.write_str("Int"),
+        Type::Float => f.write_str("Float"),
+        Type::Char => f.write_str("Char"),
+        Type::Var(v) => match names.get(v) {
+            Some(name) => f.write_str(name),
+            None => write!(f, "t{}", v.0),
+        },
+        Type::Array(t) => {
+            f.write_str("Array ")?;
+            match **t {
+                Type::Fn(..) | Type::Array(_) => {
+                    f.write_str("(")?;
+                    write(t, names, f)?;
+                    f.write_str(")")
+                }
+                _ => write(t, names, f),
+            }
+        }
+        Type::Fn(a, b) => {
+            if matches!(**a, Type::Fn(..)) {
+                f.write_str("(")?;
+                write(a, names, f)?;
+                f.write_str(")")?;
+            } else {
+                write(a, names, f)?;
+            }
+            f.write_str(" -> ")?;
+            write(b, names, f)
+        }
+    }
+}
+
+fn letters(vars: &[TypeVar]) -> HashMap<TypeVar, String> {
+    vars.iter()
+        .enumerate()
+        .map(|(i, v)| {
+            let letter = char::from(b'a' + (i % 26) as u8);
+            let name = if i < 26 {
+                letter.to_string()
+            } else {
+                format!("{letter}{}", i / 26)
+            };
+            (*v, name)
+        })
+        .collect()
+}
+
+impl fmt::Display for Type {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut vars = Vec::new();
+        self.vars(&mut vars);
+        write(self, &letters(&vars), f)
+    }
+}
+
+impl fmt::Display for Scheme {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut vars = Vec::new();
+        self.ty.vars(&mut vars);
+        let names = letters(&vars);
+        let num: Vec<&String> = vars
+            .iter()
+            .filter(|v| self.num.contains(v))
+            .filter_map(|v| names.get(v))
+            .collect();
+        if !num.is_empty() {
+            let constraints: Vec<String> = num.iter().map(|n| format!("Num {n}")).collect();
+            if constraints.len() == 1 {
+                write!(f, "{} => ", constraints[0])?;
+            } else {
+                write!(f, "({}) => ", constraints.join(", "))?;
+            }
+        }
+        write(&self.ty, &names, f)
+    }
+}
