@@ -92,6 +92,20 @@ This document supersedes `docs/syntax-proposal.md`.
 | L5 | Shorthand and named parameters may not be mixed in one lambda. |
 | L6 | A niladic function is defined with `@` as its only parameter: `u:n_ow := { @ -> ... }`, and called as `u:n_ow @`. There is no `_@` call sugar; the subscript slot is for axes only. |
 
+## 6a. Trains
+
+| #  | Decision |
+| -- | -------- |
+| TR1 | Trains are written in square brackets. A fork `[F G H] x` is `(F x) G (H x)`; dyadically `x [F G H] y` is `(x F y) G (x H y)`. Elements are function expressions: names, symbols, or quoted-operand derived functions (`'+ r_/`). |
+| TR2 | A two-element train is atop: `[F G] x` is `F (G x)` (BQN / Dyalog, not J's hook). |
+| TR3 | Longer trains group from the right into forks: `[A B C D E]` is `[A B [C D E]]`. Trains desugar to ordinary application; nothing train-specific reaches the evaluator. |
+
+```
+u:a_vg := ['+ r_/ / t_ally]      # fork: sum divided by count
+u:a_vg 1 2 3 4                   # 2.5
+[n_eg a_bs] x                    # atop: negate the absolute value
+```
+
 ## 7. Statements, bindings and comments
 
 | #  | Decision |
