@@ -49,11 +49,11 @@ This document supersedes `docs/syntax-proposal.md`.
 | -- | -------- |
 | N1 | A name starts with a letter. A variable name is letters and digits only (`x`, `n`, `board2`). |
 | N2 | A function name contains exactly one `_`, directly after a letter, which underlines that letter (`r_ev`, `s_quare`, `o_-`). |
-| N3 | A function name may end in one punctuation character from `\| - / \ + * < > ~ ! ? % $ &` (`r_/`, `o_-`, `e_mpty?`). |
+| N3 | A function name may end in one punctuation character from `\| - / \ + * < > ~ ! ? % $ &` (`r_/`, `o_-`, `e_mpty?`). A trailing `<` marks a macro (MC2). |
 | N4 | A mutable variable name ends in `!` (see M2). |
 | N5 | Namespaces are a leading prefix: `u:` for the user's definitions, `c:` for the combinator library; no prefix means the system (built-ins). The display shows the prefix as a leading superscript. Plain variables (`x`, `n`) are in the user namespace implicitly. |
 | N6 | User functions are defined and called with the same full name: `u:l_ife := { ... }`, `u:l_ife board`. |
-| N7 | Aliasing a library namespace (Python-style `as`) is wanted when two libraries share a default letter; syntax to be decided. |
+| N7 | Libraries are brought in by the `u_se<` macro (section 13); an optional left argument renames the library's namespace: `"k:" u_se< "Combinators"`. |
 
 ## 4. Decorations
 
@@ -173,9 +173,23 @@ Planned enhancements (after the MVP milestones):
 - Unicode text as a library-supplied type extension, once the
   language has a way for libraries to add types.
 
-## 12. Queue of open questions
+## 13. Macros and libraries
 
-- Aliasing syntax for namespaces (N7).
+| #  | Decision |
+| -- | -------- |
+| MC1 | A macro phase runs between the lexer and the parser. It works on the token stream (not raw text), and every token keeps its original file and span, so errors inside an inlined library point at the library's source. |
+| MC2 | A macro is a function-shaped name ending in `<` ("slurp in"): `u_se<`. Macros are system-provided. No keywords are introduced. The `<` suffix on function names is reserved for macros. |
+| MC3 | Macros follow the ordinary application shapes: monadic `u_se< "Combinators"` inlines the library under the namespace it declares; dyadic `"k:" u_se< "Combinators"` inlines it with that namespace rewritten to `k:` (Python's `as`). |
+| MC4 | The library argument is a string: an installed library name (`"Combinators"`) or a file path (`"../lib/life.xtl"`). The alias string must be a namespace (letters followed by `:`); otherwise it is a macro-phase error. |
+
+Errors found in the macro phase are reported before anything runs,
+which is better than combining libraries incorrectly. The full list
+is sub-decision 32d.
+
+## 14. Queue of open questions
+
+- How a library declares its default namespace (32c) and the list of
+  macro-phase errors (32d).
 - Binary name: `xetal` or `x_etal`.
 - Optional, later: a spelling for axes above 9; function power on
   functions; an explicit `_` wildcard parameter (`{ x _ -> x }`);
@@ -183,7 +197,7 @@ Planned enhancements (after the MVP milestones):
 - Names for the remaining built-ins (reshape, shape, range, index,
   each, table, tally, and others) under the naming rules above.
 
-## 13. Style guide (conventions; a linter may check them later)
+## 15. Style guide (conventions; a linter may check them later)
 
 Only camelCase can express multi-word names: snake_case is impossible
 (variables have no `_`, a function name has exactly one) and
@@ -205,11 +219,10 @@ Recommended function-name suffixes:
 | `!` | has a side effect (I/O, clock, randomness) | `p_rint!` |
 | `/` | reduce-like, collapses an axis | `r_/`, `m_ax/` |
 | `\` | scan-like, running results | `s_\` |
-| `<` `>` | direction: from the front / from the back | `t_ake<` |
 | `~` | approximate or tolerant | `e_q~` |
 | `$` | produces text | `f_mt$` |
 
-## 14. Examples
+## 16. Examples
 
 Names other than `r_/`, `o_-`, `r_ev`, `n_eg` are placeholders.
 
