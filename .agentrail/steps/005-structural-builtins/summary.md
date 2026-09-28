@@ -1,0 +1,1 @@
+structural built-ins via new xetal-struct crate (B4/B5/B10 user decisions), size cap, spec cases, property tests, arrays demo golden; inserted concise-refactor step

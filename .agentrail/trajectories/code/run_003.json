@@ -1,0 +1,11 @@
+{
+  "task_type": "code",
+  "state": {
+    "number": 5,
+    "step": "structural-builtins"
+  },
+  "action": "TDD spec+kernel tests, proptest, dispatcher, gate",
+  "result": "success",
+  "reward": 1,
+  "timestamp": "2026-09-27T23:22:09"
+}
