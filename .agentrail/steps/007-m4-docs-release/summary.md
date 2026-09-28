@@ -1,0 +1,1 @@
+README M4 tour (demos/higher-order.xtl) with goldens for every command (run-higher-order, eval-train-reduce, roll-dice with range preprocess); status/architecture sync; PRD M4 line pinned in reduce.case; Saga 5 retrospective in plan.md. Gate green, pushed.

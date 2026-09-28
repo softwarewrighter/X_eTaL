@@ -1,0 +1,11 @@
+{
+  "task_type": "code",
+  "state": {
+    "number": 7,
+    "step": "m4-docs-release"
+  },
+  "action": "demo + goldens; docs sync; retrospective",
+  "result": "success",
+  "reward": 1,
+  "timestamp": "2026-09-28T12:17:36"
+}
