@@ -10,10 +10,7 @@ use crate::{Parser, err};
 
 impl Parser {
     pub(crate) fn item(&mut self, token: Token) -> Result<Item, Diagnostic> {
-        let noun = |kind| Expr {
-            kind,
-            span: token.span,
-        };
+        let noun = |kind| Expr::new(kind, token.span);
         let value = match token.kind {
             TokenKind::Num(n) => {
                 let mut parts = vec![self.exponent(noun(ExprKind::Num(n)))?];
@@ -23,19 +20,13 @@ impl Parser {
                 }) = self.peek().cloned()
                 {
                     self.pos += 1;
-                    parts.push(self.exponent(Expr {
-                        kind: ExprKind::Num(m),
-                        span,
-                    })?);
+                    parts.push(self.exponent(Expr::new(ExprKind::Num(m), span))?);
                 }
                 if parts.len() == 1 {
                     parts.remove(0)
                 } else {
                     let span = parts[0].span.join(parts[parts.len() - 1].span);
-                    Expr {
-                        kind: ExprKind::Strand(parts),
-                        span,
-                    }
+                    Expr::new(ExprKind::Strand(parts), span)
                 }
             }
             TokenKind::Var(v) => self.exponent(noun(ExprKind::Var(v)))?,
@@ -77,10 +68,7 @@ impl Parser {
                 return Err(err("unexpected-token", token.span, message));
             }
         };
-        Ok(Fun {
-            kind,
-            span: token.span,
-        })
+        Ok(Fun::new(kind, token.span))
     }
 
     /// A literal exponent touching the value just parsed (D-2, D-3).
@@ -92,13 +80,11 @@ impl Parser {
             }) => {
                 self.pos += 1;
                 let span = base.span.join(span);
-                Ok(Expr {
-                    kind: ExprKind::Pow {
-                        base: Box::new(base),
-                        exp,
-                    },
-                    span,
-                })
+                let kind = ExprKind::Pow {
+                    base: Box::new(base),
+                    exp,
+                };
+                Ok(Expr::new(kind, span))
             }
             _ => Ok(base),
         }
@@ -106,6 +92,13 @@ impl Parser {
 
     /// `( expr )`: a value, a function, or with `)_` an applied value.
     fn paren(&mut self, open: Span) -> Result<Item, Diagnostic> {
+        self.enter(open)?;
+        let item = self.paren_inner(open);
+        self.leave();
+        item
+    }
+
+    fn paren_inner(&mut self, open: Span) -> Result<Item, Diagnostic> {
         self.newline_is_space.push(true);
         let inner = if self.expr_is_empty() {
             Err(err(
@@ -130,10 +123,7 @@ impl Parser {
         if self.peek().is_some_and(|t| t.kind == TokenKind::Apply) {
             let apply = self.next().expect("checked");
             let kind = FunKind::Apply(Box::new(inner));
-            return Ok(Item::Fun(Fun {
-                kind,
-                span: span.join(apply.span),
-            }));
+            return Ok(Item::Fun(Fun::new(kind, span.join(apply.span))));
         }
         match inner.kind {
             ExprKind::Fn(f) => match self.peek() {
@@ -142,9 +132,9 @@ impl Parser {
                     t.span,
                     "superscripts on functions are reserved",
                 )),
-                _ => Ok(Item::Fun(Fun { kind: f.kind, span })),
+                _ => Ok(Item::Fun(Fun::new(f.kind, span))),
             },
-            kind => Ok(Item::Value(self.exponent(Expr { kind, span })?)),
+            kind => Ok(Item::Value(self.exponent(Expr::new(kind, span))?)),
         }
     }
 

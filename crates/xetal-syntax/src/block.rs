@@ -11,9 +11,11 @@ use crate::{Parser, err};
 impl Parser {
     /// `{ [params ->] body }`.
     pub(crate) fn lambda(&mut self, open: Span) -> Result<Fun, Diagnostic> {
+        self.enter(open)?;
         self.newline_is_space.push(false);
         let result = self.lambda_inner(open);
         self.newline_is_space.pop();
+        self.leave();
         result
     }
 
@@ -60,7 +62,7 @@ impl Parser {
             }
         };
         let kind = FunKind::Lambda(Lambda { params, body });
-        Ok(Fun { kind, span })
+        Ok(Fun::new(kind, span))
     }
 
     /// Named parameters before `->`, if the lambda has them.
@@ -117,10 +119,12 @@ impl Parser {
 
     /// `[F G H]` fork, `[F G]` atop; longer trains group from the right.
     pub(crate) fn train(&mut self, open: Span) -> Result<Fun, Diagnostic> {
+        self.enter(open)?;
         self.newline_is_space.push(true);
         let items = self.items();
         let close = self.next();
         self.newline_is_space.pop();
+        self.leave();
         let items = bind_operands(items?);
         let span = match close {
             Some(t) if t.kind == TokenKind::RBracket => open.join(t.span),
@@ -157,8 +161,5 @@ fn group(mut funs: Vec<Fun>, span: Span) -> Fun {
         let rest_span = rest[0].span.join(rest[rest.len() - 1].span);
         funs.push(group(rest, rest_span));
     }
-    Fun {
-        kind: FunKind::Train(funs),
-        span,
-    }
+    Fun::new(FunKind::Train(funs), span)
 }

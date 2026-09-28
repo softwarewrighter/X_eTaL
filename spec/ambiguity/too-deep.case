@@ -1,0 +1,5 @@
+# Pathological nesting is an error, never a crash (brackets nest at most 64 deep).
+== SOURCE
+(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((1)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+== ERROR
+error[too-deep]: brackets nest more than 64 levels deep at 64..65

@@ -262,3 +262,15 @@ fn run_and_bare_file_execute_scripts() {
     xetal().arg(file).assert().success().stdout("120\n");
     std::fs::remove_dir_all(&dir).unwrap();
 }
+
+#[test]
+fn deep_input_is_an_error_in_every_stage() {
+    let deep = format!("{}1{}", "(".repeat(100_000), ")".repeat(100_000));
+    for stage in ["parse", "fmt", "core", "eval", "type"] {
+        xetal()
+            .args([stage, "-e", &deep])
+            .assert()
+            .code(1)
+            .stderr(starts_with("error[too-deep]: "));
+    }
+}

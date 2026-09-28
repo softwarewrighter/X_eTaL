@@ -112,3 +112,11 @@ proptest! {
         prop_assert_eq!(after, before, "Core changed: {:?} -> {:?}", src, formatted);
     }
 }
+
+#[test]
+fn the_deepest_accepted_trees_print() {
+    let chain = format!("{}1", "n_eg ".repeat(250));
+    assert!(fmt(&chain).starts_with("(n_eg (n_eg"));
+    assert!(xetal_render::decorate(&chain).is_ok());
+    assert!(xetal_render::latex(&chain).is_ok());
+}

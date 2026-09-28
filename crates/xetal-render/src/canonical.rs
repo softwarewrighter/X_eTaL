@@ -61,13 +61,7 @@ fn expr(e: &Expr, wrap: bool) -> String {
                 | ExprKind::Dyadic { .. } => expr(base, true),
                 _ => format!("({})", expr(base, true)),
             };
-            let exp_text = expr(
-                &Expr {
-                    kind: ExprKind::Num(*exp),
-                    span: base.span,
-                },
-                true,
-            );
+            let exp_text = expr(&Expr::new(ExprKind::Num(*exp), base.span), true);
             format!("{base_text}^{exp_text}")
         }
         ExprKind::Quote(f) => format!("'{}", fun(f)),

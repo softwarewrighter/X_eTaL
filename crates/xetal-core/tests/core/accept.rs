@@ -100,3 +100,11 @@ fn life() {
         "(def u:l_ife (lam _r (app2 (lam _l (lam _r (app2 #+ (app2 #= _l 3) (app2 #* _r (app2 #= _l 4))))) (app (app (axes 12 #r_/) #+) (app2 (axes 12 #o_-) (array -1 0 1) _r)) _r)))"
     );
 }
+
+#[test]
+fn the_deepest_accepted_trees_lower() {
+    let chain = format!("{}1", "n_eg ".repeat(250));
+    assert!(core(&chain).starts_with("(eval (app #n_eg (app #n_eg"));
+    let parens = format!("{}1{}", "(".repeat(60), ")".repeat(60));
+    assert_eq!(core(&parens), "(eval 1)");
+}

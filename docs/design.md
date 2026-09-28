@@ -64,6 +64,12 @@ at most one parse, and shapes near a rule boundary (`a b`, `- 3`,
 `f_ g_`, `{ _l }`, a value in a train, ...) are rejected with specific
 errors instead of being resolved.
 
+Limits (no-panic rule): brackets `( ) { } [ ]` nest at most 64 deep
+and an expression tree at most 256 levels (each application in a
+chain and each statement of a lambda body counts); deeper input is
+`error[too-deep]`, so no stage can overflow the stack. Long strands
+and long programs (many statements) are not limited.
+
 - Application is right to left with long right scope and no
   precedence: `f_ g_ x` is `f_ (g_ x)`; `x f_ y` is dyadic. Every
   function has one arity and dyadic use is currying:

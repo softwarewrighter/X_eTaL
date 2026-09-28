@@ -74,3 +74,29 @@ fn separators_and_brackets() {
 fn lex_errors_come_through() {
     assert_reject("3-1", "ambiguous-minus", (1, 2));
 }
+
+#[test]
+fn pathological_nesting_is_an_error_not_a_crash() {
+    let deep_parens = format!("{}1{}", "(".repeat(100_000), ")".repeat(100_000));
+    assert_eq!(reject(&deep_parens).0, "too-deep");
+    let long_chain = format!("{}x", "f_ ".repeat(5_000));
+    assert_eq!(reject(&long_chain).0, "too-deep");
+    let long_sum = format!("1{}", " + 1".repeat(5_000));
+    assert_eq!(reject(&long_sum).0, "too-deep");
+    let deep_lambdas = format!("{}1{}", "{ x -> ".repeat(100), " }".repeat(100));
+    assert_eq!(reject(&deep_lambdas).0, "too-deep");
+    let deep_trains = format!("{}f_ g_{}", "[f_ ".repeat(100), "]".repeat(100));
+    assert_eq!(reject(&deep_trains).0, "too-deep");
+    let unclosed = "(".repeat(100_000);
+    assert_eq!(reject(&unclosed).0, "too-deep");
+}
+
+#[test]
+fn ordinary_nesting_and_long_strands_are_fine() {
+    let parens = format!("{}1{}", "(".repeat(60), ")".repeat(60));
+    assert_eq!(crate::tree(&parens), "1");
+    let chain = format!("{}x", "f_ ".repeat(200));
+    assert!(crate::tree(&chain).starts_with("(f_ (f_"));
+    let strand = "1 ".repeat(100_000);
+    assert!(crate::tree(&strand).starts_with("(strand 1 1"));
+}

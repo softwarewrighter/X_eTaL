@@ -34,6 +34,8 @@ pub enum Target {
 pub struct Expr {
     pub kind: ExprKind,
     pub span: Span,
+    /// Nesting depth of this tree (1 for a leaf), bounded by `MAX_DEPTH`.
+    pub depth: u32,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -68,6 +70,8 @@ pub enum ExprKind {
 pub struct Fun {
     pub kind: FunKind,
     pub span: Span,
+    /// Nesting depth of this tree (1 for a leaf), bounded by `MAX_DEPTH`.
+    pub depth: u32,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -109,6 +113,72 @@ pub struct Param {
     pub name: Target,
     pub lazy: bool,
     pub span: Span,
+}
+
+/// The deepest tree the parser builds; deeper input is `too-deep`, so
+/// every later stage (printers, desugaring, evaluation, dropping the
+/// tree) recurses a bounded number of levels.
+pub const MAX_DEPTH: u32 = 256;
+
+impl Expr {
+    pub fn new(kind: ExprKind, span: Span) -> Self {
+        let children = match &kind {
+            ExprKind::Strand(items) => items.iter().map(|x| x.depth).max().unwrap_or(0),
+            ExprKind::Pow { base, .. } => base.depth,
+            ExprKind::Quote(f) | ExprKind::Fn(f) => f.depth,
+            ExprKind::Monadic { f, arg } => f.depth.max(arg.depth),
+            ExprKind::Dyadic { left, f, right } => left.depth.max(f.depth).max(right.depth),
+            _ => 0,
+        };
+        Expr {
+            kind,
+            span,
+            depth: children + 1,
+        }
+    }
+}
+
+impl Fun {
+    pub fn new(kind: FunKind, span: Span) -> Self {
+        let children = match &kind {
+            FunKind::Apply(e) => e.depth,
+            FunKind::Operand { operand, f } => operand.depth.max(f.depth),
+            FunKind::Lambda(l) => l
+                .body
+                .iter()
+                .enumerate()
+                .map(|(i, s)| i as u32 + stmt_depth(s))
+                .max()
+                .unwrap_or(0),
+            FunKind::Train(fs) => fs.iter().map(|f| f.depth).max().unwrap_or(0),
+            _ => 0,
+        };
+        Fun {
+            kind,
+            span,
+            depth: children + 1,
+        }
+    }
+}
+
+fn stmt_depth(s: &Stmt) -> u32 {
+    match s {
+        Stmt::Bind { value, .. } => value.depth + 1,
+        Stmt::Guard { cond, result, .. } => cond.depth.max(result.depth) + 1,
+        Stmt::Expr(e) => e.depth,
+    }
+}
+
+/// `too-deep` when a tree exceeds `MAX_DEPTH`.
+pub(crate) fn check_depth(depth: u32, span: Span) -> Result<(), xetal_base::Diagnostic> {
+    if depth > MAX_DEPTH {
+        return Err(crate::err(
+            "too-deep",
+            span,
+            format!("this expression nests more than {MAX_DEPTH} levels deep"),
+        ));
+    }
+    Ok(())
 }
 
 /// Uses of `_l` / `_r` belonging to this lambda (not nested ones).

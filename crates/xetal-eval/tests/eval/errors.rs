@@ -65,3 +65,8 @@ fn deep_recursion_works_and_runaway_recursion_is_an_error() {
         "stack-overflow"
     );
 }
+
+#[test]
+fn the_deepest_accepted_trees_evaluate() {
+    assert_eq!(crate::run(&format!("{}1", "n_eg ".repeat(250))), "1");
+}

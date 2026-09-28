@@ -4,7 +4,7 @@
 use xetal_base::{Diagnostic, Span};
 use xetal_lex::TokenKind;
 
-use crate::ast::{Expr, ExprKind, Fun, FunKind};
+use crate::ast::{Expr, ExprKind, Fun, FunKind, check_depth};
 use crate::{Parser, err};
 
 pub(crate) enum Item {
@@ -41,7 +41,13 @@ impl Parser {
         let mut items = Vec::new();
         while !self.expr_is_empty() {
             let token = self.next().expect("not empty");
-            items.push(self.item(token)?);
+            let item = self.item(token)?;
+            if let Item::Value(Expr { depth, span, .. }) | Item::Fun(Fun { depth, span, .. }) =
+                &item
+            {
+                check_depth(*depth, *span)?;
+            }
+            items.push(item);
         }
         Ok(items)
     }
@@ -59,13 +65,11 @@ pub(crate) fn bind_operands(items: Vec<Item>) -> Vec<Item> {
                         unreachable!()
                     };
                     let span = span.join(f.span);
-                    f = Fun {
-                        kind: FunKind::Operand {
-                            operand: Box::new(operand),
-                            f: Box::new(f),
-                        },
-                        span,
+                    let kind = FunKind::Operand {
+                        operand: Box::new(operand),
+                        f: Box::new(f),
                     };
+                    f = Fun::new(kind, span);
                 }
                 out.push(Item::Fun(f));
             }
@@ -81,10 +85,7 @@ fn reduce(items: Vec<Item>, start: Span) -> Result<Expr, Diagnostic> {
     let mut items: Vec<Item> = items
         .into_iter()
         .map(|item| match item {
-            Item::Quoted(f, span) => Item::Value(Expr {
-                kind: ExprKind::Quote(Box::new(f)),
-                span,
-            }),
+            Item::Quoted(f, span) => Item::Value(Expr::new(ExprKind::Quote(Box::new(f)), span)),
             other => other,
         })
         .collect();
@@ -105,6 +106,7 @@ fn reduce(items: Vec<Item>, start: Span) -> Result<Expr, Diagnostic> {
             Item::Quoted(..) => unreachable!("quotes were turned into values"),
         };
         value = apply(&mut items, f, value)?;
+        check_depth(value.depth, value.span)?;
     }
     Ok(value)
 }
@@ -116,10 +118,7 @@ fn rightmost(items: &mut Vec<Item>, start: Span) -> Result<Result<Expr, Expr>, D
         None => Err(err("missing-value", start, "expected an expression")),
         Some(Item::Fun(f)) if items.is_empty() => {
             let span = f.span;
-            Ok(Err(Expr {
-                kind: ExprKind::Fn(Box::new(f)),
-                span,
-            }))
+            Ok(Err(Expr::new(ExprKind::Fn(Box::new(f)), span)))
         }
         Some(Item::Fun(f)) => Err(err(
             "missing-argument",
@@ -143,7 +142,7 @@ fn apply(items: &mut Vec<Item>, f: Fun, right: Expr) -> Result<Expr, Diagnostic>
             f: Box::new(f),
             right: Box::new(right),
         };
-        return Ok(Expr { kind, span });
+        return Ok(Expr::new(kind, span));
     }
     if matches!(f.kind, FunKind::Sym(_)) {
         return Err(err(
@@ -153,11 +152,9 @@ fn apply(items: &mut Vec<Item>, f: Fun, right: Expr) -> Result<Expr, Diagnostic>
         ));
     }
     let span = f.span.join(right.span);
-    Ok(Expr {
-        kind: ExprKind::Monadic {
-            f: Box::new(f),
-            arg: Box::new(right),
-        },
-        span,
-    })
+    let kind = ExprKind::Monadic {
+        f: Box::new(f),
+        arg: Box::new(right),
+    };
+    Ok(Expr::new(kind, span))
 }
