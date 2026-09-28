@@ -42,9 +42,9 @@ fn definitions_once_per_file() {
 }
 
 #[test]
-fn arrays_come_later() {
-    assert_eq!(fails("1 2 3"), "unsupported");
-    assert_eq!(fails("\"ab\""), "unsupported");
+fn structural_builtins_come_later() {
+    assert_eq!(fails("r_ange 3"), "unsupported");
+    assert_eq!(fails("r_ev 1 2 3"), "unsupported");
 }
 
 #[test]

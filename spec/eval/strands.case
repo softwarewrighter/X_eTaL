@@ -1,0 +1,14 @@
+# Number strands are vectors (A5, 10a); a Float anywhere makes every
+# item a Float (T5, T7).
+== SOURCE
+1 2 3
+1 2.5
+-1 2 -3
+== TYPE
+Int
+Float
+Int
+== RESULT
+1 2 3
+1.0 2.5
+-1 2 -3

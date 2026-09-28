@@ -54,7 +54,6 @@ impl Unifier {
                 None => ty.clone(),
             },
             Type::Fn(a, b) => Type::Fn(Box::new(self.resolve(a)), Box::new(self.resolve(b))),
-            Type::Array(t) => Type::Array(Box::new(self.resolve(t))),
             other => other.clone(),
         }
     }
@@ -69,7 +68,6 @@ impl Unifier {
                 self.unify(a1, b1, span)?;
                 self.unify(a2, b2, span)
             }
-            (Type::Array(x), Type::Array(y)) => self.unify(x, y, span),
             _ => Err(
                 Diagnostic::new("type-mismatch", format!("expected {a}, found {b}"))
                     .with_span(span),

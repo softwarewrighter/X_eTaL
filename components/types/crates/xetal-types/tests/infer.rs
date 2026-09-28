@@ -193,3 +193,18 @@ fn polymorphic_number_code_takes_the_number_type_it_is_used_at() {
          (eval (app (app u:k_ 0) @))"
     );
 }
+
+#[test]
+fn arrays_are_rank_erased() {
+    // T7: a type names the element type only; shape is checked at run time.
+    assert_eq!(types("1 2 3"), "Int");
+    assert_eq!(types("1 2.5"), "Float");
+    assert_eq!(types("\"abc\""), "Char");
+    assert_eq!(types("1 2 3 + 1"), "Int");
+    assert_eq!(types("1 2 3 = 1"), "Bool");
+    assert_eq!(
+        types("u:s_quare := { _r * _r }; u:s_quare 1 2 3"),
+        "u:s_quare : Num a => a -> a\nInt"
+    );
+    assert_eq!(type_error("\"ab\" + 1").0, "type-mismatch");
+}

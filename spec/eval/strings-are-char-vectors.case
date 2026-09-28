@@ -1,0 +1,11 @@
+# A string is a Char vector; it prints without quotes (ST3, 10a).
+== SOURCE
+"hello"
+p_rint! "ab"
+== TYPE
+Char
+Char
+== RESULT
+hello
+ab
+ab

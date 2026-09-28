@@ -134,7 +134,8 @@ construct it came from.
 ## 5. Types
 
 Hindley-Milner inference (Algorithm W) with let-polymorphism over
-`Unit Bool Int Float Char Array<T> T -> U`, type variables and two
+`Unit Bool Int Float Char T -> U` (rank-erased: an array has its
+element type, T7), type variables and two
 constraints, `Num` (Int, Float) and `Truthy` (Bool, Int); see
 `components/types/crates/xetal-types`. Lambda values are generalized (value
 restriction); other bindings are monomorphic, and at the top level
@@ -181,8 +182,14 @@ has no simple type: `infinite-type`; run it with `--untyped`.
   B5).
 - An axis subscript works on any function: `f_k X` moves axis k to the
   front, applies f and moves it back (A6).
-- Row-major dense arrays, rank-0 scalars; scalar extension; shape
-  errors otherwise. Nested arrays come later (A7).
+- Row-major dense arrays (`components/eval/crates/xetal-array`, generic
+  over the item type); a scalar is not an array, and every array has
+  rank 1 or more. Number strands and strings are vectors.
+- Types are rank-erased (T7): a type names the element type, so
+  scalar functions apply to arrays with no extra rule. At run time a
+  scalar function applies item by item, a scalar extends to every
+  item, and two arrays must have the same shape (`shape-mismatch`).
+  Nested arrays come later (A7).
 - Built-in names: see lang-choices B1-B7.
 
 ### 6.1 Multi-axis rotate
@@ -235,7 +242,7 @@ works through a lazy self parameter; Z works too (E1-E4). Values are
 immutable; rebinding shadows; `!`-named variables are the mutation
 escape hatch (M1, M2). The evaluator consumes Core only
 (`components/eval/crates/xetal-eval`, `spec/eval/*.case`): values are Int, Float,
-Bool, Unit and functions; variables live in a persistent environment
+Bool, Char, Unit, arrays of those (`xetal-value`) and functions; variables live in a persistent environment
 of shared slots, so a closure keeps the values it captured while a `!`
 variable is updated in place; a `~` argument is a thunk forced on
 first use and remembered; module definitions are late-bound. In a
@@ -336,3 +343,7 @@ The pinning tests are written as the implementing saga reaches them
 | D12| Applying a function-valued argument | `_l_ x`, `(expr)_ x`; named function parameters `f_` (F5, L4) |
 | D13| Decorated Unicode as input | not accepted; ASCII only (I1) |
 | D14| Namespaces | leading prefixes `u:` (program), `l:` (library), aliases via `u_se<` (N5, MC1-MC9); superscripts after a value are exponents (D-1 to D-6) |
+| D15| Numeric typing | Haskell-style `Num` / `Truthy` classes with defaulting (T5) |
+| D16| Checked evaluation | `eval` / `run` type-check first, `--untyped` skips; binding groups; number-type dictionary passing so literals follow their types (T6) |
+| D17| Array types | rank-erased: a type names the element type; shape checked at run time (T7) |
+| D18| Identity and tacks | `i_d`, `l_eft`, `r_ight` as separate built-ins (B9) |

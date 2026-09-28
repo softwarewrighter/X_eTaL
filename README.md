@@ -67,7 +67,9 @@ Early. The lexer (`xetal lex`), the decorated renderer
 formatter (`xetal fmt`), the desugaring to Core (`xetal core`), type
 inference (`xetal type`) and a strict evaluator for scalars
 (`xetal eval`, `xetal run`, `xetal FILE`, which type-check first)
-work; arrays are not implemented yet and report `error[unsupported]`.
+work, with number strands and strings as arrays and scalar functions
+applied item by item; the array built-ins are not implemented yet and
+report `error[unsupported]`.
 The language is specified by its test suite as it is built;
 the design documents describe the intended language.
 

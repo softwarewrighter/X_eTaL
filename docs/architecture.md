@@ -54,7 +54,9 @@ components/
                            xetal-prim-types (built-in types),
                            xetal-elab (number-type elaboration),
                            xetal-types (inference, checking)
-  eval/                    xetal-array (dense arrays + kernels),
+  eval/                    xetal-array (dense arrays, layout),
+                           xetal-value (runtime values, printing),
+                           xetal-arith (scalar rules, scalar extension),
                            xetal-eval (evaluator)
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
                            harness), xetal-spec (case files)

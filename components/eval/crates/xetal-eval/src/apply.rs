@@ -8,8 +8,8 @@ use xetal_base::{Diagnostic, Span};
 use xetal_core::{Expr, Kind, Param};
 
 use crate::machine::Machine;
-use crate::value::{Env, Prim, Slot, Value, extend};
 use crate::{err, prim};
+use xetal_value::{Env, Prim, Slot, Value, extend};
 
 impl<'a> Machine<'a, '_> {
     pub(crate) fn app(

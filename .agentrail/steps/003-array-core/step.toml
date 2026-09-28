@@ -1,6 +1,6 @@
 number = 3
 slug = "array-core"
-status = "pending"
+status = "in-progress"
 description = "arrays step 3: TDD xetal-array dense row-major arrays, rank-0 scalars, strand..."
 role = "production"
 context_files = []

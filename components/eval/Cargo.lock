@@ -3,6 +3,15 @@
 version = 4
 
 [[package]]
+name = "xetal-arith"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
+]
+
+[[package]]
 name = "xetal-array"
 version = "0.1.0"
 dependencies = [
@@ -36,11 +45,13 @@ dependencies = [
 name = "xetal-eval"
 version = "0.1.0"
 dependencies = [
+ "xetal-arith",
  "xetal-array",
  "xetal-base",
  "xetal-core",
  "xetal-lex",
  "xetal-types",
+ "xetal-value",
 ]
 
 [[package]]
@@ -83,4 +94,13 @@ dependencies = [
  "xetal-lex",
  "xetal-prim-types",
  "xetal-ty",
+]
+
+[[package]]
+name = "xetal-value"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-core",
 ]

@@ -121,7 +121,6 @@ fn display() {
         u.generalize(&eq, &[]).to_string(),
         "(Num a, Truthy b) => a -> a -> b"
     );
-    assert_eq!(Type::Array(Box::new(Type::Int)).to_string(), "Array Int");
     assert_eq!(fun(Type::Unit, Type::Int).to_string(), "Unit -> Int");
 }
 
@@ -142,7 +141,6 @@ mod props {
             prop_oneof![
                 (inner.clone(), inner.clone())
                     .prop_map(|(a, b)| Type::Fn(Box::new(a), Box::new(b))),
-                inner.prop_map(|t| Type::Array(Box::new(t))),
             ]
         })
     }

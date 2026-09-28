@@ -16,8 +16,6 @@ pub enum Type {
     Char,
     Var(TypeVar),
     Fn(Box<Type>, Box<Type>),
-    /// Arrays arrive with the arrays saga; the type exists already.
-    Array(Box<Type>),
 }
 
 /// A polymorphic type: `forall vars. ty`, with the variables that must
@@ -36,7 +34,6 @@ impl Type {
         match self {
             Type::Var(v) => map.get(v).cloned().unwrap_or_else(|| self.clone()),
             Type::Fn(a, b) => Type::Fn(Box::new(a.rename(map)), Box::new(b.rename(map))),
-            Type::Array(t) => Type::Array(Box::new(t.rename(map))),
             other => other.clone(),
         }
     }
@@ -49,7 +46,6 @@ impl Type {
                 a.vars(out);
                 b.vars(out);
             }
-            Type::Array(t) => t.vars(out),
             _ => {}
         }
     }
@@ -67,17 +63,6 @@ fn write(ty: &Type, names: &HashMap<TypeVar, String>, f: &mut fmt::Formatter<'_>
             Some(name) => f.write_str(name),
             None => write!(f, "t{}", v.0),
         },
-        Type::Array(t) => {
-            f.write_str("Array ")?;
-            match **t {
-                Type::Fn(..) | Type::Array(_) => {
-                    f.write_str("(")?;
-                    write(t, names, f)?;
-                    f.write_str(")")
-                }
-                _ => write(t, names, f),
-            }
-        }
         Type::Fn(a, b) => {
             if matches!(**a, Type::Fn(..)) {
                 f.write_str("(")?;

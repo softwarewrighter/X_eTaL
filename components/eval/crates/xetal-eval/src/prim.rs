@@ -5,9 +5,9 @@ use std::io::Write;
 
 use xetal_base::{Diagnostic, Span};
 
-use crate::arith::{binary, compare, num};
 use crate::err;
-use crate::value::Value;
+use xetal_arith::{binary, compare, lift1, lift2, num, truth};
+use xetal_value::Value;
 
 /// Built-ins implemented for scalars, with their arity.
 const SCALAR: &[(&str, usize)] = &[
@@ -85,22 +85,33 @@ pub fn call<'a>(
             writeln!(out, "{v}").map_err(|e| err("io", span, e.to_string()))?;
             Ok(v.clone())
         }
-        ("&" | "|", [a, b]) => {
-            let (a, b) = (truth(a, span)?, truth(b, span)?);
-            Ok(Value::Bool(if name == "&" { a && b } else { a || b }))
-        }
-        ("n_ot", [a]) => Ok(Value::Bool(!truth(a, span)?)),
-        ("=" | "!=" | "<" | ">" | "<=" | ">=" | "e_q~", [a, b]) => {
-            Ok(compare(name, num(a, span)?, num(b, span)?))
-        }
-        (_, [a, b]) => binary(name, num(a, span)?, num(b, span)?, span),
-        (_, [a]) => unary(name, a, span),
+        (_, [a, b]) => lift2(a, b, span, |x, y| scalar2(name, x, y, span)),
+        (_, [a]) => lift1(a, |x| unary(name, x, span)),
         _ => Err(err("unknown-builtin", span, format!("bad call of {name}"))),
     }
 }
 
+/// A dyadic scalar built-in on two scalars.
+fn scalar2<'a>(
+    name: &str,
+    a: &Value<'a>,
+    b: &Value<'a>,
+    span: Span,
+) -> Result<Value<'a>, Diagnostic> {
+    match name {
+        "&" | "|" => {
+            let (a, b) = (truth(a, span)?, truth(b, span)?);
+            Ok(Value::Bool(if name == "&" { a && b } else { a || b }))
+        }
+        "=" | "!=" | "<" | ">" | "<=" | ">=" | "e_q~" => {
+            Ok(compare(name, num(a, span)?, num(b, span)?))
+        }
+        _ => binary(name, num(a, span)?, num(b, span)?, span),
+    }
+}
+
 fn unary<'a>(name: &str, a: &Value<'a>, span: Span) -> Result<Value<'a>, Diagnostic> {
-    use crate::arith::Num::{F, I};
+    use xetal_arith::Num::{F, I};
     let overflow = || err("integer-overflow", span, "integer overflow");
     let whole = |x: f64| {
         if x.is_finite() && x.abs() < 9.0e18 {
@@ -109,6 +120,9 @@ fn unary<'a>(name: &str, a: &Value<'a>, span: Span) -> Result<Value<'a>, Diagnos
             Err(overflow())
         }
     };
+    if name == "n_ot" {
+        return Ok(Value::Bool(!truth(a, span)?));
+    }
     match (name, num(a, span)?) {
         ("n_eg", I(i)) => i.checked_neg().map(Value::Int).ok_or_else(overflow),
         ("n_eg", F(x)) => Ok(Value::Float(-x)),
@@ -122,19 +136,5 @@ fn unary<'a>(name: &str, a: &Value<'a>, span: Span) -> Result<Value<'a>, Diagnos
         ("l_og", n) if n.f() <= 0.0 => Err(err("domain", span, "l_og needs a positive number")),
         ("l_og", n) => Ok(Value::Float(n.f().ln())),
         _ => Err(err("unknown-builtin", span, format!("bad call of {name}"))),
-    }
-}
-
-/// A Bool: true / false, or the Ints 1 / 0; anything else is an error (T1).
-pub fn truth(v: &Value, span: Span) -> Result<bool, Diagnostic> {
-    match v {
-        Value::Bool(b) => Ok(*b),
-        Value::Int(1) => Ok(true),
-        Value::Int(0) => Ok(false),
-        other => Err(err(
-            "not-a-bool",
-            span,
-            format!("expected a Bool (or 1 / 0), got {other}"),
-        )),
     }
 }

@@ -1,9 +1,9 @@
 //! Runtime values and the persistent environment.
 
 use std::cell::RefCell;
-use std::fmt;
 use std::rc::Rc;
 
+use xetal_array::Array;
 use xetal_core::{Expr, Param};
 
 #[derive(Debug, Clone)]
@@ -11,7 +11,10 @@ pub enum Value<'a> {
     Int(i64),
     Float(f64),
     Bool(bool),
+    Char(char),
     Unit,
+    /// An array of rank 1 or more (a scalar is never an `Array`).
+    Array(Rc<Array<Value<'a>>>),
     Closure(Rc<Closure<'a>>),
     Prim(Rc<Prim<'a>>),
 }
@@ -71,16 +74,4 @@ pub fn lookup<'a>(env: &Env<'a>, name: &str) -> Option<Rc<RefCell<Slot<'a>>>> {
         frame = f.next.as_ref();
     }
     None
-}
-
-impl fmt::Display for Value<'_> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Value::Int(i) => write!(f, "{i}"),
-            Value::Float(x) => write!(f, "{x:?}"),
-            Value::Bool(b) => f.write_str(if *b { "1" } else { "0" }),
-            Value::Unit => f.write_str("@"),
-            Value::Closure(_) | Value::Prim(_) => f.write_str("<function>"),
-        }
-    }
 }

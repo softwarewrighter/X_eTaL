@@ -1,0 +1,3 @@
+command = """./target/debug/xetal type -e '1 2 3 + 10; "hello"'"""
+exit_code = 0
+desc = "T7: types are rank-erased (element type only)"

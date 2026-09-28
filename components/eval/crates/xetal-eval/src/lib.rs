@@ -3,10 +3,8 @@
 //! definitions, mutable `!` variables, and scalar built-ins.
 
 mod apply;
-mod arith;
 mod machine;
 mod prim;
-mod value;
 mod warn;
 
 use std::collections::HashMap;
@@ -15,7 +13,7 @@ use std::io::Write;
 use xetal_base::{Diagnostic, Span};
 use xetal_core::Program;
 
-pub use value::Value;
+pub use xetal_value::Value;
 
 /// Pipeline stage name used in diagnostics and by the CLI.
 pub const STAGE: &str = "eval";

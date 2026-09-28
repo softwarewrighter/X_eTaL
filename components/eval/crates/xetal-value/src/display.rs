@@ -1,0 +1,26 @@
+//! Printed results (lang-choices 10a).
+
+use std::fmt;
+
+use xetal_array::layout;
+
+use crate::Value;
+
+impl fmt::Display for Value<'_> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Value::Int(i) => write!(f, "{i}"),
+            Value::Float(x) => write!(f, "{x:?}"),
+            Value::Bool(b) => f.write_str(if *b { "1" } else { "0" }),
+            Value::Char(c) => write!(f, "{c}"),
+            Value::Unit => f.write_str("@"),
+            Value::Array(a) => {
+                let cells: Vec<String> = a.data().iter().map(ToString::to_string).collect();
+                let chars = a.data().iter().all(|v| matches!(v, Value::Char(_)));
+                let sep = if chars && !cells.is_empty() { "" } else { " " };
+                f.write_str(&layout(a.shape(), &cells, sep))
+            }
+            Value::Closure(_) | Value::Prim(_) => f.write_str("<function>"),
+        }
+    }
+}

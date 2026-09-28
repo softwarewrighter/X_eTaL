@@ -20,7 +20,7 @@ impl Infer {
         Ok(match &e.kind {
             Kind::Lit(Number::Int(_)) => self.int_literal(e.id),
             Kind::Lit(Number::Float(_)) => Type::Float,
-            Kind::Str(_) => Type::Array(Box::new(Type::Char)),
+            Kind::Str(_) => Type::Char,
             Kind::Unit => Type::Unit,
             Kind::Array(items) => {
                 let elem = self.u.fresh();
@@ -28,7 +28,7 @@ impl Infer {
                     let t = self.expr(item)?;
                     self.u.unify(&elem, &t, item.span)?;
                 }
-                Type::Array(Box::new(elem))
+                elem
             }
             Kind::Var(name) => self.variable(name, e)?,
             Kind::Global(name) => self.global(name, e),

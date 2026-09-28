@@ -1,0 +1,5 @@
+# A condition must be a single value (T7).
+== SOURCE
+{ c -> c ? 1; 0 } 1 0
+== ERROR
+error[not-a-scalar]: a condition must be a single value, got 1 0 at 7..8

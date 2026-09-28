@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-array", "crates/xetal-eval"]
+members = ["crates/xetal-array", "crates/xetal-value", "crates/xetal-arith", "crates/xetal-eval"]
 
 [workspace.package]
 version = "0.1.0"
@@ -20,6 +20,8 @@ xetal-core = { path = "../core/crates/xetal-core" }
 xetal-ty = { path = "../types/crates/xetal-ty" }
 xetal-types = { path = "../types/crates/xetal-types" }
 xetal-array = { path = "crates/xetal-array" }
+xetal-value = { path = "crates/xetal-value" }
+xetal-arith = { path = "crates/xetal-arith" }
 xetal-eval = { path = "crates/xetal-eval" }
 xetal-spec = { path = "../cli/crates/xetal-spec" }
 clap = { version = "4", features = ["derive"] }

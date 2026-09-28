@@ -4,13 +4,14 @@ use std::collections::HashMap;
 use std::io::Write;
 use std::rc::Rc;
 
+use xetal_array::Array;
 use xetal_base::{Diagnostic, Span};
 use xetal_core::{Expr, Item, Kind, Program};
 use xetal_lex::Number;
 
-use crate::prim::truth;
-use crate::value::{Closure, Env, Prim, Slot, Value, extend, lookup};
 use crate::{err, prim};
+use xetal_arith::truth;
+use xetal_value::{Closure, Env, Prim, Slot, Value, extend, lookup};
 
 /// Nested evaluations allowed before reporting `stack-overflow`.
 const MAX_DEPTH: usize = 100_000;
@@ -155,11 +156,23 @@ impl<'a> Machine<'a, '_> {
                     args: Vec::new(),
                 }))
             }
+            Kind::Str(text) => Value::Array(Rc::new(Array::vector(
+                text.chars().map(Value::Char).collect(),
+            ))),
+            Kind::Array(items) => {
+                let mut values = items
+                    .iter()
+                    .rev()
+                    .map(|x| self.eval(x, env))
+                    .collect::<Result<Vec<_>, _>>()?;
+                values.reverse();
+                Value::Array(Rc::new(Array::vector(values)))
+            }
             _ => {
                 return Err(err(
                     "unsupported",
                     e.span,
-                    "arrays and strings arrive with the arrays saga",
+                    "axis subscripts arrive with the rotate-and-axes saga",
                 ));
             }
         })

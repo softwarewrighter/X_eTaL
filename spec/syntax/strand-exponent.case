@@ -8,4 +8,4 @@
 == CORE
 (eval (array 1 2 (app2 #^ 3 2)))
 == TYPE
-Array Int
+Int

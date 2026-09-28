@@ -1,0 +1,19 @@
+# Scalar functions apply item by item, and a scalar extends to every
+# item of an array (T7).
+== SOURCE
+1 2 3 + 1
+10 * 1 2 3
+1 2 3 - 3 2 1
+1 2 3 = 1 5 3
+n_eg 1 2
+1 2 3 / 2
+u:s_quare := { _r * _r }
+u:s_quare 1 2 3
+== RESULT
+2 3 4
+10 20 30
+-2 0 2
+1 0 1
+-1 -2
+0.5 1.0 1.5
+1 4 9

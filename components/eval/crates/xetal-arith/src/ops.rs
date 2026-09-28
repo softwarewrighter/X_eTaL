@@ -4,37 +4,9 @@
 
 use xetal_base::{Diagnostic, Span};
 
-use crate::err;
-use crate::value::Value;
+use xetal_value::Value;
 
-#[derive(Clone, Copy)]
-pub enum Num {
-    I(i64),
-    F(f64),
-}
-
-impl Num {
-    pub fn f(self) -> f64 {
-        match self {
-            Num::I(i) => i as f64,
-            Num::F(x) => x,
-        }
-    }
-}
-
-/// A number, with Bool as 1 / 0 (T1).
-pub fn num(v: &Value, span: Span) -> Result<Num, Diagnostic> {
-    match v {
-        Value::Int(i) => Ok(Num::I(*i)),
-        Value::Float(x) => Ok(Num::F(*x)),
-        Value::Bool(b) => Ok(Num::I(i64::from(*b))),
-        other => Err(err(
-            "not-a-number",
-            span,
-            format!("expected a number, got {other}"),
-        )),
-    }
-}
+use crate::num::{Num, err};
 
 /// `+ - * / ^` and the integer operations, by symbol or name.
 pub fn binary<'a>(op: &str, a: Num, b: Num, span: Span) -> Result<Value<'a>, Diagnostic> {
@@ -144,13 +116,4 @@ pub fn compare<'a>(op: &str, a: Num, b: Num) -> Value<'a> {
         ">=" => x >= y,
         _ => (x - y).abs() <= 1e-14 * x.abs().max(y.abs()),
     })
-}
-
-impl<'a> From<Num> for Value<'a> {
-    fn from(n: Num) -> Self {
-        match n {
-            Num::I(i) => Value::Int(i),
-            Num::F(x) => Value::Float(x),
-        }
-    }
 }
