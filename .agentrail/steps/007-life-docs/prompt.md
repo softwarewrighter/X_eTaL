@@ -1,0 +1,1 @@
+arrays step 7 (user request): docs show only the real, tested Life one-liner, never an early mock-up: mark docs/syntax-proposal.md as superseded (its Life sketch is not the language); a reg-rs golden checks that every Life line in README.md and docs/*.md equals the pending acceptance case spec/integration/life-blinker.case; user-facing docs say what, not when.

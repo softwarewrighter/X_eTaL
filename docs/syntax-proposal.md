@@ -1,7 +1,10 @@
 # X_eTaL -- Syntax Proposal (raw ASCII input)
 
 Status: SUPERSEDED by `docs/lang-choices.md` (decisions made one at a
-time with the user). Kept for history. Originally: PROPOSAL, awaiting
+time with the user). Kept for history only: the code in this document
+is obsolete syntax that does not run, including its Life sketches. The
+real, tested Life one-liner is in `docs/design.md` section 6.2 and
+`spec/integration/life-blinker.case`. Originally: PROPOSAL, awaiting
 the user's review. Nothing here is
 implemented. Where this proposal and `docs/design.md` sections 2-3 /
 `docs/input.md` disagree, those documents describe what is currently

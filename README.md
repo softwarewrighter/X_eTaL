@@ -46,7 +46,9 @@ At a glance, versus classic APL:
 | Core model          | niladic/monadic/dyadic       | curried one-argument functions         |
 | Implementation      | C / assembly                 | Rust (CLI + WASM playground)           |
 
-The design target is Conway's Life in one line:
+The acceptance test is Conway's Life in one line
+(`spec/integration/life-blinker.case`, whose expected generation is
+checked against the sw-apl APL\360 reference):
 
 ```
 u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
@@ -228,8 +230,8 @@ Comparisons give Bool, which counts as 1 or 0 in arithmetic, and `/`
 always gives a Float. The Y combinator's self-applied argument has no
 finite type; `--untyped` skips the checker (see above).
 
-Arrays (reshape, rotate, reduce) and the Life one-liner come in the
-next sagas ([`docs/plan.md`](docs/plan.md)).
+Rotate, reduce and axis subscripts, and with them the Life one-liner,
+are not implemented yet ([`docs/plan.md`](docs/plan.md)).
 
 ## Install
 

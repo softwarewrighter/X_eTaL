@@ -1,7 +1,7 @@
-number = 7
-slug = "strings"
+number = 9
+slug = "repl"
 status = "pending"
-description = "arrays step 5: TDD strings as Char vectors (lang-choices section 13): printin..."
+description = "arrays step 6: TDD xetal repl: persistent definitions and types across lines,..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T22:47:11"

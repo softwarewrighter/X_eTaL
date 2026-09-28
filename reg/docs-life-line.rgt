@@ -1,0 +1,3 @@
+command = "grep -ho 'u:l_ife := {.*_r }' README.md $(ls docs/*.md | grep -v syntax-proposal) spec/integration/life-blinker.case | sort -u"
+exit_code = 0
+desc = "every Life line in README and docs is the tested acceptance-case line"
