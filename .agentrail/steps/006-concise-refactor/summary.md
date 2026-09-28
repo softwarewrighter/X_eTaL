@@ -1,0 +1,1 @@
+built-in catalog (builtins.toml + build.rs codegen) replaces 4 hand lists; facade-only lib.rs; new crates xetal-catalog, xetal-ast, xetal-ir, xetal-lint; main.rs split; cli.rs (312 lines) replaced by 16 reg-rs goldens; sw-checklist 61/0/99 -> 78/0/96; no behavior change
