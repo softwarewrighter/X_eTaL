@@ -1,0 +1,3 @@
+command = """./target/debug/xetal eval -e "[i_d - n_eg] 5; u:S_ := { f_ g_ x -> x f_ g_ x }; 'n_eg '- u:S_ 5; 3 [l_eft + r_ight] 4""""
+exit_code = 0
+desc = "B9: the S combinator as the hook [i_d F G] and as a lambda; a dyadic fork of the tacks"

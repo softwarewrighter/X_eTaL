@@ -208,3 +208,13 @@ fn arrays_are_rank_erased() {
     );
     assert_eq!(type_error("\"ab\" + 1").0, "type-mismatch");
 }
+
+#[test]
+fn identity_and_tacks() {
+    // B9: i_d is monadic, the tacks dyadic; none of them is numeric.
+    assert_eq!(types("'i_d"), "a -> a");
+    assert_eq!(types("'l_eft"), "a -> b -> a");
+    assert_eq!(types("'r_ight"), "a -> b -> b");
+    assert_eq!(types("\"ab\" l_eft 1"), "Char");
+    assert_eq!(type_error("1 i_d 2").0, "type-mismatch");
+}

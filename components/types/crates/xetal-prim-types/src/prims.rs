@@ -6,12 +6,17 @@ use xetal_base::{Diagnostic, Span};
 use xetal_ty::Type;
 use xetal_ty::Unifier;
 
-fn fun(a: Type, b: Type) -> Type {
+use crate::generic::generic;
+
+pub(crate) fn fun(a: Type, b: Type) -> Type {
     Type::Fn(Box::new(a), Box::new(b))
 }
 
 /// A fresh instance of a built-in's type.
 pub fn prim_type(name: &str, u: &mut Unifier, span: Span) -> Result<Type, Diagnostic> {
+    if let Some(t) = generic(name, u) {
+        return Ok(t);
+    }
     let binary = |a: &Type, r: Type| fun(a.clone(), fun(a.clone(), r));
     Ok(match name {
         "+" | "-" | "*" | "^" | "m_ax" | "m_in" => {
@@ -35,10 +40,6 @@ pub fn prim_type(name: &str, u: &mut Unifier, span: Span) -> Result<Type, Diagno
         }
         "f_loor" | "c_eiling" => fun(u.fresh_num(), Type::Int),
         "e_xp" | "l_og" | "f_loat" => fun(u.fresh_num(), Type::Float),
-        "p_rint!" => {
-            let a = u.fresh();
-            fun(a.clone(), a)
-        }
         other if LATER.contains(&other) => {
             return Err(Diagnostic::new("unsupported", format!("the built-in {other} arrives with a later saga (arrays, higher-order functions)")).with_span(span));
         }

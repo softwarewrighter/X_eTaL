@@ -190,7 +190,7 @@ has no simple type: `infinite-type`; run it with `--untyped`.
   scalar function applies item by item, a scalar extends to every
   item, and two arrays must have the same shape (`shape-mismatch`).
   Nested arrays come later (A7).
-- Built-in names: see lang-choices B1-B7.
+- Built-in names: see lang-choices B1-B9.
 
 ### 6.1 Multi-axis rotate
 

@@ -9,7 +9,8 @@ use crate::err;
 use xetal_arith::{binary, compare, lift1, lift2, num, truth};
 use xetal_value::Value;
 
-/// Built-ins implemented for scalars, with their arity.
+/// Implemented built-ins with their arity: the scalar functions,
+/// `p_rint!`, and identity and the tacks (B9).
 const SCALAR: &[(&str, usize)] = &[
     ("+", 2),
     ("-", 2),
@@ -38,6 +39,9 @@ const SCALAR: &[(&str, usize)] = &[
     ("l_og", 1),
     ("f_loat", 1),
     ("p_rint!", 1),
+    ("i_d", 1),
+    ("l_eft", 2),
+    ("r_ight", 2),
 ];
 
 /// Built-ins that exist but arrive with arrays or higher-order functions.
@@ -85,6 +89,7 @@ pub fn call<'a>(
             writeln!(out, "{v}").map_err(|e| err("io", span, e.to_string()))?;
             Ok(v.clone())
         }
+        ("i_d", [a]) | ("l_eft", [a, _]) | ("r_ight", [_, a]) => Ok(a.clone()),
         (_, [a, b]) => lift2(a, b, span, |x, y| scalar2(name, x, y, span)),
         (_, [a]) => lift1(a, |x| unary(name, x, span)),
         _ => Err(err("unknown-builtin", span, format!("bad call of {name}"))),

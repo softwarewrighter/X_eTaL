@@ -1,0 +1,10 @@
+# S' (Phi) c f g x = c (f x) (g x): the monadic fork [F G H] and a
+# lambda (B9, TR1).
+== SOURCE
+u:s_quare := { _r * _r }
+[n_eg + u:s_quare] 3
+u:P_hi := { c_ f_ g_ x -> (f_ x) c_ g_ x }
+'u:s_quare 'n_eg '+ u:P_hi 3
+== RESULT
+6
+6

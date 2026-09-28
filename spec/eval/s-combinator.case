@@ -1,0 +1,12 @@
+# S f g x = f x (g x): the hook [i_d F G] and a lambda (B9, L4).
+== SOURCE
+[i_d - n_eg] 5
+u:S_ := { f_ g_ x -> x f_ g_ x }
+'n_eg '- u:S_ 5
+== TYPE
+Int
+u:S_ : (a -> b -> c) -> (a -> b) -> a -> c
+Int
+== RESULT
+10
+10

@@ -1,0 +1,6 @@
+# A tack is dyadic (B9): r_ight 5 is a function waiting for its
+# second argument, not 5.
+== SOURCE
+(r_ight 5) + 1
+== ERROR
+error[type-mismatch]: expected a number, found a -> a at 1..14

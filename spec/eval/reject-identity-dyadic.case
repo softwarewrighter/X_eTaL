@@ -1,0 +1,5 @@
+# i_d is monadic (B9): used dyadically it is a type error.
+== SOURCE
+1 i_d 2
+== ERROR
+error[type-mismatch]: expected a number, found a -> b at 0..7

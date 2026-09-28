@@ -1,0 +1,24 @@
+# Identity and the tacks (B9): i_d x is x; x l_eft y is x; x r_ight y
+# is y. They are not scalar functions: an array argument is returned
+# whole, never item by item.
+== SOURCE
+i_d 5
+i_d 1 2 3
+3 l_eft 4
+3 r_ight 4
+1 l_eft 1 2 3
+3 [l_eft + r_ight] 4
+== TYPE
+Int
+Int
+Int
+Int
+Int
+Int
+== RESULT
+5
+1 2 3
+3
+4
+1
+7

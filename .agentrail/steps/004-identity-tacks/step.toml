@@ -1,6 +1,6 @@
 number = 4
 slug = "identity-tacks"
-status = "pending"
+status = "in-progress"
 description = "arrays step 4: TDD the identity and tack built-ins (lang-choices B9, decided ..."
 role = "production"
 context_files = []
