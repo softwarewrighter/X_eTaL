@@ -159,9 +159,22 @@ u:f_romThree := ('-)_ 3           # the same, point-free: quoted minus, left fil
 The error for `- 3` names all three fixes: write `-3` for the
 number, `n_eg 3` to negate, `{ x -> x - 3 }` to subtract 3.
 
+## 12. Strings
+
+| #  | Decision |
+| -- | -------- |
+| ST1 | A string is written `"..."`. Escapes: `\"`, `\\`, `\n`, `\t`; any other escape is an error. `#` inside a string is an ordinary character. |
+| ST2 | A string may not span lines (use `\n`) and is ASCII, like all source. A name touching `"` is an error, reserving `r"..."` for later. |
+| ST3 | A string is a 1-D array of characters: `"abc"` is a 3-element Char vector and every array function applies (`r_ev "abc"` is `"cba"`). `"a"` is a 1-element vector (no APL length-1 scalar wart). There is no scalar character literal for now. |
+
+Planned enhancements (after the MVP milestones):
+
+- Rust-style raw strings `r"..."` that may span lines.
+- Unicode text as a library-supplied type extension, once the
+  language has a way for libraries to add types.
+
 ## 12. Queue of open questions
 
-- String literals (`"..."` likely; `'` is the quote).
 - Aliasing syntax for namespaces (N7).
 - Binary name: `xetal` or `x_etal`.
 - Optional, later: a spelling for axes above 9; function power on
