@@ -1,0 +1,11 @@
+{
+  "task_type": "feature",
+  "state": {
+    "number": 1,
+    "step": "nesting-limit"
+  },
+  "action": "TDD (red was a real SIGABRT), limit probing on 2MB threads, gate",
+  "result": "success",
+  "reward": 1,
+  "timestamp": "2026-09-27T22:17:30"
+}

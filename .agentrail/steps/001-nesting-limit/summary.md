@@ -1,0 +1,1 @@
+Nesting limits: bracket depth 64 checked on entry, AST depth 256 tracked per node (Expr::new/Fun::new) and checked at construction; error[too-deep] everywhere instead of stack overflow; tests for parser, core, render, eval and CLI; design.md documents limits.
