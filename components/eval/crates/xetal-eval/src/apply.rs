@@ -80,7 +80,10 @@ impl<'a> Machine<'a, '_> {
                         args,
                     })));
                 }
-                prim::call(p.name, &args, span, self.out)
+                match xetal_hof::call(p.name, &args, span, self) {
+                    Some(result) => result,
+                    None => prim::call(p.name, &args, span, self.out),
+                }
             }
             other => Err(err(
                 "not-a-function",

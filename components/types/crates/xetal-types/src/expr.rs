@@ -4,8 +4,6 @@ use xetal_base::Diagnostic;
 use xetal_core::{Expr, Kind, Param};
 use xetal_lex::Number;
 
-use xetal_prim_types::prim_type;
-
 use crate::infer::{Global, Infer};
 use crate::record::{Args, Binder};
 use xetal_ty::Type;
@@ -32,7 +30,7 @@ impl Infer {
             }
             Kind::Var(name) => self.variable(name, e)?,
             Kind::Global(name) => self.global(name, e),
-            Kind::Prim(name) => prim_type(name, &mut self.u, e.span)?,
+            Kind::Prim(name) => self.builtin(name, e)?,
             Kind::Axes { f, .. } => self.expr(f)?,
             Kind::Lam { param, body, .. } => self.lambda(param, body)?,
             Kind::App(f, x) => {

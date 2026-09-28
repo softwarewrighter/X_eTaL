@@ -1,6 +1,6 @@
 number = 1
 slug = "reduce-scan"
-status = "pending"
+status = "in-progress"
 description = "higher-order step 1: TDD a way for built-ins to apply function values (machin..."
 role = "production"
 context_files = []

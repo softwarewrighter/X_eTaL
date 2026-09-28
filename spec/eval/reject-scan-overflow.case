@@ -1,0 +1,6 @@
+# A scan is defined as prefix reductions, so it overflows where a
+# prefix does: the second prefix is the largest Int plus 1 (B6, D-10).
+== SOURCE
+'+ s_\ 9223372036854775807 1 -1
+== ERROR
+error[integer-overflow]: integer overflow (use a Float, e.g. 2.0) at 0..31

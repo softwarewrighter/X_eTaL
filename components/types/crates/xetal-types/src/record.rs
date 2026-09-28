@@ -4,8 +4,11 @@
 
 use std::collections::{HashMap, HashSet};
 
+use xetal_base::Diagnostic;
 use xetal_base::NodeId;
+use xetal_core::Expr;
 use xetal_elab::Dicts;
+use xetal_prim_types::{TYPED_IDENTITY, prim_type};
 use xetal_ty::{Scheme, Type, TypeVar};
 
 use crate::infer::Infer;
@@ -27,6 +30,7 @@ pub(crate) enum Args {
 #[derive(Default)]
 pub(crate) struct Record {
     lits: Vec<(NodeId, Type)>,
+    prims: Vec<(NodeId, Type)>,
     args: Vec<(NodeId, Args)>,
     params: HashMap<NodeId, Vec<TypeVar>>,
     globals: HashMap<String, NodeId>,
@@ -52,6 +56,20 @@ impl Record {
 }
 
 impl Infer {
+    /// A fresh instance of a built-in's type; for one in
+    /// `TYPED_IDENTITY`, its result type is recorded for elaboration.
+    pub(crate) fn builtin(&mut self, name: &str, e: &Expr) -> Result<Type, Diagnostic> {
+        let t = prim_type(name, &mut self.u, e.span)?;
+        let mut result = &t;
+        while let Type::Fn(_, r) = result {
+            result = r;
+        }
+        if TYPED_IDENTITY.contains(&name) {
+            self.rec.prims.push((e.id, result.clone()));
+        }
+        Ok(t)
+    }
+
     /// A polymorphic integer literal.
     pub(crate) fn int_literal(&mut self, id: NodeId) -> Type {
         let t = self.u.fresh_num();
@@ -73,6 +91,8 @@ impl Infer {
                 .map(Type::Var)
                 .collect()
         };
+        let resolve =
+            |xs: &[(NodeId, Type)]| xs.iter().map(|(id, t)| (*id, self.u.resolve(t))).collect();
         let args = r.args.iter().filter_map(|(id, a)| {
             let ts: Vec<Type> = match a {
                 Args::Inst(ts) => ts.clone(),
@@ -89,11 +109,8 @@ impl Infer {
                 .map(|(k, v)| (*k, v.clone()))
                 .collect(),
             args: args.collect(),
-            lits: r
-                .lits
-                .iter()
-                .map(|(id, t)| (*id, self.u.resolve(t)))
-                .collect(),
+            lits: resolve(&r.lits),
+            prims: resolve(&r.prims),
         }
     }
 }

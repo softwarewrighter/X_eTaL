@@ -16,4 +16,7 @@ pub struct Dicts {
     pub args: HashMap<NodeId, Vec<Type>>,
     /// Integer literals and their types.
     pub lits: HashMap<NodeId, Type>,
+    /// Built-ins that make a result with no typed item (reduce's
+    /// identity), and their result types.
+    pub prims: HashMap<NodeId, Type>,
 }

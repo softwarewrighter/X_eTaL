@@ -1,0 +1,6 @@
+# Every prefix reduction must have the shape of one major cell (B6):
+# an operand that turns two scalars into a vector cannot scan a vector.
+== SOURCE
+'{ _l c_at _r } s_\ 1 2 3
+== ERROR
+error[shape-mismatch]: each result must be a scalar, got shape 2 at 0..25

@@ -4,5 +4,5 @@
 mod lookup;
 mod sig;
 
-pub use lookup::prim_type;
+pub use lookup::{TYPED_IDENTITY, prim_type};
 pub use sig::read;

@@ -4,7 +4,7 @@ use xetal_core::{Expr, Item, Kind, Program};
 use xetal_lex::Number;
 
 use crate::Dicts;
-use crate::build::{Scope, app, lam, literal, zero};
+use crate::build::{Scope, app, lam, literal, typed_result, zero};
 
 struct Walker<'a> {
     dicts: &'a Dicts,
@@ -64,6 +64,11 @@ impl Walker<'_> {
                 }
             }
             Kind::Var(_) | Kind::Global(_) => self.pass(e),
+            Kind::Prim(_) => {
+                if let Some(t) = self.dicts.prims.get(&e.id) {
+                    *e = typed_result(e, t, &self.scope);
+                }
+            }
             Kind::Let { value, body, .. } => {
                 self.binding(value);
                 self.expr(body);

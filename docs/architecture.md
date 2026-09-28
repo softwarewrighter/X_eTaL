@@ -62,7 +62,11 @@ components/
                            xetal-value (runtime values, printing),
                            xetal-arith (scalar rules, scalar extension),
                            xetal-struct (structural built-ins),
-                           xetal-eval (evaluator)
+                           xetal-eval (evaluator; implements the
+                           callback that applies function values)
+  hof/                     xetal-hof (higher-order built-ins: reduce,
+                           scan; operands applied through the
+                           evaluator's callback)
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
                            harness), xetal-spec (case files),
                            xetal-repl (interactive session)

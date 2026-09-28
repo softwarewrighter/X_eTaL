@@ -668,10 +668,20 @@ dependencies = [
  "xetal-base",
  "xetal-catalog",
  "xetal-core",
+ "xetal-hof",
  "xetal-lex",
  "xetal-lint",
  "xetal-struct",
  "xetal-types",
+ "xetal-value",
+]
+
+[[package]]
+name = "xetal-hof"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
  "xetal-value",
 ]
 

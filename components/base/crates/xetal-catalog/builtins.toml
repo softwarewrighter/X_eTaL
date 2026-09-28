@@ -66,6 +66,13 @@ entries = [
   ["c_at", 2, "a -> a -> a"],
 ]
 
+[[group]]
+rule = "B6: reduce and scan (leading axis; reduce is a right fold)"
+entries = [
+  ["r_/", 2, "(a -> a -> a) -> a -> a"],
+  ["s_\\", 2, "(a -> a -> a) -> a -> a"],
+]
+
 [[later]]
 rule = "A2, A3: rotate and axes"
 names = ["r_ev", "o_-"]
@@ -73,6 +80,6 @@ names = ["r_ev", "o_-"]
 [[later]]
 rule = "B6, B7: higher-order, search and random"
 names = [
-  "r_/", "s_\\", "e_ach", "t_able", "i_nner", "c_ompose", "s_wap",
+  "e_ach", "t_able", "i_nner", "c_ompose", "s_wap",
   "i_ndexOf", "m_ember?", "u_nique", "s_ort", "g_rade", "w_here", "r_oll!",
 ]

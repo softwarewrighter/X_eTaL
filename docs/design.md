@@ -156,7 +156,11 @@ quantifies defaults to Int. An integer literal of a quantified type
 becomes `literal + zero`, one of type Float a Float literal. So
 `u:k_ := { @ -> 1 }` used where a Float is expected gives `1.0`, also
 through `p_rint!`, recursion, binding groups and local
-let-polymorphism. The evaluator runs the result as ordinary Core; the
+let-polymorphism. A built-in that makes a result with no typed item
+(reduce's identity for an empty axis) is elaborated at its result
+type: at Float `r_/` becomes `{ #f #x -> f_loat (#f r_/ #x) }`, at a
+quantified number type `... + zero`, so `'+ r_/` of an empty Float
+vector is `0.0`. The evaluator runs the result as ordinary Core; the
 Core shown by `xetal core` is before elaboration.
 `xetal eval` and `xetal run` type-check first and refuse ill-typed
 programs; `--untyped` skips the checker (T6). Laziness (`~`) is not part of the type. Scalar functions will be
@@ -250,6 +254,15 @@ variable is updated in place; a `~` argument is a thunk forced on
 first use and remembered; module definitions are late-bound. In a
 dyadic call a lazy parameter is honoured when the function is a
 lambda written with both parameters; built-ins are strict.
+Higher-order built-ins (`components/hof`, B6) apply their operands
+through a callback the evaluator implements (`xetal_value::Caller`),
+so an operand runs by the ordinary rules whatever it is. `r_/` is a
+right fold along the leading axis, taken from the last major cell in
+one pass; item k of `s_\` is the reduce of the first k cells. A scan
+accumulates from the left in one pass only when that is provably the
+same: `m_ax m_in & |` always, Int `+` and `*` when the magnitudes of
+all items are small enough that no grouping can overflow; otherwise
+each prefix is folded (quadratic, exact).
 Evaluation runs on its own large stack; runaway recursion is a
 `stack-overflow` error. Each top-level expression's value is printed
 (section 10a of lang-choices); runtime errors are diagnostics with
@@ -350,4 +363,9 @@ The pinning tests are written as the implementing saga reaches them
 | D17| Array types | rank-erased: a type names the element type; shape checked at run time (T7) |
 | D18| Identity and tacks | `i_d`, `l_eft`, `r_ight` as separate built-ins (B9) |
 | D19| Structural built-in details | control argument on the left, 1-origin `s_elect`, overtake fill from the items, empty errors, leading-axis `c_at` (B10) |
+| D21| Reduce and scan | `r_/` is a right fold on the leading axis (J, BQN, APL); `s_\` gives prefix reductions, so its last item is the reduce; empty identities for `+ - * / & \| = !=` only, typed by elaboration; multi-axis forms (R1) come with axis subscripts (B6) |
+| D22| Dyadic `e_ach` | one built-in `(a -> b) -> a -> b`; dyadic use by currying, a pending item-wise application zipped with the next argument (B6) |
+| D23| Inner product | pairs the last axis of A with the first of B, as APL and J (B6) |
+| D24| Random numbers | `r_oll!` is random by default; a seed only for tests that need it (B7) |
+| D25| Sorting | `s_ort` / `g_rade` stable ascending on `Ord` types over major cells; `g_rade` is 1-origin (B7) |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

@@ -1,0 +1,5 @@
+# A lambda has no identity either (B6).
+== SOURCE
+'{ _l + _r } r_/ 0 t_ake 1 2
+== ERROR
+error[no-identity]: a function value has no identity, so it cannot reduce an empty array at 0..28

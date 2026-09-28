@@ -45,17 +45,39 @@ pub(crate) fn app(f: Expr, x: Expr) -> Expr {
     node(&f.clone(), Kind::App(Box::new(f), Box::new(x)))
 }
 
+/// A two-argument built-in whose result must have number type `t`:
+/// `{ #f #x -> f_loat (#f prim #x) }` at Float, `... + zero` at a
+/// quantified number type, and the built-in itself otherwise.
+pub(crate) fn typed_result(prim: &Expr, t: &Type, scope: &Scope) -> Expr {
+    let var = |name: &str| node(prim, Kind::Var(name.into()));
+    let call = node(prim, app2(prim.clone(), var("#f"), var("#x")));
+    let body = match zero(prim, t, scope).kind {
+        Kind::Lit(Number::Float(_)) => app(node(prim, Kind::Prim("f_loat".into())), call),
+        Kind::Var(name) => node(
+            prim,
+            app2(node(prim, Kind::Prim("+".into())), call, var(&name)),
+        ),
+        _ => return prim.clone(),
+    };
+    lam("#f".into(), lam("#x".into(), body))
+}
+
+fn app2(f: Expr, left: Expr, right: Expr) -> Kind {
+    Kind::App2 {
+        f: Box::new(f),
+        left: Box::new(left),
+        right: Box::new(right),
+    }
+}
+
 /// The integer literal `n` at number type `t`.
 pub(crate) fn literal(like: &Expr, n: i64, t: &Type, scope: &Scope) -> Expr {
     match zero(like, t, scope).kind {
         Kind::Lit(Number::Float(_)) => node(like, Kind::Lit(Number::Float(n as f64))),
         Kind::Var(name) => {
-            let kind = Kind::App2 {
-                f: Box::new(node(like, Kind::Prim("+".into()))),
-                left: Box::new(node(like, Kind::Lit(Number::Int(n)))),
-                right: Box::new(node(like, Kind::Var(name))),
-            };
-            node(like, kind)
+            let plus = node(like, Kind::Prim("+".into()));
+            let n = node(like, Kind::Lit(Number::Int(n)));
+            node(like, app2(plus, n, node(like, Kind::Var(name))))
         }
         _ => node(like, Kind::Lit(Number::Int(n))),
     }

@@ -1,0 +1,6 @@
+# The operand takes two items of the array and returns one (B6):
+# `r_/ : (a -> a -> a) -> a -> a`, so adding Chars is a type error.
+== SOURCE
+'+ r_/ "abc"
+== ERROR
+error[type-mismatch]: expected a number, found Char at 0..12

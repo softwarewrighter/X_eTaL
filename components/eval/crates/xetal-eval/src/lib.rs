@@ -3,6 +3,7 @@
 //! late-bound definitions, mutable `!` variables, and built-ins.
 
 mod apply;
+mod caller;
 mod machine;
 mod prim;
 mod run;

@@ -1,0 +1,6 @@
+# Only the listed symbols have an identity: reducing an empty axis with
+# any other function is an error (B6).
+== SOURCE
+'m_ax r_/ 0 t_ake 1 2
+== ERROR
+error[no-identity]: m_ax has no identity, so it cannot reduce an empty array at 0..21
