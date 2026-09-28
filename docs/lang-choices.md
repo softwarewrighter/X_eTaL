@@ -53,7 +53,7 @@ This document supersedes `docs/syntax-proposal.md`.
 | N4 | A mutable variable name ends in `!` (see M2). |
 | N5 | Namespaces are a leading prefix: `u:` for the user's definitions, `c:` for the combinator library; no prefix means the system (built-ins). The display shows the prefix as a leading superscript. Plain variables (`x`, `n`) are in the user namespace implicitly. |
 | N6 | User functions are defined and called with the same full name: `u:l_ife := { ... }`, `u:l_ife board`. |
-| N7 | Libraries are brought in by the `u_se<` macro (section 14); an optional left argument renames the library's namespace: `"k:" u_se< "Combinators"`. |
+| N7 | Libraries are brought in by the `u_se<` macro (section 14); the required left argument names the library's namespace in this file: `"k:" u_se< "Combinators"`. |
 
 ## 4. Decorations
 
@@ -76,6 +76,7 @@ This document supersedes `docs/syntax-proposal.md`.
 | A1 | Leading-axis theory: with no subscript, every axis-taking function acts on the first axis (as in J and BQN). |
 | A2 | Rotate is `o_-` (like APL's circle-minus, first-axis rotate). `o_\|` is reserved; `o_\` (transpose) and `o_/` are future candidates for the mirror family. |
 | A3 | Reverse is `r_ev` (`r_ev_2` along axis 2). |
+| A5 | Index origin is 1: `r_ange 5` is `1 2 3 4 5` and index 1 is the first item, consistent with 1-based axes. Not configurable (no APL-style index-origin setting). |
 | A4 | A list of amounts with a multi-axis subscript means every combination, with one leading result axis per subscripted axis: `-1 0 1 o_-_12 B` on an n by m board has shape 3 3 n m. |
 
 ## 6. Lambdas
