@@ -1,32 +1,49 @@
-//! Unification over a substitution, with an occurs check and the `Num`
-//! constraint on type variables.
+//! Unification over a substitution, with an occurs check and the class
+//! constraints `Num` (Int, Float) and `Truthy` (Bool, Int) on type
+//! variables (T5).
 
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 
 use xetal_base::{Diagnostic, Span};
 
-use crate::ty::{Scheme, Type, TypeVar};
+use crate::scheme::Classes;
+use crate::ty::{Type, TypeVar};
 
 #[derive(Debug, Default)]
 pub struct Unifier {
-    subst: HashMap<TypeVar, Type>,
-    num: HashSet<TypeVar>,
+    pub(crate) subst: HashMap<TypeVar, Type>,
+    pub(crate) classes: HashMap<TypeVar, Classes>,
     next: u32,
 }
 
 impl Unifier {
-    pub fn fresh(&mut self) -> Type {
+    pub(crate) fn fresh_in(&mut self, classes: Classes) -> Type {
         self.next += 1;
-        Type::Var(TypeVar(self.next))
+        let v = TypeVar(self.next);
+        if classes != Classes::default() {
+            self.classes.insert(v, classes);
+        }
+        Type::Var(v)
     }
 
-    /// A fresh variable that must be a number.
+    pub fn fresh(&mut self) -> Type {
+        self.fresh_in(Classes::default())
+    }
+
+    /// A fresh variable that must be a number (Int or Float).
     pub fn fresh_num(&mut self) -> Type {
-        let t = self.fresh();
-        if let Type::Var(v) = t {
-            self.num.insert(v);
-        }
-        t
+        self.fresh_in(Classes {
+            num: true,
+            truthy: false,
+        })
+    }
+
+    /// A fresh variable that must be usable as a condition (Bool or Int).
+    pub fn fresh_truthy(&mut self) -> Type {
+        self.fresh_in(Classes {
+            num: false,
+            truthy: true,
+        })
     }
 
     /// Apply the substitution everywhere in `ty`.
@@ -46,7 +63,8 @@ impl Unifier {
         let (a, b) = (self.resolve(expected), self.resolve(found));
         match (&a, &b) {
             _ if a == b => Ok(()),
-            (Type::Var(v), t) | (t, Type::Var(v)) => self.bind(*v, t, span),
+            (Type::Var(v), t) => self.bind(*v, t, span, true),
+            (t, Type::Var(v)) => self.bind(*v, t, span, false),
             (Type::Fn(a1, a2), Type::Fn(b1, b2)) => {
                 self.unify(a1, b1, span)?;
                 self.unify(a2, b2, span)
@@ -59,7 +77,9 @@ impl Unifier {
         }
     }
 
-    fn bind(&mut self, v: TypeVar, t: &Type, span: Span) -> Result<(), Diagnostic> {
+    /// Bind `v` to `t`; `expected` says which side of the mismatch `v`
+    /// was on, for the message.
+    fn bind(&mut self, v: TypeVar, t: &Type, span: Span, expected: bool) -> Result<(), Diagnostic> {
         let mut vars = Vec::new();
         t.vars(&mut vars);
         if vars.contains(&v) {
@@ -69,55 +89,29 @@ impl Unifier {
             )
             .with_span(span));
         }
-        if self.num.contains(&v) {
-            match t {
-                Type::Var(w) => {
-                    self.num.insert(*w);
-                }
-                Type::Int | Type::Float => {}
-                other => {
-                    return Err(Diagnostic::new(
-                        "type-mismatch",
-                        format!("expected a number, found {other}"),
-                    )
-                    .with_span(span));
+        let classes = self.classes.get(&v).copied().unwrap_or_default();
+        match t {
+            Type::Var(w) => {
+                let other = self.classes.get(w).copied().unwrap_or_default();
+                let merged = Classes {
+                    num: classes.num || other.num,
+                    truthy: classes.truthy || other.truthy,
+                };
+                if merged != Classes::default() {
+                    self.classes.insert(*w, merged);
                 }
             }
+            t if !classes.admits(t) => {
+                let (want, got) = (classes.describe().to_string(), t.to_string());
+                let (e, f) = if expected { (want, got) } else { (got, want) };
+                return Err(
+                    Diagnostic::new("type-mismatch", format!("expected {e}, found {f}"))
+                        .with_span(span),
+                );
+            }
+            _ => {}
         }
         self.subst.insert(v, t.clone());
         Ok(())
-    }
-
-    /// Quantify the variables of `ty` not free in `env` (the types of
-    /// the enclosing bindings).
-    pub fn generalize(&self, ty: &Type, env: &[Type]) -> Scheme {
-        let ty = self.resolve(ty);
-        let mut fixed = Vec::new();
-        for t in env {
-            self.resolve(t).vars(&mut fixed);
-        }
-        let mut vars = Vec::new();
-        ty.vars(&mut vars);
-        vars.retain(|v| !fixed.contains(v));
-        let num = vars
-            .iter()
-            .copied()
-            .filter(|v| self.num.contains(v))
-            .collect();
-        Scheme { vars, num, ty }
-    }
-
-    /// A fresh copy of a scheme's type.
-    pub fn instantiate(&mut self, scheme: &Scheme) -> Type {
-        let mut map = HashMap::new();
-        for v in &scheme.vars {
-            let fresh = if scheme.num.contains(v) {
-                self.fresh_num()
-            } else {
-                self.fresh()
-            };
-            map.insert(*v, fresh);
-        }
-        scheme.ty.rename(&map)
     }
 }

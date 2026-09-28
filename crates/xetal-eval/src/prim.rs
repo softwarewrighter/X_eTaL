@@ -36,6 +36,7 @@ const SCALAR: &[(&str, usize)] = &[
     ("n_ot", 1),
     ("e_xp", 1),
     ("l_og", 1),
+    ("f_loat", 1),
     ("p_rint!", 1),
 ];
 
@@ -117,6 +118,7 @@ fn unary<'a>(name: &str, a: &Value<'a>, span: Span) -> Result<Value<'a>, Diagnos
         ("f_loor", F(x)) => whole(x.floor()),
         ("c_eiling", F(x)) => whole(x.ceil()),
         ("e_xp", n) => Ok(Value::Float(n.f().exp())),
+        ("f_loat", n) => Ok(Value::Float(n.f())),
         ("l_og", n) if n.f() <= 0.0 => Err(err("domain", span, "l_og needs a positive number")),
         ("l_og", n) => Ok(Value::Float(n.f().ln())),
         _ => Err(err("unknown-builtin", span, format!("bad call of {name}"))),

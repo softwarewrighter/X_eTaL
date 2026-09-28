@@ -18,6 +18,7 @@ fn arithmetic() {
     assert_eq!(run("c_eiling 2.1"), "3");
     assert_eq!(run("3 m_ax 5"), "5");
     assert_eq!(run("3 m_in 5"), "3");
+    assert_eq!(run("f_loat 3"), "3.0");
 }
 
 #[test]

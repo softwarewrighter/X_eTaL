@@ -52,11 +52,32 @@ fn num_constraint() {
     let m = u.fresh_num();
     let e = u.unify(&m, &Type::Unit, span()).unwrap_err();
     assert_eq!(e.message, "expected a number, found Unit");
+    let k = u.fresh_num();
+    let e = u.unify(&Type::Unit, &k, span()).unwrap_err();
+    assert_eq!(e.message, "expected Unit, found a number");
     // the constraint moves to a variable it is unified with
     let p = u.fresh_num();
     let q = u.fresh();
     u.unify(&p, &q, span()).unwrap();
     assert!(u.unify(&q, &Type::Unit, span()).is_err());
+}
+
+#[test]
+fn truthy_constraint_and_defaulting() {
+    let mut u = Unifier::default();
+    let t = u.fresh_truthy();
+    assert!(u.unify(&t, &Type::Bool, span()).is_ok());
+    let t2 = u.fresh_truthy();
+    let e = u.unify(&t2, &Type::Float, span()).unwrap_err();
+    assert_eq!(e.message, "expected Bool or Int, found Float");
+    // a truthy value used as a number is an Int
+    let (c, n) = (u.fresh_truthy(), u.fresh_num());
+    u.unify(&c, &n, span()).unwrap();
+    assert!(u.unify(&c, &Type::Float, span()).is_err());
+    assert_eq!(u.defaulted(&c), Type::Int);
+    let (b, n) = (u.fresh_truthy(), u.fresh_num());
+    assert_eq!(u.defaulted(&b), Type::Bool);
+    assert_eq!(u.defaulted(&n), Type::Int);
 }
 
 #[test]
@@ -94,6 +115,12 @@ fn display() {
     let n = u.fresh_num();
     let add = fun(n.clone(), fun(n.clone(), n));
     assert_eq!(u.generalize(&add, &[]).to_string(), "Num a => a -> a -> a");
+    let (m, t) = (u.fresh_num(), u.fresh_truthy());
+    let eq = fun(m.clone(), fun(m, t));
+    assert_eq!(
+        u.generalize(&eq, &[]).to_string(),
+        "(Num a, Truthy b) => a -> a -> b"
+    );
     assert_eq!(Type::Array(Box::new(Type::Int)).to_string(), "Array Int");
     assert_eq!(fun(Type::Unit, Type::Int).to_string(), "Unit -> Int");
 }

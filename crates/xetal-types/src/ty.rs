@@ -21,11 +21,12 @@ pub enum Type {
 }
 
 /// A polymorphic type: `forall vars. ty`, with the variables that must
-/// be numbers.
+/// be numbers (`Num`) or usable as conditions (`Truthy`).
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Scheme {
     pub vars: Vec<TypeVar>,
     pub num: Vec<TypeVar>,
+    pub truthy: Vec<TypeVar>,
     pub ty: Type,
 }
 
@@ -119,18 +120,20 @@ impl fmt::Display for Scheme {
         let mut vars = Vec::new();
         self.ty.vars(&mut vars);
         let names = letters(&vars);
-        let num: Vec<&String> = vars
-            .iter()
-            .filter(|v| self.num.contains(v))
-            .filter_map(|v| names.get(v))
-            .collect();
-        if !num.is_empty() {
-            let constraints: Vec<String> = num.iter().map(|n| format!("Num {n}")).collect();
-            if constraints.len() == 1 {
-                write!(f, "{} => ", constraints[0])?;
-            } else {
-                write!(f, "({}) => ", constraints.join(", "))?;
+        let mut constraints: Vec<String> = Vec::new();
+        for v in &vars {
+            let name = names.get(v).cloned().unwrap_or_default();
+            if self.num.contains(v) {
+                constraints.push(format!("Num {name}"));
             }
+            if self.truthy.contains(v) {
+                constraints.push(format!("Truthy {name}"));
+            }
+        }
+        match constraints.len() {
+            0 => {}
+            1 => write!(f, "{} => ", constraints[0])?,
+            _ => write!(f, "({}) => ", constraints.join(", "))?,
         }
         write(&self.ty, &names, f)
     }

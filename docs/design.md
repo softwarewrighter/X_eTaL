@@ -133,13 +133,23 @@ construct it came from.
 
 ## 5. Types
 
-Hindley-Milner inference with let-polymorphism over `Unit Bool Int
-Float Char Array<T> T -> U`, type variables and a `Num` constraint
-(saga types-and-unit). Scalar functions are lifted over arrays by one
-scalar-extension rule. Shape is runtime metadata in v0.
+Hindley-Milner inference (Algorithm W) with let-polymorphism over
+`Unit Bool Int Float Char Array<T> T -> U`, type variables and two
+constraints, `Num` (Int, Float) and `Truthy` (Bool, Int); see
+`crates/xetal-types`. Lambda values are generalized (value
+restriction); other bindings are monomorphic, and at the top level
+their numbers default (Int; a condition Bool) when defined. Module
+definitions may refer to later ones: a use before the definition
+shares one monomorphic type until the definition is inferred.
+Laziness (`~`) is not part of the type. Scalar functions will be
+lifted over arrays by one scalar-extension rule. Shape is runtime
+metadata in v0. Self-application (`x_ 'x_`, as in the textbook Y)
+has no simple type: `infinite-type`.
 
 - Bool is a real type; Bool -> Int implicitly (true 1, false 0); Int
-  -> Bool only from 1 or 0, anything else is an error (T1).
+  -> Bool only from 1 or 0, anything else is an error (T1). Typed
+  Haskell-style (T5): polymorphic number literals, comparisons return a
+  `Truthy` value; an Int variable mixed with a Float needs `f_loat`.
 - `/` always returns Float; `d_iv` and `m_od` are the integer
   operations; division by zero is an error (T2).
 - `=` is exact; `e_q~` is tolerant equality (T3).
