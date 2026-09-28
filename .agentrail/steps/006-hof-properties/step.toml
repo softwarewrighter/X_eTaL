@@ -1,6 +1,6 @@
 number = 6
 slug = "hof-properties"
-status = "pending"
+status = "in-progress"
 description = "higher-order step 6: proptests: reduce over concat, last of scan equals reduc..."
 role = "production"
 context_files = []

@@ -3,6 +3,7 @@
 mod errors;
 mod lambdas;
 mod order;
+mod props;
 mod scalar;
 
 use xetal_eval::eval_source;
