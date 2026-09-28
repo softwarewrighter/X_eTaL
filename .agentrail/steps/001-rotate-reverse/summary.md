@@ -1,0 +1,1 @@
+o_- (APL direction, wrap, amount list = every combination on a new leading axis) and r_ev in new components/axes (xetal-rotate); catalog [[later]] optional now all built-ins exist; saga decisions recorded in lang-choices A2/A4/A6 and design D26-D27. Gate green, pushed.
