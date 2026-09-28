@@ -1,6 +1,6 @@
 [package]
-name = "xetal-types"
-description = "Type inference over Core"
+name = "xetal-prim-types"
+description = "Types of the built-in functions (T5)"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -9,9 +9,4 @@ repository.workspace = true
 
 [dependencies]
 xetal-base.workspace = true
-xetal-lex.workspace = true
-xetal-core.workspace = true
 xetal-ty.workspace = true
-xetal-prim-types.workspace = true
-xetal-elab.workspace = true
-

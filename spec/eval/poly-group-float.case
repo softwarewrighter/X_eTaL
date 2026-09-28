@@ -1,0 +1,8 @@
+# Mutually recursive definitions pass their number types to each other.
+== SOURCE
+u:e_ven? := { n -> n = 0 ? 1; u:o_dd? n - 1 }
+u:o_dd? := { n -> n = 0 ? 0; u:e_ven? n - 1 }
+u:g_ := { c -> c ? u:e_ven? 4; 0.5 }
+u:g_ 1
+== RESULT
+1.0

@@ -1,12 +1,15 @@
 //! Algorithm W over Core programs: top-level items, late-bound module
 //! definitions, top-level defaulting (T5).
 
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 
 use xetal_base::{Diagnostic, NodeId, Span};
 use xetal_core::{Expr, Item, Kind, Program};
 
+use xetal_elab::Dicts;
 use xetal_ty::Unifier;
+
+use crate::record::Record;
 use xetal_ty::mono;
 use xetal_ty::{Scheme, Type};
 
@@ -26,26 +29,27 @@ pub(crate) enum Global {
 pub(crate) struct Infer {
     pub u: Unifier,
     pub globals: HashMap<String, Global>,
-    /// Lexical bindings, innermost last.
-    pub env: Vec<(String, Scheme)>,
+    /// Lexical bindings, innermost last, with the value node of the
+    /// binding (none for a lambda parameter).
+    pub env: Vec<(String, Scheme, Option<NodeId>)>,
     /// Output lines: an optional name and its type, shown at the end.
     pub lines: Vec<(Option<String>, Scheme)>,
-    /// Integer literals and their types (T5), for elaboration.
-    pub lits: Vec<(NodeId, Type)>,
+    /// Facts for elaboration (T6).
+    pub rec: Record,
     /// The last type variable made before the current top-level item.
     pub mark: u32,
 }
 
 /// Infer a whole program. Returns one line per item (`name : type` for
-/// bindings and definitions, the type for expressions) and the integer
-/// literals whose type resolved to Float.
-pub fn infer_program(program: &Program) -> Result<(Vec<String>, HashSet<NodeId>), Diagnostic> {
+/// bindings and definitions, the type for expressions) and the facts
+/// elaboration needs.
+pub fn infer_program(program: &Program) -> Result<(Vec<String>, Dicts), Diagnostic> {
     let mut inf = Infer {
         u: Unifier::default(),
         globals: HashMap::new(),
         env: Vec::new(),
         lines: Vec::new(),
-        lits: Vec::new(),
+        rec: Record::default(),
         mark: 0,
     };
     for item in &program.items {
@@ -68,13 +72,7 @@ pub fn infer_program(program: &Program) -> Result<(Vec<String>, HashSet<NodeId>)
             None => scheme.to_string(),
         }
     });
-    let floats = inf
-        .lits
-        .iter()
-        .filter(|(_, t)| inf.u.resolve(t) == Type::Float)
-        .map(|(id, _)| *id)
-        .collect();
-    Ok((lines.collect(), floats))
+    Ok((lines.collect(), inf.dicts()))
 }
 
 impl Infer {
@@ -85,7 +83,8 @@ impl Infer {
             Item::Let { name, rec, value } => {
                 let t = self.binding(name, *rec, value)?;
                 let scheme = self.close(&t, value, true)?;
-                self.env.push((name.clone(), scheme.clone()));
+                self.env
+                    .push((name.clone(), scheme.clone(), Some(value.id)));
                 (Some(name.clone()), scheme)
             }
             Item::Set { name, value } => {
@@ -117,6 +116,7 @@ impl Infer {
         };
         self.globals
             .insert(name.to_string(), Global::Pending(v.clone(), value.span));
+        self.rec.global(name, value.id);
         let t = self.expr(value)?;
         self.u.unify(&v, &t, value.span)?;
         let open = Global::Open {
@@ -153,13 +153,6 @@ impl Infer {
         Ok(())
     }
 
-    /// A polymorphic integer literal, recorded for elaboration (T6).
-    pub(crate) fn int_literal(&mut self, id: NodeId) -> Type {
-        let t = self.u.fresh_num();
-        self.lits.push((id, t.clone()));
-        t
-    }
-
     /// The type of a binding's value; a recursive binding sees itself.
     pub(crate) fn binding(
         &mut self,
@@ -171,7 +164,8 @@ impl Infer {
             return self.expr(value);
         }
         let v = self.u.fresh();
-        self.env.push((name.to_string(), mono(v.clone())));
+        self.env
+            .push((name.to_string(), mono(v.clone()), Some(value.id)));
         let t = self.expr(value);
         self.env.pop();
         let t = t?;
@@ -180,7 +174,7 @@ impl Infer {
     }
 
     pub(crate) fn set(&mut self, name: &str, value: &Expr) -> Result<Type, Diagnostic> {
-        let Some((_, scheme)) = self.env.iter().rev().find(|(n, _)| n == name) else {
+        let Some((_, scheme, _)) = self.env.iter().rev().find(|(n, ..)| n == name) else {
             return Err(
                 Diagnostic::new("undefined-name", format!("{name} is not defined"))
                     .with_span(value.span),
@@ -201,15 +195,18 @@ impl Infer {
         top: bool,
     ) -> Result<Scheme, Diagnostic> {
         if matches!(value.kind, Kind::Lam { .. }) {
-            let mut fixed: Vec<Type> = self.env.iter().map(|(_, s)| s.ty.clone()).collect();
+            let mut fixed: Vec<Type> = self.env.iter().map(|(_, s, _)| s.ty.clone()).collect();
             fixed.extend(self.globals.values().filter_map(|g| match g {
                 Global::Pending(t, _) | Global::Open { ty: t, .. } => Some(t.clone()),
                 Global::Defined(_) => None,
             }));
-            return Ok(self.u.generalize(t, &fixed));
+            let scheme = self.u.generalize(t, &fixed);
+            self.rec.generalized(value.id, &scheme);
+            return Ok(scheme);
         }
         if top {
-            self.u.default_since(self.mark, value.span)?;
+            self.u
+                .default_since(self.mark, value.span, &self.rec.quantified)?;
             let defaulted = self.u.defaulted(t);
             self.u.unify(&defaulted, t, value.span)?;
         }

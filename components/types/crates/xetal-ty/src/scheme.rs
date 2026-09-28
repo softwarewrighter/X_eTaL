@@ -51,8 +51,10 @@ impl Unifier {
         }
     }
 
-    /// A fresh copy of a scheme's type.
-    pub fn instantiate(&mut self, scheme: &Scheme) -> Type {
+    /// A fresh copy of a scheme's type, and the fresh types standing for
+    /// its `Num` variables, in the order of `scheme.num` (the number-type
+    /// arguments a use of the scheme passes, T6).
+    pub fn instantiate(&mut self, scheme: &Scheme) -> (Type, Vec<Type>) {
         let mut map = HashMap::new();
         for v in &scheme.vars {
             let classes = Classes {
@@ -61,7 +63,8 @@ impl Unifier {
             };
             map.insert(*v, self.fresh_in(classes));
         }
-        scheme.ty.rename(&map)
+        let nums = scheme.num.iter().map(|v| map[v].clone()).collect();
+        (scheme.ty.rename(&map), nums)
     }
 }
 

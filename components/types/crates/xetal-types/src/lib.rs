@@ -2,10 +2,10 @@
 //! (T5), and elaboration of the checked program (T6). The type
 //! representation and unifier live in `xetal-ty`.
 
-mod builtins;
 mod check;
 mod expr;
 mod infer;
+mod record;
 
 pub use check::{STAGE, check_program, check_source};
 pub use infer::infer_program;

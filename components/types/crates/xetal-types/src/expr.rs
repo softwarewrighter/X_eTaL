@@ -4,8 +4,10 @@ use xetal_base::Diagnostic;
 use xetal_core::{Expr, Kind, Param};
 use xetal_lex::Number;
 
-use crate::builtins::prim_type;
+use xetal_prim_types::prim_type;
+
 use crate::infer::{Global, Infer};
+use crate::record::{Args, Binder};
 use xetal_ty::Type;
 use xetal_ty::mono;
 
@@ -67,7 +69,7 @@ impl Infer {
         let arg = match param {
             Param::Name(name) => {
                 let a = self.u.fresh();
-                self.env.push((name.clone(), mono(a.clone())));
+                self.env.push((name.clone(), mono(a.clone()), None));
                 a
             }
             Param::Unit => Type::Unit,
@@ -88,7 +90,7 @@ impl Infer {
     ) -> Result<Type, Diagnostic> {
         let t = self.binding(name, rec, value)?;
         let scheme = self.close(&t, value, false)?;
-        self.env.push((name.to_string(), scheme));
+        self.env.push((name.to_string(), scheme, Some(value.id)));
         let body = self.expr(body);
         self.env.pop();
         body
@@ -104,10 +106,16 @@ impl Infer {
     }
 
     fn variable(&mut self, name: &str, e: &Expr) -> Result<Type, Diagnostic> {
-        match self.env.iter().rev().find(|(n, _)| n == name) {
-            Some((_, scheme)) => {
-                let scheme = scheme.clone();
-                Ok(self.u.instantiate(&scheme))
+        match self.env.iter().rev().find(|(n, ..)| n == name) {
+            Some((_, scheme, binder)) => {
+                let (scheme, binder) = (scheme.clone(), *binder);
+                let (t, nums) = self.u.instantiate(&scheme);
+                let args = match binder {
+                    Some(id) if scheme.vars.is_empty() => Args::Mono(Binder::Node(id)),
+                    _ => Args::Inst(nums),
+                };
+                self.rec.use_of(e.id, args);
+                Ok(t)
             }
             None => Err(
                 Diagnostic::new("undefined-name", format!("{name} is not defined"))
@@ -122,13 +130,22 @@ impl Infer {
         match self.globals.get(name) {
             Some(Global::Defined(scheme)) => {
                 let scheme = scheme.clone();
-                self.u.instantiate(&scheme)
+                let (t, nums) = self.u.instantiate(&scheme);
+                self.rec.use_of(e.id, Args::Inst(nums));
+                t
             }
-            Some(Global::Pending(t, _) | Global::Open { ty: t, .. }) => t.clone(),
+            Some(Global::Pending(t, _) | Global::Open { ty: t, .. }) => {
+                let t = t.clone();
+                self.rec
+                    .use_of(e.id, Args::Mono(Binder::Global(name.into())));
+                t
+            }
             None => {
                 let t = self.u.fresh();
                 self.globals
                     .insert(name.to_string(), Global::Pending(t.clone(), e.span));
+                self.rec
+                    .use_of(e.id, Args::Mono(Binder::Global(name.into())));
                 t
             }
         }

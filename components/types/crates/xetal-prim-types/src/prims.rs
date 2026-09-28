@@ -11,7 +11,7 @@ fn fun(a: Type, b: Type) -> Type {
 }
 
 /// A fresh instance of a built-in's type.
-pub(crate) fn prim_type(name: &str, u: &mut Unifier, span: Span) -> Result<Type, Diagnostic> {
+pub fn prim_type(name: &str, u: &mut Unifier, span: Span) -> Result<Type, Diagnostic> {
     let binary = |a: &Type, r: Type| fun(a.clone(), fun(a.clone(), r));
     Ok(match name {
         "+" | "-" | "*" | "^" | "m_ax" | "m_in" => {

@@ -1,0 +1,6 @@
+# A local polymorphic function is used at Int and at Float (T6).
+== SOURCE
+{ c -> k_ := { @ -> 2 }; p_rint! (k_ @) d_iv 1; c ? k_ @; 2.5 } 1
+== RESULT
+2
+2.0

@@ -23,6 +23,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-elab"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-lex",
+ "xetal-ty",
+]
+
+[[package]]
 name = "xetal-eval"
 version = "0.1.0"
 dependencies = [
@@ -38,6 +48,14 @@ name = "xetal-lex"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+]
+
+[[package]]
+name = "xetal-prim-types"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-ty",
 ]
 
 [[package]]
@@ -61,6 +79,8 @@ version = "0.1.0"
 dependencies = [
  "xetal-base",
  "xetal-core",
+ "xetal-elab",
  "xetal-lex",
+ "xetal-prim-types",
  "xetal-ty",
 ]

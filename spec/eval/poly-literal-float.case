@@ -1,0 +1,8 @@
+# A literal inside a polymorphic function has the type it is used at:
+# u:k_ returns 1, used here where a Float is expected (T6).
+== SOURCE
+u:k_ := { @ -> 1 }
+u:f_ := { c -> c ? u:k_ @; 2.5 }
+u:f_ 1
+== RESULT
+1.0

@@ -180,3 +180,16 @@ fn integer_literals_used_as_float_become_float_literals() {
             .to_string()
     );
 }
+
+#[test]
+fn polymorphic_number_code_takes_the_number_type_it_is_used_at() {
+    let mut program =
+        xetal_core::lower("u:k_ := { @ -> 1 }\nu:f_ := { c -> c ? u:k_ @; 2.5 }\nu:k_ @").unwrap();
+    xetal_types::check_program(&mut program).unwrap();
+    assert_eq!(
+        program.to_string(),
+        "(def u:k_ (lam #n1 (lam @ (app2 #+ 1 #n1))))\n\
+         (def u:f_ (lam c (if c (app (app u:k_ 0.0) @) 2.5)))\n\
+         (eval (app (app u:k_ 0) @))"
+    );
+}

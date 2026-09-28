@@ -1,6 +1,6 @@
 [package]
-name = "xetal-types"
-description = "Type inference over Core"
+name = "xetal-elab"
+description = "Elaboration of type-checked Core: number-type arguments and Float literals (T6)"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -12,6 +12,3 @@ xetal-base.workspace = true
 xetal-lex.workspace = true
 xetal-core.workspace = true
 xetal-ty.workspace = true
-xetal-prim-types.workspace = true
-xetal-elab.workspace = true
-

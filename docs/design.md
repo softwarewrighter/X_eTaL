@@ -145,8 +145,17 @@ mutually recursive definitions form a binding group generalized
 together once no forward reference is pending. A top-level item that
 is not a function is evaluated as soon as it is defined, so every
 constrained variable it introduces defaults then. After inference the
-program is elaborated: an integer literal whose type resolved to
-Float becomes a Float literal, so values agree with their types.
+program is elaborated (`xetal-elab`), so values agree with their
+types. A binding generalized over `Num` variables takes one hidden
+number-type argument per variable (dictionary passing): the zero of
+the type it is used at, `0` or `0.0`, or the caller's own hidden
+argument when the caller is polymorphic too; a variable nothing
+quantifies defaults to Int. An integer literal of a quantified type
+becomes `literal + zero`, one of type Float a Float literal. So
+`u:k_ := { @ -> 1 }` used where a Float is expected gives `1.0`, also
+through `p_rint!`, recursion, binding groups and local
+let-polymorphism. The evaluator runs the result as ordinary Core; the
+Core shown by `xetal core` is before elaboration.
 `xetal eval` and `xetal run` type-check first and refuse ill-typed
 programs; `--untyped` skips the checker (T6). Laziness (`~`) is not part of the type. Scalar functions will be
 lifted over arrays by one scalar-extension rule. Shape is runtime

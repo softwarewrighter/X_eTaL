@@ -1,0 +1,7 @@
+# A recursive polymorphic function passes its number type to itself.
+== SOURCE
+u:c_ount := { n -> n <= 0 ? 0; 1 + u:c_ount n - 1 }
+u:f_ := { c -> c ? u:c_ount 3; 2.5 }
+u:f_ 1
+== RESULT
+3.0

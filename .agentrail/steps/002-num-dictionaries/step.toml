@@ -1,6 +1,6 @@
 number = 2
 slug = "num-dictionaries"
-status = "pending"
+status = "in-progress"
 description = "arrays step 2: TDD close the polymorphic-literal gap (docs/plan.md Saga 3 ret..."
 role = "production"
 context_files = []

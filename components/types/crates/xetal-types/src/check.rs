@@ -13,10 +13,11 @@ pub fn check_source(src: &str) -> Result<Vec<String>, Diagnostic> {
     check_program(&mut xetal_core::lower(src)?)
 }
 
-/// Infer `program`, then elaborate it: integer literals whose type is
-/// Float become Float literals, so evaluation agrees with the types.
+/// Infer `program`, then elaborate it (`xetal-elab`): polymorphic
+/// number code takes the number type it is used at, so evaluation
+/// agrees with the types (T6).
 pub fn check_program(program: &mut Program) -> Result<Vec<String>, Diagnostic> {
-    let (lines, floats) = infer_program(program)?;
-    program.float_literals(&floats);
+    let (lines, dicts) = infer_program(program)?;
+    xetal_elab::elaborate(program, &dicts);
     Ok(lines)
 }

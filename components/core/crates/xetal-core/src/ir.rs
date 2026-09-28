@@ -2,8 +2,6 @@
 //! Every node carries a NodeId and the span of the surface construct it
 //! came from (for traces and the explainer).
 
-use std::collections::HashSet;
-
 use xetal_base::{NodeId, Span};
 use xetal_lex::Number;
 
@@ -11,40 +9,6 @@ use xetal_lex::Number;
 #[derive(Debug, Clone, PartialEq)]
 pub struct Program {
     pub items: Vec<Item>,
-}
-
-impl Program {
-    /// Turn the integer literals with the given ids into Float literals
-    /// (numeric elaboration after type inference, T5).
-    pub fn float_literals(&mut self, ids: &HashSet<NodeId>) {
-        for item in &mut self.items {
-            match item {
-                Item::Def { value, .. } | Item::Let { value, .. } | Item::Set { value, .. } => {
-                    float_literals(value, ids);
-                }
-                Item::Eval(e) => float_literals(e, ids),
-            }
-        }
-    }
-}
-
-fn float_literals(e: &mut Expr, ids: &HashSet<NodeId>) {
-    let children: Vec<&mut Expr> = match &mut e.kind {
-        Kind::Lit(Number::Int(n)) if ids.contains(&e.id) => {
-            e.kind = Kind::Lit(Number::Float(*n as f64));
-            Vec::new()
-        }
-        Kind::Array(items) => items.iter_mut().collect(),
-        Kind::Axes { f: x, .. } | Kind::Lam { body: x, .. } => vec![x],
-        Kind::App(f, x) => vec![f, x],
-        Kind::App2 { f, left, right } => vec![f, left, right],
-        Kind::Let { value, body, .. } | Kind::Set { value, body, .. } => vec![value, body],
-        Kind::If { cond, then, other } => vec![cond, then, other],
-        _ => Vec::new(),
-    };
-    for child in children {
-        float_literals(child, ids);
-    }
 }
 
 #[derive(Debug, Clone, PartialEq)]

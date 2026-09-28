@@ -51,6 +51,8 @@ components/
   core/                    xetal-core: Core IR + desugaring
   render/                  xetal-render: decorated, LaTeX, canonical
   types/                   xetal-ty (types, unifier, schemes),
+                           xetal-prim-types (built-in types),
+                           xetal-elab (number-type elaboration),
                            xetal-types (inference, checking)
   eval/                    xetal-array (dense arrays + kernels),
                            xetal-eval (evaluator)

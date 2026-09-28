@@ -87,8 +87,8 @@ fn generalize_and_instantiate() {
     let identity = fun(a.clone(), a);
     let scheme = u.generalize(&identity, &[]);
     assert_eq!(scheme.to_string(), "a -> a");
-    let one = u.instantiate(&scheme);
-    let two = u.instantiate(&scheme);
+    let (one, _) = u.instantiate(&scheme);
+    let (two, _) = u.instantiate(&scheme);
     u.unify(&one, &fun(Type::Int, Type::Int), span()).unwrap();
     u.unify(&two, &fun(Type::Bool, Type::Bool), span()).unwrap();
 }
@@ -98,7 +98,7 @@ fn free_variables_in_the_environment_stay_monomorphic() {
     let mut u = Unifier::default();
     let a = u.fresh();
     let scheme = u.generalize(&fun(a.clone(), a.clone()), std::slice::from_ref(&a));
-    let inst = u.instantiate(&scheme);
+    let (inst, _) = u.instantiate(&scheme);
     u.unify(&inst, &fun(Type::Int, Type::Int), span()).unwrap();
     assert_eq!(u.resolve(&a), Type::Int);
 }
@@ -162,4 +162,63 @@ mod props {
             prop_assert_eq!(u.resolve(&once), once);
         }
     }
+}
+
+#[test]
+fn instantiation_reports_the_num_instances_in_order() {
+    let mut u = Unifier::default();
+    let (a, b, c) = (u.fresh_num(), u.fresh(), u.fresh_num());
+    let scheme = u.generalize(&fun(a, fun(b, c)), &[]);
+    let (t, nums) = u.instantiate(&scheme);
+    let Type::Fn(first, rest) = t else {
+        panic!("a function")
+    };
+    let Type::Fn(_, last) = *rest else {
+        panic!("a function")
+    };
+    assert_eq!(nums, vec![*first, *last]);
+}
+
+#[test]
+fn defaulting_skips_quantified_variables() {
+    let mut u = Unifier::default();
+    let mark = u.mark();
+    let (a, b) = (u.fresh_num(), u.fresh_num());
+    let Type::Var(va) = a.clone() else {
+        panic!("a variable")
+    };
+    let skip = std::collections::HashSet::from([va]);
+    u.default_since(mark, span(), &skip).unwrap();
+    assert_eq!(u.resolve(&a), a);
+    assert_eq!(u.resolve(&b), Type::Int);
+}
+
+#[test]
+fn defaulting_skips_variables_bound_to_quantified_ones() {
+    let mut u = Unifier::default();
+    let root = u.fresh_num();
+    let mark = u.mark();
+    let alias = u.fresh_num();
+    u.unify(&alias, &root, span()).unwrap();
+    let Type::Var(q) = u.resolve(&root) else {
+        panic!("a variable")
+    };
+    let skip = std::collections::HashSet::from([q]);
+    u.default_since(mark, span(), &skip).unwrap();
+    assert!(matches!(u.resolve(&alias), Type::Var(_)));
+}
+
+#[test]
+fn defaulting_skips_quantified_variables_inside_structures() {
+    let mut u = Unifier::default();
+    let q = u.fresh_num();
+    let mark = u.mark();
+    let f = u.fresh();
+    u.unify(&f, &fun(Type::Unit, q.clone()), span()).unwrap();
+    let Type::Var(qv) = q.clone() else {
+        panic!("a variable")
+    };
+    let skip = std::collections::HashSet::from([qv]);
+    u.default_since(mark, span(), &skip).unwrap();
+    assert_eq!(u.resolve(&q), q);
 }

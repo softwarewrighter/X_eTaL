@@ -1,0 +1,12 @@
+# p_rint! inside a polymorphic function prints the value at the type
+# the function is used at (T6).
+== SOURCE
+u:p_ := { @ -> p_rint! 1 }
+u:f_ := { c -> c ? u:p_ @; 2.5 }
+u:f_ 1
+u:p_ @
+== RESULT
+1.0
+1.0
+1
+1

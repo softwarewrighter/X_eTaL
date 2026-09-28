@@ -1,6 +1,8 @@
 //! Defaulting (T5): constrained variables left open at the top level
 //! become Int (a number) or Bool (a condition).
 
+use std::collections::HashSet;
+
 use xetal_base::{Diagnostic, Span};
 
 use crate::ty::{Type, TypeVar};
@@ -15,9 +17,20 @@ impl Unifier {
     /// Default every constrained variable created after `mark` (the
     /// variables of one top-level item, including those it shares with
     /// a monomorphic definition): the item is evaluated now (T5).
-    pub fn default_since(&mut self, mark: u32, span: Span) -> Result<(), Diagnostic> {
+    /// Variables quantified by a scheme (`skip`) stay open.
+    pub fn default_since(
+        &mut self,
+        mark: u32,
+        span: Span,
+        skip: &HashSet<TypeVar>,
+    ) -> Result<(), Diagnostic> {
+        let mut open = Vec::new();
         for v in mark + 1..=self.next {
-            let t = Type::Var(TypeVar(v));
+            self.resolve(&Type::Var(TypeVar(v))).vars(&mut open);
+        }
+        open.retain(|v| !skip.contains(v));
+        for v in open {
+            let t = Type::Var(v);
             let defaulted = self.defaulted(&t);
             self.unify(&defaulted, &t, span)?;
         }
