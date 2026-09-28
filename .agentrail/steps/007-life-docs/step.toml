@@ -1,8 +1,9 @@
 number = 7
 slug = "life-docs"
-status = "in-progress"
+status = "completed"
 description = "arrays step 7 (user request): docs show only the real, tested Life one-liner,..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T23:34:13"
-commits = []
+completed_at = "2026-09-27T23:35:02"
+commits = ["4c85bdb19bf810577e8edb7001022c929ccae899"]

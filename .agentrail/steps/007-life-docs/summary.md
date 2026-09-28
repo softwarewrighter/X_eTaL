@@ -1,0 +1,1 @@
+docs show only the tested Life line: syntax-proposal marked obsolete, README wording fixed, golden docs-life-line enforces one Life line across docs and the acceptance case
