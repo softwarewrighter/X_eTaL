@@ -1,7 +1,7 @@
 number = 7
-slug = "m5-docs-release"
+slug = "rotate-demo"
 status = "pending"
-description = "rotate-and-axes step 7: README M5 tour (every command a golden), docs sync (p..."
+description = "rotate-and-axes step 6: animated 2-D rotate demo printing frames from the CLI..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T12:23:34"

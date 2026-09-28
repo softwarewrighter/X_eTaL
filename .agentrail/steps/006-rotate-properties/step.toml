@@ -1,4 +1,4 @@
-number = 5
+number = 6
 slug = "rotate-properties"
 status = "pending"
 description = "rotate-and-axes step 5: proptests: rotate n then -n is identity, r_ev twice i..."

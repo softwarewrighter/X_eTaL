@@ -1,0 +1,1 @@
+rotate-and-axes step 5 (inserted at the user's request): add a justfile as the project's front door (as in sw-mlpl): recipes build, build-release, test, gate, reg, fmt, clippy, repl, run FILE, eval EXPR, life; recipes call scripts/*.sh so the gate keeps one implementation; document in README (Quick Start, Development) and CLAUDE.md Build/Test; golden for 'just --list'.
