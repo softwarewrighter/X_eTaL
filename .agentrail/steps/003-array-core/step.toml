@@ -1,9 +1,10 @@
 number = 3
 slug = "array-core"
-status = "in-progress"
+status = "completed"
 description = "arrays step 3: TDD xetal-array dense row-major arrays, rank-0 scalars, strand..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T22:47:11"
+completed_at = "2026-09-27T23:10:23"
 task_type = "code"
-commits = []
+commits = ["e2da9f824b51c1bfd0746c13aa2c3c6c33704aeb"]

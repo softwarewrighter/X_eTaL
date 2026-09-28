@@ -1,0 +1,1 @@
+rank-erased arrays (T7, user decision): xetal-array generic arrays + layout; new crates xetal-value and xetal-arith (scalar extension); strands and strings evaluate; not-a-scalar conditions; spec cases, goldens, docs
