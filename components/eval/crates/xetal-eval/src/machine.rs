@@ -11,7 +11,7 @@ use xetal_lex::Number;
 
 use crate::prim;
 use crate::run::err;
-use xetal_arith::truth;
+use xetal_arith::{Rng, truth};
 use xetal_value::{Closure, Env, Prim, Slot, Value, extend, lookup};
 
 /// Nested evaluations allowed before reporting `stack-overflow`.
@@ -21,6 +21,7 @@ pub(crate) struct Machine<'a, 'o> {
     pub globals: HashMap<String, Value<'a>>,
     pub out: &'o mut dyn Write,
     pub depth: usize,
+    pub rng: Rng,
 }
 
 impl<'a> Machine<'a, '_> {

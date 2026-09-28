@@ -279,6 +279,11 @@ cells of `B` shaped like a major cell of `A`, `u_nique`, `s_ort` and
 `g_rade` treat each major cell as one item (rows compare item by
 item), `m_ember?` is item by item. Items compare like `=` and order
 like `<`; the sort is stable. `w_here` takes a vector of 1s and 0s.
+`r_oll!` draws from a SplitMix64 generator owned by the evaluator,
+seeded unpredictably unless `--seed N` or `XETAL_SEED` is given (for
+tests that need repeatable rolls). A REPL session picks one seed and
+replays every accepted line with it, so a rolled value keeps its
+value from line to line.
 Evaluation runs on its own large stack; runaway recursion is a
 `stack-overflow` error. Each top-level expression's value is printed
 (section 10a of lang-choices); runtime errors are diagnostics with

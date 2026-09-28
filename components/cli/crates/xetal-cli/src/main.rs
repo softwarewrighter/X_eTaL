@@ -17,6 +17,7 @@ fn main() -> ExitCode {
         (None, Some(file)) => Command::Run {
             file,
             untyped: false,
+            seed: None,
         },
         (None, None) => {
             use clap::CommandFactory;

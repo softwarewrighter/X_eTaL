@@ -1,0 +1,27 @@
+# `r_oll! n` (B7) gives a random Int from 1 to n, item by item: each
+# item of n is a separate roll. Results are random, so these lines
+# check what always holds: the range, the shape, the only value of
+# `r_oll! 1`, and that many rolls from a large range are not all equal.
+== SOURCE
+v := r_oll! 1000 r_eshape 6
+'& r_/ (v >= 1) & v <= 6
+t_ally u_nique v
+s_hape r_oll! 2 3 r_eshape 10
+r_oll! 1 1 1
+'& r_/ (r_oll! 5 10 1000) <= 5 10 1000
+1 < t_ally u_nique r_oll! 20 r_eshape 1000000000
+== TYPE
+v : Int
+Bool
+Int
+Int
+Int
+Bool
+Bool
+== RESULT
+1
+6
+2 3
+1 1 1
+1
+1

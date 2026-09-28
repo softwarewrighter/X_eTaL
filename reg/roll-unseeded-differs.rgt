@@ -1,0 +1,3 @@
+command = """a=$(./target/debug/xetal eval -e 'r_oll! 20 r_eshape 1000000000'); b=$(./target/debug/xetal eval -e 'r_oll! 20 r_eshape 1000000000'); [ "$a" != "$b" ] && echo 'two unseeded runs roll differently'"""
+exit_code = 0
+desc = "without a seed each run rolls differently"

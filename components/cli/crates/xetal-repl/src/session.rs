@@ -8,12 +8,22 @@ use std::fmt::Write;
 
 use xetal_base::{Diagnostic, Span};
 
-#[derive(Debug, Default)]
+/// Every replay rolls from the session's seed, so `r_oll!` results of
+/// accepted lines keep their values from line to line.
+#[derive(Debug)]
 pub struct Session {
     accepted: String,
     pending: String,
     shown: usize,
     warned: usize,
+    seed: u64,
+}
+
+impl Default for Session {
+    /// A session with an unpredictable seed.
+    fn default() -> Self {
+        Session::seeded(xetal_eval::Rng::fresh_seed())
+    }
 }
 
 #[derive(Debug, PartialEq, Eq)]
@@ -25,7 +35,7 @@ pub enum Reply {
 }
 
 /// Output, warnings and the outcome of running `source` from the start.
-fn run(source: &str) -> (Vec<u8>, Vec<Diagnostic>, Result<(), Diagnostic>) {
+fn run(source: &str, seed: u64) -> (Vec<u8>, Vec<Diagnostic>, Result<(), Diagnostic>) {
     let mut program = match xetal_core::lower(source) {
         Ok(p) => p,
         Err(e) => return (Vec::new(), Vec::new(), Err(e)),
@@ -34,7 +44,7 @@ fn run(source: &str) -> (Vec<u8>, Vec<Diagnostic>, Result<(), Diagnostic>) {
         return (Vec::new(), Vec::new(), Err(e));
     }
     let mut out = Vec::new();
-    let (warnings, result) = xetal_eval::eval_program(&program, &mut out);
+    let (warnings, result) = xetal_eval::eval_program(&program, &mut out, Some(seed));
     (out, warnings, result)
 }
 
@@ -48,6 +58,17 @@ fn shifted(mut d: Diagnostic, offset: usize) -> Diagnostic {
 }
 
 impl Session {
+    /// A session whose rolls come from `seed`.
+    pub fn seeded(seed: u64) -> Self {
+        Session {
+            accepted: String::new(),
+            pending: String::new(),
+            shown: 0,
+            warned: 0,
+            seed,
+        }
+    }
+
     /// Feed one line of input.
     pub fn feed(&mut self, line: &str) -> Reply {
         let text = match self.pending.is_empty() {
@@ -59,7 +80,7 @@ impl Session {
             false => format!("{}\n{text}", self.accepted),
         };
         let offset = source.len() - text.len();
-        let (out, warnings, result) = run(&source);
+        let (out, warnings, result) = run(&source, self.seed);
         if matches!(&result, Err(d) if d.code == "unclosed") {
             self.pending = text;
             return Reply::More;

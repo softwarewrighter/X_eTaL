@@ -1,0 +1,5 @@
+# `r_oll! : Int -> Int`.
+== SOURCE
+r_oll! 2.5
+== ERROR
+error[type-mismatch]: expected Int, found Float at 0..10

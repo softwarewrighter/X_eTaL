@@ -82,7 +82,7 @@ impl<'a> Machine<'a, '_> {
                 }
                 match xetal_hof::call(p.name, &args, span, self) {
                     Some(result) => result,
-                    None => prim::call(p.name, &args, span, self.out),
+                    None => prim::call(p.name, &args, span, self.out, &mut self.rng),
                 }
             }
             other => Err(err(

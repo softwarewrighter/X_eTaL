@@ -7,8 +7,9 @@ use xetal_base::{Diagnostic, Span};
 use xetal_catalog::find;
 
 use crate::run::err;
-use xetal_arith::{binary, compare, compare_chars, lift1, lift2, num, truth};
+use xetal_arith::{Rng, binary, compare, compare_chars, lift1, lift2, num, truth};
 use xetal_value::Value;
+use xetal_value::{as_array, to_value};
 
 /// The arity of an implemented built-in, or an error.
 pub fn arity(name: &str, span: Span) -> Result<(&'static str, usize), Diagnostic> {
@@ -33,6 +34,7 @@ pub fn call<'a>(
     args: &[Value<'a>],
     span: Span,
     out: &mut dyn Write,
+    rng: &mut Rng,
 ) -> Result<Value<'a>, Diagnostic> {
     if let Some(result) =
         xetal_struct::call(name, args, span).or_else(|| xetal_search::call(name, args, span))
@@ -44,11 +46,25 @@ pub fn call<'a>(
             writeln!(out, "{v}").map_err(|e| err("io", span, e.to_string()))?;
             Ok(v.clone())
         }
+        ("r_oll!", [n]) => roll(n, rng, span),
         ("i_d", [a]) | ("l_eft", [a, _]) | ("r_ight", [_, a]) => Ok(a.clone()),
         (_, [a, b]) => lift2(a, b, span, |x, y| scalar2(name, x, y, span)),
         (_, [a]) => lift1(a, |x| unary(name, x, span)),
         _ => Err(err("unknown-builtin", span, format!("bad call of {name}"))),
     }
+}
+
+/// `r_oll! n`: one roll in `1..=k` for every item k of n, in order.
+fn roll<'a>(n: &Value<'a>, rng: &mut Rng, span: Span) -> Result<Value<'a>, Diagnostic> {
+    let rolled = as_array(n).map(|k| match k {
+        Value::Int(k) if *k >= 1 => Ok(Value::Int(rng.roll(*k as u64) as i64)),
+        other => Err(err(
+            "domain",
+            span,
+            format!("r_oll! needs a positive count, got {other}"),
+        )),
+    })?;
+    Ok(to_value(rolled))
 }
 
 /// A dyadic scalar built-in on two scalars.

@@ -1,0 +1,3 @@
+command = """a=$(./target/debug/xetal eval --seed 42 -e 'r_oll! 50 r_eshape 1000'); b=$(XETAL_SEED=42 ./target/debug/xetal eval -e 'r_oll! 50 r_eshape 1000'); [ "$a" = "$b" ] && echo 'the same seed (flag or XETAL_SEED) gives the same rolls'"""
+exit_code = 0
+desc = "a seed repeats the rolls, given by flag or environment"

@@ -54,3 +54,25 @@ fn an_unclosed_bracket_continues() {
     assert_eq!(say(&mut s, "}"), (String::new(), String::new()));
     assert_eq!(say(&mut s, "u:f_ 41").0, "42\n");
 }
+
+#[test]
+fn a_rolled_value_keeps_its_value_across_lines() {
+    let mut s = Session::default();
+    assert_eq!(
+        say(&mut s, "x := r_oll! 1000000000"),
+        (String::new(), String::new())
+    );
+    let first = say(&mut s, "x");
+    assert_eq!(say(&mut s, "x"), first);
+    assert_eq!(say(&mut s, "x = x"), ("1\n".to_string(), String::new()));
+}
+
+#[test]
+fn each_new_roll_is_fresh() {
+    let mut s = Session::default();
+    let rolls: Vec<(String, String)> = (0..5).map(|_| say(&mut s, "r_oll! 1000000000")).collect();
+    assert!(
+        rolls.iter().any(|r| r != &rolls[0]),
+        "five equal rolls: {rolls:?}"
+    );
+}

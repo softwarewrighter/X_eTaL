@@ -1,0 +1,5 @@
+# A roll needs at least one face.
+== SOURCE
+r_oll! 3 0
+== ERROR
+error[domain]: r_oll! needs a positive count, got 0 at 0..10

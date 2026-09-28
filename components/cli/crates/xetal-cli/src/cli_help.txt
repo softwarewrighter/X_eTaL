@@ -16,6 +16,8 @@ STAGES:
     repl    interactive session reading lines from stdin: definitions
             and types persist, a failing line is dropped, an unclosed
             bracket continues on the next line
+  eval and run take --seed N (or the XETAL_SEED environment variable)
+  to repeat the random rolls of r_oll!; without one they differ.
   A built-in that is not implemented yet is error[unsupported].
   Errors and warnings print as error[CODE] / warning[CODE] on stderr.
 

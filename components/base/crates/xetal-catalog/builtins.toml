@@ -45,6 +45,7 @@ entries = [
 rule = "B7, B9: effects, identity and the tacks"
 entries = [
   ["p_rint!", 1, "a -> a"],
+  ["r_oll!", 1, "Int -> Int"],
   ["i_d", 1, "a -> a"],
   ["l_eft", 2, "a -> b -> a"],
   ["r_ight", 2, "a -> b -> b"],
@@ -102,9 +103,3 @@ entries = [
 [[later]]
 rule = "A2, A3: rotate and axes"
 names = ["r_ev", "o_-"]
-
-[[later]]
-rule = "B6, B7: higher-order, search and random"
-names = [
-  "r_oll!",
-]

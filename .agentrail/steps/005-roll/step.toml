@@ -1,6 +1,6 @@
 number = 5
 slug = "roll"
-status = "pending"
+status = "in-progress"
 description = "higher-order step 5: TDD r_oll! (random 1..n item-wise), --seed / XETAL_SEED ..."
 role = "production"
 context_files = []

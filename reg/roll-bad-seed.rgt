@@ -1,0 +1,3 @@
+command = "XETAL_SEED=abc ./target/debug/xetal eval -e 'r_oll! 6'"
+exit_code = 1
+desc = "a malformed XETAL_SEED is an error"

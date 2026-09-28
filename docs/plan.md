@@ -191,8 +191,8 @@ What to do differently:
   goldens in words.
 - Known gaps: `e_xp` overflow prints `inf` (not valid input); a REPL
   session replays every accepted line, so its cost grows with the
-  session (fine for interactive use; revisit when effects such as
-  `r_oll!` make replay nondeterministic).
+  session (fine for interactive use). Replaying `r_oll!` is
+  deterministic: a session keeps one seed (Saga 5).
 
 ## Saga 5 -- higher-order (M4)  [ACTIVE]
 

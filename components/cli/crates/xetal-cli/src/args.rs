@@ -67,6 +67,10 @@ pub(crate) struct EvalArgs {
     /// Skip the type checker (for experiments such as the Y combinator).
     #[arg(long)]
     pub(crate) untyped: bool,
+    /// Seed `r_oll!` so a run can be repeated (default: XETAL_SEED, else
+    /// unpredictable).
+    #[arg(long)]
+    pub(crate) seed: Option<u64>,
 }
 
 /// `render` options: decorated Unicode by default.
@@ -104,6 +108,9 @@ pub(crate) enum Command {
         /// Skip the type checker.
         #[arg(long)]
         untyped: bool,
+        /// Seed `r_oll!` (default: XETAL_SEED, else unpredictable).
+        #[arg(long)]
+        seed: Option<u64>,
     },
     /// Start an interactive session.
     Repl,

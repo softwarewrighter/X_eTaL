@@ -3,6 +3,7 @@
 use std::collections::HashMap;
 use std::io::Write;
 
+use xetal_arith::Rng;
 use xetal_base::{Diagnostic, Span};
 use xetal_core::Program;
 
@@ -22,16 +23,18 @@ pub fn eval_source(
     out: &mut (dyn Write + Send),
 ) -> (Vec<Diagnostic>, Result<(), Diagnostic>) {
     match xetal_core::lower(src) {
-        Ok(program) => eval_program(&program, out),
+        Ok(program) => eval_program(&program, out, None),
         Err(e) => (Vec::new(), Err(e)),
     }
 }
 
 /// Evaluate an already lowered (and possibly type-elaborated) program;
-/// see [`eval_source`].
+/// see [`eval_source`]. `r_oll!` draws from `seed`, or from a fresh
+/// unpredictable seed when there is none.
 pub fn eval_program(
     program: &Program,
     out: &mut (dyn Write + Send),
+    seed: Option<u64>,
 ) -> (Vec<Diagnostic>, Result<(), Diagnostic>) {
     let warnings = xetal_lint::warnings(program);
     let result = std::thread::scope(|scope| {
@@ -42,6 +45,7 @@ pub fn eval_program(
                     globals: HashMap::new(),
                     out,
                     depth: 0,
+                    rng: Rng::seeded(seed.unwrap_or_else(Rng::fresh_seed)),
                 };
                 machine.run(program)
             });

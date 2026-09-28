@@ -31,8 +31,8 @@ pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
         return render(args, &source);
     }
     match command {
-        Command::Eval(EvalArgs { untyped, .. }) | Command::Run { untyped, .. } => {
-            return evaluate(&source, *untyped);
+        Command::Eval(EvalArgs { untyped, seed, .. }) | Command::Run { untyped, seed, .. } => {
+            return evaluate(&source, *untyped, seed_or_env(*seed)?);
         }
         _ => {}
     }
@@ -63,15 +63,29 @@ fn render(args: &RenderArgs, source: &str) -> Result<String, Diagnostic> {
     }
 }
 
+/// The `--seed` given, else `XETAL_SEED`, else none (unpredictable).
+fn seed_or_env(seed: Option<u64>) -> Result<Option<u64>, Diagnostic> {
+    match (seed, std::env::var("XETAL_SEED")) {
+        (Some(s), _) => Ok(Some(s)),
+        (None, Ok(text)) => text.trim().parse().map(Some).map_err(|_| {
+            Diagnostic::new(
+                "bad-seed",
+                format!("XETAL_SEED must be a whole number, got {text:?}"),
+            )
+        }),
+        (None, Err(_)) => Ok(None),
+    }
+}
+
 /// Type-check (unless `untyped`), then evaluate, streaming results to
 /// stdout; warnings go to stderr.
-fn evaluate(source: &str, untyped: bool) -> Result<String, Diagnostic> {
+fn evaluate(source: &str, untyped: bool, seed: Option<u64>) -> Result<String, Diagnostic> {
     let mut program = xetal_core::lower(source)?;
     if !untyped {
         xetal_types::check_program(&mut program)?;
     }
     let mut stdout = std::io::stdout();
-    let (warnings, result) = xetal_eval::eval_program(&program, &mut stdout);
+    let (warnings, result) = xetal_eval::eval_program(&program, &mut stdout, seed);
     for warning in warnings {
         eprintln!("{warning}");
     }

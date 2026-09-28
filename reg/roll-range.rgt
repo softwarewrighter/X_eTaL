@@ -1,0 +1,4 @@
+command = "./target/debug/xetal eval -e 'r_oll! 200 r_eshape 6'"
+preprocess = '''tr ' ' '\n' | awk '$1 >= 1 && $1 <= 6 && $1 == int($1) { ok++ } END { print ok " of " NR " rolls are in 1..6" }''''
+exit_code = 0
+desc = "r_oll! values are random; the golden checks every roll of a die is in 1..6"

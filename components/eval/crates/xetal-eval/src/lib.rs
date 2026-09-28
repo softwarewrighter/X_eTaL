@@ -9,4 +9,5 @@ mod prim;
 mod run;
 
 pub use run::{eval_program, eval_source};
+pub use xetal_arith::Rng;
 pub use xetal_value::Value;
