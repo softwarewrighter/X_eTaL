@@ -1,6 +1,6 @@
-name = "foundations"
+name = "calculus"
 status = "active"
-current_step = 8
-created_at = "2026-09-27T12:40:28"
+current_step = 1
+created_at = "2026-09-27T21:12:46"
 plan_file = ".agentrail/plan.md"
 retroactive = false

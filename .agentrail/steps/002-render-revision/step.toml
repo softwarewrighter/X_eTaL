@@ -1,0 +1,9 @@
+number = 2
+slug = "render-revision"
+status = "pending"
+description = "calculus step 2: TDD the xetal-render revision to docs/lang-choices.md sectio..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T21:13:35"
+task_type = "feature"
+commits = []

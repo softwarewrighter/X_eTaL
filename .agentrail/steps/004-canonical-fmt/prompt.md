@@ -1,0 +1,1 @@
+calculus step 4: TDD the canonical formatter in xetal-render: fully parenthesized, one statement per line, canonical spacing, printing every construct of the step-3 surface AST; xetal fmt; proptest parse(fmt(parse x)) == parse x over generated ASTs; spec cases with CANONICAL sections.

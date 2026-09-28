@@ -1,0 +1,3 @@
+targets = ["CLAUDE.md"]
+auto_apply = false
+exclude = []

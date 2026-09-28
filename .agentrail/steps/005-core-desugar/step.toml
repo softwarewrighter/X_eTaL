@@ -1,0 +1,9 @@
+number = 5
+slug = "core-desugar"
+status = "pending"
+description = "calculus step 5: TDD xetal-core: Core IR (Lit, Unit, Var, Prim, Lam with a la..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T21:13:35"
+task_type = "feature"
+commits = []

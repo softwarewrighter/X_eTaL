@@ -294,8 +294,10 @@ specialization or derived function.
 
 Normative docs (read before working):
 
+- `docs/lang-choices.md` -- the language decisions (governs where
+  other docs disagree)
 - `docs/PRD.md` -- requirements and milestones M0..M9
-- `docs/design.md` -- v0 language design + open decisions register
+- `docs/design.md` -- language design + decisions register
 - `docs/architecture.md` -- crates, pipeline, test architecture
 - `docs/plan.md` -- saga roadmap
 - `docs/research.txt`, `docs/research2.txt` -- archival design
@@ -409,8 +411,9 @@ array: dense arrays + primitive kernels (peer of the front end)
 - Do NOT ask for permission -- the step prompt is the instruction.
 - Commit before complete; commit `.agentrail/` metadata with the work.
 - TDD and the quality gate are mandatory.
-- Resolve an open decision (docs/design.md section 9) only with a
-  pinning test, and record it.
+- Language decisions are made with the user and recorded in
+  `docs/lang-choices.md`; implement them test-first, and ask before
+  resolving anything that document leaves open.
 - NEVER run `sw-install` unless the user explicitly asks.
 
 ## Useful Commands

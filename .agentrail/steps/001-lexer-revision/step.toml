@@ -1,0 +1,9 @@
+number = 1
+slug = "lexer-revision"
+status = "pending"
+description = "calculus step 1: TDD the xetal-lex revision to docs/lang-choices.md (sections..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T21:13:35"
+task_type = "feature"
+commits = []

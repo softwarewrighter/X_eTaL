@@ -383,24 +383,26 @@ newline `\\`. Names: `\underline{\mathrm{t}}_{12}`, `+^{\mathrm{r}}`,
 `\underline{\mathrm{now}}_{@}`; `*` is `\ast`, `|` is `\mid`, `{ }`
 are escaped, `_l` is `\_\mathrm{l}`.
 
-## 9. Open decisions register
+## 9. Decisions register
 
-| ID | Question                                  | Decide in   |
-| -- | ----------------------------------------- | ----------- |
-| D1 | Binding token: `name =` vs `<-` / `:=`    | Saga 1 parser |
-| D2 | Newline as statement separator            | Saga 1 parser |
-| D3 | `{ _l }` and `{ }` lambda semantics       | Saga 1 desugar |
-| D4 | Sections: is `2 +` a partial app (`+_` is a lex error) | Saga 1 parser |
-| D5 | Bool as Num                               | DIRECTION DECIDED (section 5): Bool type, implicit Bool <-> Int (1/0, other Int is an error); rule pinned in Saga 2 types |
-| D6 | Index origin                              | Saga 3 arrays |
-| D7 | Multi-axis rotate result shape            | Saga 5 rotate |
-| D8 | Strict vs lazy; Y vs Z                    | Saga 6 combinators |
-| D9 | Dyadic train forms                        | Saga 7 trains |
-| D10| File extension (`.xtl` provisional)       | Saga 1 CLI |
-| D11| Life one-liner rule                       | DECIDED: 6.2, `spec/integration/life-blinker.case` |
-| D12| Applying a function-valued lambda argument (`_l` / `_r` used as a function, needed by S, B, C combinators) | Saga 6 combinators; lexer rejects `_r_` until then |
-| D13| Accept decorated Unicode as input          | DECIDED: raw ASCII only (revisit much later); section 8 |
-| D14| Namespaces as superscripts (user direction: user functions carry an explicit namespace such as `u`, libraries their own letter such as `c` for combinators, plus an `as`-style alias for clashes). Conflicts with superscript = derivation (`+^r`) and with the implemented dotted prefix `m.f_`; options to be put to the user | Before the Saga 1 parser step |
+All decisions below are made; the entries point to
+`docs/lang-choices.md`, which records each decision and its reasons.
+The pinning tests are written as the implementing saga reaches them
+(`docs/plan.md`).
 
-Each decision is recorded here and in the test that pins it
-(test name or spec case referenced in the table when decided).
+| ID | Question | Decision |
+| -- | -------- | -------- |
+| D1 | Binding token | `:=`; `=` is always equality (lang-choices S1) |
+| D2 | Newline as statement separator | yes at top level and inside `{ }`; whitespace inside `( )` and `[ ]`; `;` for one line (S2, S3) |
+| D3 | `{ _l }` and `{ }` lambdas | `_l` requires `_r`, else use named parameters; niladic is `{ @ -> ... }` (L1, L6) |
+| D4 | Sections (`2 +`, `- 3`) | a symbol applied to one argument is an error (SC1) |
+| D5 | Bool as Num | real Bool type; implicit Bool -> Int (1/0), Int -> Bool only from 1/0 (T1) |
+| D6 | Index origin | 1, not configurable; `o_ffsets` for 0-based offsets (A5, B5) |
+| D7 | Multi-axis rotate result shape | every combination, one leading axis per subscripted axis (A4); Life reduces with `'+ r_/_12` (R1) |
+| D8 | Strict vs lazy; Y vs Z | strict by default, `~` lazy parameters (call-by-need); Y works, Z too (E1-E4) |
+| D9 | Dyadic train forms | fork `x [F G H] y` is `(x F y) G (x H y)`; `[F G]` is atop (TR1-TR3) |
+| D10| File extension | `.xtl`, shebang `#!/usr/bin/env xetal` (S5) |
+| D11| Life one-liner rule | Conway's rule, section 6.2 |
+| D12| Applying a function-valued argument | `_l_ x`, `(expr)_ x`; named function parameters `f_` (F5, L4) |
+| D13| Decorated Unicode as input | not accepted; ASCII only (I1) |
+| D14| Namespaces | leading prefixes `u:` (program), `l:` (library), aliases via `u_se<` (N5, MC1-MC9); superscripts after a value are exponents (D-1 to D-6) |
