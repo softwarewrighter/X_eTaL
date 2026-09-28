@@ -146,6 +146,7 @@ Named instead of symbols: `n_eg` (negate), `n_ot` (not), `m_od`
 | B1 | Built-ins are named with full words or standard short forms, first letter underlined: `r_eshape`, `r_ange`, `e_ach`, `t_able`, `t_ally`, `f_irst`, `r_ev`, `n_eg`. |
 | B2 | A punctuation-suffixed name is used only where the mark carries APL meaning: `r_/` reduce, `s_\` scan, `o_-` rotate (and `o_\` transpose, later). |
 | B3 | One name per built-in; no aliases (`r_ev` exists, `r_everse` does not). |
+| B4 | Structural built-ins (one arity each, leading axis default, `_digits` for other axes, 1-origin): `s_hape` (shape vector), `r_eshape` (dyadic, reuses elements cyclically), `r_ange` (1..n), `t_ally` (items along the leading axis), `f_irst` (first major cell), `t_ake` / `d_rop` (first n / all but first n; negative counts from the end), `s_elect` (items at indices; "index of" would be a separate `i_ndexOf`), `r_avel` (all elements as a vector), `c_at` (join along the leading axis). |
 
 The Life one-liner is unaffected (it uses only `r_/` and `o_-`);
 words appear in the surrounding code, e.g.
