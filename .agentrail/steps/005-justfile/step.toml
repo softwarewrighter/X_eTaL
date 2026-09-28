@@ -1,8 +1,9 @@
 number = 5
 slug = "justfile"
-status = "in-progress"
+status = "completed"
 description = "rotate-and-axes step 5 (inserted at the user's request): add a justfile as th..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T12:46:23"
-commits = []
+completed_at = "2026-09-28T16:19:14"
+commits = ["a1b46e12d3c5202bfef5ae2a9388060eec450e27"]

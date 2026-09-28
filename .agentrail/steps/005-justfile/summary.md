@@ -1,0 +1,1 @@
+Added justfile (build, build-release, test, fmt, clippy, reg, locks, gate, repl, run, eval, life) calling scripts/*.sh; goldens just-list and just-eval; README and CLAUDE.md document it. Gate (via just gate) green, pushed.
