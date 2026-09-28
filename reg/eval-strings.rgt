@@ -1,0 +1,3 @@
+command = """./target/debug/xetal eval -e '"hello" = "help!"; 3 t_ake "hello"; "ab" c_at "cd"; 10.0 ^ 20'"""
+exit_code = 0
+desc = "strings are Char vectors: comparison, take, join; Floats print with a dot"

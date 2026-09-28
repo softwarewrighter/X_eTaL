@@ -100,6 +100,18 @@ fn power<'a>(a: Num, b: Num, span: Span) -> Result<Value<'a>, Diagnostic> {
     }
 }
 
+/// Comparisons of characters, in ASCII order (T8).
+pub fn compare_chars<'a>(op: &str, a: char, b: char) -> Value<'a> {
+    Value::Bool(match op {
+        "=" => a == b,
+        "!=" => a != b,
+        "<" => a < b,
+        ">" => a > b,
+        "<=" => a <= b,
+        _ => a >= b,
+    })
+}
+
 /// Comparisons: exact, numeric across Int and Float (T3).
 pub fn compare<'a>(op: &str, a: Num, b: Num) -> Value<'a> {
     let (x, y) = (a.f(), b.f());

@@ -136,7 +136,8 @@ construct it came from.
 Hindley-Milner inference (Algorithm W) with let-polymorphism over
 `Unit Bool Int Float Char T -> U` (rank-erased: an array has its
 element type, T7), type variables and two
-constraints, `Num` (Int, Float) and `Truthy` (Bool, Int); see
+constraints, `Num` (Int, Float) and `Truthy` (Bool, Int), plus `Eq`
+(any scalar) and `Ord` (numbers and Char) for comparisons (T8); see
 `components/types/crates/xetal-types`. Lambda values are generalized (value
 restriction); other bindings are monomorphic, and at the top level
 their numbers default (Int; a condition Bool) when defined. Module
@@ -349,3 +350,4 @@ The pinning tests are written as the implementing saga reaches them
 | D17| Array types | rank-erased: a type names the element type; shape checked at run time (T7) |
 | D18| Identity and tacks | `i_d`, `l_eft`, `r_ight` as separate built-ins (B9) |
 | D19| Structural built-in details | control argument on the left, 1-origin `s_elect`, overtake fill from the items, empty errors, leading-axis `c_at` (B10) |
+| D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

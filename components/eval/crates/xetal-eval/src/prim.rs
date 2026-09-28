@@ -7,7 +7,7 @@ use xetal_base::{Diagnostic, Span};
 use xetal_catalog::find;
 
 use crate::run::err;
-use xetal_arith::{binary, compare, lift1, lift2, num, truth};
+use xetal_arith::{binary, compare, compare_chars, lift1, lift2, num, truth};
 use xetal_value::Value;
 
 /// The arity of an implemented built-in, or an error.
@@ -61,9 +61,10 @@ fn scalar2<'a>(
             let (a, b) = (truth(a, span)?, truth(b, span)?);
             Ok(Value::Bool(if name == "&" { a && b } else { a || b }))
         }
-        "=" | "!=" | "<" | ">" | "<=" | ">=" | "e_q~" => {
-            Ok(compare(name, num(a, span)?, num(b, span)?))
-        }
+        "=" | "!=" | "<" | ">" | "<=" | ">=" | "e_q~" => match (a, b) {
+            (Value::Char(x), Value::Char(y)) if name != "e_q~" => Ok(compare_chars(name, *x, *y)),
+            _ => Ok(compare(name, num(a, span)?, num(b, span)?)),
+        },
         _ => binary(name, num(a, span)?, num(b, span)?, span),
     }
 }

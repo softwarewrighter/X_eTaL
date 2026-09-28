@@ -220,3 +220,25 @@ fn defaulting_skips_quantified_variables_inside_structures() {
     u.default_since(mark, span(), &skip).unwrap();
     assert_eq!(u.resolve(&q), q);
 }
+
+#[test]
+fn eq_and_ord_classes() {
+    // T8: `=` on any scalar type, the orderings on numbers and Char.
+    use xetal_ty::Classes;
+    let (eq, ord) = (
+        Classes::named("Eq").unwrap(),
+        Classes::named("Ord").unwrap(),
+    );
+    let mut u = Unifier::default();
+    let a = u.fresh_in(eq);
+    assert!(u.unify(&a, &Type::Char, span()).is_ok());
+    let b = u.fresh_in(ord);
+    let e = u.unify(&b, &Type::Bool, span()).unwrap_err();
+    assert_eq!(e.message, "expected a number or Char, found Bool");
+    let c = u.fresh_in(ord);
+    let d = u.fresh_num();
+    u.unify(&c, &d, span()).unwrap();
+    let e = u.unify(&c, &Type::Char, span()).unwrap_err();
+    assert_eq!(e.message, "expected a number, found Char");
+    assert!(Classes::named("Show").is_none());
+}

@@ -50,7 +50,7 @@ fn user_functions() {
     assert_eq!(types("{ x -> x }"), "a -> a");
     assert_eq!(
         types("u:e_q := { _l = _r }"),
-        "u:e_q : (Num a, Truthy b) => a -> a -> b"
+        "u:e_q : (Eq a, Truthy b) => a -> a -> b"
     );
 }
 
@@ -217,4 +217,22 @@ fn identity_and_tacks() {
     assert_eq!(types("'r_ight"), "a -> b -> b");
     assert_eq!(types("\"ab\" l_eft 1"), "Char");
     assert_eq!(type_error("1 i_d 2").0, "type-mismatch");
+}
+
+#[test]
+fn comparisons_on_characters() {
+    // T8
+    assert_eq!(types("\"abc\" = \"abd\""), "Bool");
+    assert_eq!(types("\"a\" < \"b\""), "Bool");
+    assert_eq!(
+        types("u:s_ame := { x y -> x = y }"),
+        "u:s_ame : (Eq a, Truthy b) => a -> a -> b"
+    );
+    assert_eq!(
+        types("u:b_efore := { x y -> x < y }"),
+        "u:b_efore : (Ord a, Truthy b) => a -> a -> b"
+    );
+    assert_eq!(type_error("\"a\" = 1").0, "type-mismatch");
+    assert_eq!(type_error("(1 = 1) < 2 = 2").0, "type-mismatch");
+    assert_eq!(type_error("\"a\" e_q~ \"a\"").0, "type-mismatch");
 }

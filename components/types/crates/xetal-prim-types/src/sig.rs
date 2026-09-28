@@ -4,7 +4,7 @@
 use std::collections::HashMap;
 
 use xetal_base::Diagnostic;
-use xetal_ty::{Type, Unifier};
+use xetal_ty::{Classes, Type, Unifier};
 
 /// The signature's type, with a fresh variable for each name.
 pub fn read(sig: &str, u: &mut Unifier) -> Result<Type, Diagnostic> {
@@ -16,12 +16,8 @@ pub fn read(sig: &str, u: &mut Unifier) -> Result<Type, Diagnostic> {
             .filter(|w| !w.is_empty())
             .collect();
         if let [class, var] = words[..] {
-            let fresh = if class == "Num" {
-                u.fresh_num()
-            } else {
-                u.fresh_truthy()
-            };
-            vars.insert(var.to_string(), fresh);
+            let class = Classes::named(class).ok_or_else(|| bad(sig))?;
+            vars.insert(var.to_string(), u.fresh_in(class));
         }
     }
     let spaced = ty.replace('(', " ( ").replace(')', " ) ");

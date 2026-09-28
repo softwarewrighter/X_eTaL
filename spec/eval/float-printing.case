@@ -1,0 +1,12 @@
+# A Float prints in the shortest form that reads back exactly, always
+# with a `.` and never in exponent notation (10a).
+== SOURCE
+10.0 ^ 20
+10.0 ^ -7
+5.0
+1.0 / 3
+== RESULT
+100000000000000000000.0
+0.0000001
+5.0
+0.3333333333333333

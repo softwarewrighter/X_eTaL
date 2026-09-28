@@ -27,14 +27,14 @@ entries = [
 ]
 
 [[group]]
-rule = "T1, T3: comparisons and logic"
+rule = "T1, T3, T8: comparisons and logic"
 entries = [
-  ["=", 2, "(Num a, Truthy b) => a -> a -> b"],
-  ["!=", 2, "(Num a, Truthy b) => a -> a -> b"],
-  ["<", 2, "(Num a, Truthy b) => a -> a -> b"],
-  [">", 2, "(Num a, Truthy b) => a -> a -> b"],
-  ["<=", 2, "(Num a, Truthy b) => a -> a -> b"],
-  [">=", 2, "(Num a, Truthy b) => a -> a -> b"],
+  ["=", 2, "(Eq a, Truthy b) => a -> a -> b"],
+  ["!=", 2, "(Eq a, Truthy b) => a -> a -> b"],
+  ["<", 2, "(Ord a, Truthy b) => a -> a -> b"],
+  [">", 2, "(Ord a, Truthy b) => a -> a -> b"],
+  ["<=", 2, "(Ord a, Truthy b) => a -> a -> b"],
+  [">=", 2, "(Ord a, Truthy b) => a -> a -> b"],
   ["e_q~", 2, "(Num a, Truthy b) => a -> a -> b"],
   ["&", 2, "(Truthy a, Truthy b) => a -> a -> b"],
   ["|", 2, "(Truthy a, Truthy b) => a -> a -> b"],

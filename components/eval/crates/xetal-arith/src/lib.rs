@@ -8,4 +8,4 @@ mod ops;
 
 pub use lift::{lift1, lift2};
 pub use num::{Num, num, truth};
-pub use ops::{binary, compare};
+pub use ops::{binary, compare, compare_chars};

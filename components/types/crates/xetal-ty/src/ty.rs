@@ -4,6 +4,8 @@
 use std::collections::HashMap;
 use std::fmt;
 
+use crate::Classes;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub struct TypeVar(pub u32);
 
@@ -23,8 +25,8 @@ pub enum Type {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Scheme {
     pub vars: Vec<TypeVar>,
-    pub num: Vec<TypeVar>,
-    pub truthy: Vec<TypeVar>,
+    /// The class constraints of quantified variables.
+    pub classes: Vec<(TypeVar, Classes)>,
     pub ty: Type,
 }
 
@@ -108,11 +110,8 @@ impl fmt::Display for Scheme {
         let mut constraints: Vec<String> = Vec::new();
         for v in &vars {
             let name = names.get(v).cloned().unwrap_or_default();
-            if self.num.contains(v) {
-                constraints.push(format!("Num {name}"));
-            }
-            if self.truthy.contains(v) {
-                constraints.push(format!("Truthy {name}"));
+            for class in self.class_of(*v).names() {
+                constraints.push(format!("{class} {name}"));
             }
         }
         match constraints.len() {

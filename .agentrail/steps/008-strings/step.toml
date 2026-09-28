@@ -1,6 +1,6 @@
 number = 8
 slug = "strings"
-status = "pending"
+status = "in-progress"
 description = "arrays step 5: TDD strings as Char vectors (lang-choices section 13): printin..."
 role = "production"
 context_files = []

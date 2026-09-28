@@ -1,0 +1,20 @@
+# = and != work on any scalar type, the orderings on numbers and Char
+# in ASCII order, item by item (T8).
+== SOURCE
+"abc" = "abd"
+"abc" != "abd"
+"a" < "b"
+"hello" >= "help!"
+(1 = 1) = 2 = 2
+== TYPE
+Bool
+Bool
+Bool
+Bool
+Bool
+== RESULT
+1 1 0
+0 0 1
+1
+1 1 1 0 1
+1

@@ -43,7 +43,7 @@ impl Record {
 
     pub(crate) fn generalized(&mut self, value: NodeId, scheme: &Scheme) {
         self.quantified.extend(scheme.vars.iter().copied());
-        self.params.insert(value, scheme.num.clone());
+        self.params.insert(value, scheme.num());
     }
 
     pub(crate) fn global(&mut self, name: &str, value: NodeId) {

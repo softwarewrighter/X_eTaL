@@ -1,0 +1,30 @@
+# Every array function applies to strings (ST3): take, drop, reshape,
+# join, select, first, shape.
+== SOURCE
+3 t_ake "hello"
+6 t_ake "ab"
+2 d_rop "hello"
+2 3 r_eshape "abcdef"
+"ab" c_at "cd"
+1 3 s_elect "cat"
+f_irst "xyz"
+s_hape "hello"
+== TYPE
+Char
+Char
+Char
+Char
+Char
+Char
+Char
+Int
+== RESULT
+hel
+ab    
+llo
+abc
+def
+abcd
+ct
+x
+5

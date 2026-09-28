@@ -47,7 +47,8 @@ impl Unifier {
             .into_iter()
             .filter_map(|v| {
                 let c = self.classes.get(&v).copied().unwrap_or_default();
-                let default = match (c.num, c.truthy) {
+                let names: Vec<&str> = c.names().collect();
+                let default = match (names.contains(&"Num"), names.contains(&"Truthy")) {
                     (true, _) => Type::Int,
                     (false, true) => Type::Bool,
                     _ => return None,

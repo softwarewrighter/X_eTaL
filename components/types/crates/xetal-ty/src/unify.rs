@@ -6,7 +6,7 @@ use std::collections::HashMap;
 
 use xetal_base::{Diagnostic, Span};
 
-use crate::scheme::Classes;
+use crate::Classes;
 use crate::ty::{Type, TypeVar};
 
 #[derive(Debug, Default)]
@@ -17,7 +17,8 @@ pub struct Unifier {
 }
 
 impl Unifier {
-    pub(crate) fn fresh_in(&mut self, classes: Classes) -> Type {
+    /// A fresh variable in `classes`.
+    pub fn fresh_in(&mut self, classes: Classes) -> Type {
         self.next += 1;
         let v = TypeVar(self.next);
         if classes != Classes::default() {
@@ -32,18 +33,12 @@ impl Unifier {
 
     /// A fresh variable that must be a number (Int or Float).
     pub fn fresh_num(&mut self) -> Type {
-        self.fresh_in(Classes {
-            num: true,
-            truthy: false,
-        })
+        self.fresh_in(Classes::named("Num").unwrap_or_default())
     }
 
     /// A fresh variable that must be usable as a condition (Bool or Int).
     pub fn fresh_truthy(&mut self) -> Type {
-        self.fresh_in(Classes {
-            num: false,
-            truthy: true,
-        })
+        self.fresh_in(Classes::named("Truthy").unwrap_or_default())
     }
 
     /// Apply the substitution everywhere in `ty`.
@@ -91,16 +86,13 @@ impl Unifier {
         match t {
             Type::Var(w) => {
                 let other = self.classes.get(w).copied().unwrap_or_default();
-                let merged = Classes {
-                    num: classes.num || other.num,
-                    truthy: classes.truthy || other.truthy,
-                };
+                let merged = classes.union(other);
                 if merged != Classes::default() {
                     self.classes.insert(*w, merged);
                 }
             }
             t if !classes.admits(t) => {
-                let (want, got) = (classes.describe().to_string(), t.to_string());
+                let (want, got) = (classes.describe(), t.to_string());
                 let (e, f) = if expected { (want, got) } else { (got, want) };
                 return Err(
                     Diagnostic::new("type-mismatch", format!("expected {e}, found {f}"))
