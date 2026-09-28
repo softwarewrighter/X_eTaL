@@ -1,0 +1,1 @@
+README M2 tour (all commands goldens), plan.md Saga 3 retrospective and DONE, lang-choices status; known gap recorded: polymorphic literal returned into Float context prints as Int

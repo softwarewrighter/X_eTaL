@@ -1,9 +1,10 @@
 number = 5
 slug = "m2-docs-release"
-status = "in-progress"
+status = "completed"
 description = "types-and-unit step 5: README tour for M2 (every command a golden), docs/desi..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T22:13:40"
+completed_at = "2026-09-27T22:40:55"
 task_type = "docs"
-commits = []
+commits = ["29d1b554ee51fa4b50cc3233babd3e2581d8dceb"]
