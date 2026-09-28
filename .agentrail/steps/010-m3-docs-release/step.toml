@@ -1,9 +1,10 @@
 number = 10
 slug = "m3-docs-release"
-status = "in-progress"
+status = "completed"
 description = "arrays step 7: README M3 tour (every command a golden), docs/design.md and la..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T22:47:11"
+completed_at = "2026-09-27T23:45:03"
 task_type = "docs"
-commits = []
+commits = ["5175926b11c3ecdbef68220006e8b36119b8076b"]
