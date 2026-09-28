@@ -88,6 +88,17 @@ entries = [
   ["s_wap", 3, "(a -> b -> c) -> b -> a -> c"],
 ]
 
+[[group]]
+rule = "B7: search and order (over major cells)"
+entries = [
+  ["i_ndexOf", 2, "Eq a => a -> a -> Int"],
+  ["m_ember?", 2, "(Eq a, Truthy b) => a -> a -> b"],
+  ["u_nique", 1, "Eq a => a -> a"],
+  ["s_ort", 1, "Ord a => a -> a"],
+  ["g_rade", 1, "Ord a => a -> Int"],
+  ["w_here", 1, "Truthy a => a -> Int"],
+]
+
 [[later]]
 rule = "A2, A3: rotate and axes"
 names = ["r_ev", "o_-"]
@@ -95,5 +106,5 @@ names = ["r_ev", "o_-"]
 [[later]]
 rule = "B6, B7: higher-order, search and random"
 names = [
-  "i_ndexOf", "m_ember?", "u_nique", "s_ort", "g_rade", "w_here", "r_oll!",
+  "r_oll!",
 ]

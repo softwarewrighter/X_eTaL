@@ -1,0 +1,5 @@
+# `w_here` takes 1s and 0s (T1): any other number is an error.
+== SOURCE
+w_here 0 2 1
+== ERROR
+error[not-a-bool]: expected a Bool (or 1 / 0), got 2 at 0..12

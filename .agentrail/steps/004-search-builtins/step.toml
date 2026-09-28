@@ -1,6 +1,6 @@
 number = 4
 slug = "search-builtins"
-status = "pending"
+status = "in-progress"
 description = "higher-order step 4: TDD i_ndexOf, m_ember?, u_nique, s_ort, g_rade (stable, ..."
 role = "production"
 context_files = []

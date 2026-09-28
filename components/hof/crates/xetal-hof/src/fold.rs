@@ -5,8 +5,9 @@
 use xetal_base::{Diagnostic, Span};
 use xetal_value::{Caller, Value};
 
-use crate::cells::{join, major_cells};
+use crate::cells::join;
 use crate::identity::{associative, identity};
+use xetal_value::major_cells;
 
 type Out<'a> = Result<Value<'a>, Diagnostic>;
 

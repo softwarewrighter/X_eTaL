@@ -1,0 +1,5 @@
+# Searching compares like `=`: both sides have one scalar type (T8).
+== SOURCE
+"abc" i_ndexOf 1
+== ERROR
+error[type-mismatch]: expected Char, found a number at 0..16

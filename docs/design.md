@@ -273,7 +273,12 @@ until nested arrays exist. `i_nner` pairs the last axis of A with the
 first of B (a single value extends), applies the nearest operand to
 each pair and reduces each run by calling `r_/` through the callback,
 so it shares reduce's right fold and identities. `c_ompose` and
-`s_wap` are one-line kernels.
+`s_wap` are one-line kernels. The search and order built-ins
+(`components/search`, B7) work on major cells: `i_ndexOf` looks for
+cells of `B` shaped like a major cell of `A`, `u_nique`, `s_ort` and
+`g_rade` treat each major cell as one item (rows compare item by
+item), `m_ember?` is item by item. Items compare like `=` and order
+like `<`; the sort is stable. `w_here` takes a vector of 1s and 0s.
 Evaluation runs on its own large stack; runaway recursion is a
 `stack-overflow` error. Each top-level expression's value is printed
 (section 10a of lang-choices); runtime errors are diagnostics with

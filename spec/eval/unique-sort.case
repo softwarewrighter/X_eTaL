@@ -1,0 +1,55 @@
+# `u_nique` keeps the first of each distinct major cell, in first-seen
+# order. `s_ort` orders major cells ascending, stably, comparing rows
+# item by item; `g_rade` gives the 1-origin indices that sort, so
+# `(g_rade v) s_elect v` is `s_ort v` (B7). Numbers and Chars are
+# ordered (T8); `w_here` gives the indices of the 1s of a vector.
+== SOURCE
+u_nique 3 1 3 2 1
+u_nique "mississippi"
+u_nique 3 2 r_eshape 1 2 3 4 1 2
+s_ort 3 1 4 1 5
+s_ort "banana"
+s_ort 3 2 r_eshape 2 1 1 9 1 3
+s_ort 2.5 1 -3
+g_rade 3 1 4 1 5
+v := 3 1 4 1 5
+(g_rade v) s_elect v
+g_rade "cab"
+w_here 0 1 1 0 1
+w_here 3 1 4 1 5 > 2
+t_ally w_here 0 0
+t_ally s_ort 0 t_ake 1 2
+== TYPE
+Int
+Char
+Int
+Int
+Char
+Int
+Float
+Int
+v : Int
+Int
+Int
+Int
+Int
+Int
+Int
+== RESULT
+3 1 2
+misp
+1 2
+3 4
+1 1 3 4 5
+aaabnn
+1 3
+1 9
+2 1
+-3.0 1.0 2.5
+2 4 1 3 5
+1 1 3 4 5
+2 3 1
+2 3 5
+1 3 5
+0
+0

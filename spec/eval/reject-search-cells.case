@@ -1,0 +1,6 @@
+# Searching a matrix looks for rows: the items sought must be rows of
+# the same length.
+== SOURCE
+(2 3 r_eshape 1) i_ndexOf 1 2
+== ERROR
+error[shape-mismatch]: shapes differ: 3 and 2 at 1..29

@@ -1,0 +1,5 @@
+# The indices of a matrix would be pairs, which need nested arrays (A7).
+== SOURCE
+w_here 2 2 r_eshape 1 0
+== ERROR
+error[rank]: w_here needs a vector (nested arrays come later), got shape 2 2 at 0..23

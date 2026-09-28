@@ -8,4 +8,5 @@ mod fold;
 mod identity;
 
 pub use calls::call;
-pub use cells::{join, major_cells};
+pub use cells::join;
+pub use xetal_value::major_cells;

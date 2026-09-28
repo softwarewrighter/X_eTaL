@@ -1,0 +1,36 @@
+# Search built-ins (B7). `A i_ndexOf B` gives the 1-origin index of each
+# item of B in A (tally + 1 when absent), searching A's major cells, so
+# a matrix is searched row by row. `A m_ember? B` tells for each item of
+# A whether it occurs in B. Numbers compare exactly across Int and Float
+# (T3); Chars with Chars (T8).
+== SOURCE
+5 6 7 i_ndexOf 7 9
+"hello" i_ndexOf "lo"
+5 6 7 i_ndexOf 6
+1 2 3 i_ndexOf 2.0
+(3 2 r_eshape 1 2 3 4 1 2) i_ndexOf 3 4
+(3 2 r_eshape 1 2 3 4 1 2) i_ndexOf 2 2 r_eshape 1 2 9 9
+2 9 m_ember? 1 2 3
+"hi!" m_ember? "abcdefghi"
+(2 2 r_eshape 1 5 6 2) m_ember? 1 2
+== TYPE
+Int
+Int
+Int
+Int
+Int
+Int
+Bool
+Bool
+Bool
+== RESULT
+3 4
+3 5
+2
+2
+2
+1 4
+1 0
+1 1 0
+1 0
+0 1
