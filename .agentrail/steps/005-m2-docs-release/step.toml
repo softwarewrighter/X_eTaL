@@ -1,6 +1,6 @@
 number = 5
 slug = "m2-docs-release"
-status = "pending"
+status = "in-progress"
 description = "types-and-unit step 5: README tour for M2 (every command a golden), docs/desi..."
 role = "production"
 context_files = []

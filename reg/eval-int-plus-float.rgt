@@ -1,0 +1,3 @@
+command = "./target/debug/xetal eval -e 'n := 3; n + 2.5'"
+exit_code = 1
+desc = "T5: an Int variable plus a Float is a type error"

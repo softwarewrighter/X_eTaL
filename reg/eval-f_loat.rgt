@@ -1,0 +1,3 @@
+command = "./target/debug/xetal eval -e 'n := 3; (f_loat n) + 2.5'"
+exit_code = 0
+desc = "T5/B8: f_loat converts an Int to Float"

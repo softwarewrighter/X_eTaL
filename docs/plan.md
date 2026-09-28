@@ -85,13 +85,52 @@ What to do differently:
   on a large stack with a depth limit. Keep the no-panic rule in mind
   for every recursive component (parser and desugarer next).
 
-## Saga 3 -- types-and-unit (M2)  [ACTIVE]
+## Saga 3 -- types-and-unit (M2)  [DONE]
 
-Hindley-Milner inference over Core (Unit, Bool, Int, Float, Char,
-functions, type variables, `Num`), let-polymorphism, diagnostics with
-spans. Bool <-> Int coercions (T1). Niladic functions `{ @ -> ... }`:
-`u:n_ow! @` works, `u:n_ow! 42` is a type error. `xetal type`. `::`
-stays reserved (T4).
+Goal: static types (M2). `u:a_nswer := { @ -> 42 }; u:a_nswer @`
+works and `u:a_nswer 42` is refused by the type checker before
+anything runs.
+
+| #  | Step slug        | Delivered                                                  |
+| -- | ---------------- | ---------------------------------------------------------- |
+| 1  | nesting-limit    | bracket nesting limit (64) and AST depth limit (256) with a `too-deep` error; deep-nesting property tests |
+| 2  | type-core        | `xetal-types`: types, unifier with occurs check, `Num` and `Truthy` classes, schemes |
+| 3  | infer            | Algorithm W over Core with Haskell-style numeric typing (T5), value restriction, late-bound module definitions, `f_loat` (B8) |
+| 4  | type-cli         | `xetal type`; type-checked `eval`/`run` with `--untyped` (T6); binding groups; Float-literal elaboration; TYPE sections in the spec corpus; `demos/unit.xtl` and goldens |
+| 5  | m2-docs-release  | README M2 tour (every command a golden), docs sync, this retrospective |
+
+### Saga 3 retrospective
+
+Delivered: Hindley-Milner inference with let-polymorphism and the
+`Num`/`Truthy` classes, printed per item by `xetal type`; `xetal eval`
+and `xetal run` refuse ill-typed programs, with `--untyped` for
+experiments such as Y; the spec corpus carries TYPE sections; the
+parser has explicit nesting limits.
+
+What went well:
+
+- Asking before resolving open typing rules (Haskell-style numbers,
+  typed-by-default with `--untyped`) kept the implementation aligned
+  with the user's intent; both went into `lang-choices.md` as T5/T6.
+- Blessing TYPE sections across the whole corpus and reviewing the
+  diff exposed two real bugs that unit tests had missed: mutually
+  recursive definitions closing with unquantified variables, and a
+  value printed as Int where its type was Float.
+
+What to do differently:
+
+- Type soundness needs whole-corpus checks, not only targeted unit
+  tests: compare each case's TYPE with its RESULT (a Float type with
+  an integral-looking result is a smell).
+- Elaboration covers literals at monomorphic sites. A literal inside a
+  polymorphic function returned unchanged into a Float context (for
+  example `u:k_ := { @ -> 1 }` used where a Float is expected) still
+  evaluates as Int; runtime arithmetic promotes, so only printing can
+  differ. Closing this needs dictionary passing or specialization;
+  revisit with the arrays saga's printer.
+- The module-count limit (7 per crate) is full in `xetal-types`;
+  plan new typing features (arrays, higher-order built-ins) as a split
+  crate or module merge up front.
 
 ## Saga 4 -- arrays (M3)
 
@@ -168,9 +207,7 @@ parameter. Each gets a saga (or steps) when scheduled.
 ## Cross-cutting (insert as steps when due)
 
 - fuzzing (`cargo-fuzz` for lexer, parser, fmt, eval) -- after Saga 2.
-- nesting depth: the parser, desugarer and printers recurse, so a
-  pathologically nested input (tens of thousands of `(`) could overflow
-  the stack; add a nesting limit with a clear error (no-panic rule) --
-  first step of Saga 3.
+- nesting depth: done in Saga 3 step 1 (bracket and AST depth limits,
+  `too-deep`).
 - install tooling: `x_etal` alias next to `xetal` (S7) -- with Saga 2's
   release step.

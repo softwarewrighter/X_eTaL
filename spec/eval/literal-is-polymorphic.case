@@ -1,0 +1,7 @@
+# A number literal fits any number type (T5).
+== SOURCE
+3 + 2.5
+== TYPE
+Float
+== RESULT
+5.5
