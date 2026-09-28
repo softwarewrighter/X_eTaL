@@ -1,0 +1,5 @@
+# M1: a monadic user function.
+== SOURCE
+u:s_quare := { _r * _r }; u:s_quare 7
+== RESULT
+49

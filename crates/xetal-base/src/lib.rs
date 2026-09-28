@@ -5,7 +5,7 @@
 mod diagnostic;
 mod span;
 
-pub use diagnostic::Diagnostic;
+pub use diagnostic::{Diagnostic, Severity};
 pub use span::Span;
 
 /// Display name of the language. The only place the name is spelled in

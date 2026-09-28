@@ -1,0 +1,9 @@
+# Floor division and remainder, maths order (B7).
+== SOURCE
+7 d_iv 2
+-7 d_iv 2
+-7 m_od 3
+== RESULT
+3
+-4
+2

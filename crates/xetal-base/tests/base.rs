@@ -33,3 +33,12 @@ fn unsupported_names_the_stage() {
         "error[unsupported]: stage `lex` is not implemented"
     );
 }
+
+#[test]
+fn warnings_print_as_warnings() {
+    let w = Diagnostic::warning("shadows-builtin", "parameter r_ev shadows a built-in");
+    assert_eq!(
+        w.to_string(),
+        "warning[shadows-builtin]: parameter r_ev shadows a built-in"
+    );
+}

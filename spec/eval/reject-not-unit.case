@@ -1,0 +1,5 @@
+# A niladic function takes @ (L6).
+== SOURCE
+u:a_nswer := { @ -> 42 }; u:a_nswer 1
+== ERROR
+error[not-unit]: this function takes @, got 1 at 26..37

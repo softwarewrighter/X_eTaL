@@ -3,8 +3,9 @@
 Status: DECISIONS COMPLETE FOR SAGA 1, CONSISTENCY-REVIEWED. Each
 entry was chosen by the user, one question at a time (Q1-Q50, sub-
 questions, and review items R1-R6). Section 15 lists the optional
-items deliberately left for later. The lexer and renderer implement it
-(saga calculus steps 1 and 2); the parser onward follow the sagas in
+items deliberately left for later. The lexer, renderer, parser,
+formatter, Core desugaring and a scalar evaluator implement it (saga
+calculus); types, arrays and the rest follow the sagas in
 `docs/plan.md`.
 
 This document supersedes `docs/syntax-proposal.md`.
@@ -164,7 +165,7 @@ Named instead of symbols: `n_eg` (negate), `n_ot` (not), `m_od`
 | -- | -------- |
 | T1 | A real `Bool` type; `=` and the comparisons return Bool. Bool converts to Int implicitly in arithmetic (true 1, false 0). Int converts to Bool where a Bool is required: 1 is true, 0 is false, anything else is an error (at run time when only known then). |
 | T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and remainder are the named functions `d_iv` and `m_od`. Division by zero is an error (`error[division-by-zero]` with the span), including `d_iv` and `m_od` by 0 and element-wise inside arrays. There is no `inf` / `nan` result from division. |
-| T3 | `=` is exact (IEEE) equality and transitive; `0.1 + 0.2 = 0.3` is 0. Tolerant equality is the named function `e_q~` with a fixed relative tolerance (about 1e-14): `0.1 + 0.2 e_q~ 0.3` is 1. There is no comparison-tolerance setting. Int versus Float comparison is exact numeric comparison (`3 = 3.0` is 1); `<` `<=` `>` `>=` are exact too (tolerant versions may be added later with the `~` suffix). |
+| T3 | `=` is exact (IEEE) equality and transitive; `(0.1 + 0.2) = 0.3` is 0. Tolerant equality is the named function `e_q~` with a fixed relative tolerance (about 1e-14): `(0.1 + 0.2) e_q~ 0.3` is 1. There is no comparison-tolerance setting. Int versus Float comparison is exact numeric comparison (`3 = 3.0` is 1); `<` `<=` `>` `>=` are exact too (tolerant versions may be added later with the `~` suffix). |
 | T4 | Type annotations: none in v0 (types are inferred). `::` is reserved for later signature lines (`u:s_quare :: Int -> Int`), which will be checked against inference so they cannot drift, and shown by hover and doc tools. Until then, a comment `# :: Int -> Int` above a definition is an unchecked documentation convention. |
 | M1 | Values are immutable. Rebinding a variable creates a new binding (shadowing); a lambda keeps the value it captured. A top-level function name is defined once per file (MC8 row 12). There is no indexed assignment; updates return new arrays. |
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (`count! := count! + 1`), so every read and write shows it. |

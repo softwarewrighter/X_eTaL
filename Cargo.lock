@@ -885,6 +885,7 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-core",
+ "xetal-lex",
  "xetal-types",
 ]
 

@@ -30,14 +30,18 @@ const VERSION: &str = concat!(
     version = VERSION,
     about,
     long_about = "A terse, statically typed, functional array language whose \
-                  source is plain ASCII. Typographic decoration changes what \
-                  a name means: `t` is a noun, `t_` the rotate function, \
-                  `t_2` rotate along axis 2, `+^r` reduce by `+`.",
-    after_long_help = include_str!("cli_help.txt")
+                  source is plain ASCII. An underlined letter makes a name a \
+                  function (`r_ev` is reverse), `_digits` give its axes \
+                  (`o_-_2` rotates along axis 2), and a quoted function is \
+                  an operand (`'+ r_/ v` reduces v by plus).",
+    after_long_help = include_str!("cli_help.txt"),
+    args_conflicts_with_subcommands = true
 )]
 struct Cli {
     #[command(subcommand)]
-    command: Command,
+    command: Option<Command>,
+    /// A script to run (`xetal FILE` is `xetal run FILE`; for shebangs).
+    script: Option<String>,
 }
 
 /// Source given inline with `-e` or as a file path.
@@ -145,6 +149,9 @@ fn run(command: &Command) -> Result<String, Diagnostic> {
     if let Command::Render(args) = command {
         return render(args, &source);
     }
+    if matches!(command, Command::Eval(_) | Command::Run { .. }) {
+        return evaluate(&source);
+    }
     let tokens = xetal_lex::lex(&source)?;
     match command {
         Command::Lex(_) => Ok(tokens
@@ -174,9 +181,32 @@ fn render(args: &RenderArgs, source: &str) -> Result<String, Diagnostic> {
     }
 }
 
+/// Evaluate, streaming results to stdout; warnings go to stderr.
+fn evaluate(source: &str) -> Result<String, Diagnostic> {
+    let mut stdout = std::io::stdout();
+    let (warnings, result) = xetal_eval::eval_source(source, &mut stdout);
+    for warning in warnings {
+        eprintln!("{warning}");
+    }
+    result.map(|()| String::new())
+}
+
 fn main() -> ExitCode {
     let cli = Cli::parse();
-    match run(&cli.command) {
+    let command = match (cli.command, cli.script) {
+        (Some(command), _) => command,
+        (None, Some(file)) => Command::Run { file },
+        (None, None) => {
+            use clap::CommandFactory;
+            Cli::command()
+                .error(
+                    clap::error::ErrorKind::MissingSubcommand,
+                    "give a subcommand or a script FILE",
+                )
+                .exit()
+        }
+    };
+    match run(&command) {
         Ok(text) => {
             if !text.is_empty() {
                 println!("{text}");

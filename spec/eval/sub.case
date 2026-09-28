@@ -1,0 +1,5 @@
+# M1: a dyadic user function.
+== SOURCE
+u:s_ub := { _l - _r }; 10 u:s_ub 3
+== RESULT
+7

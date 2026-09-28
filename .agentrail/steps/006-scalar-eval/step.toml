@@ -1,6 +1,6 @@
 number = 6
 slug = "scalar-eval"
-status = "pending"
+status = "in-progress"
 description = "calculus step 6 (M1 demo): TDD xetal-eval, a strict evaluator over Core only:..."
 role = "production"
 context_files = []

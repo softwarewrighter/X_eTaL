@@ -1,0 +1,7 @@
+# The function, then arguments right to left (E4).
+== SOURCE
+(p_rint! 1) + p_rint! 2
+== RESULT
+2
+1
+3

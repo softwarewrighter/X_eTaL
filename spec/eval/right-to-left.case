@@ -1,0 +1,5 @@
+# No precedence: 2 * (3 + 4).
+== SOURCE
+2 * 3 + 4
+== RESULT
+14

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal eval -e '1 + 2'"
+exit_code = 0
+desc = "M1: xetal eval 1 + 2"

@@ -47,11 +47,11 @@ fn long_help_extends_short_help_with_agent_instructions() {
 #[test]
 fn unimplemented_stage_reports_unsupported() {
     xetal()
-        .args(["eval", "-e", "1 + 2"])
+        .args(["type", "-e", "1 + 2"])
         .assert()
         .failure()
         .stdout("")
-        .stderr("error[unsupported]: stage `eval` is not implemented\n");
+        .stderr("error[unsupported]: stage `type` is not implemented\n");
 }
 
 #[test]
@@ -181,10 +181,10 @@ fn later_stages_report_parse_errors_before_unsupported() {
         .code(1)
         .stderr(starts_with("error[symbol-needs-left]: "));
     xetal()
-        .args(["eval", "-e", "1 + 2"])
+        .args(["type", "-e", "1 + 2"])
         .assert()
         .code(1)
-        .stderr("error[unsupported]: stage `eval` is not implemented\n");
+        .stderr("error[unsupported]: stage `type` is not implemented\n");
 }
 
 #[test]
@@ -203,4 +203,62 @@ fn core_prints_the_desugared_program() {
         .assert()
         .success()
         .stdout("(def u:s_quare (lam _r (app2 #* _r _r)))\n(eval (app u:s_quare 7))\n");
+}
+
+#[test]
+fn eval_prints_each_expression_value() {
+    xetal()
+        .args(["eval", "-e", "1 + 2"])
+        .assert()
+        .success()
+        .stdout("3\n");
+    xetal()
+        .args([
+            "eval",
+            "-e",
+            "u:s_quare := { _r * _r }; u:s_quare 7\n10 - 3",
+        ])
+        .assert()
+        .success()
+        .stdout("49\n7\n");
+}
+
+#[test]
+fn runtime_errors_keep_earlier_output() {
+    xetal()
+        .args(["eval", "-e", "1; 2 / 0; 3"])
+        .assert()
+        .code(1)
+        .stdout("1\n")
+        .stderr(starts_with("error[division-by-zero]: "));
+}
+
+#[test]
+fn warnings_go_to_stderr_without_failing() {
+    xetal()
+        .args(["eval", "-e", "u:f_ := { r_ev x -> r_ev x }; 1"])
+        .assert()
+        .success()
+        .stdout("1\n")
+        .stderr(starts_with("warning[shadows-builtin]: "));
+}
+
+#[test]
+fn run_and_bare_file_execute_scripts() {
+    let dir = std::env::temp_dir().join(format!("xetal-cli-run-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("fact.xtl");
+    std::fs::write(
+        &path,
+        "#!/usr/bin/env xetal\nu:f_act := { n -> n <= 1 ? 1; n * u:f_act n - 1 }\nu:f_act 5\n",
+    )
+    .unwrap();
+    let file = path.to_str().unwrap();
+    xetal()
+        .args(["run", file])
+        .assert()
+        .success()
+        .stdout("120\n");
+    xetal().arg(file).assert().success().stdout("120\n");
+    std::fs::remove_dir_all(&dir).unwrap();
 }

@@ -1,0 +1,13 @@
+# Literal and computed powers (D-4, D-10).
+== SOURCE
+2^10
+2^-1
+4^0.5
+2 ^ 10
+2.0 ^ -1
+== RESULT
+1024
+0.5
+2.0
+1024
+0.5

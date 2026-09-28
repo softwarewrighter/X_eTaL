@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/factorial.xtl"
+exit_code = 0
+desc = "M1 demo: demos/factorial.xtl"

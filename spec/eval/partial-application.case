@@ -1,0 +1,5 @@
+# Currying: fix the left argument, then apply the result (F1, F5).
+== SOURCE
+u:s_ub := { _l - _r }; (u:s_ub 10)_ 3
+== RESULT
+7

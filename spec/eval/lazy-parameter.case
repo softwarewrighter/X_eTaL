@@ -1,0 +1,6 @@
+# The unused lazy argument 1 / 0 is never evaluated (E1).
+== SOURCE
+u:w_hen := { c ~a ~b -> c ? a; b }
+((u:w_hen 1 = 1)_ 42)_ 1 / 0
+== RESULT
+42

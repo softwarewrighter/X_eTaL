@@ -10,6 +10,7 @@ fn values_and_applications() {
     assert_eq!(core("\"ab\""), "(eval \"ab\")");
     assert_eq!(core("@"), "(eval @)");
     assert_eq!(core("x^2"), "(eval (app2 #^ x 2))");
+    assert_eq!(core("x^-1"), "(eval (app2 #^ x -1.0))"); // D-4: a negative literal exponent gives a Float
     assert_eq!(core("1 2 3^2"), "(eval (array 1 2 (app2 #^ 3 2)))");
 }
 

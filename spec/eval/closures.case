@@ -1,0 +1,5 @@
+# A lambda keeps the value it captured (M1).
+== SOURCE
+n := 3; u:f_ := { x -> x + n }; n := 100; u:f_ 1
+== RESULT
+4

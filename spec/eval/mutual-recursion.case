@@ -1,0 +1,7 @@
+# Definitions are late-bound, so they may refer to each other.
+== SOURCE
+u:e_ven? := { n -> n = 0 ? 1; u:o_dd? n - 1 }
+u:o_dd? := { n -> n = 0 ? 0; u:e_ven? n - 1 }
+u:e_ven? 7
+== RESULT
+0

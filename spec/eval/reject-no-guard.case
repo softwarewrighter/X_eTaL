@@ -1,0 +1,5 @@
+# No guard matched and nothing follows (G2).
+== SOURCE
+u:f_ := { n -> n = 0 ? 1 }; u:f_ 5
+== ERROR
+error[no-guard-matched]: no guard matched and no statement follows at 15..24

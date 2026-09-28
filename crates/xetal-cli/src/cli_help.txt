@@ -1,30 +1,35 @@
 STAGES:
   Every stage reads source given with -e EXPR or as a FILE path and
-  prints deterministic text:
-    lex     token stream (decoration decides each token's class)
+  prints deterministic text; each runs the earlier stages first:
+    lex     token stream with byte spans
     render  decorated Unicode form; --raw converts decorated text
             back to source, --latex prints LaTeX math
-    parse   surface AST, or an ambiguity report listing every parse
+    parse   surface tree as S-expressions (at most one reading;
+            ambiguous shapes are errors)
     fmt     canonical, fully parenthesized form
-    core    Core IR after desugaring
+    core    Core IR after desugaring (built-ins marked #)
     type    inferred type
-    eval    result value
+    eval    evaluate; prints each top-level expression's value
+    run     run a .xtl script (also: xetal FILE, for #! scripts)
   A stage that is not implemented yet exits 1 with
-  error[unsupported].
+  error[unsupported]. Warnings print as warning[CODE] on stderr.
 
 EXAMPLES:
   xetal eval -e '1 + 2'
-  xetal lex -e 'square = { _r * _r }; square_ 7'
-  xetal render -e 't_12 +^r'
-  xetal render --latex -e 't_12 +^r'
-  xetal run demos/life.xtl
+  xetal eval -e 'u:s_quare := { _r * _r }; u:s_quare 7'
+  xetal lex -e 'u:s_quare := { _r * _r }; u:s_quare 7'
+  xetal render -e 'o_-_12 x^2'
+  xetal render --latex -e 'o_-_12 x^2'
+  xetal run demos/factorial.xtl
 
 AI CODING AGENT INSTRUCTIONS:
   1. The language is defined by its tests: spec/**/*.case (run by
-     `cargo test`), crate tests, and reg-rs baselines in reg/.
+     `cargo test`), crate tests, and reg-rs baselines in reg/; the
+     decisions behind them are in docs/lang-choices.md.
   2. Check one expression at every stage with
-       xetal lex -e EXPR; xetal parse -e EXPR; xetal eval -e EXPR
-  3. Ambiguous source is an error that lists the parses; never pick
-     one. Errors are printed as error[CODE]: MESSAGE on stderr.
-  4. Run scripts/gate.sh (fmt, clippy, tests, reg-rs, markdown,
-     sw-checklist) before claiming a change is done.
+       xetal lex -e EXPR; xetal parse -e EXPR; xetal core -e EXPR;
+       xetal eval -e EXPR
+  3. Ambiguous source is an error, never resolved by guessing. Errors
+     print as error[CODE]: MESSAGE at START..END on stderr.
+  4. Run scripts/gate.sh (fmt, clippy, tests, reg-rs, sw-checklist,
+     markdown) before claiming a change is done.

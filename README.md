@@ -64,9 +64,10 @@ has S of 4. The two tests never both hold, so `+` acts as "or".
 
 Early. The lexer (`xetal lex`), the decorated renderer
 (`xetal render`), the parser (`xetal parse`) and the canonical
-formatter (`xetal fmt`) and the desugaring to Core (`xetal core`)
-work; types and evaluation are not implemented yet, and those commands
-report `error[unsupported]` after checking that the source desugars. The language is specified by its test suite as it is built;
+formatter (`xetal fmt`), the desugaring to Core (`xetal core`) and a
+strict evaluator for scalars (`xetal eval`, `xetal run`, `xetal FILE`)
+work; type checking (`xetal type`) and arrays are not implemented yet
+and report `error[unsupported]`. The language is specified by its test suite as it is built;
 the design documents describe the intended language.
 
 ## Documentation
@@ -84,6 +85,8 @@ the design documents describe the intended language.
 ```bash
 cargo build --release
 ./target/release/xetal --version
+./target/release/xetal eval -e '1 + 2'                     # 3
+./target/release/xetal run demos/factorial.xtl             # 3628800
 ./target/release/xetal lex -e 'u:s_quare := { _r * _r }; u:s_quare 7'
 ```
 

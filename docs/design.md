@@ -201,8 +201,20 @@ on first use, then remembered). A function is evaluated before its
 arguments, and arguments right to left (APL order). The Y combinator
 works through a lazy self parameter; Z works too (E1-E4). Values are
 immutable; rebinding shadows; `!`-named variables are the mutation
-escape hatch (M1, M2). The evaluator consumes Core only and emits a
-trace tree: `NodeId, span, value, type, shape, children`.
+escape hatch (M1, M2). The evaluator consumes Core only
+(`crates/xetal-eval`, `spec/eval/*.case`): values are Int, Float,
+Bool, Unit and functions; variables live in a persistent environment
+of shared slots, so a closure keeps the values it captured while a `!`
+variable is updated in place; a `~` argument is a thunk forced on
+first use and remembered; module definitions are late-bound. In a
+dyadic call a lazy parameter is honoured when the function is a
+lambda written with both parameters; built-ins are strict.
+Evaluation runs on its own large stack; runaway recursion is a
+`stack-overflow` error. Each top-level expression's value is printed
+(section 10a of lang-choices); runtime errors are diagnostics with
+spans, and parameters that shadow a built-in give a warning (L7).
+A trace tree (`NodeId, span, value, type, shape, children`) comes
+with the trace-and-explain saga.
 
 ## 8. Display modes (CLI and web)
 

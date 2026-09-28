@@ -1,0 +1,5 @@
+# Only 1 and 0 convert to Bool (T1).
+== SOURCE
+2 & 1
+== ERROR
+error[not-a-bool]: expected a Bool (or 1 / 0), got 2 at 0..5

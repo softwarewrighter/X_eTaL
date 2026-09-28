@@ -1,0 +1,5 @@
+# Division by zero is an error (T2).
+== SOURCE
+1 / 0
+== ERROR
+error[division-by-zero]: division by zero at 0..5

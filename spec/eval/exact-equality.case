@@ -1,0 +1,9 @@
+# Exact = and tolerant e_q~ (T3).
+== SOURCE
+(0.1 + 0.2) = 0.3
+(0.1 + 0.2) e_q~ 0.3
+3 = 3.0
+== RESULT
+0
+1
+1

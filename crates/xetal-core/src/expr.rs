@@ -33,7 +33,12 @@ impl Lower {
             ExprKind::Pow { base, exp } => {
                 let f = self.node(e.span, Kind::Prim("^".into()));
                 let left = self.expr(base)?;
-                let right = self.node(e.span, Kind::Lit(*exp));
+                // D-4: a negative literal exponent gives a Float result.
+                let exp = match exp {
+                    xetal_lex::Number::Int(i) if *i < 0 => xetal_lex::Number::Float(*i as f64),
+                    other => *other,
+                };
+                let right = self.node(e.span, Kind::Lit(exp));
                 Kind::App2 {
                     f: Box::new(f),
                     left: Box::new(left),
