@@ -1,0 +1,76 @@
+//! Rejections: every accepted rule has a malformed neighbour.
+
+use crate::reject;
+
+fn assert_reject(src: &str, code: &str, span: (usize, usize)) {
+    assert_eq!(reject(src), (code.to_string(), span), "source {src:?}");
+}
+
+#[test]
+fn adjacent_values_are_not_strands() {
+    assert_reject("a b", "adjacent-values", (0, 1));
+    assert_reject("x 1", "adjacent-values", (0, 1));
+    assert_reject("\"ab\" \"cd\"", "adjacent-values", (0, 4));
+}
+
+#[test]
+fn functions_need_arguments() {
+    assert_reject("f_ g_", "missing-argument", (3, 5));
+    assert_reject("1 +", "missing-argument", (2, 3));
+    assert_reject("x f_ g_", "missing-argument", (5, 7));
+}
+
+#[test]
+fn a_symbol_applied_to_one_argument_is_an_error() {
+    assert_reject("- 3", "symbol-needs-left", (0, 1));
+    assert_reject("/ 2", "symbol-needs-left", (0, 1));
+    assert_reject("f_ + x", "symbol-needs-left", (3, 4));
+}
+
+#[test]
+fn quotes_apply_to_functions_only() {
+    assert_reject("'x", "bad-quote", (0, 2));
+}
+
+#[test]
+fn exponents_on_functions() {
+    assert_reject("(r_ev)^2", "bad-exponent", (6, 8));
+}
+
+#[test]
+fn lambda_parameter_rules() {
+    assert_reject("{ _l }", "bad-lambda", (0, 6)); // _l needs _r (L1)
+    assert_reject("{ 42 }", "bad-lambda", (0, 6)); // niladic is { @ -> ... } (L6)
+    assert_reject("{ x -> x + _r }", "bad-lambda", (0, 15)); // no mixing (L5)
+    assert_reject("{ @ x -> x }", "bad-lambda", (2, 3)); // @ only alone
+    assert_reject("{ x x -> x }", "bad-lambda", (4, 5)); // duplicate
+    assert_reject("{ 3 -> x }", "bad-lambda", (2, 3));
+}
+
+#[test]
+fn guards_only_inside_lambdas() {
+    assert_reject("x ? 1", "guard-outside-lambda", (2, 3));
+    assert_reject("(x ? 1)", "unexpected-token", (3, 4));
+}
+
+#[test]
+fn trains_hold_functions() {
+    assert_reject("[x f_]", "bad-train", (1, 2));
+    assert_reject("[f_]", "bad-train", (0, 4));
+}
+
+#[test]
+fn separators_and_brackets() {
+    assert_reject("(a := 1; a)", "unexpected-token", (3, 5));
+    assert_reject("(1; 2)", "unexpected-token", (2, 3));
+    assert_reject("(1 + 2", "unclosed", (0, 1));
+    assert_reject("1 + 2)", "unexpected-token", (5, 6));
+    assert_reject("x := ", "missing-value", (2, 4));
+    assert_reject("-> x", "unexpected-token", (0, 2));
+    assert_reject("~s_elf x", "unexpected-token", (0, 1));
+}
+
+#[test]
+fn lex_errors_come_through() {
+    assert_reject("3-1", "ambiguous-minus", (1, 2));
+}

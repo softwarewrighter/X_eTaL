@@ -1,0 +1,5 @@
+# Operand binding then dyadic use: outer product (F8).
+== SOURCE
+A '* t_able B
+== SURFACE
+((operand * t_able) A B)

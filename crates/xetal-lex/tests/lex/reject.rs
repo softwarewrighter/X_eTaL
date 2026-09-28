@@ -75,6 +75,8 @@ fn lambda_arguments() {
     assert_reject("_lx", "bad-lambda-arg", 0, 3);
     assert_reject("_l_x", "bad-lambda-arg", 0, 4);
     assert_reject("_@", "bad-lambda-arg", 0, 2);
+    assert_reject("(f)_x", "bad-lambda-arg", 3, 5);
+    assert_reject("x _ y", "bad-lambda-arg", 2, 3);
 }
 
 #[test]

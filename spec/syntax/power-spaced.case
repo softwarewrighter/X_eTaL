@@ -1,0 +1,5 @@
+# Spaced ^ is the power function, right to left (D-6).
+== SOURCE
+x ^ n + 1
+== SURFACE
+(^ x (+ n 1))

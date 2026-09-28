@@ -1,0 +1,5 @@
+# Guards belong inside lambdas (G2).
+== SOURCE
+x ? 1
+== ERROR
+error[guard-outside-lambda]: a guard `?` belongs inside a lambda at 2..3

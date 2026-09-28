@@ -1,0 +1,5 @@
+# Monadic chains nest to the right.
+== SOURCE
+f_ g_ x
+== SURFACE
+(f_ (g_ x))

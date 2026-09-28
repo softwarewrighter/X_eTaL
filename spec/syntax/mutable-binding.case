@@ -1,0 +1,5 @@
+# A mutable variable rebound in place (M2).
+== SOURCE
+count! := count! + 1
+== SURFACE
+(:= count! (+ count! 1))

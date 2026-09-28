@@ -1,0 +1,5 @@
+# Shorthand dyadic lambda (L1).
+== SOURCE
+{ _l - _r }
+== SURFACE
+(lambda (_l _r) (- _l _r))

@@ -1,0 +1,8 @@
+# Newlines separate statements inside braces (S2, G1).
+== SOURCE
+u:f_act := { n ->
+  n <= 1 ? 1
+  n * u:f_act n - 1
+}
+== SURFACE
+(:= u:f_act (lambda (n) (? (<= n 1) 1) (* n (u:f_act (- n 1)))))

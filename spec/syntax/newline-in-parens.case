@@ -1,0 +1,6 @@
+# Inside ( ) a newline is whitespace (S2).
+== SOURCE
+(1 +
+ 2)
+== SURFACE
+(+ 1 2)

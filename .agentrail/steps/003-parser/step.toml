@@ -1,6 +1,6 @@
 number = 3
 slug = "parser"
-status = "pending"
+status = "in-progress"
 description = "calculus step 3: TDD xetal-syntax, a parser from tokens to a surface AST with..."
 role = "production"
 context_files = []

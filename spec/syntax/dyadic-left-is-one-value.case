@@ -1,0 +1,5 @@
+# The left argument is the single value left of the function.
+== SOURCE
+x f_ g_ y
+== SURFACE
+(f_ x (g_ y))

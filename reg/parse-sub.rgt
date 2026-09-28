@@ -1,0 +1,3 @@
+command = "./target/debug/xetal parse -e 'u:s_ub := { _l - _r }; 10 u:s_ub 3'"
+exit_code = 0
+desc = "xetal parse: the M1 subtraction demo as a surface tree"

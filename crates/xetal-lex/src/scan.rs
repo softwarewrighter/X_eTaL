@@ -51,7 +51,8 @@ fn next_token(
         (b'0'..=b'9', _) => literal::lex_number(cur, cur.pos),
         (b'"', _) => literal::lex_string(cur),
         (b'-', _) => literal::minus(cur),
-        (b'_', _) => lambda_arg(cur),
+        (b'_', Some(TokenKind::RParen)) => lambda_arg(cur, true),
+        (b'_', _) => lambda_arg(cur, false),
         (b'\'' | b'~' | b'?' | b':' | b'!', _) => marker(cur, byte),
         (b'+' | b'*' | b'/' | b'^' | b'=' | b'&' | b'|' | b'<' | b'>', _) => Ok(symbol(cur, byte)),
         (b, _) if b.is_ascii_alphabetic() => name::lex_name(cur),
@@ -74,9 +75,15 @@ fn punct(byte: u8) -> Option<TokenKind> {
     })
 }
 
-/// `_l`, `_r`, and the applied forms `_l_`, `_r_`.
-fn lambda_arg(cur: &mut Cursor) -> Result<TokenKind, LexError> {
+/// `_l`, `_r`, the applied forms `_l_`, `_r_`, and (after `)`) a lone
+/// `_` that applies the parenthesized value.
+fn lambda_arg(cur: &mut Cursor, after_paren: bool) -> Result<TokenKind, LexError> {
     let start = cur.pos;
+    let next = cur.peek_at(1);
+    if after_paren && !next.is_some_and(|b| b.is_ascii_alphanumeric() || b == b'_' || b == b'@') {
+        cur.pos += 1;
+        return Ok(TokenKind::Apply);
+    }
     let side = if cur.peek_at(1) == Some(b'l') {
         Side::Left
     } else {

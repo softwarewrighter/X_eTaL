@@ -1,0 +1,5 @@
+# A quoted function left of a function is its operand: reduce by plus (F8).
+== SOURCE
+'+ r_/ v
+== SURFACE
+((operand + r_/) v)

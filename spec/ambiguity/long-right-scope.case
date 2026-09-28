@@ -1,0 +1,5 @@
+# No precedence and no left associativity: a - (b - c).
+== SOURCE
+a - b - c
+== SURFACE
+(- a (- b c))

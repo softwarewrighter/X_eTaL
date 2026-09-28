@@ -56,8 +56,13 @@ complex-number literal `3j4` (reserved), and non-ASCII characters.
 
 ## 3. Grammar
 
-The parser (saga calculus, step 3) will pin these rules; until then
-they are specified in `docs/lang-choices.md`.
+Pinned by `crates/xetal-syntax/tests/parse/`, `spec/syntax/*.case`
+and the ambiguity corpus `spec/ambiguity/*.case`; `xetal parse` prints
+the surface tree as S-expressions (`10 u:s_ub 3` is `(u:s_ub 10 3)`).
+The grammar is deterministic: tokens decide every rule, so an input has
+at most one parse, and shapes near a rule boundary (`a b`, `- 3`,
+`f_ g_`, `{ _l }`, a value in a train, ...) are rejected with specific
+errors instead of being resolved.
 
 - Application is right to left with long right scope and no
   precedence: `f_ g_ x` is `f_ (g_ x)`; `x f_ y` is dyadic. Every

@@ -1,0 +1,5 @@
+# A lazy parameter and a guard (E1, G1).
+== SOURCE
+{ ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }
+== SURFACE
+(lambda (~s_elf n) (? (<= n 1) 1) (* n (s_elf (- n 1))))

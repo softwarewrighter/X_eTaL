@@ -1,0 +1,5 @@
+# No sections: 2 + is an error (SC1, old D4).
+== SOURCE
+2 +
+== ERROR
+error[missing-argument]: this function needs an argument on its right (to pass it as a value, quote it) at 2..3

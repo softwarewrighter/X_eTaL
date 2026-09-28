@@ -1,0 +1,5 @@
+# Named parameters and _l/_r may not mix (L5).
+== SOURCE
+{ x -> x + _r }
+== ERROR
+error[bad-lambda]: do not mix named parameters with _l / _r at 0..15

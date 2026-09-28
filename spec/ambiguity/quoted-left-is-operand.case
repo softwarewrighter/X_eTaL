@@ -1,0 +1,5 @@
+# The quoted function binds as an operand; the dyadic reading is excluded by the grammar (F8).
+== SOURCE
+'+ r_/ A
+== SURFACE
+((operand + r_/) A)

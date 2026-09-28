@@ -1,0 +1,5 @@
+# A symbol needs a value on its left, not a function (SC1).
+== SOURCE
+f_ + x
+== ERROR
+error[symbol-needs-left]: a symbol function needs a left argument (to negate use n_eg; for a partial application use a lambda) at 3..4

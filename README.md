@@ -60,6 +60,25 @@ its neighbours. The inner lambda then gets S as `_l` and the board as
 3 neighbours when S is 3, surviving with 2 neighbours when a live cell
 has S of 4. The two tests never both hold, so `+` acts as "or".
 
+## Status
+
+Early. The lexer (`xetal lex`), the decorated renderer
+(`xetal render`) and the parser (`xetal parse`) work; formatting,
+desugaring, types and evaluation are not implemented yet, and those
+commands report `error[unsupported]` after checking that the source
+parses. The language is specified by its test suite as it is built;
+the design documents describe the intended language.
+
+## Documentation
+
+- [`docs/input.md`](docs/input.md) -- how to type X_eTaL expressions
+- [`docs/lang-choices.md`](docs/lang-choices.md) -- the language decisions
+- [`docs/PRD.md`](docs/PRD.md) -- product requirements and milestones
+- [`docs/design.md`](docs/design.md) -- language design and decisions register
+- [`docs/architecture.md`](docs/architecture.md) -- crates, pipeline, testing
+- [`docs/plan.md`](docs/plan.md) -- implementation plan
+- `docs/research.txt`, `docs/research2.txt` -- archival design research
+
 ## Quick Start
 
 ```bash
@@ -96,6 +115,18 @@ reports `error[ambiguous-minus]` at `1..2`.
 ```bash
 ./target/release/xetal render -e 'x r_ev o_-_2 u:s_quare c:K_ x^2 _l _r @'
 ./target/release/xetal render --latex -e 'o_-_12 x^2'
+```
+
+`xetal parse` prints the surface tree as S-expressions, one line per
+statement:
+
+```bash
+./target/release/xetal parse -e 'u:s_ub := { _l - _r }; 10 u:s_ub 3'
+```
+
+```
+(:= u:s_ub (lambda (_l _r) (- _l _r)))
+(u:s_ub 10 3)
 ```
 
 ## Architecture

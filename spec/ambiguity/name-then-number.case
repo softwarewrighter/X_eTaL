@@ -1,0 +1,5 @@
+# A variable next to a number is not a strand.
+== SOURCE
+x 1
+== ERROR
+error[adjacent-values]: two values side by side (only numbers form strands) at 0..1

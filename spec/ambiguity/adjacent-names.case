@@ -1,0 +1,5 @@
+# Two values side by side are an error, not a strand (only numbers strand).
+== SOURCE
+a b
+== ERROR
+error[adjacent-values]: two values side by side (only numbers form strands) at 0..1

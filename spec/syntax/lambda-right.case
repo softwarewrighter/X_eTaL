@@ -1,0 +1,5 @@
+# Shorthand monadic lambda (L1).
+== SOURCE
+{ _r * _r }
+== SURFACE
+(lambda (_r) (* _r _r))

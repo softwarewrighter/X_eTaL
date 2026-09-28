@@ -1,36 +1,78 @@
-//! Parser: tokens to the surface AST, reporting ambiguous expressions.
+//! Parser: tokens to a surface AST with spans (docs/lang-choices.md).
 //!
-//! Stub: the stage is not implemented yet; its error type already
-//! converts into `xetal_base::Diagnostic` like every other crate.
+//! The grammar is decided by tokens alone and reads right to left: a
+//! function takes everything to its right; in `x f y` the left argument
+//! is the single value immediately left of `f`; a quoted function
+//! directly left of a function is its operand. Every input therefore has
+//! at most one reading, and shapes near those rules are rejected with a
+//! specific error (the ambiguity corpus in `spec/ambiguity/`).
 
-use xetal_base::Diagnostic;
+mod ast;
+mod block;
+mod expr;
+mod item;
+mod show;
+mod stmt;
+
+pub use ast::{Expr, ExprKind, Fun, FunKind, Lambda, Param, Params, Program, Stmt, Target};
+
+use xetal_base::{Diagnostic, Span};
+use xetal_lex::{Token, TokenKind, lex};
 
 /// Pipeline stage name used in diagnostics and by the CLI.
 pub const STAGE: &str = "parse";
 
-/// Errors produced by this crate.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub enum ParseError {
-    /// The stage has not been implemented yet.
-    Unsupported,
+/// Lex and parse a whole program.
+pub fn parse(src: &str) -> Result<Program, Diagnostic> {
+    let tokens = lex(src)?;
+    let mut parser = Parser {
+        tokens,
+        pos: 0,
+        end: src.len(),
+        newline_is_space: vec![false],
+    };
+    parser.program()
 }
 
-impl From<ParseError> for Diagnostic {
-    fn from(err: ParseError) -> Self {
-        match err {
-            ParseError::Unsupported => Diagnostic::unsupported(STAGE),
+pub(crate) fn err(code: &str, span: Span, message: impl Into<String>) -> Diagnostic {
+    Diagnostic::new(code, message).with_span(span)
+}
+
+pub(crate) struct Parser {
+    tokens: Vec<Token>,
+    pos: usize,
+    end: usize,
+    /// Inside `( )` and `[ ]` a newline is whitespace; elsewhere it
+    /// separates statements (S2).
+    newline_is_space: Vec<bool>,
+}
+
+impl Parser {
+    /// The next token, skipping newlines where they are whitespace.
+    fn peek(&mut self) -> Option<&Token> {
+        if self.newline_is_space.last() == Some(&true) {
+            while self
+                .tokens
+                .get(self.pos)
+                .is_some_and(|t| t.kind == TokenKind::Newline)
+            {
+                self.pos += 1;
+            }
         }
+        self.tokens.get(self.pos)
     }
-}
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+    fn next(&mut self) -> Option<Token> {
+        let token = self.peek().cloned();
+        if token.is_some() {
+            self.pos += 1;
+        }
+        token
+    }
 
-    #[test]
-    fn unsupported_converts_to_a_diagnostic_naming_the_stage() {
-        let d: Diagnostic = ParseError::Unsupported.into();
-        assert_eq!(d.code, "unsupported");
-        assert!(d.message.contains("`parse`"), "{}", d.message);
+    /// The span of the next token, or an empty span at the end.
+    fn here(&mut self) -> Span {
+        let end = self.end;
+        self.peek().map_or(Span::new(end, end), |t| t.span)
     }
 }

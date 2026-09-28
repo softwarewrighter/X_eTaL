@@ -1,0 +1,5 @@
+# Two operands, nearest first: matrix multiply (F9).
+== SOURCE
+A '+ '* i_nner B
+== SURFACE
+((operand + (operand * i_nner)) A B)

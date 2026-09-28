@@ -1,0 +1,5 @@
+# Strings do not strand (nested arrays come later, A7).
+== SOURCE
+"ab" "cd"
+== ERROR
+error[adjacent-values]: two values side by side (only numbers form strands) at 0..4

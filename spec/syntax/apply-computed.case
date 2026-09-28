@@ -1,0 +1,5 @@
+# An underline after ) applies the computed function (F5).
+== SOURCE
+(s_wap '-)_ 3
+== SURFACE
+((apply (s_wap (quote -))) 3)

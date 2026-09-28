@@ -152,7 +152,11 @@ fn run(command: &Command) -> Result<String, Diagnostic> {
             .map(ToString::to_string)
             .collect::<Vec<_>>()
             .join("\n")),
-        _ => Err(Diagnostic::unsupported(command.stage())),
+        Command::Parse(_) => Ok(xetal_syntax::parse(&source)?.to_string()),
+        _ => {
+            xetal_syntax::parse(&source)?;
+            Err(Diagnostic::unsupported(command.stage()))
+        }
     }
 }
 

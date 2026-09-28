@@ -1,0 +1,5 @@
+# Statements belong at the top level or in braces (S3).
+== SOURCE
+(a := 1; a)
+== ERROR
+error[unexpected-token]: `:=` binds only at the start of a statement (top level or in braces) at 3..5

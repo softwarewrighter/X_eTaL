@@ -1,0 +1,5 @@
+# An exponent binds to the number it touches (D-3).
+== SOURCE
+1 2 3^2
+== SURFACE
+(strand 1 2 (pow 3 2))

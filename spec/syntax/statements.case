@@ -1,0 +1,8 @@
+# Bindings, ; and newline separators (S1-S3).
+== SOURCE
+x := 3; y := x + 1
+x + y
+== SURFACE
+(:= x 3)
+(:= y (+ x 1))
+(+ x y)

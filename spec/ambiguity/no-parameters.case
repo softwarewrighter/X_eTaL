@@ -1,0 +1,5 @@
+# A lambda with no arguments is written { @ -> 42 } (L6).
+== SOURCE
+{ 42 }
+== ERROR
+error[bad-lambda]: a lambda needs _r, _l and _r, named parameters, or `@ ->` for a niladic function at 0..6

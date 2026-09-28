@@ -1,0 +1,5 @@
+# A two-element train is atop (TR2).
+== SOURCE
+[n_eg a_bs] x
+== SURFACE
+((train n_eg a_bs) x)

@@ -1,0 +1,5 @@
+# A value left of a derived function is its left argument.
+== SOURCE
+x '+ r_/ y
+== SURFACE
+((operand + r_/) x y)

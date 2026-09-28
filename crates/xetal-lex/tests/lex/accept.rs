@@ -194,3 +194,24 @@ fn life_line_lexes() {
     assert_eq!(got[6], "Func(r_/, axes=[1,2])");
     assert_eq!(got[10], "Func(o_-, axes=[1,2])");
 }
+
+#[test]
+fn underline_after_a_closing_paren_applies_its_value() {
+    assert_eq!(
+        kinds("(s_wap '-)_ 3 (f)_ x"),
+        [
+            "LParen",
+            "Func(s_wap)",
+            "Quote",
+            "Sym(-)",
+            "RParen",
+            "Apply",
+            "Num(3)",
+            "LParen",
+            "Var(f)",
+            "RParen",
+            "Apply",
+            "Var(x)"
+        ]
+    );
+}

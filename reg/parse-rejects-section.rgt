@@ -1,0 +1,3 @@
+command = "./target/debug/xetal parse -e '- 3'"
+exit_code = 1
+desc = "xetal parse rejects a symbol applied to one argument (SC1), exit 1"

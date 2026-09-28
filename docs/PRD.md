@@ -100,7 +100,7 @@ presentation layer, never the storage format.
 | --- | --------------------------------------------------------------------- |
 | F1  | Lexer classifies variables, function names (one underline, optional trailing mark), namespace prefixes, subscripts, exponents, lambda args, Unit, numbers (incl. negative literals), strings, symbols (incl. digraphs), delimiters, comments, with spans. |
 | F2  | Raw <-> decorated Unicode rendering is lossless in both directions; LaTeX output covers what Unicode cannot. |
-| F3  | Parser yields 0, 1 or many parses; many = `AmbiguousExpression` error listing the alternatives. |
+| F3  | The parser never accepts an ambiguous expression. The grammar is decided by tokens so every input has at most one parse, and each shape near a rule boundary is rejected with a specific error (the `spec/ambiguity/` corpus); an `AmbiguousExpression` error listing alternatives is reserved for any future rule that could admit two parses. |
 | F4  | Canonical formatter emits a fully disambiguated form; `parse(fmt(parse(x))) == parse(x)`. |
 | F5  | Desugaring to a Core IR (Lit, Unit, Var, Lam, App, Let); sugar forms normalize identically. |
 | F6  | Type inference over the Core IR; invalid valence (e.g. `u:n_ow! 42` for a niladic function) is a type error, never an ignored argument. |

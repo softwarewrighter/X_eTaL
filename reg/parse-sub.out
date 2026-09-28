@@ -1,0 +1,2 @@
+(:= u:s_ub (lambda (_l _r) (- _l _r)))
+(u:s_ub 10 3)

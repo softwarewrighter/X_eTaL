@@ -1,0 +1,5 @@
+# A train holds functions only (TR1).
+== SOURCE
+[x f_]
+== ERROR
+error[bad-train]: a train holds functions only at 1..2

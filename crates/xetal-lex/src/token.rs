@@ -28,6 +28,8 @@ pub enum TokenKind {
     Arrow,
     Guard,
     Quote,
+    /// `_` touching a closing parenthesis: apply the value (F5).
+    Apply,
     Lazy,
     Unit,
     Semi,
@@ -171,6 +173,7 @@ impl fmt::Display for TokenKind {
             TokenKind::Arrow => "Arrow",
             TokenKind::Guard => "Guard",
             TokenKind::Quote => "Quote",
+            TokenKind::Apply => "Apply",
             TokenKind::Lazy => "Lazy",
             TokenKind::Unit => "Unit",
             TokenKind::Semi => "Semi",

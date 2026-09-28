@@ -7,7 +7,8 @@ raw ASCII source
     |  xetal-lex        tokens + spans (decoration -> token class)
     v
 tokens
-    |  xetal-syntax     ParseResult { alternatives } -> 0 / 1 / many
+    |  xetal-syntax     deterministic parse: 0 or 1 tree; boundary
+    |                   shapes rejected with specific errors
     v
 surface AST          (many parses => AmbiguousExpression error)
     |  xetal-core       desugar: lambdas, niladic sugar, derivations,

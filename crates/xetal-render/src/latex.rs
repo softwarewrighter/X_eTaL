@@ -58,6 +58,7 @@ fn token_tex(kind: &TokenKind, raw: &str) -> String {
         TokenKind::Arrow => r"\to".into(),
         TokenKind::Lazy => r"\sim".into(),
         TokenKind::Quote => r"\text{'}".into(),
+        TokenKind::Apply => r"\_".into(),
         TokenKind::LBrace => r"\{".into(),
         TokenKind::RBrace => r"\}".into(),
         _ => raw.into(),

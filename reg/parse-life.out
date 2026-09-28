@@ -1,0 +1,1 @@
+(:= u:l_ife (lambda (_r) ((lambda (_l _r) (+ (= _l 3) (* _r (= _l 4)))) ((operand + r_/_12) (o_-_12 (strand -1 0 1) _r)) _r)))

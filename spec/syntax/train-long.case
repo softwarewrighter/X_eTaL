@@ -1,0 +1,5 @@
+# Longer trains group from the right into forks (TR3).
+== SOURCE
+[a_ b_ c_ d_ e_]
+== SURFACE
+(train a_ b_ (train c_ d_ e_))

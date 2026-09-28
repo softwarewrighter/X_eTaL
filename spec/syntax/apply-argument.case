@@ -1,0 +1,5 @@
+# A function parameter is called directly; W (L4).
+== SOURCE
+{ f_ x -> x f_ x }
+== SURFACE
+(lambda (f_ x) (f_ x x))

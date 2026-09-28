@@ -1,0 +1,5 @@
+# f_ g_ is not composition: g_ needs an argument; quote it to pass it.
+== SOURCE
+f_ g_
+== ERROR
+error[missing-argument]: this function needs an argument on its right (to pass it as a value, quote it) at 3..5

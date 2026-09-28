@@ -1,0 +1,5 @@
+# Only functions can be quoted (F4).
+== SOURCE
+'x
+== ERROR
+error[bad-quote]: only functions can be quoted; a variable is already a value at 0..2

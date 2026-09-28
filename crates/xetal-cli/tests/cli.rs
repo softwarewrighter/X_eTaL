@@ -163,3 +163,26 @@ fn render_latex_is_one_way_math() {
         .assert()
         .code(2);
 }
+
+#[test]
+fn parse_prints_the_surface_tree() {
+    xetal()
+        .args(["parse", "-e", "u:s_ub := { _l - _r }; 10 u:s_ub 3"])
+        .assert()
+        .success()
+        .stdout("(:= u:s_ub (lambda (_l _r) (- _l _r)))\n(u:s_ub 10 3)\n");
+}
+
+#[test]
+fn later_stages_report_parse_errors_before_unsupported() {
+    xetal()
+        .args(["eval", "-e", "- 3"])
+        .assert()
+        .code(1)
+        .stderr(starts_with("error[symbol-needs-left]: "));
+    xetal()
+        .args(["eval", "-e", "1 + 2"])
+        .assert()
+        .code(1)
+        .stderr("error[unsupported]: stage `eval` is not implemented\n");
+}

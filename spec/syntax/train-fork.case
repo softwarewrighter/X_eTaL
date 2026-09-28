@@ -1,0 +1,5 @@
+# A fork: sum divided by count (TR1).
+== SOURCE
+['+ r_/ / t_ally]
+== SURFACE
+(train (operand + r_/) / t_ally)

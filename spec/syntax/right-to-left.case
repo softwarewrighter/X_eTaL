@@ -1,0 +1,5 @@
+# Right to left: a function takes everything to its right (F3).
+== SOURCE
+a f_ b g_ c
+== SURFACE
+(f_ a (g_ b c))

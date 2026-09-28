@@ -1,0 +1,5 @@
+# A quoted lambda as an operand (F4, F8).
+== SOURCE
+'{ x -> x * 2 } e_ach v
+== SURFACE
+((operand (lambda (x) (* x 2)) e_ach) v)

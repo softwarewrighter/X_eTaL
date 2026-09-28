@@ -1,0 +1,5 @@
+# A quoted function as a value: reduce partially applied to plus (F4).
+== SOURCE
+r_/ '+
+== SURFACE
+(r_/ (quote +))
