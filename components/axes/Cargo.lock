@@ -337,6 +337,7 @@ dependencies = [
  "proptest",
  "xetal-array",
  "xetal-base",
+ "xetal-rotate",
  "xetal-value",
 ]
 

@@ -4,6 +4,7 @@
 
 mod apply;
 mod moves;
+mod rotate;
 
 pub use apply::on_axes;
 pub use moves::move_axis;

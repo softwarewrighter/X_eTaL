@@ -72,8 +72,8 @@ inference (`xetal type`), a strict evaluator (`xetal eval`,
 session (`xetal repl`) work, with dense arrays, strings, scalar
 extension, the structural built-ins, the higher-order built-ins
 (reduce, scan, each, table, inner product, compose, swap) and the
-search, order and random built-ins. Rotate and axis subscripts are not
-implemented yet and report `error[unsupported]`.
+search, order and random built-ins, rotate and reverse, and axis
+subscripts on any function; the Life one-liner runs.
 The language is specified by its test suite as it is built;
 the design documents describe the intended language.
 
@@ -370,9 +370,6 @@ for every item of n, so `r_oll! 6 6` rolls two dice:
 
 Each run rolls differently; `--seed N` (or `XETAL_SEED`) repeats a
 run's rolls when a test needs that.
-
-Rotate and axis subscripts, and with them the Life one-liner, are not
-implemented yet ([`docs/plan.md`](docs/plan.md)).
 
 ## Install
 

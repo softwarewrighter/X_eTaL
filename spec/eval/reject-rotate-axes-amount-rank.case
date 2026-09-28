@@ -1,0 +1,5 @@
+# Amounts are one number or a list, whatever the axes (A4).
+== SOURCE
+(2 2 r_eshape 1) o_-_12 3 3 r_eshape r_ange 9
+== ERROR
+error[rank]: rotation amounts must be one number or a list at 1..45

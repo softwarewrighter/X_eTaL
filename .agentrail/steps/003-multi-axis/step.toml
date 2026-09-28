@@ -1,6 +1,6 @@
 number = 3
 slug = "multi-axis"
-status = "pending"
+status = "in-progress"
 description = "rotate-and-axes step 3: TDD multi-axis rotate o_-_12 giving every combination..."
 role = "production"
 context_files = []

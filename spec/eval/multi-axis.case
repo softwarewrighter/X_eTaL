@@ -1,0 +1,45 @@
+# Several axes (A4, R1). Rotate with a multi-axis subscript turns each
+# listed axis; a list of amounts gives every combination, one leading
+# result axis per listed axis. Reduce and scan with several axes work
+# on each listed axis in turn: `'+ r_/_12` reduces axis 1 and then the
+# new axis 1 (the original axis 2).
+== SOURCE
+b := 3 3 r_eshape 1 2 3 4 5 6 7 8 9
+1 o_-_12 b
+s_hape -1 0 1 o_-_12 b
+s_hape -1 0 1 o_-_2 b
+-1 0 1 o_-_1 1 2 3
+'+ r_/_12 -1 0 1 o_-_12 b
+'+ r_/_12 b
+'+ r_/_21 b
+'+ s_\_12 b
+'- r_/_12 2 2 r_eshape 10 1 2 3
+== TYPE
+b : Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+== RESULT
+5 6 4
+8 9 7
+2 3 1
+3 3 3 3
+3 3 3
+3 1 2
+1 2 3
+2 3 1
+45 45 45
+45 45 45
+45 45 45
+45
+45
+ 1  3  6
+ 5 12 21
+12 27 45
+10

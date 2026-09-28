@@ -11,6 +11,7 @@ repository.workspace = true
 xetal-base.workspace = true
 xetal-array.workspace = true
 xetal-value.workspace = true
+xetal-rotate.workspace = true
 
 [dev-dependencies]
 proptest.workspace = true

@@ -1,0 +1,5 @@
+# Each axis may be listed once.
+== SOURCE
+'+ r_/_11 3 3 r_eshape r_ange 9
+== ERROR
+error[bad-axis]: axes are the digits 1-9, each at most once at 8..9

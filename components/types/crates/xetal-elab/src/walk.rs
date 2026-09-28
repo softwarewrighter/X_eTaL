@@ -64,6 +64,7 @@ impl Walker<'_> {
                 }
             }
             Kind::Var(_) | Kind::Global(_) => self.pass(e),
+            Kind::Axes { f, .. } if self.dicts.prims.contains_key(&f.id) => self.subscripted(e),
             Kind::Prim(_) => {
                 if let Some((t, arity)) = self.dicts.prims.get(&e.id) {
                     *e = typed_result(e, t, *arity, &self.scope);
@@ -82,6 +83,18 @@ impl Walker<'_> {
         for t in self.dicts.args.get(&e.id).into_iter().flatten() {
             let z = zero(e, t, &self.scope);
             *e = app(e.clone(), z);
+        }
+    }
+
+    /// A typed-result built-in under an axis subscript (`'+ r_/_12`): the
+    /// whole subscripted function is wrapped, so the axis rule still
+    /// sees the built-in itself.
+    fn subscripted(&mut self, e: &mut Expr) {
+        if let Kind::Axes { f, arity, .. } = &mut e.kind {
+            *arity = self.dicts.axes.get(&e.id).copied().or(*arity);
+            if let Some((t, n)) = self.dicts.prims.get(&f.id) {
+                *e = typed_result(e, t, *n, &self.scope);
+            }
         }
     }
 

@@ -293,7 +293,13 @@ turns it into a built-in value `#axes` that collects those arguments;
 front, applies f, and moves the axis back when the result kept its
 rank (a result one rank lower consumed it; other rank changes and
 axes beyond the rank are `error[axis]`). `c_at_k` is refused because
-its left argument is data too.
+its left argument is data too. Rotate defines several axes and
+amount lists itself (every combination, one leading result axis per
+listed axis, A4); reduce and scan with several axes apply the rule to
+each listed axis in turn, renumbering the later ones when a reduce
+consumes an axis (R1). A typed-result built-in under a subscript
+(`'+ r_/_12` in a polymorphic function) is elaborated as a whole, so
+the axis rule still sees the built-in.
 Evaluation runs on its own large stack; runaway recursion is a
 `stack-overflow` error. Each top-level expression's value is printed
 (section 10a of lang-choices); runtime errors are diagnostics with

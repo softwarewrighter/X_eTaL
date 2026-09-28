@@ -23,6 +23,7 @@ version = "0.1.0"
 dependencies = [
  "xetal-array",
  "xetal-base",
+ "xetal-rotate",
  "xetal-value",
 ]
 
@@ -73,6 +74,15 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-core",
+ "xetal-value",
+]
+
+[[package]]
+name = "xetal-rotate"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
  "xetal-value",
 ]
 
