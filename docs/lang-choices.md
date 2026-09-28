@@ -92,6 +92,21 @@ This document supersedes `docs/syntax-proposal.md`.
 | L5 | Shorthand and named parameters may not be mixed in one lambda. |
 | L6 | A niladic function is defined with `@` as its only parameter: `u:n_ow := { @ -> ... }`, and called as `u:n_ow @`. There is no `_@` call sugar; the subscript slot is for axes only. |
 
+## 6b. Conditionals
+
+| #  | Decision |
+| -- | -------- |
+| G1 | Branching uses APL dfn-style guards inside lambdas: a statement `condition ? result` returns `result` from the lambda when the condition is true; otherwise evaluation continues with the next statement. Only the chosen result is evaluated, so recursion terminates. The guard is a spaced `?`; a touching `?` ends a predicate name (`e_mpty?`). |
+| G2 | A guard's condition must be a scalar Bool (or Int 1 / 0, per T1); an array condition is an error. If no guard fires and no plain statement follows, it is an error. Guards exist only inside `{ }`. |
+
+```
+u:f_act := { n ->
+  n <= 1 ? 1
+  n * u:f_act n - 1
+}
+u:s_ign := { x -> x < 0 ? -1; x = 0 ? 0; 1 }
+```
+
 ## 6a. Trains
 
 | #  | Decision |
