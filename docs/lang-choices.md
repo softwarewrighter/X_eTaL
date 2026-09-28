@@ -53,7 +53,7 @@ This document supersedes `docs/syntax-proposal.md`.
 | N4 | A mutable variable name ends in `!` (see M2). |
 | N5 | Namespaces are a leading prefix: `u:` for the user's definitions, `c:` for the combinator library; no prefix means the system (built-ins). The display shows the prefix as a leading superscript. Plain variables (`x`, `n`) are in the user namespace implicitly. |
 | N6 | User functions are defined and called with the same full name: `u:l_ife := { ... }`, `u:l_ife board`. |
-| N7 | Libraries are brought in by the `u_se<` macro (section 13); an optional left argument renames the library's namespace: `"k:" u_se< "Combinators"`. |
+| N7 | Libraries are brought in by the `u_se<` macro (section 14); an optional left argument renames the library's namespace: `"k:" u_se< "Combinators"`. |
 
 ## 4. Decorations
 
@@ -138,7 +138,19 @@ Named instead of symbols: `n_eg` (negate), `n_ot` (not), `m_od`
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example superscript `q`, subscript `@`, superscript decimal point). |
 | I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` as the diamond, `#` as the lamp, `!=` `<=` `>=` `*` `/` `&` `\|` as their mathematical glyphs. |
 
-## 11. Sections
+## 11. Built-in names
+
+| #  | Decision |
+| -- | -------- |
+| B1 | Built-ins are named with full words or standard short forms, first letter underlined: `r_eshape`, `r_ange`, `e_ach`, `t_able`, `t_ally`, `f_irst`, `r_ev`, `n_eg`. |
+| B2 | A punctuation-suffixed name is used only where the mark carries APL meaning: `r_/` reduce, `s_\` scan, `o_-` rotate (and `o_\` transpose, later). |
+| B3 | One name per built-in; no aliases (`r_ev` exists, `r_everse` does not). |
+
+The Life one-liner is unaffected (it uses only `r_/` and `o_-`);
+words appear in the surrounding code, e.g.
+`board := 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 ...`.
+
+## 12. Sections
 
 | #  | Decision |
 | -- | -------- |
@@ -160,7 +172,7 @@ u:f_romThree := ('-)_ 3           # the same, point-free: quoted minus, left fil
 The error for `- 3` names all three fixes: write `-3` for the
 number, `n_eg 3` to negate, `{ x -> x - 3 }` to subtract 3.
 
-## 12. Strings
+## 13. Strings
 
 | #  | Decision |
 | -- | -------- |
@@ -174,7 +186,7 @@ Planned enhancements (after the MVP milestones):
 - Unicode text as a library-supplied type extension, once the
   language has a way for libraries to add types.
 
-## 13. Macros and libraries
+## 14. Macros and libraries
 
 | #  | Decision |
 | -- | -------- |
@@ -227,7 +239,7 @@ Row 12 narrows M1: rebinding stays allowed for variables, but a
 top-level function name is defined once per file, so a library's
 interface is unambiguous.
 
-## 14. Queue of open questions
+## 15. Queue of open questions
 
 - Optional, later: a spelling for axes above 9; function power on
   functions; an explicit `_` wildcard parameter (`{ x _ -> x }`);
@@ -235,7 +247,7 @@ interface is unambiguous.
 - Names for the remaining built-ins (reshape, shape, range, index,
   each, table, tally, and others) under the naming rules above.
 
-## 15. Style guide (conventions; a linter may check them later)
+## 16. Style guide (conventions; a linter may check them later)
 
 Only camelCase can express multi-word names: snake_case is impossible
 (variables have no `_`, a function name has exactly one) and
@@ -260,7 +272,7 @@ Recommended function-name suffixes:
 | `~` | approximate or tolerant | `e_q~` |
 | `$` | produces text | `f_mt$` |
 
-## 16. Examples
+## 17. Examples
 
 Names other than `r_/`, `o_-`, `r_ev`, `n_eg` are placeholders.
 
