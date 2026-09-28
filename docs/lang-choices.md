@@ -162,6 +162,24 @@ Named instead of symbols: `n_eg` (negate), `n_ot` (not), `m_od`
 | M1 | Values are immutable. Rebinding a variable creates a new binding (shadowing); a lambda keeps the value it captured. A top-level function name is defined once per file (MC8 row 12). There is no indexed assignment; updates return new arrays. |
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (`count! := count! + 1`), so every read and write shows it. |
 
+## 9a. Evaluation
+
+| #  | Decision |
+| -- | -------- |
+| E1 | Evaluation is strict by default. A lambda parameter may be declared lazy with a `~` prefix in the parameter list (`{ ~self_ n -> ... }`): its argument is not evaluated at the call but on first use in the body, then remembered (call-by-need); unused, it is never evaluated. The body uses the parameter normally (`self_`, not `~self_`). |
+| E2 | A function is evaluated before its argument, so the evaluator knows whether the parameter is lazy. Laziness is carried by the function value at run time and is not part of the static type. |
+| E3 | The Y combinator works in its textbook shape when its functional marks its self parameter lazy; Z also works. Lazy parameters also let users write their own control structures (`u:w_hen := { c ~a ~b -> c ? a; b }`). |
+
+Implementation note (no language change): because values are
+immutable, arrays may be kept virtual. `r_ange n` and `o_ffsets n` can
+be arithmetic progressions; rotate, reverse, take, drop and transpose
+can be index transformations over the original (Abrams' "beating");
+chains of element-wise operations can be fused (Abrams' "drag-along");
+reductions can stream over virtual arrays, so `'+ r_/ r_ange 1000000000`
+never builds the array. Results are exactly those of full evaluation.
+Arrays have finite shape; infinite sequences would be a separate
+stream type later.
+
 ## 10. Input and display
 
 | #  | Decision |
