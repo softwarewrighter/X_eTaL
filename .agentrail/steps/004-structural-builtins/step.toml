@@ -1,9 +1,0 @@
-number = 4
-slug = "structural-builtins"
-status = "pending"
-description = "arrays step 4: TDD the structural built-ins s_hape r_eshape r_ange o_ffsets t..."
-role = "production"
-context_files = []
-created_at = "2026-09-27T22:47:11"
-task_type = "code"
-commits = []

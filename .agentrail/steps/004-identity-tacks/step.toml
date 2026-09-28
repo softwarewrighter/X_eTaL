@@ -1,0 +1,8 @@
+number = 4
+slug = "identity-tacks"
+status = "pending"
+description = "arrays step 4: TDD the identity and tack built-ins (lang-choices B9, decided ..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T23:02:01"
+commits = []

@@ -1,4 +1,4 @@
-number = 6
+number = 7
 slug = "repl"
 status = "pending"
 description = "arrays step 6: TDD xetal repl: persistent definitions and types across lines,..."
