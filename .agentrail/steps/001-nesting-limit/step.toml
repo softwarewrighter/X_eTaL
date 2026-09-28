@@ -1,0 +1,9 @@
+number = 1
+slug = "nesting-limit"
+status = "pending"
+description = "types-and-unit step 1: TDD a nesting-depth limit so no pathological input ove..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T22:13:40"
+task_type = "feature"
+commits = []

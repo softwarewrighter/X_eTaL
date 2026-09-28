@@ -85,7 +85,7 @@ What to do differently:
   on a large stack with a depth limit. Keep the no-panic rule in mind
   for every recursive component (parser and desugarer next).
 
-## Saga 3 -- types-and-unit (M2)
+## Saga 3 -- types-and-unit (M2)  [ACTIVE]
 
 Hindley-Milner inference over Core (Unit, Bool, Int, Float, Char,
 functions, type variables, `Num`), let-polymorphism, diagnostics with

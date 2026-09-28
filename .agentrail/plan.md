@@ -1,38 +1,36 @@
-# calculus
+# types-and-unit
 
-Saga 2 of X_eTaL (see docs/plan.md). Milestones M0 (again, in the new
-syntax) and M1 from docs/PRD.md. Replaces the archived saga
-'foundations' (steps 1-7 done; its steps 3-4 implemented the earlier
-syntax).
+Saga 3 of X_eTaL (see docs/plan.md). Milestone M2 from docs/PRD.md:
+static types. `u:a_nswer := { @ -> 42 }; u:a_nswer @` works and
+`u:a_nswer 42` is rejected by the type checker before anything runs.
 
-Specification: docs/lang-choices.md (decisions made with the user and
-consistency-reviewed). It governs wherever older docs, tests or code
-disagree. Ask the user before resolving anything it leaves open.
+Specification: docs/lang-choices.md (governs). Relevant decisions:
+T1 (Bool type, implicit Bool -> Int in arithmetic, Int -> Bool only
+from 1/0), T2, T3, D-4, D-10, T4 (no annotations; `::` reserved), L6
+(niladic `{ @ -> ... }`), E1-E4 (laziness is not part of the type),
+M1/M2 (immutability, `!` variables), MC/N rules for names. Where the
+exact typing rule is not decided (e.g. how T1's implicit coercion is
+typed), ask the user before implementing.
 
 Rules for every step: strict TDD (failing test first, rejection tests
-for every accepted form), tests are the spec (spec/**/*.case, crate
-tests, proptest, reg-rs goldens in reg/), never resolve ambiguity
-heuristically, class from tokens only, evaluator consumes Core only,
-no panics on any input, run scripts/gate.sh (fmt, clippy, tests,
-reg-rs, sw-checklist, markdown) before committing, commit (including
-.agentrail/) before agentrail complete, push to origin/main.
+for every accepted rule), tests are the spec (spec/**/*.case with TYPE
+sections, crate tests, proptest, reg-rs goldens), no panics on any
+input, run scripts/gate.sh before committing, commit (including
+.agentrail/ and Cargo.lock) before agentrail complete, push to
+origin/main.
 
 ## Steps
 
-Goal: the implemented syntax matches `lang-choices.md` and renders
-decorated and back losslessly (M0 again); the scalar functional
-calculus evaluates (M1): `1 + 2` gives 3,
-`u:s_quare := { _r * _r }; u:s_quare 7` gives 49,
-`u:s_ub := { _l - _r }; 10 u:s_ub 3` gives 7, and a guarded recursive
-factorial works.
-
-| #  | Step slug        | Delivers                                                   |
-| -- | ---------------- | ---------------------------------------------------------- |
-| 1  | lexer-revision   | lexer to the new token set (names with one underline and a trailing mark, `u:` `c:` `l:` prefixes, `_digits` subscripts, `^` exponents on values, `:=` `->` `?` guards, `~` lazy parameters, quotes, strings, `#` comments, symbol digraphs `!=` `<=` `>=`, macros ending `<`, R2 `x!=3` error, newline and `;` tokens); rejection tests first; spec/lex re-written; goldens |
-| 2  | render-revision  | Unicode render (underline core functions, prefix superscripts, subscripts, exponents, ligatures) and LaTeX output for the new syntax; round-trip proptest; spec/render and goldens; `docs/design.md` sections 2, 3, 8 and `docs/input.md` rewritten from `lang-choices.md`; README table and Life line; pending Life case in the new syntax |
-| 3  | parser           | surface AST with spans: classes from tokens, right-to-left application, strands, exponents, axes, lambdas (`_l`/`_r`, named and `@` and `~` parameters), quotes, operand binding (F8/F9), `(expr)_` application, trains, guards, statements (`:=`, newlines, `;`), SC1 errors; ParseResult alternatives and `AmbiguousExpression`; ambiguity corpus; `xetal parse` |
-| 4  | canonical-fmt    | canonical fully parenthesized printer, `xetal fmt`, `parse(fmt(parse x)) == parse x` proptest |
-| 5  | core-desugar     | Core IR with NodeId and spans; desugar currying, lambdas, named and lazy parameters, operand binding, trains, guards, statements; normalization-equivalence tests; `xetal core` |
-| 6  | scalar-eval      | strict evaluator over Core: Int / Float / Bool scalars with T1-T3 and D-10 rules, symbols, bindings and shadowing (M1), closures, currying, guards, `~` call-by-need (E1-E4), mutable `!` variables (M2), L7 shadowing warnings, printed results (10a) for scalars; `xetal eval`, `xetal run`, `xetal FILE`; M1 demos as reg-rs goldens |
-| 7  | m1-docs-release  | README tour for M0/M1 with every command a golden, docs sync, saga retrospective |
-
+1. nesting-limit -- a nesting-depth limit for parser, desugarer and
+   printers with a clear error (no stack overflow on pathological
+   input); proptest with deep nesting.
+2. type-core -- xetal-types: types (Unit Bool Int Float Char,
+   functions, type variables, Array<T> stub), unification with occurs
+   check, the Num constraint, errors with spans.
+3. infer -- Algorithm W over Core with let-polymorphism, letrec,
+   late-bound module definitions (inferred as a group), guards,
+   mutable variables, built-in signatures; the T1 typing rule decided
+   with the user first.
+4. type-cli -- `xetal type`, TYPE sections in the spec corpus, eval
+   refuses ill-typed programs, goldens; the M2 demo.
+5. m2-docs-release -- README tour for M2, docs sync, retrospective.

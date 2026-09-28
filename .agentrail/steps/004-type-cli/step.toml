@@ -1,0 +1,9 @@
+number = 4
+slug = "type-cli"
+status = "pending"
+description = "types-and-unit step 4 (M2 demo): xetal type prints the inferred type of each ..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T22:13:40"
+task_type = "feature"
+commits = []

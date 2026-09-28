@@ -1,0 +1,9 @@
+number = 5
+slug = "m2-docs-release"
+status = "pending"
+description = "types-and-unit step 5: README tour for M2 (every command a golden), docs/desi..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T22:13:40"
+task_type = "docs"
+commits = []

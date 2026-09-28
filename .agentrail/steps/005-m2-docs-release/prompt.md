@@ -1,0 +1,1 @@
+types-and-unit step 5: README tour for M2 (every command a golden), docs/design.md section 5 and lang-choices status in sync, docs/plan.md retrospective for Saga 3; agentrail complete --done; ask the user before archiving.

@@ -1,0 +1,1 @@
+types-and-unit step 4 (M2 demo): xetal type prints the inferred type of each top-level item; TYPE sections for spec/syntax and spec/eval cases (blessed and reviewed); xetal eval and run type-check first and refuse ill-typed programs with spanned errors; M2 demo demos/unit.xtl (u:a_nswer := { @ -> 42 }; u:a_nswer @ works, u:a_nswer 42 is a type error) and reg-rs goldens.

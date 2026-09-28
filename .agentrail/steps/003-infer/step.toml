@@ -1,0 +1,9 @@
+number = 3
+slug = "infer"
+status = "pending"
+description = "types-and-unit step 3: TDD Algorithm W over Core (docs/lang-choices.md): lite..."
+role = "production"
+context_files = []
+created_at = "2026-09-27T22:13:40"
+task_type = "feature"
+commits = []

@@ -1,0 +1,1 @@
+Saga calculus complete: M0 in the new syntax and M1 (parser, fmt, core, scalar eval). Next: Saga 3 types-and-unit (docs/plan.md).
