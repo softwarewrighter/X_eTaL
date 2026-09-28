@@ -67,6 +67,7 @@ This document supersedes `docs/syntax-proposal.md`.
 | D-4 | Any number literal may be an exponent, including negative and decimal (`x^-1`, `x^0.5`). An Int base with a whole non-negative exponent gives Int; otherwise Float. A negative base with a fractional exponent is an error, as is integer overflow. LaTeX renders what Unicode cannot. |
 | D-5 | For now exponents are literal numbers only (phased); `x^n` is an error with a hint to use the power function. Variable or expression exponents may be added later. |
 | D-6 | Power with a computed exponent is the spaced symbol `^`: `x ^ n`, `2 ^ (k - 1)`. Touching `^` is the literal superscript; spaced `^` is the function (like `-1` versus `- 1`). |
+| D-10 | The spaced power function with a computed exponent: Int `^` Int gives Int, and a negative exponent at run time is an error with the hint "use a Float base: `2.0 ^ n`"; any Float operand gives Float. Integer overflow is an error (`2 ^ 100` on Ints; use `2.0 ^ 100`). (Review R5.) |
 | D-7 | Superscripts on functions (including symbols) are reserved and are an error for now. Function power (f squared = apply twice, inverse) is the leading candidate for later. |
 | D-8 | An axis subscript is `_` followed by digits after a function name: `r_/_2`, `o_-_12`. Because a function name has exactly one underline, a later `_` always starts the subscript (`r_2` is the function `r2`; the function `r` on axis 2 is `r__2`). |
 | D-9 | One digit per axis, axes 1 to 9: `_12` means axes 1 and 2. A spelling for axes above 9 is reserved for later. |
