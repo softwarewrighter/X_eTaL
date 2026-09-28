@@ -1,0 +1,1 @@
+M1 docs release: README tour (demos + outputs, all goldens), Install section with x_etal symlink, architecture.md synced, plan.md Saga 2 retrospective and nesting-depth risk noted for Saga 3. Saga calculus complete (M0 in new syntax + M1).
