@@ -1,9 +1,10 @@
 number = 2
 slug = "render-revision"
-status = "in-progress"
+status = "completed"
 description = "calculus step 2: TDD the xetal-render revision to docs/lang-choices.md sectio..."
 role = "production"
 context_files = []
 created_at = "2026-09-27T21:13:35"
+completed_at = "2026-09-27T21:35:53"
 task_type = "feature"
-commits = []
+commits = ["232a2b65b151203f0306923c002a850bc5e68e18"]
