@@ -1,0 +1,1 @@
+docs/lang-choices.md records all user decisions (principles, functions/currying, names, decorations, axes, lambdas, statements, symbols, types/mutability, display), pending Q29 and the open queue, style guide, examples incl. birds and Life. syntax-proposal.md superseded; input.md/design.md repointed. No code changes.
