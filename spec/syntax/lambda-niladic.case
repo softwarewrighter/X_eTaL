@@ -3,3 +3,5 @@
 { @ -> 42 }
 == SURFACE
 (lambda (@) 42)
+== CANONICAL
+{ @ -> 42 }

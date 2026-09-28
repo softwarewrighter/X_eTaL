@@ -1,0 +1,3 @@
+command = '''printf 'u:f_act := { n ->\n  n <= 1 ? 1\n  n * u:f_act n - 1\n}\n' > /tmp/xetal-fmt-factorial.xtl && ./target/debug/xetal fmt /tmp/xetal-fmt-factorial.xtl'''
+exit_code = 0
+desc = "xetal fmt of a multi-line guarded definition read from a file"

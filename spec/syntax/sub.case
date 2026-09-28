@@ -4,3 +4,6 @@ u:s_ub := { _l - _r }; 10 u:s_ub 3
 == SURFACE
 (:= u:s_ub (lambda (_l _r) (- _l _r)))
 (u:s_ub 10 3)
+== CANONICAL
+u:s_ub := { (_l - _r) }
+(10 u:s_ub 3)

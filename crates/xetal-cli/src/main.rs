@@ -153,6 +153,7 @@ fn run(command: &Command) -> Result<String, Diagnostic> {
             .collect::<Vec<_>>()
             .join("\n")),
         Command::Parse(_) => Ok(xetal_syntax::parse(&source)?.to_string()),
+        Command::Fmt(_) => xetal_render::canonical(&source),
         _ => {
             xetal_syntax::parse(&source)?;
             Err(Diagnostic::unsupported(command.stage()))

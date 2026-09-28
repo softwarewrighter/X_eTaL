@@ -3,3 +3,5 @@
 [n_eg a_bs] x
 == SURFACE
 ((train n_eg a_bs) x)
+== CANONICAL
+([n_eg a_bs] x)

@@ -3,3 +3,5 @@
 '{ x -> x * 2 } e_ach v
 == SURFACE
 ((operand (lambda (x) (* x 2)) e_ach) v)
+== CANONICAL
+('{ x -> (x * 2) } e_ach v)

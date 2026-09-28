@@ -3,3 +3,5 @@
 (s_wap '-)_ 3
 == SURFACE
 ((apply (s_wap (quote -))) 3)
+== CANONICAL
+((s_wap '-)_ 3)

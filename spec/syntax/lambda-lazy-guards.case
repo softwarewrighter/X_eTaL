@@ -3,3 +3,5 @@
 { ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }
 == SURFACE
 (lambda (~s_elf n) (? (<= n 1) 1) (* n (s_elf (- n 1))))
+== CANONICAL
+{ ~s_elf n -> (n <= 1) ? 1; (n * (s_elf (n - 1))) }

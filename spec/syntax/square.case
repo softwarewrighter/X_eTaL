@@ -4,3 +4,6 @@ u:s_quare := { _r * _r }; u:s_quare 7
 == SURFACE
 (:= u:s_quare (lambda (_r) (* _r _r)))
 (u:s_quare 7)
+== CANONICAL
+u:s_quare := { (_r * _r) }
+(u:s_quare 7)

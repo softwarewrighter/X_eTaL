@@ -3,3 +3,5 @@
 { _r * _r }
 == SURFACE
 (lambda (_r) (* _r _r))
+== CANONICAL
+{ (_r * _r) }

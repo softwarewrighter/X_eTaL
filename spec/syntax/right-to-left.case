@@ -3,3 +3,5 @@
 a f_ b g_ c
 == SURFACE
 (f_ a (g_ b c))
+== CANONICAL
+(a f_ (b g_ c))

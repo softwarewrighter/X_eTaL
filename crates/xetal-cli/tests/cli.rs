@@ -186,3 +186,12 @@ fn later_stages_report_parse_errors_before_unsupported() {
         .code(1)
         .stderr("error[unsupported]: stage `eval` is not implemented\n");
 }
+
+#[test]
+fn fmt_prints_the_canonical_form() {
+    xetal()
+        .args(["fmt", "-e", "x := 3; a f_ b g_ c"])
+        .assert()
+        .success()
+        .stdout("x := 3\n(a f_ (b g_ c))\n");
+}

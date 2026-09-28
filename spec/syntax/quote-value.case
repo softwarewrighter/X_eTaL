@@ -3,3 +3,5 @@
 r_/ '+
 == SURFACE
 (r_/ (quote +))
+== CANONICAL
+(r_/ '+)

@@ -3,3 +3,5 @@
 1 2 3^2
 == SURFACE
 (strand 1 2 (pow 3 2))
+== CANONICAL
+1 2 3^2

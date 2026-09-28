@@ -3,3 +3,5 @@
 (1 2 3)^2
 == SURFACE
 (pow (strand 1 2 3) 2)
+== CANONICAL
+(1 2 3)^2

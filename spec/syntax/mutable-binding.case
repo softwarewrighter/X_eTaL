@@ -3,3 +3,5 @@
 count! := count! + 1
 == SURFACE
 (:= count! (+ count! 1))
+== CANONICAL
+count! := (count! + 1)

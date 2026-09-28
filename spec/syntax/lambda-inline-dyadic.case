@@ -3,3 +3,5 @@
 S { (_l = 3) + _r } B
 == SURFACE
 ((lambda (_l _r) (+ (= _l 3) _r)) S B)
+== CANONICAL
+(S { ((_l = 3) + _r) } B)

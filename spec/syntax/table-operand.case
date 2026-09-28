@@ -3,3 +3,5 @@
 A '* t_able B
 == SURFACE
 ((operand * t_able) A B)
+== CANONICAL
+(A '* t_able B)

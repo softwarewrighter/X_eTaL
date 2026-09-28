@@ -3,3 +3,5 @@
 A '+ '* i_nner B
 == SURFACE
 ((operand + (operand * i_nner)) A B)
+== CANONICAL
+(A '+ '* i_nner B)

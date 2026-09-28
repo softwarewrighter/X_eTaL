@@ -3,3 +3,5 @@
 { x -> { _r } x }
 == SURFACE
 (lambda (x) ((lambda (_r) _r) x))
+== CANONICAL
+{ x -> ({ _r } x) }

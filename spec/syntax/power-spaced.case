@@ -3,3 +3,5 @@
 x ^ n + 1
 == SURFACE
 (^ x (+ n 1))
+== CANONICAL
+(x ^ (n + 1))

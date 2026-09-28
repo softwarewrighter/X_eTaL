@@ -1,6 +1,6 @@
 number = 4
 slug = "canonical-fmt"
-status = "pending"
+status = "in-progress"
 description = "calculus step 4: TDD the canonical formatter in xetal-render: fully parenthes..."
 role = "production"
 context_files = []

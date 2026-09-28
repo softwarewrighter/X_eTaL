@@ -3,3 +3,5 @@
 '+ r_/ v
 == SURFACE
 ((operand + r_/) v)
+== CANONICAL
+('+ r_/ v)

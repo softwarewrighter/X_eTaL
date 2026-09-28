@@ -6,3 +6,7 @@ x + y
 (:= x 3)
 (:= y (+ x 1))
 (+ x y)
+== CANONICAL
+x := 3
+y := (x + 1)
+(x + y)

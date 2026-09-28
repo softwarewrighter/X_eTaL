@@ -3,3 +3,5 @@
 { f_ x -> x f_ x }
 == SURFACE
 (lambda (f_ x) (f_ x x))
+== CANONICAL
+{ f_ x -> (x f_ x) }

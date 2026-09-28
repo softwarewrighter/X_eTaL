@@ -63,10 +63,10 @@ has S of 4. The two tests never both hold, so `+` acts as "or".
 ## Status
 
 Early. The lexer (`xetal lex`), the decorated renderer
-(`xetal render`) and the parser (`xetal parse`) work; formatting,
-desugaring, types and evaluation are not implemented yet, and those
-commands report `error[unsupported]` after checking that the source
-parses. The language is specified by its test suite as it is built;
+(`xetal render`), the parser (`xetal parse`) and the canonical
+formatter (`xetal fmt`) work; desugaring, types and evaluation are not
+implemented yet, and those commands report `error[unsupported]` after
+checking that the source parses. The language is specified by its test suite as it is built;
 the design documents describe the intended language.
 
 ## Documentation
@@ -117,8 +117,10 @@ reports `error[ambiguous-minus]` at `1..2`.
 ./target/release/xetal render --latex -e 'o_-_12 x^2'
 ```
 
-`xetal parse` prints the surface tree as S-expressions, one line per
-statement:
+`xetal fmt` prints the canonical form, with every application in
+parentheses (`xetal fmt -e 'x := 3; a f_ b g_ c'` gives `x := 3` and
+`(a f_ (b g_ c))`), and `xetal parse` prints the surface tree as
+S-expressions, one line per statement:
 
 ```bash
 ./target/release/xetal parse -e 'u:s_ub := { _l - _r }; 10 u:s_ub 3'
