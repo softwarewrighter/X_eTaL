@@ -170,6 +170,24 @@ Named instead of symbols: `n_eg` (negate), `n_ot` (not), `m_od`
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example superscript `q`, subscript `@`, superscript decimal point). |
 | I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` as the diamond, `#` as the lamp, `!=` `<=` `>=` `*` `/` `&` `\|` as their mathematical glyphs. |
 
+## 10a. Printed results
+
+Plain ASCII, as printed by `xetal eval`, the REPL and the goldens;
+printed values are valid input where possible.
+
+| Value | Printed as |
+| ----- | ---------- |
+| Int | `42`, `-3` (the rich display may show APL's high minus) |
+| Float | shortest form that reads back exactly, always with a `.`: `2.5`, `0.1`, `5.0` |
+| Bool | `1` / `0` |
+| Unit | `@` |
+| vector | space-separated: `1 2 3` |
+| matrix | one row per line, columns right-aligned |
+| rank 3 and up | matrices separated by blank lines (one more blank line per further rank) |
+| empty vector | an empty line |
+| string | the characters without quotes: `hello` |
+| function | `<function>` (or its source text when known) |
+
 ## 11. Built-in names
 
 | #  | Decision |
