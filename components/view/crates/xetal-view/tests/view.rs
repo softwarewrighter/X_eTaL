@@ -18,9 +18,9 @@ fn tokens_get_decorated_text_and_a_class() {
         ("\u{1d58}s\u{332}quare", Class::UserFunc),
         ("\u{2190}", Class::Punct),
         ("{", Class::Punct),
-        ("\u{1d63}", Class::LambdaArg),
+        ("\u{2375}", Class::LambdaArg),
         ("\u{d7}", Class::Symbol),
-        ("\u{1d63}", Class::LambdaArg),
+        ("\u{2375}", Class::LambdaArg),
         ("}", Class::Punct),
         ("\u{235d} sq", Class::Comment),
     ];

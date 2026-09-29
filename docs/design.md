@@ -332,7 +332,7 @@ Whitespace and comment text between tokens are copied verbatim.
 | `u:s_quare`, `m:pi` | the namespace as leading superscript letters (U+1D58 for u) |
 | `o_-_12` | subscript digits U+2081 U+2082 after the name |
 | `x^2`, `x^-1` | superscript digits (U+00B2 ...) and U+207B for minus |
-| `_r`, `_l` | subscript r U+1D63, subscript l U+2097; applied (`_l_`) also underlined |
+| `_r`, `_l` | APL omega U+2375 and alpha U+237A (the dfn argument names); applied (`_l_`) also underlined |
 | `:=` `->` `;` | U+2190 left arrow, U+2192 right arrow, U+22C4 diamond |
 | `#` (comment start) | U+235D APL lamp |
 | `-` `*` `/` (symbols) | U+2212 minus, U+00D7 times, U+00F7 division |

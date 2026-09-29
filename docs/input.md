@@ -37,7 +37,7 @@ A name starts with a letter and continues with letters and digits.
 | `c:K_`      | K from the library imported as c            | superscript c, K underlined     |
 | `m:pi`      | the variable pi from the library m          | superscript m, pi               |
 | `x^2`       | x squared                                   | x, superscript 2                |
-| `_r` `_l`   | a lambda's right and left arguments         | subscript r, subscript l        |
+| `_r` `_l`   | a lambda's right and left arguments         | APL omega, APL alpha            |
 
 Rules that follow (each is rejected with an error and a hint):
 

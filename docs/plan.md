@@ -316,8 +316,8 @@ What to do differently:
 See the source as it is displayed while typing it as ASCII. A
 front-end-agnostic view model (`components/view`) turns source, valid
 or not, into styled segments: decorated Unicode glyphs (underlines,
-subscript axes, superscript exponents and namespaces, subscript r
-and l glyphs (U+1D63, U+2097) for `_r` / `_l`), a semantic class per token for highlighting, and a map
+subscript axes, superscript exponents and namespaces, APL alpha
+and omega for `_l` / `_r`), a semantic class per token for highlighting, and a map
 between raw byte offsets and rendered columns. Terminal widgets
 (`components/tui`, ratatui + crossterm) draw it: an ASCII source
 pane, a rendered pane, an output pane and an array viewer. Two apps
@@ -332,18 +332,20 @@ playground (Saga 13).
 Decisions (with the user): live rendering in the REPL; split editor
 with a live types/diagnostics pane and results on demand (effects such
 as `p_rint!` and `r_oll!` run only on Ctrl-R); `_r` / `_l` render as
-subscript r and l; ratatui + crossterm, screens tested with TestBackend
+APL alpha and omega (first subscript l and r, changed at the
+user's request: they read poorly); ratatui + crossterm, screens tested with TestBackend
 buffer snapshots.
 
 | #  | Step slug        | Delivers                                                    |
 | -- | ---------------- | ----------------------------------------------------------- |
-| 1  | lambda-glyphs    | subscript r and l for `_r` `_l`, round-tripping             |
+| 1  | lambda-glyphs    | compressed glyphs for `_r` `_l`, round-tripping            |
 | 2  | view-model       | tolerant styled segments with classes and a span map; `xetal render --color` |
 | 3  | tui-foundation   | text buffer, nano keymap, source and rendered panes, snapshots |
 | 4  | editor           | `xetal edit FILE`: split panes, live types, Ctrl-R run, save |
-| 5  | array-view       | array viewer widget for results (reused by the debugger)    |
-| 6  | repl-live        | live-rendered REPL line editor with history on a terminal   |
-| 7  | tui-docs-release | README tour, debugger design notes, retrospective           |
+| 5  | alpha-omega-glyphs | `_l` `_r` as APL alpha and omega (user request)           |
+| 6  | array-view       | array viewer widget for results (reused by the debugger)    |
+| 7  | repl-live        | live-rendered REPL line editor with history on a terminal   |
+| 8  | tui-docs-release | README tour, debugger design notes, retrospective           |
 
 ## Saga 8 -- combinators (M6)
 

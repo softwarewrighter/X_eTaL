@@ -38,7 +38,7 @@ fn ascii_on_the_left_decorated_on_the_right() {
         "{screen:?}"
     );
     assert!(
-        screen[1].contains("\u{1d58}s\u{332}quare \u{2190} { \u{1d63} \u{d7} \u{1d63} }"),
+        screen[1].contains("\u{1d58}s\u{332}quare \u{2190} { \u{2375} \u{d7} \u{2375} }"),
         "{screen:?}"
     );
     assert!(screen[2].contains("\u{1d58}s\u{332}quare 7"), "{screen:?}");
