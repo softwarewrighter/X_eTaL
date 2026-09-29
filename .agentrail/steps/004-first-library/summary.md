@@ -1,0 +1,1 @@
+lib/Stats.xtl bundled; xetal-program (expand+lower, located errors); run/eval/type expand imports; demos/stats.xtl; import display (alias superscript + superscript equals + u_se<); fixed case-insensitive self-import; goldens; docs. Tour section deferred to tools step (needs session expansion). Gate green, pushed.

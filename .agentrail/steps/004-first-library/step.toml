@@ -1,9 +1,10 @@
 number = 4
 slug = "first-library"
-status = "in-progress"
+status = "completed"
 description = "libraries step 4: lib/Stats.xtl bundled, a demo using it, the tour's librarie..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T00:04:30"
+completed_at = "2026-09-29T00:39:39"
 task_type = "code"
-commits = []
+commits = ["71e023818178116a631a9cb707d8f7db26d15c56"]
