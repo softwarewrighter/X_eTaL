@@ -1,0 +1,22 @@
+# The Maybe library (CB3): Church-encoded n_othing and j_ust, with
+# o_r, m_ap, m_aybe and b_ind taking the function first, as an operand.
+== SOURCE
+"m:" u_se< "Maybe"
+0 m:o_r m:j_ust 7
+0 m:o_r 'm:n_othing
+0 m:o_r '{ _r + 1 } m:m_ap m:j_ust 7
+0 m:o_r '{ _r + 1 } m:m_ap 'm:n_othing
+0 '{ _r * 2 } m:m_aybe m:j_ust 7
+0 '{ _r * 2 } m:m_aybe 'm:n_othing
+u:h_alf := { x -> x = 1 ? 'm:n_othing; m:j_ust x - 1 }
+0 m:o_r 'u:h_alf m:b_ind 'u:h_alf m:b_ind m:j_ust 5
+0 m:o_r 'u:h_alf m:b_ind 'u:h_alf m:b_ind m:j_ust 2
+== RESULT
+7
+0
+8
+0
+14
+0
+3
+0

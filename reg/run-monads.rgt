@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/monads.xtl"
+exit_code = 0
+desc = "the Maybe monad demo: safe division chained by bind"

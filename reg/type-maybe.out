@@ -1,0 +1,6 @@
+l:n_othing : a -> b -> a
+l:j_ust : a -> b -> (a -> c) -> c
+l:m_aybe : a -> b -> (b -> a -> c) -> c
+l:o_r : a -> (a -> (b -> b) -> c) -> c
+l:m_ap : (a -> b) -> ((c -> d -> c) -> (a -> e -> (b -> f) -> f) -> g) -> g
+l:b_ind : a -> ((b -> c -> b) -> a -> d) -> d

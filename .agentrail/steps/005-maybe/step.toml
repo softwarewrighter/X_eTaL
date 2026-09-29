@@ -1,6 +1,6 @@
 number = 5
 slug = "maybe"
-status = "pending"
+status = "in-progress"
 description = "combinators step 4: lib/Maybe.xtl (Church-encoded n_othing, j_ust, b_ind, hel..."
 role = "production"
 context_files = []

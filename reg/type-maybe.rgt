@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type lib/Maybe.xtl"
+exit_code = 0
+desc = "the Maybe library: exports and their Church-encoded types (CB3)"

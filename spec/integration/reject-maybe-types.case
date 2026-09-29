@@ -1,0 +1,9 @@
+# A maybe that can be either case (here from a guard) needs a default
+# of its value's type (CB3). With Church encoding a j_ust built on its
+# own does not fix the empty case's type; named types would.
+== SOURCE
+"m:" u_se< "Maybe"
+u:p_ositive := { x -> x > 0 ? m:j_ust x; 'm:n_othing }
+"none" m:o_r u:p_ositive 7
+== ERROR
+error[type-mismatch]: expected a number, found Char at -e:3:1
