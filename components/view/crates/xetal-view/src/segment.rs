@@ -2,10 +2,11 @@
 
 use xetal_base::Span;
 use xetal_lex::lex;
-use xetal_render::{gap_text, token_text};
+use xetal_render::token_text;
 
 use crate::Class;
 use crate::class::{classify, quotes_take_function_class};
+use crate::comment::{align, comment};
 
 /// A run of source shown as `text` in style `class`, from bytes `raw`.
 #[derive(Debug, Clone, PartialEq)]
@@ -17,6 +18,13 @@ pub struct Segment {
 
 /// The view of `src`: segments in order, covering every byte once.
 pub fn view(src: &str) -> Vec<Segment> {
+    let mut out = segments(src);
+    align(&mut out, src);
+    out
+}
+
+/// The segments before comments are aligned.
+fn segments(src: &str) -> Vec<Segment> {
     let mut out = Vec::new();
     let mut at = 0;
     while at < src.len() {
@@ -42,7 +50,7 @@ fn around_error(rest: &str, base: usize, span: Option<Span>, out: &mut Vec<Segme
     if start == rest.len() {
         start = rest.char_indices().last().map_or(0, |(i, _)| i);
     }
-    out.extend(view(&rest[..start]).into_iter().map(|s| shift(s, base)));
+    out.extend(segments(&rest[..start]).into_iter().map(|s| shift(s, base)));
     let first = rest[start..].chars().next().map_or(1, char::len_utf8);
     let mut end = span.map_or(0, |s| s.end).clamp(start + first, rest.len());
     while !rest.is_char_boundary(end) {
@@ -86,14 +94,20 @@ fn valid(src: &str, base: usize, out: &mut Vec<Segment>) {
 fn gap(src: &str, from: usize, to: usize, base: usize, out: &mut Vec<Segment>) {
     let text = &src[from..to];
     let hash = text.find('#').unwrap_or(text.len());
-    for (a, b, class) in [(0, hash, Class::Space), (hash, text.len(), Class::Comment)] {
+    let end = text[hash..].find('\n').map_or(text.len(), |n| hash + n);
+    let space = |a: usize, b: usize, out: &mut Vec<Segment>| {
         if a < b {
-            let shown = gap_text(&text[a..b]);
+            let raw = Span::new(base + from + a, base + from + b);
             out.push(Segment {
-                raw: Span::new(base + from + a, base + from + b),
-                text: shown,
-                class,
+                raw,
+                text: text[a..b].to_string(),
+                class: Class::Space,
             });
         }
+    };
+    space(0, hash, out);
+    if hash < end {
+        comment(&text[hash..end], base + from + hash, out);
     }
+    space(end, text.len(), out);
 }

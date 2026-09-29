@@ -6,6 +6,7 @@
 
 mod ansi;
 mod class;
+mod comment;
 mod map;
 mod segment;
 

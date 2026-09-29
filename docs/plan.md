@@ -346,9 +346,12 @@ buffer snapshots.
 | 6  | operand-colors   | symbols light blue; a quote colored as its function (user request) |
 | 7  | language-tour    | `demos/tour.xtl`: every feature, commented (user request)   |
 | 8  | echo-run         | `xetal run --echo`: each statement, then its output (user request) |
-| 9  | array-view       | array viewer widget for results (reused by the debugger)    |
-| 10 | repl-live        | live-rendered REPL line editor with history on a terminal   |
-| 11 | tui-docs-release | README tour, debugger design notes, retrospective           |
+| 9  | just-args        | `just run` / `just eval` pass flags through                 |
+| 10 | diamond-glyph    | `;` as a black diamond (user request)                       |
+| 11 | comment-rendering | comments keep their column; backquoted code drawn decorated |
+| 12 | array-view       | array viewer widget for results (reused by the debugger)    |
+| 13 | repl-live        | live-rendered REPL line editor with history on a terminal   |
+| 14 | tui-docs-release | README tour, debugger design notes, retrospective           |
 
 ## Saga 8 -- combinators (M6)
 

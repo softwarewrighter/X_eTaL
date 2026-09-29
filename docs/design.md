@@ -384,7 +384,14 @@ lambda arguments magenta, numbers yellow, comments dim, errors red. A
 quote takes the class of the function it quotes, so an operand reads
 as one unit (`'+` light blue, `'r_/` blue, `'u:p_lus` green); before
 a lambda or a train it keeps its own bold style. This is lexical (the
-quote and the next token), decided with the user in the tui saga.
+quote and the next token), decided with the user in the tui saga. Two
+more display rules, also only in the view (plain `xetal render`
+stays convertible back to the exact source): a comment after code
+keeps the column it has in the source, the space before it padded or
+trimmed (at least one space), so comments line up although the code
+is drawn shorter; and code in backquotes inside a comment is drawn
+decorated and highlighted, the backquotes hidden, so comments can
+show the glyphs while the source stays ASCII (I1).
 
 ### 8.1b The editor (`xetal edit FILE`)
 

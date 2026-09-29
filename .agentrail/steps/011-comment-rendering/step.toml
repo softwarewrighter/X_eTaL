@@ -1,0 +1,8 @@
+number = 11
+slug = "comment-rendering"
+status = "in-progress"
+description = "tui step 11 (inserted at the user's request): in the view model (pp, tour/sho..."
+role = "production"
+context_files = []
+created_at = "2026-09-28T22:56:27"
+commits = []

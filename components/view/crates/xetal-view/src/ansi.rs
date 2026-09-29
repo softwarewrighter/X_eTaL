@@ -21,13 +21,25 @@ fn color(class: Class) -> Option<&'static str> {
     })
 }
 
-/// The segments with each class colored, ending in a reset.
+/// The segments with each class colored, ending in a reset; runs of
+/// one class share one color code.
 pub fn ansi(segments: &[Segment]) -> String {
     let mut out = String::new();
-    for s in segments {
-        match color(s.class) {
-            Some(c) => out.push_str(&format!("\u{1b}[{c}m{}{RESET}", s.text)),
-            None => out.push_str(&s.text),
+    let mut i = 0;
+    while i < segments.len() {
+        let class = segments[i].class;
+        let run: String = segments[i..]
+            .iter()
+            .take_while(|s| s.class == class)
+            .map(|s| s.text.as_str())
+            .collect();
+        i += segments[i..]
+            .iter()
+            .take_while(|s| s.class == class)
+            .count();
+        match color(class) {
+            Some(c) if !run.is_empty() => out.push_str(&format!("\u{1b}[{c}m{run}{RESET}")),
+            _ => out.push_str(&run),
         }
     }
     if !out.ends_with(RESET) {

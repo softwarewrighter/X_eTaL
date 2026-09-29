@@ -22,7 +22,8 @@ fn tokens_get_decorated_text_and_a_class() {
         ("\u{d7}", Class::Symbol),
         ("\u{2375}", Class::LambdaArg),
         ("}", Class::Punct),
-        ("\u{235d} sq", Class::Comment),
+        ("\u{235d}", Class::Comment),
+        (" sq", Class::Comment),
     ];
     let want: Vec<(String, Class)> = want.iter().map(|(t, c)| (t.to_string(), *c)).collect();
     assert_eq!(got, want);
@@ -63,7 +64,7 @@ fn a_quote_takes_the_class_of_the_function_it_quotes() {
 #[test]
 fn symbols_and_their_quotes_are_colored() {
     let out = ansi(&view("'+"));
-    assert_eq!(out.matches("\u{1b}[94m").count(), 2, "{out:?}");
+    assert!(out.starts_with("\u{1b}[94m'+\u{1b}[0m"), "{out:?}");
 }
 
 #[test]
@@ -95,6 +96,45 @@ fn ansi_colors_each_class_and_resets() {
     assert!(out.ends_with("\u{1b}[0m"), "{out:?}");
 }
 
+fn shown(src: &str) -> String {
+    view(src).into_iter().map(|s| s.text).collect()
+}
+
+#[test]
+fn trailing_comments_keep_their_source_column() {
+    let src = "x := 1        # one\nu:s_quare := { _r * _r }  # two";
+    let out = shown(src);
+    let lines: Vec<&str> = out.lines().collect();
+    let at = |l: &str| {
+        l.chars()
+            .take_while(|c| *c != '\u{235d}')
+            .filter(|c| *c != '\u{332}')
+            .count()
+    };
+    assert_eq!(at(lines[0]), 14, "{out}");
+    assert_eq!(at(lines[1]), 26, "{out}");
+    assert_eq!(shown("x   # a"), "x   \u{235d} a");
+}
+
+#[test]
+fn a_comment_that_cannot_keep_its_column_keeps_one_space() {
+    assert_eq!(shown("x^0.5 # c").chars().filter(|c| *c == ' ').count(), 2);
+}
+
+#[test]
+fn backquoted_code_in_comments_is_decorated() {
+    assert_eq!(
+        shown("# `:=` binds; `;` separates"),
+        "\u{235d} \u{2190} binds; \u{25c6} separates"
+    );
+    let segs = view("# see `r_ev x`");
+    assert!(
+        segs.iter()
+            .any(|s| s.class == Class::Builtin && s.text == "r\u{332}ev")
+    );
+    assert_eq!(shown("# a `lone backquote"), "\u{235d} a `lone backquote");
+}
+
 proptest! {
     #[test]
     fn segments_cover_any_text_in_order(src in "\\PC{0,40}") {
@@ -109,7 +149,7 @@ proptest! {
     }
 
     #[test]
-    fn valid_source_renders_as_decorate(src in "[a-z_ :=0-9^+*{}();'\"#-]{0,30}") {
+    fn valid_source_renders_as_decorate(src in "[a-z_ :=0-9^+*{}();'\"-]{0,30}") {
         if let Ok(want) = xetal_render::decorate(&src) {
             let got: String = view(&src).into_iter().map(|s| s.text).collect();
             prop_assert_eq!(got, want);
