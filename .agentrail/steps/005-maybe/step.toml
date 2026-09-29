@@ -1,9 +1,10 @@
 number = 5
 slug = "maybe"
-status = "in-progress"
+status = "completed"
 description = "combinators step 4: lib/Maybe.xtl (Church-encoded n_othing, j_ust, b_ind, hel..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T09:53:22"
+completed_at = "2026-09-29T13:58:01"
 task_type = "code"
-commits = []
+commits = ["67b5e947e9c4670c9f4770cd72d7ba4770e21e74"]

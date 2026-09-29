@@ -1,0 +1,11 @@
+{
+  "task_type": "code",
+  "state": {
+    "number": 5,
+    "step": "maybe"
+  },
+  "action": "hand-checked results, spec bless reviewed, reg goldens, just gate",
+  "result": "success",
+  "reward": 1,
+  "timestamp": "2026-09-29T13:58:01"
+}

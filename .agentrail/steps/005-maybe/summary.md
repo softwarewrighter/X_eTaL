@@ -1,0 +1,1 @@
+lib/Maybe.xtl (Church n_othing/j_ust; o_r, m_ap, m_aybe, b_ind operand-first so chains read right to left); demos/monads.xtl safe division chained by bind; spec cases incl. a type rejection; goldens type-maybe, run-monads; CB3 notes the Church-encoding typing limit.
