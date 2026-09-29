@@ -1,0 +1,1 @@
+Namespace rewriting: hidden LA/PA namespaces, l: exports, scoped private names, alias->hidden with export check, MC8 rows 8-12,16; core accepts hidden-namespace defs; per-file written names in messages; split per-file analysis into xetal-names crate + emit module to stay under limits. End-to-end tests. Gate green, pushed.

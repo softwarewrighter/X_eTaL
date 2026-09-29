@@ -1,9 +1,10 @@
 number = 3
 slug = "namespaces"
-status = "in-progress"
+status = "completed"
 description = "libraries step 3: TDD namespace rewriting: per-file alias tables to hidden up..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T00:04:30"
+completed_at = "2026-09-29T00:27:49"
 task_type = "code"
-commits = []
+commits = ["e36c78480c271ffc4d22070fd61c8f1a3b2c451b"]
