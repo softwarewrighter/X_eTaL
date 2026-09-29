@@ -5,4 +5,4 @@
 
 mod load;
 
-pub use load::{Loaded, load, located};
+pub use load::{Loaded, in_program, load, located, program_types};

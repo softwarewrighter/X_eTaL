@@ -24,5 +24,6 @@ xetal-edit = { path = "crates/xetal-edit" }
 xetal-core = { path = "../core/crates/xetal-core" }
 xetal-types = { path = "../types/crates/xetal-types" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
+xetal-program = { path = "../macro/crates/xetal-program" }
 ratatui = "0.30"
 proptest = "1"

@@ -76,3 +76,21 @@ fn each_new_roll_is_fresh() {
         "five equal rolls: {rolls:?}"
     );
 }
+
+#[test]
+fn a_session_can_import_a_library() {
+    let mut s = Session::default();
+    assert_eq!(
+        say(&mut s, "\"s:\" u_se< \"Stats\""),
+        (String::new(), String::new())
+    );
+    assert_eq!(
+        say(&mut s, "s:m_ean 1 2 3"),
+        ("2.0\n".to_string(), String::new())
+    );
+    let (_, err) = say(&mut s, "s:m_ean y");
+    assert!(
+        err.contains("at 8..9"),
+        "the error is placed in the line typed: {err}"
+    );
+}

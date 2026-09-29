@@ -630,6 +630,7 @@ dependencies = [
  "xetal-core",
  "xetal-macro",
  "xetal-sources",
+ "xetal-types",
 ]
 
 [[package]]

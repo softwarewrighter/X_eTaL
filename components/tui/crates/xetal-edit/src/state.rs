@@ -49,7 +49,7 @@ impl Editor {
             left: fresh(),
             right: fresh(),
             out: fresh(),
-            report: check(&text),
+            report: check(&text, &path.display().to_string()),
             ran: false,
             status: "^S save  ^R run  ^Q quit  Tab pane".into(),
             confirm_quit: false,
@@ -82,7 +82,8 @@ impl Editor {
             None => Flow::Continue,
         };
         if self.buffer.text() != before {
-            (self.report, self.ran, self.confirm_quit) = (check(&self.buffer.text()), false, false);
+            (self.report, self.ran, self.confirm_quit) =
+                (check(&self.buffer.text(), &self.origin()), false, false);
         }
         flow
     }
@@ -90,7 +91,9 @@ impl Editor {
     fn act(&mut self, action: Action) -> Flow {
         match action {
             Action::Save => self.save(),
-            Action::Run => (self.report, self.ran) = (run(&self.buffer.text()), true),
+            Action::Run => {
+                (self.report, self.ran) = (run(&self.buffer.text(), &self.origin()), true)
+            }
             Action::Quit if self.buffer.is_dirty() && !self.confirm_quit => {
                 self.confirm_quit = true;
                 self.status = "unsaved changes: ^Q again to quit, ^S to save".into();
@@ -99,6 +102,11 @@ impl Editor {
             Action::NextPane | Action::PrevPane => {}
         }
         Flow::Continue
+    }
+
+    /// Where the file's libraries are found from: its own path.
+    fn origin(&self) -> String {
+        self.path.display().to_string()
     }
 
     fn save(&mut self) {

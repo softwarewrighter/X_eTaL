@@ -113,7 +113,7 @@ just tour                                       # the language tour, each line w
 just eval "'+ r_/_2 2 3 r_eshape r_ange 6"      # row sums: 6 15
 just life                                       # Life: a blinker and a glider
 just repl                                       # drawn decorated as you type; Up/Down history; Ctrl-D ends
-just run demos/stats.xtl                        # a program using the built-in Stats library
+just show demos/stats.xtl                       # a program using the built-in Stats library, as a notebook
 just pp demos/factorial.xtl                     # print a file decorated and highlighted
 just edit demos/life.xtl                        # ASCII left, decorated right
 ```

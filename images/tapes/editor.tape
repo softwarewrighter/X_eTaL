@@ -1,4 +1,4 @@
-# README image: xetal edit on the Life demo, after Ctrl-R.
+# README image: xetal edit on a program using a library, after Ctrl-R.
 Output "target/screens/editor.gif"
 Set Shell bash
 Set FontSize 14
@@ -9,7 +9,7 @@ Hide
 Type "clear"
 Enter
 Show
-Type "./target/debug/xetal edit demos/life.xtl"
+Type "./target/debug/xetal edit demos/stats.xtl"
 Enter
 Sleep 1s
 Ctrl+R

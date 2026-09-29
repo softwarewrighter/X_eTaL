@@ -50,3 +50,13 @@ fn located_leaves_one_file_alone() {
         d.to_string()
     );
 }
+
+#[test]
+fn an_error_in_the_program_keeps_its_place_in_the_program() {
+    let src = "\"s:\" u_se< \"Stats\"\ns:m_ean 1 2 3\n1 / y\n";
+    let loaded = load("-e", src).unwrap();
+    let err = xetal_types::check_program(&mut loaded.program.clone()).unwrap_err();
+    let local = xetal_program::in_program(&loaded.sources, err);
+    let span = local.span.expect("a span in the program");
+    assert_eq!(&src[span.start..span.end], "y");
+}

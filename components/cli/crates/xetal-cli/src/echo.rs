@@ -14,12 +14,13 @@ const RESET: &str = "\u{1b}[0m";
 /// everything has been shown.
 pub(crate) fn echo(
     source: &str,
+    origin: &str,
     seed: Option<u64>,
     delay: Option<u64>,
 ) -> Result<String, Diagnostic> {
     let seed = seed.unwrap_or_else(xetal_eval::Rng::fresh_seed);
     let mut failed = false;
-    for cell in xetal_repl::notebook(source, seed) {
+    for cell in xetal_repl::notebook(origin, source, seed) {
         pause(delay, &cell.source);
         println!("{}", ansi(&view(&cell.source)));
         for line in cell.out.lines() {
@@ -56,7 +57,8 @@ pub(crate) fn evaluation(command: &Command, source: &str) -> Option<Result<Strin
             context: Some(path),
             seed,
             ..
-        } => seed_or_env(*seed).and_then(|seed| crate::context::after_context(path, source, seed)),
+        } => seed_or_env(*seed)
+            .and_then(|seed| crate::context::after_context(path, &origin(command), source, seed)),
         Command::Eval(EvalArgs {
             echo: true,
             seed,
@@ -68,7 +70,7 @@ pub(crate) fn evaluation(command: &Command, source: &str) -> Option<Result<Strin
             seed,
             delay,
             ..
-        } => seed_or_env(*seed).and_then(|seed| echo(source, seed, *delay)),
+        } => seed_or_env(*seed).and_then(|seed| echo(source, &origin(command), seed, *delay)),
         Command::Eval(EvalArgs { untyped, seed, .. }) | Command::Run { untyped, seed, .. } => {
             seed_or_env(*seed).and_then(|seed| evaluate(source, &origin(command), *untyped, seed))
         }
@@ -94,14 +96,5 @@ fn typed(source: &str, name: &str) -> Result<String, Diagnostic> {
     let mut loaded = xetal_program::load(name, source)?;
     let lines = xetal_types::check_program(&mut loaded.program)
         .map_err(|d| xetal_program::located(&loaded.sources, d))?;
-    let own = lines.into_iter().filter(|l| !from_library(l));
-    Ok(own.collect::<Vec<_>>().join("\n"))
-}
-
-/// A type line for a library's own definition (`LA:m_ean : ...`): its
-/// hidden namespace is uppercase; the program's are `u:` or none.
-fn from_library(line: &str) -> bool {
-    let name = line.split_once(" : ").map_or("", |(name, _)| name);
-    let ns = name.split_once(':').map_or("", |(ns, _)| ns);
-    ns.starts_with(|c: char| c.is_ascii_uppercase())
+    Ok(xetal_program::program_types(lines).join("\n"))
 }

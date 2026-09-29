@@ -117,10 +117,15 @@ r_oll! 6 6 6             # (and each line rolls again)
 r_oll! 6 6 6
 p_rint! "printed, then returned"  # `p_rint!` prints and returns its argument
 
+# -- Libraries ----------------------------------------------------------
+"s:" u_se< "Stats"       # import a library under an alias of your choosing
+s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias
+s:s_d 2 4 4 4 5 5 7 9    # the standard deviation
+s:r_ange 3 1 4 1 5       # largest minus smallest
+
 # -- Life in one line -----------------------------------------------------
 u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 u:l_ife 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
 
 # Not shown here: the Y combinator needs --untyped (demos/fixed-point.xtl);
-# libraries under their own namespace (c:K_ after "c:" u_se< "...")
-# arrive with the libraries saga.
+# more libraries (Combinators) come with the combinators saga.

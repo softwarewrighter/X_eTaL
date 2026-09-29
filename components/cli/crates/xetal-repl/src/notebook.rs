@@ -13,9 +13,10 @@ pub struct Cell {
     pub err: String,
 }
 
-/// The cells of `src`, rolls drawn from `seed`.
-pub fn notebook(src: &str, seed: u64) -> Vec<Cell> {
-    let mut session = Session::seeded(seed);
+/// The cells of `src` (libraries found from `origin`), rolls drawn from
+/// `seed`.
+pub fn notebook(origin: &str, src: &str, seed: u64) -> Vec<Cell> {
+    let mut session = Session::new(origin, seed);
     let (mut cells, mut source) = (Vec::new(), Vec::new());
     for line in src.lines() {
         source.push(line);
@@ -42,8 +43,8 @@ pub fn notebook(src: &str, seed: u64) -> Vec<Cell> {
 /// `block` run after `context` (earlier blocks, run silently in the
 /// same session): what the block printed, as one cell. For org-babel
 /// sessions, where each block continues the ones before it.
-pub fn continued(context: &str, block: &str, seed: u64) -> Cell {
-    let mut session = Session::seeded(seed);
+pub fn continued(origin: &str, context: &str, block: &str, seed: u64) -> Cell {
+    let mut session = Session::new(origin, seed);
     for line in context.lines() {
         session.feed(line);
     }

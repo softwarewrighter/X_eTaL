@@ -38,6 +38,39 @@ pub fn located(sources: &Sources, d: Diagnostic) -> Diagnostic {
     out
 }
 
+/// `d` for tools that show the program's own text (the REPL, the
+/// editor): an error in the program keeps a span in the program file
+/// (the combined text starts with the libraries); one in a library is
+/// located there, as [`located`] does.
+pub fn in_program(sources: &Sources, d: Diagnostic) -> Diagnostic {
+    let Some(span) = d.span.filter(|_| sources.file_count() > 1) else {
+        return d;
+    };
+    let (start, end) = (
+        sources.locate(span.start),
+        sources.locate(span.end.max(span.start + 1) - 1),
+    );
+    match (start.index, end.index) {
+        (0, 0) => {
+            let mut out = d;
+            out.span = Some(xetal_base::Span::new(start.offset, end.offset + 1));
+            out
+        }
+        _ => located(sources, d),
+    }
+}
+
+/// The type lines of a checked program without its libraries' own
+/// items (`LA:m_ean : ...`: hidden namespaces are uppercase).
+pub fn program_types(lines: Vec<String>) -> Vec<String> {
+    let from_library = |line: &String| {
+        let name = line.split_once(" : ").map_or("", |(name, _)| name);
+        let ns = name.split_once(':').map_or("", |(ns, _)| ns);
+        ns.starts_with(|c: char| c.is_ascii_uppercase())
+    };
+    lines.into_iter().filter(|l| !from_library(l)).collect()
+}
+
 /// The text of a described diagnostic after `level[code]: `.
 fn tail(described: &str, code: &str) -> String {
     let marker = format!("[{code}]: ");

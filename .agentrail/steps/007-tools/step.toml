@@ -1,6 +1,6 @@
 number = 7
 slug = "tools"
-status = "pending"
+status = "in-progress"
 description = "libraries step 5: run, eval, --echo, repl and edit expand imports (paths rela..."
 role = "production"
 context_files = []

@@ -343,9 +343,14 @@ A name finds a file only when its directory entry matches exactly, so
 
 `xetal-program` loads a program for the tools: the macro phase with
 libraries on disk and built in, then Core, every error located.
-`xetal run`, `eval` and `type` use it (a file's libraries are looked
-for beside it, `-e` text's in the current directory); `type` lists
-the program's own items. The first standard library is
+Every tool loads through it: `xetal run`, `eval` and `type`, notebook
+runs (`--echo`), `--context` (org-babel sessions), the REPL and the
+editor. A file's libraries are looked for beside it, `-e` text's and
+the REPL's in the current directory. `type` and the editor's types
+pane list the program's own items (`program_types`). The REPL and the
+editor show an error in the program at its place in the text typed
+(`in_program`: the combined text starts with the libraries), and one
+in a library at `FILE:LINE:COLUMN`. The first standard library is
 `lib/Stats.xtl` (`m_ean`, `v_ariance`, `s_d`, `r_ange`), shown in
 `demos/stats.xtl`. In the pretty views an import is drawn as its
 alias bound to the macro: superscript letters and a superscript

@@ -14,3 +14,4 @@ xetal-macro.workspace = true
 xetal-core.workspace = true
 
 [dev-dependencies]
+xetal-types.workspace = true

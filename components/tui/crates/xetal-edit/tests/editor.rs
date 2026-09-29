@@ -174,3 +174,13 @@ fn results_show_as_grids_with_type_and_shape() {
     assert!(s.contains("Int 2 3"), "{s}");
     assert!(s.contains("\u{2502} 1 2 3 \u{2502}"), "{s}");
 }
+
+#[test]
+fn a_program_using_a_library_checks_and_runs() {
+    let path = scratch("library");
+    std::fs::write(&path, "\"s:\" u_se< \"Stats\"\ns:m_ean 1 2 3\n").unwrap();
+    let mut e = Editor::open(&path).unwrap();
+    assert!(screen(&e).contains("Float"), "{}", screen(&e));
+    ctrl(&mut e, 'r');
+    assert!(screen(&e).contains("2.0  : Float"), "{}", screen(&e));
+}

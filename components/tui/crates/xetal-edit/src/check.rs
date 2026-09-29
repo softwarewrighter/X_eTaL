@@ -19,11 +19,19 @@ fn failed(d: Diagnostic) -> Report {
     }
 }
 
-/// The type of each top-level item, or the error.
-pub(crate) fn check(src: &str) -> Report {
-    match xetal_types::check_source(src) {
-        Ok(lines) => Report { lines, mark: None },
-        Err(d) => failed(d),
+/// The type of each top-level item (libraries loaded, found from
+/// `origin`), or the error.
+pub(crate) fn check(src: &str, origin: &str) -> Report {
+    let mut loaded = match xetal_program::load(origin, src) {
+        Ok(l) => l,
+        Err(d) => return failed(d),
+    };
+    match xetal_types::check_program(&mut loaded.program) {
+        Ok(lines) => Report {
+            lines: xetal_program::program_types(lines),
+            mark: None,
+        },
+        Err(d) => failed(xetal_program::in_program(&loaded.sources, d)),
     }
 }
 
@@ -37,13 +45,17 @@ fn shown(event: &xetal_eval::Event) -> Vec<String> {
 }
 
 /// Type-check and run, collecting what the program shows.
-pub(crate) fn run(src: &str) -> Report {
-    let mut program = match xetal_core::lower(src) {
-        Ok(p) => p,
+pub(crate) fn run(src: &str, origin: &str) -> Report {
+    let xetal_program::Loaded {
+        sources,
+        mut program,
+    } = match xetal_program::load(origin, src) {
+        Ok(l) => l,
         Err(d) => return failed(d),
     };
+    let here = |d| xetal_program::in_program(&sources, d);
     if let Err(d) = xetal_types::check_program(&mut program) {
-        return failed(d);
+        return failed(here(d));
     }
     let (_, events, result) = xetal_eval::eval_events(&program, None);
     let mut report = Report {
@@ -51,7 +63,7 @@ pub(crate) fn run(src: &str) -> Report {
         mark: None,
     };
     if let Err(d) = result {
-        let err = failed(d);
+        let err = failed(here(d));
         report.lines.extend(err.lines);
         report.mark = err.mark;
     }

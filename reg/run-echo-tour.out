@@ -202,6 +202,15 @@ v [34mi̲ndexOf[0m [33m5[0m [33m7[0m            [2m⍝ 7 is absent: tally
   printed, then returned
   printed, then returned
 [0m
+[2m⍝ -- Libraries ----------------------------------------------------------[0m
+[36mˢ⁼[0m[1;33mu̲se<[0m [93m"Stats"[0m           [2m⍝ import a library under an alias of your choosing[0m
+[36mˢm̲ean[0m [33m2[0m [33m4[0m [33m4[0m [33m4[0m [33m5[0m [33m5[0m [33m7[0m [33m9[0m    [2m⍝ its exported names, used through the alias[0m
+  5.0
+[36mˢs̲d[0m [33m2[0m [33m4[0m [33m4[0m [33m4[0m [33m5[0m [33m5[0m [33m7[0m [33m9[0m      [2m⍝ the standard deviation[0m
+  2.0
+[36mˢr̲ange[0m [33m3[0m [33m1[0m [33m4[0m [33m1[0m [33m5[0m         [2m⍝ largest minus smallest[0m
+  4
+[0m
 [2m⍝ -- Life in one line -----------------------------------------------------[0m
 [32mᵘl̲ife[0m ← { ([94m'+[0m [34mr̲/₁₂[0m [33m-1[0m [33m0[0m [33m1[0m [34mo̲-₁₂[0m [35m⍵[0m) { ([35m⍺[0m [94m=[0m [33m3[0m) [94m+[0m [35m⍵[0m [94m×[0m [35m⍺[0m [94m=[0m [33m4[0m } [35m⍵[0m }[0m
 [32mᵘl̲ife[0m [33m5[0m [33m5[0m [34mr̲eshape[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m1[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m1[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m1[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m
@@ -212,5 +221,4 @@ v [34mi̲ndexOf[0m [33m5[0m [33m7[0m            [2m⍝ 7 is absent: tally
   0 0 0 0 0
 [0m
 [2m⍝ Not shown here: the Y combinator needs --untyped (demos/fixed-point.xtl);[0m
-[2m⍝ libraries under their own namespace (c:K_ after "c:" u_se< "...")[0m
-[2m⍝ arrive with the libraries saga.[0m
+[2m⍝ more libraries (Combinators) come with the combinators saga.[0m

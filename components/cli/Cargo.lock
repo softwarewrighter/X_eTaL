@@ -2068,6 +2068,7 @@ dependencies = [
  "xetal-eval",
  "xetal-keys",
  "xetal-panes",
+ "xetal-program",
  "xetal-term",
  "xetal-types",
 ]
@@ -2241,6 +2242,7 @@ dependencies = [
  "xetal-core",
  "xetal-eval",
  "xetal-line",
+ "xetal-program",
  "xetal-types",
 ]
 

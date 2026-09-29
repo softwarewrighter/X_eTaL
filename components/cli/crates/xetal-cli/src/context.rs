@@ -8,13 +8,14 @@ use xetal_base::Diagnostic;
 /// fail the run.
 pub(crate) fn after_context(
     path: &str,
+    origin: &str,
     source: &str,
     seed: Option<u64>,
 ) -> Result<String, Diagnostic> {
     let context = std::fs::read_to_string(path)
         .map_err(|e| Diagnostic::new("unreadable", format!("cannot read {path}: {e}")))?;
     let seed = seed.unwrap_or_else(xetal_eval::Rng::fresh_seed);
-    let cell = xetal_repl::continued(&context, source, seed);
+    let cell = xetal_repl::continued(origin, &context, source, seed);
     print!("{}", cell.out);
     eprint!("{}", cell.err);
     match cell.err.lines().any(|l| l.starts_with("error[")) {

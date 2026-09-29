@@ -620,6 +620,35 @@ p_rint! "printed, then returned"  # `p_rint!` prints and returns its argument
 : printed, then returned
 : printed, then returned
 
+* Libraries
+
+A library is an ordinary X_eTaL file of definitions: its exported
+names start with l:, the rest are private. A program imports it with
+~u_se<~ under an alias of its choosing, and uses the exports through
+that alias. Stats is a standard library, built into xetal.
+
+#+begin_src xetal
+"s:" u_se< "Stats"       # import a library under an alias of your choosing
+s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias
+#+end_src
+
+#+RESULTS:
+: 5.0
+
+#+begin_src xetal
+s:s_d 2 4 4 4 5 5 7 9    # the standard deviation
+#+end_src
+
+#+RESULTS:
+: 2.0
+
+#+begin_src xetal
+s:r_ange 3 1 4 1 5       # largest minus smallest
+#+end_src
+
+#+RESULTS:
+: 4
+
 * Life in one line
 
 Everything above comes together in Conway's Life: rotate the board by
@@ -641,5 +670,5 @@ u:l_ife 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
 
 * Not shown here
 
-The Y combinator needs ~--untyped~ (see ~demos/fixed-point.xtl~);
-libraries (~"s:" u_se< "Stats"~) are shown by ~demos/stats.xtl~.
+The Y combinator needs ~--untyped~ (see ~demos/fixed-point.xtl~); more
+libraries (Combinators) come with the combinators saga.

@@ -1939,6 +1939,7 @@ dependencies = [
  "xetal-eval",
  "xetal-keys",
  "xetal-panes",
+ "xetal-program",
  "xetal-term",
  "xetal-types",
 ]
@@ -2015,12 +2016,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-libs"
+version = "0.1.0"
+
+[[package]]
 name = "xetal-lint"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
  "xetal-catalog",
  "xetal-ir",
+]
+
+[[package]]
+name = "xetal-macro"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
+ "xetal-libs",
+ "xetal-names",
+ "xetal-sources",
 ]
 
 [[package]]
@@ -2031,6 +2047,14 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-value",
+]
+
+[[package]]
+name = "xetal-names"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
 ]
 
 [[package]]
@@ -2049,6 +2073,16 @@ dependencies = [
  "xetal-base",
  "xetal-catalog",
  "xetal-ty",
+]
+
+[[package]]
+name = "xetal-program"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-macro",
+ "xetal-sources",
 ]
 
 [[package]]
@@ -2078,6 +2112,13 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-value",
+]
+
+[[package]]
+name = "xetal-sources"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
 ]
 
 [[package]]
