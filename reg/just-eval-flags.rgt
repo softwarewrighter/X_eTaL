@@ -1,0 +1,3 @@
+command = "just eval --echo '1 + 2'"
+exit_code = 0
+desc = "just eval passes flags through; the last argument is the expression"

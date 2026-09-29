@@ -113,7 +113,8 @@ the design documents describe the intended language.
 
 `demos/tour.xtl` is a commented tour of every feature; `just tour`
 shows each of its lines decorated, followed by its output. Any file
-runs that way with `just show FILE` (`xetal run --echo FILE`).
+runs that way with `just show FILE` or `just run --echo FILE`
+(`just run` and `just eval` pass flags through to `xetal`).
 
 With [`just`](https://github.com/casey/just) installed, `just` lists
 the tasks:

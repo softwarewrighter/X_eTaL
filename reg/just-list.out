@@ -5,7 +5,7 @@ Available recipes:
     clippy        # Lint every component (warnings are errors)
     default       # List the recipes
     edit file     # Edit a file with the live decorated view: just edit demos/life.xtl
-    eval expr     # Evaluate an expression: just eval "'+ r_/ 1 2 3"
+    eval +args    # Evaluate an expression, flags first: just eval --echo "'+ r_/ 1 2 3"
     fmt           # Format every component
     gate          # The full pre-commit gate: locks, fmt, clippy, tests, goldens, checklist, markdown
     life          # Step the Life blinker (demos/life.xtl)
@@ -13,7 +13,7 @@ Available recipes:
     pp file       # Pretty-print a file like cat: decorated and highlighted (errors in red)
     reg           # Run the reg-rs CLI goldens in reg/
     repl          # Start the interactive session
-    run file      # Type-check and run a script: just run demos/factorial.xtl
+    run +args     # Type-check and run a script, flags first: just run --echo demos/tour.xtl
     show file     # Run a file as a notebook: each statement pretty-printed, then its output
     test          # Run every component's tests
     tour          # The language tour: every feature, commented, each line with its output

@@ -1,7 +1,7 @@
 number = 10
-slug = "repl-live"
+slug = "array-view"
 status = "pending"
-description = "tui step 6: TDD live-rendered REPL on a terminal: raw-mode line editor render..."
+description = "tui step 5: TDD array viewer widget (matrix grid, rank-3 slices, strings, sca..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T21:36:34"

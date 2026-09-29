@@ -97,7 +97,9 @@ v i_ndexOf 5 7           # 7 is absent: tally + 1
 w_here v > 4             # indices of the 1s
 
 # -- Effects --------------------------------------------------------------
-t_ally r_oll! 6 6 6      # three random dice (the values vary run to run)
+r_oll! 6 6 6             # three dice: random 1..6 each, so every run differs
+r_oll! 6 6 6             # (and each line rolls again)
+r_oll! 6 6 6
 p_rint! "printed, then returned"
 
 # -- Life in one line -----------------------------------------------------

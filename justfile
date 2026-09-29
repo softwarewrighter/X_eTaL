@@ -46,13 +46,14 @@ gate:
 repl: _quiet-build
     @{{xetal}} repl
 
-# Type-check and run a script: just run demos/factorial.xtl
-run file: _quiet-build
-    @{{xetal}} run "$1"
+# Type-check and run a script, flags first: just run --echo demos/tour.xtl
+run +args: _quiet-build
+    @{{xetal}} run "$@"
 
-# Evaluate an expression: just eval "'+ r_/ 1 2 3"
-eval expr: _quiet-build
-    @{{xetal}} eval -e "$1"
+# Evaluate an expression, flags first: just eval --echo "'+ r_/ 1 2 3"
+eval +args: _quiet-build
+    #!/usr/bin/env bash
+    {{xetal}} eval "${@:1:$#-1}" -e "${@: -1}"
 
 # The language tour: every feature, commented, each line with its output
 tour: _quiet-build

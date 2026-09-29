@@ -164,8 +164,12 @@ v [34mi̲ndexOf[0m [33m5[0m [33m7[0m           [2m⍝ 7 is absent: tally 
   5 6 8
 [0m
 [2m⍝ -- Effects --------------------------------------------------------------[0m
-[34mt̲ally[0m [34mr̲oll![0m [33m6[0m [33m6[0m [33m6[0m      [2m⍝ three random dice (the values vary run to run)[0m
-  3
+[34mr̲oll![0m [33m6[0m [33m6[0m [33m6[0m             [2m⍝ three dice: random 1..6 each, so every run differs[0m
+  6 2 1
+[34mr̲oll![0m [33m6[0m [33m6[0m [33m6[0m             [2m⍝ (and each line rolls again)[0m
+  6 4 3
+[34mr̲oll![0m [33m6[0m [33m6[0m [33m6[0m
+  4 4 1
 [34mp̲rint![0m [93m"printed, then returned"[0m
   printed, then returned
   printed, then returned
