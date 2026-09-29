@@ -1,6 +1,6 @@
 number = 15
 slug = "repl-live"
-status = "pending"
+status = "in-progress"
 description = "tui step 6: TDD live-rendered REPL on a terminal: raw-mode line editor render..."
 role = "production"
 context_files = []

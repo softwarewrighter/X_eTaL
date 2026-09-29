@@ -430,6 +430,18 @@ output uses it; the stepping debugger will show intermediate values
 the same way. `xetal-grid` knows nothing of the evaluator or the
 terminal.
 
+### 8.1e The live REPL (`xetal repl` on a terminal)
+
+When both standard input and output are terminals, `xetal repl` reads
+each line with a live line editor (`components/line`): the line is
+drawn decorated and highlighted as it is typed and redrawn after every
+key, the cursor at its rendered column; the editor's keys work
+(Emacs motions, Home/End, Backspace/Delete), Up and Down walk the
+history, Enter submits, Ctrl-C clears the line and Ctrl-D on an empty
+line ends the session. Raw mode is held only while a line is typed.
+Piped input keeps the plain line reader, so scripted sessions and
+goldens are unchanged.
+
 ### 8.1c Notebook runs (`xetal run --echo`)
 
 `--echo` runs a file the way the REPL runs typed lines: a session

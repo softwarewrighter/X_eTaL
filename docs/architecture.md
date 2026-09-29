@@ -82,6 +82,7 @@ components/
                            keymap as data), xetal-panes (ASCII and
                            rendered panes), xetal-term (terminal
                            guard), xetal-edit (`xetal edit`)
+  line/                    xetal-line: the REPL's live line editor
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
                            harness), xetal-spec (case files),
                            xetal-repl (interactive session)

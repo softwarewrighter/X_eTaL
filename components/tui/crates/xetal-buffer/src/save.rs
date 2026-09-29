@@ -1,5 +1,5 @@
-//! Whether the text changed since it was loaded or saved; and the
-//! line-end motion.
+//! Whether the text changed since it was loaded or saved; the line-end
+//! motion; an empty buffer by default.
 
 use crate::Buffer;
 
@@ -14,5 +14,12 @@ impl Buffer {
 
     pub fn end(&mut self) {
         self.col = self.width(self.row);
+    }
+}
+
+impl Default for Buffer {
+    /// An empty buffer.
+    fn default() -> Self {
+        Buffer::new("")
     }
 }

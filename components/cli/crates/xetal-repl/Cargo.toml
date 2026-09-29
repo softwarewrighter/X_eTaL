@@ -12,3 +12,4 @@ xetal-base.workspace = true
 xetal-core.workspace = true
 xetal-types.workspace = true
 xetal-eval.workspace = true
+xetal-line.workspace = true
