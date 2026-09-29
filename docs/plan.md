@@ -353,24 +353,31 @@ buffer snapshots.
 | 13 | repl-live        | live-rendered REPL line editor with history on a terminal   |
 | 14 | tui-docs-release | README tour, debugger design notes, retrospective           |
 
-## Saga 8 -- combinators (M6)
+## Saga 8 -- libraries (M6b)
+
+The macro phase (MC1-MC9): `u_se<` with a required alias
+(`"c:" u_se< "Combinators"`), libraries defining under `l:`, per-file
+aliases with private imports, one shared instance per library, the
+macro-phase error table. Library names display with their alias as a
+superscript and in the library color (already in the view model); the
+tour and `pp` / `show` / the editor cover a small library. Scheduled
+before the combinators at the user's request, so the birds are
+written once, directly as a library.
+
+## Saga 9 -- combinators (M6)
 
 The birds I K S B C W V T and more, written with named parameters
-(L4), with inferred types checked by tests; Y working through a lazy
-self parameter (E1-E3) and Z; user-written control structures with
-lazy parameters. Combinator notebook demo (`demos/combinators.xtl`).
-Monads with Church encodings: a Maybe (`n_othing`, `j_ust`, `b_ind`)
-with safe division chained by bind, type-checked, as spec cases and a
-demo (`demos/monads.xtl`); note what needs nested arrays (the list
-monad's bind) or named types.
-
-## Saga 9 -- libraries (M6b)
-
-The macro phase (MC1-MC9): `u_se<` with a required alias, libraries
-defining under `l:`, per-file aliases with private imports, one shared
-instance per library, the macro-phase error table. The birds become
-the first library, `Combinators.xtl`, used as `"c:" u_se<
-"Combinators"`.
+(L4) in the first real library, `Combinators.xtl`, used as
+`"c:" u_se< "Combinators"`, with inferred types checked by tests; Y
+working through a lazy self parameter (E1-E3) and Z; user-written
+control structures with lazy parameters. Function power (D-7):
+`f_^3 x` and the built-in `n 'f_ p_ower x` (Life's generations become
+`u:l_ife^4 board`). Combinator notebook demo (`demos/combinators.xtl`,
+shown with `just show`). Monads with Church encodings: a Maybe
+(`n_othing`, `j_ust`, `b_ind`) with safe division chained by bind,
+type-checked, as spec cases and a demo (`demos/monads.xtl`); note what
+needs nested arrays (the list monad's bind) or named types. The tour
+gains a libraries section.
 
 ## Saga 10 -- trains (M7)
 
@@ -404,7 +411,7 @@ visuals.
 
 Nested arrays (A7), raw strings `r"..."`, Unicode text and complex
 numbers via a type-extension mechanism, checked `::` signatures, axes
-above 9, count-from-the-end axes, function power, the `_` wildcard
+above 9, count-from-the-end axes, the `_` wildcard
 parameter. Each gets a saga (or steps) when scheduled.
 
 ## Cross-cutting (insert as steps when due)
