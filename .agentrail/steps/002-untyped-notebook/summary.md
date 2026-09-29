@@ -1,0 +1,1 @@
+Notebook runs honor --untyped (Session.untyped; --echo with --untyped); just show/slow-show apply the file's #! flags via scripts/show.sh, so just show demos/fixed-point.xtl prints 120; scripts/just-smoke.sh in the gate runs every just recipe (unknown recipes fail). Goldens echo-untyped, just-list rebased.
