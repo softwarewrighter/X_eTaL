@@ -1,6 +1,7 @@
 //! Key events to commands. Control keys come from [`KEYMAP`]: nano's
 //! file keys and Emacs motions (Ctrl-A/E line start and end, Ctrl-B/F
-//! back and forward a character, Ctrl-P/N previous and next line); a
+//! back and forward a character, Ctrl-P/N previous and next line) and
+//! Ctrl-T to zoom the focused pane (for once not transpose); a
 //! printable character without Control inserts itself.
 
 use ratatui::crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
@@ -14,6 +15,8 @@ pub enum Action {
     /// Move the focus to the next (or previous) pane.
     NextPane,
     PrevPane,
+    /// Toggle between all panes and the focused pane full screen.
+    Zoom,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -43,6 +46,7 @@ pub const KEYMAP: &[(KeyCode, KeyModifiers, Command)] = &[
     (KeyCode::Char('q'), CTRL, Command::App(Action::Quit)),
     (KeyCode::Char('x'), CTRL, Command::App(Action::Quit)),
     (KeyCode::Char('r'), CTRL, Command::App(Action::Run)),
+    (KeyCode::Char('t'), CTRL, Command::App(Action::Zoom)),
     (KeyCode::Char('a'), CTRL, Command::Home),
     (KeyCode::Char('e'), CTRL, Command::End),
     (KeyCode::Char('b'), CTRL, Command::Left),

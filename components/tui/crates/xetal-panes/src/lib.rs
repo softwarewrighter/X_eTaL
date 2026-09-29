@@ -7,7 +7,8 @@ mod lines;
 mod panes;
 mod scroll;
 mod theme;
+mod widget;
 
 pub use panes::{Focus, Panes};
 pub use scroll::Scroll;
-pub use theme::style;
+pub use theme::{frame, style};

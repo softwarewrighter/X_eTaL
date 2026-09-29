@@ -459,7 +459,14 @@ well as the arrow keys (Ctrl-A and Ctrl-E line start and end, Ctrl-B
 and Ctrl-F back and forward, Ctrl-P and Ctrl-N previous and next
 line, PageUp and PageDown); the keymap is a table in `xetal-keys`.
 Tab and Shift-Tab move the focus between the ASCII, Rendered and
-Output panes (the focused border is highlighted). In the ASCII pane
+Output panes. The focused pane is marked strongly: a thick bright
+border and a reversed title with a triangle, the other panes dim. The
+cursor's cell is drawn reversed in the ASCII pane and, at the same
+place in the text, in the Rendered pane, besides the terminal cursor,
+so it shows whatever the terminal's cursor settings. Ctrl-T zooms:
+the focused pane alone fills the screen, Tab and Shift-Tab switch
+which of the three is shown, and Ctrl-T again returns to all three
+(a pane hidden by zoom keeps its scroll). In the ASCII pane
 the motions move the cursor and both panes scroll to follow it, up
 and down and sideways; in the other two they scroll that pane by
 hand, and typing returns to the ASCII pane. A missing file starts empty

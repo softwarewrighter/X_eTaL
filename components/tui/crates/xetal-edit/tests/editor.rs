@@ -140,14 +140,17 @@ fn arrows_scroll_the_focused_rendered_pane() {
             .collect::<String>()
     };
     assert!(row(&before).starts_with("\u{2502}1 2 3"), "{before}");
-    assert!(row(&after).starts_with("\u{2502}4 5 6"), "{after}");
+    assert!(
+        row(&after).starts_with("\u{2503}4 5 6"),
+        "focused: thick {after}"
+    );
     keys(&mut e, "0");
     assert!(
         screen(&e)
             .lines()
             .nth(1)
             .unwrap()
-            .starts_with("\u{2502}01 2"),
+            .starts_with("\u{2503}01 2"),
         "typing returns to the source"
     );
 }
@@ -162,7 +165,7 @@ fn the_output_pane_scrolls() {
     press(&mut e, KeyCode::Down);
     let s = screen(&e);
     let bottom: Vec<&str> = s.lines().skip(6).take(4).collect();
-    assert!(bottom[0].starts_with("\u{2502}3"), "{s}");
+    assert!(bottom[0].starts_with("\u{2503}3"), "{s}");
 }
 
 #[test]
@@ -183,4 +186,66 @@ fn a_program_using_a_library_checks_and_runs() {
     assert!(screen(&e).contains("Float"), "{}", screen(&e));
     ctrl(&mut e, 'r');
     assert!(screen(&e).contains("2.0  : Float"), "{}", screen(&e));
+}
+
+fn cell(e: &Editor, x: u16, y: u16) -> ratatui::buffer::Cell {
+    let mut t = Terminal::new(TestBackend::new(70, 12)).unwrap();
+    t.draw(|f| e.draw(f)).unwrap();
+    t.backend().buffer()[(x, y)].clone()
+}
+
+#[test]
+fn ctrl_t_zooms_the_focused_pane_and_tab_switches_the_view() {
+    let mut e = Editor::open(&scratch("zoom")).unwrap();
+    keys(&mut e, "1 + 2");
+    let all = screen(&e);
+    assert!(all.contains("ASCII") && all.contains("Rendered") && all.contains("Types"));
+    ctrl(&mut e, 't');
+    let only = |s: &str, title: &str| {
+        ["ASCII", "Rendered", "Types"]
+            .iter()
+            .all(|t| s.contains(t) == (*t == title))
+    };
+    assert!(only(&screen(&e), "ASCII"), "{}", screen(&e));
+    assert_eq!(
+        cell(&e, 69, 0).symbol(),
+        "\u{2513}",
+        "one pane, the full width"
+    );
+    press(&mut e, KeyCode::Tab);
+    assert!(only(&screen(&e), "Rendered"), "{}", screen(&e));
+    press(&mut e, KeyCode::Tab);
+    assert!(only(&screen(&e), "Types"), "{}", screen(&e));
+    press(&mut e, KeyCode::Tab);
+    assert!(only(&screen(&e), "ASCII"));
+    ctrl(&mut e, 't');
+    assert_eq!(screen(&e), all, "back to three panes");
+}
+
+#[test]
+fn the_focused_pane_has_a_thick_border_and_a_marked_title() {
+    let mut e = Editor::open(&scratch("thick")).unwrap();
+    assert_eq!(cell(&e, 0, 0).symbol(), "\u{250f}", "thick corner");
+    assert_eq!(cell(&e, 35, 0).symbol(), "\u{250c}", "plain corner");
+    assert!(screen(&e).contains("\u{25b6} ASCII"), "{}", screen(&e));
+    press(&mut e, KeyCode::Tab);
+    assert_eq!(cell(&e, 0, 0).symbol(), "\u{250c}");
+    assert_eq!(cell(&e, 35, 0).symbol(), "\u{250f}");
+    assert!(screen(&e).contains("\u{25b6} Rendered"));
+}
+
+#[test]
+fn the_cursor_cell_is_drawn_reversed_in_both_panes() {
+    use ratatui::style::Modifier;
+    let mut e = Editor::open(&scratch("cursor")).unwrap();
+    keys(&mut e, "ab");
+    press(&mut e, KeyCode::Left);
+    let (ascii, rendered) = (cell(&e, 2, 1), cell(&e, 37, 1));
+    assert!(ascii.modifier.contains(Modifier::REVERSED), "{ascii:?}");
+    assert_eq!(ascii.symbol(), "b");
+    assert!(
+        rendered.modifier.contains(Modifier::REVERSED),
+        "{rendered:?}"
+    );
+    assert!(!cell(&e, 1, 1).modifier.contains(Modifier::REVERSED));
 }

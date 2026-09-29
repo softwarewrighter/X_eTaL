@@ -623,12 +623,11 @@ APL ports (Saga 12) may call for it sooner.
 
 ## Cross-cutting (insert as steps when due)
 
-- editor panes (requested by the user): resize the panes (split
-  ratio, the output pane's height) and zoom any one pane to full
-  screen and back (for example to read long output), toggled with
-  Ctrl-T (chosen with the user; Ctrl-F stays Emacs forward-char);
-  a natural step of the stepping-debugger saga, which reuses the
-  panes.
+- editor panes (requested by the user): zoom any one pane to full
+  screen and back with Ctrl-T (chosen with the user; Ctrl-F stays
+  Emacs forward-char) is done (Saga 9, editor-panes); resizing the
+  panes (split ratio, the output pane's height) remains, a natural
+  step of the stepping-debugger saga, which reuses the panes.
 - fuzzing (`cargo-fuzz` for lexer, parser, fmt, eval) -- after Saga 2.
 - nesting depth: done in Saga 3 step 1 (bracket and AST depth limits,
   `too-deep`).

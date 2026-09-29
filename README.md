@@ -72,7 +72,9 @@ and computes `(S = 3) + board * (S = 4)`: a cell lives next when S is
 
 Source is typed as ASCII and shown decorated. `xetal edit FILE` puts
 the two side by side, with the types (or the first error) below as
-you type and the results on Ctrl-R:
+you type and the results on Ctrl-R. Tab moves between the panes (the
+current one has a thick border) and Ctrl-T zooms it to the full
+screen and back:
 
 ![xetal edit: the ASCII source on the left, its decorated form on the right, results below](images/editor.png)
 

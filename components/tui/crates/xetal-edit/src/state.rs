@@ -30,6 +30,8 @@ pub struct Editor {
     /// True while the bottom pane shows a run's output.
     pub(crate) ran: bool,
     pub(crate) status: String,
+    /// Only the focused pane is shown, full screen (Ctrl-T).
+    pub(crate) zoom: bool,
     confirm_quit: bool,
 }
 
@@ -51,7 +53,8 @@ impl Editor {
             out: fresh(),
             report: check(&text, &path.display().to_string()),
             ran: false,
-            status: "^S save  ^R run  ^Q quit  Tab pane".into(),
+            status: "^S save  ^R run  ^Q quit  Tab pane  ^T zoom".into(),
+            zoom: false,
             confirm_quit: false,
         })
     }
@@ -99,6 +102,7 @@ impl Editor {
                 self.status = "unsaved changes: ^Q again to quit, ^S to save".into();
             }
             Action::Quit => return Flow::Quit,
+            Action::Zoom => self.zoom = !self.zoom,
             Action::NextPane | Action::PrevPane => {}
         }
         Flow::Continue

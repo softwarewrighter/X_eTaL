@@ -1,6 +1,6 @@
 number = 6
 slug = "editor-panes"
-status = "pending"
+status = "in-progress"
 description = "combinators step 4 (inserted at the user's request): the editor's panes. Ctrl..."
 role = "production"
 context_files = []
