@@ -1,0 +1,1 @@
+life.xtl iterates via u:t_imes/u:s_teps (blinker, glider 4 gens); tour axes section (implicit / explicit same / other axis; two axes; combinations); tour chmod +x; just install [DIR] + README (stale release, PATH for shebangs), verified with scratch install; goldens rebased on purpose. Gate green, pushed.
