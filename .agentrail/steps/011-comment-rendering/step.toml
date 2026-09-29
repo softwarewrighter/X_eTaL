@@ -1,8 +1,9 @@
 number = 11
 slug = "comment-rendering"
-status = "in-progress"
+status = "completed"
 description = "tui step 11 (inserted at the user's request): in the view model (pp, tour/sho..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T22:56:27"
-commits = []
+completed_at = "2026-09-28T23:04:55"
+commits = ["a2a6cf94697983fa576da9333668374582890ecc"]

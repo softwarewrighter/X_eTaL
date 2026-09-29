@@ -1,0 +1,1 @@
+View: trailing comments keep source column (aligned pp/editor/echo; plain render unchanged); backquoted code in comments drawn decorated; ANSI merges same-class runs; tour comments rewritten with backquoted code and pointer to docs/input.md; goldens rebased on purpose; docs. Gate green, pushed.
