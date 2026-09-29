@@ -1,0 +1,1 @@
+lib/Combinators.xtl: 38 typed birds + recursive Y, types pinned (reg type-combinators); spec case checks every bird's argument order with digit-spelling functions; demos/combinators.xtl notebook and demos/birds-untyped.xtl (M, L, M2, U, textbook Y, Z, U U) with goldens; README/birds.md updated.
