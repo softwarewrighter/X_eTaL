@@ -1,0 +1,1 @@
+xetal-grid (display layout of values: scalar/vector line with type+shape, boxed aligned matrices, labelled slices); value->grid; eval_events (values as grids interleaved with p_rint! text); editor Ctrl-R shows grids. Recorded user's u_se< display suggestion for Saga 8. Gate green, pushed.
