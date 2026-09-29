@@ -1,0 +1,1 @@
+Macro class (names ending in <) drawn bold yellow in render --color, pp, show, editor; tests, golden, docs. Gate green, pushed.
