@@ -596,6 +596,15 @@ numbers via a type-extension mechanism, checked `::` signatures, axes
 above 9, count-from-the-end axes, the `_` wildcard
 parameter. Each gets a saga (or steps) when scheduled.
 
+## Later -- system I/O
+
+After the quads: file functions in the quad namespace (read and write
+text and bytes; the web demo maps them to local storage), `[]S_VO`
+reserved for channels to special facilities (graphics, a Rust dynamic
+library) as the FFI-like escape hatch, and networking as a library on
+it (lang-choices section 15). Names to be decided with the user; the
+APL ports (Saga 13) may call for it sooner.
+
 ## Cross-cutting (insert as steps when due)
 
 - editor panes (requested by the user): resize the panes (split

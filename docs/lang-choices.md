@@ -349,7 +349,19 @@ Optional, later: a spelling for axes above 9; an explicit `_`
 wildcard parameter (`{ x _ -> x }`); count-from-the-end axes; raw strings `r"..."`; Unicode text as a
 library type; nested arrays (A7); checked `::` signatures (T4);
 complex numbers via the same type-extension mechanism (literal
-`3j4`, currently a lex error, reserved for them).
+`3j4`, currently a lex error, reserved for them); system I/O (see
+below).
+
+System I/O (discussed with the user, names to be decided): modern APLs
+use a few named system functions for whole files (Dyalog's quad NGET /
+NPUT, BQN's FChars / FLines), an FFI for native libraries (Dyalog's
+quad NA, BQN's FFI) and networking as a library on top; shared
+variables (quad SVO) are the older mechanism. For X_eTaL: file
+functions in the quad namespace (text and bytes, read and write), and
+`[]S_VO` reserved for shared-variable-style channels to special
+facilities (graphics, a Rust dynamic library), the escape hatch a
+networking library would build on; in the web demo, files map to the
+browser's local storage.
 
 ## 16. Style guide (conventions; a linter may check them later)
 
