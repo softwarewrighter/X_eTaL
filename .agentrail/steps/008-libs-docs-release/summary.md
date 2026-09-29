@@ -1,0 +1,1 @@
+M6b tour page (libraries, golden-backed incl. lib-error-located), tours index/README/PRD links, docs sync, Saga 8 retrospective. Gate green, pushed.
