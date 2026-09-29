@@ -15,8 +15,9 @@ pub struct Cell {
 
 /// The cells of `src` (libraries found from `origin`), rolls drawn from
 /// `seed`.
-pub fn notebook(origin: &str, src: &str, seed: u64) -> Vec<Cell> {
+pub fn notebook(origin: &str, src: &str, seed: u64, untyped: bool) -> Vec<Cell> {
     let mut session = Session::new(origin, seed);
+    session.untyped = untyped;
     let (mut cells, mut source) = (Vec::new(), Vec::new());
     for line in src.lines() {
         source.push(line);

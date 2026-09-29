@@ -18,7 +18,7 @@ Available recipes:
     repl                       # Start the interactive session
     run +args                  # Type-check and run a script, flags first: just run --echo demos/tour.xtl
     screenshots                # Regenerate the README / docs images (vhs, ImageMagick)
-    show file                  # Run a file as a notebook: each statement pretty-printed, then its output
+    show file                  # Run a file as a notebook: each statement pretty-printed, then its output (#! flags such as --untyped apply)
     slow-show file delay="500" # A notebook run that pauses after each statement (ms, default 500): for watching or recording
     test                       # Run every component's tests
     test-emacs                 # The Emacs mode and Org Babel language, with ERT in a batch Emacs (skipped without Emacs)

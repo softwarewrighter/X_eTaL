@@ -1,6 +1,6 @@
 number = 2
 slug = "untyped-notebook"
-status = "pending"
+status = "in-progress"
 description = "combinators step 2 (inserted at the user's request): notebook runs honor --un..."
 role = "production"
 context_files = []

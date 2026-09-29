@@ -22,6 +22,9 @@ for c in "${COMPONENTS[@]}"; do
 done
 step "reg-rs goldens"
 scripts/reg.sh run
+step "every just recipe runs (scripts/just-smoke.sh)"
+smoke="$(scripts/just-smoke.sh 2>&1)" || { echo "$smoke"; exit 1; }
+echo "$smoke" | tail -1
 step "Emacs mode and org-babel (ERT; skipped without Emacs)"
 emacs_out="$(just test-emacs 2>&1)" || { echo "$emacs_out"; exit 1; }
 echo "$emacs_out" | grep -E "Ran [0-9]+ tests|skipped" || true

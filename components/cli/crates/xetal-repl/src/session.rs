@@ -20,6 +20,8 @@ pub struct Session {
     /// Where libraries are found from: a file's path, or `-e` for the
     /// working directory.
     origin: String,
+    /// Run without the type checker (`--untyped`).
+    pub untyped: bool,
 }
 
 impl Default for Session {
@@ -44,6 +46,7 @@ fn run(
     source: &str,
     origin: &str,
     seed: u64,
+    untyped: bool,
 ) -> (Vec<u8>, Vec<Diagnostic>, Result<(), Diagnostic>) {
     let loaded = match xetal_program::load(origin, source) {
         Ok(l) => l,
@@ -51,7 +54,11 @@ fn run(
     };
     let (sources, mut program) = (loaded.sources, loaded.program);
     let here = |d| xetal_program::in_program(&sources, d);
-    if let Err(e) = xetal_types::check_program(&mut program) {
+    let checked = match untyped {
+        true => Ok(Vec::new()),
+        false => xetal_types::check_program(&mut program),
+    };
+    if let Err(e) = checked {
         return (Vec::new(), Vec::new(), Err(here(e)));
     }
     let mut out = Vec::new();
@@ -84,6 +91,7 @@ impl Session {
             warned: 0,
             seed,
             origin: origin.into(),
+            untyped: false,
         }
     }
 
@@ -98,7 +106,7 @@ impl Session {
             false => format!("{}\n{text}", self.accepted),
         };
         let offset = source.len() - text.len();
-        let (out, warnings, result) = run(&source, &self.origin, self.seed);
+        let (out, warnings, result) = run(&source, &self.origin, self.seed, self.untyped);
         if matches!(&result, Err(d) if d.code == "unclosed") {
             self.pending = text;
             return Reply::More;

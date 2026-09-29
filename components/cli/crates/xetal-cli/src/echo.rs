@@ -17,10 +17,11 @@ pub(crate) fn echo(
     origin: &str,
     seed: Option<u64>,
     delay: Option<u64>,
+    untyped: bool,
 ) -> Result<String, Diagnostic> {
     let seed = seed.unwrap_or_else(xetal_eval::Rng::fresh_seed);
     let mut failed = false;
-    for cell in xetal_repl::notebook(origin, source, seed) {
+    for cell in xetal_repl::notebook(origin, source, seed, untyped) {
         pause(delay, &cell.source);
         println!("{}", ansi(&view(&cell.source)));
         for line in cell.out.lines() {
@@ -63,14 +64,17 @@ pub(crate) fn evaluation(command: &Command, source: &str) -> Option<Result<Strin
             echo: true,
             seed,
             delay,
+            untyped,
             ..
         })
         | Command::Run {
             echo: true,
             seed,
             delay,
+            untyped,
             ..
-        } => seed_or_env(*seed).and_then(|seed| echo(source, &origin(command), seed, *delay)),
+        } => seed_or_env(*seed)
+            .and_then(|seed| echo(source, &origin(command), seed, *delay, *untyped)),
         Command::Eval(EvalArgs { untyped, seed, .. }) | Command::Run { untyped, seed, .. } => {
             seed_or_env(*seed).and_then(|seed| evaluate(source, &origin(command), *untyped, seed))
         }

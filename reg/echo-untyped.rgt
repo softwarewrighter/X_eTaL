@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run --echo --untyped demos/fixed-point.xtl"
+exit_code = 0
+desc = "a notebook run honors --untyped: the Y combinator shows 120"

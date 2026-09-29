@@ -3,7 +3,7 @@
 use xetal_repl::{Cell, notebook};
 
 fn cells(src: &str) -> Vec<(String, String, String)> {
-    notebook("-e", src, 7)
+    notebook("-e", src, 7, false)
         .into_iter()
         .map(|Cell { source, out, err }| (source, out, err))
         .collect()
@@ -62,4 +62,18 @@ fn a_failing_block_reports_its_error() {
 fn a_notebook_can_import_a_library() {
     let got = cells("\"s:\" u_se< \"Stats\"\ns:r_ange 3 9 4");
     assert_eq!(got[1].1, "6\n");
+}
+
+#[test]
+fn an_untyped_notebook_skips_the_checker() {
+    let src = include_str!("../../../../../demos/fixed-point.xtl");
+    let typed = notebook("-e", src, 7, false);
+    assert!(
+        typed
+            .iter()
+            .any(|c| c.err.starts_with("error[infinite-type]"))
+    );
+    let untyped = notebook("-e", src, 7, true);
+    assert!(untyped.iter().all(|c| c.err.is_empty()), "{untyped:?}");
+    assert!(untyped.iter().any(|c| c.out == "120\n"), "{untyped:?}");
 }

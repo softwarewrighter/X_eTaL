@@ -188,6 +188,11 @@ Four layers, all run by `cargo test` in each component (or
    `.out` and `.err` files are committed; `*.tdb*` are gitignored (reg-rs
    regenerates them from `.rgt`). Helper: `scripts/reg.sh`.
 
+The gate also runs every `just` recipe (`scripts/just-smoke.sh`): the
+file recipes (`show`, `pp`, `run`) on every demo, the others on a
+sample, the rest skipped with a reason; a new recipe fails the gate
+until it is added there.
+
 Unit tests live in each crate's `tests/` directory (public API only)
 so source modules stay small: `sw-checklist` (run by
 `scripts/gate.sh`) fails a module over 7 functions, a crate over 7

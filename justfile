@@ -71,13 +71,13 @@ eval +args: _quiet-build
 tour: _quiet-build
     @{{xetal}} run --echo demos/tour.xtl
 
-# Run a file as a notebook: each statement pretty-printed, then its output
+# Run a file as a notebook: each statement pretty-printed, then its output (#! flags such as --untyped apply)
 show file: _quiet-build
-    @{{xetal}} run --echo "$1"
+    @scripts/show.sh "$1"
 
 # A notebook run that pauses after each statement (ms, default 500): for watching or recording
 slow-show file delay="500": _quiet-build
-    @{{xetal}} run --echo --delay "$2" "$1"
+    @scripts/show.sh "$1" "$2"
 
 # The Emacs mode and Org Babel language, with ERT in a batch Emacs (skipped without Emacs)
 test-emacs: build

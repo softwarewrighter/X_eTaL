@@ -195,7 +195,9 @@ just gate                                           # full pre-commit gate
 ```
 
 Each recipe calls a script in `scripts/` (`build-all.sh`, `gate.sh`,
-`reg.sh`, `check-locks.sh`), which work without `just` too.
+`reg.sh`, `check-locks.sh`), which work without `just` too. The gate
+also runs `scripts/just-smoke.sh`, which runs every recipe (the file
+recipes on every demo) and fails on a recipe it has no test for.
 
 ## Related Projects
 

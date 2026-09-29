@@ -72,7 +72,7 @@ pub(crate) struct EvalArgs {
     #[arg(long)]
     pub(crate) seed: Option<u64>,
     /// Show each statement pretty-printed, then its output (a notebook).
-    #[arg(long, conflicts_with = "untyped")]
+    #[arg(long)]
     pub(crate) echo: bool,
     /// With --echo, pause this many milliseconds after each statement.
     #[arg(long, requires = "echo", value_name = "MS")]
@@ -122,7 +122,7 @@ pub(crate) enum Command {
         #[arg(long)]
         seed: Option<u64>,
         /// Show each statement pretty-printed, then its output (a notebook).
-        #[arg(long, conflicts_with = "untyped")]
+        #[arg(long)]
         echo: bool,
         /// With --echo, pause this many milliseconds after each statement.
         #[arg(long, requires = "echo", value_name = "MS")]
