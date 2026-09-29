@@ -5,7 +5,7 @@ use xetal_lex::lex;
 use xetal_render::{gap_text, token_text};
 
 use crate::Class;
-use crate::class::classify;
+use crate::class::{classify, quotes_take_function_class};
 
 /// A run of source shown as `text` in style `class`, from bytes `raw`.
 #[derive(Debug, Clone, PartialEq)]
@@ -65,6 +65,7 @@ fn shift(mut s: Segment, by: usize) -> Segment {
 /// Segments for text that lexes: tokens and the gaps between them.
 fn valid(src: &str, base: usize, out: &mut Vec<Segment>) {
     let Ok(tokens) = lex(src) else { return };
+    let first = out.len();
     let mut pos = 0;
     for t in &tokens {
         gap(src, pos, t.span.start, base, out);
@@ -78,6 +79,7 @@ fn valid(src: &str, base: usize, out: &mut Vec<Segment>) {
         pos = t.span.end;
     }
     gap(src, pos, src.len(), base, out);
+    quotes_take_function_class(&mut out[first..]);
 }
 
 /// Whitespace, then a comment if the gap holds one.

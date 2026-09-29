@@ -35,7 +35,7 @@ fn builtins_library_names_numbers_and_strings_differ() {
     assert_eq!(
         kinds,
         [
-            Class::Quote,
+            Class::Symbol,
             Class::Symbol,
             Class::Builtin,
             Class::LibFunc,
@@ -46,6 +46,24 @@ fn builtins_library_names_numbers_and_strings_differ() {
             Class::Unit
         ]
     );
+}
+
+#[test]
+fn a_quote_takes_the_class_of_the_function_it_quotes() {
+    let got = classes("'+ r_/ 'r_/ 'u:p_lus 'c:K_ '{ _r } '[n_eg]");
+    let kinds: Vec<Class> = got.iter().map(|(_, c)| *c).collect();
+    use Class::*;
+    let want = [
+        Symbol, Symbol, Builtin, Builtin, Builtin, UserFunc, UserFunc, LibFunc, LibFunc, Quote,
+        Punct, LambdaArg, Punct, Quote, Punct, Builtin, Punct,
+    ];
+    assert_eq!(kinds, want);
+}
+
+#[test]
+fn symbols_and_their_quotes_are_colored() {
+    let out = ansi(&view("'+"));
+    assert_eq!(out.matches("\u{1b}[94m").count(), 2, "{out:?}");
 }
 
 #[test]

@@ -343,9 +343,10 @@ buffer snapshots.
 | 3  | tui-foundation   | text buffer, nano keymap, source and rendered panes, snapshots |
 | 4  | editor           | `xetal edit FILE`: split panes, live types, Ctrl-R run, save |
 | 5  | alpha-omega-glyphs | `_l` `_r` as APL alpha and omega (user request)           |
-| 6  | array-view       | array viewer widget for results (reused by the debugger)    |
-| 7  | repl-live        | live-rendered REPL line editor with history on a terminal   |
-| 8  | tui-docs-release | README tour, debugger design notes, retrospective           |
+| 6  | operand-colors   | symbols light blue; a quote colored as its function (user request) |
+| 7  | array-view       | array viewer widget for results (reused by the debugger)    |
+| 8  | repl-live        | live-rendered REPL line editor with history on a terminal   |
+| 9  | tui-docs-release | README tour, debugger design notes, retrospective           |
 
 ## Saga 8 -- combinators (M6)
 

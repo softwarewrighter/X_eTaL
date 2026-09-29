@@ -102,6 +102,14 @@ fn scrolling_by_hand_stays_inside_the_content() {
 }
 
 #[test]
+fn symbols_are_light_blue() {
+    assert_eq!(
+        xetal_panes::style(xetal_view::Class::Symbol).fg,
+        Some(ratatui::style::Color::LightBlue)
+    );
+}
+
+#[test]
 fn the_focused_pane_has_a_highlighted_border() {
     let mut panes = Panes::new(&Buffer::new("x"), None);
     panes.focus = Some(Focus::Rendered);

@@ -1,0 +1,3 @@
+command = """./target/debug/xetal render --color -e "'+ r_/_12 m; 'u:p_lus r_/ v; '{ _r } e_ach v""""
+exit_code = 0
+desc = "a quote has the color of the function it quotes; symbols are light blue"

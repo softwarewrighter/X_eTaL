@@ -377,7 +377,14 @@ segment shown as typed, and viewing resumes after it; the segments
 cover every byte exactly once (a property test over arbitrary text).
 `lines` splits segments at newlines and `column` maps a raw offset to
 its rendered column (terminal width, combining underlines take none).
-`xetal render --color` prints the segments with ANSI colors.
+`xetal render --color` prints the segments with ANSI colors, and the
+editor uses the same palette: system functions blue (symbols such as
+`+` light blue), the program's functions green, a library's cyan,
+lambda arguments magenta, numbers yellow, comments dim, errors red. A
+quote takes the class of the function it quotes, so an operand reads
+as one unit (`'+` light blue, `'r_/` blue, `'u:p_lus` green); before
+a lambda or a train it keeps its own bold style. This is lexical (the
+quote and the next token), decided with the user in the tui saga.
 
 ### 8.1b The editor (`xetal edit FILE`)
 

@@ -2,6 +2,8 @@
 
 use xetal_lex::TokenKind;
 
+use crate::Segment;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Class {
     /// A system function or macro (`r_ev`, `u_se<`).
@@ -48,5 +50,24 @@ pub(crate) fn classify(kind: &TokenKind) -> Class {
         TokenKind::Unit => Class::Unit,
         TokenKind::Newline => Class::Space,
         _ => Class::Punct,
+    }
+}
+
+/// A quote takes the class of the function it quotes (`'+`, `'r_/`,
+/// `'u:p_lus`), so an operand reads as one unit; before anything else
+/// (a lambda, a train) it keeps its own class.
+pub(crate) fn quotes_take_function_class(segments: &mut [Segment]) {
+    for i in 0..segments.len() {
+        if segments[i].class != Class::Quote {
+            continue;
+        }
+        let next = segments[i + 1..]
+            .iter()
+            .find(|s| s.class != Class::Space)
+            .map(|s| s.class);
+        if let Some(c @ (Class::Symbol | Class::Builtin | Class::UserFunc | Class::LibFunc)) = next
+        {
+            segments[i].class = c;
+        }
     }
 }
