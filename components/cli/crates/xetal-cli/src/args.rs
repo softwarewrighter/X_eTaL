@@ -84,6 +84,10 @@ pub(crate) struct RenderArgs {
     /// Print LaTeX math for a post-processor (KaTeX, MathJax, pdflatex).
     #[arg(long, conflicts_with = "raw")]
     pub(crate) latex: bool,
+    /// Color the decorated form for a terminal; text that does not lex
+    /// is shown as typed, in red, and never stops the rendering.
+    #[arg(long, conflicts_with_all = ["raw", "latex"])]
+    pub(crate) color: bool,
 }
 
 #[derive(Subcommand)]

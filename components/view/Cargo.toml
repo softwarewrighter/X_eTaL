@@ -1,8 +1,8 @@
-# X_eTaL component `cli`: one Cargo workspace (see docs/architecture.md).
+# X_eTaL component `view`: one Cargo workspace (see docs/architecture.md).
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-cli", "crates/xetal-spec", "crates/xetal-repl"]
+members = ["crates/xetal-view"]
 
 [workspace.package]
 version = "0.1.0"
@@ -20,14 +20,14 @@ xetal-base = { path = "../base/crates/xetal-base" }
 xetal-lex = { path = "../syntax/crates/xetal-lex" }
 xetal-syntax = { path = "../syntax/crates/xetal-syntax" }
 xetal-render = { path = "../render/crates/xetal-render" }
-xetal-view = { path = "../view/crates/xetal-view" }
+xetal-view = { path = "crates/xetal-view" }
+unicode-width = "0.2"
 xetal-core = { path = "../core/crates/xetal-core" }
 xetal-ty = { path = "../types/crates/xetal-ty" }
 xetal-types = { path = "../types/crates/xetal-types" }
 xetal-array = { path = "../eval/crates/xetal-array" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
-xetal-repl = { path = "crates/xetal-repl" }
-xetal-spec = { path = "crates/xetal-spec" }
+xetal-spec = { path = "../cli/crates/xetal-spec" }
 clap = { version = "4", features = ["derive"] }
 assert_cmd = "2"
 proptest = "1"

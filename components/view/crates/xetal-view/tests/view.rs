@@ -1,0 +1,100 @@
+//! The view model: styled segments of decorated source.
+
+use proptest::prelude::*;
+use xetal_view::{Class, ansi, column, lines, view};
+
+fn classes(src: &str) -> Vec<(String, Class)> {
+    view(src)
+        .into_iter()
+        .filter(|s| s.class != Class::Space)
+        .map(|s| (s.text, s.class))
+        .collect()
+}
+
+#[test]
+fn tokens_get_decorated_text_and_a_class() {
+    let got = classes("u:s_quare := { _r * _r } # sq");
+    let want = [
+        ("\u{1d58}s\u{332}quare", Class::UserFunc),
+        ("\u{2190}", Class::Punct),
+        ("{", Class::Punct),
+        ("\u{1d63}", Class::LambdaArg),
+        ("\u{d7}", Class::Symbol),
+        ("\u{1d63}", Class::LambdaArg),
+        ("}", Class::Punct),
+        ("\u{235d} sq", Class::Comment),
+    ];
+    let want: Vec<(String, Class)> = want.iter().map(|(t, c)| (t.to_string(), *c)).collect();
+    assert_eq!(got, want);
+}
+
+#[test]
+fn builtins_library_names_numbers_and_strings_differ() {
+    let got = classes("'+ r_/ c:K_ x^2 \"hi\" 3.5 @");
+    let kinds: Vec<Class> = got.iter().map(|(_, c)| *c).collect();
+    assert_eq!(
+        kinds,
+        [
+            Class::Quote,
+            Class::Symbol,
+            Class::Builtin,
+            Class::LibFunc,
+            Class::Variable,
+            Class::Exponent,
+            Class::String,
+            Class::Number,
+            Class::Unit
+        ]
+    );
+}
+
+#[test]
+fn invalid_text_is_kept_and_marked() {
+    let got = classes("3-1 x");
+    assert_eq!(got[1], ("-".to_string(), Class::Error));
+    assert_eq!(got.last().unwrap(), &("x".to_string(), Class::Variable));
+}
+
+#[test]
+fn columns_follow_the_rendered_width() {
+    let segs = view("x^2 + y");
+    assert_eq!(column(&segs, 4), 3);
+    assert_eq!(column(&segs, 6), 5);
+    assert_eq!(column(&view("r_ev x"), 5), 4);
+}
+
+#[test]
+fn lines_split_at_newlines() {
+    let ls = lines(&view("a := 1\nb := 2"));
+    assert_eq!(ls.len(), 2);
+    assert_eq!(ls[1][0].text, "b");
+}
+
+#[test]
+fn ansi_colors_each_class_and_resets() {
+    let out = ansi(&view("r_ev x"));
+    assert!(out.contains("\u{1b}["), "{out:?}");
+    assert!(out.ends_with("\u{1b}[0m"), "{out:?}");
+}
+
+proptest! {
+    #[test]
+    fn segments_cover_any_text_in_order(src in "\\PC{0,40}") {
+        let segs = view(&src);
+        let mut at = 0;
+        for s in &segs {
+            prop_assert_eq!(s.raw.start, at);
+            prop_assert!(s.raw.end > s.raw.start);
+            at = s.raw.end;
+        }
+        prop_assert_eq!(at, src.len());
+    }
+
+    #[test]
+    fn valid_source_renders_as_decorate(src in "[a-z_ :=0-9^+*{}();'\"#-]{0,30}") {
+        if let Ok(want) = xetal_render::decorate(&src) {
+            let got: String = view(&src).into_iter().map(|s| s.text).collect();
+            prop_assert_eq!(got, want);
+        }
+    }
+}

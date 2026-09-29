@@ -363,6 +363,22 @@ its ASCII spelling; a superscript namespace must precede a name
 (proptest: raw -> decorated -> raw is the identity on lexable
 sources) and `spec/render/*.case`.
 
+### 8.1a View model (`xetal-view`, `xetal render --color`)
+
+Front ends (the terminal editor and REPL, later the debugger and the
+web playground) draw source from one view model: `view(src)` gives
+segments in order, each with its raw byte span, its decorated text
+(from the renderer's per-token rules, so it always agrees with
+`xetal render`) and a class for highlighting (built-in, user
+function, library function, variable, lambda argument, number,
+exponent, string, symbol, quote, punctuation, unit, comment, space,
+error). It never fails: text that does not lex becomes an error
+segment shown as typed, and viewing resumes after it; the segments
+cover every byte exactly once (a property test over arbitrary text).
+`lines` splits segments at newlines and `column` maps a raw offset to
+its rendered column (terminal width, combining underlines take none).
+`xetal render --color` prints the segments with ANSI colors.
+
 ### 8.2 LaTeX (`xetal render --latex`)
 
 One way and complete: the body of a math environment for KaTeX,

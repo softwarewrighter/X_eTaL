@@ -6,7 +6,7 @@ use xetal_base::Diagnostic;
 use xetal_lex::{FuncName, Side, TokenKind, lex};
 
 use crate::glyphs::{LIGATURES, UNDERLINE, subscript_digit, superscript_text, superscript_word};
-use crate::lambda::lambda_glyph;
+use crate::lambda::lambda_arg;
 
 /// Render lexable raw source in decorated form.
 pub fn decorate(src: &str) -> Result<String, Diagnostic> {
@@ -14,43 +14,41 @@ pub fn decorate(src: &str) -> Result<String, Diagnostic> {
     let mut out = String::new();
     let mut pos = 0;
     for token in &tokens {
-        out.push_str(&gap(&src[pos..token.span.start]));
-        let raw = &src[token.span.start..token.span.end];
-        let shown = match &token.kind {
-            TokenKind::Func(name) => func_glyphs(name),
-            TokenKind::Var(v) => format!(
-                "{}{}{}",
-                ns_glyphs(&v.ns),
-                v.name,
-                if v.mutable { "!" } else { "" }
-            ),
-            TokenKind::LamArg { side, applied } => {
-                lambda_arg(if *side == Side::Left { 'l' } else { 'r' }, *applied, raw)
-            }
-            TokenKind::Exp(_) => superscript_text(&raw[1..]).unwrap_or_else(|| raw.into()),
-            TokenKind::Sym(_) | TokenKind::Assign | TokenKind::Arrow | TokenKind::Semi => {
-                ligature(raw).map_or_else(|| raw.into(), String::from)
-            }
-            _ => raw.into(),
-        };
-        out.push_str(&shown);
+        out.push_str(&gap_text(&src[pos..token.span.start]));
+        out.push_str(&token_text(
+            &token.kind,
+            &src[token.span.start..token.span.end],
+        ));
         pos = token.span.end;
     }
-    out.push_str(&gap(&src[pos..]));
+    out.push_str(&gap_text(&src[pos..]));
     Ok(out)
 }
 
-/// `_r` as subscript r; applied (`_r_`), underlined too.
-fn lambda_arg(side: char, applied: bool, raw: &str) -> String {
-    match lambda_glyph(side) {
-        Some(g) if applied => format!("{g}{UNDERLINE}"),
-        Some(g) => g.to_string(),
-        None => raw.into(),
+/// The decorated form of one token, given its raw text.
+pub fn token_text(kind: &TokenKind, raw: &str) -> String {
+    match kind {
+        TokenKind::Func(name) => func_glyphs(name),
+        TokenKind::Var(v) => format!(
+            "{}{}{}",
+            ns_glyphs(&v.ns),
+            v.name,
+            if v.mutable { "!" } else { "" }
+        ),
+        TokenKind::LamArg { side, applied } => {
+            lambda_arg(if *side == Side::Left { 'l' } else { 'r' }, *applied, raw)
+        }
+        TokenKind::Exp(_) => superscript_text(&raw[1..]).unwrap_or_else(|| raw.into()),
+        TokenKind::Sym(_) | TokenKind::Assign | TokenKind::Arrow | TokenKind::Semi => {
+            ligature(raw).map_or_else(|| raw.into(), String::from)
+        }
+        _ => raw.into(),
     }
 }
 
-/// A gap holds whitespace and at most one comment; its `#` becomes a lamp.
-fn gap(text: &str) -> String {
+/// The text between tokens: whitespace and at most one comment, whose
+/// `#` becomes a lamp.
+pub fn gap_text(text: &str) -> String {
     text.replacen('#', &ligature("#").map_or('#', |g| g).to_string(), 1)
 }
 

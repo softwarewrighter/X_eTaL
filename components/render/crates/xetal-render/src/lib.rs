@@ -11,4 +11,4 @@ mod unicode;
 pub use canonical::canonical;
 pub use inverse::undecorate;
 pub use latex::latex;
-pub use unicode::decorate;
+pub use unicode::{decorate, gap_text, token_text};

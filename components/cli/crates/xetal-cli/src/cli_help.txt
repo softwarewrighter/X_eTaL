@@ -3,7 +3,8 @@ STAGES:
   prints deterministic text; each runs the earlier stages first:
     lex     token stream with byte spans
     render  decorated Unicode form; --raw converts decorated text
-            back to source, --latex prints LaTeX math
+            back to source, --latex prints LaTeX math, --color
+            highlights it for a terminal (tolerating errors)
     parse   surface tree as S-expressions (at most one reading;
             ambiguous shapes are errors)
     fmt     canonical, fully parenthesized form

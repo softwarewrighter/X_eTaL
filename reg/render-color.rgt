@@ -1,0 +1,3 @@
+command = "./target/debug/xetal render --color -e 'u:s_quare := { _r * _r } # sq'"
+exit_code = 0
+desc = "decorated form with terminal colors by token class"

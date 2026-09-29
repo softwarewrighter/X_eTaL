@@ -56,6 +56,8 @@ fn render(args: &RenderArgs, source: &str) -> Result<String, Diagnostic> {
         let raw = xetal_render::undecorate(source)?;
         xetal_lex::lex(&raw)?;
         Ok(raw)
+    } else if args.color {
+        Ok(xetal_view::ansi(&xetal_view::view(source)))
     } else if args.latex {
         xetal_render::latex(source)
     } else {

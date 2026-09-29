@@ -153,12 +153,15 @@ namespace (`u:s_quare`), and `^2` touching a value is an exponent.
 Errors carry a code and a byte span, for example `xetal lex -e '3-1'`
 reports `error[ambiguous-minus]` at `1..2`.
 
-`xetal render` shows the decorated form; `--raw` converts it back and
-`--latex` prints LaTeX math for a post-processor:
+`xetal render` shows the decorated form; `--raw` converts it back,
+`--latex` prints LaTeX math for a post-processor, and `--color`
+highlights it for a terminal (text that does not lex is shown in red,
+and rendering continues):
 
 ```bash
 ./target/release/xetal render -e 'x r_ev o_-_2 u:s_quare c:K_ x^2 _l _r @'
 ./target/release/xetal render --latex -e 'o_-_12 x^2'
+./target/release/xetal render --color -e 'u:s_quare := { _r * _r } # sq'
 ```
 
 `xetal fmt` prints the canonical form, with every application in

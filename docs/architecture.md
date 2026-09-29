@@ -53,6 +53,9 @@ components/
   core/                    xetal-ir (Core IR, printer), xetal-core
                            (desugaring), xetal-lint (warnings)
   render/                  xetal-render: decorated, LaTeX, canonical
+  view/                    xetal-view: the front-end-agnostic view
+                           model (styled segments, classes, raw <->
+                           rendered map, ANSI output)
   types/                   xetal-ty (types, unifier, schemes),
                            xetal-prim-types (built-in types, read from
                            catalog signatures),

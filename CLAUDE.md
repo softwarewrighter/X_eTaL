@@ -399,6 +399,7 @@ baseline.
 ```
 base -> lex -> syntax -> core -> ty -> types -> eval -> cli / web
 render: raw <-> decorated, canonical, expanded printers
+view: front-end-agnostic view model (styled segments, span map)
 array: dense arrays + primitive kernels (peer of the front end)
 hof: higher-order built-ins; operands applied through eval's Caller
 search: search and order built-ins over major cells
