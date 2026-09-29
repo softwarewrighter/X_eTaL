@@ -123,4 +123,4 @@ animate: _quiet-build
     {{xetal}} run demos/rotate.xtl | awk -v RS= '{ printf "\033[H\033[2J%s\n", $0; system("sleep 0.4") }'
 
 _quiet-build:
-    @scripts/build-all.sh -q > /dev/null
+    @scripts/quick-build.sh

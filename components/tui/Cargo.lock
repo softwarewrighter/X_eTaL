@@ -2013,6 +2013,7 @@ name = "xetal-lex"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+ "xetal-token",
 ]
 
 [[package]]
@@ -2145,6 +2146,13 @@ name = "xetal-term"
 version = "0.1.0"
 dependencies = [
  "ratatui",
+]
+
+[[package]]
+name = "xetal-token"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
 ]
 
 [[package]]

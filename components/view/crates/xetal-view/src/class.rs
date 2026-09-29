@@ -75,6 +75,19 @@ pub(crate) fn quotes_take_function_class(segments: &mut [Segment]) {
     }
 }
 
+/// A power touching a function name (`n_eg^3`) takes the function's
+/// class: the count is part of the function, not a number in the data.
+pub(crate) fn powers_take_function_class(segments: &mut [Segment]) {
+    for i in 1..segments.len() {
+        let before = segments[i - 1].class;
+        if segments[i].class == Class::Exponent
+            && matches!(before, Class::Builtin | Class::UserFunc | Class::LibFunc)
+        {
+            segments[i].class = before;
+        }
+    }
+}
+
 /// An import `"s:" u_se< "Stats"` is drawn as its alias bound to the
 /// macro: superscript s and superscript equals in the library class,
 /// joined to `u_se<` (the space between them hidden). Pretty views only.

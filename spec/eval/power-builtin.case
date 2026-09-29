@@ -1,0 +1,13 @@
+# `n 'f_ p_ower x` applies f n times, with a computed count; `f_^3 x`
+# is `3 'f_ p_ower x` (D-7).
+== SOURCE
+3 'n_eg p_ower 5
+n := 4
+n '{ _r * 2 } p_ower 1
+== TYPE
+Int
+n : Int
+Int
+== RESULT
+-5
+16

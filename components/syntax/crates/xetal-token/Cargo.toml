@@ -1,6 +1,6 @@
 [package]
-name = "xetal-lex"
-description = "Lexer: raw ASCII source to decorated tokens with spans"
+name = "xetal-token"
+description = "Tokens and lexer errors, produced by xetal-lex"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -9,7 +9,3 @@ repository.workspace = true
 
 [dependencies]
 xetal-base.workspace = true
-xetal-token.workspace = true
-
-[dev-dependencies]
-proptest.workspace = true

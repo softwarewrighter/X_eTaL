@@ -1,11 +1,11 @@
-//! Literals: numbers `[-]digits[.digits]`, exponents touching a value
-//! (`x^2`, D-1 to D-5) and strings `"..."` (ST1, ST2).
+//! Literals: numbers `[-]digits[.digits]` and strings `"..."` (ST1,
+//! ST2); exponents are in `exponent`.
 
 use xetal_base::Span;
 
 use crate::cursor::Cursor;
-use crate::error::{ErrorKind, LexError};
-use crate::token::{Number, Symbol, TokenKind};
+use xetal_token::{ErrorKind, LexError};
+use xetal_token::{Number, Symbol, TokenKind};
 
 /// Lex a number whose text starts at `start` (a `-` already consumed, if
 /// any); the cursor is at the first digit.
@@ -51,54 +51,6 @@ fn value(text: &str, span: Span, float: bool) -> Result<TokenKind, LexError> {
 
 fn bad(span: Span, message: &str) -> LexError {
     LexError::new(ErrorKind::BadNumber, span, message)
-}
-
-/// A `^` touching the previous token: a literal exponent on a value, or
-/// an error (superscripts on functions are reserved, D-7).
-pub(crate) fn lex_exponent(cur: &mut Cursor, prev: &TokenKind) -> Result<TokenKind, LexError> {
-    let caret = cur.pos;
-    if matches!(prev, TokenKind::Func(_) | TokenKind::Sym(_)) {
-        return Err(LexError::at(
-            ErrorKind::ReservedSuperscript,
-            caret,
-            "superscripts on functions are reserved",
-        ));
-    }
-    let value = matches!(
-        prev,
-        TokenKind::Var(_)
-            | TokenKind::Num(_)
-            | TokenKind::RParen
-            | TokenKind::LamArg { applied: false, .. }
-    );
-    if !value {
-        return Err(LexError::at(
-            ErrorKind::BadExponent,
-            caret,
-            "an exponent must touch a number, variable, lambda argument or `)`",
-        ));
-    }
-    cur.pos += 1;
-    let start = cur.pos;
-    if cur.peek() == Some(b'-') && cur.peek_at(1).is_some_and(|b| b.is_ascii_digit()) {
-        cur.pos += 1;
-    }
-    match cur.peek() {
-        Some(b'0'..=b'9') => match lex_number(cur, start)? {
-            TokenKind::Num(n) => Ok(TokenKind::Exp(n)),
-            other => Ok(other),
-        },
-        Some(b) if b.is_ascii_alphabetic() || b == b'_' => Err(LexError::at(
-            ErrorKind::BadExponent,
-            cur.pos,
-            "an exponent must be a number literal; for a computed power write `x ^ n`",
-        )),
-        _ => Err(LexError::at(
-            ErrorKind::BadExponent,
-            caret,
-            "`^` touching a value must be followed by a number literal",
-        )),
-    }
 }
 
 /// A single-line ASCII string with the escapes `\"` `\\` `\n` `\t`.

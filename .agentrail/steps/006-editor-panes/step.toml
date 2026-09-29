@@ -1,0 +1,8 @@
+number = 6
+slug = "editor-panes"
+status = "pending"
+description = "combinators step 4 (inserted at the user's request): the editor's panes. Ctrl..."
+role = "production"
+context_files = []
+created_at = "2026-09-29T12:39:22"
+commits = []

@@ -58,7 +58,8 @@ components/
                            library file on its own),
                            xetal-libs (the standard libraries, lib/,
                            built in)
-  syntax/                  xetal-lex (lexer, tokens), xetal-ast
+  syntax/                  xetal-token (tokens, lexer errors),
+                           xetal-lex (lexer), xetal-ast
                            (surface AST, printer), xetal-syntax (parser)
   core/                    xetal-ir (Core IR, printer), xetal-core
                            (desugaring), xetal-lint (warnings)
@@ -79,7 +80,7 @@ components/
                            xetal-eval (evaluator; implements the
                            callback that applies function values)
   hof/                     xetal-hof (higher-order built-ins: reduce,
-                           scan, dispatch; operands applied through
+                           scan, power, dispatch; operands applied through
                            the evaluator's callback), xetal-map
                            (item by item: each, table, inner)
   search/                  xetal-search (search and order: index-of,

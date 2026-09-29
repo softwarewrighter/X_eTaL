@@ -89,6 +89,11 @@ pub enum FunKind {
     },
     Lambda(Lambda),
     Train(Vec<Fun>),
+    /// `f_^3`: a function name applied `count` times (D-7).
+    Power {
+        f: Box<Fun>,
+        count: i64,
+    },
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -143,6 +148,7 @@ impl Fun {
         let children = match &kind {
             FunKind::Apply(e) => e.depth,
             FunKind::Operand { operand, f } => operand.depth.max(f.depth),
+            FunKind::Power { f, .. } => f.depth,
             FunKind::Lambda(l) => l
                 .body
                 .iter()

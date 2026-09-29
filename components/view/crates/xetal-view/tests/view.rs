@@ -62,6 +62,18 @@ fn a_quote_takes_the_class_of_the_function_it_quotes() {
 }
 
 #[test]
+fn a_power_takes_the_class_of_its_function() {
+    let got = classes("n_eg^3 5 'u:d_^2 c:K_^0 x^2");
+    let kinds: Vec<Class> = got.iter().map(|(_, c)| *c).collect();
+    use Class::*;
+    let want = [
+        Builtin, Builtin, Number, UserFunc, UserFunc, UserFunc, LibFunc, LibFunc, Variable,
+        Exponent,
+    ];
+    assert_eq!(kinds, want);
+}
+
+#[test]
 fn symbols_and_their_quotes_are_colored() {
     let out = ansi(&view("'+"));
     assert!(out.starts_with("\u{1b}[94m'+\u{1b}[0m"), "{out:?}");

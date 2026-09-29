@@ -363,6 +363,7 @@ name = "xetal-lex"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+ "xetal-token",
 ]
 
 [[package]]
@@ -382,6 +383,13 @@ dependencies = [
  "xetal-ast",
  "xetal-base",
  "xetal-lex",
+]
+
+[[package]]
+name = "xetal-token"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
 ]
 
 [[package]]

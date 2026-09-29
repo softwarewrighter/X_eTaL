@@ -83,6 +83,7 @@ fn fun(f: &Fun) -> String {
         FunKind::Arg(side) => if *side == Side::Left { "_l_" } else { "_r_" }.into(),
         FunKind::Apply(e) => format!("({})_", expr(e, false)),
         FunKind::Operand { operand, f } => format!("'{} {}", fun(operand), fun(f)),
+        FunKind::Power { f, count } => format!("{}^{count}", fun(f)),
         FunKind::Lambda(l) => lambda(l),
         FunKind::Train(fs) => {
             format!("[{}]", fs.iter().map(fun).collect::<Vec<_>>().join(" "))

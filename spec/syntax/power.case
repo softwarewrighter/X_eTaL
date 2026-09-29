@@ -1,0 +1,12 @@
+# Function power desugars to the built-in p_ower (D-7): `n_eg^3` is
+# `3 'n_eg p_ower` waiting for its argument.
+== SOURCE
+n_eg^3 5
+== RENDER
+n̲eg³ 5
+== SURFACE
+((power n_eg 3) 5)
+== CANONICAL
+(n_eg^3 5)
+== CORE
+(eval (app (app (app #p_ower #n_eg) 3) 5))

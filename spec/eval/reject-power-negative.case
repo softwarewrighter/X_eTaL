@@ -1,0 +1,6 @@
+# p_ower's count is a whole number, 0 or more; a negative count is an
+# error, not the inverse (D-7).
+== SOURCE
+-1 'n_eg p_ower 5
+== ERROR
+error[domain]: a power count is a whole number, 0 or more at 0..17

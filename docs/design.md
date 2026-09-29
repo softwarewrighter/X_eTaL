@@ -48,8 +48,9 @@ is a `Newline` token. Pinned by `components/syntax/crates/xetal-lex/tests/lex/` 
 
 Rejections (each has a test): an underline after a digit (`a1_`), two
 underlines (`a_b_c`), anything after a trailing mark (`f_-1`), axis 0
-or a repeated axis, `x^n` (use `x ^ n`), superscripts on functions
-(`r_ev^2`, `+^r`), a bare namespace (`u:`), `_@` sugar (`n_ow@`),
+or a repeated axis, `x^n` (use `x ^ n`), a power on a symbol or with
+a count that is not a whole number literal (`+^r`, `r_ev^n`,
+`r_ev^1.5`; `r_ev^-1`, the inverse, is reserved), a bare namespace (`u:`), `_@` sugar (`n_ow@`),
 `x!=3` (write `x != 3` or `x! = 3`, R2), `3-1` (write `3 - 1` or
 `3 -1`), a name touching a string (reserved for `r"..."`), the
 complex-number literal `3j4` (reserved), and non-ASCII characters.
@@ -521,7 +522,7 @@ pieces built for the editor and the REPL, with no new display code:
 - Running: the trace comes from an evaluator entry point like
   `eval_events`, which already shows values as grids in order.
 
-The web playground (Saga 15) draws the same view model and grids in
+The web playground (Saga 16) draws the same view model and grids in
 the browser.
 
 ### 8.1g Emacs and literate documents
@@ -589,6 +590,6 @@ The pinning tests are written as the implementing saga reaches them
 | D27| Axis subscript on a dyadic function | moves axis k of the right (data) argument only; the axis moves back when the result keeps its rank, stays consumed when it loses one, else `error[axis]` (A6) |
 | D29| Libraries | `Name` resolves to `Name.xtl` in the importing file's directory, then `XETAL_PATH`, then the standard libraries built into `xetal`; libraries hold definitions only; unprefixed functions in a library are private; imports display as superscript alias and superscript equals before `u_se<` (MC4, MC9) |
 | D30| System names (quads) | `[]NAME` is one token in the system namespace, shown with the quad glyph; values `[]A` `[]D` `[]AV` `[]TS` `[]IO` (always 1), functions `[]D_L` `[]U_CS` `[]R_EAD` `[]V_ALUE` (lang-choices 13a) |
-| D28| Function power | `f_^3 x` applies f three times (superscript on a function, D-7); computed counts use `n 'f_ p_ower x`; libraries (Saga 8) come before the combinators (Saga 9), which are written directly as a library |
+| D28| Function power | `f_^3 x` applies f three times (superscript on a function, D-7), lowered to `3 'f_ p_ower` waiting for its argument; computed counts use `n 'f_ p_ower x`, `p_ower : (a -> a) -> Int -> a -> a`; counts are whole numbers, `^-1` reserved; libraries (Saga 8) come before the combinators (Saga 9), which are written directly as a library |
 | D31| Combinators library | every bird Smullyan names that type-checks, spelled by letter (`B_1`, `C_s`, `E_h` for the variants), types pinned; Y by recursion; the self-applying birds in an untyped demo; `Maybe` as a second library; `xetal type` of a library lists its exports (CB1-CB4, `docs/birds.md`) |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

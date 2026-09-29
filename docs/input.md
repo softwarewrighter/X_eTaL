@@ -60,8 +60,13 @@ error.
 
 A `^` touching a value, followed by a number, is an exponent: `x^2`,
 `x^-1`, `x^0.5`, `(a + b)^2`. For a computed power, use the spaced
-power function: `x ^ n`. `x^n` is an error with that hint, and
-superscripts on functions (`r_ev^2`) are reserved.
+power function: `x ^ n`. `x^n` is an error with that hint.
+
+A `^` touching a function name, followed by a whole number, is
+function power: `n_eg^3 5` applies `n_eg` three times, giving -5, and
+a quoted function may carry one (`'n_eg^2 e_ach 1 2`). For a computed
+count, use the built-in `p_ower`: `3 'n_eg p_ower 5`. `f_^-1`, the
+inverse, is reserved.
 
 ## Symbols
 

@@ -5,9 +5,9 @@
 use xetal_base::Span;
 
 use crate::cursor::Cursor;
-use crate::error::{ErrorKind, LexError};
-use crate::token::{Side, Symbol, Token, TokenKind};
-use crate::{literal, name};
+use crate::{exponent, literal, name};
+use xetal_token::{ErrorKind, LexError};
+use xetal_token::{Side, Symbol, Token, TokenKind};
 
 /// Lex `src` into tokens. Spaces, tabs, carriage returns and `#`
 /// comments separate tokens; each `\n` is a `Newline` token.
@@ -47,7 +47,7 @@ fn next_token(
         return Ok(kind);
     }
     match (byte, touching) {
-        (b'^', Some(prev)) => literal::lex_exponent(cur, prev),
+        (b'^', Some(prev)) => exponent::lex_exponent(cur, prev),
         (b'0'..=b'9', _) => literal::lex_number(cur, cur.pos),
         (b'"', _) => literal::lex_string(cur),
         (b'-', _) => literal::minus(cur),

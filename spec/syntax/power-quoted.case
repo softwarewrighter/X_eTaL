@@ -1,0 +1,11 @@
+# A quoted function name may carry a power (D-7).
+== SOURCE
+'n_eg^2 e_ach 1 2
+== RENDER
+'n̲eg² e̲ach 1 2
+== SURFACE
+((operand (power n_eg 2) e_ach) (strand 1 2))
+== CORE
+(eval (app (app #e_ach (app (app #p_ower #n_eg) 2)) (array 1 2)))
+== RESULT
+1 2

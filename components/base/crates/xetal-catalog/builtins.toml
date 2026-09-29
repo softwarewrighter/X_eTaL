@@ -87,6 +87,7 @@ entries = [
   ["i_nner", 4, "(a -> b -> c) -> (c -> c -> c) -> a -> b -> c"],
   ["c_ompose", 3, "(a -> b) -> (b -> c) -> a -> c"],
   ["s_wap", 3, "(a -> b -> c) -> b -> a -> c"],
+  ["p_ower", 3, "(a -> a) -> Int -> a -> a"],
 ]
 
 [[group]]

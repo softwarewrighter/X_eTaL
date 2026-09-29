@@ -70,6 +70,14 @@ impl Lower {
                 let operand = self.fun(operand)?;
                 Kind::App(Box::new(target), Box::new(operand))
             }
+            // D-7: `f_^n` is `n 'f_ p_ower`, waiting for its argument.
+            FunKind::Power { f: base, count } => {
+                let power = self.node(f.span, Kind::Prim("p_ower".into()));
+                let base = self.fun(base)?;
+                let count = self.node(f.span, Kind::Lit(xetal_lex::Number::Int(*count)));
+                let partial = self.node(f.span, Kind::App(Box::new(power), Box::new(base)));
+                Kind::App(Box::new(partial), Box::new(count))
+            }
             FunKind::Lambda(l) => return self.lambda(l, f.span),
             FunKind::Train(fs) => return self.train_value(fs, f.span),
         };

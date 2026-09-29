@@ -1,6 +1,6 @@
 number = 3
 slug = "power"
-status = "pending"
+status = "in-progress"
 description = "combinators step 2: TDD function power f_^n on any function name (incl. quote..."
 role = "production"
 context_files = []

@@ -1,0 +1,7 @@
+# A power repeats a function from a type to itself; a dyadic function
+# is not one (D-7).
+== SOURCE
+u:s_ub := { _l - _r }
+10 u:s_ub^2 3
+== ERROR
+error[infinite-type]: a type would contain itself: a -> a at 25..33

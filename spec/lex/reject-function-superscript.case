@@ -1,5 +1,5 @@
-# Superscripts on functions are reserved (D-7).
+# `f_^-1`, the inverse of a function, is reserved (D-7).
 == SOURCE
-r_ev^2
+r_ev^-1
 == ERROR
-error[reserved-superscript]: superscripts on functions are reserved at 4..5
+error[reserved-superscript]: `^-1`, the inverse of a function, is reserved at 4..7

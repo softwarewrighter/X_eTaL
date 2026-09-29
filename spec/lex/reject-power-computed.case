@@ -1,0 +1,5 @@
+# A power count is a number literal; a computed count uses p_ower (D-7).
+== SOURCE
+n_eg^n 5
+== ERROR
+error[bad-power]: a power count must be a number literal; for a computed count write `n 'f_ p_ower x` at 5..6

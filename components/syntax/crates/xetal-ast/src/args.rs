@@ -33,6 +33,7 @@ fn fun_args(f: &Fun, (l, r): (bool, bool)) -> (bool, bool) {
         FunKind::Arg(s) => (l || *s == Side::Left, r || *s == Side::Right),
         FunKind::Apply(e) => expr_args(e, (l, r)),
         FunKind::Operand { operand, f } => fun_args(f, fun_args(operand, (l, r))),
+        FunKind::Power { f, .. } => fun_args(f, (l, r)),
         FunKind::Train(fs) => fs.iter().fold((l, r), |acc, x| fun_args(x, acc)),
         _ => (l, r),
     }

@@ -3,12 +3,10 @@
 //! makes a name a function name; a leading `ns:` names its namespace.
 
 mod cursor;
-mod error;
+mod exponent;
 mod literal;
 mod name;
 mod scan;
-mod token;
 
-pub use error::{ErrorKind, LexError};
 pub use scan::lex;
-pub use token::{FuncName, Number, Side, Symbol, Token, TokenKind, Var};
+pub use xetal_token::{ErrorKind, FuncName, LexError, Number, Side, Symbol, Token, TokenKind, Var};

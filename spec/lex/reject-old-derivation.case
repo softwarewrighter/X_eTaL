@@ -1,5 +1,6 @@
-# The old derivation syntax is gone; reduce is '+ r_/ (F7).
+# The old derivation syntax is gone; reduce is '+ r_/ (F7), and a
+# power goes on a function name, not a symbol (D-7).
 == SOURCE
 +^r
 == ERROR
-error[reserved-superscript]: superscripts on functions are reserved at 1..2
+error[bad-power]: a power goes on a function name (`f_^3`); for a symbol write `n '+ p_ower x` at 1..2

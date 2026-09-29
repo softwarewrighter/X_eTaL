@@ -2,7 +2,7 @@
 //! Unit, parentheses, quotes) and functions, with literal exponents.
 
 use xetal_base::{Diagnostic, Span};
-use xetal_lex::{Token, TokenKind};
+use xetal_lex::{Number, Token, TokenKind};
 
 use crate::expr::Item;
 use crate::parser::{Parser, err};
@@ -46,7 +46,16 @@ impl Parser {
     /// A function token: a name, a symbol, `_l_`, a lambda or a train.
     fn function(&mut self, token: Token) -> Result<Fun, Diagnostic> {
         let kind = match token.kind {
-            TokenKind::Func(name) => FunKind::Name(name),
+            TokenKind::Func(name) => match self.peek().map(|t| (t.kind.clone(), t.span)) {
+                // D-7: `f_^3`, a power (the lexer allows whole counts only).
+                Some((TokenKind::Exp(Number::Int(count)), span)) => {
+                    self.pos += 1;
+                    let f = Box::new(Fun::new(FunKind::Name(name), token.span));
+                    let kind = FunKind::Power { f, count };
+                    return Ok(Fun::new(kind, token.span.join(span)));
+                }
+                _ => FunKind::Name(name),
+            },
             TokenKind::Sym(sym) => FunKind::Sym(sym),
             TokenKind::LamArg {
                 side,
@@ -130,7 +139,7 @@ impl Parser {
                 Some(t) if matches!(t.kind, TokenKind::Exp(_)) => Err(err(
                     "bad-exponent",
                     t.span,
-                    "superscripts on functions are reserved",
+                    "a power goes on a function name (`f_^3`); otherwise use `p_ower`",
                 )),
                 _ => Ok(Item::Fun(Fun::new(f.kind, span))),
             },

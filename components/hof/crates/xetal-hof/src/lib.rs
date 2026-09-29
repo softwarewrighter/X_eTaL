@@ -6,6 +6,7 @@ mod calls;
 mod cells;
 mod fold;
 mod identity;
+mod power;
 
 pub use calls::call;
 pub use cells::join;

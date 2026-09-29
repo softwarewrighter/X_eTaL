@@ -4,6 +4,7 @@ use xetal_base::{Diagnostic, Span};
 use xetal_value::{Caller, Value};
 
 use crate::fold::{reduce, scan};
+use crate::power::power;
 use xetal_axes::on_axes;
 use xetal_map::{each, inner, table, zip};
 use xetal_value::as_array;
@@ -30,6 +31,7 @@ pub fn call<'a>(
             .and_then(|gx| c.call(f, gx, span)),
         ("#axes", [spec, f, rest @ ..]) => on_axes(&digits(spec), f, rest, span, c),
         ("s_wap", [f, x, y]) => c.call2(f, y.clone(), x.clone(), span),
+        ("p_ower", [f, n, x]) => power(f, n, x, span, c),
         _ => return None,
     };
     Some(result.map_err(|d| match d.span {

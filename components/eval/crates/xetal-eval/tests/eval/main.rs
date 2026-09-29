@@ -5,6 +5,7 @@ mod errors;
 mod events;
 mod lambdas;
 mod order;
+mod power_props;
 mod props;
 mod scalar;
 

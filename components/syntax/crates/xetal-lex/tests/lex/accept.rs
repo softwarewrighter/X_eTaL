@@ -215,3 +215,21 @@ fn underline_after_a_closing_paren_applies_its_value() {
         ]
     );
 }
+
+#[test]
+fn function_powers() {
+    assert_eq!(
+        kinds("r_ev^2 'u:f_^3 o_-_2^4 f_^0"),
+        [
+            "Func(r_ev)",
+            "Exp(2)",
+            "Quote",
+            "Func(u:f_)",
+            "Exp(3)",
+            "Func(o_-, axes=[2])",
+            "Exp(4)",
+            "Func(f_)",
+            "Exp(0)"
+        ]
+    );
+}

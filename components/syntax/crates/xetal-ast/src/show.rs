@@ -86,6 +86,7 @@ impl fmt::Display for Fun {
             FunKind::Arg(side) => f.write_str(if *side == Side::Left { "_l_" } else { "_r_" }),
             FunKind::Apply(e) => write!(f, "(apply {e})"),
             FunKind::Operand { operand, f: fun } => write!(f, "(operand {operand} {fun})"),
+            FunKind::Power { f: fun, count } => write!(f, "(power {fun} {count})"),
             FunKind::Train(fs) => {
                 let parts: Vec<String> = fs.iter().map(ToString::to_string).collect();
                 write!(f, "(train {})", parts.join(" "))

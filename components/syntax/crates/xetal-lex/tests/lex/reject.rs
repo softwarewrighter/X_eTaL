@@ -49,8 +49,17 @@ fn exponents() {
     assert_reject("x^ 2", "bad-exponent", 1, 2);
     assert_reject("x^2^3", "bad-exponent", 3, 4);
     assert_reject("\"ab\"^2", "bad-exponent", 4, 5);
-    assert_reject("r_ev^2", "reserved-superscript", 4, 5);
-    assert_reject("+^r", "reserved-superscript", 1, 2); // the old derivation syntax
+}
+
+#[test]
+fn function_powers() {
+    assert_reject("+^2", "bad-power", 1, 2);
+    assert_reject("+^r", "bad-power", 1, 2); // the old derivation syntax
+    assert_reject("r_ev^-1", "reserved-superscript", 4, 7); // the inverse
+    assert_reject("r_ev^n", "bad-power", 5, 6);
+    assert_reject("r_ev^2.5", "bad-power", 4, 8);
+    assert_reject("r_ev^", "bad-power", 4, 5);
+    assert_reject("r_ev^ 2", "bad-power", 4, 5);
 }
 
 #[test]

@@ -4,8 +4,8 @@
 use xetal_base::Span;
 
 use crate::cursor::Cursor;
-use crate::error::{ErrorKind, LexError};
-use crate::token::{FuncName, TokenKind, Var};
+use xetal_token::{ErrorKind, LexError};
+use xetal_token::{FuncName, TokenKind, Var};
 
 /// Characters that may end a function name (N3).
 const MARKS: &[u8] = b"|-/\\+*<>~!?%$&";

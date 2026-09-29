@@ -1,0 +1,23 @@
+# Function power (D-7): a superscript on a function name applies the
+# function that many times; `f_^0` is the identity. A quoted function
+# may carry one (`'u:d_ouble^3`).
+== SOURCE
+n_eg^3 5
+r_ev^2 1 2 3
+n_eg^0 5
+u:d_ouble := { _r * 2 }
+u:d_ouble^10 1
+'u:d_ouble^3 e_ach 1 2
+== TYPE
+Int
+Int
+Int
+u:d_ouble : Num a => a -> a
+Int
+Int
+== RESULT
+-5
+1 2 3
+5
+1024
+8 16
