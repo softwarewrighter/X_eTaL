@@ -48,6 +48,9 @@ components/
   base/                    xetal-base (spans, NodeId, Diagnostic,
                            LANG_NAME), xetal-catalog (the built-in
                            catalog, generated from builtins.toml)
+  macro/                   xetal-sources (several files as one combined
+                           text with a source map back to file, line
+                           and column); the macro phase (MC1-MC9)
   syntax/                  xetal-lex (lexer, tokens), xetal-ast
                            (surface AST, printer), xetal-syntax (parser)
   core/                    xetal-ir (Core IR, printer), xetal-core

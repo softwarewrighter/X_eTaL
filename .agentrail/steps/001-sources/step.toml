@@ -1,6 +1,6 @@
 number = 1
 slug = "sources"
-status = "pending"
+status = "in-progress"
 description = "libraries step 1: TDD a multi-file source map (files, combined text, offset -..."
 role = "production"
 context_files = []

@@ -520,5 +520,6 @@ The pinning tests are written as the implementing saga reaches them
 | D25| Sorting | `s_ort` / `g_rade` stable ascending on `Ord` types over major cells; `g_rade` is 1-origin (B7) |
 | D26| Rotate direction and amounts | APL direction (positive toward the front); a list of amounts always means every combination, one leading axis per rotated axis (A2, A4) |
 | D27| Axis subscript on a dyadic function | moves axis k of the right (data) argument only; the axis moves back when the result keeps its rank, stays consumed when it loses one, else `error[axis]` (A6) |
+| D29| Libraries | `Name` resolves to `Name.xtl` in the importing file's directory, then `XETAL_PATH`, then the standard libraries built into `xetal`; libraries hold definitions only; unprefixed functions in a library are private; imports display as superscript alias and superscript equals before `u_se<` (MC4, MC9) |
 | D28| Function power | `f_^3 x` applies f three times (superscript on a function, D-7); computed counts use `n 'f_ p_ower x`; libraries (Saga 8) come before the combinators (Saga 9), which are written directly as a library |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

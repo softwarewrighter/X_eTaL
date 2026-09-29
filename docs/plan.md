@@ -400,14 +400,14 @@ The macro phase (MC1-MC9): `u_se<` with a required alias
 aliases with private imports, one shared instance per library, the
 macro-phase error table. Library names display with their alias as a
 superscript and in the library color (already in the view model); the
-tour and `pp` / `show` / the editor cover a small library. Suggested
-by the user: in the pretty views `"c:" u_se< "Combinators"` draws as
-the alias, an equals sign, then the macro: superscript c (cyan), `=`
-(perhaps the superscript equals U+207C, to settle then), `u_se<`
-(u underlined, bold yellow), then the library name in string color;
-so an import reads apart from a use such as `c:K_`. `xetal render`
-keeps the exact tokens. Library names are capitalized
-by convention (style guide).
+tour and `pp` / `show` / the editor cover a small library. Decided
+with the user: in the pretty views `"c:" u_se< "Combinators"` draws
+as superscript c and superscript equals (U+207C) in the library
+color, then `u_se<` (u underlined, bold yellow), then the library name
+in string color, so an import reads apart from a use such as `c:K_`. `xetal render`
+keeps the exact tokens. Library names are capitalized by convention
+(style guide). Scheduled before the combinators at the user's
+request, so the birds are written once, directly as a library.
 
 | #  | Step slug         | Delivers                                                   |
 | -- | ----------------- | ---------------------------------------------------------- |
@@ -416,9 +416,7 @@ by convention (style guide).
 | 3  | namespaces        | hidden namespaces, exports, private names, error rows      |
 | 4  | first-library     | lib/Stats.xtl, a demo, the tour section, import display    |
 | 5  | tools             | run / eval / echo / repl / edit expand imports             |
-| 6  | libs-docs-release | README M6b tour, docs sync, retrospective                  | Scheduled
-before the combinators at the user's request, so the birds are
-written once, directly as a library.
+| 6  | libs-docs-release | README M6b tour, docs sync, retrospective                  |
 
 ## Saga 9 -- combinators (M6)
 
