@@ -1,0 +1,9 @@
+number = 3
+slug = "combinators-library"
+status = "pending"
+description = "combinators step 3: lib/Combinators.xtl with every typable bird and the recur..."
+role = "production"
+context_files = []
+created_at = "2026-09-29T09:53:22"
+task_type = "code"
+commits = []

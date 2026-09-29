@@ -459,7 +459,7 @@ What to do differently:
   imports; a library cannot yet be run on its own (MC8 row 9 note).
 
 
-## Saga 9 -- combinators (M6)
+## Saga 9 -- combinators (M6)  [ACTIVE]
 
 The birds I K S B C W V T and more, written with named parameters
 (L4) in the first real library, `Combinators.xtl`, used as
@@ -473,6 +473,22 @@ shown with `just show`). Monads with Church encodings: a Maybe
 type-checked, as spec cases and a demo (`demos/monads.xtl`); note what
 needs nested arrays (the list monad's bind) or named types. The tour
 gains a libraries section.
+
+Decided with the user at planning: every bird Smullyan names that
+type-checks goes in Combinators (the self-applying ones, M L U and the
+textbook Y and Z, in an untyped demo); Y is in the library as a
+recursive definition typed `(a -> a) -> a`; function power on any
+function name, including a quoted operand; Maybe is a second standard
+library.
+
+| #  | Step slug           | Delivers                                                 |
+| -- | ------------------- | -------------------------------------------------------- |
+| 1  | aviary              | the birds, their spellings, `xetal type` of a library    |
+| 2  | power               | `f_^n` and `p_ower`                                      |
+| 3  | combinators-library | lib/Combinators.xtl, types pinned; untyped birds demo    |
+| 4  | maybe               | lib/Maybe.xtl, demos/monads.xtl                          |
+| 5  | notebook            | combinators notebook, literate birds, tour section, Life with power |
+| 6  | m6-docs-release     | M6 tour page, docs sync, retrospective                   |
 
 ## Saga 10 -- trains (M7)
 

@@ -1,0 +1,1 @@
+combinators step 1: list Smullyan's birds (definitions, typability, spellings as single-capital names); xetal type of a library file on its own (its exports' types); record the saga decisions in lang-choices and design.md.

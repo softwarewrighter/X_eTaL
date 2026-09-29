@@ -1,0 +1,9 @@
+number = 1
+slug = "aviary"
+status = "pending"
+description = "combinators step 1: list Smullyan's birds (definitions, typability, spellings..."
+role = "production"
+context_files = []
+created_at = "2026-09-29T09:53:22"
+task_type = "code"
+commits = []

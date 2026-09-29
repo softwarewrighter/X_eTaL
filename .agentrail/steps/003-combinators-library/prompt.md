@@ -1,0 +1,1 @@
+combinators step 3: lib/Combinators.xtl with every typable bird and the recursive Y, types pinned by tests; untyped birds (M, L, U, textbook Y, Z) in demos/birds-untyped.xtl with a golden.

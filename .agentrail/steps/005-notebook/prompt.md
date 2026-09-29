@@ -1,0 +1,1 @@
+combinators step 5: demos/combinators.xtl notebook, literate docs/literate/birds.org, tour Combinators section (demo + literate tour), demos/life.xtl uses u:l_ife^4.

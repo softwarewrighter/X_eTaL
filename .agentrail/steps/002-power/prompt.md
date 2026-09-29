@@ -1,0 +1,1 @@
+combinators step 2: TDD function power f_^n on any function name (incl. quoted operands) desugared to p_ower, the built-in p_ower (n 'f_ p_ower x), typed; rejections (symbol, computed exponent, ^-1).
