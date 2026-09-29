@@ -1,0 +1,1 @@
+just run/eval pass flags through (just run --echo FILE works); tour rolls r_oll! 6 6 6 three times, tour goldens seeded (--seed 1); goldens added/rebased. Gate green, pushed.

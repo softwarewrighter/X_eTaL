@@ -1,8 +1,9 @@
 number = 9
 slug = "just-args"
-status = "in-progress"
+status = "completed"
 description = "tui step 9 (inserted, user hit it): just run / just eval pass any flags throu..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T22:45:51"
-commits = []
+completed_at = "2026-09-28T22:48:20"
+commits = ["983f8fd3e5a294df13c00113db07df7619ac5c69"]
