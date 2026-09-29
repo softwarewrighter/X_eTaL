@@ -1,6 +1,6 @@
 number = 8
 slug = "m5-docs-release"
-status = "pending"
+status = "in-progress"
 description = "rotate-and-axes step 7: README M5 tour (every command a golden), docs sync (p..."
 role = "production"
 context_files = []

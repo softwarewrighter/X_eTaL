@@ -255,7 +255,7 @@ What to do differently:
   today with Church encodings (a Maybe with bind type-checks); a
   worked example fits the combinators saga.
 
-## Saga 6 -- rotate-and-axes (M5)  [ACTIVE]
+## Saga 6 -- rotate-and-axes (M5)  [DONE, ARCHIVED]
 
 `o_-` rotate (leading axis), `r_ev`, axis subscripts on any function
 by the move-to-front rule (A6), multi-axis reduce and scan (R1),
@@ -270,9 +270,46 @@ case to active); Saga 10 adds the other Life goldens.
 | 2  | axis-subscripts   | A6 move-to-front on any function, axis validation          |
 | 3  | multi-axis        | `o_-_12` (A4), `r_/_12` and `s_\_12` (R1)                  |
 | 4  | life-runs         | the Life acceptance case active                            |
-| 5  | rotate-properties | property tests                                             |
-| 6  | rotate-demo       | animated 2-D rotate demo                                   |
-| 7  | m5-docs-release   | README M5 tour, docs sync, retrospective                   |
+| 5  | justfile          | `just` recipes over the scripts (inserted at user request) |
+| 6  | rotate-properties | property tests                                             |
+| 7  | rotate-demo       | animated 2-D rotate demo                                   |
+| 8  | m5-docs-release   | README M5 tour, docs sync, retrospective                   |
+
+### Saga 6 retrospective
+
+Delivered: `o_-` and `r_ev`, axis subscripts on any function by the
+move-to-front rule, rotate over several axes with every combination
+of amounts, reduce and scan over several axes in turn; the Life
+one-liner runs (a blinker demo with golden); a `justfile`; an
+animated rotate demo.
+
+What went well:
+
+- Four open questions (rotate direction, amount lists, dyadic axes,
+  moving the axis back) were settled with the user before the saga
+  started, and the implementation followed them without surprises.
+- The axis rule stayed general: the function's argument count comes
+  from its type through the elaborator, the evaluator wraps the
+  function as a built-in value, and one crate applies the rule; only
+  rotate, reduce and scan define several axes, as A6 says.
+- Life ran on the first try once the pieces existed, except for one
+  real bug it exposed: the typed-identity wrapper hid `r_/` from the
+  axis rule inside polymorphic functions. The fix is general (wrap
+  the whole subscripted function), with a polymorphic test.
+
+What to do differently:
+
+- A mutation check first went unnoticed, because rotate handles its
+  own axes and the properties exercised only rotate; model checks for
+  rank-keeping functions under a subscript now catch it. Mutation-test
+  each new rule, not just each new built-in.
+- A pending acceptance case that starts passing has to flip in the
+  same commit as the code, since the gate runs on every commit; plan
+  that flip into the implementing step.
+- Known gaps: `c_at_k` is refused (only the right argument's axis
+  moves); `t_ally_2 M` and other rank-changing functions under a
+  subscript are errors by design; the animation is a terminal
+  playback of printed frames (no timing in the language).
 
 ## Saga 7 -- combinators (M6)
 

@@ -1,0 +1,3 @@
+command = """./target/debug/xetal eval -e "m := 2 3 r_eshape r_ange 6; 1 o_- 1 2 3 4; r_ev_2 m; 1 o_-_2 m; '+ r_/_2 m""""
+exit_code = 0
+desc = "README tour: rotate, and reverse, rotate and reduce along axis 2"
