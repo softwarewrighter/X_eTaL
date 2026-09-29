@@ -1,0 +1,1 @@
+components/tui foundation: xetal-buffer (text+cursor+dirty), xetal-keys (nano keymap table + apply), xetal-panes (ASCII + rendered panes highlighted from the view model, cursor mapping, scroll), xetal-term (terminal guard). TestBackend snapshots + scripted keys + buffer property. Gate green, pushed.
