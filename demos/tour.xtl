@@ -1,0 +1,109 @@
+#!/usr/bin/env xetal
+# A tour of X_eTaL: one commented file touching every implemented
+# feature. `just run demos/tour.xtl` runs it; `just pp demos/tour.xtl`
+# shows it decorated; `just edit demos/tour.xtl` opens it side by side.
+# Source is plain ASCII; the display draws the decorations. Expressions
+# read right to left; each top-level expression prints its value.
+
+# -- Numbers ------------------------------------------------------------
+42                       # an Int
+-3 2.5                   # a negative literal; a strand has one type (Float)
+x := 3                   # := binds; = is always equality
+x^2                      # a literal exponent touches its value: superscript
+4^-1                     # a negative exponent gives a Float (a literal base)
+2 ^ 10                   # spaced ^ is the power function (computed exponents)
+7 / 2                    # / always gives a Float
+7 d_iv 2; 7 m_od 3       # integer quotient and remainder; ; separates statements
+(0.1 + 0.2) = 0.3        # = is exact: 0 (false)
+(0.1 + 0.2) e_q~ 0.3     # tolerant equality: 1
+(3 < 4) & 2 != 2         # Bool; no precedence, so parenthesize the left
+f_loat 3                 # Int to Float
+
+# -- Mutation -------------------------------------------------------------
+count! := 0              # only names ending in ! may be reassigned
+count! := count! + 1
+count!
+
+# -- Strings: vectors of characters ---------------------------------------
+"hello"
+"abc" = "abd"            # item by item
+3 t_ake "hello"
+
+# -- Arrays ---------------------------------------------------------------
+m := 2 3 r_eshape r_ange 6       # 1-origin: r_ange 6 is 1 2 3 4 5 6
+m
+s_hape m; t_ally m
+m * 10                   # a scalar extends to every item
+2 s_elect m              # the 2nd major cell (row)
+-1 t_ake m; 1 d_rop m    # take and drop count from the end when negative
+(f_irst m) c_at 7 8 9    # join along the leading axis
+r_avel m
+10 ^ r_ev o_ffsets 3     # o_ffsets counts from 0: place values 100 10 1
+
+# -- Functions ------------------------------------------------------------
+u:s_quare := { _r * _r }         # _r is the right argument: omega
+u:s_quare 1 2 3                  # scalar functions work on arrays unchanged
+u:s_ub := { _l - _r }            # _l is the left argument: alpha
+10 u:s_ub 3                      # dyadic use is currying: (u:s_ub 10) 3
+u:h_yp := { a b -> ((a * a) + b * b) ^ 0.5 }   # named parameters
+3 u:h_yp 4
+u:s_ign := { x -> x < 0 ? -1; x = 0 ? 0; 1 }  # guards: condition ? result
+u:f_act := { n ->
+  n <= 1 ? 1
+  n * u:f_act n - 1
+}
+u:f_act 10                       # recursion
+u:t_wo := { @ -> 2 }             # a niladic function takes @
+u:t_wo @
+u:k_eep := { a ~b -> a }         # ~ marks a lazy parameter: evaluated
+7 u:k_eep 1 / 0                  # only if used, so no division by zero
+(u:s_ub 100)_ 1                  # (expr)_ applies a function value
+u:t_wice := { f_ x -> f_ f_ x }  # a function parameter is called directly
+'u:s_quare u:t_wice 3
+
+# -- Quotes and operands --------------------------------------------------
+'+ r_/ 1 2 3 4           # a quoted function is the operand of r_/ (reduce)
+'- r_/ 1 2 3             # reduce folds from the right: 1 - (2 - 3)
+'+ s_\ 1 2 3 4           # scan: the prefix reductions
+'+ r_/ m                 # the leading axis: column sums
+'u:s_ign e_ach -5 0 5    # each: apply to every item
+1 2 3 '= e_ach 1 5 3     # dyadic each is currying
+1 2 3 '* t_able 1 2 3    # table: the outer product
+m '+ '* i_nner 1 1 1     # inner product: the nearest operand pairs
+'n_eg 'a_bs c_ompose -4  # compose: the nearest operand applies first
+2 '/ s_wap 1             # swap the arguments: 1 / 2
+'{ _l + _r } r_/ 1 2 3   # a quoted lambda is an operand too
+
+# -- Trains and tacks -----------------------------------------------------
+u:a_vg := ['+ r_/ / t_ally]      # fork: (sum) divided by (count)
+u:a_vg 1 2 3 4
+[n_eg a_bs] -5                   # atop: n_eg (a_bs x)
+3 [l_eft + r_ight] 4             # the tacks pick an argument
+[i_d - n_eg] 5                   # hook: x - (n_eg x)
+
+# -- Rotate, reverse and axes ---------------------------------------------
+1 o_- 1 2 3 4            # rotate toward the front
+r_ev "stressed"
+r_ev_2 m                 # an axis subscript: act along axis 2
+'+ r_/_2 m               # row sums
+-1 0 1 o_- 1 2 3         # a list of amounts gives every rotation
+
+# -- Search and order -----------------------------------------------------
+v := 3 1 4 1 5 9 2 6
+s_ort v; g_rade v        # sort, and the indices that sort
+u_nique v
+v i_ndexOf 5 7           # 7 is absent: tally + 1
+2 7 m_ember? v
+w_here v > 4             # indices of the 1s
+
+# -- Effects --------------------------------------------------------------
+t_ally r_oll! 6 6 6      # three random dice (the values vary run to run)
+p_rint! "printed, then returned"
+
+# -- Life in one line -----------------------------------------------------
+u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
+u:l_ife 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
+
+# Not shown here: the Y combinator needs --untyped (demos/fixed-point.xtl);
+# libraries under their own namespace (c:K_ after "c:" u_se< "...")
+# arrive with the libraries saga.

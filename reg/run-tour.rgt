@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/tour.xtl"
+exit_code = 0
+desc = "the language tour runs: every implemented feature, checked"

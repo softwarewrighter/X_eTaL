@@ -1,0 +1,8 @@
+number = 7
+slug = "language-tour"
+status = "in-progress"
+description = "tui step 7 (inserted at the user's request): demos/tour.xtl, a commented 'kit..."
+role = "production"
+context_files = []
+created_at = "2026-09-28T22:27:25"
+commits = []

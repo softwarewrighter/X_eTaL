@@ -15,3 +15,4 @@ Available recipes:
     repl          # Start the interactive session
     run file      # Type-check and run a script: just run demos/factorial.xtl
     test          # Run every component's tests
+    tour          # The language tour: every feature, commented (pretty-printed, then run)

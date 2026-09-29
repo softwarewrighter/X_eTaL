@@ -54,6 +54,12 @@ run file: _quiet-build
 eval expr: _quiet-build
     @{{xetal}} eval -e "$1"
 
+# The language tour: every feature, commented (pretty-printed, then run)
+tour: _quiet-build
+    @{{xetal}} render --color demos/tour.xtl
+    @echo
+    @{{xetal}} run demos/tour.xtl
+
 # Pretty-print a file like cat: decorated and highlighted (errors in red)
 pp file: _quiet-build
     @{{xetal}} render --color "$1"
