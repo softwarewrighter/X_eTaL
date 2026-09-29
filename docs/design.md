@@ -417,6 +417,19 @@ and is created on the first save. The editor is a state machine
 (keys in, screen and file out), tested on ratatui's TestBackend;
 without a terminal `xetal edit` is `error[no-terminal]`.
 
+### 8.1d Values for display (`xetal-grid`, `eval_events`)
+
+`eval_events` runs a program for display: instead of printing each
+top-level value it keeps it as a grid (element type, shape, formatted
+items), in order with the text `p_rint!` printed around it. A grid
+lays itself out as lines: a scalar or vector on one line with its type
+and shape (`1 2 3  : Int 3`, a Char vector as a quoted string), a
+matrix in a box with right-aligned columns, higher ranks as boxed
+matrix slices labelled by their leading indices. The editor's Ctrl-R
+output uses it; the stepping debugger will show intermediate values
+the same way. `xetal-grid` knows nothing of the evaluator or the
+terminal.
+
 ### 8.1c Notebook runs (`xetal run --echo`)
 
 `--echo` runs a file the way the REPL runs typed lines: a session

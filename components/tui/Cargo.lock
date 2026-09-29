@@ -1962,6 +1962,7 @@ dependencies = [
  "xetal-base",
  "xetal-catalog",
  "xetal-core",
+ "xetal-grid",
  "xetal-hof",
  "xetal-lex",
  "xetal-lint",
@@ -1970,6 +1971,13 @@ dependencies = [
  "xetal-struct",
  "xetal-types",
  "xetal-value",
+]
+
+[[package]]
+name = "xetal-grid"
+version = "0.1.0"
+dependencies = [
+ "unicode-width",
 ]
 
 [[package]]
@@ -2123,6 +2131,7 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-core",
+ "xetal-grid",
 ]
 
 [[package]]

@@ -164,3 +164,13 @@ fn the_output_pane_scrolls() {
     let bottom: Vec<&str> = s.lines().skip(6).take(4).collect();
     assert!(bottom[0].starts_with("\u{2502}3"), "{s}");
 }
+
+#[test]
+fn results_show_as_grids_with_type_and_shape() {
+    let mut e = Editor::open(&scratch("grids")).unwrap();
+    keys(&mut e, "2 3 r_eshape r_ange 6");
+    ctrl(&mut e, 'r');
+    let s = screen(&e);
+    assert!(s.contains("Int 2 3"), "{s}");
+    assert!(s.contains("\u{2502} 1 2 3 \u{2502}"), "{s}");
+}

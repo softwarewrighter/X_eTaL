@@ -1,5 +1,6 @@
 //! What the bottom pane shows: types or the first diagnostic (live),
-//! or a run's output (Ctrl-R only, so effects never run on a keystroke).
+//! or a run's output (Ctrl-R only, so effects never run on a keystroke),
+//! each value laid out as a grid (`xetal-grid`).
 
 use xetal_base::Diagnostic;
 
@@ -26,7 +27,16 @@ pub(crate) fn check(src: &str) -> Report {
     }
 }
 
-/// Type-check and run, collecting what the program prints.
+/// Printed text as its lines; a value laid out as a grid (type and
+/// shape, matrices boxed, higher ranks as slices).
+fn shown(event: &xetal_eval::Event) -> Vec<String> {
+    match event {
+        xetal_eval::Event::Printed(text) => text.lines().map(String::from).collect(),
+        xetal_eval::Event::Value(grid) => grid.lines(),
+    }
+}
+
+/// Type-check and run, collecting what the program shows.
 pub(crate) fn run(src: &str) -> Report {
     let mut program = match xetal_core::lower(src) {
         Ok(p) => p,
@@ -35,13 +45,9 @@ pub(crate) fn run(src: &str) -> Report {
     if let Err(d) = xetal_types::check_program(&mut program) {
         return failed(d);
     }
-    let mut out = Vec::new();
-    let (_, result) = xetal_eval::eval_program(&program, &mut out, None);
+    let (_, events, result) = xetal_eval::eval_events(&program, None);
     let mut report = Report {
-        lines: String::from_utf8_lossy(&out)
-            .lines()
-            .map(String::from)
-            .collect(),
+        lines: events.iter().flat_map(shown).collect(),
         mark: None,
     };
     if let Err(d) = result {

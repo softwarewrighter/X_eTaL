@@ -344,6 +344,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-grid"
+version = "0.1.0"
+dependencies = [
+ "unicode-width",
+]
+
+[[package]]
 name = "xetal-ir"
 version = "0.1.0"
 dependencies = [

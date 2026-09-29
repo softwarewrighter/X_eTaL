@@ -9,6 +9,7 @@ use xetal_base::{Diagnostic, Span};
 use xetal_core::{Expr, Item, Kind, Program};
 use xetal_lex::Number;
 
+use crate::events::Shown;
 use crate::prim;
 use crate::run::err;
 use xetal_arith::{Rng, truth};
@@ -22,6 +23,8 @@ pub(crate) struct Machine<'a, 'o> {
     pub out: &'o mut dyn Write,
     pub depth: usize,
     pub rng: Rng,
+    /// When set, top-level values are kept for display, not printed.
+    pub shown: Option<Shown>,
 }
 
 impl<'a> Machine<'a, '_> {
@@ -44,7 +47,11 @@ impl<'a> Machine<'a, '_> {
                 Item::Set { name, value } => self.set(name, value, &env)?,
                 Item::Eval(e) => {
                     let v = self.eval(e, &env)?;
-                    writeln!(self.out, "{v}").map_err(|x| err("io", e.span, x.to_string()))?;
+                    match &mut self.shown {
+                        Some(s) => s.values.push((s.text.len(), xetal_value::grid(&v))),
+                        None => writeln!(self.out, "{v}")
+                            .map_err(|x| err("io", e.span, x.to_string()))?,
+                    }
                 }
             }
         }

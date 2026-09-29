@@ -362,7 +362,12 @@ The macro phase (MC1-MC9): `u_se<` with a required alias
 aliases with private imports, one shared instance per library, the
 macro-phase error table. Library names display with their alias as a
 superscript and in the library color (already in the view model); the
-tour and `pp` / `show` / the editor cover a small library. Scheduled
+tour and `pp` / `show` / the editor cover a small library. Suggested
+by the user: in the pretty views `"c:" u_se< "Combinators"` draws the
+alias as a superscript on the macro (superscript c, u underlined,
+`se<`, bold yellow) followed by the library name in string color;
+`xetal render` keeps the exact tokens. Library names are capitalized
+by convention (style guide). Scheduled
 before the combinators at the user's request, so the birds are
 written once, directly as a library.
 

@@ -55,7 +55,8 @@ components/
   render/                  xetal-render: decorated, LaTeX, canonical
   view/                    xetal-view: the front-end-agnostic view
                            model (styled segments, classes, raw <->
-                           rendered map, ANSI output)
+                           rendered map, ANSI output); xetal-grid:
+                           values laid out for display
   types/                   xetal-ty (types, unifier, schemes),
                            xetal-prim-types (built-in types, read from
                            catalog signatures),

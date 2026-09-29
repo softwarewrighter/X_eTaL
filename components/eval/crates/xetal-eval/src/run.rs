@@ -7,6 +7,8 @@ use xetal_arith::Rng;
 use xetal_base::{Diagnostic, Span};
 use xetal_core::Program;
 
+use crate::events::Shown;
+
 /// Stack reserved for evaluation (virtual memory; pages are used only as
 /// recursion deepens).
 const STACK_BYTES: usize = 1 << 30;
@@ -37,29 +39,55 @@ pub fn eval_program(
     seed: Option<u64>,
 ) -> (Vec<Diagnostic>, Result<(), Diagnostic>) {
     let warnings = xetal_lint::warnings(program);
-    let result = std::thread::scope(|scope| {
+    let result = on_worker(|| {
+        let mut machine = crate::machine::Machine {
+            globals: HashMap::new(),
+            out,
+            depth: 0,
+            rng: Rng::seeded(seed.unwrap_or_else(Rng::fresh_seed)),
+            shown: None,
+        };
+        machine.run(program)
+    })
+    .and_then(|r| r);
+    (warnings, result)
+}
+
+/// Run `program`, keeping its top-level values in `shown`.
+pub(crate) fn run_showing(
+    program: &Program,
+    out: &mut (dyn Write + Send),
+    seed: Option<u64>,
+    shown: Shown,
+) -> (Result<(), Diagnostic>, Vec<(usize, xetal_grid::Grid)>) {
+    let mut machine = crate::machine::Machine {
+        globals: HashMap::new(),
+        out,
+        depth: 0,
+        rng: Rng::seeded(seed.unwrap_or_else(Rng::fresh_seed)),
+        shown: Some(shown),
+    };
+    let result = machine.run(program);
+    (result, machine.shown.map(|s| s.values).unwrap_or_default())
+}
+
+/// Run `work` on a thread with a large stack (deep recursion is an
+/// error, never a crash).
+pub(crate) fn on_worker<T: Send>(work: impl FnOnce() -> T + Send) -> Result<T, Diagnostic> {
+    std::thread::scope(|scope| {
         let worker = std::thread::Builder::new()
             .stack_size(STACK_BYTES)
-            .spawn_scoped(scope, || {
-                let mut machine = crate::machine::Machine {
-                    globals: HashMap::new(),
-                    out,
-                    depth: 0,
-                    rng: Rng::seeded(seed.unwrap_or_else(Rng::fresh_seed)),
-                };
-                machine.run(program)
-            });
+            .spawn_scoped(scope, work);
         match worker {
             Ok(handle) => handle
                 .join()
-                .unwrap_or_else(|_| Err(Diagnostic::new("internal", "the evaluator failed"))),
+                .map_err(|_| Diagnostic::new("internal", "the evaluator failed")),
             Err(e) => Err(Diagnostic::new(
                 "internal",
                 format!("cannot start the evaluator: {e}"),
             )),
         }
-    });
-    (warnings, result)
+    })
 }
 
 pub(crate) fn err(code: &str, span: Span, message: impl Into<String>) -> Diagnostic {

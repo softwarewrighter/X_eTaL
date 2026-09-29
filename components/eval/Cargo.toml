@@ -30,6 +30,7 @@ xetal-struct = { path = "crates/xetal-struct" }
 xetal-hof = { path = "../hof/crates/xetal-hof" }
 xetal-search = { path = "../search/crates/xetal-search" }
 xetal-rotate = { path = "../axes/crates/xetal-rotate" }
+xetal-grid = { path = "../view/crates/xetal-grid" }
 xetal-eval = { path = "crates/xetal-eval" }
 xetal-spec = { path = "../cli/crates/xetal-spec" }
 clap = { version = "4", features = ["derive"] }

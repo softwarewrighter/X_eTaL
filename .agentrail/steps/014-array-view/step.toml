@@ -1,6 +1,6 @@
 number = 14
 slug = "array-view"
-status = "pending"
+status = "in-progress"
 description = "tui step 5: TDD array viewer widget (matrix grid, rank-3 slices, strings, sca..."
 role = "production"
 context_files = []

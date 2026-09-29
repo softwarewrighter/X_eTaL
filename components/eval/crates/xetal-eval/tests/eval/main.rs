@@ -2,6 +2,7 @@
 
 mod axes_props;
 mod errors;
+mod events;
 mod lambdas;
 mod order;
 mod props;

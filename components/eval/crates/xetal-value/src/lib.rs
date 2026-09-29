@@ -5,8 +5,10 @@
 mod caller;
 mod convert;
 mod display;
+mod grid;
 mod value;
 
 pub use caller::Caller;
 pub use convert::{as_array, as_vector, major_cells, to_value};
+pub use grid::grid;
 pub use value::{Closure, Env, Frame, Prim, Slot, Value, extend, lookup};
