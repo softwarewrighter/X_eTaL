@@ -23,4 +23,5 @@ Available recipes:
     test                       # Run every component's tests
     test-emacs                 # The Emacs mode and Org Babel language, with ERT in a batch Emacs (skipped without Emacs)
     tour                       # The language tour: every feature, commented, each line with its output
+    tttml                      # TTTML: a machine that learns tic-tac-toe by playing itself, as a notebook (optimized build)
     videos                     # Regenerate the videos (vhs, ffmpeg, gif2webp)

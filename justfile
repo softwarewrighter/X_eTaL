@@ -117,6 +117,11 @@ edit file: _quiet-build
 life: _quiet-build
     @{{xetal}} run demos/life.xtl
 
+# TTTML: a machine that learns tic-tac-toe by playing itself, as a notebook (optimized build)
+tttml:
+    @scripts/build-all.sh --release -q > /dev/null
+    @./target/release/xetal run --echo demos/tttml.xtl
+
 # Play the rotate demo (demos/rotate.xtl) as an animation
 animate: _quiet-build
     #!/usr/bin/env bash

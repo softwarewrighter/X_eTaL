@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run --seed 1 demos/tttml.xtl"
+exit_code = 0
+desc = "TTTML: learns tic-tac-toe by playing itself (seeded): training counts, positions known, trials against a random player, a game against itself"

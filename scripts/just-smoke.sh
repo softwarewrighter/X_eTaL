@@ -17,11 +17,15 @@ check() {
 skip() { printf 'skip %-15s %s\n' "$1" "$2"; }
 for recipe in $(just --summary); do
     case "$recipe" in
-    default | build | tour | life | animate) check just "$recipe" ;;
-    show | pp) for f in demos/*.xtl; do check just "$recipe" "$f"; done ;;
+    default | build | tour | life | animate | tttml) check just "$recipe" ;;
+    # demos/tttml.xtl trains for a minute on the debug build: `just
+    # tttml` (optimized) and its golden cover it.
+    show) for f in demos/*.xtl; do [ "$f" = demos/tttml.xtl ] || check just show "$f"; done ;;
+    pp) for f in demos/*.xtl; do check just pp "$f"; done ;;
     slow-show) check just slow-show demos/square.xtl 1 ;;
     run)
         for f in demos/*.xtl; do
+            [ "$f" = demos/tttml.xtl ] && continue
             flags=$(head -1 "$f" | grep -o -- '--untyped' || true)
             check just run $flags "$f"
         done
