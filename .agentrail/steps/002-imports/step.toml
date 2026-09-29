@@ -1,9 +1,10 @@
 number = 2
 slug = "imports"
-status = "in-progress"
+status = "completed"
 description = "libraries step 2: TDD the macro phase: top-level u_se< statements found and v..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T00:04:30"
+completed_at = "2026-09-29T00:13:24"
 task_type = "code"
-commits = []
+commits = ["b57e1994c7a9f5d9c8907afa177f9d4cdf0df52e"]

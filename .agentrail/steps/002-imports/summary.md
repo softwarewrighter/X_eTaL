@@ -1,0 +1,1 @@
+xetal-macro: import scanning+validation (MC8 rows 1-7,13-15), Libraries trait, FsLibraries (path/dir/XETAL_PATH/bundled), xetal-libs build-time embedding of lib/*.xtl, recursive loading once per path with cycle chains, combined text; errors located in libraries. Gate green, pushed.
