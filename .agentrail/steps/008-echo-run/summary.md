@@ -1,0 +1,1 @@
+xetal run/eval --echo: notebook output (each statement decorated+colored, then its indented output; errors inline in red; exit 1 at end) via xetal-repl notebook on the session; just show FILE; just tour uses it; goldens; docs. Gate green, pushed.
