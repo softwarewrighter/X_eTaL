@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/combinators.xtl"
+exit_code = 0
+desc = "the Combinators library demo"

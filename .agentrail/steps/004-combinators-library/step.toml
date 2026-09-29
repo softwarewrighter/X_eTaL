@@ -1,6 +1,6 @@
 number = 4
 slug = "combinators-library"
-status = "pending"
+status = "in-progress"
 description = "combinators step 3: lib/Combinators.xtl with every typable bird and the recur..."
 role = "production"
 context_files = []

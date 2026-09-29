@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type lib/Combinators.xtl"
+exit_code = 0
+desc = "the Combinators library: every typed bird with its inferred type (CB1)"

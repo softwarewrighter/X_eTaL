@@ -1,0 +1,91 @@
+# Every bird in the Combinators library (CB1, docs/birds.md), checked
+# with functions whose digits spell their arguments: u:a_bc 1 2 3 is
+# 123, so an argument out of place shows. A quoted operand is the
+# bird's first argument, the nearest operand first (F9).
+== SOURCE
+"c:" u_se< "Combinators"
+u:a_b := { a b -> (10 * a) + b }
+u:a_bc := { a b c -> (100 * a) + (10 * b) + c }
+u:a_bcd := { a b c d -> (1000 * a) + (100 * b) + (10 * c) + d }
+u:i_nc := { _r + 1 }
+u:d_bl := { _r * 2 }
+c:I_ 7
+1 c:K_ 2
+3 c:T_ 'u:d_bl
+'u:a_b c:W_ 3
+3 c:W_1 'u:a_b
+'u:d_bl 'u:i_nc c:B_ 5
+1 'u:a_b 'u:i_nc c:B_1 2
+(1 'u:a_bc 'u:i_nc c:B_2 2)_ 3
+'u:i_nc 'u:d_bl 'n_eg c:B_3 5
+1 'u:a_b c:C_ 2
+(1 'u:a_b c:D_ 'u:d_bl)_ 2
+((1 'u:a_bc c:D_1 2)_ 'u:d_bl)_ 3
+(1 'u:d_bl 'u:a_b c:D_2 'u:i_nc)_ 2
+((1 'u:a_b c:E_ 'u:a_b)_ 2)_ 3
+(((1 'u:a_b 'u:a_b c:E_h 2)_ 'u:a_b)_ 3)_ 4
+(1 c:F_ 2)_ 'u:a_b
+1 'u:d_bl 'u:a_b c:G_ 2
+1 'u:a_bc c:H_ 2
+(1 'u:a_b c:J_ 2)_ 3
+'{ f_ -> f_ 3 } c:O_ 'u:d_bl
+'u:d_bl 'u:i_nc c:Q_ 5
+5 'u:i_nc c:Q_1 'u:d_bl
+(5 c:Q_2 'u:i_nc)_ 'u:d_bl
+5 'u:d_bl c:Q_3 'u:i_nc
+(5 c:Q_4 'u:d_bl)_ 'u:i_nc
+(1 c:R_ 'u:a_b)_ 2
+'u:d_bl 'u:a_b c:S_ 3
+(1 c:V_ 2)_ 'u:a_b
+(1 'u:a_bc c:C_s 2)_ 3
+(1 'u:a_bc c:R_s 2)_ 3
+(1 'u:a_bc c:F_s 2)_ 3
+(1 'u:a_bc c:V_s 2)_ 3
+1 'u:a_bc c:W_s 2
+((1 'u:a_bcd c:C_ss 2)_ 3)_ 4
+((1 'u:a_bcd c:R_ss 2)_ 3)_ 4
+((1 'u:a_bcd c:F_ss 2)_ 3)_ 4
+((1 'u:a_bcd c:V_ss 2)_ 3)_ 4
+(1 'u:a_bcd c:W_ss 2)_ 3
+u:f_act := { ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }
+'u:f_act c:Y_ 5
+== RESULT
+7
+1
+6
+33
+33
+11
+13
+124
+-12
+21
+14
+126
+23
+33
+154
+21
+22
+121
+42
+12
+12
+11
+11
+11
+11
+21
+36
+12
+132
+231
+321
+312
+122
+1243
+1342
+1432
+1423
+1233
+120

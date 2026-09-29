@@ -96,12 +96,13 @@ inference, a strict evaluator), dense 1-origin arrays with strings,
 scalar extension and the structural built-ins, the higher-order
 built-ins (reduce, scan, each, table, inner product, compose, swap),
 search, order and random built-ins, rotate, reverse and axis
-subscripts on any function, the Life one-liner, libraries imported
-with `u_se<` (a standard library, `Stats`, is built in), and the
+subscripts on any function, function power (`f_^3`), the Life
+one-liner, libraries imported with `u_se<` (the standard libraries
+`Stats` and `Combinators`, Smullyan's birds, are built in), and the
 decorated views: `xetal render --color`, notebook runs, the editor and
-a REPL that draws each line decorated as you type. Next: the
-combinators as a library, function power, trains, the stepping
-debugger and a web playground ([`docs/plan.md`](docs/plan.md)).
+a REPL that draws each line decorated as you type. Next: more
+libraries (Maybe, then ports of the APL workspaces), trains, the
+stepping debugger and a web playground ([`docs/plan.md`](docs/plan.md)).
 
 ## Quick Start
 
@@ -114,6 +115,7 @@ just eval "'+ r_/_2 2 3 r_eshape r_ange 6"      # row sums: 6 15
 just life                                       # Life: a blinker and a glider
 just repl                                       # drawn decorated as you type; Up/Down history; Ctrl-D ends
 just show demos/stats.xtl                       # a program using the built-in Stats library, as a notebook
+just show demos/combinators.xtl                 # Smullyan's birds from the built-in Combinators library
 just pp demos/factorial.xtl                     # print a file decorated and highlighted
 just edit demos/life.xtl                        # ASCII left, decorated right
 ```

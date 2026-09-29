@@ -86,6 +86,9 @@ first two, through unchanged and act as the plain bird on the rest:
 | W** | `W** x y z w = x y z w w` | yes | `W_ss` |
 
 That is 38 typed birds in the library (Y among them) and 4 untyped
-ones (L, M, M2, U), which are in the untyped demo with the textbook Y.
+ones (L, M, M2, U), which are in the untyped demo,
+`demos/birds-untyped.xtl`, with the textbook Y, Z (the sage bird for
+strict evaluation) and Turing's fixed point U U. `demos/combinators.xtl`
+shows the library at work (`just show demos/combinators.xtl`).
 Birds from other aviaries (the kite `K I`, Curry's phoenix and psi)
 are not in Smullyan's list; they are one line each in a user file.

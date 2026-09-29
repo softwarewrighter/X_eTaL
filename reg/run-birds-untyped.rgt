@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run --untyped demos/birds-untyped.xtl"
+exit_code = 0
+desc = "the self-applying birds, untyped: M, the textbook Y, Z and Turing U U"
