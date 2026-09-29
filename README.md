@@ -112,7 +112,8 @@ the design documents describe the intended language.
 ## Quick Start
 
 `demos/tour.xtl` is a commented tour of every feature; `just tour`
-prints it decorated and then runs it.
+shows each of its lines decorated, followed by its output. Any file
+runs that way with `just show FILE` (`xetal run --echo FILE`).
 
 With [`just`](https://github.com/casey/just) installed, `just` lists
 the tasks:

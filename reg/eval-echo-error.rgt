@@ -1,0 +1,5 @@
+command = """
+./target/debug/xetal eval --echo -e '1 / 0
+2 + 3'"""
+exit_code = 1
+desc = "a notebook run shows an error under its statement, keeps going, and fails at the end"

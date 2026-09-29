@@ -1,0 +1,1 @@
+tui step 8 (inserted at the user's request): xetal run --echo FILE: each statement pretty-printed (decorated, colored) followed by its output, notebook style, built on the REPL session (incremental, one seed, multi-line statements grouped, errors inline under their line, exit 1 on any error); just show FILE; just tour uses it; tests in xetal-repl; goldens.

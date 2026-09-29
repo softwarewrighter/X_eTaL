@@ -409,6 +409,17 @@ and is created on the first save. The editor is a state machine
 (keys in, screen and file out), tested on ratatui's TestBackend;
 without a terminal `xetal edit` is `error[no-terminal]`.
 
+### 8.1c Notebook runs (`xetal run --echo`)
+
+`--echo` runs a file the way the REPL runs typed lines: a session
+fed line by line (a statement with an open bracket takes the
+following lines too), so each statement is printed decorated and
+colored and followed by exactly the output it produced, indented.
+Definitions persist, `p_rint!` output is not repeated, and one seed
+keeps `r_oll!` consistent across the replays. An error is shown in
+red under its statement and the run continues; the command then
+fails with `error[failed]`.
+
 ### 8.2 LaTeX (`xetal render --latex`)
 
 One way and complete: the body of a math environment for KaTeX,

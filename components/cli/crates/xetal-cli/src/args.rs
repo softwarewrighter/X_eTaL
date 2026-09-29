@@ -71,6 +71,9 @@ pub(crate) struct EvalArgs {
     /// unpredictable).
     #[arg(long)]
     pub(crate) seed: Option<u64>,
+    /// Show each statement pretty-printed, then its output (a notebook).
+    #[arg(long, conflicts_with = "untyped")]
+    pub(crate) echo: bool,
 }
 
 /// `render` options: decorated Unicode by default.
@@ -115,6 +118,9 @@ pub(crate) enum Command {
         /// Seed `r_oll!` (default: XETAL_SEED, else unpredictable).
         #[arg(long)]
         seed: Option<u64>,
+        /// Show each statement pretty-printed, then its output (a notebook).
+        #[arg(long, conflicts_with = "untyped")]
+        echo: bool,
     },
     /// Start an interactive session.
     Repl,

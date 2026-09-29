@@ -14,5 +14,6 @@ Available recipes:
     reg           # Run the reg-rs CLI goldens in reg/
     repl          # Start the interactive session
     run file      # Type-check and run a script: just run demos/factorial.xtl
+    show file     # Run a file as a notebook: each statement pretty-printed, then its output
     test          # Run every component's tests
-    tour          # The language tour: every feature, commented (pretty-printed, then run)
+    tour          # The language tour: every feature, commented, each line with its output

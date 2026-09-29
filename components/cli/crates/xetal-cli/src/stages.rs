@@ -2,7 +2,7 @@
 
 use xetal_base::Diagnostic;
 
-use crate::args::{Command, EvalArgs, RenderArgs};
+use crate::args::{Command, RenderArgs};
 
 pub(crate) fn read_input(expr: Option<&str>, file: Option<&str>) -> Result<String, Diagnostic> {
     match (expr, file) {
@@ -42,11 +42,8 @@ pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
     if let Command::Render(args) = command {
         return render(args, &source);
     }
-    match command {
-        Command::Eval(EvalArgs { untyped, seed, .. }) | Command::Run { untyped, seed, .. } => {
-            return evaluate(&source, *untyped, seed_or_env(*seed)?);
-        }
-        _ => {}
+    if let Some(result) = crate::echo::evaluation(command, &source) {
+        return result;
     }
     let tokens = xetal_lex::lex(&source)?;
     match command {
@@ -78,7 +75,7 @@ fn render(args: &RenderArgs, source: &str) -> Result<String, Diagnostic> {
 }
 
 /// The `--seed` given, else `XETAL_SEED`, else none (unpredictable).
-fn seed_or_env(seed: Option<u64>) -> Result<Option<u64>, Diagnostic> {
+pub(crate) fn seed_or_env(seed: Option<u64>) -> Result<Option<u64>, Diagnostic> {
     match (seed, std::env::var("XETAL_SEED")) {
         (Some(s), _) => Ok(Some(s)),
         (None, Ok(text)) => text.trim().parse().map(Some).map_err(|_| {
@@ -93,7 +90,11 @@ fn seed_or_env(seed: Option<u64>) -> Result<Option<u64>, Diagnostic> {
 
 /// Type-check (unless `untyped`), then evaluate, streaming results to
 /// stdout; warnings go to stderr.
-fn evaluate(source: &str, untyped: bool, seed: Option<u64>) -> Result<String, Diagnostic> {
+pub(crate) fn evaluate(
+    source: &str,
+    untyped: bool,
+    seed: Option<u64>,
+) -> Result<String, Diagnostic> {
     let mut program = xetal_core::lower(source)?;
     if !untyped {
         xetal_types::check_program(&mut program)?;

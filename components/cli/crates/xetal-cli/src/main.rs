@@ -1,6 +1,7 @@
 //! The `xetal` binary: every pipeline stage exposed as deterministic text.
 
 mod args;
+mod echo;
 mod stages;
 
 use std::process::ExitCode;
@@ -18,6 +19,7 @@ fn main() -> ExitCode {
             file,
             untyped: false,
             seed: None,
+            echo: false,
         },
         (None, None) => {
             use clap::CommandFactory;

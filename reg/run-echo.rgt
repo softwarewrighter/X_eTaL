@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run --echo demos/factorial.xtl"
+exit_code = 0
+desc = "a notebook run: each statement decorated, then its output"

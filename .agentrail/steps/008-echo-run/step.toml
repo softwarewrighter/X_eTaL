@@ -1,0 +1,8 @@
+number = 8
+slug = "echo-run"
+status = "in-progress"
+description = "tui step 8 (inserted at the user's request): xetal run --echo FILE: each stat..."
+role = "production"
+context_files = []
+created_at = "2026-09-28T22:36:42"
+commits = []
