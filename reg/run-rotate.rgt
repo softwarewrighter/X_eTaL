@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/rotate.xtl"
+exit_code = 0
+desc = "rotate along both axes: eight frames of a picture moving diagonally, wrapping"

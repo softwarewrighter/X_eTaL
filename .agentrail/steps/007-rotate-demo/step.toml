@@ -1,6 +1,6 @@
 number = 7
 slug = "rotate-demo"
-status = "pending"
+status = "in-progress"
 description = "rotate-and-axes step 6: animated 2-D rotate demo printing frames from the CLI..."
 role = "production"
 context_files = []

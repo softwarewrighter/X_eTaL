@@ -58,5 +58,10 @@ eval expr: _quiet-build
 life: _quiet-build
     @{{xetal}} run demos/life.xtl
 
+# Play the rotate demo (demos/rotate.xtl) as an animation
+animate: _quiet-build
+    #!/usr/bin/env bash
+    {{xetal}} run demos/rotate.xtl | awk -v RS= '{ printf "\033[H\033[2J%s\n", $0; system("sleep 0.4") }'
+
 _quiet-build:
     @scripts/build-all.sh -q > /dev/null

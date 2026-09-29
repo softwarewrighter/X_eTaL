@@ -1,4 +1,5 @@
 Available recipes:
+    animate       # Play the rotate demo (demos/rotate.xtl) as an animation
     build         # Build every component (debug) into the shared target/
     build-release # Build every component optimized (target/release/xetal)
     clippy        # Lint every component (warnings are errors)
