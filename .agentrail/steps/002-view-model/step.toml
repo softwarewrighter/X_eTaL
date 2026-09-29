@@ -1,9 +1,10 @@
 number = 2
 slug = "view-model"
-status = "in-progress"
+status = "completed"
 description = "tui step 2: TDD components/view: tolerant token-wise rendering into styled se..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T21:36:34"
+completed_at = "2026-09-28T21:53:37"
 task_type = "code"
-commits = []
+commits = ["438c84acaf29919786ee3b10ec1992faf1d12289"]

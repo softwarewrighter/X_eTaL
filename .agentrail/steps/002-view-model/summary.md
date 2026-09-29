@@ -1,0 +1,1 @@
+components/view (xetal-view): tolerant styled segments with classes and raw span, lines/column/width mapping, ANSI; renderer exposes token_text/gap_text; xetal render --color with goldens; properties (exact coverage of any text, agreement with decorate). Gate green, pushed.
