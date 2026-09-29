@@ -1,5 +1,5 @@
-# Variables, lambda arguments, + = < > ^, strings and Unit are shown as typed.
+# Variables, + = < > ^, strings and Unit are shown as typed.
 == SOURCE
-x count! _l _r_ + = < > ^ "a_b; *" @
+x count! + = < > ^ "a_b; *" @
 == RENDER
-x count! _l _r_ + = < > ^ "a_b; *" @
+x count! + = < > ^ "a_b; *" @

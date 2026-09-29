@@ -1,6 +1,6 @@
 number = 1
 slug = "lambda-glyphs"
-status = "pending"
+status = "in-progress"
 description = "tui step 1: TDD _r/_l decorated as subscript r/l (U+1D63, U+2097), round-trip..."
 role = "production"
 context_files = []

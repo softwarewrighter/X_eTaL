@@ -1,0 +1,7 @@
+# Lambda arguments are drawn compressed: `_r` as subscript r and `_l`
+# as subscript l; applied as a function (`_l_ x`, F5) they are also
+# underlined. They convert back exactly (I3).
+== SOURCE
+{ _r * _r }; { _l - _r }; { _r^2 }; { _l_ _r }
+== RENDER
+{ ᵣ × ᵣ }⋄ { ₗ − ᵣ }⋄ { ᵣ² }⋄ { ₗ̲ ᵣ }

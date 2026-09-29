@@ -13,7 +13,6 @@ fn plain_tokens_are_unchanged() {
         "x",
         "board2",
         "count!",
-        "_l _r_",
         "@",
         "{ }",
         "( )",
@@ -71,10 +70,16 @@ fn comments_get_a_lamp_and_keep_their_text() {
 }
 
 #[test]
+fn lambda_arguments_are_subscript_letters() {
+    assert_eq!(dec("_l _r"), "\u{2097} \u{1d63}");
+    assert_eq!(dec("_l_ _r_"), format!("\u{2097}{UL} \u{1d63}{UL}"));
+}
+
+#[test]
 fn life_line() {
     let src = "u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }";
     let want = format!(
-        "\u{1d58}l{UL}ife \u{2190} {{ ('+ r{UL}/\u{2081}\u{2082} -1 0 1 o{UL}-\u{2081}\u{2082} _r) {{ (_l = 3) + _r \u{d7} _l = 4 }} _r }}"
+        "\u{1d58}l{UL}ife \u{2190} {{ ('+ r{UL}/\u{2081}\u{2082} -1 0 1 o{UL}-\u{2081}\u{2082} \u{1d63}) {{ (\u{2097} = 3) + \u{1d63} \u{d7} \u{2097} = 4 }} \u{1d63} }}"
     );
     assert_eq!(dec(src), want);
 }

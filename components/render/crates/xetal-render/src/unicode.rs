@@ -3,9 +3,10 @@
 //! comment's `#` is drawn as APL's lamp.
 
 use xetal_base::Diagnostic;
-use xetal_lex::{FuncName, TokenKind, lex};
+use xetal_lex::{FuncName, Side, TokenKind, lex};
 
 use crate::glyphs::{LIGATURES, UNDERLINE, subscript_digit, superscript_text, superscript_word};
+use crate::lambda::lambda_glyph;
 
 /// Render lexable raw source in decorated form.
 pub fn decorate(src: &str) -> Result<String, Diagnostic> {
@@ -23,6 +24,9 @@ pub fn decorate(src: &str) -> Result<String, Diagnostic> {
                 v.name,
                 if v.mutable { "!" } else { "" }
             ),
+            TokenKind::LamArg { side, applied } => {
+                lambda_arg(if *side == Side::Left { 'l' } else { 'r' }, *applied, raw)
+            }
             TokenKind::Exp(_) => superscript_text(&raw[1..]).unwrap_or_else(|| raw.into()),
             TokenKind::Sym(_) | TokenKind::Assign | TokenKind::Arrow | TokenKind::Semi => {
                 ligature(raw).map_or_else(|| raw.into(), String::from)
@@ -34,6 +38,15 @@ pub fn decorate(src: &str) -> Result<String, Diagnostic> {
     }
     out.push_str(&gap(&src[pos..]));
     Ok(out)
+}
+
+/// `_r` as subscript r; applied (`_r_`), underlined too.
+fn lambda_arg(side: char, applied: bool, raw: &str) -> String {
+    match lambda_glyph(side) {
+        Some(g) if applied => format!("{g}{UNDERLINE}"),
+        Some(g) => g.to_string(),
+        None => raw.into(),
+    }
 }
 
 /// A gap holds whitespace and at most one comment; its `#` becomes a lamp.

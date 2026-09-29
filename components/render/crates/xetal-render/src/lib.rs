@@ -4,6 +4,7 @@
 mod canonical;
 mod glyphs;
 mod inverse;
+mod lambda;
 mod latex;
 mod unicode;
 

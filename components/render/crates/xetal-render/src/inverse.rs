@@ -6,6 +6,7 @@ use xetal_base::{Diagnostic, Span};
 use crate::glyphs::{
     LIGATURES, UNDERLINE, from_subscript, from_superscript, from_superscript_letter,
 };
+use crate::lambda::from_lambda_glyph;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum After {
@@ -57,7 +58,14 @@ impl Inverse {
     }
 
     fn push(&mut self, c: char, underlined: bool, span: Span) -> Result<(), Diagnostic> {
-        if underlined {
+        if let Some(side) = from_lambda_glyph(c) {
+            self.out.push('_');
+            self.out.push(side);
+            if underlined {
+                self.out.push('_');
+            }
+            self.after = After::Other;
+        } else if underlined {
             if !c.is_ascii_alphabetic() {
                 return Err(bad_underline(span));
             }

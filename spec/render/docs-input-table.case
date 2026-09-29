@@ -1,5 +1,5 @@
 # docs/input.md: the typing table.
 == SOURCE
-x r_ev r_/ o_-_12 u:s_quare c:K_ m:pi x^2
+x r_ev r_/ o_-_12 u:s_quare c:K_ m:pi x^2 _r _l
 == RENDER
-x r̲ev r̲/ o̲-₁₂ ᵘs̲quare ᶜK̲ ᵐpi x²
+x r̲ev r̲/ o̲-₁₂ ᵘs̲quare ᶜK̲ ᵐpi x² ᵣ ₗ
