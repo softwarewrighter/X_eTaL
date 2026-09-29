@@ -326,8 +326,8 @@ on the left and the live rendered, highlighted view on the right,
 types and diagnostics live below and results on Ctrl-R; and
 `xetal repl`, which renders the line as it is typed when on a
 terminal (piped input keeps the plain behavior). The view model and
-widgets are the base for the stepping debugger (Saga 13) and the web
-playground (Saga 14).
+widgets are the base for the stepping debugger (Saga 14) and the web
+playground (Saga 15).
 
 Decisions (with the user): live rendering in the REPL; split editor
 with a live types/diagnostics pane and results on demand (effects such
@@ -485,7 +485,19 @@ The Life case is active from Saga 6; block, blinker, glider and
 random-board goldens (random boards checked against a reference
 implementation in Rust test code). No Life-specific code paths.
 
-## Saga 12 -- apl-ports (dogfooding)
+## Saga 12 -- quads (system names)
+
+APL's quad names, as decided with the user (lang-choices section 13a,
+QD1-QD3): `[]` touching a name lexes as one system-name token,
+displayed as the quad glyph; the values `[]A`, `[]D`, `[]AV`, `[]TS`
+and `[]IO` (always 1); the functions `[]D_L!` (delay), `[]U_CS`
+(character codes), `[]R_EAD!` and `[]V_ALUE!` (input, for the course
+and drill ports). Each with spec cases, rejection tests (an unknown
+system name, a quad function used as a value), types, the view
+model's colors and the Emacs mode. Scheduled before the APL ports,
+which need them.
+
+## Saga 13 -- apl-ports (dogfooding)
 
 Port every workspace, function and demo of the user's APL projects
 into X_eTaL libraries (`lib/*.xtl`), demos (`demos/`) and literate
@@ -516,7 +528,7 @@ needs.
 | 8  | edit            | EDIT: port what fits (the del editor itself is the editor's job) |
 | 9  | ports-release   | literate documents for each library, tour links, retrospective |
 
-## Saga 13 -- trace-and-explain
+## Saga 14 -- trace-and-explain
 
 Trace tree (NodeId, span, value, type, shape, children) following the
 evaluation order (E4); `xetal explain` prints the right-to-left
@@ -526,7 +538,7 @@ highlights the node being evaluated (by its span), and the array
 viewer shows its intermediate value, stepping forward and back
 through the trace tree.
 
-## Saga 14 -- web-playground (M9)
+## Saga 15 -- web-playground (M9)
 
 A live demo in the browser (Yew, compiled to WASM, deployed to GitHub
 Pages under `pages/`) that is the terminal UI, not a new design: the

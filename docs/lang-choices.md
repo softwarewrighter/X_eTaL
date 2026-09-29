@@ -278,6 +278,17 @@ Planned enhancements (after the MVP milestones):
 - Unicode text as a library-supplied type extension, once the
   language has a way for libraries to add types.
 
+## 13a. System names (quads)
+
+Decided with the user after the libraries saga; implemented by the
+quads saga (docs/plan.md).
+
+| #  | Decision |
+| -- | -------- |
+| QD1 | `[]` written touching a name is the system namespace, APL's quad: `[]A`, `[]D_L! 0.5`. It is one token and displays as the quad glyph (U+2395) before the name. An empty `[]` on its own stays an error (an empty train). Class comes from the tokens as everywhere else: a name without an underline is a value, one with an underlined letter a function. |
+| QD2 | System values, read-only: `[]A` the alphabet `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"`, `[]D` the digits `"0123456789"`, `[]AV` the atomic vector (every character, ASCII 0 to 127, since source is ASCII), `[]TS` the time stamp (year, month, day, hour, minute, second, millisecond; read afresh each time), `[]IO` the index origin, always 1 (there is no index-origin setting, A5). |
+| QD3 | System functions live in the quad namespace and are named like any function: `[]D_L! s` waits s seconds (APL's DL), `[]U_CS` converts between characters and their codes (`[]U_CS "A"` is 65, `[]U_CS 65` is `"A"`), `[]R_EAD! @` reads a line typed by the user as a Char vector (APL's quote-quad) and `[]V_ALUE! @` reads a line and evaluates it (APL's quad input). Quad names are uppercase, as in APL, so they stand out; a quad function still has its first letter underlined (`[]D_L!` displays as the quad glyph, D underlined, L, `!`). Ordinary built-ins stay plain lowercase words. |
+
 ## 14. Macros and libraries
 
 | #  | Decision |
