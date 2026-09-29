@@ -1,6 +1,6 @@
 # A tour of M5b
 
-Part of the X_eTaL milestone tours ([index](tour.md), [README](../README.md)); previous: [A tour of M5](tour-m5.md).
+Part of the X_eTaL milestone tours ([index](tour.md), [README](../README.md)); previous: [A tour of M5](tour-m5.md); next: [A tour of M6b](tour-m6b.md).
 Commands run from the repository root after `scripts/build-all.sh --release`
 (or use `./target/debug/xetal` after `just build`).
 

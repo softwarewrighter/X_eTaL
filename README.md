@@ -127,7 +127,7 @@ the [M0 and M1 tour](docs/tour-m0-m1.md) walks through every stage
 ## Documentation
 
 - [`docs/tour.md`](docs/tour.md) -- the language tour and the milestone
-  tours (M0 to M5b)
+  tours (M0 to M6b)
 - [`docs/literate/tour.org`](docs/literate/tour.org) -- the language tour
   as a literate Org document, every block run and its result recorded
   (`docs/emacs/`: `xetal-mode` and `ob-xetal` for Org Babel)

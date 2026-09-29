@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run reg/fixtures/use-oops.xtl"
+exit_code = 1
+desc = "an error inside a library is reported at FILE:LINE:COLUMN in that library"

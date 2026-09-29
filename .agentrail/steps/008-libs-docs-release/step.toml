@@ -1,6 +1,6 @@
 number = 8
 slug = "libs-docs-release"
-status = "pending"
+status = "in-progress"
 description = "libraries step 6: README M6b tour (every command a golden), docs sync, Saga 8..."
 role = "production"
 context_files = []

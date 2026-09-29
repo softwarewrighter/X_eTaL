@@ -1,0 +1,3 @@
+# A library with a mistake in it, for the M6b tour.
+l:h_alf := { _r / 2 }
+l:t_wice := { _r * t_wo }

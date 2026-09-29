@@ -393,7 +393,7 @@ What to do differently:
   the screen); the REPL line editor does not wrap lines longer than
   the terminal; screenshots of the editor are described, not shown.
 
-## Saga 8 -- libraries (M6b)  [ACTIVE]
+## Saga 8 -- libraries (M6b)  [DONE, ARCHIVED]
 
 The macro phase (MC1-MC9): `u_se<` with a required alias
 (`"c:" u_se< "Combinators"`), libraries defining under `l:`, per-file
@@ -416,7 +416,48 @@ request, so the birds are written once, directly as a library.
 | 3  | namespaces        | hidden namespaces, exports, private names, error rows      |
 | 4  | first-library     | lib/Stats.xtl, a demo, the tour section, import display    |
 | 5  | tools             | run / eval / echo / repl / edit expand imports             |
-| 6  | libs-docs-release | README M6b tour, docs sync, retrospective                  |
+| 5  | readme-rewrite    | README as an overview, tours in docs/, images and video (user request) |
+| 6  | org-babel         | xetal-mode, ob-xetal, the literate tour (user request)     |
+| 7  | tools             | the REPL, notebooks, org sessions and the editor use libraries |
+| 8  | libs-docs-release | M6b tour page, docs sync, retrospective                    |
+
+### Saga 8 retrospective
+
+Delivered: the macro phase (MC1-MC9) as a component of its own: a
+multi-file source map, import finding and validation with every MC8
+error row, library resolution (beside the file, XETAL_PATH, standard
+libraries built in), hidden namespaces for exports and private names,
+errors located in the file where they were written; `lib/Stats.xtl`;
+every tool loading through `xetal-program`. Alongside, at the user's
+request: the README rewritten as an overview with images and a tour
+video, the milestone tours moved into docs/, Emacs support
+(`xetal-mode`, `ob-xetal`) with a literate tour whose results are
+checked, paced notebook runs, and plans for the web demo and for
+porting the APL workspaces.
+
+What went well:
+
+- One combined text with a source map kept every later stage
+  unchanged: the parser, checker and evaluator never learned about
+  files.
+- End-to-end tests through the checker and evaluator caught what unit
+  tests would not have: a library name found the importer itself on a
+  case-insensitive disk, and the mean of Stats was Int-only.
+- Screenshots and recordings made by the tools themselves (vhs) found
+  real display bugs (the ASCII pane dropping hidden text).
+
+What to do differently:
+
+- Anticipate rustfmt reflow and the checklist limits: several scripted
+  edits missed reformatted text, and two modules had to be split after
+  the fact; the user called this out, and the rule is now to design
+  for the limits and edit formatted text.
+- Look where tools are installed before saying they are missing
+  (Emacs is an app, not on PATH).
+- Known gaps: the REPL replays every accepted line with its libraries
+  (fine interactively); `xetal core` and `xetal fmt` do not expand
+  imports; a library cannot yet be run on its own (MC8 row 9 note).
+
 
 ## Saga 9 -- combinators (M6)
 

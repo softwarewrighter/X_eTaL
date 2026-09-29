@@ -1,0 +1,1 @@
+error[missing-argument]: this function needs an argument on its right (to pass it as a value, quote it) at reg/fixtures/Oops.xtl:3:20

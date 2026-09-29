@@ -134,7 +134,7 @@ presentation layer, never the storage format.
 | M5 | 2-D rotate, multi-axis `-1 0 1 o_-_12 B`                    |
 | M5b| `xetal edit`: ASCII left, live decorated view right; live-rendered REPL |
 | M6 | combinator notebook with inferred types; Y via a lazy parameter |
-| M6b| the combinators as a library: `"c:" u_se< "Combinators"`    |
+| M6b| libraries: `"s:" u_se< "Stats"`; then the combinators as a library |
 | M7 | fork / atop train expansion                                 |
 | M8 | one-line Life (block, blinker, glider goldens)              |
 | M9 | WASM playground with right-to-left visual explainer         |
