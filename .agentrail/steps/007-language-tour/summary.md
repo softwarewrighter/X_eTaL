@@ -1,0 +1,1 @@
+demos/tour.xtl: commented kitchen-sink tour of every implemented feature; type-checks and runs; golden run-tour; just tour (pp then run); README pointer. Gate green, pushed.

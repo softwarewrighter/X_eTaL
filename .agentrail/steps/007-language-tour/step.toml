@@ -1,8 +1,9 @@
 number = 7
 slug = "language-tour"
-status = "in-progress"
+status = "completed"
 description = "tui step 7 (inserted at the user's request): demos/tour.xtl, a commented 'kit..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T22:27:25"
-commits = []
+completed_at = "2026-09-28T22:29:46"
+commits = ["db0cfe27b89901a9d60a5a2e6b405ebe4cf3685f"]
