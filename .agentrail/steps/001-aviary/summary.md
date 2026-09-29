@@ -1,0 +1,1 @@
+Aviary: docs/birds.md (Smullyan's birds, typability, spellings B_1/C_s/E_h); xetal type of a library file lists its exports (expand_library, load_library, library_types; reg type-library); fixed nested libraries sharing a hidden namespace; CB1-CB4 and D31 recorded; inserted step 002-untyped-notebook.
