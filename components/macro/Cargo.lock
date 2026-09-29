@@ -320,6 +320,27 @@ name = "xetal-base"
 version = "0.1.0"
 
 [[package]]
+name = "xetal-lex"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+]
+
+[[package]]
+name = "xetal-libs"
+version = "0.1.0"
+
+[[package]]
+name = "xetal-macro"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
+ "xetal-libs",
+ "xetal-sources",
+]
+
+[[package]]
 name = "xetal-sources"
 version = "0.1.0"
 dependencies = [

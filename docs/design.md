@@ -307,6 +307,25 @@ spans, and parameters that shadow a built-in give a warning (L7).
 A trace tree (`NodeId, span, value, type, shape, children`) comes
 with the trace-and-explain saga.
 
+## 7a. The macro phase (libraries)
+
+Between the lexer and the parser (MC1), `xetal-macro` expands a
+program's imports. Each file's top-level statements of exactly
+`"alias:" u_se< "Library"` are its imports; any other use of a macro
+is an error from the MC8 table (missing, malformed or reserved alias,
+non-string arguments, a macro that is not a top-level statement, an
+unknown macro), as is one alias for two libraries or one library under
+two aliases in a file. Libraries are found through a `Libraries`
+trait: on disk (`FsLibraries`) a path is relative to the importing
+file and a name is `Name.xtl` beside it, then in XETAL_PATH, then
+among the standard libraries built from `lib/` (`xetal-libs`). They
+load recursively, each once per resolved path (MC7), and an import
+cycle is reported with its chain. The result is one combined text
+(`xetal-sources`): each library before the files that use it, the
+import statements removed, and a source map so that any later
+diagnostic is reported in the file and at the place it was written
+(`FILE:LINE:COLUMN` when several files are involved).
+
 ## 8. Display modes (CLI and web)
 
 | Mode      | What it shows                                              |

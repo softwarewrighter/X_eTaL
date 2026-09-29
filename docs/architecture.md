@@ -50,7 +50,10 @@ components/
                            catalog, generated from builtins.toml)
   macro/                   xetal-sources (several files as one combined
                            text with a source map back to file, line
-                           and column); the macro phase (MC1-MC9)
+                           and column), xetal-macro (the macro phase:
+                           imports found, validated, resolved, loaded),
+                           xetal-libs (the standard libraries, lib/,
+                           built in)
   syntax/                  xetal-lex (lexer, tokens), xetal-ast
                            (surface AST, printer), xetal-syntax (parser)
   core/                    xetal-ir (Core IR, printer), xetal-core

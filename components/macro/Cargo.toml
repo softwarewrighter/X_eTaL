@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-sources"]
+members = ["crates/xetal-sources", "crates/xetal-macro", "crates/xetal-libs"]
 
 [workspace.package]
 version = "0.1.0"
@@ -15,4 +15,6 @@ repository = "https://github.com/softwarewrighter/X_eTaL"
 xetal-base = { path = "../base/crates/xetal-base" }
 xetal-lex = { path = "../syntax/crates/xetal-lex" }
 xetal-sources = { path = "crates/xetal-sources" }
+xetal-macro = { path = "crates/xetal-macro" }
+xetal-libs = { path = "crates/xetal-libs" }
 proptest = "1"

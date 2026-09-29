@@ -1,0 +1,14 @@
+//! The macro phase (lang-choices section 14): top-level `u_se<`
+//! statements are found and validated, libraries resolved through
+//! [`Libraries`] and loaded (dependencies first, each once), and the
+//! program is combined into one text with a source map
+//! (`xetal-sources`).
+
+mod expand;
+mod fs;
+mod imports;
+mod report;
+
+pub use expand::{Found, Libraries, expand};
+pub use fs::FsLibraries;
+pub use report::MacroError;
