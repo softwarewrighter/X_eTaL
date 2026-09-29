@@ -1,0 +1,8 @@
+number = 12
+slug = "demo-fixes"
+status = "in-progress"
+description = "tui step 12 (inserted at the user's request): life.xtl iterates with u:t_imes..."
+role = "production"
+context_files = []
+created_at = "2026-09-28T23:25:52"
+commits = []

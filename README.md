@@ -452,10 +452,21 @@ prints `b` with each row reversed, the shape `3 3 3 3` and the sum
 ## Install
 
 ```bash
+just install                                   # or: just install /some/dir/on/PATH
+```
+
+which builds the optimized binary and copies it, with the `x_etal`
+link, into `~/.local/bin`. Without `just`:
+
+```bash
 scripts/build-all.sh --release
 cp target/release/xetal ~/.local/bin/          # any directory on PATH
 ln -sf xetal ~/.local/bin/x_etal               # the alias x_etal
 ```
+
+An installed copy (and `target/release/xetal`) does not update itself:
+run `just install` again after pulling changes. The `just` recipes
+use the debug build, which they rebuild as needed.
 
 With `xetal` on the PATH, `.xtl` scripts run directly:
 `./demos/factorial.xtl`.

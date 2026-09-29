@@ -14,9 +14,21 @@ default:
 build:
     scripts/build-all.sh
 
-# Build every component optimized (target/release/xetal)
+# Build every component optimized (target/release/xetal); the other
+# recipes use the debug build, so run this before using target/release
 build-release:
     scripts/build-all.sh --release
+
+# Build optimized and install xetal and x_etal into a PATH directory (for #! scripts)
+install dir="~/.local/bin": build-release
+    #!/usr/bin/env bash
+    set -euo pipefail
+    dest="${1:-$HOME/.local/bin}"
+    dest="${dest/#\~/$HOME}"
+    mkdir -p "$dest"
+    cp target/release/xetal "$dest/xetal"
+    ln -sf xetal "$dest/x_etal"
+    echo "installed $dest/xetal ($(target/release/xetal --version | head -1))"
 
 # Run every component's tests
 test:
@@ -71,7 +83,7 @@ pp file: _quiet-build
 edit file: _quiet-build
     @{{xetal}} edit "$1"
 
-# Step the Life blinker (demos/life.xtl)
+# Life: a blinker and a glider, stepped (demos/life.xtl)
 life: _quiet-build
     @{{xetal}} run demos/life.xtl
 

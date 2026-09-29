@@ -87,9 +87,20 @@ u:a_vg 1 2 3 4
 # -- Rotate, reverse and axes ---------------------------------------------
 1 o_- 1 2 3 4            # rotate toward the front
 r_ev "stressed"
-r_ev_2 m                 # an axis subscript: act along axis 2
-'+ r_/_2 m               # row sums
+# A function works on the leading axis (axis 1) unless a subscript names
+# another: `r_ev_2 m` moves axis 2 to the front, applies `r_ev`, and
+# moves it back.
+'+ r_/ m                 # implicit: axis 1, so column sums
+'+ r_/_1 m               # the same, explicit
+'+ r_/_2 m               # axis 2: row sums
+'+ s_\_2 m               # running sums along each row
+1 o_- m                  # rotate the rows (axis 1)
+1 o_-_1 m                # the same, explicit
+1 o_-_2 m                # rotate within each row (axis 2)
+r_ev_2 m                 # reverse each row
+'+ r_/_12 m              # two axes in turn: the total
 -1 0 1 o_- 1 2 3         # a list of amounts gives every rotation
+s_hape -1 0 1 o_-_12 m   # every combination along both axes: 3 3 2 3
 
 # -- Search and order -----------------------------------------------------
 v := 3 1 4 1 5 9 2 6

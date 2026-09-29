@@ -1,4 +1,4 @@
-number = 14
+number = 15
 slug = "tui-docs-release"
 status = "pending"
 description = "tui step 7: README tour of the editor and live REPL (text screenshots from sn..."
