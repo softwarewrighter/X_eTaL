@@ -1,0 +1,1 @@
+Live REPL: components/line (xetal-line) state machine (decorated redraw per key, cursor mapping, history, Ctrl-C/Ctrl-D) + crossterm driver; xetal repl uses it on terminals, piped unchanged; pty smoke test; plan note for import display (c = u_se<). Gate green, pushed.
