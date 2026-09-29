@@ -163,11 +163,17 @@ impl Lower {
             Target::Var(v) if v.ns.is_none() => {
                 Ok(format!("{}{}", v.name, if v.mutable { "!" } else { "" }))
             }
+            Target::Var(v) if hidden(&v.ns) && top => {
+                Ok(format!("{}:{}", v.ns.as_deref().unwrap_or(""), v.name))
+            }
             Target::Var(_) => Err(err(
                 "bad-binding",
                 span,
                 "a plain variable takes no namespace prefix; libraries export with l:",
             )),
+            Target::Func(f) if hidden(&f.ns) && top => {
+                Ok(format!("{}:{}", f.ns.as_deref().unwrap_or(""), f.spelled()))
+            }
             Target::Func(f) if f.ns.as_deref() == Some("u") && top => {
                 Ok(format!("u:{}", f.spelled()))
             }
@@ -184,6 +190,13 @@ impl Lower {
             )),
         }
     }
+}
+
+/// A namespace the macro phase gives a library (uppercase: `LA`, `PA`);
+/// aliases are lowercase, so no program can write one.
+fn hidden(ns: &Option<String>) -> bool {
+    ns.as_deref()
+        .is_some_and(|n| n.starts_with(|c: char| c.is_ascii_uppercase()))
 }
 
 /// A binding whose value is a lambda or train is recursive.

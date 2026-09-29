@@ -4,9 +4,9 @@
 //! program is combined into one text with a source map
 //! (`xetal-sources`).
 
+mod emit;
 mod expand;
 mod fs;
-mod imports;
 mod report;
 
 pub use expand::{Found, Libraries, expand};

@@ -50,8 +50,10 @@ components/
                            catalog, generated from builtins.toml)
   macro/                   xetal-sources (several files as one combined
                            text with a source map back to file, line
-                           and column), xetal-macro (the macro phase:
-                           imports found, validated, resolved, loaded),
+                           and column), xetal-names (one file: its
+                           imports, definitions and renamed names),
+                           xetal-macro (loading the files into one
+                           program),
                            xetal-libs (the standard libraries, lib/,
                            built in)
   syntax/                  xetal-lex (lexer, tokens), xetal-ast

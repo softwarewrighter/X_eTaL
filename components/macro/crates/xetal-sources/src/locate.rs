@@ -5,7 +5,9 @@ use crate::Sources;
 /// A place in a source file (line and column from 1, in characters).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Location<'s> {
+    /// The file's name, and its number among the program's files.
     pub file: &'s str,
+    pub index: usize,
     pub line: usize,
     pub col: usize,
     /// The byte offset in that file.
@@ -31,6 +33,7 @@ impl Sources {
         let line_start = before.rfind('\n').map_or(0, |n| n + 1);
         Location {
             file: self.files.get(file).map_or("", |f| f.name.as_str()),
+            index: file,
             line: before.matches('\n').count() + 1,
             col: before[line_start..].chars().count() + 1,
             offset,

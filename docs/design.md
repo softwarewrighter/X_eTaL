@@ -326,6 +326,19 @@ import statements removed, and a source map so that any later
 diagnostic is reported in the file and at the place it was written
 (`FILE:LINE:COLUMN` when several files are involved).
 
+Namespaces: each library instance gets two hidden namespaces, `LA`
+for its exports and `PA` for its private names (`LB`/`PB` for the
+next, and so on); they are uppercase, and aliases lowercase, so no
+file can write one. A library's `l:` names are renamed to its `LA`,
+its unprefixed top-level functions and variables to its `PA` (except
+where a lambda parameter or local binding of the same name shadows
+them), and an importer's alias letters to the named library's `LA`,
+checked against its exports (`not-exported`, listing them). Core
+accepts top-level definitions in hidden namespaces (functions and
+variables), so a library's names are late-bound globals like `u:`
+names. The source map records how each file writes each hidden
+namespace, so a message is shown with that file's letters (MC6).
+
 ## 8. Display modes (CLI and web)
 
 | Mode      | What it shows                                              |

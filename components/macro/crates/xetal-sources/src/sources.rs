@@ -7,6 +7,8 @@ use std::ops::Range;
 pub(crate) struct File {
     pub name: String,
     pub text: String,
+    /// Hidden namespaces and how this file writes them (`LA` as `c`).
+    pub written: Vec<(String, String)>,
 }
 
 /// A piece of the combined text: where it starts there, and the file
@@ -33,6 +35,7 @@ impl Sources {
         self.files.push(File {
             name: name.into(),
             text: text.into(),
+            written: Vec::new(),
         });
         self.files.len() - 1
     }
@@ -46,6 +49,14 @@ impl Sources {
     /// Append `text` in place of bytes `range` of `file`.
     pub fn replace(&mut self, file: usize, range: Range<usize>, text: &str) {
         self.push(file, range, text, false);
+    }
+
+    /// In `file`, the hidden namespace `hidden` is written `written`
+    /// (empty for a private name, which has no prefix there).
+    pub fn written_as(&mut self, file: usize, hidden: &str, written: &str) {
+        self.files[file]
+            .written
+            .push((hidden.into(), written.into()));
     }
 
     /// The combined program text.

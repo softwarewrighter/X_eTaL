@@ -1,6 +1,6 @@
 number = 3
 slug = "namespaces"
-status = "pending"
+status = "in-progress"
 description = "libraries step 3: TDD namespace rewriting: per-file alias tables to hidden up..."
 role = "production"
 context_files = []

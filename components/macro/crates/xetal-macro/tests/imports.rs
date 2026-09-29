@@ -36,7 +36,11 @@ fn a_program_without_imports_is_itself() {
 fn a_library_comes_before_the_program_and_the_import_is_removed() {
     let l = libs(&[("A", "l:x := 1\n")]);
     let s = expand("main.xtl", "\"a:\" u_se< \"A\"\na:x\n", &l).unwrap();
-    assert!(s.combined().starts_with("l:x := 1\n"), "{:?}", s.combined());
+    assert!(
+        s.combined().starts_with("LA:x := 1\n"),
+        "{:?}",
+        s.combined()
+    );
     assert!(!s.combined().contains("u_se<"), "{:?}", s.combined());
     assert_eq!(s.file_count(), 2);
 }
@@ -45,7 +49,7 @@ fn a_library_comes_before_the_program_and_the_import_is_removed() {
 fn a_library_shared_by_two_importers_is_loaded_once() {
     let l = libs(&[("A", "l:x := 1\n"), ("B", "\"a:\" u_se< \"A\"\nl:y := 2\n")]);
     let s = expand("main.xtl", "\"a:\" u_se< \"A\"\n\"b:\" u_se< \"B\"\n", &l).unwrap();
-    assert_eq!(s.combined().matches("l:x := 1").count(), 1);
+    assert_eq!(s.combined().matches(":x := 1").count(), 1);
     assert_eq!(s.file_count(), 3);
 }
 
