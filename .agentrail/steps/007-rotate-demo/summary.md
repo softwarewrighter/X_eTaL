@@ -1,0 +1,1 @@
+demos/rotate.xtl (8 frames of -1 o_-_12 on a Char board via recursion + p_rint!), just animate plays them; run-rotate golden, just-list rebased intentionally. Gate green, pushed.

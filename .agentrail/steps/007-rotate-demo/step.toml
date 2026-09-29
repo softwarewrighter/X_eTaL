@@ -1,9 +1,10 @@
 number = 7
 slug = "rotate-demo"
-status = "in-progress"
+status = "completed"
 description = "rotate-and-axes step 6: animated 2-D rotate demo printing frames from the CLI..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T12:23:34"
+completed_at = "2026-09-28T19:13:01"
 task_type = "code"
-commits = []
+commits = ["c5f3278a3c23a3f721cba7e661238a8838f0b60e"]

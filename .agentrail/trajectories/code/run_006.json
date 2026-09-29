@@ -1,0 +1,11 @@
+{
+  "task_type": "code",
+  "state": {
+    "number": 7,
+    "step": "rotate-demo"
+  },
+  "action": "demo script + justfile recipe + golden",
+  "result": "success",
+  "reward": 1,
+  "timestamp": "2026-09-28T19:13:01"
+}
