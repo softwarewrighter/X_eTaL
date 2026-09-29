@@ -6,7 +6,7 @@ use crate::Sources;
 
 impl Sources {
     /// `text` with hidden namespaces written as file `file` writes them.
-    fn as_written(&self, file: usize, text: &str) -> String {
+    pub fn as_written(&self, file: usize, text: &str) -> String {
         let mut names = self
             .files
             .get(file)

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type lib/Stats.xtl"
+exit_code = 0
+desc = "xetal type of a library file shows its exports, written l:"

@@ -343,6 +343,15 @@ Row 12 narrows M1: rebinding stays allowed for variables, but a
 top-level function name is defined once per file, so a library's
 interface is unambiguous.
 
+## 14a. Combinators
+
+| #  | Decision |
+| -- | -------- |
+| CB1 | The standard library `Combinators` holds every bird Raymond Smullyan names in *To Mock a Mockingbird* that type-checks, each spelled as its letter (`l:K_`, `l:S_`); a digit follows the letter (`l:B_1`, the function B1 by D-8), a star is `s` (`l:C_s` for C*, `l:C_ss` for C**), the bald eagle's hat is `h` (`l:E_h`). Each bird's inferred type is pinned by a test. The list is `docs/birds.md`. Decided with the user in the combinators saga (spellings for the variants proposed in its first step). |
+| CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works because a function's parameter is lazy. The birds that apply an argument to itself (L, M, M2, U) and the textbook Y have no finite type; they are in an untyped demo, run with `--untyped`. |
+| CB3 | A second standard library, `Maybe`, Church-encoded (`n_othing`, `j_ust`, `b_ind` and helpers), shows a monad in the language as it is. |
+| CB4 | `xetal type FILE` on a library (a file that names `l:`) checks it on its own, as it is loaded when imported, and prints the type of each export, written `l:` as in the file; private names and imported libraries are not listed. |
+
 ## 15. Queue of open questions
 
 Optional, later: a spelling for axes above 9; an explicit `_`

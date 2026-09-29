@@ -1,4 +1,4 @@
-number = 3
+number = 4
 slug = "combinators-library"
 status = "pending"
 description = "combinators step 3: lib/Combinators.xtl with every typable bird and the recur..."

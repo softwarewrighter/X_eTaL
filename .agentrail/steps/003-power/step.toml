@@ -1,7 +1,7 @@
-number = 4
-slug = "maybe"
+number = 3
+slug = "power"
 status = "pending"
-description = "combinators step 4: lib/Maybe.xtl (Church-encoded n_othing, j_ust, b_ind, hel..."
+description = "combinators step 2: TDD function power f_^n on any function name (incl. quote..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T09:53:22"

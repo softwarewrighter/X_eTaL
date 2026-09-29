@@ -54,7 +54,8 @@ components/
                            imports, definitions and renamed names),
                            xetal-macro (loading the files into one
                            program), xetal-program (a program with its
-                           libraries, lowered, errors located),
+                           libraries, lowered, errors located; or a
+                           library file on its own),
                            xetal-libs (the standard libraries, lib/,
                            built in)
   syntax/                  xetal-lex (lexer, tokens), xetal-ast
@@ -204,6 +205,7 @@ xetal parse  <FILE|-e EXPR>    surface tree as S-expressions
 xetal fmt    <FILE|-e EXPR>    canonical form
 xetal core   <FILE|-e EXPR>    Core IR (built-ins marked #)
 xetal type   <FILE|-e EXPR>    inferred type of each top-level item
+                               (of a library file: each export)
 xetal eval   <FILE|-e EXPR>    type-check, evaluate; print each value
                                (--untyped skips the checker)
 xetal run    FILE.xtl          type-check and run a script (--untyped)

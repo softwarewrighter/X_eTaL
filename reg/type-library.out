@@ -1,0 +1,4 @@
+l:m_ean : Num a => a -> Float
+l:v_ariance : Num a => a -> Float
+l:s_d : Num a => a -> Float
+l:r_ange : Num a => a -> a

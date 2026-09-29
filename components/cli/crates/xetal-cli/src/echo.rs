@@ -91,10 +91,19 @@ fn origin(command: &Command) -> String {
     }
 }
 
-/// `xetal type`: the type of each top-level item, libraries included.
+/// `xetal type`: the type of each top-level item of a program, or of
+/// each export of a library (a file naming `l:`).
 fn typed(source: &str, name: &str) -> Result<String, Diagnostic> {
-    let mut loaded = xetal_program::load(name, source)?;
+    let library = xetal_program::is_library(source);
+    let mut loaded = match library {
+        true => xetal_program::load_library(name, source)?,
+        false => xetal_program::load(name, source)?,
+    };
     let lines = xetal_types::check_program(&mut loaded.program)
         .map_err(|d| xetal_program::located(&loaded.sources, d))?;
-    Ok(xetal_program::program_types(lines).join("\n"))
+    Ok(match library {
+        true => xetal_program::library_types(&loaded.sources, lines),
+        false => xetal_program::program_types(lines),
+    }
+    .join("\n"))
 }

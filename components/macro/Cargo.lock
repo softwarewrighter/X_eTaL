@@ -628,6 +628,7 @@ version = "0.1.0"
 dependencies = [
  "xetal-base",
  "xetal-core",
+ "xetal-lex",
  "xetal-macro",
  "xetal-sources",
  "xetal-types",

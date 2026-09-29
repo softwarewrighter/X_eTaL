@@ -60,3 +60,15 @@ fn an_error_in_the_program_keeps_its_place_in_the_program() {
     let span = local.span.expect("a span in the program");
     assert_eq!(&src[span.start..span.end], "y");
 }
+
+#[test]
+fn a_library_may_reuse_a_name_from_a_library_it_imports() {
+    let dir = scratch("nested");
+    let outer = "\"s:\" u_se< \"Stats\"\nl:m_ean := { 2 * s:m_ean _r }\n";
+    std::fs::write(dir.join("Outer.xtl"), outer).unwrap();
+    let main = dir.join("main.xtl").display().to_string();
+    let mut loaded = load(&main, "\"o:\" u_se< \"Outer\"\no:m_ean 1 2 3\n").unwrap();
+    assert_eq!(loaded.sources.file_count(), 3);
+    let types = xetal_types::check_program(&mut loaded.program).unwrap();
+    assert_eq!(xetal_program::program_types(types), ["Float"]);
+}

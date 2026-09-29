@@ -132,6 +132,8 @@ the [M0 and M1 tour](docs/tour-m0-m1.md) walks through every stage
   as a literate Org document, every block run and its result recorded
   (`docs/emacs/`: `xetal-mode` and `ob-xetal` for Org Babel)
 - [`docs/input.md`](docs/input.md) -- how to type X_eTaL expressions
+- [`docs/birds.md`](docs/birds.md) -- the aviary: Smullyan's combinators,
+  which type-check, and how the `Combinators` library spells them
 - [`docs/lang-choices.md`](docs/lang-choices.md) -- the language decisions
 - [`docs/PRD.md`](docs/PRD.md) -- product requirements and milestones
 - [`docs/design.md`](docs/design.md) -- language design and decisions register

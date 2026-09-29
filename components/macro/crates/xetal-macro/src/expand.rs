@@ -1,4 +1,4 @@
-//! Loading a program and its libraries into one combined text.
+//! Loading a file and the libraries it imports, each once.
 
 use std::collections::HashMap;
 
@@ -28,36 +28,19 @@ pub trait Libraries {
 /// Per alias letters: the named library's hidden namespace and exports.
 type Aliases = HashMap<String, (String, Vec<String>)>;
 
-struct Loader<'l> {
-    libs: &'l dyn Libraries,
-    sources: Sources,
+pub(crate) struct Loader<'l> {
+    pub(crate) libs: &'l dyn Libraries,
+    pub(crate) sources: Sources,
     /// Loaded libraries by key: hidden namespace and exports.
-    loaded: HashMap<String, (String, Vec<String>)>,
+    pub(crate) loaded: HashMap<String, (String, Vec<String>)>,
     /// Files being loaded, outermost first (for cycles).
-    chain: Vec<(String, String)>,
-}
-
-/// The program `text` (reported as `name`) with its libraries, each
-/// loaded once, placed before the files that use it, its names in its
-/// own hidden namespace.
-pub fn expand(name: &str, text: &str, libs: &dyn Libraries) -> Result<Sources, Box<MacroError>> {
-    let mut loader = Loader {
-        libs,
-        sources: Sources::default(),
-        loaded: HashMap::new(),
-        chain: Vec::new(),
-    };
-    let main = Found {
-        key: format!("\u{0}{name}"),
-        name: name.into(),
-        text: text.into(),
-    };
-    loader.load(&main, true)?;
-    Ok(loader.sources)
+    pub(crate) chain: Vec<(String, String)>,
+    /// The main file is itself a library (checked on its own).
+    pub(crate) library: bool,
 }
 
 impl Loader<'_> {
-    fn load(&mut self, file: &Found, main: bool) -> Result<(), Box<MacroError>> {
+    pub(crate) fn load(&mut self, file: &Found, main: bool) -> Result<(), Box<MacroError>> {
         let error = |diagnostic: Diagnostic| {
             Box::new(MacroError {
                 diagnostic,
@@ -67,11 +50,12 @@ impl Loader<'_> {
             })
         };
         let index = self.sources.add(&file.name, &file.text);
-        let own = (!main).then(|| hidden(self.loaded.len()));
         self.chain.push((file.key.clone(), file.name.clone()));
         let found = imports(&file.text).map_err(error)?;
         let aliases = self.link(file, &found, &error)?;
         self.chain.pop();
+        // Named after its imports are loaded, so they take earlier names.
+        let own = (!main || self.library).then(|| hidden(self.loaded.len()));
         let spans: Vec<_> = found.iter().map(|i| i.span).collect();
         let cx = Context {
             library: own.as_ref().map(|(h, p)| (h.as_str(), p.as_str())),

@@ -2,7 +2,7 @@
 
 use xetal_base::Diagnostic;
 use xetal_core::Program;
-use xetal_macro::{FsLibraries, expand};
+use xetal_macro::{FsLibraries, MacroError, expand};
 use xetal_sources::Sources;
 
 /// A program with its libraries, in Core, and its source map.
@@ -16,7 +16,12 @@ pub struct Loaded {
 /// for text given on the command line; libraries are looked for
 /// beside it).
 pub fn load(name: &str, text: &str) -> Result<Loaded, Diagnostic> {
-    let sources = expand(name, text, &FsLibraries::from_env()).map_err(|e| {
+    lowered(expand(name, text, &FsLibraries::from_env()))
+}
+
+/// The expanded program lowered to Core; errors located.
+pub(crate) fn lowered(expanded: Result<Sources, Box<MacroError>>) -> Result<Loaded, Diagnostic> {
+    let sources = expanded.map_err(|e| {
         let mut d = e.diagnostic.clone();
         if !e.main {
             (d.message, d.span) = (tail(&e.describe(), &d.code), None);
@@ -58,17 +63,6 @@ pub fn in_program(sources: &Sources, d: Diagnostic) -> Diagnostic {
         }
         _ => located(sources, d),
     }
-}
-
-/// The type lines of a checked program without its libraries' own
-/// items (`LA:m_ean : ...`: hidden namespaces are uppercase).
-pub fn program_types(lines: Vec<String>) -> Vec<String> {
-    let from_library = |line: &String| {
-        let name = line.split_once(" : ").map_or("", |(name, _)| name);
-        let ns = name.split_once(':').map_or("", |(ns, _)| ns);
-        ns.starts_with(|c: char| c.is_ascii_uppercase())
-    };
-    lines.into_iter().filter(|l| !from_library(l)).collect()
 }
 
 /// The text of a described diagnostic after `level[code]: `.

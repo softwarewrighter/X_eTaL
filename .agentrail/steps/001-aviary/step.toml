@@ -1,6 +1,6 @@
 number = 1
 slug = "aviary"
-status = "pending"
+status = "in-progress"
 description = "combinators step 1: list Smullyan's birds (definitions, typability, spellings..."
 role = "production"
 context_files = []

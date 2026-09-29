@@ -8,7 +8,9 @@ mod emit;
 mod expand;
 mod fs;
 mod report;
+mod start;
 
-pub use expand::{Found, Libraries, expand};
+pub use expand::{Found, Libraries};
 pub use fs::FsLibraries;
 pub use report::MacroError;
+pub use start::{expand, expand_library};
