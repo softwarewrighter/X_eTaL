@@ -453,6 +453,28 @@ keeps `r_oll!` consistent across the replays. An error is shown in
 red under its statement and the run continues; the command then
 fails with `error[failed]`.
 
+### 8.1f Planned: the stepping debugger (`xetal debug FILE`)
+
+The trace saga adds a trace tree (NodeId, span, value, type, shape,
+children) in evaluation order (E4). The debugger is a third app on the
+pieces built for the editor and the REPL, with no new display code:
+
+- Source: the rendered pane (`xetal-panes`), with the span of the node
+  being evaluated marked the way an error span is marked today (the
+  view model's raw spans map it into the decorated text).
+- Values: `xetal-grid` lays out each node's value with its type and
+  shape, as the editor's output pane does; a node's children (its
+  function and arguments) are listed as grids beside it.
+- Stepping: keys from the keymap table (`xetal-keys`) for step into,
+  step over, step out and back, moving through the trace in the
+  right-to-left order the explainer uses; Tab moves between the
+  source, the values and a list of the steps.
+- Running: the trace comes from an evaluator entry point like
+  `eval_events`, which already shows values as grids in order.
+
+The web playground (Saga 13) draws the same view model and grids in
+the browser.
+
 ### 8.2 LaTeX (`xetal render --latex`)
 
 One way and complete: the body of a math environment for KaTeX,

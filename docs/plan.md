@@ -311,7 +311,7 @@ What to do differently:
   subscript are errors by design; the animation is a terminal
   playback of printed frames (no timing in the language).
 
-## Saga 7 -- tui (M5b)
+## Saga 7 -- tui (M5b)  [DONE, ARCHIVED]
 
 See the source as it is displayed while typing it as ASCII. A
 front-end-agnostic view model (`components/view`) turns source, valid
@@ -354,6 +354,44 @@ buffer snapshots.
 | 14 | array-view       | array viewer widget for results (reused by the debugger)    |
 | 15 | repl-live        | live-rendered REPL line editor with history on a terminal   |
 | 16 | tui-docs-release | README tour, debugger design notes, retrospective           |
+
+### Saga 7 retrospective
+
+Delivered: the view model (`components/view`: tolerant styled
+segments with classes and a raw-to-rendered map, values as grids),
+`xetal render --color` / `just pp`, the full-screen editor
+`xetal edit` (split ASCII and decorated panes, live types, results as
+grids on Ctrl-R, pane focus and scrolling, nano and Emacs keys), the
+live-rendered REPL, notebook runs (`xetal run --echo` / `just show`),
+a commented language tour (`demos/tour.xtl`), a `justfile` with
+`install`, and Life iterated in its demo.
+
+What went well:
+
+- One view model behind every display meant each glyph or color
+  decision (alpha and omega, the black diamond, operand colors, macros)
+  was one table change that reached `pp`, `show`, the editor and the
+  REPL at once.
+- The editor and the line editor are state machines tested on
+  ratatui's TestBackend and by key scripts; a pseudo-terminal smoke
+  test checked the real terminal path (raw mode, events, restore).
+- Reusing the REPL session gave notebook runs almost for free, with
+  consistent rolls and no repeated printing.
+- Most steps in this saga were the user's requests while using the
+  tools; inserting them as saga steps kept the history honest.
+
+What to do differently:
+
+- Check what the user actually sees: glyphs that looked right in
+  Unicode tables (subscript l, APL's diamond operator) were unreadable
+  in the user's terminal font.
+- Keep `target/release` current or say that it is not: the user hit a
+  stale release binary; `just install` and the README now cover it.
+- The user's uncommitted edit had to be set aside for several gates;
+  ask sooner what to do with work in progress in the tree.
+- Known gaps: the editor evaluates synchronously (a long run blocks
+  the screen); the REPL line editor does not wrap lines longer than
+  the terminal; screenshots of the editor are described, not shown.
 
 ## Saga 8 -- libraries (M6b)
 

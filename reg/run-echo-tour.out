@@ -96,8 +96,10 @@ m [94m×[0m [33m10[0m                   [2m⍝ a scalar extends to every it
   7
 ([32mᵘs̲ub[0m [33m100[0m)_ [33m1[0m                    [2m⍝ [0m(expr)_[2m applies a function value[0m
   99
-[32mᵘt̲wice[0m ← { [34mf̲[0m x → [34mf̲[0m [34mf̲[0m x }         [2m⍝ a function parameter is called directly[0m
-[32m'ᵘs̲quare[0m [32mᵘt̲wice[0m [33m3[0m
+[32mᵘt̲wice[0m ← { [34mf̲[0m x → [34mf̲[0m [34mf̲[0m x }         [2m⍝ apply a function parameter two times[0m
+[1m'[0m{ [35m⍵[0m [94m+[0m [33m10[0m } [32mᵘt̲wice[0m [33m3[0m             [2m⍝ 3 + 10 + 10[0m
+  23
+[32m'ᵘs̲quare[0m [32mᵘt̲wice[0m [33m3[0m                [2m⍝ square (square 3) = 9 squared[0m
   81
 [0m
 [2m⍝ -- Quotes and operands --------------------------------------------------[0m

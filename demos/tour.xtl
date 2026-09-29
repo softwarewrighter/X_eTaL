@@ -61,8 +61,9 @@ u:t_wo @
 u:k_eep := { a ~b -> a }         # `~b` is a lazy parameter: evaluated
 7 u:k_eep 1 / 0                  # only if used, so no division by zero
 (u:s_ub 100)_ 1                  # `(expr)_` applies a function value
-u:t_wice := { f_ x -> f_ f_ x }  # a function parameter is called directly
-'u:s_quare u:t_wice 3
+u:t_wice := { f_ x -> f_ f_ x }  # apply a function parameter two times
+'{ _r + 10 } u:t_wice 3          # 3 + 10 + 10
+'u:s_quare u:t_wice 3            # square (square 3) = 9 squared
 
 # -- Quotes and operands --------------------------------------------------
 '+ r_/ 1 2 3 4           # a quoted function is the operand of `r_/` (reduce)

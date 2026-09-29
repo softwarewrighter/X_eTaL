@@ -1,6 +1,6 @@
 number = 16
 slug = "tui-docs-release"
-status = "pending"
+status = "in-progress"
 description = "tui step 7: README tour of the editor and live REPL (text screenshots from sn..."
 role = "production"
 context_files = []
