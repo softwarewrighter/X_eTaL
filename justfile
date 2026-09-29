@@ -79,6 +79,24 @@ show file: _quiet-build
 slow-show file delay="500": _quiet-build
     @{{xetal}} run --echo --delay "$2" "$1"
 
+# The Emacs mode and Org Babel language, with ERT in a batch Emacs (skipped without Emacs)
+test-emacs: build
+    #!/usr/bin/env bash
+    set -euo pipefail
+    emacs=${EMACS:-}
+    [ -n "$emacs" ] || ! command -v emacs >/dev/null 2>&1 || emacs=emacs
+    [ -n "$emacs" ] || [ ! -x /Applications/Emacs.app/Contents/MacOS/Emacs ] || emacs=/Applications/Emacs.app/Contents/MacOS/Emacs
+    if [ -z "$emacs" ]; then echo "test-emacs: no Emacs; skipped"; exit 0; fi
+    "$emacs" --batch -Q -L docs/emacs -l docs/emacs/test/xetal-tests.el -f ert-run-tests-batch-and-exit
+
+# Run the literate documents (docs/literate/*.org), recording each block's result
+literate:
+    scripts/literate.sh
+
+# The literate documents' recorded results are current
+check-literate:
+    scripts/literate.sh --check
+
 # Regenerate the README / docs images (vhs, ImageMagick)
 screenshots:
     scripts/screenshots.sh

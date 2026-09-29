@@ -1,6 +1,7 @@
 //! The `xetal` binary: every pipeline stage exposed as deterministic text.
 
 mod args;
+mod context;
 mod echo;
 mod stages;
 
@@ -21,6 +22,7 @@ fn main() -> ExitCode {
             seed: None,
             echo: false,
             delay: None,
+            context: None,
         },
         (None, None) => {
             use clap::CommandFactory;

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run --context reg/fixtures/context.xtl reg/fixtures/block.xtl"
+exit_code = 0
+desc = "a block continues a program it was given as context, showing only its own output (org-babel sessions)"

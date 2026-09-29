@@ -519,6 +519,24 @@ pieces built for the editor and the REPL, with no new display code:
 The web playground (Saga 13) draws the same view model and grids in
 the browser.
 
+### 8.1g Emacs and literate documents
+
+`docs/emacs/xetal-mode.el` colours X_eTaL source in the classes of
+`xetal render --color` and, with `prettify-symbols-mode`, shows `:=`
+`->` `_l` `_r` `!=` `<=` `>=` as the decorated glyphs while the file
+keeps its ASCII. `docs/emacs/ob-xetal.el` runs Org Babel blocks with
+`xetal run`: `:seed`, `:echo yes` (a notebook run) and `:untyped yes`
+map to the flags, and `:session NAME` continues the earlier blocks of
+that session in the buffer (`xetal run --context FILE`: the context
+runs silently in a REPL session and only the block's output is
+shown). The session is read from the buffer each time, so rerunning a
+block or the buffer gives the same results. `docs/literate/tour.org`
+is the language tour as a literate program, one statement per block
+with its result recorded; `scripts/literate.sh` reruns it in a batch
+Emacs and `--check` fails when a recorded result is out of date. The
+gate runs the ERT tests (`just test-emacs`) and the check, skipped
+where there is no Emacs.
+
 ### 8.2 LaTeX (`xetal render --latex`)
 
 One way and complete: the body of a math environment for KaTeX,

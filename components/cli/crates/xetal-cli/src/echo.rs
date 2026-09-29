@@ -52,6 +52,11 @@ fn pause(delay: Option<u64>, source: &str) {
 /// evaluations.
 pub(crate) fn evaluation(command: &Command, source: &str) -> Option<Result<String, Diagnostic>> {
     Some(match command {
+        Command::Run {
+            context: Some(path),
+            seed,
+            ..
+        } => seed_or_env(*seed).and_then(|seed| crate::context::after_context(path, source, seed)),
         Command::Eval(EvalArgs {
             echo: true,
             seed,

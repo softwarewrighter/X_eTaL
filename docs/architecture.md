@@ -95,6 +95,8 @@ components/
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
                            harness), xetal-spec (case files),
                            xetal-repl (interactive session)
+docs/emacs/                xetal-mode.el, ob-xetal.el (Org Babel), ERT tests
+docs/literate/             literate Org documents (tour.org), results recorded
 spec/                      language spec corpus (*.case files)
 reg/                       reg-rs baselines (*.rgt, *.out, *.err) - committed
 demos/                     executable .xtl demo scripts (reg-rs goldens)

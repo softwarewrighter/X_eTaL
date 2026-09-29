@@ -38,3 +38,25 @@ pub fn notebook(src: &str, seed: u64) -> Vec<Cell> {
     }
     cells
 }
+
+/// `block` run after `context` (earlier blocks, run silently in the
+/// same session): what the block printed, as one cell. For org-babel
+/// sessions, where each block continues the ones before it.
+pub fn continued(context: &str, block: &str, seed: u64) -> Cell {
+    let mut session = Session::seeded(seed);
+    for line in context.lines() {
+        session.feed(line);
+    }
+    let (mut out, mut err) = (String::new(), String::new());
+    for line in block.lines() {
+        if let Reply::Done { out: o, err: e } = session.feed(line) {
+            out.push_str(&o);
+            err.push_str(&e);
+        }
+    }
+    Cell {
+        source: block.to_string(),
+        out,
+        err,
+    }
+}

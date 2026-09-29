@@ -44,3 +44,16 @@ fn printing_and_rolling_are_not_repeated() {
     assert_eq!(got[1].1, "5\n5\n");
     assert_eq!(got[2].1, "1\n");
 }
+
+#[test]
+fn a_block_continues_after_earlier_ones_showing_only_its_own_output() {
+    let context = "u:s_q := { _r * _r }\nu:s_q 3\np_rint! 1\n";
+    let got = xetal_repl::continued(context, "u:s_q 4\nu:s_q 5\n", 7);
+    assert_eq!((got.out.as_str(), got.err.as_str()), ("16\n25\n", ""));
+}
+
+#[test]
+fn a_failing_block_reports_its_error() {
+    let got = xetal_repl::continued("x := 1\n", "x + y\n", 7);
+    assert!(got.err.contains("error["), "{got:?}");
+}

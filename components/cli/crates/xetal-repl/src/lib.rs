@@ -5,6 +5,6 @@ mod notebook;
 mod session;
 mod stdio;
 
-pub use notebook::{Cell, notebook};
+pub use notebook::{Cell, continued, notebook};
 pub use session::{Reply, Session};
 pub use stdio::stdio;

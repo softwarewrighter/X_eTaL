@@ -470,7 +470,23 @@ button (a dialog listing the keys and a short language summary) and
 the footer the other live demos share (as in sw-mlpl): MIT License,
 copyright, a GitHub repo-links dialog, Changes, Literate (the
 exported literate tour), Blog, Discord, YouTube, Wiki, and build
-info. Later: the stepping debugger's panes, "why this parse", hover
+info. Also decided with the user:
+- The footer's Literate link leads to HTML exports of the literate
+  documents (the tour, Life, and others as they are written), built
+  into `./pages/literate/` with Org's HTML export.
+- Built locally into `./pages` (committed) and published by a GitHub
+  Actions workflow that deploys that folder (nothing is built on
+  GitHub); the README links to it.
+- A drop-down loads the canned `.xtl` files (the demos and the tour).
+- Help opens a dialog explaining how the live editor works (moving the
+  cursor, Tab between panes, Ctrl-T zoom, Ctrl-R run), dismissed by
+  its corner X, a click on the background, or Escape.
+- Load and save in the browser's local storage, like the workspaces
+  of the sw-apl live demo (../../sw-vibe-coding/sw-apl).
+- The standard libraries are bundled, the Combinators library among
+  them, and the tour uses Combinators (so the tour gains a libraries
+  section once Saga 9 writes it).
+Later: the stepping debugger's panes, "why this parse", hover
 tooltips, a LaTeX view.
 
 ## Deferred (from `lang-choices.md` section 15)

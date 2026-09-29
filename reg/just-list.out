@@ -2,6 +2,7 @@ Available recipes:
     animate                    # Play the rotate demo (demos/rotate.xtl) as an animation
     build                      # Build every component (debug) into the shared target/
     build-release              # recipes use the debug build, so run this before using target/release
+    check-literate             # The literate documents' recorded results are current
     clippy                     # Lint every component (warnings are errors)
     default                    # List the recipes
     edit file                  # Edit a file with the live decorated view: just edit demos/life.xtl
@@ -10,6 +11,7 @@ Available recipes:
     gate                       # The full pre-commit gate: locks, fmt, clippy, tests, goldens, checklist, markdown
     install dir="~/.local/bin" # Build optimized and install xetal and x_etal into a PATH directory (for #! scripts)
     life                       # Life: a blinker and a glider, stepped (demos/life.xtl)
+    literate                   # Run the literate documents (docs/literate/*.org), recording each block's result
     locks *args                # Check (or with --fix, regenerate) the component Cargo.lock files
     pp file                    # Pretty-print a file like cat: decorated and highlighted (errors in red)
     reg                        # Run the reg-rs CLI goldens in reg/
@@ -19,5 +21,6 @@ Available recipes:
     show file                  # Run a file as a notebook: each statement pretty-printed, then its output
     slow-show file delay="500" # A notebook run that pauses after each statement (ms, default 500): for watching or recording
     test                       # Run every component's tests
+    test-emacs                 # The Emacs mode and Org Babel language, with ERT in a batch Emacs (skipped without Emacs)
     tour                       # The language tour: every feature, commented, each line with its output
     videos                     # Regenerate the videos (vhs, ffmpeg, gif2webp)

@@ -127,6 +127,10 @@ pub(crate) enum Command {
         /// With --echo, pause this many milliseconds after each statement.
         #[arg(long, requires = "echo", value_name = "MS")]
         delay: Option<u64>,
+        /// Run the program in FILE first, silently, then this one as its
+        /// continuation, showing only this one's output (org-babel sessions).
+        #[arg(long, value_name = "FILE", conflicts_with_all = ["echo", "untyped"])]
+        context: Option<String>,
     },
     /// Start an interactive session.
     Repl,

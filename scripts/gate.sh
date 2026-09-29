@@ -22,6 +22,11 @@ for c in "${COMPONENTS[@]}"; do
 done
 step "reg-rs goldens"
 scripts/reg.sh run
+step "Emacs mode and org-babel (ERT; skipped without Emacs)"
+emacs_out="$(just test-emacs 2>&1)" || { echo "$emacs_out"; exit 1; }
+echo "$emacs_out" | grep -E "Ran [0-9]+ tests|skipped" || true
+step "literate documents (docs/literate)"
+scripts/literate.sh --check
 step "sw-checklist"
 checklist="$(sw-checklist . 2>&1)" || { echo "$checklist"; exit 1; }
 echo "$checklist" | tail -1

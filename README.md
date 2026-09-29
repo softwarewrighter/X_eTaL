@@ -56,6 +56,11 @@ blinker and a glider with it:
 u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 ```
 
+That is the line as typed. Pretty-printed (`just pp`), the same source
+is drawn decorated and highlighted:
+
+![The Life line pretty-printed: decorated glyphs, colored by kind](images/life-line.png)
+
 Read right to left: rotate the board `_r` by every offset in `-1 0 1`
 along axes 1 and 2 (`o_-_12`), giving a 3 by 3 arrangement of boards,
 and sum over those two axes (`'+ r_/_12`), giving S, each cell plus
@@ -123,6 +128,9 @@ the [M0 and M1 tour](docs/tour-m0-m1.md) walks through every stage
 
 - [`docs/tour.md`](docs/tour.md) -- the language tour and the milestone
   tours (M0 to M5b)
+- [`docs/literate/tour.org`](docs/literate/tour.org) -- the language tour
+  as a literate Org document, every block run and its result recorded
+  (`docs/emacs/`: `xetal-mode` and `ob-xetal` for Org Babel)
 - [`docs/input.md`](docs/input.md) -- how to type X_eTaL expressions
 - [`docs/lang-choices.md`](docs/lang-choices.md) -- the language decisions
 - [`docs/PRD.md`](docs/PRD.md) -- product requirements and milestones

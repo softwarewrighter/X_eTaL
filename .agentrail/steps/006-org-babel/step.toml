@@ -1,6 +1,6 @@
 number = 6
 slug = "org-babel"
-status = "pending"
+status = "in-progress"
 description = "libraries step 6 (inserted at the user's request): ob-xetal.el, org-babel sup..."
 role = "production"
 context_files = []
