@@ -490,8 +490,8 @@ implementation in Rust test code). No Life-specific code paths.
 APL's quad names, as decided with the user (lang-choices section 13a,
 QD1-QD3): `[]` touching a name lexes as one system-name token,
 displayed as the quad glyph; the values `[]A`, `[]D`, `[]AV`, `[]TS`
-and `[]IO` (always 1); the functions `[]D_L!` (delay), `[]U_CS`
-(character codes), `[]R_EAD!` and `[]V_ALUE!` (input, for the course
+and `[]IO` (always 1); the functions `[]D_L` (delay), `[]U_CS`
+(character codes), `[]R_EAD` and `[]V_ALUE` (input, for the course
 and drill ports). Each with spec cases, rejection tests (an unknown
 system name, a quad function used as a value), types, the view
 model's colors and the Emacs mode. Scheduled before the APL ports,
