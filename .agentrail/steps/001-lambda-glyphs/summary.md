@@ -1,0 +1,1 @@
+_r/_l render as subscript r/l (applied: underlined), exact round trip; new render module; goldens rebased on purpose; docs updated. Gate green, pushed.
