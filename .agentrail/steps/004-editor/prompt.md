@@ -1,0 +1,1 @@
+tui step 4: TDD xetal edit FILE: split panes, live types/diagnostics with error spans highlighted in both panes, Ctrl-R run output, Ctrl-S save, Ctrl-Q quit with unsaved confirmation, new files.

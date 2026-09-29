@@ -1,0 +1,9 @@
+number = 4
+slug = "editor"
+status = "pending"
+description = "tui step 4: TDD xetal edit FILE: split panes, live types/diagnostics with err..."
+role = "production"
+context_files = []
+created_at = "2026-09-28T21:36:34"
+task_type = "code"
+commits = []

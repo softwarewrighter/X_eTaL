@@ -1,0 +1,1 @@
+tui step 1: TDD _r/_l decorated as subscript r/l (U+1D63, U+2097), round-trip via render --raw; spec RENDER cases; rebase affected goldens on purpose; record in lang-choices I3 and design.md (ASCII-only docs).

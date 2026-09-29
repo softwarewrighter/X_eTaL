@@ -1,0 +1,1 @@
+tui step 2: TDD components/view: tolerant token-wise rendering into styled segments (decorated text, semantic class, raw<->rendered span map), never fails on invalid input; xetal render --color with ANSI highlighting (golden).

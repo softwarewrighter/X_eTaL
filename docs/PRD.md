@@ -132,6 +132,7 @@ presentation layer, never the storage format.
 | M3 | `2 3 r_eshape r_ange 6` and select / take / drop matrix demo |
 | M4 | `'+ r_/ 1 2 3 4` gives 10; `u:s_um := r_/ '+`; scan, each, table |
 | M5 | 2-D rotate, multi-axis `-1 0 1 o_-_12 B`                    |
+| M5b| `xetal edit`: ASCII left, live decorated view right; live-rendered REPL |
 | M6 | combinator notebook with inferred types; Y via a lazy parameter |
 | M6b| the combinators as a library: `"c:" u_se< "Combinators"`    |
 | M7 | fork / atop train expansion                                 |

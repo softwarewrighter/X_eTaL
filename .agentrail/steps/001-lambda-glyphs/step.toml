@@ -1,0 +1,9 @@
+number = 1
+slug = "lambda-glyphs"
+status = "pending"
+description = "tui step 1: TDD _r/_l decorated as subscript r/l (U+1D63, U+2097), round-trip..."
+role = "production"
+context_files = []
+created_at = "2026-09-28T21:36:34"
+task_type = "code"
+commits = []

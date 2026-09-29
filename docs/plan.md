@@ -262,7 +262,7 @@ by the move-to-front rule (A6), multi-axis reduce and scan (R1),
 multi-axis rotate giving every combination (A4). Axis validation.
 Properties: rotate inverse. Animated 2-D rotate demo via CLI frames.
 With these the Life one-liner runs (step 4 flips its acceptance
-case to active); Saga 10 adds the other Life goldens.
+case to active); Saga 11 (life) adds the other Life goldens.
 
 | #  | Step slug         | Delivers                                                   |
 | -- | ----------------- | ---------------------------------------------------------- |
@@ -311,7 +311,41 @@ What to do differently:
   subscript are errors by design; the animation is a terminal
   playback of printed frames (no timing in the language).
 
-## Saga 7 -- combinators (M6)
+## Saga 7 -- tui (M5b)
+
+See the source as it is displayed while typing it as ASCII. A
+front-end-agnostic view model (`components/view`) turns source, valid
+or not, into styled segments: decorated Unicode glyphs (underlines,
+subscript axes, superscript exponents and namespaces, subscript r
+and l glyphs (U+1D63, U+2097) for `_r` / `_l`), a semantic class per token for highlighting, and a map
+between raw byte offsets and rendered columns. Terminal widgets
+(`components/tui`, ratatui + crossterm) draw it: an ASCII source
+pane, a rendered pane, an output pane and an array viewer. Two apps
+use them: `xetal edit FILE`, a nano-like editor with the ASCII text
+on the left and the live rendered, highlighted view on the right,
+types and diagnostics live below and results on Ctrl-R; and
+`xetal repl`, which renders the line as it is typed when on a
+terminal (piped input keeps the plain behavior). The view model and
+widgets are the base for the stepping debugger (Saga 12) and the web
+playground (Saga 13).
+
+Decisions (with the user): live rendering in the REPL; split editor
+with a live types/diagnostics pane and results on demand (effects such
+as `p_rint!` and `r_oll!` run only on Ctrl-R); `_r` / `_l` render as
+subscript r and l; ratatui + crossterm, screens tested with TestBackend
+buffer snapshots.
+
+| #  | Step slug        | Delivers                                                    |
+| -- | ---------------- | ----------------------------------------------------------- |
+| 1  | lambda-glyphs    | subscript r and l for `_r` `_l`, round-tripping             |
+| 2  | view-model       | tolerant styled segments with classes and a span map; `xetal render --color` |
+| 3  | tui-foundation   | text buffer, nano keymap, source and rendered panes, snapshots |
+| 4  | editor           | `xetal edit FILE`: split panes, live types, Ctrl-R run, save |
+| 5  | array-view       | array viewer widget for results (reused by the debugger)    |
+| 6  | repl-live        | live-rendered REPL line editor with history on a terminal   |
+| 7  | tui-docs-release | README tour, debugger design notes, retrospective           |
+
+## Saga 8 -- combinators (M6)
 
 The birds I K S B C W V T and more, written with named parameters
 (L4), with inferred types checked by tests; Y working through a lazy
@@ -322,7 +356,7 @@ with safe division chained by bind, type-checked, as spec cases and a
 demo (`demos/monads.xtl`); note what needs nested arrays (the list
 monad's bind) or named types.
 
-## Saga 8 -- libraries (M6b)
+## Saga 9 -- libraries (M6b)
 
 The macro phase (MC1-MC9): `u_se<` with a required alias, libraries
 defining under `l:`, per-file aliases with private imports, one shared
@@ -330,24 +364,28 @@ instance per library, the macro-phase error table. The birds become
 the first library, `Combinators.xtl`, used as `"c:" u_se<
 "Combinators"`.
 
-## Saga 9 -- trains (M7)
+## Saga 10 -- trains (M7)
 
 `[F G H]` forks and `[F G]` atop (TR1-TR3), purely by desugaring;
 fork-law property test; type errors for ill-typed trains.
 
-## Saga 10 -- life (M8)
+## Saga 11 -- life (M8)
 
 The Life case is active from Saga 6; block, blinker, glider and
 random-board goldens (random boards checked against a reference
 implementation in Rust test code). No Life-specific code paths.
 
-## Saga 11 -- trace-and-explain
+## Saga 12 -- trace-and-explain
 
 Trace tree (NodeId, span, value, type, shape, children) following the
 evaluation order (E4); `xetal explain` prints the right-to-left
-derivation; expanded (long-name) printer.
+derivation; expanded (long-name) printer. A visual stepper, `xetal debug FILE`,
+reuses the Saga 7 view model and widgets: the rendered source pane
+highlights the node being evaluated (by its span), and the array
+viewer shows its intermediate value, stepping forward and back
+through the trace tree.
 
-## Saga 12 -- web-playground (M9)
+## Saga 13 -- web-playground (M9)
 
 WASM playground: raw editor with decorated overlay (Unicode and a
 LaTeX subset), display modes, semantic highlighting, hover tooltips,

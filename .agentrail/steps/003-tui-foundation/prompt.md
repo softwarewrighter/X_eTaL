@@ -1,0 +1,1 @@
+tui step 3: TDD components/tui with ratatui+crossterm: text buffer (cursor, edits), nano keymap as data, source and rendered pane widgets with highlighting and synced scroll; TestBackend snapshot tests and scripted keys; terminal restore guard.

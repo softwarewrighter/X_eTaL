@@ -1,0 +1,1 @@
+tui step 6: TDD live-rendered REPL on a terminal: raw-mode line editor rendering as you type, history, multi-line continuation, Ctrl-D; piped input unchanged (goldens).

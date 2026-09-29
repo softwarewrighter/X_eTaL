@@ -1,0 +1,1 @@
+tui step 5: TDD array viewer widget (matrix grid, rank-3 slices, strings, scalars, scrolling) used by the editor output pane, designed for reuse by the debugger.

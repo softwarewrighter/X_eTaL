@@ -1,0 +1,1 @@
+tui step 7: README tour of the editor and live REPL (text screenshots from snapshot tests), docs sync, debugger design notes in design.md, Saga 7 retrospective in plan.md.
