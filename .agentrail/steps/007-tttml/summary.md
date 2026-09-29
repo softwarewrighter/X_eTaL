@@ -1,0 +1,1 @@
+demos/tttml.xtl: TTTML ported from sw-apl (boards, lines by inner product, outcomes, symmetric base-3 codes, TD self-play learning, trials vs random: 50/0/0 as X, 41/0/9 as O, a shown self-play game); 3000 games in ~10 s, 758 positions; just tttml (release); golden run-tttml. Library, literate org and the interactive train/save + load/play demos follow as new steps.

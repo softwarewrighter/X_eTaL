@@ -1,8 +1,9 @@
 number = 7
 slug = "tttml"
-status = "in-progress"
+status = "completed"
 description = "combinators step 7 (inserted, top priority at the user's request, for a demo ..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T15:27:29"
-commits = []
+completed_at = "2026-09-29T16:03:21"
+commits = ["b22ca8eba5b24627dc935578a8132aa92616c664"]

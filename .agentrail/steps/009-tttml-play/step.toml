@@ -1,0 +1,8 @@
+number = 9
+slug = "tttml-play"
+status = "pending"
+description = "TTTML in two demos (user request): demo 1 trains and writes the learned weigh..."
+role = "production"
+context_files = []
+created_at = "2026-09-29T16:03:21"
+commits = []
