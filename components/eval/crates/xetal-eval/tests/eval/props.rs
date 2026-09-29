@@ -5,7 +5,7 @@
 use proptest::prelude::*;
 
 /// Printed output of a type-checked program.
-fn typed(src: &str) -> String {
+pub(crate) fn typed(src: &str) -> String {
     let mut program = xetal_core::lower(src).expect("lowers");
     xetal_types::check_program(&mut program).unwrap_or_else(|e| panic!("{src:?}: {e:?}"));
     let mut out = Vec::new();
@@ -19,7 +19,7 @@ fn typed(src: &str) -> String {
 }
 
 /// A vector literal of any length (a one-item strand would be a scalar).
-fn lit(v: &[i64]) -> String {
+pub(crate) fn lit(v: &[i64]) -> String {
     let items: Vec<String> = v.iter().map(ToString::to_string).collect();
     match v.len() {
         0 => "(0 t_ake 0)".into(),
@@ -27,7 +27,7 @@ fn lit(v: &[i64]) -> String {
     }
 }
 
-fn shown(v: &[i64]) -> String {
+pub(crate) fn shown(v: &[i64]) -> String {
     v.iter()
         .map(ToString::to_string)
         .collect::<Vec<_>>()

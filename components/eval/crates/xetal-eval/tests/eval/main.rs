@@ -1,5 +1,6 @@
 //! Evaluator tests (one test binary so helpers are shared).
 
+mod axes_props;
 mod errors;
 mod lambdas;
 mod order;

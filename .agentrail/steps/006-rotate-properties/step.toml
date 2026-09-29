@@ -1,6 +1,6 @@
 number = 6
 slug = "rotate-properties"
-status = "pending"
+status = "in-progress"
 description = "rotate-and-axes step 5: proptests: rotate n then -n is identity, r_ev twice i..."
 role = "production"
 context_files = []
