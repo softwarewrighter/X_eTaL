@@ -1,0 +1,1 @@
+_l/_r now display as APL alpha/omega (U+237A/U+2375) instead of subscript l/r (unreadable in the user's font); round trip exact; goldens rebased on purpose; tests and docs updated. Gate green, pushed. User's demos/life.xtl edit stashed only during the gate and restored.
