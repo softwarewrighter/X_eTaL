@@ -1,8 +1,9 @@
 number = 6
 slug = "operand-colors"
-status = "in-progress"
+status = "completed"
 description = "tui step 6 (inserted at the user's request): symbols are system functions, co..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T22:24:46"
-commits = []
+completed_at = "2026-09-28T22:27:07"
+commits = ["0e274b3fdfff4ed3a692af30d2ab1920770d4763"]

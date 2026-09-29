@@ -1,0 +1,1 @@
+Symbols light blue; quotes take the class of the quoted function (lexical, in the view model), shared by render --color, pp and editor; goldens rebased on purpose + render-color-operands; docs. Gate green, pushed.
