@@ -23,6 +23,18 @@ pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
         xetal_repl::stdio().map_err(|e| Diagnostic::new("io", e.to_string()))?;
         return Ok(String::new());
     }
+    if let Command::Edit { file } = command {
+        use std::io::IsTerminal;
+        if !(std::io::stdin().is_terminal() && std::io::stdout().is_terminal()) {
+            return Err(Diagnostic::new(
+                "no-terminal",
+                "xetal edit needs a terminal",
+            ));
+        }
+        xetal_edit::run(std::path::Path::new(file))
+            .map_err(|e| Diagnostic::new("io", e.to_string()))?;
+        return Ok(String::new());
+    }
     let Some(source) = command.source() else {
         return Err(Diagnostic::unsupported(command.stage()));
     };

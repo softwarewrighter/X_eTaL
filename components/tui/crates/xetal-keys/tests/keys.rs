@@ -21,11 +21,24 @@ fn nano_keys_map_to_commands() {
     assert_eq!(command(ctrl('r')), Some(Command::App(Action::Run)));
     assert_eq!(command(ctrl('a')), Some(Command::Home));
     assert_eq!(command(ctrl('e')), Some(Command::End));
+    assert_eq!(command(ctrl('b')), Some(Command::Left));
+    assert_eq!(command(ctrl('f')), Some(Command::Right));
+    assert_eq!(command(ctrl('n')), Some(Command::Down));
+    assert_eq!(command(ctrl('p')), Some(Command::Up));
     assert_eq!(command(key(KeyCode::Char('x'))), Some(Command::Insert('x')));
     assert_eq!(
         command(KeyEvent::new(KeyCode::Char('X'), KeyModifiers::SHIFT)),
         Some(Command::Insert('X'))
     );
+    assert_eq!(
+        command(key(KeyCode::Tab)),
+        Some(Command::App(Action::NextPane))
+    );
+    assert_eq!(
+        command(KeyEvent::new(KeyCode::BackTab, KeyModifiers::SHIFT)),
+        Some(Command::App(Action::PrevPane))
+    );
+    assert_eq!(command(key(KeyCode::PageDown)), Some(Command::PageDown));
     assert_eq!(command(ctrl('z')), None);
 }
 

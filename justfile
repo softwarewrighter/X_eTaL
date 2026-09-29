@@ -54,6 +54,14 @@ run file: _quiet-build
 eval expr: _quiet-build
     @{{xetal}} eval -e "$1"
 
+# Pretty-print a file like cat: decorated and highlighted (errors in red)
+pp file: _quiet-build
+    @{{xetal}} render --color "$1"
+
+# Edit a file with the live decorated view: just edit demos/life.xtl
+edit file: _quiet-build
+    @{{xetal}} edit "$1"
+
 # Step the Life blinker (demos/life.xtl)
 life: _quiet-build
     @{{xetal}} run demos/life.xtl

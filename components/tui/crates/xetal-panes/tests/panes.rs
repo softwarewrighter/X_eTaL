@@ -5,7 +5,7 @@ use ratatui::backend::TestBackend;
 use ratatui::buffer::Buffer as Screen;
 use ratatui::layout::Rect;
 use xetal_buffer::Buffer;
-use xetal_panes::Panes;
+use xetal_panes::{Focus, Panes, Scroll};
 
 /// The screen as text, one string per row (combining marks kept).
 fn rows(screen: &Screen) -> Vec<String> {
@@ -23,7 +23,7 @@ fn rows(screen: &Screen) -> Vec<String> {
 
 fn draw(buffer: &Buffer, width: u16, height: u16) -> (Vec<String>, Panes) {
     let mut terminal = Terminal::new(TestBackend::new(width, height)).unwrap();
-    let panes = Panes::new(buffer, 0);
+    let panes = Panes::new(buffer, None);
     terminal
         .draw(|f| f.render_widget(&panes, f.area()))
         .unwrap();
@@ -64,16 +64,54 @@ fn invalid_text_still_draws() {
 }
 
 #[test]
-fn scrolling_keeps_the_cursor_row_visible() {
-    let mut b = Buffer::new("a\nb\nc\nd\ne");
+fn a_marked_span_is_highlighted_in_both_panes() {
+    let b = Buffer::new("1 + 'x");
+    let panes = Panes::new(&b, Some((4, 6)));
+    let mut terminal = Terminal::new(TestBackend::new(40, 3)).unwrap();
+    terminal
+        .draw(|f| f.render_widget(&panes, f.area()))
+        .unwrap();
+    let screen = terminal.backend().buffer();
+    let red = |x: u16| screen[(x, 1)].bg == ratatui::style::Color::Red;
+    assert!(red(1 + 4) && red(1 + 5) && !red(1));
+    assert!(red(21 + 4) && !red(21));
+}
+
+#[test]
+fn following_scrolls_rows_and_columns_to_the_cursor() {
+    let mut b = Buffer::new("a\nb\nc\nd\n0123456789abcdefghij");
     for _ in 0..4 {
         b.down();
     }
-    assert_eq!(Panes::scroll_for(&b, 0, 2), 3);
-    assert_eq!(Panes::scroll_for(&b, 4, 2), 4);
-    let panes = Panes::new(&b, 3);
-    let (screen, _) = (draw_with(&panes, 20, 4), ());
-    assert!(screen[1].starts_with("\u{2502}d"), "{screen:?}");
+    b.end();
+    let mut panes = Panes::new(&b, None);
+    let area = Rect::new(0, 0, 20, 4);
+    panes.follow(area);
+    assert_eq!((panes.left.row, panes.left.col), (3, 13));
+    let screen = draw_with(&panes, 20, 4);
+    assert!(screen[2].starts_with("\u{2502}defghij"), "{screen:?}");
+    let (left, _) = panes.cursors(area);
+    assert_eq!((left.x, left.y), (1 + 7, 2));
+}
+
+#[test]
+fn scrolling_by_hand_stays_inside_the_content() {
+    let s = Scroll::default().by((5, -3), (3, 10));
+    assert_eq!((s.row, s.col), (2, 0));
+    assert_eq!(s.by((-1, 20), (3, 10)), Scroll { row: 1, col: 9 });
+}
+
+#[test]
+fn the_focused_pane_has_a_highlighted_border() {
+    let mut panes = Panes::new(&Buffer::new("x"), None);
+    panes.focus = Some(Focus::Rendered);
+    let mut terminal = Terminal::new(TestBackend::new(40, 3)).unwrap();
+    terminal
+        .draw(|f| f.render_widget(&panes, f.area()))
+        .unwrap();
+    let screen = terminal.backend().buffer();
+    assert_eq!(screen[(20, 0)].fg, ratatui::style::Color::Yellow);
+    assert_ne!(screen[(0, 0)].fg, ratatui::style::Color::Yellow);
 }
 
 fn draw_with(panes: &Panes, width: u16, height: u16) -> Vec<String> {

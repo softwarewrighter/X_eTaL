@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-buffer", "crates/xetal-keys", "crates/xetal-panes", "crates/xetal-term"]
+members = ["crates/xetal-buffer", "crates/xetal-keys", "crates/xetal-panes", "crates/xetal-term", "crates/xetal-edit"]
 
 [workspace.package]
 version = "0.1.0"
@@ -20,5 +20,9 @@ xetal-buffer = { path = "crates/xetal-buffer" }
 xetal-keys = { path = "crates/xetal-keys" }
 xetal-panes = { path = "crates/xetal-panes" }
 xetal-term = { path = "crates/xetal-term" }
+xetal-edit = { path = "crates/xetal-edit" }
+xetal-core = { path = "../core/crates/xetal-core" }
+xetal-types = { path = "../types/crates/xetal-types" }
+xetal-eval = { path = "../eval/crates/xetal-eval" }
 ratatui = "0.30"
 proptest = "1"

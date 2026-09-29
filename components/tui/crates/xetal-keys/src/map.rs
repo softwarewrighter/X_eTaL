@@ -1,4 +1,6 @@
-//! Key events to commands. Control keys come from [`KEYMAP`]; a
+//! Key events to commands. Control keys come from [`KEYMAP`]: nano's
+//! file keys and Emacs motions (Ctrl-A/E line start and end, Ctrl-B/F
+//! back and forward a character, Ctrl-P/N previous and next line); a
 //! printable character without Control inserts itself.
 
 use ratatui::crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
@@ -9,6 +11,9 @@ pub enum Action {
     Save,
     Quit,
     Run,
+    /// Move the focus to the next (or previous) pane.
+    NextPane,
+    PrevPane,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -23,6 +28,8 @@ pub enum Command {
     Down,
     Home,
     End,
+    PageUp,
+    PageDown,
     App(Action),
 }
 
@@ -38,6 +45,10 @@ pub const KEYMAP: &[(KeyCode, KeyModifiers, Command)] = &[
     (KeyCode::Char('r'), CTRL, Command::App(Action::Run)),
     (KeyCode::Char('a'), CTRL, Command::Home),
     (KeyCode::Char('e'), CTRL, Command::End),
+    (KeyCode::Char('b'), CTRL, Command::Left),
+    (KeyCode::Char('f'), CTRL, Command::Right),
+    (KeyCode::Char('n'), CTRL, Command::Down),
+    (KeyCode::Char('p'), CTRL, Command::Up),
     (KeyCode::Enter, NONE, Command::Newline),
     (KeyCode::Backspace, NONE, Command::Backspace),
     (KeyCode::Delete, NONE, Command::Delete),
@@ -47,6 +58,10 @@ pub const KEYMAP: &[(KeyCode, KeyModifiers, Command)] = &[
     (KeyCode::Down, NONE, Command::Down),
     (KeyCode::Home, NONE, Command::Home),
     (KeyCode::End, NONE, Command::End),
+    (KeyCode::PageUp, NONE, Command::PageUp),
+    (KeyCode::PageDown, NONE, Command::PageDown),
+    (KeyCode::Tab, NONE, Command::App(Action::NextPane)),
+    (KeyCode::BackTab, NONE, Command::App(Action::PrevPane)),
 ];
 
 /// The command for a key event, if it has one.

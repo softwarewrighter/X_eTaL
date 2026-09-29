@@ -21,6 +21,7 @@ xetal-lex = { path = "../syntax/crates/xetal-lex" }
 xetal-syntax = { path = "../syntax/crates/xetal-syntax" }
 xetal-render = { path = "../render/crates/xetal-render" }
 xetal-view = { path = "../view/crates/xetal-view" }
+xetal-edit = { path = "../tui/crates/xetal-edit" }
 xetal-core = { path = "../core/crates/xetal-core" }
 xetal-ty = { path = "../types/crates/xetal-ty" }
 xetal-types = { path = "../types/crates/xetal-types" }

@@ -16,6 +16,7 @@ xetal-base.workspace = true
 xetal-lex.workspace = true
 xetal-render.workspace = true
 xetal-view.workspace = true
+xetal-edit.workspace = true
 xetal-syntax.workspace = true
 xetal-core.workspace = true
 xetal-types.workspace = true

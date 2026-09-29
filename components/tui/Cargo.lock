@@ -495,6 +495,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39"
 
 [[package]]
+name = "indexmap"
+version = "2.14.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cc4e190f5d26ca7051642629da2c52fc03bde85a03197c99408dcd291734c855"
+dependencies = [
+ "equivalent",
+ "hashbrown 0.17.1",
+]
+
+[[package]]
 name = "indoc"
 version = "2.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1257,6 +1267,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "serde_spanned"
+version = "0.6.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bf41e0cfaf7226dca15e8197172c295a782857fcb97fad1808a166870dee75a3"
+dependencies = [
+ "serde",
+]
+
+[[package]]
 name = "sha2"
 version = "0.10.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1533,6 +1552,47 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9e1c906769ad99c88eaa54e728060edef082f8e358ff32030cb7c7d315e81109"
 
 [[package]]
+name = "toml"
+version = "0.8.23"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dc1beb996b9d83529a9e75c17a1686767d148d70663143c7854d8b4a09ced362"
+dependencies = [
+ "serde",
+ "serde_spanned",
+ "toml_datetime",
+ "toml_edit",
+]
+
+[[package]]
+name = "toml_datetime"
+version = "0.6.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "22cddaf88f4fbc13c51aebbf5f8eceb5c7c5a9da2ac40a13519eb5b0a0e8f11c"
+dependencies = [
+ "serde",
+]
+
+[[package]]
+name = "toml_edit"
+version = "0.22.27"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "41fe8c660ae4257887cf66394862d21dbca4a6ddd26f04a3560410406a2f819a"
+dependencies = [
+ "indexmap",
+ "serde",
+ "serde_spanned",
+ "toml_datetime",
+ "toml_write",
+ "winnow",
+]
+
+[[package]]
+name = "toml_write"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5d99f8c9a7727884afe522e9bd5edbfc91a3312b36a77b5fb8926e4c31a41801"
+
+[[package]]
 name = "typenum"
 version = "1.20.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1791,10 +1851,35 @@ dependencies = [
 ]
 
 [[package]]
+name = "winnow"
+version = "0.7.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "df79d97927682d2fd8adb29682d1140b343be4ac0f08fd68b7765d9c059d3945"
+dependencies = [
+ "memchr",
+]
+
+[[package]]
 name = "wit-bindgen"
 version = "0.57.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1ebf944e87a7c253233ad6766e082e3cd714b5d03812acc24c318f549614536e"
+
+[[package]]
+name = "xetal-arith"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
+]
+
+[[package]]
+name = "xetal-array"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+]
 
 [[package]]
 name = "xetal-ast"
@@ -1802,6 +1887,16 @@ version = "0.1.0"
 dependencies = [
  "xetal-base",
  "xetal-lex",
+]
+
+[[package]]
+name = "xetal-axes"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-rotate",
+ "xetal-value",
 ]
 
 [[package]]
@@ -1816,6 +1911,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-catalog"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "toml",
+]
+
+[[package]]
 name = "xetal-core"
 version = "0.1.0"
 dependencies = [
@@ -1823,6 +1926,61 @@ dependencies = [
  "xetal-ir",
  "xetal-lex",
  "xetal-syntax",
+]
+
+[[package]]
+name = "xetal-edit"
+version = "0.1.0"
+dependencies = [
+ "ratatui",
+ "xetal-base",
+ "xetal-buffer",
+ "xetal-core",
+ "xetal-eval",
+ "xetal-keys",
+ "xetal-panes",
+ "xetal-term",
+ "xetal-types",
+]
+
+[[package]]
+name = "xetal-elab"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-lex",
+ "xetal-ty",
+]
+
+[[package]]
+name = "xetal-eval"
+version = "0.1.0"
+dependencies = [
+ "xetal-arith",
+ "xetal-array",
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-core",
+ "xetal-hof",
+ "xetal-lex",
+ "xetal-lint",
+ "xetal-rotate",
+ "xetal-search",
+ "xetal-struct",
+ "xetal-types",
+ "xetal-value",
+]
+
+[[package]]
+name = "xetal-hof"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-axes",
+ "xetal-base",
+ "xetal-map",
+ "xetal-value",
 ]
 
 [[package]]
@@ -1849,12 +2007,40 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-lint"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-ir",
+]
+
+[[package]]
+name = "xetal-map"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-core",
+ "xetal-value",
+]
+
+[[package]]
 name = "xetal-panes"
 version = "0.1.0"
 dependencies = [
  "ratatui",
  "xetal-buffer",
  "xetal-view",
+]
+
+[[package]]
+name = "xetal-prim-types"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-ty",
 ]
 
 [[package]]
@@ -1865,6 +2051,34 @@ dependencies = [
  "xetal-core",
  "xetal-lex",
  "xetal-syntax",
+]
+
+[[package]]
+name = "xetal-rotate"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
+]
+
+[[package]]
+name = "xetal-search"
+version = "0.1.0"
+dependencies = [
+ "xetal-arith",
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
+]
+
+[[package]]
+name = "xetal-struct"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
 ]
 
 [[package]]
@@ -1881,6 +2095,34 @@ name = "xetal-term"
 version = "0.1.0"
 dependencies = [
  "ratatui",
+]
+
+[[package]]
+name = "xetal-ty"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+]
+
+[[package]]
+name = "xetal-types"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-elab",
+ "xetal-lex",
+ "xetal-prim-types",
+ "xetal-ty",
+]
+
+[[package]]
+name = "xetal-value"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-core",
 ]
 
 [[package]]

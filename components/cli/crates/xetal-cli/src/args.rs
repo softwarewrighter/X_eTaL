@@ -118,6 +118,12 @@ pub(crate) enum Command {
     },
     /// Start an interactive session.
     Repl,
+    /// Edit a file: ASCII left, live decorated view right, types below
+    /// (Ctrl-S save, Ctrl-R run, Ctrl-Q quit).
+    Edit {
+        /// The file to edit (created on the first save if missing).
+        file: String,
+    },
 }
 
 impl Command {
@@ -132,6 +138,7 @@ impl Command {
             Command::Eval(_) => "eval",
             Command::Run { .. } => "run",
             Command::Repl => "repl",
+            Command::Edit { .. } => "edit",
         }
     }
 
@@ -150,7 +157,7 @@ impl Command {
                 Some(read_input(r.input.expr.as_deref(), r.input.file.as_deref()))
             }
             Command::Run { file, .. } => Some(read_input(None, Some(file))),
-            Command::Repl => None,
+            Command::Repl | Command::Edit { .. } => None,
         }
     }
 }

@@ -3,5 +3,5 @@
 mod apply;
 mod map;
 
-pub use apply::apply;
+pub use apply::{PAGE, apply};
 pub use map::{Action, Command, KEYMAP, command};

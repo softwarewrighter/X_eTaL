@@ -119,6 +119,8 @@ just eval "'+ r_/_2 2 3 r_eshape r_ange 6"      # row sums: 6 15
 just life                                       # the Life blinker
 just repl                                       # interactive session (Ctrl-D ends it)
 just run demos/factorial.xtl
+just pp demos/factorial.xtl                     # print it decorated and highlighted
+just edit demos/life.xtl                        # ASCII left, decorated right
 ```
 
 Without it, build and call the binary directly:

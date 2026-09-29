@@ -1,6 +1,6 @@
 number = 4
 slug = "editor"
-status = "pending"
+status = "in-progress"
 description = "tui step 4: TDD xetal edit FILE: split panes, live types/diagnostics with err..."
 role = "production"
 context_files = []

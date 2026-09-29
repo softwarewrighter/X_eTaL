@@ -379,6 +379,29 @@ cover every byte exactly once (a property test over arbitrary text).
 its rendered column (terminal width, combining underlines take none).
 `xetal render --color` prints the segments with ANSI colors.
 
+### 8.1b The editor (`xetal edit FILE`)
+
+A full-screen editor on the view model (`components/tui`): the text
+as typed on the left, its decorated and highlighted form on the
+right, the cursor mapped into both and the panes scrolled together.
+Below, the types of the top-level items (or the first diagnostic,
+whose span is marked in both panes) update as you type; Ctrl-R
+type-checks and runs, and shows the output there, so effects such as
+`p_rint!` and `r_oll!` never run on a keystroke. File keys follow nano
+(Ctrl-S or Ctrl-O save, Ctrl-Q or Ctrl-X quit, asking once more when
+there are unsaved changes, Ctrl-R run) and motions follow Emacs as
+well as the arrow keys (Ctrl-A and Ctrl-E line start and end, Ctrl-B
+and Ctrl-F back and forward, Ctrl-P and Ctrl-N previous and next
+line, PageUp and PageDown); the keymap is a table in `xetal-keys`.
+Tab and Shift-Tab move the focus between the ASCII, Rendered and
+Output panes (the focused border is highlighted). In the ASCII pane
+the motions move the cursor and both panes scroll to follow it, up
+and down and sideways; in the other two they scroll that pane by
+hand, and typing returns to the ASCII pane. A missing file starts empty
+and is created on the first save. The editor is a state machine
+(keys in, screen and file out), tested on ratatui's TestBackend;
+without a terminal `xetal edit` is `error[no-terminal]`.
+
 ### 8.2 LaTeX (`xetal render --latex`)
 
 One way and complete: the body of a math environment for KaTeX,

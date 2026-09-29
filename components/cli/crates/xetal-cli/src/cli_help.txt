@@ -14,6 +14,10 @@ STAGES:
             expression's value (--untyped skips the checker)
     run     type-check and run a .xtl script (also: xetal FILE, for
             #! scripts; --untyped skips the checker)
+    edit    full-screen editor for a FILE: ASCII on the left, the
+            live decorated and highlighted view on the right, types
+            and errors below as you type; Ctrl-R runs, Ctrl-S saves,
+            Ctrl-Q quits
     repl    interactive session reading lines from stdin: definitions
             and types persist, a failing line is dropped, an unclosed
             bracket continues on the next line
