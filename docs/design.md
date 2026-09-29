@@ -333,7 +333,7 @@ Whitespace and comment text between tokens are copied verbatim.
 | `o_-_12` | subscript digits U+2081 U+2082 after the name |
 | `x^2`, `x^-1` | superscript digits (U+00B2 ...) and U+207B for minus |
 | `_r`, `_l` | APL omega U+2375 and alpha U+237A (the dfn argument names); applied (`_l_`) also underlined |
-| `:=` `->` `;` | U+2190 left arrow, U+2192 right arrow, U+22C4 diamond |
+| `:=` `->` `;` | U+2190 left arrow, U+2192 right arrow, U+25C6 black diamond (larger than APL's U+22C4, which reads as a dot in terminal fonts) |
 | `#` (comment start) | U+235D APL lamp |
 | `-` `*` `/` (symbols) | U+2212 minus, U+00D7 times, U+00F7 division |
 | `!=` `<=` `>=` | U+2260, U+2264, U+2265 |

@@ -56,7 +56,7 @@ fn axis_subscripts_and_exponents() {
 fn standalone_tokens_become_single_glyphs() {
     assert_eq!(dec("x := 3"), "x \u{2190} 3");
     assert_eq!(dec("{ x -> x }"), "{ x \u{2192} x }");
-    assert_eq!(dec("a; b"), "a\u{22c4} b");
+    assert_eq!(dec("a; b"), "a\u{25c6} b");
     assert_eq!(
         dec("a - b * c / d != e <= f >= g & h | i"),
         "a \u{2212} b \u{d7} c \u{f7} d \u{2260} e \u{2264} f \u{2265} g \u{2227} h \u{2228} i"

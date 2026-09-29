@@ -1,0 +1,1 @@
+tui step 10 (inserted at the user's request): ';' displays as U+25C6 BLACK DIAMOND instead of U+22C4 (too small in the user's font); round trip; tests, spec, goldens rebased on purpose; docs.

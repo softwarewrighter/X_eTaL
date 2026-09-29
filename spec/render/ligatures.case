@@ -2,4 +2,4 @@
 == SOURCE
 x := 3; { y -> y - 1 } a * b / c != d <= e >= f & g | h
 == RENDER
-x ← 3⋄ { y → y − 1 } a × b ÷ c ≠ d ≤ e ≥ f ∧ g ∨ h
+x ← 3◆ { y → y − 1 } a × b ÷ c ≠ d ≤ e ≥ f ∧ g ∨ h

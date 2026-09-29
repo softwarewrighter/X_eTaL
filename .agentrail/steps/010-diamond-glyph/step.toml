@@ -1,0 +1,8 @@
+number = 10
+slug = "diamond-glyph"
+status = "in-progress"
+description = "tui step 10 (inserted at the user's request): ';' displays as U+25C6 BLACK DI..."
+role = "production"
+context_files = []
+created_at = "2026-09-28T22:51:19"
+commits = []

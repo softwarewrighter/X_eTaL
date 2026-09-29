@@ -92,7 +92,7 @@ pub fn from_superscript_letter(c: char) -> Option<char> {
 pub const LIGATURES: [(&str, char); 12] = [
     (":=", '\u{2190}'),
     ("->", '\u{2192}'),
-    (";", '\u{22c4}'),
+    (";", '\u{25c6}'),
     ("#", '\u{235d}'),
     ("-", '\u{2212}'),
     ("*", '\u{d7}'),

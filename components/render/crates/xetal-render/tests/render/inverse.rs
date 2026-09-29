@@ -31,7 +31,7 @@ fn underlines_namespaces_subscripts_and_exponents() {
 fn single_glyphs_become_their_ascii_tokens() {
     assert_eq!(raw("x \u{2190} 3"), "x := 3");
     assert_eq!(raw("{ x \u{2192} x }"), "{ x -> x }");
-    assert_eq!(raw("a\u{22c4} b \u{235d} note"), "a; b # note");
+    assert_eq!(raw("a\u{25c6} b \u{235d} note"), "a; b # note");
     assert_eq!(
         raw(
             "a \u{2212} b \u{d7} c \u{f7} d \u{2260} e \u{2264} f \u{2265} g \u{2227} h \u{2228} i"
