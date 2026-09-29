@@ -1,0 +1,1 @@
+README M5b tour (commands golden-pinned), status/architecture; design.md debugger notes; Saga 7 retrospective; clearer u:t_wice tour example; goldens rebased. Gate green, pushed.
