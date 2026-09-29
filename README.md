@@ -128,6 +128,27 @@ just edit demos/life.xtl                        # ASCII left, decorated right
 the [M0 and M1 tour](docs/tour-m0-m1.md) walks through every stage
 (`lex`, `render`, `parse`, `fmt`, `core`, `type`, `eval`).
 
+## Fonts
+
+The decorated display needs a terminal font with a few uncommon
+characters: the combining underline, small raised letters for
+namespaces, raised digits for powers and exponents, APL's lamp, alpha
+and omega, arrows, the diamond, and the math signs. How some fonts
+cover them (checked against the font files):
+
+| Font | Characters it has | Notes |
+| ---- | ----------------- | ----- |
+| JuliaMono (free) | all | one consistent set of raised digits |
+| DejaVu Sans Mono (free) | all | one consistent set of raised digits |
+| Menlo (built into macOS) | all but the lamp | the lamp comes from a fallback font |
+| Andale Mono, PT Mono (macOS) | about a third | work on macOS, which borrows the rest from other fonts; the raised 1, 2 and 3 are the font's own and the other raised digits are borrowed, so `10` raised shows its 1 and 0 at different heights |
+| JetBrains Mono, BQN386 | most | no small raised letters or combining underline of their own |
+| Monaco (macOS) | all but six | avoid: its arrow, alpha, omega, lamp, raised c and quad come out broken |
+
+Any font works where the terminal falls back to other fonts for
+missing characters (macOS does); JuliaMono, DejaVu Sans Mono or Menlo
+make powers such as `u:d_ouble^10` look even.
+
 ## Documentation
 
 - [`docs/tour.md`](docs/tour.md) -- the language tour and the milestone
