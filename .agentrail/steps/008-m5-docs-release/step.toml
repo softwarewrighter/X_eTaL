@@ -1,9 +1,10 @@
 number = 8
 slug = "m5-docs-release"
-status = "in-progress"
+status = "completed"
 description = "rotate-and-axes step 7: README M5 tour (every command a golden), docs sync (p..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T12:23:34"
+completed_at = "2026-09-28T19:24:22"
 task_type = "code"
-commits = []
+commits = ["ca6b3b49a2b4d6a025cef6f280cb9a9b338d8857"]

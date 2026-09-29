@@ -1,5 +1,5 @@
 name = "rotate-and-axes"
-status = "active"
+status = "completed"
 current_step = 8
 created_at = "2026-09-28T12:23:34"
 plan_file = ".agentrail/plan.md"
