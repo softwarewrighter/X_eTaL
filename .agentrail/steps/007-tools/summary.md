@@ -1,0 +1,1 @@
+REPL/notebook/org-session/editor expand imports via xetal-program (origin-aware Session::new, in_program span mapping, program_types shared); tour + literate tour gain Libraries section; editor image with library; images/video regenerated; goldens rebased. Gate green, pushed.
