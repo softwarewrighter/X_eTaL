@@ -1,9 +1,10 @@
 number = 6
 slug = "rotate-properties"
-status = "in-progress"
+status = "completed"
 description = "rotate-and-axes step 5: proptests: rotate n then -n is identity, r_ev twice i..."
 role = "production"
 context_files = []
 created_at = "2026-09-28T12:23:34"
+completed_at = "2026-09-28T19:09:16"
 task_type = "code"
-commits = []
+commits = ["a8e8f0e81e8477c2d9881bbe535e756adb48fad8"]

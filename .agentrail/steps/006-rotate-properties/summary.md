@@ -1,0 +1,1 @@
+Rotate/axis property tests: rotate inverse, reverse involution, f_1 = f, combination-select = single rotations, r_ev_2 / s_\_2 / r_/_2 / r_/_12 vs Rust models. Mutation check initially missed (rotate defines its own axes); added rank-keeping model checks that catch it. Gate green, pushed.
