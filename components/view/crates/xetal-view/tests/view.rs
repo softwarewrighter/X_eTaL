@@ -68,6 +68,13 @@ fn symbols_and_their_quotes_are_colored() {
 }
 
 #[test]
+fn macros_have_their_own_class_and_color() {
+    let got = classes("\"c:\" u_se< \"Combinators\"");
+    assert_eq!(got[1].1, Class::Macro);
+    assert!(ansi(&view("u_se<")).contains("\u{1b}[1;33m"));
+}
+
+#[test]
 fn invalid_text_is_kept_and_marked() {
     let got = classes("3-1 x");
     assert_eq!(got[1], ("-".to_string(), Class::Error));

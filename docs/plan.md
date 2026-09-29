@@ -349,9 +349,11 @@ buffer snapshots.
 | 9  | just-args        | `just run` / `just eval` pass flags through                 |
 | 10 | diamond-glyph    | `;` as a black diamond (user request)                       |
 | 11 | comment-rendering | comments keep their column; backquoted code drawn decorated |
-| 12 | array-view       | array viewer widget for results (reused by the debugger)    |
-| 13 | repl-live        | live-rendered REPL line editor with history on a terminal   |
-| 14 | tui-docs-release | README tour, debugger design notes, retrospective           |
+| 12 | demo-fixes       | Life iterated, tour axes, `just install` (user request)     |
+| 13 | macro-color      | macros bold yellow (user request)                           |
+| 14 | array-view       | array viewer widget for results (reused by the debugger)    |
+| 15 | repl-live        | live-rendered REPL line editor with history on a terminal   |
+| 16 | tui-docs-release | README tour, debugger design notes, retrospective           |
 
 ## Saga 8 -- libraries (M6b)
 

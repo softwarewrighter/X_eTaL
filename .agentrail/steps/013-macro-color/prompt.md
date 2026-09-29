@@ -1,0 +1,1 @@
+tui step 13 (inserted at the user's request): macros (function names ending in <, MC2, e.g. u_se<) get their own class, colored bold yellow (numbers are plain yellow) in render --color, pp, show and the editor; tests, golden, docs.

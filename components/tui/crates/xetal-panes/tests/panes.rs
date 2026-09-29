@@ -110,6 +110,13 @@ fn symbols_are_light_blue() {
 }
 
 #[test]
+fn macros_are_bold_yellow() {
+    let style = xetal_panes::style(xetal_view::Class::Macro);
+    assert_eq!(style.fg, Some(ratatui::style::Color::Yellow));
+    assert!(style.add_modifier.contains(ratatui::style::Modifier::BOLD));
+}
+
+#[test]
 fn the_focused_pane_has_a_highlighted_border() {
     let mut panes = Panes::new(&Buffer::new("x"), None);
     panes.focus = Some(Focus::Rendered);

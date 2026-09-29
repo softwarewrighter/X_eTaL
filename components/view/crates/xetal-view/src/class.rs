@@ -6,8 +6,10 @@ use crate::Segment;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Class {
-    /// A system function or macro (`r_ev`, `u_se<`).
+    /// A system function (`r_ev`).
     Builtin,
+    /// A macro, a name ending in `<` (`u_se<`, MC2).
+    Macro,
     /// A function in the program's namespace (`u:s_quare`).
     UserFunc,
     /// A function from an imported library (`c:K_`).
@@ -35,6 +37,7 @@ pub enum Class {
 /// The class of a token.
 pub(crate) fn classify(kind: &TokenKind) -> Class {
     match kind {
+        TokenKind::Func(f) if f.mark == Some('<') => Class::Macro,
         TokenKind::Func(f) => match f.ns.as_deref() {
             None => Class::Builtin,
             Some("u") => Class::UserFunc,

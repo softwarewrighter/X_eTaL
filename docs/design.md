@@ -379,7 +379,8 @@ cover every byte exactly once (a property test over arbitrary text).
 its rendered column (terminal width, combining underlines take none).
 `xetal render --color` prints the segments with ANSI colors, and the
 editor uses the same palette: system functions blue (symbols such as
-`+` light blue), the program's functions green, a library's cyan,
+`+` light blue), macros such as `u_se<` bold yellow, the program's
+functions green, a library's cyan,
 lambda arguments magenta, numbers yellow, comments dim, errors red. A
 quote takes the class of the function it quotes, so an operand reads
 as one unit (`'+` light blue, `'r_/` blue, `'u:p_lus` green); before

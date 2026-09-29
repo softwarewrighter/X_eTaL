@@ -9,6 +9,7 @@ pub fn style(class: Class) -> Style {
     let fg = |c: Color| Style::default().fg(c);
     match class {
         Class::Builtin => fg(Color::Blue),
+        Class::Macro => fg(Color::Yellow).add_modifier(Modifier::BOLD),
         Class::UserFunc => fg(Color::Green),
         Class::LibFunc => fg(Color::Cyan),
         Class::LambdaArg => fg(Color::Magenta),

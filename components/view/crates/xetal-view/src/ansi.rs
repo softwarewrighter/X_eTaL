@@ -8,6 +8,7 @@ const RESET: &str = "\u{1b}[0m";
 fn color(class: Class) -> Option<&'static str> {
     Some(match class {
         Class::Builtin => "34",
+        Class::Macro => "1;33",
         Class::UserFunc => "32",
         Class::LibFunc => "36",
         Class::LambdaArg => "35",

@@ -1,0 +1,3 @@
+command = """./target/debug/xetal render --color -e '"c:" u_se< "Combinators"; c:K_ 1 2'"""
+exit_code = 0
+desc = "macros are bold yellow; library names cyan with their alias as a superscript"
