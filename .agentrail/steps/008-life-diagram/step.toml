@@ -1,6 +1,6 @@
-number = 7
+number = 8
 slug = "life-diagram"
-status = "pending"
+status = "in-progress"
 description = "combinators step 7 (inserted at the user's request): replace the README's lif..."
 role = "production"
 context_files = []
