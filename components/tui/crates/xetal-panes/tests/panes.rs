@@ -58,6 +58,15 @@ fn the_cursor_maps_into_both_panes() {
 }
 
 #[test]
+fn text_hidden_in_the_rendered_pane_stays_in_the_ascii_pane() {
+    let (screen, _) = draw(&Buffer::new("\"s:\" u_se< \"Stats\" # `;`"), 64, 3);
+    assert!(
+        screen[1].starts_with("\u{2502}\"s:\" u_se< \"Stats\" # `;`"),
+        "{screen:?}"
+    );
+}
+
+#[test]
 fn invalid_text_still_draws() {
     let (screen, _) = draw(&Buffer::new("3-1 r_ev x"), 40, 3);
     assert!(screen[1].contains("3-1 r\u{332}ev x"), "{screen:?}");

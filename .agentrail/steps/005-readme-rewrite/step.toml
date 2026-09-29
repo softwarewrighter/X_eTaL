@@ -1,6 +1,6 @@
 number = 5
 slug = "readme-rewrite"
-status = "pending"
+status = "in-progress"
 description = "libraries step 5 (inserted at the user's request): rewrite README as an overv..."
 role = "production"
 context_files = []

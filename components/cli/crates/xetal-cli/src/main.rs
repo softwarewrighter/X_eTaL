@@ -20,6 +20,7 @@ fn main() -> ExitCode {
             untyped: false,
             seed: None,
             echo: false,
+            delay: None,
         },
         (None, None) => {
             use clap::CommandFactory;

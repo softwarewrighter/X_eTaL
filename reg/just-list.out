@@ -15,6 +15,9 @@ Available recipes:
     reg                        # Run the reg-rs CLI goldens in reg/
     repl                       # Start the interactive session
     run +args                  # Type-check and run a script, flags first: just run --echo demos/tour.xtl
+    screenshots                # Regenerate the README / docs images (vhs, ImageMagick)
     show file                  # Run a file as a notebook: each statement pretty-printed, then its output
+    slow-show file delay="500" # A notebook run that pauses after each statement (ms, default 500): for watching or recording
     test                       # Run every component's tests
     tour                       # The language tour: every feature, commented, each line with its output
+    videos                     # Regenerate the videos (vhs, ffmpeg, gif2webp)

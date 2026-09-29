@@ -74,6 +74,9 @@ pub(crate) struct EvalArgs {
     /// Show each statement pretty-printed, then its output (a notebook).
     #[arg(long, conflicts_with = "untyped")]
     pub(crate) echo: bool,
+    /// With --echo, pause this many milliseconds after each statement.
+    #[arg(long, requires = "echo", value_name = "MS")]
+    pub(crate) delay: Option<u64>,
 }
 
 /// `render` options: decorated Unicode by default.
@@ -121,6 +124,9 @@ pub(crate) enum Command {
         /// Show each statement pretty-printed, then its output (a notebook).
         #[arg(long, conflicts_with = "untyped")]
         echo: bool,
+        /// With --echo, pause this many milliseconds after each statement.
+        #[arg(long, requires = "echo", value_name = "MS")]
+        delay: Option<u64>,
     },
     /// Start an interactive session.
     Repl,

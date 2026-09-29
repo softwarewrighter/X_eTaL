@@ -12,10 +12,15 @@ const RESET: &str = "\u{1b}[0m";
 
 /// Print `source` as a notebook; an error fails the run after
 /// everything has been shown.
-pub(crate) fn echo(source: &str, seed: Option<u64>) -> Result<String, Diagnostic> {
+pub(crate) fn echo(
+    source: &str,
+    seed: Option<u64>,
+    delay: Option<u64>,
+) -> Result<String, Diagnostic> {
     let seed = seed.unwrap_or_else(xetal_eval::Rng::fresh_seed);
     let mut failed = false;
     for cell in xetal_repl::notebook(source, seed) {
+        pause(delay, &cell.source);
         println!("{}", ansi(&view(&cell.source)));
         for line in cell.out.lines() {
             println!("  {line}");
@@ -34,16 +39,31 @@ pub(crate) fn echo(source: &str, seed: Option<u64>) -> Result<String, Diagnostic
     }
 }
 
+/// With `--delay`, wait before showing a statement that is not blank,
+/// output shown so far flushed first (for recording a run as it goes).
+fn pause(delay: Option<u64>, source: &str) {
+    if let Some(ms) = delay.filter(|_| !source.trim().is_empty()) {
+        let _ = std::io::Write::flush(&mut std::io::stdout());
+        std::thread::sleep(std::time::Duration::from_millis(ms));
+    }
+}
+
 /// `eval` and `run`, plain or as a notebook; other commands are not
 /// evaluations.
 pub(crate) fn evaluation(command: &Command, source: &str) -> Option<Result<String, Diagnostic>> {
     Some(match command {
         Command::Eval(EvalArgs {
-            echo: true, seed, ..
+            echo: true,
+            seed,
+            delay,
+            ..
         })
         | Command::Run {
-            echo: true, seed, ..
-        } => seed_or_env(*seed).and_then(|seed| echo(source, seed)),
+            echo: true,
+            seed,
+            delay,
+            ..
+        } => seed_or_env(*seed).and_then(|seed| echo(source, seed, *delay)),
         Command::Eval(EvalArgs { untyped, seed, .. }) | Command::Run { untyped, seed, .. } => {
             seed_or_env(*seed).and_then(|seed| evaluate(source, &origin(command), *untyped, seed))
         }

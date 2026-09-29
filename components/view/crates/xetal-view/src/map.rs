@@ -11,11 +11,16 @@ pub fn width(text: &str) -> usize {
     UnicodeWidthStr::width(text)
 }
 
-/// The segments split into lines at newlines. Only text shown as typed
+/// The segments split into lines at newlines (a segment whose text is
+/// hidden keeps its raw bytes for the source pane). Only text shown as typed
 /// (whitespace) holds newlines, so raw spans split with the text.
 pub fn lines(segments: &[Segment]) -> Vec<Vec<Segment>> {
     let mut out = vec![Vec::new()];
     for s in segments {
+        if s.text.is_empty() {
+            out.last_mut().into_iter().for_each(|l| l.push(s.clone()));
+            continue;
+        }
         let mut start = s.raw.start;
         for (i, part) in s.text.split('\n').enumerate() {
             if i > 0 {

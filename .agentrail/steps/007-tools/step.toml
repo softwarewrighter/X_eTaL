@@ -1,4 +1,4 @@
-number = 6
+number = 7
 slug = "tools"
 status = "pending"
 description = "libraries step 5: run, eval, --echo, repl and edit expand imports (paths rela..."

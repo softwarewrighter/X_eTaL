@@ -75,6 +75,18 @@ tour: _quiet-build
 show file: _quiet-build
     @{{xetal}} run --echo "$1"
 
+# A notebook run that pauses after each statement (ms, default 500): for watching or recording
+slow-show file delay="500": _quiet-build
+    @{{xetal}} run --echo --delay "$2" "$1"
+
+# Regenerate the README / docs images (vhs, ImageMagick)
+screenshots:
+    scripts/screenshots.sh
+
+# Regenerate the videos (vhs, ffmpeg, gif2webp)
+videos:
+    scripts/videos.sh
+
 # Pretty-print a file like cat: decorated and highlighted (errors in red)
 pp file: _quiet-build
     @{{xetal}} render --color "$1"
