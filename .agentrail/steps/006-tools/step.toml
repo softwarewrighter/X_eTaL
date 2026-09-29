@@ -1,7 +1,7 @@
 number = 6
-slug = "libs-docs-release"
+slug = "tools"
 status = "pending"
-description = "libraries step 6: README M6b tour (every command a golden), docs sync, Saga 8..."
+description = "libraries step 5: run, eval, --echo, repl and edit expand imports (paths rela..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T00:04:30"

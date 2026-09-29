@@ -1,0 +1,3 @@
+command = """./target/debug/xetal eval -e '"s:" u_se< "Stats"; s:s_quare 3'"""
+exit_code = 1
+desc = "a private library name is not visible; the exports are listed"

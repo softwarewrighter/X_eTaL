@@ -2038,6 +2038,7 @@ dependencies = [
  "xetal-edit",
  "xetal-eval",
  "xetal-lex",
+ "xetal-program",
  "xetal-render",
  "xetal-repl",
  "xetal-spec",
@@ -2143,6 +2144,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-libs"
+version = "0.1.0"
+
+[[package]]
 name = "xetal-line"
 version = "0.1.0"
 dependencies = [
@@ -2162,6 +2167,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-macro"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
+ "xetal-libs",
+ "xetal-names",
+ "xetal-sources",
+]
+
+[[package]]
 name = "xetal-map"
 version = "0.1.0"
 dependencies = [
@@ -2169,6 +2185,14 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-value",
+]
+
+[[package]]
+name = "xetal-names"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
 ]
 
 [[package]]
@@ -2187,6 +2211,16 @@ dependencies = [
  "xetal-base",
  "xetal-catalog",
  "xetal-ty",
+]
+
+[[package]]
+name = "xetal-program"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-macro",
+ "xetal-sources",
 ]
 
 [[package]]
@@ -2227,6 +2261,13 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-value",
+]
+
+[[package]]
+name = "xetal-sources"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
 ]
 
 [[package]]

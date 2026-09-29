@@ -1,0 +1,1 @@
+libraries step 5 (inserted at the user's request): rewrite README as an overview; move the M0..M5b (and M6b) tour sections into linked docs pages (docs/tour/*.md or similar, ASCII-only, every example still golden-backed); include the language tour's decorated output as an image in the README (Unicode cannot go in the ASCII-only markdown); keep links, install, development.

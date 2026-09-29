@@ -338,6 +338,18 @@ accepts top-level definitions in hidden namespaces (functions and
 variables), so a library's names are late-bound globals like `u:`
 names. The source map records how each file writes each hidden
 namespace, so a message is shown with that file's letters (MC6).
+A name finds a file only when its directory entry matches exactly, so
+`"Stats"` never finds `stats.xtl` on a case-insensitive disk.
+
+`xetal-program` loads a program for the tools: the macro phase with
+libraries on disk and built in, then Core, every error located.
+`xetal run`, `eval` and `type` use it (a file's libraries are looked
+for beside it, `-e` text's in the current directory); `type` lists
+the program's own items. The first standard library is
+`lib/Stats.xtl` (`m_ean`, `v_ariance`, `s_d`, `r_ange`), shown in
+`demos/stats.xtl`. In the pretty views an import is drawn as its
+alias bound to the macro: superscript letters and a superscript
+equals in the library color, then `u_se<`.
 
 ## 8. Display modes (CLI and web)
 

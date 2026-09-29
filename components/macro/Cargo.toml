@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-sources", "crates/xetal-macro", "crates/xetal-libs", "crates/xetal-names"]
+members = ["crates/xetal-sources", "crates/xetal-macro", "crates/xetal-libs", "crates/xetal-names", "crates/xetal-program"]
 
 [workspace.package]
 version = "0.1.0"
@@ -18,6 +18,7 @@ xetal-sources = { path = "crates/xetal-sources" }
 xetal-macro = { path = "crates/xetal-macro" }
 xetal-libs = { path = "crates/xetal-libs" }
 xetal-names = { path = "crates/xetal-names" }
+xetal-program = { path = "crates/xetal-program" }
 proptest = "1"
 xetal-core = { path = "../core/crates/xetal-core" }
 xetal-types = { path = "../types/crates/xetal-types" }

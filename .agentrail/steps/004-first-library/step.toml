@@ -1,6 +1,6 @@
 number = 4
 slug = "first-library"
-status = "pending"
+status = "in-progress"
 description = "libraries step 4: lib/Stats.xtl bundled, a demo using it, the tour's librarie..."
 role = "production"
 context_files = []

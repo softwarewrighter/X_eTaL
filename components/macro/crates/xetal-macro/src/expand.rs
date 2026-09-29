@@ -126,7 +126,19 @@ impl Loader<'_> {
     fn resolve(&self, import: &Import, file: &Found) -> Result<Found, Diagnostic> {
         let span = import.span;
         let lib = self.libs.find(&import.spec, &file.name).ok_or_else(|| {
-            Diagnostic::new("library-not-found", format!("no library {:?} (looked beside {}, in XETAL_PATH and among the standard libraries)", import.spec, file.name)).with_span(span)
+            Diagnostic::new(
+                "library-not-found",
+                format!(
+                    "no library {:?} (looked {}, in XETAL_PATH and among the standard libraries)",
+                    import.spec,
+                    if file.name == "-e" {
+                        "in the current directory".to_string()
+                    } else {
+                        format!("beside {}", file.name)
+                    }
+                ),
+            )
+            .with_span(span)
         })?;
         if let Some(at) = self.chain.iter().position(|(k, _)| *k == lib.key) {
             let names: Vec<&str> = self.chain[at..].iter().map(|(_, n)| n.as_str()).collect();

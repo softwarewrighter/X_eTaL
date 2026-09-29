@@ -59,3 +59,18 @@ fn a_path_is_relative_to_the_importing_file() {
         .unwrap();
     assert_eq!(found.key, again.key, "one library, one key");
 }
+
+#[test]
+fn a_name_matches_exactly_even_on_a_case_insensitive_disk() {
+    let dir = scratch("case");
+    std::fs::write(dir.join("stats.xtl"), "\"s:\" u_se< \"Stats\"\n").unwrap();
+    let libs = FsLibraries::new(Vec::new());
+    let found = libs.find("Stats", &dir.join("stats.xtl").display().to_string());
+    let me = dir
+        .join("stats.xtl")
+        .canonicalize()
+        .unwrap()
+        .display()
+        .to_string();
+    assert_ne!(found.map(|f| f.key), Some(me), "found the importer itself");
+}

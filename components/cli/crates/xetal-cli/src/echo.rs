@@ -45,8 +45,38 @@ pub(crate) fn evaluation(command: &Command, source: &str) -> Option<Result<Strin
             echo: true, seed, ..
         } => seed_or_env(*seed).and_then(|seed| echo(source, seed)),
         Command::Eval(EvalArgs { untyped, seed, .. }) | Command::Run { untyped, seed, .. } => {
-            seed_or_env(*seed).and_then(|seed| evaluate(source, *untyped, seed))
+            seed_or_env(*seed).and_then(|seed| evaluate(source, &origin(command), *untyped, seed))
         }
+        Command::Type(_) => typed(source, &origin(command)),
         _ => return None,
     })
+}
+
+/// The name a program is reported by, and beside which its libraries
+/// are looked for: its file, or `-e` for text on the command line.
+fn origin(command: &Command) -> String {
+    match command {
+        Command::Run { file, .. } => file.clone(),
+        Command::Eval(EvalArgs { input, .. }) | Command::Type(input) => {
+            input.file.clone().unwrap_or_else(|| "-e".into())
+        }
+        _ => "-e".into(),
+    }
+}
+
+/// `xetal type`: the type of each top-level item, libraries included.
+fn typed(source: &str, name: &str) -> Result<String, Diagnostic> {
+    let mut loaded = xetal_program::load(name, source)?;
+    let lines = xetal_types::check_program(&mut loaded.program)
+        .map_err(|d| xetal_program::located(&loaded.sources, d))?;
+    let own = lines.into_iter().filter(|l| !from_library(l));
+    Ok(own.collect::<Vec<_>>().join("\n"))
+}
+
+/// A type line for a library's own definition (`LA:m_ean : ...`): its
+/// hidden namespace is uppercase; the program's are `u:` or none.
+fn from_library(line: &str) -> bool {
+    let name = line.split_once(" : ").map_or("", |(name, _)| name);
+    let ns = name.split_once(':').map_or("", |(ns, _)| ns);
+    ns.starts_with(|c: char| c.is_ascii_uppercase())
 }

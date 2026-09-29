@@ -1,0 +1,3 @@
+command = """./target/debug/xetal eval -e '"s:" u_se< "Statz"'"""
+exit_code = 1
+desc = "an unknown library is reported with where it was looked for"

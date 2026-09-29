@@ -74,3 +74,30 @@ pub(crate) fn quotes_take_function_class(segments: &mut [Segment]) {
         }
     }
 }
+
+/// An import `"s:" u_se< "Stats"` is drawn as its alias bound to the
+/// macro: superscript s and superscript equals in the library class,
+/// joined to `u_se<` (the space between them hidden). Pretty views only.
+pub(crate) fn imports_drawn(segments: &mut [Segment]) {
+    for i in 0..segments.len() {
+        let Some(letters) = alias(&segments[i]) else {
+            continue;
+        };
+        let next = (i + 1..segments.len()).find(|&j| segments[j].class != Class::Space);
+        let Some(j) = next.filter(|&j| segments[j].class == Class::Macro) else {
+            continue;
+        };
+        if let Some(raised) = xetal_render::superscript_word(&letters) {
+            segments[i].text = format!("{raised}\u{207c}");
+            segments[i].class = Class::LibFunc;
+            segments[i + 1..j].iter_mut().for_each(|s| s.text.clear());
+        }
+    }
+}
+
+/// The letters of an alias string such as `"s:"`.
+fn alias(s: &Segment) -> Option<String> {
+    let inner = s.text.strip_prefix('"')?.strip_suffix(":\"")?;
+    let lower = !inner.is_empty() && inner.bytes().all(|b| b.is_ascii_lowercase());
+    (s.class == Class::String && lower).then(|| inner.to_string())
+}

@@ -1,0 +1,1 @@
+error[not-exported]: s:s_quare is not defined by that library; it defines m_ean, v_ariance, s_d, r_ange at 20..29

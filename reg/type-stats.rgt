@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type demos/stats.xtl"
+exit_code = 0
+desc = "xetal type shows the program's items, not the library's"

@@ -45,7 +45,19 @@ impl Libraries for FsLibraries {
     }
 }
 
+/// The file at `path`, if its directory holds an entry of exactly that
+/// name (so `Stats` never finds `stats.xtl` on a case-insensitive disk).
 fn read(path: &Path) -> Option<Found> {
+    let (dir, name) = (path.parent()?, path.file_name()?);
+    let listed = if dir.as_os_str().is_empty() {
+        Path::new(".")
+    } else {
+        dir
+    };
+    std::fs::read_dir(listed)
+        .ok()?
+        .flatten()
+        .find(|e| e.file_name() == name)?;
     let text = std::fs::read_to_string(path).ok()?;
     let key = path.canonicalize().unwrap_or_else(|_| path.into());
     Some(Found {

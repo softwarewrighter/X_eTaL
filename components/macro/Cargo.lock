@@ -623,6 +623,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-program"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-macro",
+ "xetal-sources",
+]
+
+[[package]]
 name = "xetal-rotate"
 version = "0.1.0"
 dependencies = [

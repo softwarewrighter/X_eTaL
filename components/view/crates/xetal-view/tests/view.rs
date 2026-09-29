@@ -75,6 +75,21 @@ fn macros_have_their_own_class_and_color() {
 }
 
 #[test]
+fn an_import_is_drawn_as_its_alias_bound_to_the_macro() {
+    assert_eq!(
+        shown("\"s:\" u_se< \"Stats\""),
+        "\u{2e2}\u{207c}u\u{332}se< \"Stats\""
+    );
+    let got = classes("\"s:\" u_se< \"Stats\"");
+    assert_eq!(got[0].1, Class::LibFunc);
+    assert_eq!(
+        shown("\"s\" u_se< \"Stats\""),
+        "\"s\" u\u{332}se< \"Stats\"",
+        "not an alias: as typed"
+    );
+}
+
+#[test]
 fn invalid_text_is_kept_and_marked() {
     let got = classes("3-1 x");
     assert_eq!(got[1], ("-".to_string(), Class::Error));

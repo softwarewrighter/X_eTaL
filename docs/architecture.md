@@ -53,7 +53,8 @@ components/
                            and column), xetal-names (one file: its
                            imports, definitions and renamed names),
                            xetal-macro (loading the files into one
-                           program),
+                           program), xetal-program (a program with its
+                           libraries, lowered, errors located),
                            xetal-libs (the standard libraries, lib/,
                            built in)
   syntax/                  xetal-lex (lexer, tokens), xetal-ast

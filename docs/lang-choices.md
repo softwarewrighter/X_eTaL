@@ -353,6 +353,8 @@ kebab-case lexes as subtraction.
 | combinator (bird) | single capital | `K_`, `S_`, `c:B_` |
 | constant | UpperCamel | `MaxSize` |
 | type (future) | UpperCamel | `Board` |
+| library (file `Name.xtl`) | UpperCamel | `Stats`, `Combinators` |
+| library alias | short lowercase | `"s:" u_se< "Stats"` |
 
 Recommended function-name suffixes:
 

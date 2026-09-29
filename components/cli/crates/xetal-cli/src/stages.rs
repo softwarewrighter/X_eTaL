@@ -55,7 +55,6 @@ pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
         Command::Parse(_) => Ok(xetal_syntax::parse(&source)?.to_string()),
         Command::Fmt(_) => xetal_render::canonical(&source),
         Command::Core(_) => Ok(xetal_core::lower(&source)?.to_string()),
-        Command::Type(_) => Ok(xetal_types::check_source(&source)?.join("\n")),
         _ => Err(Diagnostic::unsupported(command.stage())),
     }
 }
@@ -92,17 +91,22 @@ pub(crate) fn seed_or_env(seed: Option<u64>) -> Result<Option<u64>, Diagnostic> 
 /// stdout; warnings go to stderr.
 pub(crate) fn evaluate(
     source: &str,
+    name: &str,
     untyped: bool,
     seed: Option<u64>,
 ) -> Result<String, Diagnostic> {
-    let mut program = xetal_core::lower(source)?;
+    let xetal_program::Loaded {
+        sources,
+        mut program,
+    } = xetal_program::load(name, source)?;
+    let at = |d| xetal_program::located(&sources, d);
     if !untyped {
-        xetal_types::check_program(&mut program)?;
+        xetal_types::check_program(&mut program).map_err(at)?;
     }
     let mut stdout = std::io::stdout();
     let (warnings, result) = xetal_eval::eval_program(&program, &mut stdout, seed);
     for warning in warnings {
-        eprintln!("{warning}");
+        eprintln!("{}", at(warning));
     }
-    result.map(|()| String::new())
+    result.map(|()| String::new()).map_err(at)
 }

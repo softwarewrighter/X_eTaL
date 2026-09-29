@@ -63,7 +63,10 @@ impl Defs {
     ) -> Result<(), Diagnostic> {
         let function = matches!(first.kind, TokenKind::Func(_));
         if function && !self.functions.insert((ns.clone(), key.clone())) {
-            let message = format!("{key} is already defined in this file");
+            let written = ns
+                .as_deref()
+                .map_or(key.clone(), |ns| format!("{ns}:{key}"));
+            let message = format!("{written} is already defined in this file");
             return Err(fail("duplicate-definition", first.span, message));
         }
         match (ns.as_deref(), cx.library.is_some()) {
