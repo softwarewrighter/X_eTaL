@@ -1,9 +1,10 @@
 number = 3
 slug = "power"
-status = "in-progress"
+status = "completed"
 description = "combinators step 2: TDD function power f_^n on any function name (incl. quote..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T09:53:22"
+completed_at = "2026-09-29T13:24:02"
 task_type = "code"
-commits = []
+commits = ["d069788422cea1b80e9c17f0dae585594c355693"]

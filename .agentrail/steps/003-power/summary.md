@@ -1,0 +1,1 @@
+Function power: f_^n lexed/parsed on any function name (quoted too), lowered to p_ower; built-in p_ower typed (a -> a) -> Int -> a -> a; bad-power/reserved rejections; count colored as its function; new xetal-token crate; property tests. Also: quick just builds, plan phased into ports-now (Saga 10) and ports-later (Saga 12); editor-panes step moved after maybe.
