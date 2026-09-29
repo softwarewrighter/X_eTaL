@@ -326,8 +326,8 @@ on the left and the live rendered, highlighted view on the right,
 types and diagnostics live below and results on Ctrl-R; and
 `xetal repl`, which renders the line as it is typed when on a
 terminal (piped input keeps the plain behavior). The view model and
-widgets are the base for the stepping debugger (Saga 12) and the web
-playground (Saga 13).
+widgets are the base for the stepping debugger (Saga 13) and the web
+playground (Saga 14).
 
 Decisions (with the user): live rendering in the REPL; split editor
 with a live types/diagnostics pane and results on demand (effects such
@@ -444,7 +444,38 @@ The Life case is active from Saga 6; block, blinker, glider and
 random-board goldens (random boards checked against a reference
 implementation in Rust test code). No Life-specific code paths.
 
-## Saga 12 -- trace-and-explain
+## Saga 12 -- apl-ports (dogfooding)
+
+Port every workspace, function and demo of the user's APL projects
+into X_eTaL libraries (`lib/*.xtl`), demos (`demos/`) and literate
+documents (`docs/literate/`): sw-apl's library 1 (BIRDS in both
+modes, EDIT, LEARN, LIFE, RACE, TTTML; about 70 functions) and
+sw-apl-workspaces (CALC, COURSE, DRILL in both modes, MATH, MATRIX,
+PLOT, POLY, STATS; about 220 functions), with their sample transcripts
+as goldens. Decided with the user: the ports are forcing functions.
+They are written as X_eTaL should say them, not transliterated; a
+port that cannot be written cleanly names a missing feature, which is
+added first, test-first, with the user's decision recorded in
+lang-choices, rather than worked around. Features the inventory
+already points to: reading input (the course and drill quizzes),
+numbers as text (formatting for PLOT and the drills), matrix
+division (APL's domino, for MATRIX and STATS regression), and
+whatever nested arrays (A7) the character-plot and course material
+needs.
+
+| #  | Step slug       | Delivers                                                   |
+| -- | --------------- | ---------------------------------------------------------- |
+| 1  | inventory       | every workspace, function and sample mapped to a target file, with the features each needs (docs/apl-ports.md) |
+| 2  | features        | the missing features, one decision and step each, test-first |
+| 3  | math            | MATH, POLY, CALC, MATRIX as libraries; demos and goldens    |
+| 4  | stats           | STATS merged into lib/Stats.xtl (regression, tests, distributions) |
+| 5  | plots           | PLOT: character plots, graphs, scatter, bars               |
+| 6  | games           | LIFE, RACE, TTTML (tic-tac-toe learning), with BIRDS joining Combinators |
+| 7  | teaching        | COURSE, LEARN, DRILL as interactive programs (REPL and web) |
+| 8  | edit            | EDIT: port what fits (the del editor itself is the editor's job) |
+| 9  | ports-release   | literate documents for each library, tour links, retrospective |
+
+## Saga 13 -- trace-and-explain
 
 Trace tree (NodeId, span, value, type, shape, children) following the
 evaluation order (E4); `xetal explain` prints the right-to-left
@@ -454,7 +485,7 @@ highlights the node being evaluated (by its span), and the array
 viewer shows its intermediate value, stepping forward and back
 through the trace tree.
 
-## Saga 13 -- web-playground (M9)
+## Saga 14 -- web-playground (M9)
 
 A live demo in the browser (Yew, compiled to WASM, deployed to GitHub
 Pages under `pages/`) that is the terminal UI, not a new design: the
