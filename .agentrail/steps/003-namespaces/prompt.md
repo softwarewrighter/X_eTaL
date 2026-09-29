@@ -1,0 +1,1 @@
+libraries step 3: TDD namespace rewriting: per-file alias tables to hidden uppercase namespaces, l: exports, private plain functions and variables, rows 6-12 and the new top-level-expression row; core accepts hidden-namespace definitions; messages show letters as written in the file (MC6).

@@ -393,7 +393,7 @@ What to do differently:
   the screen); the REPL line editor does not wrap lines longer than
   the terminal; screenshots of the editor are described, not shown.
 
-## Saga 8 -- libraries (M6b)
+## Saga 8 -- libraries (M6b)  [ACTIVE]
 
 The macro phase (MC1-MC9): `u_se<` with a required alias
 (`"c:" u_se< "Combinators"`), libraries defining under `l:`, per-file
@@ -407,7 +407,16 @@ the alias, an equals sign, then the macro: superscript c (cyan), `=`
 (u underlined, bold yellow), then the library name in string color;
 so an import reads apart from a use such as `c:K_`. `xetal render`
 keeps the exact tokens. Library names are capitalized
-by convention (style guide). Scheduled
+by convention (style guide).
+
+| #  | Step slug         | Delivers                                                   |
+| -- | ----------------- | ---------------------------------------------------------- |
+| 1  | sources           | multi-file source map; diagnostics name their file         |
+| 2  | imports           | the macro phase: finding, validating, resolving, loading   |
+| 3  | namespaces        | hidden namespaces, exports, private names, error rows      |
+| 4  | first-library     | lib/Stats.xtl, a demo, the tour section, import display    |
+| 5  | tools             | run / eval / echo / repl / edit expand imports             |
+| 6  | libs-docs-release | README M6b tour, docs sync, retrospective                  | Scheduled
 before the combinators at the user's request, so the birds are
 written once, directly as a library.
 

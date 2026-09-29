@@ -1,0 +1,1 @@
+libraries step 4: lib/Stats.xtl bundled, a demo using it, the tour's libraries section, the import display (superscript alias + superscript equals + u_se<) in pp/show/editor; goldens.

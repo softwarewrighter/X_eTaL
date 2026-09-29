@@ -1,0 +1,1 @@
+libraries step 1: TDD a multi-file source map (files, combined text, offset -> file/line/col, local span); diagnostics name the file when several are involved (single-file output unchanged); new component components/macro; record the saga decisions in lang-choices section 14 and design.md.

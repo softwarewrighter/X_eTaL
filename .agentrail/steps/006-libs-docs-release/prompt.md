@@ -1,0 +1,1 @@
+libraries step 6: README M6b tour (every command a golden), docs sync, Saga 8 retrospective in docs/plan.md.

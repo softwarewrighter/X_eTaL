@@ -1,0 +1,9 @@
+number = 1
+slug = "sources"
+status = "pending"
+description = "libraries step 1: TDD a multi-file source map (files, combined text, offset -..."
+role = "production"
+context_files = []
+created_at = "2026-09-29T00:04:30"
+task_type = "code"
+commits = []

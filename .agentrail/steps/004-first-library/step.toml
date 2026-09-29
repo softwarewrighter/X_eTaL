@@ -1,0 +1,9 @@
+number = 4
+slug = "first-library"
+status = "pending"
+description = "libraries step 4: lib/Stats.xtl bundled, a demo using it, the tour's librarie..."
+role = "production"
+context_files = []
+created_at = "2026-09-29T00:04:30"
+task_type = "code"
+commits = []

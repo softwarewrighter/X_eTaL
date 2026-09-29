@@ -1,0 +1,1 @@
+libraries step 2: TDD the macro phase: top-level u_se< statements found and validated (MC8 rows 3,4,5,13,14,15), resolution (file path; Name.xtl in the importing dir, XETAL_PATH, bundled lib/ compiled in), recursive loading with cycle detection (rows 1,2), one instance per resolved path (MC7).
