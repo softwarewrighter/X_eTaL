@@ -1,8 +1,9 @@
 number = 6
 slug = "org-babel"
-status = "in-progress"
+status = "completed"
 description = "libraries step 6 (inserted at the user's request): ob-xetal.el, org-babel sup..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T00:43:11"
-commits = []
+completed_at = "2026-09-29T08:18:26"
+commits = ["b8702ad545f73fb5f1789c223fb474aa3ef31924"]
