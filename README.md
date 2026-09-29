@@ -130,24 +130,38 @@ the [M0 and M1 tour](docs/tour-m0-m1.md) walks through every stage
 
 ## Fonts
 
-The decorated display needs a terminal font with a few uncommon
-characters: the combining underline, small raised letters for
-namespaces, raised digits for powers and exponents, APL's lamp, alpha
-and omega, arrows, the diamond, and the math signs. How some fonts
-cover them (checked against the font files):
+Use **JuliaMono**, a free monospace font that has every character the
+decorated display uses (the combining underline, small raised letters
+for namespaces, raised digits for powers and exponents, APL's lamp,
+alpha and omega, arrows, the diamond and the math signs), with all
+raised digits at one height. It comes from the Julia language
+community but is an ordinary font; Julia is not needed.
+
+To install it on macOS, with [Homebrew](https://brew.sh):
+
+```bash
+brew install --cask font-juliamono
+```
+
+or without Homebrew: download `JuliaMono-ttf.zip` from the
+[JuliaMono releases](https://github.com/cormullion/juliamono/releases),
+unzip it, double-click `JuliaMono-Regular.ttf` and click Install in
+Font Book. Then quit and restart the terminal (iTerm reads its font
+list at launch) and choose JuliaMono (iTerm: Settings, Profiles,
+Text, Font). To keep another font for plain text, iTerm's "Use a
+different font for non-ASCII text" in the same tab can take just the
+decorated characters from JuliaMono.
+
+Other fonts, checked against the font files:
 
 | Font | Characters it has | Notes |
 | ---- | ----------------- | ----- |
-| JuliaMono (free) | all | one consistent set of raised digits |
-| DejaVu Sans Mono (free) | all | one consistent set of raised digits |
-| Menlo (built into macOS) | all but the lamp | the lamp comes from a fallback font |
-| Andale Mono, PT Mono (macOS) | about a third | work on macOS, which borrows the rest from other fonts; the raised 1, 2 and 3 are the font's own and the other raised digits are borrowed, so `10` raised shows its 1 and 0 at different heights |
+| JuliaMono (free) | all | recommended |
+| DejaVu Sans Mono (free) | all | `brew install --cask font-dejavu` |
+| Andale Mono, PT Mono (macOS) | about a third | work on macOS, which borrows the rest from other fonts; the raised 1, 2 and 3 are the font's own and the other raised digits are borrowed, so a raised 10 shows its 1 and 0 at different heights |
+| Menlo (macOS) | all but the lamp | a system font that iTerm does not offer on current macOS |
 | JetBrains Mono, BQN386 | most | no small raised letters or combining underline of their own |
 | Monaco (macOS) | all but six | avoid: its arrow, alpha, omega, lamp, raised c and quad come out broken |
-
-Any font works where the terminal falls back to other fonts for
-missing characters (macOS does); JuliaMono, DejaVu Sans Mono or Menlo
-make powers such as `u:d_ouble^10` look even.
 
 ## Documentation
 
