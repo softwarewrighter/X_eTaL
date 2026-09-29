@@ -1,8 +1,9 @@
 number = 6
 slug = "editor-panes"
-status = "in-progress"
+status = "completed"
 description = "combinators step 4 (inserted at the user's request): the editor's panes. Ctrl..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T12:39:22"
-commits = []
+completed_at = "2026-09-29T15:24:06"
+commits = ["d418238c2b3e03e4cdc2e8c5244e20619ad9b15a"]

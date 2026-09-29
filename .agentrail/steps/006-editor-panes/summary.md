@@ -1,0 +1,1 @@
+Editor: Ctrl-T zoom (focused pane full screen; Tab switches views; back with Ctrl-T; hidden pane keeps scroll), strong focus (thick bright border, reversed marked title, others dim), cursor cell reversed in ASCII and Rendered panes. Widget module split. Docs updated. Inserted step 007-life-diagram.
