@@ -456,10 +456,22 @@ through the trace tree.
 
 ## Saga 13 -- web-playground (M9)
 
-WASM playground: raw editor with decorated overlay (Unicode and a
-LaTeX subset), display modes, semantic highlighting, hover tooltips,
-"why this parse", right-to-left explainer with shapes and Life board
-visuals.
+A live demo in the browser (Yew, compiled to WASM, deployed to GitHub
+Pages under `pages/`) that is the terminal UI, not a new design: the
+same editor (ASCII and decorated panes, the types/output pane, Tab
+focus, nano and Emacs keys, Ctrl-R run, Ctrl-T zoom), the notebook
+view of the language tour and a live-rendered REPL, drawn as a
+monospace character grid with the same colors. It reuses the view
+model, the grids, the text buffer and the keymap; the evaluator,
+type checker and bundled libraries compile to WASM (the evaluator's
+large-stack worker thread needs a single-threaded path there).
+Decided with the user: the only parts that are not TUI are a Help
+button (a dialog listing the keys and a short language summary) and
+the footer the other live demos share (as in sw-mlpl): MIT License,
+copyright, a GitHub repo-links dialog, Changes, Literate (the
+exported literate tour), Blog, Discord, YouTube, Wiki, and build
+info. Later: the stepping debugger's panes, "why this parse", hover
+tooltips, a LaTeX view.
 
 ## Deferred (from `lang-choices.md` section 15)
 
