@@ -1,0 +1,1 @@
+';' displays as U+25C6 black diamond (user choice; U+22C4 too small in their font); round trip; tests, spec, goldens rebased on purpose; design.md. Gate green, pushed.
