@@ -76,6 +76,11 @@ components/
   axes/                    xetal-rotate (rotate and reverse along the
                            leading axis), xetal-axes (axis subscripts:
                            the move-to-front rule)
+  tui/                     terminal front end (ratatui): xetal-buffer
+                           (text and cursor), xetal-keys (nano-like
+                           keymap as data), xetal-panes (ASCII and
+                           rendered panes), xetal-term (terminal
+                           guard)
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
                            harness), xetal-spec (case files),
                            xetal-repl (interactive session)

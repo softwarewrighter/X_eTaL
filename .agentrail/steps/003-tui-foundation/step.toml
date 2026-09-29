@@ -1,6 +1,6 @@
 number = 3
 slug = "tui-foundation"
-status = "pending"
+status = "in-progress"
 description = "tui step 3: TDD components/tui with ratatui+crossterm: text buffer (cursor, e..."
 role = "production"
 context_files = []
