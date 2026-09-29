@@ -1,0 +1,1 @@
+components/macro + xetal-sources (combined text, pieces copy/replace, locate file/line/col, describe FILE:LINE:COL for multi-file, unchanged single-file); saga decisions recorded (MC4, MC9, MC8 row 16, D29). Gate green, pushed.

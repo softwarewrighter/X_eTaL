@@ -1,9 +1,10 @@
 number = 1
 slug = "sources"
-status = "in-progress"
+status = "completed"
 description = "libraries step 1: TDD a multi-file source map (files, combined text, offset -..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T00:04:30"
+completed_at = "2026-09-29T00:08:34"
 task_type = "code"
-commits = []
+commits = ["96aebb7581954776d0ee04aa5f61cf9c0662fb50"]
