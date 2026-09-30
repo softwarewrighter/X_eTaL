@@ -437,6 +437,16 @@ axes: rotate, reverse and axis subscripts (move-to-front, A6)
   resolving anything that document leaves open.
 - NEVER run `sw-install` unless the user explicitly asks.
 
+## Parallel lanes
+
+A lane whose saga must not touch the main `.agentrail` keeps its own
+under `lanes/<lane>/.agentrail`; run agentrail for it with
+`--saga lanes/<lane>` (for example `agentrail --saga lanes/classics
+next`). The classics lane (branch `feat/classics`) works this way.
+New demos must also be listed in
+`components/web/crates/xetal-web/src/demos.rs` for the live demo, and
+start with `#!/usr/bin/env xetal` for the just smoke test to run them.
+
 ## Useful Commands
 
 ```bash

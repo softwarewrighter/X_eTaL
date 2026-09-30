@@ -1,0 +1,1 @@
+Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the user's decisions). TDD, the full gate, a golden per demo, each demo listed in xetal-web demos.rs and docs/classics.md. Magic square (Siamese, by rotate), Mastermind (interactive via []R_EAD, golden with piped guesses and a seed), Mandelbrot (real and imaginary Float arrays, a Char picture).
