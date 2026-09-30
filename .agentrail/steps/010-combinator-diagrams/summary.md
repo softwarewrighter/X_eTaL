@@ -1,0 +1,1 @@
+Six combinator diagrams (import, B, C with W, S, Y, a call) with APL/J/BQN equivalents, in docs/birds.md; xetal-diagram gains inline code (backquotes), ligatures off, adaptive page width.
