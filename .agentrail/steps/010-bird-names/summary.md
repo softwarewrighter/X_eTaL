@@ -1,0 +1,1 @@
+Bird names capitalized across demos, docs, diagrams (regenerated), literate pages; I is the Idiot Bird (identity); export timestamps removed
