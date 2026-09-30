@@ -1,0 +1,1 @@
+Generated name panel images/name-forms.png (logo, favicon, prose, typed, drawn, LaTeX, slug, .xtl, repo, pronunciation) in docs/name.md and Help; favicon row in spellings table
