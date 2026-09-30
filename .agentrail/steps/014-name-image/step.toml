@@ -1,6 +1,6 @@
 number = 14
 slug = "name-image"
-status = "pending"
+status = "in-progress"
 description = "User request: docs/name.md (the pronunciation and spelling guide) also shows ..."
 role = "production"
 context_files = []

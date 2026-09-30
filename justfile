@@ -99,6 +99,10 @@ literate:
 check-literate:
     scripts/literate.sh --check
 
+# Draw images/name-forms.png, the name every way (docs/name.md, the live demo's Help)
+name-image:
+    scripts/name-image.sh
+
 # Export the literate documents to HTML under pages/literate/ (with an index page)
 literate-html:
     scripts/literate-html.sh

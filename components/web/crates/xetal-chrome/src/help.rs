@@ -55,6 +55,9 @@ fn name() -> Html {
                   ASCII it is X_eTaL (or X_ e:T a:L, which XeTaL itself draws as the \
                   logo), in a sentence XeTaL, and the program is xetal. " }
                <a href={doc("docs/name.md")} target="_blank">{ "Every spelling" }</a>{ "." }</p>
+            <img class="name-forms" src="name-forms.png"
+                alt="The name every way: said Ecks-e-tal; the logo; the favicon; XeTaL in prose; \
+                     X_eTaL typed and drawn; LaTeX; xetal; .xtl; the repository"/>
         </>
     }
 }

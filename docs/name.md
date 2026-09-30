@@ -4,6 +4,14 @@ The language has one name and several spellings, each for a place
 where the others do not fit. All of them stand for the eXperimental
 eXtensible Typed Array Language.
 
+![The name every way: said Ecks-e-tal; the logo; the favicon (an italic
+underlined X with a raised ellipsis); XeTaL in prose; X_eTaL and X_ e:T
+a:L typed and drawn; LaTeX; the binary xetal; the file type .xtl; the
+repository](../images/name-forms.png)
+
+The picture is generated: `scripts/name-image.sh` draws it, the drawn
+and LaTeX forms by `xetal render` itself.
+
 ## Saying it
 
 **Ecks-e-tal** (preferred): the X as the letter, "ecks", then "e",
@@ -20,6 +28,7 @@ neither is the name: say Ecks-e-tal.
 | Spelling | Where | What it is |
 | -------- | ----- | ---------- |
 | the logo | the README, the live demo, `images/modern-xetal-logo.jpg` | X underlined, then a raised e, T, a raised a, L |
+| the favicon | the browser tab of the live demo (`favicon.ico`) | an italic underlined X with a raised ellipsis, black on yellow: the logo's X, the rest implied |
 | `X_ e:T a:L` | typed as X_eTaL source | the logo as XeTaL itself writes it (below) |
 | `X_eTaL` | the display name, headings, the repository | the logo in plain ASCII: the `_` marks the underline |
 | XeTaL | prose | the name in a sentence, with no marks at all |

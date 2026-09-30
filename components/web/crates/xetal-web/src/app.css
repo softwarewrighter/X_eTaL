@@ -59,6 +59,7 @@ body { font: 15px/1.35 var(--mono); }
 .c-comment { color: var(--dim); } .c-macro { color: #e0b400; font-weight: bold; }
 .c-error { color: #ff6b6b; }
 
+.name-forms { width: 100%; max-width: 640px; border-radius: 6px; }
 footer {
   display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center;
   padding: 6px 12px; border-top: 1px solid var(--line); color: var(--dim); font-size: 12px;
