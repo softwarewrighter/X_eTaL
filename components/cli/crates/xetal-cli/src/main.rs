@@ -3,6 +3,8 @@
 mod args;
 mod context;
 mod echo;
+mod live;
+mod once;
 mod stages;
 
 use std::process::ExitCode;

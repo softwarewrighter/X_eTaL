@@ -83,7 +83,7 @@
     (should (equal (xetal-tests--run block) (xetal-tests--run block)))))
 
 (ert-deftest ob-xetal-echo-shows-the-statement ()
-  (should (string-match-p "  3$" (xetal-tests--run "#+begin_src xetal :echo yes\n1 + 2\n#+end_src\n"))))
+  (should (string-match-p "^: 3$" (xetal-tests--run "#+begin_src xetal :echo yes\n1 + 2\n#+end_src\n"))))
 
 (ert-deftest ob-xetal-reports-a-failing-block ()
   (should-error (xetal-tests--run "#+begin_src xetal\n1 / 0\n#+end_src\n") :type 'user-error))

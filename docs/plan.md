@@ -629,6 +629,11 @@ APL ports (Saga 12) may call for it sooner.
   panes (split ratio, the output pane's height) remains, a natural
   step of the stepping-debugger saga, which reuses the panes.
 - fuzzing (`cargo-fuzz` for lexer, parser, fmt, eval) -- after Saga 2.
+- evaluator speed (found porting TTTML): a primitive operand of reduce,
+  scan, inner product or table (`'+ r_/`, `'+ '* i_nner`, `'m_in r_/`)
+  is applied one element at a time through the general call path, and
+  most of TTTML's training time is allocation there; applying it as a
+  vector kernel instead would speed up every such program.
 - nesting depth: done in Saga 3 step 1 (bracket and AST depth limits,
   `too-deep`).
 - install tooling: `x_etal` alias next to `xetal` (S7) -- with Saga 2's

@@ -38,6 +38,18 @@ pub fn eval_program(
     out: &mut (dyn Write + Send),
     seed: Option<u64>,
 ) -> (Vec<Diagnostic>, Result<(), Diagnostic>) {
+    eval_items(program, out, seed, &mut |_| {})
+}
+
+/// [`eval_program`], calling `before` with each top-level item's span
+/// just before the item runs (a notebook shows the item's source then,
+/// and its output as it is written).
+pub fn eval_items(
+    program: &Program,
+    out: &mut (dyn Write + Send),
+    seed: Option<u64>,
+    before: &mut (dyn FnMut(Span) + Send),
+) -> (Vec<Diagnostic>, Result<(), Diagnostic>) {
     let warnings = xetal_lint::warnings(program);
     let result = on_worker(|| {
         let mut machine = crate::machine::Machine {
@@ -46,6 +58,7 @@ pub fn eval_program(
             depth: 0,
             rng: Rng::seeded(seed.unwrap_or_else(Rng::fresh_seed)),
             shown: None,
+            before: Some(before),
         };
         machine.run(program)
     })
@@ -66,6 +79,7 @@ pub(crate) fn run_showing(
         depth: 0,
         rng: Rng::seeded(seed.unwrap_or_else(Rng::fresh_seed)),
         shown: Some(shown),
+        before: None,
     };
     let result = machine.run(program);
     (result, machine.shown.map(|s| s.values).unwrap_or_default())

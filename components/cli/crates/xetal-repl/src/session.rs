@@ -8,6 +8,8 @@ use std::fmt::Write;
 
 use xetal_base::{Diagnostic, Span};
 
+use crate::live::Live;
+
 /// Every replay rolls from the session's seed, so `r_oll!` results of
 /// accepted lines keep their values from line to line.
 #[derive(Debug)]
@@ -44,10 +46,10 @@ pub enum Reply {
 /// placed in the program's own text.
 fn run(
     source: &str,
-    origin: &str,
-    seed: u64,
-    untyped: bool,
+    session: &Session,
+    sink: &mut (dyn std::io::Write + Send),
 ) -> (Vec<u8>, Vec<Diagnostic>, Result<(), Diagnostic>) {
+    let (origin, seed, untyped) = (&session.origin, session.seed, session.untyped);
     let loaded = match xetal_program::load(origin, source) {
         Ok(l) => l,
         Err(e) => return (Vec::new(), Vec::new(), Err(e)),
@@ -61,10 +63,14 @@ fn run(
     if let Err(e) = checked {
         return (Vec::new(), Vec::new(), Err(here(e)));
     }
-    let mut out = Vec::new();
+    let mut out = Live {
+        skip: session.shown,
+        all: Vec::new(),
+        sink,
+    };
     let (warnings, result) = xetal_eval::eval_program(&program, &mut out, Some(seed));
     (
-        out,
+        out.all,
         warnings.into_iter().map(here).collect(),
         result.map_err(here),
     )
@@ -97,6 +103,12 @@ impl Session {
 
     /// Feed one line of input.
     pub fn feed(&mut self, line: &str) -> Reply {
+        self.feed_to(line, &mut std::io::sink())
+    }
+
+    /// Feed one line of input, its new output also written to `sink`
+    /// as the program writes it (to watch a long computation).
+    pub fn feed_to(&mut self, line: &str, sink: &mut (dyn std::io::Write + Send)) -> Reply {
         let text = match self.pending.is_empty() {
             true => line.to_string(),
             false => format!("{}\n{line}", self.pending),
@@ -106,7 +118,7 @@ impl Session {
             false => format!("{}\n{text}", self.accepted),
         };
         let offset = source.len() - text.len();
-        let (out, warnings, result) = run(&source, &self.origin, self.seed, self.untyped);
+        let (out, warnings, result) = run(&source, self, sink);
         if matches!(&result, Err(d) if d.code == "unclosed") {
             self.pending = text;
             return Reply::More;

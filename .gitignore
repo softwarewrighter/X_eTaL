@@ -22,3 +22,6 @@
 
 # local scratch
 /tmp/
+
+# Scratch output of demos (for example the TTTML model): not tracked
+work/

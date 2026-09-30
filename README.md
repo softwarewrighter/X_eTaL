@@ -100,7 +100,8 @@ built-ins (reduce, scan, each, table, inner product, compose, swap),
 search, order and random built-ins, rotate, reverse and axis
 subscripts on any function, function power (`f_^3`), the Life
 one-liner, libraries imported with `u_se<` (the standard libraries
-`Stats`, `Combinators` (Smullyan's birds) and `Maybe` are built in),
+`Stats`, `Combinators` (Smullyan's birds), `Maybe` and `TTTML` are
+built in),
 and the
 decorated views: `xetal render --color`, notebook runs, the editor and
 a REPL that draws each line decorated as you type. Next: more
@@ -120,6 +121,7 @@ just repl                                       # drawn decorated as you type; U
 just show demos/stats.xtl                       # a program using the built-in Stats library, as a notebook
 just show demos/combinators.xtl                 # Smullyan's birds from the built-in Combinators library
 just show demos/monads.xtl                      # the Maybe monad: safe division chained by bind
+just tttml                                      # TTTML: learns tic-tac-toe by playing itself (optimized build)
 just pp demos/factorial.xtl                     # print a file decorated and highlighted
 just edit demos/life.xtl                        # ASCII left, decorated right
 ```
@@ -172,6 +174,9 @@ Other fonts, checked against the font files:
 - [`docs/literate/tour.org`](docs/literate/tour.org) -- the language tour
   as a literate Org document, every block run and its result recorded
   (`docs/emacs/`: `xetal-mode` and `ob-xetal` for Org Babel)
+- [`docs/literate/tttml.org`](docs/literate/tttml.org) -- TTTML, a machine
+  that learns tic-tac-toe by playing itself, as a literate program over the
+  `TTTML` library
 - [`docs/input.md`](docs/input.md) -- how to type X_eTaL expressions
 - [`docs/birds.md`](docs/birds.md) -- the aviary: Smullyan's combinators,
   which type-check, and how the `Combinators` library spells them
@@ -197,9 +202,10 @@ cp target/release/xetal ~/.local/bin/          # any directory on PATH
 ln -sf xetal ~/.local/bin/x_etal               # the alias x_etal
 ```
 
-An installed copy (and `target/release/xetal`) does not update itself:
-run `just install` again after pulling changes. The `just` recipes
-use the debug build, which they rebuild as needed.
+An installed copy does not update itself: run `just install` again
+after pulling changes. The `just` recipes run the optimized build
+(`target/release/xetal`), which they rebuild when a source changed
+(saying "building xetal...").
 
 With `xetal` on the PATH, `.xtl` scripts run directly:
 `./demos/factorial.xtl`.

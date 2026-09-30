@@ -19,8 +19,9 @@ inside a comment is drawn too.
 
 `xetal run --echo` (`just show FILE`, and `just tour` for
 `demos/tour.xtl`, a commented tour of every feature) prints each
-statement decorated with its output indented below it; an error shows
-under its statement and the run continues.
+statement decorated and indented, as input is in an APL session, with
+its output flush left below it, streamed as it is written; an error
+shows under its statement and the run continues.
 
 `xetal edit FILE` (`just edit FILE`) is a full-screen editor: the
 ASCII you type on the left, its decorated form on the right, the types

@@ -1,0 +1,230 @@
+#+TITLE: TTTML: a machine that learns tic-tac-toe
+#+SUBTITLE: learning by playing itself, in X_eTaL
+#+AUTHOR: Michael A Wright
+#+OPTIONS: toc:2 num:nil ^:{}
+#+PROPERTY: header-args:xetal :session tttml :seed 1 :results output :exports both
+
+TTTML learns tic-tac-toe by playing itself. It is a port of the TTTML
+workspace of sw-apl's library 1 (whose literate program tells the same
+story in APL), written as X_eTaL says it: the standard library
+~TTTML~ (~lib/TTTML.xtl~) holds the functions, and a model, what the
+machine has learned, is an ordinary value passed to them and returned
+by them. Every block below is run by ~xetal~ through ~ob-xetal~, and
+its result is recorded under it; ~just tttml~ runs the whole demo
+(~demos/tttml.xtl~) as a notebook.
+
+Only the functions that roll dice end in ~!~: ~g_ame!~, ~t_rain!~ and
+~t_rial!~. Everything else is a function of its arguments alone.
+
+* The board
+
+A board is 9 numbers, the squares row by row: ~1~ for X, ~-1~ for O,
+~0~ for an empty square. X always moves first, so whose turn it is can
+be read from the board: X's when its marks sum to 0. ~s_how~ draws
+one:
+
+#+begin_src xetal
+"t:" u_se< "TTTML"
+t:s_how 1 -1 0 0 1 0 0 0 -1
+#+end_src
+
+#+RESULTS:
+:  X O .
+:  . X .
+:  . . O
+
+* Who has won
+
+A line is three squares, and there are eight: three rows, three
+columns, two diagonals. ~t:lines~ holds them as an 8 by 9 matrix of 0s
+and 1s, a row per line, so one inner product sums a board along every
+line at once. X has a line where a sum is 3, O where it is -3:
+
+#+begin_src xetal
+t:lines '+ '* i_nner 1 1 1 -1 -1 0 0 0 0
+#+end_src
+
+#+RESULTS:
+: 3 -2 0 0 0 1 0 0
+
+~o_utcome~ reads the result from those sums: 1 when X has won, -1 when
+O has, 2 for a full board with no line (a draw), and 0 while the game
+goes on.
+
+#+begin_src xetal
+t:o_utcome 1 1 1 -1 -1 0 0 0 0
+t:o_utcome 1 -1 1 1 -1 -1 -1 1 1
+t:o_utcome 1 -1 0 0 0 0 0 0 0
+#+end_src
+
+#+RESULTS:
+: 1
+: 2
+: 0
+
+* One position, eight ways
+
+A board turned a quarter or reflected is the same position to play.
+The square has eight symmetries, and ~t:symmetries~ lists them as eight
+rearrangements of the square numbers, so selecting a board through it
+gives all eight versions at once; ~b_oards~ draws them side by side:
+
+#+begin_src xetal
+t:b_oards t:symmetries s_elect 1 -1 0 0 0 0 0 0 0
+#+end_src
+
+#+RESULTS:
+:  X O .   . . X   . . .   . . .   . O X   . . .   X . .   . . .  
+:  . . .   . . O   . . .   O . .   . . .   . . .   O . .   . . O  
+:  . . .   . . .   . O X   X . .   . . .   X O .   . . .   . . X  
+
+~c_ode~ names a position. Read as a base-3 number, a board is a single
+integer; each of the eight versions has its own, and the least of the
+eight is the position's code. An X in the top left corner and an X in
+the top right are one position, and have one code; an X on an edge is
+another:
+
+#+begin_src xetal
+t:c_ode 1 0 0 0 0 0 0 0 0
+t:c_ode 0 0 1 0 0 0 0 0 0
+t:c_ode 0 1 0 0 0 0 0 0 0
+#+end_src
+
+#+RESULTS:
+: 9842
+: 9842
+: 9844
+
+* What a position is worth
+
+What the machine learns is one number for each position it has met:
+how good that board, just after a move, has turned out to be for the
+player who made the move. Towards 1 is a win, towards 0 a loss, and
+0.5 a draw, or no idea yet. The model is two rows, the codes of the
+positions met and their values; ~t:empty~ has met none:
+
+#+begin_src xetal
+s_hape t:empty
+#+end_src
+
+#+RESULTS:
+: 2 0
+
+~v_alue~ looks a position up. One the model has not met is worth 0.5:
+it is found one past the end of the codes, where a 0.5 is added to the
+values for the lookup.
+
+#+begin_src xetal
+t:empty t:v_alue 1 0 0 0 0 0 0 0 0
+#+end_src
+
+#+RESULTS:
+: 0.5
+
+* Choosing a move
+
+~a_fter~ is the board once the player to move takes a square, and
+~c_hoose~ values the board after every empty square, all in one lookup,
+and takes the best. With nothing learned every board is worth 0.5, so
+it takes the first empty square:
+
+#+begin_src xetal
+(9 r_eshape 0) t:a_fter 5
+t:empty t:c_hoose 9 r_eshape 0
+#+end_src
+
+#+RESULTS:
+: 0 0 0 0 1 0 0 0 0
+: 1
+
+* A game against itself
+
+~g_ame!~ plays one game against itself: the best move, but one time in
+ten a random one, so that it keeps trying moves it now thinks are bad.
+The game is its boards, one per row, from the empty one on. Knowing
+nothing, it plays like this:
+
+#+begin_src xetal
+t:b_oards t:g_ame! t:empty
+#+end_src
+
+#+RESULTS:
+:  . . .   X . .   X O .   X O X   X O X   X O X   X O X   X O X  
+:  . . .   . . .   . . .   . . .   O . .   O X .   O X O   O X O  
+:  . . .   . . .   . . .   . . .   . . .   . . .   . . .   X . .  
+
+* Learning from a game
+
+~l_earn~ goes back through a game from the last move to the first,
+moving each board's value a fifth of the way towards a target. For the
+last two moves the target is the result, as the player who made the
+move sees it: 1 won, 0 lost, 0.5 drawn. For an earlier move it is that
+player's next board, two moves on, taken at 0.9 so that a sooner win
+is worth more than a later one. This is temporal-difference learning,
+as in Sutton and Barto's tic-tac-toe example: a win or a loss at the
+end reaches back, game by game, to the moves that led to it. Boards
+not met before join the model at 0.5 first. After one game the model
+knows that game's positions:
+
+#+begin_src xetal
+t:empty t:l_earn t:g_ame! t:empty
+#+end_src
+
+#+RESULTS:
+:    9844.0  3523.0  3532.0              1345.0 1426.0 1423.0 2152.0
+: 0.4884592 0.48496 0.49144 0.47200000000000003  0.508    0.4    0.6
+
+* Training and playing
+
+~t_rain!~ learns from ~n~ games, one after another, each played with
+what the games before it taught; every 250 games it prints how many
+games are still to go and how many positions it knows. After 2000 games it knows how many
+positions (sw-apl's workspace knows 757 after 3000), what it thinks of
+X's three different first moves (a corner, an edge, the centre), and
+where it opens. Then ~t_rial!~ plays 50 games against a random player
+as X and 50 as O: a row each of games won, lost and drawn. Then
+~s_elfTrial!~ plays it against itself 50 times, its best move on both
+sides from a random first move (from the empty board its best move is
+always the same, so without one every game would be the same game):
+games X won, O won and drawn. Last, the game it plays against itself
+from the empty board:
+
+#+begin_src xetal
+m := 2000 t:t_rain! t:empty
+t_ally 1 s_elect m
+m t:v_alue 1 0 0 0 0 0 0 0 0
+m t:v_alue 0 1 0 0 0 0 0 0 0
+m t:v_alue 0 0 0 0 1 0 0 0 0
+m t:c_hoose 9 r_eshape 0
+50 t:t_rial! m
+50 t:s_elfTrial! m
+t:b_oards t:b_est m
+#+end_src
+
+#+RESULTS:
+#+begin_example
+games to go, positions known:
+1750 566
+1500 643
+1250 671
+1000 677
+750 681
+500 681
+250 683
+0 686
+686
+0.3522504138170238
+0.3421694474825987
+0.3307934461938286
+1
+48 0 2
+45 0 5
+0 0 50
+ . . .   X . .   X . .   X . .   X O .   X O .   X O .   X O X   X O X   X O X  
+ . . .   . . .   . O .   . O .   . O .   . O .   . O .   . O .   . O O   X O O  
+ . . .   . . .   . . .   . . X   . . X   . X X   O X X   O X X   O X X   O X X  
+#+end_example
+
+Played well on both sides, tic-tac-toe is always a draw: it is both
+players in every game against itself, so a win would be a mistake by
+one of them.

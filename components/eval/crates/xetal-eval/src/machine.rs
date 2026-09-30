@@ -25,12 +25,22 @@ pub(crate) struct Machine<'a, 'o> {
     pub rng: Rng,
     /// When set, top-level values are kept for display, not printed.
     pub shown: Option<Shown>,
+    /// Called with each top-level item's span just before it runs.
+    pub before: Option<&'o mut (dyn FnMut(Span) + Send)>,
 }
 
 impl<'a> Machine<'a, '_> {
     pub fn run(&mut self, program: &'a Program) -> Result<(), Diagnostic> {
         let mut env: Env<'a> = None;
         for item in &program.items {
+            if let Some(hook) = self.before.as_mut() {
+                hook(match item {
+                    Item::Def { value, .. } | Item::Let { value, .. } | Item::Set { value, .. } => {
+                        value.span
+                    }
+                    Item::Eval(e) => e.span,
+                });
+            }
             match item {
                 Item::Def { name, value } => {
                     if self.globals.contains_key(name) {

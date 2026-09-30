@@ -4,7 +4,10 @@
 
 set positional-arguments
 
-xetal := "./target/debug/xetal"
+# The recipes run the optimized build (programs run about ten times
+# faster than in the debug build); scripts/quick-build.sh rebuilds it
+# only when a source changed.
+xetal := "./target/release/xetal"
 
 # List the recipes
 default:
@@ -14,8 +17,7 @@ default:
 build:
     scripts/build-all.sh
 
-# Build every component optimized (target/release/xetal); the other
-# recipes use the debug build, so run this before using target/release
+# Build every component optimized (target/release/xetal: the run recipes use it)
 build-release:
     scripts/build-all.sh --release
 
@@ -118,9 +120,8 @@ life: _quiet-build
     @{{xetal}} run demos/life.xtl
 
 # TTTML: a machine that learns tic-tac-toe by playing itself, as a notebook (optimized build)
-tttml:
-    @scripts/build-all.sh --release -q > /dev/null
-    @./target/release/xetal run --echo demos/tttml.xtl
+tttml: _quiet-build
+    @{{xetal}} run --echo demos/tttml.xtl
 
 # Play the rotate demo (demos/rotate.xtl) as an animation
 animate: _quiet-build

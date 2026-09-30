@@ -1,8 +1,8 @@
-[2m⍝!/usr/bin/env xetal[0m
-[2m⍝ M1: recursion with guards, one statement per line.[0m
-[32mᵘf̲act[0m ← { n →
-  n [94m≤[0m [33m1[0m ? [33m1[0m
-  n [94m×[0m [32mᵘf̲act[0m n [94m−[0m [33m1[0m
-}[0m
-[32mᵘf̲act[0m [33m10[0m
-  3628800
+      [2m⍝!/usr/bin/env xetal[0m
+      [2m⍝ M1: recursion with guards, one statement per line.[0m
+      [32mᵘf̲act[0m ← { n →
+        n [94m≤[0m [33m1[0m ? [33m1[0m
+        n [94m×[0m [32mᵘf̲act[0m n [94m−[0m [33m1[0m
+      }[0m
+      [32mᵘf̲act[0m [33m10[0m
+3628800

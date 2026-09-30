@@ -1,6 +1,7 @@
 //! An interactive session over the pipeline, and a file run as a
 //! notebook (each statement followed by its output).
 
+mod live;
 mod notebook;
 mod session;
 mod stdio;

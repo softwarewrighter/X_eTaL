@@ -16,6 +16,7 @@ xetal-catalog = { path = "../base/crates/xetal-catalog" }
 xetal-ast = { path = "../syntax/crates/xetal-ast" }
 xetal-ir = { path = "../core/crates/xetal-ir" }
 xetal-lint = { path = "../core/crates/xetal-lint" }
+xetal-sources = { path = "../macro/crates/xetal-sources" }
 xetal-base = { path = "../base/crates/xetal-base" }
 xetal-lex = { path = "../syntax/crates/xetal-lex" }
 xetal-syntax = { path = "../syntax/crates/xetal-syntax" }

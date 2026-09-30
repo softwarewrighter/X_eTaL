@@ -94,3 +94,18 @@ fn a_session_can_import_a_library() {
         "the error is placed in the line typed: {err}"
     );
 }
+
+#[test]
+fn output_can_stream_to_a_sink_as_it_is_written() {
+    let mut s = xetal_repl::Session::new("-e", 1);
+    let mut sink = Vec::new();
+    s.feed_to("1 + 1", &mut sink);
+    s.feed_to("p_rint! 5 6", &mut sink);
+    s.feed_to("1 / y", &mut sink);
+    s.feed_to("7", &mut sink);
+    assert_eq!(
+        String::from_utf8(sink).unwrap(),
+        "2\n5 6\n5 6\n7\n",
+        "each line's new output once; a failing line adds none"
+    );
+}

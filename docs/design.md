@@ -501,13 +501,20 @@ goldens are unchanged.
 
 ### 8.1c Notebook runs (`xetal run --echo`)
 
-`--echo` runs a file the way the REPL runs typed lines: a session
-fed line by line (a statement with an open bracket takes the
-following lines too), so each statement is printed decorated and
-colored and followed by exactly the output it produced, indented.
-Definitions persist, `p_rint!` output is not repeated, and one seed
-keeps `r_oll!` consistent across the replays. An error is shown in
-red under its statement and the run continues; the command then
+`--echo` shows a file as an APL session would: each statement
+decorated and colored, indented six spaces where APL prompts for
+input, and under it, flush left, exactly the output it produced. It
+streams: the program runs once, the evaluator reports each top-level
+statement just before running it (`xetal_eval::eval_items`), so the
+statement is shown then and its output appears as it is written (a
+long computation can print its progress). A file with warnings or
+type errors, and the rest of a file after a runtime error, go a
+statement at a time instead, as the REPL runs typed lines: a session
+fed line by line (a statement with an open bracket takes the following
+lines too), whose new output is streamed the same way (definitions
+persist, `p_rint!` output is not repeated, and one seed keeps
+`r_oll!` consistent across the replays). An error is shown in red
+under its statement and the run continues; the command then
 fails with `error[failed]`.
 
 ### 8.1f Planned: the stepping debugger (`xetal debug FILE`)

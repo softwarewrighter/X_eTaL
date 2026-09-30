@@ -1,175 +1,33 @@
 #!/usr/bin/env xetal
-# TTTML: a machine that learns tic-tac-toe by playing itself, ported
-# from the TTTML workspace of sw-apl's library 1. Run as a notebook
-# with `just tttml` (the optimized build: training takes about ten
-# seconds) or `just show demos/tttml.xtl`.
+# TTTML: a machine that learns tic-tac-toe by playing itself, from the
+# TTTML library (lib/TTTML.xtl, ported from sw-apl's TTTML workspace;
+# docs/literate/tttml.org explains it). Run as a notebook with
+# `just tttml` (the optimized build: training takes seconds).
+"t:" u_se< "TTTML"
 
-# A board is 9 numbers, the squares row by row: 1 for X, -1 for O,
-# 0 for an empty square. X moves first, so the board says whose turn
-# it is: X's when its sum is 0.
-u:s_how := { s -> 3 6 r_eshape (1 + (s + 2) '* t_able 0 1) s_elect " O.X" }
-u:s_how 1 -1 0 0 1 0 0 0 -1
+# A board: 1 for X, -1 for O, 0 for an empty square.
+t:s_how 1 -1 0 0 1 0 0 0 -1
 
-# The 8 lines (3 rows, 3 columns, 2 diagonals), a row of 0s and 1s
-# each: one inner product sums the board along every line. X has a
-# line where a sum is 3, O where it is -3.
-wl := 8 9 r_eshape 1 1 1 0 0 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 1 1 1 1 0 0 1 0 0 1 0 0 0 1 0 0 1 0 0 1 0 0 0 1 0 0 1 0 0 1 1 0 0 0 1 0 0 0 1 0 0 1 0 1 0 1 0 0
-wl '+ '* i_nner 1 1 1 -1 -1 0 0 0 0
+# Who has won: 1 X, -1 O, 2 a draw, 0 not over.
+t:o_utcome 1 1 1 -1 -1 0 0 0 0
+t:o_utcome 1 -1 1 1 -1 -1 -1 1 1
 
-# The outcome: 1 X has won, -1 O has, 2 a draw (a full board), 0 the
-# game goes on.
-u:o_utcome := { s ->
-  l := wl '+ '* i_nner s
-  3 m_ember? l ? 1; -3 m_ember? l ? -1; 0 m_ember? s ? 0; 2
-}
-u:o_utcome 1 1 1 -1 -1 0 0 0 0
-u:o_utcome 1 -1 1 1 -1 -1 -1 1 1
-u:o_utcome 1 -1 0 0 0 0 0 0 0
+# A position's code is the same for the board turned or reflected.
+t:c_ode 1 0 0 0 0 0 0 0 0
+t:c_ode 0 0 1 0 0 0 0 0 0
 
-# One position, eight ways: a board turned or reflected is the same
-# position. The 8 symmetries as rearrangements of the squares; a
-# board read as a base-3 number names it, and the least of its 8
-# names is the position's code.
-sym := 8 9 r_eshape 1 2 3 4 5 6 7 8 9 7 4 1 8 5 2 9 6 3 9 8 7 6 5 4 3 2 1 3 6 9 2 5 8 1 4 7 3 2 1 6 5 4 9 8 7 7 8 9 4 5 6 1 2 3 1 4 7 2 5 8 3 6 9 9 6 3 8 5 2 7 4 1
-u:c_ode := { s -> 'm_in r_/ ((sym s_elect s) + 1) '+ '* i_nner 6561 2187 729 243 81 27 9 3 1 }
-u:c_ode 1 0 0 0 0 0 0 0 0
-u:c_ode 0 0 1 0 0 0 0 0 0
-u:c_ode 0 1 0 0 0 0 0 0 0
+# Learning from 2000 games against itself: how many positions it
+# met.
+m := 2000 t:t_rain! t:empty
+t_ally 1 s_elect m
 
-# What it learns: a value for each position met, just after a move,
-# for the player who made it: towards 1 a win, towards 0 a loss, 0.5
-# a draw or no idea yet. The model is two vectors, the codes met so
-# far and their values; a position not met before is added at 0.5.
-keys! := 0 r_eshape 0
-vals! := 0 r_eshape 0.5
-# The game in play: the board, its afterstates, the result, and where
-# the afterstates are in the model; and a training run's counts.
-b! := 9 r_eshape 0
-h! := 0 9 r_eshape 0
-w! := 0
-at! := 0 r_eshape 0
-r! := 0 0 0
-u:a_dd! := { c ->
-  keys! := keys! c_at c
-  vals! := vals! c_at 0.5
-  0
-}
-u:k_now! := { c -> c m_ember? keys! ? 0; u:a_dd! c }
-u:v_alue! := { s ->
-  c := u:c_ode s
-  k := u:k_now! c
-  (keys! i_ndexOf c) s_elect vals!
-}
-
-# Choosing a move: every board the mover could make, one per empty
-# square, each valued; the best is taken. The mover's mark is 1 for X
-# (the board sums to 0) and -1 for O.
-u:c_hoose! := { s ->
-  p := w_here s = 0
-  m := 1 - 2 * '+ r_/ s
-  v := '{ a -> u:v_alue! s + m * (r_ange 9) = a } e_ach p
-  (v i_ndexOf 'm_ax r_/ v) s_elect p
-}
-
-# One game against itself: the board b! and every afterstate in h!.
-# With a chance of eps in 1000 it plays a random legal move instead,
-# so that it keeps trying moves it now thinks are bad.
-u:p_ick! := { eps ->
-  p := w_here b! = 0
-  a := u:c_hoose! b!
-  (r_oll! 1000) <= eps ? (r_oll! t_ally p) s_elect p; a
-}
-u:m_ove! := { eps ->
-  a := u:p_ick! eps
-  b! := b! + (1 - 2 * '+ r_/ b!) * (r_ange 9) = a
-  h! := h! c_at 1 9 r_eshape b!
-  u:o_utcome b!
-}
-u:p_lay! := { eps ->
-  w := u:m_ove! eps
-  w = 0 ? u:p_lay! eps; w
-}
-
-# Learning from a game, from the last move back to the first: each
-# afterstate's value moves a fifth of the way to a target. For the
-# last two moves the target is the result as its mover sees it (1
-# won, 0 lost, 0.5 drawn); before that, the mover's next afterstate,
-# two moves on, taken at 0.9 so a sooner win is worth more.
-u:t_arget := { j ->
-  x := '+ r_/ j s_elect h!
-  j >= (t_ally at!) - 1 ? (0.5 * f_loat w! = 2) + f_loat w! = (2 * x) - 1; 0.9 * ((j + 2) s_elect at!) s_elect vals!
-}
-u:b_ack! := { j ->
-  i := j s_elect at!
-  t := u:t_arget j
-  vals! := vals! + (f_loat (r_ange t_ally vals!) = i) * 0.2 * t - i s_elect vals!
-  j = 1 ? 0; u:b_ack! j - 1
-}
-u:g_ame! := { eps ->
-  b! := 9 r_eshape 0
-  h! := 0 9 r_eshape 0
-  w! := u:p_lay! eps
-  at! := keys! i_ndexOf '{ k -> u:c_ode k s_elect h! } e_ach r_ange t_ally h!
-  z := u:b_ack! t_ally at!
-  w!
-}
-
-# Training: forget, then learn from n games against itself. The
-# result is how many games X won, O won and were drawn.
-u:g_ames! := { n ->
-  r! := r! + (u:g_ame! 100) = 1 c_at -1 c_at 2
-  n = 1 ? r!; u:g_ames! n - 1
-}
-u:t_rain! := { n ->
-  keys! := 0 r_eshape 0
-  vals! := 0 r_eshape 0.5
-  r! := 0 0 0
-  u:g_ames! n
-}
-
-# Against a random player: the machine plays side (1 as X, -1 as O),
-# always its best move; the other side plays at random. The counts are
-# games won, lost and drawn.
-u:r_eply := { side ->
-  p := w_here b! = 0
-  (1 - 2 * '+ r_/ b!) = side ? u:c_hoose! b!; (r_oll! t_ally p) s_elect p
-}
-u:t_urn := { side ->
-  a := u:r_eply side
-  b! := b! + (1 - 2 * '+ r_/ b!) * (r_ange 9) = a
-  u:o_utcome b!
-}
-u:v_ersus := { side ->
-  w := u:t_urn side
-  w = 0 ? u:v_ersus side; w
-}
-u:t_rials := { side n ->
-  b! := 9 r_eshape 0
-  w := u:v_ersus side
-  r! := r! + w = side c_at (0 - side) c_at 2
-  n = 1 ? r!; side u:t_rials n - 1
-}
-u:t_rial := { side n ->
-  r! := 0 0 0
-  side u:t_rials n
-}
-
-# Learning from 3000 games against itself: how many X won, O won and
-# were drawn, and how many positions it now knows.
-u:t_rain! 3000
-t_ally keys!
-
-# Then 50 games against a random player, as X and as O: won, lost,
+# 50 games against a random player as X, then 50 as O: won, lost,
 # drawn.
-1 u:t_rial 50
--1 u:t_rial 50
+50 t:t_rial! m
 
-# A game against itself with what it learned, move by move.
-u:s_elfPlay := { s ->
-  a := u:c_hoose! s
-  n := s + (1 - 2 * '+ r_/ s) * (r_ange 9) = a
-  shown := p_rint! u:s_how n
-  gap := p_rint! ""
-  (u:o_utcome n) = 0 ? u:s_elfPlay n; u:o_utcome n
-}
-u:s_elfPlay 9 r_eshape 0
+# 50 games against itself, its best move on both sides from a random
+# first move: X won, O won, drawn. Played well, all are draws.
+50 t:s_elfTrial! m
+
+# The game it plays against itself, move by move.
+t:b_oards t:b_est m

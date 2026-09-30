@@ -1,7 +1,7 @@
 Available recipes:
     animate                    # Play the rotate demo (demos/rotate.xtl) as an animation
     build                      # Build every component (debug) into the shared target/
-    build-release              # recipes use the debug build, so run this before using target/release
+    build-release              # Build every component optimized (target/release/xetal: the run recipes use it)
     check-literate             # The literate documents' recorded results are current
     clippy                     # Lint every component (warnings are errors)
     default                    # List the recipes

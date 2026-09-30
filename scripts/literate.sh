@@ -10,7 +10,7 @@ emacs="${EMACS:-}"
 [ -n "$emacs" ] || ! command -v emacs > /dev/null 2>&1 || emacs=emacs
 [ -n "$emacs" ] || [ ! -x /Applications/Emacs.app/Contents/MacOS/Emacs ] || emacs=/Applications/Emacs.app/Contents/MacOS/Emacs
 if [ -z "$emacs" ]; then echo "literate: no Emacs; skipped"; exit 0; fi
-scripts/build-all.sh -q > /dev/null
+scripts/build-all.sh --release -q > /dev/null
 check="${1:-}"
 status=0
 for doc in docs/literate/*.org; do
@@ -19,7 +19,7 @@ for doc in docs/literate/*.org; do
         target="$(mktemp -t literate).org"
         cp "$doc" "$target"
     fi
-    XETAL_BIN="$root/target/debug/xetal" "$emacs" --batch -Q -L docs/emacs \
+    XETAL_BIN="$root/target/release/xetal" "$emacs" --batch -Q -L docs/emacs \
         -l docs/emacs/test/literate-run.el "$target" > /dev/null 2>&1 \
         || { echo "literate: $doc failed to run"; status=1; continue; }
     if [ "$check" = "--check" ]; then

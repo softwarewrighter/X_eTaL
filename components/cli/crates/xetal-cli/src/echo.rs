@@ -1,14 +1,12 @@
 //! `xetal run --echo`: each statement pretty-printed (decorated and
-//! colored), then its output indented below it, like a notebook.
+//! colored), then its output below it, like a notebook laid out as an
+//! APL session: statements indented six spaces, output flush left.
 
 use xetal_base::Diagnostic;
 
 use crate::args::{Command, EvalArgs};
 use crate::stages::{evaluate, seed_or_env};
 use xetal_view::{ansi, view};
-
-const RED: &str = "\u{1b}[31m";
-const RESET: &str = "\u{1b}[0m";
 
 /// Print `source` as a notebook; an error fails the run after
 /// everything has been shown.
@@ -20,18 +18,24 @@ pub(crate) fn echo(
     untyped: bool,
 ) -> Result<String, Diagnostic> {
     let seed = seed.unwrap_or_else(xetal_eval::Rng::fresh_seed);
-    let mut failed = false;
-    for cell in xetal_repl::notebook(origin, source, seed, untyped) {
-        pause(delay, &cell.source);
-        println!("{}", ansi(&view(&cell.source)));
-        for line in cell.out.lines() {
-            println!("  {line}");
+    let mut show = |text: &str| {
+        pause(delay, text);
+        let shown = ansi(&view(text));
+        if text.trim().is_empty() {
+            println!();
         }
-        for line in cell.err.lines() {
-            failed |= line.starts_with("error[");
-            println!("  {RED}{line}{RESET}");
+        for line in shown.lines().filter(|_| !text.trim().is_empty()) {
+            println!("{}{line}", crate::live::PROMPT);
         }
-    }
+    };
+    let failed = match crate::once::once(origin, source, (seed, untyped), &mut show) {
+        Some(failed) => failed,
+        None => {
+            let mut session = xetal_repl::Session::new(origin, seed);
+            session.untyped = untyped;
+            crate::live::stream(&mut session, source, &mut show)
+        }
+    };
     match failed {
         true => Err(Diagnostic::new(
             "failed",
