@@ -1,0 +1,8 @@
+number = 10
+slug = "hello-library"
+status = "pending"
+description = "User request: a demo and a literate document showing how to write a hello-wor..."
+role = "production"
+context_files = []
+created_at = "2026-09-30T14:31:18"
+commits = []
