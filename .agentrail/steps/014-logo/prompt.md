@@ -1,0 +1,1 @@
+A logo (user request) from the decorated name: X underlined, a raised e and T, a raised a and L, as the user wrote it (X with underline, superscript e, T, superscript a, L): an SVG images/xetal-logo.svg (typeset, not hand-drawn glyph by glyph where a font will do), shown at the top of the README in place of the JPEG.

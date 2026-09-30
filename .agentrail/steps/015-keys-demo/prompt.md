@@ -1,0 +1,1 @@
+demos/keys.xtl (user request): every input form of docs/input.md as a line of code, each with a comment showing what was typed, in double quotes so the comment shows the ASCII as written (comments decorate only backquoted code): just pp shows each form decorated beside its typed spelling, just show runs it. Golden for the run; docs/input.md points to it.

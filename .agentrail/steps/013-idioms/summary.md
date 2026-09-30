@@ -1,0 +1,1 @@
+docs/idioms.md: mainstream (Java/JS/Python/C++/Rust) and array (APL2/Dyalog/J/BQN) idiom tables with an X_eTaL column; glyphs as entities (ASCII markdown); X_eTaL cells pinned by spec/integration/idioms.case and reg idioms-io.

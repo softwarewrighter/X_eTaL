@@ -1,8 +1,9 @@
 number = 13
 slug = "idioms"
-status = "in-progress"
+status = "completed"
 description = "docs/idioms.md (user request), modelled on the idioms table at https://sw-emb..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T07:00:34"
-commits = []
+completed_at = "2026-09-30T08:12:11"
+commits = ["8e35334756d03fc8c5872837d175142fa71a12b9"]
