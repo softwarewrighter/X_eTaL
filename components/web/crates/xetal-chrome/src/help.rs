@@ -24,6 +24,8 @@ pub(crate) fn help_text() -> Html {
                 <li><b>{ "Run" }</b>{ " (Ctrl-Enter) runs the program and shows its output." }</li>
                 <li><b>{ "Tab" }</b>{ " moves between the panes; the current one has the bright border." }</li>
                 <li><b>{ "Zoom" }</b>{ " (Ctrl-.) shows the current pane alone, and back." }</li>
+                <li>{ "Drag the bars between the panes to resize them (this browser \
+                       remembers); double-click a bar to put it back." }</li>
                 <li>{ "The drop-down opens a demo, a standard library (shown with its \
                        exports' types) or one of your files; " }<b>{ "Clear" }</b>
                     { " (or \"(empty)\") gives an empty editor to type into." }</li>

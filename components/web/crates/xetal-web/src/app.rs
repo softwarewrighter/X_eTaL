@@ -1,10 +1,11 @@
 //! The editor's state and what changes it.
 
 use web_sys::HtmlSelectElement;
-use xetal_play::{Run, run};
+use xetal_layout::{Axis, divider, use_split};
+use xetal_play::{Run, is_library, run};
 use yew::prelude::*;
 
-use crate::keys::{Action, action};
+use crate::keys::keys;
 use crate::{DEMOS, choices, open, panes, storage};
 use xetal_chrome as chrome;
 
@@ -34,25 +35,22 @@ pub fn app() -> Html {
     let current = use_state(|| Pane::Source);
     let (zoom, help) = (use_state(|| false), use_state(|| false));
     let result = use_state(|| None::<Run>);
+    let split = use_split();
     let (drawn, printed) = (use_node_ref(), use_node_ref());
     use_follow(&result, printed.clone());
+    let library = is_library(&text);
     let (t, r) = (text.clone(), result.clone());
-    let run_now = Callback::from(move |_: ()| r.set(Some(run(&t, seed()))));
+    let run_now = Callback::from(move |_: ()| {
+        if !library {
+            r.set(Some(run(&t, seed())));
+        }
+    });
     let z = zoom.clone();
     let toggle = Callback::from(move |_: ()| z.set(!*z));
     let h = help.clone();
     let show_help = Callback::from(move |open: bool| h.set(open));
     let on_key = keys(run_now.clone(), toggle.clone(), show_help.clone());
-    let (t, r) = (text.clone(), result.clone());
-    let edit = Callback::from(move |v: String| {
-        t.set(v);
-        r.set(None);
-    });
-    let (e, n) = (edit.clone(), name.clone());
-    let load = Callback::from(move |(file, body): (String, String)| {
-        n.set(file);
-        e.emit(body);
-    });
+    let (edit, load) = editing(&text, &name, &result);
     let c = current.clone();
     let focus = Callback::from(move |p: Pane| c.set(p));
     let save = saving(text.clone(), name.clone(), files.clone());
@@ -62,13 +60,16 @@ pub fn app() -> Html {
         run: run_now,
         zoom: toggle,
         help: show_help.clone(),
+        library,
     };
     html! {
         <div class="app" onkeydown={on_key}>
             { toolbar(bar, &files, &name, *zoom) }
-            <main class={classes!("panes", zoom.then_some("zoomed"))}>
+            <main class={classes!("panes", zoom.then_some("zoomed"))} style={split.style()}>
                 { panes::source(&text, *current, focus.clone(), edit, drawn.clone()) }
+                { divider(Axis::Columns, &split) }
                 { panes::rendered(&text, *current, focus.clone(), drawn) }
+                { divider(Axis::Rows, &split) }
                 { panes::output(&text, &result, *current, focus, printed) }
             </main>
             { chrome::footer() }
@@ -85,6 +86,26 @@ fn use_follow(result: &Option<Run>, pane: NodeRef) {
             pane.set_scroll_top(pane.scroll_height());
         }
     });
+}
+
+/// Editing the text (which clears a run's output), and loading a file
+/// (its name and text) into the editor.
+fn editing(
+    text: &UseStateHandle<String>,
+    name: &UseStateHandle<String>,
+    result: &UseStateHandle<Option<Run>>,
+) -> (Callback<String>, Callback<(String, String)>) {
+    let (t, r) = (text.clone(), result.clone());
+    let edit = Callback::from(move |v: String| {
+        t.set(v);
+        r.set(None);
+    });
+    let (e, n) = (edit.clone(), name.clone());
+    let load = Callback::from(move |(file, body): (String, String)| {
+        n.set(file);
+        e.emit(body);
+    });
+    (edit, load)
 }
 
 /// Save the text under its name, or (`true`) under a name asked for.
@@ -112,22 +133,6 @@ fn saving(
     })
 }
 
-/// Keys for the whole page: Run, Zoom, and Escape to close Help.
-fn keys(run: Callback<()>, zoom: Callback<()>, help: Callback<bool>) -> Callback<KeyboardEvent> {
-    Callback::from(move |e: KeyboardEvent| {
-        if e.key() == "Escape" {
-            help.emit(false);
-        }
-        if let Some(act) = action(&e.key(), e.ctrl_key() || e.meta_key()) {
-            e.prevent_default();
-            match act {
-                Action::Run => run.emit(()),
-                Action::Zoom => zoom.emit(()),
-            }
-        }
-    })
-}
-
 /// What the toolbar's controls do.
 struct Bar {
     load: Callback<(String, String)>,
@@ -135,6 +140,8 @@ struct Bar {
     run: Callback<()>,
     zoom: Callback<()>,
     help: Callback<bool>,
+    /// A library is checked, not run: Run is off.
+    library: bool,
 }
 
 /// The logo, Open (demos, libraries, your files), the file's name,
@@ -158,7 +165,8 @@ fn toolbar(bar: Bar, files: &[String], name: &str, zoomed: bool) -> Html {
             <button onclick={bar.save.reform(|_| false)} title="Save in this browser">{ "Save" }</button>
             <button onclick={bar.save.reform(|_| true)} title="Save under another name">{ "Save as" }</button>
             <button onclick={bar.load.reform(|_| ("untitled.xtl".to_string(), String::new()))} title="An empty editor">{ "Clear" }</button>
-            <button onclick={bar.run.reform(|_| ())} title="Run (Ctrl-Enter)">{ "Run" }</button>
+            <button onclick={bar.run.reform(|_| ())} disabled={bar.library}
+                title={if bar.library { "A library is not run: its exports' types are below" } else { "Run (Ctrl-Enter)" }}>{ "Run" }</button>
             <button onclick={bar.zoom.reform(|_| ())} title="Zoom the current pane (Ctrl-.)">
                 { if zoomed { "Unzoom" } else { "Zoom" } }
             </button>

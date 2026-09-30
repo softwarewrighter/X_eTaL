@@ -1216,6 +1216,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-layout"
+version = "0.1.0"
+dependencies = [
+ "web-sys",
+ "yew",
+]
+
+[[package]]
 name = "xetal-lex"
 version = "0.1.0"
 dependencies = [
@@ -1422,6 +1430,7 @@ dependencies = [
  "wasm-bindgen",
  "web-sys",
  "xetal-chrome",
+ "xetal-layout",
  "xetal-libs",
  "xetal-play",
  "xetal-store",

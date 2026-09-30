@@ -16,11 +16,28 @@ body { font: 15px/1.35 var(--mono); }
   border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer;
 }
 .toolbar button:hover { border-color: var(--bright); }
+/* minmax(0, ...): a pane's longest line never sizes its track (it
+   scrolls inside the pane); --source and --output are the splits the
+   dividers move (xetal-layout). */
 .panes {
-  flex: 1; min-height: 0; display: grid; gap: 8px; padding: 8px;
-  grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 32%;
-  grid-template-areas: "source rendered" "output output";
+  flex: 1; min-height: 0; display: grid; gap: 0; padding: 8px;
+  grid-template-columns: minmax(0, var(--source, 50%)) 8px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) 8px minmax(0, var(--output, 32%));
+  grid-template-areas: "source columns rendered" "rows rows rows" "output output output";
 }
+.divider { touch-action: none; position: relative; }
+.divider.columns { grid-area: columns; cursor: col-resize; }
+.divider.rows { grid-area: rows; cursor: row-resize; }
+.divider::after {
+  content: ""; position: absolute; border-radius: 2px; background: var(--line);
+}
+.divider.columns::after { left: 3px; width: 2px; top: 30%; bottom: 30%; }
+.divider.rows::after { top: 3px; height: 2px; left: 40%; right: 40%; }
+.divider:hover::after, .divider:active::after { background: var(--bright); }
+.divider.columns:hover::after { left: 2px; width: 4px; top: 0; bottom: 0; }
+.divider.rows:hover::after { top: 2px; height: 4px; left: 0; right: 0; }
+.pane { min-width: 0; }
+.toolbar button:disabled { opacity: .45; cursor: not-allowed; border-color: var(--line); }
 .pane { display: flex; flex-direction: column; min-height: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
 .pane h2 { margin: 0; padding: 3px 10px; font-size: 13px; font-weight: normal; color: var(--dim); border-bottom: 1px solid var(--line); }
 .pane.current { border: 3px solid var(--bright); }
@@ -31,7 +48,8 @@ body { font: 15px/1.35 var(--mono); }
   font: inherit; color: var(--text); background: transparent; border: 0; outline: none; resize: none;
   font-variant-ligatures: none; caret-color: var(--bright);
 }
-.panes.zoomed { grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: "only"; }
+.panes.zoomed { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); grid-template-areas: "only"; }
+.panes.zoomed .divider { display: none; }
 .panes.zoomed .pane { display: none; }
 .panes.zoomed .pane.current { display: flex; grid-area: only; }
 /* Token classes, as xetal render --color draws them. */

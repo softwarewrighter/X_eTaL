@@ -7,4 +7,5 @@
 mod engine;
 
 pub use engine::{Run, check, run};
+pub use xetal_program::is_library;
 pub use xetal_view::{Class, Segment, view as decorate};
