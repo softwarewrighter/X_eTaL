@@ -5,11 +5,8 @@
 # is 4.
 u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 
-# Apply a function n times (APL's power operator, written as a function
-# that takes a function): `n 'f_ u:t_imes x`.
-u:t_imes := { f_ n x -> n = 0 ? x; (n - 1) 'f_ u:t_imes f_ x }
-
-# The same, printing every generation on the way, a blank line apart.
+# Every generation on the way, a blank line apart: `n 'f_ u:s_teps x`
+# applies f n times, printing as it goes.
 u:s_teps := { f_ n x ->
   shown := p_rint! x
   gap := p_rint! ""
@@ -17,10 +14,12 @@ u:s_teps := { f_ n x ->
   (n - 1) 'f_ u:s_teps f_ x
 }
 
-# A blinker has period 2: one step turns it, two steps restore it.
+# A blinker has period 2: one step turns it, two steps restore it. A
+# superscript on a function repeats it (function power): `u:l_ife^2`.
 blinker := 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
 u:l_ife blinker
-2 'u:l_ife u:t_imes blinker
+u:l_ife^2 blinker
+(u:l_ife^2 blinker) = blinker
 
 # A glider moves one cell diagonally every 4 generations.
 glider := 6 6 r_eshape 0 1 0 0 0 0 0 0 1 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0

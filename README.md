@@ -178,6 +178,9 @@ Other fonts, checked against the font files:
 - [`docs/literate/tour.org`](docs/literate/tour.org) -- the language tour
   as a literate Org document, every block run and its result recorded
   (`docs/emacs/`: `xetal-mode` and `ob-xetal` for Org Babel)
+- [`docs/literate/birds.org`](docs/literate/birds.org) -- the Combinators
+  library run as you read: Smullyan's birds, with diagrams of the key
+  definitions
 - [`docs/literate/tttml.org`](docs/literate/tttml.org) -- TTTML, a machine
   that learns tic-tac-toe by playing itself, as a literate program over the
   `TTTML` library

@@ -649,6 +649,65 @@ s:r_ange 3 1 4 1 5       # largest minus smallest
 #+RESULTS:
 : 4
 
+* Combinators and power
+
+Combinators is a second standard library: the birds of Raymond
+Smullyan's To Mock a Mockingbird, functions that only rearrange,
+repeat or drop their arguments (~docs/birds.md~ lists them all and
+decodes a few). A quoted function before a bird is its first
+argument, the nearest first; a value on the left comes next, then the
+one on the right.
+
+#+begin_src xetal
+"c:" u_se< "Combinators" # Smullyan's birds, a standard library
+1 c:K_ 2                 # K keeps its first argument
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src xetal
+10 '- c:C_ 3             # C swaps the arguments: 3 - 10
+#+end_src
+
+#+RESULTS:
+: -7
+
+#+begin_src xetal
+'n_eg 'a_bs c:B_ -5      # B composes, the nearest operand last: a_bs n_eg -5
+#+end_src
+
+#+RESULTS:
+: 5
+
+#+begin_src xetal
+'* c:W_ 4                # W uses its argument twice: 4 * 4
+#+end_src
+
+#+RESULTS:
+: 16
+
+Y makes recursion from a function that is handed itself; its self
+parameter is lazy (~), so Y unfolds one step at a time:
+
+#+begin_src xetal
+u:t_riangle := { ~s_elf n -> n <= 1 ? 1; n + s_elf n - 1 }
+'u:t_riangle c:Y_ 5      # Y: recursion, from a function handed itself: 1+2+3+4+5
+#+end_src
+
+#+RESULTS:
+: 15
+
+A superscript on a function name repeats the function (function
+power); ~n 'f_ p_ower x~ does the same with a computed count:
+
+#+begin_src xetal
+n_eg^3 5                 # a superscript repeats a function: n_eg three times
+#+end_src
+
+#+RESULTS:
+: -5
+
 * Life in one line
 
 Everything above comes together in Conway's Life: rotate the board by
@@ -670,5 +729,6 @@ u:l_ife 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
 
 * Not shown here
 
-The Y combinator needs ~--untyped~ (see ~demos/fixed-point.xtl~); more
-libraries (Combinators) come with the combinators saga.
+The textbook Y combinator, built from self-application, needs
+~--untyped~ (see ~demos/fixed-point.xtl~ and ~demos/birds-untyped.xtl~);
+~docs/literate/birds.org~ runs the whole Combinators library.

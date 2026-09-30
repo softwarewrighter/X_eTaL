@@ -123,9 +123,19 @@ s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias
 s:s_d 2 4 4 4 5 5 7 9    # the standard deviation
 s:r_ange 3 1 4 1 5       # largest minus smallest
 
+# -- Combinators and power -----------------------------------------------
+"c:" u_se< "Combinators" # Smullyan's birds, a standard library
+1 c:K_ 2                 # K keeps its first argument
+10 '- c:C_ 3             # C swaps the arguments: 3 - 10
+'n_eg 'a_bs c:B_ -5      # B composes, the nearest operand last: a_bs n_eg -5
+'* c:W_ 4                # W uses its argument twice: 4 * 4
+u:t_riangle := { ~s_elf n -> n <= 1 ? 1; n + s_elf n - 1 }
+'u:t_riangle c:Y_ 5      # Y: recursion, from a function handed itself: 1+2+3+4+5
+n_eg^3 5                 # a superscript repeats a function: n_eg three times
+
 # -- Life in one line -----------------------------------------------------
 u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 u:l_ife 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
 
-# Not shown here: the Y combinator needs --untyped (demos/fixed-point.xtl);
-# more libraries (Combinators) come with the combinators saga.
+# Not shown here: the textbook Y combinator, built from self-application,
+# needs --untyped (demos/fixed-point.xtl, demos/birds-untyped.xtl).

@@ -1,6 +1,6 @@
 number = 12
 slug = "notebook"
-status = "pending"
+status = "in-progress"
 description = "combinators step 5: demos/combinators.xtl notebook, literate docs/literate/bi..."
 role = "production"
 context_files = []

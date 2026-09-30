@@ -211,6 +211,22 @@ printed, then returned
       [36mˢr̲ange[0m [33m3[0m [33m1[0m [33m4[0m [33m1[0m [33m5[0m         [2m⍝ largest minus smallest[0m
 4
 
+      [2m⍝ -- Combinators and power -----------------------------------------------[0m
+      [36mᶜ⁼[0m[1;33mu̲se<[0m [93m"Combinators"[0m     [2m⍝ Smullyan's birds, a standard library[0m
+      [33m1[0m [36mᶜK̲[0m [33m2[0m                   [2m⍝ K keeps its first argument[0m
+1
+      [33m10[0m [94m'−[0m [36mᶜC̲[0m [33m3[0m               [2m⍝ C swaps the arguments: 3 - 10[0m
+-7
+      [34m'n̲eg[0m [34m'a̲bs[0m [36mᶜB̲[0m [33m-5[0m          [2m⍝ B composes, the nearest operand last: a_bs n_eg -5[0m
+5
+      [94m'×[0m [36mᶜW̲[0m [33m4[0m                  [2m⍝ W uses its argument twice: 4 * 4[0m
+16
+      [32mᵘt̲riangle[0m ← { ~[34ms̲elf[0m n → n [94m≤[0m [33m1[0m ? [33m1[0m◆ n [94m+[0m [34ms̲elf[0m n [94m−[0m [33m1[0m }[0m
+      [32m'ᵘt̲riangle[0m [36mᶜY̲[0m [33m5[0m          [2m⍝ Y: recursion, from a function handed itself: 1+2+3+4+5[0m
+15
+      [34mn̲eg³[0m [33m5[0m                   [2m⍝ a superscript repeats a function: n_eg three times[0m
+-5
+
       [2m⍝ -- Life in one line -----------------------------------------------------[0m
       [32mᵘl̲ife[0m ← { ([94m'+[0m [34mr̲/₁₂[0m [33m-1[0m [33m0[0m [33m1[0m [34mo̲-₁₂[0m [35m⍵[0m) { ([35m⍺[0m [94m=[0m [33m3[0m) [94m+[0m [35m⍵[0m [94m×[0m [35m⍺[0m [94m=[0m [33m4[0m } [35m⍵[0m }[0m
       [32mᵘl̲ife[0m [33m5[0m [33m5[0m [34mr̲eshape[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m1[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m1[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m1[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m
@@ -220,5 +236,5 @@ printed, then returned
 0 0 0 0 0
 0 0 0 0 0
 
-      [2m⍝ Not shown here: the Y combinator needs --untyped (demos/fixed-point.xtl);[0m
-      [2m⍝ more libraries (Combinators) come with the combinators saga.[0m
+      [2m⍝ Not shown here: the textbook Y combinator, built from self-application,[0m
+      [2m⍝ needs --untyped (demos/fixed-point.xtl, demos/birds-untyped.xtl).[0m
