@@ -1,6 +1,6 @@
-number = 8
+number = 6
 slug = "literate-html"
-status = "pending"
+status = "in-progress"
 description = "web-playground step 5: Org HTML exports of docs/literate/*.org into pages/lit..."
 role = "production"
 context_files = []
