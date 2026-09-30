@@ -1,4 +1,8 @@
-# <img src="images/xetal-logo.svg" alt="X_eTaL: X underlined, a raised e, T, a raised a, L" width="240" align="left" style="margin-right:12px"> X_eTaL
+<p align="center">
+  <img src="images/xetal-logo.svg" alt="X_eTaL: X underlined, a raised e, T, a raised a, L" width="420">
+</p>
+
+# X_eTaL
 
 **eXperimental eXtensible Typed Array Language** -- LaTeX reversed,
 with the X itself decorated.
@@ -15,7 +19,6 @@ names its namespace, a subscript gives its axes, and a superscript on
 a value is an exponent. The language decisions are recorded in
 [`docs/lang-choices.md`](docs/lang-choices.md).
 
-<br clear="left">
 
 | Raw ASCII     | Displayed as                          | Meaning                              |
 | ------------- | ------------------------------------- | ------------------------------------ |
