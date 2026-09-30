@@ -127,6 +127,14 @@ life: _quiet-build
 tttml: _quiet-build
     @{{xetal}} run --echo demos/tttml.xtl
 
+# TTTML part 1: learn tic-tac-toe by playing itself and save the model in work/
+tttml-train: _quiet-build
+    @{{xetal}} run demos/tttml-train.xtl
+
+# TTTML part 2: play the saved model (run tttml-train first); you are X
+tttml-play: _quiet-build
+    @{{xetal}} run demos/tttml-play.xtl
+
 # Play the rotate demo (demos/rotate.xtl) as an animation
 animate: _quiet-build
     #!/usr/bin/env bash

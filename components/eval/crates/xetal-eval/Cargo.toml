@@ -21,6 +21,7 @@ xetal-arith.workspace = true
 xetal-struct.workspace = true
 xetal-hof.workspace = true
 xetal-search.workspace = true
+xetal-system.workspace = true
 xetal-rotate.workspace = true
 
 [dev-dependencies]

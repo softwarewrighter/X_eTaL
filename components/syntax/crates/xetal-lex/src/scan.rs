@@ -5,7 +5,7 @@
 use xetal_base::Span;
 
 use crate::cursor::Cursor;
-use crate::{exponent, literal, name};
+use crate::{exponent, literal, name, quad};
 use xetal_token::{ErrorKind, LexError};
 use xetal_token::{Side, Symbol, Token, TokenKind};
 
@@ -42,6 +42,9 @@ fn next_token(
     byte: u8,
     touching: Option<&TokenKind>,
 ) -> Result<TokenKind, LexError> {
+    if byte == b'[' && cur.peek_at(1) == Some(b']') {
+        return quad::lex_quad(cur);
+    }
     if let Some(kind) = punct(byte) {
         cur.pos += 1;
         return Ok(kind);

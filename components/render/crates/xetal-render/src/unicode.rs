@@ -58,9 +58,11 @@ fn ligature(ascii: &str) -> Option<char> {
 
 /// A namespace as leading superscript letters, or raw `ns:` if a letter
 /// has no superscript form.
+/// The system namespace is the quad (APL's `⎕`).
 fn ns_glyphs(ns: &Option<String>) -> String {
-    ns.as_ref().map_or(String::new(), |ns| {
-        superscript_word(ns).unwrap_or_else(|| format!("{ns}:"))
+    ns.as_ref().map_or(String::new(), |ns| match ns.as_str() {
+        xetal_lex::SYSTEM => "\u{2395}".to_string(),
+        ns => superscript_word(ns).unwrap_or_else(|| format!("{ns}:")),
     })
 }
 

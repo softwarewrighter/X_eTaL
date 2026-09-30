@@ -33,7 +33,7 @@ pub(crate) fn rename(
     };
     let hidden = match (ns.as_deref(), cx.library) {
         (None, Some((_, private))) if privates.contains(&key) && !bound => private.to_string(),
-        (None, _) | (Some("u"), None) => return Ok(None),
+        (None, _) | (Some("u"), None) | (Some(xetal_lex::SYSTEM), _) => return Ok(None),
         (Some("u"), Some(_)) => return Err(fail("user-name-in-library", t.span, U_IN_LIBRARY)),
         (Some("l"), Some((own, _))) => own.to_string(),
         (Some("l"), None) => return Err(fail("library-name-in-program", t.span, L_IN_PROGRAM)),

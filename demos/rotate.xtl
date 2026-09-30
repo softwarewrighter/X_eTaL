@@ -1,7 +1,7 @@
 #!/usr/bin/env xetal
 # Rotate along both axes: every frame moves the arrow one row down and
 # one column right, wrapping around the edges of the board. Frames are
-# separated by a blank line (`just animate` plays them).
+# separated by a blank line ("just animate" plays them).
 u:f_rames := { n b ->
   n = 0 ? n
   s := p_rint! b

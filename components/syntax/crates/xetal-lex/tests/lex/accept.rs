@@ -233,3 +233,12 @@ fn function_powers() {
         ]
     );
 }
+
+#[test]
+fn system_names() {
+    assert_eq!(
+        kinds("[]N_PUT []N_GET []R_EAD @"),
+        ["Func([]N_PUT)", "Func([]N_GET)", "Func([]R_EAD)", "Unit"]
+    );
+    assert_eq!(kinds("[1 2]"), ["LBracket", "Num(1)", "Num(2)", "RBracket"]);
+}

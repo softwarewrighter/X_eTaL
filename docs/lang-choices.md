@@ -288,6 +288,7 @@ quads saga (docs/plan.md).
 | QD1 | `[]` written touching a name is the system namespace, APL's quad: `[]A`, `[]D_L 0.5`. It is one token and displays as the quad glyph (U+2395) before the name. An empty `[]` on its own stays an error (an empty train). Class comes from the tokens as everywhere else: a name without an underline is a value, one with an underlined letter a function. |
 | QD2 | System values, read-only: `[]A` the alphabet `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"`, `[]D` the digits `"0123456789"`, `[]AV` the atomic vector (every character, ASCII 0 to 127, since source is ASCII), `[]TS` the time stamp (year, month, day, hour, minute, second, millisecond; read afresh each time), `[]IO` the index origin, always 1 (there is no index-origin setting, A5). |
 | QD3 | System functions live in the quad namespace and are named like any function: `[]D_L s` waits s seconds (APL's DL), `[]U_CS` converts between characters and their codes (`[]U_CS "A"` is 65, `[]U_CS 65` is `"A"`), `[]R_EAD @` reads a line typed by the user as a Char vector (APL's quote-quad) and `[]V_ALUE @` reads a line and evaluates it (APL's quad input). Quad names are uppercase, as in APL, so they stand out, and take no `!` even when they have an effect: the quad already marks a system facility (APL writes the delay as quad DL); a quad function still has its first letter underlined (`[]D_L` displays as the quad glyph, D underlined, L). Ordinary built-ins stay plain lowercase words. |
+| QD4 | Files, the keyboard and numbers as text (decided with the user for TTTML's saved model and its moves): `t []N_PUT path` writes text t to a file (made with its directories, or replaced) and gives how many characters; `[]N_GET path` reads a file's text; `[]R_EAD @` reads a line typed at the keyboard (without its newline). `f_ormat v` is v as the text it prints as (APL's format), and `n_umbers t` the numbers in text t, separated by spaces or newlines, as Floats (Dyalog's VFI), an error for anything that is not a number. Saving an array is `(f_ormat m) []N_PUT path` and reading it back `n_umbers []N_GET path`, reshaped. APL's shared variables (`[]S_VO`) are not used for files; that name stays reserved (section 15). |
 
 ## 14. Macros and libraries
 
@@ -398,6 +399,11 @@ Recommended function-name suffixes:
 | `\` | scan-like, running results | `s_\` |
 | `~` | approximate or tolerant | `e_q~` |
 | `$` | produces text | `f_mt$` |
+
+In a comment, backquotes mark X_eTaL code, drawn decorated
+(`` `'+ r_/ v` ``); a shell command, a path or other text that is not
+X_eTaL goes in double quotes, drawn as written: `# run with "just show
+demos/tour.xtl"`.
 
 ## 17. Examples
 

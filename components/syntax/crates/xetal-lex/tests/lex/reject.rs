@@ -134,3 +134,9 @@ fn errors_convert_to_diagnostics_with_spans() {
     assert_eq!(diag.span, Some(Span::new(1, 3)));
     assert!(diag.message.contains("x != 3"), "{}", diag.message);
 }
+
+#[test]
+fn system_names_are_uppercase() {
+    assert_reject("[]n_put", "bad-name", 0, 7);
+    assert_reject("[]N_put", "bad-name", 0, 7);
+}

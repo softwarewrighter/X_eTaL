@@ -2110,6 +2110,7 @@ dependencies = [
  "xetal-rotate",
  "xetal-search",
  "xetal-struct",
+ "xetal-system",
  "xetal-types",
  "xetal-value",
 ]
@@ -2305,6 +2306,15 @@ dependencies = [
  "xetal-ast",
  "xetal-base",
  "xetal-lex",
+]
+
+[[package]]
+name = "xetal-system"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
 ]
 
 [[package]]

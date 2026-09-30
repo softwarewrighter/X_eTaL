@@ -1,0 +1,5 @@
+# n_umbers reads text, not numbers (QD4).
+== SOURCE
+n_umbers 5
+== ERROR
+error[type-mismatch]: expected Char, found a number at 0..10

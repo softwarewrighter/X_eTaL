@@ -5,4 +5,4 @@ mod error;
 mod token;
 
 pub use error::{ErrorKind, LexError};
-pub use token::{FuncName, Number, Side, Symbol, Token, TokenKind, Var};
+pub use token::{FuncName, Number, SYSTEM, Side, Symbol, Token, TokenKind, Var, ns_text};

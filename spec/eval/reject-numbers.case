@@ -1,0 +1,5 @@
+# n_umbers reads only numbers (QD4).
+== SOURCE
+n_umbers "1 two 3"
+== ERROR
+error[domain]: n_umbers: "two" is not a number at 0..18

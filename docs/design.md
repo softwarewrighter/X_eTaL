@@ -442,7 +442,10 @@ keeps the column it has in the source, the space before it padded or
 trimmed (at least one space), so comments line up although the code
 is drawn shorter; and code in backquotes inside a comment is drawn
 decorated and highlighted, the backquotes hidden, so comments can
-show the glyphs while the source stays ASCII (I1).
+show the glyphs while the source stays ASCII (I1). Backquotes are for
+X_eTaL code only: a command or a path in a comment goes in double
+quotes, which are drawn as written (a `/` in a backquoted path would
+be drawn as division).
 
 ### 8.1b The editor (`xetal edit FILE`)
 
@@ -606,4 +609,5 @@ The pinning tests are written as the implementing saga reaches them
 | D30| System names (quads) | `[]NAME` is one token in the system namespace, shown with the quad glyph; values `[]A` `[]D` `[]AV` `[]TS` `[]IO` (always 1), functions `[]D_L` `[]U_CS` `[]R_EAD` `[]V_ALUE` (lang-choices 13a) |
 | D28| Function power | `f_^3 x` applies f three times (superscript on a function, D-7), lowered to `3 'f_ p_ower` waiting for its argument; computed counts use `n 'f_ p_ower x`, `p_ower : (a -> a) -> Int -> a -> a`; counts are whole numbers, `^-1` reserved; libraries (Saga 8) come before the combinators (Saga 9), which are written directly as a library |
 | D31| Combinators library | every bird Smullyan names that type-checks, spelled by letter (`B_1`, `C_s`, `E_h` for the variants), types pinned; Y by recursion; the self-applying birds in an untyped demo; `Maybe` as a second library; `xetal type` of a library lists its exports (CB1-CB4, `docs/birds.md`) |
+| D32| Files and numbers as text | quad functions `[]N_PUT` / `[]N_GET` (text files) and `[]R_EAD` (a typed line); `f_ormat` and `n_umbers` for numbers as text; lexed as a name in the system namespace `[]`, drawn with the quad, a built-in (QD1-QD4) |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

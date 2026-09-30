@@ -1,7 +1,7 @@
 #!/usr/bin/env xetal
 # The Maybe monad from the Maybe library: computations that can fail,
 # chained so that the first failure stops the chain. Run as a notebook
-# with `just show demos/monads.xtl`.
+# with "just show demos/monads.xtl".
 "m:" u_se< "Maybe"
 
 # Division that fails on a zero divisor instead of stopping the

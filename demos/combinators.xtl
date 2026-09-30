@@ -1,7 +1,7 @@
 #!/usr/bin/env xetal
 # The Combinators library: Smullyan's birds, each a function that only
 # rearranges, repeats or drops its arguments. Run as a notebook with
-# `just show demos/combinators.xtl`; docs/birds.md lists every bird.
+# "just show demos/combinators.xtl"; docs/birds.md lists every bird.
 "c:" u_se< "Combinators"
 
 # A quoted function before a bird is its first argument; a value on

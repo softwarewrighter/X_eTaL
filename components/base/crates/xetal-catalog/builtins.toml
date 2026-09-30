@@ -52,6 +52,16 @@ entries = [
 ]
 
 [[group]]
+rule = "QD4: system functions (files, the keyboard) and numbers as text"
+entries = [
+  ["[]N_PUT", 2, "Char -> Char -> Int"],
+  ["[]N_GET", 1, "Char -> Char"],
+  ["[]R_EAD", 1, "Unit -> Char"],
+  ["f_ormat", 1, "a -> Char"],
+  ["n_umbers", 1, "Char -> Float"],
+]
+
+[[group]]
 rule = "B4, B5, B10: structural"
 entries = [
   ["s_hape", 1, "a -> Int"],

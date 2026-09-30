@@ -141,8 +141,17 @@ fn number_text(n: &Number) -> String {
     }
 }
 
-fn ns_text(ns: &Option<String>) -> String {
-    ns.as_ref().map_or(String::new(), |ns| format!("{ns}:"))
+/// The system namespace of quad names (`[]N_GET`, QD1-QD3): written
+/// as `[]` touching the name, with no colon.
+pub const SYSTEM: &str = "[]";
+
+/// A name's namespace prefix as written: `u:`, `[]`, or nothing.
+pub fn ns_text(ns: &Option<String>) -> String {
+    match ns.as_deref() {
+        None => String::new(),
+        Some(SYSTEM) => SYSTEM.to_string(),
+        Some(ns) => format!("{ns}:"),
+    }
 }
 
 impl fmt::Display for TokenKind {

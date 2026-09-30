@@ -114,7 +114,7 @@ fn lambda(l: &Lambda) -> String {
 }
 
 fn func_text(n: &FuncName) -> String {
-    let ns = n.ns.as_ref().map_or(String::new(), |ns| format!("{ns}:"));
+    let ns = xetal_lex::ns_text(&n.ns);
     let axes: String = n.axes.iter().map(u8::to_string).collect();
     let sub = if axes.is_empty() {
         String::new()
@@ -125,6 +125,6 @@ fn func_text(n: &FuncName) -> String {
 }
 
 fn var_text(v: &Var) -> String {
-    let ns = v.ns.as_ref().map_or(String::new(), |ns| format!("{ns}:"));
+    let ns = xetal_lex::ns_text(&v.ns);
     format!("{ns}{}{}", v.name, if v.mutable { "!" } else { "" })
 }

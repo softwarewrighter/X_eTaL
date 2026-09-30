@@ -124,6 +124,8 @@ just show demos/stats.xtl                       # a program using the built-in S
 just show demos/combinators.xtl                 # Smullyan's birds from the built-in Combinators library
 just show demos/monads.xtl                      # the Maybe monad: safe division chained by bind
 just tttml                                      # TTTML: learns tic-tac-toe by playing itself (optimized build)
+just tttml-train                                # TTTML: train, then save the model in work/tttml.model
+just tttml-play                                 # TTTML: play the saved model; you are X, type squares 1 to 9
 just pp demos/factorial.xtl                     # print a file decorated and highlighted
 just edit demos/life.xtl                        # ASCII left, decorated right
 ```

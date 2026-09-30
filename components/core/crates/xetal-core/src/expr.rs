@@ -113,7 +113,8 @@ impl Lower {
     /// or local binding, otherwise a built-in; axes wrap it (A6).
     fn name(&mut self, n: &FuncName, span: Span) -> Expr {
         let spelled = n.spelled();
-        let kind = match &n.ns {
+        let kind = match n.ns.as_deref() {
+            Some(xetal_lex::SYSTEM) => Kind::Prim(format!("{}{spelled}", xetal_lex::SYSTEM)),
             Some(ns) => Kind::Global(format!("{ns}:{spelled}")),
             None if self.is_bound(&spelled) => Kind::Var(spelled),
             None => Kind::Prim(spelled),

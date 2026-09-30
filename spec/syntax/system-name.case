@@ -1,0 +1,8 @@
+# A system name is [] touching an uppercase name, drawn with the quad
+# (QD1-QD3); it names a built-in.
+== SOURCE
+"hi" []N_PUT "work/spec-system-name.txt"
+== RENDER
+"hi" ⎕N̲PUT "work/spec-system-name.txt"
+== CORE
+(eval (app2 #[]N_PUT "hi" "work/spec-system-name.txt"))

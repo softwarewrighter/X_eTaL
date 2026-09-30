@@ -6,7 +6,10 @@ mod cursor;
 mod exponent;
 mod literal;
 mod name;
+mod quad;
 mod scan;
 
 pub use scan::lex;
-pub use xetal_token::{ErrorKind, FuncName, LexError, Number, Side, Symbol, Token, TokenKind, Var};
+pub use xetal_token::{
+    ErrorKind, FuncName, LexError, Number, SYSTEM, Side, Symbol, Token, TokenKind, Var, ns_text,
+};

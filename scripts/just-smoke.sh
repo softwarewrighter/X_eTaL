@@ -18,17 +18,22 @@ skip() { printf 'skip %-15s %s\n' "$1" "$2"; }
 for recipe in $(just --summary); do
     case "$recipe" in
     default | build | tour | life | animate | tttml | diagrams) check just "$recipe" ;;
-    show) for f in demos/*.xtl; do check just show "$f"; done ;;
+    # demos/tttml-play.xtl reads typed moves: the tttml-play check below
+    # pipes some in.
+    show) for f in demos/*.xtl; do [ "$f" = demos/tttml-play.xtl ] || check just show "$f"; done ;;
     pp) for f in demos/*.xtl; do check just pp "$f"; done ;;
     slow-show) check just slow-show demos/square.xtl 1 ;;
     run)
         for f in demos/*.xtl; do
+            [ "$f" = demos/tttml-play.xtl ] && continue
             flags=$(head -1 "$f" | grep -o -- '--untyped' || true)
             check just run $flags "$f"
         done
         ;;
     eval) check just eval "'+ r_/ 1 2 3" && check just eval --echo "r_ange 3" ;;
     repl) check bash -c "printf '1 + 2\n' | just repl" ;;
+    tttml-train) check just tttml-train ;;
+    tttml-play) check bash -c "just tttml-train && printf '5\n3\n4\n8\n9\n7\n2\n6\n1\n' | just tttml-play" ;;
     locks) check just locks ;;
     build-release) skip "$recipe" "the release profile of build (slow)" ;;
     install) skip "$recipe" "writes outside the repository" ;;

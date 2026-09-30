@@ -1,0 +1,21 @@
+# f_ormat is a value as the text it prints as; n_umbers reads the
+# numbers in a text (APL's format and Dyalog's quad VFI): together they
+# save numbers as text and read them back (QD4).
+== SOURCE
+f_ormat 1 2.5 -3
+t_ally f_ormat 42
+n_umbers "1 2.5 -3"
+n_umbers f_ormat 2 2 r_eshape 1.5 2 3 4
+f_loor f_irst n_umbers " 7 "
+== TYPE
+Char
+Int
+Float
+Float
+Int
+== RESULT
+1.0 2.5 -3.0
+2
+1.0 2.5 -3.0
+1.5 2.0 3.0 4.0
+7

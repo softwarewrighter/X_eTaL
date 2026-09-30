@@ -39,7 +39,7 @@ pub(crate) fn classify(kind: &TokenKind) -> Class {
     match kind {
         TokenKind::Func(f) if f.mark == Some('<') => Class::Macro,
         TokenKind::Func(f) => match f.ns.as_deref() {
-            None => Class::Builtin,
+            None | Some(xetal_lex::SYSTEM) => Class::Builtin,
             Some("u") => Class::UserFunc,
             Some(_) => Class::LibFunc,
         },

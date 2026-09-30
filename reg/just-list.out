@@ -25,4 +25,6 @@ Available recipes:
     test-emacs                 # The Emacs mode and Org Babel language, with ERT in a batch Emacs (skipped without Emacs)
     tour                       # The language tour: every feature, commented, each line with its output
     tttml                      # TTTML: a machine that learns tic-tac-toe by playing itself, as a notebook (optimized build)
+    tttml-play                 # TTTML part 2: play the saved model (run tttml-train first); you are X
+    tttml-train                # TTTML part 1: learn tic-tac-toe by playing itself and save the model in work/
     videos                     # Regenerate the videos (vhs, ffmpeg, gif2webp)

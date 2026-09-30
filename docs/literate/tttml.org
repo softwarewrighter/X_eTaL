@@ -225,6 +225,12 @@ games to go, positions known:
  . . .   . . .   . . .   . . X   . . X   . X X   O X X   O X X   O X X   O X X  
 #+end_example
 
+Two demos split this in two: ~just tttml-train~ (~demos/tttml-train.xtl~)
+trains a model and saves it as text in ~work/tttml.model~ (~f_ormat~ and
+~[]N_PUT~), and ~just tttml-play~ (~demos/tttml-play.xtl~) reads it back
+(~[]N_GET~ and ~n_umbers~) and plays you, reading your moves with
+~[]R_EAD~.
+
 Played well on both sides, tic-tac-toe is always a draw: it is both
 players in every game against itself, so a win would be a mistake by
 one of them.

@@ -96,8 +96,10 @@ fn func_tex(name: &FuncName) -> String {
 
 /// A namespace as a leading superscript.
 fn ns_tex(ns: &Option<String>) -> String {
-    ns.as_ref()
-        .map_or(String::new(), |ns| format!(r"{{}}^{{\mathrm{{{ns}}}}}"))
+    ns.as_ref().map_or(String::new(), |ns| match ns.as_str() {
+        xetal_lex::SYSTEM => r"\square ".to_string(),
+        ns => format!(r"{{}}^{{\mathrm{{{ns}}}}}"),
+    })
 }
 
 fn symbol_tex(sym: Symbol) -> &'static str {
