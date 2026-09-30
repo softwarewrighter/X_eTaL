@@ -1,0 +1,1 @@
+Yew editor app: ASCII/rendered/types-output panes, TUI colors, demos drop-down with (empty), Clear, Run Ctrl-Enter, Zoom Ctrl-., scroll sync, favicon; just web serves locally; system component Rust tests.

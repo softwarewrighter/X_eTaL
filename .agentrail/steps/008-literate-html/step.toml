@@ -1,4 +1,4 @@
-number = 6
+number = 8
 slug = "literate-html"
 status = "pending"
 description = "web-playground step 5: Org HTML exports of docs/literate/*.org into pages/lit..."

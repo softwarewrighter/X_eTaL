@@ -1,4 +1,4 @@
-number = 4
+number = 6
 slug = "pages"
 status = "pending"
 description = "web-playground step 3: scripts/build-pages.sh (trunk build --release --public..."

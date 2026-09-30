@@ -1,0 +1,1 @@
+Step or evaluate line by line in the live demo (user request): a Notebook view of the program (each statement drawn decorated with its output under it, APL session layout, as just show) and a Step button running the next statement only (the current statement marked), with Reset; reuses the one-pass evaluator hook where it can.
