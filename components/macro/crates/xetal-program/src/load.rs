@@ -2,7 +2,7 @@
 
 use xetal_base::Diagnostic;
 use xetal_core::Program;
-use xetal_macro::{FsLibraries, MacroError, expand};
+use xetal_macro::{FsLibraries, Libraries, MacroError, expand};
 use xetal_sources::Sources;
 
 /// A program with its libraries, in Core, and its source map.
@@ -16,7 +16,13 @@ pub struct Loaded {
 /// for text given on the command line; libraries are looked for
 /// beside it).
 pub fn load(name: &str, text: &str) -> Result<Loaded, Diagnostic> {
-    lowered(expand(name, text, &FsLibraries::from_env()))
+    load_with(name, text, &FsLibraries::from_env())
+}
+
+/// [`load`], its libraries found by `libs` (the live demo's come from
+/// the browser's storage and the standard libraries).
+pub fn load_with(name: &str, text: &str, libs: &dyn Libraries) -> Result<Loaded, Diagnostic> {
+    lowered(expand(name, text, libs))
 }
 
 /// The expanded program lowered to Core; errors located.

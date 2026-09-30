@@ -619,6 +619,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-store"
+version = "0.1.0"
+
+[[package]]
 name = "xetal-struct"
 version = "0.1.0"
 dependencies = [
@@ -643,6 +647,7 @@ version = "0.1.0"
 dependencies = [
  "xetal-array",
  "xetal-base",
+ "xetal-store",
  "xetal-value",
 ]
 

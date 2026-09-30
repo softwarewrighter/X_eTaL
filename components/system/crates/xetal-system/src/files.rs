@@ -14,24 +14,20 @@ fn io(e: impl std::fmt::Display, what: &str) -> Diagnostic {
 
 /// `t []N_PUT path`: write text t to the file (made, with its
 /// directories, if missing; replaced if there); how many characters.
+/// Files are in the store the host installed (`xetal-store`): the disk,
+/// or the browser's local storage in the live demo.
 pub(crate) fn put<'a>(t: &Value<'a>, path: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
     let (t, path) = (chars(t)?, chars(path)?);
-    if let Some(dir) = std::path::Path::new(&path)
-        .parent()
-        .filter(|d| !d.as_os_str().is_empty())
-    {
-        std::fs::create_dir_all(dir).map_err(|e| io(e, &path))?;
-    }
-    std::fs::write(&path, &t).map_err(|e| io(e, &path))?;
+    xetal_store::write(&path, &t).map_err(|e| io(e, "[]N_PUT"))?;
     Ok(Value::Int(t.chars().count() as i64))
 }
 
 /// `[]N_GET path`: the file's text.
 pub(crate) fn get<'a>(path: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
     let path = chars(path)?;
-    std::fs::read_to_string(&path)
+    xetal_store::read(&path)
         .map(|s| text(&s))
-        .map_err(|e| io(e, &path))
+        .map_err(|e| io(e, "[]N_GET"))
 }
 
 /// `[]R_EAD @`: a line typed at the keyboard, without its newline.

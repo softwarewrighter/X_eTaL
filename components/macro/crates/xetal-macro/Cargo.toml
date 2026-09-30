@@ -12,6 +12,7 @@ xetal-base.workspace = true
 xetal-lex.workspace = true
 xetal-sources.workspace = true
 xetal-libs.workspace = true
+xetal-store.workspace = true
 xetal-names.workspace = true
 
 [dev-dependencies]

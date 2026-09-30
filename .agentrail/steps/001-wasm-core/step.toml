@@ -1,6 +1,6 @@
 number = 1
 slug = "wasm-core"
-status = "pending"
+status = "in-progress"
 description = "web-playground step 1: the pipeline for wasm32: a single-threaded evaluator p..."
 role = "production"
 context_files = []

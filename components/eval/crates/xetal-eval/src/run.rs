@@ -88,6 +88,11 @@ pub(crate) fn run_showing(
 /// Run `work` on a thread with a large stack (deep recursion is an
 /// error, never a crash).
 pub(crate) fn on_worker<T: Send>(work: impl FnOnce() -> T + Send) -> Result<T, Diagnostic> {
+    // WebAssembly has no threads: there the work runs here, on a stack
+    // the host makes large when it links (the live demo does).
+    if cfg!(target_arch = "wasm32") {
+        return Ok(work());
+    }
     std::thread::scope(|scope| {
         let worker = std::thread::Builder::new()
             .stack_size(STACK_BYTES)

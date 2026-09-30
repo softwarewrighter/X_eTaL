@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # The component workspaces under components/, in dependency order.
 # Sourced by the other scripts; prints one name per line when run.
-COMPONENTS=(base syntax macro core render view types eval hof search system axes tui line cli)
+COMPONENTS=(base syntax macro core render view types eval hof search system axes tui line cli web)
 if [ "${BASH_SOURCE[0]}" = "$0" ]; then
     printf '%s\n' "${COMPONENTS[@]}"
 fi

@@ -47,7 +47,9 @@ checks every component.
 components/
   base/                    xetal-base (spans, NodeId, Diagnostic,
                            LANG_NAME), xetal-catalog (the built-in
-                           catalog, generated from builtins.toml)
+                           catalog, generated from builtins.toml),
+                           xetal-store (where files live: the disk,
+                           memory, or a store the host installs)
   macro/                   xetal-sources (several files as one combined
                            text with a source map back to file, line
                            and column), xetal-names (one file: its
@@ -98,6 +100,10 @@ components/
                            rendered panes), xetal-term (terminal
                            guard), xetal-edit (`xetal edit`)
   line/                    xetal-line: the REPL's live line editor
+  web/                     xetal-play: the live demo's engine
+                           (decorate, check, run; libraries and files
+                           from the installed store, then the standard
+                           libraries); builds for wasm32
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
                            harness), xetal-spec (case files),
                            xetal-repl (interactive session)

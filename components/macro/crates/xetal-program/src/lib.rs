@@ -9,5 +9,5 @@ mod load;
 mod types;
 
 pub use library::{is_library, load_library};
-pub use load::{Loaded, in_program, load, located};
+pub use load::{Loaded, in_program, load, load_with, located};
 pub use types::{library_types, program_types};

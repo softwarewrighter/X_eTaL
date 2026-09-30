@@ -67,7 +67,7 @@ fn read(path: &Path) -> Option<Found> {
     })
 }
 
-fn standard(name: &str) -> Option<Found> {
+pub(crate) fn standard(name: &str) -> Option<Found> {
     let text = xetal_libs::standard(name)?;
     Some(Found {
         key: format!("std:{name}"),

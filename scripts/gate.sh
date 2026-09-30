@@ -20,6 +20,8 @@ for c in "${COMPONENTS[@]}"; do
         cargo test -q --workspace
     )
 done
+step "the live demo's engine builds for the browser (wasm32)"
+(cd components/web && cargo check -q --target wasm32-unknown-unknown)
 step "reg-rs goldens"
 scripts/reg.sh run
 step "every just recipe runs (scripts/just-smoke.sh)"

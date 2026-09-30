@@ -11,3 +11,4 @@ repository.workspace = true
 xetal-base.workspace = true
 xetal-array.workspace = true
 xetal-value.workspace = true
+xetal-store.workspace = true
