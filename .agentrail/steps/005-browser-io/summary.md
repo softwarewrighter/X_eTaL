@@ -1,0 +1,1 @@
+Browser files: Local store in localStorage, Open (demos, libraries, saved files), Save/Save as, []R_EAD prompt, library-aware play engine; pages rebuilt, screenshot refreshed
