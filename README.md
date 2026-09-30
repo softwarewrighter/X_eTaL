@@ -247,6 +247,9 @@ Other fonts, checked against the font files:
 - [`docs/permission-response.md`](docs/permission-response.md) -- XeTaL's
   answers to ngn's [Array Language Implementation Permission
   Request](https://ngn.codeberg.page/funny/reg.html)
+- [`docs/why-another-language.md`](docs/why-another-language.md) --
+  XeTaL fills in the [Programming Language
+  Checklist](https://www.mcmillen.dev/language_checklist.html)
 - [`docs/input.md`](docs/input.md) -- how to type X_eTaL expressions
 - [`docs/birds.md`](docs/birds.md) -- the aviary: Smullyan's combinators,
   which type-check, and how the `Combinators` library spells them
