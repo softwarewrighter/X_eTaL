@@ -644,4 +644,6 @@ The pinning tests are written as the implementing saga reaches them
 | D35| Replicate | `r_eplicate`, counts on the left over major cells, a scalar count extends, negative is `error[domain]` (B11); classics lane |
 | D36| Encode and decode | `e_ncode` / `d_ecode`, radix on the left, APL shapes (B12); classics lane |
 | D37| Nested arrays | static depth: an enclosed item has type `Box a`; `e_nclose` / `d_isclose`; printed boxed (A7); classics lane |
+| D38| Graphics | pure SVG builders `[]G_RID` and `[]P_ATH` returning Char vectors, frames along the leading axis animated with SMIL/CSS, one effect `[]S_HOW` handed to the host (CLI files, web Draw pane, future desktop webview); a component `xetal-draw` with no syntax knowledge (QD5); classics lane |
+| D39| Trigonometry | `s_in` `c_os` `a_tan` in radians to Float, `p_i @` (B13); classics lane |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

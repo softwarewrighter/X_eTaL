@@ -1,6 +1,6 @@
-number = 1
-slug = "classics-index"
-status = "in-progress"
+number = 11
+slug = "classics-data"
+status = "pending"
 description = "Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the ..."
 role = "production"
 context_files = []

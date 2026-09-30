@@ -1,0 +1,1 @@
+Classics lane (see lanes/classics/.agentrail/plan.md and docs/plan.md, Lane: classics, for conventions and the user's decisions). TDD, the full gate. Trig built-ins as decided (B13): s_in, c_os, a_tan in radians, Num a => a -> Float, and p_i, niladic (p_i @). Catalog, spec cases and rejections, reference entries, lang-choices and design register.
