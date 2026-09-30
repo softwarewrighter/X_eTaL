@@ -4,6 +4,20 @@
 
 # X_eTaL
 
+XeTaL is an experimental, statically typed array language that asks:
+what would APL look like if it were designed today for composition,
+readability, tooling, and machine learning?
+
+Rather than inventing another collection of syntax, XeTaL explores a
+specific design space: APL-style whole-array programming, functional
+composition, and shape-aware operations, expressed with ASCII source
+that can be rendered typographically without changing the underlying
+program.
+
+The goal isn't to replace existing languages. It's to make the powerful
+ideas of array programming easier to read, reason about, type-check,
+visualize, and experiment with.
+
 **eXperimental eXtensible Typed Array Language** -- LaTeX reversed,
 with the X itself decorated.
 
