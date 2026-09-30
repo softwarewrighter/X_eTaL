@@ -1,6 +1,6 @@
 number = 14
 slug = "logo"
-status = "pending"
+status = "in-progress"
 description = "A logo (user request) from the decorated name: X underlined, a raised e and T..."
 role = "production"
 context_files = []

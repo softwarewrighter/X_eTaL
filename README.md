@@ -1,4 +1,4 @@
-# <img src="images/X_eTaL-logo.jpg" alt="X_eTaL" width="160" align="left" style="margin-right:12px"> X_eTaL
+# <img src="images/xetal-logo.svg" alt="X_eTaL: X underlined, a raised e, T, a raised a, L" width="240" align="left" style="margin-right:12px"> X_eTaL
 
 **eXperimental eXtensible Typed Array Language** -- LaTeX reversed,
 with the X itself decorated.
