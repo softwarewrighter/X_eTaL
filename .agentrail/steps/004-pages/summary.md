@@ -1,0 +1,1 @@
+Published live demo: Help dialog, footer (build info), modern logo, ellipsis favicon, output scrolls to end; xetal-chrome crate; build-pages.sh + live-screenshot.sh, pages.yml workflow, Pages enabled via gh; README live link, screenshot, prerequisites, just serve/pages; not-exported hint for missing underline.
