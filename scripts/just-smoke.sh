@@ -43,6 +43,7 @@ for recipe in $(just --summary); do
     screenshots | videos) skip "$recipe" "regenerates media (vhs)" ;;
     edit) skip "$recipe" "needs a terminal; the editor has its own tests" ;;
     web) skip "$recipe" "a server that runs until stopped; the gate checks the wasm32 build" ;;
+    literate-html) skip "$recipe" "rewrites pages/literate; run by pages" ;;
     pages) skip "$recipe" "rewrites pages/ and the screenshot; run before publishing" ;;
     *)
         printf 'FAIL: no smoke test for recipe %s (add one to %s)\n' "$recipe" "$0"

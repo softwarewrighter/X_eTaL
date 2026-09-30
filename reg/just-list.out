@@ -13,6 +13,7 @@ Available recipes:
     install dir="~/.local/bin" # Build optimized and install xetal and x_etal into a PATH directory (for #! scripts)
     life                       # Life: a blinker and a glider, stepped (demos/life.xtl)
     literate                   # Run the literate documents (docs/literate/*.org), recording each block's result
+    literate-html              # Export the literate documents to HTML under pages/literate/ (with an index page)
     locks *args                # Check (or with --fix, regenerate) the component Cargo.lock files
     pages                      # Build the live demo into pages/ (committed; the Pages workflow publishes it) and screenshot it
     pp file                    # Pretty-print a file like cat: decorated and highlighted (errors in red)

@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-30 Wed 13:28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TTTML: a machine that learns tic-tac-toe</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">TTTML: a machine that learns tic-tac-toe
+<br />
+<span class="subtitle">learning by playing itself, in X_eTaL</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org2e5bb99">The board</a></li>
+<li><a href="#orge29c4a3">Who has won</a></li>
+<li><a href="#org3885c92">One position, eight ways</a></li>
+<li><a href="#org6cb22d5">What a position is worth</a></li>
+<li><a href="#org47b0cb9">Choosing a move</a></li>
+<li><a href="#org45826b3">A game against itself</a></li>
+<li><a href="#org5925163">Learning from a game</a></li>
+<li><a href="#org8b9e2b3">Training and playing</a></li>
+</ul>
+</div>
+</div>
+<p>
+TTTML learns tic-tac-toe by playing itself. It is a port of the TTTML
+workspace of sw-apl's library 1 (whose literate program tells the same
+story in APL), written as X_eTaL says it: the standard library
+<code>TTTML</code> (<code>lib/TTTML.xtl</code>) holds the functions, and a model, what the
+machine has learned, is an ordinary value passed to them and returned
+by them. Every block below is run by <code>xetal</code> through <code>ob-xetal</code>, and
+its result is recorded under it; <code>just tttml</code> runs the whole demo
+(<code>demos/tttml.xtl</code>) as a notebook.
+</p>
+
+<p>
+Only the functions that roll dice end in <code>!</code>: <code>g_ame!</code>, <code>t_rain!</code> and
+<code>t_rial!</code>. Everything else is a function of its arguments alone.
+</p>
+<div id="outline-container-org2e5bb99" class="outline-2">
+<h2 id="org2e5bb99">The board</h2>
+<div class="outline-text-2" id="text-org2e5bb99">
+<p>
+A board is 9 numbers, the squares row by row: <code>1</code> for X, <code>-1</code> for O,
+<code>0</code> for an empty square. X always moves first, so whose turn it is can
+be read from the board: X's when its marks sum to 0. <code>s_how</code> draws
+one:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">"t:" u_se&lt; "TTTML"
+t:s_how 1 -1 0 0 1 0 0 0 -1
+</pre>
+</div>
+
+<pre class="example">
+X O .
+. X .
+. . O
+</pre>
+</div>
+</div>
+<div id="outline-container-orge29c4a3" class="outline-2">
+<h2 id="orge29c4a3">Who has won</h2>
+<div class="outline-text-2" id="text-orge29c4a3">
+<p>
+A line is three squares, and there are eight: three rows, three
+columns, two diagonals. <code>t:lines</code> holds them as an 8 by 9 matrix of 0s
+and 1s, a row per line, so one inner product sums a board along every
+line at once. X has a line where a sum is 3, O where it is -3:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">t:lines '+ '* i_nner 1 1 1 -1 -1 0 0 0 0
+</pre>
+</div>
+
+<pre class="example">
+3 -2 0 0 0 1 0 0
+</pre>
+
+
+<p>
+<code>o_utcome</code> reads the result from those sums: 1 when X has won, -1 when
+O has, 2 for a full board with no line (a draw), and 0 while the game
+goes on.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">t:o_utcome 1 1 1 -1 -1 0 0 0 0
+t:o_utcome 1 -1 1 1 -1 -1 -1 1 1
+t:o_utcome 1 -1 0 0 0 0 0 0 0
+</pre>
+</div>
+
+<pre class="example">
+1
+2
+0
+</pre>
+</div>
+</div>
+<div id="outline-container-org3885c92" class="outline-2">
+<h2 id="org3885c92">One position, eight ways</h2>
+<div class="outline-text-2" id="text-org3885c92">
+<p>
+A board turned a quarter or reflected is the same position to play.
+The square has eight symmetries, and <code>t:symmetries</code> lists them as eight
+rearrangements of the square numbers, so selecting a board through it
+gives all eight versions at once; <code>b_oards</code> draws them side by side:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">t:b_oards t:symmetries s_elect 1 -1 0 0 0 0 0 0 0
+</pre>
+</div>
+
+<pre class="example">
+X O .   . . X   . . .   . . .   . O X   . . .   X . .   . . .  
+. . .   . . O   . . .   O . .   . . .   . . .   O . .   . . O  
+. . .   . . .   . O X   X . .   . . .   X O .   . . .   . . X  
+</pre>
+
+
+<p>
+<code>c_ode</code> names a position. Read as a base-3 number, a board is a single
+integer; each of the eight versions has its own, and the least of the
+eight is the position's code. An X in the top left corner and an X in
+the top right are one position, and have one code; an X on an edge is
+another:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">t:c_ode 1 0 0 0 0 0 0 0 0
+t:c_ode 0 0 1 0 0 0 0 0 0
+t:c_ode 0 1 0 0 0 0 0 0 0
+</pre>
+</div>
+
+<pre class="example">
+9842
+9842
+9844
+</pre>
+</div>
+</div>
+<div id="outline-container-org6cb22d5" class="outline-2">
+<h2 id="org6cb22d5">What a position is worth</h2>
+<div class="outline-text-2" id="text-org6cb22d5">
+<p>
+What the machine learns is one number for each position it has met:
+how good that board, just after a move, has turned out to be for the
+player who made the move. Towards 1 is a win, towards 0 a loss, and
+0.5 a draw, or no idea yet. The model is two rows, the codes of the
+positions met and their values; <code>t:empty</code> has met none:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">s_hape t:empty
+</pre>
+</div>
+
+<pre class="example">
+2 0
+</pre>
+
+
+<p>
+<code>v_alue</code> looks a position up. One the model has not met is worth 0.5:
+it is found one past the end of the codes, where a 0.5 is added to the
+values for the lookup.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">t:empty t:v_alue 1 0 0 0 0 0 0 0 0
+</pre>
+</div>
+
+<pre class="example">
+0.5
+</pre>
+</div>
+</div>
+<div id="outline-container-org47b0cb9" class="outline-2">
+<h2 id="org47b0cb9">Choosing a move</h2>
+<div class="outline-text-2" id="text-org47b0cb9">
+<p>
+<code>a_fter</code> is the board once the player to move takes a square, and
+<code>c_hoose</code> values the board after every empty square, all in one lookup,
+and takes the best. With nothing learned every board is worth 0.5, so
+it takes the first empty square:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(9 r_eshape 0) t:a_fter 5
+t:empty t:c_hoose 9 r_eshape 0
+</pre>
+</div>
+
+<pre class="example">
+0 0 0 0 1 0 0 0 0
+1
+</pre>
+</div>
+</div>
+<div id="outline-container-org45826b3" class="outline-2">
+<h2 id="org45826b3">A game against itself</h2>
+<div class="outline-text-2" id="text-org45826b3">
+<p>
+<code>g_ame!</code> plays one game against itself: the best move, but one time in
+ten a random one, so that it keeps trying moves it now thinks are bad.
+The game is its boards, one per row, from the empty one on. Knowing
+nothing, it plays like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">t:b_oards t:g_ame! t:empty
+</pre>
+</div>
+
+<pre class="example">
+. . .   X . .   X O .   X O X   X O X   X O X   X O X   X O X  
+. . .   . . .   . . .   . . .   O . .   O X .   O X O   O X O  
+. . .   . . .   . . .   . . .   . . .   . . .   . . .   X . .  
+</pre>
+</div>
+</div>
+<div id="outline-container-org5925163" class="outline-2">
+<h2 id="org5925163">Learning from a game</h2>
+<div class="outline-text-2" id="text-org5925163">
+<p>
+<code>l_earn</code> goes back through a game from the last move to the first,
+moving each board's value a fifth of the way towards a target. For the
+last two moves the target is the result, as the player who made the
+move sees it: 1 won, 0 lost, 0.5 drawn. For an earlier move it is that
+player's next board, two moves on, taken at 0.9 so that a sooner win
+is worth more than a later one. This is temporal-difference learning,
+as in Sutton and Barto's tic-tac-toe example: a win or a loss at the
+end reaches back, game by game, to the moves that led to it. Boards
+not met before join the model at 0.5 first. After one game the model
+knows that game's positions:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">t:empty t:l_earn t:g_ame! t:empty
+</pre>
+</div>
+
+<pre class="example">
+   9844.0  3523.0  3532.0              1345.0 1426.0 1423.0 2152.0
+0.4884592 0.48496 0.49144 0.47200000000000003  0.508    0.4    0.6
+</pre>
+</div>
+</div>
+<div id="outline-container-org8b9e2b3" class="outline-2">
+<h2 id="org8b9e2b3">Training and playing</h2>
+<div class="outline-text-2" id="text-org8b9e2b3">
+<p>
+<code>t_rain!</code> learns from <code>n</code> games, one after another, each played with
+what the games before it taught; every 250 games it prints how many
+games are still to go and how many positions it knows. After 2000 games it knows how many
+positions (sw-apl's workspace knows 757 after 3000), what it thinks of
+X's three different first moves (a corner, an edge, the centre), and
+where it opens. Then <code>t_rial!</code> plays 50 games against a random player
+as X and 50 as O: a row each of games won, lost and drawn. Then
+<code>s_elfTrial!</code> plays it against itself 50 times, its best move on both
+sides from a random first move (from the empty board its best move is
+always the same, so without one every game would be the same game):
+games X won, O won and drawn. Last, the game it plays against itself
+from the empty board:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">m := 2000 t:t_rain! t:empty
+t_ally 1 s_elect m
+m t:v_alue 1 0 0 0 0 0 0 0 0
+m t:v_alue 0 1 0 0 0 0 0 0 0
+m t:v_alue 0 0 0 0 1 0 0 0 0
+m t:c_hoose 9 r_eshape 0
+50 t:t_rial! m
+50 t:s_elfTrial! m
+t:b_oards t:b_est m
+</pre>
+</div>
+
+<pre class="example" id="org33fcfa0">
+games to go, positions known:
+1750 566
+1500 643
+1250 671
+1000 677
+750 681
+500 681
+250 683
+0 686
+686
+0.3522504138170238
+0.3421694474825987
+0.3307934461938286
+1
+48 0 2
+45 0 5
+0 0 50
+ . . .   X . .   X . .   X . .   X O .   X O .   X O .   X O X   X O X   X O X  
+ . . .   . . .   . O .   . O .   . O .   . O .   . O .   . O .   . O O   X O O  
+ . . .   . . .   . . .   . . X   . . X   . X X   O X X   O X X   O X X   O X X  
+</pre>
+
+<p>
+Two demos split this in two: <code>just tttml-train</code> (<code>demos/tttml-train.xtl</code>)
+trains a model and saves it as text in <code>work/tttml.model</code> (<code>f_ormat</code> and
+<code>[]N_PUT</code>), and <code>just tttml-play</code> (<code>demos/tttml-play.xtl</code>) reads it back
+(<code>[]N_GET</code> and <code>n_umbers</code>) and plays you, reading your moves with
+<code>[]R_EAD</code>.
+</p>
+
+<p>
+Played well on both sides, tic-tac-toe is always a draw: it is both
+players in every game against itself, so a win would be a mistake by
+one of them.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

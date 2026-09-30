@@ -1,0 +1,114 @@
+#+TITLE: Libraries
+#+SUBTITLE: what a library is, and the standard libraries at work
+#+AUTHOR: Michael A Wright
+#+OPTIONS: toc:2 num:nil ^:{}
+#+PROPERTY: header-args:xetal :session libraries :seed 1 :results output :exports both
+
+A library is an ordinary X_eTaL file whose exported names are written
+with ~l:~; its other names are private to it. A program imports a
+library with the ~u_se<~ macro, choosing the prefix its names get:
+~"s:" u_se< "Stats"~ makes the library's ~l:m_ean~ the program's
+~s:m_ean~. The prefix is required, so every name says where it comes
+from. Four libraries are built into ~xetal~ (their source is in
+~lib/~); a library of your own is imported by its path. Every block
+below is run by ~xetal~ through ~ob-xetal~, and its result recorded
+under it.
+
+* Stats
+
+A small statistics library. Its whole source:
+
+#+INCLUDE: "../../lib/Stats.xtl" src xetal
+
+~s_quare~ and ~d_eviations~ have no ~l:~, so a program cannot see
+them; the rest it imports:
+
+#+begin_src xetal
+"s:" u_se< "Stats"
+s:m_ean 1 2 3 4
+#+end_src
+
+#+RESULTS:
+: 2.5
+
+The mean is a Float for Int numbers too. The variance, the standard
+deviation and the range:
+
+#+begin_src xetal
+s:v_ariance 2 4 4 4 5 5 7 9
+s:s_d 2 4 4 4 5 5 7 9
+s:r_ange 3 9 1 7
+#+end_src
+
+#+RESULTS:
+: 4.0
+: 2.0
+: 8
+
+* Maybe
+
+A value that may be missing, and the monad that chains computations
+which can fail. A maybe is Church-encoded: a function of two
+arguments, what to give when it is empty and what to do with its
+value. ~j_ust x~ holds a value, ~n_othing~ holds none, and ~d m:o_r m~
+is the value, or ~d~ when there is none:
+
+#+begin_src xetal
+"m:" u_se< "Maybe"
+u:d_iv := { a b -> b = 0 ? 'm:n_othing; m:j_ust a / b }
+-1 m:o_r 100 u:d_iv 4
+-1 m:o_r 100 u:d_iv 0
+#+end_src
+
+#+RESULTS:
+: 25.0
+: -1.0
+
+~b_ind~ chains a step that can itself fail; the first failure gives
+the default, and the steps after it never run:
+
+#+begin_src xetal
+u:h_alf := { m:j_ust _r / 2 }
+-1 m:o_r 'u:h_alf m:b_ind 100 u:d_iv 4
+-1 m:o_r 'u:h_alf m:b_ind 100 u:d_iv 0
+#+end_src
+
+#+RESULTS:
+: 12.5
+: -1.0
+
+* Combinators
+
+Every bird Raymond Smullyan names in /To Mock a Mockingbird/ that
+type-checks, under its letter. K keeps its first argument, C swaps
+the arguments of a function, and B composes (here negate after
+reverse):
+
+#+begin_src xetal
+"c:" u_se< "Combinators"
+1 c:K_ 2
+10 '- c:C_ 3
+'n_eg 'r_ev c:B_ 1 2 3
+#+end_src
+
+#+RESULTS:
+: 1
+: -7
+: -3 -2 -1
+
+[[file:birds.org][The aviary]] meets them all.
+
+* TTTML
+
+A machine that learns tic-tac-toe by playing itself: its model is an
+ordinary value, passed to the library's functions and returned by
+them. [[file:tttml.org][TTTML]] trains it and plays it.
+
+* A library of your own
+
+Write the exported names with ~l:~ and save the file; a program then
+imports it by its path, ~"g:" u_se< "lib/Geometry.xtl"~. In the live
+demo, Save as a name like ~Geometry.xtl~ keeps it in the browser, and
+~"g:" u_se< "Geometry"~ imports it; saved under a standard library's
+name (~Stats.xtl~), your copy is the one imported. A library cannot
+define ~u:~ names, and a program cannot define ~l:~ names.

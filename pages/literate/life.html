@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-30 Wed 13:28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Life in one line</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Life in one line
+<br />
+<span class="subtitle">Conway's Game of Life in X_eTaL, built up a piece at a time</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgf851060">A board</a></li>
+<li><a href="#orgec83b16">Neighbours by rotation</a></li>
+<li><a href="#org0056de2">Counting</a></li>
+<li><a href="#org73cc3d3">The rule</a></li>
+<li><a href="#orgb6d705a">A glider</a></li>
+</ul>
+</div>
+</div>
+<p>
+Conway's Game of Life is played on a grid of cells, each alive (1) or
+dead (0). At every step a cell with exactly three live neighbours is
+alive next, a live cell with two live neighbours stays alive, and every
+other cell is dead. In X_eTaL the whole rule is one line; this document
+builds it up a piece at a time. Every block below is run by <code>xetal</code>
+through <code>ob-xetal</code>, and its result recorded under it.
+</p>
+
+
+<div id="org1e180d9" class="figure">
+<p><img src="images/life-annotated.svg" alt="life-annotated.svg" class="org-svg" />
+</p>
+</div>
+<div id="outline-container-orgf851060" class="outline-2">
+<h2 id="orgf851060">A board</h2>
+<div class="outline-text-2" id="text-orgf851060">
+<p>
+A blinker: three live cells in a row, in the middle of a 5 by 5 board.
+<code>r_eshape</code> lays its right argument out in the shape on its left.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">blinker := 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
+blinker
+</pre>
+</div>
+
+<pre class="example">
+0 0 0 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 0 0 0
+</pre>
+</div>
+</div>
+<div id="outline-container-orgec83b16" class="outline-2">
+<h2 id="orgec83b16">Neighbours by rotation</h2>
+<div class="outline-text-2" id="text-orgec83b16">
+<p>
+<code>o_-</code> rotates: <code>1 o_-_2 b</code> shifts every row of <code>b</code> one place along
+axis 2, wrapping round the edge. With the offsets <code>-1 0 1</code> on both
+axes (<code>_12</code>) it gives nine boards, the board shifted each way: its
+shape is a 3 by 3 grid of 5 by 5 boards.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">s_hape -1 0 1 o_-_12 blinker
+</pre>
+</div>
+
+<pre class="example">
+3 3 5 5
+</pre>
+</div>
+</div>
+<div id="outline-container-org0056de2" class="outline-2">
+<h2 id="org0056de2">Counting</h2>
+<div class="outline-text-2" id="text-org0056de2">
+<p>
+Summing the nine boards over their first two axes, <code>'+ r_/_12</code>, gives
+each cell's count of itself and its neighbours:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">'+ r_/_12 -1 0 1 o_-_12 blinker
+</pre>
+</div>
+
+<pre class="example">
+0 1 1 1 0
+0 2 2 2 0
+0 3 3 3 0
+0 2 2 2 0
+0 1 1 1 0
+</pre>
+</div>
+</div>
+<div id="outline-container-org73cc3d3" class="outline-2">
+<h2 id="org73cc3d3">The rule</h2>
+<div class="outline-text-2" id="text-org73cc3d3">
+<p>
+With <code>S</code> that count, a cell lives next when <code>S</code> is 3 (three
+neighbours, or a live cell with two), or when it is alive and <code>S</code> is 4
+(a live cell with three): <code>(S = 3) + board * S = 4</code>. Written as an
+inner function applied to <code>S</code> on its left and the board on its right,
+that is the whole of Life:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
+u:l_ife blinker
+</pre>
+</div>
+
+<pre class="example">
+0 0 0 0 0
+0 0 0 0 0
+0 1 1 1 0
+0 0 0 0 0
+0 0 0 0 0
+</pre>
+
+
+<p>
+The blinker turned upright. A superscript on a function repeats it, so
+<code>u:l_ife^2</code> is two steps, which brings the blinker back (<code>m_atch</code>
+gives 1 when two arrays are the same):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(u:l_ife^2 blinker) m_atch blinker
+</pre>
+</div>
+
+<pre class="example">
+1
+</pre>
+</div>
+</div>
+<div id="outline-container-orgb6d705a" class="outline-2">
+<h2 id="orgb6d705a">A glider</h2>
+<div class="outline-text-2" id="text-orgb6d705a">
+<p>
+A glider moves one cell diagonally every four generations:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">glider := 6 6 r_eshape 0 1 0 0 0 0 0 0 1 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+u:l_ife^4 glider
+</pre>
+</div>
+
+<pre class="example">
+0 0 0 0 0 0
+0 0 1 0 0 0
+0 0 0 1 0 0
+0 1 1 1 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+</pre>
+
+
+<p>
+Shifting the glider one row down and one column right gives the same
+board (rotating by -1 moves the rows down and the columns right):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(u:l_ife^4 glider) m_atch -1 o_-_2 -1 o_-_1 glider
+</pre>
+</div>
+
+<pre class="example">
+1
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

@@ -223,9 +223,16 @@ Other fonts, checked against the font files:
 
 - [`docs/tour.md`](docs/tour.md) -- the language tour and the milestone
   tours (M0 to M6)
+- [The literate documents as web pages](https://softwarewrighter.github.io/X_eTaL/literate/)
+  -- the Org documents below exported to HTML, with an index
 - [`docs/literate/tour.org`](docs/literate/tour.org) -- the language tour
   as a literate Org document, every block run and its result recorded
   (`docs/emacs/`: `xetal-mode` and `ob-xetal` for Org Babel)
+- [`docs/literate/life.org`](docs/literate/life.org) -- Conway's Life,
+  the one line built up a piece at a time
+- [`docs/literate/libraries.org`](docs/literate/libraries.org) -- what a
+  library is, and the standard libraries (Stats, Maybe, Combinators,
+  TTTML) at work
 - [`docs/literate/birds.org`](docs/literate/birds.org) -- the Combinators
   library run as you read: Smullyan's birds, with diagrams of the key
   definitions

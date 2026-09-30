@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-30 Wed 13:28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The aviary: combinators in X_eTaL</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">The aviary: combinators in X_eTaL
+<br />
+<span class="subtitle">Raymond Smullyan's birds as a library, run as you read</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org7ceebb6">Importing the library</a></li>
+<li><a href="#orgbc25d24">Seeing the order of arguments</a></li>
+<li><a href="#orga2f6f93">Composing</a></li>
+<li><a href="#org99e868a">Using a value twice</a></li>
+<li><a href="#org5f4f699">Holding values</a></li>
+<li><a href="#orgc3926d9">Recursion</a></li>
+<li><a href="#org92e26eb">The birds with no type</a></li>
+</ul>
+</div>
+</div>
+<p>
+A combinator is a function that only rearranges, repeats or drops its
+arguments. Raymond Smullyan's <i>To Mock a Mockingbird</i> names them as
+birds, and the standard library <code>Combinators</code> (<code>lib/Combinators.xtl</code>)
+holds every one of his birds that type-checks, under its letter:
+<code>docs/birds.md</code> lists them all, with their definitions and types.
+Every block below is run by <code>xetal</code> through <code>ob-xetal</code> and its result
+recorded under it.
+</p>
+<div id="outline-container-org7ceebb6" class="outline-2">
+<h2 id="org7ceebb6">Importing the library</h2>
+<div class="outline-text-2" id="text-org7ceebb6">
+<p>
+A program imports a library under an alias of its choosing; the
+library's names are then written with that prefix:
+</p>
+
+
+<div id="org8e1b83d" class="figure">
+<p><img src="images/import-annotated.svg" alt="import-annotated.svg" class="org-svg" />
+</p>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal">"c:" u_se&lt; "Combinators"
+1 c:K_ 2
+</pre>
+</div>
+
+<pre class="example">
+1
+</pre>
+
+
+<p>
+K, the kestrel, keeps its first argument and drops the second.
+</p>
+</div>
+</div>
+<div id="outline-container-orgbc25d24" class="outline-2">
+<h2 id="orgbc25d24">Seeing the order of arguments</h2>
+<div class="outline-text-2" id="text-orgbc25d24">
+<p>
+To watch a bird move its arguments around, give it functions whose
+results spell their arguments: <code>u:a_b 1 2</code> is 12, <code>u:a_bc 1 2 3</code> is
+</p>
+<ol class="org-ol">
+<li>A quoted function before a bird is its first argument (the</li>
+</ol>
+<p>
+nearest first), then comes a value on the left, then one on the
+right; <code>(e)_ v</code> applies a function that is computed.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:a_b := { a b -&gt; (10 * a) + b }
+u:a_bc := { a b c -&gt; (100 * a) + (10 * b) + c }
+u:i_nc := { _r + 1 }
+u:d_ouble := { _r * 2 }
+1 'u:a_b c:C_ 2
+</pre>
+</div>
+
+<pre class="example">
+21
+</pre>
+
+
+<p>
+C, the cardinal, swaps them: <code>C x y z</code> is <code>x z y</code>, so C a_b 1 2 is a_b
+2 1. Written between two values, a function takes the left one, then
+the right one:
+</p>
+
+
+<div id="org717c324" class="figure">
+<p><img src="images/swap-annotated.svg" alt="swap-annotated.svg" class="org-svg" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orga2f6f93" class="outline-2">
+<h2 id="orga2f6f93">Composing</h2>
+<div class="outline-text-2" id="text-orga2f6f93">
+<p>
+B, the bluebird, composes: <code>B x y z</code> is <code>x (y z)</code>. Here x is inc (the
+nearest operand) and y is double:
+</p>
+
+
+<div id="org0b3ace4" class="figure">
+<p><img src="images/compose-annotated.svg" alt="compose-annotated.svg" class="org-svg" />
+</p>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal">'u:d_ouble 'u:i_nc c:B_ 5
+</pre>
+</div>
+
+<pre class="example">
+11
+</pre>
+
+
+<p>
+The blackbird B1 composes with a function of two arguments: <code>B1 x y z
+w</code> is <code>x (y z w)</code>, inc applied to a_b 1 2:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">1 'u:a_b 'u:i_nc c:B_1 2
+</pre>
+</div>
+
+<pre class="example">
+13
+</pre>
+</div>
+</div>
+<div id="outline-container-org99e868a" class="outline-2">
+<h2 id="org99e868a">Using a value twice</h2>
+<div class="outline-text-2" id="text-org99e868a">
+<p>
+W, the warbler, gives its function one value on both sides; S, the
+starling, applies x to z and to y applied to z: <code>S x y z</code> is <code>x z (y
+z)</code>, here a_b 3 (double 3):
+</p>
+
+
+<div id="org7531489" class="figure">
+<p><img src="images/starling-annotated.svg" alt="starling-annotated.svg" class="org-svg" />
+</p>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal">'u:a_b c:W_ 3
+'u:d_ouble 'u:a_b c:S_ 3
+</pre>
+</div>
+
+<pre class="example">
+33
+36
+</pre>
+</div>
+</div>
+<div id="outline-container-org5f4f699" class="outline-2">
+<h2 id="org5f4f699">Holding values</h2>
+<div class="outline-text-2" id="text-org5f4f699">
+<p>
+T, the thrush, applies its second argument to its first, and V, the
+vireo, holds two values until a function arrives:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">3 c:T_ 'u:d_ouble
+(3 c:V_ 4)_ '+
+(3 c:V_ 4)_ 'u:a_b
+</pre>
+</div>
+
+<pre class="example">
+6
+7
+34
+</pre>
+</div>
+</div>
+<div id="outline-container-orgc3926d9" class="outline-2">
+<h2 id="orgc3926d9">Recursion</h2>
+<div class="outline-text-2" id="text-orgc3926d9">
+<p>
+Y, the sage bird, makes recursion from a function that is handed
+itself: <code>Y f</code> is <code>f (Y f)</code>. It does not unfold forever because the
+function's self parameter is lazy (<code>~</code>), used only when needed:
+</p>
+
+
+<div id="org31bfc38" class="figure">
+<p><img src="images/sage-annotated.svg" alt="sage-annotated.svg" class="org-svg" />
+</p>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:f_act := { ~s_elf n -&gt; n &lt;= 1 ? 1; n * s_elf n - 1 }
+'u:f_act c:Y_ 10
+</pre>
+</div>
+
+<pre class="example">
+3628800
+</pre>
+
+
+<p>
+A superscript on a function repeats it, function power, which is how
+Life steps its boards: <code>u:l_ife^4</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:d_ouble^10 1
+</pre>
+</div>
+
+<pre class="example">
+1024
+</pre>
+</div>
+</div>
+<div id="outline-container-org92e26eb" class="outline-2">
+<h2 id="org92e26eb">The birds with no type</h2>
+<div class="outline-text-2" id="text-org92e26eb">
+<p>
+The mockingbird M applies its argument to itself, <code>M x</code> is <code>x x</code>, and
+no finite type describes that; nor the lark, the double mockingbird,
+Turing's bird or the textbook Y built from them. They run when the
+checker is skipped, here outside the session with <code>--untyped</code>: M given
+the identity gives it back, and the textbook Y computes a factorial
+too.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:M_ := { x_ -&gt; x_ 'x_ }
+u:I_ := { x -&gt; x }
+('u:I_ u:M_)_ 42
+u:Y_ := { f_ -&gt; { x_ -&gt; f_ x_ 'x_ } '{ x_ -&gt; f_ x_ 'x_ } }
+u:F_ := { ~s_elf n -&gt; n &lt;= 1 ? 1; n * s_elf n - 1 }
+(u:Y_ 'u:F_)_ 5
+</pre>
+</div>
+
+<pre class="example">
+42
+120
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

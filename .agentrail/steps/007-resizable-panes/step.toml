@@ -1,0 +1,8 @@
+number = 7
+slug = "resizable-panes"
+status = "pending"
+description = "Web editor layout (the user's report, with a screenshot of TTTML.xtl opened a..."
+role = "production"
+context_files = []
+created_at = "2026-09-30T13:24:05"
+commits = []

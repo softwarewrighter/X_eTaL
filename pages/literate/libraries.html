@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-30 Wed 13:28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Libraries</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Libraries
+<br />
+<span class="subtitle">what a library is, and the standard libraries at work</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org366b022">Stats</a></li>
+<li><a href="#org4b7d108">Maybe</a></li>
+<li><a href="#org7604a25">Combinators</a></li>
+<li><a href="#org424bfdd">TTTML</a></li>
+<li><a href="#org68b08e8">A library of your own</a></li>
+</ul>
+</div>
+</div>
+<p>
+A library is an ordinary X_eTaL file whose exported names are written
+with <code>l:</code>; its other names are private to it. A program imports a
+library with the <code>u_se&lt;</code> macro, choosing the prefix its names get:
+<code>"s:" u_se&lt; "Stats"</code> makes the library's <code>l:m_ean</code> the program's
+<code>s:m_ean</code>. The prefix is required, so every name says where it comes
+from. Four libraries are built into <code>xetal</code> (their source is in
+<code>lib/</code>); a library of your own is imported by its path. Every block
+below is run by <code>xetal</code> through <code>ob-xetal</code>, and its result recorded
+under it.
+</p>
+<div id="outline-container-org366b022" class="outline-2">
+<h2 id="org366b022">Stats</h2>
+<div class="outline-text-2" id="text-org366b022">
+<p>
+A small statistics library. Its whole source:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"># Stats: a small statistics library (a standard library, built into
+# xetal). Import it with an alias of your choice: "s:" u_se&lt; "Stats".
+# Names with l: are exported; the others are private to this file.
+
+l:m_ean := { (f_loat '+ r_/ _r) / f_loat t_ally _r }  # Int or Float numbers
+
+s_quare := { _r * _r }                  # private: not visible outside
+d_eviations := { v -&gt; (f_loat v) - l:m_ean v }
+
+l:v_ariance := { v -&gt; l:m_ean s_quare d_eviations v }
+l:s_d := { (l:v_ariance _r) ^ 0.5 }     # the standard deviation
+l:r_ange := { v -&gt; ('m_ax r_/ v) - 'm_in r_/ v }
+</pre>
+</div>
+
+<p>
+<code>s_quare</code> and <code>d_eviations</code> have no <code>l:</code>, so a program cannot see
+them; the rest it imports:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">"s:" u_se&lt; "Stats"
+s:m_ean 1 2 3 4
+</pre>
+</div>
+
+<pre class="example">
+2.5
+</pre>
+
+
+<p>
+The mean is a Float for Int numbers too. The variance, the standard
+deviation and the range:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">s:v_ariance 2 4 4 4 5 5 7 9
+s:s_d 2 4 4 4 5 5 7 9
+s:r_ange 3 9 1 7
+</pre>
+</div>
+
+<pre class="example">
+4.0
+2.0
+8
+</pre>
+</div>
+</div>
+<div id="outline-container-org4b7d108" class="outline-2">
+<h2 id="org4b7d108">Maybe</h2>
+<div class="outline-text-2" id="text-org4b7d108">
+<p>
+A value that may be missing, and the monad that chains computations
+which can fail. A maybe is Church-encoded: a function of two
+arguments, what to give when it is empty and what to do with its
+value. <code>j_ust x</code> holds a value, <code>n_othing</code> holds none, and <code>d m:o_r m</code>
+is the value, or <code>d</code> when there is none:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">"m:" u_se&lt; "Maybe"
+u:d_iv := { a b -&gt; b = 0 ? 'm:n_othing; m:j_ust a / b }
+-1 m:o_r 100 u:d_iv 4
+-1 m:o_r 100 u:d_iv 0
+</pre>
+</div>
+
+<pre class="example">
+25.0
+-1.0
+</pre>
+
+
+<p>
+<code>b_ind</code> chains a step that can itself fail; the first failure gives
+the default, and the steps after it never run:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:h_alf := { m:j_ust _r / 2 }
+-1 m:o_r 'u:h_alf m:b_ind 100 u:d_iv 4
+-1 m:o_r 'u:h_alf m:b_ind 100 u:d_iv 0
+</pre>
+</div>
+
+<pre class="example">
+12.5
+-1.0
+</pre>
+</div>
+</div>
+<div id="outline-container-org7604a25" class="outline-2">
+<h2 id="org7604a25">Combinators</h2>
+<div class="outline-text-2" id="text-org7604a25">
+<p>
+Every bird Raymond Smullyan names in <i>To Mock a Mockingbird</i> that
+type-checks, under its letter. K keeps its first argument, C swaps
+the arguments of a function, and B composes (here negate after
+reverse):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">"c:" u_se&lt; "Combinators"
+1 c:K_ 2
+10 '- c:C_ 3
+'n_eg 'r_ev c:B_ 1 2 3
+</pre>
+</div>
+
+<pre class="example">
+1
+-7
+-3 -2 -1
+</pre>
+
+
+<p>
+<a href="birds.html">The aviary</a> meets them all.
+</p>
+</div>
+</div>
+<div id="outline-container-org424bfdd" class="outline-2">
+<h2 id="org424bfdd">TTTML</h2>
+<div class="outline-text-2" id="text-org424bfdd">
+<p>
+A machine that learns tic-tac-toe by playing itself: its model is an
+ordinary value, passed to the library's functions and returned by
+them. <a href="tttml.html">TTTML</a> trains it and plays it.
+</p>
+</div>
+</div>
+<div id="outline-container-org68b08e8" class="outline-2">
+<h2 id="org68b08e8">A library of your own</h2>
+<div class="outline-text-2" id="text-org68b08e8">
+<p>
+Write the exported names with <code>l:</code> and save the file; a program then
+imports it by its path, <code>"g:" u_se&lt; "lib/Geometry.xtl"</code>. In the live
+demo, Save as a name like <code>Geometry.xtl</code> keeps it in the browser, and
+<code>"g:" u_se&lt; "Geometry"</code> imports it; saved under a standard library's
+name (<code>Stats.xtl</code>), your copy is the one imported. A library cannot
+define <code>u:</code> names, and a program cannot define <code>l:</code> names.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

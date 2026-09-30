@@ -1,0 +1,1061 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-30 Wed 13:28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>A literate tour of X_eTaL</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">A literate tour of X_eTaL
+<br />
+<span class="subtitle">every feature of the language, run as you read</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org2e0b49c">Numbers</a></li>
+<li><a href="#orgc7436fb">Mutation</a></li>
+<li><a href="#orgda2ee87">Strings: vectors of characters</a></li>
+<li><a href="#orgf1a1652">Arrays</a></li>
+<li><a href="#org3f30b04">Functions</a></li>
+<li><a href="#org38a779f">Quotes and operands</a></li>
+<li><a href="#org6148dcb">Trains and tacks</a></li>
+<li><a href="#org6cfbf0c">Rotate, reverse and axes</a></li>
+<li><a href="#orgdd6de05">Search and order</a></li>
+<li><a href="#orgdb5ec98">Effects</a></li>
+<li><a href="#org620c728">Libraries</a></li>
+<li><a href="#orgaf45d62">Combinators and power</a></li>
+<li><a href="#org4309032">Life in one line</a></li>
+<li><a href="#orga0537af">Not shown here</a></li>
+</ul>
+</div>
+</div>
+<p>
+This is <code>demos/tour.xtl</code> as a literate program: the same code, in the
+same order, with the reading between the blocks. Every block is live
+X_eTaL, run by <code>xetal</code> through <code>ob-xetal</code> (<code>docs/emacs/ob-xetal.el</code>),
+and its result is recorded under it. The blocks share one session,
+so a definition made in an early block is still there in a later one,
+as in the REPL.
+</p>
+
+<p>
+The source is plain ASCII, as typed; <code>xetal-mode</code> shows <code>:=</code>, <code>-&gt;</code>, <code>_l</code>
+and <code>_r</code> as the glyphs the decorated form uses, and <code>just tour</code> prints
+the whole tour decorated, each statement followed by its output.
+</p>
+
+<p>
+To run it again: <code>just literate</code> (results are recorded in this file),
+and <code>just check-literate</code> fails if a result has changed.
+</p>
+<div id="outline-container-org2e0b49c" class="outline-2">
+<h2 id="org2e0b49c">Numbers</h2>
+<div class="outline-text-2" id="text-org2e0b49c">
+<p>
+X_eTaL numbers are Int or Float, and literals take whatever number
+type the context needs. An exponent written touching a value is a
+literal superscript (x^2 displays as x squared); a computed power is
+the spaced function ^. Division always gives a Float, the integer
+operations are named, and equality is exact, with a tolerant e_q~
+beside it. There is no precedence: everything reads right to left, so
+the left operand of &amp; needs its parentheses.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">42                       # an Int
+</pre>
+</div>
+
+<pre class="example">
+42
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">-3 2.5                   # a negative literal; a strand has one type (Float)
+</pre>
+</div>
+
+<pre class="example">
+-3.0 2.5
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">x := 3                   # `:=` binds; `=` is always equality
+x^2                      # a literal exponent touches its value: superscript
+</pre>
+</div>
+
+<pre class="example">
+9
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">4^-1                     # a negative exponent gives a Float (a literal base)
+</pre>
+</div>
+
+<pre class="example">
+0.25
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">2 ^ 10                   # spaced `^` is the power function (computed exponents)
+</pre>
+</div>
+
+<pre class="example">
+1024
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">7 / 2                    # `/` always gives a Float
+</pre>
+</div>
+
+<pre class="example">
+3.5
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">7 d_iv 2; 7 m_od 3       # integer quotient and remainder; `;` separates statements
+</pre>
+</div>
+
+<pre class="example">
+3
+1
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">(0.1 + 0.2) = 0.3        # `=` is exact: 0 (false)
+</pre>
+</div>
+
+<pre class="example">
+0
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">(0.1 + 0.2) e_q~ 0.3     # tolerant equality: 1
+</pre>
+</div>
+
+<pre class="example">
+1
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">(3 &lt; 4) &amp; 2 != 2         # Bool (`&amp; | !=`); no precedence: parenthesize the left
+</pre>
+</div>
+
+<pre class="example">
+0
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">f_loat 3                 # Int to Float
+</pre>
+</div>
+
+<pre class="example">
+3.0
+</pre>
+</div>
+</div>
+<div id="outline-container-orgc7436fb" class="outline-2">
+<h2 id="orgc7436fb">Mutation</h2>
+<div class="outline-text-2" id="text-orgc7436fb">
+<p>
+Values are immutable: := makes a new binding. The escape hatch is
+visible in the name: only a variable ending in ! may be updated in
+place.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">count! := 0              # only names ending in ! (like `count!`) may be reassigned
+count! := count! + 1
+count!
+</pre>
+</div>
+
+<pre class="example">
+1
+</pre>
+</div>
+</div>
+<div id="outline-container-orgda2ee87" class="outline-2">
+<h2 id="orgda2ee87">Strings: vectors of characters</h2>
+<div class="outline-text-2" id="text-orgda2ee87">
+<p>
+A string is a vector of characters, so every array function applies to
+it, and comparisons work item by item.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">"hello"
+</pre>
+</div>
+
+<pre class="example">
+hello
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">"abc" = "abd"            # item by item
+</pre>
+</div>
+
+<pre class="example">
+1 1 0
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">3 t_ake "hello"
+</pre>
+</div>
+
+<pre class="example">
+hel
+</pre>
+</div>
+</div>
+<div id="outline-container-orgf1a1652" class="outline-2">
+<h2 id="orgf1a1652">Arrays</h2>
+<div class="outline-text-2" id="text-orgf1a1652">
+<p>
+Arrays are dense and 1-origin. A type names only the element type, so
+a scalar function such as * applies to a matrix unchanged and a scalar
+extends to every item. The count, shape or indices of a structural
+function go on its left.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">m := 2 3 r_eshape r_ange 6       # 1-origin: `r_ange 6` is 1 2 3 4 5 6
+m
+</pre>
+</div>
+
+<pre class="example">
+1 2 3
+4 5 6
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">s_hape m; t_ally m
+</pre>
+</div>
+
+<pre class="example">
+2 3
+2
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">m * 10                   # a scalar extends to every item
+</pre>
+</div>
+
+<pre class="example">
+10 20 30
+40 50 60
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">2 s_elect m              # the 2nd major cell (row)
+</pre>
+</div>
+
+<pre class="example">
+4 5 6
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">-1 t_ake m; 1 d_rop m    # take and drop count from the end when negative
+</pre>
+</div>
+
+<pre class="example">
+4 5 6
+4 5 6
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">(f_irst m) c_at 7 8 9    # join along the leading axis
+</pre>
+</div>
+
+<pre class="example">
+1 2 3 7 8 9
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">r_avel m
+</pre>
+</div>
+
+<pre class="example">
+1 2 3 4 5 6
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">10 ^ r_ev o_ffsets 3     # `o_ffsets` counts from 0: place values 100 10 1
+</pre>
+</div>
+
+<pre class="example">
+100 10 1
+</pre>
+</div>
+</div>
+<div id="outline-container-org3f30b04" class="outline-2">
+<h2 id="org3f30b04">Functions</h2>
+<div class="outline-text-2" id="text-org3f30b04">
+<p>
+A function name has one underlined letter, typed as an underscore
+after it; the program's functions live in the u: namespace. _l and _r
+are a lambda's left and right arguments (drawn as alpha and omega),
+named parameters come before -&gt;, guards return early, a niladic
+function takes @, and a ~ parameter is only evaluated when used.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:s_quare := { _r * _r }         # `_r` is the right argument
+u:s_quare 1 2 3                  # scalar functions work on arrays unchanged
+</pre>
+</div>
+
+<pre class="example">
+1 4 9
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:s_ub := { _l - _r }            # `_l` is the left argument
+10 u:s_ub 3                      # dyadic use is currying: `(u:s_ub 10) 3`
+</pre>
+</div>
+
+<pre class="example">
+7
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:h_yp := { a b -&gt; ((a * a) + b * b) ^ 0.5 }   # named parameters before `-&gt;`
+3 u:h_yp 4
+</pre>
+</div>
+
+<pre class="example">
+5.0
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:s_ign := { x -&gt; x &lt; 0 ? -1; x = 0 ? 0; 1 }  # guards: condition `?` result
+u:f_act := { n -&gt;
+  n &lt;= 1 ? 1
+  n * u:f_act n - 1
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:f_act 10                       # recursion
+</pre>
+</div>
+
+<pre class="example">
+3628800
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:t_wo := { @ -&gt; 2 }             # a niladic function takes `@`
+u:t_wo @
+</pre>
+</div>
+
+<pre class="example">
+2
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:k_eep := { a ~b -&gt; a }         # `~b` is a lazy parameter: evaluated
+7 u:k_eep 1 / 0                  # only if used, so no division by zero
+</pre>
+</div>
+
+<pre class="example">
+7
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">(u:s_ub 100)_ 1                  # `(expr)_` applies a function value
+</pre>
+</div>
+
+<pre class="example">
+99
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:t_wice := { f_ x -&gt; f_ f_ x }  # apply a function parameter two times
+'{ _r + 10 } u:t_wice 3          # 3 + 10 + 10
+</pre>
+</div>
+
+<pre class="example">
+23
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'u:s_quare u:t_wice 3            # square (square 3) = 9 squared
+</pre>
+</div>
+
+<pre class="example">
+81
+</pre>
+</div>
+</div>
+<div id="outline-container-org38a779f" class="outline-2">
+<h2 id="org38a779f">Quotes and operands</h2>
+<div class="outline-text-2" id="text-org38a779f">
+<p>
+A quote passes a function as a value. Written just left of a function
+name it becomes that function's operand, which gives the APL look: '+
+r_/ is plus-reduce. Reduce folds from the right along the leading
+axis; scan gives the prefix reductions; each, table and inner are
+ordinary curried functions.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">'+ r_/ 1 2 3 4           # a quoted function is the operand of `r_/` (reduce)
+</pre>
+</div>
+
+<pre class="example">
+10
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'- r_/ 1 2 3             # reduce folds from the right: 1 - (2 - 3)
+</pre>
+</div>
+
+<pre class="example">
+2
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'+ s_\ 1 2 3 4           # scan: the prefix reductions
+</pre>
+</div>
+
+<pre class="example">
+1 3 6 10
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'+ r_/ m                 # the leading axis: column sums
+</pre>
+</div>
+
+<pre class="example">
+5 7 9
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'u:s_ign e_ach -5 0 5    # each: apply to every item
+</pre>
+</div>
+
+<pre class="example">
+-1 0 1
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">1 2 3 '= e_ach 1 5 3     # dyadic each is currying
+</pre>
+</div>
+
+<pre class="example">
+1 0 1
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">1 2 3 '* t_able 1 2 3    # table: the outer product
+</pre>
+</div>
+
+<pre class="example">
+1 2 3
+2 4 6
+3 6 9
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">m '+ '* i_nner 1 1 1     # inner product: the nearest operand pairs
+</pre>
+</div>
+
+<pre class="example">
+6 15
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'n_eg 'a_bs c_ompose -4  # compose: the nearest operand applies first
+</pre>
+</div>
+
+<pre class="example">
+-4
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">2 '/ s_wap 1             # swap the arguments: 1 / 2
+</pre>
+</div>
+
+<pre class="example">
+0.5
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'{ _l + _r } r_/ 1 2 3   # a quoted lambda is an operand too
+</pre>
+</div>
+
+<pre class="example">
+6
+</pre>
+</div>
+</div>
+<div id="outline-container-org6148dcb" class="outline-2">
+<h2 id="org6148dcb">Trains and tacks</h2>
+<div class="outline-text-2" id="text-org6148dcb">
+<p>
+A train in brackets composes functions without naming the argument: a
+fork applies the outer two and combines them with the middle one; two
+functions are an atop. The tacks pick an argument.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:a_vg := ['+ r_/ / t_ally]      # fork: `('+ r_/) / t_ally` of the argument
+u:a_vg 1 2 3 4
+</pre>
+</div>
+
+<pre class="example">
+2.5
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">[n_eg a_bs] -5                   # atop: `n_eg a_bs x`
+</pre>
+</div>
+
+<pre class="example">
+-5
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">3 [l_eft + r_ight] 4             # the tacks pick an argument
+</pre>
+</div>
+
+<pre class="example">
+7
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">[i_d - n_eg] 5                   # hook: `x - n_eg x`
+</pre>
+</div>
+
+<pre class="example">
+10
+</pre>
+</div>
+</div>
+<div id="outline-container-org6cfbf0c" class="outline-2">
+<h2 id="org6cfbf0c">Rotate, reverse and axes</h2>
+<div class="outline-text-2" id="text-org6cfbf0c">
+<p>
+Rotate and reverse work on the leading axis; a subscript names
+another, and any function takes one by the same move-to-front rule. A
+list of amounts gives every rotation, which is exactly what Life's
+neighbour count needs.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">1 o_- 1 2 3 4            # rotate toward the front
+</pre>
+</div>
+
+<pre class="example">
+2 3 4 1
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">r_ev "stressed"
+</pre>
+</div>
+
+<pre class="example">
+desserts
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal"># A function works on the leading axis (axis 1) unless a subscript names
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal"># another: `r_ev_2 m` moves axis 2 to the front, applies `r_ev`, and
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal"># moves it back.
+'+ r_/ m                 # implicit: axis 1, so column sums
+</pre>
+</div>
+
+<pre class="example">
+5 7 9
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'+ r_/_1 m               # the same, explicit
+</pre>
+</div>
+
+<pre class="example">
+5 7 9
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'+ r_/_2 m               # axis 2: row sums
+</pre>
+</div>
+
+<pre class="example">
+6 15
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'+ s_\_2 m               # running sums along each row
+</pre>
+</div>
+
+<pre class="example">
+1 3  6
+4 9 15
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">1 o_- m                  # rotate the rows (axis 1)
+</pre>
+</div>
+
+<pre class="example">
+4 5 6
+1 2 3
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">1 o_-_1 m                # the same, explicit
+</pre>
+</div>
+
+<pre class="example">
+4 5 6
+1 2 3
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">1 o_-_2 m                # rotate within each row (axis 2)
+</pre>
+</div>
+
+<pre class="example">
+2 3 1
+5 6 4
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">r_ev_2 m                 # reverse each row
+</pre>
+</div>
+
+<pre class="example">
+3 2 1
+6 5 4
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'+ r_/_12 m              # two axes in turn: the total
+</pre>
+</div>
+
+<pre class="example">
+21
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">-1 0 1 o_- 1 2 3         # a list of amounts gives every rotation
+</pre>
+</div>
+
+<pre class="example">
+3 1 2
+1 2 3
+2 3 1
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">s_hape -1 0 1 o_-_12 m   # every combination along both axes: 3 3 2 3
+</pre>
+</div>
+
+<pre class="example">
+3 3 2 3
+</pre>
+</div>
+</div>
+<div id="outline-container-orgdd6de05" class="outline-2">
+<h2 id="orgdd6de05">Search and order</h2>
+<div class="outline-text-2" id="text-orgdd6de05">
+<p>
+The search and order built-ins treat major cells as items: sort is
+stable, grade gives the indices that sort, index-of answers tally + 1
+for what is absent.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">v := 3 1 4 1 5 9 2 6
+s_ort v; g_rade v        # sort, and the indices that sort
+</pre>
+</div>
+
+<pre class="example">
+1 1 2 3 4 5 6 9
+2 4 7 1 3 5 8 6
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">u_nique v
+</pre>
+</div>
+
+<pre class="example">
+3 1 4 5 9 2 6
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">v i_ndexOf 5 7           # 7 is absent: tally + 1
+</pre>
+</div>
+
+<pre class="example">
+5 9
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">2 7 m_ember? v
+</pre>
+</div>
+
+<pre class="example">
+1 0
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">w_here v &gt; 4             # indices of the 1s
+</pre>
+</div>
+
+<pre class="example">
+5 6 8
+</pre>
+</div>
+</div>
+<div id="outline-container-orgdb5ec98" class="outline-2">
+<h2 id="orgdb5ec98">Effects</h2>
+<div class="outline-text-2" id="text-orgdb5ec98">
+<p>
+Effects end in !. The rolls are random; this document fixes them with
+:seed so its results stay the same each time it is run.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">r_oll! 6 6 6             # three dice: random 1..6 each, so every run differs
+</pre>
+</div>
+
+<pre class="example">
+6 2 1
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">r_oll! 6 6 6             # (and each line rolls again)
+</pre>
+</div>
+
+<pre class="example">
+6 4 3
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">r_oll! 6 6 6
+</pre>
+</div>
+
+<pre class="example">
+4 4 1
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">p_rint! "printed, then returned"  # `p_rint!` prints and returns its argument
+</pre>
+</div>
+
+<pre class="example">
+printed, then returned
+printed, then returned
+</pre>
+</div>
+</div>
+<div id="outline-container-org620c728" class="outline-2">
+<h2 id="org620c728">Libraries</h2>
+<div class="outline-text-2" id="text-org620c728">
+<p>
+A library is an ordinary X_eTaL file of definitions: its exported
+names start with l:, the rest are private. A program imports it with
+<code>u_se&lt;</code> under an alias of its choosing, and uses the exports through
+that alias. Stats is a standard library, built into xetal.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">"s:" u_se&lt; "Stats"       # import a library under an alias of your choosing
+s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias
+</pre>
+</div>
+
+<pre class="example">
+5.0
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">s:s_d 2 4 4 4 5 5 7 9    # the standard deviation
+</pre>
+</div>
+
+<pre class="example">
+2.0
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">s:r_ange 3 1 4 1 5       # largest minus smallest
+</pre>
+</div>
+
+<pre class="example">
+4
+</pre>
+</div>
+</div>
+<div id="outline-container-orgaf45d62" class="outline-2">
+<h2 id="orgaf45d62">Combinators and power</h2>
+<div class="outline-text-2" id="text-orgaf45d62">
+<p>
+Combinators is a second standard library: the birds of Raymond
+Smullyan's To Mock a Mockingbird, functions that only rearrange,
+repeat or drop their arguments (<code>docs/birds.md</code> lists them all and
+decodes a few). A quoted function before a bird is its first
+argument, the nearest first; a value on the left comes next, then the
+one on the right.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">"c:" u_se&lt; "Combinators" # Smullyan's birds, a standard library
+1 c:K_ 2                 # K keeps its first argument
+</pre>
+</div>
+
+<pre class="example">
+1
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">10 '- c:C_ 3             # C swaps the arguments: 3 - 10
+</pre>
+</div>
+
+<pre class="example">
+-7
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'n_eg 'a_bs c:B_ -5      # B composes, the nearest operand last: a_bs n_eg -5
+</pre>
+</div>
+
+<pre class="example">
+5
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">'* c:W_ 4                # W uses its argument twice: 4 * 4
+</pre>
+</div>
+
+<pre class="example">
+16
+</pre>
+
+
+<p>
+Y makes recursion from a function that is handed itself; its self
+parameter is lazy (~), so Y unfolds one step at a time:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:t_riangle := { ~s_elf n -&gt; n &lt;= 1 ? 1; n + s_elf n - 1 }
+'u:t_riangle c:Y_ 5      # Y: recursion, from a function handed itself: 1+2+3+4+5
+</pre>
+</div>
+
+<pre class="example">
+15
+</pre>
+
+
+<p>
+A superscript on a function name repeats the function (function
+power); <code>n 'f_ p_ower x</code> does the same with a computed count:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">n_eg^3 5                 # a superscript repeats a function: n_eg three times
+</pre>
+</div>
+
+<pre class="example">
+-5
+</pre>
+</div>
+</div>
+<div id="outline-container-org4309032" class="outline-2">
+<h2 id="org4309032">Life in one line</h2>
+<div class="outline-text-2" id="text-org4309032">
+<p>
+Everything above comes together in Conway's Life: rotate the board by
+every offset in -1 0 1 along both axes, sum the nine boards to count
+each cell and its neighbours, and apply the rule. This is the
+language's acceptance test.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
+u:l_ife 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
+</pre>
+</div>
+
+<pre class="example">
+0 0 0 0 0
+0 0 0 0 0
+0 1 1 1 0
+0 0 0 0 0
+0 0 0 0 0
+</pre>
+</div>
+</div>
+<div id="outline-container-orga0537af" class="outline-2">
+<h2 id="orga0537af">Not shown here</h2>
+<div class="outline-text-2" id="text-orga0537af">
+<p>
+The textbook Y combinator, built from self-application, needs
+<code>--untyped</code> (see <code>demos/fixed-point.xtl</code> and <code>demos/birds-untyped.xtl</code>);
+<code>docs/literate/birds.org</code> runs the whole Combinators library.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="603" height="552" viewBox="0 0 603 552">
+<style>
+.code { font: 32px JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; white-space: pre; font-variant-ligatures: none }
+.typed { font: 16px JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; fill: #4a5160; font-variant-ligatures: none }
+.inline { font-family: JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; font-variant-ligatures: none }
+.heading { font: bold 26px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1d2330 }
+.title { font: bold 14.5px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1d2330 }
+.note { font: 14px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #3a4150 }
+.box { fill: #f7f8fa; stroke: #d9dce1 }
+.leader { fill: none; stroke-width: 1.6 }
+.mark { stroke-width: 3; stroke-linecap: round }
+</style>
+<rect width="100%" height="100%" rx="12" fill="#ffffff"/>
+<text x="30" y="48" class="heading">B, the bluebird: composition</text>
+<text x="30" y="82" class="typed">as typed: l:B_ := { x_ y_ z -&gt; x_ y_ z }</text>
+<rect x="66.3" y="280.0" width="470.4" height="72" rx="10" fill="#1e2127"/>
+<text x="90.3" y="327.0" class="code" fill="#22b8c8">ˡB̲</text>
+<text x="147.9" y="327.0" class="code" fill="#e6e6e6">←</text>
+<text x="186.3" y="327.0" class="code" fill="#e6e6e6">{</text>
+<text x="224.7" y="327.0" class="code" fill="#5b9cff">x̲</text>
+<text x="263.1" y="327.0" class="code" fill="#5b9cff">y̲</text>
+<text x="301.5" y="327.0" class="code" fill="#e6e6e6">z</text>
+<text x="339.9" y="327.0" class="code" fill="#e6e6e6">→</text>
+<text x="378.3" y="327.0" class="code" fill="#5b9cff">x̲</text>
+<text x="416.7" y="327.0" class="code" fill="#5b9cff">y̲</text>
+<text x="455.1" y="327.0" class="code" fill="#e6e6e6">z</text>
+<text x="493.5" y="327.0" class="code" fill="#e6e6e6">}</text>
+<path d="M162.8 220.0 C162.8 246.0 109.5 246.0 109.5 272.0" class="leader" stroke="#22b8c8"/>
+<line x1="92.3" y1="272.0" x2="126.7" y2="272.0" class="mark" stroke="#22b8c8"/>
+<rect x="30.0" y="110.0" width="265.5" height="110.0" rx="8" class="box"/>
+<rect x="30.0" y="110.0" width="5" height="110.0" rx="2" fill="#22b8c8"/>
+<text x="46.0" y="133.0" class="title">An exported name</text>
+<text x="46.0" y="151.0" class="note"><tspan class="inline">l:</tspan> marks a name the library</text>
+<text x="46.0" y="169.0" class="note">exports; a program that imports</text>
+<text x="46.0" y="187.0" class="note">it as <tspan class="inline">c:</tspan> writes <tspan class="inline">c:B_</tspan>. The</text>
+<text x="46.0" y="205.0" class="note">underlined B makes it a function.</text>
+<path d="M440.2 202.0 C440.2 237.0 311.1 237.0 311.1 272.0" class="leader" stroke="#8a8f98"/>
+<line x1="303.5" y1="272.0" x2="318.7" y2="272.0" class="mark" stroke="#8a8f98"/>
+<rect x="307.5" y="110.0" width="265.5" height="92.0" rx="8" class="box"/>
+<rect x="307.5" y="110.0" width="5" height="92.0" rx="2" fill="#8a8f98"/>
+<text x="323.5" y="133.0" class="title">A value parameter</text>
+<text x="323.5" y="151.0" class="note">No underline: <tspan class="inline">z</tspan> is data. B</text>
+<text x="323.5" y="169.0" class="note">takes x, then y, then z, one at a</text>
+<text x="323.5" y="187.0" class="note">time (every function is curried).</text>
+<path d="M162.8 412.0 C162.8 386.0 253.5 386.0 253.5 360.0" class="leader" stroke="#5b9cff"/>
+<line x1="226.7" y1="360.0" x2="280.3" y2="360.0" class="mark" stroke="#5b9cff"/>
+<rect x="30.0" y="412.0" width="265.5" height="92.0" rx="8" class="box"/>
+<rect x="30.0" y="412.0" width="5" height="92.0" rx="2" fill="#5b9cff"/>
+<text x="46.0" y="435.0" class="title">Function parameters</text>
+<text x="46.0" y="453.0" class="note">An underlined letter makes a</text>
+<text x="46.0" y="471.0" class="note">parameter a function, so the body</text>
+<text x="46.0" y="489.0" class="note">can apply it.</text>
+<path d="M440.2 412.0 C440.2 386.0 426.3 386.0 426.3 360.0" class="leader" stroke="#5b9cff"/>
+<line x1="380.3" y1="360.0" x2="472.3" y2="360.0" class="mark" stroke="#5b9cff"/>
+<rect x="307.5" y="412.0" width="265.5" height="110.0" rx="8" class="box"/>
+<rect x="307.5" y="412.0" width="5" height="110.0" rx="2" fill="#5b9cff"/>
+<text x="323.5" y="435.0" class="title">x (y z)</text>
+<text x="323.5" y="453.0" class="note">Right to left: y applied to z,</text>
+<text x="323.5" y="471.0" class="note">then x applied to that.</text>
+<text x="323.5" y="489.0" class="note">Composition: Dyalog <tspan class="inline">f⍤g</tspan> (or</text>
+<text x="323.5" y="507.0" class="note"><tspan class="inline">f∘g</tspan>), J <tspan class="inline">f@:g</tspan>, BQN <tspan class="inline">f∘g</tspan>.</text>
+</svg>

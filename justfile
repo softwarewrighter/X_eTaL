@@ -99,6 +99,10 @@ literate:
 check-literate:
     scripts/literate.sh --check
 
+# Export the literate documents to HTML under pages/literate/ (with an index page)
+literate-html:
+    scripts/literate-html.sh
+
 # Build the live demo into pages/ (committed; the Pages workflow publishes it) and screenshot it
 pages:
     scripts/build-pages.sh
