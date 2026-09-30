@@ -53,8 +53,12 @@ fn aliased(alias: &str, key: &str, t: &Token, cx: &Context) -> Result<String, Di
         Some((hidden, exports)) if exports.iter().any(|e| e == key) => Ok(hidden.clone()),
         Some((_, exports)) => {
             let defines = exports.join(", ");
+            let underlined = exports.iter().find(|e| e.replace('_', "") == key);
+            let hint = underlined.map_or(String::new(), |e| {
+                format!(" (did you mean {alias}:{e}? a function name has an underlined letter, typed with _ after it)")
+            });
             let message =
-                format!("{alias}:{key} is not defined by that library; it defines {defines}");
+                format!("{alias}:{key} is not defined by that library; it defines {defines}{hint}");
             Err(fail("not-exported", t.span, message))
         }
         None => {

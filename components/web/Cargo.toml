@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-play", "crates/xetal-web"]
+members = ["crates/xetal-play", "crates/xetal-chrome", "crates/xetal-web"]
 
 [workspace.package]
 version = "0.1.0"
@@ -28,6 +28,7 @@ xetal-value = { path = "../eval/crates/xetal-value" }
 xetal-arith = { path = "../eval/crates/xetal-arith" }
 xetal-system = { path = "../system/crates/xetal-system" }
 xetal-play = { path = "crates/xetal-play" }
+xetal-chrome = { path = "crates/xetal-chrome" }
 xetal-store = { path = "../base/crates/xetal-store" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
 xetal-spec = { path = "../cli/crates/xetal-spec" }

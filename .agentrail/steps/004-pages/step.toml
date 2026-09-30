@@ -1,6 +1,6 @@
 number = 4
 slug = "pages"
-status = "pending"
+status = "in-progress"
 description = "web-playground step 3: scripts/build-pages.sh (trunk build --release --public..."
 role = "production"
 context_files = []

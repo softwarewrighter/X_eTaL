@@ -9,6 +9,7 @@ repository.workspace = true
 
 [dependencies]
 xetal-play.workspace = true
+xetal-chrome.workspace = true
 xetal-store.workspace = true
 yew.workspace = true
 wasm-bindgen.workspace = true

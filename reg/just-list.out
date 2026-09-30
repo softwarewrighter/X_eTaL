@@ -14,6 +14,7 @@ Available recipes:
     life                       # Life: a blinker and a glider, stepped (demos/life.xtl)
     literate                   # Run the literate documents (docs/literate/*.org), recording each block's result
     locks *args                # Check (or with --fix, regenerate) the component Cargo.lock files
+    pages                      # Build the live demo into pages/ (committed; the Pages workflow publishes it) and screenshot it
     pp file                    # Pretty-print a file like cat: decorated and highlighted (errors in red)
     reference                  # Regenerate docs/reference.md (every built-in, its examples run) from docs/reference/builtins.ref
     reg                        # Run the reg-rs CLI goldens in reg/
@@ -29,4 +30,4 @@ Available recipes:
     tttml-play                 # TTTML part 2: play the saved model (run tttml-train first); you are X
     tttml-train                # TTTML part 1: learn tic-tac-toe by playing itself and save the model in work/
     videos                     # Regenerate the videos (vhs, ffmpeg, gif2webp)
-    web                        # Serve the live demo locally (http://127.0.0.1:8095/), rebuilt when a source changes
+    web                        # Serve the live demo locally (http://127.0.0.1:8095/), rebuilt when a source changes [alias: serve]

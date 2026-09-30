@@ -18,6 +18,12 @@ The goal isn't to replace existing languages. It's to make the powerful
 ideas of array programming easier to read, reason about, type-check,
 visualize, and experiment with.
 
+**Live demo: [the editor in your browser](https://softwarewrighter.github.io/X_eTaL/)**
+-- type ASCII on the left and watch it drawn decorated on the right;
+Run shows the output, the drop-down loads the demos and the tour.
+
+[![The live demo: the ASCII source, its decorated form, and the types below](images/live-demo.png)](https://softwarewrighter.github.io/X_eTaL/)
+
 **eXperimental eXtensible Typed Array Language** -- LaTeX reversed,
 with the X itself decorated.
 
@@ -130,6 +136,21 @@ annotated diagrams. Next: a live web demo of the editor, then ports of
 the APL workspaces as libraries (LEARN, COURSE and PLOT first), then
 trains and a stepping debugger ([`docs/plan.md`](docs/plan.md)).
 
+## Prerequisites
+
+- [Rust](https://rustup.rs) (stable, via rustup) and
+  [`just`](https://github.com/casey/just) (`brew install just` or
+  `cargo install just`): enough to build, run and edit programs.
+- For the live demo in the browser: the WebAssembly target and
+  [trunk](https://trunkrs.dev):
+  `rustup target add wasm32-unknown-unknown`, then `brew install trunk`
+  or `cargo install trunk`.
+- For the full pre-commit gate (maintainers): `reg-rs` (the CLI
+  goldens), `sw-checklist` and `sw-markdown-checker`; Emacs for the
+  literate documents; vhs, ffmpeg and ImageMagick to regenerate the
+  screenshots and the video; Google Chrome for the live demo's
+  screenshot.
+
 ## Quick Start
 
 With [`just`](https://github.com/casey/just) installed (`just` alone
@@ -148,6 +169,8 @@ just tttml-train                                # TTTML: train, then save the mo
 just tttml-play                                 # TTTML: play the saved model; you are X, type squares 1 to 9
 just pp demos/factorial.xtl                     # print a file decorated and highlighted
 just edit demos/life.xtl                        # ASCII left, decorated right
+just serve                                      # the live demo locally, at http://127.0.0.1:8095/
+just pages                                      # build the live demo into pages/ (published by a workflow)
 ```
 
 `just run` and `just eval` pass flags through to `xetal`

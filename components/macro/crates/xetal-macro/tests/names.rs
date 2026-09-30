@@ -82,6 +82,18 @@ fn a_program_cannot_see_a_library_private_name() {
 }
 
 #[test]
+fn a_name_missing_its_underline_is_pointed_to_the_function() {
+    let stats = "l:m_ean := { _r }\n";
+    let l = libs(&[("Stats", stats)]);
+    let err = expand("main.xtl", "\"s:\" u_se< \"Stats\"\ns:mean 1 2\n", &l).unwrap_err();
+    assert!(
+        err.diagnostic.message.contains("did you mean s:m_ean?"),
+        "{}",
+        err.diagnostic.message
+    );
+}
+
+#[test]
 fn one_library_is_shared_by_two_files_with_different_letters() {
     let l = libs(&[
         ("Birds", BIRDS),

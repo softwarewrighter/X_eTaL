@@ -99,6 +99,12 @@ literate:
 check-literate:
     scripts/literate.sh --check
 
+# Build the live demo into pages/ (committed; the Pages workflow publishes it) and screenshot it
+pages:
+    scripts/build-pages.sh
+
+alias serve := web
+
 # Serve the live demo locally (http://127.0.0.1:8095/), rebuilt when a source changes
 web:
     cd components/web/crates/xetal-web && trunk serve --release --port 8095 --address 127.0.0.1

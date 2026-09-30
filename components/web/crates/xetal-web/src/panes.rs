@@ -63,17 +63,20 @@ pub(crate) fn rendered(text: &str, current: Pane, focus: Callback<Pane>, drawn: 
     frame("Rendered", Pane::Rendered, current, focus, body)
 }
 
+/// The types, or after a run its output (scrolled to the end by the
+/// app, so the newest output shows).
 pub(crate) fn output(
     text: &str,
     result: &Option<Run>,
     current: Pane,
     focus: Callback<Pane>,
+    printed: NodeRef,
 ) -> Html {
     let (title, body) = match result {
         Some(r) => (
             "Output",
             html! {
-                <pre tabindex="0">{ &r.out }<span class="c-error">{ &r.err }</span></pre>
+                <pre tabindex="0" ref={printed.clone()}>{ &r.out }<span class="c-error">{ &r.err }</span></pre>
             },
         ),
         None => (
