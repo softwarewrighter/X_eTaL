@@ -27,6 +27,15 @@ entries = [
 ]
 
 [[group]]
+rule = "B13: trigonometry (radians)"
+entries = [
+  ["s_in", 1, "Num a => a -> Float"],
+  ["c_os", 1, "Num a => a -> Float"],
+  ["a_tan", 1, "Num a => a -> Float"],
+  ["p_i", 1, "Unit -> Float"],
+]
+
+[[group]]
 rule = "T1, T3, T8: comparisons and logic"
 entries = [
   ["=", 2, "(Eq a, Truthy b) => a -> a -> b"],

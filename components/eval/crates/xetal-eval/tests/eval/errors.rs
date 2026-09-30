@@ -25,6 +25,7 @@ fn application_errors() {
     assert_eq!(fails("u:f_ 1"), "undefined-name");
     assert_eq!(fails("y + 1"), "undefined-name");
     assert_eq!(fails("u:a_nswer := { @ -> 42 }; u:a_nswer 1"), "not-unit");
+    assert_eq!(fails("p_i 3"), "not-unit");
     assert_eq!(fails("x := 3; (x)_ 1"), "not-a-function");
     assert_eq!(
         fails("u:f_ := { n -> n = 0 ? 1 }; u:f_ 5"),

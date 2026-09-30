@@ -224,6 +224,57 @@ An Int as a Float.
 3.0
 ```
 
+## Trigonometry
+
+Angles are in radians. Each gives a Float, item by item, for any
+number.
+
+### `s_in`
+
+`Num a => a -> Float`, one argument.
+
+Sine.
+
+```
+      s_in 0 1
+0.0 0.8414709848078965
+```
+
+### `c_os`
+
+`Num a => a -> Float`, one argument.
+
+Cosine.
+
+```
+      c_os p_i @
+-1.0
+```
+
+### `a_tan`
+
+`Num a => a -> Float`, one argument.
+
+Arctangent, the angle whose tangent is the argument.
+
+```
+      4 * a_tan 1
+3.141592653589793
+```
+
+### `p_i`
+
+`Unit -> Float`, one argument.
+
+The constant pi. It is niladic, so it is applied to `@`.
+
+```
+      p_i @
+3.141592653589793
+      2 * p_i @
+6.283185307179586
+```
+
 ## Comparisons and logic
 
 Comparisons give 1 for true and 0 for false, item by item. Everything

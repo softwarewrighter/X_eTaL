@@ -1,0 +1,26 @@
+# Trigonometry (B13): s_in, c_os and a_tan in radians give a Float for
+# any number, item by item; p_i is niladic, applied to @.
+== SOURCE
+p_i @
+c_os p_i @
+s_in 0 1
+c_os 0.0
+a_tan 1
+4 * a_tan 1
+(s_in 0.5)^2 + (c_os 0.5)^2
+== TYPE
+Float
+Float
+Float
+Float
+Float
+Float
+Float
+== RESULT
+3.141592653589793
+-1.0
+0.0 0.8414709848078965
+1.0
+0.7853981633974483
+3.141592653589793
+1.0

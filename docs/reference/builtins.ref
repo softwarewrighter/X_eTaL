@@ -85,6 +85,27 @@ Natural logarithm.
 An Int as a Float.
 > f_loat 3
 
+== SECTION Trigonometry
+Angles are in radians. Each gives a Float, item by item, for any
+number.
+
+== s_in
+Sine.
+> s_in 0 1
+
+== c_os
+Cosine.
+> c_os p_i @
+
+== a_tan
+Arctangent, the angle whose tangent is the argument.
+> 4 * a_tan 1
+
+== p_i
+The constant pi. It is niladic, so it is applied to `@`.
+> p_i @
+> 2 * p_i @
+
 == SECTION Comparisons and logic
 Comparisons give 1 for true and 0 for false, item by item. Everything
 reads right to left with no precedence, so the left side of `&` or
