@@ -1,0 +1,1 @@
+demos/keys.xtl: every input form with its typed spelling in a double-quoted comment (pp shows decorated beside ASCII; show runs); golden run-keys; input.md link. Also README logo centered (user's file identical to images/xetal-logo.svg).
