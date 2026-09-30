@@ -1,8 +1,9 @@
 number = 16
 slug = "keys-explicit"
-status = "in-progress"
+status = "completed"
 description = "demos/keys.xtl made explicit (user request): every code line ends with its fu..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T08:45:23"
-commits = []
+completed_at = "2026-09-30T09:05:47"
+commits = ["dd40fa7ecc402c0d4135cd94d13f154bdc502575"]

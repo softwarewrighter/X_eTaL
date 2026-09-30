@@ -1,0 +1,1 @@
+keys.xtl explicit: 'typed:' with the full keys on every line, explanatory comment blocks, reduce/scan/rotate/reverse with default, explicit axis 1, axis 2, axes 12; golden rebased.
