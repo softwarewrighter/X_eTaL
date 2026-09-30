@@ -1,0 +1,1 @@
+docs/name.md (pronunciation Ecks-e-tal, all spellings, logo as XeTaL source X_ e:T a:L with goldens), README section, Help section, checklist resolved
