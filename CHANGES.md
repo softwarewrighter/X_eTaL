@@ -1,0 +1,289 @@
+# Changes
+
+Every commit, newest first, grouped by day. Times are Pacific
+(UTC-07:00), as committed.
+
+Categories: `feat` new capability, `fix` a bug or wrong behavior,
+`refactor` structure without behavior change, `test` tests only,
+`build` build and tooling, `demo` demo programs, `docs`
+documentation, `design` a language decision recorded, `plan`
+saga planning and reordering, `release` milestone release,
+`chore` agentrail bookkeeping (step complete, saga archive).
+
+## 2026-09-30
+
+- 14:38 `chore` Saga step literate-decorated completed.
+- 14:38 `feat` Literate web pages draw each block decorated (`xetal render --html`), the typed lines after it as comments.
+- 14:31 `plan` hello-library queued after literate-decorated.
+- 14:26 `plan` literate-decorated moved next.
+- 14:24 `docs` XeTaL and the APL skeptic's bingo card.
+- 14:09 `docs` "Why another language?": XeTaL fills in the Programming Language Checklist.
+- 14:02 `chore` Saga step resizable-panes completed.
+- 14:02 `feat` Web: draggable, saved pane split (no more squeezed ASCII pane); Run disabled for a library.
+- 13:50 `plan` latex-gallery queued after resizable-panes.
+- 13:47 `chore` Saga step latex-anchors completed.
+- 13:47 `fix` LaTeX output: axis subscripts and exponents anchored so KaTeX/LaTeX accept them.
+- 13:38 `plan` latex-anchors (bug) and literate-decorated inserted before resizable-panes.
+- 13:36 `chore` Saga step literate-html completed.
+- 13:36 `feat` Literate Org documents exported as web pages; new Life and Libraries documents; Literate link no longer 404s.
+- 13:16 `plan` literate-html moved ahead of line-by-line.
+- 13:15 `chore` Saga step browser-io completed.
+- 13:15 `feat` Web: Open, Save, Save as in browser storage; user libraries; `[]R_EAD` via a prompt.
+- 12:53 `docs` XeTaL's answers to ngn's array-language permission request.
+- 12:47 `docs` README: prominent live-demo link under the logo.
+- 12:46 `plan` browser-io scheduled before line-by-line.
+- 12:45 `chore` Saga step pages completed.
+- 12:45 `feat` Web: live demo published with Help dialog, footer, logo, favicon; pages built locally, deployed by workflow.
+- 12:08 `plan` pages scheduled before line-by-line and display.
+- 12:08 `chore` Saga step yew-app completed; line-by-line and display queued.
+- 12:08 `feat` Web: the editor in the browser (Yew): ASCII, live rendered, types/output panes, Zoom; `just web`.
+- 11:23 `chore` Saga step match completed.
+- 11:23 `feat` `m_atch`: whole-array match, as APL's match.
+- 10:58 `chore` Saga step wasm-core completed.
+- 10:58 `feat` Web: engine builds for wasm32; files and libraries through a host-installed store.
+- 10:34 `docs` README: opening statement below the logo.
+- 10:12 `plan` Web-playground saga (M9) started, six steps.
+- 10:09 `chore` Combinators saga (M6) archived.
+- 10:09 `chore` Combinators saga completed.
+- 10:09 `release` M6: tour page, fresh screenshots and video, plan reordered for the live demo.
+- 09:37 `chore` Saga step raised-decimal completed.
+- 09:37 `feat` Display: decimal exponents raised, with a middle dot as the point.
+- 09:15 `chore` Saga step reference completed.
+- 09:15 `docs` Built-in reference: every built-in, examples executed, axes shown three ways; generated and gate-checked.
+- 09:05 `docs` README: modern logo centered above the title.
+- 09:05 `demo` keys.xtl: explicit comments, typed keys on every line, more axis forms.
+- 08:36 `chore` Saga step keys-demo completed.
+- 08:36 `demo` keys.xtl: every input form drawn beside what you type.
+- 08:29 `docs` README: logo centered above the title.
+- 08:26 `chore` Saga step logo completed.
+- 08:26 `docs` Logo: the decorated name typeset as SVG.
+- 08:12 `chore` Saga step idioms completed; logo and keys-demo queued.
+- 08:12 `docs` Idioms: XeTaL beside Java, JS, Python, C++, Rust and APL2, Dyalog, J, BQN; every entry runs.
+- 07:00 `chore` Saga step notebook completed; idioms queued.
+- 07:00 `docs` Combinators in the tour; literate birds.org; Life steps with function power.
+- 06:35 `design` Style: no `$` suffix for text-producing functions.
+
+## 2026-09-29
+
+- 20:41 `chore` Saga step tttml-play completed.
+- 20:41 `feat` System names (`[]N_PUT`, `[]N_GET`, `[]R_EAD`), `f_ormat`, `n_umbers`; TTTML trains, saves, loads and plays you.
+- 20:13 `chore` Saga step combinator-diagrams completed.
+- 20:13 `docs` Six annotated combinator diagrams for APL, J and BQN readers.
+- 20:05 `chore` Saga step life-diagram completed.
+- 20:05 `feat` `xetal diagram`: annotated SVG of the Life line, callouts checked against tokens; stale check in gate.
+- 18:33 `chore` Saga step tttml-literate completed.
+- 18:33 `feat` TTTML standard library and literate doc; notebooks stream in one pass, laid out as an APL session.
+- 16:03 `chore` Saga step tttml completed; tttml-literate and tttml-play queued.
+- 16:03 `demo` TTTML: a tic-tac-toe learner ported from sw-apl; never loses to a random player.
+- 15:27 `plan` tttml inserted ahead of life-diagram (top priority, demo today).
+- 15:24 `chore` Saga step editor-panes completed.
+- 15:24 `feat` Editor: Ctrl-T zoom, strongly marked focused pane, visible cursor in both panes.
+- 14:27 `docs` Recommend JuliaMono, with macOS install steps.
+- 14:12 `docs` README font recommendations, glyph coverage checked.
+- 13:58 `chore` Saga step maybe completed.
+- 13:58 `feat` Maybe library (Church-encoded) and monads demo.
+- 13:47 `chore` Saga step combinators-library completed.
+- 13:47 `feat` Combinators library: 38 typed birds plus Y; demo; untyped birds demo.
+- 13:24 `chore` Saga step power completed.
+- 13:24 `feat` Function power `f_^n` and built-in `p_ower`; `just` recipes skip cargo when nothing changed.
+- 11:37 `chore` Saga step untyped-notebook completed.
+- 11:37 `feat` Notebook runs honor `--untyped`; every `just` recipe smoke-tested in the gate.
+- 11:00 `chore` Saga step aviary completed.
+- 11:00 `feat` Aviary doc; `xetal type` on a library; fix duplicate-definition across nested library imports.
+- 09:53 `plan` System I/O noted: files in the quad namespace, `[]S_VO` reserved.
+- 09:53 `plan` Combinators saga (M6) started.
+- 09:39 `design` Quad functions take no `!`.
+- 09:38 `design` System names (quads) decided; scheduled as Saga 12.
+- 09:35 `chore` Libraries saga (M6b) archived.
+- 09:35 `chore` Saga step libs-docs-release completed (saga done).
+- 09:35 `docs` M6b libraries tour, docs sync, Saga 8 retrospective.
+- 09:17 `plan` Saga 12: port the sw-apl workspaces as dogfooding.
+- 09:02 `chore` Saga step tools completed.
+- 09:02 `feat` REPL, notebooks, org sessions and the editor all load libraries.
+- 08:18 `chore` Saga step org-babel completed.
+- 08:18 `feat` Emacs xetal-mode, ob-xetal (Org Babel), literate tour; `xetal run --context`.
+- 01:16 `plan` Saga 13: Yew/WASM live demo of the TUI.
+- 01:09 `chore` Saga step readme-rewrite completed.
+- 01:09 `docs` README as overview; milestone tours in docs/; reproducible images and video; `run --echo --delay`.
+- 00:39 `chore` Saga step first-library completed.
+- 00:39 `feat` First standard library (Stats); run, eval and type expand imports; case-insensitive-disk lookup fixed.
+- 00:27 `chore` Saga step namespaces completed.
+- 00:27 `feat` Macro: namespaces across files (hidden namespaces, exports, privates).
+- 00:13 `chore` Saga step imports completed.
+- 00:13 `feat` Macro: find, validate, resolve and load imports, with cycle detection.
+- 00:08 `chore` Saga step sources completed.
+- 00:08 `feat` Macro: multi-file source map (xetal-sources).
+- 00:04 `plan` Libraries saga (M6b) started.
+
+## 2026-09-28
+
+- 23:56 `chore` TUI saga (M5b) archived.
+- 23:56 `chore` Saga step tui-docs-release completed (saga done).
+- 23:56 `docs` M5b tour, debugger design notes, Saga 7 retrospective.
+- 23:53 `chore` Saga step repl-live completed.
+- 23:53 `feat` REPL line drawn decorated as you type, with history.
+- 23:46 `chore` Saga step array-view completed.
+- 23:46 `feat` Values laid out as grids; editor shows results as grids.
+- 23:39 `chore` Saga step macro-color completed.
+- 23:39 `feat` View: macros in bold yellow.
+- 23:36 `design` Function power spelling decided; libraries saga moved before combinators.
+- 23:28 `chore` Saga step demo-fixes completed.
+- 23:28 `demo` Life iterates, tour shows every axis form, `just install`, tour made executable.
+- 23:04 `chore` Saga step comment-rendering completed.
+- 23:04 `feat` View: comments keep their column; backquoted code in comments drawn decorated.
+- 22:52 `chore` Saga step diamond-glyph completed.
+- 22:52 `feat` Render: `;` as a black diamond.
+- 22:48 `chore` Saga step just-args completed.
+- 22:48 `fix` `just run`/`eval` pass flags through; tour rolls real dice.
+- 22:39 `chore` Saga step echo-run completed.
+- 22:39 `feat` `xetal run --echo`: a file as a notebook; `just show`.
+- 22:29 `chore` Saga step language-tour completed.
+- 22:29 `demo` Commented language tour (demos/tour.xtl).
+- 22:27 `chore` Saga step operand-colors completed.
+- 22:27 `feat` View: symbols light blue; a quote takes its function's color.
+- 22:20 `chore` Saga step alpha-omega-glyphs completed.
+- 22:20 `feat` Render: lambda arguments as APL alpha and omega.
+- 22:16 `chore` Saga step editor completed.
+- 22:16 `feat` `xetal edit`: live render and types, pane focus and scrolling, Emacs keys; `just pp`.
+- 21:58 `chore` Saga step tui-foundation completed.
+- 21:58 `feat` TUI foundation: buffer, keymap, panes, terminal guard.
+- 21:53 `chore` Saga step view-model completed.
+- 21:53 `feat` Front-end-agnostic view model; `render --color`.
+- 21:42 `chore` Saga step lambda-glyphs completed.
+- 21:42 `feat` Render: lambda arguments as subscript r and l.
+- 21:36 `plan` TUI saga (M5b) started, inserted before combinators.
+- 19:24 `chore` Rotate-and-axes saga (M5) archived.
+- 19:24 `chore` Saga step m5-docs-release completed (saga done).
+- 19:24 `docs` M5 tour, Saga 6 retrospective.
+- 19:13 `chore` Saga step rotate-demo completed.
+- 19:13 `demo` Animated 2-D rotate; `just animate`.
+- 19:09 `chore` Saga step rotate-properties completed.
+- 19:09 `test` Property tests for rotate, reverse and axis subscripts.
+- 16:19 `chore` Saga step justfile completed.
+- 16:19 `build` justfile as the project's front door.
+- 12:46 `plan` justfile step inserted.
+- 12:46 `chore` Saga step life-runs completed.
+- 12:46 `demo` Life one-liner runs: demo, golden, README output.
+- 12:44 `chore` Saga step multi-axis completed.
+- 12:44 `feat` Multi-axis rotate and reduce; Life acceptance passes through general rules only.
+- 12:39 `chore` Saga step axis-subscripts completed.
+- 12:39 `feat` Axis subscripts on any function.
+- 12:27 `chore` Saga step rotate-reverse completed.
+- 12:27 `feat` Rotate `o_-` and reverse `r_ev` on the leading axis.
+- 12:23 `plan` Rotate-and-axes saga (M5) started.
+- 12:21 `plan` Church-encoded monad example added to the combinators saga.
+- 12:17 `chore` Higher-order saga (M4) archived.
+- 12:17 `chore` Saga step m4-docs-release completed (saga done).
+- 12:17 `docs` M4 tour, Saga 5 retrospective, status sync.
+- 12:14 `chore` Saga step hof-properties completed.
+- 12:14 `test` Property tests for the higher-order and search built-ins.
+- 12:04 `chore` Saga step roll completed.
+- 12:04 `feat` `r_oll!` with a test-only seed; REPL replays keep rolls stable.
+- 11:56 `chore` Saga step search-builtins completed.
+- 11:56 `feat` Search and order built-ins: `i_ndexOf`, `m_ember?`, `u_nique`, `s_ort`, `g_rade`, `w_here`.
+- 10:23 `chore` Saga step inner-compose-swap completed.
+- 10:23 `feat` `i_nner`, `c_ompose` and `s_wap`.
+- 09:49 `chore` Saga step each-table completed.
+- 09:49 `feat` `e_ach` (dyadic by currying) and `t_able`.
+- 07:38 `chore` Saga step reduce-scan completed.
+- 07:38 `feat` Reduce and scan: built-ins applying function values.
+
+## 2026-09-27
+
+- 23:55 `plan` Higher-order saga (M4) started.
+- 23:45 `chore` Arrays saga (M3) archived.
+- 23:45 `chore` Saga step m3-docs-release completed (saga done).
+- 23:45 `docs` M3 tour, Saga 4 retrospective, status sync.
+- 23:43 `chore` Saga step repl completed.
+- 23:43 `feat` `xetal repl` with persistent definitions and types.
+- 23:41 `chore` Saga step strings completed.
+- 23:41 `feat` Char comparisons (Eq/Ord), string structure, Float printing.
+- 23:35 `chore` Saga step life-docs completed.
+- 23:35 `docs` Only the tested Life one-liner appears in docs, enforced by a golden.
+- 23:31 `chore` Saga step concise-refactor completed.
+- 23:30 `refactor` Built-in catalog codegen, facade `lib.rs`, reg-rs goldens replace CLI test code.
+- 23:22 `chore` Saga step structural-builtins completed.
+- 23:22 `feat` Structural built-ins (shape, reshape, take, drop, select, cat...); M3 demo.
+- 23:12 `chore` Saga step identity-tacks completed.
+- 23:12 `feat` `i_d`, `l_eft`, `r_ight`; S and Phi combinators pinned.
+- 23:10 `chore` Saga step array-core completed.
+- 23:10 `feat` Dense arrays, strands, strings, scalar extension.
+- 23:02 `design` Identity and tacks as three built-ins; identity-tacks step inserted.
+- 23:00 `chore` Saga step num-dictionaries completed.
+- 23:00 `fix` Number-type dictionary passing closes the polymorphic-literal gap.
+- 22:51 `chore` Saga step components-layout completed.
+- 22:51 `refactor` Components layout of multi-crate workspaces; xetal-types split.
+- 22:47 `plan` Types-and-unit archived; arrays saga (M3) started.
+- 22:40 `chore` Saga step m2-docs-release completed (saga done).
+- 22:40 `docs` M2 tour, Saga 3 retrospective, status sync.
+- 22:39 `chore` Saga step type-cli completed.
+- 22:39 `feat` `xetal type`; type-checked eval and run, `--untyped` to skip.
+- 22:27 `chore` Saga step infer completed.
+- 22:27 `feat` Algorithm W over Core with Haskell-style numeric typing.
+- 22:20 `chore` Saga step type-core completed.
+- 22:20 `feat` Types, unifier with occurs check, Num class, schemes.
+- 22:17 `chore` Saga step nesting-limit completed.
+- 22:17 `fix` Nesting limits: pathological input is an error, not a stack overflow.
+- 22:13 `plan` Calculus saga archived; types-and-unit (M2) started.
+- 22:11 `chore` Saga step m1-docs-release completed; calculus saga done.
+- 22:11 `docs` M0/M1 tour, architecture synced, saga retrospective.
+- 22:09 `chore` Saga step scalar-eval completed.
+- 22:09 `feat` Strict scalar evaluator; `xetal eval`, `run`, `xetal FILE`; M1 demos.
+- 21:58 `chore` Saga step core-desugar completed.
+- 21:58 `feat` Core IR, desugaring from the surface AST, `xetal core`.
+- 21:50 `chore` Saga step canonical-fmt completed.
+- 21:50 `feat` Canonical formatter, `xetal fmt`.
+- 21:45 `fix` Missing Cargo.lock entry for the parser's proptest dependency.
+- 21:45 `chore` Saga step parser completed.
+- 21:45 `feat` Parser, `xetal parse`, syntax and ambiguity corpus.
+- 21:35 `chore` Saga step render-revision completed.
+- 21:35 `feat` Render: full display rules; design.md and input.md rewritten.
+- 21:27 `chore` Saga step lexer-revision completed.
+- 21:27 `feat` Lexer revised to lang-choices; interim renderer.
+- 21:13 `plan` Foundations archived; calculus saga started; plan, PRD, design synced.
+- 21:07 `chore` Saga step lang-choices-2 completed.
+- 21:07 `design` lang-choices review complete (R6: lexical resolution, shadowing warns).
+- 21:05 `design` R5: Int ^ Int is Int; negative exponent errors.
+- 21:05 `design` R4: function first, then arguments right to left.
+- 21:04 `design` R3: `l:` is the export list; `u:x` is an error.
+- 21:02 `design` R2: `x!=3` is an error; complex numbers queued.
+- 20:59 `design` R1: multi-axis reduce and scan.
+- 20:53 `design` Q50: annotations reserved; consistency fixes.
+- 20:50 `design` Q49: arithmetic, search and effect built-ins; `d_iv`/`m_od` order.
+- 20:47 `design` Q48: exact `=`, tolerant `e_q~`.
+- 20:46 `design` Q47: true division; divide by zero errors.
+- 20:37 `design` Q46: APL2/BQN-style nested arrays, after Life.
+- 20:35 `design` Q45: axis subscripts on any function.
+- 20:33 `design` Q44: quote lambda literals and trains.
+- 20:30 `design` Q43: strict by default, `~` lazy parameters.
+- 20:21 `design` Q42: printed result format.
+- 20:19 `design` Q41: dfn-style guards with spaced `?`.
+- 20:18 `design` Q40: trains in `[ ]`, forks, atop.
+- 20:15 `design` Q39: higher-order built-in names.
+- 20:13 `design` Q38: chained operands, nearest first.
+- 20:11 `design` Q37: a quoted operand binds to the function on its right.
+- 20:09 `design` `o_ffsets` (0-origin) beside 1-origin `r_ange`.
+- 20:07 `design` Q36: structural built-in names.
+- 20:04 `design` Q35: index origin 1.
+- 20:03 `design` Q34: built-in naming, words with APL-meaning marks.
+- 19:59 `design` Q33: command `xetal`, alias `x_etal`.
+- 19:57 `design` 32d: macro-phase error list.
+- 19:29 `design` 32c: explicit alias, `l:` for libraries, per-file scoping.
+- 19:24 `design` Q32: macro phase and the `u_se<` library macro.
+- 19:08 `design` Q30-Q31: string literals; strings as Char vectors.
+- 19:03 `design` Q29: a symbol applied to one argument is an error.
+- 19:00 `chore` Saga step lang-choices completed.
+- 19:00 `docs` Language decisions recorded in docs/lang-choices.md.
+- 16:00 `chore` Saga step syntax-proposal completed.
+- 16:00 `docs` Syntax proposal after re-reading the research.
+- 15:48 `chore` Saga step decorated-render completed.
+- 15:48 `feat` Lossless raw/decorated Unicode render, LaTeX output, input guide.
+- 15:29 `chore` Saga step lexer-tokens completed.
+- 15:29 `feat` Full v0 lexer with spans, rejection corpus, `xetal lex`.
+- 15:08 `chore` Saga step life-rule-and-checklist completed.
+- 15:08 `fix` Life one-liner corrected to Conway's rule; sw-checklist conformance.
+- 14:23 `docs` Life rule pinned against the sw-apl reference.
+- 13:29 `chore` Saga step workspace-scaffold completed.
+- 13:29 `feat` Scaffold: Cargo workspace, spec-case harness, reg-rs, gate.
+- 13:10 `plan` Bootstrap planning docs (PRD, design, architecture, plan) and first saga.
+- 12:25 `chore` Initial commit.
