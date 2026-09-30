@@ -102,17 +102,19 @@ Early, and specified by its test suite as it is built. Working: the
 whole pipeline (lexer, parser, formatter, Core, Hindley-Milner type
 inference, a strict evaluator), dense 1-origin arrays with strings,
 scalar extension and the structural built-ins, the higher-order
-built-ins (reduce, scan, each, table, inner product, compose, swap),
-search, order and random built-ins, rotate, reverse and axis
+built-ins (reduce, scan, each, table, inner product, compose, swap,
+power), search, order and random built-ins, rotate, reverse and axis
 subscripts on any function, function power (`f_^3`), the Life
-one-liner, libraries imported with `u_se<` (the standard libraries
-`Stats`, `Combinators` (Smullyan's birds), `Maybe` and `TTTML` are
-built in),
-and the
-decorated views: `xetal render --color`, notebook runs, the editor and
-a REPL that draws each line decorated as you type. Next: more
-libraries (ports of the APL workspaces), trains, the
-stepping debugger and a web playground ([`docs/plan.md`](docs/plan.md)).
+one-liner, files, the keyboard and numbers as text (`[]N_GET`,
+`[]N_PUT`, `[]R_EAD`, `f_ormat`, `n_umbers`), and libraries imported
+with `u_se<`: the standard libraries `Stats`, `Combinators`
+(Smullyan's birds), `Maybe` and `TTTML` (a machine that learns
+tic-tac-toe) are built in. The decorated views: `xetal render
+--color`, streaming notebook runs laid out as an APL session, the
+editor, a REPL that draws each line decorated as you type, and
+annotated diagrams. Next: a live web demo of the editor, then ports of
+the APL workspaces as libraries (LEARN, COURSE and PLOT first), then
+trains and a stepping debugger ([`docs/plan.md`](docs/plan.md)).
 
 ## Quick Start
 
@@ -178,7 +180,7 @@ Other fonts, checked against the font files:
 ## Documentation
 
 - [`docs/tour.md`](docs/tour.md) -- the language tour and the milestone
-  tours (M0 to M6b)
+  tours (M0 to M6)
 - [`docs/literate/tour.org`](docs/literate/tour.org) -- the language tour
   as a literate Org document, every block run and its result recorded
   (`docs/emacs/`: `xetal-mode` and `ob-xetal` for Org Babel)
@@ -237,7 +239,8 @@ with `render` (raw / decorated / canonical / expanded printers),
 `array` (dense arrays and primitive kernels), `hof` (higher-order
 built-ins, applying operands through the evaluator), `search`
 (search and order built-ins), `axes` (rotate, reverse, axis
-subscripts), `view` (the view model every display draws from: styled,
+subscripts), `system` (files, the keyboard, numbers as text), `view`
+(the view model every display draws from: styled,
 span-mapped segments, and values laid out as grids), `tui` (the
 editor) and `line` (the REPL's line editor) alongside. See
 [`docs/architecture.md`](docs/architecture.md).

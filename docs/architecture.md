@@ -86,6 +86,9 @@ components/
                            (item by item: each, table, inner)
   search/                  xetal-search (search and order: index-of,
                            member, unique, sort, grade, where)
+  system/                  xetal-system (files, the keyboard, numbers as
+                           text: []N_PUT, []N_GET, []R_EAD, f_ormat,
+                           n_umbers)
   axes/                    xetal-rotate (rotate and reverse along the
                            leading axis), xetal-axes (axis subscripts:
                            the move-to-front rule)

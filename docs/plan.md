@@ -262,7 +262,7 @@ by the move-to-front rule (A6), multi-axis reduce and scan (R1),
 multi-axis rotate giving every combination (A4). Axis validation.
 Properties: rotate inverse. Animated 2-D rotate demo via CLI frames.
 With these the Life one-liner runs (step 4 flips its acceptance
-case to active); Saga 14 (life) adds the other Life goldens.
+case to active); Saga 16 (life) adds the other Life goldens.
 
 | #  | Step slug         | Delivers                                                   |
 | -- | ----------------- | ---------------------------------------------------------- |
@@ -326,8 +326,8 @@ on the left and the live rendered, highlighted view on the right,
 types and diagnostics live below and results on Ctrl-R; and
 `xetal repl`, which renders the line as it is typed when on a
 terminal (piped input keeps the plain behavior). The view model and
-widgets are the base for the stepping debugger (Saga 15) and the web
-playground (Saga 16).
+widgets are the base for the stepping debugger (Saga 17) and the web
+playground (Saga 10).
 
 Decisions (with the user): live rendering in the REPL; split editor
 with a live types/diagnostics pane and results on demand (effects such
@@ -459,7 +459,7 @@ What to do differently:
   imports; a library cannot yet be run on its own (MC8 row 9 note).
 
 
-## Saga 9 -- combinators (M6)  [ACTIVE]
+## Saga 9 -- combinators (M6)  [DONE]
 
 The birds I K S B C W V T and more, written with named parameters
 (L4) in the first real library, `Combinators.xtl`, used as
@@ -481,96 +481,48 @@ recursive definition typed `(a -> a) -> a`; function power on any
 function name, including a quoted operand; Maybe is a second standard
 library.
 
-| #  | Step slug           | Delivers                                                 |
-| -- | ------------------- | -------------------------------------------------------- |
-| 1  | aviary              | the birds, their spellings, `xetal type` of a library    |
-| 2  | untyped-notebook    | notebook runs honor `--untyped`; every `just` recipe smoke-tested (inserted) |
-| 3  | power               | `f_^n` and `p_ower`                                      |
-| 4  | combinators-library | lib/Combinators.xtl, types pinned; untyped birds demo    |
-| 5  | maybe               | lib/Maybe.xtl, demos/monads.xtl                          |
-| 6  | editor-panes        | Ctrl-T zoom, Tab among views, strong current pane, visible cursor (inserted) |
-| 7  | notebook            | combinators notebook, literate birds, tour section, Life with power |
-| 8  | m6-docs-release     | M6 tour page, docs sync, retrospective                   |
+| #  | Step slug            | Delivers                                                 |
+| -- | -------------------- | -------------------------------------------------------- |
+| 1  | aviary               | the birds, their spellings, `xetal type` of a library    |
+| 2  | untyped-notebook     | notebook runs honor `--untyped`; every `just` recipe smoke-tested |
+| 3  | power                | `f_^n` and `p_ower`                                      |
+| 4  | combinators-library  | lib/Combinators.xtl, types pinned; untyped birds demo    |
+| 5  | maybe                | lib/Maybe.xtl, demos/monads.xtl                          |
+| 6  | editor-panes         | Ctrl-T zoom, Tab among views, strong current pane, visible cursor |
+| 7  | tttml                | TTTML ported from sw-apl (demo for the user, same day)   |
+| 8  | tttml-literate       | lib/TTTML.xtl (pure model), docs/literate/tttml.org; streaming one-pass notebooks in APL session layout |
+| 9  | life-diagram         | `xetal diagram`, the README's annotated Life line        |
+| 10 | combinator-diagrams  | six decoded combinator lines in docs/birds.md            |
+| 11 | tttml-play           | quad names; files, keyboard, `f_ormat`, `n_umbers`; train-and-save and play demos |
+| 12 | notebook             | tour Combinators section, literate birds.org, Life with power |
+| 13 | idioms               | docs/idioms.md, X_eTaL beside mainstream and array languages |
+| 14 | logo                 | the typeset logo (the README uses the user's modern logo) |
+| 15 | keys-demo            | demos/keys.xtl, every input form beside what is typed    |
+| 16 | keys-explicit        | explicit comments; axes shown default, explicit, other   |
+| 17 | reference            | docs/reference.md, every built-in, generated and checked |
+| 18 | raised-decimal       | decimal exponents raised, a middle dot as the point      |
+| 19 | m6-docs-release      | M6 tour page, screenshots and video, docs sync, retrospective |
 
-## Saga 10 -- ports-now (library demos from the language as it is)
+Retrospective. Planned as six steps, the saga ran to nineteen: all
+thirteen additions came from the user while using what the earlier
+steps built, and most were about seeing the language (diagrams, the
+reference, idioms, the keys demo, the logo, the notebook layout)
+rather than the language itself. That is the value of working in
+view: TTTML, asked for as a same-day demo, forced files, the keyboard,
+numbers as text and system names into the language well before their
+planned saga, and exposed two real problems, both fixed: the notebook
+replayed the whole file for every statement (a training program ran
+its training again for each later line), and it showed nothing until
+the end. Lessons: generate documentation from what runs (the reference
+and the diagrams cannot drift, and generating the reference caught a
+wrong example); expect display questions to recur, and answer them
+with a rule rather than a special case (the raised decimal point);
+and keep the gate honest about time (the smoke test, the literate
+documents and the goldens now take about four minutes, most of it
+running programs, where the evaluator's per-item operand calls are
+the next speedup).
 
-Phased at the user's request, to demo more libraries soon: the APL
-ports are split in two. This saga ports every workspace function that
-X_eTaL can already say cleanly; Saga 12 adds the features the rest
-need, then ports those. The inventory decides which is which.
-
-| #  | Step slug       | Delivers                                                   |
-| -- | --------------- | ---------------------------------------------------------- |
-| 1  | inventory       | every workspace, function and sample of sw-apl library 1 and sw-apl-workspaces mapped to a target file, marked "works now" or "needs feature X" (docs/apl-ports.md) |
-| 2+ | one per library | each group of "works now" functions as `lib/*.xtl` (for example MATH, POLY, Stats additions, LIFE, BIRDS into Combinators), with a `just show` notebook demo, goldens and a tour or literate link; steps added by the inventory |
-| n  | ports-now-release | README and tour links to the new libraries, retrospective |
-
-## Saga 11 -- quads (system names)
-
-APL's quad names, as decided with the user (lang-choices section 13a,
-QD1-QD3): `[]` touching a name lexes as one system-name token,
-displayed as the quad glyph; the values `[]A`, `[]D`, `[]AV`, `[]TS`
-and `[]IO` (always 1); the functions `[]D_L` (delay), `[]U_CS`
-(character codes), `[]R_EAD` and `[]V_ALUE` (input, for the course
-and drill ports). Each with spec cases, rejection tests (an unknown
-system name, a quad function used as a value), types, the view
-model's colors and the Emacs mode. Scheduled before the remaining APL
-ports (Saga 12), which need them.
-
-## Saga 12 -- ports-later (dogfooding)
-
-After Saga 10 has ported what works as the language is, port the
-rest of every workspace, function and demo of the user's APL projects
-into X_eTaL libraries (`lib/*.xtl`), demos (`demos/`) and literate
-documents (`docs/literate/`): sw-apl's library 1 (BIRDS in both
-modes, EDIT, LEARN, LIFE, RACE, TTTML; about 70 functions) and
-sw-apl-workspaces (CALC, COURSE, DRILL in both modes, MATH, MATRIX,
-PLOT, POLY, STATS; about 220 functions), with their sample transcripts
-as goldens. Decided with the user: the ports are forcing functions.
-They are written as X_eTaL should say them, not transliterated; a
-port that cannot be written cleanly names a missing feature, which is
-added first, test-first, with the user's decision recorded in
-lang-choices, rather than worked around. Features the inventory
-already points to: reading input (the course and drill quizzes),
-numbers as text (formatting for PLOT and the drills), matrix
-division (APL's domino, for MATRIX and STATS regression), and
-whatever nested arrays (A7) the character-plot and course material
-needs.
-
-| #  | Step slug       | Delivers                                                   |
-| -- | --------------- | ---------------------------------------------------------- |
-| 1  | review          | the Saga 10 inventory brought up to date: what is left and the features it needs |
-| 2  | features        | the missing features, one decision and step each, test-first |
-| 3  | math            | MATH, POLY, CALC, MATRIX as libraries; demos and goldens    |
-| 4  | stats           | STATS merged into lib/Stats.xtl (regression, tests, distributions) |
-| 5  | plots           | PLOT: character plots, graphs, scatter, bars               |
-| 6  | games           | LIFE, RACE, TTTML (tic-tac-toe learning), with BIRDS joining Combinators |
-| 7  | teaching        | COURSE, LEARN, DRILL as interactive programs (REPL and web) |
-| 8  | edit            | EDIT: port what fits (the del editor itself is the editor's job) |
-| 9  | ports-release   | literate documents for each library, tour links, retrospective |
-
-## Saga 13 -- trains (M7)
-
-`[F G H]` forks and `[F G]` atop (TR1-TR3), purely by desugaring;
-fork-law property test; type errors for ill-typed trains.
-
-## Saga 14 -- life (M8)
-
-The Life case is active from Saga 6; block, blinker, glider and
-random-board goldens (random boards checked against a reference
-implementation in Rust test code). No Life-specific code paths.
-
-## Saga 15 -- trace-and-explain
-
-Trace tree (NodeId, span, value, type, shape, children) following the
-evaluation order (E4); `xetal explain` prints the right-to-left
-derivation; expanded (long-name) printer. A visual stepper, `xetal debug FILE`,
-reuses the Saga 7 view model and widgets: the rendered source pane
-highlights the node being evaluated (by its span), and the array
-viewer shows its intermediate value, stepping forward and back
-through the trace tree.
-
-## Saga 16 -- web-playground (M9)
+## Saga 10 -- web-playground (M9)
 
 A live demo in the browser (Yew, compiled to WASM, deployed to GitHub
 Pages under `pages/`) that is the terminal UI, not a new design: the
@@ -600,10 +552,102 @@ info. Also decided with the user:
 - Load and save in the browser's local storage, like the workspaces
   of the sw-apl live demo (../../sw-vibe-coding/sw-apl).
 - The standard libraries are bundled, the Combinators library among
-  them, and the tour uses Combinators (so the tour gains a libraries
-  section once Saga 9 writes it).
+  them, and the tour uses Combinators.
+- Reprioritized by the user after Saga 9, to show the work in
+  progress: the live demo comes before the ports. In the browser,
+  `[]R_EAD` reads from a prompt and the files are kept in local
+  storage.
 Later: the stepping debugger's panes, "why this parse", hover
 tooltips, a LaTeX view.
+
+## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
+
+Asked for by the user after Saga 9, sooner rather than later: an
+inventory of sw-apl's library 1 and sw-apl-workspaces (every
+function mapped to a target file, marked "works now" or "needs
+feature X", docs/apl-ports.md), then LEARN, COURSE and PLOT ported as
+libraries with demos, goldens and literate documents, with the
+features they need added first (each decided with the user). Reading
+input and numbers as text exist already; PLOT's character plots may
+call for nested arrays (A7).
+
+## Saga 12 -- ports-now (the other libraries that work as the language is)
+
+Phased at the user's request, to demo more libraries soon: the APL
+ports are split in two. This saga ports every workspace function that
+X_eTaL can already say cleanly; Saga 14 adds the features the rest
+need, then ports those. The inventory decides which is which.
+
+| #  | Step slug       | Delivers                                                   |
+| -- | --------------- | ---------------------------------------------------------- |
+| 1  | review          | the Saga 11 inventory brought up to date |
+| 2+ | one per library | each group of "works now" functions as `lib/*.xtl` (for example MATH, POLY, Stats additions, LIFE, BIRDS into Combinators), with a `just show` notebook demo, goldens and a tour or literate link; steps added by the inventory |
+| n  | ports-now-release | README and tour links to the new libraries, retrospective |
+
+## Saga 13 -- quads (system names)
+
+APL's quad names, as decided with the user (lang-choices section 13a,
+QD1-QD3): `[]` touching a name lexes as one system-name token,
+displayed as the quad glyph; the values `[]A`, `[]D`, `[]AV`, `[]TS`
+and `[]IO` (always 1); the functions `[]D_L` (delay), `[]U_CS`
+(character codes), `[]R_EAD` and `[]V_ALUE` (input, for the course
+and drill ports). Each with spec cases, rejection tests (an unknown
+system name, a quad function used as a value), types, the view
+model's colors and the Emacs mode. Scheduled before the remaining APL
+ports (Saga 14), which need them.
+
+## Saga 14 -- ports-later (dogfooding)
+
+After Sagas 11 and 12 have ported what works as the language is, port the
+rest of every workspace, function and demo of the user's APL projects
+into X_eTaL libraries (`lib/*.xtl`), demos (`demos/`) and literate
+documents (`docs/literate/`): sw-apl's library 1 (BIRDS in both
+modes, EDIT, LEARN, LIFE, RACE, TTTML; about 70 functions) and
+sw-apl-workspaces (CALC, COURSE, DRILL in both modes, MATH, MATRIX,
+PLOT, POLY, STATS; about 220 functions), with their sample transcripts
+as goldens. Decided with the user: the ports are forcing functions.
+They are written as X_eTaL should say them, not transliterated; a
+port that cannot be written cleanly names a missing feature, which is
+added first, test-first, with the user's decision recorded in
+lang-choices, rather than worked around. Features the inventory
+already points to: reading input (the course and drill quizzes),
+numbers as text (formatting for PLOT and the drills), matrix
+division (APL's domino, for MATRIX and STATS regression), and
+whatever nested arrays (A7) the character-plot and course material
+needs.
+
+| #  | Step slug       | Delivers                                                   |
+| -- | --------------- | ---------------------------------------------------------- |
+| 1  | review          | the Saga 11 inventory brought up to date: what is left and the features it needs |
+| 2  | features        | the missing features, one decision and step each, test-first |
+| 3  | math            | MATH, POLY, CALC, MATRIX as libraries; demos and goldens    |
+| 4  | stats           | STATS merged into lib/Stats.xtl (regression, tests, distributions) |
+| 5  | plots           | PLOT: character plots, graphs, scatter, bars               |
+| 6  | games           | LIFE, RACE, TTTML (tic-tac-toe learning), with BIRDS joining Combinators |
+| 7  | teaching        | COURSE, LEARN, DRILL as interactive programs (REPL and web) |
+| 8  | edit            | EDIT: port what fits (the del editor itself is the editor's job) |
+| 9  | ports-release   | literate documents for each library, tour links, retrospective |
+
+## Saga 15 -- trains (M7)
+
+`[F G H]` forks and `[F G]` atop (TR1-TR3), purely by desugaring;
+fork-law property test; type errors for ill-typed trains.
+
+## Saga 16 -- life (M8)
+
+The Life case is active from Saga 6; block, blinker, glider and
+random-board goldens (random boards checked against a reference
+implementation in Rust test code). No Life-specific code paths.
+
+## Saga 17 -- trace-and-explain
+
+Trace tree (NodeId, span, value, type, shape, children) following the
+evaluation order (E4); `xetal explain` prints the right-to-left
+derivation; expanded (long-name) printer. A visual stepper, `xetal debug FILE`,
+reuses the Saga 7 view model and widgets: the rendered source pane
+highlights the node being evaluated (by its span), and the array
+viewer shows its intermediate value, stepping forward and back
+through the trace tree.
 
 ## Deferred (from `lang-choices.md` section 15)
 
@@ -619,7 +663,7 @@ text and bytes; the web demo maps them to local storage), `[]S_VO`
 reserved for channels to special facilities (graphics, a Rust dynamic
 library) as the FFI-like escape hatch, and networking as a library on
 it (lang-choices section 15). Names to be decided with the user; the
-APL ports (Saga 12) may call for it sooner.
+APL ports (Sagas 11, 12 and 14) may call for it sooner.
 
 ## Cross-cutting (insert as steps when due)
 

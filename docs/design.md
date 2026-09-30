@@ -541,7 +541,7 @@ pieces built for the editor and the REPL, with no new display code:
 - Running: the trace comes from an evaluator entry point like
   `eval_events`, which already shows values as grids in order.
 
-The web playground (Saga 16) draws the same view model and grids in
+The web playground (Saga 10) draws the same view model and grids in
 the browser.
 
 ### 8.1g Emacs and literate documents

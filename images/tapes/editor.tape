@@ -2,6 +2,7 @@
 Output "target/screens/editor.gif"
 Set Shell bash
 Set FontSize 14
+Set FontFamily "JuliaMono"
 Set Width 1700
 Set Height 700
 Set Padding 10

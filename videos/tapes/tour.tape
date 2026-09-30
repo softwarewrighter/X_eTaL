@@ -3,6 +3,7 @@
 Output "target/screens/tour.mp4"
 Set Shell bash
 Set FontSize 16
+Set FontFamily "JuliaMono"
 Set Width 1100
 Set Height 720
 Set Padding 16

@@ -2,6 +2,7 @@
 Output "target/screens/tour-excerpt.gif"
 Set Shell bash
 Set FontSize 15
+Set FontFamily "JuliaMono"
 Set Width 1000
 Set Height 1340
 Set Padding 20
@@ -9,6 +10,6 @@ Hide
 Type "clear"
 Enter
 Show
-Type "./target/debug/xetal run --echo --seed 1 demos/tour.xtl | sed -n '74,130p'"
+Type "./target/debug/xetal run --echo --seed 1 demos/tour.xtl | sed -n '105,164p'"
 Enter
 Sleep 2s

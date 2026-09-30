@@ -2,6 +2,7 @@
 Output "target/screens/life-line.gif"
 Set Shell bash
 Set FontSize 18
+Set FontFamily "JuliaMono"
 Set Width 1080
 Set Height 110
 Set Padding 16

@@ -1,6 +1,6 @@
 number = 19
 slug = "m6-docs-release"
-status = "pending"
+status = "in-progress"
 description = "combinators step 6: M6 tour page (docs/tour-m6.md), docs sync, Saga 9 retrosp..."
 role = "production"
 context_files = []

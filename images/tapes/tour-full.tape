@@ -2,6 +2,7 @@
 Output "target/screens/tour-full.gif"
 Set Shell bash
 Set FontSize 14
+Set FontFamily "JuliaMono"
 Set Width 1000
 Set Height 4800
 Set Padding 20
