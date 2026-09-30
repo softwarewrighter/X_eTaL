@@ -1,0 +1,1 @@
+Decimal exponents raised with a middle dot as the point (x^0.5 -> raised 0.5), reversible (dot only inside an exponent); spec/golden/view test updated; docs lang-choices I2, design D33 and 8.1, input.md, README, keys.xtl.
