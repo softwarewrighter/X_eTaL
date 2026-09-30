@@ -2,6 +2,11 @@
   <img src="images/modern-xetal-logo.jpg" alt="X_eTaL: X underlined, a raised e, T, a raised a, L" width="360">
 </p>
 
+<p align="center">
+  <b><a href="https://softwarewrighter.github.io/X_eTaL/">Try it live in your browser</a></b>
+  -- the editor, running in WebAssembly: type ASCII, see it decorated, run it
+</p>
+
 # X_eTaL
 
 XeTaL is an experimental, statically typed array language that asks:
