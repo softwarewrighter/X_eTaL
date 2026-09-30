@@ -429,8 +429,10 @@ segment shown as typed, and viewing resumes after it; the segments
 cover every byte exactly once (a property test over arbitrary text).
 `lines` splits segments at newlines and `column` maps a raw offset to
 its rendered column (terminal width, combining underlines take none).
-`xetal render --color` prints the segments with ANSI colors, and the
-editor uses the same palette: system functions blue (symbols such as
+`xetal render --color` prints the segments with ANSI colors, and
+`xetal render --html` as escaped `<span class="c-...">` runs (the
+class names of the live demo's Rendered pane, so one stylesheet serves
+both); the editor uses the same palette: system functions blue (symbols such as
 `+` light blue), macros such as `u_se<` bold yellow, the program's
 functions green, a library's cyan,
 lambda arguments magenta, numbers yellow, comments dim, errors red. A
@@ -560,7 +562,10 @@ is the language tour as a literate program, one statement per block
 with its result recorded; `scripts/literate.sh` reruns it in a batch
 Emacs and `--check` fails when a recorded result is out of date. The
 gate runs the ERT tests (`just test-emacs`) and the check, skipped
-where there is no Emacs.
+where there is no Emacs. `scripts/literate-html.sh` exports the
+documents to HTML under `pages/literate/` (with an index): each xetal
+block is shown drawn, by `xetal render --html`, with its lines as
+typed after it as comments, and the recorded results as they are.
 
 ### 8.2 LaTeX (`xetal render --latex`)
 

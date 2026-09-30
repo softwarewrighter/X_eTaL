@@ -7,10 +7,12 @@
 mod ansi;
 mod class;
 mod comment;
+mod html;
 mod map;
 mod segment;
 
 pub use ansi::ansi;
 pub use class::Class;
+pub use html::html;
 pub use map::{column, lines, width};
 pub use segment::{Segment, view};

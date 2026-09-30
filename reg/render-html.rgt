@@ -1,0 +1,3 @@
+command = "./target/debug/xetal render --html -e 'u:s_quare := { _r * _r } # sq'"
+exit_code = 0
+desc = "decorated form as HTML spans by token class (the literate pages)"

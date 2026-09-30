@@ -69,6 +69,8 @@ fn render(args: &RenderArgs, source: &str) -> Result<String, Diagnostic> {
         Ok(raw)
     } else if args.color {
         Ok(xetal_view::ansi(&xetal_view::view(source)))
+    } else if args.html {
+        Ok(xetal_view::html(&xetal_view::view(source)))
     } else if args.latex {
         xetal_render::latex(source)
     } else {

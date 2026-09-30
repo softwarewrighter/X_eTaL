@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-09-30 Wed 13:57 -->
+<!-- 2026-09-30 Wed 14:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>TTTML: a machine that learns tic-tac-toe</title>
@@ -58,9 +58,12 @@ one:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">"t:" u_se&lt; "TTTML"
-t:s_how 1 -1 0 0 1 0 0 0 -1
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ᵗ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;TTTML&quot;</span>
+<span class="c-libfunc">ᵗs̲how</span> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">-1</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "t:" u_se&lt; "TTTML"</span>
+<span class="c-comment typed">⍝   t:s_how 1 -1 0 0 1 0 0 0 -1</span></pre>
 </div>
 
 <pre class="example">
@@ -81,8 +84,10 @@ line at once. X has a line where a sum is 3, O where it is -3:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">t:lines '+ '* i_nner 1 1 1 -1 -1 0 0 0 0
-</pre>
+<pre class="src src-xetal">ᵗlines <span class="c-symbol">'+</span> <span class="c-symbol">'×</span> <span class="c-builtin">i̲nner</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   t:lines '+ '* i_nner 1 1 1 -1 -1 0 0 0 0</span></pre>
 </div>
 
 <pre class="example">
@@ -97,10 +102,14 @@ goes on.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">t:o_utcome 1 1 1 -1 -1 0 0 0 0
-t:o_utcome 1 -1 1 1 -1 -1 -1 1 1
-t:o_utcome 1 -1 0 0 0 0 0 0 0
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ᵗo̲utcome</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+<span class="c-libfunc">ᵗo̲utcome</span> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">-1</span> <span class="c-number">-1</span> <span class="c-number">1</span> <span class="c-number">1</span>
+<span class="c-libfunc">ᵗo̲utcome</span> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   t:o_utcome 1 1 1 -1 -1 0 0 0 0</span>
+<span class="c-comment typed">⍝   t:o_utcome 1 -1 1 1 -1 -1 -1 1 1</span>
+<span class="c-comment typed">⍝   t:o_utcome 1 -1 0 0 0 0 0 0 0</span></pre>
 </div>
 
 <pre class="example">
@@ -121,8 +130,10 @@ gives all eight versions at once; <code>b_oards</code> draws them side by side:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">t:b_oards t:symmetries s_elect 1 -1 0 0 0 0 0 0 0
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ᵗb̲oards</span> ᵗsymmetries <span class="c-builtin">s̲elect</span> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   t:b_oards t:symmetries s_elect 1 -1 0 0 0 0 0 0 0</span></pre>
 </div>
 
 <pre class="example">
@@ -141,10 +152,14 @@ another:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">t:c_ode 1 0 0 0 0 0 0 0 0
-t:c_ode 0 0 1 0 0 0 0 0 0
-t:c_ode 0 1 0 0 0 0 0 0 0
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ᵗc̲ode</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+<span class="c-libfunc">ᵗc̲ode</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+<span class="c-libfunc">ᵗc̲ode</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   t:c_ode 1 0 0 0 0 0 0 0 0</span>
+<span class="c-comment typed">⍝   t:c_ode 0 0 1 0 0 0 0 0 0</span>
+<span class="c-comment typed">⍝   t:c_ode 0 1 0 0 0 0 0 0 0</span></pre>
 </div>
 
 <pre class="example">
@@ -166,8 +181,10 @@ positions met and their values; <code>t:empty</code> has met none:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">s_hape t:empty
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">s̲hape</span> ᵗempty
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   s_hape t:empty</span></pre>
 </div>
 
 <pre class="example">
@@ -182,8 +199,10 @@ values for the lookup.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">t:empty t:v_alue 1 0 0 0 0 0 0 0 0
-</pre>
+<pre class="src src-xetal">ᵗempty <span class="c-libfunc">ᵗv̲alue</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   t:empty t:v_alue 1 0 0 0 0 0 0 0 0</span></pre>
 </div>
 
 <pre class="example">
@@ -202,9 +221,12 @@ it takes the first empty square:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">(9 r_eshape 0) t:a_fter 5
-t:empty t:c_hoose 9 r_eshape 0
-</pre>
+<pre class="src src-xetal">(<span class="c-number">9</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span>) <span class="c-libfunc">ᵗa̲fter</span> <span class="c-number">5</span>
+ᵗempty <span class="c-libfunc">ᵗc̲hoose</span> <span class="c-number">9</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (9 r_eshape 0) t:a_fter 5</span>
+<span class="c-comment typed">⍝   t:empty t:c_hoose 9 r_eshape 0</span></pre>
 </div>
 
 <pre class="example">
@@ -224,8 +246,10 @@ nothing, it plays like this:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">t:b_oards t:g_ame! t:empty
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ᵗb̲oards</span> <span class="c-libfunc">ᵗg̲ame!</span> ᵗempty
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   t:b_oards t:g_ame! t:empty</span></pre>
 </div>
 
 <pre class="example">
@@ -252,8 +276,10 @@ knows that game's positions:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">t:empty t:l_earn t:g_ame! t:empty
-</pre>
+<pre class="src src-xetal">ᵗempty <span class="c-libfunc">ᵗl̲earn</span> <span class="c-libfunc">ᵗg̲ame!</span> ᵗempty
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   t:empty t:l_earn t:g_ame! t:empty</span></pre>
 </div>
 
 <pre class="example">
@@ -281,16 +307,26 @@ from the empty board:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">m := 2000 t:t_rain! t:empty
-t_ally 1 s_elect m
-m t:v_alue 1 0 0 0 0 0 0 0 0
-m t:v_alue 0 1 0 0 0 0 0 0 0
-m t:v_alue 0 0 0 0 1 0 0 0 0
-m t:c_hoose 9 r_eshape 0
-50 t:t_rial! m
-50 t:s_elfTrial! m
-t:b_oards t:b_est m
-</pre>
+<pre class="src src-xetal">m ← <span class="c-number">2000</span> <span class="c-libfunc">ᵗt̲rain!</span> ᵗempty
+<span class="c-builtin">t̲ally</span> <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> m
+m <span class="c-libfunc">ᵗv̲alue</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+m <span class="c-libfunc">ᵗv̲alue</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+m <span class="c-libfunc">ᵗv̲alue</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+m <span class="c-libfunc">ᵗc̲hoose</span> <span class="c-number">9</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span>
+<span class="c-number">50</span> <span class="c-libfunc">ᵗt̲rial!</span> m
+<span class="c-number">50</span> <span class="c-libfunc">ᵗs̲elfTrial!</span> m
+<span class="c-libfunc">ᵗb̲oards</span> <span class="c-libfunc">ᵗb̲est</span> m
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   m := 2000 t:t_rain! t:empty</span>
+<span class="c-comment typed">⍝   t_ally 1 s_elect m</span>
+<span class="c-comment typed">⍝   m t:v_alue 1 0 0 0 0 0 0 0 0</span>
+<span class="c-comment typed">⍝   m t:v_alue 0 1 0 0 0 0 0 0 0</span>
+<span class="c-comment typed">⍝   m t:v_alue 0 0 0 0 1 0 0 0 0</span>
+<span class="c-comment typed">⍝   m t:c_hoose 9 r_eshape 0</span>
+<span class="c-comment typed">⍝   50 t:t_rial! m</span>
+<span class="c-comment typed">⍝   50 t:s_elfTrial! m</span>
+<span class="c-comment typed">⍝   t:b_oards t:b_est m</span></pre>
 </div>
 
 <pre class="example" id="org33fcfa0">

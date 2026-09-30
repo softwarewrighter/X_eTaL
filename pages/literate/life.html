@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-09-30 Wed 13:57 -->
+<!-- 2026-09-30 Wed 14:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Life in one line</title>
@@ -52,9 +52,12 @@ A blinker: three live cells in a row, in the middle of a 5 by 5 board.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">blinker := 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
+<pre class="src src-xetal">blinker ← <span class="c-number">5</span> <span class="c-number">5</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
 blinker
-</pre>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   blinker := 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0</span>
+<span class="c-comment typed">⍝   blinker</span></pre>
 </div>
 
 <pre class="example">
@@ -77,8 +80,10 @@ shape is a 3 by 3 grid of 5 by 5 boards.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">s_hape -1 0 1 o_-_12 blinker
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">s̲hape</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-builtin">o̲-₁₂</span> blinker
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   s_hape -1 0 1 o_-_12 blinker</span></pre>
 </div>
 
 <pre class="example">
@@ -95,8 +100,10 @@ each cell's count of itself and its neighbours:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">'+ r_/_12 -1 0 1 o_-_12 blinker
-</pre>
+<pre class="src src-xetal"><span class="c-symbol">'+</span> <span class="c-builtin">r̲/₁₂</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-builtin">o̲-₁₂</span> blinker
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ r_/_12 -1 0 1 o_-_12 blinker</span></pre>
 </div>
 
 <pre class="example">
@@ -120,9 +127,12 @@ that is the whole of Life:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
-u:l_ife blinker
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘl̲ife</span> ← { (<span class="c-symbol">'+</span> <span class="c-builtin">r̲/₁₂</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-builtin">o̲-₁₂</span> <span class="c-lambdaarg">⍵</span>) { (<span class="c-lambdaarg">⍺</span> <span class="c-symbol">=</span> <span class="c-number">3</span>) <span class="c-symbol">+</span> <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍺</span> <span class="c-symbol">=</span> <span class="c-number">4</span> } <span class="c-lambdaarg">⍵</span> }
+<span class="c-userfunc">ᵘl̲ife</span> blinker
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }</span>
+<span class="c-comment typed">⍝   u:l_ife blinker</span></pre>
 </div>
 
 <pre class="example">
@@ -141,8 +151,10 @@ gives 1 when two arrays are the same):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">(u:l_ife^2 blinker) m_atch blinker
-</pre>
+<pre class="src src-xetal">(<span class="c-userfunc">ᵘl̲ife²</span> blinker) <span class="c-builtin">m̲atch</span> blinker
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (u:l_ife^2 blinker) m_atch blinker</span></pre>
 </div>
 
 <pre class="example">
@@ -158,9 +170,12 @@ A glider moves one cell diagonally every four generations:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">glider := 6 6 r_eshape 0 1 0 0 0 0 0 0 1 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-u:l_ife^4 glider
-</pre>
+<pre class="src src-xetal">glider ← <span class="c-number">6</span> <span class="c-number">6</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+<span class="c-userfunc">ᵘl̲ife⁴</span> glider
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   glider := 6 6 r_eshape 0 1 0 0 0 0 0 0 1 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</span>
+<span class="c-comment typed">⍝   u:l_ife^4 glider</span></pre>
 </div>
 
 <pre class="example">
@@ -179,8 +194,10 @@ board (rotating by -1 moves the rows down and the columns right):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">(u:l_ife^4 glider) m_atch -1 o_-_2 -1 o_-_1 glider
-</pre>
+<pre class="src src-xetal">(<span class="c-userfunc">ᵘl̲ife⁴</span> glider) <span class="c-builtin">m̲atch</span> <span class="c-number">-1</span> <span class="c-builtin">o̲-₂</span> <span class="c-number">-1</span> <span class="c-builtin">o̲-₁</span> glider
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (u:l_ife^4 glider) m_atch -1 o_-_2 -1 o_-_1 glider</span></pre>
 </div>
 
 <pre class="example">

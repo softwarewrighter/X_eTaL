@@ -1,0 +1,1 @@
+<span class="c-userfunc">ᵘs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍵</span> }      <span class="c-comment">⍝ sq</span>

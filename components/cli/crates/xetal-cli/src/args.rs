@@ -94,6 +94,11 @@ pub(crate) struct RenderArgs {
     /// is shown as typed, in red, and never stops the rendering.
     #[arg(long, conflicts_with_all = ["raw", "latex"])]
     pub(crate) color: bool,
+    /// Print the decorated form as HTML spans for a web page (classes
+    /// c-builtin, c-number, ...), escaped; like --color, text that does
+    /// not lex is shown as typed.
+    #[arg(long, conflicts_with_all = ["raw", "latex", "color"])]
+    pub(crate) html: bool,
 }
 
 #[derive(Subcommand)]

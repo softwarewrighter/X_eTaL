@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-09-30 Wed 13:57 -->
+<!-- 2026-09-30 Wed 14:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>A literate tour of X_eTaL</title>
@@ -71,8 +71,10 @@ the left operand of &amp; needs its parentheses.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">42                       # an Int
-</pre>
+<pre class="src src-xetal"><span class="c-number">42</span>                       <span class="c-comment">⍝ an Int</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   42                       # an Int</span></pre>
 </div>
 
 <pre class="example">
@@ -81,8 +83,10 @@ the left operand of &amp; needs its parentheses.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">-3 2.5                   # a negative literal; a strand has one type (Float)
-</pre>
+<pre class="src src-xetal"><span class="c-number">-3</span> <span class="c-number">2.5</span>                   <span class="c-comment">⍝ a negative literal; a strand has one type (Float)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   -3 2.5                   # a negative literal; a strand has one type (Float)</span></pre>
 </div>
 
 <pre class="example">
@@ -91,9 +95,12 @@ the left operand of &amp; needs its parentheses.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">x := 3                   # `:=` binds; `=` is always equality
-x^2                      # a literal exponent touches its value: superscript
-</pre>
+<pre class="src src-xetal">x ← <span class="c-number">3</span>                    <span class="c-comment">⍝ </span>←<span class="c-comment"> binds; </span><span class="c-symbol">=</span><span class="c-comment"> is always equality</span>
+x<span class="c-exponent">²</span>                       <span class="c-comment">⍝ a literal exponent touches its value: superscript</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   x := 3                   # `:=` binds; `=` is always equality</span>
+<span class="c-comment typed">⍝   x^2                      # a literal exponent touches its value: superscript</span></pre>
 </div>
 
 <pre class="example">
@@ -102,8 +109,10 @@ x^2                      # a literal exponent touches its value: superscript
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">4^-1                     # a negative exponent gives a Float (a literal base)
-</pre>
+<pre class="src src-xetal"><span class="c-number">4</span><span class="c-exponent">⁻¹</span>                      <span class="c-comment">⍝ a negative exponent gives a Float (a literal base)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   4^-1                     # a negative exponent gives a Float (a literal base)</span></pre>
 </div>
 
 <pre class="example">
@@ -112,8 +121,10 @@ x^2                      # a literal exponent touches its value: superscript
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">2 ^ 10                   # spaced `^` is the power function (computed exponents)
-</pre>
+<pre class="src src-xetal"><span class="c-number">2</span> <span class="c-symbol">^</span> <span class="c-number">10</span>                   <span class="c-comment">⍝ spaced </span><span class="c-symbol">^</span><span class="c-comment"> is the power function (computed exponents)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   2 ^ 10                   # spaced `^` is the power function (computed exponents)</span></pre>
 </div>
 
 <pre class="example">
@@ -122,8 +133,10 @@ x^2                      # a literal exponent touches its value: superscript
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">7 / 2                    # `/` always gives a Float
-</pre>
+<pre class="src src-xetal"><span class="c-number">7</span> <span class="c-symbol">÷</span> <span class="c-number">2</span>                    <span class="c-comment">⍝ </span><span class="c-symbol">÷</span><span class="c-comment"> always gives a Float</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   7 / 2                    # `/` always gives a Float</span></pre>
 </div>
 
 <pre class="example">
@@ -132,8 +145,10 @@ x^2                      # a literal exponent touches its value: superscript
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">7 d_iv 2; 7 m_od 3       # integer quotient and remainder; `;` separates statements
-</pre>
+<pre class="src src-xetal"><span class="c-number">7</span> <span class="c-builtin">d̲iv</span> <span class="c-number">2</span>◆ <span class="c-number">7</span> <span class="c-builtin">m̲od</span> <span class="c-number">3</span>         <span class="c-comment">⍝ integer quotient and remainder; </span>◆<span class="c-comment"> separates statements</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   7 d_iv 2; 7 m_od 3       # integer quotient and remainder; `;` separates statements</span></pre>
 </div>
 
 <pre class="example">
@@ -143,8 +158,10 @@ x^2                      # a literal exponent touches its value: superscript
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">(0.1 + 0.2) = 0.3        # `=` is exact: 0 (false)
-</pre>
+<pre class="src src-xetal">(<span class="c-number">0.1</span> <span class="c-symbol">+</span> <span class="c-number">0.2</span>) <span class="c-symbol">=</span> <span class="c-number">0.3</span>        <span class="c-comment">⍝ </span><span class="c-symbol">=</span><span class="c-comment"> is exact: 0 (false)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (0.1 + 0.2) = 0.3        # `=` is exact: 0 (false)</span></pre>
 </div>
 
 <pre class="example">
@@ -153,8 +170,10 @@ x^2                      # a literal exponent touches its value: superscript
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">(0.1 + 0.2) e_q~ 0.3     # tolerant equality: 1
-</pre>
+<pre class="src src-xetal">(<span class="c-number">0.1</span> <span class="c-symbol">+</span> <span class="c-number">0.2</span>) <span class="c-builtin">e̲q~</span> <span class="c-number">0.3</span>      <span class="c-comment">⍝ tolerant equality: 1</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (0.1 + 0.2) e_q~ 0.3     # tolerant equality: 1</span></pre>
 </div>
 
 <pre class="example">
@@ -163,8 +182,10 @@ x^2                      # a literal exponent touches its value: superscript
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">(3 &lt; 4) &amp; 2 != 2         # Bool (`&amp; | !=`); no precedence: parenthesize the left
-</pre>
+<pre class="src src-xetal">(<span class="c-number">3</span> <span class="c-symbol">&lt;</span> <span class="c-number">4</span>) <span class="c-symbol">∧</span> <span class="c-number">2</span> <span class="c-symbol">≠</span> <span class="c-number">2</span>          <span class="c-comment">⍝ Bool (</span><span class="c-symbol">∧</span> <span class="c-symbol">∨</span> <span class="c-symbol">≠</span><span class="c-comment">); no precedence: parenthesize the left</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (3 &lt; 4) &amp; 2 != 2         # Bool (`&amp; | !=`); no precedence: parenthesize the left</span></pre>
 </div>
 
 <pre class="example">
@@ -173,8 +194,10 @@ x^2                      # a literal exponent touches its value: superscript
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">f_loat 3                 # Int to Float
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">f̲loat</span> <span class="c-number">3</span>                  <span class="c-comment">⍝ Int to Float</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   f_loat 3                 # Int to Float</span></pre>
 </div>
 
 <pre class="example">
@@ -192,10 +215,14 @@ place.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">count! := 0              # only names ending in ! (like `count!`) may be reassigned
-count! := count! + 1
+<pre class="src src-xetal">count! ← <span class="c-number">0</span>               <span class="c-comment">⍝ only names ending in ! (like </span>count!<span class="c-comment">) may be reassigned</span>
+count! ← count! <span class="c-symbol">+</span> <span class="c-number">1</span>
 count!
-</pre>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   count! := 0              # only names ending in ! (like `count!`) may be reassigned</span>
+<span class="c-comment typed">⍝   count! := count! + 1</span>
+<span class="c-comment typed">⍝   count!</span></pre>
 </div>
 
 <pre class="example">
@@ -212,8 +239,10 @@ it, and comparisons work item by item.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">"hello"
-</pre>
+<pre class="src src-xetal"><span class="c-string">&quot;hello&quot;</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "hello"</span></pre>
 </div>
 
 <pre class="example">
@@ -222,8 +251,10 @@ hello
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">"abc" = "abd"            # item by item
-</pre>
+<pre class="src src-xetal"><span class="c-string">&quot;abc&quot;</span> <span class="c-symbol">=</span> <span class="c-string">&quot;abd&quot;</span>            <span class="c-comment">⍝ item by item</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "abc" = "abd"            # item by item</span></pre>
 </div>
 
 <pre class="example">
@@ -232,8 +263,10 @@ hello
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">3 t_ake "hello"
-</pre>
+<pre class="src src-xetal"><span class="c-number">3</span> <span class="c-builtin">t̲ake</span> <span class="c-string">&quot;hello&quot;</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   3 t_ake "hello"</span></pre>
 </div>
 
 <pre class="example">
@@ -252,9 +285,12 @@ function go on its left.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">m := 2 3 r_eshape r_ange 6       # 1-origin: `r_ange 6` is 1 2 3 4 5 6
+<pre class="src src-xetal">m ← <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-builtin">r̲eshape</span> <span class="c-builtin">r̲ange</span> <span class="c-number">6</span>          <span class="c-comment">⍝ 1-origin: </span><span class="c-builtin">r̲ange</span> <span class="c-number">6</span><span class="c-comment"> is 1 2 3 4 5 6</span>
 m
-</pre>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   m := 2 3 r_eshape r_ange 6       # 1-origin: `r_ange 6` is 1 2 3 4 5 6</span>
+<span class="c-comment typed">⍝   m</span></pre>
 </div>
 
 <pre class="example">
@@ -264,8 +300,10 @@ m
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">s_hape m; t_ally m
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">s̲hape</span> m◆ <span class="c-builtin">t̲ally</span> m
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   s_hape m; t_ally m</span></pre>
 </div>
 
 <pre class="example">
@@ -275,8 +313,10 @@ m
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">m * 10                   # a scalar extends to every item
-</pre>
+<pre class="src src-xetal">m <span class="c-symbol">×</span> <span class="c-number">10</span>                   <span class="c-comment">⍝ a scalar extends to every item</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   m * 10                   # a scalar extends to every item</span></pre>
 </div>
 
 <pre class="example">
@@ -286,8 +326,10 @@ m
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">2 s_elect m              # the 2nd major cell (row)
-</pre>
+<pre class="src src-xetal"><span class="c-number">2</span> <span class="c-builtin">s̲elect</span> m               <span class="c-comment">⍝ the 2nd major cell (row)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   2 s_elect m              # the 2nd major cell (row)</span></pre>
 </div>
 
 <pre class="example">
@@ -296,8 +338,10 @@ m
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">-1 t_ake m; 1 d_rop m    # take and drop count from the end when negative
-</pre>
+<pre class="src src-xetal"><span class="c-number">-1</span> <span class="c-builtin">t̲ake</span> m◆ <span class="c-number">1</span> <span class="c-builtin">d̲rop</span> m      <span class="c-comment">⍝ take and drop count from the end when negative</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   -1 t_ake m; 1 d_rop m    # take and drop count from the end when negative</span></pre>
 </div>
 
 <pre class="example">
@@ -307,8 +351,10 @@ m
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">(f_irst m) c_at 7 8 9    # join along the leading axis
-</pre>
+<pre class="src src-xetal">(<span class="c-builtin">f̲irst</span> m) <span class="c-builtin">c̲at</span> <span class="c-number">7</span> <span class="c-number">8</span> <span class="c-number">9</span>      <span class="c-comment">⍝ join along the leading axis</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (f_irst m) c_at 7 8 9    # join along the leading axis</span></pre>
 </div>
 
 <pre class="example">
@@ -317,8 +363,10 @@ m
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">r_avel m
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">r̲avel</span> m
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   r_avel m</span></pre>
 </div>
 
 <pre class="example">
@@ -327,8 +375,10 @@ m
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">10 ^ r_ev o_ffsets 3     # `o_ffsets` counts from 0: place values 100 10 1
-</pre>
+<pre class="src src-xetal"><span class="c-number">10</span> <span class="c-symbol">^</span> <span class="c-builtin">r̲ev</span> <span class="c-builtin">o̲ffsets</span> <span class="c-number">3</span>       <span class="c-comment">⍝ </span><span class="c-builtin">o̲ffsets</span><span class="c-comment"> counts from 0: place values 100 10 1</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   10 ^ r_ev o_ffsets 3     # `o_ffsets` counts from 0: place values 100 10 1</span></pre>
 </div>
 
 <pre class="example">
@@ -348,9 +398,12 @@ function takes @, and a ~ parameter is only evaluated when used.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:s_quare := { _r * _r }         # `_r` is the right argument
-u:s_quare 1 2 3                  # scalar functions work on arrays unchanged
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍵</span> }              <span class="c-comment">⍝ </span><span class="c-lambdaarg">⍵</span><span class="c-comment"> is the right argument</span>
+<span class="c-userfunc">ᵘs̲quare</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>                    <span class="c-comment">⍝ scalar functions work on arrays unchanged</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:s_quare := { _r * _r }         # `_r` is the right argument</span>
+<span class="c-comment typed">⍝   u:s_quare 1 2 3                  # scalar functions work on arrays unchanged</span></pre>
 </div>
 
 <pre class="example">
@@ -359,9 +412,12 @@ u:s_quare 1 2 3                  # scalar functions work on arrays unchanged
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:s_ub := { _l - _r }            # `_l` is the left argument
-10 u:s_ub 3                      # dyadic use is currying: `(u:s_ub 10) 3`
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘs̲ub</span> ← { <span class="c-lambdaarg">⍺</span> <span class="c-symbol">−</span> <span class="c-lambdaarg">⍵</span> }                 <span class="c-comment">⍝ </span><span class="c-lambdaarg">⍺</span><span class="c-comment"> is the left argument</span>
+<span class="c-number">10</span> <span class="c-userfunc">ᵘs̲ub</span> <span class="c-number">3</span>                        <span class="c-comment">⍝ dyadic use is currying: </span>(<span class="c-userfunc">ᵘs̲ub</span> <span class="c-number">10</span>) <span class="c-number">3</span><span class="c-comment"></span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:s_ub := { _l - _r }            # `_l` is the left argument</span>
+<span class="c-comment typed">⍝   10 u:s_ub 3                      # dyadic use is currying: `(u:s_ub 10) 3`</span></pre>
 </div>
 
 <pre class="example">
@@ -370,9 +426,12 @@ u:s_quare 1 2 3                  # scalar functions work on arrays unchanged
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:h_yp := { a b -&gt; ((a * a) + b * b) ^ 0.5 }   # named parameters before `-&gt;`
-3 u:h_yp 4
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘh̲yp</span> ← { a b → ((a <span class="c-symbol">×</span> a) <span class="c-symbol">+</span> b <span class="c-symbol">×</span> b) <span class="c-symbol">^</span> <span class="c-number">0.5</span> }       <span class="c-comment">⍝ named parameters before </span>→<span class="c-comment"></span>
+<span class="c-number">3</span> <span class="c-userfunc">ᵘh̲yp</span> <span class="c-number">4</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:h_yp := { a b -&gt; ((a * a) + b * b) ^ 0.5 }   # named parameters before `-&gt;`</span>
+<span class="c-comment typed">⍝   3 u:h_yp 4</span></pre>
 </div>
 
 <pre class="example">
@@ -381,17 +440,25 @@ u:s_quare 1 2 3                  # scalar functions work on arrays unchanged
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:s_ign := { x -&gt; x &lt; 0 ? -1; x = 0 ? 0; 1 }  # guards: condition `?` result
-u:f_act := { n -&gt;
-  n &lt;= 1 ? 1
-  n * u:f_act n - 1
+<pre class="src src-xetal"><span class="c-userfunc">ᵘs̲ign</span> ← { x → x <span class="c-symbol">&lt;</span> <span class="c-number">0</span> ? <span class="c-number">-1</span>◆ x <span class="c-symbol">=</span> <span class="c-number">0</span> ? <span class="c-number">0</span>◆ <span class="c-number">1</span> }      <span class="c-comment">⍝ guards: condition </span>?<span class="c-comment"> result</span>
+<span class="c-userfunc">ᵘf̲act</span> ← { n →
+  n <span class="c-symbol">≤</span> <span class="c-number">1</span> ? <span class="c-number">1</span>
+  n <span class="c-symbol">×</span> <span class="c-userfunc">ᵘf̲act</span> n <span class="c-symbol">−</span> <span class="c-number">1</span>
 }
-</pre>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:s_ign := { x -&gt; x &lt; 0 ? -1; x = 0 ? 0; 1 }  # guards: condition `?` result</span>
+<span class="c-comment typed">⍝   u:f_act := { n -&gt;</span>
+<span class="c-comment typed">⍝     n &lt;= 1 ? 1</span>
+<span class="c-comment typed">⍝     n * u:f_act n - 1</span>
+<span class="c-comment typed">⍝   }</span></pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:f_act 10                       # recursion
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘf̲act</span> <span class="c-number">10</span>                         <span class="c-comment">⍝ recursion</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:f_act 10                       # recursion</span></pre>
 </div>
 
 <pre class="example">
@@ -400,9 +467,12 @@ u:f_act := { n -&gt;
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:t_wo := { @ -&gt; 2 }             # a niladic function takes `@`
-u:t_wo @
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘt̲wo</span> ← { @ → <span class="c-number">2</span> }                 <span class="c-comment">⍝ a niladic function takes </span>@<span class="c-comment"></span>
+<span class="c-userfunc">ᵘt̲wo</span> @
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:t_wo := { @ -&gt; 2 }             # a niladic function takes `@`</span>
+<span class="c-comment typed">⍝   u:t_wo @</span></pre>
 </div>
 
 <pre class="example">
@@ -411,9 +481,12 @@ u:t_wo @
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:k_eep := { a ~b -&gt; a }         # `~b` is a lazy parameter: evaluated
-7 u:k_eep 1 / 0                  # only if used, so no division by zero
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘk̲eep</span> ← { a ~b → a }             <span class="c-comment">⍝ </span>~b<span class="c-comment"> is a lazy parameter: evaluated</span>
+<span class="c-number">7</span> <span class="c-userfunc">ᵘk̲eep</span> <span class="c-number">1</span> <span class="c-symbol">÷</span> <span class="c-number">0</span>                    <span class="c-comment">⍝ only if used, so no division by zero</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:k_eep := { a ~b -&gt; a }         # `~b` is a lazy parameter: evaluated</span>
+<span class="c-comment typed">⍝   7 u:k_eep 1 / 0                  # only if used, so no division by zero</span></pre>
 </div>
 
 <pre class="example">
@@ -422,8 +495,10 @@ u:t_wo @
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">(u:s_ub 100)_ 1                  # `(expr)_` applies a function value
-</pre>
+<pre class="src src-xetal">(<span class="c-userfunc">ᵘs̲ub</span> <span class="c-number">100</span>)_ <span class="c-number">1</span>                    <span class="c-comment">⍝ </span>(expr)_<span class="c-comment"> applies a function value</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (u:s_ub 100)_ 1                  # `(expr)_` applies a function value</span></pre>
 </div>
 
 <pre class="example">
@@ -432,9 +507,12 @@ u:t_wo @
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:t_wice := { f_ x -&gt; f_ f_ x }  # apply a function parameter two times
-'{ _r + 10 } u:t_wice 3          # 3 + 10 + 10
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘt̲wice</span> ← { <span class="c-builtin">f̲</span> x → <span class="c-builtin">f̲</span> <span class="c-builtin">f̲</span> x }         <span class="c-comment">⍝ apply a function parameter two times</span>
+<span class="c-quote">'</span>{ <span class="c-lambdaarg">⍵</span> <span class="c-symbol">+</span> <span class="c-number">10</span> } <span class="c-userfunc">ᵘt̲wice</span> <span class="c-number">3</span>             <span class="c-comment">⍝ 3 + 10 + 10</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:t_wice := { f_ x -&gt; f_ f_ x }  # apply a function parameter two times</span>
+<span class="c-comment typed">⍝   '{ _r + 10 } u:t_wice 3          # 3 + 10 + 10</span></pre>
 </div>
 
 <pre class="example">
@@ -443,8 +521,10 @@ u:t_wo @
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">'u:s_quare u:t_wice 3            # square (square 3) = 9 squared
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">'ᵘs̲quare</span> <span class="c-userfunc">ᵘt̲wice</span> <span class="c-number">3</span>                <span class="c-comment">⍝ square (square 3) = 9 squared</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   'u:s_quare u:t_wice 3            # square (square 3) = 9 squared</span></pre>
 </div>
 
 <pre class="example">
@@ -464,8 +544,10 @@ ordinary curried functions.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">'+ r_/ 1 2 3 4           # a quoted function is the operand of `r_/` (reduce)
-</pre>
+<pre class="src src-xetal"><span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>            <span class="c-comment">⍝ a quoted function is the operand of </span><span class="c-builtin">r̲/</span><span class="c-comment"> (reduce)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ r_/ 1 2 3 4           # a quoted function is the operand of `r_/` (reduce)</span></pre>
 </div>
 
 <pre class="example">
@@ -474,8 +556,10 @@ ordinary curried functions.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">'- r_/ 1 2 3             # reduce folds from the right: 1 - (2 - 3)
-</pre>
+<pre class="src src-xetal"><span class="c-symbol">'−</span> <span class="c-builtin">r̲/</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>              <span class="c-comment">⍝ reduce folds from the right: 1 - (2 - 3)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '- r_/ 1 2 3             # reduce folds from the right: 1 - (2 - 3)</span></pre>
 </div>
 
 <pre class="example">
@@ -484,8 +568,10 @@ ordinary curried functions.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">'+ s_\ 1 2 3 4           # scan: the prefix reductions
-</pre>
+<pre class="src src-xetal"><span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>            <span class="c-comment">⍝ scan: the prefix reductions</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ s_\ 1 2 3 4           # scan: the prefix reductions</span></pre>
 </div>
 
 <pre class="example">
@@ -494,8 +580,10 @@ ordinary curried functions.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">'+ r_/ m                 # the leading axis: column sums
-</pre>
+<pre class="src src-xetal"><span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> m                  <span class="c-comment">⍝ the leading axis: column sums</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ r_/ m                 # the leading axis: column sums</span></pre>
 </div>
 
 <pre class="example">
@@ -504,8 +592,10 @@ ordinary curried functions.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">'u:s_ign e_ach -5 0 5    # each: apply to every item
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">'ᵘs̲ign</span> <span class="c-builtin">e̲ach</span> <span class="c-number">-5</span> <span class="c-number">0</span> <span class="c-number">5</span>       <span class="c-comment">⍝ each: apply to every item</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   'u:s_ign e_ach -5 0 5    # each: apply to every item</span></pre>
 </div>
 
 <pre class="example">
@@ -514,8 +604,10 @@ ordinary curried functions.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">1 2 3 '= e_ach 1 5 3     # dyadic each is currying
-</pre>
+<pre class="src src-xetal"><span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-symbol">'=</span> <span class="c-builtin">e̲ach</span> <span class="c-number">1</span> <span class="c-number">5</span> <span class="c-number">3</span>      <span class="c-comment">⍝ dyadic each is currying</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 2 3 '= e_ach 1 5 3     # dyadic each is currying</span></pre>
 </div>
 
 <pre class="example">
@@ -524,8 +616,10 @@ ordinary curried functions.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">1 2 3 '* t_able 1 2 3    # table: the outer product
-</pre>
+<pre class="src src-xetal"><span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-symbol">'×</span> <span class="c-builtin">t̲able</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>     <span class="c-comment">⍝ table: the outer product</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 2 3 '* t_able 1 2 3    # table: the outer product</span></pre>
 </div>
 
 <pre class="example">
@@ -536,8 +630,10 @@ ordinary curried functions.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">m '+ '* i_nner 1 1 1     # inner product: the nearest operand pairs
-</pre>
+<pre class="src src-xetal">m <span class="c-symbol">'+</span> <span class="c-symbol">'×</span> <span class="c-builtin">i̲nner</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span>      <span class="c-comment">⍝ inner product: the nearest operand pairs</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   m '+ '* i_nner 1 1 1     # inner product: the nearest operand pairs</span></pre>
 </div>
 
 <pre class="example">
@@ -546,8 +642,10 @@ ordinary curried functions.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">'n_eg 'a_bs c_ompose -4  # compose: the nearest operand applies first
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">'n̲eg</span> <span class="c-builtin">'a̲bs</span> <span class="c-builtin">c̲ompose</span> <span class="c-number">-4</span>     <span class="c-comment">⍝ compose: the nearest operand applies first</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   'n_eg 'a_bs c_ompose -4  # compose: the nearest operand applies first</span></pre>
 </div>
 
 <pre class="example">
@@ -556,8 +654,10 @@ ordinary curried functions.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">2 '/ s_wap 1             # swap the arguments: 1 / 2
-</pre>
+<pre class="src src-xetal"><span class="c-number">2</span> <span class="c-symbol">'÷</span> <span class="c-builtin">s̲wap</span> <span class="c-number">1</span>              <span class="c-comment">⍝ swap the arguments: 1 / 2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   2 '/ s_wap 1             # swap the arguments: 1 / 2</span></pre>
 </div>
 
 <pre class="example">
@@ -566,8 +666,10 @@ ordinary curried functions.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">'{ _l + _r } r_/ 1 2 3   # a quoted lambda is an operand too
-</pre>
+<pre class="src src-xetal"><span class="c-quote">'</span>{ <span class="c-lambdaarg">⍺</span> <span class="c-symbol">+</span> <span class="c-lambdaarg">⍵</span> } <span class="c-builtin">r̲/</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>      <span class="c-comment">⍝ a quoted lambda is an operand too</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '{ _l + _r } r_/ 1 2 3   # a quoted lambda is an operand too</span></pre>
 </div>
 
 <pre class="example">
@@ -585,9 +687,12 @@ functions are an atop. The tacks pick an argument.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:a_vg := ['+ r_/ / t_ally]      # fork: `('+ r_/) / t_ally` of the argument
-u:a_vg 1 2 3 4
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘa̲vg</span> ← [<span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> <span class="c-symbol">÷</span> <span class="c-builtin">t̲ally</span>]           <span class="c-comment">⍝ fork: </span>(<span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span>) <span class="c-symbol">÷</span> <span class="c-builtin">t̲ally</span><span class="c-comment"> of the argument</span>
+<span class="c-userfunc">ᵘa̲vg</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:a_vg := ['+ r_/ / t_ally]      # fork: `('+ r_/) / t_ally` of the argument</span>
+<span class="c-comment typed">⍝   u:a_vg 1 2 3 4</span></pre>
 </div>
 
 <pre class="example">
@@ -596,8 +701,10 @@ u:a_vg 1 2 3 4
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">[n_eg a_bs] -5                   # atop: `n_eg a_bs x`
-</pre>
+<pre class="src src-xetal">[<span class="c-builtin">n̲eg</span> <span class="c-builtin">a̲bs</span>] <span class="c-number">-5</span>                     <span class="c-comment">⍝ atop: </span><span class="c-builtin">n̲eg</span> <span class="c-builtin">a̲bs</span> x<span class="c-comment"></span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   [n_eg a_bs] -5                   # atop: `n_eg a_bs x`</span></pre>
 </div>
 
 <pre class="example">
@@ -606,8 +713,10 @@ u:a_vg 1 2 3 4
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">3 [l_eft + r_ight] 4             # the tacks pick an argument
-</pre>
+<pre class="src src-xetal"><span class="c-number">3</span> [<span class="c-builtin">l̲eft</span> <span class="c-symbol">+</span> <span class="c-builtin">r̲ight</span>] <span class="c-number">4</span>               <span class="c-comment">⍝ the tacks pick an argument</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   3 [l_eft + r_ight] 4             # the tacks pick an argument</span></pre>
 </div>
 
 <pre class="example">
@@ -616,8 +725,10 @@ u:a_vg 1 2 3 4
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">[i_d - n_eg] 5                   # hook: `x - n_eg x`
-</pre>
+<pre class="src src-xetal">[<span class="c-builtin">i̲d</span> <span class="c-symbol">−</span> <span class="c-builtin">n̲eg</span>] <span class="c-number">5</span>                     <span class="c-comment">⍝ hook: </span>x <span class="c-symbol">−</span> <span class="c-builtin">n̲eg</span> x<span class="c-comment"></span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   [i_d - n_eg] 5                   # hook: `x - n_eg x`</span></pre>
 </div>
 
 <pre class="example">
@@ -636,8 +747,10 @@ neighbour count needs.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">1 o_- 1 2 3 4            # rotate toward the front
-</pre>
+<pre class="src src-xetal"><span class="c-number">1</span> <span class="c-builtin">o̲-</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>             <span class="c-comment">⍝ rotate toward the front</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 o_- 1 2 3 4            # rotate toward the front</span></pre>
 </div>
 
 <pre class="example">
@@ -646,8 +759,10 @@ neighbour count needs.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">r_ev "stressed"
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">r̲ev</span> <span class="c-string">&quot;stressed&quot;</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   r_ev "stressed"</span></pre>
 </div>
 
 <pre class="example">
@@ -656,29 +771,23 @@ desserts
 
 
 <div class="org-src-container">
-<pre class="src src-xetal"># A function works on the leading axis (axis 1) unless a subscript names
-</pre>
+<pre class="src src-xetal"><span class="c-comment">⍝ A function works on the leading axis (axis 1) unless a subscript names</span>
+
+<span class="c-comment typed">⍝ typed:</span></pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-xetal"># another: `r_ev_2 m` moves axis 2 to the front, applies `r_ev`, and
-</pre>
+<pre class="src src-xetal"><span class="c-comment">⍝ another: </span><span class="c-builtin">r̲ev₂</span> m<span class="c-comment"> moves axis 2 to the front, applies </span><span class="c-builtin">r̲ev</span><span class="c-comment">, and</span>
+
+<span class="c-comment typed">⍝ typed:</span></pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-xetal"># moves it back.
-'+ r_/ m                 # implicit: axis 1, so column sums
-</pre>
-</div>
+<pre class="src src-xetal"><span class="c-comment">⍝ moves it back.</span>
+<span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> m                  <span class="c-comment">⍝ implicit: axis 1, so column sums</span>
 
-<pre class="example">
-5 7 9
-</pre>
-
-
-<div class="org-src-container">
-<pre class="src src-xetal">'+ r_/_1 m               # the same, explicit
-</pre>
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ r_/ m                 # implicit: axis 1, so column sums</span></pre>
 </div>
 
 <pre class="example">
@@ -687,8 +796,22 @@ desserts
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">'+ r_/_2 m               # axis 2: row sums
+<pre class="src src-xetal"><span class="c-symbol">'+</span> <span class="c-builtin">r̲/₁</span> m                 <span class="c-comment">⍝ the same, explicit</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ r_/_1 m               # the same, explicit</span></pre>
+</div>
+
+<pre class="example">
+5 7 9
 </pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-symbol">'+</span> <span class="c-builtin">r̲/₂</span> m                 <span class="c-comment">⍝ axis 2: row sums</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ r_/_2 m               # axis 2: row sums</span></pre>
 </div>
 
 <pre class="example">
@@ -697,8 +820,10 @@ desserts
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">'+ s_\_2 m               # running sums along each row
-</pre>
+<pre class="src src-xetal"><span class="c-symbol">'+</span> <span class="c-builtin">s̲\₂</span> m                 <span class="c-comment">⍝ running sums along each row</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ s_\_2 m               # running sums along each row</span></pre>
 </div>
 
 <pre class="example">
@@ -708,8 +833,10 @@ desserts
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">1 o_- m                  # rotate the rows (axis 1)
-</pre>
+<pre class="src src-xetal"><span class="c-number">1</span> <span class="c-builtin">o̲-</span> m                   <span class="c-comment">⍝ rotate the rows (axis 1)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 o_- m                  # rotate the rows (axis 1)</span></pre>
 </div>
 
 <pre class="example">
@@ -719,8 +846,10 @@ desserts
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">1 o_-_1 m                # the same, explicit
-</pre>
+<pre class="src src-xetal"><span class="c-number">1</span> <span class="c-builtin">o̲-₁</span> m                  <span class="c-comment">⍝ the same, explicit</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 o_-_1 m                # the same, explicit</span></pre>
 </div>
 
 <pre class="example">
@@ -730,8 +859,10 @@ desserts
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">1 o_-_2 m                # rotate within each row (axis 2)
-</pre>
+<pre class="src src-xetal"><span class="c-number">1</span> <span class="c-builtin">o̲-₂</span> m                  <span class="c-comment">⍝ rotate within each row (axis 2)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 o_-_2 m                # rotate within each row (axis 2)</span></pre>
 </div>
 
 <pre class="example">
@@ -741,8 +872,10 @@ desserts
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">r_ev_2 m                 # reverse each row
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">r̲ev₂</span> m                   <span class="c-comment">⍝ reverse each row</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   r_ev_2 m                 # reverse each row</span></pre>
 </div>
 
 <pre class="example">
@@ -752,8 +885,10 @@ desserts
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">'+ r_/_12 m              # two axes in turn: the total
-</pre>
+<pre class="src src-xetal"><span class="c-symbol">'+</span> <span class="c-builtin">r̲/₁₂</span> m                <span class="c-comment">⍝ two axes in turn: the total</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ r_/_12 m              # two axes in turn: the total</span></pre>
 </div>
 
 <pre class="example">
@@ -762,8 +897,10 @@ desserts
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">-1 0 1 o_- 1 2 3         # a list of amounts gives every rotation
-</pre>
+<pre class="src src-xetal"><span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-builtin">o̲-</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>          <span class="c-comment">⍝ a list of amounts gives every rotation</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   -1 0 1 o_- 1 2 3         # a list of amounts gives every rotation</span></pre>
 </div>
 
 <pre class="example">
@@ -774,8 +911,10 @@ desserts
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">s_hape -1 0 1 o_-_12 m   # every combination along both axes: 3 3 2 3
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">s̲hape</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-builtin">o̲-₁₂</span> m      <span class="c-comment">⍝ every combination along both axes: 3 3 2 3</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   s_hape -1 0 1 o_-_12 m   # every combination along both axes: 3 3 2 3</span></pre>
 </div>
 
 <pre class="example">
@@ -793,9 +932,12 @@ for what is absent.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">v := 3 1 4 1 5 9 2 6
-s_ort v; g_rade v        # sort, and the indices that sort
-</pre>
+<pre class="src src-xetal">v ← <span class="c-number">3</span> <span class="c-number">1</span> <span class="c-number">4</span> <span class="c-number">1</span> <span class="c-number">5</span> <span class="c-number">9</span> <span class="c-number">2</span> <span class="c-number">6</span>
+<span class="c-builtin">s̲ort</span> v◆ <span class="c-builtin">g̲rade</span> v          <span class="c-comment">⍝ sort, and the indices that sort</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   v := 3 1 4 1 5 9 2 6</span>
+<span class="c-comment typed">⍝   s_ort v; g_rade v        # sort, and the indices that sort</span></pre>
 </div>
 
 <pre class="example">
@@ -805,8 +947,10 @@ s_ort v; g_rade v        # sort, and the indices that sort
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">u_nique v
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">u̲nique</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u_nique v</span></pre>
 </div>
 
 <pre class="example">
@@ -815,8 +959,10 @@ s_ort v; g_rade v        # sort, and the indices that sort
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">v i_ndexOf 5 7           # 7 is absent: tally + 1
-</pre>
+<pre class="src src-xetal">v <span class="c-builtin">i̲ndexOf</span> <span class="c-number">5</span> <span class="c-number">7</span>            <span class="c-comment">⍝ 7 is absent: tally + 1</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   v i_ndexOf 5 7           # 7 is absent: tally + 1</span></pre>
 </div>
 
 <pre class="example">
@@ -825,8 +971,10 @@ s_ort v; g_rade v        # sort, and the indices that sort
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">2 7 m_ember? v
-</pre>
+<pre class="src src-xetal"><span class="c-number">2</span> <span class="c-number">7</span> <span class="c-builtin">m̲ember?</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   2 7 m_ember? v</span></pre>
 </div>
 
 <pre class="example">
@@ -835,8 +983,10 @@ s_ort v; g_rade v        # sort, and the indices that sort
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">w_here v &gt; 4             # indices of the 1s
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">w̲here</span> v <span class="c-symbol">&gt;</span> <span class="c-number">4</span>              <span class="c-comment">⍝ indices of the 1s</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   w_here v &gt; 4             # indices of the 1s</span></pre>
 </div>
 
 <pre class="example">
@@ -853,8 +1003,10 @@ Effects end in !. The rolls are random; this document fixes them with
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">r_oll! 6 6 6             # three dice: random 1..6 each, so every run differs
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">r̲oll!</span> <span class="c-number">6</span> <span class="c-number">6</span> <span class="c-number">6</span>              <span class="c-comment">⍝ three dice: random 1..6 each, so every run differs</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   r_oll! 6 6 6             # three dice: random 1..6 each, so every run differs</span></pre>
 </div>
 
 <pre class="example">
@@ -863,8 +1015,10 @@ Effects end in !. The rolls are random; this document fixes them with
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">r_oll! 6 6 6             # (and each line rolls again)
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">r̲oll!</span> <span class="c-number">6</span> <span class="c-number">6</span> <span class="c-number">6</span>              <span class="c-comment">⍝ (and each line rolls again)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   r_oll! 6 6 6             # (and each line rolls again)</span></pre>
 </div>
 
 <pre class="example">
@@ -873,8 +1027,10 @@ Effects end in !. The rolls are random; this document fixes them with
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">r_oll! 6 6 6
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">r̲oll!</span> <span class="c-number">6</span> <span class="c-number">6</span> <span class="c-number">6</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   r_oll! 6 6 6</span></pre>
 </div>
 
 <pre class="example">
@@ -883,8 +1039,10 @@ Effects end in !. The rolls are random; this document fixes them with
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">p_rint! "printed, then returned"  # `p_rint!` prints and returns its argument
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">p̲rint!</span> <span class="c-string">&quot;printed, then returned&quot;</span>   <span class="c-comment">⍝ </span><span class="c-builtin">p̲rint!</span><span class="c-comment"> prints and returns its argument</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   p_rint! "printed, then returned"  # `p_rint!` prints and returns its argument</span></pre>
 </div>
 
 <pre class="example">
@@ -904,9 +1062,12 @@ that alias. Stats is a standard library, built into xetal.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">"s:" u_se&lt; "Stats"       # import a library under an alias of your choosing
-s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ˢ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Stats&quot;</span>           <span class="c-comment">⍝ import a library under an alias of your choosing</span>
+<span class="c-libfunc">ˢm̲ean</span> <span class="c-number">2</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">5</span> <span class="c-number">7</span> <span class="c-number">9</span>    <span class="c-comment">⍝ its exported names, used through the alias</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "s:" u_se&lt; "Stats"       # import a library under an alias of your choosing</span>
+<span class="c-comment typed">⍝   s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias</span></pre>
 </div>
 
 <pre class="example">
@@ -915,8 +1076,10 @@ s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">s:s_d 2 4 4 4 5 5 7 9    # the standard deviation
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ˢs̲d</span> <span class="c-number">2</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">5</span> <span class="c-number">7</span> <span class="c-number">9</span>      <span class="c-comment">⍝ the standard deviation</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   s:s_d 2 4 4 4 5 5 7 9    # the standard deviation</span></pre>
 </div>
 
 <pre class="example">
@@ -925,8 +1088,10 @@ s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">s:r_ange 3 1 4 1 5       # largest minus smallest
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ˢr̲ange</span> <span class="c-number">3</span> <span class="c-number">1</span> <span class="c-number">4</span> <span class="c-number">1</span> <span class="c-number">5</span>         <span class="c-comment">⍝ largest minus smallest</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   s:r_ange 3 1 4 1 5       # largest minus smallest</span></pre>
 </div>
 
 <pre class="example">
@@ -947,9 +1112,12 @@ one on the right.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">"c:" u_se&lt; "Combinators" # Smullyan's birds, a standard library
-1 c:K_ 2                 # K keeps its first argument
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ᶜ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Combinators&quot;</span>     <span class="c-comment">⍝ Smullyan's birds, a standard library</span>
+<span class="c-number">1</span> <span class="c-libfunc">ᶜK̲</span> <span class="c-number">2</span>                   <span class="c-comment">⍝ K keeps its first argument</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "c:" u_se&lt; "Combinators" # Smullyan's birds, a standard library</span>
+<span class="c-comment typed">⍝   1 c:K_ 2                 # K keeps its first argument</span></pre>
 </div>
 
 <pre class="example">
@@ -958,8 +1126,10 @@ one on the right.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">10 '- c:C_ 3             # C swaps the arguments: 3 - 10
-</pre>
+<pre class="src src-xetal"><span class="c-number">10</span> <span class="c-symbol">'−</span> <span class="c-libfunc">ᶜC̲</span> <span class="c-number">3</span>               <span class="c-comment">⍝ C swaps the arguments: 3 - 10</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   10 '- c:C_ 3             # C swaps the arguments: 3 - 10</span></pre>
 </div>
 
 <pre class="example">
@@ -968,8 +1138,10 @@ one on the right.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">'n_eg 'a_bs c:B_ -5      # B composes, the nearest operand last: a_bs n_eg -5
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">'n̲eg</span> <span class="c-builtin">'a̲bs</span> <span class="c-libfunc">ᶜB̲</span> <span class="c-number">-5</span>          <span class="c-comment">⍝ B composes, the nearest operand last: a_bs n_eg -5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   'n_eg 'a_bs c:B_ -5      # B composes, the nearest operand last: a_bs n_eg -5</span></pre>
 </div>
 
 <pre class="example">
@@ -978,8 +1150,10 @@ one on the right.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal">'* c:W_ 4                # W uses its argument twice: 4 * 4
-</pre>
+<pre class="src src-xetal"><span class="c-symbol">'×</span> <span class="c-libfunc">ᶜW̲</span> <span class="c-number">4</span>                  <span class="c-comment">⍝ W uses its argument twice: 4 * 4</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '* c:W_ 4                # W uses its argument twice: 4 * 4</span></pre>
 </div>
 
 <pre class="example">
@@ -993,9 +1167,12 @@ parameter is lazy (~), so Y unfolds one step at a time:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:t_riangle := { ~s_elf n -&gt; n &lt;= 1 ? 1; n + s_elf n - 1 }
-'u:t_riangle c:Y_ 5      # Y: recursion, from a function handed itself: 1+2+3+4+5
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘt̲riangle</span> ← { ~<span class="c-builtin">s̲elf</span> n → n <span class="c-symbol">≤</span> <span class="c-number">1</span> ? <span class="c-number">1</span>◆ n <span class="c-symbol">+</span> <span class="c-builtin">s̲elf</span> n <span class="c-symbol">−</span> <span class="c-number">1</span> }
+<span class="c-userfunc">'ᵘt̲riangle</span> <span class="c-libfunc">ᶜY̲</span> <span class="c-number">5</span>          <span class="c-comment">⍝ Y: recursion, from a function handed itself: 1+2+3+4+5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:t_riangle := { ~s_elf n -&gt; n &lt;= 1 ? 1; n + s_elf n - 1 }</span>
+<span class="c-comment typed">⍝   'u:t_riangle c:Y_ 5      # Y: recursion, from a function handed itself: 1+2+3+4+5</span></pre>
 </div>
 
 <pre class="example">
@@ -1009,8 +1186,10 @@ power); <code>n 'f_ p_ower x</code> does the same with a computed count:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">n_eg^3 5                 # a superscript repeats a function: n_eg three times
-</pre>
+<pre class="src src-xetal"><span class="c-builtin">n̲eg³</span> <span class="c-number">5</span>                   <span class="c-comment">⍝ a superscript repeats a function: n_eg three times</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   n_eg^3 5                 # a superscript repeats a function: n_eg three times</span></pre>
 </div>
 
 <pre class="example">
@@ -1029,9 +1208,12 @@ language's acceptance test.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
-u:l_ife 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘl̲ife</span> ← { (<span class="c-symbol">'+</span> <span class="c-builtin">r̲/₁₂</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-builtin">o̲-₁₂</span> <span class="c-lambdaarg">⍵</span>) { (<span class="c-lambdaarg">⍺</span> <span class="c-symbol">=</span> <span class="c-number">3</span>) <span class="c-symbol">+</span> <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍺</span> <span class="c-symbol">=</span> <span class="c-number">4</span> } <span class="c-lambdaarg">⍵</span> }
+<span class="c-userfunc">ᵘl̲ife</span> <span class="c-number">5</span> <span class="c-number">5</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }</span>
+<span class="c-comment typed">⍝   u:l_ife 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0</span></pre>
 </div>
 
 <pre class="example">

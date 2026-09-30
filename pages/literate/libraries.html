@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-09-30 Wed 13:57 -->
+<!-- 2026-09-30 Wed 14:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Libraries</title>
@@ -48,19 +48,26 @@ A small statistics library. Its whole source:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal"># Stats: a small statistics library (a standard library, built into
-# xetal). Import it with an alias of your choice: "s:" u_se&lt; "Stats".
-# Names with l: are exported; the others are private to this file.
+<pre class="src src-xetal"><span class="c-comment">⍝ Stats: a small statistics library (a standard library, built into</span>
+<span class="c-comment">⍝ xetal). Import it with an alias of your choice: &quot;s:&quot; u_se&lt; &quot;Stats&quot;.</span>
+<span class="c-comment">⍝ Names with l: are exported; the others are private to this file.</span>
 
-l:m_ean := { (f_loat '+ r_/ _r) / f_loat t_ally _r }  # Int or Float numbers
+<span class="c-libfunc">ˡm̲ean</span> ← { (<span class="c-builtin">f̲loat</span> <span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> <span class="c-lambdaarg">⍵</span>) <span class="c-symbol">÷</span> <span class="c-builtin">f̲loat</span> <span class="c-builtin">t̲ally</span> <span class="c-lambdaarg">⍵</span> }           <span class="c-comment">⍝ Int or Float numbers</span>
 
-s_quare := { _r * _r }                  # private: not visible outside
-d_eviations := { v -&gt; (f_loat v) - l:m_ean v }
+<span class="c-builtin">s̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍵</span> }                      <span class="c-comment">⍝ private: not visible outside</span>
+<span class="c-builtin">d̲eviations</span> ← { v → (<span class="c-builtin">f̲loat</span> v) <span class="c-symbol">−</span> <span class="c-libfunc">ˡm̲ean</span> v }
 
-l:v_ariance := { v -&gt; l:m_ean s_quare d_eviations v }
-l:s_d := { (l:v_ariance _r) ^ 0.5 }     # the standard deviation
-l:r_ange := { v -&gt; ('m_ax r_/ v) - 'm_in r_/ v }
-</pre>
+<span class="c-libfunc">ˡv̲ariance</span> ← { v → <span class="c-libfunc">ˡm̲ean</span> <span class="c-builtin">s̲quare</span> <span class="c-builtin">d̲eviations</span> v }
+<span class="c-libfunc">ˡs̲d</span> ← { (<span class="c-libfunc">ˡv̲ariance</span> <span class="c-lambdaarg">⍵</span>) <span class="c-symbol">^</span> <span class="c-number">0.5</span> }           <span class="c-comment">⍝ the standard deviation</span>
+<span class="c-libfunc">ˡr̲ange</span> ← { v → (<span class="c-builtin">'m̲ax</span> <span class="c-builtin">r̲/</span> v) <span class="c-symbol">−</span> <span class="c-builtin">'m̲in</span> <span class="c-builtin">r̲/</span> v }
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   l:m_ean := { (f_loat '+ r_/ _r) / f_loat t_ally _r }  # Int or Float numbers</span>
+<span class="c-comment typed">⍝   s_quare := { _r * _r }                  # private: not visible outside</span>
+<span class="c-comment typed">⍝   d_eviations := { v -&gt; (f_loat v) - l:m_ean v }</span>
+<span class="c-comment typed">⍝   l:v_ariance := { v -&gt; l:m_ean s_quare d_eviations v }</span>
+<span class="c-comment typed">⍝   l:s_d := { (l:v_ariance _r) ^ 0.5 }     # the standard deviation</span>
+<span class="c-comment typed">⍝   l:r_ange := { v -&gt; ('m_ax r_/ v) - 'm_in r_/ v }</span></pre>
 </div>
 
 <p>
@@ -69,9 +76,12 @@ them; the rest it imports:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">"s:" u_se&lt; "Stats"
-s:m_ean 1 2 3 4
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ˢ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Stats&quot;</span>
+<span class="c-libfunc">ˢm̲ean</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "s:" u_se&lt; "Stats"</span>
+<span class="c-comment typed">⍝   s:m_ean 1 2 3 4</span></pre>
 </div>
 
 <pre class="example">
@@ -85,10 +95,14 @@ deviation and the range:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">s:v_ariance 2 4 4 4 5 5 7 9
-s:s_d 2 4 4 4 5 5 7 9
-s:r_ange 3 9 1 7
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ˢv̲ariance</span> <span class="c-number">2</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">5</span> <span class="c-number">7</span> <span class="c-number">9</span>
+<span class="c-libfunc">ˢs̲d</span> <span class="c-number">2</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">5</span> <span class="c-number">7</span> <span class="c-number">9</span>
+<span class="c-libfunc">ˢr̲ange</span> <span class="c-number">3</span> <span class="c-number">9</span> <span class="c-number">1</span> <span class="c-number">7</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   s:v_ariance 2 4 4 4 5 5 7 9</span>
+<span class="c-comment typed">⍝   s:s_d 2 4 4 4 5 5 7 9</span>
+<span class="c-comment typed">⍝   s:r_ange 3 9 1 7</span></pre>
 </div>
 
 <pre class="example">
@@ -110,11 +124,16 @@ is the value, or <code>d</code> when there is none:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">"m:" u_se&lt; "Maybe"
-u:d_iv := { a b -&gt; b = 0 ? 'm:n_othing; m:j_ust a / b }
--1 m:o_r 100 u:d_iv 4
--1 m:o_r 100 u:d_iv 0
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ᵐ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Maybe&quot;</span>
+<span class="c-userfunc">ᵘd̲iv</span> ← { a b → b <span class="c-symbol">=</span> <span class="c-number">0</span> ? <span class="c-libfunc">'ᵐn̲othing</span>◆ <span class="c-libfunc">ᵐj̲ust</span> a <span class="c-symbol">÷</span> b }
+<span class="c-number">-1</span> <span class="c-libfunc">ᵐo̲r</span> <span class="c-number">100</span> <span class="c-userfunc">ᵘd̲iv</span> <span class="c-number">4</span>
+<span class="c-number">-1</span> <span class="c-libfunc">ᵐo̲r</span> <span class="c-number">100</span> <span class="c-userfunc">ᵘd̲iv</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "m:" u_se&lt; "Maybe"</span>
+<span class="c-comment typed">⍝   u:d_iv := { a b -&gt; b = 0 ? 'm:n_othing; m:j_ust a / b }</span>
+<span class="c-comment typed">⍝   -1 m:o_r 100 u:d_iv 4</span>
+<span class="c-comment typed">⍝   -1 m:o_r 100 u:d_iv 0</span></pre>
 </div>
 
 <pre class="example">
@@ -129,10 +148,14 @@ the default, and the steps after it never run:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:h_alf := { m:j_ust _r / 2 }
--1 m:o_r 'u:h_alf m:b_ind 100 u:d_iv 4
--1 m:o_r 'u:h_alf m:b_ind 100 u:d_iv 0
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘh̲alf</span> ← { <span class="c-libfunc">ᵐj̲ust</span> <span class="c-lambdaarg">⍵</span> <span class="c-symbol">÷</span> <span class="c-number">2</span> }
+<span class="c-number">-1</span> <span class="c-libfunc">ᵐo̲r</span> <span class="c-userfunc">'ᵘh̲alf</span> <span class="c-libfunc">ᵐb̲ind</span> <span class="c-number">100</span> <span class="c-userfunc">ᵘd̲iv</span> <span class="c-number">4</span>
+<span class="c-number">-1</span> <span class="c-libfunc">ᵐo̲r</span> <span class="c-userfunc">'ᵘh̲alf</span> <span class="c-libfunc">ᵐb̲ind</span> <span class="c-number">100</span> <span class="c-userfunc">ᵘd̲iv</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:h_alf := { m:j_ust _r / 2 }</span>
+<span class="c-comment typed">⍝   -1 m:o_r 'u:h_alf m:b_ind 100 u:d_iv 4</span>
+<span class="c-comment typed">⍝   -1 m:o_r 'u:h_alf m:b_ind 100 u:d_iv 0</span></pre>
 </div>
 
 <pre class="example">
@@ -152,11 +175,16 @@ reverse):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">"c:" u_se&lt; "Combinators"
-1 c:K_ 2
-10 '- c:C_ 3
-'n_eg 'r_ev c:B_ 1 2 3
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ᶜ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Combinators&quot;</span>
+<span class="c-number">1</span> <span class="c-libfunc">ᶜK̲</span> <span class="c-number">2</span>
+<span class="c-number">10</span> <span class="c-symbol">'−</span> <span class="c-libfunc">ᶜC̲</span> <span class="c-number">3</span>
+<span class="c-builtin">'n̲eg</span> <span class="c-builtin">'r̲ev</span> <span class="c-libfunc">ᶜB̲</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "c:" u_se&lt; "Combinators"</span>
+<span class="c-comment typed">⍝   1 c:K_ 2</span>
+<span class="c-comment typed">⍝   10 '- c:C_ 3</span>
+<span class="c-comment typed">⍝   'n_eg 'r_ev c:B_ 1 2 3</span></pre>
 </div>
 
 <pre class="example">

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-09-30 Wed 13:57 -->
+<!-- 2026-09-30 Wed 14:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The aviary: combinators in X_eTaL</title>
@@ -55,9 +55,12 @@ library's names are then written with that prefix:
 </div>
 
 <div class="org-src-container">
-<pre class="src src-xetal">"c:" u_se&lt; "Combinators"
-1 c:K_ 2
-</pre>
+<pre class="src src-xetal"><span class="c-libfunc">ᶜ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Combinators&quot;</span>
+<span class="c-number">1</span> <span class="c-libfunc">ᶜK̲</span> <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "c:" u_se&lt; "Combinators"</span>
+<span class="c-comment typed">⍝   1 c:K_ 2</span></pre>
 </div>
 
 <pre class="example">
@@ -86,12 +89,18 @@ right; <code>(e)_ v</code> applies a function that is computed.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:a_b := { a b -&gt; (10 * a) + b }
-u:a_bc := { a b c -&gt; (100 * a) + (10 * b) + c }
-u:i_nc := { _r + 1 }
-u:d_ouble := { _r * 2 }
-1 'u:a_b c:C_ 2
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘa̲b</span> ← { a b → (<span class="c-number">10</span> <span class="c-symbol">×</span> a) <span class="c-symbol">+</span> b }
+<span class="c-userfunc">ᵘa̲bc</span> ← { a b c → (<span class="c-number">100</span> <span class="c-symbol">×</span> a) <span class="c-symbol">+</span> (<span class="c-number">10</span> <span class="c-symbol">×</span> b) <span class="c-symbol">+</span> c }
+<span class="c-userfunc">ᵘi̲nc</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">+</span> <span class="c-number">1</span> }
+<span class="c-userfunc">ᵘd̲ouble</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-number">2</span> }
+<span class="c-number">1</span> <span class="c-userfunc">'ᵘa̲b</span> <span class="c-libfunc">ᶜC̲</span> <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:a_b := { a b -&gt; (10 * a) + b }</span>
+<span class="c-comment typed">⍝   u:a_bc := { a b c -&gt; (100 * a) + (10 * b) + c }</span>
+<span class="c-comment typed">⍝   u:i_nc := { _r + 1 }</span>
+<span class="c-comment typed">⍝   u:d_ouble := { _r * 2 }</span>
+<span class="c-comment typed">⍝   1 'u:a_b c:C_ 2</span></pre>
 </div>
 
 <pre class="example">
@@ -127,8 +136,10 @@ nearest operand) and y is double:
 </div>
 
 <div class="org-src-container">
-<pre class="src src-xetal">'u:d_ouble 'u:i_nc c:B_ 5
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">'ᵘd̲ouble</span> <span class="c-userfunc">'ᵘi̲nc</span> <span class="c-libfunc">ᶜB̲</span> <span class="c-number">5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   'u:d_ouble 'u:i_nc c:B_ 5</span></pre>
 </div>
 
 <pre class="example">
@@ -142,8 +153,10 @@ w</code> is <code>x (y z w)</code>, inc applied to a_b 1 2:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">1 'u:a_b 'u:i_nc c:B_1 2
-</pre>
+<pre class="src src-xetal"><span class="c-number">1</span> <span class="c-userfunc">'ᵘa̲b</span> <span class="c-userfunc">'ᵘi̲nc</span> <span class="c-libfunc">ᶜB̲1</span> <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 'u:a_b 'u:i_nc c:B_1 2</span></pre>
 </div>
 
 <pre class="example">
@@ -167,9 +180,12 @@ z)</code>, here a_b 3 (double 3):
 </div>
 
 <div class="org-src-container">
-<pre class="src src-xetal">'u:a_b c:W_ 3
-'u:d_ouble 'u:a_b c:S_ 3
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">'ᵘa̲b</span> <span class="c-libfunc">ᶜW̲</span> <span class="c-number">3</span>
+<span class="c-userfunc">'ᵘd̲ouble</span> <span class="c-userfunc">'ᵘa̲b</span> <span class="c-libfunc">ᶜS̲</span> <span class="c-number">3</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   'u:a_b c:W_ 3</span>
+<span class="c-comment typed">⍝   'u:d_ouble 'u:a_b c:S_ 3</span></pre>
 </div>
 
 <pre class="example">
@@ -187,10 +203,14 @@ vireo, holds two values until a function arrives:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">3 c:T_ 'u:d_ouble
-(3 c:V_ 4)_ '+
-(3 c:V_ 4)_ 'u:a_b
-</pre>
+<pre class="src src-xetal"><span class="c-number">3</span> <span class="c-libfunc">ᶜT̲</span> <span class="c-userfunc">'ᵘd̲ouble</span>
+(<span class="c-number">3</span> <span class="c-libfunc">ᶜV̲</span> <span class="c-number">4</span>)_ <span class="c-symbol">'+</span>
+(<span class="c-number">3</span> <span class="c-libfunc">ᶜV̲</span> <span class="c-number">4</span>)_ <span class="c-userfunc">'ᵘa̲b</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   3 c:T_ 'u:d_ouble</span>
+<span class="c-comment typed">⍝   (3 c:V_ 4)_ '+</span>
+<span class="c-comment typed">⍝   (3 c:V_ 4)_ 'u:a_b</span></pre>
 </div>
 
 <pre class="example">
@@ -216,9 +236,12 @@ function's self parameter is lazy (<code>~</code>), used only when needed:
 </div>
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:f_act := { ~s_elf n -&gt; n &lt;= 1 ? 1; n * s_elf n - 1 }
-'u:f_act c:Y_ 10
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘf̲act</span> ← { ~<span class="c-builtin">s̲elf</span> n → n <span class="c-symbol">≤</span> <span class="c-number">1</span> ? <span class="c-number">1</span>◆ n <span class="c-symbol">×</span> <span class="c-builtin">s̲elf</span> n <span class="c-symbol">−</span> <span class="c-number">1</span> }
+<span class="c-userfunc">'ᵘf̲act</span> <span class="c-libfunc">ᶜY̲</span> <span class="c-number">10</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:f_act := { ~s_elf n -&gt; n &lt;= 1 ? 1; n * s_elf n - 1 }</span>
+<span class="c-comment typed">⍝   'u:f_act c:Y_ 10</span></pre>
 </div>
 
 <pre class="example">
@@ -232,8 +255,10 @@ Life steps its boards: <code>u:l_ife^4</code>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:d_ouble^10 1
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘd̲ouble¹⁰</span> <span class="c-number">1</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:d_ouble^10 1</span></pre>
 </div>
 
 <pre class="example">
@@ -254,13 +279,20 @@ too.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">u:M_ := { x_ -&gt; x_ 'x_ }
-u:I_ := { x -&gt; x }
-('u:I_ u:M_)_ 42
-u:Y_ := { f_ -&gt; { x_ -&gt; f_ x_ 'x_ } '{ x_ -&gt; f_ x_ 'x_ } }
-u:F_ := { ~s_elf n -&gt; n &lt;= 1 ? 1; n * s_elf n - 1 }
-(u:Y_ 'u:F_)_ 5
-</pre>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘM̲</span> ← { <span class="c-builtin">x̲</span> → <span class="c-builtin">x̲</span> <span class="c-builtin">'x̲</span> }
+<span class="c-userfunc">ᵘI̲</span> ← { x → x }
+(<span class="c-userfunc">'ᵘI̲</span> <span class="c-userfunc">ᵘM̲</span>)_ <span class="c-number">42</span>
+<span class="c-userfunc">ᵘY̲</span> ← { <span class="c-builtin">f̲</span> → { <span class="c-builtin">x̲</span> → <span class="c-builtin">f̲</span> <span class="c-builtin">x̲</span> <span class="c-builtin">'x̲</span> } <span class="c-quote">'</span>{ <span class="c-builtin">x̲</span> → <span class="c-builtin">f̲</span> <span class="c-builtin">x̲</span> <span class="c-builtin">'x̲</span> } }
+<span class="c-userfunc">ᵘF̲</span> ← { ~<span class="c-builtin">s̲elf</span> n → n <span class="c-symbol">≤</span> <span class="c-number">1</span> ? <span class="c-number">1</span>◆ n <span class="c-symbol">×</span> <span class="c-builtin">s̲elf</span> n <span class="c-symbol">−</span> <span class="c-number">1</span> }
+(<span class="c-userfunc">ᵘY̲</span> <span class="c-userfunc">'ᵘF̲</span>)_ <span class="c-number">5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:M_ := { x_ -&gt; x_ 'x_ }</span>
+<span class="c-comment typed">⍝   u:I_ := { x -&gt; x }</span>
+<span class="c-comment typed">⍝   ('u:I_ u:M_)_ 42</span>
+<span class="c-comment typed">⍝   u:Y_ := { f_ -&gt; { x_ -&gt; f_ x_ 'x_ } '{ x_ -&gt; f_ x_ 'x_ } }</span>
+<span class="c-comment typed">⍝   u:F_ := { ~s_elf n -&gt; n &lt;= 1 ? 1; n * s_elf n - 1 }</span>
+<span class="c-comment typed">⍝   (u:Y_ 'u:F_)_ 5</span></pre>
 </div>
 
 <pre class="example">
