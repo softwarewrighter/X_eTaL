@@ -29,6 +29,7 @@ a value is an exponent. The language decisions are recorded in
 | `u:s_quare`   | superscript u, square, s underlined   | a user-defined function              |
 | `c:K_`        | superscript c, K underlined           | K from the combinator library        |
 | `x^2`         | x squared                             | exponent on a value                  |
+| `x^0.5`       | x, raised 0.5 (a middle dot as point) | a decimal exponent: the square root  |
 | `_l` `_r`     | APL alpha and omega                   | left / right lambda argument         |
 | `:=` `;`      | a left arrow, a black diamond         | binding, statement separator         |
 | `@`           | @                                     | the Unit value                       |

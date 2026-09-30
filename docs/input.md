@@ -118,9 +118,10 @@ xetal render --latex -e 'o_-_12 x^2'                    # LaTeX math
 
 The decorated form also draws `:=` as an arrow, `;` as a diamond,
 `#` as APL's lamp and `*` `/` `!=` `<=` `>=` `&` `|` as their
-mathematical signs. Unicode has no superscript `q` and no superscript
-decimal point, so `q:x` and `x^0.5` are displayed as typed; the LaTeX
-output has no such gaps.
+mathematical signs. Unicode has no superscript `q`, so `q:x` is
+displayed as typed; the LaTeX output has no such gap. A decimal
+exponent is raised like any other, its point drawn as a raised middle
+dot: `x^0.5` shows as x with a superscript 0, a dot and a 5.
 
 Every example on this page is checked by the test suite
 (`spec/lex/`, `spec/render/`, `reg/`).

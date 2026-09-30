@@ -4,7 +4,7 @@
 use xetal_base::{Diagnostic, Span};
 
 use crate::glyphs::{
-    LIGATURES, UNDERLINE, from_subscript, from_superscript, from_superscript_letter,
+    LIGATURES, RAISED_POINT, UNDERLINE, from_subscript, from_superscript, from_superscript_letter,
 };
 use crate::lambda::from_lambda_glyph;
 
@@ -72,6 +72,8 @@ impl Inverse {
             self.out.push(c);
             self.out.push('_');
             self.after = After::Other;
+        } else if c == RAISED_POINT && self.after == After::Super {
+            self.out.push('.');
         } else if let Some(d) = from_subscript(c) {
             self.run('_', After::Sub, d);
         } else if let Some(d) = from_superscript(c) {

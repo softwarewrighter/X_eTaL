@@ -25,6 +25,14 @@ fn underlines_namespaces_subscripts_and_exponents() {
     assert_eq!(raw(&format!("o{UL}-\u{2081}\u{2082}")), "o_-_12");
     assert_eq!(raw(&format!("r{UL}\u{2082}")), "r__2");
     assert_eq!(raw("x\u{207b}\u{b9}"), "x^-1");
+    assert_eq!(raw("x\u{2070}\u{b7}\u{2075}"), "x^0.5");
+    assert_eq!(raw("x\u{207b}\u{b2}\u{b7}\u{2075} + 1"), "x^-2.5 + 1");
+}
+
+#[test]
+fn a_raised_point_belongs_to_an_exponent_only() {
+    assert!(xetal_render::undecorate("a \u{b7} b").is_err());
+    assert!(xetal_render::undecorate("x\u{b7}\u{b2}").is_err());
 }
 
 #[test]

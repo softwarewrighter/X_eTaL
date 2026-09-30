@@ -403,8 +403,10 @@ Superscript letters for namespaces (lowercase), code points:
 | v 1D5B | w 02B7 | x 02E3 | y 02B8 | z 1DBB |        |        |
 
 A namespace containing `q` or an uppercase letter is shown raw
-(`q:x`), and an exponent with a decimal point (no superscript point
-exists) is shown raw (`x^0.5`), so the inverse stays exact: ASCII
+(`q:x`). An exponent with a decimal point is raised like any other,
+its point drawn as a middle dot (U+00B7), since Unicode has no
+superscript full stop; the inverse accepts that dot only inside a
+raised exponent, so it stays exact: ASCII
 passes through `--raw` unchanged. The inverse maps each glyph back to
 its ASCII spelling; a superscript namespace must precede a name
 (`bad-namespace`), an underline must be under a letter
@@ -610,4 +612,5 @@ The pinning tests are written as the implementing saga reaches them
 | D28| Function power | `f_^3 x` applies f three times (superscript on a function, D-7), lowered to `3 'f_ p_ower` waiting for its argument; computed counts use `n 'f_ p_ower x`, `p_ower : (a -> a) -> Int -> a -> a`; counts are whole numbers, `^-1` reserved; libraries (Saga 8) come before the combinators (Saga 9), which are written directly as a library |
 | D31| Combinators library | every bird Smullyan names that type-checks, spelled by letter (`B_1`, `C_s`, `E_h` for the variants), types pinned; Y by recursion; the self-applying birds in an untyped demo; `Maybe` as a second library; `xetal type` of a library lists its exports (CB1-CB4, `docs/birds.md`) |
 | D32| Files and numbers as text | quad functions `[]N_PUT` / `[]N_GET` (text files) and `[]R_EAD` (a typed line); `f_ormat` and `n_umbers` for numbers as text; lexed as a name in the system namespace `[]`, drawn with the quad, a built-in (QD1-QD4) |
+| D33| Decimal exponents | raised like whole ones, the point drawn as a middle dot (Unicode has no superscript full stop); the inverse accepts the dot only inside a raised exponent (I2) |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

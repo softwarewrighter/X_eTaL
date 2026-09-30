@@ -1,0 +1,1 @@
+Display a decimal exponent raised (user decision): x^0.5 as x with superscript 0, a raised middle dot, superscript 5; x^2.5, x^-0.5 likewise; reversible (render --raw gives x^0.5 back); raised fractions not used (only some decimals are nice fractions). Tests first (render, round trip, view), lang-choices I2/D-rows and input.md updated.

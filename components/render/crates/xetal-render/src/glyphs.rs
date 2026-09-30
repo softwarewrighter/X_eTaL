@@ -22,12 +22,17 @@ pub fn from_subscript(c: char) -> Option<char> {
     (n <= 9).then(|| char::from_digit(n, 10)).flatten()
 }
 
-/// The superscript form of an exponent's text (`-12`), if every
-/// character has one; a decimal point has none.
+/// U+00B7 MIDDLE DOT: the point of a raised decimal exponent (Unicode
+/// has no superscript full stop).
+pub const RAISED_POINT: char = '\u{b7}';
+
+/// The superscript form of an exponent's text (`-12`, `0.5`), if every
+/// character has one.
 pub fn superscript_text(text: &str) -> Option<String> {
     text.chars()
         .map(|c| match c {
             '-' => Some(SUPERSCRIPT_MINUS),
+            '.' => Some(RAISED_POINT),
             d => d.to_digit(10).map(|d| SUPERSCRIPT_DIGITS[d as usize]),
         })
         .collect()

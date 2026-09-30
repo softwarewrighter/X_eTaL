@@ -151,8 +151,12 @@ fn trailing_comments_keep_their_source_column() {
 }
 
 #[test]
-fn a_comment_that_cannot_keep_its_column_keeps_one_space() {
-    assert_eq!(shown("x^0.5 # c").chars().filter(|c| *c == ' ').count(), 2);
+fn a_comment_keeps_its_column_after_code_drawn_shorter() {
+    // x^0.5 is drawn one column shorter (a raised decimal exponent), so
+    // one space is added to keep the comment where it was typed; a
+    // comment typed touching the code stays touching.
+    assert_eq!(shown("x^0.5 # c"), "x\u{2070}\u{b7}\u{2075}  \u{235d} c");
+    assert_eq!(shown("x#c"), "x\u{235d}c");
 }
 
 #[test]

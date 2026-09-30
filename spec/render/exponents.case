@@ -1,5 +1,6 @@
-# Literal exponents become superscripts; a decimal exponent stays raw in Unicode (D-4, I2).
+# Literal exponents become superscripts, a decimal one too: a raised
+# middle dot is its point, as Unicode has no superscript full stop (D-4, I2).
 == SOURCE
 x^2 x^-1 2^10 x^0.5
 == RENDER
-x² x⁻¹ 2¹⁰ x^0.5
+x² x⁻¹ 2¹⁰ x⁰·⁵

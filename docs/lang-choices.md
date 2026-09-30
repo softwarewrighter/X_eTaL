@@ -202,7 +202,7 @@ stream type later.
 | #  | Decision |
 | -- | -------- |
 | I1 | Source is ASCII only. Decorated Unicode input is not accepted (revisit much later). |
-| I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example superscript `q`, subscript `@`, superscript decimal point). |
+| I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example superscript `q`, subscript `@`). A decimal exponent is raised with a middle dot (U+00B7) as its point, since Unicode has no superscript full stop: `x^0.5` shows as a superscript 0, a dot and a 5 (decided with the user; a raised fraction was set aside, since only some decimals are nice fractions). |
 | I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` as the diamond, `#` as the lamp, `!=` `<=` `>=` `*` `/` `&` `\|` as their mathematical glyphs. Ligatures apply to standalone tokens only, never to punctuation inside a function name (`r_/` keeps its slash). The lambda arguments `_l` and `_r` display as APL's alpha and omega, the names of a dfn's left and right arguments (decided with the user in the tui saga; subscript l and r read poorly in terminal fonts). |
 
 ## 10a. Printed results

@@ -49,7 +49,10 @@ fn axis_subscripts_and_exponents() {
         dec("x^2 x^-1 2^10"),
         "x\u{b2} x\u{207b}\u{b9} 2\u{b9}\u{2070}"
     );
-    assert_eq!(dec("x^0.5"), "x^0.5"); // no superscript decimal point: shown raw
+    // A decimal exponent is raised too: a middle dot is its point.
+    assert_eq!(dec("x^0.5"), "x\u{2070}\u{b7}\u{2075}");
+    assert_eq!(dec("(1 9 25)^0.5"), "(1 9 25)\u{2070}\u{b7}\u{2075}");
+    assert_eq!(dec("x^-2.5"), "x\u{207b}\u{b2}\u{b7}\u{2075}");
 }
 
 #[test]

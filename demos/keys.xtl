@@ -90,6 +90,10 @@ r_ev_2 M                                # typed: r_ev_2 M
 # ^ touching a value, then a number, is an exponent (a superscript).
 x^2                                     # typed: x^2
 
+# A decimal exponent is raised too, its point drawn as a raised dot:
+# the power 0.5 is the square root, of every item.
+(1 9 25)^0.5                            # typed: (1 9 25)^0.5
+
 # A spaced ^ is the power function; use it for a computed power.
 x ^ 3                                   # typed: x ^ 3
 

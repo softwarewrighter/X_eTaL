@@ -1,0 +1,8 @@
+number = 18
+slug = "raised-decimal"
+status = "in-progress"
+description = "Display a decimal exponent raised (user decision): x^0.5 as x with superscrip..."
+role = "production"
+context_files = []
+created_at = "2026-09-30T09:23:18"
+commits = []
