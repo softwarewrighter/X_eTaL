@@ -1,0 +1,1 @@
+xetal-cli main restores SIGPIPE's default disposition (sigpipe crate), so a closed stdout ends the run with exit 141 and no stderr; golden cli-pipe-closed covers eval, eval --echo and p_rint! over 64 KB; architecture.md notes it. wasm32 check and cli-too-deep not runnable in this sandbox.
