@@ -565,7 +565,14 @@ gate runs the ERT tests (`just test-emacs`) and the check, skipped
 where there is no Emacs. `scripts/literate-html.sh` exports the
 documents to HTML under `pages/literate/` (with an index): each xetal
 block is shown drawn, by `xetal render --html`, with its lines as
-typed after it as comments, and the recorded results as they are.
+typed after it as comments, and the recorded results as they are. In
+the `.org` files themselves the drawn form comes first too:
+`scripts/literate-draw.py` (run by `scripts/literate.sh`, whose
+`--check` fails when one is stale) puts `xetal render`'s drawing of
+each xetal block just above it, as an example block marked by an Org
+comment; the ASCII block below it is what runs. The HTML export drops
+these copies, since it draws the blocks itself (decided with the user:
+Unicode text in the `.org`, not LaTeX images).
 
 ### 8.2 LaTeX (`xetal render --latex`)
 

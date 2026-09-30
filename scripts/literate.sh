@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Run the literate documents (docs/literate/*.org) with org-babel in a
-# batch Emacs, recording each block's result in the file. Blocks find
+# batch Emacs, recording each block's result in the file, after
+# scripts/literate-draw.py puts each block's drawn form above it (--check
+# fails when either is out of date). Blocks find
 # the demos' own libraries (demos/Hello.xtl) through XETAL_PATH. Commit what
 # changes; scripts/check-literate.sh fails until then.
 #   scripts/literate.sh [--check]   # --check: run on copies and compare
@@ -20,6 +22,7 @@ for doc in docs/literate/*.org; do
         target="$(mktemp -t literate).org"
         cp "$doc" "$target"
     fi
+    scripts/literate-draw.py "$target"
     XETAL_PATH="$root/demos" XETAL_BIN="$root/target/release/xetal" "$emacs" --batch -Q -L docs/emacs \
         -l docs/emacs/test/literate-run.el "$target" > /dev/null 2>&1 \
         || { echo "literate: $doc failed to run"; status=1; continue; }

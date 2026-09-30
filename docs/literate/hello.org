@@ -35,6 +35,11 @@ many there are.
 A program imports the library under a prefix of its choosing. ~"h:"~
 makes the library's ~l:h_ello~ this program's ~h:h_ello~:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"h:" u̲se< "Hello"
+ʰh̲ello @
+#+end_example
 #+begin_src xetal
 "h:" u_se< "Hello"
 h:h_ello @
@@ -95,6 +100,12 @@ A library can keep names to itself: a name without ~l:~ is private.
 ~g_reeting @ c_at n~ would join ~@~ and ~n~ first.) A program can use
 the exported names:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"g:" u̲se< "Greetings"
+ᵍh̲ello @
+ᵍg̲reet "world"
+#+end_example
 #+begin_src xetal
 "g:" u_se< "Greetings"
 g:h_ello @

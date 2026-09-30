@@ -19,6 +19,11 @@ library's names are then written with that prefix:
 
 [[file:../../images/import-annotated.svg]]
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"c:" u̲se< "Combinators"
+1 ᶜK̲ 2
+#+end_example
 #+begin_src xetal
 "c:" u_se< "Combinators"
 1 c:K_ 2
@@ -37,6 +42,14 @@ results spell their arguments: ~u:a_b 1 2~ is 12, ~u:a_bc 1 2 3~ is
 nearest first), then comes a value on the left, then one on the
 right; ~(e)_ v~ applies a function that is computed.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘa̲b ← { a b → (10 × a) + b }
+ᵘa̲bc ← { a b c → (100 × a) + (10 × b) + c }
+ᵘi̲nc ← { ⍵ + 1 }
+ᵘd̲ouble ← { ⍵ × 2 }
+1 'ᵘa̲b ᶜC̲ 2
+#+end_example
 #+begin_src xetal
 u:a_b := { a b -> (10 * a) + b }
 u:a_bc := { a b c -> (100 * a) + (10 * b) + c }
@@ -61,6 +74,10 @@ nearest operand) and y is double:
 
 [[file:../../images/compose-annotated.svg]]
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'ᵘd̲ouble 'ᵘi̲nc ᶜB̲ 5
+#+end_example
 #+begin_src xetal
 'u:d_ouble 'u:i_nc c:B_ 5
 #+end_src
@@ -71,6 +88,10 @@ nearest operand) and y is double:
 The Blackbird B1 composes with a function of two arguments: ~B1 x y z
 w~ is ~x (y z w)~, inc applied to a_b 1 2:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 'ᵘa̲b 'ᵘi̲nc ᶜB̲1 2
+#+end_example
 #+begin_src xetal
 1 'u:a_b 'u:i_nc c:B_1 2
 #+end_src
@@ -86,6 +107,11 @@ z)~, here a_b 3 (double 3):
 
 [[file:../../images/starling-annotated.svg]]
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'ᵘa̲b ᶜW̲ 3
+'ᵘd̲ouble 'ᵘa̲b ᶜS̲ 3
+#+end_example
 #+begin_src xetal
 'u:a_b c:W_ 3
 'u:d_ouble 'u:a_b c:S_ 3
@@ -100,6 +126,12 @@ z)~, here a_b 3 (double 3):
 T, the Thrush, applies its second argument to its first, and V, the
 Vireo, holds two values until a function arrives:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+3 ᶜT̲ 'ᵘd̲ouble
+(3 ᶜV̲ 4)_ '+
+(3 ᶜV̲ 4)_ 'ᵘa̲b
+#+end_example
 #+begin_src xetal
 3 c:T_ 'u:d_ouble
 (3 c:V_ 4)_ '+
@@ -119,6 +151,11 @@ function's self parameter is lazy (=~=), used only when needed:
 
 [[file:../../images/sage-annotated.svg]]
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘf̲act ← { ~s̲elf n → n ≤ 1 ? 1◆ n × s̲elf n − 1 }
+'ᵘf̲act ᶜY̲ 10
+#+end_example
 #+begin_src xetal
 u:f_act := { ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }
 'u:f_act c:Y_ 10
@@ -130,6 +167,10 @@ u:f_act := { ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }
 A superscript on a function repeats it, function power, which is how
 Life steps its boards: ~u:l_ife^4~.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘd̲ouble¹⁰ 1
+#+end_example
 #+begin_src xetal
 u:d_ouble^10 1
 #+end_src
@@ -146,6 +187,15 @@ checker is skipped, here outside the session with ~--untyped~: M given
 the identity gives it back, and the textbook Y computes a factorial
 too.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘM̲ ← { x̲ → x̲ 'x̲ }
+ᵘI̲ ← { x → x }
+('ᵘI̲ ᵘM̲)_ 42
+ᵘY̲ ← { f̲ → { x̲ → f̲ x̲ 'x̲ } '{ x̲ → f̲ x̲ 'x̲ } }
+ᵘF̲ ← { ~s̲elf n → n ≤ 1 ? 1◆ n × s̲elf n − 1 }
+(ᵘY̲ 'ᵘF̲)_ 5
+#+end_example
 #+begin_src xetal :session none :untyped yes
 u:M_ := { x_ -> x_ 'x_ }
 u:I_ := { x -> x }

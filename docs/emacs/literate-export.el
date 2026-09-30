@@ -57,6 +57,17 @@
               (literate-export--drawn code)
               (literate-export--typed code)))))
 
+;; The drawn copies scripts/literate-draw.py puts above each block are
+;; for readers of the .org file; the HTML draws the blocks themselves.
+(defun literate-export--drop-drawn (_backend)
+  (goto-char (point-min))
+  (while (re-search-forward
+          "^# drawn by xetal render.*\n#\\+begin_example\n\\(?:.*\n\\)*?#\\+end_example\n"
+          nil t)
+    (replace-match "")))
+
+(add-hook 'org-export-before-processing-functions #'literate-export--drop-drawn)
+
 (org-export-define-derived-backend 'literate-html 'html
   :translate-alist '((src-block . literate-export-src-block)))
 

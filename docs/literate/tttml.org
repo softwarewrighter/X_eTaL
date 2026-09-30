@@ -23,6 +23,11 @@ A board is 9 numbers, the squares row by row: ~1~ for X, ~-1~ for O,
 be read from the board: X's when its marks sum to 0. ~s_how~ draws
 one:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"t:" u̲se< "TTTML"
+ᵗs̲how 1 -1 0 0 1 0 0 0 -1
+#+end_example
 #+begin_src xetal
 "t:" u_se< "TTTML"
 t:s_how 1 -1 0 0 1 0 0 0 -1
@@ -40,6 +45,10 @@ columns, two diagonals. ~t:lines~ holds them as an 8 by 9 matrix of 0s
 and 1s, a row per line, so one inner product sums a board along every
 line at once. X has a line where a sum is 3, O where it is -3:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵗlines '+ '× i̲nner 1 1 1 -1 -1 0 0 0 0
+#+end_example
 #+begin_src xetal
 t:lines '+ '* i_nner 1 1 1 -1 -1 0 0 0 0
 #+end_src
@@ -51,6 +60,12 @@ t:lines '+ '* i_nner 1 1 1 -1 -1 0 0 0 0
 O has, 2 for a full board with no line (a draw), and 0 while the game
 goes on.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵗo̲utcome 1 1 1 -1 -1 0 0 0 0
+ᵗo̲utcome 1 -1 1 1 -1 -1 -1 1 1
+ᵗo̲utcome 1 -1 0 0 0 0 0 0 0
+#+end_example
 #+begin_src xetal
 t:o_utcome 1 1 1 -1 -1 0 0 0 0
 t:o_utcome 1 -1 1 1 -1 -1 -1 1 1
@@ -69,6 +84,10 @@ The square has eight symmetries, and ~t:symmetries~ lists them as eight
 rearrangements of the square numbers, so selecting a board through it
 gives all eight versions at once; ~b_oards~ draws them side by side:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵗb̲oards ᵗsymmetries s̲elect 1 -1 0 0 0 0 0 0 0
+#+end_example
 #+begin_src xetal
 t:b_oards t:symmetries s_elect 1 -1 0 0 0 0 0 0 0
 #+end_src
@@ -84,6 +103,12 @@ eight is the position's code. An X in the top left corner and an X in
 the top right are one position, and have one code; an X on an edge is
 another:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵗc̲ode 1 0 0 0 0 0 0 0 0
+ᵗc̲ode 0 0 1 0 0 0 0 0 0
+ᵗc̲ode 0 1 0 0 0 0 0 0 0
+#+end_example
 #+begin_src xetal
 t:c_ode 1 0 0 0 0 0 0 0 0
 t:c_ode 0 0 1 0 0 0 0 0 0
@@ -103,6 +128,10 @@ player who made the move. Towards 1 is a win, towards 0 a loss, and
 0.5 a draw, or no idea yet. The model is two rows, the codes of the
 positions met and their values; ~t:empty~ has met none:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+s̲hape ᵗempty
+#+end_example
 #+begin_src xetal
 s_hape t:empty
 #+end_src
@@ -114,6 +143,10 @@ s_hape t:empty
 it is found one past the end of the codes, where a 0.5 is added to the
 values for the lookup.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵗempty ᵗv̲alue 1 0 0 0 0 0 0 0 0
+#+end_example
 #+begin_src xetal
 t:empty t:v_alue 1 0 0 0 0 0 0 0 0
 #+end_src
@@ -128,6 +161,11 @@ t:empty t:v_alue 1 0 0 0 0 0 0 0 0
 and takes the best. With nothing learned every board is worth 0.5, so
 it takes the first empty square:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(9 r̲eshape 0) ᵗa̲fter 5
+ᵗempty ᵗc̲hoose 9 r̲eshape 0
+#+end_example
 #+begin_src xetal
 (9 r_eshape 0) t:a_fter 5
 t:empty t:c_hoose 9 r_eshape 0
@@ -144,6 +182,10 @@ ten a random one, so that it keeps trying moves it now thinks are bad.
 The game is its boards, one per row, from the empty one on. Knowing
 nothing, it plays like this:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵗb̲oards ᵗg̲ame! ᵗempty
+#+end_example
 #+begin_src xetal
 t:b_oards t:g_ame! t:empty
 #+end_src
@@ -166,6 +208,10 @@ end reaches back, game by game, to the moves that led to it. Boards
 not met before join the model at 0.5 first. After one game the model
 knows that game's positions:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵗempty ᵗl̲earn ᵗg̲ame! ᵗempty
+#+end_example
 #+begin_src xetal
 t:empty t:l_earn t:g_ame! t:empty
 #+end_src
@@ -189,6 +235,18 @@ always the same, so without one every game would be the same game):
 games X won, O won and drawn. Last, the game it plays against itself
 from the empty board:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+m ← 2000 ᵗt̲rain! ᵗempty
+t̲ally 1 s̲elect m
+m ᵗv̲alue 1 0 0 0 0 0 0 0 0
+m ᵗv̲alue 0 1 0 0 0 0 0 0 0
+m ᵗv̲alue 0 0 0 0 1 0 0 0 0
+m ᵗc̲hoose 9 r̲eshape 0
+50 ᵗt̲rial! m
+50 ᵗs̲elfTrial! m
+ᵗb̲oards ᵗb̲est m
+#+end_example
 #+begin_src xetal
 m := 2000 t:t_rain! t:empty
 t_ally 1 s_elect m

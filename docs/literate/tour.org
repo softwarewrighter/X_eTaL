@@ -28,6 +28,10 @@ operations are named, and equality is exact, with a tolerant e_q~
 beside it. There is no precedence: everything reads right to left, so
 the left operand of & needs its parentheses.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+42                       ⍝ an Int
+#+end_example
 #+begin_src xetal
 42                       # an Int
 #+end_src
@@ -35,6 +39,10 @@ the left operand of & needs its parentheses.
 #+RESULTS:
 : 42
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+-3 2.5                   ⍝ a negative literal; a strand has one type (Float)
+#+end_example
 #+begin_src xetal
 -3 2.5                   # a negative literal; a strand has one type (Float)
 #+end_src
@@ -42,6 +50,11 @@ the left operand of & needs its parentheses.
 #+RESULTS:
 : -3.0 2.5
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+x ← 3                   ⍝ `:=` binds; `=` is always equality
+x²                      ⍝ a literal exponent touches its value: superscript
+#+end_example
 #+begin_src xetal
 x := 3                   # `:=` binds; `=` is always equality
 x^2                      # a literal exponent touches its value: superscript
@@ -50,6 +63,10 @@ x^2                      # a literal exponent touches its value: superscript
 #+RESULTS:
 : 9
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+4⁻¹                     ⍝ a negative exponent gives a Float (a literal base)
+#+end_example
 #+begin_src xetal
 4^-1                     # a negative exponent gives a Float (a literal base)
 #+end_src
@@ -57,6 +74,10 @@ x^2                      # a literal exponent touches its value: superscript
 #+RESULTS:
 : 0.25
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+2 ^ 10                   ⍝ spaced `^` is the power function (computed exponents)
+#+end_example
 #+begin_src xetal
 2 ^ 10                   # spaced `^` is the power function (computed exponents)
 #+end_src
@@ -64,6 +85,10 @@ x^2                      # a literal exponent touches its value: superscript
 #+RESULTS:
 : 1024
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+7 ÷ 2                    ⍝ `/` always gives a Float
+#+end_example
 #+begin_src xetal
 7 / 2                    # `/` always gives a Float
 #+end_src
@@ -71,6 +96,10 @@ x^2                      # a literal exponent touches its value: superscript
 #+RESULTS:
 : 3.5
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+7 d̲iv 2◆ 7 m̲od 3       ⍝ integer quotient and remainder; `;` separates statements
+#+end_example
 #+begin_src xetal
 7 d_iv 2; 7 m_od 3       # integer quotient and remainder; `;` separates statements
 #+end_src
@@ -79,6 +108,10 @@ x^2                      # a literal exponent touches its value: superscript
 : 3
 : 1
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(0.1 + 0.2) = 0.3        ⍝ `=` is exact: 0 (false)
+#+end_example
 #+begin_src xetal
 (0.1 + 0.2) = 0.3        # `=` is exact: 0 (false)
 #+end_src
@@ -86,6 +119,10 @@ x^2                      # a literal exponent touches its value: superscript
 #+RESULTS:
 : 0
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(0.1 + 0.2) e̲q~ 0.3     ⍝ tolerant equality: 1
+#+end_example
 #+begin_src xetal
 (0.1 + 0.2) e_q~ 0.3     # tolerant equality: 1
 #+end_src
@@ -93,6 +130,10 @@ x^2                      # a literal exponent touches its value: superscript
 #+RESULTS:
 : 1
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(3 < 4) ∧ 2 ≠ 2         ⍝ Bool (`& | !=`); no precedence: parenthesize the left
+#+end_example
 #+begin_src xetal
 (3 < 4) & 2 != 2         # Bool (`& | !=`); no precedence: parenthesize the left
 #+end_src
@@ -100,6 +141,10 @@ x^2                      # a literal exponent touches its value: superscript
 #+RESULTS:
 : 0
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+f̲loat 3                 ⍝ Int to Float
+#+end_example
 #+begin_src xetal
 f_loat 3                 # Int to Float
 #+end_src
@@ -113,6 +158,12 @@ Values are immutable: := makes a new binding. The escape hatch is
 visible in the name: only a variable ending in ! may be updated in
 place.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+count! ← 0              ⍝ only names ending in ! (like `count!`) may be reassigned
+count! ← count! + 1
+count!
+#+end_example
 #+begin_src xetal
 count! := 0              # only names ending in ! (like `count!`) may be reassigned
 count! := count! + 1
@@ -127,6 +178,10 @@ count!
 A string is a vector of characters, so every array function applies to
 it, and comparisons work item by item.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"hello"
+#+end_example
 #+begin_src xetal
 "hello"
 #+end_src
@@ -134,6 +189,10 @@ it, and comparisons work item by item.
 #+RESULTS:
 : hello
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"abc" = "abd"            ⍝ item by item
+#+end_example
 #+begin_src xetal
 "abc" = "abd"            # item by item
 #+end_src
@@ -141,6 +200,10 @@ it, and comparisons work item by item.
 #+RESULTS:
 : 1 1 0
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+3 t̲ake "hello"
+#+end_example
 #+begin_src xetal
 3 t_ake "hello"
 #+end_src
@@ -155,6 +218,11 @@ a scalar function such as * applies to a matrix unchanged and a scalar
 extends to every item. The count, shape or indices of a structural
 function go on its left.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+m ← 2 3 r̲eshape r̲ange 6       ⍝ 1-origin: `r_ange 6` is 1 2 3 4 5 6
+m
+#+end_example
 #+begin_src xetal
 m := 2 3 r_eshape r_ange 6       # 1-origin: `r_ange 6` is 1 2 3 4 5 6
 m
@@ -164,6 +232,10 @@ m
 : 1 2 3
 : 4 5 6
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+s̲hape m◆ t̲ally m
+#+end_example
 #+begin_src xetal
 s_hape m; t_ally m
 #+end_src
@@ -172,6 +244,10 @@ s_hape m; t_ally m
 : 2 3
 : 2
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+m × 10                   ⍝ a scalar extends to every item
+#+end_example
 #+begin_src xetal
 m * 10                   # a scalar extends to every item
 #+end_src
@@ -180,6 +256,10 @@ m * 10                   # a scalar extends to every item
 : 10 20 30
 : 40 50 60
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+2 s̲elect m              ⍝ the 2nd major cell (row)
+#+end_example
 #+begin_src xetal
 2 s_elect m              # the 2nd major cell (row)
 #+end_src
@@ -187,6 +267,10 @@ m * 10                   # a scalar extends to every item
 #+RESULTS:
 : 4 5 6
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+-1 t̲ake m◆ 1 d̲rop m    ⍝ take and drop count from the end when negative
+#+end_example
 #+begin_src xetal
 -1 t_ake m; 1 d_rop m    # take and drop count from the end when negative
 #+end_src
@@ -195,6 +279,10 @@ m * 10                   # a scalar extends to every item
 : 4 5 6
 : 4 5 6
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(f̲irst m) c̲at 7 8 9    ⍝ join along the leading axis
+#+end_example
 #+begin_src xetal
 (f_irst m) c_at 7 8 9    # join along the leading axis
 #+end_src
@@ -202,6 +290,10 @@ m * 10                   # a scalar extends to every item
 #+RESULTS:
 : 1 2 3 7 8 9
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+r̲avel m
+#+end_example
 #+begin_src xetal
 r_avel m
 #+end_src
@@ -209,6 +301,10 @@ r_avel m
 #+RESULTS:
 : 1 2 3 4 5 6
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+10 ^ r̲ev o̲ffsets 3     ⍝ `o_ffsets` counts from 0: place values 100 10 1
+#+end_example
 #+begin_src xetal
 10 ^ r_ev o_ffsets 3     # `o_ffsets` counts from 0: place values 100 10 1
 #+end_src
@@ -224,6 +320,11 @@ are a lambda's left and right arguments (drawn as alpha and omega),
 named parameters come before ->, guards return early, a niladic
 function takes @, and a ~ parameter is only evaluated when used.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘs̲quare ← { ⍵ × ⍵ }         ⍝ `_r` is the right argument
+ᵘs̲quare 1 2 3                  ⍝ scalar functions work on arrays unchanged
+#+end_example
 #+begin_src xetal
 u:s_quare := { _r * _r }         # `_r` is the right argument
 u:s_quare 1 2 3                  # scalar functions work on arrays unchanged
@@ -232,6 +333,11 @@ u:s_quare 1 2 3                  # scalar functions work on arrays unchanged
 #+RESULTS:
 : 1 4 9
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘs̲ub ← { ⍺ − ⍵ }            ⍝ `_l` is the left argument
+10 ᵘs̲ub 3                      ⍝ dyadic use is currying: `(u:s_ub 10) 3`
+#+end_example
 #+begin_src xetal
 u:s_ub := { _l - _r }            # `_l` is the left argument
 10 u:s_ub 3                      # dyadic use is currying: `(u:s_ub 10) 3`
@@ -240,6 +346,11 @@ u:s_ub := { _l - _r }            # `_l` is the left argument
 #+RESULTS:
 : 7
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘh̲yp ← { a b → ((a × a) + b × b) ^ 0.5 }   ⍝ named parameters before `->`
+3 ᵘh̲yp 4
+#+end_example
 #+begin_src xetal
 u:h_yp := { a b -> ((a * a) + b * b) ^ 0.5 }   # named parameters before `->`
 3 u:h_yp 4
@@ -248,6 +359,14 @@ u:h_yp := { a b -> ((a * a) + b * b) ^ 0.5 }   # named parameters before `->`
 #+RESULTS:
 : 5.0
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘs̲ign ← { x → x < 0 ? -1◆ x = 0 ? 0◆ 1 }  ⍝ guards: condition `?` result
+ᵘf̲act ← { n →
+  n ≤ 1 ? 1
+  n × ᵘf̲act n − 1
+}
+#+end_example
 #+begin_src xetal
 u:s_ign := { x -> x < 0 ? -1; x = 0 ? 0; 1 }  # guards: condition `?` result
 u:f_act := { n ->
@@ -258,6 +377,10 @@ u:f_act := { n ->
 
 #+RESULTS:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘf̲act 10                       ⍝ recursion
+#+end_example
 #+begin_src xetal
 u:f_act 10                       # recursion
 #+end_src
@@ -265,6 +388,11 @@ u:f_act 10                       # recursion
 #+RESULTS:
 : 3628800
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘt̲wo ← { @ → 2 }             ⍝ a niladic function takes `@`
+ᵘt̲wo @
+#+end_example
 #+begin_src xetal
 u:t_wo := { @ -> 2 }             # a niladic function takes `@`
 u:t_wo @
@@ -273,6 +401,11 @@ u:t_wo @
 #+RESULTS:
 : 2
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘk̲eep ← { a ~b → a }         ⍝ `~b` is a lazy parameter: evaluated
+7 ᵘk̲eep 1 ÷ 0                  ⍝ only if used, so no division by zero
+#+end_example
 #+begin_src xetal
 u:k_eep := { a ~b -> a }         # `~b` is a lazy parameter: evaluated
 7 u:k_eep 1 / 0                  # only if used, so no division by zero
@@ -281,6 +414,10 @@ u:k_eep := { a ~b -> a }         # `~b` is a lazy parameter: evaluated
 #+RESULTS:
 : 7
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(ᵘs̲ub 100)_ 1                  ⍝ `(expr)_` applies a function value
+#+end_example
 #+begin_src xetal
 (u:s_ub 100)_ 1                  # `(expr)_` applies a function value
 #+end_src
@@ -288,6 +425,11 @@ u:k_eep := { a ~b -> a }         # `~b` is a lazy parameter: evaluated
 #+RESULTS:
 : 99
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘt̲wice ← { f̲ x → f̲ f̲ x }  ⍝ apply a function parameter two times
+'{ ⍵ + 10 } ᵘt̲wice 3          ⍝ 3 + 10 + 10
+#+end_example
 #+begin_src xetal
 u:t_wice := { f_ x -> f_ f_ x }  # apply a function parameter two times
 '{ _r + 10 } u:t_wice 3          # 3 + 10 + 10
@@ -296,6 +438,10 @@ u:t_wice := { f_ x -> f_ f_ x }  # apply a function parameter two times
 #+RESULTS:
 : 23
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'ᵘs̲quare ᵘt̲wice 3            ⍝ square (square 3) = 9 squared
+#+end_example
 #+begin_src xetal
 'u:s_quare u:t_wice 3            # square (square 3) = 9 squared
 #+end_src
@@ -311,6 +457,10 @@ r_/ is plus-reduce. Reduce folds from the right along the leading
 axis; scan gives the prefix reductions; each, table and inner are
 ordinary curried functions.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'+ r̲/ 1 2 3 4           ⍝ a quoted function is the operand of `r_/` (reduce)
+#+end_example
 #+begin_src xetal
 '+ r_/ 1 2 3 4           # a quoted function is the operand of `r_/` (reduce)
 #+end_src
@@ -318,6 +468,10 @@ ordinary curried functions.
 #+RESULTS:
 : 10
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'− r̲/ 1 2 3             ⍝ reduce folds from the right: 1 - (2 - 3)
+#+end_example
 #+begin_src xetal
 '- r_/ 1 2 3             # reduce folds from the right: 1 - (2 - 3)
 #+end_src
@@ -325,6 +479,10 @@ ordinary curried functions.
 #+RESULTS:
 : 2
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'+ s̲\ 1 2 3 4           ⍝ scan: the prefix reductions
+#+end_example
 #+begin_src xetal
 '+ s_\ 1 2 3 4           # scan: the prefix reductions
 #+end_src
@@ -332,6 +490,10 @@ ordinary curried functions.
 #+RESULTS:
 : 1 3 6 10
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'+ r̲/ m                 ⍝ the leading axis: column sums
+#+end_example
 #+begin_src xetal
 '+ r_/ m                 # the leading axis: column sums
 #+end_src
@@ -339,6 +501,10 @@ ordinary curried functions.
 #+RESULTS:
 : 5 7 9
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'ᵘs̲ign e̲ach -5 0 5    ⍝ each: apply to every item
+#+end_example
 #+begin_src xetal
 'u:s_ign e_ach -5 0 5    # each: apply to every item
 #+end_src
@@ -346,6 +512,10 @@ ordinary curried functions.
 #+RESULTS:
 : -1 0 1
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 2 3 '= e̲ach 1 5 3     ⍝ dyadic each is currying
+#+end_example
 #+begin_src xetal
 1 2 3 '= e_ach 1 5 3     # dyadic each is currying
 #+end_src
@@ -353,6 +523,10 @@ ordinary curried functions.
 #+RESULTS:
 : 1 0 1
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 2 3 '× t̲able 1 2 3    ⍝ table: the outer product
+#+end_example
 #+begin_src xetal
 1 2 3 '* t_able 1 2 3    # table: the outer product
 #+end_src
@@ -362,6 +536,10 @@ ordinary curried functions.
 : 2 4 6
 : 3 6 9
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+m '+ '× i̲nner 1 1 1     ⍝ inner product: the nearest operand pairs
+#+end_example
 #+begin_src xetal
 m '+ '* i_nner 1 1 1     # inner product: the nearest operand pairs
 #+end_src
@@ -369,6 +547,10 @@ m '+ '* i_nner 1 1 1     # inner product: the nearest operand pairs
 #+RESULTS:
 : 6 15
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'n̲eg 'a̲bs c̲ompose -4  ⍝ compose: the nearest operand applies first
+#+end_example
 #+begin_src xetal
 'n_eg 'a_bs c_ompose -4  # compose: the nearest operand applies first
 #+end_src
@@ -376,6 +558,10 @@ m '+ '* i_nner 1 1 1     # inner product: the nearest operand pairs
 #+RESULTS:
 : -4
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+2 '÷ s̲wap 1             ⍝ swap the arguments: 1 / 2
+#+end_example
 #+begin_src xetal
 2 '/ s_wap 1             # swap the arguments: 1 / 2
 #+end_src
@@ -383,6 +569,10 @@ m '+ '* i_nner 1 1 1     # inner product: the nearest operand pairs
 #+RESULTS:
 : 0.5
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'{ ⍺ + ⍵ } r̲/ 1 2 3   ⍝ a quoted lambda is an operand too
+#+end_example
 #+begin_src xetal
 '{ _l + _r } r_/ 1 2 3   # a quoted lambda is an operand too
 #+end_src
@@ -396,6 +586,11 @@ A train in brackets composes functions without naming the argument: a
 fork applies the outer two and combines them with the middle one; two
 functions are an atop. The tacks pick an argument.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘa̲vg ← ['+ r̲/ ÷ t̲ally]      ⍝ fork: `('+ r_/) / t_ally` of the argument
+ᵘa̲vg 1 2 3 4
+#+end_example
 #+begin_src xetal
 u:a_vg := ['+ r_/ / t_ally]      # fork: `('+ r_/) / t_ally` of the argument
 u:a_vg 1 2 3 4
@@ -404,6 +599,10 @@ u:a_vg 1 2 3 4
 #+RESULTS:
 : 2.5
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+[n̲eg a̲bs] -5                   ⍝ atop: `n_eg a_bs x`
+#+end_example
 #+begin_src xetal
 [n_eg a_bs] -5                   # atop: `n_eg a_bs x`
 #+end_src
@@ -411,6 +610,10 @@ u:a_vg 1 2 3 4
 #+RESULTS:
 : -5
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+3 [l̲eft + r̲ight] 4             ⍝ the tacks pick an argument
+#+end_example
 #+begin_src xetal
 3 [l_eft + r_ight] 4             # the tacks pick an argument
 #+end_src
@@ -418,6 +621,10 @@ u:a_vg 1 2 3 4
 #+RESULTS:
 : 7
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+[i̲d − n̲eg] 5                   ⍝ hook: `x - n_eg x`
+#+end_example
 #+begin_src xetal
 [i_d - n_eg] 5                   # hook: `x - n_eg x`
 #+end_src
@@ -432,6 +639,10 @@ another, and any function takes one by the same move-to-front rule. A
 list of amounts gives every rotation, which is exactly what Life's
 neighbour count needs.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 o̲- 1 2 3 4            ⍝ rotate toward the front
+#+end_example
 #+begin_src xetal
 1 o_- 1 2 3 4            # rotate toward the front
 #+end_src
@@ -439,6 +650,10 @@ neighbour count needs.
 #+RESULTS:
 : 2 3 4 1
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+r̲ev "stressed"
+#+end_example
 #+begin_src xetal
 r_ev "stressed"
 #+end_src
@@ -446,18 +661,31 @@ r_ev "stressed"
 #+RESULTS:
 : desserts
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+⍝ A function works on the leading axis (axis 1) unless a subscript names
+#+end_example
 #+begin_src xetal
 # A function works on the leading axis (axis 1) unless a subscript names
 #+end_src
 
 #+RESULTS:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+⍝ another: `r_ev_2 m` moves axis 2 to the front, applies `r_ev`, and
+#+end_example
 #+begin_src xetal
 # another: `r_ev_2 m` moves axis 2 to the front, applies `r_ev`, and
 #+end_src
 
 #+RESULTS:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+⍝ moves it back.
+'+ r̲/ m                 ⍝ implicit: axis 1, so column sums
+#+end_example
 #+begin_src xetal
 # moves it back.
 '+ r_/ m                 # implicit: axis 1, so column sums
@@ -466,6 +694,10 @@ r_ev "stressed"
 #+RESULTS:
 : 5 7 9
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'+ r̲/₁ m               ⍝ the same, explicit
+#+end_example
 #+begin_src xetal
 '+ r_/_1 m               # the same, explicit
 #+end_src
@@ -473,6 +705,10 @@ r_ev "stressed"
 #+RESULTS:
 : 5 7 9
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'+ r̲/₂ m               ⍝ axis 2: row sums
+#+end_example
 #+begin_src xetal
 '+ r_/_2 m               # axis 2: row sums
 #+end_src
@@ -480,6 +716,10 @@ r_ev "stressed"
 #+RESULTS:
 : 6 15
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'+ s̲\₂ m               ⍝ running sums along each row
+#+end_example
 #+begin_src xetal
 '+ s_\_2 m               # running sums along each row
 #+end_src
@@ -488,6 +728,10 @@ r_ev "stressed"
 : 1 3  6
 : 4 9 15
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 o̲- m                  ⍝ rotate the rows (axis 1)
+#+end_example
 #+begin_src xetal
 1 o_- m                  # rotate the rows (axis 1)
 #+end_src
@@ -496,6 +740,10 @@ r_ev "stressed"
 : 4 5 6
 : 1 2 3
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 o̲-₁ m                ⍝ the same, explicit
+#+end_example
 #+begin_src xetal
 1 o_-_1 m                # the same, explicit
 #+end_src
@@ -504,6 +752,10 @@ r_ev "stressed"
 : 4 5 6
 : 1 2 3
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 o̲-₂ m                ⍝ rotate within each row (axis 2)
+#+end_example
 #+begin_src xetal
 1 o_-_2 m                # rotate within each row (axis 2)
 #+end_src
@@ -512,6 +764,10 @@ r_ev "stressed"
 : 2 3 1
 : 5 6 4
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+r̲ev₂ m                 ⍝ reverse each row
+#+end_example
 #+begin_src xetal
 r_ev_2 m                 # reverse each row
 #+end_src
@@ -520,6 +776,10 @@ r_ev_2 m                 # reverse each row
 : 3 2 1
 : 6 5 4
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'+ r̲/₁₂ m              ⍝ two axes in turn: the total
+#+end_example
 #+begin_src xetal
 '+ r_/_12 m              # two axes in turn: the total
 #+end_src
@@ -527,6 +787,10 @@ r_ev_2 m                 # reverse each row
 #+RESULTS:
 : 21
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+-1 0 1 o̲- 1 2 3         ⍝ a list of amounts gives every rotation
+#+end_example
 #+begin_src xetal
 -1 0 1 o_- 1 2 3         # a list of amounts gives every rotation
 #+end_src
@@ -536,6 +800,10 @@ r_ev_2 m                 # reverse each row
 : 1 2 3
 : 2 3 1
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+s̲hape -1 0 1 o̲-₁₂ m   ⍝ every combination along both axes: 3 3 2 3
+#+end_example
 #+begin_src xetal
 s_hape -1 0 1 o_-_12 m   # every combination along both axes: 3 3 2 3
 #+end_src
@@ -549,6 +817,11 @@ The search and order built-ins treat major cells as items: sort is
 stable, grade gives the indices that sort, index-of answers tally + 1
 for what is absent.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+v ← 3 1 4 1 5 9 2 6
+s̲ort v◆ g̲rade v        ⍝ sort, and the indices that sort
+#+end_example
 #+begin_src xetal
 v := 3 1 4 1 5 9 2 6
 s_ort v; g_rade v        # sort, and the indices that sort
@@ -558,6 +831,10 @@ s_ort v; g_rade v        # sort, and the indices that sort
 : 1 1 2 3 4 5 6 9
 : 2 4 7 1 3 5 8 6
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+u̲nique v
+#+end_example
 #+begin_src xetal
 u_nique v
 #+end_src
@@ -565,6 +842,10 @@ u_nique v
 #+RESULTS:
 : 3 1 4 5 9 2 6
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+v i̲ndexOf 5 7           ⍝ 7 is absent: tally + 1
+#+end_example
 #+begin_src xetal
 v i_ndexOf 5 7           # 7 is absent: tally + 1
 #+end_src
@@ -572,6 +853,10 @@ v i_ndexOf 5 7           # 7 is absent: tally + 1
 #+RESULTS:
 : 5 9
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+2 7 m̲ember? v
+#+end_example
 #+begin_src xetal
 2 7 m_ember? v
 #+end_src
@@ -579,6 +864,10 @@ v i_ndexOf 5 7           # 7 is absent: tally + 1
 #+RESULTS:
 : 1 0
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+w̲here v > 4             ⍝ indices of the 1s
+#+end_example
 #+begin_src xetal
 w_here v > 4             # indices of the 1s
 #+end_src
@@ -591,6 +880,10 @@ w_here v > 4             # indices of the 1s
 Effects end in !. The rolls are random; this document fixes them with
 :seed so its results stay the same each time it is run.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+r̲oll! 6 6 6             ⍝ three dice: random 1..6 each, so every run differs
+#+end_example
 #+begin_src xetal
 r_oll! 6 6 6             # three dice: random 1..6 each, so every run differs
 #+end_src
@@ -598,6 +891,10 @@ r_oll! 6 6 6             # three dice: random 1..6 each, so every run differs
 #+RESULTS:
 : 6 2 1
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+r̲oll! 6 6 6             ⍝ (and each line rolls again)
+#+end_example
 #+begin_src xetal
 r_oll! 6 6 6             # (and each line rolls again)
 #+end_src
@@ -605,6 +902,10 @@ r_oll! 6 6 6             # (and each line rolls again)
 #+RESULTS:
 : 6 4 3
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+r̲oll! 6 6 6
+#+end_example
 #+begin_src xetal
 r_oll! 6 6 6
 #+end_src
@@ -612,6 +913,10 @@ r_oll! 6 6 6
 #+RESULTS:
 : 4 4 1
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+p̲rint! "printed, then returned"  ⍝ `p_rint!` prints and returns its argument
+#+end_example
 #+begin_src xetal
 p_rint! "printed, then returned"  # `p_rint!` prints and returns its argument
 #+end_src
@@ -627,6 +932,11 @@ names start with l:, the rest are private. A program imports it with
 ~u_se<~ under an alias of its choosing, and uses the exports through
 that alias. Stats is a standard library, built into xetal.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"s:" u̲se< "Stats"       ⍝ import a library under an alias of your choosing
+ˢm̲ean 2 4 4 4 5 5 7 9  ⍝ its exported names, used through the alias
+#+end_example
 #+begin_src xetal
 "s:" u_se< "Stats"       # import a library under an alias of your choosing
 s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias
@@ -635,6 +945,10 @@ s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias
 #+RESULTS:
 : 5.0
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ˢs̲d 2 4 4 4 5 5 7 9    ⍝ the standard deviation
+#+end_example
 #+begin_src xetal
 s:s_d 2 4 4 4 5 5 7 9    # the standard deviation
 #+end_src
@@ -642,6 +956,10 @@ s:s_d 2 4 4 4 5 5 7 9    # the standard deviation
 #+RESULTS:
 : 2.0
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ˢr̲ange 3 1 4 1 5       ⍝ largest minus smallest
+#+end_example
 #+begin_src xetal
 s:r_ange 3 1 4 1 5       # largest minus smallest
 #+end_src
@@ -658,6 +976,11 @@ decodes a few). A quoted function before a bird is its first
 argument, the nearest first; a value on the left comes next, then the
 one on the right.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"c:" u̲se< "Combinators" ⍝ Smullyan's birds, a standard library
+1 ᶜK̲ 2                 ⍝ K keeps its first argument
+#+end_example
 #+begin_src xetal
 "c:" u_se< "Combinators" # Smullyan's birds, a standard library
 1 c:K_ 2                 # K keeps its first argument
@@ -666,6 +989,10 @@ one on the right.
 #+RESULTS:
 : 1
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+10 '− ᶜC̲ 3             ⍝ C swaps the arguments: 3 - 10
+#+end_example
 #+begin_src xetal
 10 '- c:C_ 3             # C swaps the arguments: 3 - 10
 #+end_src
@@ -673,6 +1000,10 @@ one on the right.
 #+RESULTS:
 : -7
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'n̲eg 'a̲bs ᶜB̲ -5      ⍝ B composes, the nearest operand last: a_bs n_eg -5
+#+end_example
 #+begin_src xetal
 'n_eg 'a_bs c:B_ -5      # B composes, the nearest operand last: a_bs n_eg -5
 #+end_src
@@ -680,6 +1011,10 @@ one on the right.
 #+RESULTS:
 : 5
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'× ᶜW̲ 4                ⍝ W uses its argument twice: 4 * 4
+#+end_example
 #+begin_src xetal
 '* c:W_ 4                # W uses its argument twice: 4 * 4
 #+end_src
@@ -690,6 +1025,11 @@ one on the right.
 Y makes recursion from a function that is handed itself; its self
 parameter is lazy (~), so Y unfolds one step at a time:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘt̲riangle ← { ~s̲elf n → n ≤ 1 ? 1◆ n + s̲elf n − 1 }
+'ᵘt̲riangle ᶜY̲ 5      ⍝ Y: recursion, from a function handed itself: 1+2+3+4+5
+#+end_example
 #+begin_src xetal
 u:t_riangle := { ~s_elf n -> n <= 1 ? 1; n + s_elf n - 1 }
 'u:t_riangle c:Y_ 5      # Y: recursion, from a function handed itself: 1+2+3+4+5
@@ -701,6 +1041,10 @@ u:t_riangle := { ~s_elf n -> n <= 1 ? 1; n + s_elf n - 1 }
 A superscript on a function name repeats the function (function
 power); ~n 'f_ p_ower x~ does the same with a computed count:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+n̲eg³ 5                 ⍝ a superscript repeats a function: n_eg three times
+#+end_example
 #+begin_src xetal
 n_eg^3 5                 # a superscript repeats a function: n_eg three times
 #+end_src
@@ -715,6 +1059,11 @@ every offset in -1 0 1 along both axes, sum the nine boards to count
 each cell and its neighbours, and apply the rule. This is the
 language's acceptance test.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘl̲ife ← { ('+ r̲/₁₂ -1 0 1 o̲-₁₂ ⍵) { (⍺ = 3) + ⍵ × ⍺ = 4 } ⍵ }
+ᵘl̲ife 5 5 r̲eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
+#+end_example
 #+begin_src xetal
 u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 u:l_ife 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0

@@ -23,6 +23,11 @@ A small statistics library. Its whole source:
 ~s_quare~ and ~d_eviations~ have no ~l:~, so a program cannot see
 them; the rest it imports:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"s:" u̲se< "Stats"
+ˢm̲ean 1 2 3 4
+#+end_example
 #+begin_src xetal
 "s:" u_se< "Stats"
 s:m_ean 1 2 3 4
@@ -34,6 +39,12 @@ s:m_ean 1 2 3 4
 The mean is a Float for Int numbers too. The variance, the standard
 deviation and the range:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ˢv̲ariance 2 4 4 4 5 5 7 9
+ˢs̲d 2 4 4 4 5 5 7 9
+ˢr̲ange 3 9 1 7
+#+end_example
 #+begin_src xetal
 s:v_ariance 2 4 4 4 5 5 7 9
 s:s_d 2 4 4 4 5 5 7 9
@@ -53,6 +64,13 @@ arguments, what to give when it is empty and what to do with its
 value. ~j_ust x~ holds a value, ~n_othing~ holds none, and ~d m:o_r m~
 is the value, or ~d~ when there is none:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"m:" u̲se< "Maybe"
+ᵘd̲iv ← { a b → b = 0 ? 'ᵐn̲othing◆ ᵐj̲ust a ÷ b }
+-1 ᵐo̲r 100 ᵘd̲iv 4
+-1 ᵐo̲r 100 ᵘd̲iv 0
+#+end_example
 #+begin_src xetal
 "m:" u_se< "Maybe"
 u:d_iv := { a b -> b = 0 ? 'm:n_othing; m:j_ust a / b }
@@ -67,6 +85,12 @@ u:d_iv := { a b -> b = 0 ? 'm:n_othing; m:j_ust a / b }
 ~b_ind~ chains a step that can itself fail; the first failure gives
 the default, and the steps after it never run:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘh̲alf ← { ᵐj̲ust ⍵ ÷ 2 }
+-1 ᵐo̲r 'ᵘh̲alf ᵐb̲ind 100 ᵘd̲iv 4
+-1 ᵐo̲r 'ᵘh̲alf ᵐb̲ind 100 ᵘd̲iv 0
+#+end_example
 #+begin_src xetal
 u:h_alf := { m:j_ust _r / 2 }
 -1 m:o_r 'u:h_alf m:b_ind 100 u:d_iv 4
@@ -84,6 +108,13 @@ type-checks, under its letter. K keeps its first argument, C swaps
 the arguments of a function, and B composes (here negate after
 reverse):
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"c:" u̲se< "Combinators"
+1 ᶜK̲ 2
+10 '− ᶜC̲ 3
+'n̲eg 'r̲ev ᶜB̲ 1 2 3
+#+end_example
 #+begin_src xetal
 "c:" u_se< "Combinators"
 1 c:K_ 2

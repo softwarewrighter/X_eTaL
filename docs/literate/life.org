@@ -18,6 +18,11 @@ through ~ob-xetal~, and its result recorded under it.
 A blinker: three live cells in a row, in the middle of a 5 by 5 board.
 ~r_eshape~ lays its right argument out in the shape on its left.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+blinker ← 5 5 r̲eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
+blinker
+#+end_example
 #+begin_src xetal
 blinker := 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
 blinker
@@ -37,6 +42,10 @@ axis 2, wrapping round the edge. With the offsets ~-1 0 1~ on both
 axes (~_12~) it gives nine boards, the board shifted each way: its
 shape is a 3 by 3 grid of 5 by 5 boards.
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+s̲hape -1 0 1 o̲-₁₂ blinker
+#+end_example
 #+begin_src xetal
 s_hape -1 0 1 o_-_12 blinker
 #+end_src
@@ -49,6 +58,10 @@ s_hape -1 0 1 o_-_12 blinker
 Summing the nine boards over their first two axes, ~'+ r_/_12~, gives
 each cell's count of itself and its neighbours:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'+ r̲/₁₂ -1 0 1 o̲-₁₂ blinker
+#+end_example
 #+begin_src xetal
 '+ r_/_12 -1 0 1 o_-_12 blinker
 #+end_src
@@ -68,6 +81,11 @@ neighbours, or a live cell with two), or when it is alive and ~S~ is 4
 inner function applied to ~S~ on its left and the board on its right,
 that is the whole of Life:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘl̲ife ← { ('+ r̲/₁₂ -1 0 1 o̲-₁₂ ⍵) { (⍺ = 3) + ⍵ × ⍺ = 4 } ⍵ }
+ᵘl̲ife blinker
+#+end_example
 #+begin_src xetal
 u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 u:l_ife blinker
@@ -84,6 +102,10 @@ The blinker turned upright. A superscript on a function repeats it, so
 ~u:l_ife^2~ is two steps, which brings the blinker back (~m_atch~
 gives 1 when two arrays are the same):
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(ᵘl̲ife² blinker) m̲atch blinker
+#+end_example
 #+begin_src xetal
 (u:l_ife^2 blinker) m_atch blinker
 #+end_src
@@ -95,6 +117,11 @@ gives 1 when two arrays are the same):
 
 A glider moves one cell diagonally every four generations:
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+glider ← 6 6 r̲eshape 0 1 0 0 0 0 0 0 1 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ᵘl̲ife⁴ glider
+#+end_example
 #+begin_src xetal
 glider := 6 6 r_eshape 0 1 0 0 0 0 0 0 1 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 u:l_ife^4 glider
@@ -111,6 +138,10 @@ u:l_ife^4 glider
 Shifting the glider one row down and one column right gives the same
 board (rotating by -1 moves the rows down and the columns right):
 
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(ᵘl̲ife⁴ glider) m̲atch -1 o̲-₂ -1 o̲-₁ glider
+#+end_example
 #+begin_src xetal
 (u:l_ife^4 glider) m_atch -1 o_-_2 -1 o_-_1 glider
 #+end_src
