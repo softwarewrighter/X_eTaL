@@ -50,3 +50,17 @@ fn an_anchor_must_cover_whole_tokens() {
 fn a_notes_file_needs_its_source() {
     assert_eq!(diagram("== TITLE\nx\n").unwrap_err().code, "bad-notes");
 }
+
+#[test]
+fn backquoted_text_in_a_note_is_set_as_code() {
+    let notes = NOTES.replace("Its second use.", "Like `f⍨` in Dyalog.");
+    let svg = diagram(&notes).unwrap();
+    assert!(svg.contains("<tspan class=\"inline\">f⍨</tspan>"), "{svg}");
+    assert!(!svg.contains('`'), "the backquotes are not drawn");
+}
+
+#[test]
+fn a_short_line_with_few_notes_gets_a_narrower_page() {
+    let svg = diagram(NOTES).unwrap();
+    assert!(!svg.contains("width=\"1500\""), "{}", &svg[..120]);
+}

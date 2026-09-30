@@ -19,6 +19,34 @@ Smullyan's variants are spelled from the letter:
   ("C twice removed");
 - the hat is `h`: `E_h` for the bald eagle (E with a hat).
 
+## Reading the library
+
+The library is ordinary X_eTaL. These diagrams, generated from the
+notes in `docs/diagrams/` by `xetal diagram`, decode a few lines for
+readers of APL, J or BQN and for readers of none. Importing it:
+
+![Importing a library: the alias, the use macro, the library name](../images/import-annotated.svg)
+
+B: composition, with function and value parameters:
+
+![B, the bluebird: x (y z)](../images/compose-annotated.svg)
+
+C: a function between two values takes the left one, then the right:
+
+![C, the cardinal: x z y](../images/swap-annotated.svg)
+
+S: one value used twice (J's hook):
+
+![S, the starling: x z (y z)](../images/starling-annotated.svg)
+
+Y: recursion through the library's own name, with a quoted function:
+
+![Y, the sage bird: Y f is f (Y f)](../images/sage-annotated.svg)
+
+And a call from a program that imported it as `c:`:
+
+![Using a library function: quoted operands, nearest first](../images/call-annotated.svg)
+
 ## Typability
 
 X_eTaL is typed (Hindley-Milner). A bird that applies an argument to

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="603" height="606" viewBox="0 0 603 606">
+<style>
+.code { font: 32px JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; white-space: pre; font-variant-ligatures: none }
+.typed { font: 16px JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; fill: #4a5160; font-variant-ligatures: none }
+.inline { font-family: JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; font-variant-ligatures: none }
+.heading { font: bold 26px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1d2330 }
+.title { font: bold 14.5px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1d2330 }
+.note { font: 14px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #3a4150 }
+.box { fill: #f7f8fa; stroke: #d9dce1 }
+.leader { fill: none; stroke-width: 1.6 }
+.mark { stroke-width: 3; stroke-linecap: round }
+</style>
+<rect width="100%" height="100%" rx="12" fill="#ffffff"/>
+<text x="30" y="48" class="heading">C, the cardinal: swapping arguments</text>
+<text x="30" y="82" class="typed">as typed: l:C_ := { x_ y z -&gt; z x_ y }</text>
+<rect x="66.3" y="388.0" width="470.4" height="72" rx="10" fill="#1e2127"/>
+<text x="90.3" y="435.0" class="code" fill="#22b8c8">ˡC̲</text>
+<text x="147.9" y="435.0" class="code" fill="#e6e6e6">←</text>
+<text x="186.3" y="435.0" class="code" fill="#e6e6e6">{</text>
+<text x="224.7" y="435.0" class="code" fill="#5b9cff">x̲</text>
+<text x="263.1" y="435.0" class="code" fill="#e6e6e6">y</text>
+<text x="301.5" y="435.0" class="code" fill="#e6e6e6">z</text>
+<text x="339.9" y="435.0" class="code" fill="#e6e6e6">→</text>
+<text x="378.3" y="435.0" class="code" fill="#e6e6e6">z</text>
+<text x="416.7" y="435.0" class="code" fill="#5b9cff">x̲</text>
+<text x="455.1" y="435.0" class="code" fill="#e6e6e6">y</text>
+<text x="493.5" y="435.0" class="code" fill="#e6e6e6">}</text>
+<path d="M162.8 184.0 C162.8 282.0 234.3 282.0 234.3 380.0" class="leader" stroke="#5b9cff"/>
+<line x1="226.7" y1="380.0" x2="241.9" y2="380.0" class="mark" stroke="#5b9cff"/>
+<rect x="30.0" y="110.0" width="265.5" height="74.0" rx="8" class="box"/>
+<rect x="30.0" y="110.0" width="5" height="74.0" rx="2" fill="#5b9cff"/>
+<text x="46.0" y="133.0" class="title">A function</text>
+<text x="46.0" y="151.0" class="note">The function whose two arguments</text>
+<text x="46.0" y="169.0" class="note">C swaps.</text>
+<path d="M440.2 328.0 C440.2 354.0 426.3 354.0 426.3 380.0" class="leader" stroke="#8a8f98"/>
+<line x1="380.3" y1="380.0" x2="472.3" y2="380.0" class="mark" stroke="#8a8f98"/>
+<rect x="307.5" y="110.0" width="265.5" height="218.0" rx="8" class="box"/>
+<rect x="307.5" y="110.0" width="5" height="218.0" rx="2" fill="#8a8f98"/>
+<text x="323.5" y="133.0" class="title">x z y</text>
+<text x="323.5" y="151.0" class="note">Written between two values, a</text>
+<text x="323.5" y="169.0" class="note">function takes the left one, then</text>
+<text x="323.5" y="187.0" class="note">the right one: <tspan class="inline">z x_ y</tspan> is x</text>
+<text x="323.5" y="205.0" class="note">applied to z and then y. So the</text>
+<text x="323.5" y="223.0" class="note">arguments come swapped: Dyalog</text>
+<text x="323.5" y="241.0" class="note"><tspan class="inline">f⍨</tspan>, J <tspan class="inline">f~</tspan>, BQN <tspan class="inline">F˜</tspan> (with two</text>
+<text x="323.5" y="259.0" class="note">arguments). The warbler W, <tspan class="inline">{ x_</tspan></text>
+<text x="323.5" y="277.0" class="note"><tspan class="inline">y -&gt; y x_ y }</tspan>, gives one value</text>
+<text x="323.5" y="295.0" class="note">to both sides: <tspan class="inline">f⍨</tspan> with one</text>
+<text x="323.5" y="313.0" class="note">argument.</text>
+<path d="M301.5 520.0 C301.5 494.0 291.9 494.0 291.9 468.0" class="leader" stroke="#8a8f98"/>
+<line x1="265.1" y1="468.0" x2="318.7" y2="468.0" class="mark" stroke="#8a8f98"/>
+<rect x="30.0" y="520.0" width="543.0" height="56.0" rx="8" class="box"/>
+<rect x="30.0" y="520.0" width="5" height="56.0" rx="2" fill="#8a8f98"/>
+<text x="46.0" y="543.0" class="title">Two values</text>
+<text x="46.0" y="561.0" class="note">Named in the order C is given them.</text>
+</svg>

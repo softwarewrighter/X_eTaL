@@ -101,14 +101,32 @@ pub(crate) fn callout(c: &Callout, x0: f64, y: f64, edge: f64, above: bool) -> S
         .iter()
         .map(|t| (t, "title"))
         .chain(c.lines.iter().map(|t| (t, "note")));
+    let mut code = false;
     for (i, (t, class)) in text.enumerate() {
         let _ = writeln!(
             s,
             "<text x=\"{:.1}\" y=\"{:.1}\" class=\"{class}\">{}</text>",
             c.x + PAD + 6.0,
             y + PAD + 13.0 + i as f64 * LINE,
-            esc(t)
+            rich(t, &mut code)
         );
     }
     s
+}
+
+/// A line of callout text with its backquoted parts set as code;
+/// `code` says whether a backquoted part runs on from the line before.
+fn rich(text: &str, code: &mut bool) -> String {
+    let mut out = String::new();
+    for (i, part) in text.split('`').enumerate() {
+        if i > 0 {
+            *code = !*code;
+        }
+        match (*code, part.is_empty()) {
+            (_, true) => {}
+            (true, false) => out += &format!("<tspan class=\"inline\">{}</tspan>", esc(part)),
+            (false, false) => out += &esc(part),
+        }
+    }
+    out
 }

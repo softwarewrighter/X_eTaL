@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1500" height="606" viewBox="0 0 1500 606">
 <style>
-.code { font: 32px JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; white-space: pre }
-.typed { font: 16px JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; fill: #4a5160 }
+.code { font: 32px JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; white-space: pre; font-variant-ligatures: none }
+.typed { font: 16px JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; fill: #4a5160; font-variant-ligatures: none }
+.inline { font-family: JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; font-variant-ligatures: none }
 .heading { font: bold 26px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1d2330 }
 .title { font: bold 14.5px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1d2330 }
 .note { font: 14px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #3a4150 }

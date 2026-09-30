@@ -1,0 +1,16 @@
+== SOURCE
+l:Y_ := { f_ -> f_ l:Y_ 'f_ }
+== TITLE
+Y, the sage bird: recursion
+== NOTE f_
+The step
+A function that is handed the whole recursive function and makes one step with it.
+== NOTE l:Y_ #2
+Y itself
+The library's own name, used in its body: Y calls itself.
+== NOTE 'f_
+Quoted
+The quote passes f as a value instead of applying it.
+== NOTE f_ l:Y_ 'f_
+Y f is f (Y f)
+f is handed Y f. That does not loop forever because f's parameter is lazy (`~`), used only when needed. APL has no such operator: a dfn recurses with `∇`.

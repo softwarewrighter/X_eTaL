@@ -1,0 +1,16 @@
+== SOURCE
+'u:d_ouble 'u:i_nc c:B_ 5
+== TITLE
+Using a library function
+== NOTE 'u:d_ouble
+The second operand
+double, quoted: passed as a value, the argument after the nearest one.
+== NOTE 'u:i_nc
+The first operand
+Quoted functions before a function are its first arguments, the nearest first: here B inc double.
+== NOTE c:B_
+From the library
+B, imported with the alias c: (a raised c, in the library color).
+== NOTE 5
+The value
+B inc double 5 is inc (double 5): 11.

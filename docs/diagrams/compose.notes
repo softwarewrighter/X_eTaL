@@ -1,0 +1,16 @@
+== SOURCE
+l:B_ := { x_ y_ z -> x_ y_ z }
+== TITLE
+B, the bluebird: composition
+== NOTE l:B_
+An exported name
+`l:` marks a name the library exports; a program that imports it as `c:` writes `c:B_`. The underlined B makes it a function.
+== NOTE x_ y_
+Function parameters
+An underlined letter makes a parameter a function, so the body can apply it.
+== NOTE z
+A value parameter
+No underline: `z` is data. B takes x, then y, then z, one at a time (every function is curried).
+== NOTE x_ y_ z #2
+x (y z)
+Right to left: y applied to z, then x applied to that. Composition: Dyalog `f⍤g` (or `f∘g`), J `f@:g`, BQN `f∘g`.

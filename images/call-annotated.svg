@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="584" height="534" viewBox="0 0 584 534">
+<style>
+.code { font: 32px JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; white-space: pre; font-variant-ligatures: none }
+.typed { font: 16px JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; fill: #4a5160; font-variant-ligatures: none }
+.inline { font-family: JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; font-variant-ligatures: none }
+.heading { font: bold 26px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1d2330 }
+.title { font: bold 14.5px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1d2330 }
+.note { font: 14px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #3a4150 }
+.box { fill: #f7f8fa; stroke: #d9dce1 }
+.leader { fill: none; stroke-width: 1.6 }
+.mark { stroke-width: 3; stroke-linecap: round }
+</style>
+<rect width="100%" height="100%" rx="12" fill="#ffffff"/>
+<text x="30" y="48" class="heading">Using a library function</text>
+<text x="30" y="82" class="typed">as typed: 'u:d_ouble 'u:i_nc c:B_ 5</text>
+<rect x="85.6" y="262.0" width="412.8" height="72" rx="10" fill="#1e2127"/>
+<text x="109.6" y="309.0" class="code" fill="#3fbf5f">'</text>
+<text x="128.8" y="309.0" class="code" fill="#3fbf5f">ᵘd̲ouble</text>
+<text x="282.4" y="309.0" class="code" fill="#3fbf5f">'</text>
+<text x="301.6" y="309.0" class="code" fill="#3fbf5f">ᵘi̲nc</text>
+<text x="397.6" y="309.0" class="code" fill="#22b8c8">ᶜB̲</text>
+<text x="455.2" y="309.0" class="code" fill="#e0b400">5</text>
+<path d="M158.0 202.0 C158.0 228.0 186.4 228.0 186.4 254.0" class="leader" stroke="#3fbf5f"/>
+<line x1="111.6" y1="254.0" x2="261.2" y2="254.0" class="mark" stroke="#3fbf5f"/>
+<rect x="30.0" y="110.0" width="256.0" height="92.0" rx="8" class="box"/>
+<rect x="30.0" y="110.0" width="5" height="92.0" rx="2" fill="#3fbf5f"/>
+<text x="46.0" y="133.0" class="title">The second operand</text>
+<text x="46.0" y="151.0" class="note">double, quoted: passed as a</text>
+<text x="46.0" y="169.0" class="note">value, the argument after the</text>
+<text x="46.0" y="187.0" class="note">nearest one.</text>
+<path d="M426.0 202.0 C426.0 228.0 416.8 228.0 416.8 254.0" class="leader" stroke="#22b8c8"/>
+<line x1="399.6" y1="254.0" x2="434.0" y2="254.0" class="mark" stroke="#22b8c8"/>
+<rect x="298.0" y="110.0" width="256.0" height="92.0" rx="8" class="box"/>
+<rect x="298.0" y="110.0" width="5" height="92.0" rx="2" fill="#22b8c8"/>
+<text x="314.0" y="133.0" class="title">From the library</text>
+<text x="314.0" y="151.0" class="note">B, imported with the alias c:</text>
+<text x="314.0" y="169.0" class="note">(a raised c, in the library</text>
+<text x="314.0" y="187.0" class="note">color).</text>
+<path d="M158.0 394.0 C158.0 368.0 330.4 368.0 330.4 342.0" class="leader" stroke="#3fbf5f"/>
+<line x1="284.4" y1="342.0" x2="376.4" y2="342.0" class="mark" stroke="#3fbf5f"/>
+<rect x="30.0" y="394.0" width="256.0" height="110.0" rx="8" class="box"/>
+<rect x="30.0" y="394.0" width="5" height="110.0" rx="2" fill="#3fbf5f"/>
+<text x="46.0" y="417.0" class="title">The first operand</text>
+<text x="46.0" y="435.0" class="note">Quoted functions before a</text>
+<text x="46.0" y="453.0" class="note">function are its first</text>
+<text x="46.0" y="471.0" class="note">arguments, the nearest first:</text>
+<text x="46.0" y="489.0" class="note">here B inc double.</text>
+<path d="M426.0 394.0 C426.0 368.0 464.8 368.0 464.8 342.0" class="leader" stroke="#e0b400"/>
+<line x1="457.2" y1="342.0" x2="472.4" y2="342.0" class="mark" stroke="#e0b400"/>
+<rect x="298.0" y="394.0" width="256.0" height="74.0" rx="8" class="box"/>
+<rect x="298.0" y="394.0" width="5" height="74.0" rx="2" fill="#e0b400"/>
+<text x="314.0" y="417.0" class="title">The value</text>
+<text x="314.0" y="435.0" class="note">B inc double 5 is inc (double</text>
+<text x="314.0" y="453.0" class="note">5): 11.</text>
+</svg>

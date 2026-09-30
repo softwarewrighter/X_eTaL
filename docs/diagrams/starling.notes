@@ -1,0 +1,16 @@
+== SOURCE
+l:S_ := { x_ y_ z -> z x_ y_ z }
+== TITLE
+S, the starling: one value used twice
+== NOTE x_ y_
+Two functions
+x takes two arguments, y one.
+== NOTE z
+The value
+Given once, used twice.
+== NOTE y_ z #2
+y z
+Right to left, first: y applied to z.
+== NOTE z x_ y_ z
+x z (y z)
+Then x with z on its left and y z on its right. J's hook `(f g) y`, BQN's `F⟜G`, Dyalog's train `(⊢ f g)`.

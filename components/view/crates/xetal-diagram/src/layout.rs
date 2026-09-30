@@ -5,7 +5,9 @@
 use crate::anchor::Place;
 use crate::notes::Note;
 
-pub(crate) const WIDTH: f64 = 1500.0;
+/// The widest page, and the least a callout box is given.
+const WIDEST: f64 = 1500.0;
+const BOX: f64 = 250.0;
 pub(crate) const MARGIN: f64 = 30.0;
 /// One column of the drawn line (its monospace font is 32 px).
 pub(crate) const CELL: f64 = 19.2;
@@ -45,19 +47,26 @@ pub(crate) fn wrap(text: &str, chars: usize) -> Vec<String> {
     out
 }
 
-/// The callouts above the line and below it.
-pub(crate) fn rows(mut notes: Vec<(Place, &Note)>) -> [Vec<Callout>; 2] {
+/// The page width: room for the drawn line (`line` pixels) and for
+/// the fuller row of callouts, at most the widest page.
+pub(crate) fn page_width(line: f64, notes: usize) -> f64 {
+    let boxes = notes.div_ceil(2) as f64 * (BOX + GAP) + 2.0 * MARGIN;
+    (line + 2.0 * MARGIN + 120.0).max(boxes).min(WIDEST).ceil()
+}
+
+/// The callouts above the line and below it, on a page `width` wide.
+pub(crate) fn rows(mut notes: Vec<(Place, &Note)>, width: f64) -> [Vec<Callout>; 2] {
     notes.sort_by_key(|(p, _)| p.from + p.to);
     let mut rows: [Vec<(Place, &Note)>; 2] = [Vec::new(), Vec::new()];
     for (i, n) in notes.into_iter().enumerate() {
         rows[i % 2].push(n);
     }
-    rows.map(spread)
+    rows.map(|row| spread(row, width))
 }
 
-fn spread(row: Vec<(Place, &Note)>) -> Vec<Callout> {
+fn spread(row: Vec<(Place, &Note)>, width: f64) -> Vec<Callout> {
     let n = row.len().max(1) as f64;
-    let w = (WIDTH - 2.0 * MARGIN - (n - 1.0) * GAP) / n;
+    let w = (width - 2.0 * MARGIN - (n - 1.0) * GAP) / n;
     let chars = (((w - 2.0 * PAD - 6.0) / CHAR) as usize).max(8);
     let callout = |(i, (place, note)): (usize, (Place, &Note))| Callout {
         place,

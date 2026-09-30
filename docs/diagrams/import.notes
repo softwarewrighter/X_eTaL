@@ -1,0 +1,13 @@
+== SOURCE
+"c:" u_se< "Combinators"
+== TITLE
+Importing a library
+== NOTE "c:"
+The alias
+The prefix this file will write the library's names with: `c:K_`, `c:B_`. Drawn raised, joined to the macro.
+== NOTE u_se<
+The use macro
+A name ending in `<` runs before the program is checked: it brings the library in. Drawn bold yellow, as every macro.
+== NOTE "Combinators"
+The library
+A name (a built-in standard library, or `Name.xtl` beside the file or on `XETAL_PATH`) or a path. Library names are capitalized.
