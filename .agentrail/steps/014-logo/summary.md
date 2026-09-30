@@ -1,0 +1,1 @@
+images/xetal-logo.svg: X underlined, raised e T, raised a L, serif after the LaTeX logo, yellow, tagline; README header uses it (JPEG kept).
