@@ -237,6 +237,9 @@ Other fonts, checked against the font files:
   axis 1 written out, and another axis)
 - [`docs/idioms.md`](docs/idioms.md) -- everyday idioms in X_eTaL beside Java,
   JavaScript, Python, C++ and Rust, and beside APL2, Dyalog APL, J and BQN
+- [`docs/permission-response.md`](docs/permission-response.md) -- XeTaL's
+  answers to ngn's [Array Language Implementation Permission
+  Request](https://ngn.codeberg.page/funny/reg.html)
 - [`docs/input.md`](docs/input.md) -- how to type X_eTaL expressions
 - [`docs/birds.md`](docs/birds.md) -- the aviary: Smullyan's combinators,
   which type-check, and how the `Combinators` library spells them
