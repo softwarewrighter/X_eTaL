@@ -22,3 +22,13 @@ fn the_installed_store_serves_reads_and_writes() {
     assert_eq!(store.get("work/a.txt").unwrap(), "hello");
     assert!(read("missing.txt").unwrap_err().contains("missing.txt"));
 }
+
+#[test]
+fn a_memory_store_answers_reads_from_the_keyboard_in_order() {
+    let store = Memory::default();
+    store.push_line("5");
+    store.push_line("x");
+    assert_eq!(store.line().unwrap(), "5");
+    assert_eq!(store.line().unwrap(), "x");
+    assert!(store.line().unwrap_err().contains("no more input"));
+}

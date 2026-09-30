@@ -1,4 +1,6 @@
-//! The programs the drop-down offers: the demos and the tour, built in.
+//! What Open offers: the demos and the tour, built in; the standard
+//! libraries, named as `u_se<` finds them (`Stats.xtl`); and the files
+//! saved in the store (local storage, in the browser).
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Demo {
@@ -28,7 +30,37 @@ pub const DEMOS: &[Demo] = demos![
     "stats.xtl",
     "keys.xtl",
     "tttml.xtl",
+    "tttml-train.xtl",
+    "tttml-play.xtl",
     "factorial.xtl",
     "higher-order.xtl",
     "arrays.xtl",
 ];
+
+/// The choices, as (group, value, label); a value is `demo:N`, `lib:Name`
+/// or `file:path`, and [`open`] reads it.
+pub fn choices(saved: &[String]) -> Vec<(&'static str, String, String)> {
+    let demos = DEMOS
+        .iter()
+        .enumerate()
+        .map(|(i, d)| ("Demos", format!("demo:{i}"), d.name.to_string()));
+    let libs = xetal_libs::LIBRARIES
+        .iter()
+        .map(|(n, _)| ("Libraries", format!("lib:{n}"), format!("{n}.xtl")));
+    let files = saved
+        .iter()
+        .map(|p| ("Your files", format!("file:{p}"), p.clone()));
+    demos.chain(libs).chain(files).collect()
+}
+
+/// The name and text of a choice.
+pub fn open(value: &str) -> Option<(String, String)> {
+    match value.split_once(':')? {
+        ("demo", i) => DEMOS
+            .get(i.parse::<usize>().ok()?)
+            .map(|d| (d.name.into(), d.text.into())),
+        ("lib", n) => xetal_libs::standard(n).map(|t| (format!("{n}.xtl"), t.into())),
+        ("file", p) => xetal_store::read(p).ok().map(|t| (p.to_string(), t)),
+        _ => None,
+    }
+}

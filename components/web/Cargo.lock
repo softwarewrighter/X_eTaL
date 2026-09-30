@@ -1422,6 +1422,7 @@ dependencies = [
  "wasm-bindgen",
  "web-sys",
  "xetal-chrome",
+ "xetal-libs",
  "xetal-play",
  "xetal-store",
  "yew",

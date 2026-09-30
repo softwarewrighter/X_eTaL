@@ -27,3 +27,8 @@ pub fn read(path: &str) -> Result<String, String> {
 pub fn write(path: &str, text: &str) -> Result<(), String> {
     current().put(path, text)
 }
+
+/// A line typed at the keyboard, from the store in use.
+pub fn read_line() -> Result<String, String> {
+    current().line()
+}

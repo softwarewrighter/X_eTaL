@@ -5,7 +5,7 @@ use xetal_play::{Run, run};
 use yew::prelude::*;
 
 use crate::keys::{Action, action};
-use crate::{DEMOS, panes};
+use crate::{DEMOS, choices, open, panes, storage};
 use xetal_chrome as chrome;
 
 /// A pane of the editor, as in `xetal edit`.
@@ -29,17 +29,13 @@ impl Pane {
 #[function_component(App)]
 pub fn app() -> Html {
     let text = use_state(|| DEMOS[0].text.to_string());
+    let name = use_state(|| DEMOS[0].name.to_string());
+    let files = use_state(storage::saved);
     let current = use_state(|| Pane::Source);
     let (zoom, help) = (use_state(|| false), use_state(|| false));
     let result = use_state(|| None::<Run>);
     let (drawn, printed) = (use_node_ref(), use_node_ref());
-    // After a run, show the end of the output, where the newest is.
-    let end = printed.clone();
-    use_effect_with((*result).clone(), move |_| {
-        if let Some(pane) = end.cast::<web_sys::Element>() {
-            pane.set_scroll_top(pane.scroll_height());
-        }
-    });
+    use_follow(&result, printed.clone());
     let (t, r) = (text.clone(), result.clone());
     let run_now = Callback::from(move |_: ()| r.set(Some(run(&t, seed()))));
     let z = zoom.clone();
@@ -52,17 +48,24 @@ pub fn app() -> Html {
         t.set(v);
         r.set(None);
     });
+    let (e, n) = (edit.clone(), name.clone());
+    let load = Callback::from(move |(file, body): (String, String)| {
+        n.set(file);
+        e.emit(body);
+    });
     let c = current.clone();
     let focus = Callback::from(move |p: Pane| c.set(p));
+    let save = saving(text.clone(), name.clone(), files.clone());
     let bar = Bar {
-        load: edit.clone(),
+        load,
+        save,
         run: run_now,
         zoom: toggle,
         help: show_help.clone(),
     };
     html! {
         <div class="app" onkeydown={on_key}>
-            { toolbar(bar, *zoom) }
+            { toolbar(bar, &files, &name, *zoom) }
             <main class={classes!("panes", zoom.then_some("zoomed"))}>
                 { panes::source(&text, *current, focus.clone(), edit, drawn.clone()) }
                 { panes::rendered(&text, *current, focus.clone(), drawn) }
@@ -72,6 +75,41 @@ pub fn app() -> Html {
             { if *help { chrome::help(show_help.reform(|_| false)) } else { html! {} } }
         </div>
     }
+}
+
+/// Keep the output pane scrolled to its end as output arrives.
+#[hook]
+fn use_follow(result: &Option<Run>, pane: NodeRef) {
+    use_effect_with(result.clone(), move |_| {
+        if let Some(pane) = pane.cast::<web_sys::Element>() {
+            pane.set_scroll_top(pane.scroll_height());
+        }
+    });
+}
+
+/// Save the text under its name, or (`true`) under a name asked for.
+fn saving(
+    text: UseStateHandle<String>,
+    name: UseStateHandle<String>,
+    files: UseStateHandle<Vec<String>>,
+) -> Callback<bool> {
+    Callback::from(move |ask: bool| {
+        let chosen = match ask {
+            true => web_sys::window().and_then(|w| {
+                w.prompt_with_message_and_default("Save as", &name)
+                    .ok()
+                    .flatten()
+            }),
+            false => Some((*name).clone()),
+        };
+        let Some(path) = chosen.filter(|p| !p.trim().is_empty()) else {
+            return;
+        };
+        if xetal_store::write(path.trim(), &text).is_ok() {
+            name.set(path.trim().to_string());
+            files.set(storage::saved());
+        }
+    })
 }
 
 /// Keys for the whole page: Run, Zoom, and Escape to close Help.
@@ -92,29 +130,34 @@ fn keys(run: Callback<()>, zoom: Callback<()>, help: Callback<bool>) -> Callback
 
 /// What the toolbar's controls do.
 struct Bar {
-    load: Callback<String>,
+    load: Callback<(String, String)>,
+    save: Callback<bool>,
     run: Callback<()>,
     zoom: Callback<()>,
     help: Callback<bool>,
 }
 
-/// The logo, the drop-down of programs, Clear, Run, Zoom and Help.
-fn toolbar(bar: Bar, zoomed: bool) -> Html {
+/// The logo, Open (demos, libraries, your files), the file's name,
+/// Save, Save as, Clear, Run, Zoom and Help.
+fn toolbar(bar: Bar, files: &[String], name: &str, zoomed: bool) -> Html {
     let load = bar.load.clone();
     let pick = Callback::from(move |e: Event| {
         let select: HtmlSelectElement = e.target_unchecked_into();
-        let i = usize::try_from(select.selected_index()).unwrap_or(0);
-        load.emit(DEMOS.get(i).unwrap_or(&DEMOS[0]).text.to_string());
+        if let Some(opened) = open(&select.value()) {
+            load.emit(opened);
+        }
+    });
+    let options = choices(files).into_iter().map(|(group, value, label)| {
+        html! { <option value={value.clone()} data-group={group} selected={value == "demo:0"}>{ format!("{group}: {label}") }</option> }
     });
     html! {
         <nav class="toolbar">
             <img class="logo" src="modern-xetal-logo.jpg" alt="X_eTaL"/>
-            <select onchange={pick} title="Load a program">
-                { for DEMOS.iter().enumerate().map(|(i, d)| html! {
-                    <option selected={i == 0}>{ d.name }</option>
-                }) }
-            </select>
-            <button onclick={bar.load.reform(|_| String::new())} title="Clear the editor">{ "Clear" }</button>
+            <select onchange={pick} title="Open a demo, a library or one of your files">{ for options }</select>
+            <span class="name" title="The file being edited">{ name }</span>
+            <button onclick={bar.save.reform(|_| false)} title="Save in this browser">{ "Save" }</button>
+            <button onclick={bar.save.reform(|_| true)} title="Save under another name">{ "Save as" }</button>
+            <button onclick={bar.load.reform(|_| ("untitled.xtl".to_string(), String::new()))} title="An empty editor">{ "Clear" }</button>
             <button onclick={bar.run.reform(|_| ())} title="Run (Ctrl-Enter)">{ "Run" }</button>
             <button onclick={bar.zoom.reform(|_| ())} title="Zoom the current pane (Ctrl-.)">
                 { if zoomed { "Unzoom" } else { "Zoom" } }

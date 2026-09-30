@@ -63,3 +63,4 @@ footer .sep { opacity: 0.6; }
   background: none; border: 0; color: var(--dim); cursor: pointer;
 }
 .dialog .close:hover { color: var(--bright); }
+.toolbar .name { color: var(--dim); font-size: 13px; }

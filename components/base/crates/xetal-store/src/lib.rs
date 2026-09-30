@@ -4,7 +4,9 @@
 //! built-ins (`[]N_GET`, `[]N_PUT`) and library lookup go through it.
 
 mod current;
+mod memory;
 mod stores;
 
-pub use current::{install, read, write};
-pub use stores::{Disk, Memory, Store};
+pub use current::{install, read, read_line, write};
+pub use memory::Memory;
+pub use stores::{Disk, Store};

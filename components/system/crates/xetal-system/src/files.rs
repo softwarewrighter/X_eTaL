@@ -1,8 +1,6 @@
 //! Text files and the keyboard. These are effects, so a program runs
 //! them only when it is run (never on a keystroke in the editor).
 
-use std::io::BufRead;
-
 use xetal_base::Diagnostic;
 use xetal_value::Value;
 
@@ -30,12 +28,10 @@ pub(crate) fn get<'a>(path: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
         .map_err(|e| io(e, "[]N_GET"))
 }
 
-/// `[]R_EAD @`: a line typed at the keyboard, without its newline.
+/// `[]R_EAD @`: a line typed at the keyboard, without its newline
+/// (standard input on the command line; the browser asks for it).
 pub(crate) fn read<'a>() -> Result<Value<'a>, Diagnostic> {
-    let mut line = String::new();
-    match std::io::stdin().lock().read_line(&mut line) {
-        Ok(0) => Err(Diagnostic::new("io", "[]R_EAD: no more input")),
-        Ok(_) => Ok(text(line.trim_end_matches(['\n', '\r']))),
-        Err(e) => Err(io(e, "[]R_EAD")),
-    }
+    xetal_store::read_line()
+        .map(|line| text(&line))
+        .map_err(|e| io(e, "[]R_EAD"))
 }

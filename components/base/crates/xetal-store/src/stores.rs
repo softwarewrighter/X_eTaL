@@ -1,12 +1,23 @@
-//! Stores: the disk, and memory (for tests, and a host without one).
+//! Stores: what a store is, and the disk.
 
-use std::collections::BTreeMap;
-use std::sync::Mutex;
+use std::io::BufRead;
 
-/// A place files are read from and written to, by path.
+/// A place files are read from and written to, by path, and where a
+/// line typed at the keyboard comes from (`[]R_EAD`).
 pub trait Store: Send + Sync {
     fn get(&self, path: &str) -> Result<String, String>;
     fn put(&self, path: &str, text: &str) -> Result<(), String>;
+
+    /// A line typed at the keyboard, without its newline; standard
+    /// input unless the store knows better (the browser asks).
+    fn line(&self) -> Result<String, String> {
+        let mut line = String::new();
+        match std::io::stdin().lock().read_line(&mut line) {
+            Ok(0) => Err("no more input".into()),
+            Ok(_) => Ok(line.trim_end_matches(['\n', '\r']).to_string()),
+            Err(e) => Err(e.to_string()),
+        }
+    }
 }
 
 /// The file system; writing makes missing directories.
@@ -23,41 +34,5 @@ impl Store for Disk {
             std::fs::create_dir_all(dir).map_err(|e| format!("{path}: {e}"))?;
         }
         std::fs::write(path, text).map_err(|e| format!("{path}: {e}"))
-    }
-}
-
-/// Files kept in memory.
-#[derive(Default)]
-pub struct Memory(Mutex<BTreeMap<String, String>>);
-
-impl Memory {
-    /// The stored paths, in order.
-    pub fn paths(&self) -> Vec<String> {
-        self.0
-            .lock()
-            .map(|m| m.keys().cloned().collect())
-            .unwrap_or_default()
-    }
-}
-
-impl Store for Memory {
-    fn get(&self, path: &str) -> Result<String, String> {
-        let files = self
-            .0
-            .lock()
-            .map_err(|_| "the store is unusable".to_string())?;
-        files
-            .get(path)
-            .cloned()
-            .ok_or_else(|| format!("{path}: no such file"))
-    }
-
-    fn put(&self, path: &str, text: &str) -> Result<(), String> {
-        let mut files = self
-            .0
-            .lock()
-            .map_err(|_| "the store is unusable".to_string())?;
-        files.insert(path.into(), text.into());
-        Ok(())
     }
 }

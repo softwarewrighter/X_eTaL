@@ -1,6 +1,6 @@
 number = 5
 slug = "browser-io"
-status = "pending"
+status = "in-progress"
 description = "web-playground step 4: local storage: save and load named files (workspaces);..."
 role = "production"
 context_files = []

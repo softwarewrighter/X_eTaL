@@ -24,8 +24,14 @@ pub(crate) fn help_text() -> Html {
                 <li><b>{ "Run" }</b>{ " (Ctrl-Enter) runs the program and shows its output." }</li>
                 <li><b>{ "Tab" }</b>{ " moves between the panes; the current one has the bright border." }</li>
                 <li><b>{ "Zoom" }</b>{ " (Ctrl-.) shows the current pane alone, and back." }</li>
-                <li>{ "The drop-down loads a demo or the tour; " }<b>{ "Clear" }</b>
+                <li>{ "The drop-down opens a demo, a standard library (shown with its \
+                       exports' types) or one of your files; " }<b>{ "Clear" }</b>
                     { " (or \"(empty)\") gives an empty editor to type into." }</li>
+                <li><b>{ "Save" }</b>{ " and " }<b>{ "Save as" }</b>{ " keep files in this \
+                       browser's local storage. A saved library (lib/Name.xtl) is \
+                       imported with u_se<; []N_PUT and []N_GET use the same files \
+                       (open work/tttml.model after tttml-train), and []R_EAD asks \
+                       for a line." }</li>
             </ul>
             { reading() }
             { reference() }

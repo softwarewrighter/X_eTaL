@@ -2,7 +2,7 @@
 
 use xetal_base::Diagnostic;
 use xetal_lex::{TokenKind, lex};
-use xetal_macro::{FsLibraries, expand_library};
+use xetal_macro::{FsLibraries, Libraries, expand_library};
 
 use crate::load::{Loaded, lowered};
 
@@ -21,5 +21,14 @@ pub fn is_library(text: &str) -> bool {
 /// The library `text` (reported as `name`) loaded on its own, as it
 /// is when imported, its own libraries found beside it.
 pub fn load_library(name: &str, text: &str) -> Result<Loaded, Diagnostic> {
-    lowered(expand_library(name, text, &FsLibraries::from_env()))
+    load_library_with(name, text, &FsLibraries::from_env())
+}
+
+/// [`load_library`], its own libraries found by `libs`.
+pub fn load_library_with(
+    name: &str,
+    text: &str,
+    libs: &dyn Libraries,
+) -> Result<Loaded, Diagnostic> {
+    lowered(expand_library(name, text, libs))
 }

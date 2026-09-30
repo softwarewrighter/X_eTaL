@@ -23,9 +23,9 @@ The goal isn't to replace existing languages. It's to make the powerful
 ideas of array programming easier to read, reason about, type-check,
 visualize, and experiment with.
 
-**Live demo: [the editor in your browser](https://softwarewrighter.github.io/X_eTaL/)**
--- type ASCII on the left and watch it drawn decorated on the right;
-Run shows the output, the drop-down loads the demos and the tour.
+In the live demo, type ASCII on the left and watch it drawn decorated
+on the right; Run shows the output, the drop-down opens the demos, the
+libraries and your saved files, and Save keeps them in the browser.
 
 [![The live demo: the ASCII source, its decorated form, and the types below](images/live-demo.png)](https://softwarewrighter.github.io/X_eTaL/)
 

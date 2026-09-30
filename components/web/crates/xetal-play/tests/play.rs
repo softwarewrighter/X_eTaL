@@ -53,3 +53,17 @@ fn checking_gives_the_types_or_the_first_error() {
     let r = run("1 + \"a\"", 1);
     assert!(r.err.starts_with("error[type-mismatch]"), "{}", r.err);
 }
+
+#[test]
+fn a_library_shows_its_exports_and_their_types() {
+    store();
+    let lib = "l:t_wice := { 2 * _r }\nh_alf := { _r / 2 }\n";
+    assert_eq!(check(lib), ["l:t_wice : Num a => a -> a"]);
+    assert_eq!(run(lib, 1).out, "l:t_wice : Num a => a -> a\n");
+}
+
+#[test]
+fn a_line_is_read_from_the_store_in_use() {
+    store().push_line("hello");
+    assert_eq!(run("[]R_EAD @", 1).out, "hello\n");
+}

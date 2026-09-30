@@ -29,6 +29,7 @@ xetal-arith = { path = "../eval/crates/xetal-arith" }
 xetal-system = { path = "../system/crates/xetal-system" }
 xetal-play = { path = "crates/xetal-play" }
 xetal-chrome = { path = "crates/xetal-chrome" }
+xetal-libs = { path = "../macro/crates/xetal-libs" }
 xetal-store = { path = "../base/crates/xetal-store" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
 xetal-spec = { path = "../cli/crates/xetal-spec" }

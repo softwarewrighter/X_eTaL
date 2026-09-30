@@ -2,7 +2,9 @@
 
 use xetal_base::Diagnostic;
 use xetal_macro::StoreLibraries;
-use xetal_program::{Loaded, in_program, load_with};
+use xetal_program::{
+    Loaded, in_program, is_library, library_types, load_library_with, load_with, program_types,
+};
 
 /// What a run printed, and its warnings and error (one per line).
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
@@ -18,20 +20,35 @@ fn loaded(src: &str) -> Result<Loaded, Diagnostic> {
     load_with(NAME, src, &StoreLibraries)
 }
 
-/// The type of each top-level item, or the first error.
+/// The type of each top-level item, or the first error; for a library
+/// (a file naming `l:`), each export's type, as `xetal type` gives.
 pub fn check(src: &str) -> Vec<String> {
-    let checked = loaded(src).and_then(|mut l| {
+    let library = is_library(src);
+    let loaded = match library {
+        true => load_library_with(NAME, src, &StoreLibraries),
+        false => loaded(src),
+    };
+    let checked = loaded.and_then(|mut l| {
         let lines = xetal_types::check_program(&mut l.program);
-        lines.map_err(|d| in_program(&l.sources, d))
+        let lines = lines.map_err(|d| in_program(&l.sources, d))?;
+        Ok(match library {
+            true => library_types(&l.sources, lines),
+            false => program_types(lines),
+        })
     });
-    match checked {
-        Ok(lines) => xetal_program::program_types(lines),
-        Err(d) => vec![d.to_string()],
-    }
+    checked.unwrap_or_else(|d| vec![d.to_string()])
 }
 
-/// Check and run `src`, rolling from `seed`.
+/// Check and run `src`, rolling from `seed`; a library has nothing to
+/// run, so its exports' types are its output.
 pub fn run(src: &str, seed: u64) -> Run {
+    if is_library(src) {
+        let lines = check(src);
+        return Run {
+            out: lines.iter().map(|l| format!("{l}\n")).collect(),
+            err: String::new(),
+        };
+    }
     let mut loaded = match loaded(src) {
         Ok(l) => l,
         Err(d) => return failed(d),
