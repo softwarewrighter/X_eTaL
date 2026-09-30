@@ -1,0 +1,1 @@
+Resizable panes: minmax(0) grid tracks fix the squeezed ASCII pane; xetal-layout crate with tested Split arithmetic and pointer-captured dividers saved in localStorage; Run disabled for libraries; verified via headless Chrome CDP
