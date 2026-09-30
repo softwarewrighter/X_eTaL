@@ -1,8 +1,9 @@
 number = 1
 slug = "wasm-core"
-status = "in-progress"
+status = "completed"
 description = "web-playground step 1: the pipeline for wasm32: a single-threaded evaluator p..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T10:12:10"
-commits = []
+completed_at = "2026-09-30T10:58:16"
+commits = ["49d70165b1ae5b2a04c996219ebde19e98cf767e"]

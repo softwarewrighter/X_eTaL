@@ -1,0 +1,1 @@
+wasm-core: xetal-store (Disk/Memory/installed store), []N_PUT/[]N_GET via the store, StoreLibraries + load_with, eval inline on wasm32, components/web xetal-play (decorate/check/run) tested natively, wasm32 check in the gate.
