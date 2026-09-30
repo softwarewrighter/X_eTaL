@@ -1,0 +1,1 @@
+tttml-play: quad names lexed/drawn/lowered; system component with []N_PUT, []N_GET, []R_EAD, f_ormat, n_umbers; demos tttml-train (saves work/tttml.model) and tttml-play (loads, plays you); golden with piped moves; comment convention (backquotes = code, double quotes = commands/paths).
