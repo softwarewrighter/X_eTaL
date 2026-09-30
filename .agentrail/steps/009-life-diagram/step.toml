@@ -1,8 +1,9 @@
 number = 9
 slug = "life-diagram"
-status = "in-progress"
+status = "completed"
 description = "combinators step 7 (inserted at the user's request): replace the README's lif..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T15:20:04"
-commits = []
+completed_at = "2026-09-29T20:05:00"
+commits = ["265561ee560d371d77f9a640a0f369c734c3ce8a"]

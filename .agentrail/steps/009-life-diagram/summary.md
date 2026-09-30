@@ -1,0 +1,1 @@
+xetal diagram: annotated SVG of a line from a notes file (glyphs/colors from the view model, anchors must cover whole tokens); life.notes with 13 checked callouts; images/life-annotated.svg in README; scripts/diagrams.sh --check in the gate; just diagrams.
