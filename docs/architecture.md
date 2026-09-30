@@ -234,7 +234,11 @@ xetal diagram NOTES            annotated SVG of a line of source (callouts
 Each command runs the earlier stages first, so an early error is
 reported by any later command. All outputs are deterministic text so
 they can be reg-rs baselines; errors and warnings go to stderr as
-`error[CODE]` / `warning[CODE]` with byte spans.
+`error[CODE]` / `warning[CODE]` with byte spans. When the reader of
+stdout goes away (`xetal run FILE | head`), the process ends on
+SIGPIPE, exit status 141, with nothing on stderr, as cat and grep do
+(`main` restores the default disposition that Rust's runtime
+ignores; golden cli-pipe-closed).
 
 ## 6. Web playground (later saga)
 

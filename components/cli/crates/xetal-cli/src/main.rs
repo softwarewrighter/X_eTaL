@@ -15,6 +15,11 @@ use crate::args::{Cli, Command};
 use crate::stages::run;
 
 fn main() -> ExitCode {
+    // A closed stdout (`xetal run FILE | head`) ends the run quietly, as
+    // it does for cat or grep: Rust ignores SIGPIPE by default, which
+    // turns every later write into a panic or an error[io]; the default
+    // disposition ends the process with the signal instead.
+    sigpipe::reset();
     let cli = Cli::parse();
     let command = match (cli.command, cli.script) {
         (Some(command), _) => command,

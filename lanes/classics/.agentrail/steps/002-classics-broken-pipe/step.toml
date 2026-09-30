@@ -1,6 +1,6 @@
 number = 2
 slug = "classics-broken-pipe"
-status = "pending"
+status = "in-progress"
 description = "Found in classics-index: 'xetal run FILE | head' panics with 'failed printing..."
 role = "production"
 context_files = []
