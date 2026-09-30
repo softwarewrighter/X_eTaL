@@ -1,0 +1,1 @@
+Literate HTML draws xetal blocks via new xetal render --html (xetal-view html(), tested, reg golden) with typed ASCII as comments; style colors; pages rebuilt
