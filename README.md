@@ -256,6 +256,8 @@ Other fonts, checked against the font files:
   axis 1 written out, and another axis)
 - [`docs/idioms.md`](docs/idioms.md) -- everyday idioms in X_eTaL beside Java,
   JavaScript, Python, C++ and Rust, and beside APL2, Dyalog APL, J and BQN
+- [`docs/classics.md`](docs/classics.md) -- the classic APL programs
+  (Pascal's triangle, Life, tic-tac-toe, ...) as commented X_eTaL notebooks
 - [`docs/permission-response.md`](docs/permission-response.md) -- XeTaL's
   answers to ngn's [Array Language Implementation Permission
   Request](https://ngn.codeberg.page/funny/reg.html)

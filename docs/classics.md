@@ -1,0 +1,15 @@
+# Classic APL programs in X_eTaL
+
+The programs APL has been taught and shown off with for decades,
+written as X_eTaL says them. Each is a commented notebook file in
+`demos/classics/`: run one with `just show demos/classics/NAME.xtl`
+to see every line beside its output, or `just run FILE` for the output
+alone. Each is also in the live demo's Open list, and its output is
+pinned by a golden (`reg/run-classics-NAME`), so the programs keep
+working as the language grows.
+
+| Program | Why it is a classic | Concepts | File |
+| ------- | ------------------- | -------- | ---- |
+| Pascal's triangle | The quintessential array construction: a whole row at a time, no loop over items | shift and add by rotate, function power, stacking rows with `c_at`, binomials by `t_able`, text layout with `t_ake`, Sierpinski's triangle modulo 2 | [pascal.xtl](../demos/classics/pascal.xtl) |
+| Conway's Life | The best-known modern APL demo, in one line | rotations over two axes, reduce over two axes, Boolean arithmetic | [life.xtl](../demos/life.xtl) |
+| Tic-tac-toe | A complete application rather than an expression puzzle: a machine that learns to play | boards as vectors, symmetry by indexing, inner product over lines, files and the keyboard | [tttml.xtl](../demos/tttml.xtl), [lib/TTTML.xtl](../lib/TTTML.xtl) |

@@ -22,11 +22,11 @@ for recipe in $(just --summary); do
     default | build | tour | life | animate | tttml | diagrams | reference) check just "$recipe" ;;
     # demos/tttml-play.xtl reads typed moves: the tttml-play check below
     # pipes some in.
-    show) for f in demos/*.xtl; do program "$f" && [ "$f" != demos/tttml-play.xtl ] && check just show "$f"; done ;;
-    pp) for f in demos/*.xtl; do check just pp "$f"; done ;;
+    show) for f in demos/*.xtl demos/classics/*.xtl; do program "$f" && [ "$f" != demos/tttml-play.xtl ] && check just show "$f"; done ;;
+    pp) for f in demos/*.xtl demos/classics/*.xtl; do check just pp "$f"; done ;;
     slow-show) check just slow-show demos/square.xtl 1 ;;
     run)
-        for f in demos/*.xtl; do
+        for f in demos/*.xtl demos/classics/*.xtl; do
             { [ "$f" = demos/tttml-play.xtl ] || ! program "$f"; } && continue
             flags=$(head -1 "$f" | grep -o -- '--untyped' || true)
             check just run $flags "$f"

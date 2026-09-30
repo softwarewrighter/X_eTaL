@@ -583,26 +583,27 @@ SVG).
 | #  | Step slug                | Delivers |
 | -- | ------------------------ | -------- |
 | 1  | classics-index           | docs/classics.md, conventions, Pascal's triangle |
-| 2  | classics-trig            | `s_in` `c_os` `a_tan` `p_i` (B13) |
-| 3  | classics-draw-grid       | `xetal-draw`, `[]G_RID`, `[]S_HOW`, animated Life (QD5) |
-| 4  | classics-draw-path       | `[]P_ATH`, lib/Turtle.xtl, Sierpinski |
-| 5  | classics-draw-raster     | large grids as images, palettes, Mandelbrot zoom and fly-over |
-| 6  | classics-draw-web        | a Draw pane in the live demo |
-| 7  | classics-numbers         | sieve, primes, GCD, Fibonacci, factorial, Collatz |
-| 8  | classics-recursion       | Tower of Hanoi, quicksort |
-| 9  | classics-graphs          | matrix product, transitive closure, Warshall, shortest paths |
-| 10 | classics-sequences       | polynomials, moving average, differences, 1-D automaton |
-| 11 | classics-data            | histogram, duplicates, sort and grade, run-length encoding |
-| 12 | classics-puzzles         | magic square, Mastermind |
-| 13 | classics-replicate       | `r_eplicate` (B11) |
-| 14 | classics-encode-decode   | `e_ncode` / `d_ecode` (B12) |
-| 15 | classics-radix-programs  | truth tables, base conversion, Roman numerals, RLE decode |
-| 16 | classics-nested-design   | the remaining A7 questions, with the user |
-| 17 | classics-nested-core     | `Box a`, nested values, boxed printing |
-| 18 | classics-nested-builtins | enclose, disclose, partition, each over boxes |
-| 19 | classics-nested-programs | word frequency, N-Queens drawn, ragged Pascal |
-| 20 | classics-mini-apl        | an APL subset interpreter in X_eTaL |
-| 21 | classics-release         | index, README link, retrospective, merge |
+| 2  | classics-broken-pipe     | a closed stdout ends a run quietly (found by the Pascal demo) |
+| 3  | classics-trig            | `s_in` `c_os` `a_tan` `p_i` (B13) |
+| 4  | classics-draw-grid       | `xetal-draw`, `[]G_RID`, `[]S_HOW`, animated Life (QD5) |
+| 5  | classics-draw-path       | `[]P_ATH`, lib/Turtle.xtl, Sierpinski |
+| 6  | classics-draw-raster     | large grids as images, palettes, Mandelbrot zoom and fly-over |
+| 7  | classics-draw-web        | a Draw pane in the live demo |
+| 8  | classics-numbers         | sieve, primes, GCD, Fibonacci, factorial, Collatz |
+| 9  | classics-recursion       | Tower of Hanoi, quicksort |
+| 10 | classics-graphs          | matrix product, transitive closure, Warshall, shortest paths |
+| 11 | classics-sequences       | polynomials, moving average, differences, 1-D automaton |
+| 12 | classics-data            | histogram, duplicates, sort and grade, run-length encoding |
+| 13 | classics-puzzles         | magic square, Mastermind |
+| 14 | classics-replicate       | `r_eplicate` (B11) |
+| 15 | classics-encode-decode   | `e_ncode` / `d_ecode` (B12) |
+| 16 | classics-radix-programs  | truth tables, base conversion, Roman numerals, RLE decode |
+| 17 | classics-nested-design   | the remaining A7 questions, with the user |
+| 18 | classics-nested-core     | `Box a`, nested values, boxed printing |
+| 19 | classics-nested-builtins | enclose, disclose, partition, each over boxes |
+| 20 | classics-nested-programs | word frequency, N-Queens drawn, ragged Pascal |
+| 21 | classics-mini-apl        | an APL subset interpreter in X_eTaL |
+| 22 | classics-release         | index, README link, retrospective, merge |
 
 ## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
 

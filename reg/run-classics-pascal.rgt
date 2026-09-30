@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/pascal.xtl"
+exit_code = 0
+desc = "Pascal's triangle: shift and add, binomials by table, centred, and modulo 2"
