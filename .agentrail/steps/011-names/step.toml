@@ -1,0 +1,8 @@
+number = 11
+slug = "names"
+status = "pending"
+description = "User request: a section (README and a docs page, e.g. docs/name.md) on the ma..."
+role = "production"
+context_files = []
+created_at = "2026-09-30T14:38:24"
+commits = []
