@@ -1,8 +1,9 @@
 number = 8
 slug = "tttml-literate"
-status = "in-progress"
+status = "completed"
 description = "TTTML as a library and a literate document (user request): lib/TTTML.xtl hold..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T16:03:21"
-commits = []
+completed_at = "2026-09-29T18:33:39"
+commits = ["0c8dc27e641d88ee40ec758caa75ccb314ec1199"]

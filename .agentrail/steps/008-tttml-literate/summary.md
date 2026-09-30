@@ -1,0 +1,1 @@
+lib/TTTML.xtl (pure model value, ! only on dice-rolling functions, progress every 250 games, b_oards, s_elfTrial!: 50/50 draws); demos/tttml.xtl on it (~11 s); docs/literate/tttml.org. Notebooks stream in one pass (eval_items hook; session feed_to fallback) and use APL layout (input indented 6, output flush left); just recipes on the release build; work/ gitignored.
