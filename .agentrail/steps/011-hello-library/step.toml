@@ -1,8 +1,9 @@
 number = 11
 slug = "hello-library"
-status = "in-progress"
+status = "completed"
 description = "User request: a demo and a literate document showing how to write a hello-wor..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T14:31:18"
-commits = []
+completed_at = "2026-09-30T16:04:20"
+commits = ["9289c4b15b66674367a92a73499ecb6eb391767e"]

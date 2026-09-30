@@ -1,0 +1,1 @@
+Hello library (demos/Hello.xtl), hello-library demo, Greetings (private name), docs/literate/hello.org with XETAL_PATH, 6 reg goldens, live demo seeds own libraries into local storage; smoke skips libraries
