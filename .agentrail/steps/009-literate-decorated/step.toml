@@ -1,6 +1,6 @@
-number = 11
+number = 9
 slug = "literate-decorated"
-status = "pending"
+status = "in-progress"
 description = "User request: the literate HTML (pages/literate/) shows only the typed ASCII ..."
 role = "production"
 context_files = []
