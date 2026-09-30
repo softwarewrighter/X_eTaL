@@ -1,6 +1,6 @@
 number = 10
 slug = "bird-names"
-status = "pending"
+status = "in-progress"
 description = "User request: in the birds demos, docs and libraries, bird names are capitali..."
 role = "production"
 context_files = []

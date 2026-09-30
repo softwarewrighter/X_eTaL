@@ -1,7 +1,7 @@
 == SOURCE
 l:Y_ := { f_ -> f_ l:Y_ 'f_ }
 == TITLE
-Y, the sage bird: recursion
+Y, the Sage Bird: recursion
 == NOTE f_
 The step
 A function that is handed the whole recursive function and makes one step with it.

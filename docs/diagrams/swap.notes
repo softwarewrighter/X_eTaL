@@ -1,7 +1,7 @@
 == SOURCE
 l:C_ := { x_ y z -> z x_ y }
 == TITLE
-C, the cardinal: swapping arguments
+C, the Cardinal: swapping arguments
 == NOTE x_
 A function
 The function whose two arguments C swaps.
@@ -10,4 +10,4 @@ Two values
 Named in the order C is given them.
 == NOTE z x_ y
 x z y
-Written between two values, a function takes the left one, then the right one: `z x_ y` is x applied to z and then y. So the arguments come swapped: Dyalog `f⍨`, J `f~`, BQN `F˜` (with two arguments). The warbler W, `{ x_ y -> y x_ y }`, gives one value to both sides: `f⍨` with one argument.
+Written between two values, a function takes the left one, then the right one: `z x_ y` is x applied to z and then y. So the arguments come swapped: Dyalog `f⍨`, J `f~`, BQN `F˜` (with two arguments). The Warbler W, `{ x_ y -> y x_ y }`, gives one value to both sides: `f⍨` with one argument.

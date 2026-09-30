@@ -27,7 +27,7 @@ library's names are then written with that prefix:
 #+RESULTS:
 : 1
 
-K, the kestrel, keeps its first argument and drops the second.
+K, the Kestrel, keeps its first argument and drops the second.
 
 * Seeing the order of arguments
 
@@ -48,7 +48,7 @@ u:d_ouble := { _r * 2 }
 #+RESULTS:
 : 21
 
-C, the cardinal, swaps them: ~C x y z~ is ~x z y~, so C a_b 1 2 is a_b
+C, the Cardinal, swaps them: ~C x y z~ is ~x z y~, so C a_b 1 2 is a_b
 2 1. Written between two values, a function takes the left one, then
 the right one:
 
@@ -56,7 +56,7 @@ the right one:
 
 * Composing
 
-B, the bluebird, composes: ~B x y z~ is ~x (y z)~. Here x is inc (the
+B, the Bluebird, composes: ~B x y z~ is ~x (y z)~. Here x is inc (the
 nearest operand) and y is double:
 
 [[file:../../images/compose-annotated.svg]]
@@ -68,7 +68,7 @@ nearest operand) and y is double:
 #+RESULTS:
 : 11
 
-The blackbird B1 composes with a function of two arguments: ~B1 x y z
+The Blackbird B1 composes with a function of two arguments: ~B1 x y z
 w~ is ~x (y z w)~, inc applied to a_b 1 2:
 
 #+begin_src xetal
@@ -80,8 +80,8 @@ w~ is ~x (y z w)~, inc applied to a_b 1 2:
 
 * Using a value twice
 
-W, the warbler, gives its function one value on both sides; S, the
-starling, applies x to z and to y applied to z: ~S x y z~ is ~x z (y
+W, the Warbler, gives its function one value on both sides; S, the
+Starling, applies x to z and to y applied to z: ~S x y z~ is ~x z (y
 z)~, here a_b 3 (double 3):
 
 [[file:../../images/starling-annotated.svg]]
@@ -97,8 +97,8 @@ z)~, here a_b 3 (double 3):
 
 * Holding values
 
-T, the thrush, applies its second argument to its first, and V, the
-vireo, holds two values until a function arrives:
+T, the Thrush, applies its second argument to its first, and V, the
+Vireo, holds two values until a function arrives:
 
 #+begin_src xetal
 3 c:T_ 'u:d_ouble
@@ -113,7 +113,7 @@ vireo, holds two values until a function arrives:
 
 * Recursion
 
-Y, the sage bird, makes recursion from a function that is handed
+Y, the Sage Bird, makes recursion from a function that is handed
 itself: ~Y f~ is ~f (Y f)~. It does not unfold forever because the
 function's self parameter is lazy (=~=), used only when needed:
 
@@ -139,8 +139,8 @@ u:d_ouble^10 1
 
 * The birds with no type
 
-The mockingbird M applies its argument to itself, ~M x~ is ~x x~, and
-no finite type describes that; nor the lark, the double mockingbird,
+The Mockingbird M applies its argument to itself, ~M x~ is ~x x~, and
+no finite type describes that; nor the Lark, the Double Mockingbird,
 Turing's bird or the textbook Y built from them. They run when the
 checker is skipped, here outside the session with ~--untyped~: M given
 the identity gives it back, and the textbook Y computes a factorial

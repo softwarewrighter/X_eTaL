@@ -11,7 +11,7 @@
 .mark { stroke-width: 3; stroke-linecap: round }
 </style>
 <rect width="100%" height="100%" rx="12" fill="#ffffff"/>
-<text x="30" y="48" class="heading">C, the cardinal: swapping arguments</text>
+<text x="30" y="48" class="heading">C, the Cardinal: swapping arguments</text>
 <text x="30" y="82" class="typed">as typed: l:C_ := { x_ y z -&gt; z x_ y }</text>
 <rect x="66.3" y="388.0" width="470.4" height="72" rx="10" fill="#1e2127"/>
 <text x="90.3" y="435.0" class="code" fill="#22b8c8">ˡC̲</text>
@@ -43,7 +43,7 @@
 <text x="323.5" y="205.0" class="note">applied to z and then y. So the</text>
 <text x="323.5" y="223.0" class="note">arguments come swapped: Dyalog</text>
 <text x="323.5" y="241.0" class="note"><tspan class="inline">f⍨</tspan>, J <tspan class="inline">f~</tspan>, BQN <tspan class="inline">F˜</tspan> (with two</text>
-<text x="323.5" y="259.0" class="note">arguments). The warbler W, <tspan class="inline">{ x_</tspan></text>
+<text x="323.5" y="259.0" class="note">arguments). The Warbler W, <tspan class="inline">{ x_</tspan></text>
 <text x="323.5" y="277.0" class="note"><tspan class="inline">y -&gt; y x_ y }</tspan>, gives one value</text>
 <text x="323.5" y="295.0" class="note">to both sides: <tspan class="inline">f⍨</tspan> with one</text>
 <text x="323.5" y="313.0" class="note">argument.</text>

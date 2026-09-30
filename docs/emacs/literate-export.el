@@ -10,6 +10,7 @@
 (require 'subr-x)
 
 (setq org-export-use-babel nil
+      org-export-time-stamp-file nil
       org-html-htmlize-output-type nil
       org-html-validation-link nil
       org-html-head-include-default-style nil

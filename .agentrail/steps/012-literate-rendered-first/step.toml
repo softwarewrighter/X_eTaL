@@ -1,0 +1,8 @@
+number = 12
+slug = "literate-rendered-first"
+status = "pending"
+description = "User request: every literate document (docs/literate/*.org) shows the pretty-..."
+role = "production"
+context_files = []
+created_at = "2026-09-30T14:58:40"
+commits = []

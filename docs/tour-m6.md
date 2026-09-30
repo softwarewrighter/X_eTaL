@@ -33,10 +33,10 @@ l:W_ : (a -> a -> b) -> a -> b
 `just show demos/combinators.xtl` runs the library as a notebook: K
 keeps its first argument, C swaps arguments (`10 '- c:C_ 3` is -7), B
 composes, W uses a value twice, S, T and V hold and pass values, and Y,
-the sage bird, makes recursion from a function handed itself (a
+the Sage Bird, makes recursion from a function handed itself (a
 factorial of 10 is 3628800). The birds that apply an argument to
 itself have no finite type; `demos/birds-untyped.xtl` runs them with
-`--untyped` (the mockingbird, the textbook Y, Z, and Turing's fixed
+`--untyped` (the Mockingbird, the textbook Y, Z, and Turing's fixed
 point).
 
 ## Function power

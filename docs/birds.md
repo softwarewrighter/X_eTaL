@@ -17,7 +17,7 @@ Smullyan's variants are spelled from the letter:
   would be `B__1`, lang-choices D-8);
 - a star is `s`: `C_s` for C* ("C once removed"), `C_ss` for C**
   ("C twice removed");
-- the hat is `h`: `E_h` for the bald eagle (E with a hat).
+- the hat is `h`: `E_h` for the Bald Eagle (E with a hat).
 
 ## Reading the library
 
@@ -29,19 +29,19 @@ readers of APL, J or BQN and for readers of none. Importing it:
 
 B: composition, with function and value parameters:
 
-![B, the bluebird: x (y z)](../images/compose-annotated.svg)
+![B, the Bluebird: x (y z)](../images/compose-annotated.svg)
 
 C: a function between two values takes the left one, then the right:
 
-![C, the cardinal: x z y](../images/swap-annotated.svg)
+![C, the Cardinal: x z y](../images/swap-annotated.svg)
 
 S: one value used twice (J's hook):
 
-![S, the starling: x z (y z)](../images/starling-annotated.svg)
+![S, the Starling: x z (y z)](../images/starling-annotated.svg)
 
 Y: recursion through the library's own name, with a quoted function:
 
-![Y, the sage bird: Y f is f (Y f)](../images/sage-annotated.svg)
+![Y, the Sage Bird: Y f is f (Y f)](../images/sage-annotated.svg)
 
 And a call from a program that imported it as `c:`:
 
@@ -72,16 +72,16 @@ In the tables, the column Typed says whether the bird type-checks.
 | D1 | Dickcissel | `D1 x y z w v = x y z (w v)` | yes | `D_1` |
 | D2 | Dovekie | `D2 x y z w v = x (y z) (w v)` | yes | `D_2` |
 | E | Eagle | `E x y z w v = x y (z w v)` | yes | `E_` |
-| E-hat | Bald eagle | `Eh x y1 y2 y3 z1 z2 z3 = x (y1 y2 y3) (z1 z2 z3)` | yes | `E_h` |
+| E-hat | Bald Eagle | `Eh x y1 y2 y3 z1 z2 z3 = x (y1 y2 y3) (z1 z2 z3)` | yes | `E_h` |
 | F | Finch | `F x y z = z y x` | yes | `F_` |
 | G | Goldfinch | `G x y z w = x w (y z)` | yes | `G_` |
 | H | Hummingbird | `H x y z = x y z y` | yes | `H_` |
-| I | Identity bird | `I x = x` | yes | `I_` |
+| I | Idiot Bird (identity) | `I x = x` | yes | `I_` |
 | J | Jay | `J x y z w = x y (x w z)` | yes | `J_` |
 | K | Kestrel | `K x y = x` | yes | `K_` |
 | L | Lark | `L x y = x (y y)` | no | `L_` |
 | M | Mockingbird | `M x = x x` | no | `M_` |
-| M2 | Double mockingbird | `M2 x y = x y (x y)` | no | `M_2` |
+| M2 | Double Mockingbird | `M2 x y = x y (x y)` | no | `M_2` |
 | O | Owl | `O x y = y (x y)` | yes | `O_` |
 | Q | Queer bird | `Q x y z = y (x z)` | yes | `Q_` |
 | Q1 | Quixotic bird | `Q1 x y z = x (z y)` | yes | `Q_1` |
@@ -94,7 +94,7 @@ In the tables, the column Typed says whether the bird type-checks.
 | U | Turing bird | `U x y = y (x x y)` | no | `U_` |
 | V | Vireo | `V x y z = z x y` | yes | `V_` |
 | W | Warbler | `W x y = x y y` | yes | `W_` |
-| W1 | Converse warbler | `W1 x y = y x x` | yes | `W_1` |
+| W1 | Converse Warbler | `W1 x y = y x x` | yes | `W_1` |
 | Y | Sage bird | `Y x = x (Y x)` | yes, by recursion | `Y_` |
 
 The once and twice removed birds pass their first argument, or
@@ -115,8 +115,8 @@ first two, through unchanged and act as the plain bird on the rest:
 
 That is 38 typed birds in the library (Y among them) and 4 untyped
 ones (L, M, M2, U), which are in the untyped demo,
-`demos/birds-untyped.xtl`, with the textbook Y, Z (the sage bird for
+`demos/birds-untyped.xtl`, with the textbook Y, Z (the Sage Bird for
 strict evaluation) and Turing's fixed point U U. `demos/combinators.xtl`
 shows the library at work (`just show demos/combinators.xtl`).
-Birds from other aviaries (the kite `K I`, Curry's phoenix and psi)
+Birds from other aviaries (the Kite `K I`, Curry's Phoenix and Psi)
 are not in Smullyan's list; they are one line each in a user file.

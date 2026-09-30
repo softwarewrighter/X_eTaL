@@ -1,7 +1,7 @@
 == SOURCE
 l:B_ := { x_ y_ z -> x_ y_ z }
 == TITLE
-B, the bluebird: composition
+B, the Bluebird: composition
 == NOTE l:B_
 An exported name
 `l:` marks a name the library exports; a program that imports it as `c:` writes `c:B_`. The underlined B makes it a function.
