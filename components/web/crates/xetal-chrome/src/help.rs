@@ -17,6 +17,7 @@ pub(crate) fn help_text() -> Html {
                   whole-array programming and functional composition, typed as \
                   plain ASCII and drawn typographically. What you type on the left \
                   is drawn decorated on the right as you type." }</p>
+            { name() }
             <h2>{ "Editing" }</h2>
             <ul>
                 <li>{ "Type in the ASCII pane; the Rendered pane follows, and the \
@@ -40,6 +41,20 @@ pub(crate) fn help_text() -> Html {
             { reading() }
             { reference() }
             { links() }
+        </>
+    }
+}
+
+/// How the name is said and spelled.
+fn name() -> Html {
+    html! {
+        <>
+            <h2>{ "The name" }</h2>
+            <p>{ "Say it Ecks-e-tal, as the file type .xtl is said eks-tee-ell. The \
+                  logo is an underlined X, a raised e, T, a raised a and L; typed in \
+                  ASCII it is X_eTaL (or X_ e:T a:L, which XeTaL itself draws as the \
+                  logo), in a sentence XeTaL, and the program is xetal. " }
+               <a href={doc("docs/name.md")} target="_blank">{ "Every spelling" }</a>{ "." }</p>
         </>
     }
 }

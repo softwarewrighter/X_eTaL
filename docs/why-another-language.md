@@ -191,12 +191,12 @@ That may look odd at first, but it does real grammatical work.
 
 ```
 [~] makes it impossible to find on Google
-[X] is impossible to pronounce
+[ ] is impossible to pronounce
 [ ] is a curse word in __________
 ```
 
-XeTaL, written X_eTaL: "ex-ee-tal"? "zee-tal"? This is the one
-checkbox we have not resolved. The expansion is at least descriptive:
+Resolved: say Ecks-e-tal, as the file type `.xtl` is said eks-tee-ell
+([the name](name.md) has every spelling). The expansion is descriptive:
 the eXperimental eXtensible Typed Array Language. And the underscore is
 not decoration: in XeTaL an underscore after a letter underlines it,
 and an underlined letter makes a name a function.

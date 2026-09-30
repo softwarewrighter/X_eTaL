@@ -1,0 +1,3 @@
+command = "./target/debug/xetal render -e 'X_ e:T a:L'"
+exit_code = 0
+desc = "the logo is XeTaL: X underlined, e and a raised (docs/name.md)"

@@ -99,6 +99,15 @@ gets S as its left argument and the board as its right, and computes
 `(S = 3) + board * (S = 4)`: a cell lives next when S is 3, or when it
 is alive and S is 4.
 
+
+## The name
+
+Say it **Ecks-e-tal**, as the file type `.xtl` is said eks-tee-ell.
+Spell it with the logo (an underlined X, a raised e, T, a raised a, L)
+where it can be drawn, `X_eTaL` in plain ASCII, XeTaL in a sentence,
+and `xetal` for the binary and the code. [`docs/name.md`](docs/name.md)
+lists every spelling and why the logo is itself XeTaL (`X_ e:T a:L`).
+
 ## Seeing it
 
 Source is typed as ASCII and shown decorated. `xetal edit FILE` puts
@@ -249,6 +258,8 @@ Other fonts, checked against the font files:
 - [`docs/permission-response.md`](docs/permission-response.md) -- XeTaL's
   answers to ngn's [Array Language Implementation Permission
   Request](https://ngn.codeberg.page/funny/reg.html)
+- [`docs/name.md`](docs/name.md) -- how to say XeTaL (Ecks-e-tal) and
+  every way it is spelled
 - [`docs/why-another-language.md`](docs/why-another-language.md) --
   XeTaL fills in the [Programming Language
   Checklist](https://www.mcmillen.dev/language_checklist.html)

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal render -e 'X_eTaL'"
+exit_code = 0
+desc = "the ASCII spelling keeps the underline (docs/name.md)"
