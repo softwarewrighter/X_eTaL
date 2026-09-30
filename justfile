@@ -99,6 +99,10 @@ literate:
 check-literate:
     scripts/literate.sh --check
 
+# Serve the live demo locally (http://127.0.0.1:8095/), rebuilt when a source changes
+web:
+    cd components/web/crates/xetal-web && trunk serve --release --port 8095 --address 127.0.0.1
+
 # Regenerate docs/reference.md (every built-in, its examples run) from docs/reference/builtins.ref
 reference: _quiet-build
     python3 scripts/reference.py

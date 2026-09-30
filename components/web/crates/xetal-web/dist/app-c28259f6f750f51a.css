@@ -1,0 +1,41 @@
+/* The editor as in the terminal: dark, monospace, the TUI's colors. */
+:root {
+  --bg: #16181d; --panel: #1d2027; --line: #3a3f4b; --text: #e6e6e6;
+  --dim: #8a8f98; --bright: #ffd21f;
+  --mono: JuliaMono, "DejaVu Sans Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); }
+body { font: 15px/1.35 var(--mono); }
+.app { display: flex; flex-direction: column; height: 100vh; }
+.toolbar { display: flex; gap: 10px; align-items: center; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+.toolbar .brand { font-weight: bold; color: var(--bright); margin-right: 8px; }
+.toolbar select, .toolbar button {
+  font: inherit; background: var(--panel); color: var(--text);
+  border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer;
+}
+.toolbar button:hover { border-color: var(--bright); }
+.panes {
+  flex: 1; min-height: 0; display: grid; gap: 8px; padding: 8px;
+  grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 32%;
+  grid-template-areas: "source rendered" "output output";
+}
+.pane { display: flex; flex-direction: column; min-height: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+.pane h2 { margin: 0; padding: 3px 10px; font-size: 13px; font-weight: normal; color: var(--dim); border-bottom: 1px solid var(--line); }
+.pane.current { border: 3px solid var(--bright); }
+.pane.current h2 { background: var(--bright); color: #1d2330; font-weight: bold; }
+.source { grid-area: source; } .rendered { grid-area: rendered; } .output { grid-area: output; }
+.pane textarea, .pane pre {
+  flex: 1; margin: 0; padding: 8px 10px; overflow: auto; white-space: pre;
+  font: inherit; color: var(--text); background: transparent; border: 0; outline: none; resize: none;
+  font-variant-ligatures: none; caret-color: var(--bright);
+}
+.panes.zoomed { grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: "only"; }
+.panes.zoomed .pane { display: none; }
+.panes.zoomed .pane.current { display: flex; grid-area: only; }
+/* Token classes, as xetal render --color draws them. */
+.c-builtin { color: #5b9cff; } .c-userfunc { color: #3fbf5f; } .c-libfunc { color: #22b8c8; }
+.c-lambdaarg { color: #d25fd2; } .c-number, .c-exponent { color: #e0b400; }
+.c-string { color: #e8d27a; } .c-symbol { color: #7fbfff; } .c-quote { font-weight: bold; }
+.c-comment { color: var(--dim); } .c-macro { color: #e0b400; font-weight: bold; }
+.c-error { color: #ff6b6b; }

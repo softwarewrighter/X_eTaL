@@ -1,6 +1,6 @@
 number = 3
 slug = "yew-app"
-status = "pending"
+status = "in-progress"
 description = "web-playground step 2: components/web (Yew, trunk): the ASCII pane, the decor..."
 role = "production"
 context_files = []

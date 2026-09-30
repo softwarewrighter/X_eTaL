@@ -29,3 +29,4 @@ Available recipes:
     tttml-play                 # TTTML part 2: play the saved model (run tttml-train first); you are X
     tttml-train                # TTTML part 1: learn tic-tac-toe by playing itself and save the model in work/
     videos                     # Regenerate the videos (vhs, ffmpeg, gif2webp)
+    web                        # Serve the live demo locally (http://127.0.0.1:8095/), rebuilt when a source changes

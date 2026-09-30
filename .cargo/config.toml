@@ -4,3 +4,8 @@
 # land in ./target (the reg-rs goldens run ./target/debug/xetal).
 [build]
 target-dir = "target"
+
+# The live demo runs the evaluator on the browser's stack (WebAssembly has
+# no threads): give it room for deep recursion (TTTML trains recursively).
+[target.wasm32-unknown-unknown]
+rustflags = ["-C", "link-arg=-zstack-size=67108864"]

@@ -12,3 +12,6 @@ xetal-base.workspace = true
 xetal-array.workspace = true
 xetal-value.workspace = true
 xetal-store.workspace = true
+
+[dev-dependencies]
+xetal-store.workspace = true
