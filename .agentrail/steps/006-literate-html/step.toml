@@ -1,8 +1,9 @@
 number = 6
 slug = "literate-html"
-status = "in-progress"
+status = "completed"
 description = "web-playground step 5: Org HTML exports of docs/literate/*.org into pages/lit..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T10:12:11"
-commits = []
+completed_at = "2026-09-30T13:36:49"
+commits = ["37b2976438bc51a1a594ee11780fd03eb9723014"]

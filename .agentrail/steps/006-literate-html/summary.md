@@ -1,0 +1,1 @@
+Literate docs exported to HTML at pages/literate/ with an index (tour, life, libraries, birds, tttml); new life.org and libraries.org; Literate link no longer 404. Next step (resizable-panes): model the splitters on ../../sw-embed/web-sw-cor24-macrolisp's resizable windows, and disable Run when the editor holds a library (user requests).
