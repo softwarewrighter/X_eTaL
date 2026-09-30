@@ -1,0 +1,1 @@
+Pascal's triangle demo (shift and add, binomial table, centred text, Sierpinski mod 2) with golden run-classics-pascal; docs/classics.md index linked from README; demo in web Open list; smoke walks demos/classics. Broken-pipe panic found and queued as step 2. wasm32 check and cli-too-deep not runnable in this sandbox.
