@@ -1,8 +1,9 @@
 number = 2
 slug = "match"
-status = "in-progress"
+status = "completed"
 description = "The built-in m_atch (user request): a m_atch b is 1 when a and b have the sam..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T11:14:30"
-commits = []
+completed_at = "2026-09-30T11:23:00"
+commits = ["b10a363eb53367bc4eb060bdbec2a89186d6b903"]
