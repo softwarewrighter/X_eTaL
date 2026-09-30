@@ -1,4 +1,4 @@
-//! `i_ndexOf`, `m_ember?` and `u_nique`.
+//! `i_ndexOf`, `m_ember?`, `m_atch` and `u_nique`.
 
 use xetal_array::{Array, ArrayError};
 use xetal_base::Diagnostic;
@@ -33,6 +33,15 @@ pub(crate) fn index_of<'a>(x: &Value<'a>, y: &Value<'a>) -> Out<'a> {
         Value::Int(at.unwrap_or(cells.len()) as i64 + 1)
     });
     Ok(to_value(Array::new(out_shape, found.collect())?))
+}
+
+/// `x m_atch y`: whether x and y have the same shape and equal items
+/// (APL's match): one result for the whole arrays.
+pub(crate) fn matches<'a>(x: &Value<'a>, y: &Value<'a>) -> Out<'a> {
+    let (xs, ys) = (as_array(x), as_array(y));
+    Ok(Value::Bool(
+        xs.shape() == ys.shape() && same(xs.data(), ys.data()),
+    ))
 }
 
 /// Whether each item of `x` occurs among the items of `y`.

@@ -1,4 +1,4 @@
-number = 2
+number = 3
 slug = "yew-app"
 status = "pending"
 description = "web-playground step 2: components/web (Yew, trunk): the ASCII pane, the decor..."

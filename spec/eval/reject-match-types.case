@@ -1,0 +1,5 @@
+# Both sides of m_atch have one type.
+== SOURCE
+1 m_atch "a"
+== ERROR
+error[type-mismatch]: expected a number, found Char at 0..12

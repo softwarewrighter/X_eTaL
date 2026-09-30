@@ -49,6 +49,7 @@ u:m_ean := ['+ r_/ / t_ally]
 u:m_ean 1 2 3 4
 v i_ndexOf 2
 2 9 m_ember? v
+v m_atch 3 1 2
 w_here 0 1 1 0
 f_ormat v
 "c:" u_se< "Combinators"
@@ -93,6 +94,7 @@ abcd
 2.5
 3
 1 0
+1
 2 3
 3 1 2
 -7

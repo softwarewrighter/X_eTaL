@@ -688,6 +688,27 @@ Whether each item of the left is among the items of the right.
 1 0
 ```
 
+### `m_atch`
+
+`(Eq a, Truthy b) => a -> a -> b`, two arguments.
+
+Whether both sides have the same shape and equal items (APL's match):
+one result for the whole arrays, where `=` compares item by item. The
+same items in another shape do not match.
+
+```
+      1 2 3 m_atch 1 2 3
+1
+      1 2 3 m_atch 1 2 4
+0
+      M m_atch M
+1
+      M m_atch 1 2 3 4 5 6
+0
+      1 m_atch 1 s_elect 1 2 3
+1
+```
+
 ### `u_nique`
 
 `Eq a => a -> a`, one argument.

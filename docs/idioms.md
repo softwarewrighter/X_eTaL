@@ -79,6 +79,7 @@ and names are words where APL has glyphs; the source is plain ASCII.
 | Self-reference | the function's name | <code>&#8711;</code> | <code>$:</code> | <code>&#120138;</code> | its name, or <code>c:Y_</code> |
 | Index of | <code>V&#9075;X</code> | <code>v&#9075;x</code> | <code>v i. x</code> | <code>v&#8848;x</code> | <code>v i_ndexOf x</code> |
 | Membership | <code>X&#8714;V</code> | <code>x&#8714;v</code> | <code>x e. v</code> | <code>x&#8714;v</code> | <code>x m_ember? v</code> |
+| Match | <code>A&#8801;B</code> | <code>a&#8801;b</code> | <code>a -: b</code> | <code>a&#8801;b</code> | <code>a m_atch b</code> |
 | Where | <code>B/&#9075;&#9076;B</code> | <code>&#9080;b</code> | <code>I. b</code> | <code>/b</code> | <code>w_here b</code> |
 | Sort | <code>V[&#9035;V]</code> | <code>v[&#9035;v]</code> | <code>/:~ v</code> | <code>&#8743;v</code> | <code>s_ort v</code> |
 | Number to text | <code>&#9045;V</code> | <code>&#9045;v</code> | <code>": v</code> | <code>&#8226;Fmt v</code> | <code>f_ormat v</code> |

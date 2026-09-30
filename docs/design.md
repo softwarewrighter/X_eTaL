@@ -613,4 +613,5 @@ The pinning tests are written as the implementing saga reaches them
 | D31| Combinators library | every bird Smullyan names that type-checks, spelled by letter (`B_1`, `C_s`, `E_h` for the variants), types pinned; Y by recursion; the self-applying birds in an untyped demo; `Maybe` as a second library; `xetal type` of a library lists its exports (CB1-CB4, `docs/birds.md`) |
 | D32| Files and numbers as text | quad functions `[]N_PUT` / `[]N_GET` (text files) and `[]R_EAD` (a typed line); `f_ormat` and `n_umbers` for numbers as text; lexed as a name in the system namespace `[]`, drawn with the quad, a built-in (QD1-QD4) |
 | D33| Decimal exponents | raised like whole ones, the point drawn as a middle dot (Unicode has no superscript full stop); the inverse accepts the dot only inside a raised exponent (I2) |
+| D34| Match | `a m_atch b` is 1 when both sides have the same shape and equal items (APL's match), typed like `=`; a word, drawn with its m underlined (B7) |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

@@ -1,7 +1,7 @@
 number = 4
-slug = "browser-io"
+slug = "pages"
 status = "pending"
-description = "web-playground step 4: local storage: save and load named files (workspaces);..."
+description = "web-playground step 3: scripts/build-pages.sh (trunk build --release --public..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T10:12:10"

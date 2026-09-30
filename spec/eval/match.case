@@ -1,0 +1,29 @@
+# m_atch: 1 when both sides have the same shape and equal items (APL's
+# match), else 0; one result for the whole arrays, unlike =.
+== SOURCE
+1 2 3 m_atch 1 2 3
+1 2 3 m_atch 1 2 4
+1 2 3 m_atch 1 2
+(2 2 r_eshape 1 2 3 4) m_atch 1 2 3 4
+"abc" m_atch "abc"
+1 m_atch 1
+1 = 1 s_elect 1 2 3
+1 m_atch 1 s_elect 1 2 3
+== TYPE
+Bool
+Bool
+Bool
+Bool
+Bool
+Bool
+Bool
+Bool
+== RESULT
+1
+0
+0
+0
+1
+1
+1
+1
