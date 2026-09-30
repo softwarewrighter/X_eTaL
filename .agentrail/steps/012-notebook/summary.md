@@ -1,0 +1,1 @@
+Tour + literate tour Combinators and power section; docs/literate/birds.org (all blocks run, diagrams, untyped block outside the session); life.xtl uses u:l_ife^2; goldens rebased (intended).

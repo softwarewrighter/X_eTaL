@@ -1,0 +1,11 @@
+{
+  "task_type": "code",
+  "state": {
+    "number": 12,
+    "step": "notebook"
+  },
+  "action": "demo + org edits, literate.sh, reg rebase, gate",
+  "result": "success",
+  "reward": 1,
+  "timestamp": "2026-09-30T07:00:34"
+}

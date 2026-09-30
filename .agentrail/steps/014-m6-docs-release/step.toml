@@ -1,4 +1,4 @@
-number = 13
+number = 14
 slug = "m6-docs-release"
 status = "pending"
 description = "combinators step 6: M6 tour page (docs/tour-m6.md), docs sync, Saga 9 retrosp..."
