@@ -1,0 +1,1 @@
+web-playground step 1: the pipeline for wasm32: a single-threaded evaluator path (no worker thread), libraries in memory only (no file system), a small API (decorate, check, run) in a crate the web app uses; tested natively; cargo check --target wasm32-unknown-unknown in the gate.

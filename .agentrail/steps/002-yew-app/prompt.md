@@ -1,0 +1,1 @@
+web-playground step 2: components/web (Yew, trunk): the ASCII pane, the decorated pane (view model to spans, TUI colors), the output pane; drop-down of canned .xtl files (demos, tour); Run button; Tab between panes, Ctrl-T zoom, Ctrl-R run; trunk serve locally.
