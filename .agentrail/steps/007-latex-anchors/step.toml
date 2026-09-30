@@ -1,0 +1,8 @@
+number = 7
+slug = "latex-anchors"
+status = "in-progress"
+description = '''Bug (user report): xetal render --latex -e 'o_-_12 x^2' prints {\mathrm{\unde...'''
+role = "production"
+context_files = []
+created_at = "2026-09-30T13:38:44"
+commits = []

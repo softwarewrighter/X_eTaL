@@ -1,0 +1,8 @@
+number = 8
+slug = "literate-decorated"
+status = "pending"
+description = "User request: the literate HTML (pages/literate/) shows only the typed ASCII ..."
+role = "production"
+context_files = []
+created_at = "2026-09-30T13:38:54"
+commits = []
