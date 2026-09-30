@@ -398,7 +398,9 @@ Recommended function-name suffixes:
 | `/` | reduce-like, collapses an axis | `r_/`, `m_ax/` |
 | `\` | scan-like, running results | `s_\` |
 | `~` | approximate or tolerant | `e_q~` |
-| `$` | produces text | `f_mt$` |
+
+No `$` suffix for functions that produce text, for now (decided with
+the user): they are named plainly, like `f_ormat`.
 
 In a comment, backquotes mark X_eTaL code, drawn decorated
 (`` `'+ r_/ v` ``); a shell command, a path or other text that is not
