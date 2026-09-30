@@ -1,9 +1,10 @@
 number = 19
 slug = "m6-docs-release"
-status = "in-progress"
+status = "completed"
 description = "combinators step 6: M6 tour page (docs/tour-m6.md), docs sync, Saga 9 retrosp..."
 role = "production"
 context_files = []
 created_at = "2026-09-29T09:53:22"
+completed_at = "2026-09-30T10:09:03"
 task_type = "code"
-commits = []
+commits = ["9f24a21244edd82448d52438ae9c431183434e3a"]

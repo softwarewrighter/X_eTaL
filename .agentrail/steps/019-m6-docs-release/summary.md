@@ -1,0 +1,1 @@
+M6 release: docs/tour-m6.md, screenshots and video regenerated (JuliaMono tapes), README status and docs synced, plan: Saga 9 done with retrospective; sagas reordered (10 web-playground, 11 ports-first LEARN/COURSE/PLOT, ...).
