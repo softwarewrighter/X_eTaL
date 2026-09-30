@@ -1,6 +1,6 @@
 number = 8
 slug = "resizable-panes"
-status = "pending"
+status = "in-progress"
 description = "Web editor layout (the user's report, with a screenshot of TTTML.xtl opened a..."
 role = "production"
 context_files = []
