@@ -250,6 +250,9 @@ Other fonts, checked against the font files:
 - [`docs/why-another-language.md`](docs/why-another-language.md) --
   XeTaL fills in the [Programming Language
   Checklist](https://www.mcmillen.dev/language_checklist.html)
+- [`docs/xetal-apl-skeptics-response.md`](docs/xetal-apl-skeptics-response.md)
+  -- XeTaL plays the APL Wiki's complaint-bingo card
+  ([Humour](https://aplwiki.com/wiki/Humour))
 - [`docs/input.md`](docs/input.md) -- how to type X_eTaL expressions
 - [`docs/birds.md`](docs/birds.md) -- the aviary: Smullyan's combinators,
   which type-check, and how the `Combinators` library spells them

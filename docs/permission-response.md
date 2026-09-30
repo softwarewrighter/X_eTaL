@@ -170,3 +170,7 @@ on the form. The area to turn into spec tests next is the APL scalar
 and nesting edge cases: enclose of a scalar, disclose, nested match,
 empty nested arrays, and first and pick on nested arrays. Those decide
 whether "APL2/BQN-like" is precise enough.
+
+See also [XeTaL fills in the Programming Language
+Checklist](why-another-language.md) and [XeTaL and the APL skeptic's
+bingo card](xetal-apl-skeptics-response.md).

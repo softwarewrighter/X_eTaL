@@ -312,4 +312,5 @@ exact against tolerant equality, effects, evaluation order, axes,
 higher-order functions, and now match, enclose and disclose. That is a
 stronger answer to "why another language?" than any checklist.
 
-See also [XeTaL's answers to ngn's permission request](permission-response.md).
+See also [XeTaL's answers to ngn's permission request](permission-response.md)
+and [XeTaL and the APL skeptic's bingo card](xetal-apl-skeptics-response.md).
