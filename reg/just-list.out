@@ -15,6 +15,7 @@ Available recipes:
     literate                   # Run the literate documents (docs/literate/*.org), recording each block's result
     locks *args                # Check (or with --fix, regenerate) the component Cargo.lock files
     pp file                    # Pretty-print a file like cat: decorated and highlighted (errors in red)
+    reference                  # Regenerate docs/reference.md (every built-in, its examples run) from docs/reference/builtins.ref
     reg                        # Run the reg-rs CLI goldens in reg/
     repl                       # Start the interactive session
     run +args                  # Type-check and run a script, flags first: just run --echo demos/tour.xtl

@@ -1,0 +1,8 @@
+number = 17
+slug = "reference"
+status = "in-progress"
+description = "docs/reference.md (user request): every built-in function explained (tally, r..."
+role = "production"
+context_files = []
+created_at = "2026-09-30T09:06:05"
+commits = []

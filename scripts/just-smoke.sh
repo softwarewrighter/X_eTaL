@@ -17,7 +17,7 @@ check() {
 skip() { printf 'skip %-15s %s\n' "$1" "$2"; }
 for recipe in $(just --summary); do
     case "$recipe" in
-    default | build | tour | life | animate | tttml | diagrams) check just "$recipe" ;;
+    default | build | tour | life | animate | tttml | diagrams | reference) check just "$recipe" ;;
     # demos/tttml-play.xtl reads typed moves: the tttml-play check below
     # pipes some in.
     show) for f in demos/*.xtl; do [ "$f" = demos/tttml-play.xtl ] || check just show "$f"; done ;;

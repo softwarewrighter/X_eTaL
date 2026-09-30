@@ -187,6 +187,9 @@ Other fonts, checked against the font files:
 - [`docs/literate/tttml.org`](docs/literate/tttml.org) -- TTTML, a machine
   that learns tic-tac-toe by playing itself, as a literate program over the
   `TTTML` library
+- [`docs/reference.md`](docs/reference.md) -- every built-in function, with
+  examples (and, for the ones that work along an axis, the default axis,
+  axis 1 written out, and another axis)
 - [`docs/idioms.md`](docs/idioms.md) -- everyday idioms in X_eTaL beside Java,
   JavaScript, Python, C++ and Rust, and beside APL2, Dyalog APL, J and BQN
 - [`docs/input.md`](docs/input.md) -- how to type X_eTaL expressions

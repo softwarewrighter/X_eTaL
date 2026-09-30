@@ -1,0 +1,370 @@
+;; The built-in functions, for docs/reference.md (scripts/reference.py).
+;; "== SECTION title" starts a section, its first lines an introduction;
+;; "== name" a built-in, its lines a description; "> code" an example
+;; that must run, "!> code" one that must fail (its error is shown).
+
+== SECTION Arithmetic
+Arithmetic works item by item on arrays of any shape; a single number
+on either side extends to every item of the other. Int and Float mix
+as the literals allow; division always gives a Float.
+
+== +
+Plus.
+> 1 + 2
+> 1 2 3 + 10
+> M + 100
+
+== -
+Minus. Written spaced (`3 - 1`): a minus touching a number makes it
+negative.
+> 10 - 3
+> v - 1
+
+== *
+Times, drawn as the times sign.
+> 6 * 7
+> v * v
+
+== /
+Divide, drawn as the division sign; the result is a Float.
+> 7 / 2
+> 1 2 3 / 2
+
+== ^
+Power, spaced: `x ^ n`. An exponent written touching a value (`x^2`)
+is a literal superscript instead; touching a function it is function
+power (see p_ower).
+> 2 ^ 10
+> v ^ 2
+
+== m_ax
+The larger of two numbers; `'m_ax r_/` is the largest item.
+> 3 m_ax 5
+> 'm_ax r_/ v
+
+== m_in
+The smaller of two numbers.
+> 3 m_in 5
+> 2 m_in v
+
+== d_iv
+Whole-number division, in maths order: `7 d_iv 2` is 3.
+> 7 d_iv 2
+
+== m_od
+Remainder, in maths order: `7 m_od 3` is 1 (the left argument is
+divided by the right).
+> 7 m_od 3
+> (r_ange 6) m_od 2
+
+== n_eg
+Negate.
+> n_eg v
+
+== a_bs
+Absolute value.
+> a_bs -3 4 -5
+
+== f_loor
+Round down to an Int.
+> f_loor 2.5 -2.5
+
+== c_eiling
+Round up to an Int.
+> c_eiling 2.5 -2.5
+
+== e_xp
+e to a power.
+> e_xp 1
+
+== l_og
+Natural logarithm.
+> l_og e_xp 2
+
+== f_loat
+An Int as a Float.
+> f_loat 3
+
+== SECTION Comparisons and logic
+Comparisons give 1 for true and 0 for false, item by item. Everything
+reads right to left with no precedence, so the left side of `&` or
+`|` needs parentheses when it is itself an expression.
+
+== =
+Equal (any scalar type).
+> 3 = 3
+> v = 1
+
+== !=
+Not equal.
+> v != 1
+
+== <
+Less than (numbers and characters).
+> v < 2
+
+== >
+Greater than.
+> v > 2
+
+== <=
+At most.
+> v <= 2
+
+== >=
+At least.
+> v >= 2
+
+== e_q~
+Equal within a small tolerance, for Floats.
+> (0.1 + 0.2) e_q~ 0.3
+
+== &
+And.
+> 1 1 0 & 1 0 0
+
+== |
+Or.
+> 1 1 0 | 1 0 0
+
+== n_ot
+Not.
+> n_ot 1 0
+
+== SECTION Structure
+The structural functions work along the first axis unless given
+another: a subscript after the name picks the axis (`t_ake_2`), by
+moving it to the front, applying the function and moving it back.
+In the examples, `M` is `2 3 r_eshape r_ange 6`, two rows 1 2 3 and
+4 5 6: axis 1 has length 2, axis 2 length 3.
+
+== s_hape
+The length of each axis.
+> s_hape v
+> s_hape M
+
+== t_ally
+How many items along the first axis: the rows of a matrix. With a
+subscript it counts along that axis only when the result keeps a rank
+the rule allows: `t_ally_2` would drop two ranks, an error.
+> t_ally v
+> t_ally M
+> t_ally_1 M
+!> t_ally_2 M
+
+== r_ange
+The numbers 1 to n.
+> r_ange 5
+
+== o_ffsets
+The numbers 0 to n - 1.
+> o_ffsets 5
+
+== r_eshape
+The items of the right argument, taken in order and repeated as
+needed, into the shape on the left.
+> 2 3 r_eshape r_ange 6
+> 2 2 r_eshape 7
+
+== r_avel
+Every item as one vector, row after row. With axis 2, column after
+column.
+> r_avel M
+> r_avel_2 M
+
+== f_irst
+The first item along the first axis: the first row. With a subscript,
+along that axis: `f_irst_2` is the first column.
+> f_irst v
+> f_irst M
+> f_irst_1 M
+> f_irst_2 M
+
+== t_ake
+The first n items (the last n for a negative n) along the first axis,
+or along the subscript's axis.
+> 2 t_ake v
+> -2 t_ake v
+> 1 t_ake M
+> 1 t_ake_1 M
+> 1 t_ake_2 M
+
+== d_rop
+All but the first n items (the last n for a negative n), along the
+first axis or the subscript's.
+> 1 d_rop v
+> 1 d_rop M
+> 1 d_rop_1 M
+> 1 d_rop_2 M
+
+== s_elect
+The items at the given positions (from 1) along the first axis, or
+along the subscript's axis.
+> 3 1 s_elect v
+> 2 s_elect M
+> 2 s_elect_1 M
+> 2 s_elect_2 M
+
+== c_at
+Join along the first axis. An axis subscript would move the axes of
+both arguments, which is an error for now.
+> 1 2 c_at 3 4
+> M c_at M
+!> M c_at_2 M
+
+== SECTION Reduce, scan, each and table
+These take a function as an operand, written quoted before them
+(`'+ r_/`): the nearest quoted function is their first argument.
+
+== r_/
+Reduce: combine the items along the first axis with the function, from
+the right (`'- r_/ 1 2 3` is 1 - (2 - 3)). On a matrix that combines
+the rows. A subscript picks the axis; two digits reduce both axes.
+> '+ r_/ v
+> '- r_/ 1 2 3
+> '+ r_/ M
+> '+ r_/_1 M
+> '+ r_/_2 M
+> '+ r_/_12 M
+> 'm_ax r_/_2 M
+
+== s_\
+Scan: every running reduce, the last being the whole reduce. On a
+matrix down the rows; with a subscript along that axis.
+> '+ s_\ v
+> '+ s_\ M
+> '+ s_\_1 M
+> '+ s_\_2 M
+
+== e_ach
+Apply a function to every item. Given a dyadic function it pairs items
+of two arrays.
+> 'n_eg e_ach v
+> '{ _r * 10 } e_ach v
+> 1 2 3 '+ e_ach 10 20 30
+
+== t_able
+Every pairing of an item on the left with one on the right (APL's
+outer product): the result has both shapes.
+> 1 2 3 '* t_able 1 2 3
+
+== i_nner
+Inner product: `A '+ '* i_nner B` is matrix multiplication (the last
+axis of A with the first of B).
+> (2 2 r_eshape 1 2 3 4) '+ '* i_nner 2 2 r_eshape 1 2 3 4
+
+== c_ompose
+`'f 'g c_ompose x` is f applied to g applied to x.
+> 'n_eg 'a_bs c_ompose -5
+
+== s_wap
+`x 'f s_wap y` is `y f x`: the arguments swapped.
+> 10 '- s_wap 3
+
+== p_ower
+`n 'f p_ower x` applies f to x n times; `f_^n` is the same with a
+literal count.
+> 3 'n_eg p_ower 5
+> n_eg^3 5
+
+== SECTION Search and order
+These work on the items along the first axis (the rows of a matrix).
+
+== i_ndexOf
+Where each item of the right argument is first found among the items
+of the left, from 1; one past the end when it is not there.
+> 5 6 7 i_ndexOf 7 9
+> M i_ndexOf 4 5 6
+
+== m_ember?
+Whether each item of the left is among the items of the right.
+> 2 9 m_ember? 1 2 3
+
+== u_nique
+The items without repeats, in first-seen order.
+> u_nique 3 1 3 2 1
+
+== s_ort
+The items in ascending order (the rows of a matrix, compared in
+order); with a subscript, sorted along that axis.
+> s_ort 3 1 2
+> s_ort N
+> s_ort_2 N
+
+== g_rade
+The positions that would sort the items: `(g_rade v) s_elect v` is
+`s_ort v`.
+> g_rade 3 1 2
+> g_rade_2 N
+
+== w_here
+The positions of the 1s in a vector.
+> w_here 0 1 1 0
+!> w_here_2 M
+
+== SECTION Rotate and reverse
+
+== o_-
+Rotate: shift the items round by n (APL's rotate); positive n moves
+items toward the front. Along the first axis by default, so a matrix's
+rows move; with a subscript along that axis. A list of amounts gives
+one result per amount.
+> 1 o_- v
+> -1 o_- v
+> 1 o_- M
+> 1 o_-_1 M
+> 1 o_-_2 M
+> -1 0 1 o_- v
+
+== r_ev
+Reverse the order of the items along the first axis (the rows of a
+matrix), or along the subscript's axis.
+> r_ev v
+> r_ev M
+> r_ev_1 M
+> r_ev_2 M
+
+== SECTION Effects, identity, text and files
+
+== p_rint!
+Print a value and give it back (the ! marks an effect).
+> p_rint! v
+
+== r_oll!
+A random whole number from 1 to n for every n (seeded here, so the
+example repeats).
+> r_oll! 6 6 6
+
+== i_d
+The value itself.
+> i_d v
+
+== l_eft
+The left argument.
+> 1 l_eft 2
+
+== r_ight
+The right argument.
+> 1 r_ight 2
+
+== f_ormat
+A value as the text it prints as.
+> f_ormat 3.5
+> t_ally f_ormat 1 2 3
+
+== n_umbers
+The numbers in a text, as Floats.
+> n_umbers "1 2.5 -3"
+
+== []N_PUT
+Write the text on the left to the file on the right (made, with its
+directories, if missing); how many characters it wrote.
+> "hello" []N_PUT "work/reference.txt"
+
+== []N_GET
+A file's text.
+> []N_GET "work/reference.txt"
+
+== []R_EAD
+A line typed at the keyboard (here, the line "a typed line").
+> []R_EAD @

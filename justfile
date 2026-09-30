@@ -99,6 +99,10 @@ literate:
 check-literate:
     scripts/literate.sh --check
 
+# Regenerate docs/reference.md (every built-in, its examples run) from docs/reference/builtins.ref
+reference: _quiet-build
+    python3 scripts/reference.py
+
 # Regenerate the annotated diagrams (images/*-annotated.svg) from docs/diagrams/*.notes
 diagrams:
     scripts/diagrams.sh

@@ -28,6 +28,8 @@ echo "$smoke" | tail -1
 step "Emacs mode and org-babel (ERT; skipped without Emacs)"
 emacs_out="$(just test-emacs 2>&1)" || { echo "$emacs_out"; exit 1; }
 echo "$emacs_out" | grep -E "Ran [0-9]+ tests|skipped" || true
+step "built-in reference (docs/reference.md)"
+python3 scripts/reference.py --check
 step "annotated diagrams (docs/diagrams)"
 scripts/diagrams.sh --check
 step "literate documents (docs/literate)"
