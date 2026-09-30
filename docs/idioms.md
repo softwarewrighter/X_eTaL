@@ -1,0 +1,90 @@
+# Idioms: X_eTaL beside other languages
+
+How everyday things are written in X_eTaL, next to five mainstream
+languages and then next to the array languages it descends from. Each
+X_eTaL entry runs as shown (`spec/integration/idioms.case` and the
+`idioms-io` golden check them); where X_eTaL has no equivalent, the
+table says so.
+
+Three things to know when reading the X_eTaL column:
+
+- Expressions are read right to left, with no precedence:
+  `a + b * c` is `a + (b * c)`, and `2 * 3 + 1` is 8.
+- Arithmetic and comparison work on whole arrays, so many loops are
+  a single expression: `xs * 2` doubles every item.
+- A name with an underlined letter is a function (`r_ev`, typed `r_`
+  then the rest); a quote passes a function as a value, the operand
+  of the function to its right (`'+ r_/ xs` sums).
+
+## Mainstream languages
+
+| Idiom | Java | JavaScript | Python | C++ | Rust | X_eTaL |
+| ----- | ---- | ---------- | ------ | --- | ---- | ------ |
+| Arithmetic | <code>a + b * c</code> | <code>a + b * c</code> | <code>a + b * c</code> | <code>a + b * c</code> | <code>a + b * c</code> | <code>a + b * c</code> |
+| Comparison | <code>x &gt; 0</code> | <code>x &gt; 0</code> | <code>x &gt; 0</code> | <code>x &gt; 0</code> | <code>x &gt; 0</code> | <code>x &gt; 0</code> |
+| Binding | <code>var x = 5;</code> | <code>const x = 5;</code> | <code>x = 5</code> | <code>auto x = 5;</code> | <code>let x = 5;</code> | <code>x := 5</code> |
+| Mutation | <code>x = x + 1;</code> | <code>x += 1;</code> | <code>x += 1</code> | <code>x += 1;</code> | <code>x += 1; // let mut x</code> | <code>x! := x! + 1</code> |
+| Defining a function | <code>int sq(int x) { return x * x; }</code> | <code>function sq(x) { return x * x; }</code> | <code>def sq(x): return x * x</code> | <code>int sq(int x) { return x * x; }</code> | <code>fn sq(x: i64) -&gt; i64 { x * x }</code> | <code>u:s_q := { x -&gt; x * x }</code> |
+| Calling a function | <code>sq(5)</code> | <code>sq(5)</code> | <code>sq(5)</code> | <code>sq(5)</code> | <code>sq(5)</code> | <code>u:s_q 5</code> |
+| Anonymous function | <code>x -&gt; x * x</code> | <code>x =&gt; x * x</code> | <code>lambda x: x * x</code> | <code>[](int x) { return x * x; }</code> | <code>&#124;x&#124; x * x</code> | <code>{ _r * _r }</code> |
+| Comment | <code>// note</code> | <code>// note</code> | <code># note</code> | <code>// note</code> | <code>// note</code> | <code># note</code> |
+| Conditional | <code>x &lt; 0 ? -x : x</code> | <code>x &lt; 0 ? -x : x</code> | <code>-x if x &lt; 0 else x</code> | <code>x &lt; 0 ? -x : x</code> | <code>if x &lt; 0 { -x } else { x }</code> | <code>{ x -&gt; x &lt; 0 ? n_eg x; x }</code> |
+| Several cases | <code>switch (x) { case 0 -&gt; "zero"; default -&gt; "other"; }</code> | <code>switch (x) { case 0: return "zero"; default: return "other"; }</code> | <code>match x:
+ case 0: ...</code> | <code>switch (x) { case 0: ...; default: ... }</code> | <code>match x { 0 =&gt; "zero", _ =&gt; "other" }</code> | <code>{ x -&gt; x = 0 ? "zero"; "other" }</code> |
+| Loop over 1..n | <code>for (int i = 1; i &lt;= n; i++)</code> | <code>for (let i = 1; i &lt;= n; i++)</code> | <code>for i in range(1, n + 1):</code> | <code>for (int i = 1; i &lt;= n; ++i)</code> | <code>for i in 1..=n</code> | <code>r_ange n</code> |
+| Map | <code>xs.stream().map(x -&gt; x * 2)</code> | <code>xs.map(x =&gt; x * 2)</code> | <code>[x * 2 for x in xs]</code> | <code>xs &#124; std::views::transform(f)</code> | <code>xs.iter().map(&#124;x&#124; x * 2)</code> | <code>xs * 2</code> |
+| Filter | <code>xs.stream().filter(x -&gt; x % 2 == 0)</code> | <code>xs.filter(x =&gt; x % 2 === 0)</code> | <code>[x for x in xs if x % 2 == 0]</code> | <code>xs &#124; std::views::filter(even)</code> | <code>xs.iter().filter(&#124;x&#124; *x % 2 == 0)</code> | <code>(w_here 0 = xs m_od 2) s_elect xs</code> |
+| Sum | <code>IntStream.of(xs).sum()</code> | <code>xs.reduce((a, b) =&gt; a + b, 0)</code> | <code>sum(xs)</code> | <code>std::accumulate(xs.begin(), xs.end(), 0)</code> | <code>xs.iter().sum::&lt;i64&gt;()</code> | <code>'+ r_/ xs</code> |
+| Sort | <code>Arrays.sort(xs);</code> | <code>xs.sort((a, b) =&gt; a - b)</code> | <code>sorted(xs)</code> | <code>std::ranges::sort(xs);</code> | <code>xs.sort();</code> | <code>s_ort xs</code> |
+| Length | <code>xs.length</code> | <code>xs.length</code> | <code>len(xs)</code> | <code>xs.size()</code> | <code>xs.len()</code> | <code>t_ally xs</code> |
+| Joining text | <code>s + t</code> | <code>s + t</code> | <code>s + t</code> | <code>s + t</code> | <code>format!("{s}{t}")</code> | <code>s c_at t</code> |
+| Print | <code>System.out.println(x);</code> | <code>console.log(x)</code> | <code>print(x)</code> | <code>std::cout &lt;&lt; x &lt;&lt; ' ';</code> | <code>println!("{x}");</code> | <code>p_rint! x</code> |
+| Read a line | <code>new Scanner(System.in).nextLine()</code> | <code>await rl.question("")</code> | <code>input()</code> | <code>std::getline(std::cin, s);</code> | <code>io::stdin().read_line(&amp;mut s)</code> | <code>[]R_EAD @</code> |
+| Read a file | <code>Files.readString(Path.of(p))</code> | <code>fs.readFileSync(p, "utf8")</code> | <code>open(p).read()</code> | <code>std::ifstream f(p); /* read */</code> | <code>fs::read_to_string(p)</code> | <code>[]N_GET p</code> |
+| Write a file | <code>Files.writeString(Path.of(p), s)</code> | <code>fs.writeFileSync(p, s)</code> | <code>open(p, "w").write(s)</code> | <code>std::ofstream(p) &lt;&lt; s;</code> | <code>fs::write(p, s)</code> | <code>s []N_PUT p</code> |
+| Text to number | <code>Double.parseDouble(s)</code> | <code>parseFloat(s)</code> | <code>float(s)</code> | <code>std::stod(s)</code> | <code>s.parse::&lt;f64&gt;()</code> | <code>n_umbers s</code> |
+| Importing | <code>import java.util.List;</code> | <code>import { f } from "./m.js";</code> | <code>import stats</code> | <code>#include &lt;vector&gt;</code> | <code>use std::fs;</code> | <code>"s:" u_se&lt; "Stats"</code> |
+| Error handling | <code>try { ... } catch (E e) { ... }</code> | <code>try { ... } catch (e) { ... }</code> | <code>try: ...
+except E: ...</code> | <code>try { ... } catch (const E&amp; e) { ... }</code> | <code>fallible()?  // Result</code> | none yet: an error stops the program; a failure can be a value (<code>-1 m:o_r ...</code>, the Maybe library) |
+| Pattern matching | <code>switch (o) { case Point(var x, var y) -&gt; ... }</code> | none (destructuring only) | <code>match p:
+ case Point(x=0): ...</code> | none (<code>std::visit</code>) | <code>match p { Point { x: 0, .. } =&gt; ... }</code> | none: guards on values |
+
+## Array languages
+
+APL2 (IBM's second-generation APL), Dyalog APL, J and BQN. Indexing in
+the X_eTaL column starts at 1, as in APL2 and Dyalog (with its index
+origin 1); J and BQN count from 0. X_eTaL's functions take their
+operands as quoted arguments where APL has operators (`/`, <code>&#168;</code>, <code>&#8728;</code>),
+and names are words where APL has glyphs; the source is plain ASCII.
+
+| Idiom | APL2 | Dyalog APL | J | BQN | X_eTaL |
+| ----- | ---- | ---------- | --- | --- | ------ |
+| Sum | <code>+/V</code> | <code>+/v</code> | <code>+/ v</code> | <code>+&#180; v</code> | <code>'+ r_/ v</code> |
+| Running sum | <code>+\V</code> | <code>+\v</code> | <code>+/\ v</code> | <code>+` v</code> | <code>'+ s_\ v</code> |
+| 1 to n | <code>&#9075;N</code> | <code>&#9075;n</code> | <code>&gt;: i. n</code> | <code>1+&#8597;n</code> | <code>r_ange n</code> |
+| Reshape | <code>2 3&#9076;V</code> | <code>2 3&#9076;v</code> | <code>2 3 $ v</code> | <code>2&#8255;3&#10570;v</code> | <code>2 3 r_eshape v</code> |
+| Shape | <code>&#9076;A</code> | <code>&#9076;a</code> | <code>$ a</code> | <code>&#8802;a</code> | <code>s_hape a</code> |
+| Count | <code>&#8593;&#9076;V</code> | <code>&#8802;v</code> | <code># v</code> | <code>&#8800;v</code> | <code>t_ally v</code> |
+| Reverse | <code>&#9021;V</code> | <code>&#9021;v</code> | <code>&#124;. v</code> | <code>&#9021;v</code> | <code>r_ev v</code> |
+| Rotate | <code>1&#9021;V</code> | <code>1&#9021;v</code> | <code>1 &#124;. v</code> | <code>1&#9021;v</code> | <code>1 o_- v</code> |
+| Outer product | <code>A&#8728;.&#215;B</code> | <code>a&#8728;.&#215;b</code> | <code>a */ b</code> | <code>a &#215;&#8988; b</code> | <code>a '* t_able b</code> |
+| Inner product | <code>A+.&#215;B</code> | <code>a+.&#215;b</code> | <code>a +/ .* b</code> | <code>a +&#733;&#8728;&#215;&#9097;1&#8255;&#8734; b</code> | <code>a '+ '* i_nner b</code> |
+| Each | <code>F&#168;V</code> | <code>f&#168;v</code> | <code>f"0 v</code> | <code>F&#168;v</code> | <code>'f_ e_ach v</code> |
+| Swap arguments | none | <code>x f&#9064; y</code> | <code>x f~ y</code> | <code>x F&#732; y</code> | <code>x 'f_ s_wap y</code> |
+| Compose | none | <code>f&#8728;g</code> | <code>f@:g</code> | <code>F&#8728;G</code> | <code>'f_ 'g_ c_ompose x</code> |
+| Power (repeat) | none | <code>f&#9059;3 &#8866;x</code> | <code>f^:3 x</code> | <code>F&#9055;3 x</code> | <code>f_^3 x</code> |
+| Train: the mean | none | <code>(+/&#247;&#8802;)</code> | <code>(+/ % #)</code> | <code>(+&#180;&#247;&#8800;)</code> | <code>['+ r_/ / t_ally]</code> |
+| Anonymous function | <code>&#8711;Z&#8592;SQ X</code> | <code>{&#9077;&#215;&#9077;}</code> | <code>{{ y*y }}</code> | <code>{&#120169;&#215;&#120169;}</code> | <code>{ _r * _r }</code> |
+| Conditional | <code>&#8594;(X&lt;0)/NEG</code> | <code>{&#9077;&lt;0:-&#9077; &#8900; &#9077;}</code> | <code>{{ if. y&lt;0 do. -y else. y end. }}</code> | <code>{&#120169;&lt;0 ? -&#120169; ; &#120169;}</code> | <code>{ x -&gt; x &lt; 0 ? n_eg x; x }</code> |
+| Self-reference | the function's name | <code>&#8711;</code> | <code>$:</code> | <code>&#120138;</code> | its name, or <code>c:Y_</code> |
+| Index of | <code>V&#9075;X</code> | <code>v&#9075;x</code> | <code>v i. x</code> | <code>v&#8848;x</code> | <code>v i_ndexOf x</code> |
+| Membership | <code>X&#8714;V</code> | <code>x&#8714;v</code> | <code>x e. v</code> | <code>x&#8714;v</code> | <code>x m_ember? v</code> |
+| Where | <code>B/&#9075;&#9076;B</code> | <code>&#9080;b</code> | <code>I. b</code> | <code>/b</code> | <code>w_here b</code> |
+| Sort | <code>V[&#9035;V]</code> | <code>v[&#9035;v]</code> | <code>/:~ v</code> | <code>&#8743;v</code> | <code>s_ort v</code> |
+| Number to text | <code>&#9045;V</code> | <code>&#9045;v</code> | <code>": v</code> | <code>&#8226;Fmt v</code> | <code>f_ormat v</code> |
+| Text to numbers | <code>&#9038;T</code> | <code>&#9038;t</code> | <code>". t</code> | <code>&#8226;ParseFloat t</code> | <code>n_umbers t</code> |
+| Read a file | a shared variable (<code>&#9109;SVO</code>) with a file processor | <code>&#8835;&#9109;NGET f</code> | <code>1!:1 &lt; f</code> | <code>&#8226;FChars f</code> | <code>[]N_GET f</code> |
+| Read a line | <code>&#9054;</code> | <code>&#9054;</code> | <code>1!:1 ] 1</code> | <code>&#8226;GetLine @</code> | <code>[]R_EAD @</code> |
+| Print | <code>&#9109;&#8592;V</code> | <code>&#9109;&#8592;v</code> | <code>echo v</code> | <code>&#8226;Show v</code> | <code>p_rint! v</code> |
+| Trap an error | <code>&#9109;EA</code> | <code>:Trap / 0::</code> | <code>try. catch. end.</code> | <code>F&#9098;G</code> | none yet (the Maybe library for failure as a value) |
+| Use a library | <code>)COPY WS</code> | <code>)COPY / &#9109;FIX</code> | <code>require 'x'</code> | <code>&#8226;Import "x.bqn"</code> | <code>"c:" u_se&lt; "Combinators"</code> |

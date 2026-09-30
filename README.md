@@ -184,6 +184,8 @@ Other fonts, checked against the font files:
 - [`docs/literate/tttml.org`](docs/literate/tttml.org) -- TTTML, a machine
   that learns tic-tac-toe by playing itself, as a literate program over the
   `TTTML` library
+- [`docs/idioms.md`](docs/idioms.md) -- everyday idioms in X_eTaL beside Java,
+  JavaScript, Python, C++ and Rust, and beside APL2, Dyalog APL, J and BQN
 - [`docs/input.md`](docs/input.md) -- how to type X_eTaL expressions
 - [`docs/birds.md`](docs/birds.md) -- the aviary: Smullyan's combinators,
   which type-check, and how the `Combinators` library spells them

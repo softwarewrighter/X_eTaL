@@ -1,0 +1,3 @@
+command = '''printf 'hello\n' | ./target/debug/xetal eval -e '"some text" []N_PUT "work/idioms-io.txt"; []N_GET "work/idioms-io.txt"; []R_EAD @''''
+exit_code = 0
+desc = "the file and keyboard idioms of docs/idioms.md: write a file, read it, read a typed line"

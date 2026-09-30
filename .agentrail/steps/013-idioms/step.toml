@@ -1,6 +1,6 @@
 number = 13
 slug = "idioms"
-status = "pending"
+status = "in-progress"
 description = "docs/idioms.md (user request), modelled on the idioms table at https://sw-emb..."
 role = "production"
 context_files = []
