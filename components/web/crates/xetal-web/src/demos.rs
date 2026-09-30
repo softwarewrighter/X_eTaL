@@ -25,6 +25,7 @@ macro_rules! demos {
 /// editor, to type into as at a REPL.
 pub const DEMOS: &[Demo] = demos![
     "life.xtl",
+    "hello-library.xtl",
     "combinators.xtl",
     "monads.xtl",
     "stats.xtl",
@@ -64,3 +65,23 @@ pub fn open(value: &str) -> Option<(String, String)> {
         _ => None,
     }
 }
+
+/// Put the demos' own libraries among your files, unless they are there
+/// already (so your edits are kept): `hello-library.xtl` imports
+/// `Hello.xtl` from there, as it would from beside it on disk.
+pub fn seed() {
+    for (path, text) in OWN_LIBRARIES {
+        if xetal_store::read(path).is_err() {
+            let _ = xetal_store::write(path, text);
+        }
+    }
+}
+
+/// The libraries the demos import that are not standard ones.
+const OWN_LIBRARIES: &[(&str, &str)] = &[
+    ("Hello.xtl", include_str!("../../../../../demos/Hello.xtl")),
+    (
+        "Greetings.xtl",
+        include_str!("../../../../../demos/Greetings.xtl"),
+    ),
+];

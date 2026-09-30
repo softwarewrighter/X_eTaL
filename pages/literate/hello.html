@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hello, library</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Hello, library
+<br />
+<span class="subtitle">writing a library of your own, and using it</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0e03755">The library</a></li>
+<li><a href="#org25b97ff">Using it</a></li>
+<li><a href="#orgf5345bd">Where a library is found</a></li>
+<li><a href="#org3b8735f">Mistakes it catches</a></li>
+<li><a href="#orgbd9089d">A second greeting</a></li>
+</ul>
+</div>
+</div>
+<p>
+A library is an ordinary X_eTaL file. The names it exports start with
+<code>l:</code>; a program imports it with <code>u_se&lt;</code> and chooses the prefix those
+names get. This document writes the smallest library there is, one
+greeting, and uses it. Every block below is run by <code>xetal</code> through
+<code>ob-xetal</code>, and its result recorded under it.
+</p>
+<div id="outline-container-org0e03755" class="outline-2">
+<h2 id="org0e03755">The library</h2>
+<div class="outline-text-2" id="text-org0e03755">
+<p>
+<code>demos/Hello.xtl</code>, the whole file:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-comment">⍝ Hello: the smallest library, one greeting. A library is an ordinary</span>
+<span class="c-comment">⍝ file whose exported names start with l:; demos/hello-library.xtl</span>
+<span class="c-comment">⍝ imports it, and docs/literate/hello.org walks through both.</span>
+
+<span class="c-libfunc">ˡh̲ello</span> ← { @ → <span class="c-string">&quot;hello X_eTaL&quot;</span> }
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   l:h_ello := { @ -&gt; "hello X_eTaL" }</span></pre>
+</div>
+
+<p>
+<code>h_ello</code> is a function (its h is underlined); <code>l:</code> exports it. Its
+argument is <code>@</code>, Unit, the value that stands for nothing: <code>{ @ -&gt; ... }</code>
+is a function of no real argument. It gives a string, which in X_eTaL
+is a vector of characters. <code>xetal type</code> on the library file lists what
+it exports:
+</p>
+
+<pre class="example" id="org33c757d">
+$ xetal type demos/Hello.xtl
+l:h_ello : Unit -&gt; Char
+</pre>
+
+<p>
+The type of a string is <code>Char</code>: types say what the items are, not how
+many there are.
+</p>
+</div>
+</div>
+<div id="outline-container-org25b97ff" class="outline-2">
+<h2 id="org25b97ff">Using it</h2>
+<div class="outline-text-2" id="text-org25b97ff">
+<p>
+A program imports the library under a prefix of its choosing. <code>"h:"</code>
+makes the library's <code>l:h_ello</code> this program's <code>h:h_ello</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-libfunc">ʰ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Hello&quot;</span>
+<span class="c-libfunc">ʰh̲ello</span> @
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "h:" u_se&lt; "Hello"</span>
+<span class="c-comment typed">⍝   h:h_ello @</span></pre>
+</div>
+
+<pre class="example">
+hello X_eTaL
+</pre>
+
+
+<p>
+The whole program is <code>demos/hello-library.xtl</code>; <code>just run
+demos/hello-library.xtl</code> prints the same greeting.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf5345bd" class="outline-2">
+<h2 id="orgf5345bd">Where a library is found</h2>
+<div class="outline-text-2" id="text-orgf5345bd">
+<p>
+<code>"Hello"</code> is looked for as <code>Hello.xtl</code> beside the importing file, then
+in each directory of <code>XETAL_PATH</code> (separated by <code>:</code>), then among the
+standard libraries built into <code>xetal</code> (<code>Stats</code>, <code>Maybe</code>, <code>Combinators</code>,
+<code>TTTML</code>). A path finds one file exactly: <code>"h:" u_se&lt; "lib/Hello.xtl"</code>.
+This document's blocks run with <code>XETAL_PATH</code> set to <code>demos/</code>.
+</p>
+
+<p>
+In the live demo, the library is one of your files: open <code>Hello.xtl</code>,
+change the greeting, Save, and run the <code>hello-library</code> demo again.
+</p>
+</div>
+</div>
+<div id="outline-container-org3b8735f" class="outline-2">
+<h2 id="org3b8735f">Mistakes it catches</h2>
+<div class="outline-text-2" id="text-org3b8735f">
+<p>
+The prefix is required, so every name says where it comes from:
+</p>
+
+<pre class="example" id="org4371acd">
+u_se&lt; "Hello"
+error[missing-alias]: u_se&lt; needs an alias on its left: "c:" u_se&lt; "Library"
+</pre>
+
+<p>
+Only what the library exports can be used, and the error says what it
+does export:
+</p>
+
+<pre class="example" id="orga25d7ec">
+"h:" u_se&lt; "Hello"
+h:g_oodbye @
+error[not-exported]: h:g_oodbye is not defined by that library; it defines h_ello
+</pre>
+
+<p>
+And the types are checked across the import:
+</p>
+
+<pre class="example" id="orgd184299">
+"h:" u_se&lt; "Hello"
+h:h_ello 42
+error[type-mismatch]: expected Unit, found a number
+</pre>
+</div>
+</div>
+<div id="outline-container-orgbd9089d" class="outline-2">
+<h2 id="orgbd9089d">A second greeting</h2>
+<div class="outline-text-2" id="text-orgbd9089d">
+<p>
+A library can keep names to itself: a name without <code>l:</code> is private.
+<code>demos/Greetings.xtl</code> builds both its greetings from one private
+<code>g_reeting</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-comment">⍝ Greetings: a library with a private name. g_reeting has no l:, so it</span>
+<span class="c-comment">⍝ is used here but cannot be imported; h_ello and g_reet are exported.</span>
+<span class="c-comment">⍝ docs/literate/hello.org uses it after Hello.</span>
+
+<span class="c-builtin">g̲reeting</span> ← { @ → <span class="c-string">&quot;hello &quot;</span> }
+<span class="c-libfunc">ˡh̲ello</span> ← { @ → (<span class="c-builtin">g̲reeting</span> @) <span class="c-builtin">c̲at</span> <span class="c-string">&quot;X_eTaL&quot;</span> }
+<span class="c-libfunc">ˡg̲reet</span> ← { n → (<span class="c-builtin">g̲reeting</span> @) <span class="c-builtin">c̲at</span> n }
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   g_reeting := { @ -&gt; "hello " }</span>
+<span class="c-comment typed">⍝   l:h_ello := { @ -&gt; (g_reeting @) c_at "X_eTaL" }</span>
+<span class="c-comment typed">⍝   l:g_reet := { n -&gt; (g_reeting @) c_at n }</span></pre>
+</div>
+
+<p>
+(The parentheses matter: X_eTaL reads right to left, so without them
+<code>g_reeting @ c_at n</code> would join <code>@</code> and <code>n</code> first.) A program can use
+the exported names:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-libfunc">ᵍ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Greetings&quot;</span>
+<span class="c-libfunc">ᵍh̲ello</span> @
+<span class="c-libfunc">ᵍg̲reet</span> <span class="c-string">&quot;world&quot;</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "g:" u_se&lt; "Greetings"</span>
+<span class="c-comment typed">⍝   g:h_ello @</span>
+<span class="c-comment typed">⍝   g:g_reet "world"</span></pre>
+</div>
+
+<pre class="example">
+hello X_eTaL
+hello world
+</pre>
+
+
+<p>
+but not the private one: <code>g:g_reeting @</code> is an error, <code>not-exported</code>,
+listing <code>h_ello</code> and <code>g_reet</code>.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

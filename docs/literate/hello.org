@@ -1,0 +1,109 @@
+#+TITLE: Hello, library
+#+SUBTITLE: writing a library of your own, and using it
+#+AUTHOR: Michael A Wright
+#+OPTIONS: toc:2 num:nil ^:{}
+#+PROPERTY: header-args:xetal :session hello :seed 1 :results output :exports both
+
+A library is an ordinary X_eTaL file. The names it exports start with
+~l:~; a program imports it with ~u_se<~ and chooses the prefix those
+names get. This document writes the smallest library there is, one
+greeting, and uses it. Every block below is run by ~xetal~ through
+~ob-xetal~, and its result recorded under it.
+
+* The library
+
+~demos/Hello.xtl~, the whole file:
+
+#+INCLUDE: "../../demos/Hello.xtl" src xetal
+
+~h_ello~ is a function (its h is underlined); ~l:~ exports it. Its
+argument is ~@~, Unit, the value that stands for nothing: ~{ @ -> ... }~
+is a function of no real argument. It gives a string, which in X_eTaL
+is a vector of characters. ~xetal type~ on the library file lists what
+it exports:
+
+#+begin_example
+$ xetal type demos/Hello.xtl
+l:h_ello : Unit -> Char
+#+end_example
+
+The type of a string is ~Char~: types say what the items are, not how
+many there are.
+
+* Using it
+
+A program imports the library under a prefix of its choosing. ~"h:"~
+makes the library's ~l:h_ello~ this program's ~h:h_ello~:
+
+#+begin_src xetal
+"h:" u_se< "Hello"
+h:h_ello @
+#+end_src
+
+#+RESULTS:
+: hello X_eTaL
+
+The whole program is ~demos/hello-library.xtl~; ~just run
+demos/hello-library.xtl~ prints the same greeting.
+
+* Where a library is found
+
+~"Hello"~ is looked for as ~Hello.xtl~ beside the importing file, then
+in each directory of ~XETAL_PATH~ (separated by ~:~), then among the
+standard libraries built into ~xetal~ (~Stats~, ~Maybe~, ~Combinators~,
+~TTTML~). A path finds one file exactly: ~"h:" u_se< "lib/Hello.xtl"~.
+This document's blocks run with ~XETAL_PATH~ set to ~demos/~.
+
+In the live demo, the library is one of your files: open ~Hello.xtl~,
+change the greeting, Save, and run the ~hello-library~ demo again.
+
+* Mistakes it catches
+
+The prefix is required, so every name says where it comes from:
+
+#+begin_example
+u_se< "Hello"
+error[missing-alias]: u_se< needs an alias on its left: "c:" u_se< "Library"
+#+end_example
+
+Only what the library exports can be used, and the error says what it
+does export:
+
+#+begin_example
+"h:" u_se< "Hello"
+h:g_oodbye @
+error[not-exported]: h:g_oodbye is not defined by that library; it defines h_ello
+#+end_example
+
+And the types are checked across the import:
+
+#+begin_example
+"h:" u_se< "Hello"
+h:h_ello 42
+error[type-mismatch]: expected Unit, found a number
+#+end_example
+
+* A second greeting
+
+A library can keep names to itself: a name without ~l:~ is private.
+~demos/Greetings.xtl~ builds both its greetings from one private
+~g_reeting~:
+
+#+INCLUDE: "../../demos/Greetings.xtl" src xetal
+
+(The parentheses matter: X_eTaL reads right to left, so without them
+~g_reeting @ c_at n~ would join ~@~ and ~n~ first.) A program can use
+the exported names:
+
+#+begin_src xetal
+"g:" u_se< "Greetings"
+g:h_ello @
+g:g_reet "world"
+#+end_src
+
+#+RESULTS:
+: hello X_eTaL
+: hello world
+
+but not the private one: ~g:g_reeting @~ is an error, ~not-exported~,
+listing ~h_ello~ and ~g_reet~.

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type demos/Hello.xtl"
+exit_code = 0
+desc = "a library file lists its exports and their types"

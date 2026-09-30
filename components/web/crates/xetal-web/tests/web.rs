@@ -1,9 +1,23 @@
 //! The live demo's keys and programs (the language is xetal-play's).
 
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 
-use xetal_store::Store;
-use xetal_web::{Action, DEMOS, action, choices, open};
+use xetal_store::{Memory, Store};
+use xetal_web::{Action, DEMOS, action, choices, open, seed};
+
+/// One store for every test (the store is global, and tests run at
+/// once), with the demos' own libraries seeded, as the page does.
+fn store() -> Arc<Memory> {
+    static STORE: OnceLock<Arc<Memory>> = OnceLock::new();
+    STORE
+        .get_or_init(|| {
+            let store = Arc::new(Memory::default());
+            xetal_store::install(store.clone());
+            seed();
+            store
+        })
+        .clone()
+}
 
 #[test]
 fn run_and_zoom_keys() {
@@ -16,6 +30,7 @@ fn run_and_zoom_keys() {
 
 #[test]
 fn every_demo_checks() {
+    store();
     for demo in DEMOS {
         let lines = xetal_play::check(demo.text);
         assert!(
@@ -30,9 +45,7 @@ fn every_demo_checks() {
 
 #[test]
 fn open_offers_the_demos_the_libraries_and_the_saved_files() {
-    let store = Arc::new(xetal_store::Memory::default());
-    store.put("MyLib.xtl", "l:t_wo := { 2 }").unwrap();
-    xetal_store::install(store);
+    store().put("MyLib.xtl", "l:t_wo := { 2 }").unwrap();
     let list = choices(&["MyLib.xtl".to_string()]);
     let label = |v: &str| {
         list.iter()
@@ -52,4 +65,24 @@ fn open_offers_the_demos_the_libraries_and_the_saved_files() {
         ("MyLib.xtl".into(), "l:t_wo := { 2 }".into())
     );
     assert!(open("file:nothing.xtl").is_none());
+}
+
+#[test]
+fn the_demos_own_libraries_are_among_your_files_and_edits_are_kept() {
+    let store = store();
+    assert!(store.get("Hello.xtl").unwrap().contains("l:h_ello"));
+    assert!(store.get("Greetings.xtl").unwrap().contains("l:g_reet"));
+    store
+        .put("Greetings.xtl", "l:g_reet := { n -> n }")
+        .unwrap();
+    seed();
+    assert_eq!(
+        store.get("Greetings.xtl").unwrap(),
+        "l:g_reet := { n -> n }"
+    );
+    let hello = DEMOS
+        .iter()
+        .find(|d| d.name == "hello-library.xtl")
+        .unwrap();
+    assert!(xetal_play::run(hello.text, 1).out.contains("hello X_eTaL"));
 }

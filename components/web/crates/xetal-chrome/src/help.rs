@@ -33,7 +33,9 @@ pub(crate) fn help_text() -> Html {
                        browser's local storage. A saved library (lib/Name.xtl) is \
                        imported with u_se<; []N_PUT and []N_GET use the same files \
                        (open work/tttml.model after tttml-train), and []R_EAD asks \
-                       for a line." }</li>
+                       for a line. Hello.xtl, a library of your own, is among your \
+                       files: the hello-library demo imports it; edit it, Save, \
+                       and run the demo again." }</li>
             </ul>
             { reading() }
             { reference() }

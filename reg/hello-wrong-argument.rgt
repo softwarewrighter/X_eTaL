@@ -1,0 +1,3 @@
+command = """XETAL_PATH=demos ./target/debug/xetal eval -e '"h:" u_se< "Hello"; h:h_ello 42'"""
+exit_code = 1
+desc = "types are checked across an import: h_ello takes Unit"

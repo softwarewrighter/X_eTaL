@@ -1,0 +1,10 @@
+#!/usr/bin/env xetal
+# demos/hello-library.xtl: a program using a library of its own. The
+# library is demos/Hello.xtl, beside this file: u_se< finds "Hello" as
+# Hello.xtl there, and "h:" is the prefix its l: names get here.
+
+"h:" u_se< "Hello"
+
+# h_ello takes Unit (@), the value that stands for nothing, and gives
+# the greeting.
+h:h_ello @

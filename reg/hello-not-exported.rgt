@@ -1,0 +1,3 @@
+command = """XETAL_PATH=demos ./target/debug/xetal eval -e '"h:" u_se< "Hello"; h:g_oodbye @'"""
+exit_code = 1
+desc = "a name the library does not export is an error naming what it does"

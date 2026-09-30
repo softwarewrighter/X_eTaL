@@ -12,12 +12,13 @@ mod panes;
 mod storage;
 
 pub use app::App;
-pub use demos::{DEMOS, Demo, choices, open};
+pub use demos::{DEMOS, Demo, choices, open, seed};
 pub use keys::{Action, action};
 
 /// Start the app in the page's body.
 pub fn start() {
     console_error_panic_hook::set_once();
     xetal_store::install(std::sync::Arc::new(storage::Local));
+    seed();
     yew::Renderer::<App>::new().render();
 }

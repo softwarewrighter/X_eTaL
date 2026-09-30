@@ -1,6 +1,6 @@
 number = 11
 slug = "hello-library"
-status = "pending"
+status = "in-progress"
 description = "User request: a demo and a literate document showing how to write a hello-wor..."
 role = "production"
 context_files = []

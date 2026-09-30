@@ -106,8 +106,9 @@ them. [[file:tttml.org][TTTML]] trains it and plays it.
 
 * A library of your own
 
-Write the exported names with ~l:~ and save the file; a program then
-imports it by its path, ~"g:" u_se< "lib/Geometry.xtl"~. In the live
+[[file:hello.org][Hello, library]] writes one and uses it. In short:
+write the exported names with ~l:~ and save the file; a program then
+imports it by name from beside it, or by its path, ~"g:" u_se< "lib/Geometry.xtl"~. In the live
 demo, Save as a name like ~Geometry.xtl~ keeps it in the browser, and
 ~"g:" u_se< "Geometry"~ imports it; saved under a standard library's
 name (~Stats.xtl~), your copy is the one imported. A library cannot

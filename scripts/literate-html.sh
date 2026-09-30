@@ -19,7 +19,7 @@ work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 mkdir -p "$work/docs/literate" "$out/images"
 cp docs/literate/*.org "$work/docs/literate/"
-mkdir -p "$work/lib" && cp lib/*.xtl "$work/lib/"
+mkdir -p "$work/lib" "$work/demos" && cp lib/*.xtl "$work/lib/" && cp demos/*.xtl "$work/demos/"
 "$emacs" --batch -Q -l docs/emacs/literate-export.el "$work"/docs/literate/*.org > "$work/emacs.log" 2>&1 \
     || { cat "$work/emacs.log"; exit 1; }
 rm -f "$out"/*.html

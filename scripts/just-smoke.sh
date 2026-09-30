@@ -15,17 +15,20 @@ check() {
     fi
 }
 skip() { printf 'skip %-15s %s\n' "$1" "$2"; }
+# A program starts with #!; a library a demo imports (demos/Hello.xtl)
+# does not, and is not run on its own.
+program() { head -1 "$1" | grep -q '^#!'; }
 for recipe in $(just --summary); do
     case "$recipe" in
     default | build | tour | life | animate | tttml | diagrams | reference) check just "$recipe" ;;
     # demos/tttml-play.xtl reads typed moves: the tttml-play check below
     # pipes some in.
-    show) for f in demos/*.xtl; do [ "$f" = demos/tttml-play.xtl ] || check just show "$f"; done ;;
+    show) for f in demos/*.xtl; do program "$f" && [ "$f" != demos/tttml-play.xtl ] && check just show "$f"; done ;;
     pp) for f in demos/*.xtl; do check just pp "$f"; done ;;
     slow-show) check just slow-show demos/square.xtl 1 ;;
     run)
         for f in demos/*.xtl; do
-            [ "$f" = demos/tttml-play.xtl ] && continue
+            { [ "$f" = demos/tttml-play.xtl ] || ! program "$f"; } && continue
             flags=$(head -1 "$f" | grep -o -- '--untyped' || true)
             check just run $flags "$f"
         done
