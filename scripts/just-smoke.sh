@@ -17,7 +17,7 @@ check() {
 skip() { printf 'skip %-15s %s\n' "$1" "$2"; }
 for recipe in $(just --summary); do
     case "$recipe" in
-    default | build | tour | life | animate | tttml) check just "$recipe" ;;
+    default | build | tour | life | animate | tttml | diagrams) check just "$recipe" ;;
     show) for f in demos/*.xtl; do check just show "$f"; done ;;
     pp) for f in demos/*.xtl; do check just pp "$f"; done ;;
     slow-show) check just slow-show demos/square.xtl 1 ;;

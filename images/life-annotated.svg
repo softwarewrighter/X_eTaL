@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="606" viewBox="0 0 1500 606">
+<style>
+.code { font: 32px JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; white-space: pre }
+.typed { font: 16px JuliaMono, 'DejaVu Sans Mono', Menlo, Consolas, monospace; fill: #4a5160 }
+.heading { font: bold 26px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1d2330 }
+.title { font: bold 14.5px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1d2330 }
+.note { font: 14px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #3a4150 }
+.box { fill: #f7f8fa; stroke: #d9dce1 }
+.leader { fill: none; stroke-width: 1.6 }
+.mark { stroke-width: 3; stroke-linecap: round }
+</style>
+<rect width="100%" height="100%" rx="12" fill="#ffffff"/>
+<text x="30" y="48" class="heading">Conway's Life in one line, read right to left</text>
+<text x="30" y="82" class="typed">as typed: u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }</text>
+<rect x="140.4" y="334.0" width="1219.2" height="72" rx="10" fill="#1e2127"/>
+<text x="164.4" y="381.0" class="code" fill="#3fbf5f">ᵘl̲ife</text>
+<text x="279.6" y="381.0" class="code" fill="#e6e6e6">←</text>
+<text x="318.0" y="381.0" class="code" fill="#e6e6e6">{</text>
+<text x="356.4" y="381.0" class="code" fill="#e6e6e6">(</text>
+<text x="375.6" y="381.0" class="code" fill="#7fbfff">'</text>
+<text x="394.8" y="381.0" class="code" fill="#7fbfff">+</text>
+<text x="433.2" y="381.0" class="code" fill="#5b9cff">r̲/₁₂</text>
+<text x="529.2" y="381.0" class="code" fill="#e0b400">-1</text>
+<text x="586.8" y="381.0" class="code" fill="#e0b400">0</text>
+<text x="625.2" y="381.0" class="code" fill="#e0b400">1</text>
+<text x="663.6" y="381.0" class="code" fill="#5b9cff">o̲-₁₂</text>
+<text x="759.6" y="381.0" class="code" fill="#d25fd2">⍵</text>
+<text x="778.8" y="381.0" class="code" fill="#e6e6e6">)</text>
+<text x="817.2" y="381.0" class="code" fill="#e6e6e6">{</text>
+<text x="855.6" y="381.0" class="code" fill="#e6e6e6">(</text>
+<text x="874.8" y="381.0" class="code" fill="#d25fd2">⍺</text>
+<text x="913.2" y="381.0" class="code" fill="#7fbfff">=</text>
+<text x="951.6" y="381.0" class="code" fill="#e0b400">3</text>
+<text x="970.8" y="381.0" class="code" fill="#e6e6e6">)</text>
+<text x="1009.2" y="381.0" class="code" fill="#7fbfff">+</text>
+<text x="1047.6" y="381.0" class="code" fill="#d25fd2">⍵</text>
+<text x="1086.0" y="381.0" class="code" fill="#7fbfff">×</text>
+<text x="1124.4" y="381.0" class="code" fill="#d25fd2">⍺</text>
+<text x="1162.8" y="381.0" class="code" fill="#7fbfff">=</text>
+<text x="1201.2" y="381.0" class="code" fill="#e0b400">4</text>
+<text x="1239.6" y="381.0" class="code" fill="#e6e6e6">}</text>
+<text x="1278.0" y="381.0" class="code" fill="#d25fd2">⍵</text>
+<text x="1316.4" y="381.0" class="code" fill="#e6e6e6">}</text>
+<path d="M127.7 238.0 C127.7 282.0 212.4 282.0 212.4 326.0" class="leader" stroke="#3fbf5f"/>
+<line x1="166.4" y1="326.0" x2="258.4" y2="326.0" class="mark" stroke="#3fbf5f"/>
+<rect x="30.0" y="110.0" width="195.4" height="128.0" rx="8" class="box"/>
+<rect x="30.0" y="110.0" width="5" height="128.0" rx="2" fill="#3fbf5f"/>
+<text x="46.0" y="133.0" class="title">Name: life</text>
+<text x="46.0" y="151.0" class="note">u: puts the name in the</text>
+<text x="46.0" y="169.0" class="note">program's own namespace</text>
+<text x="46.0" y="187.0" class="note">(a raised u); the</text>
+<text x="46.0" y="205.0" class="note">underlined l makes it a</text>
+<text x="46.0" y="223.0" class="note">function.</text>
+<path d="M335.1 220.0 C335.1 273.0 327.6 273.0 327.6 326.0" class="leader" stroke="#8a8f98"/>
+<line x1="320.0" y1="326.0" x2="335.2" y2="326.0" class="mark" stroke="#8a8f98"/>
+<rect x="237.4" y="110.0" width="195.4" height="110.0" rx="8" class="box"/>
+<rect x="237.4" y="110.0" width="5" height="110.0" rx="2" fill="#8a8f98"/>
+<text x="253.4" y="133.0" class="title">A function { ... }</text>
+<text x="253.4" y="151.0" class="note">Its right argument ⍵</text>
+<text x="253.4" y="169.0" class="note">(typed _r) is the</text>
+<text x="253.4" y="187.0" class="note">board: a matrix of 0s</text>
+<text x="253.4" y="205.0" class="note">(dead) and 1s (alive).</text>
+<path d="M542.6 256.0 C542.6 291.0 471.6 291.0 471.6 326.0" class="leader" stroke="#5b9cff"/>
+<line x1="435.2" y1="326.0" x2="508.0" y2="326.0" class="mark" stroke="#5b9cff"/>
+<rect x="444.9" y="110.0" width="195.4" height="146.0" rx="8" class="box"/>
+<rect x="444.9" y="110.0" width="5" height="146.0" rx="2" fill="#5b9cff"/>
+<text x="460.9" y="133.0" class="title">Reduce over axes 1</text>
+<text x="460.9" y="151.0" class="title">and 2</text>
+<text x="460.9" y="169.0" class="note">Sums the 3 by 3 shifted</text>
+<text x="460.9" y="187.0" class="note">boards cell by cell:</text>
+<text x="460.9" y="205.0" class="note">each cell becomes S,</text>
+<text x="460.9" y="223.0" class="note">itself plus its 8</text>
+<text x="460.9" y="241.0" class="note">neighbours.</text>
+<path d="M750.0 274.0 C750.0 300.0 702.0 300.0 702.0 326.0" class="leader" stroke="#5b9cff"/>
+<line x1="665.6" y1="326.0" x2="738.4" y2="326.0" class="mark" stroke="#5b9cff"/>
+<rect x="652.3" y="110.0" width="195.4" height="164.0" rx="8" class="box"/>
+<rect x="652.3" y="110.0" width="5" height="164.0" rx="2" fill="#5b9cff"/>
+<text x="668.3" y="133.0" class="title">Rotate on axes 1 and</text>
+<text x="668.3" y="151.0" class="title">2</text>
+<text x="668.3" y="169.0" class="note">Rotates the board by</text>
+<text x="668.3" y="187.0" class="note">every offset along both</text>
+<text x="668.3" y="205.0" class="note">axes (every</text>
+<text x="668.3" y="223.0" class="note">combination): 3 by 3</text>
+<text x="668.3" y="241.0" class="note">boards, each shifted</text>
+<text x="668.3" y="259.0" class="note">one of 9 ways.</text>
+<path d="M957.4 238.0 C957.4 282.0 826.8 282.0 826.8 326.0" class="leader" stroke="#8a8f98"/>
+<line x1="819.2" y1="326.0" x2="834.4" y2="326.0" class="mark" stroke="#8a8f98"/>
+<rect x="859.7" y="110.0" width="195.4" height="128.0" rx="8" class="box"/>
+<rect x="859.7" y="110.0" width="5" height="128.0" rx="2" fill="#8a8f98"/>
+<text x="875.7" y="133.0" class="title">A second function</text>
+<text x="875.7" y="151.0" class="note">Called as S {...}</text>
+<text x="875.7" y="169.0" class="note">board: dyadic, so</text>
+<text x="875.7" y="187.0" class="note">inside it ⍺ (typed _l)</text>
+<text x="875.7" y="205.0" class="note">is S and ⍵ is the</text>
+<text x="875.7" y="223.0" class="note">board.</text>
+<path d="M1164.9 238.0 C1164.9 282.0 1018.8 282.0 1018.8 326.0" class="leader" stroke="#7fbfff"/>
+<line x1="1011.2" y1="326.0" x2="1026.4" y2="326.0" class="mark" stroke="#7fbfff"/>
+<rect x="1067.1" y="110.0" width="195.4" height="128.0" rx="8" class="box"/>
+<rect x="1067.1" y="110.0" width="5" height="128.0" rx="2" fill="#7fbfff"/>
+<text x="1083.1" y="133.0" class="title">Either</text>
+<text x="1083.1" y="151.0" class="note">The two cases never</text>
+<text x="1083.1" y="169.0" class="note">hold at once (S is not</text>
+<text x="1083.1" y="187.0" class="note">3 and 4), so adding</text>
+<text x="1083.1" y="205.0" class="note">them is an or: 1 alive,</text>
+<text x="1083.1" y="223.0" class="note">0 dead.</text>
+<path d="M1372.3 238.0 C1372.3 282.0 1287.6 282.0 1287.6 326.0" class="leader" stroke="#d25fd2"/>
+<line x1="1280.0" y1="326.0" x2="1295.2" y2="326.0" class="mark" stroke="#d25fd2"/>
+<rect x="1274.6" y="110.0" width="195.4" height="128.0" rx="8" class="box"/>
+<rect x="1274.6" y="110.0" width="5" height="128.0" rx="2" fill="#d25fd2"/>
+<text x="1290.6" y="133.0" class="title">⍵, the board again</text>
+<text x="1290.6" y="151.0" class="note">The second function's</text>
+<text x="1290.6" y="169.0" class="note">right argument: the</text>
+<text x="1290.6" y="187.0" class="note">same board, so each</text>
+<text x="1290.6" y="205.0" class="note">cell counts in its own</text>
+<text x="1290.6" y="223.0" class="note">S.</text>
+<path d="M145.0 466.0 C145.0 440.0 289.2 440.0 289.2 414.0" class="leader" stroke="#8a8f98"/>
+<line x1="281.6" y1="414.0" x2="296.8" y2="414.0" class="mark" stroke="#8a8f98"/>
+<rect x="30.0" y="466.0" width="230.0" height="74.0" rx="8" class="box"/>
+<rect x="30.0" y="466.0" width="5" height="74.0" rx="2" fill="#8a8f98"/>
+<text x="46.0" y="489.0" class="title">Binding</text>
+<text x="46.0" y="507.0" class="note">Gives the name life to the</text>
+<text x="46.0" y="525.0" class="note">function on its right.</text>
+<path d="M387.0 466.0 C387.0 440.0 394.8 440.0 394.8 414.0" class="leader" stroke="#7fbfff"/>
+<line x1="377.6" y1="414.0" x2="412.0" y2="414.0" class="mark" stroke="#7fbfff"/>
+<rect x="272.0" y="466.0" width="230.0" height="92.0" rx="8" class="box"/>
+<rect x="272.0" y="466.0" width="5" height="92.0" rx="2" fill="#7fbfff"/>
+<text x="288.0" y="489.0" class="title">Plus, quoted</text>
+<text x="288.0" y="507.0" class="note">The quote passes + as a</text>
+<text x="288.0" y="525.0" class="note">value: the operand of the</text>
+<text x="288.0" y="543.0" class="note">reduce on its right.</text>
+<path d="M629.0 466.0 C629.0 440.0 586.8 440.0 586.8 414.0" class="leader" stroke="#e0b400"/>
+<line x1="531.2" y1="414.0" x2="642.4" y2="414.0" class="mark" stroke="#e0b400"/>
+<rect x="514.0" y="466.0" width="230.0" height="92.0" rx="8" class="box"/>
+<rect x="514.0" y="466.0" width="5" height="92.0" rx="2" fill="#e0b400"/>
+<text x="530.0" y="489.0" class="title">The offsets</text>
+<text x="530.0" y="507.0" class="note">One strand of three numbers:</text>
+<text x="530.0" y="525.0" class="note">shift back one, not at all,</text>
+<text x="530.0" y="543.0" class="note">forward one.</text>
+<path d="M871.0 466.0 C871.0 440.0 769.2 440.0 769.2 414.0" class="leader" stroke="#d25fd2"/>
+<line x1="761.6" y1="414.0" x2="776.8" y2="414.0" class="mark" stroke="#d25fd2"/>
+<rect x="756.0" y="466.0" width="230.0" height="92.0" rx="8" class="box"/>
+<rect x="756.0" y="466.0" width="5" height="92.0" rx="2" fill="#d25fd2"/>
+<text x="772.0" y="489.0" class="title">⍵, the board</text>
+<text x="772.0" y="507.0" class="note">Right to left, the first</text>
+<text x="772.0" y="525.0" class="note">value used: the board that</text>
+<text x="772.0" y="543.0" class="note">is shifted.</text>
+<path d="M1113.0 466.0 C1113.0 440.0 922.8 440.0 922.8 414.0" class="leader" stroke="#d25fd2"/>
+<line x1="876.8" y1="414.0" x2="968.8" y2="414.0" class="mark" stroke="#d25fd2"/>
+<rect x="998.0" y="466.0" width="230.0" height="110.0" rx="8" class="box"/>
+<rect x="998.0" y="466.0" width="5" height="110.0" rx="2" fill="#d25fd2"/>
+<text x="1014.0" y="489.0" class="title">⍺ = 3</text>
+<text x="1014.0" y="507.0" class="note">1 where S is 3: a dead cell</text>
+<text x="1014.0" y="525.0" class="note">with 3 live neighbours, or a</text>
+<text x="1014.0" y="543.0" class="note">live one with 2. Alive next,</text>
+<text x="1014.0" y="561.0" class="note">either way.</text>
+<path d="M1355.0 466.0 C1355.0 440.0 1134.0 440.0 1134.0 414.0" class="leader" stroke="#d25fd2"/>
+<line x1="1049.6" y1="414.0" x2="1218.4" y2="414.0" class="mark" stroke="#d25fd2"/>
+<rect x="1240.0" y="466.0" width="230.0" height="110.0" rx="8" class="box"/>
+<rect x="1240.0" y="466.0" width="5" height="110.0" rx="2" fill="#d25fd2"/>
+<text x="1256.0" y="489.0" class="title">⍵ × ⍺ = 4</text>
+<text x="1256.0" y="507.0" class="note">Right to left: ⍺ = 4 first,</text>
+<text x="1256.0" y="525.0" class="note">then times the board ⍵: a</text>
+<text x="1256.0" y="543.0" class="note">live cell with 3 live</text>
+<text x="1256.0" y="561.0" class="note">neighbours stays alive.</text>
+</svg>

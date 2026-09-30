@@ -102,6 +102,9 @@ pub(crate) enum Command {
     Lex(Input),
     /// Print the decorated Unicode form (or --raw, --latex).
     Render(RenderArgs),
+    /// Draw an annotated diagram (SVG) of a line of source from a notes
+    /// file: the decorated line with callouts anchored to its tokens.
+    Diagram(Input),
     /// Print the surface AST or an ambiguity report.
     Parse(Input),
     /// Print the canonical form.
@@ -147,6 +150,7 @@ impl Command {
         match self {
             Command::Lex(_) => "lex",
             Command::Render(_) => "render",
+            Command::Diagram(_) => "diagram",
             Command::Parse(_) => "parse",
             Command::Fmt(_) => "fmt",
             Command::Core(_) => "core",
@@ -166,6 +170,7 @@ impl Command {
             | Command::Fmt(i)
             | Command::Core(i)
             | Command::Type(i)
+            | Command::Diagram(i)
             | Command::Eval(EvalArgs { input: i, .. }) => {
                 Some(read_input(i.expr.as_deref(), i.file.as_deref()))
             }

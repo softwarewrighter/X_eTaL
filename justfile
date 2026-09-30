@@ -99,6 +99,10 @@ literate:
 check-literate:
     scripts/literate.sh --check
 
+# Regenerate the annotated diagrams (images/*-annotated.svg) from docs/diagrams/*.notes
+diagrams:
+    scripts/diagrams.sh
+
 # Regenerate the README / docs images (vhs, ImageMagick)
 screenshots:
     scripts/screenshots.sh

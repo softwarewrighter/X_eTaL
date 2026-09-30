@@ -42,6 +42,9 @@ pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
     if let Command::Render(args) = command {
         return render(args, &source);
     }
+    if let Command::Diagram(_) = command {
+        return xetal_diagram::diagram(&source);
+    }
     if let Some(result) = crate::echo::evaluation(command, &source) {
         return result;
     }

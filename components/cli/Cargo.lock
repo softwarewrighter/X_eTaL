@@ -2035,6 +2035,7 @@ dependencies = [
  "hostname",
  "xetal-base",
  "xetal-core",
+ "xetal-diagram",
  "xetal-edit",
  "xetal-eval",
  "xetal-lex",
@@ -2057,6 +2058,14 @@ dependencies = [
  "xetal-ir",
  "xetal-lex",
  "xetal-syntax",
+]
+
+[[package]]
+name = "xetal-diagram"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-view",
 ]
 
 [[package]]

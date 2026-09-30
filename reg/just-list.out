@@ -5,6 +5,7 @@ Available recipes:
     check-literate             # The literate documents' recorded results are current
     clippy                     # Lint every component (warnings are errors)
     default                    # List the recipes
+    diagrams                   # Regenerate the annotated diagrams (images/*-annotated.svg) from docs/diagrams/*.notes
     edit file                  # Edit a file with the live decorated view: just edit demos/life.xtl
     eval +args                 # Evaluate an expression, flags first: just eval --echo "'+ r_/ 1 2 3"
     fmt                        # Format every component

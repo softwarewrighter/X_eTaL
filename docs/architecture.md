@@ -67,7 +67,8 @@ components/
   view/                    xetal-view: the front-end-agnostic view
                            model (styled segments, classes, raw <->
                            rendered map, ANSI output); xetal-grid:
-                           values laid out for display
+                           values laid out for display; xetal-diagram:
+                           annotated SVG diagrams of a line of source
   types/                   xetal-ty (types, unifier, schemes),
                            xetal-prim-types (built-in types, read from
                            catalog signatures),
@@ -217,6 +218,8 @@ xetal eval   <FILE|-e EXPR>    type-check, evaluate; print each value
 xetal run    FILE.xtl          type-check and run a script (--untyped)
 xetal FILE.xtl                 the same (for #!/usr/bin/env xetal)
 xetal repl                     interactive session (lines from stdin)
+xetal diagram NOTES            annotated SVG of a line of source (callouts
+                               anchored to its tokens)
 ```
 
 Each command runs the earlier stages first, so an early error is
