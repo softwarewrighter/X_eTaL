@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/keys.xtl"
+exit_code = 0
+desc = "every input form of docs/input.md, run (demos/keys.xtl)"

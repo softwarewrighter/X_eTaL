@@ -1,6 +1,6 @@
 number = 15
 slug = "keys-demo"
-status = "pending"
+status = "in-progress"
 description = "demos/keys.xtl (user request): every input form of docs/input.md as a line of..."
 role = "production"
 context_files = []

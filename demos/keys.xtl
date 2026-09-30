@@ -1,0 +1,55 @@
+#!/usr/bin/env xetal
+# Every way X_eTaL is typed, one form a line: the code, drawn decorated
+# by "just pp demos/keys.xtl", and in its comment, in double quotes,
+# the keys you type for it ("just show demos/keys.xtl" runs them).
+# docs/input.md explains each form.
+
+# -- Names and bindings -------------------------------------------------
+x := 5                         # "x := 5": a variable; := is an arrow
+count! := 0                    # "count! := 0": ! lets a variable change
+count! := count! + 1           # "count! := count! + 1"
+r_ev 1 2 3                     # "r_ev": _ after r underlines it: a function
+u:s_quare := { _r * _r }       # "u:s_quare := { _r * _r }": u: is yours
+u:s_quare 7                    # "u:s_quare 7"
+
+# -- Marks, axes and powers ---------------------------------------------
+'+ r_/ 1 2 3                   # "'+ r_/": quote +, reduce by it
+'+ s_\ 1 2 3                   # "'+ s_\": scan
+1 o_- 1 2 3                    # "o_-": rotate
+'+ r_/_2 2 3 r_eshape r_ange 6 # "r_/_2": _2 after a function, axis 2
+x^2                            # "x^2": an exponent touching a value
+x ^ 3                          # "x ^ 3": the power function, spaced
+n_eg^3 5                       # "n_eg^3": a function applied 3 times
+
+# -- Numbers and minus --------------------------------------------------
+-1 0 1                         # "-1 0 1": three numbers
+3 - 1                          # "3 - 1": subtraction, spaced
+3 -1                           # "3 -1": two numbers, 3 and -1
+x - -3                         # "x - -3": x minus negative 3
+2.5 * 2                        # "2.5 * 2": a decimal
+
+# -- Comparisons and logic ----------------------------------------------
+x != 3                         # "x != 3": not equal
+x <= 5                         # "x <= 5"
+(x > 1) & x < 9                # "(x > 1) & x < 9": and
+(x < 1) | x > 9                # "(x < 1) | x > 9": or
+
+# -- Functions of your own ----------------------------------------------
+u:a_dd := { _l + _r }          # "_l" and "_r": the left and right arguments
+2 u:a_dd 3                     # "2 u:a_dd 3"
+u:s_ign := { n -> n < 0 ? -1; n = 0 ? 0; 1 }  # "n ->" names it; "c ? r;" a guard
+u:s_ign -4                     # "u:s_ign -4"
+'{ _r * 10 } e_ach 1 2         # "'{ _r * 10 }": a quoted lambda
+u:m_ean := ['+ r_/ / t_ally]   # "['+ r_/ / t_ally]": a train, a fork
+u:m_ean 1 2 3 4                # "u:m_ean 1 2 3 4"
+
+# -- Strings, Unit and statements ---------------------------------------
+"hello" c_at " world"          # a string, in double quotes: a vector of characters
+t_ally @                       # "@": Unit, the value of nothing
+1 + 1; 2 + 2                   # ";": two statements on a line
+
+# -- Libraries and system names -----------------------------------------
+"c:" u_se< "Combinators"       # two strings and "u_se<": import a library as c:
+1 c:K_ 2                       # "c:K_": a library's name, prefixed
+f_ormat 3.5                    # "f_ormat": a number as text
+"hi" []N_PUT "work/keys.txt"   # "[]N_PUT": [] and uppercase, a system name

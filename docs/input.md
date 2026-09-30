@@ -7,6 +7,10 @@ mark on a name, so a few keys in become one decorated glyph out:
 `o_-_2` (five keys) displays as o underlined, a minus, and a
 subscript 2.
 
+`demos/keys.xtl` has every form below on a line of its own, each
+with what you type in its comment: `just pp demos/keys.xtl` shows them
+drawn beside their spelling, and `just show demos/keys.xtl` runs them.
+
 Espanso or editor snippets still work if you like them, but they must
 produce the ASCII spelling: decorated Unicode is not accepted as
 input. `xetal render --raw` turns decorated text back into source.
