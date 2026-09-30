@@ -16,13 +16,34 @@ fn names() {
         tex("u:s_quare"),
         r"{{}^{\mathrm{u}}\mathrm{\underline{s}quare}}"
     );
-    assert_eq!(tex("o_-_12"), r"{\mathrm{\underline{o}}-_{12}}");
-    assert_eq!(tex("r_/"), r"{\mathrm{\underline{r}}/}");
+    assert_eq!(tex("r_/"), r"{\mathrm{\underline{r}}{/}}");
+}
+
+/// Axes subscript the whole name, never a bare mark: `-_{12}` is
+/// rejected by KaTeX and LaTeX checkers.
+#[test]
+fn axes_anchor_on_the_whole_name() {
+    assert_eq!(tex("o_-_12"), r"{{\mathrm{\underline{o}}{-}}_{12}}");
+    assert_eq!(tex("r_/_2"), r"{{\mathrm{\underline{r}}{/}}_{2}}");
+    assert_eq!(tex("s_\\_1"), r"{{\mathrm{\underline{s}}{\backslash}}_{1}}");
+    assert_eq!(tex("r_ev_2"), r"{{\mathrm{\underline{r}ev}}_{2}}");
+}
+
+/// An exponent attaches to the token it touches, never to an empty
+/// group.
+#[test]
+fn exponents_anchor_on_what_they_touch() {
+    assert_eq!(
+        tex("o_-_12 x^2"),
+        r"{{\mathrm{\underline{o}}{-}}_{12}}\ {\mathrm{x}}^{2}"
+    );
+    assert_eq!(tex("(1 9)^0.5"), r"{(}{1}\ {9}{)}^{0.5}");
+    assert_eq!(tex("n_eg^3 5"), r"{\mathrm{\underline{n}eg}}^{3}\ {5}");
 }
 
 #[test]
 fn exponents_and_symbols() {
-    assert_eq!(tex("x^0.5"), r"{\mathrm{x}}{^{0.5}}");
+    assert_eq!(tex("x^0.5"), r"{\mathrm{x}}^{0.5}");
     assert_eq!(
         tex("* / | & != <= >="),
         r"{\times}\ {\div}\ {\vee}\ {\wedge}\ {\neq}\ {\leq}\ {\geq}"

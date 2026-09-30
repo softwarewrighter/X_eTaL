@@ -568,7 +568,10 @@ One way and complete: the body of a math environment for KaTeX,
 MathJax or pdflatex. Each token is braced so TeX adds no operator
 spacing; each source space is `\ ` and each newline `\\`; comments are
 dropped. Names: `\mathrm{\underline{r}ev}`, namespaces as
-`{}^{\mathrm{u}}`, axes as `_{12}`, exponents as `^{0.5}`; symbols
+`{}^{\mathrm{u}}`, a function's mark braced as an ordinary symbol
+(`{-}`), axes subscripting the whole name (`{\mathrm{\underline{o}}{-}}_{12}`,
+never a bare mark), exponents unbraced so they attach to the token they
+touch (`{\mathrm{x}}^{0.5}`, never an empty group); symbols
 `\times \div \neq \leq \geq \wedge \vee`, binding `\leftarrow`, arrow
 `\to`, separator `\diamond`, lazy marker `\sim`.
 
