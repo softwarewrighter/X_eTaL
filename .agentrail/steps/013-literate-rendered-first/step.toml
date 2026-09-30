@@ -1,8 +1,9 @@
 number = 13
 slug = "literate-rendered-first"
-status = "pending"
+status = "completed"
 description = "User request: every literate document (docs/literate/*.org) shows the pretty-..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T14:58:40"
-commits = []
+completed_at = "2026-09-30T16:32:35"
+commits = ["e678b73bd4f1d9006d76673ba5fe92032b7c8df6"]

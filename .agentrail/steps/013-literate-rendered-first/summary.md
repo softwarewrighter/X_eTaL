@@ -1,0 +1,1 @@
+literate-draw.py puts xetal render's drawing above each xetal block in the .org files (checked by literate.sh --check); HTML export drops the copies; design.md updated
