@@ -1,0 +1,1 @@
+LaTeX printer: marks braced, axes subscript the whole name, exponents attach to the touching token; tests, goldens rebased, design 8.2 updated
