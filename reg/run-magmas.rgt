@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/magmas.xtl"
+exit_code = 0
+desc = "magmas: rock-paper-scissors and rock-paper-scissors-lizard-Spock as Cayley tables; commutative, idempotent, associative (all triples by e_ncode), identity; order of play"
