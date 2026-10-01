@@ -1,0 +1,1 @@
+truth tables, base conversion, Roman numerals, RLE decoding using r_eplicate/e_ncode/d_ecode; goldens, live demo, index, dogfooding friction

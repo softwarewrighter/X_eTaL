@@ -1,8 +1,9 @@
 number = 18
 slug = "classics-radix-programs"
-status = "in-progress"
+status = "completed"
 description = "Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the ..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T16:16:36"
-commits = []
+completed_at = "2026-10-01T12:37:53"
+commits = ["64b617f8d27944f8edd93d82fe482cc0a3fe68fc"]
