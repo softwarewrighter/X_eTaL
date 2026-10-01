@@ -1,8 +1,9 @@
 number = 23
 slug = "mobile-pwa"
-status = "in-progress"
+status = "completed"
 description = "User report: on a phone the toolbar's buttons (Run, Zoom, Help...) run off th..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T13:41:53"
-commits = []
+completed_at = "2026-10-01T14:00:19"
+commits = ["1c42e69485262bd650df65711c6457e0c63bee06"]

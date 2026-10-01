@@ -1,0 +1,1 @@
+Phone layout (toolbar wraps, panes stack), PWA (manifest, icons, network-first service worker, offline), verified via CDP phone emulation; phone screenshot in README; pages rebuilt with PR #14's duck
