@@ -2,7 +2,9 @@
 # Run the literate documents (docs/literate/*.org) with org-babel in a
 # batch Emacs, recording each block's result in the file, after
 # scripts/literate-draw.py puts each block's drawn form above it (--check
-# fails when either is out of date). Blocks find
+# fails when either is out of date). Blocks with `:results file :file
+# ../../images/NAME.svg` save their pictures there; --check runs each
+# document in a copy of that layout and fails when a picture differs. Blocks find
 # libraries of your own (userlibs/) through XETAL_PATH, since Emacs runs
 # them from the document's directory. Commit what
 # changes; scripts/check-literate.sh fails until then.
@@ -20,7 +22,9 @@ status=0
 for doc in docs/literate/*.org; do
     target="$doc"
     if [ "$check" = "--check" ]; then
-        target="$(mktemp "${TMPDIR:-/tmp}/literate.XXXXXX").org"
+        tree="$(mktemp -d "${TMPDIR:-/tmp}/literate.XXXXXX")"
+        mkdir -p "$tree/docs/literate" "$tree/images"
+        target="$tree/docs/literate/$(basename "$doc")"
         cp "$doc" "$target"
     fi
     scripts/literate-draw.py "$target"
@@ -32,7 +36,14 @@ for doc in docs/literate/*.org; do
             echo "literate: $doc results changed (run scripts/literate.sh and commit)"
             status=1
         fi
-        rm -f "$target"
+        # The pictures blocks drew: the links recorded as results.
+        for picture in $(grep -A1 '^#+RESULTS:' "$doc" | grep -o 'file:\.\./\.\./images/[A-Za-z0-9_.-]*\.svg' | sed 's#file:\.\./\.\./##' | sort -u); do
+            if ! cmp -s "$tree/$picture" "$picture"; then
+                echo "literate: $doc draws $picture differently (run scripts/literate.sh and commit)"
+                status=1
+            fi
+        done
+        rm -rf "$tree"
     else
         echo "$doc"
     fi

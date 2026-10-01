@@ -582,6 +582,23 @@ comment; the ASCII block below it is what runs. The HTML export drops
 these copies, since it draws the blocks itself (decided with the user:
 Unicode text in the `.org`, not LaTeX images).
 
+A block that draws takes `:results file :file PATH` (PATH, in the
+documents, is `../../images/literate-NAME.svg`): `ob-xetal` runs it
+with `--draw` into a scratch directory, copies the last picture the
+block showed (`[]S_HOW`) to PATH and returns nothing, so Org records a
+link to the picture; a `:file` block that shows no picture is an
+error. The block's printed text is not recorded. In a session, the
+context runs with pictures muted, and a session replaying its accepted
+source skips the pictures it showed before (`xetal_store::replay`), so
+the picture is the block's own. The HTML export shows the picture as
+an image, where a picture with frames animates by itself; Emacs shows
+it as a still (`org-display-inline-images`). `scripts/literate.sh
+--check` runs each document in a copy of the repository's layout and
+fails when a picture it draws differs from the committed one.
+`scripts/frames-to-webp.py PICTURE.svg` turns a picture's frames into
+an animated WebP for places that do not play SVG animation (it needs
+Python's cairosvg and Pillow).
+
 ### 8.1h Graphics (`[]G_RID`, `[]S_HOW`)
 
 Programs compute what to draw as ordinary arrays (QD5, D38). `[]G_RID

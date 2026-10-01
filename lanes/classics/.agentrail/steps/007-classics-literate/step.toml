@@ -1,6 +1,6 @@
 number = 7
 slug = "classics-literate"
-status = "pending"
+status = "in-progress"
 description = "Classics lane (see docs/plan.md, Lane: classics). Literate walkthroughs with ..."
 role = "production"
 context_files = []

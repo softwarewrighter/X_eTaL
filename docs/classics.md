@@ -13,7 +13,9 @@ SVG document: a matrix as a grid of cells, a rank-3 array as frames
 shown in turn) and `[]S_HOW` shows it: `just draw FILE` runs the
 program and opens its first picture in the browser, and `xetal run
 --draw DIR FILE` writes every picture to DIR as `NAME-1.svg`,
-`NAME-2.svg`, and so on.
+`NAME-2.svg`, and so on. Several of the programs are also walked
+through, with their pictures, in the literate document
+[classics.org](literate/classics.org).
 
 | Program | Why it is a classic | Concepts | File |
 | ------- | ------------------- | -------- | ---- |
