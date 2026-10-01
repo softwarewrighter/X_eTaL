@@ -27,13 +27,13 @@ for recipe in $(just --summary); do
     # demos/tttml-play.xtl reads typed moves: the tttml-play check below
     # pipes some in; Mastermind's guesses are piped in here.
     show)
-        for f in demos/*.xtl demos/classics/*.xtl; do program "$f" && ! interactive "$f" && check just show "$f"; done
+        for f in demos/*.xtl demos/classics/*.xtl demos/leetcode/*.xtl; do program "$f" && ! interactive "$f" && check just show "$f"; done
         check bash -c "printf '$guesses' | just show demos/classics/mastermind-play.xtl"
         ;;
-    pp) for f in demos/*.xtl demos/classics/*.xtl; do check just pp "$f"; done ;;
+    pp) for f in demos/*.xtl demos/classics/*.xtl demos/leetcode/*.xtl; do check just pp "$f"; done ;;
     slow-show) check just slow-show demos/square.xtl 1 ;;
     run)
-        for f in demos/*.xtl demos/classics/*.xtl; do
+        for f in demos/*.xtl demos/classics/*.xtl demos/leetcode/*.xtl; do
             { interactive "$f" || ! program "$f"; } && continue
             flags=$(head -1 "$f" | grep -o -- '--untyped' || true)
             check just run $flags "$f"
