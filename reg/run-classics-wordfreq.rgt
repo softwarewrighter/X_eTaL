@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/wordfreq.xtl"
+exit_code = 0
+desc = "word frequency: words by p_artition, distinct words and counts by a table of equals over boxes, a two-row table of boxes"

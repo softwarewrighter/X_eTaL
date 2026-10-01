@@ -56,3 +56,11 @@ u:t_riangle := { n r ->
 # 0 to 11 colored by size, from dark purple (0) to yellow (462).
 sierpinski := []S_HOW []G_RID (32 u:r_ows 32 t_ake 1) m_od 2
 binomials := []S_HOW []G_RID (o_ffsets 12) 'u:c_hoose t_able o_ffsets 12
+
+# -- Ragged rows ------------------------------------------------------------
+# With nested arrays each row keeps its own length: m_ap gives one box
+# per row (row k is the binomials of k - 1, by u:c_hoose), and the boxes
+# set in a column are the triangle as it is usually written.
+rows := '{ k -> (o_ffsets k) 'u:c_hoose e_ach k - 1 } m_ap r_ange 7
+7 1 r_eshape rows
+'{ '+ r_/ d_isclose _r } e_ach rows      # each row sums to a power of 2
