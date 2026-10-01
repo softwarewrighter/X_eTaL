@@ -64,3 +64,4 @@ coming up.
 | `m_od` reads in maths order (`a m_od n` is a mod n), the reverse of APL's residue | automaton | written as maths reads it |
 | `e_ach` goes over items (scalars), not rows, so a function of a row cannot be applied to each row of a matrix | Mastermind, every secret | each row by its index: `'{ ... _r s_elect m } e_ach r_ange n`; a rank operator or nested arrays (the nested-design step) would say it directly |
 | A guard is a statement, so a choice in the middle of an expression needs a function | Mastermind, showing "none" for no pegs | a small function (`u:p_egs`) whose first line is the guard |
+| A comparison named at the top level is a Bool, and a Bool is not a number: `t c_at f` and `1 * f` fail for a named Bool `f`, though the same comparison written in place is an Int (T5) | truth tables, Gray code | the binding written `f := 0 + ...`, so it is named as an Int |
