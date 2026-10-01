@@ -591,7 +591,11 @@ dropped. Names: `\mathrm{\underline{r}ev}`, namespaces as
 `{}^{\mathrm{u}}`, a function's mark braced as an ordinary symbol
 (`{-}`), axes subscripting the whole name (`{\mathrm{\underline{o}}{-}}_{12}`,
 never a bare mark), exponents unbraced so they attach to the token they
-touch (`{\mathrm{x}}^{0.5}`, never an empty group); symbols
+touch (`{\mathrm{x}}^{0.5}`, never an empty group); no space is
+written before a line end or a dropped comment; a string is `\text`
+spelled as in the source, TeX's specials escaped and a letter with a
+combining underline as `\underline` (other Unicode passes through, for a
+Unicode-aware engine); symbols
 `\times \div \neq \leq \geq \wedge \vee`, binding `\leftarrow`, arrow
 `\to`, separator `\diamond`, lazy marker `\sim`.
 

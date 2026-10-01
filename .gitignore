@@ -25,3 +25,4 @@
 
 # Scratch output of demos (for example the TTTML model): not tracked
 work/
+tools/katex/node_modules/

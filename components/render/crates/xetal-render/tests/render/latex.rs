@@ -60,3 +60,31 @@ fn punctuation_and_whitespace() {
     assert_eq!(tex("x := y"), r"{\mathrm{x}}\ {\leftarrow}\ {\mathrm{y}}");
     assert_eq!(tex("a\nb"), "{\\mathrm{a}}\\\\\n{\\mathrm{b}}");
 }
+
+/// Space before a comment (which is dropped) or the end of a line sets
+/// nothing, so none is written: no line ends in a lone `\ `.
+#[test]
+fn no_space_before_a_dropped_comment_or_a_line_end() {
+    assert_eq!(
+        tex("x := 5        # five"),
+        r"{\mathrm{x}}\ {\leftarrow}\ {5}"
+    );
+    assert_eq!(tex("a   \nb # c"), "{\\mathrm{a}}\\\\\n{\\mathrm{b}}");
+    assert_eq!(tex("  a"), r"\ \ {\mathrm{a}}");
+}
+
+/// A string is set as text as it is spelled in the source (`\\` is two
+/// backslashes), its TeX specials escaped, and an underlined
+/// letter (a combining underline) as `\underline`, which KaTeX accepts
+/// where it rejects the combining character.
+#[test]
+fn strings_are_escaped_text() {
+    assert_eq!(
+        tex("\"a_b #1 {x} $ % & ~ ^ \\\\\""),
+        r#"{\text{"a\_b \#1 \{x\} \$ \% \& \textasciitilde{} \textasciicircum{} \textbackslash{}\textbackslash{}"}}"#
+    );
+    assert_eq!(
+        tex("\"hi X\u{332}\u{1d49}T\""),
+        "{\\text{\"hi \\underline{X}\u{1d49}T\"}}"
+    );
+}

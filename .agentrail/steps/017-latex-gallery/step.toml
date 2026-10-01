@@ -1,6 +1,6 @@
 number = 17
 slug = "latex-gallery"
-status = "pending"
+status = "in-progress"
 description = "User request: test xetal render --latex on every expression we ship or docume..."
 role = "production"
 context_files = []

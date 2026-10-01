@@ -126,6 +126,7 @@ fn links() -> Html {
                     <li><a href={doc(path)} target="_blank">{ *label }</a></li>
                 }) }
                 <li><a href="literate/index.html" target="_blank">{ "Literate documents" }</a></li>
+                <li><a href="latex/index.html" target="_blank">{ "Every line in LaTeX" }</a></li>
             </ul>
         </>
     }

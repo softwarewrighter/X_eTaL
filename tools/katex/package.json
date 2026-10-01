@@ -1,0 +1,10 @@
+{
+  "name": "xetal-katex-check",
+  "private": true,
+  "description": "KaTeX, to check xetal render --latex output and draw the LaTeX gallery (scripts/latex-gallery.sh)",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "katex": "0.18.10"
+  }
+}

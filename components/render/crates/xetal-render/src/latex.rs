@@ -13,8 +13,12 @@ pub fn latex(src: &str) -> Result<String, Diagnostic> {
     let mut out = String::new();
     let mut pos = 0;
     for token in &tokens {
-        out.push_str(&spacing(&src[pos..token.span.start]));
         let raw = &src[token.span.start..token.span.end];
+        // Space before a line end (or a comment, which is dropped) sets
+        // nothing, so it is not written.
+        if token.kind != TokenKind::Newline {
+            out.push_str(&spacing(&src[pos..token.span.start]));
+        }
         if token.kind == TokenKind::Newline {
             out.push_str("\\\\\n");
         } else if let TokenKind::Exp(_) = token.kind {
@@ -27,7 +31,6 @@ pub fn latex(src: &str) -> Result<String, Diagnostic> {
         }
         pos = token.span.end;
     }
-    out.push_str(&spacing(&src[pos..]));
     Ok(out)
 }
 
@@ -57,7 +60,7 @@ fn token_tex(kind: &TokenKind, raw: &str) -> String {
         }
         TokenKind::Exp(_) => format!("^{{{}}}", &raw[1..]),
         TokenKind::Sym(sym) => symbol_tex(*sym).into(),
-        TokenKind::Str(_) => format!(r"\text{{{}}}", raw.replace('\\', r"\textbackslash{}")),
+        TokenKind::Str(_) => format!(r"\text{{{}}}", text_tex(raw)),
         TokenKind::Assign => r"\leftarrow".into(),
         TokenKind::Semi => r"\diamond".into(),
         TokenKind::Arrow => r"\to".into(),
@@ -78,7 +81,8 @@ fn func_tex(name: &FuncName) -> String {
         r"\mathrm{{{before}\underline{{{letter}}}{after}}}"
     ));
     if let Some(mark) = name.mark {
-        out.push_str(&format!("{{{}}}", mark_tex(mark)));
+        let tex = MARKS.iter().find(|(m, _)| *m == mark).map(|(_, t)| *t);
+        out.push_str(&format!("{{{}}}", tex.unwrap_or(&mark.to_string())));
     }
     if name.axes.is_empty() {
         return out;
@@ -89,18 +93,37 @@ fn func_tex(name: &FuncName) -> String {
 }
 
 /// A function name's trailing mark, braced by the caller so TeX sets it
-/// as an ordinary symbol.
-fn mark_tex(mark: char) -> String {
-    match mark {
-        '\\' => r"\backslash".into(),
-        '|' => r"\mid".into(),
-        '~' => r"\sim".into(),
-        '%' => r"\%".into(),
-        '$' => r"\$".into(),
-        '&' => r"\&".into(),
-        '*' => r"\ast".into(),
-        other => other.to_string(),
+/// as an ordinary symbol; a mark not listed is written as it is.
+const MARKS: &[(char, &str)] = &[
+    ('\\', r"\backslash"),
+    ('|', r"\mid"),
+    ('~', r"\sim"),
+    ('%', r"\%"),
+    ('$', r"\$"),
+    ('&', r"\&"),
+    ('*', r"\ast"),
+];
+
+/// A string as text, spelled as in the source: TeX's specials escaped,
+/// and a letter with a combining underline as `\underline`.
+fn text_tex(raw: &str) -> String {
+    let mut out = String::new();
+    let mut chars = raw.chars().peekable();
+    while let Some(c) = chars.next() {
+        let tex = match c {
+            '\\' => r"\textbackslash{}".to_string(),
+            '~' => r"\textasciitilde{}".to_string(),
+            '^' => r"\textasciicircum{}".to_string(),
+            '#' | '_' | '$' | '%' | '&' | '{' | '}' => format!("\\{c}"),
+            c if chars.peek() == Some(&'\u{332}') => {
+                chars.next();
+                format!(r"\underline{{{c}}}")
+            }
+            c => c.to_string(),
+        };
+        out.push_str(&tex);
     }
+    out
 }
 
 /// A namespace as a leading superscript.

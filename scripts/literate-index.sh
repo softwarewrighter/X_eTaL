@@ -28,6 +28,8 @@ for name in tour hello life libraries birds tttml; do
 done
 cat <<'TAIL'
 </ul>
+<p><a href="../latex/">XeTaL in LaTeX</a>: every line of code we ship or
+document, as xetal render --latex writes it and KaTeX draws it.</p>
 <p>The Org sources are in the repository's docs/literate/, with the
 Emacs mode and ob-xetal in docs/emacs/.</p>
 </div>

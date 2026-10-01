@@ -14,5 +14,6 @@ touch "$root/pages/.nojekyll"
 # pages/literate/ is written by scripts/literate-html.sh; keep it.
 rsync -a --delete --exclude='.nojekyll' --exclude='literate/' "$dist/" "$root/pages/"
 "$root/scripts/literate-html.sh"
+"$root/scripts/latex-gallery.sh" --write
 "$root/scripts/live-screenshot.sh"
 echo "pages/ built; commit it (git add pages/) and push to publish."

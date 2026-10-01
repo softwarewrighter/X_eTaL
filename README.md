@@ -163,7 +163,8 @@ trains and a stepping debugger ([`docs/plan.md`](docs/plan.md)).
   goldens), `sw-checklist` and `sw-markdown-checker`; Emacs for the
   literate documents; vhs, ffmpeg and ImageMagick to regenerate the
   screenshots and the video; Google Chrome for the live demo's
-  screenshot.
+  screenshot; Node.js with KaTeX (`cd tools/katex && npm ci`) to check
+  every line's LaTeX and draw the gallery (`scripts/latex-gallery.sh`).
 
 ## Quick Start
 

@@ -35,6 +35,7 @@ step "built-in reference (docs/reference.md)"
 python3 scripts/reference.py --check
 step "annotated diagrams (docs/diagrams)"
 scripts/diagrams.sh --check
+scripts/latex-gallery.sh
 step "literate documents (docs/literate)"
 scripts/literate.sh --check
 step "sw-checklist"
