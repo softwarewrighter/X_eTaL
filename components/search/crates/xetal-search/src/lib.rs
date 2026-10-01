@@ -8,3 +8,4 @@ mod find;
 mod order;
 
 pub use calls::call;
+pub use compare::equal;

@@ -40,7 +40,7 @@ plan, and move a row from "Planned" to "Added" when it lands.
 
 | Feature | Needed by | Status |
 | ------- | --------- | ------ |
-| Nested arrays, with static depth (`Box a`) and boxed printing | word frequency, N-Queens, ragged Pascal, the APL subset interpreter | decided (A7, B14, D37): string-literal strands, `m_ap` to box each result, `p_artition` with APL2's keys, strict `Box a`; classics lane, nested-core and nested-builtins |
+| Nested arrays, with static depth (`Box a`) and boxed printing | word frequency, N-Queens, ragged Pascal, the APL subset interpreter | core added (B16, D41: `Box a`, string strands, `e_nclose`, `d_isclose`, DISPLAY printing); still to come: `m_ap` and `p_artition`; classics lane, nested-builtins |
 | Transpose (`o_\`) | `[]P_ATH` taking n by 2 points, any program wanting columns | planned (plan.md, cross-cutting; confirmed by the user) |
 | Matrix inverse and division (APL's domino) | ADVANCEDEX's INV and INVP, regression in STATS | to decide with the user, when the ADVANCEDEX ports reach it |
 | Execute (`[]V_ALUE`, read and evaluate) | the APL subset interpreter, the COURSE and DRILL ports | reserved (lang-choices QD3); to decide |

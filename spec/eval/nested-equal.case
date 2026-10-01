@@ -1,0 +1,16 @@
+# Boxes compare by what they hold, so the search built-ins and match
+# work on nested arrays (Box a is Eq when a is).
+== SOURCE
+("ab" "cd") m_atch "ab" "cd"
+("ab" "cd") m_atch "ab" "ce"
+("ab" "cd") = "ab" "ce"
+t_ally u_nique "ab" "cd" "ab"
+("ab" "cd" "ef") i_ndexOf "ef" "ab" "zz"
+("ab" "cd") m_atch (e_nclose "ab") c_at e_nclose "cd"
+== RESULT
+1
+0
+1 0
+2
+3 1 4
+1

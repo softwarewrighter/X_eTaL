@@ -1,0 +1,6 @@
+# Only literals of one kind strand: a string beside a number is two
+# values side by side.
+== SOURCE
+"ab" 12
+== ERROR
+error[adjacent-values]: two values side by side (only literals of one kind form strands: numbers, or strings) at 0..4

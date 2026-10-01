@@ -1,0 +1,6 @@
+# Box a unifies only with Box a: a string and a nested vector do not
+# join, and nothing is boxed or unboxed implicitly.
+== SOURCE
+"ab" c_at "cd" "ef"
+== ERROR
+error[type-mismatch]: expected Char, found Box Char at 0..19

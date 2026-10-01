@@ -15,6 +15,9 @@ pub enum Value<'a> {
     Unit,
     /// An array of rank 1 or more (a scalar is never an `Array`).
     Array(Rc<Array<Value<'a>>>),
+    /// An enclosed item of a nested array (A7, B14): a scalar holding a
+    /// value, which may itself be an array.
+    Boxed(Rc<Value<'a>>),
     Closure(Rc<Closure<'a>>),
     Prim(Rc<Prim<'a>>),
 }

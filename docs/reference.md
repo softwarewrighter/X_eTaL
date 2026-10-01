@@ -633,6 +633,40 @@ every digit; a matrix gives one number per column.
 error[length-mismatch]: 2 radix values for 3 digits
 ```
 
+### `e_nclose`
+
+`a -> Box a`, one argument.
+
+Enclose: the whole value as one item, a box, so arrays can be items of
+other arrays; a strand of strings encloses each string. A nested array
+prints in frames drawn with box characters, as APL2's DISPLAY draws
+them: an arrow along the top, a down arrow for each leading axis, and a
+mark at the bottom for what it holds.
+
+```
+      t_ally e_nclose "abc"
+1
+      t_ally "ab" "cde"
+2
+      ("ab" "cde") m_atch (e_nclose "ab") c_at e_nclose "cde"
+1
+```
+
+### `d_isclose`
+
+`Box a -> a`, one argument.
+
+Disclose: what a box holds. It opens one box (select one item first).
+
+```
+      d_isclose e_nclose "abc"
+abc
+      d_isclose 2 s_elect "ab" "cde"
+cde
+      d_isclose "ab" "cde"
+error[rank]: d_isclose opens one box, got shape 2
+```
+
 ### `c_at`
 
 `a -> a -> a`, two arguments.

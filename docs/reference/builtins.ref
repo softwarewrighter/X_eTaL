@@ -260,6 +260,22 @@ every digit; a matrix gives one number per column.
 > 2 d_ecode 2 2 2 e_ncode 0 1 2 3
 !> 2 2 d_ecode 1 0 1
 
+== e_nclose
+Enclose: the whole value as one item, a box, so arrays can be items of
+other arrays; a strand of strings encloses each string. A nested array
+prints in frames drawn with box characters, as APL2's DISPLAY draws
+them: an arrow along the top, a down arrow for each leading axis, and a
+mark at the bottom for what it holds.
+> t_ally e_nclose "abc"
+> t_ally "ab" "cde"
+> ("ab" "cde") m_atch (e_nclose "ab") c_at e_nclose "cde"
+
+== d_isclose
+Disclose: what a box holds. It opens one box (select one item first).
+> d_isclose e_nclose "abc"
+> d_isclose 2 s_elect "ab" "cde"
+!> d_isclose "ab" "cde"
+
 == c_at
 Join along the first axis, or with a subscript along that axis of both
 arguments: `c_at_2` puts matrices side by side. The other axes must

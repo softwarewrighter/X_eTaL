@@ -4,6 +4,7 @@
 mod body;
 mod expr;
 mod lower;
+mod strand;
 mod train;
 
 pub use lower::lower;

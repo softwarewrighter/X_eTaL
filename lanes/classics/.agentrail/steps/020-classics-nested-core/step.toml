@@ -1,8 +1,9 @@
 number = 20
 slug = "classics-nested-core"
-status = "pending"
+status = "completed"
 description = "Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the ..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T16:16:36"
-commits = []
+completed_at = "2026-10-01T15:19:00"
+commits = ["3d8d3744ab18feb8971fe7cbcf1f20564a15e94f"]

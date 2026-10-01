@@ -1,0 +1,6 @@
+# d_isclose opens one box; opening an array of boxes into one array
+# (APL2's disclose of a vector) is not decided.
+== SOURCE
+d_isclose "ab" "cd"
+== ERROR
+error[rank]: d_isclose opens one box, got shape 2 at 0..19

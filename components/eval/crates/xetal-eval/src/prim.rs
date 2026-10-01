@@ -86,6 +86,9 @@ fn scalar2<'a>(
         }
         "=" | "!=" | "<" | ">" | "<=" | ">=" | "e_q~" => match (a, b) {
             (Value::Char(x), Value::Char(y)) if name != "e_q~" => Ok(compare_chars(name, *x, *y)),
+            (Value::Boxed(_), Value::Boxed(_)) if name == "=" || name == "!=" => {
+                Ok(Value::Bool(xetal_search::equal(a, b) == (name == "=")))
+            }
             _ => Ok(compare(name, num(a, span)?, num(b, span)?)),
         },
         _ => binary(name, num(a, span)?, num(b, span)?, span),

@@ -2,4 +2,4 @@
 == SOURCE
 x 1
 == ERROR
-error[adjacent-values]: two values side by side (only numbers form strands) at 0..1
+error[adjacent-values]: two values side by side (only literals of one kind form strands: numbers, or strings) at 0..1

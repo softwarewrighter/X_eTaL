@@ -16,7 +16,7 @@ impl Lower {
             ExprKind::Strand(items) => {
                 let items = items
                     .iter()
-                    .map(|x| self.expr(x))
+                    .map(|x| self.strand_item(x))
                     .collect::<Result<_, _>>()?;
                 Kind::Array(items)
             }

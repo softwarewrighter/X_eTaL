@@ -49,6 +49,7 @@ impl Unifier {
                 None => ty.clone(),
             },
             Type::Fn(a, b) => Type::Fn(Box::new(self.resolve(a)), Box::new(self.resolve(b))),
+            Type::Box(a) => Type::Box(Box::new(self.resolve(a))),
             other => other.clone(),
         }
     }
@@ -63,6 +64,7 @@ impl Unifier {
                 self.unify(a1, b1, span)?;
                 self.unify(a2, b2, span)
             }
+            (Type::Box(a1), Type::Box(b1)) => self.unify(a1, b1, span),
             _ => Err(
                 Diagnostic::new("type-mismatch", format!("expected {a}, found {b}"))
                     .with_span(span),
@@ -99,6 +101,7 @@ impl Unifier {
                         .with_span(span),
                 );
             }
+            Type::Box(inner) => self.constrain(inner, classes, span)?,
             _ => {}
         }
         self.subst.insert(v, t.clone());
