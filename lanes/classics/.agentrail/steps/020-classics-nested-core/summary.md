@@ -1,0 +1,1 @@
+nested core: Box a, string strands, e_nclose/d_isclose, box equality, APL2 DISPLAY printing (B16, D41); renderer reusable for d_isplay
