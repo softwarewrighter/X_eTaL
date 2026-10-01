@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Tower of Hanoi, three ways</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">The Tower of Hanoi, three ways
+<br />
+<span class="subtitle">recursion, currying with combinators, and every move at once</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgf866992">1. Recursion, the pegs as one vector</a></li>
+<li><a href="#orgc565d01">2. Curried, with the combinators</a></li>
+<li><a href="#orgfaebb23">3. Every move at once</a></li>
+<li><a href="#orgb743141">Watching it</a></li>
+<li><a href="#org5515b69">Which is better?</a></li>
+</ul>
+</div>
+</div>
+<p>
+Move a stack of disks from one peg to another, one disk at a time,
+never a larger disk on a smaller. The puzzle is the classic example of
+a problem that is easy to say recursively, and it makes a good test of
+a language: the same moves can be computed by a recursion, by curried
+functions stitched together with combinators, or, the array way, all
+at once from the binary digits of the move number. This document
+writes all three in X_eTaL, checks that they agree, and watches the
+disks move. The program is <code>demos/classics/hanoi.xtl</code>.
+</p>
+
+<p>
+A move is a row of two pegs, from and to; the pegs are 1, 2 and 3, and
+every solution here moves the disks from peg 1 to peg 3.
+</p>
+<div id="outline-container-orgf866992" class="outline-2">
+<h2 id="orgf866992">1. Recursion, the pegs as one vector</h2>
+<div class="outline-text-2" id="text-orgf866992">
+<p>
+To move n disks: move n - 1 out of the way onto the spare peg, move
+the largest, move the n - 1 back on top of it. The three pegs travel
+together as one vector, from, to and spare, and each half of the
+recursion reorders them with <code>s_elect</code>: <code>1 3 2 s_elect pegs</code> makes the
+spare the target, <code>3 2 1 s_elect pegs</code> moves from the spare.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘh̲anoi</span> ← { n pegs →
+  n <span class="c-symbol">=</span> <span class="c-number">0</span> ? <span class="c-number">0</span> <span class="c-number">2</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span>
+  first ← (n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘh̲anoi</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">2</span> <span class="c-builtin">s̲elect</span> pegs
+  last ← (n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘh̲anoi</span> <span class="c-number">3</span> <span class="c-number">2</span> <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> pegs
+  first <span class="c-builtin">c̲at</span> (<span class="c-number">1</span> <span class="c-number">2</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">2</span> <span class="c-builtin">t̲ake</span> pegs) <span class="c-builtin">c̲at</span> last
+}
+<span class="c-number">3</span> <span class="c-userfunc">ᵘh̲anoi</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:h_anoi := { n pegs -&gt;</span>
+<span class="c-comment typed">⍝     n = 0 ? 0 2 r_eshape 0</span>
+<span class="c-comment typed">⍝     first := (n - 1) u:h_anoi 1 3 2 s_elect pegs</span>
+<span class="c-comment typed">⍝     last := (n - 1) u:h_anoi 3 2 1 s_elect pegs</span>
+<span class="c-comment typed">⍝     first c_at (1 2 r_eshape 2 t_ake pegs) c_at last</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   3 u:h_anoi 1 3 2</span></pre>
+</div>
+
+<pre class="example">
+1 3
+1 2
+3 2
+1 3
+2 1
+2 3
+1 3
+</pre>
+
+
+<p>
+The reorderings are data: <code>1 3 2</code> and <code>3 2 1</code> are permutations, which
+compose by indexing and can be printed or drawn. Two moves for each
+disk added, plus one: 2^n - 1 moves.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-quote">'</span>{ <span class="c-builtin">t̲ally</span> <span class="c-lambdaarg">⍵</span> <span class="c-userfunc">ᵘh̲anoi</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">2</span> } <span class="c-builtin">e̲ach</span> <span class="c-builtin">r̲ange</span> <span class="c-number">10</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '{ t_ally _r u:h_anoi 1 3 2 } e_ach r_ange 10</span></pre>
+</div>
+
+<pre class="example">
+1 3 7 15 31 63 127 255 511 1023
+</pre>
+</div>
+</div>
+<div id="outline-container-orgc565d01" class="outline-2">
+<h2 id="orgc565d01">2. Curried, with the combinators</h2>
+<div class="outline-text-2" id="text-orgc565d01">
+<p>
+The textbook writes h(n, from, to, via), four arguments. In X_eTaL
+every function is curried: a function of four parameters applied to
+one value is a function of three. But a call takes one value on each
+side, and two values side by side are an error, so the third and
+fourth arguments are applied to the function value with <code>(expr)_</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘm̲v</span> ← { from to → <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-builtin">r̲eshape</span> from <span class="c-builtin">c̲at</span> to }
+<span class="c-userfunc">ᵘh̲</span> ← { n from to via →
+  n <span class="c-symbol">=</span> <span class="c-number">0</span> ? <span class="c-number">0</span> <span class="c-number">2</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span>
+  a ← (((n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘh̲</span> from)_ via)_ to
+  b ← (((n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘh̲</span> via)_ to)_ from
+  a <span class="c-builtin">c̲at</span> (from <span class="c-userfunc">ᵘm̲v</span> to) <span class="c-builtin">c̲at</span> b
+}
+((<span class="c-number">3</span> <span class="c-userfunc">ᵘh̲</span> <span class="c-number">1</span>)_ <span class="c-number">3</span>)_ <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:m_v := { from to -&gt; 1 2 r_eshape from c_at to }</span>
+<span class="c-comment typed">⍝   u:h_ := { n from to via -&gt;</span>
+<span class="c-comment typed">⍝     n = 0 ? 0 2 r_eshape 0</span>
+<span class="c-comment typed">⍝     a := (((n - 1) u:h_ from)_ via)_ to</span>
+<span class="c-comment typed">⍝     b := (((n - 1) u:h_ via)_ to)_ from</span>
+<span class="c-comment typed">⍝     a c_at (from u:m_v to) c_at b</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   ((3 u:h_ 1)_ 3)_ 2</span></pre>
+</div>
+
+<pre class="example">
+1 3
+1 2
+3 2
+1 3
+2 1
+2 3
+1 3
+</pre>
+
+
+<p>
+Naming the partial applications reads better. <code>m_ove</code> is "move n - 1
+disks from here", still waiting for to and via; the first half swaps
+those two, and swapping arguments is Smullyan's C, the cardinal, from
+the Combinators library: <code>to 'f c:C_ via</code> is <code>via f to</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-libfunc">ᶜ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Combinators&quot;</span>
+<span class="c-userfunc">ᵘh̲c</span> ← { n from to via →
+  n <span class="c-symbol">=</span> <span class="c-number">0</span> ? <span class="c-number">0</span> <span class="c-number">2</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span>
+  <span class="c-builtin">m̲ove</span> ← (n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘh̲c</span> from
+  <span class="c-builtin">b̲ack</span> ← (n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘh̲c</span> via
+  (to <span class="c-builtin">'m̲ove</span> <span class="c-libfunc">ᶜC̲</span> via) <span class="c-builtin">c̲at</span> (from <span class="c-userfunc">ᵘm̲v</span> to) <span class="c-builtin">c̲at</span> to <span class="c-builtin">b̲ack</span> from
+}
+(((<span class="c-number">6</span> <span class="c-userfunc">ᵘh̲c</span> <span class="c-number">1</span>)_ <span class="c-number">3</span>)_ <span class="c-number">2</span>) <span class="c-builtin">m̲atch</span> <span class="c-number">6</span> <span class="c-userfunc">ᵘh̲anoi</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "c:" u_se&lt; "Combinators"</span>
+<span class="c-comment typed">⍝   u:h_c := { n from to via -&gt;</span>
+<span class="c-comment typed">⍝     n = 0 ? 0 2 r_eshape 0</span>
+<span class="c-comment typed">⍝     m_ove := (n - 1) u:h_c from</span>
+<span class="c-comment typed">⍝     b_ack := (n - 1) u:h_c via</span>
+<span class="c-comment typed">⍝     (to 'm_ove c:C_ via) c_at (from u:m_v to) c_at to b_ack from</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   (((6 u:h_c 1)_ 3)_ 2) m_atch 6 u:h_anoi 1 3 2</span></pre>
+</div>
+
+<pre class="example">
+1
+</pre>
+
+
+<p>
+It is the same recursion, said more functionally; it is no more an
+array program than the first, and X_eTaL's one-value-a-side calls
+make the four-argument call clumsy. That is why the first version
+packs the pegs into one vector.
+</p>
+</div>
+</div>
+<div id="outline-container-orgfaebb23" class="outline-2">
+<h2 id="orgfaebb23">3. Every move at once</h2>
+<div class="outline-text-2" id="text-orgfaebb23">
+<p>
+The recursion hides a pattern. Number the moves k = 1 to 2^n - 1.
+</p>
+
+<ul class="org-ul">
+<li>Move k moves disk 1 + (the number of trailing zero bits of k): the
+smallest disk every other move, the next every fourth, and so on.</li>
+<li>Each disk always cycles round the pegs in the same direction: for
+disks d with n - d even it goes 1, 3, 2, 1, &#x2026;; the others go
+1, 2, 3, 1, &#x2026;.</li>
+<li>Before move k, disk d has moved k d_iv 2^d times, so its from and to
+pegs are that count, and that count plus one, taken round its cycle.</li>
+</ul>
+
+<p>
+So every move can be computed from k alone, for all k at once. The
+trailing zeros are counted as how many of 2, 4, 8, &#x2026; divide k, a
+table of remainders reduced along its second axis:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">k ← <span class="c-builtin">r̲ange</span> <span class="c-number">7</span>
+<span class="c-number">0</span> <span class="c-symbol">=</span> k <span class="c-builtin">'m̲od</span> <span class="c-builtin">t̲able</span> <span class="c-number">2</span> <span class="c-symbol">^</span> <span class="c-builtin">r̲ange</span> <span class="c-number">3</span>
+<span class="c-symbol">'+</span> <span class="c-builtin">r̲/₂</span> <span class="c-number">0</span> <span class="c-symbol">=</span> k <span class="c-builtin">'m̲od</span> <span class="c-builtin">t̲able</span> <span class="c-number">2</span> <span class="c-symbol">^</span> <span class="c-builtin">r̲ange</span> <span class="c-number">3</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   k := r_ange 7</span>
+<span class="c-comment typed">⍝   0 = k 'm_od t_able 2 ^ r_ange 3</span>
+<span class="c-comment typed">⍝   '+ r_/_2 0 = k 'm_od t_able 2 ^ r_ange 3</span></pre>
+</div>
+
+<pre class="example">
+0 0 0
+1 0 0
+0 0 0
+1 1 0
+0 0 0
+1 0 0
+0 0 0
+0 1 0 2 0 1 0
+</pre>
+
+
+<p>
+The rest is arithmetic on whole vectors. The from and to columns are
+put side by side by two tables, against 0 0 and against 0 1.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘm̲oves</span> ← { n →
+  k ← <span class="c-builtin">r̲ange</span> (<span class="c-number">2</span> <span class="c-symbol">^</span> n) <span class="c-symbol">−</span> <span class="c-number">1</span>
+  d ← <span class="c-number">1</span> <span class="c-symbol">+</span> <span class="c-symbol">'+</span> <span class="c-builtin">r̲/₂</span> <span class="c-number">0</span> <span class="c-symbol">=</span> k <span class="c-builtin">'m̲od</span> <span class="c-builtin">t̲able</span> <span class="c-number">2</span> <span class="c-symbol">^</span> <span class="c-builtin">r̲ange</span> n
+  m ← k <span class="c-builtin">d̲iv</span> <span class="c-number">2</span> <span class="c-symbol">^</span> d
+  s ← <span class="c-number">1</span> <span class="c-symbol">+</span> <span class="c-number">0</span> <span class="c-symbol">=</span> (n <span class="c-symbol">−</span> d) <span class="c-builtin">m̲od</span> <span class="c-number">2</span>
+  from ← <span class="c-number">1</span> <span class="c-symbol">+</span> (s <span class="c-symbol">×</span> m) <span class="c-builtin">m̲od</span> <span class="c-number">3</span>
+  to ← <span class="c-number">1</span> <span class="c-symbol">+</span> (s <span class="c-symbol">×</span> m <span class="c-symbol">+</span> <span class="c-number">1</span>) <span class="c-builtin">m̲od</span> <span class="c-number">3</span>
+  (from <span class="c-symbol">'+</span> <span class="c-builtin">t̲able</span> <span class="c-number">0</span> <span class="c-number">0</span>) <span class="c-symbol">+</span> (to <span class="c-symbol">−</span> from) <span class="c-symbol">'×</span> <span class="c-builtin">t̲able</span> <span class="c-number">0</span> <span class="c-number">1</span>
+}
+<span class="c-userfunc">ᵘm̲oves</span> <span class="c-number">3</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:m_oves := { n -&gt;</span>
+<span class="c-comment typed">⍝     k := r_ange (2 ^ n) - 1</span>
+<span class="c-comment typed">⍝     d := 1 + '+ r_/_2 0 = k 'm_od t_able 2 ^ r_ange n</span>
+<span class="c-comment typed">⍝     m := k d_iv 2 ^ d</span>
+<span class="c-comment typed">⍝     s := 1 + 0 = (n - d) m_od 2</span>
+<span class="c-comment typed">⍝     from := 1 + (s * m) m_od 3</span>
+<span class="c-comment typed">⍝     to := 1 + (s * m + 1) m_od 3</span>
+<span class="c-comment typed">⍝     (from '+ t_able 0 0) + (to - from) '* t_able 0 1</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:m_oves 3</span></pre>
+</div>
+
+<pre class="example">
+1 3
+1 2
+3 2
+1 3
+2 1
+2 3
+1 3
+</pre>
+
+
+<p>
+The same moves as the recursion, for 1 to 10 disks:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-quote">'</span>{ (<span class="c-userfunc">ᵘm̲oves</span> <span class="c-lambdaarg">⍵</span>) <span class="c-builtin">m̲atch</span> <span class="c-lambdaarg">⍵</span> <span class="c-userfunc">ᵘh̲anoi</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">2</span> } <span class="c-builtin">e̲ach</span> <span class="c-builtin">r̲ange</span> <span class="c-number">10</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '{ (u:m_oves _r) m_atch _r u:h_anoi 1 3 2 } e_ach r_ange 10</span></pre>
+</div>
+
+<pre class="example">
+1 1 1 1 1 1 1 1 1 1
+</pre>
+</div>
+</div>
+<div id="outline-container-orgb743141" class="outline-2">
+<h2 id="orgb743141">Watching it</h2>
+<div class="outline-text-2" id="text-orgb743141">
+<p>
+The state is the peg each disk is on, smallest first. A move takes the
+smallest disk on its first peg (where <code>i_ndexOf</code> first finds that peg)
+to its second. Each state is drawn as bars, a disk of size s as wide
+as 2s - 1 and centred on its peg, by a table of sizes against offsets
+from the centre; every state stacked is an animation. Here the moves
+come from the array way:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘm̲ove</span> ← { p m →
+  from ← <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> m
+  disk ← p <span class="c-builtin">i̲ndexOf</span> from
+  p <span class="c-symbol">+</span> ((<span class="c-number">2</span> <span class="c-builtin">s̲elect</span> m) <span class="c-symbol">−</span> from) <span class="c-symbol">×</span> disk <span class="c-symbol">=</span> <span class="c-builtin">r̲ange</span> <span class="c-builtin">t̲ally</span> p
+}
+<span class="c-userfunc">ᵘs̲lots</span> ← { p →
+  n ← <span class="c-builtin">t̲ally</span> p
+  (<span class="c-builtin">r̲ange</span> n) <span class="c-quote">'</span>{ r j → r <span class="c-builtin">s̲elect</span> (<span class="c-number">0</span> <span class="c-symbol">−</span> n) <span class="c-builtin">t̲ake</span> <span class="c-number">0</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">w̲here</span> p <span class="c-symbol">=</span> j } <span class="c-builtin">t̲able</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>
+}
+<span class="c-userfunc">ᵘp̲icture</span> ← { p →
+  n ← <span class="c-builtin">t̲ally</span> p
+  w ← <span class="c-number">1</span> <span class="c-symbol">+</span> <span class="c-number">2</span> <span class="c-symbol">×</span> n
+  bars ← (<span class="c-userfunc">ᵘs̲lots</span> p) <span class="c-quote">'</span>{ s x → s <span class="c-symbol">&gt;</span> <span class="c-builtin">a̲bs</span> x } <span class="c-builtin">t̲able</span> (<span class="c-builtin">o̲ffsets</span> w) <span class="c-symbol">−</span> n
+  (n <span class="c-builtin">c̲at</span> <span class="c-number">3</span> <span class="c-symbol">×</span> w) <span class="c-builtin">r̲eshape</span> <span class="c-builtin">r̲avel</span> bars
+}
+<span class="c-userfunc">ᵘp̲lane</span> ← { m → (<span class="c-number">1</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">s̲hape</span> m) <span class="c-builtin">r̲eshape</span> m }
+<span class="c-userfunc">ᵘp̲lay</span> ← { p moves →
+  frame ← <span class="c-userfunc">ᵘp̲lane</span> <span class="c-userfunc">ᵘp̲icture</span> p
+  <span class="c-number">0</span> <span class="c-symbol">=</span> <span class="c-builtin">t̲ally</span> moves ? frame
+  frame <span class="c-builtin">c̲at</span> (p <span class="c-userfunc">ᵘm̲ove</span> <span class="c-builtin">f̲irst</span> moves) <span class="c-userfunc">ᵘp̲lay</span> <span class="c-number">1</span> <span class="c-builtin">d̲rop</span> moves
+}
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:m_ove := { p m -&gt;</span>
+<span class="c-comment typed">⍝     from := 1 s_elect m</span>
+<span class="c-comment typed">⍝     disk := p i_ndexOf from</span>
+<span class="c-comment typed">⍝     p + ((2 s_elect m) - from) * disk = r_ange t_ally p</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:s_lots := { p -&gt;</span>
+<span class="c-comment typed">⍝     n := t_ally p</span>
+<span class="c-comment typed">⍝     (r_ange n) '{ r j -&gt; r s_elect (0 - n) t_ake 0 c_at w_here p = j } t_able 1 2 3</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:p_icture := { p -&gt;</span>
+<span class="c-comment typed">⍝     n := t_ally p</span>
+<span class="c-comment typed">⍝     w := 1 + 2 * n</span>
+<span class="c-comment typed">⍝     bars := (u:s_lots p) '{ s x -&gt; s &gt; a_bs x } t_able (o_ffsets w) - n</span>
+<span class="c-comment typed">⍝     (n c_at 3 * w) r_eshape r_avel bars</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:p_lane := { m -&gt; (1 c_at s_hape m) r_eshape m }</span>
+<span class="c-comment typed">⍝   u:p_lay := { p moves -&gt;</span>
+<span class="c-comment typed">⍝     frame := u:p_lane u:p_icture p</span>
+<span class="c-comment typed">⍝     0 = t_ally moves ? frame</span>
+<span class="c-comment typed">⍝     frame c_at (p u:m_ove f_irst moves) u:p_lay 1 d_rop moves</span>
+<span class="c-comment typed">⍝   }</span></pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal">watched ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> (<span class="c-number">4</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘp̲lay</span> <span class="c-userfunc">ᵘm̲oves</span> <span class="c-number">4</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   watched := []S_HOW []G_RID (4 r_eshape 1) u:p_lay u:m_oves 4</span></pre>
+</div>
+
+
+<div id="org4a54874" class="figure">
+<p><img src="images/literate-hanoi.svg" alt="literate-hanoi.svg" class="org-svg" />
+</p>
+</div>
+
+<p>
+It is the same picture, to the byte, as the one drawn from the
+recursion's moves in <a href="classics.html">the classics walkthrough</a>:
+both documents are rerun and compared against the committed file.
+</p>
+</div>
+</div>
+<div id="outline-container-org5515b69" class="outline-2">
+<h2 id="org5515b69">Which is better?</h2>
+<div class="outline-text-2" id="text-org5515b69">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Version</th>
+<th scope="col" class="org-left">Says</th>
+<th scope="col" class="org-left">For</th>
+<th scope="col" class="org-left">Against</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Recursion, pegs as a vector</td>
+<td class="org-left">move n - 1 aside, the largest, n - 1 back</td>
+<td class="org-left">the textbook idea; the peg reorderings are data</td>
+<td class="org-left">still scalar thinking: n deep, the list built by repeated joins</td>
+</tr>
+
+<tr>
+<td class="org-left">Curried, with combinators</td>
+<td class="org-left">h(n, from, to, via), C swapping two</td>
+<td class="org-left">reads like the mathematics; shows currying and C</td>
+<td class="org-left">the same recursion; four-argument calls need <code>(expr)_</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Every move at once</td>
+<td class="org-left">move k from the bits of k</td>
+<td class="org-left">no recursion, every move independent, arithmetic on vectors</td>
+<td class="org-left">why it works is not obvious without the recursion</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+The first explains the puzzle; the third is the array program. Seeing
+them agree is the point.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

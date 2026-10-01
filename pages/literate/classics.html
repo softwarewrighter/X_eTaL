@@ -22,9 +22,10 @@
 <ul>
 <li><a href="#orgdc76a11">Pascal's triangle</a></li>
 <li><a href="#org71d0066">Numbers</a></li>
-<li><a href="#orgba11334">Life, watched</a></li>
-<li><a href="#orgba6791e">Turtle graphics, without a turtle</a></li>
-<li><a href="#org8e4b9f7">More</a></li>
+<li><a href="#orgbe3b8e3">Recursion</a></li>
+<li><a href="#org4db81b4">Life, watched</a></li>
+<li><a href="#org3a4a1fe">Turtle graphics, without a turtle</a></li>
+<li><a href="#org1800805">More</a></li>
 </ul>
 </div>
 </div>
@@ -246,9 +247,158 @@ and adds one. Asked of every start from 1 to 30 at once, by each:
 </pre>
 </div>
 </div>
-<div id="outline-container-orgba11334" class="outline-2">
-<h2 id="orgba11334">Life, watched</h2>
-<div class="outline-text-2" id="text-orgba11334">
+<div id="outline-container-orgbe3b8e3" class="outline-2">
+<h2 id="orgbe3b8e3">Recursion</h2>
+<div class="outline-text-2" id="text-orgbe3b8e3">
+<p>
+Some programs stay recursive even in APL. Quicksort is the famous
+one: the sorted items below a pivot, the items equal to it, the sorted
+items above. The partitions are masks, the selection <code>w_here</code> and
+<code>s_elect</code>; there is no loop and no swap.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘq̲sort</span> ← { v →
+  <span class="c-number">2</span> <span class="c-symbol">&gt;</span> <span class="c-builtin">t̲ally</span> v ? v
+  p ← <span class="c-builtin">f̲irst</span> v
+  below ← (<span class="c-builtin">w̲here</span> v <span class="c-symbol">&lt;</span> p) <span class="c-builtin">s̲elect</span> v
+  same ← (<span class="c-builtin">w̲here</span> v <span class="c-symbol">=</span> p) <span class="c-builtin">s̲elect</span> v
+  above ← (<span class="c-builtin">w̲here</span> v <span class="c-symbol">&gt;</span> p) <span class="c-builtin">s̲elect</span> v
+  (<span class="c-userfunc">ᵘq̲sort</span> below) <span class="c-builtin">c̲at</span> same <span class="c-builtin">c̲at</span> <span class="c-userfunc">ᵘq̲sort</span> above
+}
+<span class="c-userfunc">ᵘq̲sort</span> <span class="c-number">3</span> <span class="c-number">1</span> <span class="c-number">4</span> <span class="c-number">1</span> <span class="c-number">5</span> <span class="c-number">9</span> <span class="c-number">2</span> <span class="c-number">6</span> <span class="c-number">5</span> <span class="c-number">3</span> <span class="c-number">5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:q_sort := { v -&gt;</span>
+<span class="c-comment typed">⍝     2 &gt; t_ally v ? v</span>
+<span class="c-comment typed">⍝     p := f_irst v</span>
+<span class="c-comment typed">⍝     below := (w_here v &lt; p) s_elect v</span>
+<span class="c-comment typed">⍝     same := (w_here v = p) s_elect v</span>
+<span class="c-comment typed">⍝     above := (w_here v &gt; p) s_elect v</span>
+<span class="c-comment typed">⍝     (u:q_sort below) c_at same c_at u:q_sort above</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:q_sort 3 1 4 1 5 9 2 6 5 3 5</span></pre>
+</div>
+
+<pre class="example">
+1 1 2 3 3 4 5 5 5 6 9
+</pre>
+
+
+<p>
+The Tower of Hanoi: move n - 1 disks out of the way, move the
+largest, move the n - 1 back on top. <code>pegs</code> is from, to and the spare,
+and each half of the recursion permutes it with <code>s_elect</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘh̲anoi</span> ← { n pegs →
+  n <span class="c-symbol">=</span> <span class="c-number">0</span> ? <span class="c-number">0</span> <span class="c-number">2</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span>
+  first ← (n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘh̲anoi</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">2</span> <span class="c-builtin">s̲elect</span> pegs
+  last ← (n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘh̲anoi</span> <span class="c-number">3</span> <span class="c-number">2</span> <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> pegs
+  first <span class="c-builtin">c̲at</span> (<span class="c-number">1</span> <span class="c-number">2</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">2</span> <span class="c-builtin">t̲ake</span> pegs) <span class="c-builtin">c̲at</span> last
+}
+<span class="c-number">3</span> <span class="c-userfunc">ᵘh̲anoi</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:h_anoi := { n pegs -&gt;</span>
+<span class="c-comment typed">⍝     n = 0 ? 0 2 r_eshape 0</span>
+<span class="c-comment typed">⍝     first := (n - 1) u:h_anoi 1 3 2 s_elect pegs</span>
+<span class="c-comment typed">⍝     last := (n - 1) u:h_anoi 3 2 1 s_elect pegs</span>
+<span class="c-comment typed">⍝     first c_at (1 2 r_eshape 2 t_ake pegs) c_at last</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   3 u:h_anoi 1 3 2</span></pre>
+</div>
+
+<pre class="example">
+1 3
+1 2
+3 2
+1 3
+2 1
+2 3
+1 3
+</pre>
+
+
+<p>
+To watch it, the state is the peg each disk is on, smallest first; a
+move takes the smallest disk on its first peg (where <code>i_ndexOf</code> first
+finds that peg) to its second. Each state is drawn as bars, a disk of
+size s as wide as 2s - 1 and centred on its peg, by a table of sizes
+against offsets from the centre.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘm̲ove</span> ← { p m →
+  from ← <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> m
+  disk ← p <span class="c-builtin">i̲ndexOf</span> from
+  p <span class="c-symbol">+</span> ((<span class="c-number">2</span> <span class="c-builtin">s̲elect</span> m) <span class="c-symbol">−</span> from) <span class="c-symbol">×</span> disk <span class="c-symbol">=</span> <span class="c-builtin">r̲ange</span> <span class="c-builtin">t̲ally</span> p
+}
+<span class="c-userfunc">ᵘs̲lots</span> ← { p →
+  n ← <span class="c-builtin">t̲ally</span> p
+  (<span class="c-builtin">r̲ange</span> n) <span class="c-quote">'</span>{ r j → r <span class="c-builtin">s̲elect</span> (<span class="c-number">0</span> <span class="c-symbol">−</span> n) <span class="c-builtin">t̲ake</span> <span class="c-number">0</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">w̲here</span> p <span class="c-symbol">=</span> j } <span class="c-builtin">t̲able</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>
+}
+<span class="c-userfunc">ᵘp̲icture</span> ← { p →
+  n ← <span class="c-builtin">t̲ally</span> p
+  w ← <span class="c-number">1</span> <span class="c-symbol">+</span> <span class="c-number">2</span> <span class="c-symbol">×</span> n
+  bars ← (<span class="c-userfunc">ᵘs̲lots</span> p) <span class="c-quote">'</span>{ s x → s <span class="c-symbol">&gt;</span> <span class="c-builtin">a̲bs</span> x } <span class="c-builtin">t̲able</span> (<span class="c-builtin">o̲ffsets</span> w) <span class="c-symbol">−</span> n
+  (n <span class="c-builtin">c̲at</span> <span class="c-number">3</span> <span class="c-symbol">×</span> w) <span class="c-builtin">r̲eshape</span> <span class="c-builtin">r̲avel</span> bars
+}
+<span class="c-userfunc">ᵘp̲lane</span> ← { m → (<span class="c-number">1</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">s̲hape</span> m) <span class="c-builtin">r̲eshape</span> m }
+<span class="c-userfunc">ᵘp̲lay</span> ← { p moves →
+  frame ← <span class="c-userfunc">ᵘp̲lane</span> <span class="c-userfunc">ᵘp̲icture</span> p
+  <span class="c-number">0</span> <span class="c-symbol">=</span> <span class="c-builtin">t̲ally</span> moves ? frame
+  frame <span class="c-builtin">c̲at</span> (p <span class="c-userfunc">ᵘm̲ove</span> <span class="c-builtin">f̲irst</span> moves) <span class="c-userfunc">ᵘp̲lay</span> <span class="c-number">1</span> <span class="c-builtin">d̲rop</span> moves
+}
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:m_ove := { p m -&gt;</span>
+<span class="c-comment typed">⍝     from := 1 s_elect m</span>
+<span class="c-comment typed">⍝     disk := p i_ndexOf from</span>
+<span class="c-comment typed">⍝     p + ((2 s_elect m) - from) * disk = r_ange t_ally p</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:s_lots := { p -&gt;</span>
+<span class="c-comment typed">⍝     n := t_ally p</span>
+<span class="c-comment typed">⍝     (r_ange n) '{ r j -&gt; r s_elect (0 - n) t_ake 0 c_at w_here p = j } t_able 1 2 3</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:p_icture := { p -&gt;</span>
+<span class="c-comment typed">⍝     n := t_ally p</span>
+<span class="c-comment typed">⍝     w := 1 + 2 * n</span>
+<span class="c-comment typed">⍝     bars := (u:s_lots p) '{ s x -&gt; s &gt; a_bs x } t_able (o_ffsets w) - n</span>
+<span class="c-comment typed">⍝     (n c_at 3 * w) r_eshape r_avel bars</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:p_lane := { m -&gt; (1 c_at s_hape m) r_eshape m }</span>
+<span class="c-comment typed">⍝   u:p_lay := { p moves -&gt;</span>
+<span class="c-comment typed">⍝     frame := u:p_lane u:p_icture p</span>
+<span class="c-comment typed">⍝     0 = t_ally moves ? frame</span>
+<span class="c-comment typed">⍝     frame c_at (p u:m_ove f_irst moves) u:p_lay 1 d_rop moves</span>
+<span class="c-comment typed">⍝   }</span></pre>
+</div>
+
+<p>
+Four disks, fifteen moves, sixteen frames (<a href="hanoi.html">the Tower of Hanoi, three ways</a>
+also computes these moves curried, with the combinators, and all at
+once from the bits of the move number):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">watched ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> (<span class="c-number">4</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘp̲lay</span> <span class="c-number">4</span> <span class="c-userfunc">ᵘh̲anoi</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   watched := []S_HOW []G_RID (4 r_eshape 1) u:p_lay 4 u:h_anoi 1 3 2</span></pre>
+</div>
+
+
+<div id="org5e3619c" class="figure">
+<p><img src="images/literate-hanoi.svg" alt="literate-hanoi.svg" class="org-svg" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org4db81b4" class="outline-2">
+<h2 id="org4db81b4">Life, watched</h2>
+<div class="outline-text-2" id="text-org4db81b4">
 <p>
 The rule in one line (<code>docs/literate/life.org</code> builds it up): the
 board rotated by every offset in <code>-1 0 1</code> along both axes and summed
@@ -314,7 +464,7 @@ So 40 frames loop seamlessly:
 </div>
 
 
-<div id="org5e3619c" class="figure">
+<div id="orgba11334" class="figure">
 <p><img src="images/literate-glider-torus.svg" alt="literate-glider-torus.svg" class="org-svg" />
 </p>
 </div>
@@ -366,15 +516,15 @@ four cells:
 </div>
 
 
-<div id="orgbe3b8e3" class="figure">
+<div id="org793b783" class="figure">
 <p><img src="images/literate-glider-box.svg" alt="literate-glider-box.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgba6791e" class="outline-2">
-<h2 id="orgba6791e">Turtle graphics, without a turtle</h2>
-<div class="outline-text-2" id="text-orgba6791e">
+<div id="outline-container-org3a4a1fe" class="outline-2">
+<h2 id="org3a4a1fe">Turtle graphics, without a turtle</h2>
+<div class="outline-text-2" id="text-org3a4a1fe">
 <p>
 Logo draws by moving a turtle. With arrays there is nothing to move: a
 walk is a vector of turns (degrees, one before each step), the headings
@@ -435,7 +585,7 @@ side ← <span class="c-userfunc">ᵘk̲och</span> <span class="c-number">3</spa
 </div>
 
 
-<div id="org793b783" class="figure">
+<div id="orgba6791e" class="figure">
 <p><img src="images/literate-koch.svg" alt="literate-koch.svg" class="org-svg" />
 </p>
 </div>
@@ -491,15 +641,15 @@ n
 </div>
 
 
-<div id="org4db81b4" class="figure">
+<div id="org8e4b9f7" class="figure">
 <p><img src="images/literate-arrowhead.svg" alt="literate-arrowhead.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org8e4b9f7" class="outline-2">
-<h2 id="org8e4b9f7">More</h2>
-<div class="outline-text-2" id="text-org8e4b9f7">
+<div id="outline-container-org1800805" class="outline-2">
+<h2 id="org1800805">More</h2>
+<div class="outline-text-2" id="text-org1800805">
 <p>
 The Mandelbrot set, still, zoomed and flown over, is
 <code>demos/classics/mandelbrot.xtl</code> (<code>just draw demos/classics/mandelbrot.xtl</code>);
