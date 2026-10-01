@@ -1,0 +1,29 @@
+#!/usr/bin/env xetal
+# A duck family swims across the pond, moved by nothing but rotate.
+# Rotating a character matrix along axis 2 slides every row at once,
+# and what goes off the right edge comes back on the left. Ducks are
+# iconic in graphics programming (and in early APL demos).
+family := 3 20 r_eshape "                 _    _    _      __(.)< (.)< (.)<    \\___) "
+family
+pond := 32 t_ake_2 family          # a wider pond, padded with blanks
+-6 o_-_2 pond                      # six steps to the right
+
+# A list of amounts gives one result per amount: every frame of the
+# swim at once, as a rank-3 array (frame, row, column).
+frames := (n_eg o_ffsets 32) o_-_2 pond
+s_hape frames
+1 13 25 s_elect frames
+shown := []S_HOW []G_RID frames
+
+# Waves going the other way. Joining the rotated ducks to the rotated
+# water would need c_at along axis 2 (an error for now), so each frame
+# stacks the rows itself, and frames gather by recursion.
+water := 32 r_eshape "~  ~~ ~   "
+u:f_rame := { k -> ((n_eg k) o_-_2 pond) c_at k o_- water }
+u:f_rame 6
+u:s_wim := { k ->
+  f := u:f_rame k
+  k = 0 ? (1 c_at s_hape f) r_eshape f; (u:s_wim k - 1) c_at f
+}
+s_hape u:s_wim 31
+shown := []S_HOW []G_RID u:s_wim 31

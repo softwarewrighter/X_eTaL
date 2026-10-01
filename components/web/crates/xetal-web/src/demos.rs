@@ -30,6 +30,7 @@ pub const DEMOS: &[Demo] = demos![
     "classics/bases.xtl",
     "classics/closure.xtl",
     "classics/collatz.xtl",
+    "classics/duck.xtl",
     "classics/factorial.xtl",
     "classics/fibonacci.xtl",
     "classics/gcd.xtl",
