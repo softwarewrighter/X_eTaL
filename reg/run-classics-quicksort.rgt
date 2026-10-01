@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/quicksort.xtl"
+exit_code = 0
+desc = "quicksort by masks and recursion, on numbers and characters; agrees with s_ort on random data"
