@@ -1,0 +1,3 @@
+command = """./target/debug/xetal eval --ascii -e '"ab" "cde"' && ./target/debug/xetal eval --ascii -e '2 2 r_eshape "a" "bb" "ccc" "d"'"""
+exit_code = 0
+desc = "--ascii draws nested arrays with plain characters, as APL2 DISPLAY did on plain terminals"

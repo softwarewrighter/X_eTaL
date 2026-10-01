@@ -2122,6 +2122,7 @@ dependencies = [
  "xetal-diagram",
  "xetal-edit",
  "xetal-eval",
+ "xetal-grid",
  "xetal-lex",
  "xetal-lint",
  "xetal-program",

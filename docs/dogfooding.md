@@ -32,6 +32,7 @@ plan, and move a row from "Planned" to "Added" when it lands.
 | A session shows each picture once (a replayed line had shown its picture again), and a `--context` run shows none | fix | literate walkthroughs with pictures | xetal-store and xetal-repl tests |
 | `ob-xetal` saves a block's picture with `:results file :file PATH`; the literate check compares pictures | tooling | the literate classics walkthrough | design 8.1g |
 | `scripts/literate.sh --check` uses a mktemp both GNU and BSD accept | fix | running the literate check on Linux | scripts/literate.sh |
+| `--ascii`: nested arrays drawn in plain ASCII, APL2 style | tooling | the ASCII-only reference page, which could not show a nested value | lang-choices B16; design D43 |
 | `r_eplicate`, APL's replicate and compress: counts or a mask on the left, over major cells, any axis by subscript | feature | Roman numerals and run-length decoding (and every "keep where" written as `(w_here m) s_elect v`) | lang-choices B11; design D35 |
 | `e_ncode` and `d_ecode`, APL's encode and decode, in their own component (`radix`) | feature | truth tables, base conversion, Hanoi's moves from the bits of k (written as a remainder table), Mastermind's 1296 codes (written with `d_iv` and `m_od` by place values) | lang-choices B12; design D36 |
 | `c_at_k`, catenate along any axis: both arguments' axis k moves (it had been refused, since the axis rule moves only the right argument) | feature | the swimming ducks, ducks and waves joined frame by frame (written as a recursion before) | lang-choices B15; design D40 |

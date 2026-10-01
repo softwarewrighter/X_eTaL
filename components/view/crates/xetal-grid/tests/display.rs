@@ -47,3 +47,11 @@ fn items_are_framed_side_by_side_and_centred() {
     ];
     assert_eq!(display(&nested), want);
 }
+
+#[test]
+fn ascii_keeps_the_shape_with_plain_characters() {
+    let lines = display(&text(&[2], '─', &["ab"]));
+    let plain: Vec<String> = lines.iter().map(|l| xetal_grid::to_ascii(l)).collect();
+    assert_eq!(plain, [".>-.", "|ab|", "'--'"]);
+    assert_eq!(xetal_grid::to_ascii("↓∊⊖~"), "veO~");
+}
