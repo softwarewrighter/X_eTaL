@@ -1,0 +1,8 @@
+number = 19
+slug = "draw-pane"
+status = "pending"
+description = "The live demo's Draw pane (the user's 'hide, but fix'; the classics lane's cl..."
+role = "production"
+context_files = []
+created_at = "2026-09-30T19:01:39"
+commits = []

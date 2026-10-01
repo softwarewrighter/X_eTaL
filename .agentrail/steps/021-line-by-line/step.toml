@@ -1,4 +1,4 @@
-number = 20
+number = 21
 slug = "line-by-line"
 status = "pending"
 description = "Step or evaluate line by line in the live demo (user request): a Notebook vie..."
