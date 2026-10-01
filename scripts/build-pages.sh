@@ -16,4 +16,6 @@ rsync -a --delete --exclude='.nojekyll' --exclude='literate/' "$dist/" "$root/pa
 "$root/scripts/literate-html.sh"
 "$root/scripts/latex-gallery.sh" --write
 "$root/scripts/live-screenshot.sh"
+# What pages/ now shows, for the gate's staleness check.
+"$root/scripts/check-pages.sh" --write
 echo "pages/ built; commit it (git add pages/) and push to publish."

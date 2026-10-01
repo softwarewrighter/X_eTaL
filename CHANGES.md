@@ -12,6 +12,10 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-01
 
+- 14:27 `chore` Saga step pages-current completed.
+- 14:27 `test` The gate fails when a demo, library or literate document changed and pages/ was not rebuilt (`scripts/check-pages.sh`).
+- 14:18 `build` Pages: the duck literate document and the `c_at_2` duck.
+- 14:15 `chore` Merged the classics lane, part 15 (PR #15): `c_at` along an axis, and duck.org (the workaround and the fix).
 - 13:52 `chore` Saga step mobile-pwa completed.
 - 13:52 `feat` Web: the live demo on a phone (toolbar wraps, panes stack) and as an installable app that works offline; a phone screenshot in the README.
 - 13:50 `chore` Merged the classics lane, part 14 (PR #14): swimming ducks by rotate.

@@ -60,6 +60,14 @@ To do locally, in order:
 5. Confirm with the user: RASTER_CELLS (4096) and points as 2 rows
    for `[]P_ATH` (both below).
 
+## Pages and the gate (main's agent, after PR #15)
+
+The gate now checks that pages/ is current with the demos, libraries
+and literate documents (`scripts/check-pages.sh`, against the stamp
+`pages/INPUTS` that `just pages` writes). The sandbox has no trunk, so
+there the check is skipped; main's agent rebuilds pages/ when it merges
+a PR. Nothing to do in the lane.
+
 ## Done on main after pull request 2 (main's agent)
 
 - The full gate on pr/classics-2 passed (wasm32 included, every

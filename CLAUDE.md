@@ -391,6 +391,9 @@ fails until the case is flipped to active in a deliberate commit.
 5. `sw-checklist` -- 0 failed (<=7 functions per module, <=7
    modules per crate, functions <=50 lines, CLI version/help rules)
 6. `sw-markdown-checker` on changed docs (ASCII-only markdown)
+6a. `scripts/check-pages.sh`: pages/ is current with the demos,
+   libraries and literate documents (`just pages` rebuilds it and its
+   stamp; skipped where trunk is missing, so whoever merges rebuilds)
 7. docs updated if behavior changed (README, docs/design.md)
 8. detailed commit message; commit `.agentrail/` changes too
 9. then `agentrail complete`, push

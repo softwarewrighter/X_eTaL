@@ -1,6 +1,6 @@
 number = 24
 slug = "pages-current"
-status = "pending"
+status = "in-progress"
 description = "User request: a test that fails when demos (or what the published pages show)..."
 role = "production"
 context_files = []
