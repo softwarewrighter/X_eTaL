@@ -1,0 +1,1 @@
+sequences.xtl (Horner, differences, moving averages) and automaton.xtl (rules 30, 90, 110 drawn), goldens, live demo, index, classics.org Sequences section with rule 90.
