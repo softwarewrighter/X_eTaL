@@ -140,10 +140,12 @@ built-ins (reduce, scan, each, table, inner product, compose, swap,
 power), search, order and random built-ins, rotate, reverse and axis
 subscripts on any function, function power (`f_^3`), the Life
 one-liner, files, the keyboard and numbers as text (`[]N_GET`,
-`[]N_PUT`, `[]R_EAD`, `f_ormat`, `n_umbers`), and libraries imported
-with `u_se<`: the standard libraries `Stats`, `Combinators`
-(Smullyan's birds), `Maybe` and `TTTML` (a machine that learns
-tic-tac-toe) are built in. The decorated views: `xetal render
+`[]N_PUT`, `[]R_EAD`, `f_ormat`, `n_umbers`), trigonometry, pictures
+(`[]G_RID` grids and `[]P_ATH` paths as SVG, animated by frames,
+shown with `[]S_HOW`), and libraries imported with `u_se<`: the
+standard libraries `Stats`, `Combinators` (Smullyan's birds), `Maybe`,
+`TTTML` (a machine that learns tic-tac-toe) and `Turtle` (turtle
+graphics as arrays) are built in. The decorated views: `xetal render
 --color`, streaming notebook runs laid out as an APL session, the
 editor, a REPL that draws each line decorated as you type, and
 annotated diagrams. Next: a live web demo of the editor, then ports of
@@ -182,6 +184,7 @@ just show demos/monads.xtl                      # the Maybe monad: safe division
 just tttml                                      # TTTML: learns tic-tac-toe by playing itself (optimized build)
 just tttml-train                                # TTTML: train, then save the model in work/tttml.model
 just tttml-play                                 # TTTML: play the saved model; you are X, type squares 1 to 9
+just draw demos/classics/life-drawn.xtl         # Life animated, as SVG pictures opened in the browser
 just pp demos/factorial.xtl                     # print a file decorated and highlighted
 just edit demos/life.xtl                        # ASCII left, decorated right
 just serve                                      # the live demo locally, at http://127.0.0.1:8095/
@@ -256,6 +259,8 @@ Other fonts, checked against the font files:
   axis 1 written out, and another axis)
 - [`docs/idioms.md`](docs/idioms.md) -- everyday idioms in X_eTaL beside Java,
   JavaScript, Python, C++ and Rust, and beside APL2, Dyalog APL, J and BQN
+- [`docs/classics.md`](docs/classics.md) -- the classic APL programs
+  (Pascal's triangle, Life, tic-tac-toe, ...) as commented X_eTaL notebooks
 - [`docs/permission-response.md`](docs/permission-response.md) -- XeTaL's
   answers to ngn's [Array Language Implementation Permission
   Request](https://ngn.codeberg.page/funny/reg.html)

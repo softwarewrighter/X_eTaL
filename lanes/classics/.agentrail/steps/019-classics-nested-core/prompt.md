@@ -1,0 +1,1 @@
+Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the user's decisions). TDD, the full gate, a golden per demo, each demo listed in xetal-web demos.rs and docs/classics.md. Nested arrays in the core: Box a in the type checker, nested values in the evaluator, boxed printing, test-first.

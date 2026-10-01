@@ -1,0 +1,5 @@
+# p_i is niladic (B13): its argument must be @.
+== SOURCE
+p_i 3
+== ERROR
+error[type-mismatch]: expected Unit, found a number at 0..5

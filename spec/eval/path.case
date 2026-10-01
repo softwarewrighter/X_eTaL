@@ -1,0 +1,11 @@
+# []P_ATH draws points, 2 rows (x over y), joined in order (QD5): a
+# tent, fitted into a 400-pixel picture with a margin, y pointing up.
+== SOURCE
+[]P_ATH 2 3 r_eshape 0 1 2 0 1 0
+== TYPE
+Char
+== RESULT
+<svg xmlns="http://www.w3.org/2000/svg" width="424" height="224" viewBox="0 0 424 224" role="img">
+<rect width="424" height="224" fill="#f8fafc"/>
+<polyline points="12,212 212,12 412,212" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>

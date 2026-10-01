@@ -1,0 +1,1 @@
+Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the user's decisions). TDD, the full gate, a golden per demo, each demo listed in xetal-web demos.rs and docs/classics.md. Polynomial evaluation (Horner as a reduce), moving average, finite differences, a 1-D cellular automaton (rule 30/110).

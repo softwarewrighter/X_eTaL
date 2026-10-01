@@ -1,0 +1,1 @@
+Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the user's decisions). TDD, the full gate, a golden per demo, each demo listed in xetal-web demos.rs and docs/classics.md. Matrix multiplication ('+ '* i_nner), transitive closure and Warshall ('| '& i_nner iterated), min-plus shortest paths ('m_in '+ i_nner).

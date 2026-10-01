@@ -1,0 +1,1 @@
+Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the user's decisions). TDD, the full gate, a golden per demo, each demo listed in xetal-web demos.rs and docs/classics.md. Histogram (a Char bar chart), duplicate removal, sorting and grade, run-length encoding (values and counts).

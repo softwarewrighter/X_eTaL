@@ -28,6 +28,7 @@ xetal-value = { path = "../eval/crates/xetal-value" }
 xetal-arith = { path = "../eval/crates/xetal-arith" }
 xetal-system = { path = "crates/xetal-system" }
 xetal-store = { path = "../base/crates/xetal-store" }
+xetal-draw = { path = "../draw/crates/xetal-draw" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
 xetal-spec = { path = "../cli/crates/xetal-spec" }
 clap = { version = "4", features = ["derive"] }

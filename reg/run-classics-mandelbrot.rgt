@@ -1,0 +1,3 @@
+command = "./target/release/xetal run demos/classics/mandelbrot.xtl"
+exit_code = 0
+desc = "the Mandelbrot set: a still, a zoom and a fly-over, drawn as images"

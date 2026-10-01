@@ -224,6 +224,57 @@ An Int as a Float.
 3.0
 ```
 
+## Trigonometry
+
+Angles are in radians. Each gives a Float, item by item, for any
+number.
+
+### `s_in`
+
+`Num a => a -> Float`, one argument.
+
+Sine.
+
+```
+      s_in 0 1
+0.0 0.8414709848078965
+```
+
+### `c_os`
+
+`Num a => a -> Float`, one argument.
+
+Cosine.
+
+```
+      c_os p_i @
+-1.0
+```
+
+### `a_tan`
+
+`Num a => a -> Float`, one argument.
+
+Arctangent, the angle whose tangent is the argument.
+
+```
+      4 * a_tan 1
+3.141592653589793
+```
+
+### `p_i`
+
+`Unit -> Float`, one argument.
+
+The constant pi. It is niladic, so it is applied to `@`.
+
+```
+      p_i @
+3.141592653589793
+      2 * p_i @
+6.283185307179586
+```
+
 ## Comparisons and logic
 
 Comparisons give 1 for true and 0 for false, item by item. Everything
@@ -932,4 +983,58 @@ A line typed at the keyboard (here, the line "a typed line").
 ```
       []R_EAD @
 a typed line
+```
+
+## Graphics
+
+A program computes what to draw as an array. Drawing is pure: the
+picture comes back as text, an SVG document. Showing it is the effect.
+
+### `[]G_RID`
+
+`Eq a => a -> Char`, one argument.
+
+An array as a picture, returned as SVG text: a vector as one row of
+cells, a matrix as a grid, a rank-3 array as frames shown in turn.
+Numbers that are all 0 or 1 draw their 1s dark; other numbers are
+colored from the least (dark purple) to the greatest (yellow);
+characters are drawn in their cells. A frame of more than 64 by 64
+numbers is drawn as an image, a pixel per cell.
+
+```
+      []G_RID 1 0
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24" role="img">
+<rect width="48" height="24" fill="#f8fafc"/>
+<rect x="0" y="0" width="24" height="24" fill="#1f2937"/>
+<path d="M0 0H48M0 24H48M0 0V24M24 0V24M48 0V24" stroke="#cbd5e1" stroke-width="1" fill="none"/>
+</svg>
+```
+
+### `[]P_ATH`
+
+`Num a => a -> Char`, one argument.
+
+Points as a picture, returned as SVG text: 2 rows, x over y, joined in
+order and fitted into a 400-pixel picture with y pointing up; a rank-3
+array is frames of paths shown in turn.
+
+```
+      []P_ATH 2 3 r_eshape 0 1 2 0 1 0
+<svg xmlns="http://www.w3.org/2000/svg" width="424" height="224" viewBox="0 0 424 224" role="img">
+<rect width="424" height="224" fill="#f8fafc"/>
+<polyline points="12,212 212,12 412,212" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>
+```
+
+### `[]S_HOW`
+
+`Char -> Char`, one argument.
+
+Show a picture, and return it: the command line writes it to a
+numbered file (`--draw DIR`, else `XETAL_DRAW`, else the current
+directory), the browser shows it beside the program.
+
+```
+      9 t_ake []S_HOW []G_RID 1 0
+<svg xmln
 ```

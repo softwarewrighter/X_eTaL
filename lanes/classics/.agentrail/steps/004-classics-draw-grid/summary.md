@@ -1,0 +1,1 @@
+[]G_RID and []S_HOW (QD5) on xetal-draw; Store::show, Memory pictures, Drawing store; CLI --draw DIR / XETAL_DRAW, drawn PATH on stderr; just draw; Life drawn (torus loop, boxed block) and Pascal pictures; goldens cli-draw, run-classics-life-drawn; reference Graphics section; design 8.1h. Step classics-literate inserted. wasm32 and cli-too-deep not runnable here.

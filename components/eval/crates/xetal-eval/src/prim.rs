@@ -49,6 +49,8 @@ pub fn call<'a>(
             Ok(v.clone())
         }
         ("r_oll!", [n]) => roll(n, rng, span),
+        ("p_i", [Value::Unit]) => Ok(Value::Float(std::f64::consts::PI)),
+        ("p_i", [_]) => Err(err("not-unit", span, "p_i takes @ (it is niladic)")),
         ("i_d", [a]) | ("l_eft", [a, _]) | ("r_ight", [_, a]) => Ok(a.clone()),
         (_, [a, b]) => lift2(a, b, span, |x, y| scalar2(name, x, y, span)),
         (_, [a]) => lift1(a, |x| unary(name, x, span)),
@@ -111,6 +113,9 @@ fn unary<'a>(name: &str, a: &Value<'a>, span: Span) -> Result<Value<'a>, Diagnos
         ("f_loor", F(x)) => whole(x.floor()),
         ("c_eiling", F(x)) => whole(x.ceil()),
         ("e_xp", n) => Ok(Value::Float(n.f().exp())),
+        ("s_in", n) => Ok(Value::Float(n.f().sin())),
+        ("c_os", n) => Ok(Value::Float(n.f().cos())),
+        ("a_tan", n) => Ok(Value::Float(n.f().atan())),
         ("f_loat", n) => Ok(Value::Float(n.f())),
         ("l_og", n) if n.f() <= 0.0 => Err(err("domain", span, "l_og needs a positive number")),
         ("l_og", n) => Ok(Value::Float(n.f().ln())),

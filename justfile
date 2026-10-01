@@ -9,6 +9,10 @@ set positional-arguments
 # only when a source changed.
 xetal := "./target/release/xetal"
 
+# Pictures shown with []S_HOW land in work/draw (gitignored), named after
+# the program: demos/classics/life-drawn.xtl draws life-drawn-1.svg, ...
+export XETAL_DRAW := env("XETAL_DRAW", "work/draw")
+
 # List the recipes
 default:
     @just --list
@@ -164,3 +168,9 @@ animate: _quiet-build
 
 _quiet-build:
     @scripts/quick-build.sh
+
+# Run a program that draws ([]S_HOW), then open its first picture in the browser
+draw file: _quiet-build
+    @{{xetal}} run "$1"
+    @scripts/open-picture.sh "$XETAL_DRAW/$(basename "$1" .xtl)-1.svg"
+

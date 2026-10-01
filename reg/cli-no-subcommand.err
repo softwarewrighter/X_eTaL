@@ -1,6 +1,6 @@
 error: give a subcommand or a script FILE
 
-Usage: xetal [SCRIPT]
+Usage: xetal [OPTIONS] [SCRIPT]
        xetal <COMMAND>
 
 For more information, try '--help'.

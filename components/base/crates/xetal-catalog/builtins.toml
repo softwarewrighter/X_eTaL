@@ -27,6 +27,15 @@ entries = [
 ]
 
 [[group]]
+rule = "B13: trigonometry (radians)"
+entries = [
+  ["s_in", 1, "Num a => a -> Float"],
+  ["c_os", 1, "Num a => a -> Float"],
+  ["a_tan", 1, "Num a => a -> Float"],
+  ["p_i", 1, "Unit -> Float"],
+]
+
+[[group]]
 rule = "T1, T3, T8: comparisons and logic"
 entries = [
   ["=", 2, "(Eq a, Truthy b) => a -> a -> b"],
@@ -59,6 +68,14 @@ entries = [
   ["[]R_EAD", 1, "Unit -> Char"],
   ["f_ormat", 1, "a -> Char"],
   ["n_umbers", 1, "Char -> Float"],
+]
+
+[[group]]
+rule = "QD5: graphics (pure SVG builders, one effect)"
+entries = [
+  ["[]G_RID", 1, "Eq a => a -> Char"],
+  ["[]P_ATH", 1, "Num a => a -> Char"],
+  ["[]S_HOW", 1, "Char -> Char"],
 ]
 
 [[group]]

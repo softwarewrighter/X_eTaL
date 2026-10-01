@@ -1,0 +1,5 @@
+# A drawing has at most three axes: frames, rows, columns (QD5).
+== SOURCE
+[]G_RID 1 1 1 1 r_eshape 1
+== ERROR
+error[rank]: []G_RID: a drawing has at most 3 axes (frames, rows, columns), not 4 at 0..26

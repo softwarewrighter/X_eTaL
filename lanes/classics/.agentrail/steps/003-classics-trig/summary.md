@@ -1,0 +1,1 @@
+s_in c_os a_tan p_i in the catalog (B13) and evaluator; spec cases trig, reject-trig-types, reject-pi-argument; unchecked not-unit test; reference Trigonometry section. wasm32 and cli-too-deep not runnable in this sandbox.

@@ -32,3 +32,8 @@ pub fn write(path: &str, text: &str) -> Result<(), String> {
 pub fn read_line() -> Result<String, String> {
     current().line()
 }
+
+/// Show a picture with the store in use (`[]S_HOW`).
+pub fn show(svg: &str) -> Result<(), String> {
+    current().show(svg)
+}

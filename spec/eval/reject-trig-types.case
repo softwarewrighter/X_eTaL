@@ -1,0 +1,6 @@
+# s_in takes a number (B13), and p_i takes only @, like any niladic
+# function: a value is a type error, never ignored (rule 7).
+== SOURCE
+s_in "a"
+== ERROR
+error[type-mismatch]: expected a number, found Char at 0..8

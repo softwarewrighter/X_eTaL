@@ -20,7 +20,7 @@ status=0
 for doc in docs/literate/*.org; do
     target="$doc"
     if [ "$check" = "--check" ]; then
-        target="$(mktemp -t literate).org"
+        target="$(mktemp "${TMPDIR:-/tmp}/literate.XXXXXX").org"
         cp "$doc" "$target"
     fi
     scripts/literate-draw.py "$target"

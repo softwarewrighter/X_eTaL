@@ -560,6 +560,52 @@ info. Also decided with the user:
 Later: the stepping debugger's panes, "why this parse", hover
 tooltips, a LaTeX view.
 
+## Lane: classics (parallel to Saga 10, branch feat/classics)
+
+Asked for by the user: the classic APL example programs (Pascal's
+triangle, the sieve, GCD, Hanoi, quicksort, inner-product graph
+algorithms, finite differences, cellular automata, run-length
+encoding, magic squares, Mastermind, Mandelbrot, Roman numerals, word
+frequency, N-Queens, an APL subset interpreter, ...), one notebook
+demo each in `demos/classics/`, a golden per demo, listed in the live
+demo and indexed in `docs/classics.md`. Worked as a parallel lane
+whose saga lives in `lanes/classics/.agentrail` (run agentrail with
+`--saga lanes/classics`), so the main saga is untouched. The programs
+are forcing functions: the ones that need them bring replicate
+(B11), encode and decode (B12) and nested arrays (A7, static `Box a`,
+printed boxed), decided with the user up front (D35-D37). Graphics came
+next at the user's request (QD5, B13, D38-D39): pure SVG builders,
+one `[]S_HOW` effect, frames animated, so Life, Queens, tic-tac-toe,
+Mandelbrot and turtle drawings are pictures in the terminal's files,
+the browser and a future desktop app (a webview host of the same
+SVG).
+
+| #  | Step slug                | Delivers |
+| -- | ------------------------ | -------- |
+| 1  | classics-index           | docs/classics.md, conventions, Pascal's triangle |
+| 2  | classics-broken-pipe     | a closed stdout ends a run quietly (found by the Pascal demo) |
+| 3  | classics-trig            | `s_in` `c_os` `a_tan` `p_i` (B13) |
+| 4  | classics-draw-grid       | `xetal-draw`, `[]G_RID`, `[]S_HOW`, animated Life (QD5) |
+| 5  | classics-draw-path       | `[]P_ATH`, lib/Turtle.xtl, Sierpinski |
+| 6  | classics-draw-raster     | large grids as images, palettes, Mandelbrot zoom and fly-over |
+| 7  | classics-draw-web        | a Draw pane in the live demo |
+| 8  | classics-literate        | ob-xetal `:file` pictures, literate classics.org, animated SVG in the HTML export |
+| 9  | classics-numbers         | sieve, primes, GCD, Fibonacci, factorial, Collatz |
+| 10 | classics-recursion       | Tower of Hanoi, quicksort |
+| 11 | classics-graphs          | matrix product, transitive closure, Warshall, shortest paths |
+| 12 | classics-sequences       | polynomials, moving average, differences, 1-D automaton |
+| 13 | classics-data            | histogram, duplicates, sort and grade, run-length encoding |
+| 14 | classics-puzzles         | magic square, Mastermind |
+| 15 | classics-replicate       | `r_eplicate` (B11) |
+| 16 | classics-encode-decode   | `e_ncode` / `d_ecode` (B12) |
+| 17 | classics-radix-programs  | truth tables, base conversion, Roman numerals, RLE decode |
+| 18 | classics-nested-design   | the remaining A7 questions, with the user |
+| 19 | classics-nested-core     | `Box a`, nested values, boxed printing |
+| 20 | classics-nested-builtins | enclose, disclose, partition, each over boxes |
+| 21 | classics-nested-programs | word frequency, N-Queens drawn, ragged Pascal |
+| 22 | classics-mini-apl        | an APL subset interpreter in X_eTaL |
+| 23 | classics-release         | index, README link, retrospective, merge |
+
 ## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
 
 Asked for by the user after Saga 9, sooner rather than later: an
@@ -651,7 +697,7 @@ through the trace tree.
 
 ## Deferred (from `lang-choices.md` section 15)
 
-Nested arrays (A7), raw strings `r"..."`, Unicode text and complex
+Nested arrays (A7; now in the classics lane), raw strings `r"..."`, Unicode text and complex
 numbers via a type-extension mechanism, checked `::` signatures, axes
 above 9, count-from-the-end axes, the `_` wildcard
 parameter. Each gets a saga (or steps) when scheduled.

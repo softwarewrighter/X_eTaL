@@ -1,0 +1,1 @@
+[]P_ATH (points as 2 rows, no transpose yet) in xetal-draw/system/catalog; lib/Turtle.xtl in X_eTaL; turtle demo (spiral, Koch, Sierpinski arrowhead still and animated); goldens, spec cases, reference, handoff updated.

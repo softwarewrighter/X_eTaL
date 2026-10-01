@@ -1,0 +1,1 @@
+Large number grids drawn as embedded PNG frames (RASTER_CELLS 4096, to confirm); xetal-svg split out for the module limit; Mandelbrot still, zoom and fly-over demo with golden; docs and handoff updated.

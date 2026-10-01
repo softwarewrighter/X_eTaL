@@ -88,9 +88,13 @@ components/
                            (item by item: each, table, inner)
   search/                  xetal-search (search and order: index-of,
                            member, unique, sort, grade, where)
+  draw/                    xetal-svg (the pieces: shapes and cells,
+                           colors, SVG elements, frames in turn),
+                           xetal-draw (grids, large grids as images,
+                           paths; no knowledge of the language)
   system/                  xetal-system (files, the keyboard, numbers as
                            text: []N_PUT, []N_GET, []R_EAD, f_ormat,
-                           n_umbers)
+                           n_umbers; graphics: []G_RID, []S_HOW)
   axes/                    xetal-rotate (rotate and reverse along the
                            leading axis), xetal-axes (axis subscripts:
                            the move-to-front rule)
@@ -234,7 +238,18 @@ xetal diagram NOTES            annotated SVG of a line of source (callouts
 Each command runs the earlier stages first, so an early error is
 reported by any later command. All outputs are deterministic text so
 they can be reg-rs baselines; errors and warnings go to stderr as
-`error[CODE]` / `warning[CODE]` with byte spans.
+`error[CODE]` / `warning[CODE]` with byte spans. When the reader of
+stdout goes away (`xetal run FILE | head`), the process ends on
+SIGPIPE, exit status 141, with nothing on stderr, as cat and grep do
+(`main` restores the default disposition that Rust's runtime
+ignores; golden cli-pipe-closed). Pictures shown with `[]S_HOW` are
+written as numbered SVG files named after the program
+(`life-drawn-1.svg`, ...; `eval-1.svg` for `-e` text) into `--draw
+DIR`, else `XETAL_DRAW`, else the current directory, and each path is
+reported on stderr as `drawn PATH`; the command line installs this
+`xetal_store::Drawing` store, and other hosts install their own
+(golden cli-draw). The `just` recipes and the goldens default
+`XETAL_DRAW` to `work/draw` (gitignored).
 
 ## 6. Web playground (later saga)
 

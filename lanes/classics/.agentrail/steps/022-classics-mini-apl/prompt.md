@@ -1,0 +1,1 @@
+Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the user's decisions). TDD, the full gate, a golden per demo, each demo listed in xetal-web demos.rs and docs/classics.md. A small APL-subset interpreter written in X_eTaL (tokenize, parse right to left, evaluate) as far as the language allows; gaps recorded in plan.md.

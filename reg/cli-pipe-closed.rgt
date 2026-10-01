@@ -1,0 +1,3 @@
+command = 'for e in "r_ange 100000" "p_rint! r_ange 100000"; do for m in "" "--echo"; do bash -c "set -o pipefail; ./target/debug/xetal eval $m -e \"$e\" | head -c 12 >/dev/null; echo \"$m [$e] exit \$?\"" 2>&1 | head -c 300; done; done'
+exit_code = 0
+desc = "a closed stdout (xetal ... | head) ends the run with SIGPIPE, exit 141, and nothing on stderr: eval, eval --echo, p_rint!"

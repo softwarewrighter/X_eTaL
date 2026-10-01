@@ -8,6 +8,8 @@ set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$root"
 export REG_RS_DATA_DIR="$root/reg"
+# Pictures a golden draws go to work/draw (gitignored), never the repo.
+export XETAL_DRAW="${XETAL_DRAW:-work/draw}"
 command -v reg-rs >/dev/null || { echo "reg-rs not found on PATH" >&2; exit 127; }
 (cd components/cli && cargo build -q -p xetal-cli && cargo build -q --release -p xetal-cli)
 if [ "${1:-}" = "run" ] && [ "$#" -eq 1 ]; then

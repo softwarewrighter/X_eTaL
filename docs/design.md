@@ -582,6 +582,47 @@ comment; the ASCII block below it is what runs. The HTML export drops
 these copies, since it draws the blocks itself (decided with the user:
 Unicode text in the `.org`, not LaTeX images).
 
+### 8.1h Graphics (`[]G_RID`, `[]S_HOW`)
+
+Programs compute what to draw as ordinary arrays (QD5, D38). `[]G_RID
+a` is pure: it returns one self-contained SVG document as a Char
+vector, built by `xetal-draw`, which knows shapes and cells and
+nothing of the language. A scalar is one cell, a vector one row, a
+matrix one grid of 24-pixel cells on paper, ruled by one path of thin
+lines; a rank-3 array is frames along the leading axis, each shown in
+turn for 0.4 s in an SMIL loop, so the file animates on its own in
+any browser. Numbers that are all 0 or 1 draw their 1s as dark cells
+(Bool and Int alike); other numbers are colored on a viridis scale
+from the least to the greatest over every frame; characters are drawn
+in their cells (spaces left empty). Above rank 3 is `error[rank]`, an
+empty array `error[empty]`, anything but numbers or characters
+`error[domain]`; the type is `Eq a => a -> Char`. A number grid of
+more than 4096 cells a frame (64 by 64) is drawn as one PNG image per
+frame instead, a pixel per cell, scaled up by a whole number to at most
+400 pixels on its longer side with `image-rendering="pixelated"`, and
+without grid lines: a Mandelbrot frame is a few kilobytes rather than
+tens of thousands of rectangles (the image is embedded as a data URI,
+so the file stays self-contained). Characters are always drawn as
+text.
+
+`[]P_ATH xy : Num a => a -> Char` draws points given as 2 rows, x
+over y (at least 2 points), joined in order: the box round every point
+is scaled so its longer side is 400 pixels, with a 12-pixel margin and
+y pointing up; a rank-3 array is frames of paths sharing one fit, so a
+growing prefix of a curve animates its drawing. Any other shape is
+`error[shape-mismatch]`. Turtle graphics is the standard library
+`Turtle`, written in the language: a walk is a vector of turns, the
+headings are its running sum, the positions running sums of cosines
+and sines (`t:p_oints`, `t:w_alk`, `t:t_urn`, `t:p_olygon`).
+
+`[]S_HOW svg : Char -> Char` is the one effect: it hands the picture
+to the store the host installed (`xetal_store::Store::show`) and
+returns it, like `p_rint!`, so a program binds it (`torus := []S_HOW
+[]G_RID frames`). The command line writes numbered files (section
+5 of architecture.md); the browser's Draw pane and a future desktop
+app (a webview host of the same SVG) show them; a store with no place
+for pictures says so (`error[io]`).
+
 ### 8.2 LaTeX (`xetal render --latex`)
 
 One way and complete: the body of a math environment for KaTeX,
@@ -641,4 +682,9 @@ The pinning tests are written as the implementing saga reaches them
 | D32| Files and numbers as text | quad functions `[]N_PUT` / `[]N_GET` (text files) and `[]R_EAD` (a typed line); `f_ormat` and `n_umbers` for numbers as text; lexed as a name in the system namespace `[]`, drawn with the quad, a built-in (QD1-QD4) |
 | D33| Decimal exponents | raised like whole ones, the point drawn as a middle dot (Unicode has no superscript full stop); the inverse accepts the dot only inside a raised exponent (I2) |
 | D34| Match | `a m_atch b` is 1 when both sides have the same shape and equal items (APL's match), typed like `=`; a word, drawn with its m underlined (B7) |
+| D35| Replicate | `r_eplicate`, counts on the left over major cells, a scalar count extends, negative is `error[domain]` (B11); classics lane |
+| D36| Encode and decode | `e_ncode` / `d_ecode`, radix on the left, APL shapes (B12); classics lane |
+| D37| Nested arrays | static depth: an enclosed item has type `Box a`; `e_nclose` / `d_isclose`; printed boxed (A7); classics lane |
+| D38| Graphics | pure SVG builders `[]G_RID` and `[]P_ATH` (points as 2 rows, x over y) returning Char vectors, frames along the leading axis animated with SMIL/CSS, one effect `[]S_HOW` handed to the host (CLI files, web Draw pane, future desktop webview); a component `xetal-draw` with no syntax knowledge (QD5); classics lane |
+| D39| Trigonometry | `s_in` `c_os` `a_tan` in radians to Float, `p_i @` (B13); classics lane |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

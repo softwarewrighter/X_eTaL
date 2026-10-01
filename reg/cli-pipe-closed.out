@@ -1,0 +1,4 @@
+ [r_ange 100000] exit 141
+--echo [r_ange 100000] exit 141
+ [p_rint! r_ange 100000] exit 141
+--echo [p_rint! r_ange 100000] exit 141

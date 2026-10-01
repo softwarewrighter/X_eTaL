@@ -1,0 +1,1 @@
+Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the user's decisions). TDD, the full gate, a golden per demo, each demo listed in xetal-web demos.rs and docs/classics.md. Truth tables, base conversion, Roman numerals, run-length decoding, using r_eplicate, e_ncode and d_ecode.
