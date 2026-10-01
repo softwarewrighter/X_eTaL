@@ -8,6 +8,37 @@ adds to it, and the release step folds what is left into docs/plan.md.
 The lane's saga is in `lanes/classics/.agentrail` (run agentrail with
 `--saga lanes/classics`); see CLAUDE.md, "Parallel lanes".
 
+## This pull request (pr/classics-1)
+
+Steps 1 to 6 of the lane's 23, rebased onto main at 15121ec with no
+conflicts. The lane's saga stays live in `lanes/classics/.agentrail`
+(step 7, classics-draw-web, is next; nothing is archived), so after
+the merge the lane continues on a fresh branch off main. On the
+rebased branch the sandbox ran: lock consistency, the debug and release
+builds, the spec corpus and every golden (all pass except
+cli-too-deep, below). The full gate (fmt, clippy, every component's
+tests, smoke, Emacs ERT, literate, reference, sw-checklist, markdown)
+passed on the branch just before the final rebase onto main's newest
+commits; run `scripts/gate.sh` in full after merging.
+
+To do locally, in order:
+
+1. `scripts/gate.sh` in full, including the wasm32 check (the png
+   crate is new in xetal-draw; xetal-system, which the web engine
+   uses, now depends on it).
+2. `just serve`: open classics/life-drawn.xtl, turtle.xtl and
+   mandelbrot.xtl from Open; they type-check and run, but `[]S_HOW`
+   reports error[io] in the browser until step 7 adds the Draw pane.
+   Either list them only after step 7 or accept that until then.
+3. `just draw demos/classics/life-drawn.xtl` (and turtle.xtl,
+   mandelbrot.xtl, pascal.xtl) on the Mac and on Arch: the pictures
+   open, and the animations run (glider loops, arrowhead draws
+   itself, Mandelbrot zooms).
+4. `just pages` and `just literate-html` to rebuild the published
+   pages with the new demos.
+5. Confirm with the user: RASTER_CELLS (4096) and points as 2 rows
+   for `[]P_ATH` (both below).
+
 ## The sandbox's restrictions (and what each one left unverified)
 
 | Restriction | Effect | Do locally |
