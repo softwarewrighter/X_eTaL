@@ -1,8 +1,0 @@
-number = 24
-slug = "classics-eras"
-status = "pending"
-description = "Classics lane (see docs/plan.md, Lane: classics, and lanes/classics/HANDOFF.m..."
-role = "production"
-context_files = []
-created_at = "2026-09-30T19:02:31"
-commits = []
