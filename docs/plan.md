@@ -582,6 +582,20 @@ SVG).
 
 | #  | Step slug                | Delivers |
 | -- | ------------------------ | -------- |
+Added at the user's request (an ADVANCEDEX note): IBM shipped a
+workspace, ADVANCEDEX (saved 07/20/68), so APL\360 users could load,
+run, change and trace real programs; the APL\360 User's Manual (1968,
+and March 1970, GH20-0683-1, both at softwarepreservation.org) refers
+to its Appendix B, Advanced Examples. The lane recovers those 32
+functions with their sources, ports them (a historically grounded
+curriculum rather than one compiled in hindsight), and sets about
+twelve classics side by side across eras (APL\360, APL2, Dyalog,
+X_eTaL) to show how array style evolved and what X_eTaL keeps or
+changes. Follow-on outside this repo: a CLASSICS workspace in
+sw-apl-workspaces holding the same programs as APL, by era. The
+manual's advice to watch a subexpression through an output assignment
+feeds the trace saga (Saga 17).
+
 | 1  | classics-index           | docs/classics.md, conventions, Pascal's triangle |
 | 2  | classics-broken-pipe     | a closed stdout ends a run quietly (found by the Pascal demo) |
 | 3  | classics-trig            | `s_in` `c_os` `a_tan` `p_i` (B13) |
@@ -603,8 +617,11 @@ SVG).
 | 19 | classics-nested-core     | `Box a`, nested values, boxed printing |
 | 20 | classics-nested-builtins | enclose, disclose, partition, each over boxes |
 | 21 | classics-nested-programs | word frequency, N-Queens drawn, ragged Pascal |
-| 22 | classics-mini-apl        | an APL subset interpreter in X_eTaL |
-| 23 | classics-release         | index, README link, retrospective, merge |
+| 22 | classics-advancedex-source | IBM's ADVANCEDEX (1968): Appendix B of the APL\360 User's Manual transcribed and inventoried |
+| 23 | classics-advancedex-ports | ADVANCEDEX in X_eTaL: library, demos, goldens, literate sections |
+| 24 | classics-eras            | twelve classics across eras: APL\360, APL2, Dyalog, X_eTaL |
+| 25 | classics-mini-apl        | an APL subset interpreter in X_eTaL |
+| 26 | classics-release         | index, README link, retrospective, merge |
 
 ## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
 
