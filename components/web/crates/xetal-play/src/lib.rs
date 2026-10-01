@@ -5,7 +5,9 @@
 //! here also runs natively, so it is tested without a browser.
 
 mod engine;
+mod lines;
 
-pub use engine::{Run, check, run};
+pub use engine::{Run, check, run, run_to};
+pub use lines::Lines;
 pub use xetal_program::is_library;
 pub use xetal_view::{Class, Segment, view as decorate};

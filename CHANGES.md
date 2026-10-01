@@ -12,6 +12,31 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-01
 
+- 11:31 `chore` Saga step streaming-output completed.
+- 11:31 `feat` Web: programs run in a worker; output streams line by line, Stop and a spinner while running; Open sorted alphabetically; TTTML trains in rounds (no deep recursion in the browser).
+- 11:08 `chore` Merged the classics lane, part 8 (PR #8).
+- 10:55 `chore` Classics lane step classics-data completed.
+- 10:55 `demo` Classics: histogram, sorting, run-length encoding; docs/dogfooding.md.
+- 10:37 `docs` A wish list of unplanned ideas, prioritized and sized.
+- 10:35 `chore` Merged the classics lane, part 7 (PR #7).
+- 10:29 `docs` README: the colored reading-syntax guide, corrected (and its SVG source).
+- 10:11 `chore` Classics lane step classics-sequences completed.
+- 10:11 `demo` Classics: sequences (Horner, differences, moving averages) and cellular automata.
+- 10:03 `docs` Hanoi says how to read its output (from peg, to peg; the divisor table).
+- 09:58 `chore` Merged the classics lane, part 6 (PR #6).
+- 08:35 `chore` Classics lane step classics-graphs completed.
+- 08:35 `demo` Classics: graphs by inner product (matrix product, closure, Warshall, shortest paths).
+- 08:22 `build` Pages: literate documents re-exported with the Tower of Hanoi.
+- 08:21 `docs` README: the updated reading-XeTaL-syntax guide.
+- 08:21 `chore` Merged the classics lane, part 5 (PR #5).
+- 07:31 `chore` Merged the classics lane, part 4 (PR #4).
+- 07:30 `chore` Classics lane step classics-hanoi-ways completed.
+- 07:30 `demo` Classics: the Tower of Hanoi three ways (recursion, combinators, every move at once).
+- 07:18 `plan` Classics lane: classics-hanoi-ways inserted.
+- 07:12 `chore` Classics lane step classics-recursion completed.
+- 07:12 `demo` Classics: Tower of Hanoi (watched as frames) and quicksort.
+- 07:08 `docs` CHANGES.md caught up.
+- 06:53 `plan` Classics lane: classics-draw-web done on main (the draw-pane step).
 - 06:46 `build` Pages: the live demo with the number classics (PR #3).
 
 ## 2026-09-30

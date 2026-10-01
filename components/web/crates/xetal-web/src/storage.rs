@@ -40,7 +40,10 @@ impl Store for Local {
     fn line(&self) -> Result<String, String> {
         let window = web_sys::window().ok_or("no window")?;
         let typed = window
-            .prompt_with_message("[]R_EAD: type a line")
+            .prompt_with_message(&format!(
+                "{}\n\n[]R_EAD: type a line",
+                xetal_runner::recent()
+            ))
             .ok()
             .flatten();
         typed.ok_or_else(|| "no more input (the prompt was cancelled)".to_string())

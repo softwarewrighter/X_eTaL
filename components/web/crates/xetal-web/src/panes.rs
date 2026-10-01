@@ -78,13 +78,18 @@ fn picture(svg: &str) -> Html {
 pub(crate) fn output(
     text: &str,
     result: &Option<Run>,
+    running: bool,
     current: Pane,
     focus: Callback<Pane>,
     printed: NodeRef,
 ) -> Html {
     let (title, body) = match result {
         Some(r) => (
-            "Output",
+            if running {
+                "Output (running...)"
+            } else {
+                "Output"
+            },
             html! {
                 <pre tabindex="0" ref={printed.clone()}>{ &r.out }<span class="c-error">{ &r.err }</span>
                     { for r.pictures.iter().map(|svg| picture(svg)) }</pre>

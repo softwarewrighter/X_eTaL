@@ -92,13 +92,17 @@ m_eet := { m g ->
 l:l_earn := { m g -> (g b_ack m m_eet g)_ (t_ally g) - 1 }
 
 # n t_rain! m: model m after learning from n games against itself.
-# Every 250 games it prints how many games are still to go and how
-# many positions it knows, so a long training shows its progress.
-r_eport := { n m -> 0 = (n - 1) m_od 250 ? p_rint! (n - 1) c_at t_ally 1 s_elect m; 0 }
+# It plays in rounds of 250 games, and after each prints how many games
+# are still to go and how many positions it knows, so a long training
+# shows its progress. A round repeats one game with p_ower, which does
+# not nest calls: the recursion is one level per round, not per game
+# (a browser's stack holds a few hundred levels, not thousands).
+r_ound! := { m -> m l:l_earn l:g_ame! m }
 l_oop! := { n m ->
-  m := m l:l_earn l:g_ame! m
-  shown := n r_eport m
-  n = 1 ? m; (n - 1) l_oop! m
+  k := 250 m_in n
+  m := k 'r_ound! p_ower m
+  shown := p_rint! (n - k) c_at t_ally 1 s_elect m
+  n = k ? m; (n - k) l_oop! m
 }
 l:t_rain! := { n m ->
   shown := p_rint! "games to go, positions known:"

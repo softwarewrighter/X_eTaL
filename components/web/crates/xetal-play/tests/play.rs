@@ -19,9 +19,13 @@ fn store() -> &'static Arc<Memory> {
 /// and end, so two at once (tests run in parallel) could take each
 /// other's. The browser runs one at a time anyway.
 fn run(src: &str, seed: u64) -> Run {
-    static ONE_AT_A_TIME: Mutex<()> = Mutex::new(());
-    let _turn = ONE_AT_A_TIME.lock().unwrap_or_else(|e| e.into_inner());
+    let _turn = turn();
     xetal_play::run(src, seed)
+}
+
+fn turn() -> std::sync::MutexGuard<'static, ()> {
+    static ONE_AT_A_TIME: Mutex<()> = Mutex::new(());
+    ONE_AT_A_TIME.lock().unwrap_or_else(|e| e.into_inner())
 }
 
 #[test]
@@ -92,4 +96,34 @@ fn a_run_keeps_the_pictures_it_shows() {
         r.pictures
     );
     assert!(run("1", 1).pictures.is_empty(), "each run starts with none");
+}
+
+/// Output streams: `run_to` hands each line to the writer as it is
+/// printed, not all at the end (the live demo shows progress).
+#[test]
+fn output_is_handed_over_a_line_at_a_time() {
+    use std::sync::{Arc, Mutex};
+    let lines = Arc::new(Mutex::new(Vec::<String>::new()));
+    let seen = lines.clone();
+    let mut out = xetal_play::Lines::new(move |line: &str| seen.lock().unwrap().push(line.into()));
+    let _turn = turn();
+    let r = xetal_play::run_to("p := p_rint! 1\np := p_rint! \"two\"\n3", 1, &mut out);
+    assert_eq!(r.err, "");
+    assert_eq!(*lines.lock().unwrap(), ["1", "two", "3"]);
+}
+
+/// A writer that hands over whole lines, and what is left when dropped.
+#[test]
+fn lines_are_cut_at_newlines() {
+    use std::io::Write;
+    use std::sync::{Arc, Mutex};
+    let lines = Arc::new(Mutex::new(Vec::<String>::new()));
+    let seen = lines.clone();
+    {
+        let mut out =
+            xetal_play::Lines::new(move |line: &str| seen.lock().unwrap().push(line.into()));
+        out.write_all(b"a\nb").unwrap();
+        out.write_all(b"c\n\nd").unwrap();
+    }
+    assert_eq!(*lines.lock().unwrap(), ["a", "bc", "", "d"]);
 }

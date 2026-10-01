@@ -61,6 +61,15 @@ body { font: 15px/1.35 var(--mono); }
 
 .pane pre .picture { display: block; margin: 8px 0; }
 .pane pre .picture img { max-width: 100%; max-height: 420px; background: #fff; border-radius: 4px; }
+/* While a run goes on: a spinner in the output pane's title, and Run
+   shown as a red Stop. */
+.panes.running .output h2::after {
+  content: ""; display: inline-block; width: 10px; height: 10px; margin-left: 8px;
+  vertical-align: middle; border: 2px solid var(--line); border-top-color: var(--bright);
+  border-radius: 50%; animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.toolbar button.stop { color: #ff6b6b; border-color: #ff6b6b; }
 .name-forms { width: 100%; max-width: 640px; border-radius: 6px; }
 footer {
   display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center;

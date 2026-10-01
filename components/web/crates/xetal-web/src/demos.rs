@@ -22,56 +22,69 @@ macro_rules! demos {
 }
 
 /// The first is shown when the page opens; the second is an empty
-/// editor, to type into as at a REPL.
+/// editor, to type into as at a REPL. The rest are listed here in
+/// alphabetical order (a test keeps them so), and Open sorts them too.
 pub const DEMOS: &[Demo] = demos![
-    "life.xtl",
-    "hello-library.xtl",
+    "arrays.xtl",
+    "classics/automaton.xtl",
+    "classics/closure.xtl",
+    "classics/collatz.xtl",
+    "classics/factorial.xtl",
+    "classics/fibonacci.xtl",
+    "classics/gcd.xtl",
+    "classics/hanoi.xtl",
+    "classics/histogram.xtl",
+    "classics/life-drawn.xtl",
+    "classics/mandelbrot.xtl",
+    "classics/matmul.xtl",
+    "classics/pascal.xtl",
+    "classics/primes.xtl",
+    "classics/quicksort.xtl",
+    "classics/rle.xtl",
+    "classics/sequences.xtl",
+    "classics/shortest.xtl",
+    "classics/sieve.xtl",
+    "classics/sorting.xtl",
+    "classics/turtle.xtl",
     "combinators.xtl",
+    "factorial.xtl",
+    "hello-library.xtl",
+    "higher-order.xtl",
+    "keys.xtl",
+    "life.xtl",
     "monads.xtl",
     "stats.xtl",
-    "keys.xtl",
-    "tttml.xtl",
-    "tttml-train.xtl",
     "tttml-play.xtl",
-    "factorial.xtl",
-    "higher-order.xtl",
-    "arrays.xtl",
-    "classics/pascal.xtl",
-    "classics/life-drawn.xtl",
-    "classics/turtle.xtl",
-    "classics/mandelbrot.xtl",
-    "classics/sieve.xtl",
-    "classics/primes.xtl",
-    "classics/gcd.xtl",
-    "classics/fibonacci.xtl",
-    "classics/factorial.xtl",
-    "classics/collatz.xtl",
-    "classics/hanoi.xtl",
-    "classics/quicksort.xtl",
-    "classics/matmul.xtl",
-    "classics/closure.xtl",
-    "classics/shortest.xtl",
-    "classics/sequences.xtl",
-    "classics/automaton.xtl",
-    "classics/histogram.xtl",
-    "classics/sorting.xtl",
-    "classics/rle.xtl",
+    "tttml-train.xtl",
+    "tttml.xtl",
 ];
 
 /// The choices, as (group, value, label); a value is `demo:N`, `lib:Name`
 /// or `file:path`, and [`open`] reads it.
 pub fn choices(saved: &[String]) -> Vec<(&'static str, String, String)> {
-    let demos = DEMOS
+    let by_label = |mut group: Vec<(&'static str, String, String)>| {
+        group.sort_by_key(|(_, _, label)| label.to_lowercase());
+        group
+    };
+    let mut demos: Vec<_> = DEMOS
         .iter()
         .enumerate()
-        .map(|(i, d)| ("Demos", format!("demo:{i}"), d.name.to_string()));
-    let libs = xetal_libs::LIBRARIES
-        .iter()
-        .map(|(n, _)| ("Libraries", format!("lib:{n}"), format!("{n}.xtl")));
-    let files = saved
-        .iter()
-        .map(|p| ("Your files", format!("file:{p}"), p.clone()));
-    demos.chain(libs).chain(files).collect()
+        .map(|(i, d)| ("Demos", format!("demo:{i}"), d.name.to_string()))
+        .collect();
+    let rest = by_label(demos.split_off(2.min(demos.len())));
+    let libs = by_label(
+        xetal_libs::LIBRARIES
+            .iter()
+            .map(|(n, _)| ("Libraries", format!("lib:{n}"), format!("{n}.xtl")))
+            .collect(),
+    );
+    let files = by_label(
+        saved
+            .iter()
+            .map(|p| ("Your files", format!("file:{p}"), p.clone()))
+            .collect(),
+    );
+    [demos, rest, libs, files].concat()
 }
 
 /// The name and text of a choice.

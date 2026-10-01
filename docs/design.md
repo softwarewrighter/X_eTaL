@@ -658,6 +658,21 @@ Unicode-aware engine); symbols
 `\times \div \neq \leq \geq \wedge \vee`, binding `\leftarrow`, arrow
 `\to`, separator `\diamond`, lazy marker `\sim`.
 
+### 8.3 The live demo runs programs in a worker
+
+The live demo runs each program in a Web Worker (`xetal-runner`, a
+second wasm built by trunk), so the page never freezes and output is
+not buffered: the worker posts each line as it is printed, each
+picture as it is shown and each file as it is written (a plain-text,
+length-framed protocol), and the page appends them as they arrive, with
+a spinner while the run goes on and Run turned into Stop (which
+terminates the worker). Workers have no local storage, so the page
+sends the saved files with the program and saves back what it writes;
+the worker says when it is ready, and only then is sent the program. A
+program that reads the keyboard (`[]R_EAD`) runs on the page instead,
+its prompt showing the last lines printed. A worker's failure (a stack
+overflow, for one) ends the run with the error shown.
+
 ## 9. Decisions register
 
 All decisions below are made; the entries point to

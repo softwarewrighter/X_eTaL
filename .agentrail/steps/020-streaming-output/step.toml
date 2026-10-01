@@ -1,6 +1,6 @@
 number = 20
 slug = "streaming-output"
-status = "pending"
+status = "in-progress"
 description = "User report: in the live demo tttml-train shows no output while it runs (it l..."
 role = "production"
 context_files = []

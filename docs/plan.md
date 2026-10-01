@@ -742,6 +742,11 @@ APL ports (Sagas 11, 12 and 14) may call for it sooner.
   rotate, with the axis-subscript rules; then `[]P_ATH` may also accept
   points as an n by 2 matrix (it keeps 2 rows, x over y, the user's
   decision).
+- tail calls (found streaming tttml-train in the live demo): a
+  recursion thousands of calls deep overflows a browser's stack (a
+  worker's especially; the CLI runs on a large thread stack), so
+  TTTML trains in rounds with `p_ower` instead. Evaluating a call in
+  tail position as a loop would let any program recurse that deep.
 - fuzzing (`cargo-fuzz` for lexer, parser, fmt, eval) -- after Saga 2.
 - evaluator speed (found porting TTTML): a primitive operand of reduce,
   scan, inner product or table (`'+ r_/`, `'+ '* i_nner`, `'m_in r_/`)

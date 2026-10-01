@@ -24,9 +24,11 @@
 <li><a href="#org71d0066">Numbers</a></li>
 <li><a href="#orgbe3b8e3">Recursion</a></li>
 <li><a href="#org793b783">Graphs</a></li>
-<li><a href="#org8e4b9f7">Life, watched</a></li>
-<li><a href="#orgd2a4963">Turtle graphics, without a turtle</a></li>
-<li><a href="#orgf425154">More</a></li>
+<li><a href="#orgba6791e">Sequences</a></li>
+<li><a href="#org3a4a1fe">Data</a></li>
+<li><a href="#orgf425154">Life, watched</a></li>
+<li><a href="#org2e9a719">Turtle graphics, without a turtle</a></li>
+<li><a href="#org16ce245">More</a></li>
 </ul>
 </div>
 </div>
@@ -507,9 +509,156 @@ repeated (999 stands for no edge).
 </pre>
 </div>
 </div>
-<div id="outline-container-org8e4b9f7" class="outline-2">
-<h2 id="org8e4b9f7">Life, watched</h2>
-<div class="outline-text-2" id="text-org8e4b9f7">
+<div id="outline-container-orgba6791e" class="outline-2">
+<h2 id="orgba6791e">Sequences</h2>
+<div class="outline-text-2" id="text-orgba6791e">
+<p>
+Finite differences are almost absurdly natural: each item less the one
+before is the vector without its first item less the vector without
+its last. A polynomial's differences become constant at its degree:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘd̲iff</span> ← { v → (<span class="c-number">1</span> <span class="c-builtin">d̲rop</span> v) <span class="c-symbol">−</span> <span class="c-number">-1</span> <span class="c-builtin">d̲rop</span> v }
+squares ← (<span class="c-builtin">r̲ange</span> <span class="c-number">8</span>) <span class="c-symbol">^</span> <span class="c-number">2</span>
+<span class="c-userfunc">ᵘd̲iff</span> squares
+<span class="c-userfunc">ᵘd̲iff²</span> squares
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:d_iff := { v -&gt; (1 d_rop v) - -1 d_rop v }</span>
+<span class="c-comment typed">⍝   squares := (r_ange 8) ^ 2</span>
+<span class="c-comment typed">⍝   u:d_iff squares</span>
+<span class="c-comment typed">⍝   u:d_iff^2 squares</span></pre>
+</div>
+
+<pre class="example">
+3 5 7 9 11 13 15
+2 2 2 2 2 2
+</pre>
+
+
+<p>
+A one-dimensional cellular automaton updates every cell at once. Each
+cell's case is 4 * left + 2 * itself + right, its neighbours found by
+rotating the row, and the rule number's binary digits say what each of
+the eight cases becomes. Rule 90 makes each cell the exclusive or of
+its neighbours, and grows Sierpinski's triangle yet again:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘb̲its</span> ← { rule → (rule <span class="c-builtin">d̲iv</span> <span class="c-number">2</span> <span class="c-symbol">^</span> <span class="c-builtin">o̲ffsets</span> <span class="c-number">8</span>) <span class="c-builtin">m̲od</span> <span class="c-number">2</span> }
+<span class="c-userfunc">ᵘs̲tep</span> ← { bits row → (<span class="c-number">1</span> <span class="c-symbol">+</span> (<span class="c-number">4</span> <span class="c-symbol">×</span> <span class="c-number">-1</span> <span class="c-builtin">o̲-</span> row) <span class="c-symbol">+</span> (<span class="c-number">2</span> <span class="c-symbol">×</span> row) <span class="c-symbol">+</span> <span class="c-number">1</span> <span class="c-builtin">o̲-</span> row) <span class="c-builtin">s̲elect</span> bits }
+<span class="c-userfunc">ᵘe̲volve</span> ← { bits rows →
+  (<span class="c-builtin">t̲ally</span> rows) <span class="c-symbol">≥</span> <span class="c-builtin">t̲ally</span> <span class="c-builtin">f̲irst</span> rows ? rows
+  next ← bits <span class="c-userfunc">ᵘs̲tep</span> <span class="c-builtin">r̲avel</span> <span class="c-number">-1</span> <span class="c-builtin">t̲ake</span> rows
+  bits <span class="c-userfunc">ᵘe̲volve</span> rows <span class="c-builtin">c̲at</span> next
+}
+<span class="c-userfunc">ᵘs̲tart</span> ← { w → (<span class="c-number">1</span> <span class="c-builtin">c̲at</span> w) <span class="c-builtin">r̲eshape</span> ((w <span class="c-builtin">d̲iv</span> <span class="c-number">2</span>) <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span>) <span class="c-builtin">c̲at</span> <span class="c-number">1</span> <span class="c-builtin">c̲at</span> (w <span class="c-symbol">−</span> <span class="c-number">1</span> <span class="c-symbol">+</span> w <span class="c-builtin">d̲iv</span> <span class="c-number">2</span>) <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span> }
+<span class="c-userfunc">ᵘb̲its</span> <span class="c-number">90</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:b_its := { rule -&gt; (rule d_iv 2 ^ o_ffsets 8) m_od 2 }</span>
+<span class="c-comment typed">⍝   u:s_tep := { bits row -&gt; (1 + (4 * -1 o_- row) + (2 * row) + 1 o_- row) s_elect bits }</span>
+<span class="c-comment typed">⍝   u:e_volve := { bits rows -&gt;</span>
+<span class="c-comment typed">⍝     (t_ally rows) &gt;= t_ally f_irst rows ? rows</span>
+<span class="c-comment typed">⍝     next := bits u:s_tep r_avel -1 t_ake rows</span>
+<span class="c-comment typed">⍝     bits u:e_volve rows c_at next</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:s_tart := { w -&gt; (1 c_at w) r_eshape ((w d_iv 2) r_eshape 0) c_at 1 c_at (w - 1 + w d_iv 2) r_eshape 0 }</span>
+<span class="c-comment typed">⍝   u:b_its 90</span></pre>
+</div>
+
+<pre class="example">
+0 1 0 1 1 0 1 0
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">ninety ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> <span class="c-number">32</span> <span class="c-builtin">t̲ake</span> (<span class="c-userfunc">ᵘb̲its</span> <span class="c-number">90</span>) <span class="c-userfunc">ᵘe̲volve</span> <span class="c-userfunc">ᵘs̲tart</span> <span class="c-number">63</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   ninety := []S_HOW []G_RID 32 t_ake (u:b_its 90) u:e_volve u:s_tart 63</span></pre>
+</div>
+
+
+<div id="org4db81b4" class="figure">
+<p><img src="images/literate-rule90.svg" alt="literate-rule90.svg" class="org-svg" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org3a4a1fe" class="outline-2">
+<h2 id="org3a4a1fe">Data</h2>
+<div class="outline-text-2" id="text-org3a4a1fe">
+<p>
+A histogram counts each distinct value with a table of equals, summed
+along its rows: here the letters of a sentence that has every letter.
+Drawn, a column per letter, a to z, as tall as its count:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">text ← <span class="c-string">&quot;the quick brown fox jumps over the lazy dog and the cat&quot;</span>
+space ← <span class="c-builtin">f̲irst</span> <span class="c-string">&quot; &quot;</span>
+letters ← <span class="c-builtin">s̲ort</span> <span class="c-builtin">u̲nique</span> (<span class="c-builtin">w̲here</span> text <span class="c-symbol">≠</span> space) <span class="c-builtin">s̲elect</span> text
+n ← <span class="c-symbol">'+</span> <span class="c-builtin">r̲/₂</span> letters <span class="c-symbol">'=</span> <span class="c-builtin">t̲able</span> text
+n
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   text := "the quick brown fox jumps over the lazy dog and the cat"</span>
+<span class="c-comment typed">⍝   space := f_irst " "</span>
+<span class="c-comment typed">⍝   letters := s_ort u_nique (w_here text != space) s_elect text</span>
+<span class="c-comment typed">⍝   n := '+ r_/_2 letters '= t_able text</span>
+<span class="c-comment typed">⍝   n</span></pre>
+</div>
+
+<pre class="example">
+3 1 2 2 4 1 1 3 1 1 1 1 1 2 4 1 1 2 1 4 2 1 1 1 1 1
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">tall ← (<span class="c-builtin">r̲ev</span> <span class="c-builtin">r̲ange</span> <span class="c-builtin">'m̲ax</span> <span class="c-builtin">r̲/</span> n) <span class="c-symbol">'≤</span> <span class="c-builtin">t̲able</span> n
+shown ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> tall
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   tall := (r_ev r_ange 'm_ax r_/ n) '&lt;= t_able n</span>
+<span class="c-comment typed">⍝   shown := []S_HOW []G_RID tall</span></pre>
+</div>
+
+
+<div id="org8e4b9f7" class="figure">
+<p><img src="images/literate-histogram.svg" alt="literate-histogram.svg" class="org-svg" />
+</p>
+</div>
+
+<p>
+Run-length encoding compares each item with the one before: where they
+differ a run starts, the item there is the run's item, and the run's
+length is the distance to the next start.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">v ← <span class="c-string">&quot;aaabccddddde&quot;</span>
+p ← <span class="c-builtin">w̲here</span> <span class="c-number">1</span> <span class="c-builtin">c̲at</span> (<span class="c-number">1</span> <span class="c-builtin">d̲rop</span> v) <span class="c-symbol">≠</span> <span class="c-number">-1</span> <span class="c-builtin">d̲rop</span> v
+p <span class="c-builtin">s̲elect</span> v
+((<span class="c-number">1</span> <span class="c-builtin">d̲rop</span> p) <span class="c-builtin">c̲at</span> <span class="c-number">1</span> <span class="c-symbol">+</span> <span class="c-builtin">t̲ally</span> v) <span class="c-symbol">−</span> p
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   v := "aaabccddddde"</span>
+<span class="c-comment typed">⍝   p := w_here 1 c_at (1 d_rop v) != -1 d_rop v</span>
+<span class="c-comment typed">⍝   p s_elect v</span>
+<span class="c-comment typed">⍝   ((1 d_rop p) c_at 1 + t_ally v) - p</span></pre>
+</div>
+
+<pre class="example">
+abcde
+3 1 2 5 1
+</pre>
+</div>
+</div>
+<div id="outline-container-orgf425154" class="outline-2">
+<h2 id="orgf425154">Life, watched</h2>
+<div class="outline-text-2" id="text-orgf425154">
 <p>
 The rule in one line (<code>docs/literate/life.org</code> builds it up): the
 board rotated by every offset in <code>-1 0 1</code> along both axes and summed
@@ -575,7 +724,7 @@ So 40 frames loop seamlessly:
 </div>
 
 
-<div id="org4db81b4" class="figure">
+<div id="org1800805" class="figure">
 <p><img src="images/literate-glider-torus.svg" alt="literate-glider-torus.svg" class="org-svg" />
 </p>
 </div>
@@ -627,15 +776,15 @@ four cells:
 </div>
 
 
-<div id="orgba6791e" class="figure">
+<div id="orgd2a4963" class="figure">
 <p><img src="images/literate-glider-box.svg" alt="literate-glider-box.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgd2a4963" class="outline-2">
-<h2 id="orgd2a4963">Turtle graphics, without a turtle</h2>
-<div class="outline-text-2" id="text-orgd2a4963">
+<div id="outline-container-org2e9a719" class="outline-2">
+<h2 id="org2e9a719">Turtle graphics, without a turtle</h2>
+<div class="outline-text-2" id="text-org2e9a719">
 <p>
 Logo draws by moving a turtle. With arrays there is nothing to move: a
 walk is a vector of turns (degrees, one before each step), the headings
@@ -696,7 +845,7 @@ side ← <span class="c-userfunc">ᵘk̲och</span> <span class="c-number">3</spa
 </div>
 
 
-<div id="org3a4a1fe" class="figure">
+<div id="org4395c69" class="figure">
 <p><img src="images/literate-koch.svg" alt="literate-koch.svg" class="org-svg" />
 </p>
 </div>
@@ -752,15 +901,15 @@ n
 </div>
 
 
-<div id="org1800805" class="figure">
+<div id="orgbe32134" class="figure">
 <p><img src="images/literate-arrowhead.svg" alt="literate-arrowhead.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf425154" class="outline-2">
-<h2 id="orgf425154">More</h2>
-<div class="outline-text-2" id="text-orgf425154">
+<div id="outline-container-org16ce245" class="outline-2">
+<h2 id="org16ce245">More</h2>
+<div class="outline-text-2" id="text-org16ce245">
 <p>
 The Mandelbrot set, still, zoomed and flown over, is
 <code>demos/classics/mandelbrot.xtl</code> (<code>just draw demos/classics/mandelbrot.xtl</code>);

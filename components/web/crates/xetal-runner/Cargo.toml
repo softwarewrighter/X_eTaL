@@ -1,6 +1,6 @@
 [package]
-name = "xetal-web"
-description = "The live demo: the xetal editor in the browser (Yew, WebAssembly)"
+name = "xetal-runner"
+description = "Runs the live demo's programs in a Web Worker, streaming output, pictures and file writes to the page as they happen"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -9,13 +9,8 @@ repository.workspace = true
 
 [dependencies]
 xetal-play.workspace = true
-xetal-chrome.workspace = true
-xetal-layout.workspace = true
-xetal-runner.workspace = true
-xetal-libs.workspace = true
 xetal-store.workspace = true
 yew.workspace = true
 wasm-bindgen.workspace = true
 js-sys.workspace = true
 web-sys.workspace = true
-console_error_panic_hook.workspace = true

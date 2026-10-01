@@ -90,3 +90,41 @@ fn the_demos_own_libraries_are_among_your_files_and_edits_are_kept() {
             .contains("hello X\u{332}\u{1d49}T\u{1d43}L")
     );
 }
+
+/// After the tour and the empty editor, the demos are listed in
+/// alphabetical order in the source, so a new one goes in its place.
+#[test]
+fn the_demo_list_is_kept_in_alphabetical_order() {
+    let names: Vec<&str> = DEMOS[2..].iter().map(|d| d.name).collect();
+    let mut sorted = names.clone();
+    sorted.sort_unstable();
+    assert_eq!(
+        names, sorted,
+        "keep DEMOS (after the first two) alphabetical"
+    );
+}
+
+/// And Open sorts each group whatever order the lists are in: the
+/// demos after the first two, the libraries, your files.
+#[test]
+fn open_lists_each_group_alphabetically() {
+    let files = ["zeta.xtl".to_string(), "Alpha.xtl".to_string()];
+    let list = choices(&files);
+    let labels = |group: &str| -> Vec<String> {
+        list.iter()
+            .filter(|(g, ..)| *g == group)
+            .map(|(_, _, l)| l.clone())
+            .collect()
+    };
+    let demos = labels("Demos");
+    assert_eq!(demos[..2], ["tour.xtl".to_string(), "(empty)".to_string()]);
+    for group in [
+        demos[2..].to_vec(),
+        labels("Libraries"),
+        labels("Your files"),
+    ] {
+        let mut sorted = group.clone();
+        sorted.sort_by_key(|l| l.to_lowercase());
+        assert_eq!(group, sorted);
+    }
+}

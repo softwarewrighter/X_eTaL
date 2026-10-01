@@ -44,6 +44,17 @@ pub fn check(src: &str) -> Vec<String> {
 /// Check and run `src`, rolling from `seed`; a library has nothing to
 /// run, so its exports' types are its output.
 pub fn run(src: &str, seed: u64) -> Run {
+    let mut out = Vec::new();
+    let run = run_to(src, seed, &mut out);
+    Run {
+        out: String::from_utf8_lossy(&out).into_owned() + &run.out,
+        ..run
+    }
+}
+
+/// Run `src`, writing its output to `out` as it is printed (the Run's
+/// `out` holds only a library's types, which are not printed).
+pub fn run_to(src: &str, seed: u64, out: &mut (dyn std::io::Write + Send)) -> Run {
     if is_library(src) {
         let lines = check(src);
         return Run {
@@ -58,9 +69,8 @@ pub fn run(src: &str, seed: u64) -> Run {
     if let Err(d) = xetal_types::check_program(&mut loaded.program) {
         return failed(in_program(&loaded.sources, d));
     }
-    let mut out = Vec::new();
     xetal_store::take_shown();
-    let (warnings, result) = xetal_eval::eval_program(&loaded.program, &mut out, Some(seed));
+    let (warnings, result) = xetal_eval::eval_program(&loaded.program, out, Some(seed));
     let mut err: Vec<String> = warnings.into_iter().map(|w| w.to_string()).collect();
     err.extend(
         result
@@ -68,9 +78,9 @@ pub fn run(src: &str, seed: u64) -> Run {
             .map(|e| in_program(&loaded.sources, e).to_string()),
     );
     Run {
-        out: String::from_utf8_lossy(&out).into_owned(),
         err: err.iter().map(|l| format!("{l}\n")).collect(),
         pictures: xetal_store::take_shown(),
+        ..Run::default()
     }
 }
 

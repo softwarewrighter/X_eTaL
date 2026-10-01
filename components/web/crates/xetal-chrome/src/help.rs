@@ -22,8 +22,10 @@ pub(crate) fn help_text() -> Html {
             <ul>
                 <li>{ "Type in the ASCII pane; the Rendered pane follows, and the \
                        pane below shows each statement's type (or the first error)." }</li>
-                <li><b>{ "Run" }</b>{ " (Ctrl-Enter) runs the program and shows its output, with any \
-                       pictures it draws ([]S_HOW) under it; the classics demos draw." }</li>
+                <li><b>{ "Run" }</b>{ " (Ctrl-Enter) runs the program and shows its output as it is \
+                       printed, with any pictures it draws ([]S_HOW) under it; the classics demos \
+                       draw. While it runs, a spinner turns and Run becomes " }<b>{ "Stop" }</b>
+                    { "; Clear also stops it." }</li>
                 <li><b>{ "Tab" }</b>{ " moves between the panes; the current one has the bright border." }</li>
                 <li><b>{ "Zoom" }</b>{ " (Ctrl-.) shows the current pane alone, and back." }</li>
                 <li>{ "Drag the bars between the panes to resize them (this browser \

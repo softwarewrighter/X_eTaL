@@ -1,8 +1,8 @@
 //! The editor's state and what changes it.
 
-use web_sys::HtmlSelectElement;
 use xetal_layout::{Axis, divider, use_split};
-use xetal_play::{Run, is_library, run};
+use xetal_play::{Run, is_library};
+use xetal_runner::{Request, Runs, use_runs};
 use yew::prelude::*;
 
 use crate::keys::keys;
@@ -34,43 +34,44 @@ pub fn app() -> Html {
     let files = use_state(storage::saved);
     let current = use_state(|| Pane::Source);
     let (zoom, help) = (use_state(|| false), use_state(|| false));
-    let result = use_state(|| None::<Run>);
+    let runs = use_runs();
+    let (result, running) = (runs.output.run.clone(), runs.output.running);
     let split = use_split();
     let (drawn, printed) = (use_node_ref(), use_node_ref());
     use_follow(&result, printed.clone());
     let library = is_library(&text);
-    let (t, r) = (text.clone(), result.clone());
-    let run_now = Callback::from(move |_: ()| {
-        if !library {
-            r.set(Some(run(&t, seed())));
-        }
-    });
-    let z = zoom.clone();
+    let run_now = starter(&text, &files, &runs, library);
+    let (z, h) = (zoom.clone(), help.clone());
     let toggle = Callback::from(move |_: ()| z.set(!*z));
-    let h = help.clone();
     let show_help = Callback::from(move |open: bool| h.set(open));
     let on_key = keys(run_now.clone(), toggle.clone(), show_help.clone());
-    let (edit, load) = editing(&text, &name, &result);
+    let (edit, load) = editing(&text, &name, &runs.clear, running);
     let c = current.clone();
     let focus = Callback::from(move |p: Pane| c.set(p));
     let save = saving(text.clone(), name.clone(), files.clone());
-    let bar = Bar {
+    let bar = chrome::Bar {
         load,
         save,
         run: run_now,
         zoom: toggle,
         help: show_help.clone(),
+        clear: runs.clear.clone(),
         library,
+        running,
+        options: choices(&files),
+        open,
+        name: (*name).clone(),
+        zoomed: *zoom,
     };
     html! {
         <div class="app" onkeydown={on_key}>
-            { toolbar(bar, &files, &name, *zoom) }
-            <main class={classes!("panes", zoom.then_some("zoomed"))} style={split.style()}>
+            { chrome::toolbar(bar) }
+            <main class={classes!("panes", zoom.then_some("zoomed"), running.then_some("running"))} style={split.style()}>
                 { panes::source(&text, *current, focus.clone(), edit, drawn.clone()) }
                 { divider(Axis::Columns, &split) }
                 { panes::rendered(&text, *current, focus.clone(), drawn) }
                 { divider(Axis::Rows, &split) }
-                { panes::output(&text, &result, *current, focus, printed) }
+                { panes::output(&text, &result, running, *current, focus, printed) }
             </main>
             { chrome::footer() }
             { if *help { chrome::help(show_help.reform(|_| false)) } else { html! {} } }
@@ -88,17 +89,21 @@ fn use_follow(result: &Option<Run>, pane: NodeRef) {
     });
 }
 
-/// Editing the text (which clears a run's output), and loading a file
+/// Editing the text (which clears a finished run's output; a running one
+/// goes on), and loading a file
 /// (its name and text) into the editor.
 fn editing(
     text: &UseStateHandle<String>,
     name: &UseStateHandle<String>,
-    result: &UseStateHandle<Option<Run>>,
+    clear: &Callback<()>,
+    running: bool,
 ) -> (Callback<String>, Callback<(String, String)>) {
-    let (t, r) = (text.clone(), result.clone());
+    let (t, c) = (text.clone(), clear.clone());
     let edit = Callback::from(move |v: String| {
         t.set(v);
-        r.set(None);
+        if !running {
+            c.emit(());
+        }
     });
     let (e, n) = (edit.clone(), name.clone());
     let load = Callback::from(move |(file, body): (String, String)| {
@@ -133,49 +138,31 @@ fn saving(
     })
 }
 
-/// What the toolbar's controls do.
-struct Bar {
-    load: Callback<(String, String)>,
-    save: Callback<bool>,
-    run: Callback<()>,
-    zoom: Callback<()>,
-    help: Callback<bool>,
-    /// A library is checked, not run: Run is off.
+/// Run: start a run of the text (with a snapshot of the saved files,
+/// since workers have no local storage, and a fresh seed for `r_oll!`),
+/// or stop the one going; nothing for a library.
+fn starter(
+    text: &UseStateHandle<String>,
+    files: &UseStateHandle<Vec<String>>,
+    runs: &Runs,
     library: bool,
-}
-
-/// The logo, Open (demos, libraries, your files), the file's name,
-/// Save, Save as, Clear, Run, Zoom and Help.
-fn toolbar(bar: Bar, files: &[String], name: &str, zoomed: bool) -> Html {
-    let load = bar.load.clone();
-    let pick = Callback::from(move |e: Event| {
-        let select: HtmlSelectElement = e.target_unchecked_into();
-        if let Some(opened) = open(&select.value()) {
-            load.emit(opened);
+) -> Callback<()> {
+    let (t, f, running) = (text.clone(), files.clone(), runs.output.running);
+    let (start, stop) = (runs.start.clone(), runs.stop.clone());
+    Callback::from(move |_: ()| match (running, library) {
+        (true, _) => stop.emit(()),
+        (false, true) => {}
+        (false, false) => {
+            let files = f
+                .iter()
+                .filter_map(|p| xetal_store::read(p).ok().map(|t| (p.clone(), t)))
+                .collect();
+            let seed = (js_sys::Math::random() * 4_294_967_296.0) as u64;
+            start.emit(Request {
+                src: (*t).clone(),
+                seed,
+                files,
+            });
         }
-    });
-    let options = choices(files).into_iter().map(|(group, value, label)| {
-        html! { <option value={value.clone()} data-group={group} selected={value == "demo:0"}>{ format!("{group}: {label}") }</option> }
-    });
-    html! {
-        <nav class="toolbar">
-            <img class="logo" src="modern-xetal-logo.jpg" alt="X_eTaL"/>
-            <select onchange={pick} title="Open a demo, a library or one of your files">{ for options }</select>
-            <span class="name" title="The file being edited">{ name }</span>
-            <button onclick={bar.save.reform(|_| false)} title="Save in this browser">{ "Save" }</button>
-            <button onclick={bar.save.reform(|_| true)} title="Save under another name">{ "Save as" }</button>
-            <button onclick={bar.load.reform(|_| ("untitled.xtl".to_string(), String::new()))} title="An empty editor">{ "Clear" }</button>
-            <button onclick={bar.run.reform(|_| ())} disabled={bar.library}
-                title={if bar.library { "A library is not run: its exports' types are below" } else { "Run (Ctrl-Enter)" }}>{ "Run" }</button>
-            <button onclick={bar.zoom.reform(|_| ())} title="Zoom the current pane (Ctrl-.)">
-                { if zoomed { "Unzoom" } else { "Zoom" } }
-            </button>
-            <button class="help" onclick={bar.help.reform(|_| true)} title="How it works">{ "Help" }</button>
-        </nav>
-    }
-}
-
-/// A seed for `r_oll!`, different on every run.
-fn seed() -> u64 {
-    (js_sys::Math::random() * 4_294_967_296.0) as u64
+    })
 }

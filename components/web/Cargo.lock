@@ -1225,6 +1225,7 @@ dependencies = [
 name = "xetal-chrome"
 version = "0.1.0"
 dependencies = [
+ "web-sys",
  "yew",
 ]
 
@@ -1415,6 +1416,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-runner"
+version = "0.1.0"
+dependencies = [
+ "js-sys",
+ "wasm-bindgen",
+ "web-sys",
+ "xetal-play",
+ "xetal-store",
+ "yew",
+]
+
+[[package]]
 name = "xetal-search"
 version = "0.1.0"
 dependencies = [
@@ -1526,6 +1539,7 @@ dependencies = [
  "xetal-layout",
  "xetal-libs",
  "xetal-play",
+ "xetal-runner",
  "xetal-store",
  "yew",
 ]
