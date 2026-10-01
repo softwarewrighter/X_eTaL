@@ -1,0 +1,1 @@
+Live demo runs programs in a Web Worker (xetal-runner) streaming output/pictures/files; Ready handshake; Stop + spinner; worker errors shown; Open sorted with test; TTTML trains in rounds (browser stack); CHANGES.md updated
