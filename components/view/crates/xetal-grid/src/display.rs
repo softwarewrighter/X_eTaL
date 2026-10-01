@@ -6,6 +6,8 @@
 
 use unicode_width::UnicodeWidthStr;
 
+use crate::ascii::{ascii, to_ascii};
+
 /// What DISPLAY draws, built by the caller from a value.
 #[derive(Debug, Clone, PartialEq)]
 pub enum Shown {
@@ -31,6 +33,14 @@ pub enum Body {
 
 /// The lines of the picture.
 pub fn display(s: &Shown) -> Vec<String> {
+    let lines = draw(s);
+    match ascii() {
+        true => lines.iter().map(|l| to_ascii(l)).collect(),
+        false => lines,
+    }
+}
+
+fn draw(s: &Shown) -> Vec<String> {
     match s {
         Shown::Atom(text) => vec![text.clone()],
         Shown::Frame { shape, mark, body } => {
@@ -72,7 +82,7 @@ fn frame(shape: &[usize], mark: char, mut lines: Vec<String>) -> Vec<String> {
 /// columns as wide as their widest item, rows as tall as their
 /// tallest (items centred in their row), a space between and around.
 fn items_body(shape: &[usize], items: &[Shown]) -> Vec<String> {
-    let blocks: Vec<Vec<String>> = items.iter().map(display).collect();
+    let blocks: Vec<Vec<String>> = items.iter().map(draw).collect();
     let cols = shape.last().copied().unwrap_or(1).max(1);
     let widths: Vec<usize> = (0..cols)
         .map(|c| {

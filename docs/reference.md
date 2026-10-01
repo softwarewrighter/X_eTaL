@@ -639,17 +639,32 @@ error[length-mismatch]: 2 radix values for 3 digits
 
 Enclose: the whole value as one item, a box, so arrays can be items of
 other arrays; a strand of strings encloses each string. A nested array
-prints in frames drawn with box characters, as APL2's DISPLAY draws
-them: an arrow along the top, a down arrow for each leading axis, and a
-mark at the bottom for what it holds.
+prints in frames, as APL2's DISPLAY draws them (shown here as `xetal
+--ascii` draws them; a terminal gets box characters): an arrow along
+the top, a down arrow for each leading axis, and a mark at the bottom
+for what it holds (`~` numbers, `e` boxes).
 
 ```
-      t_ally e_nclose "abc"
-1
+      e_nclose "abc"
+.-------.
+| .>--. |
+| |abc| |
+| '---' |
+'e------'
+      "ab" "cde"
+.>-----------.
+| .>-. .>--. |
+| |ab| |cde| |
+| '--' '---' |
+'e-----------'
+      (e_nclose v) c_at e_nclose 1 2
+.>--------------.
+| .>----. .>--. |
+| |3 1 2| |1 2| |
+| '~----' '~--' |
+'e--------------'
       t_ally "ab" "cde"
 2
-      ("ab" "cde") m_atch (e_nclose "ab") c_at e_nclose "cde"
-1
 ```
 
 ### `d_isclose`

@@ -22,6 +22,7 @@ fn main() -> ExitCode {
     sigpipe::reset();
     let cli = Cli::parse();
     let draw = cli.draw.clone();
+    xetal_grid::set_ascii(cli.ascii);
     let command = match (cli.command, cli.script) {
         (Some(command), _) => command,
         (None, Some(file)) => Command::Run {

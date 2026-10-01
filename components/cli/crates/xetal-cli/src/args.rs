@@ -46,6 +46,10 @@ pub(crate) struct Cli {
     /// NAME-2.svg, ... (default: XETAL_DRAW, else the current directory).
     #[arg(long, global = true, value_name = "DIR")]
     pub(crate) draw: Option<String>,
+    /// Draw nested arrays in plain ASCII (. ' - | > v e) instead of box
+    /// characters, as APL2's DISPLAY did on plain terminals.
+    #[arg(long, global = true)]
+    pub(crate) ascii: bool,
 }
 
 /// Source given inline with `-e` or as a file path.

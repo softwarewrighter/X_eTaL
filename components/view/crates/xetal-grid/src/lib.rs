@@ -5,9 +5,11 @@
 //! meant for the stepping debugger. Nested arrays are drawn as APL2's
 //! DISPLAY draws them.
 
+mod ascii;
 mod display;
 mod grid;
 mod matrix;
 
+pub use ascii::{set_ascii, to_ascii};
 pub use display::{Body, Shown, display};
 pub use grid::Grid;

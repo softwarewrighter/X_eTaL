@@ -263,12 +263,14 @@ every digit; a matrix gives one number per column.
 == e_nclose
 Enclose: the whole value as one item, a box, so arrays can be items of
 other arrays; a strand of strings encloses each string. A nested array
-prints in frames drawn with box characters, as APL2's DISPLAY draws
-them: an arrow along the top, a down arrow for each leading axis, and a
-mark at the bottom for what it holds.
-> t_ally e_nclose "abc"
+prints in frames, as APL2's DISPLAY draws them (shown here as `xetal
+--ascii` draws them; a terminal gets box characters): an arrow along
+the top, a down arrow for each leading axis, and a mark at the bottom
+for what it holds (`~` numbers, `e` boxes).
+> e_nclose "abc"
+> "ab" "cde"
+> (e_nclose v) c_at e_nclose 1 2
 > t_ally "ab" "cde"
-> ("ab" "cde") m_atch (e_nclose "ab") c_at e_nclose "cde"
 
 == d_isclose
 Disclose: what a box holds. It opens one box (select one item first).
