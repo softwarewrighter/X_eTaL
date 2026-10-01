@@ -85,6 +85,84 @@ spare the target, <code>3 2 1 s_elect pegs</code> moves from the spare.
 
 
 <p>
+How to read it: each row is one move, <b>from peg, to peg</b>. <code>1 3</code> means
+take the top disk off peg 1 and put it on peg 3. Three disks take
+seven moves:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">move</th>
+<th scope="col" class="org-right">from</th>
+<th scope="col" class="org-right">to</th>
+<th scope="col" class="org-right">disk moved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">3</td>
+<td class="org-right">1 (the smallest)</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+<td class="org-right">2</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-right">3</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-right">1</td>
+<td class="org-right">3</td>
+<td class="org-right">3 (the largest)</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-right">2</td>
+<td class="org-right">3</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-right">7</td>
+<td class="org-right">1</td>
+<td class="org-right">3</td>
+<td class="org-right">1</td>
+</tr>
+</tbody>
+</table>
+
+<p>
 The reorderings are data: <code>1 3 2</code> and <code>3 2 1</code> are permutations, which
 compose by indexing and can be printed or drawn. Two moves for each
 disk added, plus one: 2^n - 1 moves.
@@ -233,6 +311,16 @@ table of remainders reduced along its second axis:
 
 
 <p>
+How to read it: the block of 0s and 1s has one row for each move k (1
+to 7, top to bottom) and one column for each of 2, 4 and 8; a 1 says
+that number divides k (move 4: 2 and 4 divide it, 8 does not, so
+<code>1 1 0</code>). The last line adds up each row: how many of them divide k,
+one number per move. One more than that is the disk the move moves:
+<code>1 2 1 3 1 2 1</code>, the smallest disk every other move and the largest
+once, in the middle.
+</p>
+
+<p>
 The rest is arithmetic on whole vectors. The from and to columns are
 put side by side by two tables, against 0 0 and against 0 1.
 </p>
@@ -274,7 +362,8 @@ put side by side by two tables, against 0 0 and against 0 1.
 
 
 <p>
-The same moves as the recursion, for 1 to 10 disks:
+The same seven rows as the recursion: <b>from peg, to peg</b>, one row per
+move. The same moves as the recursion, for 1 to 10 disks:
 </p>
 
 <div class="org-src-container">

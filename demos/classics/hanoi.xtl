@@ -5,8 +5,9 @@
 # move the n - 1 back on top. "just draw demos/classics/hanoi.xtl"
 # watches four disks move.
 
-# `n u:h_anoi pegs` lists the moves, one (from, to) row each; pegs is
-# from, to and the spare. Each half permutes the pegs with s_elect.
+# `n u:h_anoi pegs` lists the moves, one row each: from peg, to peg
+# (`1 3` moves the top disk from peg 1 to peg 3); pegs is from, to and
+# the spare. Each half permutes the pegs with s_elect.
 u:h_anoi := { n pegs ->
   n = 0 ? 0 2 r_eshape 0
   first := (n - 1) u:h_anoi 1 3 2 s_elect pegs

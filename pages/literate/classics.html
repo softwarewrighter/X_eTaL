@@ -23,9 +23,10 @@
 <li><a href="#orgdc76a11">Pascal's triangle</a></li>
 <li><a href="#org71d0066">Numbers</a></li>
 <li><a href="#orgbe3b8e3">Recursion</a></li>
-<li><a href="#org4db81b4">Life, watched</a></li>
-<li><a href="#org3a4a1fe">Turtle graphics, without a turtle</a></li>
-<li><a href="#org1800805">More</a></li>
+<li><a href="#org793b783">Graphs</a></li>
+<li><a href="#org8e4b9f7">Life, watched</a></li>
+<li><a href="#orgd2a4963">Turtle graphics, without a turtle</a></li>
+<li><a href="#orgf425154">More</a></li>
 </ul>
 </div>
 </div>
@@ -396,9 +397,119 @@ once from the bits of the move number):
 </div>
 </div>
 </div>
-<div id="outline-container-org4db81b4" class="outline-2">
-<h2 id="org4db81b4">Life, watched</h2>
-<div class="outline-text-2" id="text-org4db81b4">
+<div id="outline-container-org793b783" class="outline-2">
+<h2 id="org793b783">Graphs</h2>
+<div class="outline-text-2" id="text-org793b783">
+<p>
+A graph is a matrix: 1 where there is an edge from the row's vertex to
+the column's. The inner product does the graph algorithms. <code>'| '&amp;</code> (or
+of ands) asks whether there is a path through any one vertex, so
+repeating it until nothing changes gives every vertex each one can
+reach, the transitive closure.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">a ← <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+<span class="c-userfunc">ᵘc̲losure</span> ← { r →
+  next ← r <span class="c-symbol">∨</span> r <span class="c-symbol">'∨</span> <span class="c-symbol">'∧</span> <span class="c-builtin">i̲nner</span> r
+  (next <span class="c-builtin">m̲atch</span> r) ? r
+  <span class="c-userfunc">ᵘc̲losure</span> next
+}
+<span class="c-userfunc">ᵘc̲losure</span> a
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   a := 4 4 r_eshape 0 1 0 0  0 0 1 0  0 0 0 1  0 0 0 0</span>
+<span class="c-comment typed">⍝   u:c_losure := { r -&gt;</span>
+<span class="c-comment typed">⍝     next := r | r '| '&amp; i_nner r</span>
+<span class="c-comment typed">⍝     (next m_atch r) ? r</span>
+<span class="c-comment typed">⍝     u:c_losure next</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:c_losure a</span></pre>
+</div>
+
+<pre class="example">
+0 1 1 1
+0 0 1 1
+0 0 0 1
+0 0 0 0
+</pre>
+
+
+<p>
+Warshall's algorithm takes the vertices one at a time: everything that
+reaches k now reaches everything k reaches. Column k against row k, as
+a table of ands, is exactly those new paths. Eight vertices in two
+cycles, the first joined to the second one way, drawn after each
+vertex is taken in (<code>u:p_lane</code>, from the Hanoi section, makes a
+matrix one frame):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘw̲arshallSteps</span> ← { r k →
+  k <span class="c-symbol">&gt;</span> <span class="c-builtin">t̲ally</span> r ? <span class="c-userfunc">ᵘp̲lane</span> r
+  through ← (k <span class="c-builtin">s̲elect₂</span> r) <span class="c-symbol">'∧</span> <span class="c-builtin">t̲able</span> k <span class="c-builtin">s̲elect</span> r
+  (<span class="c-userfunc">ᵘp̲lane</span> r) <span class="c-builtin">c̲at</span> (r <span class="c-symbol">∨</span> through) <span class="c-userfunc">ᵘw̲arshallSteps</span> k <span class="c-symbol">+</span> <span class="c-number">1</span>
+}
+g ← <span class="c-number">8</span> <span class="c-number">8</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>  <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:w_arshallSteps := { r k -&gt;</span>
+<span class="c-comment typed">⍝     k &gt; t_ally r ? u:p_lane r</span>
+<span class="c-comment typed">⍝     through := (k s_elect_2 r) '&amp; t_able k s_elect r</span>
+<span class="c-comment typed">⍝     (u:p_lane r) c_at (r | through) u:w_arshallSteps k + 1</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   g := 8 8 r_eshape 0 1 0 0 0 0 0 0  0 0 1 0 0 0 0 0  1 0 0 1 0 0 0 0  0 0 0 0 1 0 0 0  0 0 0 0 0 1 0 0  0 0 0 0 0 0 1 0  0 0 0 0 0 0 0 1  0 0 0 0 1 0 0 0</span></pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal">watched ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> g <span class="c-userfunc">ᵘw̲arshallSteps</span> <span class="c-number">1</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   watched := []S_HOW []G_RID g u:w_arshallSteps 1</span></pre>
+</div>
+
+
+<div id="orgba11334" class="figure">
+<p><img src="images/literate-warshall.svg" alt="literate-warshall.svg" class="org-svg" />
+</p>
+</div>
+
+<p>
+Change the pair of functions and the same inner product finds the
+shortest paths: <code>'m_in '+</code>, the cheapest way through any one vertex,
+repeated (999 stands for no edge).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">w ← <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span> <span class="c-number">3</span> <span class="c-number">999</span> <span class="c-number">7</span>  <span class="c-number">8</span> <span class="c-number">0</span> <span class="c-number">2</span> <span class="c-number">999</span>  <span class="c-number">5</span> <span class="c-number">999</span> <span class="c-number">0</span> <span class="c-number">1</span>  <span class="c-number">2</span> <span class="c-number">999</span> <span class="c-number">999</span> <span class="c-number">0</span>
+<span class="c-userfunc">ᵘs̲hortest</span> ← { d →
+  e ← d <span class="c-builtin">'m̲in</span> <span class="c-symbol">'+</span> <span class="c-builtin">i̲nner</span> d
+  (e <span class="c-builtin">m̲atch</span> d) ? d
+  <span class="c-userfunc">ᵘs̲hortest</span> e
+}
+<span class="c-userfunc">ᵘs̲hortest</span> w
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   w := 4 4 r_eshape 0 3 999 7  8 0 2 999  5 999 0 1  2 999 999 0</span>
+<span class="c-comment typed">⍝   u:s_hortest := { d -&gt;</span>
+<span class="c-comment typed">⍝     e := d 'm_in '+ i_nner d</span>
+<span class="c-comment typed">⍝     (e m_atch d) ? d</span>
+<span class="c-comment typed">⍝     u:s_hortest e</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:s_hortest w</span></pre>
+</div>
+
+<pre class="example">
+0 3 5 6
+5 0 2 3
+3 6 0 1
+2 5 7 0
+</pre>
+</div>
+</div>
+<div id="outline-container-org8e4b9f7" class="outline-2">
+<h2 id="org8e4b9f7">Life, watched</h2>
+<div class="outline-text-2" id="text-org8e4b9f7">
 <p>
 The rule in one line (<code>docs/literate/life.org</code> builds it up): the
 board rotated by every offset in <code>-1 0 1</code> along both axes and summed
@@ -464,7 +575,7 @@ So 40 frames loop seamlessly:
 </div>
 
 
-<div id="orgba11334" class="figure">
+<div id="org4db81b4" class="figure">
 <p><img src="images/literate-glider-torus.svg" alt="literate-glider-torus.svg" class="org-svg" />
 </p>
 </div>
@@ -516,15 +627,15 @@ four cells:
 </div>
 
 
-<div id="org793b783" class="figure">
+<div id="orgba6791e" class="figure">
 <p><img src="images/literate-glider-box.svg" alt="literate-glider-box.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org3a4a1fe" class="outline-2">
-<h2 id="org3a4a1fe">Turtle graphics, without a turtle</h2>
-<div class="outline-text-2" id="text-org3a4a1fe">
+<div id="outline-container-orgd2a4963" class="outline-2">
+<h2 id="orgd2a4963">Turtle graphics, without a turtle</h2>
+<div class="outline-text-2" id="text-orgd2a4963">
 <p>
 Logo draws by moving a turtle. With arrays there is nothing to move: a
 walk is a vector of turns (degrees, one before each step), the headings
@@ -585,7 +696,7 @@ side ← <span class="c-userfunc">ᵘk̲och</span> <span class="c-number">3</spa
 </div>
 
 
-<div id="orgba6791e" class="figure">
+<div id="org3a4a1fe" class="figure">
 <p><img src="images/literate-koch.svg" alt="literate-koch.svg" class="org-svg" />
 </p>
 </div>
@@ -641,15 +752,15 @@ n
 </div>
 
 
-<div id="org8e4b9f7" class="figure">
+<div id="org1800805" class="figure">
 <p><img src="images/literate-arrowhead.svg" alt="literate-arrowhead.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org1800805" class="outline-2">
-<h2 id="org1800805">More</h2>
-<div class="outline-text-2" id="text-org1800805">
+<div id="outline-container-orgf425154" class="outline-2">
+<h2 id="orgf425154">More</h2>
+<div class="outline-text-2" id="text-orgf425154">
 <p>
 The Mandelbrot set, still, zoomed and flown over, is
 <code>demos/classics/mandelbrot.xtl</code> (<code>just draw demos/classics/mandelbrot.xtl</code>);
