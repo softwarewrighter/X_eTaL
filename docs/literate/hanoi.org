@@ -1,0 +1,317 @@
+#+TITLE: The Tower of Hanoi, three ways
+#+SUBTITLE: recursion, currying with combinators, and every move at once
+#+AUTHOR: Michael A Wright
+#+OPTIONS: toc:2 num:nil ^:{}
+#+PROPERTY: header-args:xetal :session hanoi :seed 1 :results output :exports both
+
+Move a stack of disks from one peg to another, one disk at a time,
+never a larger disk on a smaller. The puzzle is the classic example of
+a problem that is easy to say recursively, and it makes a good test of
+a language: the same moves can be computed by a recursion, by curried
+functions stitched together with combinators, or, the array way, all
+at once from the binary digits of the move number. This document
+writes all three in X_eTaL, checks that they agree, and watches the
+disks move. The program is ~demos/classics/hanoi.xtl~.
+
+A move is a row of two pegs, from and to; the pegs are 1, 2 and 3, and
+every solution here moves the disks from peg 1 to peg 3.
+
+* 1. Recursion, the pegs as one vector
+
+To move n disks: move n - 1 out of the way onto the spare peg, move
+the largest, move the n - 1 back on top of it. The three pegs travel
+together as one vector, from, to and spare, and each half of the
+recursion reorders them with ~s_elect~: ~1 3 2 s_elect pegs~ makes the
+spare the target, ~3 2 1 s_elect pegs~ moves from the spare.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘh̲anoi ← { n pegs →
+  n = 0 ? 0 2 r̲eshape 0
+  first ← (n − 1) ᵘh̲anoi 1 3 2 s̲elect pegs
+  last ← (n − 1) ᵘh̲anoi 3 2 1 s̲elect pegs
+  first c̲at (1 2 r̲eshape 2 t̲ake pegs) c̲at last
+}
+3 ᵘh̲anoi 1 3 2
+#+end_example
+#+begin_src xetal
+u:h_anoi := { n pegs ->
+  n = 0 ? 0 2 r_eshape 0
+  first := (n - 1) u:h_anoi 1 3 2 s_elect pegs
+  last := (n - 1) u:h_anoi 3 2 1 s_elect pegs
+  first c_at (1 2 r_eshape 2 t_ake pegs) c_at last
+}
+3 u:h_anoi 1 3 2
+#+end_src
+
+#+RESULTS:
+: 1 3
+: 1 2
+: 3 2
+: 1 3
+: 2 1
+: 2 3
+: 1 3
+
+The reorderings are data: ~1 3 2~ and ~3 2 1~ are permutations, which
+compose by indexing and can be printed or drawn. Two moves for each
+disk added, plus one: 2^n - 1 moves.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'{ t̲ally ⍵ ᵘh̲anoi 1 3 2 } e̲ach r̲ange 10
+#+end_example
+#+begin_src xetal
+'{ t_ally _r u:h_anoi 1 3 2 } e_ach r_ange 10
+#+end_src
+
+#+RESULTS:
+: 1 3 7 15 31 63 127 255 511 1023
+
+* 2. Curried, with the combinators
+
+The textbook writes h(n, from, to, via), four arguments. In X_eTaL
+every function is curried: a function of four parameters applied to
+one value is a function of three. But a call takes one value on each
+side, and two values side by side are an error, so the third and
+fourth arguments are applied to the function value with ~(expr)_~:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘm̲v ← { from to → 1 2 r̲eshape from c̲at to }
+ᵘh̲ ← { n from to via →
+  n = 0 ? 0 2 r̲eshape 0
+  a ← (((n − 1) ᵘh̲ from)_ via)_ to
+  b ← (((n − 1) ᵘh̲ via)_ to)_ from
+  a c̲at (from ᵘm̲v to) c̲at b
+}
+((3 ᵘh̲ 1)_ 3)_ 2
+#+end_example
+#+begin_src xetal
+u:m_v := { from to -> 1 2 r_eshape from c_at to }
+u:h_ := { n from to via ->
+  n = 0 ? 0 2 r_eshape 0
+  a := (((n - 1) u:h_ from)_ via)_ to
+  b := (((n - 1) u:h_ via)_ to)_ from
+  a c_at (from u:m_v to) c_at b
+}
+((3 u:h_ 1)_ 3)_ 2
+#+end_src
+
+#+RESULTS:
+: 1 3
+: 1 2
+: 3 2
+: 1 3
+: 2 1
+: 2 3
+: 1 3
+
+Naming the partial applications reads better. ~m_ove~ is "move n - 1
+disks from here", still waiting for to and via; the first half swaps
+those two, and swapping arguments is Smullyan's C, the cardinal, from
+the Combinators library: ~to 'f c:C_ via~ is ~via f to~.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"c:" u̲se< "Combinators"
+ᵘh̲c ← { n from to via →
+  n = 0 ? 0 2 r̲eshape 0
+  m̲ove ← (n − 1) ᵘh̲c from
+  b̲ack ← (n − 1) ᵘh̲c via
+  (to 'm̲ove ᶜC̲ via) c̲at (from ᵘm̲v to) c̲at to b̲ack from
+}
+(((6 ᵘh̲c 1)_ 3)_ 2) m̲atch 6 ᵘh̲anoi 1 3 2
+#+end_example
+#+begin_src xetal
+"c:" u_se< "Combinators"
+u:h_c := { n from to via ->
+  n = 0 ? 0 2 r_eshape 0
+  m_ove := (n - 1) u:h_c from
+  b_ack := (n - 1) u:h_c via
+  (to 'm_ove c:C_ via) c_at (from u:m_v to) c_at to b_ack from
+}
+(((6 u:h_c 1)_ 3)_ 2) m_atch 6 u:h_anoi 1 3 2
+#+end_src
+
+#+RESULTS:
+: 1
+
+It is the same recursion, said more functionally; it is no more an
+array program than the first, and X_eTaL's one-value-a-side calls
+make the four-argument call clumsy. That is why the first version
+packs the pegs into one vector.
+
+* 3. Every move at once
+
+The recursion hides a pattern. Number the moves k = 1 to 2^n - 1.
+
+- Move k moves disk 1 + (the number of trailing zero bits of k): the
+  smallest disk every other move, the next every fourth, and so on.
+- Each disk always cycles round the pegs in the same direction: for
+  disks d with n - d even it goes 1, 3, 2, 1, ...; the others go
+  1, 2, 3, 1, ....
+- Before move k, disk d has moved k d_iv 2^d times, so its from and to
+  pegs are that count, and that count plus one, taken round its cycle.
+
+So every move can be computed from k alone, for all k at once. The
+trailing zeros are counted as how many of 2, 4, 8, ... divide k, a
+table of remainders reduced along its second axis:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+k ← r̲ange 7
+0 = k 'm̲od t̲able 2 ^ r̲ange 3
+'+ r̲/₂ 0 = k 'm̲od t̲able 2 ^ r̲ange 3
+#+end_example
+#+begin_src xetal
+k := r_ange 7
+0 = k 'm_od t_able 2 ^ r_ange 3
+'+ r_/_2 0 = k 'm_od t_able 2 ^ r_ange 3
+#+end_src
+
+#+RESULTS:
+: 0 0 0
+: 1 0 0
+: 0 0 0
+: 1 1 0
+: 0 0 0
+: 1 0 0
+: 0 0 0
+: 0 1 0 2 0 1 0
+
+The rest is arithmetic on whole vectors. The from and to columns are
+put side by side by two tables, against 0 0 and against 0 1.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘm̲oves ← { n →
+  k ← r̲ange (2 ^ n) − 1
+  d ← 1 + '+ r̲/₂ 0 = k 'm̲od t̲able 2 ^ r̲ange n
+  m ← k d̲iv 2 ^ d
+  s ← 1 + 0 = (n − d) m̲od 2
+  from ← 1 + (s × m) m̲od 3
+  to ← 1 + (s × m + 1) m̲od 3
+  (from '+ t̲able 0 0) + (to − from) '× t̲able 0 1
+}
+ᵘm̲oves 3
+#+end_example
+#+begin_src xetal
+u:m_oves := { n ->
+  k := r_ange (2 ^ n) - 1
+  d := 1 + '+ r_/_2 0 = k 'm_od t_able 2 ^ r_ange n
+  m := k d_iv 2 ^ d
+  s := 1 + 0 = (n - d) m_od 2
+  from := 1 + (s * m) m_od 3
+  to := 1 + (s * m + 1) m_od 3
+  (from '+ t_able 0 0) + (to - from) '* t_able 0 1
+}
+u:m_oves 3
+#+end_src
+
+#+RESULTS:
+: 1 3
+: 1 2
+: 3 2
+: 1 3
+: 2 1
+: 2 3
+: 1 3
+
+The same moves as the recursion, for 1 to 10 disks:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'{ (ᵘm̲oves ⍵) m̲atch ⍵ ᵘh̲anoi 1 3 2 } e̲ach r̲ange 10
+#+end_example
+#+begin_src xetal
+'{ (u:m_oves _r) m_atch _r u:h_anoi 1 3 2 } e_ach r_ange 10
+#+end_src
+
+#+RESULTS:
+: 1 1 1 1 1 1 1 1 1 1
+
+* Watching it
+
+The state is the peg each disk is on, smallest first. A move takes the
+smallest disk on its first peg (where ~i_ndexOf~ first finds that peg)
+to its second. Each state is drawn as bars, a disk of size s as wide
+as 2s - 1 and centred on its peg, by a table of sizes against offsets
+from the centre; every state stacked is an animation. Here the moves
+come from the array way:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘm̲ove ← { p m →
+  from ← 1 s̲elect m
+  disk ← p i̲ndexOf from
+  p + ((2 s̲elect m) − from) × disk = r̲ange t̲ally p
+}
+ᵘs̲lots ← { p →
+  n ← t̲ally p
+  (r̲ange n) '{ r j → r s̲elect (0 − n) t̲ake 0 c̲at w̲here p = j } t̲able 1 2 3
+}
+ᵘp̲icture ← { p →
+  n ← t̲ally p
+  w ← 1 + 2 × n
+  bars ← (ᵘs̲lots p) '{ s x → s > a̲bs x } t̲able (o̲ffsets w) − n
+  (n c̲at 3 × w) r̲eshape r̲avel bars
+}
+ᵘp̲lane ← { m → (1 c̲at s̲hape m) r̲eshape m }
+ᵘp̲lay ← { p moves →
+  frame ← ᵘp̲lane ᵘp̲icture p
+  0 = t̲ally moves ? frame
+  frame c̲at (p ᵘm̲ove f̲irst moves) ᵘp̲lay 1 d̲rop moves
+}
+#+end_example
+#+begin_src xetal
+u:m_ove := { p m ->
+  from := 1 s_elect m
+  disk := p i_ndexOf from
+  p + ((2 s_elect m) - from) * disk = r_ange t_ally p
+}
+u:s_lots := { p ->
+  n := t_ally p
+  (r_ange n) '{ r j -> r s_elect (0 - n) t_ake 0 c_at w_here p = j } t_able 1 2 3
+}
+u:p_icture := { p ->
+  n := t_ally p
+  w := 1 + 2 * n
+  bars := (u:s_lots p) '{ s x -> s > a_bs x } t_able (o_ffsets w) - n
+  (n c_at 3 * w) r_eshape r_avel bars
+}
+u:p_lane := { m -> (1 c_at s_hape m) r_eshape m }
+u:p_lay := { p moves ->
+  frame := u:p_lane u:p_icture p
+  0 = t_ally moves ? frame
+  frame c_at (p u:m_ove f_irst moves) u:p_lay 1 d_rop moves
+}
+#+end_src
+
+#+RESULTS:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+watched ← ⎕S̲HOW ⎕G̲RID (4 r̲eshape 1) ᵘp̲lay ᵘm̲oves 4
+#+end_example
+#+begin_src xetal :results file :file ../../images/literate-hanoi.svg
+watched := []S_HOW []G_RID (4 r_eshape 1) u:p_lay u:m_oves 4
+#+end_src
+
+#+RESULTS:
+[[file:../../images/literate-hanoi.svg]]
+
+It is the same picture, to the byte, as the one drawn from the
+recursion's moves in [[file:classics.org][the classics walkthrough]]:
+both documents are rerun and compared against the committed file.
+
+* Which is better?
+
+| Version | Says | For | Against |
+|---------+------+-----+---------|
+| Recursion, pegs as a vector | move n - 1 aside, the largest, n - 1 back | the textbook idea; the peg reorderings are data | still scalar thinking: n deep, the list built by repeated joins |
+| Curried, with combinators | h(n, from, to, via), C swapping two | reads like the mathematics; shows currying and C | the same recursion; four-argument calls need ~(expr)_~ |
+| Every move at once | move k from the bits of k | no recursion, every move independent, arithmetic on vectors | why it works is not obvious without the recursion |
+
+The first explains the puzzle; the third is the array program. Seeing
+them agree is the point.

@@ -148,6 +148,7 @@ the web-playground lane: run `just literate-html` after merging.
 | 8 classics-numbers | done | Six demos (sieve, primes, gcd, fibonacci, factorial, collatz), each with a golden, listed in the live demo (none draws, so the no-[]S_HOW test holds); a Numbers section in classics.org with one picture (the divisor table). Check them in the browser with `just serve` |
 | 9 classics-draw-web | done on main | Completed in this lane with no work of its own: the web lane's draw-pane step (2daab6e) did it |
 | 10 classics-recursion | done | hanoi.xtl (moves by recursion; four disks drawn as 16 frames, checked frame by frame) and quicksort.xtl (masks and recursion; agrees with `s_ort` on random data, so its golden needs no seed), both listed in the live demo (hanoi draws: check its picture in the Draw pane); a Recursion section in classics.org with the Hanoi picture |
+| 11 classics-hanoi-ways | done | At the user's request: hanoi.xtl gains every move at once (trailing zeros by a remainder table, each disk's cycle by parity), checked with m_atch against the recursion for 1 to 10 disks (golden rebased: 8 new lines); docs/literate/hanoi.org walks through recursion, the curried version with C from Combinators, and the array way, with a pros-and-cons table, its picture the same file as classics.org's (byte-identical). Look at pages/literate/hanoi.html after `just literate-html` (the Org table in it) |
 
 ## Language gaps found by the programs
 
