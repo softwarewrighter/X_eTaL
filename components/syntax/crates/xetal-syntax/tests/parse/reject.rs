@@ -10,7 +10,8 @@ fn assert_reject(src: &str, code: &str, span: (usize, usize)) {
 fn adjacent_values_are_not_strands() {
     assert_reject("a b", "adjacent-values", (0, 1));
     assert_reject("x 1", "adjacent-values", (0, 1));
-    assert_reject("\"ab\" \"cd\"", "adjacent-values", (0, 4));
+    // Strings strand with strings (B14), not with numbers.
+    assert_reject("\"ab\" 12", "adjacent-values", (0, 4));
 }
 
 #[test]

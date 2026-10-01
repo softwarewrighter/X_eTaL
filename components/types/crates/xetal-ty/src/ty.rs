@@ -18,6 +18,8 @@ pub enum Type {
     Char,
     Var(TypeVar),
     Fn(Box<Type>, Box<Type>),
+    /// An enclosed item of a nested array (A7, B14).
+    Box(Box<Type>),
 }
 
 /// A polymorphic type: `forall vars. ty`, with the variables that must
@@ -36,6 +38,7 @@ impl Type {
         match self {
             Type::Var(v) => map.get(v).cloned().unwrap_or_else(|| self.clone()),
             Type::Fn(a, b) => Type::Fn(Box::new(a.rename(map)), Box::new(b.rename(map))),
+            Type::Box(a) => Type::Box(Box::new(a.rename(map))),
             other => other.clone(),
         }
     }
@@ -48,6 +51,7 @@ impl Type {
                 a.vars(out);
                 b.vars(out);
             }
+            Type::Box(a) => a.vars(out),
             _ => {}
         }
     }
@@ -65,6 +69,17 @@ fn write(ty: &Type, names: &HashMap<TypeVar, String>, f: &mut fmt::Formatter<'_>
             Some(name) => f.write_str(name),
             None => write!(f, "t{}", v.0),
         },
+        Type::Box(a) => {
+            f.write_str("Box ")?;
+            match **a {
+                Type::Fn(..) | Type::Box(_) => {
+                    f.write_str("(")?;
+                    write(a, names, f)?;
+                    f.write_str(")")
+                }
+                _ => write(a, names, f),
+            }
+        }
         Type::Fn(a, b) => {
             if matches!(**a, Type::Fn(..)) {
                 f.write_str("(")?;

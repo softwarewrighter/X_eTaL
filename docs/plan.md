@@ -616,8 +616,8 @@ feeds the trace saga (Saga 17).
 | 16 | classics-encode-decode   | `e_ncode` / `d_ecode` (B12) |
 | 17 | classics-radix-programs  | truth tables, base conversion, Roman numerals, RLE decode |
 | 18 | classics-nested-design   | the remaining A7 questions, with the user |
-| 19 | classics-nested-core     | `Box a`, nested values, boxed printing |
-| 20 | classics-nested-builtins | enclose, disclose, partition, each over boxes |
+| 19 | classics-nested-core     | `Box a`, nested values, string strands, `e_nclose`, `d_isclose`, DISPLAY printing (B16) |
+| 20 | classics-nested-builtins | `p_artition`, `m_ap` (B14) |
 | 21 | classics-nested-programs | word frequency, N-Queens drawn, ragged Pascal |
 | 22 | classics-advancedex-source | IBM's ADVANCEDEX (1968): Appendix B of the APL\360 User's Manual transcribed and inventoried |
 | 23 | classics-advancedex-ports | ADVANCEDEX in X_eTaL: library, demos, goldens, literate sections |

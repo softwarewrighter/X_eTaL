@@ -1,6 +1,7 @@
 //! Type foundations: types, unification with an occurs check, the
 //! `Num` and `Truthy` classes, schemes and defaulting (T5).
 
+mod boxed;
 mod class;
 mod defaulting;
 mod scheme;

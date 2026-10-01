@@ -4,7 +4,7 @@
 use std::cmp::Ordering;
 
 use xetal_array::Array;
-use xetal_value::Value;
+use xetal_value::{Value, as_array};
 
 enum Key {
     Int(i64),
@@ -25,7 +25,15 @@ fn key(v: &Value<'_>) -> Key {
 
 /// Numbers compare exactly (Int with Int as integers), Chars by code;
 /// a number sorts before a Char (mixing is a type error when checked).
+/// Boxes compare by what they hold: its shape, then its items.
 pub(crate) fn order(a: &Value<'_>, b: &Value<'_>) -> Ordering {
+    if let (Value::Boxed(x), Value::Boxed(y)) = (a, b) {
+        let (p, q) = (as_array(x), as_array(y));
+        return p
+            .shape()
+            .cmp(q.shape())
+            .then_with(|| order_cells(p.data(), q.data()));
+    }
     match (key(a), key(b)) {
         (Key::Int(x), Key::Int(y)) => x.cmp(&y),
         (Key::Char(x), Key::Char(y)) => x.cmp(&y),
@@ -36,6 +44,12 @@ pub(crate) fn order(a: &Value<'_>, b: &Value<'_>) -> Ordering {
         (_, Key::Char(_)) => Ordering::Less,
         _ => Ordering::Equal,
     }
+}
+
+/// Whether two items are equal as `=` and `m_atch` see them; boxes are
+/// equal when what they hold matches (A7).
+pub fn equal(a: &Value<'_>, b: &Value<'_>) -> bool {
+    order(a, b).is_eq()
 }
 
 /// Cells in lexicographic order, item by item.

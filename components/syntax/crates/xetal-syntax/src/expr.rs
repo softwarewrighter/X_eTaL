@@ -100,7 +100,7 @@ fn reduce(items: Vec<Item>, start: Span) -> Result<Expr, Diagnostic> {
                 return Err(err(
                     "adjacent-values",
                     v.span,
-                    "two values side by side (only numbers form strands)",
+                    "two values side by side (only literals of one kind form strands: numbers, or strings)",
                 ));
             }
             Item::Quoted(..) => unreachable!("quotes were turned into values"),

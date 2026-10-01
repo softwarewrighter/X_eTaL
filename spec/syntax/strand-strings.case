@@ -1,0 +1,13 @@
+# A strand of string literals is a nested vector (B14): each string is
+# enclosed, so the strand desugars to an array of e_nclose'd strings.
+# Names and expressions still do not strand.
+== SOURCE
+"ab" "cde"
+== SURFACE
+(strand "ab" "cde")
+== CANONICAL
+"ab" "cde"
+== CORE
+(eval (array (app #e_nclose "ab") (app #e_nclose "cde")))
+== TYPE
+Box Char

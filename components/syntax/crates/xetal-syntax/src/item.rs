@@ -34,13 +34,34 @@ impl Parser {
                 side,
                 applied: false,
             } => self.exponent(noun(ExprKind::Arg(side)))?,
-            TokenKind::Str(s) => noun(ExprKind::Str(s)),
+            TokenKind::Str(s) => self.strings(noun(ExprKind::Str(s))),
             TokenKind::Unit => noun(ExprKind::Unit),
             TokenKind::LParen => return self.paren(token.span),
             TokenKind::Quote => return self.quote(token.span),
             _ => return self.function(token).map(Item::Fun),
         };
         Ok(Item::Value(value))
+    }
+
+    /// A string literal and any that follow it: a strand of strings is
+    /// a nested vector (B14).
+    fn strings(&mut self, first: Expr) -> Expr {
+        let mut parts = vec![first];
+        while let Some(Token {
+            kind: TokenKind::Str(s),
+            span,
+        }) = self.peek().cloned()
+        {
+            self.pos += 1;
+            parts.push(Expr::new(ExprKind::Str(s), span));
+        }
+        match parts.len() {
+            1 => parts.remove(0),
+            _ => {
+                let span = parts[0].span.join(parts[parts.len() - 1].span);
+                Expr::new(ExprKind::Strand(parts), span)
+            }
+        }
     }
 
     /// A function token: a name, a symbol, `_l_`, a lambda or a train.

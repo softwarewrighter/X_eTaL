@@ -1,0 +1,5 @@
+# Boxes are compared for equality but not ordered: s_ort needs Ord.
+== SOURCE
+s_ort "b" "a"
+== ERROR
+error[type-mismatch]: expected a number or Char, found Box Char at 0..13

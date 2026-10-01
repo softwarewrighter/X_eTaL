@@ -131,6 +131,13 @@ entries = [
 ]
 
 [[group]]
+rule = "A7, B14: nested arrays (Box a)"
+entries = [
+  ["e_nclose", 1, "a -> Box a"],
+  ["d_isclose", 1, "Box a -> a"],
+]
+
+[[group]]
 rule = "B12: encode and decode (radix on the left)"
 entries = [
   ["e_ncode", 2, "Int -> Int -> Int"],

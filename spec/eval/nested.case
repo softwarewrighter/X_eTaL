@@ -1,0 +1,59 @@
+# Nested arrays (A7, B14): an enclosed item has type Box a, and a nested
+# array prints as APL2's DISPLAY shows it: a frame per array, an arrow
+# along the top (and one down the left per leading axis), and a mark at
+# the bottom: ~ for numbers, nothing for characters, a membership sign
+# for an array holding boxes. A box of a simple scalar is framed too.
+== SOURCE
+"ab" "cde"
+t_ally "ab" "cde"
+d_isclose 2 s_elect "ab" "cde"
+e_nclose "abc"
+e_nclose 5
+(e_nclose 1) c_at e_nclose 2 3
+2 2 r_eshape "a" "bb" "ccc" "d"
+e_nclose "ab" "cd"
+== TYPE
+Box Char
+Int
+Char
+Box Char
+Box Int
+Box Int
+Box Char
+Box (Box Char)
+== RESULT
+┌→───────────┐
+│ ┌→─┐ ┌→──┐ │
+│ │ab│ │cde│ │
+│ └──┘ └───┘ │
+└∊───────────┘
+2
+cde
+┌───────┐
+│ ┌→──┐ │
+│ │abc│ │
+│ └───┘ │
+└∊──────┘
+┌─┐
+│5│
+└~┘
+┌→──────────┐
+│ ┌─┐ ┌→──┐ │
+│ │1│ │2 3│ │
+│ └~┘ └~──┘ │
+└∊──────────┘
+┌→───────────┐
+↓ ┌→┐   ┌→─┐ │
+│ │a│   │bb│ │
+│ └─┘   └──┘ │
+│ ┌→──┐ ┌→┐  │
+│ │ccc│ │d│  │
+│ └───┘ └─┘  │
+└∊───────────┘
+┌───────────────┐
+│ ┌→──────────┐ │
+│ │ ┌→─┐ ┌→─┐ │ │
+│ │ │ab│ │cd│ │ │
+│ │ └──┘ └──┘ │ │
+│ └∊──────────┘ │
+└∊──────────────┘

@@ -1,0 +1,5 @@
+# d_isclose takes a box, not a plain array.
+== SOURCE
+d_isclose "ab"
+== ERROR
+error[type-mismatch]: expected Box a, found Char at 0..14

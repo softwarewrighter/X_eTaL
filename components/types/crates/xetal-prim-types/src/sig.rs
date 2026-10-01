@@ -54,6 +54,7 @@ fn atom(tokens: &mut Vec<&str>, vars: &mut Vars, u: &mut Unifier) -> Result<Type
         "Bool" => Type::Bool,
         "Char" => Type::Char,
         "Unit" => Type::Unit,
+        "Box" => Type::Box(Box::new(atom(tokens, vars, u)?)),
         "(" => {
             let t = arrow(tokens, vars, u)?;
             (tokens.pop() == Some(")"))

@@ -5,7 +5,7 @@ use xetal_array::{Array, size};
 use xetal_base::{Diagnostic, Span};
 use xetal_value::Value;
 
-use crate::values::{as_array, as_vector, counts, fill, ints, to_value};
+use crate::values::{as_array, as_vector, counts, disclose, fill, ints, to_value};
 use crate::{cat, drop, first, replicate, reshape, select, take};
 
 type Out<'a> = Result<Value<'a>, Diagnostic>;
@@ -31,6 +31,8 @@ pub fn call<'a>(name: &str, args: &[Value<'a>], span: Span) -> Option<Out<'a>> {
             counts(c, a.shape()[0]).and_then(|k| Ok(to_value(replicate(&k, &a)?)))
         }
         ("c_at", [a, b]) => join(a, b),
+        ("e_nclose", [x]) => Ok(Value::Boxed(std::rc::Rc::new(x.clone()))),
+        ("d_isclose", [x]) => disclose(x),
         _ => return None,
     };
     Some(result.map_err(|d| match d.span {

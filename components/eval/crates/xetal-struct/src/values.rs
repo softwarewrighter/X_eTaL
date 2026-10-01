@@ -58,3 +58,20 @@ pub(crate) fn counts(c: &Value<'_>, cells: usize) -> Result<Vec<usize>, Diagnost
         }
     }
 }
+
+/// `d_isclose`: what one box holds (A7); an array of boxes is not
+/// opened into one array.
+pub(crate) fn disclose<'a>(x: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
+    match x {
+        Value::Boxed(inner) => Ok((**inner).clone()),
+        other => {
+            let dims: Vec<String> = as_array(other)
+                .shape()
+                .iter()
+                .map(ToString::to_string)
+                .collect();
+            let message = format!("d_isclose opens one box, got shape {}", dims.join(" "));
+            Err(Diagnostic::new("rank", message))
+        }
+    }
+}

@@ -22,7 +22,12 @@ const TABLE: [Class; 4] = [
     },
     Class {
         name: "Eq",
-        admits: |t| matches!(t, Type::Int | Type::Float | Type::Bool | Type::Char),
+        admits: |t| {
+            matches!(
+                t,
+                Type::Int | Type::Float | Type::Bool | Type::Char | Type::Box(_)
+            )
+        },
         phrase: "Int, Float, Bool or Char",
     },
     Class {
