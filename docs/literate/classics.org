@@ -326,6 +326,108 @@ watched := []S_HOW []G_RID (4 r_eshape 1) u:p_lay 4 u:h_anoi 1 3 2
 #+RESULTS:
 [[file:../../images/literate-hanoi.svg]]
 
+* Graphs
+
+A graph is a matrix: 1 where there is an edge from the row's vertex to
+the column's. The inner product does the graph algorithms. ~'| '&~ (or
+of ands) asks whether there is a path through any one vertex, so
+repeating it until nothing changes gives every vertex each one can
+reach, the transitive closure.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+a ← 4 4 r̲eshape 0 1 0 0  0 0 1 0  0 0 0 1  0 0 0 0
+ᵘc̲losure ← { r →
+  next ← r ∨ r '∨ '∧ i̲nner r
+  (next m̲atch r) ? r
+  ᵘc̲losure next
+}
+ᵘc̲losure a
+#+end_example
+#+begin_src xetal
+a := 4 4 r_eshape 0 1 0 0  0 0 1 0  0 0 0 1  0 0 0 0
+u:c_losure := { r ->
+  next := r | r '| '& i_nner r
+  (next m_atch r) ? r
+  u:c_losure next
+}
+u:c_losure a
+#+end_src
+
+#+RESULTS:
+: 0 1 1 1
+: 0 0 1 1
+: 0 0 0 1
+: 0 0 0 0
+
+Warshall's algorithm takes the vertices one at a time: everything that
+reaches k now reaches everything k reaches. Column k against row k, as
+a table of ands, is exactly those new paths. Eight vertices in two
+cycles, the first joined to the second one way, drawn after each
+vertex is taken in (~u:p_lane~, from the Hanoi section, makes a
+matrix one frame):
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘw̲arshallSteps ← { r k →
+  k > t̲ally r ? ᵘp̲lane r
+  through ← (k s̲elect₂ r) '∧ t̲able k s̲elect r
+  (ᵘp̲lane r) c̲at (r ∨ through) ᵘw̲arshallSteps k + 1
+}
+g ← 8 8 r̲eshape 0 1 0 0 0 0 0 0  0 0 1 0 0 0 0 0  1 0 0 1 0 0 0 0  0 0 0 0 1 0 0 0  0 0 0 0 0 1 0 0  0 0 0 0 0 0 1 0  0 0 0 0 0 0 0 1  0 0 0 0 1 0 0 0
+#+end_example
+#+begin_src xetal
+u:w_arshallSteps := { r k ->
+  k > t_ally r ? u:p_lane r
+  through := (k s_elect_2 r) '& t_able k s_elect r
+  (u:p_lane r) c_at (r | through) u:w_arshallSteps k + 1
+}
+g := 8 8 r_eshape 0 1 0 0 0 0 0 0  0 0 1 0 0 0 0 0  1 0 0 1 0 0 0 0  0 0 0 0 1 0 0 0  0 0 0 0 0 1 0 0  0 0 0 0 0 0 1 0  0 0 0 0 0 0 0 1  0 0 0 0 1 0 0 0
+#+end_src
+
+#+RESULTS:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+watched ← ⎕S̲HOW ⎕G̲RID g ᵘw̲arshallSteps 1
+#+end_example
+#+begin_src xetal :results file :file ../../images/literate-warshall.svg
+watched := []S_HOW []G_RID g u:w_arshallSteps 1
+#+end_src
+
+#+RESULTS:
+[[file:../../images/literate-warshall.svg]]
+
+Change the pair of functions and the same inner product finds the
+shortest paths: ~'m_in '+~, the cheapest way through any one vertex,
+repeated (999 stands for no edge).
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+w ← 4 4 r̲eshape 0 3 999 7  8 0 2 999  5 999 0 1  2 999 999 0
+ᵘs̲hortest ← { d →
+  e ← d 'm̲in '+ i̲nner d
+  (e m̲atch d) ? d
+  ᵘs̲hortest e
+}
+ᵘs̲hortest w
+#+end_example
+#+begin_src xetal
+w := 4 4 r_eshape 0 3 999 7  8 0 2 999  5 999 0 1  2 999 999 0
+u:s_hortest := { d ->
+  e := d 'm_in '+ i_nner d
+  (e m_atch d) ? d
+  u:s_hortest e
+}
+u:s_hortest w
+#+end_src
+
+#+RESULTS:
+: 0 3 5 6
+: 5 0 2 3
+: 3 6 0 1
+: 2 5 7 0
+
 * Life, watched
 
 The rule in one line (~docs/literate/life.org~ builds it up): the

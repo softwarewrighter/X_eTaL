@@ -149,6 +149,7 @@ the web-playground lane: run `just literate-html` after merging.
 | 9 classics-draw-web | done on main | Completed in this lane with no work of its own: the web lane's draw-pane step (2daab6e) did it |
 | 10 classics-recursion | done | hanoi.xtl (moves by recursion; four disks drawn as 16 frames, checked frame by frame) and quicksort.xtl (masks and recursion; agrees with `s_ort` on random data, so its golden needs no seed), both listed in the live demo (hanoi draws: check its picture in the Draw pane); a Recursion section in classics.org with the Hanoi picture |
 | 11 classics-hanoi-ways | done | At the user's request: hanoi.xtl gains every move at once (trailing zeros by a remainder table, each disk's cycle by parity), checked with m_atch against the recursion for 1 to 10 disks (golden rebased: 8 new lines); docs/literate/hanoi.org walks through recursion, the curried version with C from Combinators, and the array way, with a pros-and-cons table, its picture the same file as classics.org's (byte-identical). Look at pages/literate/hanoi.html after `just literate-html` (the Org table in it) |
+| 12 classics-graphs | done | matmul.xtl, closure.xtl (Boolean inner product and Warshall agreeing; Warshall drawn as 9 frames), shortest.xtl (min-plus, widest paths by max-min, distances drawn), with goldens, in the live demo and the index; a Graphs section in classics.org. In the live demo, check closure's and shortest's pictures in the Draw pane |
 
 ## Language gaps found by the programs
 

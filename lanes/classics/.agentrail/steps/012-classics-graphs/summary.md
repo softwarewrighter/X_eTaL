@@ -1,0 +1,1 @@
+matmul, closure (Boolean inner product and Warshall, drawn) and shortest (min-plus, widest paths, drawn) demos with goldens, live demo, index, classics.org Graphs section.
