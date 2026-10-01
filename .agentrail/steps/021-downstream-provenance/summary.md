@@ -1,0 +1,1 @@
+XETAL_BUILD_SHA/HOST/TIMESTAMP override build provenance in xetal-cli and xetal-chrome build.rs (downstream ask); verified; documented
