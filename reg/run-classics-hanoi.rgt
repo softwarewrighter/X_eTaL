@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/hanoi.xtl"
+exit_code = 0
+desc = "Tower of Hanoi: the moves by recursion, 2^n - 1 of them, and four disks watched move"

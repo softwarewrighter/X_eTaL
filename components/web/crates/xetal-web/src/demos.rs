@@ -46,6 +46,8 @@ pub const DEMOS: &[Demo] = demos![
     "classics/fibonacci.xtl",
     "classics/factorial.xtl",
     "classics/collatz.xtl",
+    "classics/hanoi.xtl",
+    "classics/quicksort.xtl",
 ];
 
 /// The choices, as (group, value, label); a value is `demo:N`, `lib:Name`

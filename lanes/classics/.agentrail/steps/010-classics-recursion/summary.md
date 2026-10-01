@@ -1,0 +1,1 @@
+hanoi.xtl (recursion with a peg vector; four disks drawn as 16 frames) and quicksort.xtl (masks and recursion, checked against s_ort), goldens, live demo, index, classics.org Recursion section.

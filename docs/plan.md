@@ -604,12 +604,12 @@ feeds the trace saga (Saga 17).
 | 6  | classics-draw-raster     | large grids as images, palettes, Mandelbrot zoom and fly-over |
 | 7  | classics-literate        | ob-xetal `:file` pictures, literate classics.org, animated SVG in the HTML export |
 | 8  | classics-numbers         | sieve, primes, GCD, Fibonacci, factorial, Collatz |
-| 9  | classics-recursion       | Tower of Hanoi, quicksort |
-| 10 | classics-graphs          | matrix product, transitive closure, Warshall, shortest paths |
-| 11 | classics-sequences       | polynomials, moving average, differences, 1-D automaton |
-| 12 | classics-data            | histogram, duplicates, sort and grade, run-length encoding |
-| 13 | classics-puzzles         | magic square, Mastermind (Mandelbrot is in draw-raster) |
-| 14 | classics-draw-web        | a Draw pane in the live demo |
+| 9  | classics-draw-web        | a Draw pane in the live demo: done on main by the web lane (draw-pane) |
+| 10 | classics-recursion       | Tower of Hanoi, quicksort |
+| 11 | classics-graphs          | matrix product, transitive closure, Warshall, shortest paths |
+| 12 | classics-sequences       | polynomials, moving average, differences, 1-D automaton |
+| 13 | classics-data            | histogram, duplicates, sort and grade, run-length encoding |
+| 14 | classics-puzzles         | magic square, Mastermind (Mandelbrot is in draw-raster) |
 | 15 | classics-replicate       | `r_eplicate` (B11) |
 | 16 | classics-encode-decode   | `e_ncode` / `d_ecode` (B12) |
 | 17 | classics-radix-programs  | truth tables, base conversion, Roman numerals, RLE decode |

@@ -1,0 +1,1 @@
+Done on main by the web lane's draw-pane step (commit 2daab6e, merged with PR #3): the live demo shows []S_HOW pictures under the output and lists the drawing classics again. Nothing to do in this lane; a separate Draw pane with its own controls, if still wanted, would be a new step.

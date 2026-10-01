@@ -188,6 +188,142 @@ u:c_ollatz := { n -> n = 1 ? 1 r_eshape 1; n c_at u:c_ollatz u:h_ail n }
 #+RESULTS:
 : 0 1 7 2 5 8 16 3 19 6 14 9 9 17 17 4 12 20 20 7 7 15 15 10 23 10 111 18 18 18
 
+* Recursion
+
+Some programs stay recursive even in APL. Quicksort is the famous
+one: the sorted items below a pivot, the items equal to it, the sorted
+items above. The partitions are masks, the selection ~w_here~ and
+~s_elect~; there is no loop and no swap.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘq̲sort ← { v →
+  2 > t̲ally v ? v
+  p ← f̲irst v
+  below ← (w̲here v < p) s̲elect v
+  same ← (w̲here v = p) s̲elect v
+  above ← (w̲here v > p) s̲elect v
+  (ᵘq̲sort below) c̲at same c̲at ᵘq̲sort above
+}
+ᵘq̲sort 3 1 4 1 5 9 2 6 5 3 5
+#+end_example
+#+begin_src xetal
+u:q_sort := { v ->
+  2 > t_ally v ? v
+  p := f_irst v
+  below := (w_here v < p) s_elect v
+  same := (w_here v = p) s_elect v
+  above := (w_here v > p) s_elect v
+  (u:q_sort below) c_at same c_at u:q_sort above
+}
+u:q_sort 3 1 4 1 5 9 2 6 5 3 5
+#+end_src
+
+#+RESULTS:
+: 1 1 2 3 3 4 5 5 5 6 9
+
+The Tower of Hanoi: move n - 1 disks out of the way, move the
+largest, move the n - 1 back on top. ~pegs~ is from, to and the spare,
+and each half of the recursion permutes it with ~s_elect~.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘh̲anoi ← { n pegs →
+  n = 0 ? 0 2 r̲eshape 0
+  first ← (n − 1) ᵘh̲anoi 1 3 2 s̲elect pegs
+  last ← (n − 1) ᵘh̲anoi 3 2 1 s̲elect pegs
+  first c̲at (1 2 r̲eshape 2 t̲ake pegs) c̲at last
+}
+3 ᵘh̲anoi 1 3 2
+#+end_example
+#+begin_src xetal
+u:h_anoi := { n pegs ->
+  n = 0 ? 0 2 r_eshape 0
+  first := (n - 1) u:h_anoi 1 3 2 s_elect pegs
+  last := (n - 1) u:h_anoi 3 2 1 s_elect pegs
+  first c_at (1 2 r_eshape 2 t_ake pegs) c_at last
+}
+3 u:h_anoi 1 3 2
+#+end_src
+
+#+RESULTS:
+: 1 3
+: 1 2
+: 3 2
+: 1 3
+: 2 1
+: 2 3
+: 1 3
+
+To watch it, the state is the peg each disk is on, smallest first; a
+move takes the smallest disk on its first peg (where ~i_ndexOf~ first
+finds that peg) to its second. Each state is drawn as bars, a disk of
+size s as wide as 2s - 1 and centred on its peg, by a table of sizes
+against offsets from the centre.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘm̲ove ← { p m →
+  from ← 1 s̲elect m
+  disk ← p i̲ndexOf from
+  p + ((2 s̲elect m) − from) × disk = r̲ange t̲ally p
+}
+ᵘs̲lots ← { p →
+  n ← t̲ally p
+  (r̲ange n) '{ r j → r s̲elect (0 − n) t̲ake 0 c̲at w̲here p = j } t̲able 1 2 3
+}
+ᵘp̲icture ← { p →
+  n ← t̲ally p
+  w ← 1 + 2 × n
+  bars ← (ᵘs̲lots p) '{ s x → s > a̲bs x } t̲able (o̲ffsets w) − n
+  (n c̲at 3 × w) r̲eshape r̲avel bars
+}
+ᵘp̲lane ← { m → (1 c̲at s̲hape m) r̲eshape m }
+ᵘp̲lay ← { p moves →
+  frame ← ᵘp̲lane ᵘp̲icture p
+  0 = t̲ally moves ? frame
+  frame c̲at (p ᵘm̲ove f̲irst moves) ᵘp̲lay 1 d̲rop moves
+}
+#+end_example
+#+begin_src xetal
+u:m_ove := { p m ->
+  from := 1 s_elect m
+  disk := p i_ndexOf from
+  p + ((2 s_elect m) - from) * disk = r_ange t_ally p
+}
+u:s_lots := { p ->
+  n := t_ally p
+  (r_ange n) '{ r j -> r s_elect (0 - n) t_ake 0 c_at w_here p = j } t_able 1 2 3
+}
+u:p_icture := { p ->
+  n := t_ally p
+  w := 1 + 2 * n
+  bars := (u:s_lots p) '{ s x -> s > a_bs x } t_able (o_ffsets w) - n
+  (n c_at 3 * w) r_eshape r_avel bars
+}
+u:p_lane := { m -> (1 c_at s_hape m) r_eshape m }
+u:p_lay := { p moves ->
+  frame := u:p_lane u:p_icture p
+  0 = t_ally moves ? frame
+  frame c_at (p u:m_ove f_irst moves) u:p_lay 1 d_rop moves
+}
+#+end_src
+
+#+RESULTS:
+
+Four disks, fifteen moves, sixteen frames:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+watched ← ⎕S̲HOW ⎕G̲RID (4 r̲eshape 1) ᵘp̲lay 4 ᵘh̲anoi 1 3 2
+#+end_example
+#+begin_src xetal :results file :file ../../images/literate-hanoi.svg
+watched := []S_HOW []G_RID (4 r_eshape 1) u:p_lay 4 u:h_anoi 1 3 2
+#+end_src
+
+#+RESULTS:
+[[file:../../images/literate-hanoi.svg]]
+
 * Life, watched
 
 The rule in one line (~docs/literate/life.org~ builds it up): the
