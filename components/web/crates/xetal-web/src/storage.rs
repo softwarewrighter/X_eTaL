@@ -1,9 +1,14 @@
-//! The browser's local storage as the program's files, and a prompt as
-//! its keyboard: installed as the store (`xetal-store`) the language
+//! The browser's local storage as the program's files, a prompt as its
+//! keyboard, and the output pane as where its pictures are shown: installed as the store (`xetal-store`) the language
 //! reads and writes through, so saved files, your libraries and
 //! `[]N_PUT` / `[]N_GET` / `[]R_EAD` all work in the page.
 
+use std::sync::Mutex;
+
 use xetal_store::Store;
+
+/// The pictures shown (`[]S_HOW`) and not yet taken by the output pane.
+static SHOWN: Mutex<Vec<String>> = Mutex::new(Vec::new());
 
 const PREFIX: &str = "xetal:";
 
@@ -39,6 +44,19 @@ impl Store for Local {
             .ok()
             .flatten();
         typed.ok_or_else(|| "no more input (the prompt was cancelled)".to_string())
+    }
+
+    fn show(&self, svg: &str) -> Result<(), String> {
+        let mut shown = SHOWN.lock().map_err(|_| "the pictures are unusable")?;
+        shown.push(svg.into());
+        Ok(())
+    }
+
+    fn take_shown(&self) -> Vec<String> {
+        SHOWN
+            .lock()
+            .map(|mut s| std::mem::take(&mut *s))
+            .unwrap_or_default()
     }
 }
 

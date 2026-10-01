@@ -41,3 +41,9 @@ pub fn show(svg: &str) -> Result<(), String> {
         false => Ok(()),
     }
 }
+
+/// The pictures the store in use has shown since they were last taken,
+/// in order (a host showing a run's pictures takes them when it ends).
+pub fn take_shown() -> Vec<String> {
+    current().take_shown()
+}

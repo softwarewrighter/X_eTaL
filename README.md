@@ -76,6 +76,13 @@ At a glance, versus classic APL:
 | Core model          | niladic/monadic/dyadic       | curried one-argument functions         |
 | Implementation      | C / assembly                 | Rust (CLI + WASM playground)           |
 
+How to read it, on one page: what each decoration says about a name
+(function or value, yours or a library's), imports, definitions,
+passing a function, axes, powers, lambdas, the suffixes, and what you
+type for each:
+
+![Reading XeTaL syntax: name decorations, importing a library, defining functions and variables, applying vs. passing functions, axes, power and repeated invocation, lambdas, name suffixes, and ASCII input vs. the rendered form](images/reading-xetal-syntax.png)
+
 The acceptance test is Conway's Life in one line
 (`spec/integration/life-blinker.case`, checked against the sw-apl
 APL\360 reference); `just life` runs `demos/life.xtl`, which steps a
@@ -109,13 +116,6 @@ and `xetal` for the binary and the code. [`docs/name.md`](docs/name.md)
 lists every spelling and why the logo is itself XeTaL (`X_ e:T a:L`).
 
 ## Seeing it
-
-How to read it, on one page: what each decoration says about a name
-(function or value, yours or a library's), imports, definitions,
-passing a function, axes, powers, lambdas, the suffixes, and what you
-type for each:
-
-![Reading XeTaL syntax: name decorations, importing a library, defining functions and variables, applying vs. passing functions, axes, power and repeated invocation, lambdas, name suffixes, and ASCII input vs. the rendered form](images/reading-xetal-syntax.png)
 
 Source is typed as ASCII and shown decorated. `xetal edit FILE` puts
 the two side by side, with the types (or the first error) below as

@@ -20,11 +20,12 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org366b022">Stats</a></li>
-<li><a href="#org4b7d108">Maybe</a></li>
-<li><a href="#org7604a25">Combinators</a></li>
-<li><a href="#org424bfdd">TTTML</a></li>
-<li><a href="#org68b08e8">A library of your own</a></li>
+<li><a href="#org4b7d108">Stats</a></li>
+<li><a href="#org7604a25">Maybe</a></li>
+<li><a href="#org424bfdd">Combinators</a></li>
+<li><a href="#org68b08e8">Turtle</a></li>
+<li><a href="#org814fe1a">TTTML</a></li>
+<li><a href="#org0752bf8">A library of your own</a></li>
 </ul>
 </div>
 </div>
@@ -39,9 +40,9 @@ from. Four libraries are built into <code>xetal</code> (their source is in
 below is run by <code>xetal</code> through <code>ob-xetal</code>, and its result recorded
 under it.
 </p>
-<div id="outline-container-org366b022" class="outline-2">
-<h2 id="org366b022">Stats</h2>
-<div class="outline-text-2" id="text-org366b022">
+<div id="outline-container-org4b7d108" class="outline-2">
+<h2 id="org4b7d108">Stats</h2>
+<div class="outline-text-2" id="text-org4b7d108">
 <p>
 A small statistics library. Its whole source:
 </p>
@@ -111,9 +112,9 @@ deviation and the range:
 </pre>
 </div>
 </div>
-<div id="outline-container-org4b7d108" class="outline-2">
-<h2 id="org4b7d108">Maybe</h2>
-<div class="outline-text-2" id="text-org4b7d108">
+<div id="outline-container-org7604a25" class="outline-2">
+<h2 id="org7604a25">Maybe</h2>
+<div class="outline-text-2" id="text-org7604a25">
 <p>
 A value that may be missing, and the monad that chains computations
 which can fail. A maybe is Church-encoded: a function of two
@@ -163,9 +164,9 @@ the default, and the steps after it never run:
 </pre>
 </div>
 </div>
-<div id="outline-container-org7604a25" class="outline-2">
-<h2 id="org7604a25">Combinators</h2>
-<div class="outline-text-2" id="text-org7604a25">
+<div id="outline-container-org424bfdd" class="outline-2">
+<h2 id="org424bfdd">Combinators</h2>
+<div class="outline-text-2" id="text-org424bfdd">
 <p>
 Every bird Raymond Smullyan names in <i>To Mock a Mockingbird</i> that
 type-checks, under its letter. K keeps its first argument, C swaps
@@ -198,9 +199,91 @@ reverse):
 </p>
 </div>
 </div>
-<div id="outline-container-org424bfdd" class="outline-2">
-<h2 id="org424bfdd">TTTML</h2>
-<div class="outline-text-2" id="text-org424bfdd">
+<div id="outline-container-org68b08e8" class="outline-2">
+<h2 id="org68b08e8">Turtle</h2>
+<div class="outline-text-2" id="text-org68b08e8">
+<p>
+Turtle graphics as arrays: a walk is a vector of turns in degrees, one
+before each step, and its points are running sums of cosines and sines,
+two rows (x over y) that <code>[]P_ATH</code> draws. Its whole source:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-comment">⍝ Turtle: turtle graphics as arrays (a standard library, built into</span>
+<span class="c-comment">⍝ xetal). Import it with an alias of your choice: &quot;t:&quot; u_se&lt; &quot;Turtle&quot;.</span>
+<span class="c-comment">⍝ A walk is a vector of turns in degrees, one before each step forward;</span>
+<span class="c-comment">⍝ the turtle starts at the origin facing east (0 degrees, counting</span>
+<span class="c-comment">⍝ anticlockwise). No turtle moves: the headings are a running sum of</span>
+<span class="c-comment">⍝ the turns, the steps are their cosines and sines, and the positions</span>
+<span class="c-comment">⍝ are running sums of the steps. Draw the points with []P_ATH.</span>
+
+<span class="c-builtin">r̲adians</span> ← { (<span class="c-builtin">f̲loat</span> <span class="c-lambdaarg">⍵</span>) <span class="c-symbol">×</span> (<span class="c-builtin">p̲i</span> @) <span class="c-symbol">÷</span> <span class="c-number">180</span> }        <span class="c-comment">⍝ private</span>
+
+<span class="c-comment">⍝ The points of a walk with steps of the given lengths, 2 rows (x over</span>
+<span class="c-comment">⍝ y), starting at the origin: </span>lengths <span class="c-libfunc">ˡw̲alk</span> turns<span class="c-comment">; a single length</span>
+<span class="c-comment">⍝ serves every step.</span>
+<span class="c-libfunc">ˡw̲alk</span> ← { lengths turns →
+  h ← <span class="c-builtin">r̲adians</span> <span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> turns
+  xs ← <span class="c-number">0</span> <span class="c-builtin">c̲at</span> <span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> (<span class="c-builtin">f̲loat</span> lengths) <span class="c-symbol">×</span> <span class="c-builtin">c̲os</span> h
+  ys ← <span class="c-number">0</span> <span class="c-builtin">c̲at</span> <span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> (<span class="c-builtin">f̲loat</span> lengths) <span class="c-symbol">×</span> <span class="c-builtin">s̲in</span> h
+  (<span class="c-number">2</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">t̲ally</span> xs) <span class="c-builtin">r̲eshape</span> xs <span class="c-builtin">c̲at</span> ys
+}
+
+<span class="c-comment">⍝ The points of a walk of unit steps.</span>
+<span class="c-libfunc">ˡp̲oints</span> ← { turns → <span class="c-number">1</span> <span class="c-libfunc">ˡw̲alk</span> turns }
+
+<span class="c-comment">⍝ The walk with t degrees more turned before its first step: how pieces</span>
+<span class="c-comment">⍝ of a curve are joined (</span><span class="c-number">60</span> <span class="c-libfunc">ˡt̲urn</span> w<span class="c-comment">).</span>
+<span class="c-libfunc">ˡt̲urn</span> ← { t w → (t <span class="c-symbol">+</span> <span class="c-number">1</span> <span class="c-builtin">t̲ake</span> w) <span class="c-builtin">c̲at</span> <span class="c-number">1</span> <span class="c-builtin">d̲rop</span> w }
+
+<span class="c-comment">⍝ A regular polygon of n sides, as a walk.</span>
+<span class="c-libfunc">ˡp̲olygon</span> ← { n → n <span class="c-builtin">r̲eshape</span> <span class="c-number">360</span> <span class="c-symbol">÷</span> n }
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   r_adians := { (f_loat _r) * (p_i @) / 180 }   # private</span>
+<span class="c-comment typed">⍝   l:w_alk := { lengths turns -&gt;</span>
+<span class="c-comment typed">⍝     h := r_adians '+ s_\ turns</span>
+<span class="c-comment typed">⍝     xs := 0 c_at '+ s_\ (f_loat lengths) * c_os h</span>
+<span class="c-comment typed">⍝     ys := 0 c_at '+ s_\ (f_loat lengths) * s_in h</span>
+<span class="c-comment typed">⍝     (2 c_at t_ally xs) r_eshape xs c_at ys</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   l:p_oints := { turns -&gt; 1 l:w_alk turns }</span>
+<span class="c-comment typed">⍝   l:t_urn := { t w -&gt; (t + 1 t_ake w) c_at 1 d_rop w }</span>
+<span class="c-comment typed">⍝   l:p_olygon := { n -&gt; n r_eshape 360 / n }</span></pre>
+</div>
+
+<p>
+A square, one unit a side, its points rounded (the cosine of a right
+angle is only nearly 0):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-libfunc">ᵗ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Turtle&quot;</span>
+<span class="c-libfunc">ᵗp̲olygon</span> <span class="c-number">4</span>
+<span class="c-builtin">f̲loor</span> <span class="c-number">0.5</span> <span class="c-symbol">+</span> <span class="c-libfunc">ᵗp̲oints</span> <span class="c-libfunc">ᵗp̲olygon</span> <span class="c-number">4</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "t:" u_se&lt; "Turtle"</span>
+<span class="c-comment typed">⍝   t:p_olygon 4</span>
+<span class="c-comment typed">⍝   f_loor 0.5 + t:p_oints t:p_olygon 4</span></pre>
+</div>
+
+<pre class="example">
+90.0 90.0 90.0 90.0
+0 0 -1 -1 0
+0 1  1  0 0
+</pre>
+
+
+<p>
+<a href="classics.html">Classic programs, drawn</a> uses it for Koch's
+snowflake and Sierpinski's arrowhead.
+</p>
+</div>
+</div>
+<div id="outline-container-org814fe1a" class="outline-2">
+<h2 id="org814fe1a">TTTML</h2>
+<div class="outline-text-2" id="text-org814fe1a">
 <p>
 A machine that learns tic-tac-toe by playing itself: its model is an
 ordinary value, passed to the library's functions and returned by
@@ -208,9 +291,9 @@ them. <a href="tttml.html">TTTML</a> trains it and plays it.
 </p>
 </div>
 </div>
-<div id="outline-container-org68b08e8" class="outline-2">
-<h2 id="org68b08e8">A library of your own</h2>
-<div class="outline-text-2" id="text-org68b08e8">
+<div id="outline-container-org0752bf8" class="outline-2">
+<h2 id="org0752bf8">A library of your own</h2>
+<div class="outline-text-2" id="text-org0752bf8">
 <p>
 <a href="hello.html">Hello, library</a> writes one and uses it. In short:
 write the exported names with <code>l:</code> and save the file; a program then

@@ -60,6 +60,21 @@ To do locally, in order:
 5. Confirm with the user: RASTER_CELLS (4096) and points as 2 rows
    for `[]P_ATH` (both below).
 
+## Done on main after pull request 2 (main's agent)
+
+- The full gate on pr/classics-2 passed (wasm32 included, every
+  golden, KaTeX on 1500 lines); `just literate-html` exported
+  classics.html with its six pictures (pages/ committed).
+- **The Draw pane is done on main** (main's saga, step draw-pane): the
+  live demo shows the pictures a run draws (`[]S_HOW`) under its
+  output, as SVG images (animations play). The store keeps what it
+  showed (`Store::take_shown`, `xetal_store::take_shown`, after the
+  lane's replay filter), xetal-play's `Run` carries `pictures`, and
+  the four drawing classics are listed again. So the lane's
+  classics-draw-web step is done: skip it (or complete it as done),
+  and pick up whatever it planned beyond this (a separate Draw pane
+  with its own controls, if still wanted) as a new step.
+
 ## Done locally after the merge (main's agent, on the Mac)
 
 1. `scripts/gate.sh` in full on the branch: all passed, including the

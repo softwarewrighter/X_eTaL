@@ -65,6 +65,16 @@ pub(crate) fn rendered(text: &str, current: Pane, focus: Callback<Pane>, drawn: 
 
 /// The types, or after a run its output (scrolled to the end by the
 /// app, so the newest output shows).
+/// A picture a run showed (`[]S_HOW`), as an image: an SVG data URL, so
+/// its animation plays and nothing in it runs as script.
+fn picture(svg: &str) -> Html {
+    let url = format!(
+        "data:image/svg+xml;charset=utf-8,{}",
+        js_sys::encode_uri_component(svg)
+    );
+    html! { <span class="picture"><img src={url} alt="a picture the program showed"/></span> }
+}
+
 pub(crate) fn output(
     text: &str,
     result: &Option<Run>,
@@ -76,7 +86,8 @@ pub(crate) fn output(
         Some(r) => (
             "Output",
             html! {
-                <pre tabindex="0" ref={printed.clone()}>{ &r.out }<span class="c-error">{ &r.err }</span></pre>
+                <pre tabindex="0" ref={printed.clone()}>{ &r.out }<span class="c-error">{ &r.err }</span>
+                    { for r.pictures.iter().map(|svg| picture(svg)) }</pre>
             },
         ),
         None => (

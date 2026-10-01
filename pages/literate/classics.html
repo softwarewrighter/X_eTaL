@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Classic APL programs, drawn</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Classic APL programs, drawn
+<br />
+<span class="subtitle">Pascal's triangle, Life and turtle graphics in X_eTaL, with their pictures</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgdc76a11">Pascal's triangle</a></li>
+<li><a href="#org5e3619c">Life, watched</a></li>
+<li><a href="#org793b783">Turtle graphics, without a turtle</a></li>
+<li><a href="#org4db81b4">More</a></li>
+</ul>
+</div>
+</div>
+<p>
+APL has been taught with the same handful of programs for decades.
+This document walks through some of them in X_eTaL, and draws them.
+Every block below is run by <code>xetal</code> through <code>ob-xetal</code>, and its result
+recorded under it; a block that draws saves its picture beside this
+document, and the picture is shown in its place. Pictures with frames
+are animations: on the web page they play by themselves.
+</p>
+
+<p>
+Drawing is two built-ins. <code>[]G_RID</code> turns an array into a picture (an
+SVG document, returned as text): a matrix is a grid of cells, and a
+rank-3 array is frames shown in turn. <code>[]P_ATH</code> joins points, given as
+two rows (x over y). <code>[]S_HOW</code> shows a picture. The programs themselves
+are in <code>demos/classics/</code>.
+</p>
+<div id="outline-container-orgdc76a11" class="outline-2">
+<h2 id="orgdc76a11">Pascal's triangle</h2>
+<div class="outline-text-2" id="text-orgdc76a11">
+<p>
+Each row of Pascal's triangle is the row before it added to itself
+shifted one place. Kept at a fixed width with zeros on the right,
+rotating a row one place toward the back (<code>-1 o_-</code>) shifts it right,
+and the zero that wraps round to the front keeps it a shift.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘn̲ext</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">+</span> <span class="c-number">-1</span> <span class="c-builtin">o̲-</span> <span class="c-lambdaarg">⍵</span> }
+<span class="c-userfunc">ᵘn̲ext</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:n_ext := { _r + -1 o_- _r }</span>
+<span class="c-comment typed">⍝   u:n_ext 1 0 0 0 0</span></pre>
+</div>
+
+<pre class="example">
+1 1 0 0 0
+</pre>
+
+
+<p>
+Every row at once: <code>n u:r_ows r</code> stacks r and the rows after it, one
+per row of a matrix (<code>c_at</code> joins a vector to a matrix as a row).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘr̲ows</span> ← { n r →
+  n <span class="c-symbol">=</span> <span class="c-number">1</span> ? (<span class="c-number">1</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">s̲hape</span> r) <span class="c-builtin">r̲eshape</span> r
+  r <span class="c-builtin">c̲at</span> (n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘr̲ows</span> <span class="c-userfunc">ᵘn̲ext</span> r
+}
+<span class="c-number">6</span> <span class="c-userfunc">ᵘr̲ows</span> <span class="c-number">6</span> <span class="c-builtin">t̲ake</span> <span class="c-number">1</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:r_ows := { n r -&gt;</span>
+<span class="c-comment typed">⍝     n = 1 ? (1 c_at s_hape r) r_eshape r</span>
+<span class="c-comment typed">⍝     r c_at (n - 1) u:r_ows u:n_ext r</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   6 u:r_ows 6 t_ake 1</span></pre>
+</div>
+
+<pre class="example">
+1 0  0  0 0 0
+1 1  0  0 0 0
+1 2  1  0 0 0
+1 3  3  1 0 0
+1 4  6  4 1 0
+1 5 10 10 5 1
+</pre>
+
+
+<p>
+Modulo 2, the rows are Sierpinski's triangle. As cells, the odd
+numbers dark:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">sierpinski ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> (<span class="c-number">32</span> <span class="c-userfunc">ᵘr̲ows</span> <span class="c-number">32</span> <span class="c-builtin">t̲ake</span> <span class="c-number">1</span>) <span class="c-builtin">m̲od</span> <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   sierpinski := []S_HOW []G_RID (32 u:r_ows 32 t_ake 1) m_od 2</span></pre>
+</div>
+
+
+<div id="orge03b3f9" class="figure">
+<p><img src="images/literate-sierpinski-cells.svg" alt="literate-sierpinski-cells.svg" class="org-svg" />
+</p>
+</div>
+
+<p>
+The numbers themselves, colored from the least (dark purple) to the
+greatest (yellow), for 16 rows:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">colors ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> <span class="c-number">16</span> <span class="c-userfunc">ᵘr̲ows</span> <span class="c-number">16</span> <span class="c-builtin">t̲ake</span> <span class="c-number">1</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   colors := []S_HOW []G_RID 16 u:r_ows 16 t_ake 1</span></pre>
+</div>
+
+
+<div id="orgab7048e" class="figure">
+<p><img src="images/literate-pascal-colors.svg" alt="literate-pascal-colors.svg" class="org-svg" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org5e3619c" class="outline-2">
+<h2 id="org5e3619c">Life, watched</h2>
+<div class="outline-text-2" id="text-org5e3619c">
+<p>
+The rule in one line (<code>docs/literate/life.org</code> builds it up): the
+board rotated by every offset in <code>-1 0 1</code> along both axes and summed
+gives each cell plus its neighbours, S; a cell lives next when S is 3,
+or when it is alive and S is 4.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘl̲ife</span> ← { (<span class="c-symbol">'+</span> <span class="c-builtin">r̲/₁₂</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-builtin">o̲-₁₂</span> <span class="c-lambdaarg">⍵</span>) { (<span class="c-lambdaarg">⍺</span> <span class="c-symbol">=</span> <span class="c-number">3</span>) <span class="c-symbol">+</span> <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍺</span> <span class="c-symbol">=</span> <span class="c-number">4</span> } <span class="c-lambdaarg">⍵</span> }
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }</span></pre>
+</div>
+
+<p>
+To watch it, stack the generations as frames: <code>n u:f_rames b</code> is b and
+the n - 1 generations after it along a new leading axis, a rank-3
+array.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘf̲rames</span> ← { n b →
+  n <span class="c-symbol">=</span> <span class="c-number">1</span> ? (<span class="c-number">1</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">s̲hape</span> b) <span class="c-builtin">r̲eshape</span> b
+  b <span class="c-builtin">c̲at</span> (n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘf̲rames</span> <span class="c-userfunc">ᵘl̲ife</span> b
+}
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:f_rames := { n b -&gt;</span>
+<span class="c-comment typed">⍝     n = 1 ? (1 c_at s_hape b) r_eshape b</span>
+<span class="c-comment typed">⍝     b c_at (n - 1) u:f_rames u:l_ife b</span>
+<span class="c-comment typed">⍝   }</span></pre>
+</div>
+
+<p>
+A glider in the corner of a 10 by 10 board. Rotation wraps round, so
+the board is a torus: the glider leaves one edge and comes back at the
+other, and after 40 generations it is home again.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">glider ← <span class="c-number">10</span> <span class="c-builtin">t̲ake</span> <span class="c-number">10</span> <span class="c-builtin">t̲ake₂</span> <span class="c-number">3</span> <span class="c-number">3</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span>
+(<span class="c-userfunc">ᵘl̲ife⁴⁰</span> glider) <span class="c-builtin">m̲atch</span> glider
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   glider := 10 t_ake 10 t_ake_2 3 3 r_eshape 0 1 0 0 0 1 1 1 1</span>
+<span class="c-comment typed">⍝   (u:l_ife^40 glider) m_atch glider</span></pre>
+</div>
+
+<pre class="example">
+1
+</pre>
+
+
+<p>
+So 40 frames loop seamlessly:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">torus ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> <span class="c-number">40</span> <span class="c-userfunc">ᵘf̲rames</span> glider
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   torus := []S_HOW []G_RID 40 u:f_rames glider</span></pre>
+</div>
+
+
+<div id="org14bd8cb" class="figure">
+<p><img src="images/literate-glider-torus.svg" alt="literate-glider-torus.svg" class="org-svg" />
+</p>
+</div>
+
+<p>
+Without wrapping, the world ends at its edge. A border of cells kept
+dead does it: multiplying by a mask of 1s inside and 0s round the edge
+after every step.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">row ← <span class="c-number">0</span> <span class="c-builtin">c̲at</span> (<span class="c-number">10</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">1</span>) <span class="c-builtin">c̲at</span> <span class="c-number">0</span>
+mask ← row <span class="c-symbol">'×</span> <span class="c-builtin">t̲able</span> row
+<span class="c-userfunc">ᵘb̲oxed</span> ← { mask <span class="c-symbol">×</span> <span class="c-userfunc">ᵘl̲ife</span> <span class="c-lambdaarg">⍵</span> }
+<span class="c-userfunc">ᵘb̲oxedFrames</span> ← { n b →
+  n <span class="c-symbol">=</span> <span class="c-number">1</span> ? (<span class="c-number">1</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">s̲hape</span> b) <span class="c-builtin">r̲eshape</span> b
+  b <span class="c-builtin">c̲at</span> (n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘb̲oxedFrames</span> <span class="c-userfunc">ᵘb̲oxed</span> b
+}
+start ← <span class="c-number">-1</span> <span class="c-builtin">o̲-</span> <span class="c-number">-1</span> <span class="c-builtin">o̲-₂</span> <span class="c-number">12</span> <span class="c-builtin">t̲ake</span> <span class="c-number">12</span> <span class="c-builtin">t̲ake₂</span> <span class="c-number">3</span> <span class="c-number">3</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span>
+<span class="c-symbol">'+</span> <span class="c-builtin">r̲/₁₂</span> <span class="c-userfunc">ᵘb̲oxed⁴⁰</span> start
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   row := 0 c_at (10 r_eshape 1) c_at 0</span>
+<span class="c-comment typed">⍝   mask := row '* t_able row</span>
+<span class="c-comment typed">⍝   u:b_oxed := { mask * u:l_ife _r }</span>
+<span class="c-comment typed">⍝   u:b_oxedFrames := { n b -&gt;</span>
+<span class="c-comment typed">⍝     n = 1 ? (1 c_at s_hape b) r_eshape b</span>
+<span class="c-comment typed">⍝     b c_at (n - 1) u:b_oxedFrames u:b_oxed b</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   start := -1 o_- -1 o_-_2 12 t_ake 12 t_ake_2 3 3 r_eshape 0 1 0 0 0 1 1 1 1</span>
+<span class="c-comment typed">⍝   '+ r_/_12 u:b_oxed^40 start</span></pre>
+</div>
+
+<pre class="example">
+4
+</pre>
+
+
+<p>
+The glider runs into the far corner and settles there as a block of
+four cells:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">boxed ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> <span class="c-number">40</span> <span class="c-userfunc">ᵘb̲oxedFrames</span> start
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   boxed := []S_HOW []G_RID 40 u:b_oxedFrames start</span></pre>
+</div>
+
+
+<div id="org71d0066" class="figure">
+<p><img src="images/literate-glider-box.svg" alt="literate-glider-box.svg" class="org-svg" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org793b783" class="outline-2">
+<h2 id="org793b783">Turtle graphics, without a turtle</h2>
+<div class="outline-text-2" id="text-org793b783">
+<p>
+Logo draws by moving a turtle. With arrays there is nothing to move: a
+walk is a vector of turns (degrees, one before each step), the headings
+are their running sum, and the positions running sums of cosines and
+sines. The <code>Turtle</code> library says exactly that.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-libfunc">ᵗ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Turtle&quot;</span>
+<span class="c-builtin">f̲loor</span> <span class="c-number">0.5</span> <span class="c-symbol">+</span> <span class="c-libfunc">ᵗp̲oints</span> <span class="c-number">0</span> <span class="c-number">90</span> <span class="c-number">90</span> <span class="c-number">90</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "t:" u_se&lt; "Turtle"</span>
+<span class="c-comment typed">⍝   f_loor 0.5 + t:p_oints 0 90 90 90</span></pre>
+</div>
+
+<pre class="example">
+0 1 1 0 0
+0 0 1 1 0
+</pre>
+
+
+<p>
+A Koch curve of order n is four of order n - 1, joined by turns of 60,
+-120 and 60 degrees; <code>60 t:t_urn k</code> is the walk k with 60 degrees more
+before its first step. Three curves make the snowflake.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘk̲och</span> ← { n →
+  n <span class="c-symbol">=</span> <span class="c-number">0</span> ? <span class="c-number">1</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span>
+  k ← <span class="c-userfunc">ᵘk̲och</span> n <span class="c-symbol">−</span> <span class="c-number">1</span>
+  k <span class="c-builtin">c̲at</span> (<span class="c-number">60</span> <span class="c-libfunc">ᵗt̲urn</span> k) <span class="c-builtin">c̲at</span> (<span class="c-number">-120</span> <span class="c-libfunc">ᵗt̲urn</span> k) <span class="c-builtin">c̲at</span> <span class="c-number">60</span> <span class="c-libfunc">ᵗt̲urn</span> k
+}
+side ← <span class="c-userfunc">ᵘk̲och</span> <span class="c-number">3</span>
+<span class="c-builtin">t̲ally</span> side
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:k_och := { n -&gt;</span>
+<span class="c-comment typed">⍝     n = 0 ? 1 r_eshape 0</span>
+<span class="c-comment typed">⍝     k := u:k_och n - 1</span>
+<span class="c-comment typed">⍝     k c_at (60 t:t_urn k) c_at (-120 t:t_urn k) c_at 60 t:t_urn k</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   side := u:k_och 3</span>
+<span class="c-comment typed">⍝   t_ally side</span></pre>
+</div>
+
+<pre class="example">
+64
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">snowflake ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕P̲ATH</span> <span class="c-libfunc">ᵗp̲oints</span> side <span class="c-builtin">c̲at</span> (<span class="c-number">-120</span> <span class="c-libfunc">ᵗt̲urn</span> side) <span class="c-builtin">c̲at</span> <span class="c-number">-120</span> <span class="c-libfunc">ᵗt̲urn</span> side
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   snowflake := []S_HOW []P_ATH t:p_oints side c_at (-120 t:t_urn side) c_at -120 t:t_urn side</span></pre>
+</div>
+
+
+<div id="orgbe3b8e3" class="figure">
+<p><img src="images/literate-koch.svg" alt="literate-koch.svg" class="org-svg" />
+</p>
+</div>
+
+<p>
+Sierpinski's arrowhead: three curves of the order below, the outer two
+turning the other way, joined by turns of 60 degrees. It is the
+triangle again, drawn without lifting the pen; frame k shows the first
+k/24 of its points, so the picture draws itself.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘa̲rrow</span> ← { n s →
+  n <span class="c-symbol">=</span> <span class="c-number">0</span> ? <span class="c-number">1</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span>
+  outer ← (n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘa̲rrow</span> <span class="c-builtin">n̲eg</span> s
+  outer <span class="c-builtin">c̲at</span> ((<span class="c-number">60</span> <span class="c-symbol">×</span> s) <span class="c-libfunc">ᵗt̲urn</span> (n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘa̲rrow</span> s) <span class="c-builtin">c̲at</span> (<span class="c-number">60</span> <span class="c-symbol">×</span> s) <span class="c-libfunc">ᵗt̲urn</span> outer
+}
+arrowhead ← <span class="c-libfunc">ᵗp̲oints</span> <span class="c-number">5</span> <span class="c-userfunc">ᵘa̲rrow</span> <span class="c-number">1</span>
+n ← <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> <span class="c-number">1</span> <span class="c-builtin">d̲rop</span> <span class="c-builtin">s̲hape</span> arrowhead
+<span class="c-userfunc">ᵘu̲pTo</span> ← { k → ((<span class="c-builtin">f̲loor</span> k <span class="c-symbol">×</span> n <span class="c-symbol">÷</span> <span class="c-number">24</span>) <span class="c-builtin">m̲in</span> <span class="c-builtin">r̲ange</span> n) <span class="c-builtin">s̲elect₂</span> arrowhead }
+<span class="c-userfunc">ᵘd̲rawing</span> ← { k →
+  k <span class="c-symbol">=</span> <span class="c-number">1</span> ? (<span class="c-number">1</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">s̲hape</span> <span class="c-userfunc">ᵘu̲pTo</span> <span class="c-number">1</span>) <span class="c-builtin">r̲eshape</span> <span class="c-userfunc">ᵘu̲pTo</span> <span class="c-number">1</span>
+  (<span class="c-userfunc">ᵘd̲rawing</span> k <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-builtin">c̲at</span> <span class="c-userfunc">ᵘu̲pTo</span> k
+}
+n
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:a_rrow := { n s -&gt;</span>
+<span class="c-comment typed">⍝     n = 0 ? 1 r_eshape 0</span>
+<span class="c-comment typed">⍝     outer := (n - 1) u:a_rrow n_eg s</span>
+<span class="c-comment typed">⍝     outer c_at ((60 * s) t:t_urn (n - 1) u:a_rrow s) c_at (60 * s) t:t_urn outer</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   arrowhead := t:p_oints 5 u:a_rrow 1</span>
+<span class="c-comment typed">⍝   n := 1 s_elect 1 d_rop s_hape arrowhead</span>
+<span class="c-comment typed">⍝   u:u_pTo := { k -&gt; ((f_loor k * n / 24) m_in r_ange n) s_elect_2 arrowhead }</span>
+<span class="c-comment typed">⍝   u:d_rawing := { k -&gt;</span>
+<span class="c-comment typed">⍝     k = 1 ? (1 c_at s_hape u:u_pTo 1) r_eshape u:u_pTo 1</span>
+<span class="c-comment typed">⍝     (u:d_rawing k - 1) c_at u:u_pTo k</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   n</span></pre>
+</div>
+
+<pre class="example">
+244
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">drawing ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕P̲ATH</span> <span class="c-userfunc">ᵘd̲rawing</span> <span class="c-number">24</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   drawing := []S_HOW []P_ATH u:d_rawing 24</span></pre>
+</div>
+
+
+<div id="orgba11334" class="figure">
+<p><img src="images/literate-arrowhead.svg" alt="literate-arrowhead.svg" class="org-svg" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org4db81b4" class="outline-2">
+<h2 id="org4db81b4">More</h2>
+<div class="outline-text-2" id="text-org4db81b4">
+<p>
+The Mandelbrot set, still, zoomed and flown over, is
+<code>demos/classics/mandelbrot.xtl</code> (<code>just draw demos/classics/mandelbrot.xtl</code>);
+it is left out here only because it takes a few seconds to run. The
+index of the classic programs is <code>docs/classics.md</code>.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

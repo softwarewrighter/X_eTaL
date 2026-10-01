@@ -24,6 +24,12 @@ pub trait Store: Send + Sync {
     fn show(&self, _svg: &str) -> Result<(), String> {
         Err("this host has no place to show pictures".into())
     }
+
+    /// The pictures shown since they were last taken, in order; a store
+    /// that keeps none (files on disk) gives none.
+    fn take_shown(&self) -> Vec<String> {
+        Vec::new()
+    }
 }
 
 /// The file system; writing makes missing directories.

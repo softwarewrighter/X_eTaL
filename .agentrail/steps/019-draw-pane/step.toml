@@ -1,6 +1,6 @@
 number = 19
 slug = "draw-pane"
-status = "pending"
+status = "in-progress"
 description = "The live demo's Draw pane (the user's 'hide, but fix'; the classics lane's cl..."
 role = "production"
 context_files = []

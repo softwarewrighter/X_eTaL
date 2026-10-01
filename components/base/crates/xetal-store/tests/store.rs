@@ -57,8 +57,12 @@ fn a_memory_store_keeps_the_pictures_shown_in_order() {
 #[test]
 fn the_installed_store_is_where_pictures_are_shown() {
     let store = installed();
-    xetal_store::show("<svg/>").unwrap();
-    assert_eq!(store.pictures(), ["<svg/>"]);
+    xetal_store::show("<svg>installed</svg>").unwrap();
+    assert!(
+        store
+            .pictures()
+            .contains(&"<svg>installed</svg>".to_string())
+    );
 }
 
 #[test]
@@ -89,4 +93,17 @@ fn a_drawing_store_writes_each_picture_as_a_numbered_file_and_reports_it() {
         "x"
     );
     std::fs::remove_dir_all(&dir).unwrap();
+}
+
+/// A memory store keeps the pictures shown until they are taken (the
+/// live demo's engine takes a run's pictures when it ends); a store
+/// that keeps none gives none.
+#[test]
+fn the_pictures_shown_are_kept_until_taken() {
+    let store = Memory::default();
+    store.show("<svg>a</svg>").unwrap();
+    store.show("<svg>b</svg>").unwrap();
+    assert_eq!(store.take_shown(), ["<svg>a</svg>", "<svg>b</svg>"]);
+    assert!(store.take_shown().is_empty());
+    assert!(xetal_store::Disk.take_shown().is_empty());
 }

@@ -6,11 +6,13 @@ use xetal_program::{
     Loaded, in_program, is_library, library_types, load_library_with, load_with, program_types,
 };
 
-/// What a run printed, and its warnings and error (one per line).
+/// What a run printed, its warnings and error (one per line), and the
+/// pictures it showed (SVG documents, `[]S_HOW`), in order.
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct Run {
     pub out: String,
     pub err: String,
+    pub pictures: Vec<String>,
 }
 
 /// The name the program is reported by.
@@ -46,7 +48,7 @@ pub fn run(src: &str, seed: u64) -> Run {
         let lines = check(src);
         return Run {
             out: lines.iter().map(|l| format!("{l}\n")).collect(),
-            err: String::new(),
+            ..Run::default()
         };
     }
     let mut loaded = match loaded(src) {
@@ -57,6 +59,7 @@ pub fn run(src: &str, seed: u64) -> Run {
         return failed(in_program(&loaded.sources, d));
     }
     let mut out = Vec::new();
+    xetal_store::take_shown();
     let (warnings, result) = xetal_eval::eval_program(&loaded.program, &mut out, Some(seed));
     let mut err: Vec<String> = warnings.into_iter().map(|w| w.to_string()).collect();
     err.extend(
@@ -67,12 +70,13 @@ pub fn run(src: &str, seed: u64) -> Run {
     Run {
         out: String::from_utf8_lossy(&out).into_owned(),
         err: err.iter().map(|l| format!("{l}\n")).collect(),
+        pictures: xetal_store::take_shown(),
     }
 }
 
 fn failed(d: Diagnostic) -> Run {
     Run {
-        out: String::new(),
         err: format!("{d}\n"),
+        ..Run::default()
     }
 }

@@ -59,6 +59,8 @@ body { font: 15px/1.35 var(--mono); }
 .c-comment { color: var(--dim); } .c-macro { color: #e0b400; font-weight: bold; }
 .c-error { color: #ff6b6b; }
 
+.pane pre .picture { display: block; margin: 8px 0; }
+.pane pre .picture img { max-width: 100%; max-height: 420px; background: #fff; border-radius: 4px; }
 .name-forms { width: 100%; max-width: 640px; border-radius: 6px; }
 footer {
   display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center;

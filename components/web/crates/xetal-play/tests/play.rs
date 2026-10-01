@@ -1,8 +1,8 @@
 //! The live demo's engine, run natively against a store in memory.
 
-use std::sync::{Arc, OnceLock};
+use std::sync::{Arc, Mutex, OnceLock};
 
-use xetal_play::{check, run};
+use xetal_play::{Run, check};
 use xetal_store::{Memory, Store, install};
 
 /// One store for every test here (the store in use is global).
@@ -13,6 +13,15 @@ fn store() -> &'static Arc<Memory> {
         install(store.clone());
         store
     })
+}
+
+/// A run, one at a time: a run takes the store's pictures at its start
+/// and end, so two at once (tests run in parallel) could take each
+/// other's. The browser runs one at a time anyway.
+fn run(src: &str, seed: u64) -> Run {
+    static ONE_AT_A_TIME: Mutex<()> = Mutex::new(());
+    let _turn = ONE_AT_A_TIME.lock().unwrap_or_else(|e| e.into_inner());
+    xetal_play::run(src, seed)
 }
 
 #[test]
@@ -66,4 +75,21 @@ fn a_library_shows_its_exports_and_their_types() {
 fn a_line_is_read_from_the_store_in_use() {
     store().push_line("hello");
     assert_eq!(run("[]R_EAD @", 1).out, "hello\n");
+}
+
+#[test]
+fn a_run_keeps_the_pictures_it_shows() {
+    store();
+    let r = run(
+        "p := []S_HOW []G_RID 2 2 r_eshape 1 0 0 1\n[]S_HOW []G_RID 1 1 r_eshape 1",
+        1,
+    );
+    assert_eq!(r.err, "");
+    assert_eq!(r.pictures.len(), 2);
+    assert!(
+        r.pictures.iter().all(|p| p.starts_with("<svg")),
+        "{:?}",
+        r.pictures
+    );
+    assert!(run("1", 1).pictures.is_empty(), "each run starts with none");
 }
