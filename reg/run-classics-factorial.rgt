@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/factorial.xtl"
+exit_code = 0
+desc = "factorial as a reduction, combinations, permutations, e as a sum"

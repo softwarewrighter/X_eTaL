@@ -92,6 +92,102 @@ colors := []S_HOW []G_RID 16 u:r_ows 16 t_ake 1
 #+RESULTS:
 [[file:../../images/literate-pascal-colors.svg]]
 
+* Numbers
+
+The sieve of Eratosthenes keeps no loop over the numbers, only masks:
+take the first of what is left, a prime, and keep the rest that it
+does not divide; once a prime squared passes the largest number,
+everything left is prime.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘs̲ieve ← { v →
+  0 = t̲ally v ? v
+  p ← f̲irst v
+  (p × p) > 'm̲ax r̲/ v ? v
+  rest ← 1 d̲rop v
+  p c̲at ᵘs̲ieve (w̲here 0 ≠ rest m̲od p) s̲elect rest
+}
+ᵘs̲ieve 1 d̲rop r̲ange 60
+#+end_example
+#+begin_src xetal
+u:s_ieve := { v ->
+  0 = t_ally v ? v
+  p := f_irst v
+  (p * p) > 'm_ax r_/ v ? v
+  rest := 1 d_rop v
+  p c_at u:s_ieve (w_here 0 != rest m_od p) s_elect rest
+}
+u:s_ieve 1 d_rop r_ange 60
+#+end_src
+
+#+RESULTS:
+: 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59
+
+The APL way asks every question at once: the table of every number's
+remainder by every number. Where it is 0 the column divides the row,
+and a prime's row has exactly two such cells. Drawn, the primes are
+the rows with two dark cells, the diagonal and the first column:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+a ← r̲ange 30
+divides ← ⎕S̲HOW ⎕G̲RID 0 = a 'm̲od t̲able a
+#+end_example
+#+begin_src xetal :results file :file ../../images/literate-divisors.svg
+a := r_ange 30
+divides := []S_HOW []G_RID 0 = a 'm_od t_able a
+#+end_src
+
+#+RESULTS:
+[[file:../../images/literate-divisors.svg]]
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(w̲here 2 = '+ r̲/₂ 0 = a 'm̲od t̲able a) s̲elect a
+#+end_example
+#+begin_src xetal
+(w_here 2 = '+ r_/_2 0 = a 'm_od t_able a) s_elect a
+#+end_src
+
+#+RESULTS:
+: 2 3 5 7 11 13 17 19 23 29
+
+Euclid's algorithm is a guard and a recursion, and a dyadic function
+is an operand like any other, so reduce gives the greatest common
+divisor of a whole vector:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘg̲cd ← { a b → b = 0 ? a◆ b ᵘg̲cd a m̲od b }
+'ᵘg̲cd r̲/ 84 126 210
+#+end_example
+#+begin_src xetal
+u:g_cd := { a b -> b = 0 ? a; b u:g_cd a m_od b }
+'u:g_cd r_/ 84 126 210
+#+end_src
+
+#+RESULTS:
+: 42
+
+The Collatz sequence halves an even number and otherwise triples it
+and adds one. Asked of every start from 1 to 30 at once, by each:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘh̲ail ← { n → 0 = n m̲od 2 ? n d̲iv 2◆ 1 + 3 × n }
+ᵘc̲ollatz ← { n → n = 1 ? 1 r̲eshape 1◆ n c̲at ᵘc̲ollatz ᵘh̲ail n }
+'{ (t̲ally ᵘc̲ollatz ⍵) − 1 } e̲ach r̲ange 30
+#+end_example
+#+begin_src xetal
+u:h_ail := { n -> 0 = n m_od 2 ? n d_iv 2; 1 + 3 * n }
+u:c_ollatz := { n -> n = 1 ? 1 r_eshape 1; n c_at u:c_ollatz u:h_ail n }
+'{ (t_ally u:c_ollatz _r) - 1 } e_ach r_ange 30
+#+end_src
+
+#+RESULTS:
+: 0 1 7 2 5 8 16 3 19 6 14 9 9 17 17 4 12 20 20 7 7 15 15 10 23 10 111 18 18 18
+
 * Life, watched
 
 The rule in one line (~docs/literate/life.org~ builds it up): the

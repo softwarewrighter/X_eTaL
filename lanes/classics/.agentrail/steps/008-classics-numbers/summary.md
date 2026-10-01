@@ -1,0 +1,1 @@
+Six number demos (sieve, primes, gcd, fibonacci, factorial, collatz) with goldens, listed in the live demo and classics.md; classics.org Numbers section with the divisor-table picture.

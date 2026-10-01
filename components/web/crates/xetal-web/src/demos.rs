@@ -40,6 +40,12 @@ pub const DEMOS: &[Demo] = demos![
     "classics/life-drawn.xtl",
     "classics/turtle.xtl",
     "classics/mandelbrot.xtl",
+    "classics/sieve.xtl",
+    "classics/primes.xtl",
+    "classics/gcd.xtl",
+    "classics/fibonacci.xtl",
+    "classics/factorial.xtl",
+    "classics/collatz.xtl",
 ];
 
 /// The choices, as (group, value, label); a value is `demo:N`, `lib:Name`
