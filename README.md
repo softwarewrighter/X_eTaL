@@ -264,6 +264,9 @@ Other fonts, checked against the font files:
 - [`docs/literate/classics.org`](docs/literate/classics.org) -- classic APL
   programs (Pascal's triangle, Life, turtle graphics) run as you read, with
   their pictures; the animated ones play on the web page
+- [`docs/literate/hanoi.org`](docs/literate/hanoi.org) -- the Tower of Hanoi
+  three ways: recursion, currying with the combinators, and every move at
+  once from the bits of the move number, checked to agree and drawn
 - [`docs/reference.md`](docs/reference.md) -- every built-in function, with
   examples (and, for the ones that work along an axis, the default axis,
   axis 1 written out, and another axis)

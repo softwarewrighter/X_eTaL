@@ -311,7 +311,9 @@ u:p_lay := { p moves ->
 
 #+RESULTS:
 
-Four disks, fifteen moves, sixteen frames:
+Four disks, fifteen moves, sixteen frames ([[file:hanoi.org][the Tower of Hanoi, three ways]]
+also computes these moves curried, with the combinators, and all at
+once from the bits of the move number):
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
