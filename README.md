@@ -276,6 +276,8 @@ Other fonts, checked against the font files:
   JavaScript, Python, C++ and Rust, and beside APL2, Dyalog APL, J and BQN
 - [`docs/classics.md`](docs/classics.md) -- the classic APL programs
   (Pascal's triangle, Life, tic-tac-toe, ...) as commented X_eTaL notebooks
+- [`docs/dogfooding.md`](docs/dogfooding.md) -- the language features and
+  fixes the demos asked for: added, planned, and friction kept for now
 - [`docs/permission-response.md`](docs/permission-response.md) -- XeTaL's
   answers to ngn's [Array Language Implementation Permission
   Request](https://ngn.codeberg.page/funny/reg.html)

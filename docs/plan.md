@@ -578,7 +578,9 @@ next at the user's request (QD5, B13, D38-D39): pure SVG builders,
 one `[]S_HOW` effect, frames animated, so Life, Queens, tic-tac-toe,
 Mandelbrot and turtle drawings are pictures in the terminal's files,
 the browser and a future desktop app (a webview host of the same
-SVG).
+SVG). What each demo asked of the language (added, planned, and
+friction kept for now) is tracked in `docs/dogfooding.md`; every step
+that changes the language or the plan updates it.
 
 | #  | Step slug                | Delivers |
 | -- | ------------------------ | -------- |

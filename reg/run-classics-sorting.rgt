@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/sorting.xtl"
+exit_code = 0
+desc = "grade then select: sorting, sorting by a key, ranks; removing duplicates, and which values repeat"
