@@ -81,7 +81,7 @@ How to read it, on one page: what each decoration says about a name
 passing a function, axes, powers, lambdas, the suffixes, and what you
 type for each:
 
-![Reading XeTaL syntax: name decorations, importing a library, defining functions and variables, applying vs. passing functions, axes, power and repeated invocation, lambdas, name suffixes, and ASCII input vs. the rendered form](images/reading-xetal-syntax.png)
+![Reading XeTaL syntax: name decorations, importing a library, defining functions and variables, applying vs. passing functions, axes, power and repeated invocation, lambdas, system names, the two uses of ?, and ASCII input vs. the rendered form](images/reading-xetal-syntax.png)
 
 The acceptance test is Conway's Life in one line
 (`spec/integration/life-blinker.case`, checked against the sw-apl
