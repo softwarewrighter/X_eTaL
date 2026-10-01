@@ -294,8 +294,10 @@ turns it into a built-in value `#axes` that collects those arguments;
 `xetal-axes` then moves axis k of the last (data) argument to the
 front, applies f, and moves the axis back when the result kept its
 rank (a result one rank lower consumed it; other rank changes and
-axes beyond the rank are `error[axis]`). `c_at_k` is refused because
-its left argument is data too. Rotate defines several axes and
+axes beyond the rank are `error[axis]`). `c_at` defines its own axis rule
+(B15), because its left argument is data too: `c_at_k` moves axis k of
+both full-rank arguments to the front, joins, and moves it back,
+after checking the other axes agree in the original shapes. Rotate defines several axes and
 amount lists itself (every combination, one leading result axis per
 listed axis, A4); reduce and scan with several axes apply the rule to
 each listed axis in turn, renumbering the later ones when a reduce
@@ -734,4 +736,5 @@ The pinning tests are written as the implementing saga reaches them
 | D37| Nested arrays | static depth: an enclosed item has type `Box a`; `e_nclose` / `d_isclose`; printed boxed (A7); classics lane. Settled with the user (B14): string-literal strands are nested; `e_ach` stays scalar-only and `m_ap` boxes each result; `p_artition` takes APL2's keys; `Box a` unifies only with `Box a` and prints `Box Char` |
 | D38| Graphics | pure SVG builders `[]G_RID` and `[]P_ATH` (points as 2 rows, x over y) returning Char vectors, frames along the leading axis animated with SMIL/CSS, one effect `[]S_HOW` handed to the host (CLI files, web Draw pane, future desktop webview); a component `xetal-draw` with no syntax knowledge (QD5); classics lane |
 | D39| Trigonometry | `s_in` `c_os` `a_tan` in radians to Float, `p_i @` (B13); classics lane |
+| D40| Catenate along an axis | `c_at_k` moves axis k of both arguments (its own axis rule, like rotate); other axes must match; a scalar or a one-rank-lower argument is one cell; one axis only (B15); asked for by the swimming-ducks demo |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

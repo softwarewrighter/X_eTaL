@@ -1,0 +1,5 @@
+# c_at joins along one axis: a subscript of several axes is an error.
+== SOURCE
+(2 2 r_eshape 1) c_at_12 2 2 r_eshape 2
+== ERROR
+error[axis]: c_at joins along one axis, not several at 1..39

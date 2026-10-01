@@ -637,8 +637,10 @@ error[length-mismatch]: 2 radix values for 3 digits
 
 `a -> a -> a`, two arguments.
 
-Join along the first axis. An axis subscript would move the axes of
-both arguments, which is an error for now.
+Join along the first axis, or with a subscript along that axis of both
+arguments: `c_at_2` puts matrices side by side. The other axes must
+match; a single value extends, and an argument of one rank less is one
+row (or, along axis 2, one column).
 
 ```
       1 2 c_at 3 4
@@ -649,7 +651,13 @@ both arguments, which is an error for now.
 1 2 3
 4 5 6
       M c_at_2 M
-error[axis]: c_at_2 would move both arguments' axes; only the right one moves
+1 2 3 1 2 3
+4 5 6 4 5 6
+      M c_at_2 0 9
+1 2 3 0
+4 5 6 9
+      M c_at_2 1 2 3
+error[shape-mismatch]: shapes differ: 2 3 and 3
 ```
 
 ## Reduce, scan, each and table

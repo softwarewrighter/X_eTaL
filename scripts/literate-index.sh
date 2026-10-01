@@ -22,7 +22,7 @@ block run by <code>xetal</code> through <code>ob-xetal</code> in Emacs
 and its result recorded under it.</p>
 <ul class="index">
 HEAD
-for name in tour hello life libraries birds tttml classics hanoi; do
+for name in tour hello life libraries birds tttml classics hanoi duck; do
     doc="$root/docs/literate/$name.org"
     echo "<li><a href=\"$name.html\">$(field TITLE "$doc")</a><br/>$(field SUBTITLE "$doc")</li>"
 done
