@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/duck.xtl"
+exit_code = 0
+desc = "a duck family swims by rotate: every frame at once from a list of amounts, waves the other way, both drawn"
