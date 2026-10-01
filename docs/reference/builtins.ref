@@ -226,6 +226,18 @@ along the subscript's axis.
 > 2 s_elect_1 M
 > 2 s_elect_2 M
 
+== r_eplicate
+Replicate: each item (each row of a matrix) repeated as many times as
+its count on the left, so a 0 drops it and a mask of 1s and 0s keeps
+the items where it is 1; one count extends to every item, and with a
+subscript the counts go along that axis. A negative count is an error.
+> 1 0 2 r_eplicate "abc"
+> (v > 1) r_eplicate v
+> 2 r_eplicate v
+> 0 2 r_eplicate M
+> 1 0 2 r_eplicate_2 M
+!> 1 -1 2 r_eplicate v
+
 == c_at
 Join along the first axis. An axis subscript would move the axes of
 both arguments, which is an error for now.

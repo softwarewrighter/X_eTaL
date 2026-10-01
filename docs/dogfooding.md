@@ -20,7 +20,7 @@ plan, and move a row from "Planned" to "Added" when it lands.
 | Elaborator: a typed built-in under an axis subscript is wrapped whole, so the axis rule still sees reduce | fix | Life inside a polymorphic function | design section 7 |
 | Files, the keyboard and numbers as text (`[]N_PUT`, `[]N_GET`, `[]R_EAD`, `f_ormat`, `n_umbers`), and system names (quads) to hold them | feature | TTTML, saving its model and playing a human | lang-choices QD1-QD4; design D30, D32 |
 | Notebooks run in one pass and stream their output (a training program had rerun its training for every later line, and showed nothing until the end) | fix | TTTML as a notebook | plan.md, Saga 9 retrospective |
-| Streaming output in the live demo (in progress) | feature | `tttml-train` showing its progress in the browser | main's saga, streaming-output |
+| Streaming output in the live demo: programs run in a worker, output streams, with a Stop button | feature | `tttml-train` showing its progress in the browser | main's saga, streaming-output |
 | A hint for a name used without its underline (`s:mean` suggests `s:m_ean`) | fix | the user, in the live demo | xetal-macro tests |
 | `m_atch`, whole-array match | feature | the user's Dyalog examples | lang-choices B7; design D34 |
 | A closed stdout ends a run quietly (exit 141, nothing on stderr), instead of a panic | fix | Pascal's triangle piped into `head` | golden cli-pipe-closed; architecture.md |
@@ -32,12 +32,12 @@ plan, and move a row from "Planned" to "Added" when it lands.
 | A session shows each picture once (a replayed line had shown its picture again), and a `--context` run shows none | fix | literate walkthroughs with pictures | xetal-store and xetal-repl tests |
 | `ob-xetal` saves a block's picture with `:results file :file PATH`; the literate check compares pictures | tooling | the literate classics walkthrough | design 8.1g |
 | `scripts/literate.sh --check` uses a mktemp both GNU and BSD accept | fix | running the literate check on Linux | scripts/literate.sh |
+| `r_eplicate`, APL's replicate and compress: counts or a mask on the left, over major cells, any axis by subscript | feature | Roman numerals and run-length decoding (and every "keep where" written as `(w_here m) s_elect v`) | lang-choices B11; design D35 |
 
 ## Planned, because a demo needs it
 
 | Feature | Needed by | Status |
 | ------- | --------- | ------ |
-| `r_eplicate`, APL's replicate with counts | Roman numerals, run-length decoding | decided (lang-choices B11, design D35); classics lane, replicate |
 | `e_ncode` and `d_ecode`, APL's encode and decode | truth tables, base conversion, Hanoi's moves from the bits of k (now a remainder table), Mastermind's 1296 codes (now `d_iv` and `m_od` by place values) | decided (B12, D36); classics lane, encode-decode |
 | Nested arrays, with static depth (`Box a`) and boxed printing | word frequency, N-Queens, ragged Pascal, the APL subset interpreter | partly decided (A7, D37); the remaining questions go to the user in the classics lane's nested-design step |
 | Transpose (`o_\`) | `[]P_ATH` taking n by 2 points, any program wanting columns | planned (plan.md, cross-cutting; confirmed by the user) |

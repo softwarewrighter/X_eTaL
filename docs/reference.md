@@ -561,6 +561,32 @@ along the subscript's axis.
 2 5
 ```
 
+### `r_eplicate`
+
+`Truthy a => a -> b -> b`, two arguments.
+
+Replicate: each item (each row of a matrix) repeated as many times as
+its count on the left, so a 0 drops it and a mask of 1s and 0s keeps
+the items where it is 1; one count extends to every item, and with a
+subscript the counts go along that axis. A negative count is an error.
+
+```
+      1 0 2 r_eplicate "abc"
+acc
+      (v > 1) r_eplicate v
+3 2
+      2 r_eplicate v
+3 3 1 1 2 2
+      0 2 r_eplicate M
+4 5 6
+4 5 6
+      1 0 2 r_eplicate_2 M
+1 3 3
+4 6 6
+      1 -1 2 r_eplicate v
+error[domain]: a count cannot be -1
+```
+
 ### `c_at`
 
 `a -> a -> a`, two arguments.

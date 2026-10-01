@@ -1,0 +1,5 @@
+# Counts are a scalar or a vector; a matrix of counts is an error.
+== SOURCE
+(2 2 r_eshape 1) r_eplicate 1 2
+== ERROR
+error[rank]: r_eplicate needs a scalar or a vector of counts, got shape 2 2 at 1..31
