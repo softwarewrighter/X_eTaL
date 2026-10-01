@@ -1,0 +1,8 @@
+number = 18
+slug = "classics-merged"
+status = "pending"
+description = "After merging the classics lane's PR #1 (lanes/classics/HANDOFF.md): rebuild ..."
+role = "production"
+context_files = []
+created_at = "2026-09-30T18:25:31"
+commits = []
