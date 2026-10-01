@@ -51,6 +51,8 @@ pub const DEMOS: &[Demo] = demos![
     "classics/matmul.xtl",
     "classics/closure.xtl",
     "classics/shortest.xtl",
+    "classics/sequences.xtl",
+    "classics/automaton.xtl",
 ];
 
 /// The choices, as (group, value, label); a value is `demo:N`, `lib:Name`

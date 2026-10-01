@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/sequences.xtl"
+exit_code = 0
+desc = "Horner as a reduction, finite differences by drop, moving averages by windows and by running sums"

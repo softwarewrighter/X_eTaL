@@ -428,6 +428,74 @@ u:s_hortest w
 : 3 6 0 1
 : 2 5 7 0
 
+* Sequences
+
+Finite differences are almost absurdly natural: each item less the one
+before is the vector without its first item less the vector without
+its last. A polynomial's differences become constant at its degree:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘd̲iff ← { v → (1 d̲rop v) − -1 d̲rop v }
+squares ← (r̲ange 8) ^ 2
+ᵘd̲iff squares
+ᵘd̲iff² squares
+#+end_example
+#+begin_src xetal
+u:d_iff := { v -> (1 d_rop v) - -1 d_rop v }
+squares := (r_ange 8) ^ 2
+u:d_iff squares
+u:d_iff^2 squares
+#+end_src
+
+#+RESULTS:
+: 3 5 7 9 11 13 15
+: 2 2 2 2 2 2
+
+A one-dimensional cellular automaton updates every cell at once. Each
+cell's case is 4 * left + 2 * itself + right, its neighbours found by
+rotating the row, and the rule number's binary digits say what each of
+the eight cases becomes. Rule 90 makes each cell the exclusive or of
+its neighbours, and grows Sierpinski's triangle yet again:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘb̲its ← { rule → (rule d̲iv 2 ^ o̲ffsets 8) m̲od 2 }
+ᵘs̲tep ← { bits row → (1 + (4 × -1 o̲- row) + (2 × row) + 1 o̲- row) s̲elect bits }
+ᵘe̲volve ← { bits rows →
+  (t̲ally rows) ≥ t̲ally f̲irst rows ? rows
+  next ← bits ᵘs̲tep r̲avel -1 t̲ake rows
+  bits ᵘe̲volve rows c̲at next
+}
+ᵘs̲tart ← { w → (1 c̲at w) r̲eshape ((w d̲iv 2) r̲eshape 0) c̲at 1 c̲at (w − 1 + w d̲iv 2) r̲eshape 0 }
+ᵘb̲its 90
+#+end_example
+#+begin_src xetal
+u:b_its := { rule -> (rule d_iv 2 ^ o_ffsets 8) m_od 2 }
+u:s_tep := { bits row -> (1 + (4 * -1 o_- row) + (2 * row) + 1 o_- row) s_elect bits }
+u:e_volve := { bits rows ->
+  (t_ally rows) >= t_ally f_irst rows ? rows
+  next := bits u:s_tep r_avel -1 t_ake rows
+  bits u:e_volve rows c_at next
+}
+u:s_tart := { w -> (1 c_at w) r_eshape ((w d_iv 2) r_eshape 0) c_at 1 c_at (w - 1 + w d_iv 2) r_eshape 0 }
+u:b_its 90
+#+end_src
+
+#+RESULTS:
+: 0 1 0 1 1 0 1 0
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ninety ← ⎕S̲HOW ⎕G̲RID 32 t̲ake (ᵘb̲its 90) ᵘe̲volve ᵘs̲tart 63
+#+end_example
+#+begin_src xetal :results file :file ../../images/literate-rule90.svg
+ninety := []S_HOW []G_RID 32 t_ake (u:b_its 90) u:e_volve u:s_tart 63
+#+end_src
+
+#+RESULTS:
+[[file:../../images/literate-rule90.svg]]
+
 * Life, watched
 
 The rule in one line (~docs/literate/life.org~ builds it up): the

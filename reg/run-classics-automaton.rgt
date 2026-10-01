@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/automaton.xtl"
+exit_code = 0
+desc = "elementary cellular automata: rule 30 as text, rules 30, 90 and 110 drawn"
