@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/queens.xtl"
+exit_code = 0
+desc = "N-Queens: all placements grown at once by r_eplicate and c_at_2, filtered by a mask; counts for n = 1..8, boards as boxed Char matrices, all 92 drawn"
