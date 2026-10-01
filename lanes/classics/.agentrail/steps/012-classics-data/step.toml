@@ -1,5 +1,5 @@
-number = 23
-slug = "classics-release"
+number = 12
+slug = "classics-data"
 status = "pending"
 description = "Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the ..."
 role = "production"

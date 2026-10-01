@@ -1,5 +1,5 @@
-number = 14
-slug = "classics-puzzles"
+number = 26
+slug = "classics-release"
 status = "pending"
 description = "Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the ..."
 role = "production"

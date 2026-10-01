@@ -8,6 +8,27 @@ adds to it, and the release step folds what is left into docs/plan.md.
 The lane's saga is in `lanes/classics/.agentrail` (run agentrail with
 `--saga lanes/classics`); see CLAUDE.md, "Parallel lanes".
 
+## Pull request 2 (pr/classics-2)
+
+Step 7 (classics-literate) and the plan for ADVANCEDEX, rebased onto
+main at 6a04057 with no conflicts. On the rebased branch the sandbox
+ran locks, builds, the spec corpus, every golden (all but
+cli-too-deep pass), the ERT tests (10) and the store and session
+tests; the full gate and the literate check (with its new picture
+comparison) passed on the branch before the rebase. Its new test
+installing a store (xetal-repl tests/pictures.rs) follows CLAUDE.md's
+one-store-per-binary rule. No demo was added to the live demo's list.
+
+To do locally:
+
+1. `scripts/gate.sh` in full (wasm32 included).
+2. `just literate-html`, then look at pages/literate/classics.html:
+   six pictures, three animated (glider on a torus, glider in a box,
+   Sierpinski's arrowhead drawing itself); the index lists the new
+   document. Commit pages/ as the web lane does.
+3. Optionally `scripts/frames-to-webp.py images/literate-glider-torus.svg`
+   (needs `pip install cairosvg pillow` and the cairo library).
+
 ## This pull request (pr/classics-1)
 
 Steps 1 to 6 of the lane's 23, rebased onto main at 15121ec with no
@@ -107,6 +128,7 @@ the web-playground lane: run `just literate-html` after merging.
 | 4 classics-draw-grid | done | wasm32 check and browser viewing untested (above); the web host has no Draw pane yet, so in the live demo `[]S_HOW` fails with error[io] "no place to show pictures" until step 7 |
 | 5 classics-draw-path | done | `[]P_ATH` takes points as 2 rows (x over y), not the n by 2 matrix first proposed to the user: there is no transpose (`o_\` is only reserved, A2), and turtle scans give rows. If transpose is added later, consider accepting both shapes (a decision for the user). docs/literate/libraries.org does not yet list Turtle (step 8 adds it). Animated path pictures were inspected as single frames only |
 | 6 classics-draw-raster | done | Threshold for drawing a grid as an image chosen here, not by the user: more than 4096 cells a frame (64 by 64); confirm or change `RASTER_CELLS` in xetal-draw/src/raster.rs. Mandelbrot moved here from classics-puzzles (that step's prompt still lists it: skip it there). The demo is sized for speed (60 by 90 frames, about 8 s release): the evaluator does about 650k point-steps a second, so the zoom is coarse; the plan.md cross-cutting item on evaluator speed (primitive operands as vector kernels) would allow bigger views. Raster pictures were checked as stills; watch the zoom animate in a browser. New dependency: the png crate (pure Rust) in xetal-draw, so check the wasm32 build |
+| 7 classics-literate | done | `ob-xetal` takes `:results file :file PATH` (Org links a file only when the block asks for file results; the default stays `output`). `:pictures all` from the plan was not built: a block saves its last picture. `scripts/literate-html.sh` was not run here (to leave pages/ to the web lane): run `just literate-html` and look at classics.html, where the glider, Koch and arrowhead pictures should show and animate. `scripts/frames-to-webp.py` needs Python's cairosvg and Pillow (`pip install cairosvg pillow`, and the cairo library: `brew install cairo` / `pacman -S cairo`). Found and fixed here: a REPL session replayed `[]S_HOW` on every later line (xetal-store replay counts) |
 
 ## Language gaps found by the programs
 

@@ -88,5 +88,43 @@
 (ert-deftest ob-xetal-reports-a-failing-block ()
   (should-error (xetal-tests--run "#+begin_src xetal\n1 / 0\n#+end_src\n") :type 'user-error))
 
+;; Pictures: a block with `:results file :file PATH` saves the last
+;; picture it shows ([]S_HOW) to PATH, and its result is a link to it.
+
+(defun xetal-tests--in-dir (org)
+  "Execute the blocks of ORG in a fresh directory; (buffer . dir)."
+  (let ((dir (make-temp-file "xetal-tests-" t)))
+    (with-temp-buffer
+      (setq default-directory (file-name-as-directory dir))
+      (insert org)
+      (org-mode)
+      (org-babel-execute-buffer)
+      (cons (buffer-string) dir))))
+
+(defun xetal-tests--file (dir name)
+  "The text of the file NAME in DIR."
+  (with-temp-buffer
+    (insert-file-contents (expand-file-name name dir))
+    (buffer-string)))
+
+(ert-deftest ob-xetal-file-saves-the-picture-and-links-it ()
+  (let* ((run (xetal-tests--in-dir
+               "#+begin_src xetal :results file :file pics/one.svg\np := []S_HOW []G_RID 1 0\n#+end_src\n"))
+         (svg (xetal-tests--file (cdr run) "pics/one.svg")))
+    (should (string-match-p "\\[\\[file:pics/one.svg\\]\\]" (car run)))
+    (should (string-prefix-p "<svg " svg))
+    (should (string-match-p "width=\"48\"" svg))))
+
+(ert-deftest ob-xetal-file-takes-the-blocks-own-picture-in-a-session ()
+  (let* ((run (xetal-tests--in-dir
+               (concat "#+begin_src xetal :session s\na := []S_HOW []G_RID 1 1 1\nn := 4\n#+end_src\n\n"
+                       "#+begin_src xetal :session s :results file :file b.svg\nb := []S_HOW []G_RID n r_eshape 1\n#+end_src\n")))
+         (svg (xetal-tests--file (cdr run) "b.svg")))
+    (should (string-match-p "width=\"96\"" svg))))
+
+(ert-deftest ob-xetal-file-without-a-picture-is-an-error ()
+  (should-error (xetal-tests--in-dir "#+begin_src xetal :results file :file x.svg\n1 + 2\n#+end_src\n")
+                :type 'user-error))
+
 (provide 'xetal-tests)
 ;;; xetal-tests.el ends here

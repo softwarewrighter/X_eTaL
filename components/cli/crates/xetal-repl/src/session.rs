@@ -1,8 +1,9 @@
 //! A session keeps the source it has accepted. Each new line is checked
 //! and run together with that source (so definitions, types and `!`
 //! variables persist), and only the output past what was already shown
-//! is returned; a line that fails is not accepted, so its effects roll
-//! back. An unclosed bracket waits for more lines.
+//! is returned (and pictures shown before are not shown again); a line
+//! that fails is not accepted, so its effects roll back. An unclosed
+//! bracket waits for more lines.
 
 use std::fmt::Write;
 
@@ -18,6 +19,8 @@ pub struct Session {
     pending: String,
     shown: usize,
     warned: usize,
+    /// Pictures (`[]S_HOW`) the accepted source showed; a replay skips them.
+    pictures: usize,
     seed: u64,
     /// Where libraries are found from: a file's path, or `-e` for the
     /// working directory.
@@ -68,6 +71,7 @@ fn run(
         all: Vec::new(),
         sink,
     };
+    xetal_store::replay(session.pictures);
     let (warnings, result) = xetal_eval::eval_program(&program, &mut out, Some(seed));
     (
         out.all,
@@ -95,6 +99,7 @@ impl Session {
             pending: String::new(),
             shown: 0,
             warned: 0,
+            pictures: 0,
             seed,
             origin: origin.into(),
             untyped: false,
@@ -133,6 +138,7 @@ impl Session {
                     let _ = writeln!(err, "{}", shifted(w.clone(), offset));
                 }
                 (self.accepted, self.shown, self.warned) = (source, out.len(), warnings.len());
+                self.pictures = xetal_store::shown();
             }
             Err(e) => {
                 let _ = writeln!(err, "{}", shifted(e, offset));

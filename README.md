@@ -254,6 +254,9 @@ Other fonts, checked against the font files:
 - [`docs/literate/tttml.org`](docs/literate/tttml.org) -- TTTML, a machine
   that learns tic-tac-toe by playing itself, as a literate program over the
   `TTTML` library
+- [`docs/literate/classics.org`](docs/literate/classics.org) -- classic APL
+  programs (Pascal's triangle, Life, turtle graphics) run as you read, with
+  their pictures; the animated ones play on the web page
 - [`docs/reference.md`](docs/reference.md) -- every built-in function, with
   examples (and, for the ones that work along an axis, the default axis,
   axis 1 written out, and another axis)

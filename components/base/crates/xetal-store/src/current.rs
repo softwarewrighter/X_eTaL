@@ -33,7 +33,11 @@ pub fn read_line() -> Result<String, String> {
     current().line()
 }
 
-/// Show a picture with the store in use (`[]S_HOW`).
+/// Show a picture with the store in use (`[]S_HOW`), unless a replay
+/// showed it before or pictures are muted (see `replay`).
 pub fn show(svg: &str) -> Result<(), String> {
-    current().show(svg)
+    match crate::replay::admit() {
+        true => current().show(svg),
+        false => Ok(()),
+    }
 }

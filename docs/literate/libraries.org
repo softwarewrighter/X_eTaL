@@ -129,6 +129,37 @@ reverse):
 
 [[file:birds.org][The aviary]] meets them all.
 
+* Turtle
+
+Turtle graphics as arrays: a walk is a vector of turns in degrees, one
+before each step, and its points are running sums of cosines and sines,
+two rows (x over y) that ~[]P_ATH~ draws. Its whole source:
+
+#+INCLUDE: "../../lib/Turtle.xtl" src xetal
+
+A square, one unit a side, its points rounded (the cosine of a right
+angle is only nearly 0):
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"t:" u̲se< "Turtle"
+ᵗp̲olygon 4
+f̲loor 0.5 + ᵗp̲oints ᵗp̲olygon 4
+#+end_example
+#+begin_src xetal
+"t:" u_se< "Turtle"
+t:p_olygon 4
+f_loor 0.5 + t:p_oints t:p_olygon 4
+#+end_src
+
+#+RESULTS:
+: 90.0 90.0 90.0 90.0
+: 0 0 -1 -1 0
+: 0 1  1  0 0
+
+[[file:classics.org][Classic programs, drawn]] uses it for Koch's
+snowflake and Sierpinski's arrowhead.
+
 * TTTML
 
 A machine that learns tic-tac-toe by playing itself: its model is an

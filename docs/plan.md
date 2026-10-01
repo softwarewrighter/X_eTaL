@@ -582,20 +582,34 @@ SVG).
 
 | #  | Step slug                | Delivers |
 | -- | ------------------------ | -------- |
+Added at the user's request (an ADVANCEDEX note): IBM shipped a
+workspace, ADVANCEDEX (saved 07/20/68), so APL\360 users could load,
+run, change and trace real programs; the APL\360 User's Manual (1968,
+and March 1970, GH20-0683-1, both at softwarepreservation.org) refers
+to its Appendix B, Advanced Examples. The lane recovers those 32
+functions with their sources, ports them (a historically grounded
+curriculum rather than one compiled in hindsight), and sets about
+twelve classics side by side across eras (APL\360, APL2, Dyalog,
+X_eTaL) to show how array style evolved and what X_eTaL keeps or
+changes. Follow-on outside this repo: a CLASSICS workspace in
+sw-apl-workspaces holding the same programs as APL, by era. The
+manual's advice to watch a subexpression through an output assignment
+feeds the trace saga (Saga 17).
+
 | 1  | classics-index           | docs/classics.md, conventions, Pascal's triangle |
 | 2  | classics-broken-pipe     | a closed stdout ends a run quietly (found by the Pascal demo) |
 | 3  | classics-trig            | `s_in` `c_os` `a_tan` `p_i` (B13) |
 | 4  | classics-draw-grid       | `xetal-draw`, `[]G_RID`, `[]S_HOW`, animated Life (QD5) |
 | 5  | classics-draw-path       | `[]P_ATH`, lib/Turtle.xtl, Sierpinski |
 | 6  | classics-draw-raster     | large grids as images, palettes, Mandelbrot zoom and fly-over |
-| 7  | classics-draw-web        | a Draw pane in the live demo |
-| 8  | classics-literate        | ob-xetal `:file` pictures, literate classics.org, animated SVG in the HTML export |
-| 9  | classics-numbers         | sieve, primes, GCD, Fibonacci, factorial, Collatz |
-| 10 | classics-recursion       | Tower of Hanoi, quicksort |
-| 11 | classics-graphs          | matrix product, transitive closure, Warshall, shortest paths |
-| 12 | classics-sequences       | polynomials, moving average, differences, 1-D automaton |
-| 13 | classics-data            | histogram, duplicates, sort and grade, run-length encoding |
-| 14 | classics-puzzles         | magic square, Mastermind |
+| 7  | classics-literate        | ob-xetal `:file` pictures, literate classics.org, animated SVG in the HTML export |
+| 8  | classics-numbers         | sieve, primes, GCD, Fibonacci, factorial, Collatz |
+| 9  | classics-recursion       | Tower of Hanoi, quicksort |
+| 10 | classics-graphs          | matrix product, transitive closure, Warshall, shortest paths |
+| 11 | classics-sequences       | polynomials, moving average, differences, 1-D automaton |
+| 12 | classics-data            | histogram, duplicates, sort and grade, run-length encoding |
+| 13 | classics-puzzles         | magic square, Mastermind (Mandelbrot is in draw-raster) |
+| 14 | classics-draw-web        | a Draw pane in the live demo |
 | 15 | classics-replicate       | `r_eplicate` (B11) |
 | 16 | classics-encode-decode   | `e_ncode` / `d_ecode` (B12) |
 | 17 | classics-radix-programs  | truth tables, base conversion, Roman numerals, RLE decode |
@@ -603,8 +617,11 @@ SVG).
 | 19 | classics-nested-core     | `Box a`, nested values, boxed printing |
 | 20 | classics-nested-builtins | enclose, disclose, partition, each over boxes |
 | 21 | classics-nested-programs | word frequency, N-Queens drawn, ragged Pascal |
-| 22 | classics-mini-apl        | an APL subset interpreter in X_eTaL |
-| 23 | classics-release         | index, README link, retrospective, merge |
+| 22 | classics-advancedex-source | IBM's ADVANCEDEX (1968): Appendix B of the APL\360 User's Manual transcribed and inventoried |
+| 23 | classics-advancedex-ports | ADVANCEDEX in X_eTaL: library, demos, goldens, literate sections |
+| 24 | classics-eras            | twelve classics across eras: APL\360, APL2, Dyalog, X_eTaL |
+| 25 | classics-mini-apl        | an APL subset interpreter in X_eTaL |
+| 26 | classics-release         | index, README link, retrospective, merge |
 
 ## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
 

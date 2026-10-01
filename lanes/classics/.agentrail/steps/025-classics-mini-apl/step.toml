@@ -1,5 +1,5 @@
-number = 12
-slug = "classics-sequences"
+number = 25
+slug = "classics-mini-apl"
 status = "pending"
 description = "Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the ..."
 role = "production"
