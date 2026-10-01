@@ -35,12 +35,12 @@ plan, and move a row from "Planned" to "Added" when it lands.
 | `r_eplicate`, APL's replicate and compress: counts or a mask on the left, over major cells, any axis by subscript | feature | Roman numerals and run-length decoding (and every "keep where" written as `(w_here m) s_elect v`) | lang-choices B11; design D35 |
 | `e_ncode` and `d_ecode`, APL's encode and decode, in their own component (`radix`) | feature | truth tables, base conversion, Hanoi's moves from the bits of k (written as a remainder table), Mastermind's 1296 codes (written with `d_iv` and `m_od` by place values) | lang-choices B12; design D36 |
 | `c_at_k`, catenate along any axis: both arguments' axis k moves (it had been refused, since the axis rule moves only the right argument) | feature | the swimming ducks, ducks and waves joined frame by frame (written as a recursion before) | lang-choices B15; design D40 |
+| Nested arrays with static depth: `Box a`, strands of strings, `e_nclose`, `d_isclose`, `p_artition`, `m_ap`, and APL2 DISPLAY printing | feature | word frequency, N-Queens, ragged Pascal, the APL subset interpreter; LeetCode 1805 exactly (digit runs as strings) | lang-choices A7, B14, B16; design D37, D41, D42 |
 
 ## Planned, because a demo needs it
 
 | Feature | Needed by | Status |
 | ------- | --------- | ------ |
-| Nested arrays, with static depth (`Box a`) and boxed printing | word frequency, N-Queens, ragged Pascal, the APL subset interpreter | core added (B16, D41: `Box a`, string strands, `e_nclose`, `d_isclose`, DISPLAY printing); still to come: `m_ap` and `p_artition`; classics lane, nested-builtins |
 | Transpose (`o_\`) | `[]P_ATH` taking n by 2 points, any program wanting columns | planned (plan.md, cross-cutting; confirmed by the user) |
 | Matrix inverse and division (APL's domino) | ADVANCEDEX's INV and INVP, regression in STATS | to decide with the user, when the ADVANCEDEX ports reach it |
 | Execute (`[]V_ALUE`, read and evaluate) | the APL subset interpreter, the COURSE and DRILL ports | reserved (lang-choices QD3); to decide |
@@ -66,6 +66,6 @@ coming up.
 | `e_ach` goes over items (scalars), not rows, so a function of a row cannot be applied to each row of a matrix | Mastermind, every secret | each row by its index: `'{ ... _r s_elect m } e_ach r_ange n`; `m_ap` (B14) will box each row's result, though a matrix still goes item by item: a rank operator is not planned |
 | A guard is a statement, so a choice in the middle of an expression needs a function | Mastermind, showing "none" for no pegs | a small function (`u:p_egs`) whose first line is the guard |
 | A comparison named at the top level is a Bool, and a Bool is not a number: `t c_at f` and `1 * f` fail for a named Bool `f`, though the same comparison written in place is an Int (T5) | truth tables, Gray code | the binding written `f := 0 + ...`, so it is named as an Int |
-| Numbers in a string are a segmented computation (one Horner per run of digits), and there is no key or segmented reduce, so the runs are summed through a table of run numbers | LeetCode 1805 | `'+ r_/_2 ((r_ange k) '= t_able g) * ...`, k by n in size; APL's key operator or `p_artition` with `m_ap` (B14) would say it directly |
-| Numbers longer than an Int: LeetCode 1805 allows 1000 digits, and compares the digit strings without leading zeros | LeetCode 1805 | Ints (to 18 digits) or `n_umbers` Floats; the exact answer needs the runs as strings, which waits for nested arrays (`p_artition`) |
+| Numbers in a string are a segmented computation (one Horner per run of digits), and there is no key or segmented reduce, so the runs are summed through a table of run numbers | LeetCode 1805 | `'+ r_/_2 ((r_ange k) '= t_able g) * ...`, k by n in size; `p_artition` with `m_ap` now says it directly for strings; a key operator for numbers is not planned |
+| Numbers longer than an Int: LeetCode 1805 allows 1000 digits, and compares the digit strings without leading zeros | LeetCode 1805 | solved: the runs as strings by `p_artition`, leading zeros dropped by `m_ap`, compared by `u_nique` on boxes |
 | No "merge" (APL's `@`, or `(mask) choose`) to replace some items: blanking the non-digits picks from `" " c_at s` by index | LeetCode 1805 | `(1 + m * r_ange t_ally s) s_elect " " c_at s` |

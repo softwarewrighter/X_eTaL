@@ -34,14 +34,22 @@ n := u:n_ums s
 n
 (f_loor n_umbers (1 + m * r_ange t_ally s) s_elect " " c_at s) m_atch n   # the two ways agree
 
-# LeetCode 1805: how many different integers. Its three examples. (Its
-# strings may hold numbers longer than an Int: those would need the
-# runs as strings, compared without their leading zeros, which waits
-# for nested arrays.)
+# LeetCode 1805: how many different integers. Its three examples.
 t_ally u_nique n
 t_ally u_nique u:n_ums "a123bc34d8ef34"      # 123 34 8 34: 3
 t_ally u_nique u:n_ums "leet1234code234"     # 2
 t_ally u_nique u:n_ums "a1b01c001"           # 1, 01 and 001 are all 1
+
+# Exactly as LeetCode means it, for numbers of any length: the runs of
+# digits as strings (p_artition by the digit mask), each without its
+# leading zeros, compared as strings. Every Int above is a box here.
+u:d_ifferent := { s ->
+  runs := (s m_ember? "0123456789") p_artition s
+  '{ d -> t := d_isclose d; ('| s_\ t != f_irst "0") r_eplicate t } m_ap runs
+}
+t_ally u_nique u:d_ifferent "a123bc34d8ef34"   # 3
+t_ally u_nique u:d_ifferent "a1b01c001"        # 1
+t_ally u_nique u:d_ifferent "x123456789012345678901234567890y0123456789012345678901234567890z"   # 1, past any Int
 
 # Its cousins, on the same numbers.
 'm_ax r_/ n                       # the largest

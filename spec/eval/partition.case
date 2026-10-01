@@ -1,0 +1,33 @@
+# p_artition is APL2's partition (B14): one Int key per major cell on
+# the left; a new piece starts where the key increases, and a 0 key
+# drops its cell. Each piece is boxed, so a mask of 1s and 0s cuts a
+# string into its words. A single key extends to every cell.
+== SOURCE
+t_ally (1 1 0 1 1 1 0 1) p_artition "ab cde f"
+d_isclose 2 s_elect (1 1 0 1 1 1 0 1) p_artition "ab cde f"
+s := "the quick  brown fox"
+t_ally (s != f_irst " ") p_artition s
+'{ t_ally d_isclose _r } e_ach (s != f_irst " ") p_artition s
+t_ally 1 1 2 2 2 1 1 p_artition r_ange 7
+t_ally 1 1 2 2 3 3 3 p_artition r_ange 7
+t_ally 1 p_artition 5 6 7
+t_ally 0 p_artition 5 6 7
+== TYPE
+Int
+Char
+s : Char
+Int
+Int
+Int
+Int
+Int
+Int
+== RESULT
+3
+cde
+4
+3 5 5 3
+2
+3
+1
+0
