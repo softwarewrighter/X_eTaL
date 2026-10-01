@@ -1,8 +1,9 @@
 number = 16
 slug = "userlibs"
-status = "in-progress"
+status = "completed"
 description = "User decision: libraries of your own live in ./userlibs (not demos/), which i..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T17:17:16"
-commits = []
+completed_at = "2026-09-30T17:37:54"
+commits = ["254d9a2c18719003dc5c41717035809ce870b5ae"]

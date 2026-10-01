@@ -1,0 +1,1 @@
+userlibs/ on the search path (after the importing dir, before XETAL_PATH); Hello/Greetings moved there; xetal run on a library lists exports; check-modes.sh gate (programs +x with #!, libraries not); docs and goldens updated
