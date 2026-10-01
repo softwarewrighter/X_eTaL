@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Swimming ducks</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Swimming ducks
+<br />
+<span class="subtitle">animation by rotate, and joining frames along an axis two ways</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org48c329c">The family</a></li>
+<li><a href="#orgb8c1fdf">Swimming by rotate</a></li>
+<li><a href="#org2b551b4">Every frame at once</a></li>
+<li><a href="#orga879439">Waves the other way</a>
+<ul>
+<li><a href="#orge0193ba">The workaround: one frame at a time</a></li>
+<li><a href="#org9cbd71c">The fix: catenate along axis 2</a></li>
+</ul>
+</li>
+<li><a href="#orgd13a00c">The two side by side</a></li>
+</ul>
+</div>
+</div>
+<p>
+Ducks are iconic in graphics programming, and moving a picture by
+rotating it is about as old as APL. Here a family of ASCII ducks swims
+across a pond with nothing but rotate. The waves go the other way,
+which needs the ducks' frames and the water's frames joined row by
+row. That is written twice, as a workaround and then with the feature
+the demo asked for, and the two are checked to agree. The program is
+<code>demos/classics/duck.xtl</code>.
+</p>
+<div id="outline-container-org48c329c" class="outline-2">
+<h2 id="org48c329c">The family</h2>
+<div class="outline-text-2" id="text-org48c329c">
+<p>
+A picture is a character matrix. Three rows of twenty characters: a
+duck and two ducklings. A backslash in a string is written twice.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">family ← <span class="c-number">3</span> <span class="c-number">20</span> <span class="c-builtin">r̲eshape</span> <span class="c-string">&quot;                 _    _    _      __(.)&lt; (.)&lt; (.)&lt;    \\___) &quot;</span>
+family
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   family := 3 20 r_eshape "                 _    _    _      __(.)&lt; (.)&lt; (.)&lt;    \\___) "</span>
+<span class="c-comment typed">⍝   family</span></pre>
+</div>
+
+<pre class="example">
+                _  
+ _    _      __(.)&lt;
+(.)&lt; (.)&lt;    \___) 
+</pre>
+
+
+<p>
+The pond is wider. Taking 32 columns along axis 2 pads the rows with
+blanks.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">pond ← <span class="c-number">32</span> <span class="c-builtin">t̲ake₂</span> family
+pond
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   pond := 32 t_ake_2 family</span>
+<span class="c-comment typed">⍝   pond</span></pre>
+</div>
+
+<pre class="example">
+                _              
+ _    _      __(.)&lt;            
+(.)&lt; (.)&lt;    \___)             
+</pre>
+</div>
+</div>
+<div id="outline-container-orgb8c1fdf" class="outline-2">
+<h2 id="orgb8c1fdf">Swimming by rotate</h2>
+<div class="outline-text-2" id="text-orgb8c1fdf">
+<p>
+Rotating along axis 2 slides every row at once. A negative amount moves
+the characters toward the end, so the ducks swim to the right, and what
+goes off the edge comes back on the left.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-number">-6</span> <span class="c-builtin">o̲-₂</span> pond
+<span class="c-number">-27</span> <span class="c-builtin">o̲-₂</span> pond
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   -6 o_-_2 pond</span>
+<span class="c-comment typed">⍝   -27 o_-_2 pond</span></pre>
+</div>
+
+<pre class="example">
+                      _        
+       _    _      __(.)&lt;      
+      (.)&lt; (.)&lt;    \___)       
+           _                   
+ _      __(.)&lt;              _  
+(.)&lt;    \___)              (.)&lt;
+</pre>
+</div>
+</div>
+<div id="outline-container-org2b551b4" class="outline-2">
+<h2 id="org2b551b4">Every frame at once</h2>
+<div class="outline-text-2" id="text-org2b551b4">
+<p>
+Rotate with a list of amounts gives one result per amount. With the
+amounts 0, -1, &#x2026;, -31 that is the whole swim, a rank-3 array of 32
+frames of 3 rows and 32 columns, from one expression and no loop.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">frames ← (<span class="c-builtin">n̲eg</span> <span class="c-builtin">o̲ffsets</span> <span class="c-number">32</span>) <span class="c-builtin">o̲-₂</span> pond
+<span class="c-builtin">s̲hape</span> frames
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   frames := (n_eg o_ffsets 32) o_-_2 pond</span>
+<span class="c-comment typed">⍝   s_hape frames</span></pre>
+</div>
+
+<pre class="example">
+32 3 32
+</pre>
+
+
+<p>
+<code>[]G_RID</code> draws a rank-3 array as frames shown in turn, so the picture
+is the animation.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">shown ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> frames
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   shown := []S_HOW []G_RID frames</span></pre>
+</div>
+
+
+<div id="org54644e7" class="figure">
+<p><img src="images/literate-duck-swim.svg" alt="literate-duck-swim.svg" class="org-svg" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orga879439" class="outline-2">
+<h2 id="orga879439">Waves the other way</h2>
+<div class="outline-text-2" id="text-orga879439">
+<p>
+The water is one row, and every rotation of it is again one expression:
+a 32 by 32 matrix with a row per frame, moving left as the ducks move
+right.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">water ← <span class="c-number">32</span> <span class="c-builtin">r̲eshape</span> <span class="c-string">&quot;~  ~~ ~   &quot;</span>
+waves ← (<span class="c-builtin">o̲ffsets</span> <span class="c-number">32</span>) <span class="c-builtin">o̲-</span> water
+<span class="c-builtin">s̲hape</span> waves
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   water := 32 r_eshape "~  ~~ ~   "</span>
+<span class="c-comment typed">⍝   waves := (o_ffsets 32) o_- water</span>
+<span class="c-comment typed">⍝   s_hape waves</span></pre>
+</div>
+
+<pre class="example">
+32 32
+</pre>
+
+
+<p>
+Each frame should be the ducks' three rows with that frame's water
+row below them. Frame by frame, that joins along axis 2 of the frames
+array, not along axis 1 (which would add more frames).
+</p>
+</div>
+<div id="outline-container-orge0193ba" class="outline-3">
+<h3 id="orge0193ba">The workaround: one frame at a time</h3>
+<div class="outline-text-3" id="text-orge0193ba">
+<p>
+Without a join along axis 2, each frame is built on its own, ducks over
+water by an ordinary <code>c_at</code>, and the frames are stacked by a recursion.
+The first frame is given a leading axis of length 1 so the others can
+be joined to it.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘf̲rame</span> ← { k → ((<span class="c-builtin">n̲eg</span> k) <span class="c-builtin">o̲-₂</span> pond) <span class="c-builtin">c̲at</span> k <span class="c-builtin">o̲-</span> water }
+<span class="c-userfunc">ᵘs̲wim</span> ← { k →
+  f ← <span class="c-userfunc">ᵘf̲rame</span> k
+  k <span class="c-symbol">=</span> <span class="c-number">0</span> ? (<span class="c-number">1</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">s̲hape</span> f) <span class="c-builtin">r̲eshape</span> f◆ (<span class="c-userfunc">ᵘs̲wim</span> k <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-builtin">c̲at</span> f
+}
+slow ← <span class="c-userfunc">ᵘs̲wim</span> <span class="c-number">31</span>
+<span class="c-builtin">s̲hape</span> slow
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:f_rame := { k -&gt; ((n_eg k) o_-_2 pond) c_at k o_- water }</span>
+<span class="c-comment typed">⍝   u:s_wim := { k -&gt;</span>
+<span class="c-comment typed">⍝     f := u:f_rame k</span>
+<span class="c-comment typed">⍝     k = 0 ? (1 c_at s_hape f) r_eshape f; (u:s_wim k - 1) c_at f</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   slow := u:s_wim 31</span>
+<span class="c-comment typed">⍝   s_hape slow</span></pre>
+</div>
+
+<pre class="example">
+32 4 32
+</pre>
+
+
+<p>
+It works, but it gives up the array way: the frames are no longer one
+rotate, and the recursion is the loop the rotate had removed.
+</p>
+</div>
+</div>
+<div id="outline-container-org9cbd71c" class="outline-3">
+<h3 id="org9cbd71c">The fix: catenate along axis 2</h3>
+<div class="outline-text-3" id="text-org9cbd71c">
+<p>
+<code>c_at_k</code> joins along axis k. It moves axis k of both arguments to the
+front, joins, and moves it back. The axes other than k must match, and
+an argument of one rank less is a single cell, so the 32 by 32 waves
+are one row under each of the 32 frames.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">swim ← frames <span class="c-builtin">c̲at₂</span> waves
+<span class="c-builtin">s̲hape</span> swim
+<span class="c-number">7</span> <span class="c-builtin">s̲elect</span> swim
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   swim := frames c_at_2 waves</span>
+<span class="c-comment typed">⍝   s_hape swim</span>
+<span class="c-comment typed">⍝   7 s_elect swim</span></pre>
+</div>
+
+<pre class="example">
+32 4 32
+                       _        
+        _    _      __(.)&lt;      
+       (.)&lt; (.)&lt;    \___)       
+~   ~  ~~ ~   ~  ~~ ~   ~ ~  ~~ 
+</pre>
+
+
+<p>
+The two ways agree.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">swim <span class="c-builtin">m̲atch</span> slow
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   swim m_atch slow</span></pre>
+</div>
+
+<pre class="example">
+1
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">shown ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> swim
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   shown := []S_HOW []G_RID swim</span></pre>
+</div>
+
+
+<div id="org90f0c06" class="figure">
+<p><img src="images/literate-duck-waves.svg" alt="literate-duck-waves.svg" class="org-svg" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd13a00c" class="outline-2">
+<h2 id="orgd13a00c">The two side by side</h2>
+<div class="outline-text-2" id="text-orgd13a00c">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Workaround</th>
+<th scope="col" class="org-left">With <code>c_at_2</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">a function per frame, a recursion</td>
+<td class="org-left">two rotates and one join</td>
+</tr>
+
+<tr>
+<td class="org-left">frames built one at a time</td>
+<td class="org-left">every frame at once, as arrays</td>
+</tr>
+
+<tr>
+<td class="org-left">works on any version of the language</td>
+<td class="org-left">needs catenate along an axis</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+The workaround is still worth knowing: when a picture is too large to
+hold every frame at once, building one frame at a time is the way to go.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>
