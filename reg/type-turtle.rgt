@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type lib/Turtle.xtl"
+exit_code = 0
+desc = "the Turtle library: each export with its inferred type"

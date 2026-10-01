@@ -74,6 +74,7 @@ entries = [
 rule = "QD5: graphics (pure SVG builders, one effect)"
 entries = [
   ["[]G_RID", 1, "Eq a => a -> Char"],
+  ["[]P_ATH", 1, "Num a => a -> Char"],
   ["[]S_HOW", 1, "Char -> Char"],
 ]
 

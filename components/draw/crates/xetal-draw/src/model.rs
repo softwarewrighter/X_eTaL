@@ -28,6 +28,8 @@ pub enum DrawError {
     Empty,
     /// The cells do not fill the shape.
     Length { expected: usize, found: usize },
+    /// A path is 2 rows (x over y) of at least 2 points, or frames of them.
+    Points(Vec<usize>),
 }
 
 impl DrawError {
@@ -37,6 +39,7 @@ impl DrawError {
             DrawError::Rank(_) => "rank",
             DrawError::Empty => "empty",
             DrawError::Length { .. } => "length-mismatch",
+            DrawError::Points(_) => "shape-mismatch",
         }
     }
 
@@ -50,6 +53,9 @@ impl DrawError {
             DrawError::Length { expected, found } => {
                 format!("the shape holds {expected} cells, but {found} were given")
             }
+            DrawError::Points(shape) => format!(
+                "a path is 2 rows of points (x over y), at least 2 of them, or frames of such paths; not shape {shape:?}"
+            ),
         }
     }
 }

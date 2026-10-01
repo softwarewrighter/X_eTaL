@@ -598,6 +598,16 @@ in their cells (spaces left empty). Above rank 3 is `error[rank]`, an
 empty array `error[empty]`, anything but numbers or characters
 `error[domain]`; the type is `Eq a => a -> Char`.
 
+`[]P_ATH xy : Num a => a -> Char` draws points given as 2 rows, x
+over y (at least 2 points), joined in order: the box round every point
+is scaled so its longer side is 400 pixels, with a 12-pixel margin and
+y pointing up; a rank-3 array is frames of paths sharing one fit, so a
+growing prefix of a curve animates its drawing. Any other shape is
+`error[shape-mismatch]`. Turtle graphics is the standard library
+`Turtle`, written in the language: a walk is a vector of turns, the
+headings are its running sum, the positions running sums of cosines
+and sines (`t:p_oints`, `t:w_alk`, `t:t_urn`, `t:p_olygon`).
+
 `[]S_HOW svg : Char -> Char` is the one effect: it hands the picture
 to the store the host installed (`xetal_store::Store::show`) and
 returns it, like `p_rint!`, so a program binds it (`torus := []S_HOW
@@ -668,6 +678,6 @@ The pinning tests are written as the implementing saga reaches them
 | D35| Replicate | `r_eplicate`, counts on the left over major cells, a scalar count extends, negative is `error[domain]` (B11); classics lane |
 | D36| Encode and decode | `e_ncode` / `d_ecode`, radix on the left, APL shapes (B12); classics lane |
 | D37| Nested arrays | static depth: an enclosed item has type `Box a`; `e_nclose` / `d_isclose`; printed boxed (A7); classics lane |
-| D38| Graphics | pure SVG builders `[]G_RID` and `[]P_ATH` returning Char vectors, frames along the leading axis animated with SMIL/CSS, one effect `[]S_HOW` handed to the host (CLI files, web Draw pane, future desktop webview); a component `xetal-draw` with no syntax knowledge (QD5); classics lane |
+| D38| Graphics | pure SVG builders `[]G_RID` and `[]P_ATH` (points as 2 rows, x over y) returning Char vectors, frames along the leading axis animated with SMIL/CSS, one effect `[]S_HOW` handed to the host (CLI files, web Draw pane, future desktop webview); a component `xetal-draw` with no syntax knowledge (QD5); classics lane |
 | D39| Trigonometry | `s_in` `c_os` `a_tan` in radians to Float, `p_i @` (B13); classics lane |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

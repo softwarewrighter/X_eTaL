@@ -3,7 +3,7 @@
 use xetal_base::{Diagnostic, Span};
 use xetal_value::Value;
 
-use crate::draw::{grid, show};
+use crate::draw::{grid, path, show};
 use crate::files::{get, put, read};
 use crate::text::{format, numbers};
 
@@ -21,6 +21,7 @@ pub fn call<'a>(
         ("[]N_GET", [path]) => get(path).map_err(at),
         ("[]R_EAD", [_]) => read().map_err(at),
         ("[]G_RID", [a]) => grid(a).map_err(at),
+        ("[]P_ATH", [xy]) => path(xy).map_err(at),
         ("[]S_HOW", [svg]) => show(svg).map_err(at),
         _ => return None,
     })

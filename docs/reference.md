@@ -1009,6 +1009,22 @@ characters are drawn in their cells.
 </svg>
 ```
 
+### `[]P_ATH`
+
+`Num a => a -> Char`, one argument.
+
+Points as a picture, returned as SVG text: 2 rows, x over y, joined in
+order and fitted into a 400-pixel picture with y pointing up; a rank-3
+array is frames of paths shown in turn.
+
+```
+      []P_ATH 2 3 r_eshape 0 1 2 0 1 0
+<svg xmlns="http://www.w3.org/2000/svg" width="424" height="224" viewBox="0 0 424 224" role="img">
+<rect width="424" height="224" fill="#f8fafc"/>
+<polyline points="12,212 212,12 412,212" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>
+```
+
 ### `[]S_HOW`
 
 `Char -> Char`, one argument.

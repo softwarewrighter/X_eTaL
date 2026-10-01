@@ -70,3 +70,15 @@ fn show_hands_the_picture_to_the_store_and_returns_it() {
     assert_eq!(store.pictures(), [svg]);
     assert_eq!(run("[]S_HOW", &[Value::Int(3)]).unwrap_err(), "domain");
 }
+
+#[test]
+fn path_draws_a_two_row_matrix_of_points() {
+    let svg = run("[]P_ATH", &[ints(vec![2, 3], &[0, 1, 2, 0, 1, 0])]).unwrap();
+    assert!(svg.contains("<polyline points=\"12,212 212,12 412,212\""));
+    assert_eq!(
+        run("[]P_ATH", &[ints(vec![3, 2], &[0; 6])]).unwrap_err(),
+        "shape-mismatch"
+    );
+    let chars = array(vec![2, 2], "abcd".chars().map(Value::Char).collect());
+    assert_eq!(run("[]P_ATH", &[chars]).unwrap_err(), "domain");
+}

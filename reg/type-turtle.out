@@ -1,0 +1,4 @@
+l:w_alk : (Num a, Num b) => a -> b -> Float
+l:p_oints : Num a => a -> Float
+l:t_urn : Num a => a -> a -> a
+l:p_olygon : Int -> Float

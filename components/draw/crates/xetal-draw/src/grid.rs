@@ -3,7 +3,7 @@
 use crate::anim::frames;
 use crate::model::{Cells, DrawError, Layout};
 use crate::palette::{INK, bits, color, range};
-use crate::svg::{cell, document, glyph};
+use crate::svg::{cell, glyph, grid_document};
 
 /// The array of this shape and these cells as one SVG document: a
 /// scalar, vector or matrix as one grid, a rank-3 array as frames.
@@ -12,7 +12,7 @@ pub fn grid(shape: &[usize], cells: &Cells) -> Result<String, DrawError> {
     let bodies: Vec<String> = (0..layout.frames)
         .map(|k| frame(&layout, cells, k))
         .collect();
-    Ok(document(&layout, &frames(&bodies)))
+    Ok(grid_document(&layout, &frames(&bodies)))
 }
 
 /// The cells of frame k.

@@ -6,13 +6,17 @@ use crate::palette::{LINES, PAPER};
 /// Cells are this many pixels square.
 pub(crate) const CELL: usize = 24;
 
-/// The whole document: paper, the frames' bodies, the grid lines.
-pub(crate) fn document(layout: &Layout, body: &str) -> String {
+/// A grid's document: paper, the frames' bodies, the grid lines.
+pub(crate) fn grid_document(layout: &Layout, body: &str) -> String {
     let (w, h) = (layout.cols * CELL, layout.rows * CELL);
+    document(w, h, body, &format!("{}\n", lines(w, h)))
+}
+
+/// The whole document, w by h: paper, the body, then what lies on top.
+pub(crate) fn document(w: usize, h: usize, body: &str, overlay: &str) -> String {
     format!(
         "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{w}\" height=\"{h}\" viewBox=\"0 0 {w} {h}\" role=\"img\">\n\
-         <rect width=\"{w}\" height=\"{h}\" fill=\"{PAPER}\"/>\n{body}{}\n</svg>\n",
-        lines(w, h)
+         <rect width=\"{w}\" height=\"{h}\" fill=\"{PAPER}\"/>\n{body}{overlay}</svg>\n"
     )
 }
 

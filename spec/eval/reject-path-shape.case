@@ -1,0 +1,5 @@
+# A path is 2 rows of points, x over y (QD5): 3 rows is an error.
+== SOURCE
+[]P_ATH 3 2 r_eshape 0
+== ERROR
+error[shape-mismatch]: []P_ATH: a path is 2 rows of points (x over y), at least 2 of them, or frames of such paths; not shape [3, 2] at 0..22

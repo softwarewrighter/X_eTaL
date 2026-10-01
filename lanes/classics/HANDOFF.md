@@ -53,3 +53,12 @@ the web-playground lane: run `just literate-html` after merging.
 | 2 classics-broken-pipe | done | |
 | 3 classics-trig | done | |
 | 4 classics-draw-grid | done | wasm32 check and browser viewing untested (above); the web host has no Draw pane yet, so in the live demo `[]S_HOW` fails with error[io] "no place to show pictures" until step 7 |
+| 5 classics-draw-path | done | `[]P_ATH` takes points as 2 rows (x over y), not the n by 2 matrix first proposed to the user: there is no transpose (`o_\` is only reserved, A2), and turtle scans give rows. If transpose is added later, consider accepting both shapes (a decision for the user). docs/literate/libraries.org does not yet list Turtle (step 8 adds it). Animated path pictures were inspected as single frames only |
+
+## Language gaps found by the programs
+
+Each is a candidate for a decision with the user, not something this
+lane resolved.
+
+- Transpose (`o_\`, reserved in A2): paths had to use rows; any
+  program wanting columns of points needs it.

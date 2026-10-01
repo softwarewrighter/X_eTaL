@@ -1,0 +1,3 @@
+command = "./target/release/xetal run demos/classics/turtle.xtl"
+exit_code = 0
+desc = "turtle graphics with the Turtle library: a spiral, Koch snowflake, Sierpinski arrowhead still and drawn as it goes"

@@ -38,6 +38,7 @@ pub const DEMOS: &[Demo] = demos![
     "arrays.xtl",
     "classics/pascal.xtl",
     "classics/life-drawn.xtl",
+    "classics/turtle.xtl",
 ];
 
 /// The choices, as (group, value, label); a value is `demo:N`, `lib:Name`

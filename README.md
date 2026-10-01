@@ -140,10 +140,12 @@ built-ins (reduce, scan, each, table, inner product, compose, swap,
 power), search, order and random built-ins, rotate, reverse and axis
 subscripts on any function, function power (`f_^3`), the Life
 one-liner, files, the keyboard and numbers as text (`[]N_GET`,
-`[]N_PUT`, `[]R_EAD`, `f_ormat`, `n_umbers`), and libraries imported
-with `u_se<`: the standard libraries `Stats`, `Combinators`
-(Smullyan's birds), `Maybe` and `TTTML` (a machine that learns
-tic-tac-toe) are built in. The decorated views: `xetal render
+`[]N_PUT`, `[]R_EAD`, `f_ormat`, `n_umbers`), trigonometry, pictures
+(`[]G_RID` grids and `[]P_ATH` paths as SVG, animated by frames,
+shown with `[]S_HOW`), and libraries imported with `u_se<`: the
+standard libraries `Stats`, `Combinators` (Smullyan's birds), `Maybe`,
+`TTTML` (a machine that learns tic-tac-toe) and `Turtle` (turtle
+graphics as arrays) are built in. The decorated views: `xetal render
 --color`, streaming notebook runs laid out as an APL session, the
 editor, a REPL that draws each line decorated as you type, and
 annotated diagrams. Next: a live web demo of the editor, then ports of

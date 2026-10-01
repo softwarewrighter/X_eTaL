@@ -1,6 +1,6 @@
 number = 5
 slug = "classics-draw-path"
-status = "pending"
+status = "in-progress"
 description = "Classics lane (see lanes/classics/.agentrail/plan.md and docs/plan.md, Lane: ..."
 role = "production"
 context_files = []
