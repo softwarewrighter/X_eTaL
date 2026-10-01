@@ -12,6 +12,10 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-01
 
+- 13:52 `chore` Saga step mobile-pwa completed.
+- 13:52 `feat` Web: the live demo on a phone (toolbar wraps, panes stack) and as an installable app that works offline; a phone screenshot in the README.
+- 13:50 `chore` Merged the classics lane, part 14 (PR #14): swimming ducks by rotate.
+- 13:40 `plan` duck handed to the classics lane.
 - 13:35 `chore` Saga step downstream-provenance completed.
 - 13:35 `fix` A vendored build can report the vendored commit: `XETAL_BUILD_SHA` (and host, timestamp) override the git lookup.
 - 13:29 `chore` Merged the classics lane, parts 10 to 13 (PRs #10 to #13): `r_eplicate`, `e_ncode` and `d_ecode`, truth tables, bases, Roman numerals, nested-array decisions.

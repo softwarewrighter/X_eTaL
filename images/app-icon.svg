@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- The live demo's app icon: the favicon's design (an italic X,
+       underlined, with a raised ellipsis: the logo's X, the rest
+       implied), drawn large. scripts/app-icons.sh renders its sizes. -->
+  <rect width="512" height="512" fill="#fcc419"/>
+  <g fill="#1f2937">
+    <text x="236" y="368" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+          font-style="italic" font-size="380">X</text>
+    <rect x="40" y="420" width="300" height="34"/>
+    <circle cx="366" cy="84" r="22"/><circle cx="418" cy="84" r="22"/><circle cx="470" cy="84" r="22"/>
+  </g>
+</svg>

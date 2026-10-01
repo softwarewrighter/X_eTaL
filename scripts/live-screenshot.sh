@@ -20,3 +20,7 @@ sleep 1
     --window-size=1400,900 --screenshot="$root/images/live-demo.png" \
     "http://127.0.0.1:$port/X_eTaL/" > /dev/null 2>&1
 echo "images/live-demo.png"
+# The same page as a phone shows it (needs node).
+if command -v node > /dev/null; then
+    node "$root/scripts/phone-screenshot.mjs" "http://127.0.0.1:$port/X_eTaL/" "$root/images/live-demo-phone.png"
+fi

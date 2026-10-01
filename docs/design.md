@@ -673,6 +673,20 @@ program that reads the keyboard (`[]R_EAD`) runs on the page instead,
 its prompt showing the last lines printed. A worker's failure (a stack
 overflow, for one) ends the run with the error shown.
 
+### 8.4 The live demo on a phone, and as an app
+
+Below 720 pixels wide the toolbar wraps (Open on a line of its own,
+buttons big enough to tap), the panes stack (ASCII, drawing, output),
+each scrolling inside, and the page scrolls to the footer, with
+nothing wider than the screen. The demo is a progressive web app: a
+manifest (name, icons from `images/app-icon.svg` by
+`scripts/app-icons.sh`, a maskable one included, standalone display)
+and a service worker (`sw.js`) that answers from the network first and
+keeps what it fetched, so a new deploy is picked up at once online and
+the last version opened runs offline. `scripts/live-screenshot.sh`
+also takes the phone screenshot (`scripts/phone-screenshot.mjs`,
+phone emulation over the DevTools protocol).
+
 ## 9. Decisions register
 
 All decisions below are made; the entries point to

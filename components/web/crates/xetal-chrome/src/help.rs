@@ -28,6 +28,8 @@ pub(crate) fn help_text() -> Html {
                     { "; Clear also stops it." }</li>
                 <li><b>{ "Tab" }</b>{ " moves between the panes; the current one has the bright border." }</li>
                 <li><b>{ "Zoom" }</b>{ " (Ctrl-.) shows the current pane alone, and back." }</li>
+                <li>{ "On a phone the panes stack; Add to Home Screen installs the editor as \
+                       an app that works offline." }</li>
                 <li>{ "Drag the bars between the panes to resize them (this browser \
                        remembers); double-click a bar to put it back." }</li>
                 <li>{ "The drop-down opens a demo, a standard library (shown with its \

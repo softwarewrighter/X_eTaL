@@ -8,9 +8,17 @@
     
     
     
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+    <meta name="theme-color" content="#16181d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="XeTaL" />
+    
+    
+    
 <script type="module">
-import init, * as bindings from '/X_eTaL/xetal-web-278f823f82b7f61f.js';
-const wasm = await init({ module_or_path: '/X_eTaL/xetal-web-278f823f82b7f61f_bg.wasm' });
+import init, * as bindings from '/X_eTaL/xetal-web-2979ceb08328369.js';
+const wasm = await init({ module_or_path: '/X_eTaL/xetal-web-2979ceb08328369_bg.wasm' });
 
 
 window.wasmBindings = bindings;
@@ -20,8 +28,14 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 
 </script>
     
-    <link rel="stylesheet" href="/X_eTaL/app-b0628671c695d120.css" integrity="sha384-9aKnDZjlVZfbaWg/PrB7nvy9W5BHz04wDG10HE7gZwk7kUbXyHfkYDmYLtTD4lBe"/>
-<link rel="modulepreload" href="/X_eTaL/xetal-web-278f823f82b7f61f.js" crossorigin="anonymous" integrity="sha384-eB4yMWDXmija5V77D1y8PkOw1+QVMkdzum8aeS03lxJG/EzvkMjyCvmgRr85JgGl"><link rel="preload" href="/X_eTaL/xetal-web-278f823f82b7f61f_bg.wasm" crossorigin="anonymous" integrity="sha384-u1HXOBhw4AHeanWFL1GbFWBVQfdwycwzFYOf/RbrXQi3df4uYlP5kLq/POr2gcVL" as="fetch" type="application/wasm"></head>
+    <link rel="stylesheet" href="/X_eTaL/app-fcef9ab6e35486ee.css" integrity="sha384-zFr7SkE4Fl5djWnMxJDtfv0r4xAeCa64ElZSVHRFoC/WM2ZOaubzGxSArEvgOi1R"/>
+<link rel="modulepreload" href="/X_eTaL/xetal-web-2979ceb08328369.js" crossorigin="anonymous" integrity="sha384-VFxuHCpOTZj6C+rZO87gBijdtWnvF7iPl/FWWcxF/w9vV0+66gddIqt+0ZPXw4Qt"><link rel="preload" href="/X_eTaL/xetal-web-2979ceb08328369_bg.wasm" crossorigin="anonymous" integrity="sha384-LwwrSDQYOBwFdHtgMYHbZH6/Y3KpQ1z/5bO0UPoIx0Uc9zs6jPvAkP+vc82RhHl8" as="fetch" type="application/wasm"></head>
 <body>
+    <script>
+        // An installable app that runs offline (sw.js).
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("./sw.js");
+        }
+    </script>
 </body>
 </html>

@@ -94,3 +94,23 @@ footer .sep { opacity: 0.6; }
 }
 .dialog .close:hover { color: var(--bright); }
 .toolbar .name { color: var(--dim); font-size: 13px; }
+
+/* Phones and narrow windows: the toolbar wraps (Open on its own line,
+   every button reachable and big enough to tap), the panes stack (the
+   ASCII, the drawing, the output, each scrolling inside), the page
+   scrolls down to the footer, and nothing is wider than the screen. */
+@media (max-width: 720px) {
+  html, body { overflow-x: hidden; }
+  .app { height: auto; min-height: 100vh; }
+  .toolbar { flex-wrap: wrap; gap: 6px; padding: 6px 8px; }
+  .toolbar .logo { height: 30px; }
+  .toolbar select { order: 10; flex: 1 1 100%; min-width: 0; }
+  .toolbar .name { display: none; }
+  .toolbar button { min-height: 38px; padding: 4px 12px; }
+  .panes { display: flex; flex-direction: column; flex: none; gap: 8px; padding: 6px; }
+  .panes .divider { display: none; }
+  .panes .source, .panes .rendered { height: 38vh; }
+  .panes .output { height: 46vh; }
+  .panes.zoomed .pane.current { height: 80vh; }
+  footer { padding-bottom: 14px; }
+}

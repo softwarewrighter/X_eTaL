@@ -128,3 +128,40 @@ fn open_lists_each_group_alphabetically() {
         assert_eq!(group, sorted);
     }
 }
+
+/// The live demo installs as an app: a manifest with its name, start
+/// page and icons (maskable too), linked from the page, and a service
+/// worker that the page registers and that keeps the app for offline.
+#[test]
+fn the_live_demo_is_an_installable_app() {
+    let manifest = include_str!("../manifest.webmanifest");
+    for field in [
+        r#""name": "X_eTaL live""#,
+        r#""short_name": "XeTaL""#,
+        r#""start_url": "./""#,
+        r#""scope": "./""#,
+        r#""display": "standalone""#,
+        r#""sizes": "192x192""#,
+        r#""sizes": "512x512""#,
+        r#""purpose": "maskable""#,
+    ] {
+        assert!(manifest.contains(field), "manifest lacks {field}");
+    }
+    let page = include_str!("../index.html");
+    for part in [
+        r#"rel="manifest""#,
+        "apple-touch-icon",
+        r#"name="theme-color""#,
+        "serviceWorker.register(\"./sw.js\")",
+    ] {
+        assert!(page.contains(part), "index.html lacks {part}");
+    }
+    let worker = include_str!("../sw.js");
+    for part in [
+        "addEventListener(\"fetch\"",
+        "caches.open",
+        "fetch(event.request)",
+    ] {
+        assert!(worker.contains(part), "sw.js lacks {part}");
+    }
+}

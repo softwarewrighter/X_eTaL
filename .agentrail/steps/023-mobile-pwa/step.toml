@@ -1,6 +1,6 @@
 number = 23
 slug = "mobile-pwa"
-status = "pending"
+status = "in-progress"
 description = "User report: on a phone the toolbar's buttons (Run, Zoom, Help...) run off th..."
 role = "production"
 context_files = []

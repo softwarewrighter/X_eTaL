@@ -26,8 +26,15 @@ visualize, and experiment with.
 In the live demo, type ASCII on the left and watch it drawn decorated
 on the right; Run shows the output, the drop-down opens the demos, the
 libraries and your saved files, and Save keeps them in the browser.
+Output appears as it is printed, with Stop while a program runs. On a
+phone the toolbar wraps and the panes stack, and the demo installs as
+an app (Add to Home Screen) that works offline.
 
 [![The live demo: the ASCII source, its decorated form, and the types below](images/live-demo.png)](https://softwarewrighter.github.io/X_eTaL/)
+
+<p align="center">
+  <img src="images/live-demo-phone.png" alt="The live demo on a phone: the toolbar wrapped, the panes stacked" width="260">
+</p>
 
 **eXperimental eXtensible Typed Array Language** -- LaTeX reversed,
 with the X itself decorated.
