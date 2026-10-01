@@ -21,9 +21,10 @@
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#orgdc76a11">Pascal's triangle</a></li>
-<li><a href="#org5e3619c">Life, watched</a></li>
-<li><a href="#org793b783">Turtle graphics, without a turtle</a></li>
-<li><a href="#org4db81b4">More</a></li>
+<li><a href="#org71d0066">Numbers</a></li>
+<li><a href="#orgba11334">Life, watched</a></li>
+<li><a href="#orgba6791e">Turtle graphics, without a turtle</a></li>
+<li><a href="#org8e4b9f7">More</a></li>
 </ul>
 </div>
 </div>
@@ -134,9 +135,120 @@ greatest (yellow), for 16 rows:
 </div>
 </div>
 </div>
-<div id="outline-container-org5e3619c" class="outline-2">
-<h2 id="org5e3619c">Life, watched</h2>
-<div class="outline-text-2" id="text-org5e3619c">
+<div id="outline-container-org71d0066" class="outline-2">
+<h2 id="org71d0066">Numbers</h2>
+<div class="outline-text-2" id="text-org71d0066">
+<p>
+The sieve of Eratosthenes keeps no loop over the numbers, only masks:
+take the first of what is left, a prime, and keep the rest that it
+does not divide; once a prime squared passes the largest number,
+everything left is prime.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘs̲ieve</span> ← { v →
+  <span class="c-number">0</span> <span class="c-symbol">=</span> <span class="c-builtin">t̲ally</span> v ? v
+  p ← <span class="c-builtin">f̲irst</span> v
+  (p <span class="c-symbol">×</span> p) <span class="c-symbol">&gt;</span> <span class="c-builtin">'m̲ax</span> <span class="c-builtin">r̲/</span> v ? v
+  rest ← <span class="c-number">1</span> <span class="c-builtin">d̲rop</span> v
+  p <span class="c-builtin">c̲at</span> <span class="c-userfunc">ᵘs̲ieve</span> (<span class="c-builtin">w̲here</span> <span class="c-number">0</span> <span class="c-symbol">≠</span> rest <span class="c-builtin">m̲od</span> p) <span class="c-builtin">s̲elect</span> rest
+}
+<span class="c-userfunc">ᵘs̲ieve</span> <span class="c-number">1</span> <span class="c-builtin">d̲rop</span> <span class="c-builtin">r̲ange</span> <span class="c-number">60</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:s_ieve := { v -&gt;</span>
+<span class="c-comment typed">⍝     0 = t_ally v ? v</span>
+<span class="c-comment typed">⍝     p := f_irst v</span>
+<span class="c-comment typed">⍝     (p * p) &gt; 'm_ax r_/ v ? v</span>
+<span class="c-comment typed">⍝     rest := 1 d_rop v</span>
+<span class="c-comment typed">⍝     p c_at u:s_ieve (w_here 0 != rest m_od p) s_elect rest</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:s_ieve 1 d_rop r_ange 60</span></pre>
+</div>
+
+<pre class="example">
+2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59
+</pre>
+
+
+<p>
+The APL way asks every question at once: the table of every number's
+remainder by every number. Where it is 0 the column divides the row,
+and a prime's row has exactly two such cells. Drawn, the primes are
+the rows with two dark cells, the diagonal and the first column:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">a ← <span class="c-builtin">r̲ange</span> <span class="c-number">30</span>
+divides ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> <span class="c-number">0</span> <span class="c-symbol">=</span> a <span class="c-builtin">'m̲od</span> <span class="c-builtin">t̲able</span> a
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   a := r_ange 30</span>
+<span class="c-comment typed">⍝   divides := []S_HOW []G_RID 0 = a 'm_od t_able a</span></pre>
+</div>
+
+
+<div id="org14bd8cb" class="figure">
+<p><img src="images/literate-divisors.svg" alt="literate-divisors.svg" class="org-svg" />
+</p>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(<span class="c-builtin">w̲here</span> <span class="c-number">2</span> <span class="c-symbol">=</span> <span class="c-symbol">'+</span> <span class="c-builtin">r̲/₂</span> <span class="c-number">0</span> <span class="c-symbol">=</span> a <span class="c-builtin">'m̲od</span> <span class="c-builtin">t̲able</span> a) <span class="c-builtin">s̲elect</span> a
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (w_here 2 = '+ r_/_2 0 = a 'm_od t_able a) s_elect a</span></pre>
+</div>
+
+<pre class="example">
+2 3 5 7 11 13 17 19 23 29
+</pre>
+
+
+<p>
+Euclid's algorithm is a guard and a recursion, and a dyadic function
+is an operand like any other, so reduce gives the greatest common
+divisor of a whole vector:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘg̲cd</span> ← { a b → b <span class="c-symbol">=</span> <span class="c-number">0</span> ? a◆ b <span class="c-userfunc">ᵘg̲cd</span> a <span class="c-builtin">m̲od</span> b }
+<span class="c-userfunc">'ᵘg̲cd</span> <span class="c-builtin">r̲/</span> <span class="c-number">84</span> <span class="c-number">126</span> <span class="c-number">210</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:g_cd := { a b -&gt; b = 0 ? a; b u:g_cd a m_od b }</span>
+<span class="c-comment typed">⍝   'u:g_cd r_/ 84 126 210</span></pre>
+</div>
+
+<pre class="example">
+42
+</pre>
+
+
+<p>
+The Collatz sequence halves an even number and otherwise triples it
+and adds one. Asked of every start from 1 to 30 at once, by each:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘh̲ail</span> ← { n → <span class="c-number">0</span> <span class="c-symbol">=</span> n <span class="c-builtin">m̲od</span> <span class="c-number">2</span> ? n <span class="c-builtin">d̲iv</span> <span class="c-number">2</span>◆ <span class="c-number">1</span> <span class="c-symbol">+</span> <span class="c-number">3</span> <span class="c-symbol">×</span> n }
+<span class="c-userfunc">ᵘc̲ollatz</span> ← { n → n <span class="c-symbol">=</span> <span class="c-number">1</span> ? <span class="c-number">1</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">1</span>◆ n <span class="c-builtin">c̲at</span> <span class="c-userfunc">ᵘc̲ollatz</span> <span class="c-userfunc">ᵘh̲ail</span> n }
+<span class="c-quote">'</span>{ (<span class="c-builtin">t̲ally</span> <span class="c-userfunc">ᵘc̲ollatz</span> <span class="c-lambdaarg">⍵</span>) <span class="c-symbol">−</span> <span class="c-number">1</span> } <span class="c-builtin">e̲ach</span> <span class="c-builtin">r̲ange</span> <span class="c-number">30</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:h_ail := { n -&gt; 0 = n m_od 2 ? n d_iv 2; 1 + 3 * n }</span>
+<span class="c-comment typed">⍝   u:c_ollatz := { n -&gt; n = 1 ? 1 r_eshape 1; n c_at u:c_ollatz u:h_ail n }</span>
+<span class="c-comment typed">⍝   '{ (t_ally u:c_ollatz _r) - 1 } e_ach r_ange 30</span></pre>
+</div>
+
+<pre class="example">
+0 1 7 2 5 8 16 3 19 6 14 9 9 17 17 4 12 20 20 7 7 15 15 10 23 10 111 18 18 18
+</pre>
+</div>
+</div>
+<div id="outline-container-orgba11334" class="outline-2">
+<h2 id="orgba11334">Life, watched</h2>
+<div class="outline-text-2" id="text-orgba11334">
 <p>
 The rule in one line (<code>docs/literate/life.org</code> builds it up): the
 board rotated by every offset in <code>-1 0 1</code> along both axes and summed
@@ -202,7 +314,7 @@ So 40 frames loop seamlessly:
 </div>
 
 
-<div id="org14bd8cb" class="figure">
+<div id="org5e3619c" class="figure">
 <p><img src="images/literate-glider-torus.svg" alt="literate-glider-torus.svg" class="org-svg" />
 </p>
 </div>
@@ -254,15 +366,15 @@ four cells:
 </div>
 
 
-<div id="org71d0066" class="figure">
+<div id="orgbe3b8e3" class="figure">
 <p><img src="images/literate-glider-box.svg" alt="literate-glider-box.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org793b783" class="outline-2">
-<h2 id="org793b783">Turtle graphics, without a turtle</h2>
-<div class="outline-text-2" id="text-org793b783">
+<div id="outline-container-orgba6791e" class="outline-2">
+<h2 id="orgba6791e">Turtle graphics, without a turtle</h2>
+<div class="outline-text-2" id="text-orgba6791e">
 <p>
 Logo draws by moving a turtle. With arrays there is nothing to move: a
 walk is a vector of turns (degrees, one before each step), the headings
@@ -323,7 +435,7 @@ side ← <span class="c-userfunc">ᵘk̲och</span> <span class="c-number">3</spa
 </div>
 
 
-<div id="orgbe3b8e3" class="figure">
+<div id="org793b783" class="figure">
 <p><img src="images/literate-koch.svg" alt="literate-koch.svg" class="org-svg" />
 </p>
 </div>
@@ -379,15 +491,15 @@ n
 </div>
 
 
-<div id="orgba11334" class="figure">
+<div id="org4db81b4" class="figure">
 <p><img src="images/literate-arrowhead.svg" alt="literate-arrowhead.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org4db81b4" class="outline-2">
-<h2 id="org4db81b4">More</h2>
-<div class="outline-text-2" id="text-org4db81b4">
+<div id="outline-container-org8e4b9f7" class="outline-2">
+<h2 id="org8e4b9f7">More</h2>
+<div class="outline-text-2" id="text-org8e4b9f7">
 <p>
 The Mandelbrot set, still, zoomed and flown over, is
 <code>demos/classics/mandelbrot.xtl</code> (<code>just draw demos/classics/mandelbrot.xtl</code>);
