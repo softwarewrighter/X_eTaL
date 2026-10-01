@@ -1,0 +1,55 @@
+# classics lane: handoff for the local agent
+
+Read this after merging `feat/classics` into main. It lists what this
+lane could not run or check in its cloud sandbox, what is only partly
+done, and what to do locally. Keep it current: each step of the lane
+adds to it, and the release step folds what is left into docs/plan.md.
+
+The lane's saga is in `lanes/classics/.agentrail` (run agentrail with
+`--saga lanes/classics`); see CLAUDE.md, "Parallel lanes".
+
+## The sandbox's restrictions (and what each one left unverified)
+
+| Restriction | Effect | Do locally |
+| ----------- | ------ | ---------- |
+| static.rust-lang.org blocked, so no `wasm32-unknown-unknown` target | the gate's "live demo's engine builds for the browser (wasm32)" check never ran on this branch | `scripts/gate.sh` in full; in particular `(cd components/web && cargo check --target wasm32-unknown-unknown)` after the store and system changes (Store::show, xetal-draw via xetal-system) |
+| No trunk, no browser | the live demo was never built or opened; `just serve`, `just pages` and `scripts/live-screenshot.sh` never ran | `just serve`, open life-drawn.xtl and pascal.xtl from Open; once step 7 lands, check the Draw pane; rebuild pages/ with `just pages` |
+| Per-argument size limit (about 128 KB) | golden `cli-too-deep` fails here (its 200 KB argument); it fails the same way on main in this sandbox, so not a regression | `scripts/reg.sh run` locally: it should pass |
+| No GUI viewer | `just draw FILE` (scripts/open-picture.sh) never opened a window | `just draw demos/classics/life-drawn.xtl` on the Mac (open) and an Arch box (xdg-open) |
+| SVG animation not viewable | frames were checked as still PNGs (cairosvg), not as running SMIL animation | open `work/draw/life-drawn-1.svg` in Safari, Chrome and Firefox; the glider should loop with no jump |
+
+Emacs: the sandbox installed emacs-nox 29.3 from Ubuntu, so the ERT
+tests and `just check-literate` did run here. `scripts/literate-html.sh`
+(the HTML export into pages/literate/) was not run, to leave pages/ to
+the web-playground lane: run `just literate-html` after merging.
+
+## Fixed along the way (worth knowing)
+
+- `xetal run FILE | head` panicked (broken pipe); a closed stdout now
+  ends the run with exit 141 (step 2, golden cli-pipe-closed).
+- `scripts/literate.sh --check` used BSD `mktemp -t literate`, which GNU
+  mktemp rejects: the check failed on Linux (the Arch servers). It now
+  uses `mktemp "${TMPDIR:-/tmp}/literate.XXXXXX"`, which both accept.
+
+## Merging
+
+- Rebase onto main once, at merge time (the branch was kept
+  fast-forward, never rebased while pushed).
+- Expected conflicts: `components/web/crates/xetal-web/src/demos.rs`
+  (both lanes add demos: keep both lists), `README.md` quick start and
+  documentation list, `docs/plan.md` (the lane's section sits before
+  Saga 11), and Cargo.lock files (regenerate with
+  `scripts/check-locks.sh --fix`).
+- Goldens rebased on this branch on purpose: run-classics-pascal,
+  cli-no-subcommand (usage shows [OPTIONS] for the global --draw),
+  just-list (draw recipe). If main added recipes too, rebase just-list
+  again after the merge.
+
+## Step by step: what is done, partial, or untested
+
+| Step | State | Notes for the local agent |
+| ---- | ----- | ------------------------- |
+| 1 classics-index | done | |
+| 2 classics-broken-pipe | done | |
+| 3 classics-trig | done | |
+| 4 classics-draw-grid | done | wasm32 check and browser viewing untested (above); the web host has no Draw pane yet, so in the live demo `[]S_HOW` fails with error[io] "no place to show pictures" until step 7 |

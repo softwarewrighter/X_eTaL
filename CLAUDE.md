@@ -442,7 +442,9 @@ axes: rotate, reverse and axis subscripts (move-to-front, A6)
 A lane whose saga must not touch the main `.agentrail` keeps its own
 under `lanes/<lane>/.agentrail`; run agentrail for it with
 `--saga lanes/<lane>` (for example `agentrail --saga lanes/classics
-next`). The classics lane (branch `feat/classics`) works this way.
+next`). The classics lane (branch `feat/classics`) works this way;
+after merging it, read `lanes/classics/HANDOFF.md` for what its cloud
+sandbox could not run or check.
 New demos must also be listed in
 `components/web/crates/xetal-web/src/demos.rs` for the live demo, and
 start with `#!/usr/bin/env xetal` for the just smoke test to run them.
