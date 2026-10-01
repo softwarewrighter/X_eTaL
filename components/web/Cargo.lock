@@ -1270,6 +1270,7 @@ dependencies = [
  "xetal-hof",
  "xetal-lex",
  "xetal-lint",
+ "xetal-radix",
  "xetal-rotate",
  "xetal-search",
  "xetal-struct",
@@ -1394,6 +1395,15 @@ dependencies = [
  "xetal-lex",
  "xetal-macro",
  "xetal-sources",
+]
+
+[[package]]
+name = "xetal-radix"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
 ]
 
 [[package]]

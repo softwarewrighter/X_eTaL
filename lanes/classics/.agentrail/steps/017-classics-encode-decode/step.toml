@@ -1,6 +1,6 @@
 number = 17
 slug = "classics-encode-decode"
-status = "pending"
+status = "in-progress"
 description = "Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the ..."
 role = "production"
 context_files = []

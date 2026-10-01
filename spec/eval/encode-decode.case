@@ -1,0 +1,50 @@
+# e_ncode and d_ecode are APL's encode and decode (B12), radix on the
+# left. e_ncode gives the digits of a number in a mixed radix, the
+# last radix the least significant; a 0 radix takes all that is left.
+# Its shape is the radix's shape then the right argument's, so a
+# vector gives one column per item. d_ecode is the inverse: a scalar
+# radix extends, and a matrix gives one number per column.
+== SOURCE
+2 2 2 e_ncode 5
+2 2 2 e_ncode 5 6
+24 60 60 e_ncode 3725
+0 10 e_ncode 123
+10 e_ncode 123
+2 2 e_ncode 7
+2 2 2 e_ncode -1
+2 d_ecode 1 0 1
+10 d_ecode 1 2 3
+24 60 60 d_ecode 1 2 5
+2 d_ecode 3 2 r_eshape 1 1 0 1 1 0
+2 d_ecode 2 2 2 e_ncode r_ange 7
+2 d_ecode 1 2 3 = 1
+== TYPE
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+Int
+== RESULT
+1 0 1
+1 1
+0 1
+1 0
+1 2 5
+12 3
+3
+1 1
+1 1 1
+5
+123
+3725
+5 6
+1 2 3 4 5 6 7
+4

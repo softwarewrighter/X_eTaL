@@ -1,0 +1,6 @@
+# e_ncode takes a scalar or a vector of numbers (nested and higher
+# rank arguments come later).
+== SOURCE
+2 2 e_ncode 2 2 r_eshape 1
+== ERROR
+error[rank]: e_ncode needs a scalar or a vector, got shape 2 2 at 0..26

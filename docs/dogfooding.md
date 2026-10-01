@@ -33,12 +33,12 @@ plan, and move a row from "Planned" to "Added" when it lands.
 | `ob-xetal` saves a block's picture with `:results file :file PATH`; the literate check compares pictures | tooling | the literate classics walkthrough | design 8.1g |
 | `scripts/literate.sh --check` uses a mktemp both GNU and BSD accept | fix | running the literate check on Linux | scripts/literate.sh |
 | `r_eplicate`, APL's replicate and compress: counts or a mask on the left, over major cells, any axis by subscript | feature | Roman numerals and run-length decoding (and every "keep where" written as `(w_here m) s_elect v`) | lang-choices B11; design D35 |
+| `e_ncode` and `d_ecode`, APL's encode and decode, in their own component (`radix`) | feature | truth tables, base conversion, Hanoi's moves from the bits of k (written as a remainder table), Mastermind's 1296 codes (written with `d_iv` and `m_od` by place values) | lang-choices B12; design D36 |
 
 ## Planned, because a demo needs it
 
 | Feature | Needed by | Status |
 | ------- | --------- | ------ |
-| `e_ncode` and `d_ecode`, APL's encode and decode | truth tables, base conversion, Hanoi's moves from the bits of k (now a remainder table), Mastermind's 1296 codes (now `d_iv` and `m_od` by place values) | decided (B12, D36); classics lane, encode-decode |
 | Nested arrays, with static depth (`Box a`) and boxed printing | word frequency, N-Queens, ragged Pascal, the APL subset interpreter | partly decided (A7, D37); the remaining questions go to the user in the classics lane's nested-design step |
 | Transpose (`o_\`) | `[]P_ATH` taking n by 2 points, any program wanting columns | planned (plan.md, cross-cutting; confirmed by the user) |
 | Matrix inverse and division (APL's domino) | ADVANCEDEX's INV and INVP, regression in STATS | to decide with the user, when the ADVANCEDEX ports reach it |

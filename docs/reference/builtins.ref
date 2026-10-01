@@ -238,6 +238,28 @@ subscript the counts go along that axis. A negative count is an error.
 > 1 0 2 r_eplicate_2 M
 !> 1 -1 2 r_eplicate v
 
+== e_ncode
+Encode: the digits of a number in the radix on the left, most
+significant first (APL's encode). Radixes may differ from digit to
+digit (hours, minutes, seconds), a radix of 0 takes all that is left,
+and digits beyond the radix are dropped. A vector gives one column of
+digits per item.
+> 2 2 2 2 e_ncode 11
+> 24 60 60 e_ncode 3725
+> 0 10 e_ncode 123
+> 2 2 2 e_ncode 0 1 2 3
+!> 2 2 e_ncode M
+
+== d_ecode
+Decode: the number whose digits, in the radix on the left, are on the
+right (APL's decode), the inverse of `e_ncode`. One radix extends to
+every digit; a matrix gives one number per column.
+> 2 d_ecode 1 0 1 1
+> 10 d_ecode 1 2 3
+> 24 60 60 d_ecode 1 2 5
+> 2 d_ecode 2 2 2 e_ncode 0 1 2 3
+!> 2 2 d_ecode 1 0 1
+
 == c_at
 Join along the first axis. An axis subscript would move the axes of
 both arguments, which is an error for now.

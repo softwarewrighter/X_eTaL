@@ -88,6 +88,8 @@ components/
                            (item by item: each, table, inner)
   search/                  xetal-search (search and order: index-of,
                            member, unique, sort, grade, where)
+  radix/                   xetal-radix (encode and decode in a mixed
+                           radix: e_ncode, d_ecode)
   draw/                    xetal-svg (the pieces: shapes and cells,
                            colors, SVG elements, frames in turn),
                            xetal-draw (grids, large grids as images,

@@ -131,6 +131,13 @@ entries = [
 ]
 
 [[group]]
+rule = "B12: encode and decode (radix on the left)"
+entries = [
+  ["e_ncode", 2, "Int -> Int -> Int"],
+  ["d_ecode", 2, "Int -> Int -> Int"],
+]
+
+[[group]]
 rule = "A2-A4: rotate and reverse (leading axis)"
 entries = [
   ["r_ev", 1, "a -> a"],
