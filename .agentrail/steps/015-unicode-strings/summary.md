@@ -1,0 +1,1 @@
+Unicode allowed in strings and comments (lexer, inverse verbatim, spec case, I1/ST2/D13 revised); Hello/Greetings greet with the logo string, demo imports both niladic and monadic; name.md/name image show Unicode spelling
