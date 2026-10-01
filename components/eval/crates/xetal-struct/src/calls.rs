@@ -5,8 +5,8 @@ use xetal_array::{Array, size};
 use xetal_base::{Diagnostic, Span};
 use xetal_value::Value;
 
-use crate::values::{as_array, as_vector, counts, disclose, fill, ints, to_value};
-use crate::{cat, drop, first, replicate, reshape, select, take};
+use crate::values::{as_array, as_vector, boxes, counts, disclose, fill, ints, to_value};
+use crate::{cat, drop, first, partition, replicate, reshape, select, take};
 
 type Out<'a> = Result<Value<'a>, Diagnostic>;
 
@@ -28,9 +28,15 @@ pub fn call<'a>(name: &str, args: &[Value<'a>], span: Span) -> Option<Out<'a>> {
         ("s_elect", [i, x]) => ints(i).and_then(|i| Ok(to_value(select(&i, &as_vector(x))?))),
         ("r_eplicate", [c, x]) => {
             let a = as_vector(x);
-            counts(c, a.shape()[0]).and_then(|k| Ok(to_value(replicate(&k, &a)?)))
+            counts(c, a.shape()[0], ("r_eplicate", "count"))
+                .and_then(|k| Ok(to_value(replicate(&k, &a)?)))
         }
         ("c_at", [a, b]) => join(a, b),
+        ("p_artition", [k, x]) => {
+            let a = as_vector(x);
+            counts(k, a.shape()[0], ("p_artition", "key"))
+                .and_then(|k| Ok(boxes(partition(&k, &a)?)))
+        }
         ("e_nclose", [x]) => Ok(Value::Boxed(std::rc::Rc::new(x.clone()))),
         ("d_isclose", [x]) => disclose(x),
         _ => return None,

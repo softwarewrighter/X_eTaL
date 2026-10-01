@@ -106,6 +106,7 @@ entries = [
 rule = "B6: each and table (item by item; dyadic each by currying)"
 entries = [
   ["e_ach", 2, "(a -> b) -> a -> b"],
+  ["m_ap", 2, "(a -> b) -> a -> Box b"],
   ["t_able", 3, "(a -> b -> c) -> a -> b -> c"],
 ]
 
@@ -135,6 +136,7 @@ rule = "A7, B14: nested arrays (Box a)"
 entries = [
   ["e_nclose", 1, "a -> Box a"],
   ["d_isclose", 1, "Box a -> a"],
+  ["p_artition", 2, "Truthy a => a -> b -> Box b"],
 ]
 
 [[group]]

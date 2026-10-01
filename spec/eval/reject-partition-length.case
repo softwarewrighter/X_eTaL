@@ -1,0 +1,5 @@
+# One key per major cell: keys of another length are an error.
+== SOURCE
+1 1 p_artition 1 2 3
+== ERROR
+error[length-mismatch]: 2 keys for 3 cells at 0..20

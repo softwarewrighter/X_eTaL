@@ -8,6 +8,6 @@ mod inner;
 mod items;
 mod table;
 
-pub use each::{each, zip};
+pub use each::{each, map, zip};
 pub use inner::inner;
 pub use table::table;
