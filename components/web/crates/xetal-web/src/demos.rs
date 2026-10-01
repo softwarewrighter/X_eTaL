@@ -36,6 +36,12 @@ pub const DEMOS: &[Demo] = demos![
     "factorial.xtl",
     "higher-order.xtl",
     "arrays.xtl",
+    "classics/sieve.xtl",
+    "classics/primes.xtl",
+    "classics/gcd.xtl",
+    "classics/fibonacci.xtl",
+    "classics/factorial.xtl",
+    "classics/collatz.xtl",
     // The classics that draw (pascal, life-drawn, turtle, mandelbrot)
     // come back with the Draw pane: until then []S_HOW has nowhere to
     // show a picture in the browser (the user's decision).

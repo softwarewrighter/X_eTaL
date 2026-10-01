@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/sieve.xtl"
+exit_code = 0
+desc = "the sieve of Eratosthenes by masks: primes to 100, one round, 168 primes below 1000"

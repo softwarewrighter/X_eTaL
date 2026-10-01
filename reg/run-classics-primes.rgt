@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/primes.xtl"
+exit_code = 0
+desc = "primes by counting divisors in a remainder table; perfect numbers"
