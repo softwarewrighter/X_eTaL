@@ -1,8 +1,9 @@
 number = 19
 slug = "draw-pane"
-status = "in-progress"
+status = "completed"
 description = "The live demo's Draw pane (the user's 'hide, but fix'; the classics lane's cl..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T19:01:39"
-commits = []
+completed_at = "2026-09-30T20:05:57"
+commits = ["2daab6e80ccbd8c628eca8e27aea8eda33e01dc7"]

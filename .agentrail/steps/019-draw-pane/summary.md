@@ -1,0 +1,1 @@
+Draw pane: Store::take_shown, Run.pictures, web Local keeps pictures, output pane draws SVG images; drawing classics relisted; verified via CDP; pages rebuilt incl. classics literate; HANDOFF updated; README image moved
