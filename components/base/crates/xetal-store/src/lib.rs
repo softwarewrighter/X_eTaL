@@ -7,9 +7,11 @@
 mod current;
 mod drawing;
 mod memory;
+mod replay;
 mod stores;
 
 pub use current::{install, read, read_line, show, write};
 pub use drawing::Drawing;
 pub use memory::Memory;
+pub use replay::{muted, replay, shown};
 pub use stores::{Disk, Store};

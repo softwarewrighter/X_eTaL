@@ -8,6 +8,7 @@ authors.workspace = true
 repository.workspace = true
 
 [dependencies]
+xetal-store.workspace = true
 xetal-base.workspace = true
 xetal-core.workspace = true
 xetal-types.workspace = true

@@ -24,6 +24,18 @@
 ;;   :echo yes       show each statement decorated, then its output
 ;;                   (a notebook run; not with :session)
 ;;   :untyped yes    skip the type checker (not with :session)
+;;   :results file :file PATH
+;;                   save the last picture the block shows ([]S_HOW,
+;;                   an SVG) to PATH; the result is a link to it, and
+;;                   the HTML export shows the picture (animated, if
+;;                   it has frames); the block's printed text is not
+;;                   recorded
+;;
+;; A picture block, in a session or not:
+;;
+;;   #+begin_src xetal :session life :results file :file ../../images/literate-glider.svg
+;;   torus := []S_HOW []G_RID 40 u:f_rames glider
+;;   #+end_src
 ;;
 ;;   (add-to-list 'load-path "path/to/X_eTaL/docs/emacs")
 ;;   (require 'ob-xetal)
@@ -79,15 +91,16 @@ where a GUI Emacs with a short PATH would not look."
             (push (nth 1 info) bodies)))))
     (mapconcat (lambda (b) (concat b "\n")) (nreverse bodies) "")))
 
-(defun org-babel-xetal--arguments (params file context)
+(defun org-babel-xetal--arguments (params file context &optional draw)
   "The xetal command line for FILE with header arguments PARAMS and,
-for a session, the CONTEXT file."
+for a session, the CONTEXT file; pictures go to the directory DRAW."
   (let ((seed (cdr (assq :seed params)))
         (echo (equal (cdr (assq :echo params)) "yes"))
         (untyped (equal (cdr (assq :untyped params)) "yes")))
     (when (and context (or echo untyped))
       (user-error "xetal block: :echo and :untyped do not go with :session"))
     (append (list "run")
+            (when draw (list "--draw" draw))
             (when seed (list "--seed" (format "%s" seed)))
             (when echo (list "--echo"))
             (when untyped (list "--untyped"))
@@ -100,12 +113,27 @@ for a session, the CONTEXT file."
     (set-buffer-file-coding-system 'utf-8-unix)
     (insert text)))
 
+(defun org-babel-xetal--picture (draw target)
+  "Move the last picture xetal wrote to the directory DRAW (NAME-1.svg,
+NAME-2.svg, ...) to TARGET, making its directory."
+  (let* ((number (lambda (f) (string-to-number
+                              (replace-regexp-in-string "\\`.*-\\([0-9]+\\)\\.svg\\'" "\\1" f))))
+         (pictures (sort (directory-files draw t "-[0-9]+\\.svg\\'")
+                         (lambda (a b) (< (funcall number a) (funcall number b))))))
+    (unless pictures
+      (user-error "xetal block: :file %s, but the block shows no picture ([]S_HOW)" target))
+    (make-directory (or (file-name-directory (expand-file-name target)) ".") t)
+    (copy-file (car (last pictures)) (expand-file-name target) t)))
+
 (defun org-babel-execute:xetal (body params)
   "Run BODY, an xetal block with header arguments PARAMS, and return
-what it printed; a failing block shows its error."
+what it printed; a failing block shows its error. With :file, save
+the block's last picture there instead and return nil (Org links it)."
   (let* ((session (org-babel-xetal--session params))
+         (target (cdr (assq :file params)))
          (file (make-temp-file "ob-xetal-" nil ".xtl"))
          (context (and session (make-temp-file "ob-xetal-context-" nil ".xtl")))
+         (draw (and target (make-temp-file "ob-xetal-draw-" t)))
          (program (org-babel-xetal--program)))
     (unwind-protect
         (progn
@@ -115,12 +143,15 @@ what it printed; a failing block shows its error."
           (with-temp-buffer
             (let* ((coding-system-for-read 'utf-8)
                    (status (apply #'call-process program nil t nil
-                                  (org-babel-xetal--arguments params file context))))
-              (if (eq status 0)
-                  (buffer-string)
-                (user-error "xetal block: exit %s: %s" status (buffer-string))))))
+                                  (org-babel-xetal--arguments params file context draw))))
+              (unless (eq status 0)
+                (user-error "xetal block: exit %s: %s" status (buffer-string)))
+              (if target
+                  (progn (org-babel-xetal--picture draw target) nil)
+                (buffer-string)))))
       (delete-file file)
-      (when context (delete-file context)))))
+      (when context (delete-file context))
+      (when draw (delete-directory draw t)))))
 
 (provide 'ob-xetal)
 ;;; ob-xetal.el ends here
