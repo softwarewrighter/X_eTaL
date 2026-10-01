@@ -279,6 +279,9 @@ Other fonts, checked against the font files:
 - [`docs/permission-response.md`](docs/permission-response.md) -- XeTaL's
   answers to ngn's [Array Language Implementation Permission
   Request](https://ngn.codeberg.page/funny/reg.html)
+- [`docs/wish-list.md`](docs/wish-list.md) -- ideas the language could
+  use that no saga plans yet, prioritized and sized (ideas, not
+  commitments)
 - [`docs/name.md`](docs/name.md) -- how to say XeTaL (Ecks-e-tal) and
   every way it is spelled
 - [`docs/why-another-language.md`](docs/why-another-language.md) --
