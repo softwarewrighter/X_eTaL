@@ -177,6 +177,13 @@ trains and a stepping debugger ([`docs/plan.md`](docs/plan.md)).
   screenshot; Node.js with KaTeX (`cd tools/katex && npm ci`) to check
   every line's LaTeX and draw the gallery (`scripts/latex-gallery.sh`).
 
+Vendoring X_eTaL into another repository: `xetal --version` and the
+live demo's footer report the commit they were built from, found with
+`git` where they are built, which inside another repository is that
+repository's commit. Set `XETAL_BUILD_SHA` (and, if wanted,
+`XETAL_BUILD_HOST` and `XETAL_BUILD_TIMESTAMP`) when building to report
+the vendored commit instead.
+
 ## Quick Start
 
 With [`just`](https://github.com/casey/just) installed (`just` alone

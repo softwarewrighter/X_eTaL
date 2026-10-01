@@ -1,6 +1,6 @@
 number = 21
 slug = "downstream-provenance"
-status = "pending"
+status = "in-progress"
 description = "Downstream ask (../X_eTaL-demos/docs/xetal-asks.md): a vendored build reports..."
 role = "production"
 context_files = []

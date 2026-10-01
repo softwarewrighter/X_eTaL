@@ -12,6 +12,10 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-01
 
+- 13:35 `chore` Saga step downstream-provenance completed.
+- 13:35 `fix` A vendored build can report the vendored commit: `XETAL_BUILD_SHA` (and host, timestamp) override the git lookup.
+- 13:29 `chore` Merged the classics lane, parts 10 to 13 (PRs #10 to #13): `r_eplicate`, `e_ncode` and `d_ecode`, truth tables, bases, Roman numerals, nested-array decisions.
+- 12:40 `chore` Merged the classics lane, part 9 (PR #9): magic squares and Mastermind.
 - 11:31 `chore` Saga step streaming-output completed.
 - 11:31 `feat` Web: programs run in a worker; output streams line by line, Stop and a spinner while running; Open sorted alphabetically; TTTML trains in rounds (no deep recursion in the browser).
 - 11:08 `chore` Merged the classics lane, part 8 (PR #8).

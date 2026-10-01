@@ -135,6 +135,13 @@ code. Each component has its own `Cargo.lock`;
 `scripts/check-locks.sh --fix` refreshes locks after a manifest
 change.
 
+Build provenance (the build host, the short commit and the build time,
+in `xetal --version` and the live demo's footer) comes from the
+`build.rs` of `xetal-cli` and `xetal-chrome`: `hostname`, `git
+rev-parse` and the clock, each overridden by `XETAL_BUILD_HOST`,
+`XETAL_BUILD_SHA` or `XETAL_BUILD_TIMESTAMP` when set (for a repository
+that vendors X_eTaL, where `git` would report its own commit).
+
 The display-name constant `xetal_base::LANG_NAME` lives in
 `xetal-base` (kept tiny, depended on by all).
 
