@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/leetcode/numbers-in-string.xtl"
+exit_code = 0
+desc = "LeetCode 1805, 1796, 2042: numbers in a string found as runs of a digit mask, read two ways (n_umbers and Ints by Horner per run)"

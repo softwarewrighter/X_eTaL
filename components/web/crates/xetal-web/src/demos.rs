@@ -58,6 +58,7 @@ pub const DEMOS: &[Demo] = demos![
     "hello-library.xtl",
     "higher-order.xtl",
     "keys.xtl",
+    "leetcode/numbers-in-string.xtl",
     "life.xtl",
     "monads.xtl",
     "stats.xtl",
