@@ -39,7 +39,7 @@ plan, and move a row from "Planned" to "Added" when it lands.
 
 | Feature | Needed by | Status |
 | ------- | --------- | ------ |
-| Nested arrays, with static depth (`Box a`) and boxed printing | word frequency, N-Queens, ragged Pascal, the APL subset interpreter | partly decided (A7, D37); the remaining questions go to the user in the classics lane's nested-design step |
+| Nested arrays, with static depth (`Box a`) and boxed printing | word frequency, N-Queens, ragged Pascal, the APL subset interpreter | decided (A7, B14, D37): string-literal strands, `m_ap` to box each result, `p_artition` with APL2's keys, strict `Box a`; classics lane, nested-core and nested-builtins |
 | Transpose (`o_\`) | `[]P_ATH` taking n by 2 points, any program wanting columns | planned (plan.md, cross-cutting; confirmed by the user) |
 | Matrix inverse and division (APL's domino) | ADVANCEDEX's INV and INVP, regression in STATS | to decide with the user, when the ADVANCEDEX ports reach it |
 | Execute (`[]V_ALUE`, read and evaluate) | the APL subset interpreter, the COURSE and DRILL ports | reserved (lang-choices QD3); to decide |
@@ -62,6 +62,6 @@ coming up.
 | A lambda that uses `_l` must use `_r` too | Mandelbrot | the tacks as operands, `'l_eft` and `'r_ight` |
 | `u:` functions are defined only at the top level | Mandelbrot | a local function name (`s_tep := ...`) or a top-level definition |
 | `m_od` reads in maths order (`a m_od n` is a mod n), the reverse of APL's residue | automaton | written as maths reads it |
-| `e_ach` goes over items (scalars), not rows, so a function of a row cannot be applied to each row of a matrix | Mastermind, every secret | each row by its index: `'{ ... _r s_elect m } e_ach r_ange n`; a rank operator or nested arrays (the nested-design step) would say it directly |
+| `e_ach` goes over items (scalars), not rows, so a function of a row cannot be applied to each row of a matrix | Mastermind, every secret | each row by its index: `'{ ... _r s_elect m } e_ach r_ange n`; `m_ap` (B14) will box each row's result, though a matrix still goes item by item: a rank operator is not planned |
 | A guard is a statement, so a choice in the middle of an expression needs a function | Mastermind, showing "none" for no pegs | a small function (`u:p_egs`) whose first line is the guard |
 | A comparison named at the top level is a Bool, and a Bool is not a number: `t c_at f` and `1 * f` fail for a named Bool `f`, though the same comparison written in place is an Int (T5) | truth tables, Gray code | the binding written `f := 0 + ...`, so it is named as an Int |
