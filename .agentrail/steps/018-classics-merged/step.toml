@@ -1,8 +1,9 @@
 number = 18
 slug = "classics-merged"
-status = "in-progress"
+status = "completed"
 description = "After merging the classics lane's PR #1 (lanes/classics/HANDOFF.md): rebuild ..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T18:25:31"
-commits = []
+completed_at = "2026-09-30T19:01:01"
+commits = ["85292e04a5c4d171aabc8f1265c7392799c60bc2"]

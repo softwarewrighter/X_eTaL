@@ -1,0 +1,1 @@
+Post-merge of classics PR #1: handoff checks done, drawing demos hidden from live demo (guard test), pages rebuilt, user decisions recorded (4096, 2-row paths, transpose planned), store test race fixed with shared OnceLock, CLAUDE.md test-isolation rule, check-modes recursive, dist untracked
