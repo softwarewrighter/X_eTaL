@@ -4,8 +4,10 @@
 mod dialog;
 mod footer;
 mod help;
+mod running;
 mod toolbar;
 
 pub use dialog::help;
 pub use footer::footer;
+pub use running::RunButtons;
 pub use toolbar::{Bar, toolbar};

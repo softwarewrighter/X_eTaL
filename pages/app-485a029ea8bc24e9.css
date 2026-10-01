@@ -114,3 +114,9 @@ footer .sep { opacity: 0.6; }
   .panes.zoomed .pane.current { height: 80vh; }
   footer { padding-bottom: 14px; }
 }
+
+/* A notebook: statements drawn indented above their output; the one
+   Step ran last marked with a bright bar. */
+.pane pre .statement { display: block; }
+.pane pre .statement.current { border-left: 3px solid var(--bright); margin-left: -6px; padding-left: 3px; }
+.toolbar button.on { border-color: var(--bright); color: var(--bright); }

@@ -4,11 +4,13 @@
 //! progress (`tttml-train`) instead of freezing until the end.
 
 mod output;
+mod page;
 mod protocol;
 mod session;
 mod worker;
 
-pub use output::{Action, Output};
-pub use protocol::{Event, Request};
-pub use session::{Runs, recent, use_runs};
+pub use output::{Action, Cell, Output};
+pub use page::recent;
+pub use protocol::{Event, Mode, Request};
+pub use session::{Runs, use_runs};
 pub use worker::start as start_worker;

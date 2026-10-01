@@ -2,7 +2,8 @@
 //! decorated, and the types or, after a run, the output.
 
 use web_sys::{Element, HtmlTextAreaElement};
-use xetal_play::{Class, Run, check, decorate};
+use xetal_play::{Class, check, decorate};
+use xetal_runner::Runs;
 use yew::prelude::*;
 
 use crate::app::Pane;
@@ -77,28 +78,55 @@ fn picture(svg: &str) -> Html {
 
 pub(crate) fn output(
     text: &str,
-    result: &Option<Run>,
-    running: bool,
+    runs: &Runs,
     current: Pane,
     focus: Callback<Pane>,
     printed: NodeRef,
 ) -> Html {
-    let (title, body) = match result {
-        Some(r) => (
-            if running {
-                "Output (running...)"
-            } else {
-                "Output"
-            },
-            html! {
-                <pre tabindex="0" ref={printed.clone()}>{ &r.out }<span class="c-error">{ &r.err }</span>
-                    { for r.pictures.iter().map(|svg| picture(svg)) }</pre>
-            },
-        ),
-        None => (
-            "Types",
-            html! { <pre tabindex="0">{ check(text).join("\n") }</pre> },
-        ),
+    let o = &runs.output;
+    let title = match (&o.run, o.running, o.cells.is_empty()) {
+        (None, ..) => "Types".to_string(),
+        (_, true, _) => "Output (running...)".to_string(),
+        (_, false, true) => "Output".to_string(),
+        (_, false, false) if runs.stepped > 0 => format!("Notebook (step {})", runs.stepped),
+        (_, false, false) => "Notebook".to_string(),
     };
-    frame(title, Pane::Output, current, focus, body)
+    let body = match &o.run {
+        None => html! { <pre tabindex="0">{ check(text).join("\n") }</pre> },
+        Some(r) if o.cells.is_empty() => html! {
+            <pre tabindex="0" ref={printed.clone()}>{ &r.out }<span class="c-error">{ &r.err }</span>
+                { for r.pictures.iter().map(|svg| picture(svg)) }</pre>
+        },
+        Some(r) => html! {
+            <pre tabindex="0" ref={printed.clone()}>{ notebook(runs) }<span class="c-error">{ &r.err }</span></pre>
+        },
+    };
+    frame(&title, Pane::Output, current, focus, body)
+}
+
+/// A notebook: each statement drawn decorated, indented six spaces as
+/// in an APL session, its output and pictures under it; while stepping,
+/// the last statement run is marked.
+fn notebook(runs: &Runs) -> Html {
+    let o = &runs.output;
+    let last = o.cells.len().saturating_sub(1);
+    let cells = o.cells.iter().enumerate().map(|(i, cell)| {
+        let indented: String = cell
+            .source
+            .lines()
+            .map(|l| format!("      {l}\n"))
+            .collect();
+        let spans = decorate(&indented).into_iter().map(|s| {
+            html! { <span class={class_name(s.class)}>{ s.text }</span> }
+        });
+        let here = runs.stepped > 0 && i == last;
+        html! {
+            <>
+                <span class={classes!("statement", here.then_some("current"))}>{ for spans }</span>
+                { o.out_of(cell) }
+                { for o.pictures_of(cell).iter().map(|svg| picture(svg)) }
+            </>
+        }
+    });
+    html! { <>{ for cells }</> }
 }

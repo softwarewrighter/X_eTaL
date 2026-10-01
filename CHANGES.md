@@ -12,6 +12,12 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-01
 
+- 16:19 `chore` Saga step line-by-line completed.
+- 16:19 `feat` Web: Notebook (each statement drawn above its output) and Step / Reset, running a program a statement at a time.
+- 16:16 `build` Pages rebuilt with PRs #19 and #20.
+- 16:15 `chore` Merged PR #20: magmas, rock-paper-scissors(-lizard-Spock).
+- 16:15 `chore` Merged PR #19: `p_artition` and `m_ap`; LeetCode 1805 exactly.
+- 15:41 `chore` Merged PR #17: nested arrays in the core (`Box a`, string strands, APL2 DISPLAY printing).
 - 14:48 `fix` `just pages` ran to the end at last (the screenshot's cleanup ended it with status 143 before the stamp); pages rebuilt with the leetcode demo.
 - 14:43 `chore` Merged the leetcode lane's first PR (#16): numbers in a string (LeetCode 1805, 1796, 2042).
 - 14:27 `chore` Saga step pages-current completed.

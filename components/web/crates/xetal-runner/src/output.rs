@@ -15,6 +15,37 @@ use crate::Event;
 pub struct Output {
     pub run: Option<Run>,
     pub running: bool,
+    /// In a notebook, each statement and where its output and pictures
+    /// begin in the run's; none for a plain run.
+    pub cells: Vec<Cell>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Cell {
+    pub source: String,
+    out_at: usize,
+    pictures_at: usize,
+}
+
+impl Output {
+    /// What `cell` printed: from its start to the next cell's.
+    pub fn out_of(&self, cell: &Cell) -> &str {
+        let out = self.run.as_ref().map_or("", |r| r.out.as_str());
+        let end = self.after(cell).map_or(out.len(), |c| c.out_at);
+        &out[cell.out_at..end]
+    }
+
+    /// The pictures `cell` showed.
+    pub fn pictures_of(&self, cell: &Cell) -> &[String] {
+        let all = self.run.as_ref().map_or(&[][..], |r| r.pictures.as_slice());
+        let end = self.after(cell).map_or(all.len(), |c| c.pictures_at);
+        &all[cell.pictures_at..end]
+    }
+
+    fn after(&self, cell: &Cell) -> Option<&Cell> {
+        let i = self.cells.iter().position(|c| std::ptr::eq(c, cell))?;
+        self.cells.get(i + 1)
+    }
 }
 
 /// What happens to it.
@@ -38,7 +69,21 @@ impl Reducible for Output {
         let mut next = (*self).clone();
         let run = next.run.get_or_insert_with(Run::default);
         match action {
-            Action::Start => (next.run, next.running) = (Some(Run::default()), true),
+            Action::Start => {
+                return Rc::new(Output {
+                    run: Some(Run::default()),
+                    running: true,
+                    cells: Vec::new(),
+                });
+            }
+            Action::Event(Event::Source(source)) => {
+                let (out_at, pictures_at) = (run.out.len(), run.pictures.len());
+                next.cells.push(Cell {
+                    source,
+                    out_at,
+                    pictures_at,
+                });
+            }
             Action::Event(Event::Out(line)) => run.out += &format!("{line}\n"),
             Action::Event(Event::Err(line)) => run.err += &format!("{line}\n"),
             Action::Event(Event::Picture(svg)) => run.pictures.push(svg),

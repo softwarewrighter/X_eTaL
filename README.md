@@ -26,7 +26,9 @@ visualize, and experiment with.
 In the live demo, type ASCII on the left and watch it drawn decorated
 on the right; Run shows the output, the drop-down opens the demos, the
 libraries and your saved files, and Save keeps them in the browser.
-Output appears as it is printed, with Stop while a program runs. On a
+Output appears as it is printed, with Stop while a program runs;
+Notebook shows each statement above its output, and Step runs one
+statement at a time. On a
 phone the toolbar wraps and the panes stack, and the demo installs as
 an app (Add to Home Screen) that works offline.
 

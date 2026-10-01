@@ -675,6 +675,20 @@ program that reads the keyboard (`[]R_EAD`) runs on the page instead,
 its prompt showing the last lines printed. A worker's failure (a stack
 overflow, for one) ends the run with the error shown.
 
+### 8.3a The notebook and stepping in the live demo
+
+Notebook makes Run show the program as `just show` does: each
+statement (with the comments above it) drawn decorated and indented
+six spaces, its output and pictures under it. `xetal-play`'s
+`notebook_to` uses the evaluator's before-statement hook (the one the
+CLI notebook uses) to hand over each statement's source just before it
+runs; the worker posts it as a Source event, and the page groups the
+output and pictures that follow under it. Step runs the program cut off
+after its next statement (`statements` counts them; Step k runs the
+first k, again from the start, as a REPL session replays), showing the
+notebook with the statement just run marked; Reset (or Clear, or a
+plain Run) starts the steps again.
+
 ### 8.4 The live demo on a phone, and as an app
 
 Below 720 pixels wide the toolbar wraps (Open on a line of its own,

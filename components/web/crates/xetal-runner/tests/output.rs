@@ -73,3 +73,39 @@ fn a_new_run_starts_empty_and_clear_shows_the_types_again() {
     assert_eq!(o.run.unwrap().out, "");
     assert_eq!(after(vec![Action::Start, Action::Clear]), Output::default());
 }
+
+/// In a notebook, each statement's source starts a cell, and what it
+/// prints and draws goes under it.
+#[test]
+fn a_notebook_groups_output_under_its_statement() {
+    let o = after(vec![
+        Action::Start,
+        Action::Event(Event::Source("x := 1".into())),
+        Action::Event(Event::Source("x + 1".into())),
+        Action::Event(Event::Out("2".into())),
+        Action::Event(Event::Picture("<svg/>".into())),
+        Action::Event(Event::Source("x + 2".into())),
+        Action::Event(Event::Out("3".into())),
+    ]);
+    let run = o.run.clone().unwrap();
+    let cells: Vec<(String, String, usize)> = o
+        .cells
+        .iter()
+        .map(|c| {
+            (
+                c.source.clone(),
+                o.out_of(c).to_string(),
+                o.pictures_of(c).len(),
+            )
+        })
+        .collect();
+    assert_eq!(
+        cells,
+        [
+            ("x := 1".into(), String::new(), 0),
+            ("x + 1".into(), "2\n".into(), 1),
+            ("x + 2".into(), "3\n".into(), 0),
+        ]
+    );
+    assert_eq!(run.out, "2\n3\n");
+}

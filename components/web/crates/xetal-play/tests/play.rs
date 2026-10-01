@@ -127,3 +127,52 @@ fn lines_are_cut_at_newlines() {
     }
     assert_eq!(*lines.lock().unwrap(), ["a", "bc", "", "d"]);
 }
+
+/// The notebook's events, in order: "S:" a statement's source (with
+/// the comments above it), "O:" a line it printed.
+fn notebook(src: &str, upto: Option<usize>) -> Vec<String> {
+    use std::sync::{Arc, Mutex};
+    let _turn = turn();
+    let log = Arc::new(Mutex::new(Vec::<String>::new()));
+    let (cells, lines) = (log.clone(), log.clone());
+    let mut out =
+        xetal_play::Lines::new(move |l: &str| lines.lock().unwrap().push(format!("O:{l}")));
+    let mut cell = move |s: &str| cells.lock().unwrap().push(format!("S:{s}"));
+    let r = xetal_play::notebook_to(src, 1, upto, &mut cell, &mut out);
+    drop(out);
+    assert_eq!(r.err, "", "{src}");
+    log.lock().unwrap().clone()
+}
+
+const PROGRAM: &str = "# one\nx := 1\nx + 1\nu:f_ := {\n  _r * 10\n}\nu:f_ 4\n# the end\n";
+
+#[test]
+fn a_notebook_shows_each_statement_then_what_it_printed() {
+    assert_eq!(
+        notebook(PROGRAM, None),
+        [
+            "S:# one\nx := 1",
+            "S:x + 1",
+            "O:2",
+            "S:u:f_ := {\n  _r * 10\n}",
+            "S:u:f_ 4",
+            "O:40",
+            "S:# the end",
+        ]
+    );
+}
+
+#[test]
+fn a_step_runs_up_to_a_statement_and_no_further() {
+    assert_eq!(
+        notebook(PROGRAM, Some(2)),
+        ["S:# one\nx := 1", "S:x + 1", "O:2"]
+    );
+    assert_eq!(notebook(PROGRAM, Some(1)), ["S:# one\nx := 1"]);
+    assert_eq!(xetal_play::statements(PROGRAM), 4);
+    assert_eq!(
+        xetal_play::statements("1 + "),
+        0,
+        "a program that does not load has none"
+    );
+}

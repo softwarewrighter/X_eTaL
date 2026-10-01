@@ -1,6 +1,6 @@
 number = 25
 slug = "line-by-line"
-status = "pending"
+status = "in-progress"
 description = "Step or evaluate line by line in the live demo (user request): a Notebook vie..."
 role = "production"
 context_files = []

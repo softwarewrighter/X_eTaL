@@ -26,6 +26,9 @@ pub(crate) fn help_text() -> Html {
                        printed, with any pictures it draws ([]S_HOW) under it; the classics demos \
                        draw. While it runs, a spinner turns and Run becomes " }<b>{ "Stop" }</b>
                     { "; Clear also stops it." }</li>
+                <li><b>{ "Notebook" }</b>{ " makes Run show each statement, drawn, above its output, \
+                       as just show does; " }<b>{ "Step" }</b>{ " runs the next statement only (k of n), \
+                       the one just run marked; " }<b>{ "Reset" }</b>{ " starts the steps again." }</li>
                 <li><b>{ "Tab" }</b>{ " moves between the panes; the current one has the bright border." }</li>
                 <li><b>{ "Zoom" }</b>{ " (Ctrl-.) shows the current pane alone, and back." }</li>
                 <li>{ "On a phone the panes stack; Add to Home Screen installs the editor as \

@@ -2,16 +2,14 @@
 //! reads the keyboard), take its events as they arrive, stop it.
 
 use std::cell::RefCell;
-use std::collections::VecDeque;
 use std::rc::Rc;
-use std::sync::{Arc, Mutex};
 
 use wasm_bindgen::{JsCast, JsValue, closure::Closure};
 use web_sys::{ErrorEvent, MessageEvent, Worker};
 use xetal_play::Run;
 use yew::prelude::*;
 
-use crate::{Action, Event, Output, Request};
+use crate::{Action, Event, Mode, Output, Request};
 
 /// The worker's script (trunk builds it beside the page).
 const WORKER: &str = "./xetal-runner_loader.js";
@@ -22,50 +20,85 @@ type Handler = Closure<dyn FnMut(JsValue)>;
 /// The worker running now and its handlers (kept alive with it).
 type Live = Rc<RefCell<Option<(Worker, [Handler; 2])>>>;
 
-/// The last lines a run on the page printed, for the keyboard prompt.
-static RECENT: Mutex<VecDeque<String>> = Mutex::new(VecDeque::new());
-
-/// The last lines printed by a run on the page, shown when it asks for
-/// a line ([]R_EAD), since the page cannot repaint while it runs.
-pub fn recent() -> String {
-    RECENT
-        .lock()
-        .map(|r| r.iter().cloned().collect::<Vec<_>>().join("\n"))
-        .unwrap_or_default()
-}
-
-/// The runs of the page: what is shown, and how to start, stop or clear.
+/// The runs of the page: what is shown, whether Run shows a notebook,
+/// how many statements Step has run, and how to start, step, stop,
+/// clear (which also resets the steps) or toggle the notebook.
 #[derive(Clone, PartialEq)]
 pub struct Runs {
     pub output: Output,
+    pub notebook: bool,
+    pub stepped: usize,
     pub start: Callback<Request>,
+    pub step: Callback<Request>,
     pub stop: Callback<()>,
     pub clear: Callback<()>,
+    pub toggle: Callback<()>,
 }
 
 #[hook]
 pub fn use_runs() -> Runs {
     let state = use_reducer(Output::default);
     let live: Live = use_mut_ref(|| None);
-    let (s, l) = (state.dispatcher(), live.clone());
-    let start = Callback::from(move |req: Request| begin(req, &s, &l));
-    let (s, l) = (state.dispatcher(), live.clone());
+    let (notebook, stepped) = (use_state(|| false), use_state(|| 0usize));
+    let (start, step) = starting(&state.dispatcher(), &live, &stepped);
+    let (stop, clear) = ending(&state.dispatcher(), &live, &stepped);
+    let n = notebook.clone();
+    let toggle = Callback::from(move |_: ()| n.set(!*n));
+    let output = (*state).clone();
+    let (notebook, stepped) = (*notebook, *stepped);
+    Runs {
+        output,
+        notebook,
+        stepped,
+        start,
+        step,
+        stop,
+        clear,
+        toggle,
+    }
+}
+
+/// Start: run (which also resets the steps); Step: run as a notebook up
+/// to the next statement.
+fn starting(
+    state: &UseReducerDispatcher<Output>,
+    live: &Live,
+    stepped: &UseStateHandle<usize>,
+) -> (Callback<Request>, Callback<Request>) {
+    let (s, l, k) = (state.clone(), live.clone(), stepped.clone());
+    let start = Callback::from(move |req: Request| {
+        k.set(0);
+        begin(req, &s, &l)
+    });
+    let (s, l, k) = (state.clone(), live.clone(), stepped.clone());
+    let step = Callback::from(move |req: Request| {
+        k.set(*k + 1);
+        let mode = Mode::Notebook(Some(*k + 1));
+        begin(Request { mode, ..req }, &s, &l)
+    });
+    (start, step)
+}
+
+/// Stop: end the run, keeping what it showed; Clear: end it, reset the
+/// steps and show the types again.
+fn ending(
+    state: &UseReducerDispatcher<Output>,
+    live: &Live,
+    stepped: &UseStateHandle<usize>,
+) -> (Callback<()>, Callback<()>) {
+    let (s, l) = (state.clone(), live.clone());
     let stop = Callback::from(move |_: ()| {
         if end(&l) {
             s.dispatch(Action::Stop);
         }
     });
-    let (s, l) = (state.dispatcher(), live);
+    let (s, l, k) = (state.clone(), live.clone(), stepped.clone());
     let clear = Callback::from(move |_: ()| {
         end(&l);
+        k.set(0);
         s.dispatch(Action::Clear);
     });
-    Runs {
-        output: (*state).clone(),
-        start,
-        stop,
-        clear,
-    }
+    (stop, clear)
 }
 
 /// End the worker running now, if any; true when there was one.
@@ -80,7 +113,7 @@ fn begin(req: Request, state: &UseReducerDispatcher<Output>, live: &Live) {
     end(live);
     state.dispatch(Action::Start);
     if req.src.contains("[]R_EAD") {
-        state.dispatch(Action::Finished(on_page(&req)));
+        state.dispatch(Action::Finished(crate::page::on_page(&req)));
         return;
     }
     let Ok(worker) = Worker::new(WORKER) else {
@@ -124,29 +157,4 @@ fn failing(state: &UseReducerDispatcher<Output>, live: &Live) -> Handler {
             worker.terminate();
         }
     })
-}
-
-/// Run on the page (a program reading the keyboard), keeping the last
-/// lines printed for the prompt.
-fn on_page(req: &Request) -> Run {
-    let printed = Arc::new(Mutex::new(String::new()));
-    let p = printed.clone();
-    if let Ok(mut recent) = RECENT.lock() {
-        recent.clear();
-    }
-    let mut out = xetal_play::Lines::new(move |line: &str| {
-        if let Ok(mut s) = p.lock() {
-            s.push_str(&format!("{line}\n"));
-        }
-        if let Ok(mut recent) = RECENT.lock() {
-            recent.push_back(line.into());
-            if recent.len() > 12 {
-                recent.pop_front();
-            }
-        }
-    });
-    let run = xetal_play::run_to(&req.src, req.seed, &mut out);
-    drop(out);
-    let out = printed.lock().map(|s| s.clone()).unwrap_or_default() + &run.out;
-    Run { out, ..run }
 }

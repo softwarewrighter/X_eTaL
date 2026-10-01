@@ -1,8 +1,8 @@
 //! The editor's state and what changes it.
 
 use xetal_layout::{Axis, divider, use_split};
-use xetal_play::{Run, is_library};
-use xetal_runner::{Request, Runs, use_runs};
+use xetal_play::{Run, is_library, statements};
+use xetal_runner::{Mode, Request, Runs, use_runs};
 use yew::prelude::*;
 
 use crate::keys::keys;
@@ -39,12 +39,11 @@ pub fn app() -> Html {
     let split = use_split();
     let (drawn, printed) = (use_node_ref(), use_node_ref());
     use_follow(&result, printed.clone());
-    let library = is_library(&text);
-    let run_now = starter(&text, &files, &runs, library);
+    let buttons = run_buttons(&text, &files, &runs);
     let (z, h) = (zoom.clone(), help.clone());
     let toggle = Callback::from(move |_: ()| z.set(!*z));
     let show_help = Callback::from(move |open: bool| h.set(open));
-    let on_key = keys(run_now.clone(), toggle.clone(), show_help.clone());
+    let on_key = keys(buttons.run.clone(), toggle.clone(), show_help.clone());
     let (edit, load) = editing(&text, &name, &runs.clear, running);
     let c = current.clone();
     let focus = Callback::from(move |p: Pane| c.set(p));
@@ -52,12 +51,9 @@ pub fn app() -> Html {
     let bar = chrome::Bar {
         load,
         save,
-        run: run_now,
+        runs: buttons,
         zoom: toggle,
         help: show_help.clone(),
-        clear: runs.clear.clone(),
-        library,
-        running,
         options: choices(&files),
         open,
         name: (*name).clone(),
@@ -71,7 +67,7 @@ pub fn app() -> Html {
                 { divider(Axis::Columns, &split) }
                 { panes::rendered(&text, *current, focus.clone(), drawn) }
                 { divider(Axis::Rows, &split) }
-                { panes::output(&text, &result, running, *current, focus, printed) }
+                { panes::output(&text, &runs, *current, focus, printed) }
             </main>
             { chrome::footer() }
             { if *help { chrome::help(show_help.reform(|_| false)) } else { html! {} } }
@@ -138,31 +134,59 @@ fn saving(
     })
 }
 
-/// Run: start a run of the text (with a snapshot of the saved files,
-/// since workers have no local storage, and a fresh seed for `r_oll!`),
-/// or stop the one going; nothing for a library.
-fn starter(
+/// The run buttons: Run (or Stop), Notebook, Step and Reset, for the
+/// text and the saved files; off for a library.
+fn run_buttons(
     text: &UseStateHandle<String>,
     files: &UseStateHandle<Vec<String>>,
     runs: &Runs,
-    library: bool,
-) -> Callback<()> {
-    let (t, f, running) = (text.clone(), files.clone(), runs.output.running);
-    let (start, stop) = (runs.start.clone(), runs.stop.clone());
-    Callback::from(move |_: ()| match (running, library) {
+) -> chrome::RunButtons {
+    let library = is_library(text);
+    let (running, notebook) = (runs.output.running, runs.notebook);
+    let (t, f, start, stop) = (
+        text.clone(),
+        files.clone(),
+        runs.start.clone(),
+        runs.stop.clone(),
+    );
+    let mode = if notebook {
+        Mode::Notebook(None)
+    } else {
+        Mode::Run
+    };
+    let run = Callback::from(move |_: ()| match (running, library) {
         (true, _) => stop.emit(()),
         (false, true) => {}
-        (false, false) => {
-            let files = f
-                .iter()
-                .filter_map(|p| xetal_store::read(p).ok().map(|t| (p.clone(), t)))
-                .collect();
-            let seed = (js_sys::Math::random() * 4_294_967_296.0) as u64;
-            start.emit(Request {
-                src: (*t).clone(),
-                seed,
-                files,
-            });
-        }
-    })
+        (false, false) => start.emit(request(&t, &f, mode)),
+    });
+    let (t, f, step) = (text.clone(), files.clone(), runs.step.clone());
+    let step = Callback::from(move |_: ()| step.emit(request(&t, &f, mode)));
+    let (clear, toggle) = (runs.clear.clone(), runs.toggle.clone());
+    let (stepped, statements) = (runs.stepped, statements(text));
+    chrome::RunButtons {
+        run,
+        step,
+        clear,
+        toggle,
+        library,
+        running,
+        notebook,
+        stepped,
+        statements,
+    }
+}
+
+/// A run of `text`, with the saved files (workers have no local
+/// storage) and a fresh seed for `r_oll!`.
+fn request(text: &str, paths: &[String], mode: Mode) -> Request {
+    let files = paths
+        .iter()
+        .filter_map(|p| xetal_store::read(p).ok().map(|t| (p.clone(), t)));
+    let seed = (js_sys::Math::random() * 4_294_967_296.0) as u64;
+    Request {
+        src: text.to_string(),
+        seed,
+        mode,
+        files: files.collect(),
+    }
 }

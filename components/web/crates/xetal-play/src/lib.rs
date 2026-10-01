@@ -6,8 +6,10 @@
 
 mod engine;
 mod lines;
+mod notebook;
 
 pub use engine::{Run, check, run, run_to};
 pub use lines::Lines;
+pub use notebook::{notebook_to, statements};
 pub use xetal_program::is_library;
 pub use xetal_view::{Class, Segment, view as decorate};

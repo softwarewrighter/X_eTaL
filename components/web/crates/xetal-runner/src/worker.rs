@@ -10,7 +10,7 @@ use wasm_bindgen::{JsCast, JsValue, closure::Closure};
 use web_sys::{DedicatedWorkerGlobalScope, MessageEvent};
 use xetal_store::Store;
 
-use crate::{Event, Request};
+use crate::{Event, Mode, Request};
 
 fn post(event: Event) {
     let scope: DedicatedWorkerGlobalScope = js_sys::global().unchecked_into();
@@ -47,12 +47,19 @@ impl Store for Snapshot {
     }
 }
 
-/// Run one request, posting as it goes, then Done.
+/// Run one request (plainly, or as a notebook posting each statement
+/// before it runs), posting as it goes, then Done.
 fn run(req: Request) {
     let files = req.files.into_iter().collect();
     xetal_store::install(Arc::new(Snapshot(Mutex::new(files))));
     let mut out = xetal_play::Lines::new(|line: &str| post(Event::Out(line.into())));
-    let run = xetal_play::run_to(&req.src, req.seed, &mut out);
+    let run = match req.mode {
+        Mode::Run => xetal_play::run_to(&req.src, req.seed, &mut out),
+        Mode::Notebook(upto) => {
+            let mut cell = |source: &str| post(Event::Source(source.into()));
+            xetal_play::notebook_to(&req.src, req.seed, upto, &mut cell, &mut out)
+        }
+    };
     drop(out);
     run.out.lines().for_each(|l| post(Event::Out(l.into())));
     run.err.lines().for_each(|l| post(Event::Err(l.into())));

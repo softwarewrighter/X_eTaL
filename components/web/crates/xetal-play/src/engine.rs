@@ -62,15 +62,31 @@ pub fn run_to(src: &str, seed: u64, out: &mut (dyn std::io::Write + Send)) -> Ru
             ..Run::default()
         };
     }
-    let mut loaded = match loaded(src) {
+    let loaded = match ready(src) {
         Ok(l) => l,
-        Err(d) => return failed(d),
+        Err(run) => return run,
     };
-    if let Err(d) = xetal_types::check_program(&mut loaded.program) {
-        return failed(in_program(&loaded.sources, d));
-    }
     xetal_store::take_shown();
     let (warnings, result) = xetal_eval::eval_program(&loaded.program, out, Some(seed));
+    finish(&loaded, warnings, result)
+}
+
+/// The program loaded and type-checked, or the run that failed doing so.
+pub(crate) fn ready(src: &str) -> Result<Loaded, Run> {
+    let mut loaded = loaded(src).map_err(failed)?;
+    match xetal_types::check_program(&mut loaded.program) {
+        Ok(_) => Ok(loaded),
+        Err(d) => Err(failed(in_program(&loaded.sources, d))),
+    }
+}
+
+/// A run's end: its warnings and error located in the program, and the
+/// pictures it showed.
+pub(crate) fn finish(
+    loaded: &Loaded,
+    warnings: Vec<Diagnostic>,
+    result: Result<(), Diagnostic>,
+) -> Run {
     let mut err: Vec<String> = warnings.into_iter().map(|w| w.to_string()).collect();
     err.extend(
         result
