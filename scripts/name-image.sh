@@ -41,6 +41,7 @@ img.fav { height: 48px; image-rendering: auto; } img.fav16 { height: 16px; }
 <div class="k">say it</div><div class="v say">Ecks-e-tal</div><div class="n">as .xtl is said eks-tee-ell</div>
 <div class="k">logo</div><div class="v"><img class="logo" src="file://$root/images/modern-xetal-logo.jpg"></div><div class="n">underlined X, raised e, T, raised a, L</div>
 <div class="k">favicon</div><div class="v"><img class="fav" src="file://$root/components/web/crates/xetal-web/favicon.ico"> <img class="fav16" src="file://$root/components/web/crates/xetal-web/favicon.ico"></div><div class="n">italic underlined X, raised ellipsis: the browser tab</div>
+<div class="k">as text</div><div class="v"><span class="mono">X&#818;&#7497;T&#7491;L</span></div><div class="n">Unicode characters: in strings, chat, anywhere text goes</div>
 <div class="k">in prose</div><div class="v">XeTaL</div><div class="n">no marks, in a sentence</div>
 <div class="k">typed (ASCII)</div><div class="v"><span class="mono">X_eTaL</span> &nbsp; <span class="mono">X_ e:T a:L</span></div><div class="n">what you type; _ underlines, e: raises</div>
 <div class="k">drawn</div><div class="v"><span class="mono">$drawn_short</span> &nbsp; <span class="mono">$drawn_logo</span></div><div class="n">as xetal render and the live demo draw them</div>
@@ -51,5 +52,5 @@ img.fav { height: 48px; image-rendering: auto; } img.fav16 { height: 16px; }
 </div>
 HTML
 "$chrome" --headless=new --disable-gpu --hide-scrollbars --allow-file-access-from-files \
-    --window-size=1200,640 --screenshot="$root/images/name-forms.png" "file://$page" > /dev/null 2>&1
+    --window-size=1200,690 --screenshot="$root/images/name-forms.png" "file://$page" > /dev/null 2>&1
 echo images/name-forms.png

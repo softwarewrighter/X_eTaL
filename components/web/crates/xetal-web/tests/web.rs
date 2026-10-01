@@ -84,5 +84,9 @@ fn the_demos_own_libraries_are_among_your_files_and_edits_are_kept() {
         .iter()
         .find(|d| d.name == "hello-library.xtl")
         .unwrap();
-    assert!(xetal_play::run(hello.text, 1).out.contains("hello X_eTaL"));
+    assert!(
+        xetal_play::run(hello.text, 1)
+            .out
+            .contains("hello X\u{332}\u{1d49}T\u{1d43}L")
+    );
 }

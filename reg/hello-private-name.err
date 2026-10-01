@@ -1,1 +1,1 @@
-error[not-exported]: g:g_reeting is not defined by that library; it defines h_ello, g_reet at 24..35
+error[not-exported]: g:n_ame is not defined by that library; it defines g_reet at 24..31

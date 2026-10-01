@@ -27,7 +27,8 @@ so a rename touches one constant plus docs.
 
 ## 2. Lexical structure (raw ASCII source)
 
-Source is ASCII only (lang-choices I1). Spaces, tabs, carriage returns
+Source is ASCII, except that string literals and comments may hold any
+Unicode (lang-choices I1, ST2). Spaces, tabs, carriage returns
 and `#` comments (to the end of the line) separate tokens; each `\n`
 is a `Newline` token. Pinned by `components/syntax/crates/xetal-lex/tests/lex/` and
 `spec/lex/*.case`; `xetal lex` prints the tokens with byte spans.
@@ -368,7 +369,10 @@ equals in the library color, then `u_se<`.
 | Expanded  | long names (later)                                         |
 | Core      | the Core IR (`xetal core`)                                 |
 
-Source is raw ASCII only; the decorated and LaTeX forms are output.
+Source is raw ASCII (strings and comments aside); the decorated and
+LaTeX forms are output. The inverse (`xetal render --raw`) copies
+strings and comments as they are, since the drawing never touches
+them.
 Editing always happens on raw text (prettify-style display, never
 destructive substitution).
 
@@ -608,7 +612,7 @@ The pinning tests are written as the implementing saga reaches them
 | D10| File extension | `.xtl`, shebang `#!/usr/bin/env xetal` (S5) |
 | D11| Life one-liner rule | Conway's rule, section 6.2 |
 | D12| Applying a function-valued argument | `_l_ x`, `(expr)_ x`; named function parameters `f_` (F5, L4) |
-| D13| Decorated Unicode as input | not accepted; ASCII only (I1) |
+| D13| Decorated Unicode as input | not accepted as code; source is ASCII except strings and comments, which may hold any Unicode (I1, ST2, revised with the user) |
 | D14| Namespaces | leading prefixes `u:` (program), `l:` (library), aliases via `u_se<` (N5, MC1-MC9); superscripts after a value are exponents (D-1 to D-6) |
 | D15| Numeric typing | Haskell-style `Num` / `Truthy` classes with defaulting (T5) |
 | D16| Checked evaluation | `eval` / `run` type-check first, `--untyped` skips; binding groups; number-type dictionary passing so literals follow their types (T6) |

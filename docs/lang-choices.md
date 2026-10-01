@@ -201,7 +201,7 @@ stream type later.
 
 | #  | Decision |
 | -- | -------- |
-| I1 | Source is ASCII only. Decorated Unicode input is not accepted (revisit much later). |
+| I1 | Source is ASCII, except inside string literals and comments, which may hold any Unicode (revised with the user, so a library can greet with the drawn logo, `"hello X_ e:T a:L"` drawn with its spaces removed). Decorated Unicode input is not accepted as code: a Unicode character outside a string or comment is an error (revisit much later). |
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example superscript `q`, subscript `@`). A decimal exponent is raised with a middle dot (U+00B7) as its point, since Unicode has no superscript full stop: `x^0.5` shows as a superscript 0, a dot and a 5 (decided with the user; a raised fraction was set aside, since only some decimals are nice fractions). |
 | I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` as the diamond, `#` as the lamp, `!=` `<=` `>=` `*` `/` `&` `\|` as their mathematical glyphs. Ligatures apply to standalone tokens only, never to punctuation inside a function name (`r_/` keeps its slash). The lambda arguments `_l` and `_r` display as APL's alpha and omega, the names of a dfn's left and right arguments (decided with the user in the tui saga; subscript l and r read poorly in terminal fonts). |
 
@@ -269,7 +269,7 @@ number, `n_eg 3` to negate, `{ x -> x - 3 }` to subtract 3.
 | #  | Decision |
 | -- | -------- |
 | ST1 | A string is written `"..."`. Escapes: `\"`, `\\`, `\n`, `\t`; any other escape is an error. `#` inside a string is an ordinary character. |
-| ST2 | A string may not span lines (use `\n`) and is ASCII, like all source. A name touching `"` is an error, reserving `r"..."` for later. |
+| ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of characters, one per Unicode scalar value, so a combining mark counts as a character of its own (`t_ally` counts code points, as APL does). A name touching `"` is an error, reserving `r"..."` for later. |
 | ST3 | A string is a 1-D array of characters: `"abc"` is a 3-element Char vector and every array function applies (`r_ev "abc"` is `"cba"`). `"a"` is a 1-element vector (no APL length-1 scalar wart). There is no scalar character literal for now. |
 
 Planned enhancements (after the MVP milestones):

@@ -45,19 +45,23 @@ greeting, and uses it. Every block below is run by <code>xetal</code> through
 <div class="org-src-container">
 <pre class="src src-xetal"><span class="c-comment">⍝ Hello: the smallest library, one greeting. A library is an ordinary</span>
 <span class="c-comment">⍝ file whose exported names start with l:; demos/hello-library.xtl</span>
-<span class="c-comment">⍝ imports it, and docs/literate/hello.org walks through both.</span>
+<span class="c-comment">⍝ imports it, and docs/literate/hello.org walks through both. The name</span>
+<span class="c-comment">⍝ in the string is the logo: typed X_ e:T a:L, drawn, spaces removed (a</span>
+<span class="c-comment">⍝ string may hold any Unicode).</span>
 
-<span class="c-libfunc">ˡh̲ello</span> ← { @ → <span class="c-string">&quot;hello X_eTaL&quot;</span> }
+<span class="c-libfunc">ˡh̲ello</span> ← { @ → <span class="c-string">&quot;hello X̲ᵉTᵃL&quot;</span> }             <span class="c-comment">⍝ niladic: call it with @</span>
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   l:h_ello := { @ -&gt; "hello X_eTaL" }</span></pre>
+<span class="c-comment typed">⍝   l:h_ello := { @ -&gt; "hello X̲ᵉTᵃL" }        # niladic: call it with @</span></pre>
 </div>
 
 <p>
 <code>h_ello</code> is a function (its h is underlined); <code>l:</code> exports it. Its
 argument is <code>@</code>, Unit, the value that stands for nothing: <code>{ @ -&gt; ... }</code>
-is a function of no real argument. It gives a string, which in X_eTaL
-is a vector of characters. <code>xetal type</code> on the library file lists what
+is a function of no real argument: it is niladic. It gives a string,
+which in X_eTaL is a vector of characters. The name in it is the logo:
+typed <code>X_ e:T a:L</code>, drawn, with the spaces removed; a string (and a
+comment) may hold any Unicode, though the rest of the source is ASCII. <code>xetal type</code> on the library file lists what
 it exports:
 </p>
 
@@ -90,7 +94,7 @@ makes the library's <code>l:h_ello</code> this program's <code>h:h_ello</code>:
 </div>
 
 <pre class="example">
-hello X_eTaL
+hello X̲ᵉTᵃL
 </pre>
 
 
@@ -156,51 +160,50 @@ error[type-mismatch]: expected Unit, found a number
 <div class="outline-text-2" id="text-orgbd9089d">
 <p>
 A library can keep names to itself: a name without <code>l:</code> is private.
-<code>demos/Greetings.xtl</code> builds both its greetings from one private
-<code>g_reeting</code>:
+<code>demos/Greetings.xtl</code> exports <code>g_reet</code>, which is monadic: it takes the
+greeting from the program and adds the name, kept in a private <code>n_ame</code>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal"><span class="c-comment">⍝ Greetings: a library with a private name. g_reeting has no l:, so it</span>
-<span class="c-comment">⍝ is used here but cannot be imported; h_ello and g_reet are exported.</span>
-<span class="c-comment">⍝ docs/literate/hello.org uses it after Hello.</span>
+<pre class="src src-xetal"><span class="c-comment">⍝ Greetings: a library with a private name. n_ame has no l:, so it is</span>
+<span class="c-comment">⍝ used here but cannot be imported; g_reet is exported, and takes the</span>
+<span class="c-comment">⍝ greeting from the program that calls it.</span>
 
-<span class="c-builtin">g̲reeting</span> ← { @ → <span class="c-string">&quot;hello &quot;</span> }
-<span class="c-libfunc">ˡh̲ello</span> ← { @ → (<span class="c-builtin">g̲reeting</span> @) <span class="c-builtin">c̲at</span> <span class="c-string">&quot;X_eTaL&quot;</span> }
-<span class="c-libfunc">ˡg̲reet</span> ← { n → (<span class="c-builtin">g̲reeting</span> @) <span class="c-builtin">c̲at</span> n }
+<span class="c-builtin">n̲ame</span> ← { @ → <span class="c-string">&quot;X̲ᵉTᵃL&quot;</span> }                      <span class="c-comment">⍝ private</span>
+<span class="c-libfunc">ˡg̲reet</span> ← { g → g <span class="c-builtin">c̲at</span> <span class="c-string">&quot; &quot;</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">n̲ame</span> @ }        <span class="c-comment">⍝ monadic: the greeting</span>
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   g_reeting := { @ -&gt; "hello " }</span>
-<span class="c-comment typed">⍝   l:h_ello := { @ -&gt; (g_reeting @) c_at "X_eTaL" }</span>
-<span class="c-comment typed">⍝   l:g_reet := { n -&gt; (g_reeting @) c_at n }</span></pre>
+<span class="c-comment typed">⍝   n_ame := { @ -&gt; "X̲ᵉTᵃL" }                  # private</span>
+<span class="c-comment typed">⍝   l:g_reet := { g -&gt; g c_at " " c_at n_ame @ } # monadic: the greeting</span></pre>
 </div>
 
 <p>
-(The parentheses matter: X_eTaL reads right to left, so without them
-<code>g_reeting @ c_at n</code> would join <code>@</code> and <code>n</code> first.) A program can use
-the exported names:
+X_eTaL reads right to left, so <code>g c_at " " c_at n_ame @</code> is <code>g</code> joined
+to a space joined to the name. A program can import both libraries,
+each under its own prefix:
 </p>
 
 <div class="org-src-container">
 <pre class="src src-xetal"><span class="c-libfunc">ᵍ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Greetings&quot;</span>
-<span class="c-libfunc">ᵍh̲ello</span> @
-<span class="c-libfunc">ᵍg̲reet</span> <span class="c-string">&quot;world&quot;</span>
+<span class="c-libfunc">ᵍg̲reet</span> <span class="c-string">&quot;hi&quot;</span>
+<span class="c-libfunc">ᵍg̲reet</span> <span class="c-string">&quot;welcome to&quot;</span>
 
 <span class="c-comment typed">⍝ typed:</span>
 <span class="c-comment typed">⍝   "g:" u_se&lt; "Greetings"</span>
-<span class="c-comment typed">⍝   g:h_ello @</span>
-<span class="c-comment typed">⍝   g:g_reet "world"</span></pre>
+<span class="c-comment typed">⍝   g:g_reet "hi"</span>
+<span class="c-comment typed">⍝   g:g_reet "welcome to"</span></pre>
 </div>
 
 <pre class="example">
-hello X_eTaL
-hello world
+hi X̲ᵉTᵃL
+welcome to X̲ᵉTᵃL
 </pre>
 
 
 <p>
-but not the private one: <code>g:g_reeting @</code> is an error, <code>not-exported</code>,
-listing <code>h_ello</code> and <code>g_reet</code>.
+but not the private name: <code>g:n_ame @</code> is an error, <code>not-exported</code>,
+listing <code>g_reet</code>. <code>demos/hello-library.xtl</code> uses both, the niladic
+<code>h:h_ello @</code> and the monadic <code>g:g_reet "hi"</code>.
 </p>
 </div>
 </div>

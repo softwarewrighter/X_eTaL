@@ -103,7 +103,6 @@ fn strings() {
     assert_reject("\"ab", "bad-string", 0, 3);
     assert_reject("\"a\\qb\"", "bad-string", 2, 4);
     assert_reject("\"a\nb\"", "bad-string", 0, 2);
-    assert_reject("\"\u{e9}\"", "non-ascii", 1, 3);
 }
 
 #[test]
@@ -123,6 +122,9 @@ fn unexpected_and_non_ascii_characters() {
     assert_reject("a , b", "unexpected-char", 2, 3);
     assert_reject("x $ 3", "unexpected-char", 2, 3);
     assert_reject("x \u{2190} 3", "non-ascii", 2, 5);
+    // Unicode is allowed in strings and comments only.
+    assert_reject("\u{e9} := 1", "non-ascii", 0, 2);
+    assert_reject("x\u{332} := 1", "non-ascii", 1, 3);
     assert_reject("1\u{0}", "unexpected-char", 1, 2);
 }
 

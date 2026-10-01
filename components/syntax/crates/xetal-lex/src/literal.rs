@@ -79,12 +79,12 @@ pub(crate) fn lex_string(cur: &mut Cursor) -> Result<TokenKind, LexError> {
                     ));
                 }
             },
+            // Unicode is allowed in a string (and a comment), nowhere else.
             Some(b) if !b.is_ascii() => {
-                return Err(LexError::new(
-                    ErrorKind::NonAscii,
-                    cur.char_span(),
-                    "strings are ASCII",
-                ));
+                let span = cur.char_span();
+                cur.pos = span.end;
+                text.push_str(cur.text(span.start));
+                continue;
             }
             Some(b) => char::from(b),
         };

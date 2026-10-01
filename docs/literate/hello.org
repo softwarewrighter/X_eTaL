@@ -18,8 +18,10 @@ greeting, and uses it. Every block below is run by ~xetal~ through
 
 ~h_ello~ is a function (its h is underlined); ~l:~ exports it. Its
 argument is ~@~, Unit, the value that stands for nothing: ~{ @ -> ... }~
-is a function of no real argument. It gives a string, which in X_eTaL
-is a vector of characters. ~xetal type~ on the library file lists what
+is a function of no real argument: it is niladic. It gives a string,
+which in X_eTaL is a vector of characters. The name in it is the logo:
+typed ~X_ e:T a:L~, drawn, with the spaces removed; a string (and a
+comment) may hold any Unicode, though the rest of the source is ASCII. ~xetal type~ on the library file lists what
 it exports:
 
 #+begin_example
@@ -46,7 +48,7 @@ h:h_ello @
 #+end_src
 
 #+RESULTS:
-: hello X_eTaL
+: hello X̲ᵉTᵃL
 
 The whole program is ~demos/hello-library.xtl~; ~just run
 demos/hello-library.xtl~ prints the same greeting.
@@ -91,30 +93,31 @@ error[type-mismatch]: expected Unit, found a number
 * A second greeting
 
 A library can keep names to itself: a name without ~l:~ is private.
-~demos/Greetings.xtl~ builds both its greetings from one private
-~g_reeting~:
+~demos/Greetings.xtl~ exports ~g_reet~, which is monadic: it takes the
+greeting from the program and adds the name, kept in a private ~n_ame~:
 
 #+INCLUDE: "../../demos/Greetings.xtl" src xetal
 
-(The parentheses matter: X_eTaL reads right to left, so without them
-~g_reeting @ c_at n~ would join ~@~ and ~n~ first.) A program can use
-the exported names:
+X_eTaL reads right to left, so ~g c_at " " c_at n_ame @~ is ~g~ joined
+to a space joined to the name. A program can import both libraries,
+each under its own prefix:
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
 "g:" u̲se< "Greetings"
-ᵍh̲ello @
-ᵍg̲reet "world"
+ᵍg̲reet "hi"
+ᵍg̲reet "welcome to"
 #+end_example
 #+begin_src xetal
 "g:" u_se< "Greetings"
-g:h_ello @
-g:g_reet "world"
+g:g_reet "hi"
+g:g_reet "welcome to"
 #+end_src
 
 #+RESULTS:
-: hello X_eTaL
-: hello world
+: hi X̲ᵉTᵃL
+: welcome to X̲ᵉTᵃL
 
-but not the private one: ~g:g_reeting @~ is an error, ~not-exported~,
-listing ~h_ello~ and ~g_reet~.
+but not the private name: ~g:n_ame @~ is an error, ~not-exported~,
+listing ~g_reet~. ~demos/hello-library.xtl~ uses both, the niladic
+~h:h_ello @~ and the monadic ~g:g_reet "hi"~.

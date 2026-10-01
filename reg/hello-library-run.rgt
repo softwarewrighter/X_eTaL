@@ -1,3 +1,3 @@
 command = "./target/debug/xetal run demos/hello-library.xtl"
 exit_code = 0
-desc = "a program using its own library, found beside it: hello X_eTaL"
+desc = "a program using two libraries of its own, found beside it: niladic h_ello, monadic g_reet"

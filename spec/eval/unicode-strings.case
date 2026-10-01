@@ -1,0 +1,14 @@
+# Strings and comments may hold any Unicode; the rest of the source is
+# ASCII (I1, ST2 as revised with the user). The logo, typed X_ e:T a:L,
+# drawn, spaces removed.
+== SOURCE
+g := "hello X̲ᵉTᵃL"   # a comment may too: ⍝ café
+g c_at "!"
+t_ally "é"
+== RENDER
+g ← "hello X̲ᵉTᵃL"   ⍝ a comment may too: ⍝ café
+g c̲at "!"
+t̲ally "é"
+== RESULT
+hello X̲ᵉTᵃL!
+1

@@ -242,3 +242,14 @@ fn system_names() {
     );
     assert_eq!(kinds("[1 2]"), ["LBracket", "Num(1)", "Num(2)", "RBracket"]);
 }
+
+/// Strings and comments may hold any Unicode (the rest of the source is
+/// ASCII): the logo, typed as `X_ e:T a:L`, drawn, spaces removed.
+#[test]
+fn unicode_in_strings_and_comments() {
+    let logo = "hello X\u{332}\u{1d49}T\u{1d43}L";
+    let tokens = xetal_lex::lex(&format!("\"{logo}\" # \u{235d} {logo}")).unwrap();
+    assert_eq!(tokens.len(), 1, "the comment is not a token: {tokens:?}");
+    assert_eq!(tokens[0].kind, xetal_lex::TokenKind::Str(logo.to_string()));
+    assert_eq!(tokens[0].span.end, logo.len() + 2, "spans count bytes");
+}

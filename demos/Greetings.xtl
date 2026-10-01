@@ -1,7 +1,6 @@
-# Greetings: a library with a private name. g_reeting has no l:, so it
-# is used here but cannot be imported; h_ello and g_reet are exported.
-# docs/literate/hello.org uses it after Hello.
+# Greetings: a library with a private name. n_ame has no l:, so it is
+# used here but cannot be imported; g_reet is exported, and takes the
+# greeting from the program that calls it.
 
-g_reeting := { @ -> "hello " }
-l:h_ello := { @ -> (g_reeting @) c_at "X_eTaL" }
-l:g_reet := { n -> (g_reeting @) c_at n }
+n_ame := { @ -> "X̲ᵉTᵃL" }                  # private
+l:g_reet := { g -> g c_at " " c_at n_ame @ } # monadic: the greeting

@@ -1,10 +1,16 @@
 #!/usr/bin/env xetal
-# demos/hello-library.xtl: a program using a library of its own. The
-# library is demos/Hello.xtl, beside this file: u_se< finds "Hello" as
-# Hello.xtl there, and "h:" is the prefix its l: names get here.
+# demos/hello-library.xtl: a program using two libraries of its own,
+# demos/Hello.xtl and demos/Greetings.xtl, beside this file. u_se< finds
+# "Hello" as Hello.xtl there; the string on its left is the prefix the
+# library's l: names get here.
 
 "h:" u_se< "Hello"
+"g:" u_se< "Greetings"
 
-# h_ello takes Unit (@), the value that stands for nothing, and gives
-# the greeting.
+# h_ello is niladic: it takes Unit (@), the value that stands for
+# nothing, and gives the greeting.
 h:h_ello @
+
+# g_reet is monadic: this program supplies the greeting.
+g:g_reet "hi"
+g:g_reet "welcome to"

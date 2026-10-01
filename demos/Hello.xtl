@@ -1,5 +1,7 @@
 # Hello: the smallest library, one greeting. A library is an ordinary
 # file whose exported names start with l:; demos/hello-library.xtl
-# imports it, and docs/literate/hello.org walks through both.
+# imports it, and docs/literate/hello.org walks through both. The name
+# in the string is the logo: typed X_ e:T a:L, drawn, spaces removed (a
+# string may hold any Unicode).
 
-l:h_ello := { @ -> "hello X_eTaL" }
+l:h_ello := { @ -> "hello X̲ᵉTᵃL" }        # niladic: call it with @

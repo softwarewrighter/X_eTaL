@@ -1,5 +1,7 @@
 //! Decorated Unicode -> raw ASCII. ASCII passes through unchanged, so
-//! anything shown raw (e.g. `x^0.5`, `q:x`) inverts trivially.
+//! anything shown raw (e.g. `x^0.5`, `q:x`) inverts trivially. A string
+//! or a comment is copied as it is (the drawing never touches either),
+//! so both may hold any Unicode.
 
 use xetal_base::{Diagnostic, Span};
 
@@ -19,6 +21,12 @@ enum After {
 struct Inverse {
     out: String,
     after: After,
+    /// Inside a string, just after a `\` in one, and inside a comment:
+    /// strings and comments are copied as they are (the drawing never
+    /// touches them), so they may hold any Unicode.
+    string: bool,
+    escaped: bool,
+    comment: bool,
 }
 
 /// Convert decorated text back to raw ASCII source.
@@ -26,9 +34,19 @@ pub fn undecorate(text: &str) -> Result<String, Diagnostic> {
     let mut inv = Inverse {
         out: String::new(),
         after: After::Other,
+        string: false,
+        escaped: false,
+        comment: false,
     };
     let mut chars = text.char_indices().peekable();
     while let Some((i, c)) = chars.next() {
+        if inv.string || inv.comment {
+            inv.out.push(c);
+            inv.comment = inv.comment && c != '\n';
+            inv.string = inv.string && (inv.escaped || c != '"');
+            inv.escaped = inv.string && !inv.escaped && c == '\\';
+            continue;
+        }
         let underlined = chars.peek().is_some_and(|&(_, n)| n == UNDERLINE);
         if underlined {
             chars.next();
@@ -37,6 +55,8 @@ pub fn undecorate(text: &str) -> Result<String, Diagnostic> {
         let span = Span::new(i, i + len);
         inv.close_namespace(c, span)?;
         inv.push(c, underlined, span)?;
+        inv.string = c == '"';
+        inv.comment = inv.out.ends_with('#');
     }
     if inv.after == After::Namespace {
         return Err(bad_namespace(Span::new(text.len(), text.len())));

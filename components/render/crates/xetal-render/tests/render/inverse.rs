@@ -76,3 +76,34 @@ fn a_namespace_superscript_must_precede_a_name() {
     let err = undecorate("\u{1d58} x").unwrap_err();
     assert_eq!(err.code, "bad-namespace");
 }
+
+/// A string is copied as it is: glyphs inside it are text, not
+/// decoration (the drawing never touches a string), and it may hold any
+/// Unicode.
+#[test]
+fn strings_are_verbatim() {
+    assert_eq!(
+        undecorate("g \u{2190} \"a \u{2190} b \u{2375}\"").unwrap(),
+        "g := \"a \u{2190} b \u{2375}\""
+    );
+    let logo = "\"hello X\u{332}\u{1d49}T\u{1d43}L\"";
+    assert_eq!(undecorate(logo).unwrap(), logo);
+    assert_eq!(
+        undecorate("\"a\\\"\u{2190}\" \u{2190}").unwrap(),
+        "\"a\\\"\u{2190}\" :="
+    );
+}
+
+/// A comment is copied as it is, and may hold any Unicode.
+#[test]
+fn comments_may_hold_unicode() {
+    assert_eq!(
+        undecorate("1 \u{235d} caf\u{e9} X\u{332}\u{1d49}T").unwrap(),
+        "1 # caf\u{e9} X\u{332}\u{1d49}T"
+    );
+    assert_eq!(undecorate("\u{235d} \u{e9}\nx").unwrap(), "# \u{e9}\nx");
+    assert!(
+        undecorate("\u{235d} a\n\u{e9}").is_err(),
+        "a new line is code again"
+    );
+}
