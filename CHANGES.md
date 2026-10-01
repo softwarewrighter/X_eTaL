@@ -10,8 +10,69 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-01
+
+- 06:46 `build` Pages: the live demo with the number classics (PR #3).
+
 ## 2026-09-30
 
+- 20:14 `chore` Merged the classics lane, part 3 (PR #3), keeping both demo lists.
+- 20:11 `plan` streaming-output inserted: the web UI must not buffer output.
+- 20:05 `chore` Saga step draw-pane completed.
+- 20:05 `feat` Web: the Draw pane; pictures (`[]S_HOW`) shown under the output; the drawing classics listed again.
+- 20:05 `chore` Classics lane step classics-numbers completed.
+- 20:05 `demo` Classics: the number programs (sieve, primes, GCD, Fibonacci, factorial, Collatz).
+- 19:40 `docs` README: the reading-XeTaL-syntax guide.
+- 19:29 `chore` Merged the classics lane, part 2 (PR #2).
+- 19:08 `test` Classics: one store per test binary in xetal-repl's picture test; PR 2 handoff.
+- 19:02 `plan` Classics lane plans the ADVANCEDEX (1968) recovery, ports and an eras Rosetta.
+- 19:01 `plan` draw-pane inserted: hide the drawing demos, but fix.
+- 19:01 `chore` Saga step classics-merged completed.
+- 19:01 `fix` After PR #1: handoff checks, the user's decisions recorded, a store-test race fixed (tests take independent resources), mode check covers subfolders, web build output untracked.
+- 18:58 `chore` Classics lane step classics-literate completed.
+- 18:49 `docs` Literate: the classics walkthrough with pictures; `frames-to-webp`.
+- 18:32 `feat` Literate: `ob-xetal` saves pictures with `:file`; a session shows each picture once.
+- 18:27 `plan` Classics lane: literate next, the Draw pane after the program steps.
+- 18:25 `plan` classics-merged follow-ups inserted.
+- 18:24 `chore` Merged the classics lane, part 1 (PR #1).
+- 18:10 `docs` Classics lane HANDOFF.md: what PR #1 covers and what to do locally.
+- 18:04 `chore` Saga step latex-gallery completed.
+- 18:04 `test` LaTeX: every shipped line checked by KaTeX, with a gallery page; printer fixes it found.
+- 18:01 `chore` Classics lane step classics-draw-raster completed.
+- 18:01 `feat` Draw: large grids as images; Mandelbrot still, zoom and fly-over.
+- 17:37 `chore` Classics lane step classics-draw-path completed.
+- 17:37 `feat` Draw: `[]P_ATH` and the Turtle library; turtle demo with Koch and Sierpinski.
+- 17:37 `chore` Saga step userlibs completed.
+- 17:37 `feat` Libraries of your own live in `userlibs/`, on the search path; running a library lists its exports.
+- 17:26 `docs` Classics lane HANDOFF.md for the local agent; literate check fixed on Linux.
+- 17:17 `design` userlibs: `./userlibs` on the library search path.
+- 17:15 `chore` Saga step unicode-strings completed.
+- 17:15 `design` Strings and comments may hold any Unicode (I1, ST2 revised).
+- 17:13 `chore` Classics lane step classics-draw-grid completed.
+- 17:13 `feat` Draw: `[]G_RID` and `[]S_HOW`, `--draw DIR`, `just draw`; Life animated.
+- 16:59 `feat` Draw: `xetal-draw`, arrays as self-contained SVG grids with animated frames.
+- 16:56 `chore` Classics lane step classics-trig completed.
+- 16:56 `feat` Trigonometry: `s_in`, `c_os`, `a_tan` in radians, and the niladic `p_i`.
+- 16:51 `chore` Classics lane step classics-broken-pipe completed.
+- 16:51 `fix` CLI: a closed stdout ends the run quietly (SIGPIPE, exit 141).
+- 16:51 `plan` unicode-strings inserted (Unicode allowed in strings).
+- 16:49 `chore` Saga step name-image completed.
+- 16:49 `docs` The name page shows the favicon and a picture of every spelling.
+- 16:42 `chore` Classics lane step classics-index completed.
+- 16:42 `demo` Classics: Pascal's triangle and the classics index.
+- 16:32 `chore` Saga step literate-rendered-first completed.
+- 16:32 `docs` Literate: the drawn form first in the `.org` files too.
+- 16:28 `plan` Classics lane: graphics steps inserted after Pascal; decisions recorded.
+- 16:19 `chore` Saga step names completed.
+- 16:19 `docs` The name: how to say it (Ecks-e-tal) and every way it is spelled.
+- 16:17 `plan` Classics lane started (the classic APL programs); decisions recorded.
+- 16:04 `chore` Saga step hello-library completed.
+- 16:04 `demo` Hello, a library of your own, with a demo and a literate document.
+- 15:05 `plan` hello-library moved next.
+- 15:04 `chore` Saga step bird-names completed.
+- 15:04 `docs` Bird names capitalized (the Warbler, the Sage Bird); I is the Idiot Bird.
+- 14:59 `docs` CHANGES.md: every commit summarized by day.
+- 14:38 `plan` bird-names and names queued.
 - 14:38 `chore` Saga step literate-decorated completed.
 - 14:38 `feat` Literate web pages draw each block decorated (`xetal render --html`), the typed lines after it as comments.
 - 14:31 `plan` hello-library queued after literate-decorated.
