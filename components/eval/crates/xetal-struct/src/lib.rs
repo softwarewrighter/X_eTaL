@@ -3,9 +3,11 @@
 
 mod calls;
 mod cells;
+mod parts;
 mod resize;
 mod values;
 
 pub use calls::call;
 pub use cells::{cat, first, replicate, select};
+pub use parts::partition;
 pub use resize::{drop, reshape, take};

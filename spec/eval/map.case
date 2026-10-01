@@ -1,0 +1,22 @@
+# m_ap applies a function to each item and boxes every result (B14), so
+# a function giving an array can be mapped; e_ach stays for functions
+# giving one value each.
+== SOURCE
+t_ally 'r_ange m_ap 1 2 3
+d_isclose 3 s_elect 'r_ange m_ap 1 2 3
+'{ r_ev d_isclose _r } m_ap "ab" "cde"
+'{ t_ally d_isclose _r } e_ach 'r_ange m_ap 1 2 3
+== TYPE
+Int
+Int
+Box Char
+Int
+== RESULT
+3
+1 2 3
+┌→───────────┐
+│ ┌→─┐ ┌→──┐ │
+│ │ba│ │edc│ │
+│ └──┘ └───┘ │
+└∊───────────┘
+1 2 3

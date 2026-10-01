@@ -6,7 +6,7 @@ use xetal_value::{Caller, Value};
 use crate::fold::{reduce, scan};
 use crate::power::power;
 use xetal_axes::on_axes;
-use xetal_map::{each, inner, table, zip};
+use xetal_map::{each, inner, map, table, zip};
 use xetal_value::as_array;
 
 type Out<'a> = Result<Value<'a>, Diagnostic>;
@@ -24,6 +24,7 @@ pub fn call<'a>(
         ("s_\\", [f, x]) => scan(f, x, span, c),
         ("e_ach", [f, x]) => each(f, x, span, c),
         ("#each", [fs, y]) => zip(fs, y, span, c),
+        ("m_ap", [f, x]) => map(f, x, span, c),
         ("t_able", [f, x, y]) => table(f, x, y, span, c),
         ("i_nner", [g, f, x, y]) => inner(g, f, x, y, span, c),
         ("c_ompose", [g, f, x]) => c

@@ -1,0 +1,5 @@
+# Partition keys are whole numbers, never negative, one per cell.
+== SOURCE
+1 -1 1 p_artition 1 2 3
+== ERROR
+error[domain]: a key cannot be -1 at 0..23

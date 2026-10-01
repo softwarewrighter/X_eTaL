@@ -1,4 +1,4 @@
-//! `e_ach` (B6). Dyadic each is currying: when f applied to the items
+//! `e_ach` (B6) and `m_ap` (B14). Dyadic each is currying: when f applied to the items
 //! gives functions, `f e_ach A` is a pending item-wise application
 //! (`#each`), and [`zip`] applies it to the next argument item by item.
 
@@ -28,6 +28,16 @@ pub fn each<'a>(f: &Value<'a>, x: &Value<'a>, span: Span, c: &mut dyn Caller<'a>
         }))),
         false => finish("e_ach", results),
     }
+}
+
+/// `f m_ap x` (B14): f on every item, each result boxed, so f may give
+/// an array; the shape is kept.
+pub fn map<'a>(f: &Value<'a>, x: &Value<'a>, span: Span, c: &mut dyn Caller<'a>) -> Out<'a> {
+    let items = as_array(x);
+    let results = items.map(|item| -> Result<Value<'a>, Diagnostic> {
+        Ok(Value::Boxed(Rc::new(c.call(f, item.clone(), span)?)))
+    })?;
+    Ok(to_value(results))
 }
 
 /// A pending each applied to `y`: the functions and the items of `y`

@@ -667,6 +667,26 @@ cde
 error[rank]: d_isclose opens one box, got shape 2
 ```
 
+### `p_artition`
+
+`Truthy a => a -> b -> Box b`, two arguments.
+
+Partition: the items (rows of a matrix) cut into pieces by the keys on
+the left, one per item: a new piece starts where the key goes up, and
+an item with key 0 is left out, so a mask of 1s and 0s cuts out the
+runs of 1s. Each piece is a box; one key extends to every item.
+
+```
+      t_ally (1 1 0 1 1 1 0 1) p_artition "ab cde f"
+3
+      d_isclose 2 s_elect (1 1 0 1 1 1 0 1) p_artition "ab cde f"
+cde
+      '{ t_ally d_isclose _r } e_ach ("a bb  ccc" != f_irst " ") p_artition "a bb  ccc"
+1 2 3
+      1 1 p_artition 1 2 3
+error[length-mismatch]: 2 keys for 3 cells
+```
+
 ### `c_at`
 
 `a -> a -> a`, two arguments.
@@ -759,6 +779,22 @@ of two arrays.
 30 10 20
       1 2 3 '+ e_ach 10 20 30
 11 22 33
+```
+
+### `m_ap`
+
+`(a -> b) -> a -> Box b`, two arguments.
+
+Map: the function on each item, every result boxed, so the function may
+give an array (e_ach wants one value per item).
+
+```
+      t_ally 'r_ange m_ap 1 2 3
+3
+      d_isclose 3 s_elect 'r_ange m_ap 1 2 3
+1 2 3
+      '{ t_ally d_isclose _r } e_ach 'r_ange m_ap 1 2 3
+1 2 3
 ```
 
 ### `t_able`
