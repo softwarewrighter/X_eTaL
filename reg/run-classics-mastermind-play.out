@@ -1,0 +1,10 @@
+guess 1 (four digits, 1 to 6):
+1 1 2 2   none
+guess 2 (four digits, 1 to 6):
+guess 2 (four digits, 1 to 6):
+3 3 4 4   *o
+guess 3 (four digits, 1 to 6):
+4 4 6 6   ***
+guess 4 (four digits, 1 to 6):
+4 4 4 6   ****
+solved in 4

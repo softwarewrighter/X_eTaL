@@ -17,20 +17,28 @@ check() {
 skip() { printf 'skip %-15s %s\n' "$1" "$2"; }
 # A program starts with #!; a library (lib/, userlibs/) does not.
 program() { head -1 "$1" | grep -q '^#!'; }
+# Programs that read typed lines: each is run below with some piped in.
+interactive() { case "$1" in demos/tttml-play.xtl | demos/classics/mastermind-play.xtl) ;; *) return 1 ;; esac; }
+# Ten guesses: a game ends by then, whatever the code.
+guesses='1122\n3344\n5566\n1234\n5612\n3456\n1111\n2222\n3333\n4444\n'
 for recipe in $(just --summary); do
     case "$recipe" in
     default | build | tour | life | animate | tttml | diagrams | reference) check just "$recipe" ;;
     # demos/tttml-play.xtl reads typed moves: the tttml-play check below
-    # pipes some in.
-    show) for f in demos/*.xtl demos/classics/*.xtl; do program "$f" && [ "$f" != demos/tttml-play.xtl ] && check just show "$f"; done ;;
+    # pipes some in; Mastermind's guesses are piped in here.
+    show)
+        for f in demos/*.xtl demos/classics/*.xtl; do program "$f" && ! interactive "$f" && check just show "$f"; done
+        check bash -c "printf '$guesses' | just show demos/classics/mastermind-play.xtl"
+        ;;
     pp) for f in demos/*.xtl demos/classics/*.xtl; do check just pp "$f"; done ;;
     slow-show) check just slow-show demos/square.xtl 1 ;;
     run)
         for f in demos/*.xtl demos/classics/*.xtl; do
-            { [ "$f" = demos/tttml-play.xtl ] || ! program "$f"; } && continue
+            { interactive "$f" || ! program "$f"; } && continue
             flags=$(head -1 "$f" | grep -o -- '--untyped' || true)
             check just run $flags "$f"
         done
+        check bash -c "printf '$guesses' | just run demos/classics/mastermind-play.xtl"
         ;;
     eval) check just eval "'+ r_/ 1 2 3" && check just eval --echo "r_ange 3" ;;
     repl) check bash -c "printf '1 + 2\n' | just repl" ;;

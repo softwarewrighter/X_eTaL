@@ -1,0 +1,1 @@
+magic squares (Siamese by rotation, Durer), Mastermind scoring/solver and interactive play; goldens, live demo, index, smoke test, dogfooding rows

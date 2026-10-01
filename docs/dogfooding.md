@@ -38,13 +38,13 @@ plan, and move a row from "Planned" to "Added" when it lands.
 | Feature | Needed by | Status |
 | ------- | --------- | ------ |
 | `r_eplicate`, APL's replicate with counts | Roman numerals, run-length decoding | decided (lang-choices B11, design D35); classics lane, replicate |
-| `e_ncode` and `d_ecode`, APL's encode and decode | truth tables, base conversion, Hanoi's moves from the bits of k (now a remainder table) | decided (B12, D36); classics lane, encode-decode |
+| `e_ncode` and `d_ecode`, APL's encode and decode | truth tables, base conversion, Hanoi's moves from the bits of k (now a remainder table), Mastermind's 1296 codes (now `d_iv` and `m_od` by place values) | decided (B12, D36); classics lane, encode-decode |
 | Nested arrays, with static depth (`Box a`) and boxed printing | word frequency, N-Queens, ragged Pascal, the APL subset interpreter | partly decided (A7, D37); the remaining questions go to the user in the classics lane's nested-design step |
 | Transpose (`o_\`) | `[]P_ATH` taking n by 2 points, any program wanting columns | planned (plan.md, cross-cutting; confirmed by the user) |
 | Matrix inverse and division (APL's domino) | ADVANCEDEX's INV and INVP, regression in STATS | to decide with the user, when the ADVANCEDEX ports reach it |
 | Execute (`[]V_ALUE`, read and evaluate) | the APL subset interpreter, the COURSE and DRILL ports | reserved (lang-choices QD3); to decide |
 | Complex numbers | Mandelbrot (z is two Float arrays today) | deferred (lang-choices section 15) |
-| Evaluator speed: a primitive operand applied as a vector kernel | TTTML's training time; Mandelbrot is kept small (60 by 90 frames) for it | planned (plan.md, cross-cutting) |
+| Evaluator speed: a primitive operand applied as a vector kernel | TTTML's training time; Mandelbrot is kept small (60 by 90 frames) for it; Mastermind's player over all 1296 secrets takes 25 s in a release build, so the demo plays 35 of them | planned (plan.md, cross-cutting) |
 
 ## Friction found, kept for now
 
@@ -62,3 +62,5 @@ coming up.
 | A lambda that uses `_l` must use `_r` too | Mandelbrot | the tacks as operands, `'l_eft` and `'r_ight` |
 | `u:` functions are defined only at the top level | Mandelbrot | a local function name (`s_tep := ...`) or a top-level definition |
 | `m_od` reads in maths order (`a m_od n` is a mod n), the reverse of APL's residue | automaton | written as maths reads it |
+| `e_ach` goes over items (scalars), not rows, so a function of a row cannot be applied to each row of a matrix | Mastermind, every secret | each row by its index: `'{ ... _r s_elect m } e_ach r_ange n`; a rank operator or nested arrays (the nested-design step) would say it directly |
+| A guard is a statement, so a choice in the middle of an expression needs a function | Mastermind, showing "none" for no pegs | a small function (`u:p_egs`) whose first line is the guard |

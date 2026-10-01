@@ -1,0 +1,3 @@
+command = '''printf '1122\n12x4\n3344\n4466\n4446\n' | ./target/debug/xetal run --seed 3 demos/classics/mastermind-play.xtl'''
+exit_code = 0
+desc = "Mastermind against the computer, with typed guesses piped in and a seed (a bad guess is asked for again)"
