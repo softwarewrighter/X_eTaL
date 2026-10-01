@@ -1,0 +1,36 @@
+# r_eplicate is APL's replicate (B11): one count per major cell of the
+# right argument, each cell repeated that many times; a scalar count
+# extends to every cell, a count of 0 drops the cell, so a mask of
+# 1s and 0s (or a comparison) compresses. Rows of a matrix are its cells.
+== SOURCE
+1 0 2 r_eplicate "abc"
+3 r_eplicate 1 2
+2 r_eplicate 7
+0 r_eplicate 1 2 3
+(1 0 1 0 = 1) r_eplicate 10 20 30 40
+(3 1 4 1 5 > 2) r_eplicate 3 1 4 1 5
+2 0 1 r_eplicate 3 2 r_eshape r_ange 6
+1 2 3 r_eplicate 1.5 2.5 3.5
+s_hape 0 0 r_eplicate 2 3 r_eshape 0
+== TYPE
+Char
+Int
+Int
+Int
+Int
+Int
+Int
+Float
+Int
+== RESULT
+acc
+1 1 1 2 2 2
+7 7
+
+10 30
+3 4 5
+1 2
+1 2
+5 6
+1.5 2.5 2.5 3.5 3.5 3.5
+0 3

@@ -28,3 +28,33 @@ pub(crate) fn fill<'a>(a: &Array<Value<'a>>) -> Option<Value<'a>> {
         _ => return None,
     })
 }
+
+/// The counts of `r_eplicate` (B11), one per each of `cells` major
+/// cells: a scalar extends, a vector must match, none may be negative.
+pub(crate) fn counts(c: &Value<'_>, cells: usize) -> Result<Vec<usize>, Diagnostic> {
+    let c = ints(c)?;
+    let each = c
+        .data()
+        .iter()
+        .map(|k| {
+            usize::try_from(*k)
+                .map_err(|_| Diagnostic::new("domain", format!("a count cannot be {k}")))
+        })
+        .collect::<Result<Vec<usize>, Diagnostic>>()?;
+    match (c.rank(), each.as_slice()) {
+        (0, [k]) => Ok(vec![*k; cells]),
+        (1, _) if each.len() == cells => Ok(each),
+        (1, _) => Err(Diagnostic::new(
+            "length-mismatch",
+            format!("{} counts for {cells} cells", each.len()),
+        )),
+        _ => {
+            let dims: Vec<String> = c.shape().iter().map(ToString::to_string).collect();
+            let message = format!(
+                "r_eplicate needs a scalar or a vector of counts, got shape {}",
+                dims.join(" ")
+            );
+            Err(Diagnostic::new("rank", message))
+        }
+    }
+}

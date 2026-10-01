@@ -20,7 +20,7 @@ plan, and move a row from "Planned" to "Added" when it lands.
 | Elaborator: a typed built-in under an axis subscript is wrapped whole, so the axis rule still sees reduce | fix | Life inside a polymorphic function | design section 7 |
 | Files, the keyboard and numbers as text (`[]N_PUT`, `[]N_GET`, `[]R_EAD`, `f_ormat`, `n_umbers`), and system names (quads) to hold them | feature | TTTML, saving its model and playing a human | lang-choices QD1-QD4; design D30, D32 |
 | Notebooks run in one pass and stream their output (a training program had rerun its training for every later line, and showed nothing until the end) | fix | TTTML as a notebook | plan.md, Saga 9 retrospective |
-| Streaming output in the live demo (in progress) | feature | `tttml-train` showing its progress in the browser | main's saga, streaming-output |
+| Streaming output in the live demo: programs run in a worker, output streams, with a Stop button | feature | `tttml-train` showing its progress in the browser | main's saga, streaming-output |
 | A hint for a name used without its underline (`s:mean` suggests `s:m_ean`) | fix | the user, in the live demo | xetal-macro tests |
 | `m_atch`, whole-array match | feature | the user's Dyalog examples | lang-choices B7; design D34 |
 | A closed stdout ends a run quietly (exit 141, nothing on stderr), instead of a panic | fix | Pascal's triangle piped into `head` | golden cli-pipe-closed; architecture.md |
@@ -32,14 +32,14 @@ plan, and move a row from "Planned" to "Added" when it lands.
 | A session shows each picture once (a replayed line had shown its picture again), and a `--context` run shows none | fix | literate walkthroughs with pictures | xetal-store and xetal-repl tests |
 | `ob-xetal` saves a block's picture with `:results file :file PATH`; the literate check compares pictures | tooling | the literate classics walkthrough | design 8.1g |
 | `scripts/literate.sh --check` uses a mktemp both GNU and BSD accept | fix | running the literate check on Linux | scripts/literate.sh |
+| `r_eplicate`, APL's replicate and compress: counts or a mask on the left, over major cells, any axis by subscript | feature | Roman numerals and run-length decoding (and every "keep where" written as `(w_here m) s_elect v`) | lang-choices B11; design D35 |
+| `e_ncode` and `d_ecode`, APL's encode and decode, in their own component (`radix`) | feature | truth tables, base conversion, Hanoi's moves from the bits of k (written as a remainder table), Mastermind's 1296 codes (written with `d_iv` and `m_od` by place values) | lang-choices B12; design D36 |
 
 ## Planned, because a demo needs it
 
 | Feature | Needed by | Status |
 | ------- | --------- | ------ |
-| `r_eplicate`, APL's replicate with counts | Roman numerals, run-length decoding | decided (lang-choices B11, design D35); classics lane, replicate |
-| `e_ncode` and `d_ecode`, APL's encode and decode | truth tables, base conversion, Hanoi's moves from the bits of k (now a remainder table), Mastermind's 1296 codes (now `d_iv` and `m_od` by place values) | decided (B12, D36); classics lane, encode-decode |
-| Nested arrays, with static depth (`Box a`) and boxed printing | word frequency, N-Queens, ragged Pascal, the APL subset interpreter | partly decided (A7, D37); the remaining questions go to the user in the classics lane's nested-design step |
+| Nested arrays, with static depth (`Box a`) and boxed printing | word frequency, N-Queens, ragged Pascal, the APL subset interpreter | decided (A7, B14, D37): string-literal strands, `m_ap` to box each result, `p_artition` with APL2's keys, strict `Box a`; classics lane, nested-core and nested-builtins |
 | Transpose (`o_\`) | `[]P_ATH` taking n by 2 points, any program wanting columns | planned (plan.md, cross-cutting; confirmed by the user) |
 | Matrix inverse and division (APL's domino) | ADVANCEDEX's INV and INVP, regression in STATS | to decide with the user, when the ADVANCEDEX ports reach it |
 | Execute (`[]V_ALUE`, read and evaluate) | the APL subset interpreter, the COURSE and DRILL ports | reserved (lang-choices QD3); to decide |
@@ -62,5 +62,6 @@ coming up.
 | A lambda that uses `_l` must use `_r` too | Mandelbrot | the tacks as operands, `'l_eft` and `'r_ight` |
 | `u:` functions are defined only at the top level | Mandelbrot | a local function name (`s_tep := ...`) or a top-level definition |
 | `m_od` reads in maths order (`a m_od n` is a mod n), the reverse of APL's residue | automaton | written as maths reads it |
-| `e_ach` goes over items (scalars), not rows, so a function of a row cannot be applied to each row of a matrix | Mastermind, every secret | each row by its index: `'{ ... _r s_elect m } e_ach r_ange n`; a rank operator or nested arrays (the nested-design step) would say it directly |
+| `e_ach` goes over items (scalars), not rows, so a function of a row cannot be applied to each row of a matrix | Mastermind, every secret | each row by its index: `'{ ... _r s_elect m } e_ach r_ange n`; `m_ap` (B14) will box each row's result, though a matrix still goes item by item: a rank operator is not planned |
 | A guard is a statement, so a choice in the middle of an expression needs a function | Mastermind, showing "none" for no pegs | a small function (`u:p_egs`) whose first line is the guard |
+| A comparison named at the top level is a Bool, and a Bool is not a number: `t c_at f` and `1 * f` fail for a named Bool `f`, though the same comparison written in place is an Int (T5) | truth tables, Gray code | the binding written `f := 0 + ...`, so it is named as an Int |

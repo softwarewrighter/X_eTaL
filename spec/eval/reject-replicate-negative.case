@@ -1,0 +1,6 @@
+# A negative count is an error (B11): there are no fill items to put
+# in its place, as APL would.
+== SOURCE
+1 -1 2 r_eplicate 1 2 3
+== ERROR
+error[domain]: a count cannot be -1 at 0..23

@@ -1,0 +1,5 @@
+# Counts are whole numbers or Bools, never Floats.
+== SOURCE
+1.5 2 r_eplicate 1 2
+== ERROR
+error[type-mismatch]: expected Bool or Int, found Float at 0..20

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/truth.xtl"
+exit_code = 0
+desc = "truth tables by e_ncode: laws checked on every column, the true columns by replicate, a full adder, a rule number by d_ecode"

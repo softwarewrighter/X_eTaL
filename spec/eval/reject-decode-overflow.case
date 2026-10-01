@@ -1,0 +1,5 @@
+# Decoding is Int arithmetic: past the largest Int is an error.
+== SOURCE
+10 d_ecode 20 r_eshape 9
+== ERROR
+error[integer-overflow]: integer overflow (use a Float, e.g. 2.0) at 0..24

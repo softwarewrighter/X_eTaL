@@ -38,6 +38,7 @@ pub fn call<'a>(
 ) -> Result<Value<'a>, Diagnostic> {
     if let Some(result) = xetal_struct::call(name, args, span)
         .or_else(|| xetal_search::call(name, args, span))
+        .or_else(|| xetal_radix::call(name, args, span))
         .or_else(|| xetal_rotate::call(name, args, span))
         .or_else(|| xetal_system::call(name, args, span))
     {

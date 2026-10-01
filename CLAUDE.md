@@ -415,6 +415,7 @@ tui: terminal widgets and apps on the view model (ratatui)
 array: dense arrays + primitive kernels (peer of the front end)
 hof: higher-order built-ins; operands applied through eval's Caller
 search: search and order built-ins over major cells
+radix: encode and decode in a mixed radix
 axes: rotate, reverse and axis subscripts (move-to-front, A6)
 ```
 

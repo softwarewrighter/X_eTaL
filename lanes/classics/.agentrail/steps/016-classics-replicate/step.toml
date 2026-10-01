@@ -1,8 +1,9 @@
 number = 16
 slug = "classics-replicate"
-status = "pending"
+status = "completed"
 description = "Classics lane (see lanes/classics/.agentrail/plan.md for conventions and the ..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T16:16:36"
-commits = []
+completed_at = "2026-10-01T12:16:44"
+commits = ["d4015430ea116c2628930a3ce59ae5f90785af4f"]

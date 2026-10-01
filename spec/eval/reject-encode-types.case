@@ -1,0 +1,5 @@
+# Encode and decode are on Ints.
+== SOURCE
+2 e_ncode 1.5
+== ERROR
+error[type-mismatch]: expected Int, found Float at 0..13

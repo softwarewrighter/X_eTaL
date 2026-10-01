@@ -94,6 +94,8 @@ fn reference() -> Html {
         ("t_ally v, s_hape v", "count, shape"),
         ("r_ev v, 1 o_- v", "reverse, rotate"),
         ("i s_elect v", "the items at positions i"),
+        ("b r_eplicate v", "keep where b is 1 (or repeat)"),
+        ("2 2 2 e_ncode 5, 2 d_ecode v", "radix digits, and back"),
         ("a m_atch b", "same shape and items"),
         ("s_ort v, w_here b", "sort, positions of 1s"),
         ("f_^3 x", "f applied 3 times"),

@@ -29,6 +29,7 @@ xetal-arith = { path = "crates/xetal-arith" }
 xetal-struct = { path = "crates/xetal-struct" }
 xetal-hof = { path = "../hof/crates/xetal-hof" }
 xetal-search = { path = "../search/crates/xetal-search" }
+xetal-radix = { path = "../radix/crates/xetal-radix" }
 xetal-system = { path = "../system/crates/xetal-system" }
 xetal-rotate = { path = "../axes/crates/xetal-rotate" }
 xetal-grid = { path = "../view/crates/xetal-grid" }

@@ -1,0 +1,6 @@
+# One count per major cell: a list of counts of another length is an
+# error, never extended or cut.
+== SOURCE
+1 0 r_eplicate 1 2 3
+== ERROR
+error[length-mismatch]: 2 counts for 3 cells at 0..20

@@ -91,6 +91,7 @@ entries = [
   ["t_ake", 2, "Int -> a -> a"],
   ["d_rop", 2, "Int -> a -> a"],
   ["s_elect", 2, "Int -> a -> a"],
+  ["r_eplicate", 2, "Truthy a => a -> b -> b"],
   ["c_at", 2, "a -> a -> a"],
 ]
 
@@ -127,6 +128,13 @@ entries = [
   ["s_ort", 1, "Ord a => a -> a"],
   ["g_rade", 1, "Ord a => a -> Int"],
   ["w_here", 1, "Truthy a => a -> Int"],
+]
+
+[[group]]
+rule = "B12: encode and decode (radix on the left)"
+entries = [
+  ["e_ncode", 2, "Int -> Int -> Int"],
+  ["d_ecode", 2, "Int -> Int -> Int"],
 ]
 
 [[group]]

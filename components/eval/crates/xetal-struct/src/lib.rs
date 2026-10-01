@@ -7,5 +7,5 @@ mod resize;
 mod values;
 
 pub use calls::call;
-pub use cells::{cat, first, select};
+pub use cells::{cat, first, replicate, select};
 pub use resize::{drop, reshape, take};

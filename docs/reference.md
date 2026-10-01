@@ -561,6 +561,78 @@ along the subscript's axis.
 2 5
 ```
 
+### `r_eplicate`
+
+`Truthy a => a -> b -> b`, two arguments.
+
+Replicate: each item (each row of a matrix) repeated as many times as
+its count on the left, so a 0 drops it and a mask of 1s and 0s keeps
+the items where it is 1; one count extends to every item, and with a
+subscript the counts go along that axis. A negative count is an error.
+
+```
+      1 0 2 r_eplicate "abc"
+acc
+      (v > 1) r_eplicate v
+3 2
+      2 r_eplicate v
+3 3 1 1 2 2
+      0 2 r_eplicate M
+4 5 6
+4 5 6
+      1 0 2 r_eplicate_2 M
+1 3 3
+4 6 6
+      1 -1 2 r_eplicate v
+error[domain]: a count cannot be -1
+```
+
+### `e_ncode`
+
+`Int -> Int -> Int`, two arguments.
+
+Encode: the digits of a number in the radix on the left, most
+significant first (APL's encode). Radixes may differ from digit to
+digit (hours, minutes, seconds), a radix of 0 takes all that is left,
+and digits beyond the radix are dropped. A vector gives one column of
+digits per item.
+
+```
+      2 2 2 2 e_ncode 11
+1 0 1 1
+      24 60 60 e_ncode 3725
+1 2 5
+      0 10 e_ncode 123
+12 3
+      2 2 2 e_ncode 0 1 2 3
+0 0 0 0
+0 0 1 1
+0 1 0 1
+      2 2 e_ncode M
+error[rank]: e_ncode needs a scalar or a vector, got shape 2 3
+```
+
+### `d_ecode`
+
+`Int -> Int -> Int`, two arguments.
+
+Decode: the number whose digits, in the radix on the left, are on the
+right (APL's decode), the inverse of `e_ncode`. One radix extends to
+every digit; a matrix gives one number per column.
+
+```
+      2 d_ecode 1 0 1 1
+11
+      10 d_ecode 1 2 3
+123
+      24 60 60 d_ecode 1 2 5
+3725
+      2 d_ecode 2 2 2 e_ncode 0 1 2 3
+0 1 2 3
+      2 2 d_ecode 1 0 1
+error[length-mismatch]: 2 radix values for 3 digits
+```
+
 ### `c_at`
 
 `a -> a -> a`, two arguments.
