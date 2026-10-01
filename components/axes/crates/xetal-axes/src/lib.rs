@@ -3,6 +3,7 @@
 //! transposition kernel and the rule on runtime values.
 
 mod apply;
+mod cat;
 mod moves;
 mod rotate;
 

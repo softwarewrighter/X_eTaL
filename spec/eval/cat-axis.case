@@ -1,0 +1,38 @@
+# c_at_k is APL's catenate along axis k (decided with the user): axis k
+# of both arguments moves to the front, they join, and it moves back,
+# so c_at defines its own axis rule (A6 moves only the right one). The
+# other axes must match; a scalar extends to one cell along k, and an
+# argument one rank lower is one cell, so a vector joined along axis
+# 2 of a matrix is a new column. c_at_1 is c_at.
+== SOURCE
+(2 2 r_eshape 1) c_at_2 2 2 r_eshape 2
+(2 2 r_eshape 1 2 3 4) c_at_2 9 8
+7 c_at_2 2 2 r_eshape 1 2 3 4
+9 8 c_at_2 2 2 r_eshape 1 2 3 4
+(2 3 r_eshape r_ange 6) c_at_1 7 8 9
+"ab" c_at_1 "cd"
+s_hape (2 3 4 r_eshape 0) c_at_2 2 1 4 r_eshape 1
+s_hape (2 3 4 r_eshape 0) c_at_3 2 3 r_eshape 1
+(2 3 4 r_eshape 0) c_at_3 2 3 r_eshape 1
+== RESULT
+1 1 2 2
+1 1 2 2
+1 2 9
+3 4 8
+7 1 2
+7 3 4
+9 1 2
+8 3 4
+1 2 3
+4 5 6
+7 8 9
+abcd
+2 4 4
+2 3 5
+0 0 0 0 1
+0 0 0 0 1
+0 0 0 0 1
+
+0 0 0 0 1
+0 0 0 0 1
+0 0 0 0 1

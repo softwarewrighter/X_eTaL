@@ -1,20 +1,18 @@
 //! The move-to-front rule on runtime values, applying f through the
 //! evaluator's [`Caller`]. Rotate defines several axes and amount
-//! lists itself (A4); reduce and scan take several axes in turn (R1).
+//! lists itself (A4); reduce and scan take several axes in turn (R1);
+//! catenate moves the axis of both arguments.
 
 use std::rc::Rc;
 
 use xetal_base::{Diagnostic, Span};
 use xetal_value::{Caller, Value, as_array, to_value};
 
+use crate::cat::cat_on;
 use crate::move_axis;
 use crate::rotate::rotate_on;
 
 type Out<'a> = Result<Value<'a>, Diagnostic>;
-
-/// Built-ins whose left argument is data too: moving only the right
-/// argument's axis would join mismatched arrays, so `_k` is refused.
-const BOTH_DATA: &[&str] = &["c_at"];
 
 /// `f_axes` applied to `args`, the last being the data (A6).
 pub fn on_axes<'a>(
@@ -44,10 +42,7 @@ pub fn on_axes<'a>(
             }
             Ok(x)
         }
-        _ if BOTH_DATA.contains(&name) => Err(axis_error(&format!(
-            "{name}_{} would move both arguments' axes; only the right one moves",
-            axes.iter().map(u8::to_string).collect::<String>()
-        ))),
+        ("c_at", [a, b]) => cat_on(axes, f, (a, b), span, c),
         (_, [.., x]) => match checked(axes, as_array(x).rank())?[..] {
             [k] => one_axis(k, f, args, span, c),
             _ => Err(axis_error(
