@@ -714,6 +714,43 @@ highlights the node being evaluated (by its span), and the array
 viewer shows its intermediate value, stepping forward and back
 through the trace tree.
 
+## Saga 18 -- transducers (research, then perhaps a library)
+
+Asked for by the user (2026-10-01), to research and possibly
+implement, in step with sw-mlpl's planned literate document on
+transducers (`../../sw-ml-study/sw-mlpl`, step transducers-literate:
+Clojure-style transducers taught without closures, through partial
+application). XeTaL has what that design works around: closures,
+curried functions, quoted operands, composition and the Combinators
+library. A reducing function is `{ a x -> ... }` (accumulator on the
+left, item on the right), and a transducer turns one reducing function
+into another, so mapping, filtering and their composition are ordinary
+higher-order functions.
+
+What the research must settle with the user (each recorded in
+lang-choices):
+
+- folding: XeTaL's reduce is APL's (a right fold, no starting value);
+  a transducer needs a left fold from an initial accumulator, so a
+  built-in or library fold with a seed (and its name) is the first
+  decision;
+- early termination (Clojure's `reduced`): how a reducing function
+  says "stop" (a Maybe-like wrapper, or a flag in the accumulator);
+- stateful transducers (taking, deduplicating): state carried in the
+  accumulator, or closures over mutable (`!`) names;
+- streams: the same pipeline over an array, the lines of a file and
+  typed input, in constant memory, which is where transducers beat
+  whole-array code.
+
+| #  | Step slug        | Delivers                                                   |
+| -- | ---------------- | ---------------------------------------------------------- |
+| 1  | research         | docs/transducers.md: Clojure's design, sw-mlpl's plan, APL/BQN folds, what XeTaL lacks; the decisions above put to the user |
+| 2  | fold             | the seeded left fold (as decided), test-first, with its type and reference entry |
+| 3  | library          | `lib/Transducers.xtl`: mapping, filtering, taking, mapcat, composition, transduce, early termination; each export typed and tested |
+| 4  | examples         | one pipeline reused with sum, count, max, collect and join; over an array, a file's lines and typed input; a data-cleaning pipeline feeding a running mean and a histogram; goldens |
+| 5  | literate         | docs/literate/transducers.org: the idea, the library, and an honest comparison with the whole-array idiom (masks and reduce), saying when each wins |
+| 6  | release          | README, reference, CHANGES, retrospective; lessons fed back to sw-mlpl |
+
 ## Deferred (from `lang-choices.md` section 15)
 
 Nested arrays (A7; now in the classics lane), raw strings `r"..."`, Unicode text and complex
