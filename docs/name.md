@@ -32,7 +32,7 @@ neither is the name: say Ecks-e-tal.
 | `X_ e:T a:L` | typed as X_eTaL source | the logo as XeTaL itself writes it (below) |
 | `X_eTaL` | the display name, headings, the repository | the logo in plain ASCII: the `_` marks the underline |
 | XeTaL | prose | the name in a sentence, with no marks at all |
-| X&#818;&#7497;T&#7491;L | plain Unicode text, and XeTaL strings (`"hello X&#818;&#7497;T&#7491;L"` in `demos/Hello.xtl`) | the logo as characters: typed `X_ e:T a:L`, drawn, the spaces removed (X, a combining underline, a superscript e, T, a superscript a, L) |
+| X&#818;&#7497;T&#7491;L | plain Unicode text, and XeTaL strings (`"hello X&#818;&#7497;T&#7491;L"` in `userlibs/Hello.xtl`) | the logo as characters: typed `X_ e:T a:L`, drawn, the spaces removed (X, a combining underline, a superscript e, T, a superscript a, L) |
 | `X_eTaL` | `github.com/softwarewrighter/X_eTaL`, the live demo's URL | the repository and GitHub Pages site |
 | `xetal` | the binary, the crates (`xetal-*`), the code | the slug: lowercase, no marks, safe everywhere |
 | `.xtl` | file names (`demos/life.xtl`, `lib/Stats.xtl`) | the file type: the consonants of the slug |

@@ -238,7 +238,7 @@ Other fonts, checked against the font files:
   as a literate Org document, every block run and its result recorded
   (`docs/emacs/`: `xetal-mode` and `ob-xetal` for Org Babel)
 - [`docs/literate/hello.org`](docs/literate/hello.org) -- a library of
-  your own: write `demos/Hello.xtl`, import it, call it
+  your own: write `userlibs/Hello.xtl`, import it, call it
 - [`docs/literate/life.org`](docs/literate/life.org) -- Conway's Life,
   the one line built up a piece at a time
 - [`docs/literate/libraries.org`](docs/literate/libraries.org) -- what a

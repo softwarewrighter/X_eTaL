@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run userlibs/Greetings.xtl"
+exit_code = 0
+desc = "running a library lists its exports (n_ame is private, so not listed)"

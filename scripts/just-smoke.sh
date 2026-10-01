@@ -15,8 +15,7 @@ check() {
     fi
 }
 skip() { printf 'skip %-15s %s\n' "$1" "$2"; }
-# A program starts with #!; a library a demo imports (demos/Hello.xtl)
-# does not, and is not run on its own.
+# A program starts with #!; a library (lib/, userlibs/) does not.
 program() { head -1 "$1" | grep -q '^#!'; }
 for recipe in $(just --summary); do
     case "$recipe" in

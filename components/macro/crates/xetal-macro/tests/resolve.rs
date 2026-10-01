@@ -74,3 +74,20 @@ fn a_name_matches_exactly_even_on_a_case_insensitive_disk() {
         .to_string();
     assert_ne!(found.map(|f| f.key), Some(me), "found the importer itself");
 }
+
+/// Libraries of your own live in userlibs/ (in the current directory),
+/// searched after the importing file's directory and before the
+/// directories of XETAL_PATH.
+#[test]
+fn the_search_path_is_userlibs_then_xetal_path() {
+    let dirs = |var| -> Vec<String> {
+        FsLibraries::from_path_var(var)
+            .search()
+            .iter()
+            .map(|d| d.display().to_string())
+            .collect()
+    };
+    assert_eq!(dirs(None), ["userlibs"]);
+    assert_eq!(dirs(Some("a:b")), ["userlibs", "a", "b"]);
+    assert_eq!(dirs(Some("")), ["userlibs"]);
+}

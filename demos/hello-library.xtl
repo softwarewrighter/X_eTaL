@@ -1,8 +1,10 @@
 #!/usr/bin/env xetal
 # demos/hello-library.xtl: a program using two libraries of its own,
-# demos/Hello.xtl and demos/Greetings.xtl, beside this file. u_se< finds
-# "Hello" as Hello.xtl there; the string on its left is the prefix the
-# library's l: names get here.
+# userlibs/Hello.xtl and userlibs/Greetings.xtl. u_se< finds "Hello" as
+# Hello.xtl beside this file, then in userlibs/ (run from the
+# repository's root), then on XETAL_PATH, then among the standard
+# libraries; the string on its left is the prefix the library's l:
+# names get here.
 
 "h:" u_se< "Hello"
 "g:" u_se< "Greetings"

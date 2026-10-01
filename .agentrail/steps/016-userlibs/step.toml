@@ -1,6 +1,6 @@
 number = 16
 slug = "userlibs"
-status = "pending"
+status = "in-progress"
 description = "User decision: libraries of your own live in ./userlibs (not demos/), which i..."
 role = "production"
 context_files = []

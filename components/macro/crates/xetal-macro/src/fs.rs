@@ -1,11 +1,14 @@
 //! Libraries on disk (MC4): a path relative to the importing file, or
 //! a name looked for as `Name.xtl` beside the importing file, then in
-//! each search directory (XETAL_PATH), then among the standard
-//! libraries built into xetal.
+//! userlibs/ (libraries of your own), then in each directory of
+//! XETAL_PATH, then among the standard libraries built into xetal.
 
 use std::path::{Path, PathBuf};
 
 use crate::{Found, Libraries};
+
+/// The directory of libraries of your own, on the search path.
+pub const USERLIBS: &str = "userlibs";
 
 pub struct FsLibraries {
     search: Vec<PathBuf>,
@@ -16,15 +19,27 @@ impl FsLibraries {
         FsLibraries { search }
     }
 
-    /// The search directories from XETAL_PATH (separated by `:`).
+    /// The search directories: userlibs/, then XETAL_PATH's.
     pub fn from_env() -> Self {
-        let path = std::env::var("XETAL_PATH").unwrap_or_default();
+        FsLibraries::from_path_var(std::env::var("XETAL_PATH").ok().as_deref())
+    }
+
+    /// `userlibs` (libraries of your own, in the current directory), then
+    /// the directories of a XETAL_PATH value (separated by `:`).
+    pub fn from_path_var(var: Option<&str>) -> Self {
+        let path = var.unwrap_or_default().split(':').filter(|d| !d.is_empty());
         FsLibraries::new(
-            path.split(':')
-                .filter(|d| !d.is_empty())
+            std::iter::once(USERLIBS)
+                .chain(path)
                 .map(PathBuf::from)
                 .collect(),
         )
+    }
+
+    /// Where a library name is looked for after the importing file's
+    /// directory, in order.
+    pub fn search(&self) -> &[PathBuf] {
+        &self.search
     }
 }
 

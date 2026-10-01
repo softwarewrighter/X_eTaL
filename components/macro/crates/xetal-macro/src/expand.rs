@@ -113,7 +113,7 @@ impl Loader<'_> {
             Diagnostic::new(
                 "library-not-found",
                 format!(
-                    "no library {:?} (looked {}, in XETAL_PATH and among the standard libraries)",
+                    "no library {:?} (looked {}, in userlibs/, in XETAL_PATH and among the standard libraries)",
                     import.spec,
                     if file.name == "-e" {
                         "in the current directory".to_string()

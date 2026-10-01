@@ -12,9 +12,9 @@ greeting, and uses it. Every block below is run by ~xetal~ through
 
 * The library
 
-~demos/Hello.xtl~, the whole file:
+~userlibs/Hello.xtl~, the whole file:
 
-#+INCLUDE: "../../demos/Hello.xtl" src xetal
+#+INCLUDE: "../../userlibs/Hello.xtl" src xetal
 
 ~h_ello~ is a function (its h is underlined); ~l:~ exports it. Its
 argument is ~@~, Unit, the value that stands for nothing: ~{ @ -> ... }~
@@ -25,7 +25,7 @@ comment) may hold any Unicode, though the rest of the source is ASCII. ~xetal ty
 it exports:
 
 #+begin_example
-$ xetal type demos/Hello.xtl
+$ xetal type userlibs/Hello.xtl
 l:h_ello : Unit -> Char
 #+end_example
 
@@ -56,10 +56,15 @@ demos/hello-library.xtl~ prints the same greeting.
 * Where a library is found
 
 ~"Hello"~ is looked for as ~Hello.xtl~ beside the importing file, then
-in each directory of ~XETAL_PATH~ (separated by ~:~), then among the
-standard libraries built into ~xetal~ (~Stats~, ~Maybe~, ~Combinators~,
-~TTTML~). A path finds one file exactly: ~"h:" u_se< "lib/Hello.xtl"~.
-This document's blocks run with ~XETAL_PATH~ set to ~demos/~.
+in ~userlibs/~ (libraries of your own, in the directory xetal runs in:
+the repository's root), then in each directory of ~XETAL_PATH~
+(separated by ~:~), then among the standard libraries built into
+~xetal~ (~Stats~, ~Maybe~, ~Combinators~, ~TTTML~, whose source is in
+~lib/~). A path finds one file exactly: ~"h:" u_se< "userlibs/Hello.xtl"~.
+Libraries are not programs: they are not executable, and ~xetal run~ (or
+~just show~) on one lists its exports instead of running it. This
+document's blocks run from its own directory, with ~XETAL_PATH~ set to
+~userlibs/~.
 
 In the live demo, the library is one of your files: open ~Hello.xtl~,
 change the greeting, Save, and run the ~hello-library~ demo again.
@@ -93,10 +98,10 @@ error[type-mismatch]: expected Unit, found a number
 * A second greeting
 
 A library can keep names to itself: a name without ~l:~ is private.
-~demos/Greetings.xtl~ exports ~g_reet~, which is monadic: it takes the
+~userlibs/Greetings.xtl~ exports ~g_reet~, which is monadic: it takes the
 greeting from the program and adds the name, kept in a private ~n_ame~:
 
-#+INCLUDE: "../../demos/Greetings.xtl" src xetal
+#+INCLUDE: "../../userlibs/Greetings.xtl" src xetal
 
 X_eTaL reads right to left, so ~g c_at " " c_at n_ame @~ is ~g~ joined
 to a space joined to the name. A program can import both libraries,

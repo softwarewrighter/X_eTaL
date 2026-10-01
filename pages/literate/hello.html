@@ -39,13 +39,13 @@ greeting, and uses it. Every block below is run by <code>xetal</code> through
 <h2 id="org0e03755">The library</h2>
 <div class="outline-text-2" id="text-org0e03755">
 <p>
-<code>demos/Hello.xtl</code>, the whole file:
+<code>userlibs/Hello.xtl</code>, the whole file:
 </p>
 
 <div class="org-src-container">
 <pre class="src src-xetal"><span class="c-comment">⍝ Hello: the smallest library, one greeting. A library is an ordinary</span>
-<span class="c-comment">⍝ file whose exported names start with l:; demos/hello-library.xtl</span>
-<span class="c-comment">⍝ imports it, and docs/literate/hello.org walks through both. The name</span>
+<span class="c-comment">⍝ file whose exported names start with l:; libraries of your own live</span>
+<span class="c-comment">⍝ in userlibs/, on the search path. demos/hello-library.xtl imports it, and docs/literate/hello.org walks through both. The name</span>
 <span class="c-comment">⍝ in the string is the logo: typed X_ e:T a:L, drawn, spaces removed (a</span>
 <span class="c-comment">⍝ string may hold any Unicode).</span>
 
@@ -66,7 +66,7 @@ it exports:
 </p>
 
 <pre class="example" id="org33c757d">
-$ xetal type demos/Hello.xtl
+$ xetal type userlibs/Hello.xtl
 l:h_ello : Unit -&gt; Char
 </pre>
 
@@ -109,10 +109,15 @@ demos/hello-library.xtl</code> prints the same greeting.
 <div class="outline-text-2" id="text-orgf5345bd">
 <p>
 <code>"Hello"</code> is looked for as <code>Hello.xtl</code> beside the importing file, then
-in each directory of <code>XETAL_PATH</code> (separated by <code>:</code>), then among the
-standard libraries built into <code>xetal</code> (<code>Stats</code>, <code>Maybe</code>, <code>Combinators</code>,
-<code>TTTML</code>). A path finds one file exactly: <code>"h:" u_se&lt; "lib/Hello.xtl"</code>.
-This document's blocks run with <code>XETAL_PATH</code> set to <code>demos/</code>.
+in <code>userlibs/</code> (libraries of your own, in the directory xetal runs in:
+the repository's root), then in each directory of <code>XETAL_PATH</code>
+(separated by <code>:</code>), then among the standard libraries built into
+<code>xetal</code> (<code>Stats</code>, <code>Maybe</code>, <code>Combinators</code>, <code>TTTML</code>, whose source is in
+<code>lib/</code>). A path finds one file exactly: <code>"h:" u_se&lt; "userlibs/Hello.xtl"</code>.
+Libraries are not programs: they are not executable, and <code>xetal run</code> (or
+<code>just show</code>) on one lists its exports instead of running it. This
+document's blocks run from its own directory, with <code>XETAL_PATH</code> set to
+<code>userlibs/</code>.
 </p>
 
 <p>
@@ -160,7 +165,7 @@ error[type-mismatch]: expected Unit, found a number
 <div class="outline-text-2" id="text-orgbd9089d">
 <p>
 A library can keep names to itself: a name without <code>l:</code> is private.
-<code>demos/Greetings.xtl</code> exports <code>g_reet</code>, which is monadic: it takes the
+<code>userlibs/Greetings.xtl</code> exports <code>g_reet</code>, which is monadic: it takes the
 greeting from the program and adds the name, kept in a private <code>n_ame</code>:
 </p>
 

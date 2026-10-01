@@ -54,9 +54,13 @@ fn pause(delay: Option<u64>, source: &str) {
     }
 }
 
-/// `eval` and `run`, plain or as a notebook; other commands are not
-/// evaluations.
+/// `eval` and `run`, plain or as a notebook (a library run lists its
+/// exports' types); other commands are not evaluations.
 pub(crate) fn evaluation(command: &Command, source: &str) -> Option<Result<String, Diagnostic>> {
+    // A library is not run: running one lists its exports, as `type`.
+    if matches!(command, Command::Run { .. }) && xetal_program::is_library(source) {
+        return Some(typed(source, &origin(command)));
+    }
     Some(match command {
         Command::Run {
             context: Some(path),

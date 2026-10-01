@@ -79,9 +79,12 @@ pub fn seed() {
 
 /// The libraries the demos import that are not standard ones.
 const OWN_LIBRARIES: &[(&str, &str)] = &[
-    ("Hello.xtl", include_str!("../../../../../demos/Hello.xtl")),
+    (
+        "Hello.xtl",
+        include_str!("../../../../../userlibs/Hello.xtl"),
+    ),
     (
         "Greetings.xtl",
-        include_str!("../../../../../demos/Greetings.xtl"),
+        include_str!("../../../../../userlibs/Greetings.xtl"),
     ),
 ];

@@ -11,6 +11,7 @@ source scripts/components.sh
 
 step "Cargo.lock consistency"
 scripts/check-locks.sh
+scripts/check-modes.sh
 for c in "${COMPONENTS[@]}"; do
     step "components/$c: fmt --check, clippy -D warnings, test"
     (

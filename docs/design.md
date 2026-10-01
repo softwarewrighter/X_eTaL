@@ -319,8 +319,12 @@ non-string arguments, a macro that is not a top-level statement, an
 unknown macro), as is one alias for two libraries or one library under
 two aliases in a file. Libraries are found through a `Libraries`
 trait: on disk (`FsLibraries`) a path is relative to the importing
-file and a name is `Name.xtl` beside it, then in XETAL_PATH, then
-among the standard libraries built from `lib/` (`xetal-libs`). They
+file and a name is `Name.xtl` beside it, then in `userlibs/` (libraries
+of your own, in the current directory), then in XETAL_PATH, then
+among the standard libraries built from `lib/` (`xetal-libs`).
+Programs (`demos/`) are executable files starting with `#!`; libraries
+(`lib/`, `userlibs/`) are not, and `xetal run` on one lists its exports'
+types (`scripts/check-modes.sh`, in the gate, keeps the modes right). They
 load recursively, each once per resolved path (MC7), and an import
 cycle is reported with its chain. The result is one combined text
 (`xetal-sources`): each library before the files that use it, the
@@ -626,7 +630,7 @@ The pinning tests are written as the implementing saga reaches them
 | D25| Sorting | `s_ort` / `g_rade` stable ascending on `Ord` types over major cells; `g_rade` is 1-origin (B7) |
 | D26| Rotate direction and amounts | APL direction (positive toward the front); a list of amounts always means every combination, one leading axis per rotated axis (A2, A4) |
 | D27| Axis subscript on a dyadic function | moves axis k of the right (data) argument only; the axis moves back when the result keeps its rank, stays consumed when it loses one, else `error[axis]` (A6) |
-| D29| Libraries | `Name` resolves to `Name.xtl` in the importing file's directory, then `XETAL_PATH`, then the standard libraries built into `xetal`; libraries hold definitions only; unprefixed functions in a library are private; imports display as superscript alias and superscript equals before `u_se<` (MC4, MC9) |
+| D29| Libraries | `Name` resolves to `Name.xtl` in the importing file's directory, then `userlibs/`, then `XETAL_PATH`, then the standard libraries built into `xetal`; libraries hold definitions only; unprefixed functions in a library are private; imports display as superscript alias and superscript equals before `u_se<` (MC4, MC9) |
 | D30| System names (quads) | `[]NAME` is one token in the system namespace, shown with the quad glyph; values `[]A` `[]D` `[]AV` `[]TS` `[]IO` (always 1), functions `[]D_L` `[]U_CS` `[]R_EAD` `[]V_ALUE` (lang-choices 13a) |
 | D28| Function power | `f_^3 x` applies f three times (superscript on a function, D-7), lowered to `3 'f_ p_ower` waiting for its argument; computed counts use `n 'f_ p_ower x`, `p_ower : (a -> a) -> Int -> a -> a`; counts are whole numbers, `^-1` reserved; libraries (Saga 8) come before the combinators (Saga 9), which are written directly as a library |
 | D31| Combinators library | every bird Smullyan names that type-checks, spelled by letter (`B_1`, `C_s`, `E_h` for the variants), types pinned; Y by recursion; the self-applying birds in an untyped demo; `Maybe` as a second library; `xetal type` of a library lists its exports (CB1-CB4, `docs/birds.md`) |
