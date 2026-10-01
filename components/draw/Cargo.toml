@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-draw"]
+members = ["crates/xetal-svg", "crates/xetal-draw"]
 
 [workspace.package]
 version = "0.1.0"
@@ -27,6 +27,7 @@ xetal-array = { path = "../eval/crates/xetal-array" }
 xetal-value = { path = "../eval/crates/xetal-value" }
 xetal-arith = { path = "../eval/crates/xetal-arith" }
 xetal-draw = { path = "crates/xetal-draw" }
+xetal-svg = { path = "crates/xetal-svg" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
 xetal-spec = { path = "../cli/crates/xetal-spec" }
 clap = { version = "4", features = ["derive"] }

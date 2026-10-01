@@ -11,11 +11,17 @@ pub enum Cells {
 }
 
 impl Cells {
-    pub(crate) fn len(&self) -> usize {
+    /// How many cells there are.
+    pub fn len(&self) -> usize {
         match self {
             Cells::Numbers(v) => v.len(),
             Cells::Chars(v) => v.len(),
         }
+    }
+
+    /// True when there are no cells.
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
     }
 }
 
@@ -62,7 +68,7 @@ impl DrawError {
 
 /// The shape read as frames of rows by columns.
 #[derive(Debug, Clone, Copy)]
-pub(crate) struct Layout {
+pub struct Layout {
     pub frames: usize,
     pub rows: usize,
     pub cols: usize,
@@ -70,7 +76,7 @@ pub(crate) struct Layout {
 
 impl Layout {
     /// A scalar is one cell, a vector one row, a matrix one frame.
-    pub(crate) fn of(shape: &[usize], found: usize) -> Result<Layout, DrawError> {
+    pub fn of(shape: &[usize], found: usize) -> Result<Layout, DrawError> {
         let (frames, rows, cols) = match *shape {
             [] => (1, 1, 1),
             [c] => (1, 1, c),
@@ -88,7 +94,7 @@ impl Layout {
         Ok(Layout { frames, rows, cols })
     }
 
-    pub(crate) fn per_frame(&self) -> usize {
+    pub fn per_frame(&self) -> usize {
         self.rows * self.cols
     }
 }

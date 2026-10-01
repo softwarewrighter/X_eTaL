@@ -88,9 +88,10 @@ components/
                            (item by item: each, table, inner)
   search/                  xetal-search (search and order: index-of,
                            member, unique, sort, grade, where)
-  draw/                    xetal-draw (arrays as self-contained SVG: a
-                           grid of cells, rank 3 as animated frames; no
-                           knowledge of the language)
+  draw/                    xetal-svg (the pieces: shapes and cells,
+                           colors, SVG elements, frames in turn),
+                           xetal-draw (grids, large grids as images,
+                           paths; no knowledge of the language)
   system/                  xetal-system (files, the keyboard, numbers as
                            text: []N_PUT, []N_GET, []R_EAD, f_ormat,
                            n_umbers; graphics: []G_RID, []S_HOW)

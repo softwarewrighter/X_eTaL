@@ -1,10 +1,10 @@
 //! A path: points as 2 rows (x over y), joined in order, fitted into the
 //! picture with y pointing up; a rank-3 array is frames sharing one fit.
 
-use crate::anim::frames;
-use crate::model::DrawError;
-use crate::palette::INK;
-use crate::svg::document;
+use xetal_svg::anim::frames;
+use xetal_svg::model::DrawError;
+use xetal_svg::palette::INK;
+use xetal_svg::svg::document;
 
 /// The longer side of the drawing, and the margin round it, in pixels.
 const SIDE: f64 = 400.0;

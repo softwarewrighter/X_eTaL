@@ -5,7 +5,7 @@
 const FRAME_SECONDS: f64 = 0.4;
 
 /// The frames' bodies, animated when there is more than one.
-pub(crate) fn frames(bodies: &[String]) -> String {
+pub fn frames(bodies: &[String]) -> String {
     if let [only] = bodies {
         return only.clone();
     }

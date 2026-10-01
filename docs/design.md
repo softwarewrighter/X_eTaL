@@ -596,7 +596,14 @@ any browser. Numbers that are all 0 or 1 draw their 1s as dark cells
 from the least to the greatest over every frame; characters are drawn
 in their cells (spaces left empty). Above rank 3 is `error[rank]`, an
 empty array `error[empty]`, anything but numbers or characters
-`error[domain]`; the type is `Eq a => a -> Char`.
+`error[domain]`; the type is `Eq a => a -> Char`. A number grid of
+more than 4096 cells a frame (64 by 64) is drawn as one PNG image per
+frame instead, a pixel per cell, scaled up by a whole number to at most
+400 pixels on its longer side with `image-rendering="pixelated"`, and
+without grid lines: a Mandelbrot frame is a few kilobytes rather than
+tens of thousands of rectangles (the image is embedded as a data URI,
+so the file stays self-contained). Characters are always drawn as
+text.
 
 `[]P_ATH xy : Num a => a -> Char` draws points given as 2 rows, x
 over y (at least 2 points), joined in order: the box round every point

@@ -54,6 +54,7 @@ the web-playground lane: run `just literate-html` after merging.
 | 3 classics-trig | done | |
 | 4 classics-draw-grid | done | wasm32 check and browser viewing untested (above); the web host has no Draw pane yet, so in the live demo `[]S_HOW` fails with error[io] "no place to show pictures" until step 7 |
 | 5 classics-draw-path | done | `[]P_ATH` takes points as 2 rows (x over y), not the n by 2 matrix first proposed to the user: there is no transpose (`o_\` is only reserved, A2), and turtle scans give rows. If transpose is added later, consider accepting both shapes (a decision for the user). docs/literate/libraries.org does not yet list Turtle (step 8 adds it). Animated path pictures were inspected as single frames only |
+| 6 classics-draw-raster | done | Threshold for drawing a grid as an image chosen here, not by the user: more than 4096 cells a frame (64 by 64); confirm or change `RASTER_CELLS` in xetal-draw/src/raster.rs. Mandelbrot moved here from classics-puzzles (that step's prompt still lists it: skip it there). The demo is sized for speed (60 by 90 frames, about 8 s release): the evaluator does about 650k point-steps a second, so the zoom is coarse; the plan.md cross-cutting item on evaluator speed (primitive operands as vector kernels) would allow bigger views. Raster pictures were checked as stills; watch the zoom animate in a browser. New dependency: the png crate (pure Rust) in xetal-draw, so check the wasm32 build |
 
 ## Language gaps found by the programs
 
@@ -62,3 +63,5 @@ lane resolved.
 
 - Transpose (`o_\`, reserved in A2): paths had to use rows; any
   program wanting columns of points needs it.
+- Complex numbers (deferred in lang-choices section 15): Mandelbrot
+  carries z as two Float arrays.

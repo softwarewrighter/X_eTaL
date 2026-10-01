@@ -998,7 +998,8 @@ An array as a picture, returned as SVG text: a vector as one row of
 cells, a matrix as a grid, a rank-3 array as frames shown in turn.
 Numbers that are all 0 or 1 draw their 1s dark; other numbers are
 colored from the least (dark purple) to the greatest (yellow);
-characters are drawn in their cells.
+characters are drawn in their cells. A frame of more than 64 by 64
+numbers is drawn as an image, a pixel per cell.
 
 ```
       []G_RID 1 0

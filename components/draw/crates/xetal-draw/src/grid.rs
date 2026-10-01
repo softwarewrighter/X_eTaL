@@ -1,14 +1,20 @@
 //! A grid of cells, frame by frame.
 
-use crate::anim::frames;
-use crate::model::{Cells, DrawError, Layout};
-use crate::palette::{INK, bits, color, range};
-use crate::svg::{cell, glyph, grid_document};
+use crate::raster::{RASTER_CELLS, picture};
+use xetal_svg::anim::frames;
+use xetal_svg::model::{Cells, DrawError, Layout};
+use xetal_svg::palette::{INK, bits, color, range};
+use xetal_svg::svg::{cell, glyph, grid_document};
 
 /// The array of this shape and these cells as one SVG document: a
 /// scalar, vector or matrix as one grid, a rank-3 array as frames.
 pub fn grid(shape: &[usize], cells: &Cells) -> Result<String, DrawError> {
     let layout = Layout::of(shape, cells.len())?;
+    if let Cells::Numbers(v) = cells
+        && layout.per_frame() > RASTER_CELLS
+    {
+        return Ok(picture(&layout, v));
+    }
     let bodies: Vec<String> = (0..layout.frames)
         .map(|k| frame(&layout, cells, k))
         .collect();
