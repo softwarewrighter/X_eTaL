@@ -1,0 +1,1 @@
+KaTeX checks xetal render --latex for all 1305 shipped/documented lines (gate) and writes pages/latex gallery; printer fixes: no trailing spacing, TeX specials escaped in strings, combining underline as \underline
