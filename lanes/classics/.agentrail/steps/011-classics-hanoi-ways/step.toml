@@ -1,8 +1,9 @@
 number = 11
 slug = "classics-hanoi-ways"
-status = "in-progress"
+status = "completed"
 description = "Classics lane (docs/plan.md, Lane: classics). Asked for by the user: Hanoi th..."
 role = "production"
 context_files = []
 created_at = "2026-10-01T07:18:21"
-commits = []
+completed_at = "2026-10-01T07:30:18"
+commits = ["c0c29a6b008b77c85704b72e61ce03086667c4c6"]

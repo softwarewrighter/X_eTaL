@@ -1,0 +1,1 @@
+Hanoi three ways: array-oriented closed form added to hanoi.xtl (checked against the recursion, 1-10 disks); docs/literate/hanoi.org covers recursion, curried with C, and every move at once, with picture and pros/cons; README, index, classics docs linked.
