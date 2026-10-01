@@ -353,6 +353,17 @@ scripts/gate.sh                                     # full pre-commit gate
 sw-markdown-checker -f "docs/*.md"                  # ASCII-only markdown for our docs
 ```
 
+### Tests run in parallel: give each its own resources
+
+Rust tests in one binary run at once, so no test may share a mutable
+resource with another: a file or directory gets a unique path (the
+process id and the test's own name, as `tests/resolve.rs` does), and
+global state (the installed `xetal_store` store) is installed once per
+test binary through a shared `OnceLock` helper, with each test using
+its own paths inside it. A golden that writes files writes under its
+own path in `work/` (or creates and removes its own directory), never
+one another golden reads.
+
 ### reg-rs goldens
 
 CLI behavior is pinned with `reg-rs` baselines stored in the repo

@@ -1,6 +1,6 @@
 number = 18
 slug = "classics-merged"
-status = "pending"
+status = "in-progress"
 description = "After merging the classics lane's PR #1 (lanes/classics/HANDOFF.md): rebuild ..."
 role = "production"
 context_files = []

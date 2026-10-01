@@ -90,3 +90,11 @@ fn the_demos_own_libraries_are_among_your_files_and_edits_are_kept() {
             .contains("hello X\u{332}\u{1d49}T\u{1d43}L")
     );
 }
+
+/// Until the live demo has a Draw pane, no demo it lists draws.
+#[test]
+fn no_listed_demo_draws_until_there_is_a_draw_pane() {
+    for demo in DEMOS {
+        assert!(!demo.text.contains("[]S_HOW"), "{} draws", demo.name);
+    }
+}

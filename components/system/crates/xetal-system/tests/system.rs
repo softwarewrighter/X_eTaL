@@ -2,12 +2,25 @@
 //! in the store in use (here one in memory).
 
 use std::rc::Rc;
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 
 use xetal_array::Array;
 use xetal_base::Span;
 use xetal_system::call;
 use xetal_value::Value;
+
+/// The store every test here shares: the store is global and tests run
+/// at once, so each installing its own would race.
+fn store() -> Arc<xetal_store::Memory> {
+    static STORE: OnceLock<Arc<xetal_store::Memory>> = OnceLock::new();
+    STORE
+        .get_or_init(|| {
+            let store = Arc::new(xetal_store::Memory::default());
+            xetal_store::install(store.clone());
+            store
+        })
+        .clone()
+}
 
 fn text(s: &str) -> Value<'static> {
     let chars: Vec<Value<'static>> = s.chars().map(Value::Char).collect();
@@ -46,7 +59,7 @@ fn numbers_rejects_what_is_not_a_number() {
 
 #[test]
 fn files_round_trip_through_the_store_in_use() {
-    xetal_store::install(Arc::new(xetal_store::Memory::default()));
+    store();
     let path = text("work/t.txt");
     assert_eq!(run("[]N_PUT", &[text("abc"), path.clone()]).unwrap(), "3");
     assert_eq!(run("[]N_GET", &[path]).unwrap(), "abc");

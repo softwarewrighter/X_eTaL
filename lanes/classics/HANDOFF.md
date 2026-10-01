@@ -39,6 +39,27 @@ To do locally, in order:
 5. Confirm with the user: RASTER_CELLS (4096) and points as 2 rows
    for `[]P_ATH` (both below).
 
+## Done locally after the merge (main's agent, on the Mac)
+
+1. `scripts/gate.sh` in full on the branch: all passed, including the
+   wasm32 check (the png crate builds for the browser), every golden
+   (cli-too-deep passes here) and KaTeX on every line (1446).
+2. The live demo: the four drawing demos (pascal, life-drawn, turtle,
+   mandelbrot) are hidden from Open until the Draw pane exists (the
+   user's decision; a test keeps any listed demo from drawing). Step 7
+   (classics-draw-web) brings them back.
+3. Pictures: all four demos run; their 12 pictures were checked in
+   headless Chrome at two moments: they draw correctly and the
+   animations play (the glider moves, the arrowhead draws itself).
+4. `just pages` rebuilt pages/ (the literate export and the LaTeX
+   gallery included).
+5. The user confirmed: RASTER_CELLS stays 4096; `[]P_ATH` keeps points
+   as 2 rows; transpose (`o_\`) is planned (docs/plan.md,
+   cross-cutting), after which `[]P_ATH` may also take n by 2.
+
+Also: scripts/check-modes.sh (main's gate) now checks demos/**/*.xtl,
+so a demo in a subfolder must be executable and start with #!.
+
 ## The sandbox's restrictions (and what each one left unverified)
 
 | Restriction | Effect | Do locally |

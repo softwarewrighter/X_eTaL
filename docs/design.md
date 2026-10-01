@@ -597,7 +597,8 @@ from the least to the greatest over every frame; characters are drawn
 in their cells (spaces left empty). Above rank 3 is `error[rank]`, an
 empty array `error[empty]`, anything but numbers or characters
 `error[domain]`; the type is `Eq a => a -> Char`. A number grid of
-more than 4096 cells a frame (64 by 64) is drawn as one PNG image per
+more than 4096 cells a frame (64 by 64, `RASTER_CELLS`, confirmed by
+the user) is drawn as one PNG image per
 frame instead, a pixel per cell, scaled up by a whole number to at most
 400 pixels on its longer side with `image-rendering="pixelated"`, and
 without grid lines: a Mandelbrot frame is a few kilobytes rather than

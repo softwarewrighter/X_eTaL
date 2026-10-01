@@ -36,10 +36,9 @@ pub const DEMOS: &[Demo] = demos![
     "factorial.xtl",
     "higher-order.xtl",
     "arrays.xtl",
-    "classics/pascal.xtl",
-    "classics/life-drawn.xtl",
-    "classics/turtle.xtl",
-    "classics/mandelbrot.xtl",
+    // The classics that draw (pascal, life-drawn, turtle, mandelbrot)
+    // come back with the Draw pane: until then []S_HOW has nowhere to
+    // show a picture in the browser (the user's decision).
 ];
 
 /// The choices, as (group, value, label); a value is `demo:N`, `lib:Name`

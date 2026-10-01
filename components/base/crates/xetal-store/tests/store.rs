@@ -1,8 +1,22 @@
 //! The file store: the disk by default, another one when installed.
 
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 
 use xetal_store::{Memory, Store, install, read, write};
+
+/// One installed store for every test that needs one: the store is
+/// global and tests run at once, so two tests installing their own
+/// would race (each would see the other's).
+fn installed() -> Arc<Memory> {
+    static STORE: OnceLock<Arc<Memory>> = OnceLock::new();
+    STORE
+        .get_or_init(|| {
+            let store = Arc::new(Memory::default());
+            install(store.clone());
+            store
+        })
+        .clone()
+}
 
 #[test]
 fn a_memory_store_keeps_what_is_written() {
@@ -15,8 +29,7 @@ fn a_memory_store_keeps_what_is_written() {
 
 #[test]
 fn the_installed_store_serves_reads_and_writes() {
-    let store = Arc::new(Memory::default());
-    install(store.clone());
+    let store = installed();
     write("work/a.txt", "hello").unwrap();
     assert_eq!(read("work/a.txt").unwrap(), "hello");
     assert_eq!(store.get("work/a.txt").unwrap(), "hello");
@@ -43,8 +56,7 @@ fn a_memory_store_keeps_the_pictures_shown_in_order() {
 
 #[test]
 fn the_installed_store_is_where_pictures_are_shown() {
-    let store = Arc::new(Memory::default());
-    install(store.clone());
+    let store = installed();
     xetal_store::show("<svg/>").unwrap();
     assert_eq!(store.pictures(), ["<svg/>"]);
 }

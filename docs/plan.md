@@ -718,6 +718,11 @@ APL ports (Sagas 11, 12 and 14) may call for it sooner.
   Emacs forward-char) is done (Saga 9, editor-panes); resizing the
   panes (split ratio, the output pane's height) remains, a natural
   step of the stepping-debugger saga, which reuses the panes.
+- transpose (`o_\`, reserved in A2; planned by the user after the
+  classics lane's PR #1): monadic transpose of a matrix, the mirror of
+  rotate, with the axis-subscript rules; then `[]P_ATH` may also accept
+  points as an n by 2 matrix (it keeps 2 rows, x over y, the user's
+  decision).
 - fuzzing (`cargo-fuzz` for lexer, parser, fmt, eval) -- after Saga 2.
 - evaluator speed (found porting TTTML): a primitive operand of reduce,
   scan, inner product or table (`'+ r_/`, `'+ '* i_nner`, `'m_in r_/`)
