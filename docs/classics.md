@@ -8,8 +8,16 @@ alone. Each is also in the live demo's Open list, and its output is
 pinned by a golden (`reg/run-classics-NAME`), so the programs keep
 working as the language grows.
 
+Some programs also draw. `[]G_RID` turns an array into a picture (an
+SVG document: a matrix as a grid of cells, a rank-3 array as frames
+shown in turn) and `[]S_HOW` shows it: `just draw FILE` runs the
+program and opens its first picture in the browser, and `xetal run
+--draw DIR FILE` writes every picture to DIR as `NAME-1.svg`,
+`NAME-2.svg`, and so on.
+
 | Program | Why it is a classic | Concepts | File |
 | ------- | ------------------- | -------- | ---- |
-| Pascal's triangle | The quintessential array construction: a whole row at a time, no loop over items | shift and add by rotate, function power, stacking rows with `c_at`, binomials by `t_able`, text layout with `t_ake`, Sierpinski's triangle modulo 2 | [pascal.xtl](../demos/classics/pascal.xtl) |
+| Pascal's triangle | The quintessential array construction: a whole row at a time, no loop over items | shift and add by rotate, function power, stacking rows with `c_at`, binomials by `t_able`, text layout with `t_ake`, Sierpinski's triangle modulo 2, both drawn with `[]G_RID` | [pascal.xtl](../demos/classics/pascal.xtl) |
 | Conway's Life | The best-known modern APL demo, in one line | rotations over two axes, reduce over two axes, Boolean arithmetic | [life.xtl](../demos/life.xtl) |
+| Life, drawn | Life is best watched | generations stacked as frames (rank 3), animated with `[]G_RID`; a torus by rotation, a box by a mask of dead border cells | [life-drawn.xtl](../demos/classics/life-drawn.xtl) |
 | Tic-tac-toe | A complete application rather than an expression puzzle: a machine that learns to play | boards as vectors, symmetry by indexing, inner product over lines, files and the keyboard | [tttml.xtl](../demos/tttml.xtl), [lib/TTTML.xtl](../lib/TTTML.xtl) |

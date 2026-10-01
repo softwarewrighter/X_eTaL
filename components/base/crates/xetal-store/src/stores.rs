@@ -18,6 +18,12 @@ pub trait Store: Send + Sync {
             Err(e) => Err(e.to_string()),
         }
     }
+
+    /// Show a picture (an SVG document, `[]S_HOW`): the host decides
+    /// how (numbered files on the command line, a pane in the browser).
+    fn show(&self, _svg: &str) -> Result<(), String> {
+        Err("this host has no place to show pictures".into())
+    }
 }
 
 /// The file system; writing makes missing directories.

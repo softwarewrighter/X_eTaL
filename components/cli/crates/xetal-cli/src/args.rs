@@ -42,6 +42,10 @@ pub(crate) struct Cli {
     pub(crate) command: Option<Command>,
     /// A script to run (`xetal FILE` is `xetal run FILE`; for shebangs).
     pub(crate) script: Option<String>,
+    /// Where pictures shown with []S_HOW are written, as NAME-1.svg,
+    /// NAME-2.svg, ... (default: XETAL_DRAW, else the current directory).
+    #[arg(long, global = true, value_name = "DIR")]
+    pub(crate) draw: Option<String>,
 }
 
 /// Source given inline with `-e` or as a file path.

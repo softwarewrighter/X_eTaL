@@ -1,0 +1,12 @@
+# []G_RID draws an array as SVG, returned as text (QD5): the 1s of a
+# bit vector as dark cells, one row of 24-pixel cells.
+== SOURCE
+[]G_RID 1 0
+== TYPE
+Char
+== RESULT
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24" role="img">
+<rect width="48" height="24" fill="#f8fafc"/>
+<rect x="0" y="0" width="24" height="24" fill="#1f2937"/>
+<path d="M0 0H48M0 24H48M0 0V24M24 0V24M48 0V24" stroke="#cbd5e1" stroke-width="1" fill="none"/>
+</svg>

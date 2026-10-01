@@ -1,0 +1,5 @@
+# []S_HOW takes a picture, text such as []G_RID gives (QD5).
+== SOURCE
+[]S_HOW 3
+== ERROR
+error[type-mismatch]: expected Char, found a number at 0..9

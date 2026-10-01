@@ -984,3 +984,40 @@ A line typed at the keyboard (here, the line "a typed line").
       []R_EAD @
 a typed line
 ```
+
+## Graphics
+
+A program computes what to draw as an array. Drawing is pure: the
+picture comes back as text, an SVG document. Showing it is the effect.
+
+### `[]G_RID`
+
+`Eq a => a -> Char`, one argument.
+
+An array as a picture, returned as SVG text: a vector as one row of
+cells, a matrix as a grid, a rank-3 array as frames shown in turn.
+Numbers that are all 0 or 1 draw their 1s dark; other numbers are
+colored from the least (dark purple) to the greatest (yellow);
+characters are drawn in their cells.
+
+```
+      []G_RID 1 0
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24" role="img">
+<rect width="48" height="24" fill="#f8fafc"/>
+<rect x="0" y="0" width="24" height="24" fill="#1f2937"/>
+<path d="M0 0H48M0 24H48M0 0V24M24 0V24M48 0V24" stroke="#cbd5e1" stroke-width="1" fill="none"/>
+</svg>
+```
+
+### `[]S_HOW`
+
+`Char -> Char`, one argument.
+
+Show a picture, and return it: the command line writes it to a
+numbered file (`--draw DIR`, else `XETAL_DRAW`, else the current
+directory), the browser shows it beside the program.
+
+```
+      9 t_ake []S_HOW []G_RID 1 0
+<svg xmln
+```

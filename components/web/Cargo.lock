@@ -1159,6 +1159,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-draw"
+version = "0.1.0"
+
+[[package]]
 name = "xetal-elab"
 version = "0.1.0"
 dependencies = [
@@ -1371,6 +1375,7 @@ version = "0.1.0"
 dependencies = [
  "xetal-array",
  "xetal-base",
+ "xetal-draw",
  "xetal-store",
  "xetal-value",
 ]

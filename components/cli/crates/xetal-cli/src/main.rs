@@ -21,6 +21,7 @@ fn main() -> ExitCode {
     // disposition ends the process with the signal instead.
     sigpipe::reset();
     let cli = Cli::parse();
+    let draw = cli.draw.clone();
     let command = match (cli.command, cli.script) {
         (Some(command), _) => command,
         (None, Some(file)) => Command::Run {
@@ -41,6 +42,7 @@ fn main() -> ExitCode {
                 .exit()
         }
     };
+    install_drawing(draw, &command);
     match run(&command) {
         Ok(text) => {
             if !text.is_empty() {
@@ -53,4 +55,28 @@ fn main() -> ExitCode {
             ExitCode::FAILURE
         }
     }
+}
+
+/// Pictures shown with `[]S_HOW` go to numbered files named after the
+/// program (`life.xtl` draws `life-1.svg`, ...; `-e` text draws
+/// `eval-1.svg`) in `--draw DIR`, else `XETAL_DRAW`, else the current
+/// directory; each path written is reported on stderr.
+fn install_drawing(draw: Option<String>, command: &Command) {
+    let dir = draw
+        .or_else(|| std::env::var("XETAL_DRAW").ok())
+        .unwrap_or_else(|| ".".into());
+    let file = match command {
+        Command::Run { file, .. } => Some(file.as_str()),
+        Command::Eval(args) => args.input.file.as_deref(),
+        _ => None,
+    };
+    let stem = file
+        .and_then(|f| std::path::Path::new(f).file_stem())
+        .map_or_else(
+            || command.stage().to_string(),
+            |s| s.to_string_lossy().into_owned(),
+        );
+    let notify = |path: &std::path::Path| eprintln!("drawn {}", path.display());
+    let store = xetal_store::Drawing::new(dir, &stem, notify);
+    xetal_store::install(std::sync::Arc::new(store));
 }

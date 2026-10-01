@@ -2055,6 +2055,7 @@ dependencies = [
  "xetal-repl",
  "xetal-sources",
  "xetal-spec",
+ "xetal-store",
  "xetal-syntax",
  "xetal-types",
  "xetal-view",
@@ -2077,6 +2078,10 @@ dependencies = [
  "xetal-base",
  "xetal-view",
 ]
+
+[[package]]
+name = "xetal-draw"
+version = "0.1.0"
 
 [[package]]
 name = "xetal-edit"
@@ -2329,6 +2334,7 @@ version = "0.1.0"
 dependencies = [
  "xetal-array",
  "xetal-base",
+ "xetal-draw",
  "xetal-store",
  "xetal-value",
 ]

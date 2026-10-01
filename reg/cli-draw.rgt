@@ -1,0 +1,3 @@
+command = "rm -rf work/draw-cli && ./target/debug/xetal eval --draw work/draw-cli -e 'p := []S_HOW []G_RID 2 1 2 r_eshape 1 0 0 1' && cat work/draw-cli/eval-1.svg"
+exit_code = 0
+desc = "[]S_HOW writes the picture to --draw DIR as eval-1.svg and reports it; two frames of a 1 by 2 board, animated in turn"

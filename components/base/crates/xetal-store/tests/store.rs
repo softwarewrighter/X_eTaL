@@ -32,3 +32,49 @@ fn a_memory_store_answers_reads_from_the_keyboard_in_order() {
     assert_eq!(store.line().unwrap(), "x");
     assert!(store.line().unwrap_err().contains("no more input"));
 }
+
+#[test]
+fn a_memory_store_keeps_the_pictures_shown_in_order() {
+    let store = Memory::default();
+    store.show("<svg>1</svg>").unwrap();
+    store.show("<svg>2</svg>").unwrap();
+    assert_eq!(store.pictures(), ["<svg>1</svg>", "<svg>2</svg>"]);
+}
+
+#[test]
+fn the_installed_store_is_where_pictures_are_shown() {
+    let store = Arc::new(Memory::default());
+    install(store.clone());
+    xetal_store::show("<svg/>").unwrap();
+    assert_eq!(store.pictures(), ["<svg/>"]);
+}
+
+#[test]
+fn a_store_that_cannot_show_pictures_says_so() {
+    let err = xetal_store::Disk.show("<svg/>").unwrap_err();
+    assert!(err.contains("show pictures"), "{err}");
+}
+
+#[test]
+fn a_drawing_store_writes_each_picture_as_a_numbered_file_and_reports_it() {
+    use std::sync::Mutex;
+    static SEEN: Mutex<Vec<String>> = Mutex::new(Vec::new());
+    let dir = std::env::temp_dir().join(format!("xetal-drawing-{}", std::process::id()));
+    let notify = |p: &std::path::Path| SEEN.lock().unwrap().push(p.display().to_string());
+    let store = xetal_store::Drawing::new(&dir, "life", notify);
+    store.show("<svg>1</svg>").unwrap();
+    store.show("<svg>2</svg>").unwrap();
+    let (one, two) = (dir.join("life-1.svg"), dir.join("life-2.svg"));
+    assert_eq!(std::fs::read_to_string(&one).unwrap(), "<svg>1</svg>");
+    assert_eq!(std::fs::read_to_string(&two).unwrap(), "<svg>2</svg>");
+    let seen = SEEN.lock().unwrap().clone();
+    assert_eq!(seen, [one.display().to_string(), two.display().to_string()]);
+    store
+        .put(&dir.join("t.txt").display().to_string(), "x")
+        .unwrap();
+    assert_eq!(
+        store.get(&dir.join("t.txt").display().to_string()).unwrap(),
+        "x"
+    );
+    std::fs::remove_dir_all(&dir).unwrap();
+}

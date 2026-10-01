@@ -399,3 +399,21 @@ A file's text.
 == []R_EAD
 A line typed at the keyboard (here, the line "a typed line").
 > []R_EAD @
+
+== SECTION Graphics
+A program computes what to draw as an array. Drawing is pure: the
+picture comes back as text, an SVG document. Showing it is the effect.
+
+== []G_RID
+An array as a picture, returned as SVG text: a vector as one row of
+cells, a matrix as a grid, a rank-3 array as frames shown in turn.
+Numbers that are all 0 or 1 draw their 1s dark; other numbers are
+colored from the least (dark purple) to the greatest (yellow);
+characters are drawn in their cells.
+> []G_RID 1 0
+
+== []S_HOW
+Show a picture, and return it: the command line writes it to a
+numbered file (`--draw DIR`, else `XETAL_DRAW`, else the current
+directory), the browser shows it beside the program.
+> 9 t_ake []S_HOW []G_RID 1 0

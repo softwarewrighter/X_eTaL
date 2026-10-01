@@ -26,6 +26,7 @@ xetal-program.workspace = true
 xetal-lint.workspace = true
 xetal-sources.workspace = true
 xetal-diagram.workspace = true
+xetal-store.workspace = true
 clap.workspace = true
 sigpipe = "0.1.3"
 

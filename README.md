@@ -182,6 +182,7 @@ just show demos/monads.xtl                      # the Maybe monad: safe division
 just tttml                                      # TTTML: learns tic-tac-toe by playing itself (optimized build)
 just tttml-train                                # TTTML: train, then save the model in work/tttml.model
 just tttml-play                                 # TTTML: play the saved model; you are X, type squares 1 to 9
+just draw demos/classics/life-drawn.xtl         # Life animated, as SVG pictures opened in the browser
 just pp demos/factorial.xtl                     # print a file decorated and highlighted
 just edit demos/life.xtl                        # ASCII left, decorated right
 just serve                                      # the live demo locally, at http://127.0.0.1:8095/

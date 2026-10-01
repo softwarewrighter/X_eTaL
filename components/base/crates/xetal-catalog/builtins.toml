@@ -71,6 +71,13 @@ entries = [
 ]
 
 [[group]]
+rule = "QD5: graphics (pure SVG builders, one effect)"
+entries = [
+  ["[]G_RID", 1, "Eq a => a -> Char"],
+  ["[]S_HOW", 1, "Char -> Char"],
+]
+
+[[group]]
 rule = "B4, B5, B10: structural"
 entries = [
   ["s_hape", 1, "a -> Int"],

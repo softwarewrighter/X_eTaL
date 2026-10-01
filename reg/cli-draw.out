@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24" role="img">
+<rect width="48" height="24" fill="#f8fafc"/>
+<g opacity="1"><animate attributeName="opacity" values="1;0" calcMode="discrete" dur="0.8s" repeatCount="indefinite"/>
+<rect x="0" y="0" width="24" height="24" fill="#1f2937"/>
+</g>
+<g opacity="0"><animate attributeName="opacity" values="0;1" calcMode="discrete" dur="0.8s" repeatCount="indefinite"/>
+<rect x="24" y="0" width="24" height="24" fill="#1f2937"/>
+</g>
+<path d="M0 0H48M0 24H48M0 0V24M24 0V24M48 0V24" stroke="#cbd5e1" stroke-width="1" fill="none"/>
+</svg>

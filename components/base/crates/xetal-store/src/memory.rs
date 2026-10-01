@@ -11,6 +11,7 @@ use crate::Store;
 pub struct Memory {
     files: Mutex<BTreeMap<String, String>>,
     typed: Mutex<VecDeque<String>>,
+    pictures: Mutex<Vec<String>>,
 }
 
 impl Memory {
@@ -20,6 +21,11 @@ impl Memory {
             .lock()
             .map(|m| m.keys().cloned().collect())
             .unwrap_or_default()
+    }
+
+    /// The pictures shown, in order.
+    pub fn pictures(&self) -> Vec<String> {
+        self.pictures.lock().map(|p| p.clone()).unwrap_or_default()
     }
 
     /// Queue `line` as if typed at the keyboard.
@@ -57,5 +63,14 @@ impl Store for Memory {
             .lock()
             .map_err(|_| "the store is unusable".to_string())?;
         typed.pop_front().ok_or_else(|| "no more input".to_string())
+    }
+
+    fn show(&self, svg: &str) -> Result<(), String> {
+        let mut pictures = self
+            .pictures
+            .lock()
+            .map_err(|_| "the store is unusable".to_string())?;
+        pictures.push(svg.into());
+        Ok(())
     }
 }

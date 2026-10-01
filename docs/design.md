@@ -582,6 +582,30 @@ comment; the ASCII block below it is what runs. The HTML export drops
 these copies, since it draws the blocks itself (decided with the user:
 Unicode text in the `.org`, not LaTeX images).
 
+### 8.1h Graphics (`[]G_RID`, `[]S_HOW`)
+
+Programs compute what to draw as ordinary arrays (QD5, D38). `[]G_RID
+a` is pure: it returns one self-contained SVG document as a Char
+vector, built by `xetal-draw`, which knows shapes and cells and
+nothing of the language. A scalar is one cell, a vector one row, a
+matrix one grid of 24-pixel cells on paper, ruled by one path of thin
+lines; a rank-3 array is frames along the leading axis, each shown in
+turn for 0.4 s in an SMIL loop, so the file animates on its own in
+any browser. Numbers that are all 0 or 1 draw their 1s as dark cells
+(Bool and Int alike); other numbers are colored on a viridis scale
+from the least to the greatest over every frame; characters are drawn
+in their cells (spaces left empty). Above rank 3 is `error[rank]`, an
+empty array `error[empty]`, anything but numbers or characters
+`error[domain]`; the type is `Eq a => a -> Char`.
+
+`[]S_HOW svg : Char -> Char` is the one effect: it hands the picture
+to the store the host installed (`xetal_store::Store::show`) and
+returns it, like `p_rint!`, so a program binds it (`torus := []S_HOW
+[]G_RID frames`). The command line writes numbered files (section
+5 of architecture.md); the browser's Draw pane and a future desktop
+app (a webview host of the same SVG) show them; a store with no place
+for pictures says so (`error[io]`).
+
 ### 8.2 LaTeX (`xetal render --latex`)
 
 One way and complete: the body of a math environment for KaTeX,
