@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/matmul.xtl"
+exit_code = 0
+desc = "matrix product as the inner product, identity, walks counted by powers, an inner product of = and +"

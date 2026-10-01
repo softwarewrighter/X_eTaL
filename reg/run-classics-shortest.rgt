@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/shortest.xtl"
+exit_code = 0
+desc = "shortest paths by min-plus inner product repeated; widest paths by max-min; distances drawn"

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/closure.xtl"
+exit_code = 0
+desc = "transitive closure by Boolean inner product and by Warshall, agreeing; Warshall drawn vertex by vertex"
