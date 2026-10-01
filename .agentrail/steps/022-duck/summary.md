@@ -1,0 +1,1 @@
+Dropped here: the duck demo is being built by the classics lane's remote agent (user); a prototype confirmed the approach (a 4x36 char pond, (r_ange 36) o_-_2 pond gives 36 frames, []G_RID animates them) and was not committed; review the lane's PR instead
