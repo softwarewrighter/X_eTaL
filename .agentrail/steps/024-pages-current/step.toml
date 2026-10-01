@@ -1,0 +1,8 @@
+number = 24
+slug = "pages-current"
+status = "pending"
+description = "User request: a test that fails when demos (or what the published pages show)..."
+role = "production"
+context_files = []
+created_at = "2026-10-01T14:19:50"
+commits = []
