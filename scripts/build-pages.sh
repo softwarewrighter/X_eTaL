@@ -12,7 +12,7 @@ trunk build --release --public-url /X_eTaL/ --dist "$dist"
 mkdir -p "$root/pages"
 touch "$root/pages/.nojekyll"
 # pages/literate/ is written by scripts/literate-html.sh; keep it.
-rsync -a --delete --exclude='.nojekyll' --exclude='literate/' "$dist/" "$root/pages/"
+rsync -a --delete --exclude='.nojekyll' --exclude='INPUTS' --exclude='literate/' "$dist/" "$root/pages/"
 "$root/scripts/literate-html.sh"
 "$root/scripts/latex-gallery.sh" --write
 "$root/scripts/live-screenshot.sh"

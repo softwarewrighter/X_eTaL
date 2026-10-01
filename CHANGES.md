@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-01
 
+- 14:48 `fix` `just pages` ran to the end at last (the screenshot's cleanup ended it with status 143 before the stamp); pages rebuilt with the leetcode demo.
+- 14:43 `chore` Merged the leetcode lane's first PR (#16): numbers in a string (LeetCode 1805, 1796, 2042).
 - 14:27 `chore` Saga step pages-current completed.
 - 14:27 `test` The gate fails when a demo, library or literate document changed and pages/ was not rebuilt (`scripts/check-pages.sh`).
 - 14:18 `build` Pages: the duck literate document and the `c_at_2` duck.

@@ -14,7 +14,7 @@ ln -s "$root/pages" "$site/X_eTaL"
 port="$(python3 -c 'import socket; s=socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1])')"
 (cd "$site" && python3 -m http.server "$port" --bind 127.0.0.1 > /dev/null 2>&1) &
 server=$!
-trap 'kill $server 2>/dev/null; wait $server 2>/dev/null; rm -rf "$site"' EXIT
+trap 'kill $server 2>/dev/null; wait $server 2>/dev/null || true; rm -rf "$site"' EXIT
 sleep 1
 "$chrome" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=10000 \
     --window-size=1400,900 --screenshot="$root/images/live-demo.png" \
