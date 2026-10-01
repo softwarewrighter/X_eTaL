@@ -8,6 +8,27 @@ adds to it, and the release step folds what is left into docs/plan.md.
 The lane's saga is in `lanes/classics/.agentrail` (run agentrail with
 `--saga lanes/classics`); see CLAUDE.md, "Parallel lanes".
 
+## Pull request 2 (pr/classics-2)
+
+Step 7 (classics-literate) and the plan for ADVANCEDEX, rebased onto
+main at 6a04057 with no conflicts. On the rebased branch the sandbox
+ran locks, builds, the spec corpus, every golden (all but
+cli-too-deep pass), the ERT tests (10) and the store and session
+tests; the full gate and the literate check (with its new picture
+comparison) passed on the branch before the rebase. Its new test
+installing a store (xetal-repl tests/pictures.rs) follows CLAUDE.md's
+one-store-per-binary rule. No demo was added to the live demo's list.
+
+To do locally:
+
+1. `scripts/gate.sh` in full (wasm32 included).
+2. `just literate-html`, then look at pages/literate/classics.html:
+   six pictures, three animated (glider on a torus, glider in a box,
+   Sierpinski's arrowhead drawing itself); the index lists the new
+   document. Commit pages/ as the web lane does.
+3. Optionally `scripts/frames-to-webp.py images/literate-glider-torus.svg`
+   (needs `pip install cairosvg pillow` and the cairo library).
+
 ## This pull request (pr/classics-1)
 
 Steps 1 to 6 of the lane's 23, rebased onto main at 15121ec with no
