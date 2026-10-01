@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/classics/mastermind.xtl"
+exit_code = 0
+desc = "Mastermind: scoring by colour counts, all 6^4 codes, a player that keeps the codes still possible"
