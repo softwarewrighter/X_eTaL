@@ -1,0 +1,1 @@
+scripts/check-pages.sh in the gate: content hash of demos, libs, literate docs vs pages/INPUTS written by just pages; skipped without trunk; documented
