@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-rotate", "crates/xetal-axes"]
+members = ["crates/xetal-rotate", "crates/xetal-axes", "crates/xetal-transpose"]
 
 [workspace.package]
 version = "0.1.0"
@@ -24,6 +24,7 @@ xetal-core = { path = "../core/crates/xetal-core" }
 xetal-ty = { path = "../types/crates/xetal-ty" }
 xetal-types = { path = "../types/crates/xetal-types" }
 xetal-array = { path = "../eval/crates/xetal-array" }
+xetal-transpose = { path = "crates/xetal-transpose" }
 xetal-value = { path = "../eval/crates/xetal-value" }
 xetal-arith = { path = "../eval/crates/xetal-arith" }
 xetal-rotate = { path = "crates/xetal-rotate" }

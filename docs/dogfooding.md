@@ -37,12 +37,12 @@ plan, and move a row from "Planned" to "Added" when it lands.
 | `e_ncode` and `d_ecode`, APL's encode and decode, in their own component (`radix`) | feature | truth tables, base conversion, Hanoi's moves from the bits of k (written as a remainder table), Mastermind's 1296 codes (written with `d_iv` and `m_od` by place values) | lang-choices B12; design D36 |
 | `c_at_k`, catenate along any axis: both arguments' axis k moves (it had been refused, since the axis rule moves only the right argument) | feature | the swimming ducks, ducks and waves joined frame by frame (written as a recursion before) | lang-choices B15; design D40 |
 | Nested arrays with static depth: `Box a`, strands of strings, `e_nclose`, `d_isclose`, `p_artition`, `m_ap`, and APL2 DISPLAY printing | feature | word frequency, N-Queens, ragged Pascal, the APL subset interpreter; LeetCode 1805 exactly (digit runs as strings) | lang-choices A7, B14, B16; design D37, D41, D42 |
+| Transpose: `o_\` reverses the axes, `p t_ranspose A` permutes them (axis i to p[i]) | feature | X_eTaL-demos (attention, PCA), Mastermind's codes as rows, `[]P_ATH` points written as rows, ADVANCEDEX | lang-choices B17; design D48 |
 
 ## Planned, because a demo needs it
 
 | Feature | Needed by | Status |
 | ------- | --------- | ------ |
-| Transpose (`o_\`) | `[]P_ATH` taking n by 2 points, any program wanting columns | planned (plan.md, cross-cutting; confirmed by the user) |
 | Matrix inverse and division (APL's domino) | ADVANCEDEX's INV and INVP, regression in STATS | to decide with the user, when the ADVANCEDEX ports reach it |
 | Execute (`[]V_ALUE`, read and evaluate) | the APL subset interpreter, the COURSE and DRILL ports | reserved (lang-choices QD3); to decide |
 | Complex numbers | Mandelbrot (z is two Float arrays today) | deferred (lang-choices section 15) |

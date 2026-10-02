@@ -1,0 +1,1 @@
+Transpose lane (see lanes/transpose/.agentrail/plan.md), step transpose-axes. TDD, the full gate, one PR from the newest main.

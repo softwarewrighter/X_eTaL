@@ -558,6 +558,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-transpose"
+version = "0.1.0"
+dependencies = [
+ "proptest",
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
+]
+
+[[package]]
 name = "xetal-value"
 version = "0.1.0"
 dependencies = [

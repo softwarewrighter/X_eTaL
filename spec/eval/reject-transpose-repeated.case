@@ -1,0 +1,6 @@
+# A permutation lists each axis once; a repeated axis would take a
+# diagonal, which t_ranspose does not do (B17).
+== SOURCE
+1 1 t_ranspose 2 2 r_eshape r_ange 4
+== ERROR
+error[domain]: a permutation lists each axis once, got 1 1 at 0..36

@@ -24,6 +24,7 @@ xetal-search.workspace = true
 xetal-radix.workspace = true
 xetal-system.workspace = true
 xetal-rotate.workspace = true
+xetal-transpose.workspace = true
 
 [dev-dependencies]
 proptest.workspace = true

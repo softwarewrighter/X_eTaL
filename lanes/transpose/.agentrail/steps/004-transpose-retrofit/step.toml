@@ -1,0 +1,8 @@
+number = 4
+slug = "transpose-retrofit"
+status = "pending"
+description = "Transpose lane (see lanes/transpose/.agentrail/plan.md), step transpose-retro..."
+role = "production"
+context_files = []
+created_at = "2026-10-02T13:04:48"
+commits = []

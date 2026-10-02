@@ -1,0 +1,25 @@
+# p t_ranspose A permutes the axes (B17): p lists each axis of A once,
+# and axis i of A becomes axis p[i] of the result (APL's dyadic
+# transpose, without diagonals). The reversed identity is o_\, the
+# identity leaves A as it is.
+== SOURCE
+m := 2 3 r_eshape r_ange 6
+a := 2 3 4 r_eshape r_ange 24
+s_hape 2 1 3 t_ranspose a
+s_hape 3 1 2 t_ranspose a
+1 s_elect 3 1 2 t_ranspose a
+(2 1 t_ranspose m) m_atch o_\ m
+(3 2 1 t_ranspose a) m_atch o_\ a
+(1 2 3 t_ranspose a) m_atch a
+1 t_ranspose 1 2 3
+== RESULT
+3 2 4
+3 4 2
+1 13
+2 14
+3 15
+4 16
+1
+1
+1
+1 2 3
