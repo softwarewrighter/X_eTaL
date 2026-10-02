@@ -1,0 +1,13 @@
+# A Float literal may have an exponent (S8): e or E right after the
+# digits, an optional -, then digits, all touching; always a Float.
+# A spaced e is a name, as before.
+== SOURCE
+1.5e-7 6.02e23 2E3 -1e-3 x 1.5 e3
+== TOKENS
+0..6 Num(1.5e-7)
+7..14 Num(6.02e23)
+15..18 Num(2000.0)
+19..24 Num(-0.001)
+25..26 Var(x)
+27..30 Num(1.5)
+31..33 Var(e3)

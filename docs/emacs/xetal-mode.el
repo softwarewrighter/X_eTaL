@@ -39,7 +39,7 @@
     (,(concat "\\_<_[lr]_?\\_>") . 'xetal-argument-face)
     (,(concat "\\_<[A-Za-z][A-Za-z0-9]*_[A-Za-z0-9]*" xetal--mark "?\\(?:_[1-9]+\\)?")
      . 'xetal-builtin-face)
-    ("\\^-?[0-9.]+\\|\\_<-?[0-9]+\\(?:\\.[0-9]+\\)?" . 'xetal-number-face)
+    ("\\^-?[0-9.]+\\|\\_<-?[0-9]+\\(?:\\.[0-9]+\\)?\\(?:[eE]-?[0-9]+\\)?" . 'xetal-number-face)
     ("!=\\|<=\\|>=\\|[-+*/=<>&|^]" . 'xetal-symbol-face))
   "Colours by token class, as in `xetal render --color'.")
 

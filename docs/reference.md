@@ -23,7 +23,9 @@ along axis 1, the default; `'+ r_/_1 M` writes that axis out; and
 
 Arithmetic works item by item on arrays of any shape; a single number
 on either side extends to every item of the other. Int and Float mix
-as the literals allow; division always gives a Float.
+as the literals allow; division always gives a Float. A Float
+literal may have an exponent, written touching the digits: `1.5e-7`,
+`6.02e23`, `2E3` (always a Float).
 
 ### `+`
 

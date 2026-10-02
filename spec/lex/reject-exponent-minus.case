@@ -1,0 +1,5 @@
+# Rejected (S8): an e with no digits after it
+== SOURCE
+1.5e- 2
+== ERROR
+error[bad-number]: an exponent needs digits after the e at 3..5

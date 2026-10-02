@@ -1,0 +1,5 @@
+# Rejected (S8): a Float literal too large to represent.
+== SOURCE
+1e400
+== ERROR
+error[number-out-of-range]: float literal is too large at 0..5

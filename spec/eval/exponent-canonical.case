@@ -1,0 +1,9 @@
+# The canonical form writes a very small or very large Float with an
+# exponent, which now reads back (S8; before it, `1e-7` did not lex,
+# so the formatter's round trip failed for such numbers).
+== SOURCE
+0.0000001 + 100000000000000000000000.0
+== CANONICAL
+(1e-7 + 1e23)
+== RESULT
+100000000000000000000000.0

@@ -1,0 +1,5 @@
+# Rejected (S8): an exponent is whole digits; a . after it is an error.
+== SOURCE
+1e2.5
+== ERROR
+error[bad-number]: a number must be followed by a space, symbol or bracket at 3..4

@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 16:08 `feat` Float literals with an exponent (S8, ask D4 from X_eTaL-demos): `1.5e-7`, `6.02e23`, `2E3`; this also mends the formatter's round trip for very small and very large Floats, which it already wrote as `1e-7`.
 - 15:05 `docs` The logo's tagline is fixed (eXperimental Extensible Typed Array Language, not eXtensible): new images/modern-xetal-logo.jpg from the user; the name picture and the pages rebuilt with it.
 - 15:05 `chore` PRs #32 and #33, rebased by the lane after they were merged, recorded as merged (their content was already in main).
 - 14:08 `chore` Merge PR #33.

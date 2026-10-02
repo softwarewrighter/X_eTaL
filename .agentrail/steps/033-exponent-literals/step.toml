@@ -1,6 +1,6 @@
 number = 33
 slug = "exponent-literals"
-status = "pending"
+status = "in-progress"
 description = "Ask D4 from X_eTaL-demos, decided with the user 2026-10-02 (lang-choices: rec..."
 role = "production"
 context_files = []
