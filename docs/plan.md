@@ -640,8 +640,8 @@ decisions:
 - A comparison named at the top level is a Bool, not a number (seen
   again in the tokenizer, written `0 + ...`).
 
-Retrospective (the lane is closed and archived in
-`lanes/classics/.agentrail-archive/`):
+Retrospective (the lane is closed; its saga is archived in
+`lanes/classics/.agentrail-archive/classics-20261001T201245/`):
 - Delivered: thirty classic programs in `demos/classics/` (each a
   notebook with a golden, in the live demo and indexed in
   `docs/classics.md`), plus magmas and the first LeetCode demo;
