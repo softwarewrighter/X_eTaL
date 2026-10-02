@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 15:05 `docs` The logo's tagline is fixed (eXperimental Extensible Typed Array Language, not eXtensible): new images/modern-xetal-logo.jpg from the user; the name picture and the pages rebuilt with it.
+- 15:05 `chore` PRs #32 and #33, rebased by the lane after they were merged, recorded as merged (their content was already in main).
 - 14:08 `chore` Merge PR #33.
 - 14:08 `chore` Merge PR #32.
 - 13:58 `fix` Type-checking a long strand of Int literals is linear (ask D1 from X_eTaL-demos): 8000 Ints took 2.1 s and now well under 0.01 s, and 20000 no longer overflow a normal thread's stack.
