@@ -1,0 +1,3 @@
+command = '''./target/debug/xetal run --echo demos/factorial.xtl | sed 's/\x1b\[[0-9;]*m//g''''
+exit_code = 0
+desc = "a notebook (run --echo, just show) as docs/notebook.md shows it: each statement drawn and indented, its output under it (colors stripped)"

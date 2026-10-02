@@ -278,6 +278,19 @@ Disclose: what a box holds. It opens one box (select one item first).
 > d_isclose 2 s_elect "ab" "cde"
 !> d_isclose "ab" "cde"
 
+
+== d_isplay
+Display: any value as APL2's DISPLAY draws it, as a character matrix,
+flat arrays framed too: an arrow along the top, a down arrow for each
+leading axis, and a mark at the bottom for what it holds (`~` numbers,
+a plain line characters, `e` boxes); a simple scalar is itself. `xetal
+--box` prints every array result this way (shown here as `xetal
+--ascii` draws them).
+> d_isplay M
+> d_isplay "abc"
+> d_isplay "ab" "cde"
+> s_hape d_isplay v
+> d_isplay 5
 == p_artition
 Partition: the items (rows of a matrix) cut into pieces by the keys on
 the left, one per item: a new piece starts where the key goes up, and

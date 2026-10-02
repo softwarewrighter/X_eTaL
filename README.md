@@ -27,8 +27,8 @@ In the live demo, type ASCII on the left and watch it drawn decorated
 on the right; Run shows the output, the drop-down opens the demos, the
 libraries and your saved files, and Save keeps them in the browser.
 Output appears as it is printed, with Stop while a program runs;
-Notebook shows each statement above its output, and Step runs one
-statement at a time. On a
+Notebook runs it showing each statement above its output, and Step runs
+one statement at a time ([notebooks](docs/notebook.md)). On a
 phone the toolbar wraps and the panes stack, and the demo installs as
 an app (Add to Home Screen) that works offline.
 
@@ -299,6 +299,9 @@ Other fonts, checked against the font files:
 - [`docs/permission-response.md`](docs/permission-response.md) -- XeTaL's
   answers to ngn's [Array Language Implementation Permission
   Request](https://ngn.codeberg.page/funny/reg.html)
+- [`docs/notebook.md`](docs/notebook.md) -- notebooks: a program shown
+  a statement at a time, its output under each, and stepping, in the
+  live demo, on the command line and in the literate documents
 - [`docs/wish-list.md`](docs/wish-list.md) -- ideas the language could
   use that no saga plans yet, prioritized and sized (ideas, not
   commitments)

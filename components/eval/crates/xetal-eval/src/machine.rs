@@ -59,7 +59,7 @@ impl<'a> Machine<'a, '_> {
                     let v = self.eval(e, &env)?;
                     match &mut self.shown {
                         Some(s) => s.values.push((s.text.len(), xetal_value::grid(&v))),
-                        None => writeln!(self.out, "{v}")
+                        None => writeln!(self.out, "{}", xetal_value::printed(&v))
                             .map_err(|x| err("io", e.span, x.to_string()))?,
                     }
                 }

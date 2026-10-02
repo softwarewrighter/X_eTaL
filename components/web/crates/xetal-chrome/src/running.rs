@@ -1,22 +1,25 @@
-//! The run buttons: Run (Stop while a run goes on), Notebook (Run
-//! shows each statement above its output), Step (the next statement,
-//! as a notebook) and Reset (back to the types, the steps forgotten).
+//! The run buttons: Run (the output; Stop while a run goes on),
+//! Notebook (the whole program, each statement above its output), Boxed
+//! (every array printed framed), Step (the next statement, as a
+//! notebook) and Reset (back to the types, the steps forgotten).
 
 use yew::prelude::*;
 
 /// What the run buttons do, and what they show.
 pub struct RunButtons {
     pub run: Callback<()>,
+    /// Run the whole program as a notebook.
+    pub notebook: Callback<()>,
     pub step: Callback<()>,
     /// Stop any run, reset the steps and show the types again.
     pub clear: Callback<()>,
-    pub toggle: Callback<()>,
+    pub toggle_boxed: Callback<()>,
     /// A library is checked, not run: the run buttons are off.
     pub library: bool,
     /// A run is going: Run is Stop.
     pub running: bool,
-    /// Run shows a notebook.
-    pub notebook: bool,
+    /// Every array result printed boxed.
+    pub boxed: bool,
     /// The statements Step has run, of how many.
     pub stepped: usize,
     pub statements: usize,
@@ -32,8 +35,10 @@ pub fn run_buttons(b: &RunButtons) -> Html {
         <>
             <button class={classes!(b.running.then_some("stop"))} onclick={b.run.reform(|_| ())}
                 disabled={b.library} title={run_title(b)}>{ if b.running { "Stop" } else { "Run" } }</button>
-            <button class={classes!(b.notebook.then_some("on"))} onclick={b.toggle.reform(|_| ())}
-                title="Run shows each statement above its output">{ "Notebook" }</button>
+            <button onclick={b.notebook.reform(|_| ())} disabled={b.library || b.running}
+                title="Run the whole program as a notebook: each statement above its output">{ "Notebook" }</button>
+            <button class={classes!(b.boxed.then_some("on"))} onclick={b.toggle_boxed.reform(|_| ())}
+                title="Print every array boxed, as APL2's DISPLAY draws it">{ "Boxed" }</button>
             <button onclick={b.step.reform(|_| ())} disabled={b.library || b.running || done}
                 title={step_title}>{ format!("Step {}/{}", b.stepped, b.statements) }</button>
             if b.stepped > 0 {

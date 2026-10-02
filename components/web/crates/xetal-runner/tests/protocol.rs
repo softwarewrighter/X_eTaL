@@ -9,6 +9,7 @@ fn a_request_round_trips() {
         src: "x := 1\n\"a:b\" c_at \"5:x\"".into(),
         seed: 42,
         mode: Mode::Notebook(None),
+        boxed: true,
         files: vec![
             (
                 "Hello.xtl".into(),
@@ -21,6 +22,7 @@ fn a_request_round_trips() {
     for mode in [Mode::Run, Mode::Notebook(Some(3))] {
         let req = Request {
             mode,
+            boxed: false,
             ..req.clone()
         };
         assert_eq!(Request::decode(&req.encode()), Some(req));

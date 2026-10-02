@@ -1,0 +1,3 @@
+command = """./target/debug/xetal eval --box -e '1 2 3; 2 2 r_eshape 1 2 3 4; 5; "hi"'"""
+exit_code = 0
+desc = "--box prints every array result boxed, as d_isplay draws it; scalars plain"

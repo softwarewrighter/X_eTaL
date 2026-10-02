@@ -24,6 +24,7 @@ pub fn recent() -> String {
 /// Run on the page (a program reading the keyboard), keeping the last
 /// lines printed for the prompt.
 pub(crate) fn on_page(req: &Request) -> Run {
+    xetal_play::set_boxed(req.boxed);
     let printed = Arc::new(Mutex::new(String::new()));
     let p = printed.clone();
     if let Ok(mut recent) = RECENT.lock() {

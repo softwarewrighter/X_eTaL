@@ -46,7 +46,8 @@ pub fn call<'a>(
     }
     match (name, args) {
         ("p_rint!", [v]) => {
-            writeln!(out, "{v}").map_err(|e| err("io", span, e.to_string()))?;
+            writeln!(out, "{}", xetal_value::printed(v))
+                .map_err(|e| err("io", span, e.to_string()))?;
             Ok(v.clone())
         }
         ("r_oll!", [n]) => roll(n, rng, span),

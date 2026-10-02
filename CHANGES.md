@@ -12,6 +12,11 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-01
 
+- 19:26 `chore` Saga step display completed.
+- 19:26 `feat` `d_isplay` (any value as APL2's DISPLAY draws it, as a character matrix), `xetal --box` and the live demo's Boxed; Notebook is now an action (runs the whole program as a notebook), beside Run and Step; docs/notebook.md.
+- 17:09 `build` Pages rebuilt with PR #22.
+- 17:07 `chore` Merged PR #22: word frequency, N-Queens, ragged Pascal rows.
+- 16:40 `chore` Merged PR #21: `--ascii`, nested arrays in plain ASCII (D42 and D43 kept in order).
 - 16:19 `chore` Saga step line-by-line completed.
 - 16:19 `feat` Web: Notebook (each statement drawn above its output) and Step / Reset, running a program a statement at a time.
 - 16:16 `build` Pages rebuilt with PRs #19 and #20.

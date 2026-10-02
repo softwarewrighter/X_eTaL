@@ -1,0 +1,8 @@
+      ⍝!/usr/bin/env xetal
+      ⍝ M1: recursion with guards, one statement per line.
+      ᵘf̲act ← { n →
+        n ≤ 1 ? 1
+        n × ᵘf̲act n − 1
+      }
+      ᵘf̲act 10
+3628800

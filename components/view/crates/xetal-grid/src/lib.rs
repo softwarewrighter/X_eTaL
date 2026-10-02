@@ -10,6 +10,6 @@ mod display;
 mod grid;
 mod matrix;
 
-pub use ascii::{set_ascii, to_ascii};
+pub use ascii::{boxed, set_ascii, set_boxed, to_ascii};
 pub use display::{Body, Shown, display};
 pub use grid::Grid;

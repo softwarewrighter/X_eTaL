@@ -5,6 +5,8 @@ pub struct Request {
     pub src: String,
     pub seed: u64,
     pub mode: Mode,
+    /// Print every array result boxed (the Boxed toggle, `--box`).
+    pub boxed: bool,
     pub files: Vec<(String, String)>,
 }
 
@@ -56,7 +58,8 @@ impl Request {
             Mode::Notebook(Some(k)) => format!("n{k}"),
         };
         let seed = self.seed.to_string();
-        let mut all = vec![self.src.as_str(), seed.as_str(), mode.as_str()];
+        let boxed = if self.boxed { "b" } else { "-" };
+        let mut all = vec![self.src.as_str(), seed.as_str(), mode.as_str(), boxed];
         all.extend(
             self.files
                 .iter()
@@ -67,7 +70,8 @@ impl Request {
 
     pub fn decode(text: &str) -> Option<Request> {
         let f = fields(text)?;
-        let (src, seed, files) = (f.first()?, f.get(1)?, f.get(3..)?);
+        let (src, seed, files) = (f.first()?, f.get(1)?, f.get(4..)?);
+        let boxed = *f.get(3)? == "b";
         let mode = match f.get(2)?.strip_prefix('n') {
             None => (*f.get(2)? == "r").then_some(Mode::Run)?,
             Some("") => Mode::Notebook(None),
@@ -77,6 +81,7 @@ impl Request {
             src: src.to_string(),
             seed: seed.parse().unwrap_or(0),
             mode,
+            boxed,
             files: files
                 .chunks(2)
                 .map(|c| (c[0].into(), c[1].into()))

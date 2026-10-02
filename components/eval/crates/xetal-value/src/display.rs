@@ -30,3 +30,18 @@ impl fmt::Display for Value<'_> {
         }
     }
 }
+
+/// Any value as DISPLAY draws it, flat arrays framed too (`d_isplay`);
+/// a simple scalar is its printed text.
+pub fn picture(v: &Value<'_>) -> Vec<String> {
+    xetal_grid::display(&shown(v))
+}
+
+/// A value as a result prints: boxed when `--box` (or Boxed) is on and
+/// it is an array, else as it displays.
+pub fn printed(v: &Value<'_>) -> String {
+    match v {
+        Value::Array(_) | Value::Boxed(_) if xetal_grid::boxed() => picture(v).join("\n"),
+        other => other.to_string(),
+    }
+}

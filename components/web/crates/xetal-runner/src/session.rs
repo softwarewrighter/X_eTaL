@@ -20,41 +20,42 @@ type Handler = Closure<dyn FnMut(JsValue)>;
 /// The worker running now and its handlers (kept alive with it).
 type Live = Rc<RefCell<Option<(Worker, [Handler; 2])>>>;
 
-/// The runs of the page: what is shown, whether Run shows a notebook,
-/// how many statements Step has run, and how to start, step, stop,
-/// clear (which also resets the steps) or toggle the notebook.
+/// The runs of the page: what is shown, whether arrays print boxed, how
+/// many statements Step has run, and how to start (plainly or as a
+/// notebook, as the request says), step, stop, clear (which also resets
+/// the steps) or toggle boxed printing.
 #[derive(Clone, PartialEq)]
 pub struct Runs {
     pub output: Output,
-    pub notebook: bool,
+    pub boxed: bool,
     pub stepped: usize,
     pub start: Callback<Request>,
     pub step: Callback<Request>,
     pub stop: Callback<()>,
     pub clear: Callback<()>,
-    pub toggle: Callback<()>,
+    pub toggle_boxed: Callback<()>,
 }
 
 #[hook]
 pub fn use_runs() -> Runs {
     let state = use_reducer(Output::default);
     let live: Live = use_mut_ref(|| None);
-    let (notebook, stepped) = (use_state(|| false), use_state(|| 0usize));
-    let (start, step) = starting(&state.dispatcher(), &live, &stepped);
+    let (boxed, stepped) = (use_state(|| false), use_state(|| 0usize));
+    let (start, step) = starting(&state.dispatcher(), &live, &stepped, *boxed);
     let (stop, clear) = ending(&state.dispatcher(), &live, &stepped);
-    let n = notebook.clone();
-    let toggle = Callback::from(move |_: ()| n.set(!*n));
+    let b = boxed.clone();
+    let toggle_boxed = Callback::from(move |_: ()| b.set(!*b));
     let output = (*state).clone();
-    let (notebook, stepped) = (*notebook, *stepped);
+    let (stepped, boxed) = (*stepped, *boxed);
     Runs {
         output,
-        notebook,
+        boxed,
         stepped,
         start,
         step,
         stop,
         clear,
-        toggle,
+        toggle_boxed,
     }
 }
 
@@ -64,17 +65,18 @@ fn starting(
     state: &UseReducerDispatcher<Output>,
     live: &Live,
     stepped: &UseStateHandle<usize>,
+    boxed: bool,
 ) -> (Callback<Request>, Callback<Request>) {
     let (s, l, k) = (state.clone(), live.clone(), stepped.clone());
     let start = Callback::from(move |req: Request| {
         k.set(0);
-        begin(req, &s, &l)
+        begin(Request { boxed, ..req }, &s, &l)
     });
     let (s, l, k) = (state.clone(), live.clone(), stepped.clone());
     let step = Callback::from(move |req: Request| {
         k.set(*k + 1);
         let mode = Mode::Notebook(Some(*k + 1));
-        begin(Request { mode, ..req }, &s, &l)
+        begin(Request { mode, boxed, ..req }, &s, &l)
     });
     (start, step)
 }

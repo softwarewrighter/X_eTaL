@@ -39,6 +39,7 @@ pub fn call<'a>(name: &str, args: &[Value<'a>], span: Span) -> Option<Out<'a>> {
         }
         ("e_nclose", [x]) => Ok(Value::Boxed(std::rc::Rc::new(x.clone()))),
         ("d_isclose", [x]) => disclose(x),
+        ("d_isplay", [x]) => Ok(lines_matrix(&xetal_value::picture(x))),
         _ => return None,
     };
     Some(result.map_err(|d| match d.span {
@@ -94,4 +95,15 @@ fn join<'a>(a: &Value<'a>, b: &Value<'a>) -> Out<'a> {
         _ => Ok(x.clone()),
     };
     Ok(to_value(cat(&cell(&a, &b)?, &cell(&b, &a)?)?))
+}
+
+/// Lines as a character matrix, padded with blanks to the widest.
+fn lines_matrix<'a>(lines: &[String]) -> Value<'a> {
+    let width = lines.iter().map(|l| l.chars().count()).max().unwrap_or(0);
+    let chars = lines
+        .iter()
+        .flat_map(|l| l.chars().chain(std::iter::repeat(' ')).take(width))
+        .map(Value::Char)
+        .collect();
+    to_value(Array::new(vec![lines.len(), width], chars).expect("the shape fits the items"))
 }

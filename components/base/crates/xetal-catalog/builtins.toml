@@ -136,6 +136,7 @@ rule = "A7, B14: nested arrays (Box a)"
 entries = [
   ["e_nclose", 1, "a -> Box a"],
   ["d_isclose", 1, "Box a -> a"],
+  ["d_isplay", 1, "a -> Char"],
   ["p_artition", 2, "Truthy a => a -> b -> Box b"],
 ]
 

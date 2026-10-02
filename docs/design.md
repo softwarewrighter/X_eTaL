@@ -677,7 +677,9 @@ overflow, for one) ends the run with the error shown.
 
 ### 8.3a The notebook and stepping in the live demo
 
-Notebook makes Run show the program as `just show` does: each
+The Notebook button runs the program shown as `just show` shows it
+(Run shows only the output; there is no switch, so Notebook and Step
+both always show the notebook): each
 statement (with the comments above it) drawn decorated and indented
 six spaces, its output and pictures under it. `xetal-play`'s
 `notebook_to` uses the evaluator's before-statement hook (the one the
@@ -686,8 +688,8 @@ runs; the worker posts it as a Source event, and the page groups the
 output and pictures that follow under it. Step runs the program cut off
 after its next statement (`statements` counts them; Step k runs the
 first k, again from the start, as a REPL session replays), showing the
-notebook with the statement just run marked; Reset (or Clear, or a
-plain Run) starts the steps again.
+notebook with the statement just run marked; Reset (or Clear, Run or
+Notebook) starts the steps again.
 
 ### 8.4 The live demo on a phone, and as an app
 
@@ -754,4 +756,5 @@ The pinning tests are written as the implementing saga reaches them
 | D41| Nested arrays in the core | `Type::Box`, unifying only with a box, in `Eq` (passing Eq to its item) and no other class; `Value::Boxed`; a strand of string literals lowers to an array of `e_nclose` applications; `e_nclose` / `d_isclose` (one box); boxes compare by content; nested values print as APL2 DISPLAY through `xetal_grid::display`, which a `d_isplay` built-in can reuse (B16) |
 | D42| Partition and map | `p_artition : Truthy a => a -> b -> Box b` over major cells (a new piece where the key increases, 0 drops; keys checked like replicate's counts: a scalar extends, negative is `error[domain]`, another length `error[length-mismatch]`); `m_ap : (a -> b) -> a -> Box b` calls f on each item and boxes each result, keeping the shape (B14) |
 | D43| ASCII pictures | `--ascii` (a global CLI switch, like `--draw`) sets `xetal_grid::set_ascii`, and `display` maps each box character to one ASCII character (`to_ascii`), so widths are unchanged; `scripts/reference.py` runs its examples with it, so the ASCII-only reference shows nested values (B16) |
+| D44| Display and boxed printing | `d_isplay : a -> Char` gives any value as APL2's DISPLAY draws it (B16's frames and marks), flat arrays framed too, as a character matrix (a simple scalar is itself); `xetal --box` (a global switch, `xetal_grid::set_boxed`) prints every array result that way, and the live demo's Boxed toggle does the same (the request carries it to the worker); `p_rint!` prints through the same rule (user request) |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

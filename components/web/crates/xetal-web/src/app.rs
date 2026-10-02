@@ -141,36 +141,33 @@ fn run_buttons(
     files: &UseStateHandle<Vec<String>>,
     runs: &Runs,
 ) -> chrome::RunButtons {
-    let library = is_library(text);
-    let (running, notebook) = (runs.output.running, runs.notebook);
+    let (library, running) = (is_library(text), runs.output.running);
     let (t, f, start, stop) = (
         text.clone(),
         files.clone(),
         runs.start.clone(),
         runs.stop.clone(),
     );
-    let mode = if notebook {
-        Mode::Notebook(None)
-    } else {
-        Mode::Run
-    };
     let run = Callback::from(move |_: ()| match (running, library) {
         (true, _) => stop.emit(()),
         (false, true) => {}
-        (false, false) => start.emit(request(&t, &f, mode)),
+        (false, false) => start.emit(request(&t, &f, Mode::Run)),
     });
+    let (t, f, start) = (text.clone(), files.clone(), runs.start.clone());
+    let notebook = Callback::from(move |_: ()| start.emit(request(&t, &f, Mode::Notebook(None))));
     let (t, f, step) = (text.clone(), files.clone(), runs.step.clone());
-    let step = Callback::from(move |_: ()| step.emit(request(&t, &f, mode)));
-    let (clear, toggle) = (runs.clear.clone(), runs.toggle.clone());
-    let (stepped, statements) = (runs.stepped, statements(text));
+    let step = Callback::from(move |_: ()| step.emit(request(&t, &f, Mode::Notebook(None))));
+    let (clear, toggle_boxed) = (runs.clear.clone(), runs.toggle_boxed.clone());
+    let (boxed, stepped, statements) = (runs.boxed, runs.stepped, statements(text));
     chrome::RunButtons {
         run,
+        notebook,
         step,
         clear,
-        toggle,
+        toggle_boxed,
         library,
         running,
-        notebook,
+        boxed,
         stepped,
         statements,
     }
@@ -187,6 +184,7 @@ fn request(text: &str, paths: &[String], mode: Mode) -> Request {
         src: text.to_string(),
         seed,
         mode,
+        boxed: false,
         files: files.collect(),
     }
 }

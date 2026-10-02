@@ -1,0 +1,31 @@
+# d_isplay: any value as APL2's DISPLAY draws it, as a character matrix
+# (B16's marks: an arrow along the top, a down arrow per leading axis,
+# a mark at the bottom for what it holds), so a flat array is framed
+# too; a simple scalar is itself.
+== SOURCE
+d_isplay 2 3 r_eshape r_ange 6
+d_isplay "abc"
+d_isplay "ab" "cde"
+s_hape d_isplay 1 2 3
+d_isplay 5
+== TYPE
+Char
+Char
+Char
+Int
+Char
+== RESULT
+┌→────┐
+↓1 2 3│
+│4 5 6│
+└~────┘
+┌→──┐
+│abc│
+└───┘
+┌→───────────┐
+│ ┌→─┐ ┌→──┐ │
+│ │ab│ │cde│ │
+│ └──┘ └───┘ │
+└∊───────────┘
+3 7
+5

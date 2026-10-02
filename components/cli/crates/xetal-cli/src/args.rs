@@ -50,6 +50,10 @@ pub(crate) struct Cli {
     /// characters, as APL2's DISPLAY did on plain terminals.
     #[arg(long, global = true)]
     pub(crate) ascii: bool,
+    /// Print every array result boxed, flat ones too, as APL2's DISPLAY
+    /// draws it (what d_isplay gives).
+    #[arg(long = "box", global = true)]
+    pub(crate) boxed: bool,
 }
 
 /// Source given inline with `-e` or as a file path.

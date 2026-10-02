@@ -682,6 +682,39 @@ cde
 error[rank]: d_isclose opens one box, got shape 2
 ```
 
+### `d_isplay`
+
+`a -> Char`, one argument.
+
+Display: any value as APL2's DISPLAY draws it, as a character matrix,
+flat arrays framed too: an arrow along the top, a down arrow for each
+leading axis, and a mark at the bottom for what it holds (`~` numbers,
+a plain line characters, `e` boxes); a simple scalar is itself. `xetal
+--box` prints every array result this way (shown here as `xetal
+--ascii` draws them).
+
+```
+      d_isplay M
+.>----.
+v1 2 3|
+|4 5 6|
+'~----'
+      d_isplay "abc"
+.>--.
+|abc|
+'---'
+      d_isplay "ab" "cde"
+.>-----------.
+| .>-. .>--. |
+| |ab| |cde| |
+| '--' '---' |
+'e-----------'
+      s_hape d_isplay v
+3 7
+      d_isplay 5
+5
+```
+
 ### `p_artition`
 
 `Truthy a => a -> b -> Box b`, two arguments.

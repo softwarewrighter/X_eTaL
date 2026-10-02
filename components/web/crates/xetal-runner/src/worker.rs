@@ -52,6 +52,7 @@ impl Store for Snapshot {
 fn run(req: Request) {
     let files = req.files.into_iter().collect();
     xetal_store::install(Arc::new(Snapshot(Mutex::new(files))));
+    xetal_play::set_boxed(req.boxed);
     let mut out = xetal_play::Lines::new(|line: &str| post(Event::Out(line.into())));
     let run = match req.mode {
         Mode::Run => xetal_play::run_to(&req.src, req.seed, &mut out),

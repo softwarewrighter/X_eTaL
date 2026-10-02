@@ -40,6 +40,7 @@ assert_cmd = "2"
 proptest = "1"
 predicates = "3"
 xetal-view = { path = "../view/crates/xetal-view" }
+xetal-grid = { path = "../view/crates/xetal-grid" }
 xetal-program = { path = "../macro/crates/xetal-program" }
 xetal-macro = { path = "../macro/crates/xetal-macro" }
 yew = { version = "0.21", features = ["csr"] }
