@@ -37,8 +37,10 @@ pub(crate) fn help_text() -> Html {
                        an app that works offline." }</li>
                 <li>{ "Drag the bars between the panes to resize them (this browser \
                        remembers); double-click a bar to put it back." }</li>
-                <li>{ "The drop-down opens a demo, a standard library (shown with its \
-                       exports' types) or one of your files; " }<b>{ "Clear" }</b>
+                <li><b>{ "Open" }</b>{ " lists the demos, the classics, the standard libraries (shown with \
+                       their exports' types), the other demos (Misc) and your files, each group \
+                       closed until you click it; the arrows move through it, Enter opens, Escape \
+                       closes. " }<b>{ "Clear" }</b>
                     { " (or \"(empty)\") gives an empty editor to type into." }</li>
                 <li><b>{ "Save" }</b>{ " and " }<b>{ "Save as" }</b>{ " keep files in this \
                        browser's local storage. A saved library (lib/Name.xtl) is \

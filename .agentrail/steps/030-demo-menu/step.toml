@@ -1,6 +1,6 @@
 number = 30
 slug = "demo-menu"
-status = "pending"
+status = "in-progress"
 description = "User request (A): the live demo's Open list starts with collapsed groups, as ..."
 role = "production"
 context_files = []
