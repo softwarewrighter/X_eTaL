@@ -42,6 +42,7 @@ pub const DEMOS: &[Demo] = demos![
     "classics/mastermind-play.xtl",
     "classics/mastermind.xtl",
     "classics/matmul.xtl",
+    "classics/mini-apl.xtl",
     "classics/pascal.xtl",
     "classics/primes.xtl",
     "classics/queens.xtl",
