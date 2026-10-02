@@ -1,6 +1,6 @@
 number = 32
 slug = "int-strand-speed"
-status = "pending"
+status = "in-progress"
 description = "Ask D1 from X_eTaL-demos (docs/xetal-asks.md): typing a long Int literal stra..."
 role = "production"
 context_files = []
