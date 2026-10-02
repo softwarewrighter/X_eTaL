@@ -13,8 +13,8 @@ saga planning and reordering, `release` milestone release,
 ## 2026-10-02
 
 - 13:58 `fix` Type-checking a long strand of Int literals is linear (ask D1 from X_eTaL-demos): 8000 Ints took 2.1 s and now well under 0.01 s, and 20000 no longer overflow a normal thread's stack.
-- 13:10 `docs` ADVANCEDEX shows its APL glyphs on GitHub: the transcriptions use the characters themselves, since HTML character references are not decoded in code blocks. The gate's ASCII check covers README.md only while the docs rule is settled with the user.
 - 13:25 `feat` Transpose: `o_\ A` reverses the order of the axes (APL's monadic transpose) and `p t_ranspose A` permutes them (axis i of A becomes axis p[i]; a repeated or missing axis is an error), in a new crate `xetal-transpose` (decision B17).
+- 13:10 `docs` ADVANCEDEX shows its APL glyphs on GitHub: the transcriptions use the characters themselves, since HTML character references are not decoded in code blocks. The gate's ASCII check covers README.md only while the docs rule is settled with the user.
 - 12:48 `plan` The sibling repos' asks audited (each repro run against today's build): two steps inserted next in Saga 10 (int-strand-speed, ask D1; exponent-literals, ask D4, decision S8), Saga 22 speed (D2), Saga 23 host bindings and native packages (D3, E1), Saga 24 transpose (D9), and a trace step in Saga 17 (D8).
 - 12:47 `docs` ADVANCEDEX transcribed: the 32 functions of the APL\\360 User's Manual's Appendix B (both editions, from the scans), each with its printed example, and the inventory filled in with the features X_eTaL needs for them (docs/apl/advancedex.md).
 - 12:37 `plan` From X_eTaL-libraries' asks: Saga 20, array kinds (empty arrays remember Char, number or box; decision T9; fixes `d_isplay ""` drawn as numbers, ask X5), next after Saga 10; Saga 21, errors of one's own (assert, raise, catch; ask X3), after macros.
