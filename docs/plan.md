@@ -560,7 +560,7 @@ info. Also decided with the user:
 Later: the stepping debugger's panes, "why this parse", hover
 tooltips, a LaTeX view.
 
-## Lane: classics (parallel to Saga 10, branch feat/classics)
+## Lane: classics (parallel to Saga 10, branch feat/classics) -- done
 
 Asked for by the user: the classic APL example programs (Pascal's
 triangle, the sieve, GCD, Hanoi, quicksort, inner-product graph
@@ -621,9 +621,9 @@ feeds the trace saga (Saga 17).
 | 21 | classics-nested-programs | word frequency, N-Queens drawn, ragged Pascal |
 | 22 | classics-advancedex-source | IBM's ADVANCEDEX (1968): Appendix B of the APL\360 User's Manual transcribed and inventoried |
 | 23 | classics-mini-apl        | an APL subset interpreter in X_eTaL |
-| 24 | classics-advancedex-ports | ADVANCEDEX in X_eTaL: library, demos, goldens, literate sections (waits for the transcription of Appendix B, see HANDOFF) |
-| 25 | classics-eras            | twelve classics across eras: APL\360, APL2, Dyalog, X_eTaL |
-| 26 | classics-release         | index, README link, retrospective, merge |
+| 24 | classics-release         | index, README link, retrospective, lane archived |
+| -- | classics-advancedex-ports | backlog: ADVANCEDEX in X_eTaL, after the transcription (main saga, advancedex-transcribe) |
+| -- | classics-eras            | backlog: twelve classics across eras: APL\360, APL2, Dyalog, X_eTaL |
 
 Gaps found by the mini APL interpreter (classics-mini-apl), for later
 decisions:
@@ -639,6 +639,34 @@ decisions:
   test bed for one (`[]V_ALUE`, reserved in QD3).
 - A comparison named at the top level is a Bool, not a number (seen
   again in the tokenizer, written `0 + ...`).
+
+Retrospective (the lane is closed and archived in
+`lanes/classics/.agentrail-archive/`):
+- Delivered: thirty classic programs in `demos/classics/` (each a
+  notebook with a golden, in the live demo and indexed in
+  `docs/classics.md`), plus magmas and the first LeetCode demo;
+  pictures (`[]G_RID`, `[]P_ATH`, `[]S_HOW`, raster images,
+  animations); literate walkthroughs (classics, Hanoi three ways, the
+  ducks two ways); a tiny APL interpreter with `)ORIGIN`.
+- The programs worked as forcing functions: they brought trigonometry,
+  replicate, encode and decode, catenate along an axis, nested arrays
+  (`Box a`, string strands, enclose, disclose, partition, map, DISPLAY
+  printing, `--ascii`), a quiet closed pipe and the ob-xetal picture
+  results, each decided with the user and added test-first.
+  `docs/dogfooding.md` keeps the full list, with the frictions the
+  language keeps for now.
+- What worked: one PR per step or two, branched from the newest main;
+  decisions asked before building; the handoff file for what the
+  cloud sandbox could not run (the wasm build, the live demo, the
+  ADVANCEDEX sources).
+- What to do differently: no stacked PRs (deleting a merged base
+  branch closed the PR on top of it; each PR now branches from main);
+  post a status well within ten minutes; a branch's stale reg-rs caches
+  (`reg/*.tdb`) can fail another branch's goldens, so clear the ones
+  without an `.rgt`.
+- Backlog: the ADVANCEDEX ports (once main's advancedex-transcribe step
+  has the sources) and the eras Rosetta, taken up by whichever lane
+  has room; the gaps the interpreter found (above).
 
 ## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
 
