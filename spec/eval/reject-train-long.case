@@ -1,0 +1,8 @@
+# A long train groups from the right; the note names the inner fork
+# the element belongs to.
+== SOURCE
+[r_ev + a_bs n_ot t_ally] 1 2
+== ERROR
+error[type-mismatch]: expected Bool or Int, found Int -> a at 13..17
+  note: in the train `[a_bs n_ot t_ally]`, `n_ot` is applied as `(a_bs x) n_ot (t_ally x)`, where x is the train's argument
+  note: `n_ot` takes one argument, but here it is given two

@@ -53,7 +53,10 @@ impl Lower {
                 }
             });
         }
-        Ok(Program { items })
+        Ok(Program {
+            items,
+            notes: std::mem::take(&mut self.notes),
+        })
     }
 
     /// A lambda body: statements folded into one Core expression.

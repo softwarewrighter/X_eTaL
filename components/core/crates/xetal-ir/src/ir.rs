@@ -9,6 +9,8 @@ use xetal_lex::Number;
 #[derive(Debug, Clone, PartialEq)]
 pub struct Program {
     pub items: Vec<Item>,
+    /// Notes for errors at particular spans (see [`Program::annotate`]).
+    pub notes: Vec<crate::SpanNote>,
 }
 
 #[derive(Debug, Clone, PartialEq)]

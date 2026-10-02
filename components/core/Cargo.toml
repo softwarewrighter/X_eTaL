@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-core", "crates/xetal-ir", "crates/xetal-lint"]
+members = ["crates/xetal-core", "crates/xetal-explain", "crates/xetal-ir", "crates/xetal-lint"]
 
 [workspace.package]
 version = "0.1.0"
@@ -14,6 +14,7 @@ repository = "https://github.com/softwarewrighter/X_eTaL"
 [workspace.dependencies]
 xetal-catalog = { path = "../base/crates/xetal-catalog" }
 xetal-ast = { path = "../syntax/crates/xetal-ast" }
+xetal-explain = { path = "crates/xetal-explain" }
 xetal-ir = { path = "crates/xetal-ir" }
 xetal-lint = { path = "crates/xetal-lint" }
 xetal-base = { path = "../base/crates/xetal-base" }

@@ -132,6 +132,13 @@ Pinned by `components/core/crates/xetal-core/tests/core/` and the `CORE` section
   a train expands to carries the span of its element, so a type or
   run-time error in a train points at the element at fault (`[n_ot +]
   1 2` points at `n_ot`); a nested train keeps its own elements' spans.
+  Lowering also leaves notes for each element's span (`Program::notes`),
+  which the checker and the evaluator add to an error reported there
+  (`Program::annotate`): the train, the element, what the train means
+  at that element written out with x (and y) for its arguments, and a
+  hint from the built-ins' arities (a built-in that takes one argument
+  given two; one that takes two given one in a monadic train, so its
+  result is a function).
 
 Every Core node carries the NodeId and source span of the surface
 construct it came from.
@@ -762,4 +769,5 @@ The pinning tests are written as the implementing saga reaches them
 | D44| Display and boxed printing | `d_isplay : a -> Char` gives any value as APL2's DISPLAY draws it (B16's frames and marks), flat arrays framed too, as a character matrix (a simple scalar is itself); `xetal --box` (a global switch, `xetal_grid::set_boxed`) prints every array result that way, and the live demo's Boxed toggle does the same (the request carries it to the worker); `p_rint!` prints through the same rule (user request) |
 | D45| Trains are their desugaring, tested | property tests (xetal-eval tests/eval/trains_props.rs) check that a fork, an atop, a dyadic fork, a long train, a named train and a fork over text each print what their written-out forms print, over random arguments and pools of built-ins (TR1-TR4); trains lane |
 | D46| Errors inside a train | each application a train expands to is spanned by its element, not the whole train, so the checker and the evaluator point at the element at fault, with their usual messages (spec/eval/reject-train-*.case); trains lane |
+| D47| Train error notes | `xetal-explain` builds, per train element, a note `in the train [..], F is applied as FORM, where x is the train's argument` and an arity hint (`F takes one argument, but here it is given two`; `G takes two arguments, so G x is a function waiting for the other`), from the source spelling and the catalog arity of a built-in that is not shadowed by a local name; `Program::annotate` adds the notes of an error's exact span, called by `infer_program` and the evaluator's run (user request: better diagnostics for train errors); trains lane |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

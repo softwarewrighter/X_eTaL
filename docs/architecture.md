@@ -64,7 +64,8 @@ components/
                            xetal-lex (lexer), xetal-ast
                            (surface AST, printer), xetal-syntax (parser)
   core/                    xetal-ir (Core IR, printer), xetal-core
-                           (desugaring), xetal-lint (warnings)
+                           (desugaring), xetal-explain (notes for
+                           errors in trains), xetal-lint (warnings)
   render/                  xetal-render: decorated, LaTeX, canonical
   view/                    xetal-view: the front-end-agnostic view
                            model (styled segments, classes, raw <->

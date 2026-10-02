@@ -14,6 +14,8 @@ pub fn lower(src: &str) -> Result<Program, Diagnostic> {
         fresh: 0,
         scopes: vec![HashSet::new()],
         lambdas: 0,
+        src: src.to_string(),
+        notes: Vec::new(),
     };
     lower.program(&program)
 }
@@ -29,6 +31,10 @@ pub(crate) struct Lower {
     pub(crate) scopes: Vec<HashSet<String>>,
     /// How many lambdas enclose the current point.
     pub(crate) lambdas: usize,
+    /// The source, for spelling train elements in notes.
+    pub(crate) src: String,
+    /// Notes for errors at particular spans (D47).
+    pub(crate) notes: Vec<xetal_ir::SpanNote>,
 }
 
 impl Lower {

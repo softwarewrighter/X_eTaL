@@ -53,7 +53,7 @@ pub fn infer_program(program: &Program) -> Result<(Vec<String>, Dicts), Diagnost
         mark: 0,
     };
     for item in &program.items {
-        inf.item(item)?;
+        inf.item(item).map_err(|d| program.annotate(d))?;
     }
     for global in inf.globals.values() {
         if let Global::Pending(_, span) = global {

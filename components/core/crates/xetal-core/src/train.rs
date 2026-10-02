@@ -109,13 +109,25 @@ impl Lower {
     /// `[F G H] x = (F x) G (H x)`, dyadically `x [F G H] y =
     /// (x F y) G (x H y)`. Nested trains expand in place. Each
     /// application is spanned by its element, so an error in a train
-    /// points at the element at fault.
+    /// points at the element at fault, and the notes left for that
+    /// span explain what the train means there (D47).
     pub(crate) fn train_apply(
         &mut self,
         fs: &[Fun],
         left: Option<Expr>,
         right: Expr,
     ) -> Result<Expr, Diagnostic> {
+        let arity = |f: &Fun| {
+            let spelled = self.src.get(f.span.start..f.span.end)?;
+            match &f.kind {
+                FunKind::Sym(_) => xetal_catalog::find(spelled),
+                FunKind::Name(_) if !self.is_bound(spelled) => xetal_catalog::find(spelled),
+                _ => None,
+            }
+            .map(|b| b.arity)
+        };
+        let notes = xetal_explain::train_notes(&self.src, fs, left.is_some(), &arity);
+        self.notes.extend(notes);
         let tine = |me: &mut Self, f: &Fun| -> Result<Expr, Diagnostic> {
             let e = match (&left, &f.kind) {
                 (Some(l), _) => me.apply2(f, l.clone(), right.clone()),

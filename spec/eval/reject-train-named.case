@@ -5,3 +5,5 @@ u:t_ := [n_ot +]
 u:t_ 1 2
 == ERROR
 error[type-mismatch]: expected Bool or Int, found a -> a at 9..13
+  note: in the train `[n_ot +]`, `n_ot` is applied as `n_ot (+ x)`, where x is the train's argument
+  note: `+` takes two arguments, so `+ x` is a function waiting for the other

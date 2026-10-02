@@ -60,7 +60,7 @@ pub fn eval_items(
             shown: None,
             before: Some(before),
         };
-        machine.run(program)
+        machine.run(program).map_err(|d| program.annotate(d))
     })
     .and_then(|r| r);
     (warnings, result)
@@ -81,7 +81,7 @@ pub(crate) fn run_showing(
         shown: Some(shown),
         before: None,
     };
-    let result = machine.run(program);
+    let result = machine.run(program).map_err(|d| program.annotate(d));
     (result, machine.shown.map(|s| s.values).unwrap_or_default())
 }
 

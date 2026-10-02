@@ -4,3 +4,5 @@
 [+ -] 1 2
 == ERROR
 error[type-mismatch]: expected a number, found a -> a at 1..2
+  note: in the train `[+ -]`, `+` is applied as `+ (- x)`, where x is the train's argument
+  note: `-` takes two arguments, so `- x` is a function waiting for the other
