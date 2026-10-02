@@ -1,11 +1,16 @@
 # RESET
 
 From ADVANCEDEX, Appendix B (Advanced Examples) of the APL\360 User's
-Manual. Edition and page: to fill in.
+Manual: the March 1970 edition (GH20-0683-1), page B.3; the August 1968
+edition, page B.3, prints it the same.
 
-To transcribe exactly as printed, line numbers in brackets, APL glyphs
-as HTML character references (see `../advancedex.md`).
+What it does, from the manual: empties the lists (the globals NAMES,
+DATA, P1, P2) used by ENTER and LOOKUP; use it before them.
 
 ```
-(not yet transcribed)
+    &#8711; RESET
+[1]   NAMES&#8592;DATA&#8592;&#9076;P1&#8592;P2&#8592;0
+    &#8711;
 ```
+
+The example is in [ENTER](ENTER.md).

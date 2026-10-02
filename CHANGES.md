@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 12:47 `docs` ADVANCEDEX transcribed: the 32 functions of the APL\\360 User's Manual's Appendix B (both editions, from the scans), each with its printed example, and the inventory filled in with the features X_eTaL needs for them (docs/apl/advancedex.md).
 - 12:37 `plan` From X_eTaL-libraries' asks: Saga 20, array kinds (empty arrays remember Char, number or box; decision T9; fixes `d_isplay ""` drawn as numbers, ask X5), next after Saga 10; Saga 21, errors of one's own (assert, raise, catch; ask X3), after macros.
 - 12:23 `chore` Merge PR #31 (trains retrofit).
 - 12:23 `feat` Web: Open is a menu of collapsible groups (Demos, Classics, Libraries, Misc, Your files), each header a caret, its name and a count, all closed at first; arrows, Enter and Escape work, and a click outside closes it.

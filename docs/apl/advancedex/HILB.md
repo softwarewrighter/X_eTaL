@@ -1,11 +1,24 @@
 # HILB
 
 From ADVANCEDEX, Appendix B (Advanced Examples) of the APL\360 User's
-Manual. Edition and page: to fill in.
+Manual: the March 1970 edition (GH20-0683-1), page B.10; the August 1968
+edition, page B.10, prints it the same.
 
-To transcribe exactly as printed, line numbers in brackets, APL glyphs
-as HTML character references (see `../advancedex.md`).
+What it does, from the manual: HILB N produces the Hilbert matrix of order
+N, whose element in row I and column J is the reciprocal of I+J-1.
 
 ```
-(not yet transcribed)
+    &#8711; Z&#8592;HILB N
+[1]   Z&#8592;&#247;&#175;1+(&#9075;N)&#8728;.+&#9075;N
+    &#8711;
+```
+
+The example as printed (1970):
+
+```
+      HILB 3
+
+1                  0.5                0.3333333333
+0.5                0.3333333333       0.25
+0.3333333333       0.25               0.2
 ```

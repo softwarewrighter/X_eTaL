@@ -1,11 +1,16 @@
 # LFC
 
 From ADVANCEDEX, Appendix B (Advanced Examples) of the APL\360 User's
-Manual. Edition and page: to fill in.
+Manual: the March 1970 edition (GH20-0683-1), page B.7; the August 1968
+edition, page B.7, prints it the same.
 
-To transcribe exactly as printed, line numbers in brackets, APL glyphs
-as HTML character references (see `../advancedex.md`).
+What it does, from the manual: uses FC to generate the pairs of letters drawn from the first
+N letters of the alphabet.
 
 ```
-(not yet transcribed)
+    &#8711; Z&#8592;LFC N
+[1]   Z&#8592;'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[FC N]
+    &#8711;
 ```
+
+The example is in [COMB](COMB.md).

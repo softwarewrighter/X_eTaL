@@ -1,6 +1,6 @@
 number = 31
 slug = "advancedex-transcribe"
-status = "pending"
+status = "in-progress"
 description = "Handed over by the classics lane (PR #23, lanes/classics/HANDOFF.md step 23):..."
 role = "production"
 context_files = []

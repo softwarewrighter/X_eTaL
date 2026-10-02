@@ -1,11 +1,34 @@
 # PACK
 
 From ADVANCEDEX, Appendix B (Advanced Examples) of the APL\360 User's
-Manual. Edition and page: to fill in.
+Manual: the March 1970 edition (GH20-0683-1), page B.2; the August 1968
+edition, page B.2, prints it the same.
 
-To transcribe exactly as printed, line numbers in brackets, APL glyphs
-as HTML character references (see `../advancedex.md`).
+What it does, from the manual: PACK and UNPACK show decode and encode
+converting between a four-number form (serial number 1 to 9999, month,
+day, year) and a single number holding the same data; PACK makes the
+single number (by decode).
 
 ```
-(not yet transcribed)
+    &#8711; Z&#8592;PACK X
+[1]   Z&#8592; 10000 12 31 100 &#8869;X-1
+    &#8711;
+```
+
+The example as printed (1970):
+
+```
+      P&#8592;PACK 2314 7 17 68
+      P
+86063867
+      UNPACK P
+2314  7  17  68
+      UNPACK PACK 2311 9 21 72
+2311  9  21  72
+      PACK UNPACK 92137142
+92137142
+      PACK 1 1 31 1
+3000
+      UNPACK 3000
+1  1  31  1
 ```
