@@ -1,8 +1,9 @@
 number = 28
 slug = "footer-compact"
-status = "in-progress"
+status = "completed"
 description = "User report: the live demo's footer is too long and wraps, and 'Build' is rep..."
 role = "production"
 context_files = []
 created_at = "2026-10-01T20:40:38"
-commits = []
+completed_at = "2026-10-01T20:41:57"
+commits = ["f27b2003bee87147e82fedd16fa32c22f8c9d2fd"]

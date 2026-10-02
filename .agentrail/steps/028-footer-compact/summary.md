@@ -1,0 +1,1 @@
+Footer provenance compacted to Build (host sha time); fits one line; pages rebuilt
