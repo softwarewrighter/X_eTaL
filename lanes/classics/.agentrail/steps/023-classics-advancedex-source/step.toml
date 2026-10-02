@@ -1,8 +1,9 @@
 number = 23
 slug = "classics-advancedex-source"
-status = "pending"
+status = "completed"
 description = "Classics lane (see docs/plan.md, Lane: classics, and lanes/classics/HANDOFF.m..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T19:02:31"
-commits = []
+completed_at = "2026-10-01T19:08:17"
+commits = ["0d8d86360c14e83f485542e8ecbcb0b99b01aaad"]
