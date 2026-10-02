@@ -1,3 +1,3 @@
 command = "./target/debug/xetal run demos/classics/mini-apl.xtl"
 exit_code = 0
-desc = "a tiny APL written in X_eTaL: tokens by p_artition, right-to-left evaluation, parentheses, dyadic and monadic functions, reductions, pick and iota; the joke index origin 0.5"
+desc = "a tiny APL written in X_eTaL: tokens by p_artition, right-to-left evaluation, parentheses, pick and iota; sessions with )ORIGIN 0 or 1, and 0.5 with the experimental flag"

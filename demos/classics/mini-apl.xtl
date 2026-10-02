@@ -131,13 +131,42 @@ u:a_pl "+/ (i 5) * i 5"        # 1 + 4 + 9 + 16 + 25
 u:a_pl "2 4 pick 10 20 30 40"
 u:a_pl "10 20 30 iota 30 10 99"
 
+# -- A session, and )ORIGIN --------------------------------------------------
+# As in APL\360, the index origin is changed by a system command typed
+# in the session, not by an expression: )ORIGIN 0 or )ORIGIN 1 answers
+# with the origin it WAS. A session is a list of lines, run in order,
+# each echoed (indented six, as APL did) with its result under it; the
+# state passed from line to line is the experimental flag and the
+# origin. A whole number prints without its point, as APL prints it.
+u:s_how := { v -> '& r_/ v = f_loat f_loor v ? f_ormat f_loor v; f_ormat v }
+u:s_ay := { st text -> shown := p_rint! text; st }
+u:o_rigin := { st line ->
+  x := 1 s_elect st
+  o := 2 s_elect st
+  v := n_umbers 7 d_rop line
+  n_ot (7 t_ake line) m_atch ")ORIGIN" ? st u:s_ay "INCORRECT COMMAND"
+  0 = t_ally v ? st u:s_ay "IS " c_at u:s_how o
+  ok := (1 = t_ally v) & ((f_irst v) m_ember? 0.0 1.0) | (x = 1) & 0.5 = f_irst v
+  n_ot ok ? st u:s_ay "INCORRECT COMMAND"
+  (x c_at f_irst v) u:s_ay "WAS " c_at u:s_how o
+}
+u:l_ine := { st line ->
+  echo := p_rint! "      " c_at line
+  (f_irst line) = f_irst ")" ? st u:o_rigin line
+  st u:s_ay u:s_how (2 s_elect st) u:i_nterp line
+}
+u:s_ession := { st lines ->
+  0 = t_ally lines ? st
+  next := st u:l_ine d_isclose 1 s_elect lines
+  next u:s_ession 1 d_rop lines
+}
+
+# The flag off (state 0 1: no flag, origin 1). Only 0 and 1 are origins.
+off := 0 1 u:s_ession "i 4" ")ORIGIN 0" "i 4" "1 pick 10 20 30" "10 20 30 iota 20" ")ORIGIN 0.5" ")ORIGIN" ")ORIGIN 1" "i 4"
+
 # -- The experimental flag: index origin 0.5 ---------------------------------
-# Halfway between APL's two origins, 0 and 1. Counting starts at a half,
-# so the first item is at 0.5, the second at 1.5; a whole position is
-# now between two items, and pick blends them.
-0.5 u:i_nterp "i 4"
-0.5 u:i_nterp "+/ i 4"         # 0.5 + 1.5 + 2.5 + 3.5
-0.5 u:i_nterp "0.5 1.5 pick 10 20 30 40"
-0.5 u:i_nterp "1 2 pick 10 20 30 40"     # halfway: 15 and 25
-0.5 u:i_nterp "10 20 30 iota 30 10 99"
-0.5 u:i_nterp "(i 3) pick 10 20 30"      # i and pick agree: the items
+# With the flag on (state 1 1), )ORIGIN also takes 0.5, halfway between
+# APL's two origins. Counting starts at a half, so the first item is at
+# 0.5 and the second at 1.5; a whole position falls between two items,
+# and pick blends them. i and pick still agree: (i 3) pick v is v.
+on := 1 1 u:s_ession ")ORIGIN 0.5" "i 4" "+/ i 4" "0.5 1.5 pick 10 20 30 40" "1 2 pick 10 20 30 40" "10 20 30 iota 30 10 99" "(i 3) pick 10 20 30" ")ORIGIN 1" "i 4"
