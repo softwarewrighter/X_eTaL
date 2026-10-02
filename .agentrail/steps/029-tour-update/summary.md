@@ -1,0 +1,1 @@
+Tour (demo + literate) shows c_at_2, replicate, encode/decode, trig, Unicode strings, nested arrays/partition/map/d_isplay, pictures, userlibs; goldens rebased; pages rebuilt

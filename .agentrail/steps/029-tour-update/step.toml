@@ -1,8 +1,9 @@
 number = 29
 slug = "tour-update"
-status = "in-progress"
+status = "completed"
 description = "User request: the tour shows every recently added feature: c_at along an axis..."
 role = "production"
 context_files = []
 created_at = "2026-10-01T18:59:59"
-commits = []
+completed_at = "2026-10-01T21:04:20"
+commits = ["a283b03b0c8303f6177543dad556aec6edf6ee31"]
