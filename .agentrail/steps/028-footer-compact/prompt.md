@@ -1,0 +1,1 @@
+User report: the live demo's footer is too long and wraps, and 'Build' is repeated (Build Host, Build Commit, Build Time). Show the provenance once: 'Build (HOST SHA TIMESTAMP)'; check it fits on one line at desktop width (screenshot); rebuild pages.

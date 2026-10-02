@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-01
 
+- 20:41 `chore` Saga step footer-compact completed.
+- 20:41 `fix` Web: the footer fits on one line: the build shown once, as Build (host commit time).
 - 20:10 `chore` Saga step syntax-poster completed.
 - 20:10 `docs` The syntax poster: every sample drawn by xetal (`scripts/poster.py`), published at pages/poster/, linked from the live demo's footer and Help, captured for the README in place of the image with bugs.
 - 20:01 `chore` Merged PR #24: a tiny APL in X_eTaL.
