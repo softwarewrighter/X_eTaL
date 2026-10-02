@@ -1,0 +1,1 @@
+Syntax poster: template corrected, 33 samples drawn by xetal render --html via scripts/poster.py, pages/poster/, README capture replaces buggy image, footer + Help links; wish-list modified assignment
