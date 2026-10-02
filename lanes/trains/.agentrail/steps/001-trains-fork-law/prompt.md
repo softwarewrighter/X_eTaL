@@ -1,0 +1,1 @@
+Trains lane (see lanes/trains/.agentrail/plan.md). TDD, the full gate, one PR per step from main. Property tests that every train equals its desugared expression (fork, atop, dyadic fork, long trains) over random arrays and a pool of functions; failures become bugs to fix first.

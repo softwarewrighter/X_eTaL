@@ -1,0 +1,8 @@
+number = 4
+slug = "trains-release"
+status = "pending"
+description = "Trains lane (see lanes/trains/.agentrail/plan.md). TDD, the full gate, one PR..."
+role = "production"
+context_files = []
+created_at = "2026-10-01T20:21:11"
+commits = []

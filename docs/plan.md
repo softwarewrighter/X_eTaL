@@ -741,6 +741,14 @@ needs.
 `[F G H]` forks and `[F G]` atop (TR1-TR3), purely by desugaring;
 fork-law property test; type errors for ill-typed trains.
 
+Worked as a lane, `lanes/trains/.agentrail` (run agentrail with
+`--saga lanes/trains`), one PR per step from main. The parsing and the
+desugaring were already done (spec/syntax/train-*.case), so the lane's
+steps are: trains-fork-law (property tests that each train equals its
+desugared form), trains-errors (an ill-typed train names and points at
+the element at fault), trains-docs (reference, README, and a literate
+document of trains beside their Combinators birds) and trains-release.
+
 ## Saga 16 -- life (M8)
 
 The Life case is active from Saga 6; block, blinker, glider and

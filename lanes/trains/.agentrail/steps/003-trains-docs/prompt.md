@@ -1,0 +1,1 @@
+Trains lane (see lanes/trains/.agentrail/plan.md). TDD, the full gate, one PR per step from main. Reference and README sections on trains; docs/literate/trains.org: trains beside their Combinators-library birds (Bluebird for atop, Phoenix for fork), checked equal, explaining how trains differ from birds.
