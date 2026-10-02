@@ -1,6 +1,6 @@
 number = 23
 slug = "classics-advancedex-source"
-status = "pending"
+status = "in-progress"
 description = "Classics lane (see docs/plan.md, Lane: classics, and lanes/classics/HANDOFF.m..."
 role = "production"
 context_files = []
