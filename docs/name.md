@@ -2,7 +2,7 @@
 
 The language has one name and several spellings, each for a place
 where the others do not fit. All of them stand for the eXperimental
-eXtensible Typed Array Language.
+Extensible Typed Array Language.
 
 ![The name every way: said Ecks-e-tal; the logo; the favicon (an italic
 underlined X with a raised ellipsis); XeTaL in prose; X_eTaL and X_ e:T

@@ -24,8 +24,8 @@ ideas of array programming easier to read, reason about, type-check,
 visualize, and experiment with.
 
 In the live demo, type ASCII on the left and watch it drawn decorated
-on the right; Run shows the output, the drop-down opens the demos, the
-libraries and your saved files, and Save keeps them in the browser.
+on the right; Run shows the output, Open lists the demos, the classics, the
+libraries and your saved files in collapsible groups, and Save keeps them in the browser.
 Output appears as it is printed, with Stop while a program runs;
 Notebook runs it showing each statement above its output, and Step runs
 one statement at a time ([notebooks](docs/notebook.md)). On a
@@ -38,7 +38,7 @@ an app (Add to Home Screen) that works offline.
   <img src="images/live-demo-phone.png" alt="The live demo on a phone: the toolbar wrapped, the panes stacked" width="260">
 </p>
 
-**eXperimental eXtensible Typed Array Language** -- LaTeX reversed,
+**eXperimental Extensible Typed Array Language** -- LaTeX reversed,
 with the X itself decorated.
 
 > LaTeX uses text to produce typography. X_eTaL uses typography to

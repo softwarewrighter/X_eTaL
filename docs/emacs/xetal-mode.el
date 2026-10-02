@@ -18,7 +18,7 @@
 
 ;;; Code:
 
-(defgroup xetal nil "X_eTaL, the eXperimental eXtensible Typed Array Language."
+(defgroup xetal nil "X_eTaL, the eXperimental Extensible Typed Array Language."
   :group 'languages)
 
 (defface xetal-builtin-face '((t :foreground "#4d7fd6")) "System functions." :group 'xetal)

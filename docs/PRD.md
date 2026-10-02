@@ -1,7 +1,7 @@
 # X_eTaL -- Product Requirements
 
 X_eTaL -- the eXperimental
-eXtensible Typed Array Language.
+Extensible Typed Array Language.
 
 > LaTeX uses text to produce typography. X_eTaL uses typography to
 > express computation.

@@ -286,7 +286,7 @@ a safety net for what is not yet committed.
 ## Project Overview
 
 X_eTaL -- the eXperimental
-eXtensible Typed Array Language: a terse, statically typed, functional
+Extensible Typed Array Language: a terse, statically typed, functional
 array language implemented in Rust, whose source is plain ASCII and
 where typographic decoration (underline `_`, subscript `_2`,
 superscript `^r`) turns an ordinary name into a function, axis

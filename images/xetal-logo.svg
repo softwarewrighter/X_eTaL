@@ -9,5 +9,5 @@
   <rect width="560" height="230" rx="18" fill="#ffd21f"/>
   <text x="96" y="150" class="name"><tspan class="big">X</tspan><tspan class="small" dy="-62" dx="4">e</tspan><tspan class="big" dy="62" dx="-2">T</tspan><tspan class="small" dy="-62" dx="2">a</tspan><tspan class="big" dy="62" dx="-2">L</tspan></text>
   <rect x="98" y="166" width="104" height="9" rx="2" fill="#1d2330"/>
-  <text x="280" y="207" text-anchor="middle" class="tag">eXperimental eXtensible Typed Array Language</text>
+  <text x="280" y="207" text-anchor="middle" class="tag">eXperimental Extensible Typed Array Language</text>
 </svg>

@@ -197,7 +197,7 @@ That may look odd at first, but it does real grammatical work.
 
 Resolved: say Ecks-e-tal, as the file type `.xtl` is said eks-tee-ell
 ([the name](name.md) has every spelling). The expansion is descriptive:
-the eXperimental eXtensible Typed Array Language. And the underscore is
+the eXperimental Extensible Typed Array Language. And the underscore is
 not decoration: in XeTaL an underscore after a letter underlines it,
 and an underlined letter makes a name a function.
 
