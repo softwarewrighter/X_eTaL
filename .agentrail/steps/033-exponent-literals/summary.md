@@ -1,0 +1,1 @@
+Exponent literals (S8, ask D4): 1.5e-7, 6.02e23, 2E3 lex as Float tokens; rejections for 1.5e, 1.5e-, 1.5e+3, 1e2.5, and 1e400 (out of range). Also fixes a formatter round-trip bug (canonical already printed 1e-7, which did not lex). Spec cases, reference, D49, Emacs mode.
