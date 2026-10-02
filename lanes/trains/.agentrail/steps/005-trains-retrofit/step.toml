@@ -1,6 +1,6 @@
 number = 5
 slug = "trains-retrofit"
-status = "pending"
+status = "in-progress"
 description = "Trains lane. The user's rule (2026-10-02): a saga that adds a feature ends wi..."
 role = "production"
 context_files = []
