@@ -1,0 +1,1 @@
+word frequency, N-Queens (r_eplicate + c_at_2, boxed boards, 92 drawn), ragged Pascal rows by m_ap
