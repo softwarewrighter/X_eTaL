@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 15:20 `feat` Transpose under a subscript: `o_\_jk A` swaps axes j and k; one digit or three are an error, as is a repeated digit (decision B17).
 - 15:05 `docs` The logo's tagline is fixed (eXperimental Extensible Typed Array Language, not eXtensible): new images/modern-xetal-logo.jpg from the user; the name picture and the pages rebuilt with it.
 - 15:05 `chore` PRs #32 and #33, rebased by the lane after they were merged, recorded as merged (their content was already in main).
 - 14:08 `chore` Merge PR #33.

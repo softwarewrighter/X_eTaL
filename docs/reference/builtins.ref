@@ -445,9 +445,12 @@ matrix), or along the subscript's axis.
 
 == o_\
 Transpose: reverse the order of the axes, so a matrix's rows become
-its columns; a vector or a single value is unchanged.
+its columns; a vector or a single value is unchanged. A subscript of
+two axes swaps just those two.
 > o_\ M
 > s_hape o_\ 2 3 4 r_eshape 0
+> s_hape o_\_23 2 3 4 r_eshape 0
+!> o_\_2 M
 
 == t_ranspose
 Permute the axes: the left argument lists each axis once, and axis i

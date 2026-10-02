@@ -2090,6 +2090,7 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-rotate",
+ "xetal-transpose",
  "xetal-value",
 ]
 
