@@ -1,0 +1,1 @@
+d_isplay (any value as DISPLAY, Char matrix), --box CLI switch, live demo Boxed toggle; Notebook made an action (Run/Notebook/Step); docs/notebook.md; verified via CDP; D44

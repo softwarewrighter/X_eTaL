@@ -1,8 +1,9 @@
 number = 26
 slug = "display"
-status = "in-progress"
+status = "completed"
 description = "d_isplay (user request, like APL2 DISPLAY): a built-in giving a value as a bo..."
 role = "production"
 context_files = []
 created_at = "2026-09-30T12:08:22"
-commits = []
+completed_at = "2026-10-01T19:49:07"
+commits = ["971201232914a18e87d5f04df81fe39557f8c22a"]
