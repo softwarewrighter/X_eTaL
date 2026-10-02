@@ -139,6 +139,7 @@ u:s_ign := { x -> x < 0 ? -1; x = 0 ? 0; 1 }
 | S3 | `;` separates statements on one line (APL's diamond), at the top level and inside `{ }`; it is an error inside `( )` and `[ ]`. Empty statements are ignored. The display may render `;` as the diamond. |
 | S4 | `#` starts a comment anywhere on a line and runs to the end of the line; the newline still separates statements. The display renders `#` as APL's lamp. |
 | S5 | Scripts use the extension `.xtl` and start with `#!/usr/bin/env xetal` (a plain comment). `xetal FILE` runs FILE. |
+| S8 | A Float literal may have an exponent: `e` or `E` right after the digits, then an optional `-` and digits, all touching, is one number token (`1.5e-7`, `6.02e23`, `2E3`), always a Float. The `-` inside an exponent is part of the number and never subtraction; a spaced `e` is a name as before (`1.5 e3` is a number and a name). Printed results stay as today. Asked for by X_eTaL-demos (ask D4); decided with the user, 2026-10-02; not yet implemented. |
 | S7 | The command is `xetal` (easy to type, matches the crate slug). `x_etal` is installed as an alias (symlink), so `#!/usr/bin/env x_etal` also works. The display name stays `X_eTaL`, which decorates as X underlined, matching the logo. |
 
 ## 8. Symbols

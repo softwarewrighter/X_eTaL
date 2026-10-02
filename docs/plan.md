@@ -671,8 +671,10 @@ Retrospective (the lane is closed; its saga is archived in
 ## Next, in order (decided with the user, 2026-10-02)
 
 1. Finish Saga 10: demo-menu (the Open list as collapsible groups:
-   Demos, Classics, Libraries, Misc), advancedex-transcribe,
-   web-release.
+   Demos, Classics, Libraries, Misc), advancedex-transcribe, then two
+   steps from X_eTaL-demos' asks (int-strand-speed, ask D1, a
+   quadratic type check of long Int strands; exponent-literals, ask
+   D4, `1.5e-7`, decision S8), then web-release.
 2. Saga 20, array kinds (empty arrays remember Char, number or box;
    ask X5 from X_eTaL-libraries, a wrong picture they hit now).
 3. Saga 13, quads, moved up to come next (the user asked for `[]A`,
@@ -684,7 +686,11 @@ Retrospective (the lane is closed; its saga is archived in
    X_eTaL-libraries), decided with the user to come after macros.
 6. The retrofit saga after it (below), so it can use quads, macros,
    long aliases and errors too.
-7. Then Saga 11 and the rest as numbered. The lanes (classics,
+7. Then Saga 11 and the rest as numbered, with the sagas added for
+   the sibling repos' asks (2026-10-02): Saga 22 speed (ask D2),
+   Saga 23 host bindings and native packages (asks D3 and E1),
+   Saga 24 transpose (ask D9); the trace through `xetal-play` (ask D8)
+   is a step of Saga 17. The lanes (classics,
    leetcode, trains) go on in parallel.
 
 ## Saga 20 -- array kinds (empty arrays remember their kind)
@@ -859,7 +865,9 @@ derivation; expanded (long-name) printer. A visual stepper, `xetal debug FILE`,
 reuses the Saga 7 view model and widgets: the rendered source pane
 highlights the node being evaluated (by its span), and the array
 viewer shows its intermediate value, stepping forward and back
-through the trace tree.
+through the trace tree. A step exposes the trace tree through
+`xetal-play` (ask D8 from X_eTaL-demos: a per-operation trace that
+programs embedding XeTaL can show).
 
 ## Saga 18 -- transducers (research, then perhaps a library)
 
@@ -904,6 +912,40 @@ Nested arrays (A7; now in the classics lane), raw strings `r"..."`, Unicode text
 numbers via a type-extension mechanism, checked `::` signatures, axes
 above 9, count-from-the-end axes, the `_` wildcard
 parameter. Each gets a saga (or steps) when scheduled.
+
+## Saga 22 -- speed (vector kernels)
+
+Ask D2 from X_eTaL-demos: whole-array arithmetic costs about 28 to 50
+ns per item per operation (measured on 1M Floats), and the
+cross-cutting evaluator-speed entry below found the same in TTTML.
+Steps: checked-in benchmarks first (elementwise arithmetic, rotate,
+reduce and scan with primitive operands, TTTML training); then
+elementwise kernels on whole Int and Float arrays; then a primitive
+operand of reduce, scan, outer and inner product applied as a vector
+kernel; then the retrofit (demos' workarounds) and a release with the
+numbers before and after. No language change.
+
+## Saga 23 -- host bindings and native packages
+
+Asks D3 (X_eTaL-demos: bind host arrays into a run of `xetal-play`
+and read results after, or keep a session) and E1 (X_eTaL-extensions:
+host-registered typed functions, then `[]S_VO` loading a native
+package), one design for both. Steps: decisions with the user (the
+API for binding typed host values, a session object reusing the
+REPL's, the names, the ABI, which X_eTaL-extensions' ABI V1 can start
+from); host bindings and sessions in `xetal-play`; host-registered
+typed functions; `[]S_VO` and a package manifest (absorbing the
+`[]S_VO` part of "Later -- system I/O" below); the retrofit; the
+release.
+
+## Saga 24 -- transpose
+
+Ask D9 from X_eTaL-demos, and the cross-cutting entry below: `o_\`
+(reserved in A2 and B2), monadic transpose of a matrix, the mirror of
+rotate, with axis subscripts (their rules confirmed with the user
+first); then `[]P_ATH` may accept points as an n by 2 matrix. Needed
+by ADVANCEDEX's BIN, FC and INV too. Steps: decisions, transpose,
+axes, the retrofit, the release.
 
 ## Later -- system I/O
 
