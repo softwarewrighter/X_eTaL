@@ -12,6 +12,10 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-01
 
+- 20:10 `chore` Saga step syntax-poster completed.
+- 20:10 `docs` The syntax poster: every sample drawn by xetal (`scripts/poster.py`), published at pages/poster/, linked from the live demo's footer and Help, captured for the README in place of the image with bugs.
+- 20:01 `chore` Merged PR #24: a tiny APL in X_eTaL.
+- 19:37 `chore` Merged PR #23: the ADVANCEDEX inventory skeleton.
 - 19:26 `chore` Saga step display completed.
 - 19:26 `feat` `d_isplay` (any value as APL2's DISPLAY draws it, as a character matrix), `xetal --box` and the live demo's Boxed; Notebook is now an action (runs the whole program as a notebook), beside Run and Step; docs/notebook.md.
 - 17:09 `build` Pages rebuilt with PR #22.

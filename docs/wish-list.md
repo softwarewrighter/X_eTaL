@@ -34,6 +34,7 @@ view and phone layout, and transducers (being researched).
 | **Big and exact numbers** | Integers overflow at 64 bits (`2 ^ 70` is an error); there are no exact rationals. Arbitrary-precision integers (and maybe rationals) as a numeric type would suit teaching and number theory demos. | M |
 | **Amend (functional update)** | No way to say "this array with these items replaced" except by building it again. An amend function, `values a_t indices array` (APL's `@`, BQN's under-select), keeps values immutable and fills a common need. | M |
 | **Rank** | Applying a function to each row, or to each cell of a given rank, needs `e_ach` over a reshape today. APL's rank operator (or a subscript spelling for it) is one of the most useful array ideas still missing. | M |
+| **Modified assignment** | Updating a variable names it twice: `count! := count! + 1`. APL says `COUNT+<-1`; XeTaL could say `count! +:= 1` (for `!` variables only, typed like the function). A combinator cannot do it, since a binding is not a value. A language decision. | S |
 | **Key / group** | Grouping items by a key (counts per category, sums per group) is everyday data work: APL's key operator. | M |
 | **Shareable live-demo links** | A program in the live demo cannot be shared: putting it in the URL (compressed in the fragment) would let anyone send a working example. | S |
 | **A comment-keeping formatter** | `xetal fmt` drops comments, so it cannot be used on real files. A formatter that keeps them (and their alignment) would make `fmt` a daily tool. | M |
