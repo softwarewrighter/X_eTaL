@@ -1,0 +1,8 @@
+# Three functions are a fork, not a chain: n_eg in the middle is given
+# two arguments, and the notes say so (docs/literate/trains.org).
+== SOURCE
+[r_ev n_eg a_bs] -1 2 -3
+== ERROR
+error[infinite-type]: a type would contain itself: a -> b at 6..10
+  note: in the train `[r_ev n_eg a_bs]`, `n_eg` is applied as `(r_ev x) n_eg (a_bs x)`, where x is the train's argument
+  note: `n_eg` takes one argument, but here it is given two

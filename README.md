@@ -67,6 +67,8 @@ a value is an exponent. The language decisions are recorded in
 | `_l` `_r`     | APL alpha and omega                   | left / right lambda argument         |
 | `:=` `;`      | a left arrow, a black diamond         | binding, statement separator         |
 | `@`           | @                                     | the Unit value                       |
+| `[f_ g_ h_]`  | in square brackets                    | a train: `(f_ x) g_ (h_ x)`          |
+| `"ab" "cde"`  | two strings side by side              | a nested vector of two strings       |
 
 Built-in names are words (`r_eshape`, `t_ally`) so code stays
 recognizable; a punctuation mark appears only where it carries APL
@@ -83,17 +85,19 @@ At a glance, versus classic APL:
 | Typing              | dynamic                      | static, inferred (Hindley-Milner)      |
 | Ambiguous syntax    | resolved by fixed rules      | rejected with an explanation           |
 | Core model          | niladic/monadic/dyadic       | curried one-argument functions         |
+| Trains              | forks and atops (Dyalog, J)  | `[F G H]` fork, `[F G]` atop           |
+| Nested arrays       | APL2 boxes, DISPLAY          | `Box a` types, APL2 DISPLAY printing   |
 | Implementation      | C / assembly                 | Rust (CLI + WASM playground)           |
 
 How to read it, on one page: what each decoration says about a name
 (function or value, yours or a library's), imports, definitions,
-passing a function, axes, powers, lambdas, system names, guards, and
-what you type for each. Every sample on it is drawn by `xetal render
+passing a function, axes, powers, lambdas, system names, guards, trains,
+and what you type for each. Every sample on it is drawn by `xetal render
 --html` itself (`scripts/poster.py`), so it cannot drift from the
 language; the [poster as a web page](https://softwarewrighter.github.io/X_eTaL/poster/)
 is linked from the live demo too.
 
-[![XeTaL syntax you can see: name decorations, importing a library, definitions, applying vs. passing functions, axes, power, lambdas, system names, the ? symbol, and ASCII input vs. the rendered form](images/xetal-syntax-poster.png)](https://softwarewrighter.github.io/X_eTaL/poster/)
+[![XeTaL syntax you can see: name decorations, importing a library, definitions, applying vs. passing functions, axes, power, lambdas, system names, the ? symbol, ASCII input vs. the rendered form, and trains](images/xetal-syntax-poster.png)](https://softwarewrighter.github.io/X_eTaL/poster/)
 
 The acceptance test is Conway's Life in one line
 (`spec/integration/life-blinker.case`, checked against the sw-apl
@@ -158,7 +162,12 @@ scalar extension and the structural built-ins, the higher-order
 built-ins (reduce, scan, each, table, inner product, compose, swap,
 power), search, order and random built-ins, rotate, reverse and axis
 subscripts on any function, function power (`f_^3`), the Life
-one-liner, files, the keyboard and numbers as text (`[]N_GET`,
+one-liner, trains (forks, atops, hooks with the tacks, and errors
+that say what the train means where it fails), replicate (`r_eplicate`),
+encode and decode, catenate along any axis (`c_at_2`), whole-array match
+(`m_atch`), nested arrays (string strands, `e_nclose`, `d_isclose`,
+`p_artition`, `m_ap`, printed as APL2's DISPLAY, `d_isplay`, `--box`,
+`--ascii`), files, the keyboard and numbers as text (`[]N_GET`,
 `[]N_PUT`, `[]R_EAD`, `f_ormat`, `n_umbers`), trigonometry, pictures
 (`[]G_RID` grids and `[]P_ATH` paths as SVG, animated by frames,
 shown with `[]S_HOW`), and libraries imported with `u_se<`: the
@@ -167,9 +176,8 @@ standard libraries `Stats`, `Combinators` (Smullyan's birds), `Maybe`,
 graphics as arrays) are built in. The decorated views: `xetal render
 --color`, streaming notebook runs laid out as an APL session, the
 editor, a REPL that draws each line decorated as you type, and
-annotated diagrams. Next: a live web demo of the editor, then ports of
-the APL workspaces as libraries (LEARN, COURSE and PLOT first), then
-trains and a stepping debugger ([`docs/plan.md`](docs/plan.md)).
+annotated diagrams, and a live web demo. What comes next is in
+[`docs/plan.md`](docs/plan.md).
 
 ## Prerequisites
 
@@ -286,6 +294,13 @@ Other fonts, checked against the font files:
 - [`docs/literate/hanoi.org`](docs/literate/hanoi.org) -- the Tower of Hanoi
   three ways: recursion, currying with the combinators, and every move at
   once from the bits of the move number, checked to agree and drawn
+- [`docs/literate/trains.org`](docs/literate/trains.org) -- trains beside
+  the Combinators birds that do the same (Bluebird and atop, Starling and
+  hook, Phoenix and fork), checked to agree, and how to read a train's
+  errors
+- [`docs/literate/duck.org`](docs/literate/duck.org) -- swimming ducks by
+  rotate, and joining frames along axis 2 two ways: a recursion, and
+  `c_at_2`
 - [`docs/reference.md`](docs/reference.md) -- every built-in function, with
   examples (and, for the ones that work along an axis, the default axis,
   axis 1 written out, and another axis)

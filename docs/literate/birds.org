@@ -85,6 +85,9 @@ nearest operand) and y is double:
 #+RESULTS:
 : 11
 
+The atop train ~[u:i_nc u:d_ouble] 5~ is the same composition written
+in place; ~trains.org~ sets each train beside its bird.
+
 The Blackbird B1 composes with a function of two arguments: ~B1 x y z
 w~ is ~x (y z w)~, inc applied to a_b 1 2:
 

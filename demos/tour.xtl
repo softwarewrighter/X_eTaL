@@ -88,9 +88,13 @@ m '+ '* i_nner 1 1 1     # inner product: the nearest operand pairs
 # -- Trains and tacks -----------------------------------------------------
 u:a_vg := ['+ r_/ / t_ally]      # fork: `('+ r_/) / t_ally` of the argument
 u:a_vg 1 2 3 4
+{ x -> ('+ r_/ x) / t_ally x } 1 2 3 4   # the same, spelled out
 [n_eg a_bs] -5                   # atop: `n_eg a_bs x`
 3 [l_eft + r_ight] 4             # the tacks pick an argument
 [i_d - n_eg] 5                   # hook: `x - n_eg x`
+1 2 [+ * -] 3 4                  # dyadic fork: `(x + y) * (x - y)`
+[f_irst c_at 'm_ax r_/ c_at 'm_in r_/] 3 1 4 1 5   # longer trains group from the right
+'[t_ally d_isclose] e_ach "ab" "cde" "f"    # a quoted train is an operand
 
 # -- Rotate, reverse and axes ---------------------------------------------
 1 o_- 1 2 3 4            # rotate toward the front

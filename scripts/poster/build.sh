@@ -1,11 +1,6 @@
 #!/bin/bash
-cd ../..
-./scripts/syntax-poster.sh
-
-# internally, for each snippet:
-xetal render --html -e 'u:s_quare := { _r * _r }'
-
-# insert that HTML verbatim into the appropriate poster slot
-
-# finally:
-chrome --headless ... screenshot poster.html
+# Build the syntax poster (pages/poster/index.html and, where Chrome is
+# found, images/xetal-syntax-poster.png): scripts/poster.py does it.
+set -euo pipefail
+cd "$(dirname "${BASH_SOURCE[0]}")/../.."
+exec python3 scripts/poster.py

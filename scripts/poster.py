@@ -49,7 +49,7 @@ def capture():
         return
     subprocess.run(
         [str(chrome), "--headless=new", "--disable-gpu", "--hide-scrollbars",
-         "--window-size=1600,1185", f"--screenshot={PICTURE}", OUT.as_uri()],
+         "--window-size=1600,1420", f"--screenshot={PICTURE}", OUT.as_uri()],
         capture_output=True, check=False,
     )
     print(PICTURE.relative_to(ROOT))
