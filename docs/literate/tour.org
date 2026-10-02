@@ -671,19 +671,24 @@ m '+ '* i_nner 1 1 1     # inner product: the nearest operand pairs
 
 A train in brackets composes functions without naming the argument: a
 fork applies the outer two and combines them with the middle one; two
-functions are an atop. The tacks pick an argument.
+functions are an atop. The tacks are `x l_eft y`, which is x, and
+`x r_ight y`, which is y. Each train is the lambda it stands for,
+written without naming the argument; the comments spell each one out.
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-ᵘa̲vg ← ['+ r̲/ ÷ t̲ally]      ⍝ fork: `('+ r_/) / t_ally` of the argument
+ᵘa̲vg ← ['+ r̲/ ÷ t̲ally]      ⍝ fork: `('+ r_/ x) / t_ally x`
 ᵘa̲vg 1 2 3 4
+{ x → ('+ r̲/ x) ÷ t̲ally x } 1 2 3 4   ⍝ the same, spelled out
 #+end_example
 #+begin_src xetal
-u:a_vg := ['+ r_/ / t_ally]      # fork: `('+ r_/) / t_ally` of the argument
+u:a_vg := ['+ r_/ / t_ally]      # fork: `('+ r_/ x) / t_ally x`
 u:a_vg 1 2 3 4
+{ x -> ('+ r_/ x) / t_ally x } 1 2 3 4   # the same, spelled out
 #+end_src
 
 #+RESULTS:
+: 2.5
 : 2.5
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
@@ -699,10 +704,10 @@ u:a_vg 1 2 3 4
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-3 [l̲eft + r̲ight] 4             ⍝ the tacks pick an argument
+3 [l̲eft + r̲ight] 4             ⍝ dyadic fork: `(x l_eft y) + (x r_ight y)`, so `x + y`
 #+end_example
 #+begin_src xetal
-3 [l_eft + r_ight] 4             # the tacks pick an argument
+3 [l_eft + r_ight] 4             # dyadic fork: `(x l_eft y) + (x r_ight y)`, so `x + y`
 #+end_src
 
 #+RESULTS:
@@ -718,6 +723,43 @@ u:a_vg 1 2 3 4
 
 #+RESULTS:
 : 10
+
+A train between two values is dyadic, and a longer train groups from
+the right into forks: the one below is `[f_irst c_at [... c_at ...]]`.
+A quoted train is an operand like any function.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 2 [+ × −] 3 4                  ⍝ dyadic fork: `(x + y) * (x - y)`
+#+end_example
+#+begin_src xetal
+1 2 [+ * -] 3 4                  # dyadic fork: `(x + y) * (x - y)`
+#+end_src
+
+#+RESULTS:
+: -8 -12
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+[f̲irst c̲at 'm̲ax r̲/ c̲at 'm̲in r̲/] 3 1 4 1 5   ⍝ `(f_irst x) c_at ('m_ax r_/ x) c_at 'm_in r_/ x`
+#+end_example
+#+begin_src xetal
+[f_irst c_at 'm_ax r_/ c_at 'm_in r_/] 3 1 4 1 5   # `(f_irst x) c_at ('m_ax r_/ x) c_at 'm_in r_/ x`
+#+end_src
+
+#+RESULTS:
+: 3 5 1
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'[t̲ally d̲isclose] e̲ach "ab" "cde" "f"    ⍝ each item i: `t_ally d_isclose i`
+#+end_example
+#+begin_src xetal
+'[t_ally d_isclose] e_ach "ab" "cde" "f"    # each item i: `t_ally d_isclose i`
+#+end_src
+
+#+RESULTS:
+: 2 3 1
 
 * Rotate, reverse and axes
 

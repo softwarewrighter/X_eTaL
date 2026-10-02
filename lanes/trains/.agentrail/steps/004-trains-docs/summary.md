@@ -1,0 +1,1 @@
+Trains documented: trains.org (birds beside trains, checked), tour additions, README, reference, poster panel 11; tour goldens rebased; pushed as pr/trains-docs.

@@ -361,8 +361,10 @@ axis of A with the first of B).
 > (2 2 r_eshape 1 2 3 4) '+ '* i_nner 2 2 r_eshape 1 2 3 4
 
 == c_ompose
-`'f 'g c_ompose x` is f applied to g applied to x.
+`'f 'g c_ompose x` is f applied to g applied to x; the atop train
+`[f g] x` is the same.
 > 'n_eg 'a_bs c_ompose -5
+> [n_eg a_bs] -5
 
 == s_wap
 `x 'f s_wap y` is `y f x`: the arguments swapped.
@@ -453,16 +455,22 @@ example repeats).
 > r_oll! 6 6 6
 
 == i_d
-The value itself.
+The value itself. As the left function of a fork it gives the
+argument unchanged: `[i_d F G] x` is `(i_d x) F (G x)`, that is
+`x F (G x)` (a hook); `[i_d - n_eg] 5` is `5 - (n_eg 5)`.
 > i_d v
+> [i_d - n_eg] 5
 
 == l_eft
-The left argument.
+The left argument. In a dyadic train, `x [l_eft F r_ight] y` is
+`x F y`, so the tacks pick an argument for each side of a fork.
 > 1 l_eft 2
+> 3 [l_eft - r_ight] 4
 
 == r_ight
 The right argument.
 > 1 r_ight 2
+> 1 2 [r_ight c_at l_eft] 3
 
 == f_ormat
 A value as the text it prints as.

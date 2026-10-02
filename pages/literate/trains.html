@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Trains and birds</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Trains and birds
+<br />
+<span class="subtitle">two ways to compose functions without naming the argument</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgde995cc">The birds and some functions to watch them with</a></li>
+<li><a href="#org4b3c88a">Atop and the Bluebird</a></li>
+<li><a href="#orgd65db87">The hook and the Starling</a></li>
+<li><a href="#org179d5df">The fork and the Phoenix</a></li>
+<li><a href="#org12d97c6">The tacks and the simplest birds</a></li>
+<li><a href="#org24703f8">Where they differ</a></li>
+<li><a href="#orga8698c9">Reading a train, and its errors</a></li>
+<li><a href="#orgbe58e56">Side by side</a></li>
+</ul>
+</div>
+</div>
+<p>
+A train in square brackets composes functions without naming the
+argument, as in APL and J: <code>[F G H] x</code> is <code>(F x) G (H x)</code>, and
+<code>[F G] x</code> is <code>F (G x)</code>. The <code>Combinators</code> library names the same
+compositions as Raymond Smullyan's birds (<code>docs/literate/birds.org</code>):
+the Bluebird composes, the Starling uses a value twice. This document
+writes each train next to its bird and checks that the two agree.
+</p>
+
+<p>
+The short answer to "trains or birds?": a train is syntax, written
+where it is used, whose elements are any functions and whose arity
+comes from where it is written; a bird is an ordinary function from a
+library, which takes the functions it composes as quoted operands and
+can itself be passed around or partly applied. Both desugar to plain
+application, and both give the same results.
+</p>
+<div id="outline-container-orgde995cc" class="outline-2">
+<h2 id="orgde995cc">The birds and some functions to watch them with</h2>
+<div class="outline-text-2" id="text-orgde995cc">
+<p>
+The library is imported under an alias, and a few small functions show
+which argument went where: <code>u:a_b 1 2</code> is 12.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-libfunc">ᶜ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Combinators&quot;</span>
+<span class="c-userfunc">ᵘa̲b</span> ← { a b → (<span class="c-number">10</span> <span class="c-symbol">×</span> a) <span class="c-symbol">+</span> b }
+<span class="c-userfunc">ᵘi̲nc</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">+</span> <span class="c-number">1</span> }
+<span class="c-userfunc">ᵘd̲ouble</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-number">2</span> }
+<span class="c-userfunc">ᵘs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍵</span> }
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "c:" u_se&lt; "Combinators"</span>
+<span class="c-comment typed">⍝   u:a_b := { a b -&gt; (10 * a) + b }</span>
+<span class="c-comment typed">⍝   u:i_nc := { _r + 1 }</span>
+<span class="c-comment typed">⍝   u:d_ouble := { _r * 2 }</span>
+<span class="c-comment typed">⍝   u:s_quare := { _r * _r }</span></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4b3c88a" class="outline-2">
+<h2 id="org4b3c88a">Atop and the Bluebird</h2>
+<div class="outline-text-2" id="text-org4b3c88a">
+<p>
+Two functions in a train are an atop: the right one applies first, the
+left one to its result. That is the Bluebird, <code>B x y z = x (y z)</code>. A
+bird takes its functions as operands, the nearest first, so the
+function applied first is written first.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">[<span class="c-userfunc">ᵘi̲nc</span> <span class="c-userfunc">ᵘd̲ouble</span>] <span class="c-number">5</span>
+<span class="c-userfunc">'ᵘd̲ouble</span> <span class="c-userfunc">'ᵘi̲nc</span> <span class="c-libfunc">ᶜB̲</span> <span class="c-number">5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   [u:i_nc u:d_ouble] 5</span>
+<span class="c-comment typed">⍝   'u:d_ouble 'u:i_nc c:B_ 5</span></pre>
+</div>
+
+<pre class="example">
+11
+11
+</pre>
+
+
+<p>
+The two agree on arrays too: <code>m_atch</code> compares whole arrays.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">([<span class="c-userfunc">ᵘi̲nc</span> <span class="c-userfunc">ᵘd̲ouble</span>] <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>) <span class="c-builtin">m̲atch</span> <span class="c-userfunc">'ᵘd̲ouble</span> <span class="c-userfunc">'ᵘi̲nc</span> <span class="c-libfunc">ᶜB̲</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   ([u:i_nc u:d_ouble] 1 2 3) m_atch 'u:d_ouble 'u:i_nc c:B_ 1 2 3</span></pre>
+</div>
+
+<pre class="example">
+1
+</pre>
+
+
+<p>
+Written between two values, the atop's right function takes both, and
+the left one its result: that is the Blackbird, <code>B1 x y z w = x (y z
+w)</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-number">1</span> [<span class="c-userfunc">ᵘi̲nc</span> <span class="c-userfunc">ᵘa̲b</span>] <span class="c-number">2</span>
+<span class="c-number">1</span> <span class="c-userfunc">'ᵘa̲b</span> <span class="c-userfunc">'ᵘi̲nc</span> <span class="c-libfunc">ᶜB̲1</span> <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 [u:i_nc u:a_b] 2</span>
+<span class="c-comment typed">⍝   1 'u:a_b 'u:i_nc c:B_1 2</span></pre>
+</div>
+
+<pre class="example">
+13
+13
+</pre>
+</div>
+</div>
+<div id="outline-container-orgd65db87" class="outline-2">
+<h2 id="orgd65db87">The hook and the Starling</h2>
+<div class="outline-text-2" id="text-orgd65db87">
+<p>
+<code>i_d x</code> is just <code>x</code>, so in a fork <code>[i_d F G] x</code> is <code>(i_d x) F (G
+x)</code>, which is <code>x F (G x)</code>: J's hook. For example <code>[i_d - n_eg] 5</code> is
+<code>5 - (n_eg 5)</code>, which is 10. That is the Starling, <code>S x y z
+= x z (y z)</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">[<span class="c-builtin">i̲d</span> <span class="c-userfunc">ᵘa̲b</span> <span class="c-userfunc">ᵘd̲ouble</span>] <span class="c-number">3</span>
+<span class="c-userfunc">'ᵘd̲ouble</span> <span class="c-userfunc">'ᵘa̲b</span> <span class="c-libfunc">ᶜS̲</span> <span class="c-number">3</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   [i_d u:a_b u:d_ouble] 3</span>
+<span class="c-comment typed">⍝   'u:d_ouble 'u:a_b c:S_ 3</span></pre>
+</div>
+
+<pre class="example">
+36
+36
+</pre>
+
+
+<p>
+With <code>i_d</code> on both sides a train gives one value to a function on both
+sides, as the Warbler does.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">[<span class="c-builtin">i̲d</span> <span class="c-userfunc">ᵘa̲b</span> <span class="c-builtin">i̲d</span>] <span class="c-number">3</span>
+<span class="c-userfunc">'ᵘa̲b</span> <span class="c-libfunc">ᶜW̲</span> <span class="c-number">3</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   [i_d u:a_b i_d] 3</span>
+<span class="c-comment typed">⍝   'u:a_b c:W_ 3</span></pre>
+</div>
+
+<pre class="example">
+33
+33
+</pre>
+</div>
+</div>
+<div id="outline-container-org179d5df" class="outline-2">
+<h2 id="org179d5df">The fork and the Phoenix</h2>
+<div class="outline-text-2" id="text-org179d5df">
+<p>
+Three functions are a fork: the outer two apply to the argument and
+the middle one joins their results. Its bird, Curry's Phoenix (S'), is
+not in Smullyan's book, so the library leaves it out; it is one line.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘP̲hi</span> ← { <span class="c-builtin">c̲</span> <span class="c-builtin">f̲</span> <span class="c-builtin">g̲</span> x → (<span class="c-builtin">f̲</span> x) <span class="c-builtin">c̲</span> <span class="c-builtin">g̲</span> x }
+[<span class="c-builtin">n̲eg</span> <span class="c-symbol">+</span> <span class="c-userfunc">ᵘs̲quare</span>] <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>
+<span class="c-userfunc">'ᵘs̲quare</span> <span class="c-builtin">'n̲eg</span> <span class="c-symbol">'+</span> <span class="c-userfunc">ᵘP̲hi</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:P_hi := { c_ f_ g_ x -&gt; (f_ x) c_ g_ x }</span>
+<span class="c-comment typed">⍝   [n_eg + u:s_quare] 1 2 3</span>
+<span class="c-comment typed">⍝   'u:s_quare 'n_eg '+ u:P_hi 1 2 3</span></pre>
+</div>
+
+<pre class="example">
+0 2 6
+0 2 6
+</pre>
+
+
+<p>
+The elements of a train can be any function, a derived one such as a
+reduction included. The mean is the sum divided by the count:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">[<span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> <span class="c-symbol">÷</span> <span class="c-builtin">t̲ally</span>] <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   ['+ r_/ / t_ally] 1 2 3 4</span></pre>
+</div>
+
+<pre class="example">
+2.5
+</pre>
+</div>
+</div>
+<div id="outline-container-org12d97c6" class="outline-2">
+<h2 id="org12d97c6">The tacks and the simplest birds</h2>
+<div class="outline-text-2" id="text-org12d97c6">
+<p>
+The identity and the tacks are the Idiot bird, the Kestrel and the
+Kite: <code>i_d x</code> is x, <code>x l_eft y</code> is x, <code>x r_ight y</code> is y.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(<span class="c-libfunc">ᶜI̲</span> <span class="c-number">7</span>) <span class="c-symbol">=</span> <span class="c-builtin">i̲d</span> <span class="c-number">7</span>
+(<span class="c-number">1</span> <span class="c-libfunc">ᶜK̲</span> <span class="c-number">2</span>) <span class="c-symbol">=</span> <span class="c-number">1</span> <span class="c-builtin">l̲eft</span> <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (c:I_ 7) = i_d 7</span>
+<span class="c-comment typed">⍝   (1 c:K_ 2) = 1 l_eft 2</span></pre>
+</div>
+
+<pre class="example">
+1
+1
+</pre>
+</div>
+</div>
+<div id="outline-container-org24703f8" class="outline-2">
+<h2 id="org24703f8">Where they differ</h2>
+<div class="outline-text-2" id="text-org24703f8">
+<p>
+A bird is a value. Given fewer arguments than it takes, it waits for
+the rest, so a composition can be named by partial application:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘt̲wice</span> ← <span class="c-userfunc">'ᵘd̲ouble</span> <span class="c-userfunc">'ᵘd̲ouble</span> <span class="c-libfunc">ᶜB̲</span>
+<span class="c-userfunc">ᵘt̲wice</span> <span class="c-number">5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:t_wice := 'u:d_ouble 'u:d_ouble c:B_</span>
+<span class="c-comment typed">⍝   u:t_wice 5</span></pre>
+</div>
+
+<pre class="example">
+20
+</pre>
+
+
+<p>
+A train can be named too (<code>u:a_vg := ['+ r_/ / t_ally]</code>), and quoted
+as an operand, here to <code>e_ach</code> and to a bird:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-quote">'</span>[<span class="c-builtin">t̲ally</span> <span class="c-builtin">d̲isclose</span>] <span class="c-builtin">e̲ach</span> <span class="c-string">&quot;ab&quot;</span> <span class="c-string">&quot;cde&quot;</span> <span class="c-string">&quot;f&quot;</span>
+<span class="c-quote">'</span>[<span class="c-userfunc">ᵘi̲nc</span> <span class="c-userfunc">ᵘd̲ouble</span>] <span class="c-builtin">'n̲eg</span> <span class="c-libfunc">ᶜB̲</span> <span class="c-number">5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '[t_ally d_isclose] e_ach "ab" "cde" "f"</span>
+<span class="c-comment typed">⍝   '[u:i_nc u:d_ouble] 'n_eg c:B_ 5</span></pre>
+</div>
+
+<pre class="example">
+2 3 1
+-11
+</pre>
+
+
+<p>
+A train is written in place and its arity comes from where it stands:
+<code>[F G H] x</code> is monadic and <code>x [F G H] y</code> dyadic. A named train is
+monadic, so a named dyadic composition is a lambda, or a bird such as
+the Blackbird. The birds also reach where trains do not: the Cardinal
+swaps arguments, the Vireo holds two values, the Sage bird recurses.
+</p>
+</div>
+</div>
+<div id="outline-container-orga8698c9" class="outline-2">
+<h2 id="orga8698c9">Reading a train, and its errors</h2>
+<div class="outline-text-2" id="text-orga8698c9">
+<p>
+Three functions are always a fork, so a chain of three is written with
+an atop inside: <code>[r_ev [n_eg a_bs]]</code>, not <code>[r_ev n_eg a_bs]</code>. When a
+train is wrong the error points at the element at fault and says what
+the train means there:
+</p>
+
+<pre class="example" id="org66e3f11">
+[r_ev n_eg a_bs] -1 2 -3
+error[infinite-type]: a type would contain itself: a -&gt; b at 6..10
+  note: in the train `[r_ev n_eg a_bs]`, `n_eg` is applied as `(r_ev x) n_eg (a_bs x)`, where x is the train's argument
+  note: `n_eg` takes one argument, but here it is given two
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-xetal">[<span class="c-builtin">r̲ev</span> [<span class="c-builtin">n̲eg</span> <span class="c-builtin">a̲bs</span>]] <span class="c-number">-1</span> <span class="c-number">2</span> <span class="c-number">-3</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   [r_ev [n_eg a_bs]] -1 2 -3</span></pre>
+</div>
+
+<pre class="example">
+-3 -2 -1
+</pre>
+
+
+<p>
+Types decide the rest. <code>t_ally</code> always gives an Int, and <code>/</code> takes two
+numbers of one type, so the mean above takes Ints only; for Floats,
+both sides become Floats first, in trains of their own:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">[[<span class="c-builtin">f̲loat</span> <span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span>] <span class="c-symbol">÷</span> [<span class="c-builtin">f̲loat</span> <span class="c-builtin">t̲ally</span>]] <span class="c-number">1.5</span> <span class="c-number">2.5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   [[f_loat '+ r_/] / [f_loat t_ally]] 1.5 2.5</span></pre>
+</div>
+
+<pre class="example">
+2.0
+</pre>
+</div>
+</div>
+<div id="outline-container-orgbe58e56" class="outline-2">
+<h2 id="orgbe58e56">Side by side</h2>
+<div class="outline-text-2" id="text-orgbe58e56">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Train</th>
+<th scope="col" class="org-left">Means</th>
+<th scope="col" class="org-left">Bird</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>[F G] x</code></td>
+<td class="org-left"><code>F (G x)</code></td>
+<td class="org-left">Bluebird: <code>'G 'F c:B_ x</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>x [F G] y</code></td>
+<td class="org-left"><code>F (x G y)</code></td>
+<td class="org-left">Blackbird: <code>x 'G 'F c:B_1 y</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>[i_d F G] x</code></td>
+<td class="org-left"><code>x F (G x)</code></td>
+<td class="org-left">Starling: <code>'G 'F c:S_ x</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>[i_d F i_d] x</code></td>
+<td class="org-left"><code>x F x</code></td>
+<td class="org-left">Warbler: <code>'F c:W_ x</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>[F G H] x</code></td>
+<td class="org-left"><code>(F x) G (H x)</code></td>
+<td class="org-left">Phoenix: <code>'H 'F 'G u:P_hi x</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>i_d</code>, <code>l_eft</code>, <code>r_ight</code></td>
+<td class="org-left">x; x of x y; y of x y</td>
+<td class="org-left">Idiot, Kestrel, Kite</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

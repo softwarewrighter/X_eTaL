@@ -1,0 +1,279 @@
+#+TITLE: Trains and birds
+#+SUBTITLE: two ways to compose functions without naming the argument
+#+AUTHOR: Michael A Wright
+#+OPTIONS: toc:2 num:nil ^:{}
+#+PROPERTY: header-args:xetal :session trains :seed 1 :results output :exports both
+
+A train in square brackets composes functions without naming the
+argument, as in APL and J: ~[F G H] x~ is ~(F x) G (H x)~, and
+~[F G] x~ is ~F (G x)~. The ~Combinators~ library names the same
+compositions as Raymond Smullyan's birds (~docs/literate/birds.org~):
+the Bluebird composes, the Starling uses a value twice. This document
+writes each train next to its bird and checks that the two agree.
+
+The short answer to "trains or birds?": a train is syntax, written
+where it is used, whose elements are any functions and whose arity
+comes from where it is written; a bird is an ordinary function from a
+library, which takes the functions it composes as quoted operands and
+can itself be passed around or partly applied. Both desugar to plain
+application, and both give the same results.
+
+* The birds and some functions to watch them with
+
+The library is imported under an alias, and a few small functions show
+which argument went where: ~u:a_b 1 2~ is 12.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"c:" u̲se< "Combinators"
+ᵘa̲b ← { a b → (10 × a) + b }
+ᵘi̲nc ← { ⍵ + 1 }
+ᵘd̲ouble ← { ⍵ × 2 }
+ᵘs̲quare ← { ⍵ × ⍵ }
+#+end_example
+#+begin_src xetal
+"c:" u_se< "Combinators"
+u:a_b := { a b -> (10 * a) + b }
+u:i_nc := { _r + 1 }
+u:d_ouble := { _r * 2 }
+u:s_quare := { _r * _r }
+#+end_src
+
+#+RESULTS:
+
+* Atop and the Bluebird
+
+Two functions in a train are an atop: the right one applies first, the
+left one to its result. That is the Bluebird, ~B x y z = x (y z)~. A
+bird takes its functions as operands, the nearest first, so the
+function applied first is written first.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+[ᵘi̲nc ᵘd̲ouble] 5
+'ᵘd̲ouble 'ᵘi̲nc ᶜB̲ 5
+#+end_example
+#+begin_src xetal
+[u:i_nc u:d_ouble] 5
+'u:d_ouble 'u:i_nc c:B_ 5
+#+end_src
+
+#+RESULTS:
+: 11
+: 11
+
+The two agree on arrays too: ~m_atch~ compares whole arrays.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+([ᵘi̲nc ᵘd̲ouble] 1 2 3) m̲atch 'ᵘd̲ouble 'ᵘi̲nc ᶜB̲ 1 2 3
+#+end_example
+#+begin_src xetal
+([u:i_nc u:d_ouble] 1 2 3) m_atch 'u:d_ouble 'u:i_nc c:B_ 1 2 3
+#+end_src
+
+#+RESULTS:
+: 1
+
+Written between two values, the atop's right function takes both, and
+the left one its result: that is the Blackbird, ~B1 x y z w = x (y z
+w)~.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 [ᵘi̲nc ᵘa̲b] 2
+1 'ᵘa̲b 'ᵘi̲nc ᶜB̲1 2
+#+end_example
+#+begin_src xetal
+1 [u:i_nc u:a_b] 2
+1 'u:a_b 'u:i_nc c:B_1 2
+#+end_src
+
+#+RESULTS:
+: 13
+: 13
+
+* The hook and the Starling
+
+~i_d x~ is just ~x~, so in a fork ~[i_d F G] x~ is ~(i_d x) F (G
+x)~, which is ~x F (G x)~: J's hook. For example ~[i_d - n_eg] 5~ is
+~5 - (n_eg 5)~, which is 10. That is the Starling, ~S x y z
+= x z (y z)~.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+[i̲d ᵘa̲b ᵘd̲ouble] 3
+'ᵘd̲ouble 'ᵘa̲b ᶜS̲ 3
+#+end_example
+#+begin_src xetal
+[i_d u:a_b u:d_ouble] 3
+'u:d_ouble 'u:a_b c:S_ 3
+#+end_src
+
+#+RESULTS:
+: 36
+: 36
+
+With ~i_d~ on both sides a train gives one value to a function on both
+sides, as the Warbler does.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+[i̲d ᵘa̲b i̲d] 3
+'ᵘa̲b ᶜW̲ 3
+#+end_example
+#+begin_src xetal
+[i_d u:a_b i_d] 3
+'u:a_b c:W_ 3
+#+end_src
+
+#+RESULTS:
+: 33
+: 33
+
+* The fork and the Phoenix
+
+Three functions are a fork: the outer two apply to the argument and
+the middle one joins their results. Its bird, Curry's Phoenix (S'), is
+not in Smullyan's book, so the library leaves it out; it is one line.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘP̲hi ← { c̲ f̲ g̲ x → (f̲ x) c̲ g̲ x }
+[n̲eg + ᵘs̲quare] 1 2 3
+'ᵘs̲quare 'n̲eg '+ ᵘP̲hi 1 2 3
+#+end_example
+#+begin_src xetal
+u:P_hi := { c_ f_ g_ x -> (f_ x) c_ g_ x }
+[n_eg + u:s_quare] 1 2 3
+'u:s_quare 'n_eg '+ u:P_hi 1 2 3
+#+end_src
+
+#+RESULTS:
+: 0 2 6
+: 0 2 6
+
+The elements of a train can be any function, a derived one such as a
+reduction included. The mean is the sum divided by the count:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+['+ r̲/ ÷ t̲ally] 1 2 3 4
+#+end_example
+#+begin_src xetal
+['+ r_/ / t_ally] 1 2 3 4
+#+end_src
+
+#+RESULTS:
+: 2.5
+
+* The tacks and the simplest birds
+
+The identity and the tacks are the Idiot bird, the Kestrel and the
+Kite: ~i_d x~ is x, ~x l_eft y~ is x, ~x r_ight y~ is y.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(ᶜI̲ 7) = i̲d 7
+(1 ᶜK̲ 2) = 1 l̲eft 2
+#+end_example
+#+begin_src xetal
+(c:I_ 7) = i_d 7
+(1 c:K_ 2) = 1 l_eft 2
+#+end_src
+
+#+RESULTS:
+: 1
+: 1
+
+* Where they differ
+
+A bird is a value. Given fewer arguments than it takes, it waits for
+the rest, so a composition can be named by partial application:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘt̲wice ← 'ᵘd̲ouble 'ᵘd̲ouble ᶜB̲
+ᵘt̲wice 5
+#+end_example
+#+begin_src xetal
+u:t_wice := 'u:d_ouble 'u:d_ouble c:B_
+u:t_wice 5
+#+end_src
+
+#+RESULTS:
+: 20
+
+A train can be named too (~u:a_vg := ['+ r_/ / t_ally]~), and quoted
+as an operand, here to ~e_ach~ and to a bird:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'[t̲ally d̲isclose] e̲ach "ab" "cde" "f"
+'[ᵘi̲nc ᵘd̲ouble] 'n̲eg ᶜB̲ 5
+#+end_example
+#+begin_src xetal
+'[t_ally d_isclose] e_ach "ab" "cde" "f"
+'[u:i_nc u:d_ouble] 'n_eg c:B_ 5
+#+end_src
+
+#+RESULTS:
+: 2 3 1
+: -11
+
+A train is written in place and its arity comes from where it stands:
+~[F G H] x~ is monadic and ~x [F G H] y~ dyadic. A named train is
+monadic, so a named dyadic composition is a lambda, or a bird such as
+the Blackbird. The birds also reach where trains do not: the Cardinal
+swaps arguments, the Vireo holds two values, the Sage bird recurses.
+
+* Reading a train, and its errors
+
+Three functions are always a fork, so a chain of three is written with
+an atop inside: ~[r_ev [n_eg a_bs]]~, not ~[r_ev n_eg a_bs]~. When a
+train is wrong the error points at the element at fault and says what
+the train means there:
+
+#+begin_example
+[r_ev n_eg a_bs] -1 2 -3
+error[infinite-type]: a type would contain itself: a -> b at 6..10
+  note: in the train `[r_ev n_eg a_bs]`, `n_eg` is applied as `(r_ev x) n_eg (a_bs x)`, where x is the train's argument
+  note: `n_eg` takes one argument, but here it is given two
+#+end_example
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+[r̲ev [n̲eg a̲bs]] -1 2 -3
+#+end_example
+#+begin_src xetal
+[r_ev [n_eg a_bs]] -1 2 -3
+#+end_src
+
+#+RESULTS:
+: -3 -2 -1
+
+Types decide the rest. ~t_ally~ always gives an Int, and ~/~ takes two
+numbers of one type, so the mean above takes Ints only; for Floats,
+both sides become Floats first, in trains of their own:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+[[f̲loat '+ r̲/] ÷ [f̲loat t̲ally]] 1.5 2.5
+#+end_example
+#+begin_src xetal
+[[f_loat '+ r_/] / [f_loat t_ally]] 1.5 2.5
+#+end_src
+
+#+RESULTS:
+: 2.0
+
+* Side by side
+
+| Train            | Means             | Bird                          |
+|------------------+-------------------+-------------------------------|
+| ~[F G] x~        | ~F (G x)~         | Bluebird: ~'G 'F c:B_ x~      |
+| ~x [F G] y~      | ~F (x G y)~       | Blackbird: ~x 'G 'F c:B_1 y~  |
+| ~[i_d F G] x~    | ~x F (G x)~       | Starling: ~'G 'F c:S_ x~      |
+| ~[i_d F i_d] x~  | ~x F x~           | Warbler: ~'F c:W_ x~          |
+| ~[F G H] x~      | ~(F x) G (H x)~   | Phoenix: ~'H 'F 'G u:P_hi x~  |
+| ~i_d~, ~l_eft~, ~r_ight~ | x; x of x y; y of x y | Idiot, Kestrel, Kite |

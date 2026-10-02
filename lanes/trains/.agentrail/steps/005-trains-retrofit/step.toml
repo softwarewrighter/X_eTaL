@@ -1,0 +1,8 @@
+number = 5
+slug = "trains-retrofit"
+status = "pending"
+description = "Trains lane. The user's rule (2026-10-02): a saga that adds a feature ends wi..."
+role = "production"
+context_files = []
+created_at = "2026-10-02T07:11:59"
+commits = []

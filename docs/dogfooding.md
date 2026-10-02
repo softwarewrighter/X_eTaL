@@ -73,6 +73,7 @@ coming up.
 | No raze (enlist): the boxes of a nested vector cannot be joined into one array | the mini APL interpreter, reading a strand of number tokens | each token read by `n_umbers` on its own, through `e_ach` |
 | `s_elect` takes no index from the end | the mini APL interpreter, the last token | `(t_ally t) s_elect t` |
 | No table of functions to dispatch on | the mini APL interpreter, picking a function by its name | a chain of guards, one per name |
+| A train's type is fixed by its elements, and a mismatch is reported where it is applied, over the whole call, without the train notes: the mean `['+ r_/ / t_ally]` takes Ints only (`t_ally` gives an Int, `/` one number type) | the trains document | `[[f_loat '+ r_/] / [f_loat t_ally]]` for Floats |
 
 ## Retrofit audit (for Saga 13a)
 

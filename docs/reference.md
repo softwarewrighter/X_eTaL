@@ -876,10 +876,13 @@ axis of A with the first of B).
 
 `(a -> b) -> (b -> c) -> a -> c`, three arguments.
 
-`'f 'g c_ompose x` is f applied to g applied to x.
+`'f 'g c_ompose x` is f applied to g applied to x; the atop train
+`[f g] x` is the same.
 
 ```
       'n_eg 'a_bs c_ompose -5
+-5
+      [n_eg a_bs] -5
 -5
 ```
 
@@ -1096,22 +1099,29 @@ example repeats).
 
 `a -> a`, one argument.
 
-The value itself.
+The value itself. As the left function of a fork it gives the
+argument unchanged: `[i_d F G] x` is `(i_d x) F (G x)`, that is
+`x F (G x)` (a hook); `[i_d - n_eg] 5` is `5 - (n_eg 5)`.
 
 ```
       i_d v
 3 1 2
+      [i_d - n_eg] 5
+10
 ```
 
 ### `l_eft`
 
 `a -> b -> a`, two arguments.
 
-The left argument.
+The left argument. In a dyadic train, `x [l_eft F r_ight] y` is
+`x F y`, so the tacks pick an argument for each side of a fork.
 
 ```
       1 l_eft 2
 1
+      3 [l_eft - r_ight] 4
+-1
 ```
 
 ### `r_ight`
@@ -1123,6 +1133,8 @@ The right argument.
 ```
       1 r_ight 2
 2
+      1 2 [r_ight c_at l_eft] 3
+3 1 2
 ```
 
 ### `f_ormat`

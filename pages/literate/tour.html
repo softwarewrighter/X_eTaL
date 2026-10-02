@@ -784,19 +784,24 @@ ordinary curried functions.
 <p>
 A train in brackets composes functions without naming the argument: a
 fork applies the outer two and combines them with the middle one; two
-functions are an atop. The tacks pick an argument.
+functions are an atop. The tacks are `x l_eft y`, which is x, and
+`x r_ight y`, which is y. Each train is the lambda it stands for,
+written without naming the argument; the comments spell each one out.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal"><span class="c-userfunc">ᵘa̲vg</span> ← [<span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> <span class="c-symbol">÷</span> <span class="c-builtin">t̲ally</span>]           <span class="c-comment">⍝ fork: </span>(<span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span>) <span class="c-symbol">÷</span> <span class="c-builtin">t̲ally</span><span class="c-comment"> of the argument</span>
+<pre class="src src-xetal"><span class="c-userfunc">ᵘa̲vg</span> ← [<span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> <span class="c-symbol">÷</span> <span class="c-builtin">t̲ally</span>]           <span class="c-comment">⍝ fork: </span>(<span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> x) <span class="c-symbol">÷</span> <span class="c-builtin">t̲ally</span> x<span class="c-comment"></span>
 <span class="c-userfunc">ᵘa̲vg</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>
+{ x → (<span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> x) <span class="c-symbol">÷</span> <span class="c-builtin">t̲ally</span> x } <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>      <span class="c-comment">⍝ the same, spelled out</span>
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   u:a_vg := ['+ r_/ / t_ally]      # fork: `('+ r_/) / t_ally` of the argument</span>
-<span class="c-comment typed">⍝   u:a_vg 1 2 3 4</span></pre>
+<span class="c-comment typed">⍝   u:a_vg := ['+ r_/ / t_ally]      # fork: `('+ r_/ x) / t_ally x`</span>
+<span class="c-comment typed">⍝   u:a_vg 1 2 3 4</span>
+<span class="c-comment typed">⍝   { x -&gt; ('+ r_/ x) / t_ally x } 1 2 3 4   # the same, spelled out</span></pre>
 </div>
 
 <pre class="example">
+2.5
 2.5
 </pre>
 
@@ -814,10 +819,10 @@ functions are an atop. The tacks pick an argument.
 
 
 <div class="org-src-container">
-<pre class="src src-xetal"><span class="c-number">3</span> [<span class="c-builtin">l̲eft</span> <span class="c-symbol">+</span> <span class="c-builtin">r̲ight</span>] <span class="c-number">4</span>               <span class="c-comment">⍝ the tacks pick an argument</span>
+<pre class="src src-xetal"><span class="c-number">3</span> [<span class="c-builtin">l̲eft</span> <span class="c-symbol">+</span> <span class="c-builtin">r̲ight</span>] <span class="c-number">4</span>               <span class="c-comment">⍝ dyadic fork: </span>(x <span class="c-builtin">l̲eft</span> y) <span class="c-symbol">+</span> (x <span class="c-builtin">r̲ight</span> y)<span class="c-comment">, so </span>x <span class="c-symbol">+</span> y<span class="c-comment"></span>
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   3 [l_eft + r_ight] 4             # the tacks pick an argument</span></pre>
+<span class="c-comment typed">⍝   3 [l_eft + r_ight] 4             # dyadic fork: `(x l_eft y) + (x r_ight y)`, so `x + y`</span></pre>
 </div>
 
 <pre class="example">
@@ -834,6 +839,48 @@ functions are an atop. The tacks pick an argument.
 
 <pre class="example">
 10
+</pre>
+
+
+<p>
+A train between two values is dyadic, and a longer train groups from
+the right into forks: the one below is `[f_irst c_at [&#x2026; c_at &#x2026;]]`.
+A quoted train is an operand like any function.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-number">1</span> <span class="c-number">2</span> [<span class="c-symbol">+</span> <span class="c-symbol">×</span> <span class="c-symbol">−</span>] <span class="c-number">3</span> <span class="c-number">4</span>                  <span class="c-comment">⍝ dyadic fork: </span>(x <span class="c-symbol">+</span> y) <span class="c-symbol">×</span> (x <span class="c-symbol">−</span> y)<span class="c-comment"></span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 2 [+ * -] 3 4                  # dyadic fork: `(x + y) * (x - y)`</span></pre>
+</div>
+
+<pre class="example">
+-8 -12
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">[<span class="c-builtin">f̲irst</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">'m̲ax</span> <span class="c-builtin">r̲/</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">'m̲in</span> <span class="c-builtin">r̲/</span>] <span class="c-number">3</span> <span class="c-number">1</span> <span class="c-number">4</span> <span class="c-number">1</span> <span class="c-number">5</span>          <span class="c-comment">⍝ </span>(<span class="c-builtin">f̲irst</span> x) <span class="c-builtin">c̲at</span> (<span class="c-builtin">'m̲ax</span> <span class="c-builtin">r̲/</span> x) <span class="c-builtin">c̲at</span> <span class="c-builtin">'m̲in</span> <span class="c-builtin">r̲/</span> x<span class="c-comment"></span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   [f_irst c_at 'm_ax r_/ c_at 'm_in r_/] 3 1 4 1 5   # `(f_irst x) c_at ('m_ax r_/ x) c_at 'm_in r_/ x`</span></pre>
+</div>
+
+<pre class="example">
+3 5 1
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-quote">'</span>[<span class="c-builtin">t̲ally</span> <span class="c-builtin">d̲isclose</span>] <span class="c-builtin">e̲ach</span> <span class="c-string">&quot;ab&quot;</span> <span class="c-string">&quot;cde&quot;</span> <span class="c-string">&quot;f&quot;</span>       <span class="c-comment">⍝ each item i: </span><span class="c-builtin">t̲ally</span> <span class="c-builtin">d̲isclose</span> i<span class="c-comment"></span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '[t_ally d_isclose] e_ach "ab" "cde" "f"    # each item i: `t_ally d_isclose i`</span></pre>
+</div>
+
+<pre class="example">
+2 3 1
 </pre>
 </div>
 </div>
