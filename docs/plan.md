@@ -674,24 +674,59 @@ Retrospective (the lane is closed; its saga is archived in
    Demos, Classics, Libraries, Misc), advancedex-transcribe, then two
    steps from X_eTaL-demos' asks (int-strand-speed, ask D1, a
    quadratic type check of long Int strands; exponent-literals, ask
-   D4, `1.5e-7`, decision S8), then web-release.
-2. Saga 20, array kinds (empty arrays remember Char, number or box;
+   D4, `1.5e-7`, decision S8), cli-terminal-feature (X_eTaL-games:
+   `xetal-cli` builds for WASI without the terminal crates), then
+   web-release.
+2. Saga 25, the terminal (X_eTaL-games' request): a browser terminal
+   replacing `window.prompt`, named screen-control quads (QD6), and two
+   backends; its first piece, the `terminal` cargo feature that lets
+   `xetal-cli` build for WASI, is step cli-terminal-feature in Saga 10.
+3. Saga 20, array kinds (empty arrays remember Char, number or box;
    ask X5 from X_eTaL-libraries, a wrong picture they hit now).
-3. Saga 13, quads, moved up to come next (the user asked for `[]A`,
+4. Saga 13, quads, moved up to come next (the user asked for `[]A`,
    `[]D` and the related system names).
-4. Saga 19, macros (`.xtlm` macro libraries, `u_se<` finding
+5. Saga 19, macros (`.xtlm` macro libraries, `u_se<` finding
    `Name.xtl` and `Name.xtlm`, longer namespace prefixes), decided
    with the user to come after quads.
-5. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
+6. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
    X_eTaL-libraries), decided with the user to come after macros.
-6. The retrofit saga after it (below), so it can use quads, macros,
+7. The retrofit saga after it (below), so it can use quads, macros,
    long aliases and errors too.
-7. Then Saga 11 and the rest as numbered, with the sagas added for
+8. Then Saga 11 and the rest as numbered, with the sagas added for
    the sibling repos' asks (2026-10-02): Saga 22 speed (ask D2),
    Saga 23 host bindings and native packages (asks D3 and E1),
-   Saga 24 transpose (ask D9); the trace through `xetal-play` (ask D8)
+   Saga 24 transpose (ask D9, running now as the transpose lane); the trace through `xetal-play` (ask D8)
    is a step of Saga 17. The leetcode lane goes on in parallel (the
    classics and trains lanes are done and archived).
+
+## Saga 25 -- the terminal (browser and CLI)
+
+Asked for by X_eTaL-games (`../X_eTaL-games/docs/xetal-terminal-request.md`,
+also for X_eTaL-demos): interactive programs (anything that reads with
+`[]R_EAD`) get a real terminal in the browser instead of
+`window.prompt` dialogs, text-UI programs get screen control, and the
+`xetal` binary builds for WASI so pages can run it. Decided with the
+user (2026-10-02): screen control is named quads (QD6); in the
+browser, the program runs in the Web Worker it already uses and
+`[]R_EAD` (and a key read) blocks on `Atomics.wait` over a
+`SharedArrayBuffer` the page's terminal fills, with cross-origin
+isolation from a small service worker written here (GitHub Pages
+cannot set the COOP and COEP headers). The browser terminal follows
+`../../sw-embed/web-sw-tos`: a character grid owned by plain Rust,
+keys from the window, key translation and line editing tested
+natively, the browser code in one module; no ratatui or crossterm.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | terminal-decisions | With the user: the quads' names and types (QD6), the facts `[]T_E` gives, the key codes, the style palette, how phase-2 calls degrade on a plain stream. |
+| 2 | terminal-trait | A crate `xetal-term` (no terminal crates) with the trait every effect goes through (write, error, read line, read key, size, screen control); the evaluator's effects moved onto it; backends Plain (std streams, goldens, WASI) and Crossterm (the CLI, behind the `terminal` feature). |
+| 3 | stderr-and-facts | Phase 1: `[]E_RR` (standard error, red in the browser) and `[]T_E`; spec cases and goldens. |
+| 4 | browser-grid | The sw-tos-style grid terminal crate: cells, attributes, scrollback, a line-editing mode (echo, backspace, history) and a raw mode; tested natively. |
+| 5 | browser-input | The live demo's output pane becomes the terminal; `[]R_EAD` blocks in the worker on `Atomics.wait`; the isolation service worker; no `window.prompt` left. Checked in headless Chrome. |
+| 6 | screen-control | Phase 2: `[]A_T`, `[]C_LS`, `[]S_TYLE`, `[]K_EY`, the same in both backends (ANSI at the CLI, the grid in the browser), tested by scripted keys. |
+| 7 | wasi-terminal | The WASI binary under a small shim whose stdin is the terminal, so a page can run the real `xetal`; a Node test reproducing the native goldens. |
+| 8 | terminal-retrofit | TTTML play, Mastermind and the other interactive demos on the terminal; dialogs gone; goldens rebased on purpose. |
+| 9 | terminal-release | README, Help, notebook docs, CHANGES, pages, retrospective; X_eTaL-games told. |
 
 ## Saga 20 -- array kinds (empty arrays remember their kind)
 
