@@ -1,6 +1,6 @@
 number = 26
 slug = "display"
-status = "pending"
+status = "in-progress"
 description = "d_isplay (user request, like APL2 DISPLAY): a built-in giving a value as a bo..."
 role = "production"
 context_files = []
