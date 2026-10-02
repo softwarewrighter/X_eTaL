@@ -8,9 +8,9 @@ What it does, from the manual: empties the lists (the globals NAMES,
 DATA, P1, P2) used by ENTER and LOOKUP; use it before them.
 
 ```
-    &#8711; RESET
-[1]   NAMES&#8592;DATA&#8592;&#9076;P1&#8592;P2&#8592;0
-    &#8711;
+    ∇ RESET
+[1]   NAMES←DATA←⍴P1←P2←0
+    ∇
 ```
 
 The example is in [ENTER](ENTER.md).

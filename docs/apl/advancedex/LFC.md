@@ -8,9 +8,9 @@ What it does, from the manual: uses FC to generate the pairs of letters drawn fr
 N letters of the alphabet.
 
 ```
-    &#8711; Z&#8592;LFC N
-[1]   Z&#8592;'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[FC N]
-    &#8711;
+    ∇ Z←LFC N
+[1]   Z←'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[FC N]
+    ∇
 ```
 
 The example is in [COMB](COMB.md).

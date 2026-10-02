@@ -8,9 +8,9 @@ What it does, from the manual: produces all the binomial coefficients up
 to order N, as a matrix whose row I holds the coefficients of order I-1.
 
 ```
-    &#8711; Z&#8592;BIN N
-[1]   Z&#8592;&#8970;&#9033;(0,&#9075;N)&#8728;.!0,&#9075;N
-    &#8711;
+    ∇ Z←BIN N
+[1]   Z←⌊⍉(0,⍳N)∘.!0,⍳N
+    ∇
 ```
 
 The example as printed (1970):

@@ -10,13 +10,13 @@ eight places), and leading zeros may be omitted. HTD converts hexadecimal to dec
 NUMBER IS NOT HEX for a non-hex digit.
 
 ```
-    &#8711; R&#8592;HTD X
-[1]   R&#8592;((8-&#9076;,X)&#9076;'0'),X
-[2]   R&#8592;&#8970;(16&#8869;&#175;1+'0123456789ABCDEF'&#9075;R)-(2*32)&#215;R[1]&#8714;'89ABCDEF'
-[3]   &#8594;4&#215;~&#8743;/X&#8714;'0123456789ABCDEF'
-[4]   R&#8592;''
+    ∇ R←HTD X
+[1]   R←((8-⍴,X)⍴'0'),X
+[2]   R←⌊(16⊥¯1+'0123456789ABCDEF'⍳R)-(2*32)×R[1]∊'89ABCDEF'
+[3]   →4×~∧/X∊'0123456789ABCDEF'
+[4]   R←''
 [5]   'NUMBER IS NOT HEX'
-    &#8711;
+    ∇
 ```
 
 The example is in [DTH](DTH.md).

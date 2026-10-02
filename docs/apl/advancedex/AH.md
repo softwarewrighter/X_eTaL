@@ -9,9 +9,9 @@ What it does, from the manual: works on hexadecimal numbers of at most 8 digits 
 eight places), and leading zeros may be omitted. AH adds two hexadecimal numbers.
 
 ```
-    &#8711; R&#8592;A AH B
-[1]   R&#8592;DTH(HTD A)+HTD B
-    &#8711;
+    ∇ R←A AH B
+[1]   R←DTH(HTD A)+HTD B
+    ∇
 ```
 
 The example is in [DTH](DTH.md).

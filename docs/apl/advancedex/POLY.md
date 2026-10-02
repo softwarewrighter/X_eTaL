@@ -9,22 +9,22 @@ What it does, from the manual: evaluates a polynomial whose coefficients
 given by the right argument, by summing coefficients times powers.
 
 ```
-    &#8711; Z&#8592;C POLY X
-[1]   Z&#8592;+/C&#215;X*&#175;1+&#9075;&#9076;,C
-    &#8711;
+    ∇ Z←C POLY X
+[1]   Z←+/C×X*¯1+⍳⍴,C
+    ∇
 ```
 
 The example as printed (1970):
 
 ```
-      C&#8592;1 2 3 4
+      C←1 2 3 4
       C POLYB 3
 142
-      (C POLY 3)&#8743;.=(C POLYB 3),(C POL 3),C PO 3
+      (C POLY 3)∧.=(C POLYB 3),(C POL 3),C PO 3
 1
       C PO 1 2 3 4 5 6
 10 49 142 313 586 985
-      &#9109;&#8592;M&#8592;&#9033;BIN 5
+      ⎕←M←⍉BIN 5
 
   1  1  1  1  1  1
   0  1  2  3  4  5
@@ -33,7 +33,7 @@ The example as printed (1970):
   0  0  0  0  1  5
   0  0  0  0  0  1
 
-      &#8970;M PO &#9075;6
+      ⌊M PO ⍳6
 
       1     2     4     8    16    32
       1     3     9    27    81   243

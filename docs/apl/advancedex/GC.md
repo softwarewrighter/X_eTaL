@@ -9,9 +9,9 @@ greatest common divisor), but with a single argument, expected to be a
 two-element vector.
 
 ```
-    &#8711; Z&#8592;GC M
-[1]   &#8594;0&#8800;1&#8595;M&#8592;&#9021;M[1],Z&#8592;&#8739;/M
-    &#8711;
+    ∇ Z←GC M
+[1]   →0≠1↓M←⌽M[1],Z←∣/M
+    ∇
 ```
 
 The example is in [GCD](GCD.md).

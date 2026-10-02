@@ -9,9 +9,9 @@ What it does, from the manual: evaluates a polynomial whose coefficients
 given by the right argument, using an inner product of the powers with the coefficients.
 
 ```
-    &#8711; Z&#8592;C POL X
-[1]   Z&#8592;(X*&#175;1+&#9075;&#9076;,C)+.&#215;C
-    &#8711;
+    ∇ Z←C POL X
+[1]   Z←(X*¯1+⍳⍴,C)+.×C
+    ∇
 ```
 
 The example is in [POLY](POLY.md).

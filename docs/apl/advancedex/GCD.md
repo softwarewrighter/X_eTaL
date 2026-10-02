@@ -8,12 +8,12 @@ What it does, from the manual: GCD and GC both find the greatest common
 divisor by the Euclidean algorithm; GCD takes two scalar arguments.
 
 ```
-    &#8711; Z&#8592;M GCD N
-[1]   Z&#8592;M
-[2]   M&#8592;M&#8739;N
-[3]   N&#8592;Z
-[4]   &#8594;0&#8800;M
-    &#8711;
+    ∇ Z←M GCD N
+[1]   Z←M
+[2]   M←M∣N
+[3]   N←Z
+[4]   →0≠M
+    ∇
 ```
 
 The example as printed (1970):

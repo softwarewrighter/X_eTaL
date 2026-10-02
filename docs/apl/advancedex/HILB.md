@@ -8,9 +8,9 @@ What it does, from the manual: HILB N produces the Hilbert matrix of order
 N, whose element in row I and column J is the reciprocal of I+J-1.
 
 ```
-    &#8711; Z&#8592;HILB N
-[1]   Z&#8592;&#247;&#175;1+(&#9075;N)&#8728;.+&#9075;N
-    &#8711;
+    ∇ Z←HILB N
+[1]   Z←÷¯1+(⍳N)∘.+⍳N
+    ∇
 ```
 
 The example as printed (1970):

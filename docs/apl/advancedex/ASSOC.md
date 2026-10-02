@@ -6,18 +6,18 @@ edition, page B.12, prints it the same.
 
 What it does, from the manual: ASSOC M tests a putative group
 multiplication table M for associativity (the manual takes the group
-elements to be &#9075;1&#9076;&#9076;M, as printed), giving 1 if it is associative and 0 otherwise.
+elements to be ⍳1⍴⍴M, as printed), giving 1 if it is associative and 0 otherwise.
 
 ```
-    &#8711; Z&#8592;ASSOC M
-[1]   Z&#8592;&#8743;/,M[M;]=M[;M]
-    &#8711;
+    ∇ Z←ASSOC M
+[1]   Z←∧/,M[M;]=M[;M]
+    ∇
 ```
 
 The example as printed (1970):
 
 ```
-      M&#8592;(&#9075;5)&#9021;5 5&#9076;&#9075;5
+      M←(⍳5)⌽5 5⍴⍳5
       M
 
  2  3  4  5  1
@@ -31,7 +31,7 @@ The example as printed (1970):
 1
       TIME
 0  0  9
-      M&#8592;0 0 1 0 0&#9021;M
+      M←0 0 1 0 0⌽M
       M
 
  2  3  4  5  1
@@ -43,8 +43,8 @@ The example as printed (1970):
 0
       TIME
 0  0  10
-      M&#8592;?10 10&#9076;10
-      &#9076;M
+      M←?10 10⍴10
+      ⍴M
 10  10
       TIME
 0  0  3

@@ -9,18 +9,18 @@ vector, IN returns the index of the first letter of every occurrence of
 the word in the second vector, overlapping occurrences included.
 
 ```
-    &#8711; Z&#8592;A IN B;J
-[1]   J&#8592;(A[1]=B)/&#9075;&#9076;B
-[2]   J&#8592;(J&#8804;1+(&#9076;B)-&#9076;A)/J
-[3]   Z&#8592;(B[J&#8728;.+&#175;1+&#9075;&#9076;A]&#8743;.=A)/J
-    &#8711;
+    ∇ Z←A IN B;J
+[1]   J←(A[1]=B)/⍳⍴B
+[2]   J←(J≤1+(⍴B)-⍴A)/J
+[3]   Z←(B[J∘.+¯1+⍳⍴A]∧.=A)/J
+    ∇
 ```
 
 The example as printed (1970):
 
 ```
-      W&#8592;'THE'
-      T&#8592;'THE MEN THEN WENT HOME.
+      W←'THE'
+      T←'THE MEN THEN WENT HOME.
       W IN T
 1  9
       W IN1 T
@@ -32,4 +32,4 @@ The example as printed (1970):
 ```
 
 The 1970 edition prints the second line of the example without its closing
-quote; the August 1968 edition prints it `T&#8592;'THE MEN THEN WENT HOME.'`.
+quote; the August 1968 edition prints it `T←'THE MEN THEN WENT HOME.'`.

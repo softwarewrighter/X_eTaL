@@ -9,15 +9,15 @@ What it does, from the manual: works on hexadecimal numbers of at most 8 digits 
 eight places), and leading zeros may be omitted. DTH converts decimal to hexadecimal.
 
 ```
-    &#8711; R&#8592;DTH X
-[1]   R&#8592;,('0123456789ABCDEF')[1+(8&#9076;16)&#8868;X]
-    &#8711;
+    ∇ R←DTH X
+[1]   R←,('0123456789ABCDEF')[1+(8⍴16)⊤X]
+    ∇
 ```
 
 The example as printed (1970):
 
 ```
-      Z&#8592;DTH 1776
+      Z←DTH 1776
       Z
 000006F0
       HTD Z
@@ -29,7 +29,7 @@ The example as printed (1970):
       HTD '000006F0'
 1776
       HTD '90000000'
-&#175;1879048192
+¯1879048192
       HTD '00049HFG'
 NUMBER IS NOT HEX
 ```

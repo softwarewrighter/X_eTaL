@@ -10,15 +10,15 @@ day, year) and a single number holding the same data; PACK makes the
 single number (by decode).
 
 ```
-    &#8711; Z&#8592;PACK X
-[1]   Z&#8592; 10000 12 31 100 &#8869;X-1
-    &#8711;
+    ∇ Z←PACK X
+[1]   Z← 10000 12 31 100 ⊥X-1
+    ∇
 ```
 
 The example as printed (1970):
 
 ```
-      P&#8592;PACK 2314 7 17 68
+      P←PACK 2314 7 17 68
       P
 86063867
       UNPACK P

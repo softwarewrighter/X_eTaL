@@ -19,14 +19,14 @@ Each file also holds the example session printed with it.
 - One file per function, `docs/apl/advancedex/NAME.md`, holding the
   function exactly as printed, line numbers in brackets, in a fenced
   block, with the edition and page it came from.
-- APL glyphs are written as HTML character references (`&#9035;` for
-  the grade-up, `&#8592;` for the assignment arrow, and so on), so the
-  markdown stays ASCII; a rendered page shows the glyphs.
+- APL glyphs are written as the characters themselves (`←`, `⍳`,
+  `⊥`), which GitHub shows in code blocks (HTML character references
+  are not decoded there).
 - Where the two editions differ, both are given. Only one example
   differs: the 1970 edition omits a closing quote in IN's session.
-- APL\360's stile is written `&#8739;` (residue and magnitude); the
+- APL\360's stile is written `∣` (U+2223, residue and magnitude); the
   factorial and binomial, printed as an overstruck quote and dot, are
-  written `!`; TIME's I-beam is `&#9014;`.
+  written `!`; TIME's I-beam is `⌶`.
 
 ## The functions
 
@@ -79,7 +79,7 @@ Each file also holds the example session printed with it.
   INV, INVP, PERM, PER and ZERO, whose loops assign into indices.
 - A clock, for TIME (APL\360's I-beam 21).
 - Loops by branch become recursion or reductions throughout; every
-  function with a `&#8594;` loop needs that rewrite.
+  function with a `→` loop needs that rewrite.
 - Execute (reading text as a program): none of the 32 needs it.
 - Nested arrays are now in the language (B14, B16), for any function
   that keeps items of different lengths.

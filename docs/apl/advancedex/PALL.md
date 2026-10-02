@@ -8,12 +8,12 @@ What it does, from the manual: PALL N produces the matrix of all
 permutations of order N, one per row, building row I with N PERM I.
 
 ```
-    &#8711; Z&#8592;PALL N;I
-[1]   Z&#8592;((!N),N)&#9076;0
-[2]   I&#8592;1
-[3]   Z[I;]&#8592;N PERM I
-[4]   &#8594;3&#215;(!N)&#8805;I&#8592;I+1
-    &#8711;
+    ∇ Z←PALL N;I
+[1]   Z←((!N),N)⍴0
+[2]   I←1
+[3]   Z[I;]←N PERM I
+[4]   →3×(!N)≥I←I+1
+    ∇
 ```
 
 The example as printed (1970):
@@ -29,13 +29,13 @@ The example as printed (1970):
  3  2  1
       TIME
 0  3  7
-      Z&#8592;PALL 3
+      Z←PALL 3
       TIME
 0  0  49
-      Z&#8592;PALL 5
+      Z←PALL 5
       TIME
 0  25  10
-      Z&#8592;PER 5
+      Z←PER 5
       TIME
 0  1  12
 ```

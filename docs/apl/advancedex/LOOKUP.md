@@ -9,19 +9,19 @@ input, until an empty line) it prints the data stored with that name by
 ENTER, or NO SUCH NAME (or a message if the name occurs more than once).
 
 ```
-    &#8711; LOOKUP;X;J
+    ∇ LOOKUP;X;J
 [1]   '?'
-[2]   X&#8592;,&#9054;
-[3]   &#8594;0&#215;&#9075;0=&#9076;X
-[4]   J&#8592;(((1&#8595;P1)-&#175;1&#8595;P1)=&#9076;X)/&#9075;&#175;1+&#9076;P1
-[5]   J&#8592;(NAMES[P1[J]&#8728;.+&#9075;&#9076;X]&#8743;.=X)/J
-[6]   &#8594;(0 1 =&#9076;J)/ 10 8
-[7]   &#8594;1,&#9076;&#9109;&#8592;'MORE THAN ONE SUCH NAME'
-[8]   DATA[P2[J]+&#9075;-/P2[1 0 +J]]
-[9]   &#8594;1
+[2]   X←,⍞
+[3]   →0×⍳0=⍴X
+[4]   J←(((1↓P1)-¯1↓P1)=⍴X)/⍳¯1+⍴P1
+[5]   J←(NAMES[P1[J]∘.+⍳⍴X]∧.=X)/J
+[6]   →(0 1 =⍴J)/ 10 8
+[7]   →1,⍴⎕←'MORE THAN ONE SUCH NAME'
+[8]   DATA[P2[J]+⍳-/P2[1 0 +J]]
+[9]   →1
 [10]  'NO SUCH NAME'
-[11]  &#8594;1
-    &#8711;
+[11]  →1
+    ∇
 ```
 
 The example is in [ENTER](ENTER.md).

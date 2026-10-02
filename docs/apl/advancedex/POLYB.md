@@ -9,9 +9,9 @@ What it does, from the manual: evaluates a polynomial whose coefficients
 given by the right argument, using base value (decode) on the reversed coefficients.
 
 ```
-    &#8711; Z&#8592;C POLYB X
-[1]   Z&#8592;X&#8869;&#9021;C
-    &#8711;
+    ∇ Z←C POLYB X
+[1]   Z←X⊥⌽C
+    ∇
 ```
 
 The example is in [POLY](POLY.md).

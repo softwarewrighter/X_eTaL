@@ -8,9 +8,9 @@ What it does, from the manual: produces the matrix of arguments of the
 truth table for N logical variables (all 2*N rows of N bits).
 
 ```
-    &#8711; Z&#8592;TRUTH N
-[1]   Z&#8592;2&#8739;&#8970;(&#175;1+&#9075;2*N)&#8728;.&#247;2*N-&#9075;N
-    &#8711;
+    ∇ Z←TRUTH N
+[1]   Z←2∣⌊(¯1+⍳2*N)∘.÷2*N-⍳N
+    ∇
 ```
 
 The example as printed (1970):
@@ -26,6 +26,6 @@ The example as printed (1970):
   1  0  1
   1  1  0
   1  1  1
-      (TRUTH 3)+.&#215;&#9021;2*&#175;1+&#9075;3
+      (TRUTH 3)+.×⌽2*¯1+⍳3
 0  1  2  3  4  5  6  7
 ```

@@ -10,9 +10,9 @@ powers), and each polynomial is evaluated at every element of the right
 argument.
 
 ```
-    &#8711; Z&#8592;C PO X
-[1]   Z&#8592;(X&#8728;.*&#175;1+&#9075;1&#9076;&#9076;C)+.&#215;C
-    &#8711;
+    ∇ Z←C PO X
+[1]   Z←(X∘.*¯1+⍳1⍴⍴C)+.×C
+    ∇
 ```
 
 The example is in [POLY](POLY.md).

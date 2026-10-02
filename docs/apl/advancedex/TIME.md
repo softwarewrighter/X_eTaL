@@ -9,10 +9,10 @@ minutes, seconds and 60ths of a second, for timing other functions; it
 stores the cumulative CPU time in the global variable TIMER.
 
 ```
-    &#8711; Z&#8592;TIME;T
-[1]   Z&#8592; 60 60 60 &#8868;(T&#8592;&#9014;21)-TIMER
-[2]   TIMER&#8592;T
-    &#8711;
+    ∇ Z←TIME;T
+[1]   Z← 60 60 60 ⊤(T←⌶21)-TIMER
+[2]   TIMER←T
+    ∇
 ```
 
 The example is in [COMB](COMB.md).

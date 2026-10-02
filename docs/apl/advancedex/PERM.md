@@ -8,12 +8,12 @@ What it does, from the manual: A PERM B produces the B-th permutation of
 order A, by a method due to L. J. Woodrum; PALL uses it.
 
 ```
-    &#8711; Z&#8592;A PERM B;I;Y
-[1]   I&#8592;&#9076;Z&#8592;1+(&#9021;&#9075;A)&#8868;B-1
-[2]   &#8594;0&#215;&#9075;0=I&#8592;I-1
-[3]   Z[Y]&#8592;Z[Y]+Z[I]&#8804;Z[Y&#8592;I+&#9075;A-I]
-[4]   &#8594;2
-    &#8711;
+    ∇ Z←A PERM B;I;Y
+[1]   I←⍴Z←1+(⌽⍳A)⊤B-1
+[2]   →0×⍳0=I←I-1
+[3]   Z[Y]←Z[Y]+Z[I]≤Z[Y←I+⍳A-I]
+[4]   →2
+    ∇
 ```
 
 The example is in [PALL](PALL.md).

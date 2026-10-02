@@ -8,9 +8,9 @@ What it does, from the manual: the inverse of PACK: it turns the single
 number back into serial number, month, day and year (by encode).
 
 ```
-    &#8711; Z&#8592;UNPACK X
-[1]   Z&#8592;1+ 10000 12 31 100 &#8868;X
-    &#8711;
+    ∇ Z←UNPACK X
+[1]   Z←1+ 10000 12 31 100 ⊤X
+    ∇
 ```
 
 The example is in [PACK](PACK.md).

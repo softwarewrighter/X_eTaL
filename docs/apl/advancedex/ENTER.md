@@ -11,18 +11,18 @@ items in turn, appending them to the global lists, until an empty line
 is entered.
 
 ```
-    &#8711; ENTER;X
+    ∇ ENTER;X
 [1]   'ENTER NAME'
-[2]   X&#8592;,&#9054;
-[3]   &#8594;0&#215;&#9075;0=&#9076;X
-[4]   NAMES&#8592;NAMES,X
-[5]   P1&#8592;P1,&#9076;NAMES
+[2]   X←,⍞
+[3]   →0×⍳0=⍴X
+[4]   NAMES←NAMES,X
+[5]   P1←P1,⍴NAMES
 [6]   'ENTER DATA'
-[7]   DATA&#8592;DATA,&#9054;
-[8]   P2&#8592;P2,&#9076;DATA
+[7]   DATA←DATA,⍞
+[8]   P2←P2,⍴DATA
 [9]   ''
-[10]  &#8594;1
-    &#8711;
+[10]  →1
+    ∇
 ```
 
 The example as printed (1970):
