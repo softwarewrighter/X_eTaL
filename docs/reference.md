@@ -1069,6 +1069,42 @@ matrix), or along the subscript's axis.
 6 5 4
 ```
 
+### `o_\`
+
+`a -> a`, one argument.
+
+Transpose: reverse the order of the axes, so a matrix's rows become
+its columns; a vector or a single value is unchanged.
+
+```
+      o_\ M
+1 4
+2 5
+3 6
+      s_hape o_\ 2 3 4 r_eshape 0
+4 3 2
+```
+
+### `t_ranspose`
+
+`Int -> a -> a`, two arguments.
+
+Permute the axes: the left argument lists each axis once, and axis i
+of the right argument becomes the axis that item i of the list names
+(APL's dyadic transpose), so `3 1 2` moves axis 1 to the end. Listing
+the axes in reverse is `o_\`.
+
+```
+      2 1 t_ranspose M
+1 4
+2 5
+3 6
+      s_hape 3 1 2 t_ranspose 2 3 4 r_eshape 0
+3 4 2
+      1 1 t_ranspose M
+error[domain]: a permutation lists each axis once, got 1 1
+```
+
 ## Effects, identity, text and files
 
 ### `p_rint!`
