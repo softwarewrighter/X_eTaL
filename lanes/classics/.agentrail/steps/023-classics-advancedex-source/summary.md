@@ -1,0 +1,1 @@
+ADVANCEDEX inventory skeleton (32 names, conventions, templates) and HANDOFF for the local agent: Appendix B unreadable in the sandbox
