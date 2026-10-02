@@ -12,8 +12,10 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 16:21 `chore` Merge PR #34.
 - 16:11 `plan` X_eTaL-games' terminal request: step cli-terminal-feature next (a default-on `terminal` feature so `xetal-cli` builds for wasm32-wasip1), Saga 25 the terminal right after Saga 10 (a sw-tos-style browser terminal replacing `window.prompt`, input by `Atomics.wait` in the worker, named screen-control quads, decision QD6).
 - 16:08 `feat` Float literals with an exponent (S8, ask D4 from X_eTaL-demos): `1.5e-7`, `6.02e23`, `2E3`; this also mends the formatter's round trip for very small and very large Floats, which it already wrote as `1e-7`.
+- 15:20 `feat` Transpose under a subscript: `o_\_jk A` swaps axes j and k; one digit or three are an error, as is a repeated digit (decision B17).
 - 15:05 `docs` The logo's tagline is fixed (eXperimental Extensible Typed Array Language, not eXtensible): new images/modern-xetal-logo.jpg from the user; the name picture and the pages rebuilt with it.
 - 15:05 `chore` PRs #32 and #33, rebased by the lane after they were merged, recorded as merged (their content was already in main).
 - 14:08 `chore` Merge PR #33.

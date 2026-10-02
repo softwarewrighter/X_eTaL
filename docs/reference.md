@@ -1076,7 +1076,8 @@ matrix), or along the subscript's axis.
 `a -> a`, one argument.
 
 Transpose: reverse the order of the axes, so a matrix's rows become
-its columns; a vector or a single value is unchanged.
+its columns; a vector or a single value is unchanged. A subscript of
+two axes swaps just those two.
 
 ```
       o_\ M
@@ -1085,6 +1086,10 @@ its columns; a vector or a single value is unchanged.
 3 6
       s_hape o_\ 2 3 4 r_eshape 0
 4 3 2
+      s_hape o_\_23 2 3 4 r_eshape 0
+2 4 3
+      o_\_2 M
+error[axis]: o_\ swaps two axes: write o_\_jk, got 1 axis
 ```
 
 ### `t_ranspose`

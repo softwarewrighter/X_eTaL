@@ -1,0 +1,1 @@
+o_\_jk swaps two axes (transpose_on in xetal-axes); 5 spec cases; reference/design/dogfooding/CHANGES. Pushed as pr/transpose-axes.

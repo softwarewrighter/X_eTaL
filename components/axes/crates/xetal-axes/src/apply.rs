@@ -1,7 +1,7 @@
 //! The move-to-front rule on runtime values, applying f through the
 //! evaluator's [`Caller`]. Rotate defines several axes and amount
 //! lists itself (A4); reduce and scan take several axes in turn (R1);
-//! catenate moves the axis of both arguments.
+//! catenate moves the axis of both arguments; transpose swaps two (B17).
 
 use std::rc::Rc;
 
@@ -11,6 +11,7 @@ use xetal_value::{Caller, Value, as_array, to_value};
 use crate::cat::cat_on;
 use crate::move_axis;
 use crate::rotate::rotate_on;
+use crate::transpose::transpose_on;
 
 type Out<'a> = Result<Value<'a>, Diagnostic>;
 
@@ -28,6 +29,7 @@ pub fn on_axes<'a>(
     };
     match (name, args) {
         ("o_-", [n, x]) => rotate_on(axes, n, x),
+        ("o_\\", [x]) => transpose_on(axes, x),
         ("r_/" | "s_\\", [op, x]) => {
             let mut ks = checked(axes, as_array(x).rank())?;
             let mut x = x.clone();

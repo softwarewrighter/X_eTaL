@@ -1,0 +1,5 @@
+# o_\_jk names the two axes to swap; one digit is an error (B17).
+== SOURCE
+o_\_2 2 3 r_eshape r_ange 6
+== ERROR
+error[axis]: o_\ swaps two axes: write o_\_jk, got 1 axis at 0..27

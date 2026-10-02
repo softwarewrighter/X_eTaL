@@ -1,0 +1,6 @@
+# o_\_jk names the two axes to swap; three digits are an error;
+# t_ranspose permutes several (B17).
+== SOURCE
+o_\_123 2 3 4 r_eshape r_ange 24
+== ERROR
+error[axis]: o_\ swaps two axes: write o_\_jk, got 3 axes at 0..32

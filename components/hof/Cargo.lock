@@ -182,6 +182,7 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-rotate",
+ "xetal-transpose",
  "xetal-value",
 ]
 
@@ -285,6 +286,15 @@ name = "xetal-token"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+]
+
+[[package]]
+name = "xetal-transpose"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
 ]
 
 [[package]]
