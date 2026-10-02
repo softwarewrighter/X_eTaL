@@ -1,0 +1,1 @@
+property tests: fork, atop, dyadic fork, long train, named train, text fork all equal their desugared forms; no bugs

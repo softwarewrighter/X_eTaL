@@ -1,0 +1,1 @@
+Trains lane (see lanes/trains/.agentrail/plan.md). TDD, the full gate, one PR per step from main. An ill-typed train names the element at fault and points at it (a symbol used monadically in a monadic train, an element whose result the next cannot take); spec cases first; ask the user about wording only if TR1-TR4 leave it open.

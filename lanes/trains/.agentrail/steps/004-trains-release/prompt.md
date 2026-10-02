@@ -1,0 +1,1 @@
+Trains lane (see lanes/trains/.agentrail/plan.md). TDD, the full gate, one PR per step from main. Retrospective in docs/plan.md, M7 marked done in the PRD and plan, the lane archived.
