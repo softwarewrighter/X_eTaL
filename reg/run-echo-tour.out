@@ -144,22 +144,22 @@ hello X̲ᵉTᵃL
 6
 
       [2m⍝ -- Trains and tacks -----------------------------------------------------[0m
-      [32mᵘa̲vg[0m ← [[94m'+[0m [34mr̲/[0m [94m÷[0m [34mt̲ally[0m]           [2m⍝ fork: [0m([94m'+[0m [34mr̲/[0m) [94m÷[0m [34mt̲ally[0m[2m of the argument[0m
+      [32mᵘa̲vg[0m ← [[94m'+[0m [34mr̲/[0m [94m÷[0m [34mt̲ally[0m]           [2m⍝ fork: [0m([94m'+[0m [34mr̲/[0m x) [94m÷[0m [34mt̲ally[0m x[0m
       [32mᵘa̲vg[0m [33m1[0m [33m2[0m [33m3[0m [33m4[0m
 2.5
       { x → ([94m'+[0m [34mr̲/[0m x) [94m÷[0m [34mt̲ally[0m x } [33m1[0m [33m2[0m [33m3[0m [33m4[0m      [2m⍝ the same, spelled out[0m
 2.5
       [[34mn̲eg[0m [34ma̲bs[0m] [33m-5[0m                     [2m⍝ atop: [0m[34mn̲eg[0m [34ma̲bs[0m x[0m
 -5
-      [33m3[0m [[34ml̲eft[0m [94m+[0m [34mr̲ight[0m] [33m4[0m               [2m⍝ the tacks pick an argument[0m
+      [33m3[0m [[34ml̲eft[0m [94m+[0m [34mr̲ight[0m] [33m4[0m               [2m⍝ dyadic fork: [0m(x [34ml̲eft[0m y) [94m+[0m (x [34mr̲ight[0m y)[2m, so [0mx [94m+[0m y[0m
 7
       [[34mi̲d[0m [94m−[0m [34mn̲eg[0m] [33m5[0m                     [2m⍝ hook: [0mx [94m−[0m [34mn̲eg[0m x[0m
 10
       [33m1[0m [33m2[0m [[94m+[0m [94m×[0m [94m−[0m] [33m3[0m [33m4[0m                  [2m⍝ dyadic fork: [0m(x [94m+[0m y) [94m×[0m (x [94m−[0m y)[0m
 -8 -12
-      [[34mf̲irst[0m [34mc̲at[0m [34m'm̲ax[0m [34mr̲/[0m [34mc̲at[0m [34m'm̲in[0m [34mr̲/[0m] [33m3[0m [33m1[0m [33m4[0m [33m1[0m [33m5[0m          [2m⍝ longer trains group from the right[0m
+      [[34mf̲irst[0m [34mc̲at[0m [34m'm̲ax[0m [34mr̲/[0m [34mc̲at[0m [34m'm̲in[0m [34mr̲/[0m] [33m3[0m [33m1[0m [33m4[0m [33m1[0m [33m5[0m          [2m⍝ [0m([34mf̲irst[0m x) [34mc̲at[0m ([34m'm̲ax[0m [34mr̲/[0m x) [34mc̲at[0m [34m'm̲in[0m [34mr̲/[0m x[0m
 3 5 1
-      [1m'[0m[[34mt̲ally[0m [34md̲isclose[0m] [34me̲ach[0m [93m"ab"[0m [93m"cde"[0m [93m"f"[0m       [2m⍝ a quoted train is an operand[0m
+      [1m'[0m[[34mt̲ally[0m [34md̲isclose[0m] [34me̲ach[0m [93m"ab"[0m [93m"cde"[0m [93m"f"[0m       [2m⍝ each item i: [0m[34mt̲ally[0m [34md̲isclose[0m i[0m
 2 3 1
 
       [2m⍝ -- Rotate, reverse and axes ---------------------------------------------[0m

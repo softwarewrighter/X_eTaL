@@ -12,6 +12,7 @@ for the README. scripts/build-pages.sh runs it.
 import html
 import os
 import re
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -35,6 +36,27 @@ def drawn(source):
     if out.returncode != 0 or "c-error" in out.stdout:
         raise SystemExit(f"poster: xetal cannot draw {source!r}: {out.stderr or out.stdout}")
     return out.stdout.rstrip("\n")
+
+
+CHECK = re.compile(r"data-train='([^']*)' data-same='([^']*)' data-value='([^']*)'")
+
+
+def value(source):
+    """What `xetal eval` prints for SOURCE; an error is fatal."""
+    out = subprocess.run([str(XETAL), "eval", "-e", source], capture_output=True, text=True, check=False)
+    if out.returncode != 0:
+        raise SystemExit(f"poster: {source!r} fails: {out.stderr}")
+    return out.stdout.strip()
+
+
+def checked(text):
+    """Each train card's train and its spelled-out form give its value."""
+    found = CHECK.findall(text)
+    for train, same, shown in (map(html.unescape, row) for row in found):
+        for source in (train, same):
+            if value(source) != shown:
+                raise SystemExit(f"poster: {source!r} gives {value(source)!r}, the card says {shown!r}")
+    return len(found)
 
 
 def fill(match):
@@ -61,14 +83,31 @@ def capture():
         return
     subprocess.run(
         [str(found), "--headless=new", "--no-sandbox", "--disable-gpu", "--hide-scrollbars",
-         "--window-size=1600,1460", f"--screenshot={PICTURE}", OUT.as_uri()],
+         "--window-size=1600,2400", f"--screenshot={PICTURE}", OUT.as_uri()],
         capture_output=True, check=False,
     )
+    trimmed()
     print(PICTURE.relative_to(ROOT))
 
 
+def trimmed():
+    """The capture is taller than the poster: ImageMagick (where found)
+    trims the empty bottom, keeping a margin."""
+    magick = shutil.which("magick")
+    if magick is None:
+        print("poster: no ImageMagick; the picture keeps its empty bottom")
+        return
+    subprocess.run(
+        [magick, str(PICTURE), "-define", "trim:edges=south", "-trim", "+repage",
+         "-gravity", "south", "-background", "#101318", "-splice", "0x20", str(PICTURE)],
+        check=True,
+    )
+
+
 def main():
-    text, count = PLACEHOLDER.subn(fill, TEMPLATE.read_text())
+    template = TEMPLATE.read_text()
+    print(f"poster: {checked(template)} trains checked against their spelled-out forms")
+    text, count = PLACEHOLDER.subn(fill, template)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(text)
     print(f"{OUT.relative_to(ROOT)}: {count} samples drawn by xetal")

@@ -10,8 +10,28 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-02
+
+- 10:06 `docs` Syntax poster: the Trains panel is nine cards (atop, dyadic atop, fork, dyadic fork, hook, self, tacks, longer trains, quoted or named), each with its rule as equivalent code and an example whose value `scripts/poster.py` checks against the spelled-out form; the capture is trimmed to the poster's height. The tour's train comments give the equivalent code (run-echo-tour golden rebased on purpose: only those comments changed).
+- 08:41 `docs` Trains docs: the hook explained by what it computes.
+- 08:40 `docs` Poster: the hook's note shows its effect, like the other trains.
+- 08:38 `docs` Poster: captured with JuliaMono; the image shows the Trains panel.
+- 07:41 `chore` Trains lane step 4 (docs) completed.
+- 07:41 `docs` Trains documented in the tour, README, reference, a literate document beside the birds (docs/literate/trains.org) and the syntax poster.
+- 07:10 `chore` Merge PR #29 (retrofit survey).
+- 07:09 `chore` Merge PR #28 (trains diagnostics).
+- 07:01 `docs` Dogfooding: the retrofit audit (pre-fills Saga 13a step 1).
+- 06:07 `chore` Trains lane step 3 (diagnostics) completed.
+- 06:07 `feat` Errors in a train explain what the train means there.
+- 05:53 `plan` The user's requests: the demo menu, quads next, a retrofit saga.
+- 05:45 `chore` Merge PR #27 (trains errors).
+
 ## 2026-10-01
 
+- 21:21 `chore` Trains lane step 2 completed.
+- 21:21 `feat` An error inside a train points at the element at fault.
+- 21:06 `design` The trains entry is D45 (display took D44 first).
+- 21:05 `chore` Merge PR #26 (trains fork law).
 - 20:57 `chore` Saga step tour-update completed.
 - 20:57 `docs` The tour shows the recent features: `c_at_2`, `r_eplicate`, `e_ncode`/`d_ecode`, trigonometry, Unicode strings, nested arrays (strands, `d_isclose`, `p_artition`, `m_ap`, `d_isplay`), pictures, `userlibs/` (demos/tour.xtl, docs/literate/tour.org).
 - 20:41 `chore` Saga step footer-compact completed.
