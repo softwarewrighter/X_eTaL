@@ -135,7 +135,7 @@ presentation layer, never the storage format.
 | M5b| `xetal edit`: ASCII left, live decorated view right; live-rendered REPL |
 | M6 | combinator notebook with inferred types; Y via a lazy parameter |
 | M6b| libraries: `"s:" u_se< "Stats"`; then the combinators as a library |
-| M7 | fork / atop train expansion                                 |
+| M7 | fork / atop train expansion (done: Saga 15, the trains lane) |
 | M8 | one-line Life (block, blinker, glider goldens)              |
 | M9 | WASM playground with right-to-left visual explainer         |
 
