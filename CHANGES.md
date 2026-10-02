@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 15:33 `docs` The X_eTaL logo replaced with the corrected 2026-10-02 version (the earlier one had a typo), in images/ and every pages/ copy.
+
 - 15:05 `docs` The logo's tagline is fixed (eXperimental Extensible Typed Array Language, not eXtensible): new images/modern-xetal-logo.jpg from the user; the name picture and the pages rebuilt with it.
 - 15:05 `chore` PRs #32 and #33, rebased by the lane after they were merged, recorded as merged (their content was already in main).
 - 14:08 `chore` Merge PR #33.
