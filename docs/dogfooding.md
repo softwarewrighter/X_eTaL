@@ -73,3 +73,67 @@ coming up.
 | No raze (enlist): the boxes of a nested vector cannot be joined into one array | the mini APL interpreter, reading a strand of number tokens | each token read by `n_umbers` on its own, through `e_ach` |
 | `s_elect` takes no index from the end | the mini APL interpreter, the last token | `(t_ally t) s_elect t` |
 | No table of functions to dispatch on | the mini APL interpreter, picking a function by its name | a chain of guards, one per name |
+
+## Retrofit audit (for Saga 13a)
+
+A survey of the demos, libraries, literate documents and help for code
+written before a feature existed, and for features never shown where
+an older form is. Each rewrite marked "checked" was run and gives the
+same result. The milestone tours (`docs/tour-m*.md`) are snapshots and
+stay as they are; later features get new pages instead.
+
+### Workarounds a newer feature replaces
+
+| Feature | Where | Today | With the feature |
+| ------- | ----- | ----- | ---------------- |
+| `r_eplicate` | classics gcd:20, primes:14,19, quicksort:9-11, sieve:12,19, sorting:26,30, histogram:23, pascal:37, rle:31, mastermind:50; lib/TTTML:88; idioms.md:36; live demo help.rs:119; classics.org (sieve, primes, quicksort, histogram) | `(w_here m) s_elect v` | `m r_eplicate v` (checked) |
+| `r_eplicate` | mastermind-play:14 | stars and circles by two reshapes | `r r_eplicate "*o"` (checked) |
+| `e_ncode` | automaton:9 (and classics.org:474) | `(rule d_iv 2 ^ o_ffsets 8) m_od 2` | `r_ev (8 r_eshape 2) e_ncode rule` (checked) |
+| `d_ecode` | automaton:15 | `1 + (4 * ...) + (2 * row) + ...` | `1 + 2 d_ecode -1 0 1 o_- row` (checked) |
+| `e_ncode` | hanoi:29 (and hanoi.org:224) | trailing zero bits by a remainder table | `1 + '+ r_/ '& s_\ r_ev 0 = (n r_eshape 2) e_ncode k` (checked); keep the old one beside it, it teaches |
+| `d_ecode` | sequences:11 | Horner by a reduce | `x d_ecode r_ev c` (Int x only) |
+| `d_ecode` | lib/TTTML:30 | base 3 by `'+ '* i_nner 6561 ... 1` | `3 d_ecode_2 ...` |
+| `d_ecode`, `p_artition` | leetcode numbers-in-string:24-32 | Horner per run through a table | `'{ 10 d_ecode ... d_isclose _r } e_ach (...) p_artition s` (checked); keep the flat way as the comparison |
+| `c_at_2` | hanoi:34 | two tables put side by side | `(((t_ally from) c_at 1) r_eshape from) c_at_2 to` (checked; not shorter, optional) |
+| `c_at_2` | lib/TTTML:89-90, lib/Turtle:16-18 | columns joined by reshaping and rebuilding | `m c_at_2 ...` |
+| `c_at`, lower rank | closure:40, hanoi:15, mandelbrot:39, bases:40, lib/TTTML:61,136 | a plane or row made by reshape before joining | join the lower-rank argument directly (checked) |
+| nested strands | sorting:11-12 | names padded into a 4 by 5 matrix | `"Alice" "bob" "carol" "Dave"` (checked) |
+| `m_ap` and boxed display | lib/TTTML:142-148 | boards laid side by side by index arithmetic | a boxed vector of boards (output changes to frames) |
+| `m_atch` | magmas:21, life:22 | `'& r_/ a = b`, a table of 1s | `a m_atch b` |
+| `i_d`, `l_eft` | lib/Maybe:19, birds-untyped:13 | `{ x -> x }` | `'i_d` |
+| pictures | life.xtl, rotate.xtl | frames printed as text | `[]S_HOW []G_RID frames` (low priority) |
+
+Still needed, so kept: Mastermind's codes as rows (needs transpose),
+Mandelbrot's two Float planes (no complex numbers), `0 +` for a named
+Bool, `(t_ally g) s_elect g` (no index from the end), `e_ach` over row
+indices (no rank operator).
+
+### Features not shown where an older form is
+
+| Document | Gap |
+| -------- | --- |
+| docs/literate/tour.org | `c_at_2` (line 362) sits two blocks after `c_at` (326), out of step with demos/tour.xtl, which the tour mirrors; `m_atch`, `e_nclose`, `--ascii`, `f_ormat`, `n_umbers`, `[]N_PUT`, `[]N_GET`, `[]R_EAD` are not shown though the tour claims every feature; `r_eplicate` not beside `w_here v > 4` (959); trains lack a dyadic fork of plain functions, a long train, a train as an operand, the lambda beside its train, and an error with its notes |
+| README.md | Status (152-172) lists trains as future work and names none of the newer array features; decoration and APL tables have no train or nested-array rows; Quick Start shows nothing newer; duck.org not in the document list |
+| docs/idioms.md | no rows for replicate, encode/decode, catenate along an axis, enclose/disclose, partition, tacks, dyadic fork, DISPLAY (spec/integration/idioms.case pins it) |
+| docs/literate/classics.org | none of truth tables, bases, Roman numerals, word frequency, N-Queens, ragged Pascal |
+| docs/literate/birds.org, docs/birds.md | no birds-as-trains: Bluebird is atop, Blackbird a dyadic atop, Starling the hook `[i_d F G]`, Warbler `[i_d F i_d]` (all checked) |
+| docs/literate/libraries.org:12, hello.org:62 | say four built-in libraries; Turtle makes five |
+| live demo help.rs (94-110) | reference table lacks `c_at_2`, nested arrays, trains, trig, `[]G_RID` |
+| docs/wish-list.md:20 | lists trains, nested arrays and `d_isplay` as planned |
+| docs/reference/builtins.ref | no trains section; tacks shown without trains |
+| syntax poster (scripts/poster) | no trains panel; nothing for `c_at_2`, nested arrays, `r_eplicate`, encode/decode, tacks; brackets render undecorated; `scripts/poster/build.sh` is a stale stub (poster.py builds it) |
+
+### Trains, once Saga 15 lands
+
+Clear wins: `lib/Stats.xtl` `l:r_ange := ['m_ax r_/ - 'm_in r_/]`
+and `d_eviations := [f_loat - l:m_ean]`; `u:f_act := ['* r_/ r_ange]`
+(factorial, pascal); `'[t_ally d_isclose] e_ach` (wordfreq, pascal,
+spec map and partition cases); `'[u:m_agic u:s_iamese] e_ach` (magic).
+Best as side-by-side comparisons: the Float-safe mean
+`[[f_loat '+ r_/] / [f_loat t_ally]]` (the tour's `['+ r_/ / t_ally]`
+takes Ints only), argmax `[i_d i_ndexOf 'm_ax r_/]` (histogram,
+collatz, TTTML), sort `[g_rade s_elect i_d]`, the nub sieve
+`[[i_d i_ndexOf i_d] = [r_ange t_ally]]`, `c_ompose` and `c:B_` beside
+atop, and `[l:m_ean [s_quare d_eviations]]` with its flat look-alike
+(a fork) as the pitfall. Lambdas with a constant (`{ _r * 2 }`) and
+named dyadic functions stay lambdas (TR1, TR4).
