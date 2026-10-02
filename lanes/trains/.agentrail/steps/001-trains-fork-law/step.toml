@@ -1,6 +1,6 @@
 number = 1
 slug = "trains-fork-law"
-status = "pending"
+status = "in-progress"
 description = "Trains lane (see lanes/trains/.agentrail/plan.md). TDD, the full gate, one PR..."
 role = "production"
 context_files = []
