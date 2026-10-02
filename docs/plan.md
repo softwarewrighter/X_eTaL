@@ -675,8 +675,12 @@ Retrospective (the lane is closed; its saga is archived in
    web-release.
 2. Saga 13, quads, moved up to come next (the user asked for `[]A`,
    `[]D` and the related system names).
-3. A new retrofit saga after it (below).
-4. Then Saga 11 and the rest as numbered. The lanes (classics,
+3. Saga 19, macros (`.xtlm` macro libraries, `u_se<` finding
+   `Name.xtl` and `Name.xtlm`, longer namespace prefixes), decided
+   with the user to come after quads.
+4. The retrofit saga after it (below), so it can use quads, macros
+   and long aliases too.
+5. Then Saga 11 and the rest as numbered. The lanes (classics,
    leetcode, trains) go on in parallel.
 
 ## Saga 13a -- retrofit (newer features in older programs)
@@ -699,6 +703,30 @@ something, a short note keeps both (as `docs/literate/duck.org` does).
 
 From then on, every saga that adds a feature ends with a retrofit step
 for that feature (cross-cutting, below).
+
+## Saga 19 -- macros (`.xtlm` macro libraries and long prefixes), after Saga 13
+
+Asked for by the user (2026-10-02); X_eTaL-libraries files it as asks
+X1 (`.xtlm` macro libraries) and X2 (seeing expansions) in its
+docs/xetal-asks.md, and its saga 4 (Control and Assert macro
+libraries) waits for this one. The design is from its
+docs/research.txt. Decisions MC10 to MC13 in
+`lang-choices.md` (made with the user the same day). Today the macro
+phase (components/macro) knows one macro, `u_se<`, hard-coded in
+xetal-names; libraries are `.xtl` only; aliases are lowercase letters
+(the lexer and the alias check disagree on uppercase and digits).
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | long-prefixes | MC13 test-first: `"combinators:" u_se< "Combinators"`, `b2:`, rejections (`Abc:`, `2b:`) with the lexer and `valid_alias` agreeing; the raw-prefix fallback when a letter has no superscript (render, view, LaTeX, Emacs mode); spec cases and a golden. |
+| 2 | lookup-xtlm | MC11: library lookup returns the `.xtl` and/or `.xtlm` of the first directory holding either (files, `userlibs/`, `XETAL_PATH`, standard libraries, the browser store); explicit paths; the not-found message names both; each search tier tested. A `.xtlm` is parsed and its exports listed, not yet run. |
+| 3 | macro-calls | MC10 and MC12: a `.xtlm` defines `m:name<` exports (rejections: `l:` names, `m:` names without `<`, `<` names without `m:`, top-level expressions); the call shapes: the names phase looks up `alias:name<` among the imported `.xtlm` exports (monadic and dyadic, string arguments), in statement and expression position, replacing the "only u_se<" error; MC8 rows updated with rejections for each new rule. |
+| 4 | macro-engine | Running a macro: a runner injected into the macro phase (it cannot depend on eval) evaluates the `.xtlm` function on the argument strings; the result is re-lexed with spans mapped to the call and expanded again to the depth limit (cycle and depth errors show the chain); `.xtlm` exports are type-checked as text to text. |
+| 5 | expand-tool | Ask X2: print the program after macro expansion (spelling to settle with the user: X2 says `xetal --expand FILE`; the CLI's other views are subcommands, `xetal fmt`, `xetal core`), and one call's expansion with where the macro is defined; goldens of expansions. |
+| 6 | macro-example | A small macro library for the tests and a demo (X1's `u_nless<` example as the first case) and a literate document. The useful macro libraries (Control, Assert) belong to X_eTaL-libraries, not here. |
+| 7 | user-macros | A `userlibs/` macro library example; the live demo's store and Open menu carry `.xtlm` files. |
+| 8 | retrofit-macros | Older programs and libraries rewritten where long aliases or macros read better; goldens rebased on purpose. |
+| 9 | macros-release | README tour, reference, design.md register, CHANGES, pages, retrospective. |
 
 ## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
 

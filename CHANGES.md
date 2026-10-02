@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 10:19 `plan` Saga 19, macros, after quads: `.xtlm` macro libraries exporting `m:name<` macros, `u_se<` finding `Name.xtl` and `Name.xtlm` in one directory, macro calls in statements and expressions, namespace prefixes of any length (decisions MC10 to MC13, from X_eTaL-libraries asks X1 and X2).
+- 10:19 `chore` Merge PR #30 (trains docs).
 - 10:06 `docs` Syntax poster: the Trains panel is nine cards (atop, dyadic atop, fork, dyadic fork, hook, self, tacks, longer trains, quoted or named), each with its rule as equivalent code and an example whose value `scripts/poster.py` checks against the spelled-out form; the capture is trimmed to the poster's height. The tour's train comments give the equivalent code (run-echo-tour golden rebased on purpose: only those comments changed).
 - 08:41 `docs` Trains docs: the hook explained by what it computes.
 - 08:40 `docs` Poster: the hook's note shows its effect, like the other trains.
