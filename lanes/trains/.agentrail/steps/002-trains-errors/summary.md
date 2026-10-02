@@ -1,0 +1,1 @@
+Train applications spanned by their element: type and run-time errors in a train point at the element at fault (7 spec cases, D46). Pushed as pr/trains-errors.

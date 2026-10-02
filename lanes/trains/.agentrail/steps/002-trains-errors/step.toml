@@ -1,8 +1,9 @@
 number = 2
 slug = "trains-errors"
-status = "in-progress"
+status = "completed"
 description = "Trains lane (see lanes/trains/.agentrail/plan.md). TDD, the full gate, one PR..."
 role = "production"
 context_files = []
 created_at = "2026-10-01T20:21:11"
-commits = []
+completed_at = "2026-10-01T21:21:49"
+commits = ["8bf0b67353974928c73817a39624108c20a4ff32"]
