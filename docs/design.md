@@ -128,7 +128,10 @@ Pinned by `components/core/crates/xetal-core/tests/core/` and the `CORE` section
   after it falls through to `NoMatch` (G2).
 - Trains take their arity from position (TR4): monadic trains lower to
   a lambda, a dyadic train written in place binds its arguments (right
-  first) and expands `(x F y) G (x H y)` in place.
+  first) and expands `(x F y) G (x H y)` in place. Each application
+  a train expands to carries the span of its element, so a type or
+  run-time error in a train points at the element at fault (`[n_ot +]
+  1 2` points at `n_ot`); a nested train keeps its own elements' spans.
 
 Every Core node carries the NodeId and source span of the surface
 construct it came from.
@@ -758,4 +761,5 @@ The pinning tests are written as the implementing saga reaches them
 | D43| ASCII pictures | `--ascii` (a global CLI switch, like `--draw`) sets `xetal_grid::set_ascii`, and `display` maps each box character to one ASCII character (`to_ascii`), so widths are unchanged; `scripts/reference.py` runs its examples with it, so the ASCII-only reference shows nested values (B16) |
 | D44| Display and boxed printing | `d_isplay : a -> Char` gives any value as APL2's DISPLAY draws it (B16's frames and marks), flat arrays framed too, as a character matrix (a simple scalar is itself); `xetal --box` (a global switch, `xetal_grid::set_boxed`) prints every array result that way, and the live demo's Boxed toggle does the same (the request carries it to the worker); `p_rint!` prints through the same rule (user request) |
 | D45| Trains are their desugaring, tested | property tests (xetal-eval tests/eval/trains_props.rs) check that a fork, an atop, a dyadic fork, a long train, a named train and a fork over text each print what their written-out forms print, over random arguments and pools of built-ins (TR1-TR4); trains lane |
+| D46| Errors inside a train | each application a train expands to is spanned by its element, not the whole train, so the checker and the evaluator point at the element at fault, with their usual messages (spec/eval/reject-train-*.case); trains lane |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

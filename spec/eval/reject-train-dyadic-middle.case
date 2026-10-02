@@ -1,0 +1,6 @@
+# A dyadic fork: the middle element is at fault and the error points
+# at it.
+== SOURCE
+1 2 [+ n_ot -] 3 4
+== ERROR
+error[type-mismatch]: expected Bool or Int, found a -> b at 7..11
