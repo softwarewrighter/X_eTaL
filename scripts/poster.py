@@ -10,6 +10,7 @@ for the README. scripts/build-pages.sh runs it.
 """
 
 import html
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -41,15 +42,26 @@ def fill(match):
     return f"<{tag}{attrs}>{drawn(source)}</{tag}>"
 
 
+def chrome():
+    """A Chrome to capture with: $XETAL_CHROME, macOS Chrome, or the
+    Playwright Chromium (with JuliaMono installed, it draws the same)."""
+    candidates = [
+        os.environ.get("XETAL_CHROME", ""),
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
+    ]
+    return next((Path(c) for c in candidates if c and Path(c).exists()), None)
+
+
 def capture():
     """The poster as a picture for the README (headless Chrome)."""
-    chrome = Path("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
-    if not chrome.exists():
+    found = chrome()
+    if found is None:
         print("poster: no Chrome; images/xetal-syntax-poster.png not refreshed")
         return
     subprocess.run(
-        [str(chrome), "--headless=new", "--disable-gpu", "--hide-scrollbars",
-         "--window-size=1600,1420", f"--screenshot={PICTURE}", OUT.as_uri()],
+        [str(found), "--headless=new", "--no-sandbox", "--disable-gpu", "--hide-scrollbars",
+         "--window-size=1600,1460", f"--screenshot={PICTURE}", OUT.as_uri()],
         capture_output=True, check=False,
     )
     print(PICTURE.relative_to(ROOT))
