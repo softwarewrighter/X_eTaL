@@ -620,9 +620,9 @@ feeds the trace saga (Saga 17).
 | 20 | classics-nested-builtins | `p_artition`, `m_ap` (B14) |
 | 21 | classics-nested-programs | word frequency, N-Queens drawn, ragged Pascal |
 | 22 | classics-advancedex-source | IBM's ADVANCEDEX (1968): Appendix B of the APL\360 User's Manual transcribed and inventoried |
-| 23 | classics-advancedex-ports | ADVANCEDEX in X_eTaL: library, demos, goldens, literate sections |
-| 24 | classics-eras            | twelve classics across eras: APL\360, APL2, Dyalog, X_eTaL |
-| 25 | classics-mini-apl        | an APL subset interpreter in X_eTaL |
+| 23 | classics-mini-apl        | an APL subset interpreter in X_eTaL |
+| 24 | classics-advancedex-ports | ADVANCEDEX in X_eTaL: library, demos, goldens, literate sections (waits for the transcription of Appendix B, see HANDOFF) |
+| 25 | classics-eras            | twelve classics across eras: APL\360, APL2, Dyalog, X_eTaL |
 | 26 | classics-release         | index, README link, retrospective, merge |
 
 ## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
