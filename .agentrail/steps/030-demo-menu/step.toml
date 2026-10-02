@@ -1,0 +1,8 @@
+number = 30
+slug = "demo-menu"
+status = "pending"
+description = "User request (A): the live demo's Open list starts with collapsed groups, as ..."
+role = "production"
+context_files = []
+created_at = "2026-10-02T05:53:27"
+commits = []

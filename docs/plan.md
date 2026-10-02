@@ -668,6 +668,38 @@ Retrospective (the lane is closed; its saga is archived in
   has the sources) and the eras Rosetta, taken up by whichever lane
   has room; the gaps the interpreter found (above).
 
+## Next, in order (decided with the user, 2026-10-02)
+
+1. Finish Saga 10: demo-menu (the Open list as collapsible groups:
+   Demos, Classics, Libraries, Misc), advancedex-transcribe,
+   web-release.
+2. Saga 13, quads, moved up to come next (the user asked for `[]A`,
+   `[]D` and the related system names).
+3. A new retrofit saga after it (below).
+4. Then Saga 11 and the rest as numbered. The lanes (classics,
+   leetcode, trains) go on in parallel.
+
+## Saga 13a -- retrofit (newer features in older programs)
+
+Asked for by the user: programs written before a feature existed carry
+workarounds for it (two Float planes for a complex number, rows stacked
+by hand before `c_at_2`, digit strings written out before `[]D`).
+`docs/dogfooding.md` lists each gap a lane met and the workaround it
+used; this saga works through that list and an audit of the demos,
+libraries, userlibs and literate documents, and rewrites each
+workaround with the feature now there, the goldens rebased on purpose
+and each change in CHANGES.md. Where the before and after teach
+something, a short note keeps both (as `docs/literate/duck.org` does).
+
+| #  | Step slug        | Delivers                                                   |
+| -- | ---------------- | ---------------------------------------------------------- |
+| 1  | audit            | every workaround found (dogfooding.md and a search of the sources), each with the feature that replaces it; a table in docs/dogfooding.md |
+| 2+ | one per feature  | the programs using that workaround rewritten (`c_at_2`, nested arrays and `p_artition`/`m_ap`, `d_isplay`, `[]A`/`[]D`, and so on), goldens rebased |
+| n  | retrofit-release | the lesson, CHANGES, retrospective |
+
+From then on, every saga that adds a feature ends with a retrofit step
+for that feature (cross-cutting, below).
+
 ## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
 
 Asked for by the user after Saga 9, sooner rather than later: an
@@ -692,7 +724,7 @@ need, then ports those. The inventory decides which is which.
 | 2+ | one per library | each group of "works now" functions as `lib/*.xtl` (for example MATH, POLY, Stats additions, LIFE, BIRDS into Combinators), with a `just show` notebook demo, goldens and a tour or literate link; steps added by the inventory |
 | n  | ports-now-release | README and tour links to the new libraries, retrospective |
 
-## Saga 13 -- quads (system names)
+## Saga 13 -- quads (system names), next after Saga 10
 
 APL's quad names, as decided with the user (lang-choices section 13a,
 QD1-QD3): `[]` touching a name lexes as one system-name token,
@@ -830,6 +862,9 @@ APL ports (Sagas 11, 12 and 14) may call for it sooner.
   rotate, with the axis-subscript rules; then `[]P_ATH` may also accept
   points as an n by 2 matrix (it keeps 2 rows, x over y, the user's
   decision).
+- retrofit (the user's rule, 2026-10-02): a saga that adds a feature
+  ends with a step rewriting the programs that worked around its
+  absence (docs/dogfooding.md lists them), goldens rebased on purpose.
 - tail calls (found streaming tttml-train in the live demo): a
   recursion thousands of calls deep overflows a browser's stack (a
   worker's especially; the CLI runs on a large thread stack), so
