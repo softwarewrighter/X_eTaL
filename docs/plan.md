@@ -673,15 +673,51 @@ Retrospective (the lane is closed; its saga is archived in
 1. Finish Saga 10: demo-menu (the Open list as collapsible groups:
    Demos, Classics, Libraries, Misc), advancedex-transcribe,
    web-release.
-2. Saga 13, quads, moved up to come next (the user asked for `[]A`,
+2. Saga 20, array kinds (empty arrays remember Char, number or box;
+   ask X5 from X_eTaL-libraries, a wrong picture they hit now).
+3. Saga 13, quads, moved up to come next (the user asked for `[]A`,
    `[]D` and the related system names).
-3. Saga 19, macros (`.xtlm` macro libraries, `u_se<` finding
+4. Saga 19, macros (`.xtlm` macro libraries, `u_se<` finding
    `Name.xtl` and `Name.xtlm`, longer namespace prefixes), decided
    with the user to come after quads.
-4. The retrofit saga after it (below), so it can use quads, macros
-   and long aliases too.
-5. Then Saga 11 and the rest as numbered. The lanes (classics,
+5. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
+   X_eTaL-libraries), decided with the user to come after macros.
+6. The retrofit saga after it (below), so it can use quads, macros,
+   long aliases and errors too.
+7. Then Saga 11 and the rest as numbered. The lanes (classics,
    leetcode, trains) go on in parallel.
+
+## Saga 20 -- array kinds (empty arrays remember their kind)
+
+Asked for by X_eTaL-libraries (ask X5): `d_isplay ""` draws the
+numbers mark `~`, because at run time an empty array has no items to
+say what kind it is, and `""` and `0 r_eshape 1` are the same value.
+Decision T9 (made with the user): an array keeps the kind of its items,
+as APL2's prototype does.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | kind-in-arrays | Failing tests first (`d_isplay ""`, an empty piece of a split, `0 t_ake "abc"`, boxes); the array (or the evaluator's array value) carries an item kind; literals and `""` set it. |
+| 2 | kind-through-primitives | Every primitive that can make an empty array keeps its argument's kind (reshape, take, drop, compress, replicate, partition, where, each, catenate of empties, outer products); a test per primitive. |
+| 3 | kind-shown | DISPLAY, Boxed output and the live demo mark empty arrays by kind; goldens rebased on purpose; reference and design register. |
+
+## Saga 21 -- errors of one's own (assert, raise, catch)
+
+Asked for by X_eTaL-libraries (ask X3) and on the wish list (error
+handling, tests in XeTaL): a program cannot stop with an error it
+chooses, nor recover from one (a failing `[]N_GET`). Decided with the
+user to come after macros. The design is open and is made with the
+user first: the spelling (`a_ssert`, a raise built-in, a typed result
+or a handler-taking `t_ry`), error kinds and messages, the exit
+status, and how a caught error is typed.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | errors-decisions | Decide the design with the user; record it in lang-choices and the design register. |
+| 2 | assert-and-raise | Stop with one's own message and a non-zero exit status (`k:a_ssert 5 = 6` style); spec cases and goldens. |
+| 3 | catch | Recover from an error, typed as decided; `[]N_GET` on a missing file as the first case. |
+| 4 | errors-retrofit | The Check library's text-report workaround and other workarounds rewritten; goldens rebased on purpose. |
+| 5 | errors-release | README tour, reference, CHANGES, pages, retrospective. |
 
 ## Saga 13a -- retrofit (newer features in older programs)
 
