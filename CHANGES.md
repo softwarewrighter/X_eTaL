@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-01
 
+- 20:57 `chore` Saga step tour-update completed.
+- 20:57 `docs` The tour shows the recent features: `c_at_2`, `r_eplicate`, `e_ncode`/`d_ecode`, trigonometry, Unicode strings, nested arrays (strands, `d_isclose`, `p_artition`, `m_ap`, `d_isplay`), pictures, `userlibs/` (demos/tour.xtl, docs/literate/tour.org).
 - 20:41 `chore` Saga step footer-compact completed.
 - 20:41 `fix` Web: the footer fits on one line: the build shown once, as Build (host commit time).
 - 20:10 `chore` Saga step syntax-poster completed.

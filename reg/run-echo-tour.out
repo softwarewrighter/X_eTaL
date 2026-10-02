@@ -33,6 +33,10 @@
 0
       [34mf̲loat[0m [33m3[0m                  [2m⍝ Int to Float[0m
 3.0
+      [34ms̲in[0m ([34mp̲i[0m @) [94m÷[0m [33m2[0m           [2m⍝ trigonometry in radians; [0m[34mp̲i[0m @[2m is pi (niladic)[0m
+1.0
+      [34ma̲tan[0m [33m1[0m                   [2m⍝ and c_os[0m
+0.7853981633974483
 
       [2m⍝ -- Mutation -------------------------------------------------------------[0m
       count! ← [33m0[0m               [2m⍝ only names ending in ! (like [0mcount![2m) may be reassigned[0m
@@ -47,6 +51,8 @@ hello
 1 1 0
       [33m3[0m [34mt̲ake[0m [93m"hello"[0m
 hel
+      [93m"hello X̲ᵉTᵃL"[0m             [2m⍝ strings and comments may hold any Unicode (code may not)[0m
+hello X̲ᵉTᵃL
 
       [2m⍝ -- Arrays ---------------------------------------------------------------[0m
       m ← [33m2[0m [33m3[0m [34mr̲eshape[0m [34mr̲ange[0m [33m6[0m          [2m⍝ 1-origin: [0m[34mr̲ange[0m [33m6[0m[2m is 1 2 3 4 5 6[0m
@@ -66,6 +72,15 @@ hel
 4 5 6
       ([34mf̲irst[0m m) [34mc̲at[0m [33m7[0m [33m8[0m [33m9[0m      [2m⍝ join along the leading axis[0m
 1 2 3 7 8 9
+      m [34mc̲at₂[0m [33m0[0m [33m9[0m               [2m⍝ ... or along axis 2: a column on the right[0m
+1 2 3 0
+4 5 6 9
+      [33m1[0m [33m0[0m [33m2[0m [34mr̲eplicate[0m [33m7[0m [33m8[0m [33m9[0m    [2m⍝ replicate: each item, as many times as its count[0m
+7 9 9
+      [33m10[0m [33m10[0m [33m10[0m [34me̲ncode[0m [33m123[0m      [2m⍝ encode: the digits, in the radices on the left[0m
+1 2 3
+      [33m24[0m [33m60[0m [33m60[0m [34md̲ecode[0m [33m1[0m [33m2[0m [33m5[0m    [2m⍝ decode: 1 hour 2 minutes 5 seconds, in seconds[0m
+3725
       [34mr̲avel[0m m[0m
 1 2 3 4 5 6
       [33m10[0m [94m^[0m [34mr̲ev[0m [34mo̲ffsets[0m [33m3[0m       [2m⍝ [0m[34mo̲ffsets[0m[2m counts from 0: place values 100 10 1[0m
@@ -191,6 +206,37 @@ desserts
       [34mw̲here[0m v [94m>[0m [33m4[0m              [2m⍝ indices of the 1s[0m
 5 6 8
 
+      [2m⍝ -- Nested arrays and display --------------------------------------------[0m
+      n ← [93m"ab"[0m [93m"cde"[0m           [2m⍝ a strand of strings: a vector of 2 boxes[0m
+      n                        [2m⍝ nested values print framed (APL2's DISPLAY)[0m
+┌→───────────┐
+│ ┌→─┐ ┌→──┐ │
+│ │ab│ │cde│ │
+│ └──┘ └───┘ │
+└∊───────────┘
+      [34mt̲ally[0m n[0m
+2
+      [34md̲isclose[0m [33m2[0m [34ms̲elect[0m n      [2m⍝ open the 2nd box[0m
+cde
+      s ← [93m"to be or not"[0m
+      (s [94m≠[0m [34mf̲irst[0m [93m" "[0m) [34mp̲artition[0m s      [2m⍝ cut where the mask is 0: the words, boxed[0m
+┌→─────────────────────┐
+│ ┌→─┐ ┌→─┐ ┌→─┐ ┌→──┐ │
+│ │to│ │be│ │or│ │not│ │
+│ └──┘ └──┘ └──┘ └───┘ │
+└∊─────────────────────┘
+      [34m'r̲ange[0m [34mm̲ap[0m [33m1[0m [33m2[0m [33m3[0m         [2m⍝ map: each result boxed, so it may be an array[0m
+┌→──────────────────┐
+│ ┌→┐ ┌→──┐ ┌→────┐ │
+│ │1│ │1 2│ │1 2 3│ │
+│ └~┘ └~──┘ └~────┘ │
+└∊──────────────────┘
+      [34md̲isplay[0m m                [2m⍝ any value framed, as a character matrix (xetal --box prints all so)[0m
+┌→────┐
+↓1 2 3│
+│4 5 6│
+└~────┘
+
       [2m⍝ -- Effects --------------------------------------------------------------[0m
       [34mr̲oll![0m [33m6[0m [33m6[0m [33m6[0m              [2m⍝ three dice: random 1..6 each, so every run differs[0m
 6 2 1
@@ -202,6 +248,14 @@ desserts
 printed, then returned
 printed, then returned
 
+      [2m⍝ -- Pictures -------------------------------------------------------------[0m
+      [2m⍝ [0m[34m⎕G̲RID[0m[2m draws an array as a grid of cells and [0m[34m⎕P̲ATH[0m[2m points as a[0m
+      [2m⍝ line, each giving SVG text; [0m[34m⎕S̲HOW[0m[2m shows it (a file NAME-1.svg on[0m
+      [2m⍝ the command line, [0mjust draw FILE[2m opens it; the live demo draws it[0m
+      [2m⍝ under the output). Here only the start of the text:[0m
+      [33m15[0m [34mt̲ake[0m [34m⎕G̲RID[0m [33m2[0m [33m2[0m [34mr̲eshape[0m [33m1[0m [33m0[0m [33m0[0m [33m1[0m
+<svg xmlns="htt
+
       [2m⍝ -- Libraries ----------------------------------------------------------[0m
       [36mˢ⁼[0m[1;33mu̲se<[0m [93m"Stats"[0m           [2m⍝ import a library under an alias of your choosing[0m
       [36mˢm̲ean[0m [33m2[0m [33m4[0m [33m4[0m [33m4[0m [33m5[0m [33m5[0m [33m7[0m [33m9[0m    [2m⍝ its exported names, used through the alias[0m
@@ -210,6 +264,9 @@ printed, then returned
 2.0
       [36mˢr̲ange[0m [33m3[0m [33m1[0m [33m4[0m [33m1[0m [33m5[0m         [2m⍝ largest minus smallest[0m
 4
+      [36mʰ⁼[0m[1;33mu̲se<[0m [93m"Hello"[0m           [2m⍝ a library of your own, found in userlibs/[0m
+      [36mʰh̲ello[0m @                 [2m⍝ niladic: called with Unit[0m
+hello X̲ᵉTᵃL
 
       [2m⍝ -- Combinators and power -----------------------------------------------[0m
       [36mᶜ⁼[0m[1;33mu̲se<[0m [93m"Combinators"[0m     [2m⍝ Smullyan's birds, a standard library[0m

@@ -1,6 +1,6 @@
 number = 29
 slug = "tour-update"
-status = "pending"
+status = "in-progress"
 description = "User request: the tour shows every recently added feature: c_at along an axis..."
 role = "production"
 context_files = []

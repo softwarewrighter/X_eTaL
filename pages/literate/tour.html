@@ -29,11 +29,13 @@
 <li><a href="#org6148dcb">Trains and tacks</a></li>
 <li><a href="#org6cfbf0c">Rotate, reverse and axes</a></li>
 <li><a href="#orgdd6de05">Search and order</a></li>
-<li><a href="#orgdb5ec98">Effects</a></li>
-<li><a href="#org620c728">Libraries</a></li>
-<li><a href="#orgaf45d62">Combinators and power</a></li>
-<li><a href="#org4309032">Life in one line</a></li>
-<li><a href="#orga0537af">Not shown here</a></li>
+<li><a href="#orgdb5ec98">Nested arrays and display</a></li>
+<li><a href="#org620c728">Effects</a></li>
+<li><a href="#orgaf45d62">Pictures</a></li>
+<li><a href="#org4309032">Libraries</a></li>
+<li><a href="#orga0537af">Combinators and power</a></li>
+<li><a href="#org6a5a390">Life in one line</a></li>
+<li><a href="#org3db45d9">Not shown here</a></li>
 </ul>
 </div>
 </div>
@@ -202,6 +204,35 @@ x<span class="c-exponent">²</span>                       <span class="c-comment
 <pre class="example">
 3.0
 </pre>
+
+
+<p>
+Trigonometry works in radians; <code>p_i @</code> is pi, a niladic function
+called with Unit:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">s̲in</span> (<span class="c-builtin">p̲i</span> @) <span class="c-symbol">÷</span> <span class="c-number">2</span>           <span class="c-comment">⍝ trigonometry in radians; </span><span class="c-builtin">p̲i</span> @<span class="c-comment"> is pi (niladic)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   s_in (p_i @) / 2         # trigonometry in radians; `p_i @` is pi (niladic)</span></pre>
+</div>
+
+<pre class="example">
+1.0
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">a̲tan</span> <span class="c-number">1</span>                   <span class="c-comment">⍝ and c_os</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   a_tan 1                  # and c_os</span></pre>
+</div>
+
+<pre class="example">
+0.7853981633974483
+</pre>
 </div>
 </div>
 <div id="outline-container-orgc7436fb" class="outline-2">
@@ -270,6 +301,23 @@ hello
 
 <pre class="example">
 hel
+</pre>
+
+
+<p>
+A string, and a comment, may hold any Unicode; the rest of the source
+stays ASCII:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-string">&quot;hello X̲ᵉTᵃL&quot;</span>             <span class="c-comment">⍝ strings and comments may hold any Unicode (code may not)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "hello X̲ᵉTᵃL"            # strings and comments may hold any Unicode (code may not)</span></pre>
+</div>
+
+<pre class="example">
+hello X̲ᵉTᵃL
 </pre>
 </div>
 </div>
@@ -382,6 +430,60 @@ m
 
 <pre class="example">
 100 10 1
+</pre>
+
+
+<p>
+Join along another axis with a subscript, replicate items, and encode
+and decode numbers in mixed radices:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">m <span class="c-builtin">c̲at₂</span> <span class="c-number">0</span> <span class="c-number">9</span>               <span class="c-comment">⍝ ... or along axis 2: a column on the right</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   m c_at_2 0 9             # ... or along axis 2: a column on the right</span></pre>
+</div>
+
+<pre class="example">
+1 2 3 0
+4 5 6 9
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">2</span> <span class="c-builtin">r̲eplicate</span> <span class="c-number">7</span> <span class="c-number">8</span> <span class="c-number">9</span>    <span class="c-comment">⍝ replicate: each item, as many times as its count</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 0 2 r_eplicate 7 8 9   # replicate: each item, as many times as its count</span></pre>
+</div>
+
+<pre class="example">
+7 9 9
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-number">10</span> <span class="c-number">10</span> <span class="c-number">10</span> <span class="c-builtin">e̲ncode</span> <span class="c-number">123</span>      <span class="c-comment">⍝ encode: the digits, in the radices on the left</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   10 10 10 e_ncode 123     # encode: the digits, in the radices on the left</span></pre>
+</div>
+
+<pre class="example">
+1 2 3
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-number">24</span> <span class="c-number">60</span> <span class="c-number">60</span> <span class="c-builtin">d̲ecode</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">5</span>    <span class="c-comment">⍝ decode: 1 hour 2 minutes 5 seconds, in seconds</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   24 60 60 d_ecode 1 2 5   # decode: 1 hour 2 minutes 5 seconds, in seconds</span></pre>
+</div>
+
+<pre class="example">
+3725
 </pre>
 </div>
 </div>
@@ -994,8 +1096,119 @@ for what is absent.
 </div>
 </div>
 <div id="outline-container-orgdb5ec98" class="outline-2">
-<h2 id="orgdb5ec98">Effects</h2>
+<h2 id="orgdb5ec98">Nested arrays and display</h2>
 <div class="outline-text-2" id="text-orgdb5ec98">
+<p>
+An item can itself be an array, in a box: a strand of strings is a
+vector of boxes, and nested values print framed, as APL2's DISPLAY
+draws them.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">n ← <span class="c-string">&quot;ab&quot;</span> <span class="c-string">&quot;cde&quot;</span>           <span class="c-comment">⍝ a strand of strings: a vector of 2 boxes</span>
+n                        <span class="c-comment">⍝ nested values print framed (APL2's DISPLAY)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   n := "ab" "cde"          # a strand of strings: a vector of 2 boxes</span>
+<span class="c-comment typed">⍝   n                        # nested values print framed (APL2's DISPLAY)</span></pre>
+</div>
+
+<pre class="example">
+┌→───────────┐
+│ ┌→─┐ ┌→──┐ │
+│ │ab│ │cde│ │
+│ └──┘ └───┘ │
+└∊───────────┘
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">t̲ally</span> n
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   t_ally n</span></pre>
+</div>
+
+<pre class="example">
+2
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">d̲isclose</span> <span class="c-number">2</span> <span class="c-builtin">s̲elect</span> n      <span class="c-comment">⍝ open the 2nd box</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   d_isclose 2 s_elect n    # open the 2nd box</span></pre>
+</div>
+
+<pre class="example">
+cde
+</pre>
+
+
+<p>
+Partition cuts a vector into boxed pieces where its mask is 0; map
+applies a function to each item and boxes each result, so a result may
+be an array:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">s ← <span class="c-string">&quot;to be or not&quot;</span>
+(s <span class="c-symbol">≠</span> <span class="c-builtin">f̲irst</span> <span class="c-string">&quot; &quot;</span>) <span class="c-builtin">p̲artition</span> s      <span class="c-comment">⍝ cut where the mask is 0: the words, boxed</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   s := "to be or not"</span>
+<span class="c-comment typed">⍝   (s != f_irst " ") p_artition s   # cut where the mask is 0: the words, boxed</span></pre>
+</div>
+
+<pre class="example">
+┌→─────────────────────┐
+│ ┌→─┐ ┌→─┐ ┌→─┐ ┌→──┐ │
+│ │to│ │be│ │or│ │not│ │
+│ └──┘ └──┘ └──┘ └───┘ │
+└∊─────────────────────┘
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">'r̲ange</span> <span class="c-builtin">m̲ap</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>         <span class="c-comment">⍝ map: each result boxed, so it may be an array</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   'r_ange m_ap 1 2 3       # map: each result boxed, so it may be an array</span></pre>
+</div>
+
+<pre class="example">
+┌→──────────────────┐
+│ ┌→┐ ┌→──┐ ┌→────┐ │
+│ │1│ │1 2│ │1 2 3│ │
+│ └~┘ └~──┘ └~────┘ │
+└∊──────────────────┘
+</pre>
+
+
+<p>
+<code>d_isplay</code> frames any value, flat ones too, as a character matrix;
+<code>xetal --box</code> prints every array result that way:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">d̲isplay</span> m                <span class="c-comment">⍝ any value framed, as a character matrix (xetal --box prints all so)</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   d_isplay m               # any value framed, as a character matrix (xetal --box prints all so)</span></pre>
+</div>
+
+<pre class="example">
+┌→────┐
+↓1 2 3│
+│4 5 6│
+└~────┘
+</pre>
+</div>
+</div>
+<div id="outline-container-org620c728" class="outline-2">
+<h2 id="org620c728">Effects</h2>
+<div class="outline-text-2" id="text-org620c728">
 <p>
 Effects end in !. The rolls are random; this document fixes them with
 :seed so its results stay the same each time it is run.
@@ -1050,9 +1263,31 @@ printed, then returned
 </pre>
 </div>
 </div>
-<div id="outline-container-org620c728" class="outline-2">
-<h2 id="org620c728">Libraries</h2>
-<div class="outline-text-2" id="text-org620c728">
+<div id="outline-container-orgaf45d62" class="outline-2">
+<h2 id="orgaf45d62">Pictures</h2>
+<div class="outline-text-2" id="text-orgaf45d62">
+<p>
+<code>[]G_RID</code> draws an array as a grid of cells and <code>[]P_ATH</code> points as a
+line, each giving the picture as SVG text; <code>[]S_HOW</code> shows it (a
+numbered file on the command line, which <code>just draw FILE</code> opens; in the
+live demo, under the output). Here only the start of the text:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-number">15</span> <span class="c-builtin">t̲ake</span> <span class="c-builtin">⎕G̲RID</span> <span class="c-number">2</span> <span class="c-number">2</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   15 t_ake []G_RID 2 2 r_eshape 1 0 0 1</span></pre>
+</div>
+
+<pre class="example">
+&lt;svg xmlns="htt
+</pre>
+</div>
+</div>
+<div id="outline-container-org4309032" class="outline-2">
+<h2 id="org4309032">Libraries</h2>
+<div class="outline-text-2" id="text-org4309032">
 <p>
 A library is an ordinary X_eTaL file of definitions: its exported
 names start with l:, the rest are private. A program imports it with
@@ -1096,11 +1331,29 @@ that alias. Stats is a standard library, built into xetal.
 <pre class="example">
 4
 </pre>
+
+
+<p>
+A library of your own lives in <code>userlibs/</code>, on the search path:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-libfunc">ʰ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Hello&quot;</span>           <span class="c-comment">⍝ a library of your own, found in userlibs/</span>
+<span class="c-libfunc">ʰh̲ello</span> @                 <span class="c-comment">⍝ niladic: called with Unit</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "h:" u_se&lt; "Hello"       # a library of your own, found in userlibs/</span>
+<span class="c-comment typed">⍝   h:h_ello @               # niladic: called with Unit</span></pre>
+</div>
+
+<pre class="example">
+hello X̲ᵉTᵃL
+</pre>
 </div>
 </div>
-<div id="outline-container-orgaf45d62" class="outline-2">
-<h2 id="orgaf45d62">Combinators and power</h2>
-<div class="outline-text-2" id="text-orgaf45d62">
+<div id="outline-container-orga0537af" class="outline-2">
+<h2 id="orga0537af">Combinators and power</h2>
+<div class="outline-text-2" id="text-orga0537af">
 <p>
 Combinators is a second standard library: the birds of Raymond
 Smullyan's To Mock a Mockingbird, functions that only rearrange,
@@ -1196,9 +1449,9 @@ power); <code>n 'f_ p_ower x</code> does the same with a computed count:
 </pre>
 </div>
 </div>
-<div id="outline-container-org4309032" class="outline-2">
-<h2 id="org4309032">Life in one line</h2>
-<div class="outline-text-2" id="text-org4309032">
+<div id="outline-container-org6a5a390" class="outline-2">
+<h2 id="org6a5a390">Life in one line</h2>
+<div class="outline-text-2" id="text-org6a5a390">
 <p>
 Everything above comes together in Conway's Life: rotate the board by
 every offset in -1 0 1 along both axes, sum the nine boards to count
@@ -1224,9 +1477,9 @@ language's acceptance test.
 </pre>
 </div>
 </div>
-<div id="outline-container-orga0537af" class="outline-2">
-<h2 id="orga0537af">Not shown here</h2>
-<div class="outline-text-2" id="text-orga0537af">
+<div id="outline-container-org3db45d9" class="outline-2">
+<h2 id="org3db45d9">Not shown here</h2>
+<div class="outline-text-2" id="text-org3db45d9">
 <p>
 The textbook Y combinator, built from self-application, needs
 <code>--untyped</code> (see <code>demos/fixed-point.xtl</code> and <code>demos/birds-untyped.xtl</code>);

@@ -152,6 +152,31 @@ f_loat 3                 # Int to Float
 #+RESULTS:
 : 3.0
 
+Trigonometry works in radians; ~p_i @~ is pi, a niladic function
+called with Unit:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+s̲in (p̲i @) ÷ 2         ⍝ trigonometry in radians; `p_i @` is pi (niladic)
+#+end_example
+#+begin_src xetal
+s_in (p_i @) / 2         # trigonometry in radians; `p_i @` is pi (niladic)
+#+end_src
+
+#+RESULTS:
+: 1.0
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+a̲tan 1                  ⍝ and c_os
+#+end_example
+#+begin_src xetal
+a_tan 1                  # and c_os
+#+end_src
+
+#+RESULTS:
+: 0.7853981633974483
+
 * Mutation
 
 Values are immutable: := makes a new binding. The escape hatch is
@@ -210,6 +235,20 @@ it, and comparisons work item by item.
 
 #+RESULTS:
 : hel
+
+A string, and a comment, may hold any Unicode; the rest of the source
+stays ASCII:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"hello X̲ᵉTᵃL"            ⍝ strings and comments may hold any Unicode (code may not)
+#+end_example
+#+begin_src xetal
+"hello X̲ᵉTᵃL"            # strings and comments may hold any Unicode (code may not)
+#+end_src
+
+#+RESULTS:
+: hello X̲ᵉTᵃL
 
 * Arrays
 
@@ -311,6 +350,54 @@ r_avel m
 
 #+RESULTS:
 : 100 10 1
+
+Join along another axis with a subscript, replicate items, and encode
+and decode numbers in mixed radices:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+m c̲at₂ 0 9             ⍝ ... or along axis 2: a column on the right
+#+end_example
+#+begin_src xetal
+m c_at_2 0 9             # ... or along axis 2: a column on the right
+#+end_src
+
+#+RESULTS:
+: 1 2 3 0
+: 4 5 6 9
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 0 2 r̲eplicate 7 8 9   ⍝ replicate: each item, as many times as its count
+#+end_example
+#+begin_src xetal
+1 0 2 r_eplicate 7 8 9   # replicate: each item, as many times as its count
+#+end_src
+
+#+RESULTS:
+: 7 9 9
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+10 10 10 e̲ncode 123     ⍝ encode: the digits, in the radices on the left
+#+end_example
+#+begin_src xetal
+10 10 10 e_ncode 123     # encode: the digits, in the radices on the left
+#+end_src
+
+#+RESULTS:
+: 1 2 3
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+24 60 60 d̲ecode 1 2 5   ⍝ decode: 1 hour 2 minutes 5 seconds, in seconds
+#+end_example
+#+begin_src xetal
+24 60 60 d_ecode 1 2 5   # decode: 1 hour 2 minutes 5 seconds, in seconds
+#+end_src
+
+#+RESULTS:
+: 3725
 
 * Functions
 
@@ -875,6 +962,104 @@ w_here v > 4             # indices of the 1s
 #+RESULTS:
 : 5 6 8
 
+* Nested arrays and display
+
+An item can itself be an array, in a box: a strand of strings is a
+vector of boxes, and nested values print framed, as APL2's DISPLAY
+draws them.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+n ← "ab" "cde"          ⍝ a strand of strings: a vector of 2 boxes
+n                        ⍝ nested values print framed (APL2's DISPLAY)
+#+end_example
+#+begin_src xetal
+n := "ab" "cde"          # a strand of strings: a vector of 2 boxes
+n                        # nested values print framed (APL2's DISPLAY)
+#+end_src
+
+#+RESULTS:
+: ┌→───────────┐
+: │ ┌→─┐ ┌→──┐ │
+: │ │ab│ │cde│ │
+: │ └──┘ └───┘ │
+: └∊───────────┘
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+t̲ally n
+#+end_example
+#+begin_src xetal
+t_ally n
+#+end_src
+
+#+RESULTS:
+: 2
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+d̲isclose 2 s̲elect n    ⍝ open the 2nd box
+#+end_example
+#+begin_src xetal
+d_isclose 2 s_elect n    # open the 2nd box
+#+end_src
+
+#+RESULTS:
+: cde
+
+Partition cuts a vector into boxed pieces where its mask is 0; map
+applies a function to each item and boxes each result, so a result may
+be an array:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+s ← "to be or not"
+(s ≠ f̲irst " ") p̲artition s   ⍝ cut where the mask is 0: the words, boxed
+#+end_example
+#+begin_src xetal
+s := "to be or not"
+(s != f_irst " ") p_artition s   # cut where the mask is 0: the words, boxed
+#+end_src
+
+#+RESULTS:
+: ┌→─────────────────────┐
+: │ ┌→─┐ ┌→─┐ ┌→─┐ ┌→──┐ │
+: │ │to│ │be│ │or│ │not│ │
+: │ └──┘ └──┘ └──┘ └───┘ │
+: └∊─────────────────────┘
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'r̲ange m̲ap 1 2 3       ⍝ map: each result boxed, so it may be an array
+#+end_example
+#+begin_src xetal
+'r_ange m_ap 1 2 3       # map: each result boxed, so it may be an array
+#+end_src
+
+#+RESULTS:
+: ┌→──────────────────┐
+: │ ┌→┐ ┌→──┐ ┌→────┐ │
+: │ │1│ │1 2│ │1 2 3│ │
+: │ └~┘ └~──┘ └~────┘ │
+: └∊──────────────────┘
+
+~d_isplay~ frames any value, flat ones too, as a character matrix;
+~xetal --box~ prints every array result that way:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+d̲isplay m               ⍝ any value framed, as a character matrix (xetal --box prints all so)
+#+end_example
+#+begin_src xetal
+d_isplay m               # any value framed, as a character matrix (xetal --box prints all so)
+#+end_src
+
+#+RESULTS:
+: ┌→────┐
+: ↓1 2 3│
+: │4 5 6│
+: └~────┘
+
 * Effects
 
 Effects end in !. The rolls are random; this document fixes them with
@@ -925,6 +1110,24 @@ p_rint! "printed, then returned"  # `p_rint!` prints and returns its argument
 : printed, then returned
 : printed, then returned
 
+* Pictures
+
+~[]G_RID~ draws an array as a grid of cells and ~[]P_ATH~ points as a
+line, each giving the picture as SVG text; ~[]S_HOW~ shows it (a
+numbered file on the command line, which ~just draw FILE~ opens; in the
+live demo, under the output). Here only the start of the text:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+15 t̲ake ⎕G̲RID 2 2 r̲eshape 1 0 0 1
+#+end_example
+#+begin_src xetal
+15 t_ake []G_RID 2 2 r_eshape 1 0 0 1
+#+end_src
+
+#+RESULTS:
+: <svg xmlns="htt
+
 * Libraries
 
 A library is an ordinary X_eTaL file of definitions: its exported
@@ -966,6 +1169,21 @@ s:r_ange 3 1 4 1 5       # largest minus smallest
 
 #+RESULTS:
 : 4
+
+A library of your own lives in ~userlibs/~, on the search path:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"h:" u̲se< "Hello"       ⍝ a library of your own, found in userlibs/
+ʰh̲ello @               ⍝ niladic: called with Unit
+#+end_example
+#+begin_src xetal
+"h:" u_se< "Hello"       # a library of your own, found in userlibs/
+h:h_ello @               # niladic: called with Unit
+#+end_src
+
+#+RESULTS:
+: hello X̲ᵉTᵃL
 
 * Combinators and power
 

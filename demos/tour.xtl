@@ -21,6 +21,8 @@ x^2                      # a literal exponent touches its value: superscript
 (0.1 + 0.2) e_q~ 0.3     # tolerant equality: 1
 (3 < 4) & 2 != 2         # Bool (`& | !=`); no precedence: parenthesize the left
 f_loat 3                 # Int to Float
+s_in (p_i @) / 2         # trigonometry in radians; `p_i @` is pi (niladic)
+a_tan 1                  # and c_os
 
 # -- Mutation -------------------------------------------------------------
 count! := 0              # only names ending in ! (like `count!`) may be reassigned
@@ -31,6 +33,7 @@ count!
 "hello"
 "abc" = "abd"            # item by item
 3 t_ake "hello"
+"hello X̲ᵉTᵃL"            # strings and comments may hold any Unicode (code may not)
 
 # -- Arrays ---------------------------------------------------------------
 m := 2 3 r_eshape r_ange 6       # 1-origin: `r_ange 6` is 1 2 3 4 5 6
@@ -40,6 +43,10 @@ m * 10                   # a scalar extends to every item
 2 s_elect m              # the 2nd major cell (row)
 -1 t_ake m; 1 d_rop m    # take and drop count from the end when negative
 (f_irst m) c_at 7 8 9    # join along the leading axis
+m c_at_2 0 9             # ... or along axis 2: a column on the right
+1 0 2 r_eplicate 7 8 9   # replicate: each item, as many times as its count
+10 10 10 e_ncode 123     # encode: the digits, in the radices on the left
+24 60 60 d_ecode 1 2 5   # decode: 1 hour 2 minutes 5 seconds, in seconds
 r_avel m
 10 ^ r_ev o_ffsets 3     # `o_ffsets` counts from 0: place values 100 10 1
 
@@ -111,17 +118,36 @@ v i_ndexOf 5 7           # 7 is absent: tally + 1
 2 7 m_ember? v
 w_here v > 4             # indices of the 1s
 
+# -- Nested arrays and display --------------------------------------------
+n := "ab" "cde"          # a strand of strings: a vector of 2 boxes
+n                        # nested values print framed (APL2's DISPLAY)
+t_ally n
+d_isclose 2 s_elect n    # open the 2nd box
+s := "to be or not"
+(s != f_irst " ") p_artition s   # cut where the mask is 0: the words, boxed
+'r_ange m_ap 1 2 3       # map: each result boxed, so it may be an array
+d_isplay m               # any value framed, as a character matrix (xetal --box prints all so)
+
 # -- Effects --------------------------------------------------------------
 r_oll! 6 6 6             # three dice: random 1..6 each, so every run differs
 r_oll! 6 6 6             # (and each line rolls again)
 r_oll! 6 6 6
 p_rint! "printed, then returned"  # `p_rint!` prints and returns its argument
 
+# -- Pictures -------------------------------------------------------------
+# `[]G_RID` draws an array as a grid of cells and `[]P_ATH` points as a
+# line, each giving SVG text; `[]S_HOW` shows it (a file NAME-1.svg on
+# the command line, `just draw FILE` opens it; the live demo draws it
+# under the output). Here only the start of the text:
+15 t_ake []G_RID 2 2 r_eshape 1 0 0 1
+
 # -- Libraries ----------------------------------------------------------
 "s:" u_se< "Stats"       # import a library under an alias of your choosing
 s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias
 s:s_d 2 4 4 4 5 5 7 9    # the standard deviation
 s:r_ange 3 1 4 1 5       # largest minus smallest
+"h:" u_se< "Hello"       # a library of your own, found in userlibs/
+h:h_ello @               # niladic: called with Unit
 
 # -- Combinators and power -----------------------------------------------
 "c:" u_se< "Combinators" # Smullyan's birds, a standard library
