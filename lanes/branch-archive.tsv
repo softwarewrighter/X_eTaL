@@ -1,0 +1,25 @@
+# Remote branches before the cleanup of 2026-10-02, for recovery.
+# Every one is merged into main (d22a312) or superseded by a merged
+# PR; GitHub keeps each PR head as refs/pull/N/head. Restore with:
+#   git fetch origin <sha>   (or refs/pull/N/head)
+#   git branch <branch> <sha>
+# branch	sha	pr
+feat/advancedex-source	2add0faef685d44f2819cddf03cb652b903786fc	#23 merged
+feat/ascii-display	881e4f8fddc197025e353c908ab99e921c16609d	#21 merged
+feat/classics-nested-builtins	cd89e64b323a17e0fb289138bdb3fcde4ffd3abc	#18 closed (rebased as #19)
+feat/classics-nested-core	842cd6e5b37f5fbd4cc6f9220efee39eca4df48f	#17 merged
+feat/classics-nested-programs	a1bc6479471f48ae8116948c9cbea25aaef6ee8c	no PR (wip of #22; its demos landed unchanged in #22)
+feat/classics-release	d5ad40dc3129e44e76c088b20fc743efe135bebb	#25 merged
+feat/magmas	7b9e236fd8f43ca788d95dbb97d6296d5eff7094	#20 merged
+feat/mini-apl	da84354e1ffe46ba49e3f92750f1611d286d6685	#24 merged
+feat/trains	994b827a6bc7e03ee28c1d7c8a605aa88860429a	#26 merged
+pr/advancedex-source	2add0faef685d44f2819cddf03cb652b903786fc	#23 merged
+pr/ascii-display	881e4f8fddc197025e353c908ab99e921c16609d	#21 merged
+pr/classics-nested-builtins	cd89e64b323a17e0fb289138bdb3fcde4ffd3abc	#18 closed (rebased as #19)
+pr/classics-nested-core	842cd6e5b37f5fbd4cc6f9220efee39eca4df48f	#17 merged
+pr/magmas	7b9e236fd8f43ca788d95dbb97d6296d5eff7094	#20 merged
+pr/mini-apl	da84354e1ffe46ba49e3f92750f1611d286d6685	#24 merged
+pr/nested-builtins	fa276efc697fa517fc605f7fc7ec31d066be9bbd	#19 merged
+pr/nested-programs	0cd128db085c3a700504cea07df0d10ac84da40d	#22 merged
+pr/trains-errors	868dc56a1c270f612cd7937cde4be43c48175615	#27 merged
+pr/trains-fork-law	994b827a6bc7e03ee28c1d7c8a605aa88860429a	#26 merged

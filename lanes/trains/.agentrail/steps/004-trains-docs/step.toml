@@ -1,4 +1,4 @@
-number = 3
+number = 4
 slug = "trains-docs"
 status = "pending"
 description = "Trains lane (see lanes/trains/.agentrail/plan.md). TDD, the full gate, one PR..."

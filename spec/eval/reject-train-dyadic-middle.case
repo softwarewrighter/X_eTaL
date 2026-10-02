@@ -4,3 +4,5 @@
 1 2 [+ n_ot -] 3 4
 == ERROR
 error[type-mismatch]: expected Bool or Int, found a -> b at 7..11
+  note: in the train `[+ n_ot -]`, `n_ot` is applied as `(x + y) n_ot (x - y)`, where x and y are the train's arguments
+  note: `n_ot` takes one argument, but here it is given two

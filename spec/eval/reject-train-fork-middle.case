@@ -4,3 +4,5 @@
 [r_ev n_ot t_ally] 1 2
 == ERROR
 error[type-mismatch]: expected Bool or Int, found Int -> a at 6..10
+  note: in the train `[r_ev n_ot t_ally]`, `n_ot` is applied as `(r_ev x) n_ot (t_ally x)`, where x is the train's argument
+  note: `n_ot` takes one argument, but here it is given two

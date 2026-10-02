@@ -179,8 +179,19 @@ name = "xetal-core"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+ "xetal-catalog",
+ "xetal-explain",
  "xetal-ir",
  "xetal-lex",
+ "xetal-syntax",
+]
+
+[[package]]
+name = "xetal-explain"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-ir",
  "xetal-syntax",
 ]
 

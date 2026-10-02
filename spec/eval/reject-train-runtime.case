@@ -4,3 +4,4 @@
 [r_ev + n_ot] 1 2
 == ERROR
 error[not-a-bool]: expected a Bool (or 1 / 0), got 2 at 8..12
+  note: in the train `[r_ev + n_ot]`, `n_ot` is applied as `n_ot x`, where x is the train's argument

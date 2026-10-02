@@ -468,6 +468,8 @@ name = "xetal-core"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+ "xetal-catalog",
+ "xetal-explain",
  "xetal-ir",
  "xetal-lex",
  "xetal-syntax",
@@ -481,6 +483,15 @@ dependencies = [
  "xetal-core",
  "xetal-lex",
  "xetal-ty",
+]
+
+[[package]]
+name = "xetal-explain"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-ir",
+ "xetal-syntax",
 ]
 
 [[package]]

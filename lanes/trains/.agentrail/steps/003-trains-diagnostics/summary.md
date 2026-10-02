@@ -1,0 +1,1 @@
+Train errors explain themselves: notes give the train, the element, its written-out form and an arity hint (xetal-explain, Program::annotate, D47); 9 spec cases, 4 core tests. Branch archive recorded in lanes/branch-archive.tsv (remote deletion blocked in sandbox). Pushed as pr/trains-diagnostics.

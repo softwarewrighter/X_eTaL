@@ -1,0 +1,8 @@
+# In a dyadic train each tine takes both arguments; r_ev takes one,
+# and the note says so.
+== SOURCE
+1 2 [r_ev + a_bs] 3 4
+== ERROR
+error[type-mismatch]: expected a number, found a -> b at 5..9
+  note: in the train `[r_ev + a_bs]`, `r_ev` is applied as `x r_ev y`, where x and y are the train's arguments
+  note: `r_ev` takes one argument, but here it is given two

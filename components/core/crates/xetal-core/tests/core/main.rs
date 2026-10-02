@@ -2,6 +2,7 @@
 
 mod accept;
 mod equiv;
+mod notes;
 mod reject;
 
 use xetal_core::lower;
