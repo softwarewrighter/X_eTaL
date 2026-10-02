@@ -1,8 +1,9 @@
 number = 31
 slug = "advancedex-transcribe"
-status = "in-progress"
+status = "completed"
 description = "Handed over by the classics lane (PR #23, lanes/classics/HANDOFF.md step 23):..."
 role = "production"
 context_files = []
 created_at = "2026-10-01T19:49:45"
-commits = []
+completed_at = "2026-10-02T12:47:25"
+commits = ["4fb1ecacd5266213c0f63b79cb0c28b01d0b3dbc"]
