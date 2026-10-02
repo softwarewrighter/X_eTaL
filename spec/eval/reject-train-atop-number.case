@@ -1,0 +1,6 @@
+# Atop: + cannot add the function that - gives used monadically;
+# the error points at the +.
+== SOURCE
+[+ -] 1 2
+== ERROR
+error[type-mismatch]: expected a number, found a -> a at 1..2

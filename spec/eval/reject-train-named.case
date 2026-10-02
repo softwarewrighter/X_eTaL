@@ -1,0 +1,7 @@
+# A named train is checked where it is defined; the error points at the
+# element at fault inside it.
+== SOURCE
+u:t_ := [n_ot +]
+u:t_ 1 2
+== ERROR
+error[type-mismatch]: expected Bool or Int, found a -> a at 9..13

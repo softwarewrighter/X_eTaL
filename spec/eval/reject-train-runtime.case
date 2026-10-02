@@ -1,0 +1,6 @@
+# A run-time error inside a fork points at the element that raised it:
+# n_ot of 2.
+== SOURCE
+[r_ev + n_ot] 1 2
+== ERROR
+error[not-a-bool]: expected a Bool (or 1 / 0), got 2 at 8..12

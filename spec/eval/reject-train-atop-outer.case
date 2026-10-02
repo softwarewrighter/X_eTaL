@@ -1,0 +1,7 @@
+# An ill-typed train points at the element at fault, not the whole
+# train: here n_ot cannot take what monadic + gives (a function
+# waiting for its second argument).
+== SOURCE
+[n_ot +] 1 2
+== ERROR
+error[type-mismatch]: expected Bool or Int, found a -> a at 1..5

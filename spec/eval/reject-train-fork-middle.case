@@ -1,0 +1,6 @@
+# A fork's middle element is used dyadically; n_ot is monadic, and the
+# error points at it.
+== SOURCE
+[r_ev n_ot t_ally] 1 2
+== ERROR
+error[type-mismatch]: expected Bool or Int, found Int -> a at 6..10

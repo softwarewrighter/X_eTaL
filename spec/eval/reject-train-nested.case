@@ -1,0 +1,5 @@
+# A train inside a train: the error points at the inner element.
+== SOURCE
+[r_ev [n_ot -]] 1 2
+== ERROR
+error[type-mismatch]: expected Bool or Int, found a -> a at 7..11
