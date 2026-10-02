@@ -690,8 +690,8 @@ Retrospective (the lane is closed; its saga is archived in
    the sibling repos' asks (2026-10-02): Saga 22 speed (ask D2),
    Saga 23 host bindings and native packages (asks D3 and E1),
    Saga 24 transpose (ask D9); the trace through `xetal-play` (ask D8)
-   is a step of Saga 17. The lanes (classics,
-   leetcode, trains) go on in parallel.
+   is a step of Saga 17. The leetcode lane goes on in parallel (the
+   classics and trains lanes are done and archived).
 
 ## Saga 20 -- array kinds (empty arrays remember their kind)
 
@@ -838,7 +838,7 @@ needs.
 | 8  | edit            | EDIT: port what fits (the del editor itself is the editor's job) |
 | 9  | ports-release   | literate documents for each library, tour links, retrospective |
 
-## Saga 15 -- trains (M7)
+## Saga 15 -- trains (M7)  [DONE, ARCHIVED]
 
 `[F G H]` forks and `[F G]` atop (TR1-TR3), purely by desugaring;
 fork-law property test; type errors for ill-typed trains.
@@ -850,6 +850,33 @@ steps are: trains-fork-law (property tests that each train equals its
 desugared form), trains-errors (an ill-typed train names and points at
 the element at fault), trains-docs (reference, README, and a literate
 document of trains beside their Combinators birds) and trains-release.
+
+Retrospective (the lane is closed; its saga is archived in
+`lanes/trains/.agentrail-archive/`):
+- Delivered, in six PRs (#26-#28, #30, #31 and this one): property
+  tests that every train shape is its desugaring (fork, atop, dyadic
+  fork, long trains, named trains, text); errors spanned by the
+  element at fault, with notes giving the train, the element, what the
+  train means there written out, and an arity hint for built-ins
+  (`xetal-explain`, `Program::annotate`, D46, D47); trains in the
+  tour, README, reference, the syntax poster and
+  `docs/literate/trains.org` (each train beside its Combinators bird,
+  checked to agree); the retrofit (the Stats library and the demos'
+  train-shaped lambdas written as trains).
+- Two steps were added as the lane went: better diagnostics (the
+  user asked for more than a span) and the retrofit (the user's rule
+  that a feature saga ends by rewriting what worked around it).
+- What worked: the parsing and desugaring were already done, so the
+  lane began by proving the law, and the property tests found no bug;
+  every error case was a spec case first; a survey of the sources
+  (`docs/dogfooding.md`, Retrofit audit) gave the retrofit its list.
+- What to watch: a type error in a train is still reported where the
+  train is applied, over the whole call and without notes, when the
+  mismatch comes from its elements' types together (the mean
+  `['+ r_/ / t_ally]` on Floats); that is the checker's error
+  locality in general, kept as friction in `docs/dogfooding.md`.
+  Previews of the poster need JuliaMono, or the combining underline
+  draws as an underscore.
 
 ## Saga 16 -- life (M8)
 
