@@ -40,6 +40,7 @@ pub fn call<'a>(
         .or_else(|| xetal_search::call(name, args, span))
         .or_else(|| xetal_radix::call(name, args, span))
         .or_else(|| xetal_rotate::call(name, args, span))
+        .or_else(|| xetal_transpose::call(name, args, span))
         .or_else(|| xetal_system::call(name, args, span))
     {
         return result;

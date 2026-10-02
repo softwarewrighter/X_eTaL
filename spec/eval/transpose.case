@@ -1,0 +1,26 @@
+# o_\ is transpose (B17): it reverses the order of the axes, as in APL
+# and J. A matrix's rows become its columns, a 2 3 4 array becomes
+# 4 3 2 (element i j k moves to k j i), and a vector or a scalar is
+# unchanged. Transposing twice gives the array back.
+== SOURCE
+m := 2 3 r_eshape r_ange 6
+a := 2 3 4 r_eshape r_ange 24
+o_\ m
+s_hape o_\ a
+1 s_elect o_\ a
+o_\ 1 2 3
+o_\ 5
+o_\ "abc"
+(o_\ o_\ a) m_atch a
+== RESULT
+1 4
+2 5
+3 6
+4 3 2
+1 13
+5 17
+9 21
+1 2 3
+5
+abc
+1

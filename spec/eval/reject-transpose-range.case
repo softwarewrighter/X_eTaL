@@ -1,0 +1,5 @@
+# Each axis in a permutation is one of 1 .. the rank (B17).
+== SOURCE
+0 1 t_ranspose 2 2 r_eshape r_ange 4
+== ERROR
+error[domain]: a permutation lists each axis once, got 0 1 at 0..36

@@ -1,0 +1,6 @@
+# o_\ is monadic: a name has one arity (B9), so permuting the axes is
+# t_ranspose, and a left argument to o_\ is a type error (B17).
+== SOURCE
+1 2 o_\ 2 2 r_eshape r_ange 4
+== ERROR
+error[type-mismatch]: expected a number, found Int -> a at 0..29

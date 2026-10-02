@@ -443,6 +443,21 @@ matrix), or along the subscript's axis.
 > r_ev_1 M
 > r_ev_2 M
 
+== o_\
+Transpose: reverse the order of the axes, so a matrix's rows become
+its columns; a vector or a single value is unchanged.
+> o_\ M
+> s_hape o_\ 2 3 4 r_eshape 0
+
+== t_ranspose
+Permute the axes: the left argument lists each axis once, and axis i
+of the right argument becomes the axis that item i of the list names
+(APL's dyadic transpose), so `3 1 2` moves axis 1 to the end. Listing
+the axes in reverse is `o_\`.
+> 2 1 t_ranspose M
+> s_hape 3 1 2 t_ranspose 2 3 4 r_eshape 0
+!> 1 1 t_ranspose M
+
 == SECTION Effects, identity, text and files
 
 == p_rint!

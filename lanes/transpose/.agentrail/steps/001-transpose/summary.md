@@ -1,0 +1,1 @@
+o_\ (reverse axes) and t_ranspose (permute) in new crate xetal-transpose; B17, D48; 6 spec cases, kernel + property tests; reference. Pushed as pr/transpose.

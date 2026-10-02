@@ -153,3 +153,10 @@ entries = [
   ["r_ev", 1, "a -> a"],
   ["o_-", 2, "Int -> a -> a"],
 ]
+
+[[group]]
+rule = "B17: transpose"
+entries = [
+  ["o_\\", 1, "a -> a"],
+  ["t_ranspose", 2, "Int -> a -> a"],
+]

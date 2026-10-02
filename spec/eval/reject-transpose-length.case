@@ -1,0 +1,6 @@
+# A permutation names every axis of the array: one number per axis
+# (B17).
+== SOURCE
+1 2 3 t_ranspose 2 2 r_eshape r_ange 4
+== ERROR
+error[length]: a permutation of 2 axes needs 2 numbers, got 3 at 0..38
