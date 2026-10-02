@@ -95,8 +95,9 @@ w)~.
 
 * The hook and the Starling
 
-The identity ~i_d~ in a train passes the argument through, so
-~[i_d F G] x~ is ~x F (G x)~: J's hook. That is the Starling, ~S x y z
+~i_d x~ is just ~x~, so in a fork ~[i_d F G] x~ is ~(i_d x) F (G
+x)~, which is ~x F (G x)~: J's hook. For example ~[i_d - n_eg] 5~ is
+~5 - (n_eg 5)~, which is 10. That is the Starling, ~S x y z
 = x z (y z)~.
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below

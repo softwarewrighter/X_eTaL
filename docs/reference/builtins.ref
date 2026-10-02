@@ -455,8 +455,9 @@ example repeats).
 > r_oll! 6 6 6
 
 == i_d
-The value itself. In a train it passes the argument through:
-`[i_d F G] x` is `x F (G x)`, a hook.
+The value itself. As the left function of a fork it gives the
+argument unchanged: `[i_d F G] x` is `(i_d x) F (G x)`, that is
+`x F (G x)` (a hook); `[i_d - n_eg] 5` is `5 - (n_eg 5)`.
 > i_d v
 > [i_d - n_eg] 5
 
