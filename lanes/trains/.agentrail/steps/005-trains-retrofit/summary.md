@@ -1,0 +1,1 @@
+Retrofit: Stats library, factorial/pascal f_act, quoted-train e_ach operands (wordfreq, pascal, magic, reference) as trains; outputs and types unchanged. Pushed as pr/trains-retrofit.

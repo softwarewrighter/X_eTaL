@@ -126,10 +126,13 @@ indices (no rank operator).
 
 ### Trains, once Saga 15 lands
 
-Clear wins: `lib/Stats.xtl` `l:r_ange := ['m_ax r_/ - 'm_in r_/]`
-and `d_eviations := [f_loat - l:m_ean]`; `u:f_act := ['* r_/ r_ange]`
-(factorial, pascal); `'[t_ally d_isclose] e_ach` (wordfreq, pascal,
-spec map and partition cases); `'[u:m_agic u:s_iamese] e_ach` (magic).
+Done (trains lane, retrofit step): `lib/Stats.xtl` as trains
+(`l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]`, `d_eviations`,
+`l:v_ariance := [l:m_ean [s_quare d_eviations]]`, `l:r_ange`);
+`u:f_act := ['* r_/ r_ange]` (factorial, pascal); `'[t_ally
+d_isclose] e_ach` (wordfreq, the reference) and `'['+ r_/ d_isclose]
+e_ach` (pascal); `'[u:m_agic u:s_iamese] e_ach` (magic). The spec map
+and partition cases keep their lambdas, which they test.
 Best as side-by-side comparisons: the Float-safe mean
 `[[f_loat '+ r_/] / [f_loat t_ally]]` (the tour's `['+ r_/ / t_ally]`
 takes Ints only), argmax `[i_d i_ndexOf 'm_ax r_/]` (histogram,

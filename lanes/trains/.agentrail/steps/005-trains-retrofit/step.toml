@@ -1,8 +1,9 @@
 number = 5
 slug = "trains-retrofit"
-status = "pending"
+status = "completed"
 description = "Trains lane. The user's rule (2026-10-02): a saga that adds a feature ends wi..."
 role = "production"
 context_files = []
 created_at = "2026-10-02T07:11:59"
-commits = []
+completed_at = "2026-10-02T10:31:12"
+commits = ["6677f4e4f1e6ed3b72d4d2a4917e129a39898c58"]

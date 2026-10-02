@@ -12,8 +12,10 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 12:23 `chore` Merge PR #31 (trains retrofit).
 - 12:23 `feat` Web: Open is a menu of collapsible groups (Demos, Classics, Libraries, Misc, Your files), each header a caret, its name and a count, all closed at first; arrows, Enter and Escape work, and a click outside closes it.
 - 11:17 `docs` The name spelled out is the eXperimental Extensible Typed Array Language (one capital X: the e of XeTaL is Extensible's), fixed in the README, PRD, name and why documents, CLAUDE.md, the logo SVG and the Emacs mode.
+- 10:35 `refactor` Trains retrofit: the Stats library's mean, deviations, variance and range written as trains (same results and types); factorial and Pascal's `u:f_act`, and the `e_ach` operands in word frequency, Pascal, magic squares and the reference, as trains. Outputs unchanged.
 - 10:19 `plan` Saga 19, macros, after quads: `.xtlm` macro libraries exporting `m:name<` macros, `u_se<` finding `Name.xtl` and `Name.xtlm` in one directory, macro calls in statements and expressions, namespace prefixes of any length (decisions MC10 to MC13, from X_eTaL-libraries asks X1 and X2).
 - 10:19 `chore` Merge PR #30 (trains docs).
 - 10:06 `docs` Syntax poster: the Trains panel is nine cards (atop, dyadic atop, fork, dyadic fork, hook, self, tacks, longer trains, quoted or named), each with its rule as equivalent code and an example whose value `scripts/poster.py` checks against the spelled-out form; the capture is trimmed to the poster's height. The tour's train comments give the equivalent code (run-echo-tour golden rebased on purpose: only those comments changed).
