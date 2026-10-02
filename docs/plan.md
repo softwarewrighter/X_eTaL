@@ -625,6 +625,21 @@ feeds the trace saga (Saga 17).
 | 25 | classics-eras            | twelve classics across eras: APL\360, APL2, Dyalog, X_eTaL |
 | 26 | classics-release         | index, README link, retrospective, merge |
 
+Gaps found by the mini APL interpreter (classics-mini-apl), for later
+decisions:
+- No raze (APL's enlist): the boxes of a nested vector cannot be
+  joined into one array, so the interpreter reads its number tokens
+  one at a time instead of as one strand of text.
+- `s_elect` takes no index from the end (APL's negative index is a
+  rotate-and-take there): the last token is `(t_ally t) s_elect t`.
+- No table of functions to dispatch on: the interpreter picks its
+  function by a chain of guards on the name (a box of functions, or a
+  `Map` from names, would say it once).
+- No execute: the interpreter is the workaround, and it is also the
+  test bed for one (`[]V_ALUE`, reserved in QD3).
+- A comparison named at the top level is a Bool, not a number (seen
+  again in the tokenizer, written `0 + ...`).
+
 ## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
 
 Asked for by the user after Saga 9, sooner rather than later: an

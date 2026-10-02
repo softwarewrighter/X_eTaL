@@ -70,3 +70,6 @@ coming up.
 | Numbers in a string are a segmented computation (one Horner per run of digits), and there is no key or segmented reduce, so the runs are summed through a table of run numbers | LeetCode 1805 | `'+ r_/_2 ((r_ange k) '= t_able g) * ...`, k by n in size; `p_artition` with `m_ap` now says it directly for strings; a key operator for numbers is not planned |
 | Numbers longer than an Int: LeetCode 1805 allows 1000 digits, and compares the digit strings without leading zeros | LeetCode 1805 | solved: the runs as strings by `p_artition`, leading zeros dropped by `m_ap`, compared by `u_nique` on boxes |
 | No "merge" (APL's `@`, or `(mask) choose`) to replace some items: blanking the non-digits picks from `" " c_at s` by index | LeetCode 1805 | `(1 + m * r_ange t_ally s) s_elect " " c_at s` |
+| No raze (enlist): the boxes of a nested vector cannot be joined into one array | the mini APL interpreter, reading a strand of number tokens | each token read by `n_umbers` on its own, through `e_ach` |
+| `s_elect` takes no index from the end | the mini APL interpreter, the last token | `(t_ally t) s_elect t` |
+| No table of functions to dispatch on | the mini APL interpreter, picking a function by its name | a chain of guards, one per name |
