@@ -1,8 +1,9 @@
 number = 30
 slug = "demo-menu"
-status = "in-progress"
+status = "completed"
 description = "User request (A): the live demo's Open list starts with collapsed groups, as ..."
 role = "production"
 context_files = []
 created_at = "2026-10-02T05:53:27"
-commits = []
+completed_at = "2026-10-02T12:34:50"
+commits = ["3f5e7443a35064078a80e441417f28e45735fa44"]
