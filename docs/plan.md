@@ -674,13 +674,10 @@ Retrospective (the lane is closed; its saga is archived in
    Demos, Classics, Libraries, Misc), advancedex-transcribe, then two
    steps from X_eTaL-demos' asks (int-strand-speed, ask D1, a
    quadratic type check of long Int strands; exponent-literals, ask
-   D4, `1.5e-7`, decision S8), cli-terminal-feature (X_eTaL-games:
-   `xetal-cli` builds for WASI without the terminal crates), then
-   web-release.
-2. Saga 25, the terminal (X_eTaL-games' request): a browser terminal
-   replacing `window.prompt`, named screen-control quads (QD6), and two
-   backends; its first piece, the `terminal` cargo feature that lets
-   `xetal-cli` build for WASI, is step cli-terminal-feature in Saga 10.
+   D4, `1.5e-7`, decision S8), then web-release.
+2. Saga 25, the terminal: a CLI emulated in the live demo with Rust,
+   Yew and WASM on the web-sw-tos model, replacing `window.prompt`,
+   with named screen-control quads (QD6).
 3. Saga 20, array kinds (empty arrays remember Char, number or box;
    ask X5 from X_eTaL-libraries, a wrong picture they hit now).
 4. Saga 13, quads, moved up to come next (the user asked for `[]A`,
@@ -701,32 +698,39 @@ Retrospective (the lane is closed; its saga is archived in
 
 ## Saga 25 -- the terminal (browser and CLI)
 
-Asked for by X_eTaL-games (`../X_eTaL-games/docs/xetal-terminal-request.md`,
-also for X_eTaL-demos): interactive programs (anything that reads with
-`[]R_EAD`) get a real terminal in the browser instead of
-`window.prompt` dialogs, text-UI programs get screen control, and the
-`xetal` binary builds for WASI so pages can run it. Decided with the
-user (2026-10-02): screen control is named quads (QD6); in the
-browser, the program runs in the Web Worker it already uses and
-`[]R_EAD` (and a key read) blocks on `Atomics.wait` over a
-`SharedArrayBuffer` the page's terminal fills, with cross-origin
-isolation from a small service worker written here (GitHub Pages
-cannot set the COOP and COEP headers). The browser terminal follows
-`../../sw-embed/web-sw-tos`: a character grid owned by plain Rust,
-keys from the window, key translation and line editing tested
-natively, the browser code in one module; no ratatui or crossterm.
+Asked for by the user and by X_eTaL-games: interactive programs
+(anything that reads with `[]R_EAD`) get a real terminal in the live
+demo instead of `window.prompt` dialogs, and text-UI programs get screen
+control. It is a CLI emulated in the page with Rust, Yew and WASM, as
+`../../sw-embed/web-sw-tos` does; nothing else is involved. What is
+taken from web-sw-tos (its docs/architecture.md):
+
+- A character grid (cells with a character, foreground, background,
+  bold) owned by plain Rust and drawn by Yew, with scrollback.
+- Keys from the window, not a focused element (its `src/browser.rs`
+  `on_keydown`: Meta and Alt left to the browser); key translation a
+  pure, tested function (its `crates/swtos-input/src/translate.rs`).
+- The program stepped by the page in ticks within a time budget (its
+  `crates/swtos-session/src/driver.rs` `run`), never blocking: a program
+  waiting for a line simply does not advance until Enter.
+- The browser touched in one module only; time injected through a
+  trait; the session logic tested natively; dependencies one way.
+
+For X_eTaL the step the page takes is the evaluator's: it must become
+resumable, so a run returns "waiting for a line" at `[]R_EAD` (or a
+key) and continues where it left off when input arrives. Screen
+control is named quads (QD6), applied to the grid in the page and
+written as ANSI by the CLI.
 
 | Step | Slug | Content |
 | ---- | ---- | ------- |
-| 1 | terminal-decisions | With the user: the quads' names and types (QD6), the facts `[]T_E` gives, the key codes, the style palette, how phase-2 calls degrade on a plain stream. |
-| 2 | terminal-trait | A crate `xetal-term` (no terminal crates) with the trait every effect goes through (write, error, read line, read key, size, screen control); the evaluator's effects moved onto it; backends Plain (std streams, goldens, WASI) and Crossterm (the CLI, behind the `terminal` feature). |
-| 3 | stderr-and-facts | Phase 1: `[]E_RR` (standard error, red in the browser) and `[]T_E`; spec cases and goldens. |
-| 4 | browser-grid | The sw-tos-style grid terminal crate: cells, attributes, scrollback, a line-editing mode (echo, backspace, history) and a raw mode; tested natively. |
-| 5 | browser-input | The live demo's output pane becomes the terminal; `[]R_EAD` blocks in the worker on `Atomics.wait`; the isolation service worker; no `window.prompt` left. Checked in headless Chrome. |
-| 6 | screen-control | Phase 2: `[]A_T`, `[]C_LS`, `[]S_TYLE`, `[]K_EY`, the same in both backends (ANSI at the CLI, the grid in the browser), tested by scripted keys. |
-| 7 | wasi-terminal | The WASI binary under a small shim whose stdin is the terminal, so a page can run the real `xetal`; a Node test reproducing the native goldens. |
-| 8 | terminal-retrofit | TTTML play, Mastermind and the other interactive demos on the terminal; dialogs gone; goldens rebased on purpose. |
-| 9 | terminal-release | README, Help, notebook docs, CHANGES, pages, retrospective; X_eTaL-games told. |
+| 1 | terminal-decisions | With the user: the quads' names and types (QD6), the key codes, the style palette, how screen control degrades on a plain stream, and the resumable evaluator's shape. |
+| 2 | resumable-run | The evaluator runs until it needs input and returns a waiting state that resumes with the line (or key); tested natively, the CLI unchanged. |
+| 3 | terminal-grid | Crates on the web-sw-tos split: the grid (cells, attributes, scrollback, line editing with echo, backspace and history), key translation, and the session that feeds lines to the waiting run; all pure Rust, tested natively. |
+| 4 | terminal-pane | The live demo's output pane becomes the terminal (Yew, keys from the window); `[]R_EAD` reads from it; no `window.prompt` left. Checked in headless Chrome. |
+| 5 | screen-control | The quads (QD6): write at a row and column, clear, style, one key, the terminal's facts, standard error in red; the same in the grid and as ANSI at the CLI. |
+| 6 | terminal-retrofit | TTTML play, Mastermind and the other interactive demos on the terminal; goldens rebased on purpose. |
+| 7 | terminal-release | README, Help, CHANGES, pages, retrospective; X_eTaL-games told how to use the terminal with `xetal-play`. |
 
 ## Saga 20 -- array kinds (empty arrays remember their kind)
 

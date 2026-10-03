@@ -1,6 +1,6 @@
 number = 34
 slug = "cli-terminal-feature"
-status = "pending"
+status = "in-progress"
 description = "From X_eTaL-games' terminal request (../X_eTaL-games/docs/xetal-terminal-requ..."
 role = "production"
 context_files = []
