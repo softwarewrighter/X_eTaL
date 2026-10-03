@@ -95,13 +95,28 @@ def trimmed():
     trims the empty bottom, keeping a margin."""
     magick = shutil.which("magick")
     if magick is None:
-        print("poster: no ImageMagick; the picture keeps its empty bottom")
+        trimmed_by_pillow()
         return
     subprocess.run(
         [magick, str(PICTURE), "-define", "trim:edges=south", "-trim", "+repage",
          "-gravity", "south", "-background", "#101318", "-splice", "0x20", str(PICTURE)],
         check=True,
     )
+
+
+def trimmed_by_pillow():
+    """Without ImageMagick 7, Pillow (where installed) trims the empty
+    bottom the same way: the full width kept, a 20 pixel margin."""
+    try:
+        from PIL import Image, ImageChops
+    except ImportError:
+        print("poster: no ImageMagick or Pillow; the picture keeps its empty bottom")
+        return
+    image = Image.open(PICTURE).convert("RGB")
+    background = Image.new("RGB", image.size, image.getpixel((0, image.height - 1)))
+    box = ImageChops.difference(image, background).getbbox()
+    if box:
+        image.crop((0, 0, image.width, min(image.height, box[3] + 20))).save(PICTURE)
 
 
 def main():

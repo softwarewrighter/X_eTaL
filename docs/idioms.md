@@ -67,6 +67,7 @@ and names are words where APL has glyphs; the source is plain ASCII.
 | Count | <code>&#8593;&#9076;V</code> | <code>&#8802;v</code> | <code># v</code> | <code>&#8800;v</code> | <code>t_ally v</code> |
 | Reverse | <code>&#9021;V</code> | <code>&#9021;v</code> | <code>&#124;. v</code> | <code>&#9021;v</code> | <code>r_ev v</code> |
 | Rotate | <code>1&#9021;V</code> | <code>1&#9021;v</code> | <code>1 &#124;. v</code> | <code>1&#9021;v</code> | <code>1 o_- v</code> |
+| Transpose | <code>&#9033;A</code> | <code>&#9033;a</code> | <code>&#124;: a</code> | <code>&#9033;a</code> (a matrix) | <code>o_\ a</code> |
 | Outer product | <code>A&#8728;.&#215;B</code> | <code>a&#8728;.&#215;b</code> | <code>a */ b</code> | <code>a &#215;&#8988; b</code> | <code>a '* t_able b</code> |
 | Inner product | <code>A+.&#215;B</code> | <code>a+.&#215;b</code> | <code>a +/ .* b</code> | <code>a +&#733;&#8728;&#215;&#9097;1&#8255;&#8734; b</code> | <code>a '+ '* i_nner b</code> |
 | Each | <code>F&#168;V</code> | <code>f&#168;v</code> | <code>f"0 v</code> | <code>F&#168;v</code> | <code>'f_ e_ach v</code> |

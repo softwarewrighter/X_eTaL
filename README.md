@@ -81,6 +81,7 @@ At a glance, versus classic APL:
 | Character set       | APL glyphs                   | ASCII source; Unicode/LaTeX for display |
 | Function vs value   | fixed glyph identity         | an underlined letter in the name       |
 | Axis specification  | separate glyphs / brackets   | subscript digits, e.g. `o_-_2`         |
+| Transpose           | the transpose glyph          | `o_\ A`, `2 1 3 t_ranspose A`          |
 | Operators           | `/` `\` `.` etc.             | ordinary curried functions: `'+ r_/ A` |
 | Typing              | dynamic                      | static, inferred (Hindley-Milner)      |
 | Ambiguous syntax    | resolved by fixed rules      | rejected with an explanation           |
@@ -164,7 +165,8 @@ power), search, order and random built-ins, rotate, reverse and axis
 subscripts on any function, function power (`f_^3`), the Life
 one-liner, trains (forks, atops, hooks with the tacks, and errors
 that say what the train means where it fails), replicate (`r_eplicate`),
-encode and decode, catenate along any axis (`c_at_2`), whole-array match
+encode and decode, catenate along any axis (`c_at_2`), transpose (`o_\`
+reverses the axes, `t_ranspose` permutes them, `o_\_23` swaps two), whole-array match
 (`m_atch`), nested arrays (string strands, `e_nclose`, `d_isclose`,
 `p_artition`, `m_ap`, printed as APL2's DISPLAY, `d_isplay`, `--box`,
 `--ascii`), files, the keyboard and numbers as text (`[]N_GET`,

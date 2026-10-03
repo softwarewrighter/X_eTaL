@@ -12,8 +12,10 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 18:01 `chore` Merge PR #35.
 - 17:31 `design` The terminal's evaluator is steppable, as web-sw-tos steps its emulator (D50, decided with the user): state as data, run in slices, waiting at `[]R_EAD` until a line is typed; two steps added to Saga 25 for it.
 - 17:00 `plan` Saga 25 rewritten on the web-sw-tos model: a CLI emulated in the live demo with Rust, Yew and WASM (a cell grid, keys from the window, the program stepped by the page and resumed when a line is typed); the WASI build of the CLI is dropped (step cli-terminal-feature abandoned).
+- 16:55 `docs` Transpose in the tour (demo and literate), README, idioms (beside APL's transpose) and the syntax poster's Axes panel; run-tour and run-echo-tour goldens rebased on purpose (only the new lines). `scripts/poster.py` trims its capture with Pillow where ImageMagick 7 is missing.
 - 16:21 `chore` Merge PR #34.
 - 16:11 `plan` X_eTaL-games' terminal request: step cli-terminal-feature next (a default-on `terminal` feature so `xetal-cli` builds for wasm32-wasip1), Saga 25 the terminal right after Saga 10 (a sw-tos-style browser terminal replacing `window.prompt`, input by `Atomics.wait` in the worker, named screen-control quads, decision QD6).
 - 16:08 `feat` Float literals with an exponent (S8, ask D4 from X_eTaL-demos): `1.5e-7`, `6.02e23`, `2E3`; this also mends the formatter's round trip for very small and very large Floats, which it already wrote as `1e-7`.
