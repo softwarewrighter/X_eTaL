@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 08:20 `plan` The user's idea, a Combinators.xtlm macro library (`c:Y_<` ties the knot at compile time: named recursion, no lazy parameter; `c:B_<` inlines), with the fibonacci demo's fifth way: step 051 in Saga 19.
 - 08:17 `demo` Fibonacci a fourth way: recursion without a name, through the Combinators library's Y combinator (`c:Y_`, a lazy self parameter); the run golden rebased on purpose (one new line).
 - 08:12 `plan` Saga 27, readable type errors (located, explained, hints, a literate type-errors document), asked for by the user, before the release cleanup (steps 053-057).
 - 08:12 `feat` The terminal's grid and line editor (D51, Saga 25 step 5): components/console with xetal-screen (styled cells, wrapping, scrollback) and xetal-lineedit (browser keys translated, a line editor with history), plain Rust after web-sw-tos.
