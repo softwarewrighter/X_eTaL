@@ -1,0 +1,676 @@
+
+Are we X_eTaL yet?  look at my recently updated softwarewrither X_eTaL* repos and determine if we have critical mass to publish and blog about yet?  e.g., a feature is more macros like u_se< (i_f<, e_ach<, u_nless<) and the ability for a user to create and use .xtlm macro libraries.  I do not think this is read for prime time yet.  Which demos are missing (which features are missing)?  What other essential/critical work is still in-progress and/or not demonstrated properly?  Are the docs complete (we keep adding features, but the docs seem to lag behind).   I need a plan/checklist of the most important things to be done in each repo so that I can present a usable set of repos without obvious gaps.
+
+Worked for 58s
+so you started answering, erased your answer, announced 58s, stopped.  not helpful
+You're right. I did the repository audit and then failed to deliver the result. Here is the result directly.
+
+Are we X_eTaL yet?
+You have critical mass for a “look what I’m building” / preview blog post. I would not yet present X_eTaL as a coherent public release.
+
+The issue is no longer lack of substance. There is a lot of substance. The problem is that the implementation has advanced faster than the product story, documentation, downstream synchronization, and demonstrations of extensibility.
+
+The five-repo ecosystem is now real:
+
+X_eTaL — language, interpreter, tooling, browser environment
+X_eTaL-demos — visual/scientific/ML demonstrations
+X_eTaL-games — interactive/game programs
+X_eTaL-libraries — reusable X_eTaL code
+X_eTaL-extensions — native Rust extensibility
+That's already a surprisingly broad ecosystem for a language that is only about a week old. The gap is integration and presentation readiness, not raw feature count.
+
+The release blockers I would put ahead of a blog launch
+Priority	Missing/incomplete	Why I consider it important
+P0	Finish .xtlm user macro libraries	“Extensible” currently overpromises somewhat. u_se< exists, but the much more interesting user-defined syntax extension story is still planned.
+P0	Demonstrate macros with Control.xtlm	i_f<, u_nless<, e_ach< are exactly the sort of examples that explain why the macro facility matters.
+P0	xetal expand / macro inspection	A teaching/research language should make generated code visible. This also makes macros debuggable rather than magical.
+P0	Finish browser terminal / interactive I/O	Games currently expose a conspicuous limitation in the main browser experience. A language demo should be able to run interactive programs naturally.
+P0	Documentation reconciliation	Several downstream xetal-asks.md files describe features as missing that have subsequently landed upstream. A reader will find contradictions.
+P0	One release-readiness feature matrix	There is no obvious authoritative “what works TODAY?” document spanning language/core/libs/macros/extensions/browser.
+P1	Host-value/session API	Demos currently serialize arrays into source and parse them back out. That's an architectural wart that becomes obvious in sophisticated demos.
+P1	Native-extension integration into core	Extensions work through xetal-x/ext: bridge rather than ordinary xetal; good research prototype, but not yet the final extensibility story.
+P1	Array-kind fix	Empty Char arrays displaying as numeric empties is the sort of small visible inconsistency that undermines polish.
+P1	User-defined errors/assert/catch	Particularly important because you now have a library ecosystem and Check.
+P1	Performance/vector kernels	Not necessary for “the language exists,” but important because several visual demos already expose current performance limits.
+The first five are the ones I'd address before saying “Introducing X_eTaL” rather than “Building X_eTaL.”
+
+1. X_eTaL core
+This is actually much further along than I expected from our discussions.
+
+You already have:
+
+Language: lexer/parser, deterministic syntax, formatter, Core IR, HM typing, arrays, scalar extension, nested arrays, lambdas, currying, trains, guards, namespaces, imports, higher-order functions, axes, transpose, encode/decode, replicate, search/order, randomness, trig, files and I/O.
+
+Array-language credibility: reduce, scan, each, table, inner product, rotate, transpose, catenate, reshape, select, partition, map, nested arrays, DISPLAY.
+
+Tooling: CLI, REPL, editor, notebook execution, pretty rendering, Unicode/LaTeX rendering, syntax diagrams, Emacs mode, WASM/browser environment.
+
+Dogfooding: Life, TTTML, Mastermind, Hanoi, Mandelbrot, combinators, classic APL examples, libraries.
+
+That is already critical mass as a programming language.
+
+Must do before “release”
+Finish Saga 25 browser terminal.
+Finish Saga 19 .xtlm.
+Add xetal expand or equivalent.
+Include one small standard/example .xtlm.
+Finish array-kind correctness.
+Synchronize reference.md, tour, README and syntax poster.
+Audit docs/plan.md: clearly distinguish implemented / active / future research.
+Add a generated feature-status table rather than maintaining status prose manually.
+Run a complete “fresh user” install → build → tour → write program → library → macro workflow.
+I would make the last item an automated acceptance test if practical.
+
+2. The macro system is the biggest conceptual hole
+This is more important than adding another primitive.
+
+The name says:
+
+eXperimental Extensible Typed Array Language
+
+There are actually three compelling meanings of extensibility emerging:
+
+                X_eTaL extensibility
+
+       language                 libraries
+          │                        │
+          ▼                        ▼
+      .xtlm macros            .xtl modules
+   "what can I say?"       "what can I reuse?"
+          │
+          │
+          └─────────┐
+                    ▼
+             native extensions
+                 Rust/C
+          "what can I do?"
+That is a very strong language story.
+
+But today the first leg isn't finished and the third still needs a bridge host.
+
+I'd finish the first before launch.
+
+The missing killer macro demo
+Your planned Control.xtlm is exactly right:
+
+i_f<
+u_nless<
+e_ach<
+But I would add one more category.
+
+A domain-specific macro
+Something where a reader immediately understands why textual extension exists.
+
+For example a tiny array assertion/testing DSL:
+
+expr t:expect< expected
+or a shape declaration/check:
+
+"x: 28 28 Float" a:shape<
+or something ML-specific:
+
+"784 128 relu 10 softmax" n:network<
+The point is not the exact syntax.
+
+It demonstrates that .xtlm isn't merely a convoluted implementation of if.
+
+Then:
+
+xetal expand foo.xtl
+shows what X_eTaL actually executes.
+
+That gives you an unusually nice LaTeX analogy:
+
+ASCII is transformed into typography for humans; macros transform source into source for the language.
+
+3. X_eTaL-demos
+This repository is already close to having too many demos rather than too few.
+
+Currently you have substantial demos including:
+
+Life microscope
+Mandelbrot
+Julia
+reaction-diffusion
+wave tank
+CA lab
+Langton's ant
+N-body
+image pipeline
+ternary network
+MoE router
+and CNN work is actively underway.
+
+I would not delay publication to add more random demos.
+
+Instead, fill three conceptual holes.
+
+Missing demo A — CNN digits
+This is already the active work.
+
+Finish it.
+
+It connects:
+
+array language
+    ↓
+image arrays
+    ↓
+convolution
+    ↓
+ML
+    ↓
+visible intermediate tensors
+This strongly supports the original “array programming + ML” motivation.
+
+Missing demo B — attention
+Transpose has landed, but the demos repo still records attention as deferred because transpose was missing.
+
+That is precisely the kind of downstream stale state I'm concerned about.
+
+Now you can demonstrate:
+
+Q
+K
+V
+
+Q × Kᵀ
+   ↓
+scores
+   ↓
+softmax
+   ↓
+attention map
+   ↓
+weights × V
+This is probably the single most topical missing ML demo.
+
+And visually it fits the microscope perfectly.
+
+Missing demo C — macro-powered demo
+Once .xtlm lands, at least one demo should actually depend on a user macro library.
+
+Otherwise macros look bolted onto the language.
+
+4. X_eTaL-games
+This repository is doing something very useful that the scientific demos don't: state, input and ordinary programming.
+
+You now have Number Guess, Robot Chase, Trek Adventure and Star Trek, among others.
+
+The main missing feature isn't another game.
+
+It is the terminal.
+
+Until browser terminal support is complete, games effectively demonstrate:
+
+“X_eTaL can implement interactive programs, provided its surrounding environment compensates for the missing interactive runtime.”
+
+After Saga 25, they demonstrate:
+
+“Here is an interactive X_eTaL program.”
+
+That's a huge difference.
+
+Before launch
+Finish shared terminal shell.
+Switch games to real resumable []R_EAD.
+Remove history-replay workaround where possible.
+Demonstrate screen-control quads in one game.
+Complete gallery release.
+Screenshots/video for Trek and Robot Chase.
+Link Games prominently from core's live site.
+I would not wait for Sudoku, Minesweeper, 2048, etc.
+
+Those make an excellent post-launch stream of content.
+
+5. X_eTaL-libraries
+This is one of the strongest indications that X_eTaL has crossed from interpreter demo to usable language.
+
+You already have eight libraries and roughly 70 exports across:
+
+Check, Strings, Sets, Numbers, Combinatorics, Lists, Matrix, Random.
+
+And they have tests, demos, documentation and now browser execution.
+
+That's excellent release material.
+
+But this repository also exposes the most important missing language features.
+
+Before launch
+Must
+Refresh against latest core.
+Re-run every xetal-asks repro.
+Mark landed asks landed.
+Build Control.xtlm.
+Build Test.xtlm or equivalent.
+Demonstrate external/user .xtlm loading.
+Update live catalog with macros.
+Very desirable
+Core assert/raise support.
+Convert Check to actual failing assertions where appropriate.
+Fix empty Char array kind.
+Implement character-code/case facilities.
+Can wait
+BigInt, matrix divide, sophisticated statistics, dates, graphs, plotting, etc.
+
+Those are library-growth issues, not launch blockers.
+
+6. X_eTaL-extensions
+This is impressive but definitely not release-complete yet.
+
+At the moment you essentially have:
+
+ABI V1
+  +
+SDK
+  +
+loader
+  +
+bridge
+  +
+Hello
+  +
+Clock
+  +
+browser Hello
+while the README advertises a much larger destination:
+
+SQLite
+Web
+Image
+Linalg
+HTTP
+Digest
+with flagship demos built around them.
+
+That creates a presentation problem.
+
+I see two reasonable release choices.
+
+Option A — label Extensions explicitly experimental
+Ship the ecosystem while saying:
+
+Native extension ABI preview: Hello and Clock demonstrate the proposed interface.
+
+Then SQLite/image/etc. are clearly roadmap items.
+
+Option B — finish one serious extension
+I strongly prefer this.
+
+Do SQLite.
+
+It demonstrates something X_eTaL genuinely shouldn't reinvent and gives you:
+
+X_eTaL arrays
+     ↕
+   facade
+     ↕
+native ABI
+     ↕
+    Rust
+     ↕
+ rusqlite
+     ↕
+ SQLite DB
+Then Extensible has a compelling concrete demonstration rather than hello("world").
+
+You don't need all eight extensions.
+
+For release I'd want:
+
+Hello + Clock + SQLite.
+
+Digest would also be cheap, but SQLite proves far more.
+
+7. Documentation is indeed lagging
+This is probably your largest immediate housekeeping problem.
+
+I found obvious examples where downstream ask files still describe things that have since landed upstream.
+
+For example X_eTaL-demos still lists issues around:
+
+long Int strand performance
+exponent literals
+transpose
+vendored version provenance
+despite recent core work addressing several of these.
+
+That isn't surprising given how rapidly you're developing, but a new reader can't know which document represents reality.
+
+I would establish this hierarchy
+README
+   │
+   ├── what X_eTaL is
+   ├── 5-minute experience
+   └── CURRENT STATUS ──────────────┐
+                                    │
+docs/reference.md                   │
+   │                                │
+   └── exact implemented language  │
+                                    │
+docs/plan.md                        │
+   └── future work                  │
+                                    │
+CHANGES.md                          │
+   └── history                      │
+                                    │
+sibling xetal-asks.md ──────────────┘
+        verified against current core
+Critically, plan.md should never be required to discover whether a feature exists.
+
+8. Add one ecosystem-level compatibility dashboard
+I think this would pay for itself almost immediately.
+
+Something like:
+
+Capability	Core	Demos	Games	Libraries	Extensions
+arrays	✓	✓	✓	✓	✓
+nested arrays	✓	✓		✓	ABI
+trains	✓	examples		✓	
+transpose	✓	attention TODO	✓	✓	
+.xtl libraries	✓	✓	✓	✓	facade
+.xtlm	WIP	TODO	TODO	blocked	blocked
+terminal	WIP		workaround		
+host arrays/session	TODO	workaround			
+native calls	bridge				bridge
+user errors	TODO			workaround	
+browser	✓	✓	✓	✓	partial
+Better still: generate much of it from tests/manifests.
+
+That would stop the five repositories from drifting apart.
+
+9. What I would not do before launch
+This is important because your backlog could postpone publication indefinitely.
+
+Don't wait for:
+
+every ADVANCEDEX function
+complete APL compatibility
+complex numbers
+BigInts
+every proposed extension
+complete plotting package
+eigenvectors/PCA
+diffusion model demo
+world-model demo
+transducers
+JIT/AOT
+major optimization
+dozens more games
+perfect ML performance
+Those demonstrate future depth, not whether X_eTaL is a language.
+
+It plainly is already.
+
+Proposed release gate
+I would define a concrete “Are We X_eTaL Yet?” gate.
+
+Gate 1 — language
+
+ASCII syntax → decorated typography
+
+static inference
+
+arrays
+
+higher-order functions
+
+trains
+
+nested arrays
+
+namespaces
+
+.xtl libraries
+
+browser execution
+.xtlm user macros
+inspect macro expansion
+clean user-defined errors
+Gate 2 — tooling
+
+CLI
+
+REPL
+
+formatter
+
+renderer
+
+notebook
+
+editor
+
+WASM
+
+Emacs
+proper browser terminal
+host/session API
+Gate 3 — proof
+
+Life one-liner
+
+classic APL algorithms
+
+TTTML
+
+scientific visualization
+
+ternary ML
+
+MoE
+CNN
+attention
+
+games
+
+reusable libraries
+macro-powered application
+substantive native extension (SQLite would satisfy this)
+Gate 4 — presentation
+
+live core site
+
+live demos
+
+live libraries
+
+game site
+extension catalog fully published
+synchronized feature status
+stale-ask sweep
+fresh-user walkthrough
+release tag
+one ecosystem diagram
+one definitive “start here” page
+My suggested order from today → blog
+This is much shorter than the total roadmap.
+
+1. Finish terminal.
+This removes a very visible limitation and unlocks Games properly.
+
+2. Finish .xtlm.
+Include imports, recursive/bounded expansion, diagnostics and xetal expand.
+
+3. Immediately build Control.xtlm.
+i_f<, u_nless<, e_ach<. Do this in the libraries repo so the extension mechanism is proven externally.
+
+4. Add one macro-driven demo.
+Prefer something that isn't merely control flow.
+
+5. Finish CNN digits.
+
+6. Build Attention.
+Transpose has removed its original blocker. This gives the ML gallery a very recognizable modern example.
+
+7. Fix array-kind + stale downstream asks.
+
+8. Do the documentation freeze/audit.
+README → tour → reference → poster → literate docs → sibling asks.
+
+9. Finish SQLite extension.
+Don't wait for Web/Image/Linalg/HTTP/Digest.
+
+10. Run a release candidate entirely as a stranger.
+
+clone
+  ↓
+build
+  ↓
+just tour
+  ↓
+write hello.xtl
+  ↓
+write an array program
+  ↓
+import library
+  ↓
+import Control.xtlm
+  ↓
+xetal expand
+  ↓
+run browser
+  ↓
+play game
+  ↓
+run ML demo
+  ↓
+run SQLite extension
+If that journey works without knowledge of the implementation, **then
+
+since you mentioned almost too many demos, I think I want to split the -demos repo to pull out the ML-related demos to their own -ML repo.  Also, I want a concise way (fit on 1/2 page) that gives the overview of the ecosystem, with links, probably focused on the repos.  But need some value proposition.  Explain the extensible aspect.  Emphasize how this differs from APL-ish languages (mention Haskell and Rust influences).  How do we describe the benefits of macros, dlls, static typing?
+I think the split improves the story. I’d make X_eTaL-demos mean visual/scientific/array-programming demonstrations, and create X_eTaL-ML for machine-learning demonstrations. That makes the ecosystem easier to explain because each repository answers a different question.
+
+Proposed ecosystem
+Repo	One-line purpose	Proves
+X_eTaL	Language, interpreter, tooling, browser playground	the language
+X_eTaL-demos	Visual array/scientific programs	what array programming looks like
+X_eTaL-ML	ML models and visual ML experiments	why array languages fit ML
+X_eTaL-games	Interactive games and puzzles	general-purpose/stateful programming
+X_eTaL-libraries	Reusable .xtl and .xtlm libraries	language-level extensibility
+X_eTaL-extensions	Native Rust/shared-library extensions	system-level extensibility
+I'd move ternary-net, moe-router and CNN-digits to X_eTaL-ML. Future attention, embeddings/PCA, tiny transformers, training, quantization, etc. naturally go there. Keep N-body, image pipeline, Life, Mandelbrot, Julia, CA, reaction-diffusion, wave tank and Langton's Ant in -demos.
+
+The image pipeline is borderline, but I'd leave it in -demos: it's fundamentally an array/image-processing demonstration and provides a nice bridge toward ML.
+
+The half-page story
+The key is not to sell X_eTaL as “another APL.” The interesting proposition is more like:
+
+X_eTaL explores what an array language might look like if APL's whole-array model were redesigned with ideas from Haskell and Rust, modern language tooling, and extensibility as a first-class goal.
+
+APL/J/K/BQN provide much of the array-computing heritage. Haskell contributes much of the functional/type-system mindset—composition, currying, higher-order functions and inferred static types. Rust influences the engineering philosophy: explicitness where it matters, strong compile-time checking, modular implementation, safe interfaces, and a practical path to native interoperability.
+
+There is precedent for combining functional static typing with array programming—for example, Dex describes itself as a typed functional array-processing research language in the Haskell/ML family. 
+ X_eTaL's particular combination is different: APL-like notation expressed through ASCII→typographic rendering, plus source macros, ordinary libraries, and native extensions.
+
+I would describe Extensible as three layers
+This is potentially one of the strongest parts of the project:
+
+Libraries extend the vocabulary. Macros extend the language. Native extensions extend the machine.
+
+That's concise enough to become a tagline.
+
+1. .xtl — extend the vocabulary
+Ordinary X_eTaL libraries add reusable functions without changing the interpreter:
+
+"mx:" u_se< "Matrix"
+Benefit: application/domain abstractions remain X_eTaL—portable, inspectable, type-checked and usable in the browser.
+
+2. .xtlm — extend what the language can say
+Macro libraries operate before normal parsing/type checking and can introduce domain-specific forms such as i_f<, u_nless<, e_ach<, test constructs, or eventually ML-specific notation.
+
+The important benefit isn't “shorter syntax.”
+
+It's:
+
+Macros let a library introduce domain notation while compiling it back into ordinary X_eTaL that can be inspected and then statically checked.
+
+That last part is crucial.
+
+The macro can generate code, but the generated program does not bypass the language's type system. And an expansion viewer makes the transformation teachable/debuggable rather than opaque. Expansion visibility is a meaningful property of serious macro tooling; other macro systems similarly emphasize being able to inspect expansion steps. 
+
+3. native extensions — extend what programs can do
+Rust/shared-library extensions cross the boundary when pure X_eTaL isn't appropriate:
+
+X_eTaL
+   │ typed facade
+   ▼
+native extension ABI
+   │
+   ├── SQLite
+   ├── image codecs
+   ├── linear algebra
+   ├── networking
+   └── other Rust/C libraries
+Benefit: don't make the array language implement the world.
+
+Keep array algorithms concise in X_eTaL while using mature native ecosystems for operating-system facilities, databases, codecs and performance-sensitive kernels.
+
+And critically, application code should see a typed X_eTaL facade, rather than FFI plumbing.
+
+Why static typing matters here
+I wouldn't simply say “X_eTaL is APL with static types.” That undersells the architectural effect.
+
+Traditional array-language terseness creates a tension: a short expression can encode a lot of assumptions about rank, element type, function arity and composition.
+
+X_eTaL is exploring whether we can retain the concision while having the compiler answer questions such as:
+
+“Can these pieces actually compose?”
+
+So the benefit statement could be:
+
+Static inference lets X_eTaL remain terse without requiring the programmer to annotate every expression: types document composition, reject incompatible programs before execution, and provide machine-readable information for editors, macros and tooling.
+
+That is where the Haskell influence is clearest: inference rather than pervasive declarations.
+
+And there's another important connection to macros and DLLs:
+
+              STATIC TYPES
+                  │
+       ┌──────────┼──────────┐
+       ▼          ▼          ▼
+     .xtl       .xtlm      native
+   library      macro     extension
+       │          │          │
+       └──────────┼──────────┘
+                  ▼
+          checked X_eTaL
+             program
+Static typing is therefore not merely a safety feature. It is what makes aggressive extensibility less chaotic.
+
+Libraries compose through types.
+Macro expansions get checked.
+Native facades advertise checked interfaces.
+
+That's a much stronger story.
+
+The actual half-page ecosystem copy
+For a README/blog sidebar, I would use something close to this:
+
+X_eTaL: an extensible, typed array language
+X_eTaL asks what an APL-family array language might look like if designed today with influences from Haskell and Rust: whole-array programming and terse composition, but with ASCII source rendered as readable mathematical typography, inferred static types, modern tooling, and extensibility built into the language.
+
+Extensible has three meanings: libraries extend the vocabulary, macros extend what the language can say, and native extensions extend what programs can do. Ordinary .xtl libraries provide reusable typed array code. .xtlm macro libraries can introduce domain-specific notation that expands into visible, ordinary X_eTaL and is then type-checked. Native extensions expose Rust/shared-library capabilities through typed X_eTaL facades, allowing programs to use databases, image codecs, optimized numerical code and system facilities without putting those concerns into the language core.
+
+The ecosystem separates those ideas into focused repositories:
+
+X_eTaL — the language, interpreter, REPL, editor, notebook and browser playground.
+
+X_eTaL-demos — visual array and scientific computing demonstrations.
+
+X_eTaL-ML — machine-learning demonstrations: neural networks, ternary models, MoE routing, attention and related experiments.
+
+X_eTaL-games — interactive games and puzzles that exercise state, input and general programming.
+
+X_eTaL-libraries — reusable X_eTaL function and macro libraries.
+
+X_eTaL-extensions — native Rust/shared-library extensions and the X_eTaL extension ABI.
+
+The goal is not to replace APL, Haskell or Rust. X_eTaL is an experiment in combining APL's array thinking, Haskell's typed functional composition, and Rust's emphasis on explicit, robust interfaces in a small language whose programs can grow without continually growing the language core.
+
+I'd make “libraries extend the vocabulary; macros extend the language; native extensions extend the machine” a recurring phrase in the README, ecosystem page, and eventual blog post. It gives Extensible a concrete technical meaning rather than leaving the E in X_eTaL as an aspiration.
+
+
+
+
+⋮⋮⋮⋮

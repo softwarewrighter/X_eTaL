@@ -675,8 +675,8 @@ Retrospective (the lane is closed; its saga is archived in
    steps from X_eTaL-demos' asks (int-strand-speed, ask D1, a
    quadratic type check of long Int strands; exponent-literals, ask
    D4, `1.5e-7`, decision S8), then Saga 25 and Saga 19 (below),
-   then web-release, so the release ships with the terminal and
-   macro libraries.
+   then Saga 26 (cleanup), then web-release, so the release ships
+   with the terminal and macro libraries and docs that match them.
 2. Saga 25, the terminal: a CLI emulated in the live demo with Rust,
    Yew and WASM on the web-sw-tos model, replacing `window.prompt`,
    with named screen-control quads (QD6); its steps run inside Saga
@@ -686,15 +686,20 @@ Retrospective (the lane is closed; its saga is archived in
    the user right after Saga 25, also inside Saga 10's agentrail saga
    before web-release; X_eTaL-libraries' Control and Assert macro
    libraries (its saga 4) wait on it.
-4. Saga 20, array kinds (empty arrays remember Char, number or box;
+4. Saga 26, are we X_eTaL yet? (cleanup for a release: a generated
+   status table, the plan audited, the docs synchronized, the
+   ecosystem section, the asks ledger, a fresh-user walkthrough, the
+   release candidate), asked for by the user from docs/research3.txt,
+   before web-release.
+5. Saga 20, array kinds (empty arrays remember Char, number or box;
    ask X5 from X_eTaL-libraries, a wrong picture they hit now).
-5. Saga 13, quads (the user asked for `[]A`, `[]D` and the related
+6. Saga 13, quads (the user asked for `[]A`, `[]D` and the related
    system names).
-6. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
+7. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
    X_eTaL-libraries).
-7. The retrofit saga after it (below), so it can use quads, macros,
+8. The retrofit saga after it (below), so it can use quads, macros,
    long aliases and errors too.
-8. Then Saga 11 and the rest as numbered, with the sagas added for
+9. Then Saga 11 and the rest as numbered, with the sagas added for
    the sibling repos' asks (2026-10-02): Saga 22 speed (ask D2),
    Saga 23 host bindings and native packages (asks D3 and E1),
    Saga 24 transpose (ask D9, done as the transpose lane); the
@@ -750,6 +755,26 @@ written as ANSI by the CLI.
 | 7 | screen-control | The quads (QD6): write at a row and column, clear, style, one key, the terminal's facts, standard error in red; the same in the grid and as ANSI at the CLI. |
 | 8 | terminal-retrofit | TTTML play, Mastermind and the other interactive demos on the terminal; goldens rebased on purpose. |
 | 9 | terminal-release | README, Help, CHANGES, pages, retrospective; X_eTaL-games told how to use the terminal with `xetal-play`. |
+
+## Saga 26 -- are we X_eTaL yet? (cleanup for a release)
+
+Asked for by the user (2026-10-03), from the release review in
+docs/research3.txt: the implementation has moved faster than the
+product story, the documentation and the sibling repositories, so a
+reader cannot tell what works today. This repository's part only (the
+siblings clean up their own). It comes after the terminal (Saga 25)
+and macros (Saga 19) and before web-release, which becomes the
+release.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | status-table | `docs/status.md`, "what works today": every feature with its state (works, partial, planned), generated from the built-in catalog, the spec cases and the decisions marked "not yet implemented", and checked current by the gate; the README's Status points to it, so `plan.md` is never needed to learn whether something exists. |
+| 2 | plan-audit | `plan.md` in three plain parts: done (each saga one line, its retrospective linked), active, and future or research; lang-choices' "not yet implemented" markers made true; stale cross-cutting entries removed. |
+| 3 | docs-sync | README, tour, reference, syntax poster, literate documents, Help and the live demo's menus reconciled with what exists (trains, transpose, exponents, the terminal, macros, `xetal expand`); every example executed by a spec case or golden. |
+| 4 | ecosystem | The README's half-page ecosystem section: the value proposition (APL's whole-array model with Haskell's inferred types and composition and Rust's explicit, robust interfaces), Extensible in three layers ("libraries extend the vocabulary; macros extend the language; native extensions extend the machine"), why static typing makes that extensibility safe (library interfaces typed, macro expansions checked, native facades typed), and the repositories (X_eTaL, -demos, -ML, -games, -libraries, -extensions), each with one line and a link; one ecosystem diagram (an image, the README staying ASCII) and a "start here" page. |
+| 5 | asks-ledger | `docs/asks.md`: every ask the sibling repositories filed, with its state in this repository (landed with the commit, planned with the saga, declined with the reason), checked by running each repro against this build (a script here; the siblings update their own files). |
+| 6 | fresh-user | An automated walkthrough as a stranger would take it: a clean clone, build, `just tour`, a hello program, an array program, a library import, a `.xtlm` import, `xetal expand`, the live demo with an interactive program; in the gate or a `just` recipe. |
+| 7 | release-candidate | The walkthrough by hand, a release checklist (the four gates of research3: language, tooling, proof, presentation), CHANGES summarized, a version and a release tag, the pages published. |
 
 ## Saga 20 -- array kinds (empty arrays remember their kind)
 
