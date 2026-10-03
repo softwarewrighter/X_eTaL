@@ -1,6 +1,6 @@
 number = 4
 slug = "transpose-retrofit"
-status = "pending"
+status = "in-progress"
 description = "Transpose lane (see lanes/transpose/.agentrail/plan.md), step transpose-retro..."
 role = "production"
 context_files = []

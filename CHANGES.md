@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 19:05 `refactor` Transpose retrofit: Mastermind's 1296 codes as `o_\ 1 + 6 6 6 6 e_ncode o_ffsets 1296` (was place values by `d_iv` and `m_od`), Hanoi's moves as rows by `o_\` (was two tables), TTTML's position code by `3 d_ecode o_\` (was an inner product with powers of 3). Outputs unchanged.
 - 18:01 `chore` Merge PR #35.
 - 17:31 `design` The terminal's evaluator is steppable, as web-sw-tos steps its emulator (D50, decided with the user): state as data, run in slices, waiting at `[]R_EAD` until a line is typed; two steps added to Saga 25 for it.
 - 17:00 `plan` Saga 25 rewritten on the web-sw-tos model: a CLI emulated in the live demo with Rust, Yew and WASM (a cell grid, keys from the window, the program stepped by the page and resumed when a line is typed); the WASI build of the CLI is dropped (step cli-terminal-feature abandoned).

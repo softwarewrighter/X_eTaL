@@ -93,9 +93,9 @@ stay as they are; later features get new pages instead.
 | `d_ecode` | automaton:15 | `1 + (4 * ...) + (2 * row) + ...` | `1 + 2 d_ecode -1 0 1 o_- row` (checked) |
 | `e_ncode` | hanoi:29 (and hanoi.org:224) | trailing zero bits by a remainder table | `1 + '+ r_/ '& s_\ r_ev 0 = (n r_eshape 2) e_ncode k` (checked); keep the old one beside it, it teaches |
 | `d_ecode` | sequences:11 | Horner by a reduce | `x d_ecode r_ev c` (Int x only) |
-| `d_ecode` | lib/TTTML:30 | base 3 by `'+ '* i_nner 6561 ... 1` | `3 d_ecode_2 ...` |
+| `d_ecode`, `o_\` | lib/TTTML:30 | base 3 by `'+ '* i_nner 6561 ... 1` | done: `3 d_ecode o_\ ...` (transpose lane) |
 | `d_ecode`, `p_artition` | leetcode numbers-in-string:24-32 | Horner per run through a table | `'{ 10 d_ecode ... d_isclose _r } e_ach (...) p_artition s` (checked); keep the flat way as the comparison |
-| `c_at_2` | hanoi:34 | two tables put side by side | `(((t_ally from) c_at 1) r_eshape from) c_at_2 to` (checked; not shorter, optional) |
+| `o_\` | hanoi:34 (and hanoi.org) | two tables put side by side | done: `o_\ (2 c_at t_ally from) r_eshape from c_at to` (transpose lane) |
 | `c_at_2` | lib/TTTML:89-90, lib/Turtle:16-18 | columns joined by reshaping and rebuilding | `m c_at_2 ...` |
 | `c_at`, lower rank | closure:40, hanoi:15, mandelbrot:39, bases:40, lib/TTTML:61,136 | a plane or row made by reshape before joining | join the lower-rank argument directly (checked) |
 | nested strands | sorting:11-12 | names padded into a 4 by 5 matrix | `"Alice" "bob" "carol" "Dave"` (checked) |
@@ -104,7 +104,8 @@ stay as they are; later features get new pages instead.
 | `i_d`, `l_eft` | lib/Maybe:19, birds-untyped:13 | `{ x -> x }` | `'i_d` |
 | pictures | life.xtl, rotate.xtl | frames printed as text | `[]S_HOW []G_RID frames` (low priority) |
 
-Still needed, so kept: Mastermind's codes as rows (needs transpose),
+Done with transpose: Mastermind's codes as rows (`o_\ 1 + 6 6 6 6 e_ncode
+o_ffsets 1296`). Still needed, so kept:
 Mandelbrot's two Float planes (no complex numbers), `0 +` for a named
 Bool, `(t_ally g) s_elect g` (no index from the end), `e_ach` over row
 indices (no rank operator).
