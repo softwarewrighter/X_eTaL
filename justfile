@@ -121,6 +121,10 @@ alias serve := web
 web:
     cd components/web/crates/xetal-web && trunk serve --release --port 8095 --address 127.0.0.1
 
+# Time the benchmarks (bench/*.xtl and three demos), best of RUNS, as a table for docs/speed.md
+bench RUNS="3":
+    scripts/bench.sh {{RUNS}}
+
 # Regenerate docs/reference.md (every built-in, its examples run) from docs/reference/builtins.ref
 reference: _quiet-build
     python3 scripts/reference.py

@@ -1,0 +1,8 @@
+number = 2
+slug = "speed-elementwise"
+status = "pending"
+description = "Speed lane (see lanes/speed/.agentrail/plan.md), step speed-elementwise. Meas..."
+role = "production"
+context_files = []
+created_at = "2026-10-02T20:01:15"
+commits = []

@@ -1,0 +1,1 @@
+Speed lane (see lanes/speed/.agentrail/plan.md), step speed-release. Measure before and after; no language change; the full gate; one PR from the newest main.

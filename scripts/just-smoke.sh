@@ -57,6 +57,7 @@ for recipe in $(just --summary); do
     name-image) skip "$recipe" "regenerates images/name-forms.png (headless Chrome)" ;;
     literate-html) skip "$recipe" "rewrites pages/literate; run by pages" ;;
     pages) skip "$recipe" "rewrites pages/ and the screenshot; run before publishing" ;;
+    bench) skip "$recipe" "times the benchmarks (minutes); docs/speed.md records the results" ;;
     *)
         printf 'FAIL: no smoke test for recipe %s (add one to %s)\n' "$recipe" "$0"
         failed=1
