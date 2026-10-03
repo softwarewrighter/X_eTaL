@@ -1,0 +1,7 @@
+# X_eTaL-demos' regression repro (Saga 30): a matrix product with
+# i_nner, 64 by 512 by 64, four times.
+x := (512 c_at 512) r_eshape 0.5 0.25 0.125
+y := ((64 c_at 512) r_eshape x) '+ '* i_nner (512 c_at 64) r_eshape x
+y := ((64 c_at 512) r_eshape x) '+ '* i_nner (512 c_at 64) r_eshape x
+y := ((64 c_at 512) r_eshape x) '+ '* i_nner (512 c_at 64) r_eshape x
+y := ((64 c_at 512) r_eshape x) '+ '* i_nner (512 c_at 64) r_eshape x

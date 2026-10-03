@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 13:53 `test` The higher-order cost guard (Saga 30 step 1): transitions and heap allocations per operand call of `t_able`, `e_ach`, reduce and `i_nner`, bounded at their measured costs (a primitive `t_able` makes 6.5 allocations per multiply); the demos' repro programs in `bench/`.
 - 12:00 `plan` X_eTaL-extensions' asks E3-E6 planned: E6 (the `--draw` ordering bug) next after the speed guard, E4 (a clock: `[]TS`, `[]D_L`) beside the X4 quads step, E3 (the CLI as a library) after errors, E5 (library errors name the calling line) in Saga 27.
 - 11:59 `feat` Typed screen control (QD6, Saga 25 step 7): built-in enums Color and Key named in a Terminal library (`t:RED`, `t:UP`), typed text builders (`[]F_G`, `[]B_G`, `[]B_OLD`, `[]A_T`, `[]C_LS`), `[]K_EY` (one key, raw at the CLI, waited for in the browser), `[]K_CHAR`, `[]E_RR`, `[]T_E`; the live demo draws placed and coloured output as a grid.
 - 09:23 `plan` Saga 30, the higher-order speed regression X_eTaL-demos found (t_able 2.7x, i_nner 1.5x slower since step 037): a deterministic guard, primitive operands run directly, lean kernels, release; steps 043-046, right after screen control.
