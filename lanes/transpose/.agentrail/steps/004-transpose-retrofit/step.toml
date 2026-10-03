@@ -1,8 +1,9 @@
 number = 4
 slug = "transpose-retrofit"
-status = "in-progress"
+status = "completed"
 description = "Transpose lane (see lanes/transpose/.agentrail/plan.md), step transpose-retro..."
 role = "production"
 context_files = []
 created_at = "2026-10-02T13:04:48"
-commits = []
+completed_at = "2026-10-02T18:54:54"
+commits = ["64f12eafd8b4120e5a7cae9d9887a3bf004c1722"]
