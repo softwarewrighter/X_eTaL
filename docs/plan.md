@@ -697,10 +697,10 @@ Retrospective (the lane is closed; its saga is archived in
 8. Then Saga 11 and the rest as numbered, with the sagas added for
    the sibling repos' asks (2026-10-02): Saga 22 speed (ask D2),
    Saga 23 host bindings and native packages (asks D3 and E1),
-   Saga 24 transpose (ask D9, running now as the transpose lane); the
+   Saga 24 transpose (ask D9, done as the transpose lane); the
    trace through `xetal-play` (ask D8) is a step of Saga 17. The
-   leetcode lane goes on in parallel (the classics and trains lanes
-   are done and archived).
+   leetcode lane goes on in parallel (the classics, trains and
+   transpose lanes are done and archived).
 
 ## Saga 25 -- the terminal (browser and CLI)
 
@@ -1023,7 +1023,7 @@ typed functions; `[]S_VO` and a package manifest (absorbing the
 `[]S_VO` part of "Later -- system I/O" below); the retrofit; the
 release.
 
-## Saga 24 -- transpose
+## Saga 24 -- transpose  [DONE, ARCHIVED]
 
 Ask D9 from X_eTaL-demos, and the cross-cutting entry below: `o_\`
 (reserved in A2 and B2), monadic transpose of a matrix, the mirror of
@@ -1031,6 +1031,24 @@ rotate, with axis subscripts (their rules confirmed with the user
 first); then `[]P_ATH` may accept points as an n by 2 matrix. Needed
 by ADVANCEDEX's BIN, FC and INV too. Steps: decisions, transpose,
 axes, the retrofit, the release.
+
+Retrospective (worked as the transpose lane; its saga is archived in
+`lanes/transpose/.agentrail-archive/`):
+- Decided with the user first (B17): `o_\ A` reverses the axes (APL,
+  J); a name has one arity, so permuting is a word, `p t_ranspose A`
+  (axis i to p[i], no diagonals); `o_\_jk` swaps two axes, and a
+  repeated digit is an explicit error, never a swap that does nothing;
+  `[]P_ATH` keeps 2 rows.
+- Delivered in five PRs (#33-#36 and this one): the `xetal-transpose`
+  crate (one `permute` kernel, property-tested), the axis rule, the
+  tour, README, idioms and poster, and the retrofit (Mastermind's
+  codes, Hanoi's moves, TTTML's position code), outputs unchanged.
+- What worked: asking the four questions before any code, and the
+  retrofit list from `docs/dogfooding.md`; the question that turned
+  out flawed (one name for both monadic and dyadic transpose) was
+  caught by B9 and asked again before building.
+- Left for later: diagonals (`1 1 t_ranspose M`), if a program asks;
+  the X_eTaL-demos attention and PCA demos can now be written.
 
 ## Later -- system I/O
 
@@ -1048,11 +1066,7 @@ APL ports (Sagas 11, 12 and 14) may call for it sooner.
   Emacs forward-char) is done (Saga 9, editor-panes); resizing the
   panes (split ratio, the output pane's height) remains, a natural
   step of the stepping-debugger saga, which reuses the panes.
-- transpose (`o_\`, reserved in A2; planned by the user after the
-  classics lane's PR #1): monadic transpose of a matrix, the mirror of
-  rotate, with the axis-subscript rules; then `[]P_ATH` may also accept
-  points as an n by 2 matrix (it keeps 2 rows, x over y, the user's
-  decision).
+- transpose: done (Saga 24, B17).
 - retrofit (the user's rule, 2026-10-02): a saga that adds a feature
   ends with a step rewriting the programs that worked around its
   absence (docs/dogfooding.md lists them), goldens rebased on purpose.
