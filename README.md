@@ -156,6 +156,11 @@ smaller, sharper [WebM video](videos/tour.webm)):
 
 ## Status
 
+[`docs/status.md`](docs/status.md) is the generated table of what works
+today: every built-in, language decision and standard library, marked
+works, partial or planned, with the spec cases behind it (regenerated
+by `just status`, checked by the gate). In short:
+
 Early, and specified by its test suite as it is built. Working: the
 whole pipeline (lexer, parser, formatter, Core, Hindley-Milner type
 inference, a strict evaluator), dense 1-origin arrays with strings,

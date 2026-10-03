@@ -1,0 +1,1 @@
+Launch-docs lane (see lanes/launch-docs/.agentrail/plan.md), step beginner-path. The gate before every commit; one PR pr/launch-docs-beginner-path from the latest origin/main.

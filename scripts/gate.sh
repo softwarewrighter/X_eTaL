@@ -34,6 +34,8 @@ emacs_out="$(just test-emacs 2>&1)" || { echo "$emacs_out"; exit 1; }
 echo "$emacs_out" | grep -E "Ran [0-9]+ tests|skipped" || true
 step "built-in reference (docs/reference.md)"
 python3 scripts/reference.py --check
+step "status table (docs/status.md)"
+python3 scripts/status.py --check
 step "annotated diagrams (docs/diagrams)"
 scripts/diagrams.sh --check
 scripts/latex-gallery.sh
