@@ -674,10 +674,12 @@ Retrospective (the lane is closed; its saga is archived in
    Demos, Classics, Libraries, Misc), advancedex-transcribe, then two
    steps from X_eTaL-demos' asks (int-strand-speed, ask D1, a
    quadratic type check of long Int strands; exponent-literals, ask
-   D4, `1.5e-7`, decision S8), then web-release.
+   D4, `1.5e-7`, decision S8), then Saga 25 (below), then
+   web-release, so the release ships with the terminal.
 2. Saga 25, the terminal: a CLI emulated in the live demo with Rust,
    Yew and WASM on the web-sw-tos model, replacing `window.prompt`,
-   with named screen-control quads (QD6).
+   with named screen-control quads (QD6); its steps run inside Saga
+   10's agentrail saga, before web-release (the user's order).
 3. Saga 20, array kinds (empty arrays remember Char, number or box;
    ask X5 from X_eTaL-libraries, a wrong picture they hit now).
 4. Saga 13, quads, moved up to come next (the user asked for `[]A`,
