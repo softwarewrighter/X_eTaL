@@ -1,8 +1,9 @@
 number = 40
 slug = "fibonacci-y"
-status = "in-progress"
+status = "completed"
 description = "User request (2026-10-03): the fibonacci demo (demos/classics/fibonacci.xtl) ..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T08:14:18"
-commits = []
+completed_at = "2026-10-03T08:17:10"
+commits = ["4292d38fed18efa51c230c52b08a077bcec898d3"]

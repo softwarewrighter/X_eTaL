@@ -1,0 +1,1 @@
+Fibonacci demo's fourth way: recursion through c:Y_ with a lazy self parameter; classics.md updated; golden rebased (one new line); pages rebuilt; goldens, pages and modes checks pass.
