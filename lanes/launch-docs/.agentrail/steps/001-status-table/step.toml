@@ -1,8 +1,9 @@
 number = 1
 slug = "status-table"
-status = "in-progress"
+status = "completed"
 description = "Launch-docs lane (see lanes/launch-docs/.agentrail/plan.md), step status-tabl..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T13:51:40"
-commits = []
+completed_at = "2026-10-03T14:15:59"
+commits = ["120302f0089ef2e8cd7b5724a6268f4f1c3f92ce"]
