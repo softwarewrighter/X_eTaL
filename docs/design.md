@@ -681,10 +681,16 @@ length-framed protocol), and the page appends them as they arrive, with
 a spinner while the run goes on and Run turned into Stop (which
 terminates the worker). Workers have no local storage, so the page
 sends the saved files with the program and saves back what it writes;
-the worker says when it is ready, and only then is sent the program. A
-program that reads the keyboard (`[]R_EAD`) runs on the page instead,
-its prompt showing the last lines printed. A worker's failure (a stack
-overflow, for one) ends the run with the error shown.
+the worker says when it is ready, and only then is sent the program.
+The worker runs a program a slice at a time (D50, `xetal_play::Interactive`,
+200 000 transitions, then `setTimeout(0)` so it hears messages), so
+Stop always works; a program reading a line (`[]R_EAD`) makes it post
+Waiting, the output pane becomes a terminal (the line typed drawn with
+a cursor, keys translated by `xetal-lineedit` in `xetal-typing`; the
+pane takes the keyboard unless the ASCII pane is the current one), and
+Enter echoes the line and sends it to the worker, which goes on from
+that very call; Ctrl-C stops the run. No browser dialog is used. A
+worker's failure ends the run with the error shown.
 
 ### 8.3a The notebook and stepping in the live demo
 

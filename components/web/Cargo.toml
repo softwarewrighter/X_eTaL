@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-play", "crates/xetal-chrome", "crates/xetal-layout", "crates/xetal-runner", "crates/xetal-web"]
+members = ["crates/xetal-play", "crates/xetal-chrome", "crates/xetal-layout", "crates/xetal-runner", "crates/xetal-web", "crates/xetal-typing"]
 
 [workspace.package]
 version = "0.1.0"
@@ -12,6 +12,10 @@ authors = ["Michael A Wright"]
 repository = "https://github.com/softwarewrighter/X_eTaL"
 
 [workspace.dependencies]
+xetal-typing = { path = "crates/xetal-typing" }
+xetal-step = { path = "../step/crates/xetal-step" }
+xetal-screen = { path = "../console/crates/xetal-screen" }
+xetal-lineedit = { path = "../console/crates/xetal-lineedit" }
 xetal-catalog = { path = "../base/crates/xetal-catalog" }
 xetal-ast = { path = "../syntax/crates/xetal-ast" }
 xetal-ir = { path = "../core/crates/xetal-ir" }

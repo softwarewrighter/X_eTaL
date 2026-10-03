@@ -1351,6 +1351,10 @@ name = "xetal-libs"
 version = "0.1.0"
 
 [[package]]
+name = "xetal-lineedit"
+version = "0.1.0"
+
+[[package]]
 name = "xetal-lint"
 version = "0.1.0"
 dependencies = [
@@ -1394,12 +1398,15 @@ dependencies = [
 name = "xetal-play"
 version = "0.1.0"
 dependencies = [
+ "xetal-arith",
  "xetal-base",
  "xetal-core",
  "xetal-eval",
  "xetal-grid",
+ "xetal-lint",
  "xetal-macro",
  "xetal-program",
+ "xetal-step",
  "xetal-store",
  "xetal-types",
  "xetal-view",
@@ -1586,6 +1593,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-typing"
+version = "0.1.0"
+dependencies = [
+ "web-sys",
+ "xetal-lineedit",
+ "xetal-runner",
+ "yew",
+]
+
+[[package]]
 name = "xetal-value"
 version = "0.1.0"
 dependencies = [
@@ -1619,6 +1636,7 @@ dependencies = [
  "xetal-play",
  "xetal-runner",
  "xetal-store",
+ "xetal-typing",
  "yew",
 ]
 

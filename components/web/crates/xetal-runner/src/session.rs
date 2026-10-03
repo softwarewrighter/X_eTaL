@@ -1,5 +1,5 @@
-//! The page's side: start a run (in a worker, or on the page when it
-//! reads the keyboard), take its events as they arrive, stop it.
+//! The page's side: start a run in a worker, take its events as they
+//! arrive, give a waiting program the lines typed, stop it.
 
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -34,6 +34,8 @@ pub struct Runs {
     pub stop: Callback<()>,
     pub clear: Callback<()>,
     pub toggle_boxed: Callback<()>,
+    /// A line typed in the terminal for the waiting program.
+    pub type_line: Callback<String>,
 }
 
 #[hook]
@@ -45,6 +47,7 @@ pub fn use_runs() -> Runs {
     let (stop, clear) = ending(&state.dispatcher(), &live, &stepped);
     let b = boxed.clone();
     let toggle_boxed = Callback::from(move |_: ()| b.set(!*b));
+    let type_line = typing(&state.dispatcher(), &live);
     let output = (*state).clone();
     let (stepped, boxed) = (*stepped, *boxed);
     Runs {
@@ -56,7 +59,19 @@ pub fn use_runs() -> Runs {
         stop,
         clear,
         toggle_boxed,
+        type_line,
     }
+}
+
+/// A typed line: echoed in the output and sent to the worker.
+fn typing(state: &UseReducerDispatcher<Output>, live: &Live) -> Callback<String> {
+    let (s, l) = (state.clone(), live.clone());
+    Callback::from(move |line: String| {
+        if let Some((worker, _)) = l.borrow().as_ref() {
+            let _ = worker.post_message(&crate::line_message(&line).as_str().into());
+        }
+        s.dispatch(Action::Typed(line));
+    })
 }
 
 /// Start: run (which also resets the steps); Step: run as a notebook up
@@ -114,10 +129,6 @@ fn end(live: &Live) -> bool {
 fn begin(req: Request, state: &UseReducerDispatcher<Output>, live: &Live) {
     end(live);
     state.dispatch(Action::Start);
-    if req.src.contains("[]R_EAD") {
-        state.dispatch(Action::Finished(crate::page::on_page(&req)));
-        return;
-    }
     let Ok(worker) = Worker::new(WORKER) else {
         let err = "the worker that runs programs could not start\n".into();
         return state.dispatch(Action::Finished(Run {

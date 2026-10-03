@@ -30,16 +30,18 @@ pub enum Event {
     /// The worker is listening: the page sends it the program now (a
     /// message sent before would be lost while its wasm loads).
     Ready,
+    /// The program waits at `[]R_EAD` for a typed line (D50).
+    Waiting,
 }
 
 /// Fields as `LEN:TEXT`, one after another (LEN in bytes), so any text
 /// at all survives the trip.
-fn frame(fields: &[&str]) -> String {
+pub(crate) fn frame(fields: &[&str]) -> String {
     fields.iter().map(|f| format!("{}:{f}", f.len())).collect()
 }
 
 /// The fields of a framed message, or None when it is not one.
-fn fields(mut text: &str) -> Option<Vec<&str>> {
+pub(crate) fn fields(mut text: &str) -> Option<Vec<&str>> {
     let mut out = Vec::new();
     while !text.is_empty() {
         let (len, rest) = text.split_once(':')?;
@@ -100,6 +102,7 @@ impl Event {
             Event::Done => frame(&["d"]),
             Event::Ready => frame(&["r"]),
             Event::Source(t) => frame(&["s", t]),
+            Event::Waiting => frame(&["a"]),
         }
     }
 
@@ -112,6 +115,7 @@ impl Event {
             ["d"] => Some(Event::Done),
             ["r"] => Some(Event::Ready),
             ["s", t] => Some(Event::Source(t.to_string())),
+            ["a"] => Some(Event::Waiting),
             _ => None,
         }
     }

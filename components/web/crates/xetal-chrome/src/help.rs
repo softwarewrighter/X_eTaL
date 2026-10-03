@@ -22,6 +22,9 @@ pub(crate) fn help_text() -> Html {
             <ul>
                 <li>{ "Type in the ASCII pane; the Rendered pane follows, and the \
                        pane below shows each statement's type (or the first error)." }</li>
+                <li>{ "A program reading a line ([]R_EAD) waits for it in the output pane, a terminal: type \
+                       the line (arrows, Home, End and history with Up and Down work) and press \
+                       Enter; Ctrl-C stops the program." }</li>
                 <li><b>{ "Run" }</b>{ " (Ctrl-Enter) runs the program and shows its output as it is \
                        printed, with any pictures it draws ([]S_HOW) under it; the classics demos \
                        draw. While it runs, a spinner turns and Run becomes " }<b>{ "Stop" }</b>

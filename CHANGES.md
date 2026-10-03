@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 09:04 `feat` The live demo's terminal (Saga 25 step 6): programs run in the worker a slice at a time (Stop always works), and a program reading a line waits for it in the output pane, typed with a cursor and history, Enter to send, Ctrl-C to stop; no browser dialogs.
+- 09:04 `docs` docs/combinators-macros-and-trains.md: combinators as library functions, trains and (planned) macros, ELI5, pros, cons, what each cannot do and why, and a table of every bird by form.
 - 08:20 `plan` The user's idea, a Combinators.xtlm macro library (`c:Y_<` ties the knot at compile time: named recursion, no lazy parameter; `c:B_<` inlines), with the fibonacci demo's fifth way: step 051 in Saga 19.
 - 08:17 `demo` Fibonacci a fourth way: recursion without a name, through the Combinators library's Y combinator (`c:Y_`, a lazy self parameter); the run golden rebased on purpose (one new line).
 - 08:12 `plan` Saga 27, readable type errors (located, explained, hints, a literate type-errors document), asked for by the user, before the release cleanup (steps 053-057).
