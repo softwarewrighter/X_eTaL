@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 18:45 `docs` README: a section linking the X_eTaL repositories (demos, games, libraries, extensions), each with a short description and the live catalogs.
 - 18:01 `chore` Merge PR #35.
 - 17:31 `design` The terminal's evaluator is steppable, as web-sw-tos steps its emulator (D50, decided with the user): state as data, run in slices, waiting at `[]R_EAD` until a line is typed; two steps added to Saga 25 for it.
 - 17:00 `plan` Saga 25 rewritten on the web-sw-tos model: a CLI emulated in the live demo with Rust, Yew and WASM (a cell grid, keys from the window, the program stepped by the page and resumed when a line is typed); the WASI build of the CLI is dropped (step cli-terminal-feature abandoned).

@@ -401,6 +401,29 @@ Each recipe calls a script in `scripts/` (`build-all.sh`, `gate.sh`,
 also runs `scripts/just-smoke.sh`, which runs every recipe (the file
 recipes on every demo) and fails on a recipe it has no test for.
 
+## The X_eTaL repositories
+
+The language lives here; programs and libraries written in it, and
+native extensions for it, each have a repository of their own:
+
+- [X_eTaL-demos](https://github.com/softwarewrighter/X_eTaL-demos) --
+  small programs worth watching: a cellular automaton, fractals, a
+  reaction-diffusion texture, a neural network seeing a digit, tokens
+  routed to experts in a sparse model
+  ([live catalog](https://softwarewrighter.github.io/X_eTaL-demos/)).
+- [X_eTaL-games](https://github.com/softwarewrighter/X_eTaL-games) --
+  board games, puzzles, simulations and quizzes whose rules are
+  array-shaped, each playable on the command line
+  ([live catalog](https://softwarewrighter.github.io/X_eTaL-games/)).
+- [X_eTaL-libraries](https://github.com/softwarewrighter/X_eTaL-libraries)
+  -- libraries written in X_eTaL itself, typed, tested and documented:
+  text, sets, number theory, combinatorics, matrices, randomness,
+  formatting, dates.
+- [X_eTaL-extensions](https://github.com/softwarewrighter/X_eTaL-extensions)
+  -- small native Rust libraries for what the interpreter cannot do by
+  itself (a clock, hashing, regular expressions, fast linear algebra,
+  image files), each used from X_eTaL like any other library.
+
 ## Related Projects
 
 - [sw-mlpl](https://github.com/sw-ml-study/sw-mlpl) -- Software
