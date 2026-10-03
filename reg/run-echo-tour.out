@@ -199,6 +199,17 @@ desserts
 2 3 1
       [34ms̲hape[0m [33m-1[0m [33m0[0m [33m1[0m [34mo̲-₁₂[0m m      [2m⍝ every combination along both axes: 3 3 2 3[0m
 3 3 2 3
+      [34mo̲\[0m m                     [2m⍝ transpose: rows become columns[0m
+1 4
+2 5
+3 6
+      a ← [33m2[0m [33m3[0m [33m4[0m [34mr̲eshape[0m [34mr̲ange[0m [33m24[0m
+      [34ms̲hape[0m [34mo̲\[0m a              [2m⍝ every axis reversed: 4 3 2[0m
+4 3 2
+      [34ms̲hape[0m [34mo̲\₂₃[0m a            [2m⍝ axes 2 and 3 swapped: 2 4 3[0m
+2 4 3
+      [34ms̲hape[0m [33m3[0m [33m1[0m [33m2[0m [34mt̲ranspose[0m a     [2m⍝ axis 1 to 3, 2 to 1, 3 to 2: 3 4 2[0m
+3 4 2
 
       [2m⍝ -- Search and order -----------------------------------------------------[0m
       v ← [33m3[0m [33m1[0m [33m4[0m [33m1[0m [33m5[0m [33m9[0m [33m2[0m [33m6[0m
