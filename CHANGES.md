@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 08:12 `feat` The terminal's grid and line editor (D51, Saga 25 step 5): components/console with xetal-screen (styled cells, wrapping, scrollback) and xetal-lineedit (browser keys translated, a line editor with history), plain Rust after web-sw-tos.
 - 07:06 `plan` Saga 26, are we X_eTaL yet? (cleanup for a release, from docs/research3.txt): a generated status table, the plan audited, the docs synchronized, the ecosystem section, the asks ledger, a fresh-user walkthrough and the release candidate, after Sagas 25 and 19 and before web-release (steps 053-059).
 - 07:06 `fix` The just-list golden rebased on purpose for the new `just bench` recipe (PR #38); it had been failing on main since that merge.
 - 06:54 `feat` A run can wait for typed lines (D50, Saga 25 step 4): with an input queue, `[]R_EAD` takes the next line or stops the run as Waiting, and a fed line resumes it at that very call; the CLI still reads standard input.

@@ -108,6 +108,12 @@ components/
   axes/                    xetal-rotate (rotate and reverse along the
                            leading axis), xetal-axes (axis subscripts:
                            the move-to-front rule)
+  console/                 the terminal interactive programs run in
+                           (Saga 25, after web-sw-tos): xetal-screen
+                           (styled character cells, wrapping,
+                           scrollback), xetal-lineedit (browser keys
+                           translated, a line editor with history);
+                           plain Rust, tested natively
   tui/                     terminal front end (ratatui): xetal-buffer
                            (text and cursor), xetal-keys (nano-like
                            keymap as data), xetal-panes (ASCII and
