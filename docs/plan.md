@@ -679,17 +679,20 @@ web-release:
    (ask D1), exponent-literals (ask D4), and the terminal (Saga 25) up
    to screen control (QD6).
 2. Saga 30, the higher-order speed regression X_eTaL-demos found
-   (`t_able`, `i_nner`).
+   (`t_able`, `i_nner`), with X_eTaL-extensions' bug E6 (`--draw`
+   before the subcommand) fixed right after its guard.
 3. Saga 19, macros (asks X1, X2, E2): `.xtlm` macro libraries, `u_se<`
    finding `Name.xtl` and `Name.xtlm`, long namespace prefixes,
    `Combinators.xtlm`.
 4. Saga 20, array kinds (ask X5).
-5. A step of Saga 13 for ask X4: `[]U_CS`, `[]A`, `[]D` (the rest of
-   the quads later).
-6. Saga 21, errors of one's own (ask X3).
+5. Steps of Saga 13 for asks X4 (`[]U_CS`, `[]A`, `[]D`) and E4 (a
+   clock: `[]TS`, `[]D_L`); the rest of the quads later.
+6. Saga 21, errors of one's own (ask X3), then ask E3 (the CLI usable
+   as a library, for X_eTaL-extensions' xetal-x).
 7. The terminal's last steps (Saga 25: retrofit, release).
 8. Saga 28, learn X_eTaL (a self-paced course, REPL and browser).
-9. Saga 27, readable type errors.
+9. Saga 27, readable type errors, with ask E5 (an error in a library
+   also names the program line that called it).
 10. Saga 26, are we X_eTaL yet? (cleanup for a release), then
     web-release.
 11. Then Saga 29 (algebraic data), the rest of Saga 13, the retrofit

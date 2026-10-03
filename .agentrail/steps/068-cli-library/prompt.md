@@ -1,0 +1,1 @@
+X_eTaL-extensions' ask E3: the CLI usable as a library, so X_eTaL-extensions' xetal-x stops compiling the CLI's source files by path: the CLI's stages (lex, render, check, run, ...) behind a small public library crate the xetal binary is a thin shell over, with its API documented and tested; the binary's behaviour unchanged (goldens).

@@ -1,0 +1,1 @@
+X_eTaL-extensions' ask E5: an error raised inside a library also names the program line that called into the library (a short chain: the library's line, then the caller's), in the CLI, REPL and live demo; goldens.

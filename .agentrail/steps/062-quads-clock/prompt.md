@@ -1,0 +1,1 @@
+X_eTaL-extensions' ask E4: a built-in clock, so programs need not load the clock extension: []TS (the time stamp: year month day hour minute second millisecond, as decided among the quad values, D30) and []D_L (a delay, QD3) - test-first, reference entries; at the CLI the system clock, in the live demo the browser's.

@@ -1,0 +1,1 @@
+X_eTaL-extensions' ask E6 (bug): `xetal --draw DIR run FILE` fails ('the subcommand ... cannot be used with --draw'); only `xetal run --draw DIR FILE` works. Make --draw (and any other top-level option) global so it works before or after the subcommand; a golden for each order.
