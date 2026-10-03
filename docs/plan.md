@@ -678,43 +678,66 @@ Retrospective (the lane is closed; its saga is archived in
    then Saga 27 (readable type errors), then Saga 26 (cleanup),
    then web-release, so the release ships
    with the terminal and macro libraries and docs that match them.
-2. Saga 25, the terminal: a CLI emulated in the live demo with Rust,
+2. Saga 30, the higher-order speed regression X_eTaL-demos found
+   (t_able, i_nner), taken right after the terminal's screen-control
+   step.
+3. Saga 25, the terminal: a CLI emulated in the live demo with Rust,
    Yew and WASM on the web-sw-tos model, replacing `window.prompt`,
    with named screen-control quads (QD6); its steps run inside Saga
    10's agentrail saga, before web-release (the user's order).
-3. Saga 28, learn X_eTaL: a self-paced course in the REPL and in a
+4. Saga 28, learn X_eTaL: a self-paced course in the REPL and in a
    browser REPL (the terminal's session), decided with the user to
    come right after the terminal.
-4. Saga 19, macros (`.xtlm` macro libraries, `u_se<` finding
+5. Saga 19, macros (`.xtlm` macro libraries, `u_se<` finding
    `Name.xtl` and `Name.xtlm`, longer namespace prefixes), moved by
    the user right after Saga 25, also inside Saga 10's agentrail saga
    before web-release; X_eTaL-libraries' Control and Assert macro
    libraries (its saga 4) wait on it.
-5. Saga 27, readable type errors (located, explained, hints, a
+6. Saga 27, readable type errors (located, explained, hints, a
    literate type-errors document), asked for by the user, before the
    release cleanup.
-6. Saga 26, are we X_eTaL yet? (cleanup for a release: a generated
+7. Saga 26, are we X_eTaL yet? (cleanup for a release: a generated
    status table, the plan audited, the docs synchronized, the
    ecosystem section, the asks ledger, a fresh-user walkthrough, the
    release candidate), asked for by the user from docs/research3.txt,
    before web-release.
-7. Saga 20, array kinds (empty arrays remember Char, number or box;
+8. Saga 20, array kinds (empty arrays remember Char, number or box;
    ask X5 from X_eTaL-libraries, a wrong picture they hit now).
-8. Saga 13, quads (the user asked for `[]A`, `[]D` and the related
+9. Saga 13, quads (the user asked for `[]A`, `[]D` and the related
    system names).
-9. Saga 29, algebraic data (tuples, records, enums, matching), asked
+10. Saga 29, algebraic data (tuples, records, enums, matching), asked
    for by the user, before errors, so errors can be typed values.
-10. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
+11. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
    X_eTaL-libraries).
-11. The retrofit saga after it (below), so it can use quads, macros,
+12. The retrofit saga after it (below), so it can use quads, macros,
    long aliases and errors too.
-12. Then Saga 11 and the rest as numbered, with the sagas added for
+13. Then Saga 11 and the rest as numbered, with the sagas added for
    the sibling repos' asks (2026-10-02): Saga 22 speed (ask D2),
    Saga 23 host bindings and native packages (asks D3 and E1),
    Saga 24 transpose (ask D9, done as the transpose lane); the
    trace through `xetal-play` (ask D8) is a step of Saga 17. The
    leetcode lane goes on in parallel (the classics, trains and
    transpose lanes are done and archived).
+
+## Saga 30 -- the higher-order speed regression (soon)
+
+X_eTaL-demos found it re-vendoring from 06d39fa to abb8274 (their
+docs/xetal-asks.md, 2026-10-03): `t_able` became about 2.7x slower and
+`i_nner` about 1.5x (their nbody, image-pipeline and ternary-net pages
+1.7 to 2.2x), while elementwise arithmetic got about 8x faster. The
+cause is step 037 (cd80454): the higher-order built-ins became kernels
+built from combinators, so every element allocates boxed closures and
+goes through several dynamic calls and the machine, where before it
+was one callback in a Rust loop. Taken right after the terminal's
+screen-control step. Overlaps the speed lane's planned operand kernels
+(Saga 22 step 3), which then builds on this.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | hof-guard | A deterministic guard: the machine transitions a `t_able`, `i_nner`, `e_ach`, reduce or scan takes, counted in tests (a primitive operand must cost no machine work per element; a lambda a fixed small number of transitions per call); the demos' repro programs in `bench/`. |
+| 2 | prim-operands | A first-order built-in operand (`'*`, `'+`, `'r_ight`, or partly applied) runs no user code, so nothing can pause: the higher-order built-in computes directly (outer product, matrix product, folds) without the machine - past 06d39fa's speed. |
+| 3 | lean-kernels | For user-function operands, `e_ach`, `m_ap`, `t_able`, `i_nner`, reduce and scan as hand-written index state machines, not nested combinators: nothing allocated per element; back to (or past) 06d39fa. |
+| 4 | regression-release | The numbers before and after in `docs/speed.md`, CHANGES, and X_eTaL-demos told it can re-vendor. |
 
 ## Saga 25 -- the terminal (browser and CLI)
 
