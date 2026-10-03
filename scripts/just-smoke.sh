@@ -23,7 +23,7 @@ interactive() { case "$1" in demos/tttml-play.xtl | demos/classics/mastermind-pl
 guesses='1122\n3344\n5566\n1234\n5612\n3456\n1111\n2222\n3333\n4444\n'
 for recipe in $(just --summary); do
     case "$recipe" in
-    default | build | tour | life | animate | tttml | diagrams | reference) check just "$recipe" ;;
+    default | build | tour | life | animate | tttml | diagrams | reference | status) check just "$recipe" ;;
     # demos/tttml-play.xtl reads typed moves: the tttml-play check below
     # pipes some in; Mastermind's guesses are piped in here.
     show)

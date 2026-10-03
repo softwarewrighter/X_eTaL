@@ -1,0 +1,1 @@
+Launch-docs lane (see lanes/launch-docs/.agentrail/plan.md), step status-table. The gate before every commit; one PR pr/launch-docs-status-table from the latest origin/main.
