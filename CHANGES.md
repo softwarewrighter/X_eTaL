@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 19:45 `release` Transpose lane closed (Saga 24): retrospective in plan.md, the lane's saga archived.
 - 19:26 `chore` Merge PR #36.
 - 19:26 `refactor` The evaluator is steppable (D50, Saga 25 step 2): Core runs on an explicit machine whose state is data (components/step: xetal-step, xetal-prim), in slices of any size, the same output as one run; every spec case and golden unchanged.
 - 19:26 `plan` Saga 19 (macros) moved right after Saga 25, before web-release (the user's order).

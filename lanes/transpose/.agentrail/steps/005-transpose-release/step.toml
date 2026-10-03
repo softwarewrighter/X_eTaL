@@ -1,6 +1,6 @@
 number = 5
 slug = "transpose-release"
-status = "pending"
+status = "in-progress"
 description = "Transpose lane (see lanes/transpose/.agentrail/plan.md), step transpose-relea..."
 role = "production"
 context_files = []
