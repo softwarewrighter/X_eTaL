@@ -1,0 +1,19 @@
+# A condition bound to a name works as it does written inline (T1, T5;
+# X_eTaL-demos' ask): in arithmetic it is an Int, in a guard a Bool.
+== SOURCE
+a := 1 2 > 0
+1 * a
+f_loat a
+'+ r_/ a
+a
+== TYPE
+a : Bool
+Int
+Float
+Int
+Bool
+== RESULT
+1 1
+1.0 1.0
+2
+1 1

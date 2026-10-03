@@ -1,6 +1,6 @@
 number = 46
 slug = "program-or-library-bug"
-status = "pending"
+status = "in-progress"
 description = "X_eTaL-games' ask (bug): an executable program (a #! line) that defines `l:` ..."
 role = "production"
 context_files = []

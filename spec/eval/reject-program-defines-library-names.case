@@ -1,0 +1,8 @@
+# A file starting with #! is a program (S5), even when it names l:, so
+# defining an l: name is MC8 row 9 (X_eTaL-games' ask), not a library.
+== SOURCE
+#!/usr/bin/env xetal
+l:x := 3
+l:x + 1
+== ERROR
+error[library-name-in-program]: l: names exist only inside a library; import it with an alias at 21..24

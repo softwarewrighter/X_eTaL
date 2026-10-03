@@ -1,0 +1,3 @@
+command = '''mkdir -p work && printf '#!/usr/bin/env xetal\nl:x := 3\nl:x + 1\n' > work/reg-program-l.xtl && ./target/debug/xetal run work/reg-program-l.xtl; s=$?; rm -f work/reg-program-l.xtl; exit $s'''
+exit_code = 1
+desc = "a #! program that defines l: names is a program (MC8 row 9), not a library (X_eTaL-games' ask)"
