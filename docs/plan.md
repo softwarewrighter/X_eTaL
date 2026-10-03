@@ -674,29 +674,33 @@ Retrospective (the lane is closed; its saga is archived in
    Demos, Classics, Libraries, Misc), advancedex-transcribe, then two
    steps from X_eTaL-demos' asks (int-strand-speed, ask D1, a
    quadratic type check of long Int strands; exponent-literals, ask
-   D4, `1.5e-7`, decision S8), then Saga 25 (below), then
-   web-release, so the release ships with the terminal.
+   D4, `1.5e-7`, decision S8), then Saga 25 and Saga 19 (below),
+   then web-release, so the release ships with the terminal and
+   macro libraries.
 2. Saga 25, the terminal: a CLI emulated in the live demo with Rust,
    Yew and WASM on the web-sw-tos model, replacing `window.prompt`,
    with named screen-control quads (QD6); its steps run inside Saga
    10's agentrail saga, before web-release (the user's order).
-3. Saga 20, array kinds (empty arrays remember Char, number or box;
+3. Saga 19, macros (`.xtlm` macro libraries, `u_se<` finding
+   `Name.xtl` and `Name.xtlm`, longer namespace prefixes), moved by
+   the user right after Saga 25, also inside Saga 10's agentrail saga
+   before web-release; X_eTaL-libraries' Control and Assert macro
+   libraries (its saga 4) wait on it.
+4. Saga 20, array kinds (empty arrays remember Char, number or box;
    ask X5 from X_eTaL-libraries, a wrong picture they hit now).
-4. Saga 13, quads, moved up to come next (the user asked for `[]A`,
-   `[]D` and the related system names).
-5. Saga 19, macros (`.xtlm` macro libraries, `u_se<` finding
-   `Name.xtl` and `Name.xtlm`, longer namespace prefixes), decided
-   with the user to come after quads.
+5. Saga 13, quads (the user asked for `[]A`, `[]D` and the related
+   system names).
 6. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
-   X_eTaL-libraries), decided with the user to come after macros.
+   X_eTaL-libraries).
 7. The retrofit saga after it (below), so it can use quads, macros,
    long aliases and errors too.
 8. Then Saga 11 and the rest as numbered, with the sagas added for
    the sibling repos' asks (2026-10-02): Saga 22 speed (ask D2),
    Saga 23 host bindings and native packages (asks D3 and E1),
-   Saga 24 transpose (ask D9, running now as the transpose lane); the trace through `xetal-play` (ask D8)
-   is a step of Saga 17. The leetcode lane goes on in parallel (the
-   classics and trains lanes are done and archived).
+   Saga 24 transpose (ask D9, running now as the transpose lane); the
+   trace through `xetal-play` (ask D8) is a step of Saga 17. The
+   leetcode lane goes on in parallel (the classics and trains lanes
+   are done and archived).
 
 ## Saga 25 -- the terminal (browser and CLI)
 
@@ -800,7 +804,7 @@ something, a short note keeps both (as `docs/literate/duck.org` does).
 From then on, every saga that adds a feature ends with a retrofit step
 for that feature (cross-cutting, below).
 
-## Saga 19 -- macros (`.xtlm` macro libraries and long prefixes), after Saga 13
+## Saga 19 -- macros (`.xtlm` macro libraries and long prefixes), right after Saga 25
 
 Asked for by the user (2026-10-02); X_eTaL-libraries files it as asks
 X1 (`.xtlm` macro libraries) and X2 (seeing expansions) in its

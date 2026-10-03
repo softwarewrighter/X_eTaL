@@ -1,6 +1,6 @@
 number = 36
 slug = "terminal-steppable-core"
-status = "pending"
+status = "in-progress"
 description = "Saga 25 (the terminal, docs/plan.md), moved ahead of web-release by the user...."
 role = "production"
 context_files = []

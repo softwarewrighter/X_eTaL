@@ -623,6 +623,7 @@ dependencies = [
  "xetal-radix",
  "xetal-rotate",
  "xetal-search",
+ "xetal-step",
  "xetal-struct",
  "xetal-system",
  "xetal-transpose",
@@ -693,6 +694,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-prim"
+version = "0.1.0"
+dependencies = [
+ "xetal-arith",
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-radix",
+ "xetal-rotate",
+ "xetal-search",
+ "xetal-struct",
+ "xetal-system",
+ "xetal-transpose",
+ "xetal-value",
+]
+
+[[package]]
 name = "xetal-prim-types"
 version = "0.1.0"
 dependencies = [
@@ -726,6 +743,20 @@ dependencies = [
  "xetal-arith",
  "xetal-array",
  "xetal-base",
+ "xetal-value",
+]
+
+[[package]]
+name = "xetal-step"
+version = "0.1.0"
+dependencies = [
+ "xetal-arith",
+ "xetal-array",
+ "xetal-base",
+ "xetal-core",
+ "xetal-hof",
+ "xetal-lex",
+ "xetal-prim",
  "xetal-value",
 ]
 

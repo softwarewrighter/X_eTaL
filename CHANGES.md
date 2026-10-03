@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 19:26 `refactor` The evaluator is steppable (D50, Saga 25 step 2): Core runs on an explicit machine whose state is data (components/step: xetal-step, xetal-prim), in slices of any size, the same output as one run; every spec case and golden unchanged.
+- 19:26 `plan` Saga 19 (macros) moved right after Saga 25, before web-release (the user's order).
 - 18:45 `docs` README: a section linking the X_eTaL repositories (demos, games, libraries, extensions), each with a short description and the live catalogs.
 - 18:01 `chore` Merge PR #35.
 - 17:31 `design` The terminal's evaluator is steppable, as web-sw-tos steps its emulator (D50, decided with the user): state as data, run in slices, waiting at `[]R_EAD` until a line is typed; two steps added to Saga 25 for it.

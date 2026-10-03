@@ -81,8 +81,13 @@ components/
                            xetal-value (runtime values, printing),
                            xetal-arith (scalar rules, scalar extension),
                            xetal-struct (structural built-ins),
-                           xetal-eval (evaluator; implements the
-                           callback that applies function values)
+                           xetal-eval (running a program: the API the
+                           CLI, REPL and live demo call)
+  step/                    the steppable evaluator (D50): xetal-step
+                           (Core run by an explicit machine whose
+                           state is data, in slices; the callback that
+                           applies function values), xetal-prim (the
+                           first-order built-ins called on values)
   hof/                     xetal-hof (higher-order built-ins: reduce,
                            scan, power, dispatch; operands applied through
                            the evaluator's callback), xetal-map
