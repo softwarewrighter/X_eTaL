@@ -1,0 +1,6 @@
+# Macros are the system ones (and, later, those of macro libraries);
+# any other name with the macro mark is an error (MC8 row 14).
+== SOURCE
+"a" x_yz< "b"
+== ERROR
+error[unknown-macro]: there is no macro x_yz<; the system macros are u_se<, i_f<, u_nless< and e_ach< at 4..9

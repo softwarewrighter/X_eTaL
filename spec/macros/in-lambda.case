@@ -1,0 +1,14 @@
+# A macro call standing as a statement inside a lambda body is a
+# statement there (MC12).
+== SOURCE
+u:f_ := { x -> "x = 0" u_nless< "p_rint! 1 / x"; x }
+u:f_ 2
+u:f_ 0
+== EXPAND
+u:f_ := { x -> { @ -> (x = 0) ? @; p_rint! 1 / x; @ } @; x }
+u:f_ 2
+u:f_ 0
+== RESULT
+0.5
+2
+0

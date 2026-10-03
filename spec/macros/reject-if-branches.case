@@ -1,0 +1,5 @@
+# i_f< takes exactly two texts on its right, separated by ; (MC14).
+== SOURCE
+"1 = 1" i_f< "1; 2; 3"
+== ERROR
+error[bad-macro-argument]: i_f< takes two expressions on its right, separated by ;: "c" i_f< "a; b" at 13..22

@@ -14,5 +14,5 @@ mod store;
 pub use expand::{Found, Libraries};
 pub use fs::FsLibraries;
 pub use report::MacroError;
-pub use start::{expand, expand_library};
+pub use start::{expand, expand_library, expansion};
 pub use store::StoreLibraries;

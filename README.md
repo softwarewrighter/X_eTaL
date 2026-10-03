@@ -172,7 +172,9 @@ reverses the axes, `t_ranspose` permutes them, `o_\_23` swaps two), whole-array 
 `--ascii`), files, the keyboard and numbers as text (`[]N_GET`,
 `[]N_PUT`, `[]R_EAD`, `f_ormat`, `n_umbers`), trigonometry, pictures
 (`[]G_RID` grids and `[]P_ATH` paths as SVG, animated by frames,
-shown with `[]S_HOW`), and libraries imported with `u_se<`: the
+shown with `[]S_HOW`), the system macros `i_f<`, `u_nless<` and
+`e_ach<` (source written for you, shown by `xetal expand`), and
+libraries imported with `u_se<`: the
 standard libraries `Stats`, `Combinators` (Smullyan's birds), `Maybe`,
 `TTTML` (a machine that learns tic-tac-toe) and `Turtle` (turtle
 graphics as arrays) are built in. The decorated views: `xetal render

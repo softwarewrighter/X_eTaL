@@ -1,0 +1,1 @@
+Running a macro: a runner injected into the macro phase (it cannot depend on eval) evaluates the .xtlm function on the argument strings at compile time; the result is re-lexed with spans at the call and expanded again to the depth limit (errors show the chain); .xtlm exports type-checked as String -> String -> String.

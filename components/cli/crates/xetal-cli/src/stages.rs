@@ -45,6 +45,10 @@ pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
     if let Command::Diagram(_) = command {
         return xetal_diagram::diagram(&source);
     }
+    if let Command::Expand(input) = command {
+        let name = input.file.as_deref().unwrap_or("-e");
+        return xetal_program::expanded(name, &source);
+    }
     if let Some(result) = crate::echo::evaluation(command, &source) {
         return result;
     }

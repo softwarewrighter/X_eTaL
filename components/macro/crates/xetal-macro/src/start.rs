@@ -25,6 +25,24 @@ pub fn expand_library(
     start(name, text, libs, true)
 }
 
+/// The program `text` (reported as `name`) after macro expansion, as
+/// written otherwise: imports and names stay as they are (what `xetal
+/// expand` shows).
+pub fn expansion(name: &str, text: &str, _libs: &dyn Libraries) -> Result<String, Box<MacroError>> {
+    let error = |diagnostic| {
+        Box::new(MacroError {
+            diagnostic,
+            file: name.into(),
+            text: text.into(),
+            main: true,
+        })
+    };
+    Ok(xetal_expand::expand(text)
+        .map_err(error)?
+        .text()
+        .to_string())
+}
+
 fn start(
     name: &str,
     text: &str,

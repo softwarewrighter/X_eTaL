@@ -1,0 +1,13 @@
+# A macro's expansion is expanded again: here each copy of an e_ach<
+# template holds a u_nless< call.
+== SOURCE
+a := 1; b := 0
+"a b" e_ach< "\"$w = 0\" u_nless< \"p_rint! 10 / $w\""
+== EXPAND
+a := 1; b := 0
+{ @ -> (a = 0) ? @; p_rint! 10 / a; @ } @
+{ @ -> (b = 0) ? @; p_rint! 10 / b; @ } @
+== RESULT
+10.0
+@
+@

@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 15:20 `feat` System macros (macros lane step 1): `"c" i_f< "a; b"`, `"c" u_nless< "b"` (run-time guards) and `"w1 w2" e_ach< "template"` (a statement per word, `$w` replaced), built into the macro phase beside `u_se<`; `xetal expand` shows the program after expansion, spec cases pin it with `== EXPAND`, and errors in a macro's argument are reported inside the string (components/expand; MC14-MC17 proposed, D60, D61).
 - 12:00 `plan` X_eTaL-extensions' asks E3-E6 planned: E6 (the `--draw` ordering bug) next after the speed guard, E4 (a clock: `[]TS`, `[]D_L`) beside the X4 quads step, E3 (the CLI as a library) after errors, E5 (library errors name the calling line) in Saga 27.
 - 11:59 `feat` Typed screen control (QD6, Saga 25 step 7): built-in enums Color and Key named in a Terminal library (`t:RED`, `t:UP`), typed text builders (`[]F_G`, `[]B_G`, `[]B_OLD`, `[]A_T`, `[]C_LS`), `[]K_EY` (one key, raw at the CLI, waited for in the browser), `[]K_CHAR`, `[]E_RR`, `[]T_E`; the live demo draws placed and coloured output as a grid.
 - 09:23 `plan` Saga 30, the higher-order speed regression X_eTaL-demos found (t_able 2.7x, i_nner 1.5x slower since step 037): a deterministic guard, primitive operands run directly, lean kernels, release; steps 043-046, right after screen control.

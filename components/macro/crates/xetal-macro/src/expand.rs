@@ -49,10 +49,18 @@ impl Loader<'_> {
                 main,
             })
         };
-        let index = self.sources.add(&file.name, &file.text);
+        let expanded = xetal_expand::expand(&file.text).map_err(error)?;
+        let at = |mut d: Diagnostic| {
+            d.span = d.span.map(|s| expanded.span(s));
+            error(d)
+        };
+        let (text, index) = (
+            expanded.text(),
+            self.sources.add_expanded(&file.name, &file.text, &expanded),
+        );
         self.chain.push((file.key.clone(), file.name.clone()));
-        let found = imports(&file.text).map_err(error)?;
-        let aliases = self.link(file, &found, &error)?;
+        let found = imports(text).map_err(at)?;
+        let aliases = self.link(file, &found, &at)?;
         self.chain.pop();
         // Named after its imports are loaded, so they take earlier names.
         let own = (!main || self.library).then(|| hidden(self.loaded.len()));
@@ -62,7 +70,7 @@ impl Loader<'_> {
             aliases: &aliases,
             imports: &spans,
         };
-        let (edits, exports) = rewrite(&file.text, &cx).map_err(error)?;
+        let (edits, exports) = rewrite(text, &cx).map_err(at)?;
         for (letters, (hidden, _)) in &aliases {
             self.sources.written_as(index, hidden, letters);
         }
@@ -71,7 +79,7 @@ impl Loader<'_> {
             self.sources.written_as(index, private, "");
             self.loaded.insert(file.key.clone(), (own.clone(), exports));
         }
-        emit(&mut self.sources, index, &file.text, &found, edits);
+        emit(&mut self.sources, index, text, &found, edits);
         Ok(())
     }
 

@@ -1,0 +1,1 @@
+MC10 and MC12: a .xtlm defines m:name< exports (rejections: l: names, m: names without <, < names without m:, top-level expressions); alias:name< calls looked up among the imported .xtlm exports, in statement and expression position; MC8 rows updated.

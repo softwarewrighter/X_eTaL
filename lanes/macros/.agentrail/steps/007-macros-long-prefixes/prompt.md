@@ -1,0 +1,1 @@
+MC13 test-first: long namespace prefixes (combinators:, b2:), rejections (Abc:, 2b:) with the lexer and valid_alias agreeing; the raw-prefix fallback when a letter has no superscript (render, view, LaTeX, Emacs mode); spec cases and a golden.

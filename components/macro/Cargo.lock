@@ -632,6 +632,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-expand"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
+ "xetal-mapped",
+]
+
+[[package]]
 name = "xetal-explain"
 version = "0.1.0"
 dependencies = [
@@ -703,6 +712,7 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-eval",
+ "xetal-expand",
  "xetal-lex",
  "xetal-libs",
  "xetal-names",
@@ -720,6 +730,13 @@ dependencies = [
  "xetal-core",
  "xetal-kernel",
  "xetal-value",
+]
+
+[[package]]
+name = "xetal-mapped"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
 ]
 
 [[package]]
@@ -802,6 +819,7 @@ version = "0.1.0"
 dependencies = [
  "proptest",
  "xetal-base",
+ "xetal-mapped",
 ]
 
 [[package]]

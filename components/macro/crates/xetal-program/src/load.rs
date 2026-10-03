@@ -38,11 +38,12 @@ pub(crate) fn lowered(expanded: Result<Sources, Box<MacroError>>) -> Result<Load
     Ok(Loaded { sources, program })
 }
 
-/// `d` located in the file it came from: unchanged for one file;
-/// otherwise its place is given in the message as `FILE:LINE:COLUMN`.
+/// `d` located in the file it came from: for one file, its span is
+/// moved from the expanded text to the text as written; otherwise its
+/// place is given in the message as `FILE:LINE:COLUMN`.
 pub fn located(sources: &Sources, d: Diagnostic) -> Diagnostic {
     if sources.file_count() < 2 || d.span.is_none() {
-        return d;
+        return in_program(sources, d);
     }
     let mut out = d.clone();
     (out.message, out.span, out.notes) = (tail(&sources.describe(&d), &d.code), None, Vec::new());
@@ -54,7 +55,7 @@ pub fn located(sources: &Sources, d: Diagnostic) -> Diagnostic {
 /// (the combined text starts with the libraries); one in a library is
 /// located there, as [`located`] does.
 pub fn in_program(sources: &Sources, d: Diagnostic) -> Diagnostic {
-    let Some(span) = d.span.filter(|_| sources.file_count() > 1) else {
+    let Some(span) = d.span else {
         return d;
     };
     let (start, end) = (
@@ -64,7 +65,10 @@ pub fn in_program(sources: &Sources, d: Diagnostic) -> Diagnostic {
     match (start.index, end.index) {
         (0, 0) => {
             let mut out = d;
-            out.span = Some(xetal_base::Span::new(start.offset, end.offset + 1));
+            out.span = Some(xetal_base::Span::new(
+                start.offset,
+                end.to.max(start.offset + 1),
+            ));
             out
         }
         _ => located(sources, d),
