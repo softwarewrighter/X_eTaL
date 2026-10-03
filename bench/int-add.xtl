@@ -1,0 +1,3 @@
+# Elementwise Int arithmetic on 1M items: three operations.
+v := r_ange 1000000
+t_ally (v + v) * 3 - v

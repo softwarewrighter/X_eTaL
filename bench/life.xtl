@@ -1,0 +1,4 @@
+# Conway's Life on a 200 by 200 torus, 20 generations.
+u:l_ife := { b -> n := '+ r_/_12 -1 0 1 o_-_12 b; (n = 3) | b & n = 4 }
+b := 200 200 r_eshape 0 1 1 0 1 0 0 1 0 1 1
+'+ r_/_12 u:l_ife^20 b

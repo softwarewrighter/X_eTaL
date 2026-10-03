@@ -1,0 +1,3 @@
+# Elementwise Float arithmetic on 1M items: three operations.
+w := f_loat r_ange 1000000
+t_ally (w * w) + 1.5 * w
