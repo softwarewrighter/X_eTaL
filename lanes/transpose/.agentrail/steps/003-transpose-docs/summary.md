@@ -1,0 +1,1 @@
+Transpose documented: tour, README, idioms (+spec), poster panel 5 (image regenerated); poster.py Pillow trim fallback; tour goldens rebased. Pushed as pr/transpose-docs.
