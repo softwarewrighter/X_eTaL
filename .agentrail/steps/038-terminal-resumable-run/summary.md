@@ -1,0 +1,1 @@
+Resumable run: Machine::waiting_for_input + feed; []R_EAD with an empty queue leaves its call pending and run() returns Status::Waiting; a fed line resumes at that call with state intact. Test: a text-adventure loop fed three lines prints what the CLI prints. CLI unchanged.
