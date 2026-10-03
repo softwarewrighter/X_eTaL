@@ -1,5 +1,6 @@
 Available recipes:
     animate                    # Play the rotate demo (demos/rotate.xtl) as an animation
+    bench RUNS="3"             # Time the benchmarks (bench/*.xtl and three demos), best of RUNS, as a table for docs/speed.md
     build                      # Build every component (debug) into the shared target/
     build-release              # Build every component optimized (target/release/xetal: the run recipes use it)
     check-literate             # The literate documents' recorded results are current

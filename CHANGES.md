@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 07:06 `fix` The just-list golden rebased on purpose for the new `just bench` recipe (PR #38); it had been failing on main since that merge.
 - 06:54 `feat` A run can wait for typed lines (D50, Saga 25 step 4): with an input queue, `[]R_EAD` takes the next line or stops the run as Waiting, and a fed line resumes it at that very call; the CLI still reads standard input.
 ## 2026-10-02
 
