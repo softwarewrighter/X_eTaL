@@ -1,8 +1,9 @@
 number = 37
 slug = "terminal-steppable-hof"
-status = "in-progress"
+status = "completed"
 description = "Saga 25 (the terminal, docs/plan.md), moved ahead of web-release by the user...."
 role = "production"
 context_files = []
 created_at = "2026-10-02T17:31:05"
-commits = []
+completed_at = "2026-10-03T06:04:28"
+commits = ["cd80454a824a78c99add35d799e1ff76c5382254"]

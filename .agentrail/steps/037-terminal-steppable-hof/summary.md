@@ -1,0 +1,1 @@
+Higher-order built-ins are kernels (xetal-kernel: Kernel/Next, apply/then/all/fold): each operand call is a machine step, so runs stop inside e_ach, reduce, p_ower, table, inner, axes forms; Caller and nested runs removed; order of calls preserved; inside.rs and extended slices.rs tests; spec and goldens unchanged.
