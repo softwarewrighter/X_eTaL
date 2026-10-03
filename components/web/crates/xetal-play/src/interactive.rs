@@ -24,6 +24,8 @@ pub enum Step {
     Running,
     /// Waiting for a typed line ([`Interactive::feed`]).
     Waiting,
+    /// Waiting for one key, fed by its name (`Up`, `a`).
+    WaitingKey,
     /// Finished: its warnings and error, and the pictures it showed.
     Done(Run),
 }
@@ -60,6 +62,7 @@ impl Interactive {
         let result = match self.machine.run(budget) {
             Ok(Status::Running) => return Step::Running,
             Ok(Status::Waiting) => return Step::Waiting,
+            Ok(Status::WaitingKey) => return Step::WaitingKey,
             Ok(Status::Done) => Ok(()),
             Err(e) => Err(self.loaded.program.annotate(e)),
         };
@@ -70,7 +73,8 @@ impl Interactive {
         ))
     }
 
-    /// A line typed (without its newline) for the waiting `[]R_EAD`.
+    /// A line typed (without its newline) for the waiting `[]R_EAD`, or
+    /// a key's name for the waiting `[]K_EY`.
     pub fn feed(&mut self, line: String) {
         self.machine.feed(line);
     }

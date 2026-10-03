@@ -53,6 +53,13 @@ impl Store for Snapshot {
 fn run(req: Request) {
     let files = req.files.into_iter().collect();
     xetal_store::install(Arc::new(Snapshot(Mutex::new(files))));
+    // The program's terminal: standard error a red line, a 24 by 80 grid.
+    let error = |line: &str| post(Event::Out(format!("\x1b[31m{line}\x1b[39m")));
+    let tty = xetal_tty::Forward {
+        error,
+        facts: [24, 80, 1, 1],
+    };
+    xetal_tty::install(Arc::new(tty));
     xetal_play::set_boxed(req.boxed);
     if let Mode::Notebook(upto) = req.mode {
         let mut out = xetal_play::Lines::new(|line: &str| post(Event::Out(line.into())));

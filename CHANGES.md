@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 11:59 `feat` Typed screen control (QD6, Saga 25 step 7): built-in enums Color and Key named in a Terminal library (`t:RED`, `t:UP`), typed text builders (`[]F_G`, `[]B_G`, `[]B_OLD`, `[]A_T`, `[]C_LS`), `[]K_EY` (one key, raw at the CLI, waited for in the browser), `[]K_CHAR`, `[]E_RR`, `[]T_E`; the live demo draws placed and coloured output as a grid.
 - 09:23 `plan` Saga 30, the higher-order speed regression X_eTaL-demos found (t_able 2.7x, i_nner 1.5x slower since step 037): a deterministic guard, primitive operands run directly, lean kernels, release; steps 043-046, right after screen control.
 - 09:18 `docs` docs/tuples.md: tuples in X_eTaL (missing), what first-class tuples would take layer by layer, and how other languages support them.
 - 09:12 `plan` Saga 29, algebraic data (tuples, records, enums, matching), before errors; QD6 settled: screen control typed with built-in enums Color and Key (named in a Terminal library), pure text builders, never strings.

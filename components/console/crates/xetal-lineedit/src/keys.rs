@@ -54,3 +54,20 @@ pub fn key(name: &str, ctrl: bool) -> Option<Key> {
         _ => None,
     }
 }
+
+/// A key pressed, named as a program reading one key sees it (`[]K_EY`,
+/// QD6): its character, or `Up`, `Down`, `Left`, `Right`, `Enter`,
+/// `Escape`, `Backspace`, `Tab`, `Delete`, `Home`, `End`; `None` for a
+/// key a program never gets (Shift alone, function keys).
+pub fn key_name(name: &str) -> Option<String> {
+    let named = match name {
+        "ArrowUp" => "Up",
+        "ArrowDown" => "Down",
+        "ArrowLeft" => "Left",
+        "ArrowRight" => "Right",
+        "Enter" | "Escape" | "Backspace" | "Tab" | "Delete" | "Home" | "End" => name,
+        _ if name.chars().count() == 1 => name,
+        _ => return None,
+    };
+    Some(named.to_string())
+}

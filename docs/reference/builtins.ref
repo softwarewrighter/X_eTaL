@@ -514,6 +514,60 @@ A file's text.
 A line typed at the keyboard (here, the line "a typed line").
 > []R_EAD @
 
+== []K_EY
+One key, without Enter, as a Key (here, the key a): the terminal reads
+it raw; in the live demo the program waits in the terminal pane. Keys
+are named in the Terminal library (`"t:" u_se< "Terminal"`, then
+`t:UP`, `t:ENTER`, ...) and compare with `=`.
+> []K_EY @
+
+== []K_CHAR
+A printing key's character, or nothing for a named key such as Up.
+> []K_CHAR []K_EY @
+
+== []K_NAMED
+Named key n (1 to 11: Up, Down, Left, Right, Enter, Escape, Backspace,
+Tab, Delete, Home, End), for the Terminal library, which names them.
+> []K_NAMED 1
+
+== []C_OLOR
+Colour n (1 to 8: black, red, green, yellow, blue, magenta, cyan,
+white), for the Terminal library, which names them (`t:RED`).
+> []C_OLOR 2
+
+== []F_G
+Text in a foreground colour: the text wrapped in the codes a terminal
+(or the live demo's grid) colours it with; print it to see it. Here,
+its length: five characters on each side of the text.
+> t_ally ([]C_OLOR 2) []F_G "hi"
+
+== []B_G
+Text on a background colour, as []F_G does the foreground.
+> t_ally ([]C_OLOR 5) []B_G "hi"
+
+== []B_OLD
+Text in bold (wrapped in its codes, as []F_G).
+> t_ally []B_OLD "hi"
+
+== []A_T
+Text placed at a row and a column (1-origin), for a program that draws
+a screen: the code moving the cursor there, then the text.
+> t_ally 2 5 []A_T "hi"
+
+== []C_LS
+The text that clears the screen and moves the cursor home; print it.
+> t_ally []C_LS @
+
+== []T_E
+The terminal's facts: rows, columns, 1 when output is a terminal, 1
+when it does screen control (here, output to a file).
+> []T_E @
+
+== []E_RR
+Write a line to standard error (red in the live demo), and give the
+text back.
+> t_ally []E_RR "careful"
+
 == SECTION Graphics
 A program computes what to draw as an array. Drawing is pure: the
 picture comes back as text, an SVG document. Showing it is the effect.

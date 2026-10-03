@@ -4,7 +4,7 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
-use xetal_base::Span;
+use xetal_base::{Diagnostic, Span};
 use xetal_core::Expr;
 use xetal_value::{Env, Prim, Slot, Value};
 
@@ -106,4 +106,8 @@ pub(crate) enum Kont<'a> {
         kernel: xetal_kernel::Kernel<'a, Value<'a>>,
         span: Span,
     },
+}
+
+pub(crate) fn err(code: &str, span: Span, message: impl Into<String>) -> Diagnostic {
+    Diagnostic::new(code, message).with_span(span)
 }

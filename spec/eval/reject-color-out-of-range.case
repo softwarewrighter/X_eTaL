@@ -1,0 +1,6 @@
+# The Terminal library's constructors take 1 to 8 (Color) and 1 to 11
+# (Key); anything else is a domain error when run.
+== SOURCE
+[]C_OLOR 9
+== ERROR
+error[domain]: Color has values 1 to 8, not 9 at 0..10

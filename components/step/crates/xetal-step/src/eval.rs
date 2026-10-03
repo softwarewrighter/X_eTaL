@@ -10,8 +10,9 @@ use xetal_core::{Expr, Kind};
 use xetal_lex::Number;
 use xetal_value::{Closure, Env, Prim, Slot, Value, extend, lookup};
 
+use crate::kont::err;
 use crate::kont::{Control, Kont};
-use crate::machine::{Machine, err};
+use crate::machine::Machine;
 
 impl<'a> Machine<'a, '_> {
     pub(crate) fn eval(&mut self, e: &'a Expr, env: &Env<'a>) -> Result<Control<'a>, Diagnostic> {

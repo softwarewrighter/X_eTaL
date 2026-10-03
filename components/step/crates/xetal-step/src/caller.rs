@@ -12,8 +12,9 @@ use xetal_core::Kind;
 use xetal_kernel::{Kernel, Next};
 use xetal_value::{Prim, Slot, Value};
 
+use crate::kont::err;
 use crate::kont::{Control, Kont};
-use crate::machine::{Machine, err};
+use crate::machine::Machine;
 
 impl<'a> Machine<'a, '_> {
     /// A higher-order built-in's kernel goes on with the value of the
@@ -54,7 +55,7 @@ impl<'a> Machine<'a, '_> {
                 args,
             }))));
         }
-        if p.name == "[]R_EAD"
+        if (p.name == "[]R_EAD" || p.name == "[]K_EY")
             && let Some(control) = self.typed_line(p, &args, span)
         {
             return Ok(control);
@@ -67,9 +68,10 @@ impl<'a> Machine<'a, '_> {
         }
     }
 
-    /// `[]R_EAD` with an input queue: the next line typed, or, when none
-    /// is, the call left pending (its argument handed back to it) and
-    /// the run waiting. `None` without a queue (standard input).
+    /// `[]R_EAD` (or `[]K_EY`) with an input queue: the next line typed
+    /// (or key, by name), or, when none is, the call left pending (its
+    /// argument handed back to it) and the run waiting. `None` without a
+    /// queue (standard input, the terminal).
     fn typed_line(
         &mut self,
         p: &Rc<Prim<'a>>,
@@ -77,12 +79,18 @@ impl<'a> Machine<'a, '_> {
         span: Span,
     ) -> Option<Control<'a>> {
         let queue = self.input.as_mut()?;
+        let key = p.name == "[]K_EY";
         match queue.pop_front() {
+            Some(name) if key => Some(Control::Return(Value::Tag(
+                "Key",
+                xetal_value::key_named(&name).unwrap_or(0),
+            ))),
             Some(line) => Some(Control::Return(Value::Array(Rc::new(Array::vector(
                 line.chars().map(Value::Char).collect(),
             ))))),
             None => {
                 self.waiting = true;
+                self.wants_key = key;
                 self.stack.push(Kont::PrimArg { p: p.clone(), span });
                 args.last().cloned().map(Control::Return)
             }

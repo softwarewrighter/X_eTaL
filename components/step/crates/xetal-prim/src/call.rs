@@ -35,6 +35,9 @@ pub fn call<'a>(
     out: &mut dyn Write,
     rng: &mut Rng,
 ) -> Result<Value<'a>, Diagnostic> {
+    if let Some(result) = crate::screen::call(name, args, span) {
+        return result;
+    }
     if let Some(result) = xetal_struct::call(name, args, span)
         .or_else(|| xetal_search::call(name, args, span))
         .or_else(|| xetal_radix::call(name, args, span))
@@ -86,6 +89,9 @@ fn scalar2<'a>(
             Ok(Value::Bool(if name == "&" { a && b } else { a || b }))
         }
         "=" | "!=" | "<" | ">" | "<=" | ">=" | "e_q~" => match (a, b) {
+            (Value::Tag(s, x), Value::Tag(t, y)) if name == "=" || name == "!=" => {
+                Ok(Value::Bool((s == t && x == y) == (name == "=")))
+            }
             (Value::Char(x), Value::Char(y)) if name != "e_q~" => Ok(compare_chars(name, *x, *y)),
             (Value::Boxed(_), Value::Boxed(_)) if name == "=" || name == "!=" => {
                 Ok(Value::Bool(xetal_search::equal(a, b) == (name == "=")))

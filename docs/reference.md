@@ -1238,6 +1238,137 @@ A line typed at the keyboard (here, the line "a typed line").
 a typed line
 ```
 
+### `[]K_EY`
+
+`Unit -> Key`, one argument.
+
+One key, without Enter, as a Key (here, the key a): the terminal reads
+it raw; in the live demo the program waits in the terminal pane. Keys
+are named in the Terminal library (`"t:" u_se< "Terminal"`, then
+`t:UP`, `t:ENTER`, ...) and compare with `=`.
+
+```
+      []K_EY @
+a
+```
+
+### `[]K_CHAR`
+
+`Key -> Char`, one argument.
+
+A printing key's character, or nothing for a named key such as Up.
+
+```
+      []K_CHAR []K_EY @
+a
+```
+
+### `[]K_NAMED`
+
+`Int -> Key`, one argument.
+
+Named key n (1 to 11: Up, Down, Left, Right, Enter, Escape, Backspace,
+Tab, Delete, Home, End), for the Terminal library, which names them.
+
+```
+      []K_NAMED 1
+UP
+```
+
+### `[]C_OLOR`
+
+`Int -> Color`, one argument.
+
+Colour n (1 to 8: black, red, green, yellow, blue, magenta, cyan,
+white), for the Terminal library, which names them (`t:RED`).
+
+```
+      []C_OLOR 2
+RED
+```
+
+### `[]F_G`
+
+`Color -> Char -> Char`, two arguments.
+
+Text in a foreground colour: the text wrapped in the codes a terminal
+(or the live demo's grid) colours it with; print it to see it. Here,
+its length: five characters on each side of the text.
+
+```
+      t_ally ([]C_OLOR 2) []F_G "hi"
+12
+```
+
+### `[]B_G`
+
+`Color -> Char -> Char`, two arguments.
+
+Text on a background colour, as []F_G does the foreground.
+
+```
+      t_ally ([]C_OLOR 5) []B_G "hi"
+12
+```
+
+### `[]B_OLD`
+
+`Char -> Char`, one argument.
+
+Text in bold (wrapped in its codes, as []F_G).
+
+```
+      t_ally []B_OLD "hi"
+11
+```
+
+### `[]A_T`
+
+`Int -> Char -> Char`, two arguments.
+
+Text placed at a row and a column (1-origin), for a program that draws
+a screen: the code moving the cursor there, then the text.
+
+```
+      t_ally 2 5 []A_T "hi"
+8
+```
+
+### `[]C_LS`
+
+`Unit -> Char`, one argument.
+
+The text that clears the screen and moves the cursor home; print it.
+
+```
+      t_ally []C_LS @
+7
+```
+
+### `[]T_E`
+
+`Unit -> Int`, one argument.
+
+The terminal's facts: rows, columns, 1 when output is a terminal, 1
+when it does screen control (here, output to a file).
+
+```
+      []T_E @
+24 80 0 0
+```
+
+### `[]E_RR`
+
+`Char -> Char`, one argument.
+
+Write a line to standard error (red in the live demo), and give the
+text back.
+
+```
+      t_ally []E_RR "careful"
+7
+```
+
 ## Graphics
 
 A program computes what to draw as an array. Drawing is pure: the

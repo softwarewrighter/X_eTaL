@@ -20,6 +20,7 @@ fn main() -> ExitCode {
     // turns every later write into a panic or an error[io]; the default
     // disposition ends the process with the signal instead.
     sigpipe::reset();
+    xetal_tty::install(std::sync::Arc::new(xetal_line::Terminal));
     let cli = Cli::parse();
     let draw = cli.draw.clone();
     xetal_grid::set_ascii(cli.ascii);

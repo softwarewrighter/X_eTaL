@@ -9,3 +9,7 @@ version = "0.1.0"
 [[package]]
 name = "xetal-screen"
 version = "0.1.0"
+
+[[package]]
+name = "xetal-tty"
+version = "0.1.0"

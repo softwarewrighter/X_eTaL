@@ -54,3 +54,16 @@ fn waiting_stops_before_the_line_is_needed() {
         "name?\nname?\nAda\nAda\n"
     );
 }
+
+#[test]
+fn a_run_waits_for_one_key_and_gets_a_key() {
+    let src = "k := []K_EY @; p_rint! k; k = []K_NAMED 1";
+    let program = xetal_core::lower(src).expect("lowers");
+    let mut out = Vec::new();
+    let mut machine = Machine::new(&program, &mut out, Rng::seeded(1)).waiting_for_input();
+    assert_eq!(machine.run(1_000_000).expect("runs"), Status::WaitingKey);
+    machine.feed("Up".to_string());
+    assert_eq!(machine.run(1_000_000).expect("runs"), Status::Done);
+    drop(machine);
+    assert_eq!(String::from_utf8(out).expect("utf-8"), "UP\nUP\n1\n");
+}

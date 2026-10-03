@@ -72,3 +72,14 @@ fn interrupt_is_reported() {
     assert_eq!(e.handle(Key::Interrupt), Outcome::Interrupt);
     assert_eq!(e.line(), "");
 }
+
+#[test]
+fn a_pressed_key_is_named_as_programs_see_it() {
+    use xetal_lineedit::key_name;
+    assert_eq!(key_name("a"), Some("a".into()));
+    assert_eq!(key_name("ArrowUp"), Some("Up".into()));
+    assert_eq!(key_name("Enter"), Some("Enter".into()));
+    assert_eq!(key_name("Escape"), Some("Escape".into()));
+    assert_eq!(key_name("Shift"), None);
+    assert_eq!(key_name("F5"), None);
+}

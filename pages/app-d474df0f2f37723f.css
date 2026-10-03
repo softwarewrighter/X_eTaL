@@ -150,3 +150,22 @@ footer .sep { opacity: 0.6; }
 .pane pre .typing { color: var(--bright); }
 .pane pre .typing .cursor { background: var(--bright); color: var(--bg); }
 .pane.output pre:focus { outline: none; }
+
+/* The terminal's grid (QD6): a program's placed and styled text. */
+.pane pre .grid .bold { font-weight: 700; }
+.pane pre .grid .fg-black { color: #3b3f4b; }
+.pane pre .grid .fg-red { color: #ff6b6b; }
+.pane pre .grid .fg-green { color: #5fd37a; }
+.pane pre .grid .fg-yellow { color: #ffd21f; }
+.pane pre .grid .fg-blue { color: #5b9cff; }
+.pane pre .grid .fg-magenta { color: #d25fd2; }
+.pane pre .grid .fg-cyan { color: #22b8c8; }
+.pane pre .grid .fg-white { color: #ffffff; }
+.pane pre .grid .bg-black { background: #000000; }
+.pane pre .grid .bg-red { background: #8a1f1f; }
+.pane pre .grid .bg-green { background: #1f6a32; }
+.pane pre .grid .bg-yellow { background: #7a6400; }
+.pane pre .grid .bg-blue { background: #1f3f8a; }
+.pane pre .grid .bg-magenta { background: #6a1f6a; }
+.pane pre .grid .bg-cyan { background: #135f68; }
+.pane pre .grid .bg-white { background: #c8ccd4; color: #16181d; }

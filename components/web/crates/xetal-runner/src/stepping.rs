@@ -42,6 +42,7 @@ fn tick() {
     match step {
         Some(Step::Running) => later(tick),
         Some(Step::Waiting) => post(Event::Waiting),
+        Some(Step::WaitingKey) => post(Event::WaitingKey),
         Some(Step::Done(run)) => {
             CURRENT.with(|c| *c.borrow_mut() = None);
             finish(run);

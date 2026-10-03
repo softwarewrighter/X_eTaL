@@ -1,0 +1,6 @@
+# A Key where a Color is wanted is a type error when checked (QD6).
+== SOURCE
+"t:" u_se< "Terminal"
+t:UP []F_G "x"
+== ERROR
+error[type-mismatch]: expected Color, found Key at -e:2:1

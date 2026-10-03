@@ -6,4 +6,4 @@ mod edit;
 mod keys;
 
 pub use edit::{LineEditor, Outcome};
-pub use keys::{Key, key};
+pub use keys::{Key, key, key_name};

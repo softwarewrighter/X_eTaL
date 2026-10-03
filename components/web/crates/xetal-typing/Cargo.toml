@@ -11,4 +11,5 @@ repository.workspace = true
 yew.workspace = true
 web-sys.workspace = true
 xetal-lineedit.workspace = true
+xetal-screen.workspace = true
 xetal-runner.workspace = true

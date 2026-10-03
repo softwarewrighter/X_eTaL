@@ -1417,6 +1417,7 @@ name = "xetal-prim"
 version = "0.1.0"
 dependencies = [
  "xetal-arith",
+ "xetal-array",
  "xetal-base",
  "xetal-catalog",
  "xetal-radix",
@@ -1485,8 +1486,13 @@ dependencies = [
  "web-sys",
  "xetal-play",
  "xetal-store",
+ "xetal-tty",
  "yew",
 ]
+
+[[package]]
+name = "xetal-screen"
+version = "0.1.0"
 
 [[package]]
 name = "xetal-search"
@@ -1554,6 +1560,7 @@ dependencies = [
  "xetal-base",
  "xetal-draw",
  "xetal-store",
+ "xetal-tty",
  "xetal-value",
 ]
 
@@ -1572,6 +1579,10 @@ dependencies = [
  "xetal-base",
  "xetal-value",
 ]
+
+[[package]]
+name = "xetal-tty"
+version = "0.1.0"
 
 [[package]]
 name = "xetal-ty"
@@ -1599,6 +1610,7 @@ dependencies = [
  "web-sys",
  "xetal-lineedit",
  "xetal-runner",
+ "xetal-screen",
  "yew",
 ]
 

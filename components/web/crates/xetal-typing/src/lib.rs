@@ -69,15 +69,23 @@ pub fn typed_line(typing: &Typing) -> Html {
 pub fn terminal_keys(
     typing: &Typing,
     page: Callback<KeyboardEvent>,
-    waiting: bool,
+    runs: &Runs,
     in_source: bool,
 ) -> Callback<KeyboardEvent> {
-    let terminal = typing.key.clone();
+    let (terminal, press) = (typing.key.clone(), runs.press_key.clone());
+    let (waiting, wants_key) = (runs.output.waiting, runs.output.wants_key);
     Callback::from(move |e: KeyboardEvent| {
-        let page_key = e.meta_key() || e.key() == "Escape" || (e.ctrl_key() && e.key() == "Enter");
-        match waiting && !in_source && !page_key {
-            true => terminal.emit(e),
-            false => page.emit(e),
+        let page_key = e.meta_key() || (e.ctrl_key() && e.key() == "Enter");
+        let named = (wants_key && !e.ctrl_key())
+            .then(|| xetal_lineedit::key_name(&e.key()))
+            .flatten();
+        match (waiting && !in_source && !page_key, named) {
+            (true, Some(name)) => {
+                e.prevent_default();
+                press.emit(name);
+            }
+            (true, None) if !wants_key && e.key() != "Escape" => terminal.emit(e),
+            _ => page.emit(e),
         }
     })
 }
@@ -110,6 +118,37 @@ pub fn use_terminal(
     let (runs, in_source, to_output) = terminal;
     let typing = use_typing(runs.type_line.clone(), runs.stop.clone());
     use_waiting(runs.output.waiting, to_output, pane);
-    let keys = terminal_keys(&typing, page, runs.output.waiting, in_source);
+    let keys = terminal_keys(&typing, page, runs, in_source);
     (typing, keys)
+}
+
+/// The output drawn as a terminal's grid (24 rows of 80 columns) when a
+/// program placed or styled its text (QD6: the screen functions'
+/// sequences); `None` for plain output.
+pub fn screen(out: &str) -> Option<Html> {
+    if !out.contains('\x1b') {
+        return None;
+    }
+    let mut grid = xetal_screen::Grid::new(24, 80);
+    grid.write(out);
+    let rows = grid.rows().iter().map(|row| {
+        let runs = row.chunk_by(|a, b| a.style == b.style).map(|cells| {
+            let text: String = cells.iter().map(|c| c.ch).collect();
+            html! { <span class={style_classes(cells[0].style)}>{ text }</span> }
+        });
+        html! { <>{ for runs }{ "\n" }</> }
+    });
+    Some(html! { <span class="grid">{ for rows }</span> })
+}
+
+fn style_classes(style: xetal_screen::Style) -> Classes {
+    let colour = |prefix: &str, c: xetal_screen::Color| match c {
+        xetal_screen::Color::Default => None,
+        c => Some(format!("{prefix}-{}", format!("{c:?}").to_lowercase())),
+    };
+    classes!(
+        colour("fg", style.fg),
+        colour("bg", style.bg),
+        style.bold.then_some("bold")
+    )
 }

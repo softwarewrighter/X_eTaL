@@ -22,6 +22,8 @@ pub enum Status {
     Running,
     /// Stopped at `[]R_EAD` until a line is fed (with an input queue).
     Waiting,
+    /// Stopped at `[]K_EY` until a key's name is fed.
+    WaitingKey,
     /// Every item has run.
     Done,
 }
@@ -45,6 +47,8 @@ pub struct Machine<'a, 'o> {
     /// input (the CLI), with one an empty queue makes the run wait.
     pub(crate) input: Option<std::collections::VecDeque<String>>,
     pub(crate) waiting: bool,
+    /// What it waits for is one key (`[]K_EY`), not a line.
+    pub(crate) wants_key: bool,
 }
 
 impl<'a, 'o> Machine<'a, 'o> {
@@ -62,6 +66,7 @@ impl<'a, 'o> Machine<'a, 'o> {
             before: None,
             input: None,
             waiting: false,
+            wants_key: false,
         }
     }
 
@@ -81,7 +86,7 @@ impl<'a, 'o> Machine<'a, 'o> {
     pub fn run(&mut self, budget: usize) -> Result<Status, Diagnostic> {
         for _ in 0..budget {
             if self.waiting {
-                return Ok(Status::Waiting);
+                return Ok(self.waited());
             }
             let Some(control) = self.control.take() else {
                 return Ok(Status::Done);
@@ -96,7 +101,7 @@ impl<'a, 'o> Machine<'a, 'o> {
             }
         }
         Ok(match (self.waiting, self.control.is_some()) {
-            (true, _) => Status::Waiting,
+            (true, _) => self.waited(),
             (false, true) => Status::Running,
             (false, false) => Status::Done,
         })
@@ -125,6 +130,14 @@ impl<'a, 'o> Machine<'a, 'o> {
         }
     }
 
+    /// What the run waits for.
+    fn waited(&self) -> Status {
+        match self.wants_key {
+            true => Status::WaitingKey,
+            false => Status::Waiting,
+        }
+    }
+
     /// Pop frames until `stop` matches one (popped too) or the stack is
     /// empty, giving a lazy argument whose forcing failed its thunk back.
     pub(crate) fn unwind(&mut self, stop: impl Fn(&Kont<'a>) -> bool) {
@@ -137,8 +150,4 @@ impl<'a, 'o> Machine<'a, 'o> {
             }
         }
     }
-}
-
-pub(crate) fn err(code: &str, span: Span, message: impl Into<String>) -> Diagnostic {
-    Diagnostic::new(code, message).with_span(span)
 }

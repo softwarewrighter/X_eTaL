@@ -20,6 +20,18 @@ pub fn call<'a>(
         ("[]N_PUT", [t, path]) => put(t, path).map_err(at),
         ("[]N_GET", [path]) => get(path).map_err(at),
         ("[]R_EAD", [_]) => read().map_err(at),
+        ("[]E_RR", [t]) => crate::text::chars(t).map_err(at).map(|line| {
+            xetal_tty::error(&line);
+            t.clone()
+        }),
+        ("[]K_EY", [_]) => xetal_tty::key()
+            .ok()
+            .and_then(|k| xetal_value::key_named(&k))
+            .map(|i| Value::Tag("Key", i))
+            .ok_or_else(|| at(Diagnostic::new("io", "[]K_EY: no key"))),
+        ("[]T_E", [_]) => Ok(xetal_value::to_value(xetal_array::Array::vector(
+            xetal_tty::facts().iter().map(|i| Value::Int(*i)).collect(),
+        ))),
         ("[]G_RID", [a]) => grid(a).map_err(at),
         ("[]P_ATH", [xy]) => path(xy).map_err(at),
         ("[]S_HOW", [svg]) => show(svg).map_err(at),

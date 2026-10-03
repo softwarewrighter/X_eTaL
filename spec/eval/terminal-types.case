@@ -1,0 +1,16 @@
+# Screen control is typed (QD6): colours and keys are values of the
+# built-in types Color and Key, named in the Terminal library; the
+# screen functions build text a program prints.
+== SOURCE
+"t:" u_se< "Terminal"
+t:RED
+t:UP
+t:UP = t:DOWN
+t:RED []F_G "x"
+[]K_CHAR t:ENTER
+== TYPE
+Color
+Key
+Bool
+Char
+Char

@@ -41,6 +41,7 @@ fn every_event_round_trips() {
         Event::Ready,
         Event::Source("# a comment\nx := 1".into()),
         Event::Waiting,
+        Event::WaitingKey,
     ] {
         assert_eq!(Event::decode(&e.encode()), Some(e.clone()), "{e:?}");
     }

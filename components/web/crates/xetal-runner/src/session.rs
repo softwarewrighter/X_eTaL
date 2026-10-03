@@ -36,6 +36,8 @@ pub struct Runs {
     pub toggle_boxed: Callback<()>,
     /// A line typed in the terminal for the waiting program.
     pub type_line: Callback<String>,
+    /// A key pressed (by name) for a program waiting for one.
+    pub press_key: Callback<String>,
 }
 
 #[hook]
@@ -47,7 +49,7 @@ pub fn use_runs() -> Runs {
     let (stop, clear) = ending(&state.dispatcher(), &live, &stepped);
     let b = boxed.clone();
     let toggle_boxed = Callback::from(move |_: ()| b.set(!*b));
-    let type_line = typing(&state.dispatcher(), &live);
+    let (type_line, press_key) = typing(&state.dispatcher(), &live);
     let output = (*state).clone();
     let (stepped, boxed) = (*stepped, *boxed);
     Runs {
@@ -60,18 +62,30 @@ pub fn use_runs() -> Runs {
         clear,
         toggle_boxed,
         type_line,
+        press_key,
     }
 }
 
-/// A typed line: echoed in the output and sent to the worker.
-fn typing(state: &UseReducerDispatcher<Output>, live: &Live) -> Callback<String> {
+/// A typed line (echoed in the output) or a key pressed (not echoed),
+/// sent to the worker for the waiting program.
+fn typing(
+    state: &UseReducerDispatcher<Output>,
+    live: &Live,
+) -> (Callback<String>, Callback<String>) {
+    let send = |s: UseReducerDispatcher<Output>, l: Live, echo: bool| {
+        Callback::from(move |text: String| {
+            if let Some((worker, _)) = l.borrow().as_ref() {
+                let _ = worker.post_message(&crate::line_message(&text).as_str().into());
+            }
+            s.dispatch(if echo {
+                Action::Typed(text)
+            } else {
+                Action::Pressed
+            });
+        })
+    };
     let (s, l) = (state.clone(), live.clone());
-    Callback::from(move |line: String| {
-        if let Some((worker, _)) = l.borrow().as_ref() {
-            let _ = worker.post_message(&crate::line_message(&line).as_str().into());
-        }
-        s.dispatch(Action::Typed(line));
-    })
+    (send(s.clone(), l.clone(), true), send(s, l, false))
 }
 
 /// Start: run (which also resets the steps); Step: run as a notebook up
