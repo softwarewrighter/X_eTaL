@@ -12,8 +12,10 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 19:26 `chore` Merge PR #36.
 - 19:26 `refactor` The evaluator is steppable (D50, Saga 25 step 2): Core runs on an explicit machine whose state is data (components/step: xetal-step, xetal-prim), in slices of any size, the same output as one run; every spec case and golden unchanged.
 - 19:26 `plan` Saga 19 (macros) moved right after Saga 25, before web-release (the user's order).
+- 19:05 `refactor` Transpose retrofit: Mastermind's 1296 codes as `o_\ 1 + 6 6 6 6 e_ncode o_ffsets 1296` (was place values by `d_iv` and `m_od`), Hanoi's moves as rows by `o_\` (was two tables), TTTML's position code by `3 d_ecode o_\` (was an inner product with powers of 3). Outputs unchanged.
 - 18:45 `docs` README: a section linking the X_eTaL repositories (demos, games, libraries, extensions), each with a short description and the live catalogs.
 - 18:01 `chore` Merge PR #35.
 - 17:31 `design` The terminal's evaluator is steppable, as web-sw-tos steps its emulator (D50, decided with the user): state as data, run in slices, waiting at `[]R_EAD` until a line is typed; two steps added to Saga 25 for it.

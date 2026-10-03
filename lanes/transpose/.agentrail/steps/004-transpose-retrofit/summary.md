@@ -1,0 +1,1 @@
+Retrofit: Mastermind codes (o_\ of e_ncode), Hanoi moves (o_\ of two rows, demo + hanoi.org), TTTML c_ode (3 d_ecode o_\); outputs unchanged. Pushed as pr/transpose-retrofit.
