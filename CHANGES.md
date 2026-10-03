@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 17:31 `design` The terminal's evaluator is steppable, as web-sw-tos steps its emulator (D50, decided with the user): state as data, run in slices, waiting at `[]R_EAD` until a line is typed; two steps added to Saga 25 for it.
 - 17:00 `plan` Saga 25 rewritten on the web-sw-tos model: a CLI emulated in the live demo with Rust, Yew and WASM (a cell grid, keys from the window, the program stepped by the page and resumed when a line is typed); the WASI build of the CLI is dropped (step cli-terminal-feature abandoned).
 - 16:21 `chore` Merge PR #34.
 - 16:11 `plan` X_eTaL-games' terminal request: step cli-terminal-feature next (a default-on `terminal` feature so `xetal-cli` builds for wasm32-wasip1), Saga 25 the terminal right after Saga 10 (a sw-tos-style browser terminal replacing `window.prompt`, input by `Atomics.wait` in the worker, named screen-control quads, decision QD6).

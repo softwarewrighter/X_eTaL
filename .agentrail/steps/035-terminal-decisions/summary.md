@@ -1,0 +1,1 @@
+Decided with the user: a steppable evaluator like web-sw-tos (state as data, run in slices, waiting at []R_EAD until a line arrives), over replay and over a worker on Atomics.wait. Recorded in plan.md (Saga 25) and design.md D50; steps 036 steppable-core and 037 steppable-hof inserted; quad names, keys and palette settled at the screen-control step.

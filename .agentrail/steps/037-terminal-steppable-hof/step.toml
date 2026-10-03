@@ -1,0 +1,8 @@
+number = 37
+slug = "terminal-steppable-hof"
+status = "pending"
+description = "Saga 25 (the terminal, docs/plan.md), moved ahead of web-release by the user...."
+role = "production"
+context_files = []
+created_at = "2026-10-02T17:31:05"
+commits = []

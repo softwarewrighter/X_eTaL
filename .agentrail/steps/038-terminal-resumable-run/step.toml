@@ -1,4 +1,4 @@
-number = 36
+number = 38
 slug = "terminal-resumable-run"
 status = "pending"
 description = "Saga 25 (the terminal, docs/plan.md), step 2 of 7, moved ahead of web-release..."

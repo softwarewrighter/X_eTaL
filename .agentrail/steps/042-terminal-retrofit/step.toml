@@ -1,4 +1,4 @@
-number = 40
+number = 42
 slug = "terminal-retrofit"
 status = "pending"
 description = "Saga 25 (the terminal, docs/plan.md), step 6 of 7, moved ahead of web-release..."

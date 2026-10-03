@@ -718,21 +718,34 @@ taken from web-sw-tos (its docs/architecture.md):
 - The browser touched in one module only; time injected through a
   trait; the session logic tested natively; dependencies one way.
 
-For X_eTaL the step the page takes is the evaluator's: it must become
-resumable, so a run returns "waiting for a line" at `[]R_EAD` (or a
-key) and continues where it left off when input arrives. Screen
+Decided with the user (2026-10-02): a steppable evaluator, as
+web-sw-tos steps its emulator. web-sw-tos never blocks because its
+program's state is data (the emulated CPU's registers and memory): the
+page runs a batch per tick and a program waiting for a key is simply
+not advancing. X_eTaL's evaluator keeps a running program's state on
+the Rust call stack, so it cannot stop inside `[]R_EAD` and continue
+later; it becomes an explicit machine (the expression being evaluated,
+pending applications and environments as data, the higher-order
+built-ins as steps rather than callbacks), run in slices, waiting at
+`[]R_EAD` (or a key) until a line arrives. One evaluator serves the
+CLI and the page. Rejected: re-running the program on each line
+(nonsensical for a stateful loop such as a text adventure) and a worker
+sleeping on `Atomics.wait` (needs cross-origin isolation, which GitHub
+Pages cannot give without a non-Rust service worker). Screen
 control is named quads (QD6), applied to the grid in the page and
 written as ANSI by the CLI.
 
 | Step | Slug | Content |
 | ---- | ---- | ------- |
-| 1 | terminal-decisions | With the user: the quads' names and types (QD6), the key codes, the style palette, how screen control degrades on a plain stream, and the resumable evaluator's shape. |
-| 2 | resumable-run | The evaluator runs until it needs input and returns a waiting state that resumes with the line (or key); tested natively, the CLI unchanged. |
-| 3 | terminal-grid | Crates on the web-sw-tos split: the grid (cells, attributes, scrollback, line editing with echo, backspace and history), key translation, and the session that feeds lines to the waiting run; all pure Rust, tested natively. |
-| 4 | terminal-pane | The live demo's output pane becomes the terminal (Yew, keys from the window); `[]R_EAD` reads from it; no `window.prompt` left. Checked in headless Chrome. |
-| 5 | screen-control | The quads (QD6): write at a row and column, clear, style, one key, the terminal's facts, standard error in red; the same in the grid and as ANSI at the CLI. |
-| 6 | terminal-retrofit | TTTML play, Mastermind and the other interactive demos on the terminal; goldens rebased on purpose. |
-| 7 | terminal-release | README, Help, CHANGES, pages, retrospective; X_eTaL-games told how to use the terminal with `xetal-play`. |
+| 1 | terminal-decisions | Done: the steppable evaluator (above); the quads' names, key codes and palette are settled at screen-control. |
+| 2 | steppable-core | The core evaluator as an explicit machine over a heap stack, run in slices with a budget; every spec case and golden unchanged. |
+| 3 | steppable-hof | The higher-order built-ins that call user functions become steps of the machine, not callbacks. |
+| 4 | resumable-run | A run returns a waiting state at `[]R_EAD` (or a key) and resumes with the line; tested natively, the CLI unchanged. |
+| 5 | terminal-grid | Crates on the web-sw-tos split: the grid (cells, attributes, scrollback, line editing with echo, backspace and history), key translation, and the session that feeds lines to the waiting run; all pure Rust, tested natively. |
+| 6 | terminal-pane | The live demo's output pane becomes the terminal (Yew, keys from the window); `[]R_EAD` reads from it; no `window.prompt` left. Checked in headless Chrome. |
+| 7 | screen-control | The quads (QD6): write at a row and column, clear, style, one key, the terminal's facts, standard error in red; the same in the grid and as ANSI at the CLI. |
+| 8 | terminal-retrofit | TTTML play, Mastermind and the other interactive demos on the terminal; goldens rebased on purpose. |
+| 9 | terminal-release | README, Help, CHANGES, pages, retrospective; X_eTaL-games told how to use the terminal with `xetal-play`. |
 
 ## Saga 20 -- array kinds (empty arrays remember their kind)
 
