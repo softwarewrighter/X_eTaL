@@ -1,8 +1,9 @@
 number = 34
 slug = "cli-terminal-feature"
-status = "in-progress"
+status = "completed"
 description = "From X_eTaL-games' terminal request (../X_eTaL-games/docs/xetal-terminal-requ..."
 role = "production"
 context_files = []
 created_at = "2026-10-02T16:11:35"
-commits = []
+completed_at = "2026-10-02T17:00:49"
+commits = ["753ea6124680b305713e3963c13d9e9204282733"]

@@ -1,0 +1,1 @@
+Abandoned at the user's direction: the WASI build of xetal-cli is not wanted. The browser terminal is a CLI emulated in the page with Rust/Yew/WASM as web-sw-tos does; nothing outside Rust is involved. The attempt (a terminal cargo feature, a WASI build check) is in a local stash, not committed. Saga 25 rewritten on the web-sw-tos model (753ea61).
