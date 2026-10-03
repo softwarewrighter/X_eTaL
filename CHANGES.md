@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 09:18 `docs` docs/tuples.md: tuples in X_eTaL (missing), what first-class tuples would take layer by layer, and how other languages support them.
 - 09:12 `plan` Saga 29, algebraic data (tuples, records, enums, matching), before errors; QD6 settled: screen control typed with built-in enums Color and Key (named in a Terminal library), pure text builders, never strings.
 - 09:04 `plan` Saga 28, learn X_eTaL: a self-paced course in the REPL and a browser REPL (the terminal's session), right after Saga 25; the APL teaching workspaces (Saga 11) are translated to teach X_eTaL in its lesson format.
 - 09:04 `feat` The live demo's terminal (Saga 25 step 6): programs run in the worker a slice at a time (Stop always works), and a program reading a line waits for it in the output pane, typed with a cursor and history, Enter to send, Ctrl-C to stop; no browser dialogs.
