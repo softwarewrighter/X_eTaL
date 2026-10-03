@@ -10,6 +10,9 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-03
+
+- 06:54 `feat` A run can wait for typed lines (D50, Saga 25 step 4): with an input queue, `[]R_EAD` takes the next line or stops the run as Waiting, and a fed line resumes it at that very call; the CLI still reads standard input.
 ## 2026-10-02
 
 - 06:24 `chore` Merge PR #38.

@@ -54,12 +54,54 @@ impl<'a> Machine<'a, '_> {
                 args,
             }))));
         }
+        if p.name == "[]R_EAD"
+            && let Some(control) = self.typed_line(p, &args, span)
+        {
+            return Ok(control);
+        }
         match xetal_hof::call(p.name, &args, span) {
             Some(kernel) => self.drive(kernel?, None, span),
             None => {
                 xetal_prim::call(p.name, &args, span, self.out, &mut self.rng).map(Control::Return)
             }
         }
+    }
+
+    /// `[]R_EAD` with an input queue: the next line typed, or, when none
+    /// is, the call left pending (its argument handed back to it) and
+    /// the run waiting. `None` without a queue (standard input).
+    fn typed_line(
+        &mut self,
+        p: &Rc<Prim<'a>>,
+        args: &[Value<'a>],
+        span: Span,
+    ) -> Option<Control<'a>> {
+        let queue = self.input.as_mut()?;
+        match queue.pop_front() {
+            Some(line) => Some(Control::Return(Value::Array(Rc::new(Array::vector(
+                line.chars().map(Value::Char).collect(),
+            ))))),
+            None => {
+                self.waiting = true;
+                self.stack.push(Kont::PrimArg { p: p.clone(), span });
+                args.last().cloned().map(Control::Return)
+            }
+        }
+    }
+
+    /// Read typed lines from a queue fed with [`Machine::feed`]: a run
+    /// that needs a line before one is fed stops as Waiting.
+    pub fn waiting_for_input(mut self) -> Self {
+        self.input = Some(std::collections::VecDeque::new());
+        self
+    }
+
+    /// A line typed (without its newline); a waiting run can go on.
+    pub fn feed(&mut self, line: String) {
+        self.input
+            .get_or_insert_with(Default::default)
+            .push_back(line);
+        self.waiting = false;
     }
 
     /// `f_axes`: a built-in value `#axes` holding the axes and f, which

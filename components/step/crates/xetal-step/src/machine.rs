@@ -20,6 +20,8 @@ const MAX_FRAMES: usize = 2_000_000;
 pub enum Status {
     /// More to do: run another slice.
     Running,
+    /// Stopped at `[]R_EAD` until a line is fed (with an input queue).
+    Waiting,
     /// Every item has run.
     Done,
 }
@@ -39,6 +41,10 @@ pub struct Machine<'a, 'o> {
     pub(crate) keep: Option<&'o mut dyn FnMut(&Value<'a>)>,
     /// Called with each top-level item's span just before it runs.
     pub(crate) before: Option<&'o mut (dyn FnMut(Span) + Send)>,
+    /// Lines typed for `[]R_EAD`; without a queue it reads standard
+    /// input (the CLI), with one an empty queue makes the run wait.
+    pub(crate) input: Option<std::collections::VecDeque<String>>,
+    pub(crate) waiting: bool,
 }
 
 impl<'a, 'o> Machine<'a, 'o> {
@@ -54,6 +60,8 @@ impl<'a, 'o> Machine<'a, 'o> {
             rng,
             keep: None,
             before: None,
+            input: None,
+            waiting: false,
         }
     }
 
@@ -72,6 +80,9 @@ impl<'a, 'o> Machine<'a, 'o> {
     /// Run at most `budget` transitions.
     pub fn run(&mut self, budget: usize) -> Result<Status, Diagnostic> {
         for _ in 0..budget {
+            if self.waiting {
+                return Ok(Status::Waiting);
+            }
             let Some(control) = self.control.take() else {
                 return Ok(Status::Done);
             };
@@ -84,14 +95,14 @@ impl<'a, 'o> Machine<'a, 'o> {
                 }
             }
         }
-        Ok(if self.control.is_some() {
-            Status::Running
-        } else {
-            Status::Done
+        Ok(match (self.waiting, self.control.is_some()) {
+            (true, _) => Status::Waiting,
+            (false, true) => Status::Running,
+            (false, false) => Status::Done,
         })
     }
 
-    /// Run to the end.
+    /// Run to the end (or until it waits for a line).
     pub fn finish(&mut self) -> Result<(), Diagnostic> {
         while self.run(usize::MAX)? == Status::Running {}
         Ok(())
