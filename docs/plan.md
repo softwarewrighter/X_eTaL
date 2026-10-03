@@ -675,7 +675,8 @@ Retrospective (the lane is closed; its saga is archived in
    steps from X_eTaL-demos' asks (int-strand-speed, ask D1, a
    quadratic type check of long Int strands; exponent-literals, ask
    D4, `1.5e-7`, decision S8), then Saga 25 and Saga 19 (below),
-   then Saga 26 (cleanup), then web-release, so the release ships
+   then Saga 27 (readable type errors), then Saga 26 (cleanup),
+   then web-release, so the release ships
    with the terminal and macro libraries and docs that match them.
 2. Saga 25, the terminal: a CLI emulated in the live demo with Rust,
    Yew and WASM on the web-sw-tos model, replacing `window.prompt`,
@@ -686,20 +687,23 @@ Retrospective (the lane is closed; its saga is archived in
    the user right after Saga 25, also inside Saga 10's agentrail saga
    before web-release; X_eTaL-libraries' Control and Assert macro
    libraries (its saga 4) wait on it.
-4. Saga 26, are we X_eTaL yet? (cleanup for a release: a generated
+4. Saga 27, readable type errors (located, explained, hints, a
+   literate type-errors document), asked for by the user, before the
+   release cleanup.
+5. Saga 26, are we X_eTaL yet? (cleanup for a release: a generated
    status table, the plan audited, the docs synchronized, the
    ecosystem section, the asks ledger, a fresh-user walkthrough, the
    release candidate), asked for by the user from docs/research3.txt,
    before web-release.
-5. Saga 20, array kinds (empty arrays remember Char, number or box;
+6. Saga 20, array kinds (empty arrays remember Char, number or box;
    ask X5 from X_eTaL-libraries, a wrong picture they hit now).
-6. Saga 13, quads (the user asked for `[]A`, `[]D` and the related
+7. Saga 13, quads (the user asked for `[]A`, `[]D` and the related
    system names).
-7. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
+8. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
    X_eTaL-libraries).
-8. The retrofit saga after it (below), so it can use quads, macros,
+9. The retrofit saga after it (below), so it can use quads, macros,
    long aliases and errors too.
-9. Then Saga 11 and the rest as numbered, with the sagas added for
+10. Then Saga 11 and the rest as numbered, with the sagas added for
    the sibling repos' asks (2026-10-02): Saga 22 speed (ask D2),
    Saga 23 host bindings and native packages (asks D3 and E1),
    Saga 24 transpose (ask D9, done as the transpose lane); the
@@ -755,6 +759,23 @@ written as ANSI by the CLI.
 | 7 | screen-control | The quads (QD6): write at a row and column, clear, style, one key, the terminal's facts, standard error in red; the same in the grid and as ANSI at the CLI. |
 | 8 | terminal-retrofit | TTTML play, Mastermind and the other interactive demos on the terminal; goldens rebased on purpose. |
 | 9 | terminal-release | README, Help, CHANGES, pages, retrospective; X_eTaL-games told how to use the terminal with `xetal-play`. |
+
+## Saga 27 -- readable type errors
+
+Asked for by the user (2026-10-03): a type error says only `expected
+Int, found Float at 29..42`, a byte range with no line, no source, no
+reason and no hint (trains alone got explanatory notes, D46 and D47).
+After the terminal and macros (expansions need errors that point at
+the right place) and before the release cleanup (Saga 26), so the
+release shows readable errors and its docs step covers them.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | located | Every diagnostic shown with its file, line and column and the source line with the spot underlined (in the drawn form where the output is drawn), in the CLI, the REPL, the editor and the live demo; goldens rebased on purpose. |
+| 2 | explained | A type mismatch says where each side's type came from: a binding (`n := 3` on line 1 is Int), a literal, a built-in's signature (`/` always gives a Float), a lambda's parameter as used; the checker records the origin of each type variable's binding. |
+| 3 | hints | Hints for the common cases: `f_loat` for Int against Float (B8), `e_nclose` and `d_isclose` for a Box, an argument missing or one too many, a function where a value is expected (a quote missing, F4), a `!` variable assigned without `!`. |
+| 4 | type-errors-doc | `docs/literate/type-errors.org`: each common mistake as a short wrong program, its error as recorded, and the fix, published with the other literate documents and linked from the tour and Help; goldens for each. |
+| 5 | errors-release | README, reference (the error codes), design register, CHANGES, pages. |
 
 ## Saga 26 -- are we X_eTaL yet? (cleanup for a release)
 

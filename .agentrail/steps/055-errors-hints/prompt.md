@@ -1,0 +1,1 @@
+Saga 27 (readable type errors, docs/plan.md), step 3 of 5, asked for by the user 2026-10-03, placed before the release cleanup (Saga 26). Hints for the common cases: `f_loat` for Int against Float (B8), `e_nclose` and `d_isclose` for a Box, an argument missing or one too many, a function where a value is expected (a quote missing, F4), a `!` variable assigned without `!`.

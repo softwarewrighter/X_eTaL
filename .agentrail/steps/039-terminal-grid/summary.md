@@ -1,0 +1,1 @@
+Terminal grid and line editor: components/console (xetal-screen: styled cells, wrap, scrollback, rows/clear/transcript; xetal-lineedit: browser key translation + line editor with history, Ctrl-C interrupt). 12 native tests; wasm32 builds. D51.

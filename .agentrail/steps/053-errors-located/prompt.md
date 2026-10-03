@@ -1,0 +1,1 @@
+Saga 27 (readable type errors, docs/plan.md), step 1 of 5, asked for by the user 2026-10-03, placed before the release cleanup (Saga 26). Every diagnostic shown with its file, line and column and the source line with the spot underlined (in the drawn form where the output is drawn), in the CLI, the REPL, the editor and the live demo; goldens rebased on purpose.

@@ -1,0 +1,1 @@
+Saga 27 (readable type errors, docs/plan.md), step 4 of 5, asked for by the user 2026-10-03, placed before the release cleanup (Saga 26). `docs/literate/type-errors.org`: each common mistake as a short wrong program, its error as recorded, and the fix, published with the other literate documents and linked from the tour and Help; goldens for each.

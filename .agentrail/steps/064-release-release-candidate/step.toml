@@ -1,4 +1,4 @@
-number = 59
+number = 64
 slug = "release-release-candidate"
 status = "pending"
 description = "Saga 26 (are we X_eTaL yet? cleanup for a release, docs/plan.md), step 7 of 7..."

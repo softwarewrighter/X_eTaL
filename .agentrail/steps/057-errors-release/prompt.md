@@ -1,0 +1,1 @@
+Saga 27 (readable type errors, docs/plan.md), step 5 of 5, asked for by the user 2026-10-03, placed before the release cleanup (Saga 26). README, reference (the error codes), design register, CHANGES, pages.
