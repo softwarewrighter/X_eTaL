@@ -19,7 +19,7 @@ rough **size**:
 
 Already planned, so not listed here: transpose, trains, nested arrays,
 the trace and stepping debugger, the APL workspace ports (LEARN,
-COURSE, PLOT and the rest), the quad names, file and system I/O and
+COURSE, PLOT and the rest), the quad names, typed execute (`[]E_XEC`, `[]V_ALUE`), file and system I/O and
 the FFI-like `[]S_VO`, raw strings, complex numbers, checked `::`
 signatures, axes above 9, the `_` wildcard parameter, `d_isplay`,
 evaluator speed (vector kernels), fuzzing, the live demo's line-by-line
@@ -62,7 +62,6 @@ view and phone layout, and transducers (being researched).
 | **Parallel and GPU kernels** | Element-wise and reduce primitives on many cores or a GPU, as array languages are suited to. | XL |
 | **A notebook format** | A saved notebook (source, results, pictures) that the live demo and the CLI both open, or a Jupyter kernel. | M |
 | **Packages** | Sharing libraries beyond `userlibs/`: versions, a registry, `xetal add NAME`. | L |
-| **Execute** | Running text as code (APL's execute). Hard in a typed language: the result's type is not known ahead; it may be limited to `--untyped` or to a declared type. | M |
 | **Concurrency** | Running independent computations at once (a parallel `e_ach`), then message passing. | L |
 | **Accessibility** | The drawn form read aloud sensibly (an underlined r as "function rev"), and the live demo usable with a screen reader. | M |
 | **Regular expressions** | Text matching for data cleaning; deliberately not core so far, but a library could add it. | M |

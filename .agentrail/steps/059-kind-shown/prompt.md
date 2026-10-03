@@ -1,0 +1,1 @@
+Saga 20 (array kinds, docs/plan.md), step 3, moved up by the user (2026-10-03, asks first): X_eTaL-libraries' ask X5 (an empty Char vector drawn as numbers). DISPLAY, Boxed output and the live demo mark empty arrays by kind; goldens rebased on purpose; reference and design register.

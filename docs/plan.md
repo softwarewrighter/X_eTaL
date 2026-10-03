@@ -668,56 +668,36 @@ Retrospective (the lane is closed; its saga is archived in
   has the sources) and the eras Rosetta, taken up by whichever lane
   has room; the gaps the interpreter found (above).
 
-## Next, in order (decided with the user, 2026-10-02)
+## Next, in order (decided with the user, 2026-10-02; asks first, 2026-10-03)
 
-1. Finish Saga 10: demo-menu (the Open list as collapsible groups:
-   Demos, Classics, Libraries, Misc), advancedex-transcribe, then two
-   steps from X_eTaL-demos' asks (int-strand-speed, ask D1, a
-   quadratic type check of long Int strands; exponent-literals, ask
-   D4, `1.5e-7`, decision S8), then Sagas 25, 28 and 19 (below),
-   then Saga 27 (readable type errors), then Saga 26 (cleanup),
-   then web-release, so the release ships
-   with the terminal and macro libraries and docs that match them.
+The sibling repositories' asks come first (the user, 2026-10-03, after
+X_eTaL-libraries reported none of its asks had landed). All of these
+run as steps of the current agentrail saga (Saga 10's), before
+web-release:
+
+1. Saga 10 so far: demo-menu, advancedex-transcribe, int-strand-speed
+   (ask D1), exponent-literals (ask D4), and the terminal (Saga 25) up
+   to screen control (QD6).
 2. Saga 30, the higher-order speed regression X_eTaL-demos found
-   (t_able, i_nner), taken right after the terminal's screen-control
-   step.
-3. Saga 25, the terminal: a CLI emulated in the live demo with Rust,
-   Yew and WASM on the web-sw-tos model, replacing `window.prompt`,
-   with named screen-control quads (QD6); its steps run inside Saga
-   10's agentrail saga, before web-release (the user's order).
-4. Saga 28, learn X_eTaL: a self-paced course in the REPL and in a
-   browser REPL (the terminal's session), decided with the user to
-   come right after the terminal.
-5. Saga 19, macros (`.xtlm` macro libraries, `u_se<` finding
-   `Name.xtl` and `Name.xtlm`, longer namespace prefixes), moved by
-   the user right after Saga 25, also inside Saga 10's agentrail saga
-   before web-release; X_eTaL-libraries' Control and Assert macro
-   libraries (its saga 4) wait on it.
-6. Saga 27, readable type errors (located, explained, hints, a
-   literate type-errors document), asked for by the user, before the
-   release cleanup.
-7. Saga 26, are we X_eTaL yet? (cleanup for a release: a generated
-   status table, the plan audited, the docs synchronized, the
-   ecosystem section, the asks ledger, a fresh-user walkthrough, the
-   release candidate), asked for by the user from docs/research3.txt,
-   before web-release.
-8. Saga 20, array kinds (empty arrays remember Char, number or box;
-   ask X5 from X_eTaL-libraries, a wrong picture they hit now).
-9. Saga 13, quads (the user asked for `[]A`, `[]D` and the related
-   system names).
-10. Saga 29, algebraic data (tuples, records, enums, matching), asked
-   for by the user, before errors, so errors can be typed values.
-11. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
-   X_eTaL-libraries).
-12. The retrofit saga after it (below), so it can use quads, macros,
-   long aliases and errors too.
-13. Then Saga 11 and the rest as numbered, with the sagas added for
-   the sibling repos' asks (2026-10-02): Saga 22 speed (ask D2),
-   Saga 23 host bindings and native packages (asks D3 and E1),
-   Saga 24 transpose (ask D9, done as the transpose lane); the
-   trace through `xetal-play` (ask D8) is a step of Saga 17. The
-   leetcode lane goes on in parallel (the classics, trains and
-   transpose lanes are done and archived).
+   (`t_able`, `i_nner`).
+3. Saga 19, macros (asks X1, X2, E2): `.xtlm` macro libraries, `u_se<`
+   finding `Name.xtl` and `Name.xtlm`, long namespace prefixes,
+   `Combinators.xtlm`.
+4. Saga 20, array kinds (ask X5).
+5. A step of Saga 13 for ask X4: `[]U_CS`, `[]A`, `[]D` (the rest of
+   the quads later).
+6. Saga 21, errors of one's own (ask X3).
+7. The terminal's last steps (Saga 25: retrofit, release).
+8. Saga 28, learn X_eTaL (a self-paced course, REPL and browser).
+9. Saga 27, readable type errors.
+10. Saga 26, are we X_eTaL yet? (cleanup for a release), then
+    web-release.
+11. Then Saga 29 (algebraic data), the rest of Saga 13, the retrofit
+    saga, and Saga 11 and the rest as numbered: Saga 22 speed (ask D2,
+    the speed lane), Saga 23 host bindings and native packages (asks
+    D3, E1); the trace through `xetal-play` (ask D8) is a step of Saga
+    17. The leetcode lane goes on in parallel (the classics, trains and
+    transpose lanes are done and archived).
 
 ## Saga 30 -- the higher-order speed regression (soon)
 
@@ -983,6 +963,20 @@ and drill ports). Each with spec cases, rejection tests (an unknown
 system name, a quad function used as a value), types, the view
 model's colors and the Emacs mode. Scheduled before the remaining APL
 ports (Saga 14), which need them.
+
+Typed execute (asked for by the user, 2026-10-03): APL's execute (`⍎`,
+a primitive function running text as code) is hard in a statically
+typed language, since the text arrives only when the program runs.
+Planned as typed execute, one step of this saga, with `[]V_ALUE`
+(read a line and evaluate it, QD3) built on it: `[]E_XEC t` takes its
+expected type from where it is used (`3 + []E_XEC "4 * 5"` must be
+an Int); when run, the interpreter lexes, parses and type-checks the
+text against that type (the elaborator passes it, as it passes `Num`
+dictionaries), then runs it; a text of another type is a run-time type
+error, while the program around it stays fully typed. Decided with the
+user at the step: what the text may see (the program's globals only,
+or locals too), effects, and the names. Compile-time code building is
+the macros' job (Saga 19); the course checks answers itself (Saga 28).
 
 ## Saga 14 -- ports-later (dogfooding)
 

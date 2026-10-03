@@ -1,0 +1,1 @@
+Saga 20 (array kinds, docs/plan.md), step 2, moved up by the user (2026-10-03, asks first): X_eTaL-libraries' ask X5 (an empty Char vector drawn as numbers). Every primitive that can make an empty array keeps its argument's kind (reshape, take, drop, compress, replicate, partition, where, each, catenate of empties, outer products); a test per primitive.

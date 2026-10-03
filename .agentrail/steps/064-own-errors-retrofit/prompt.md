@@ -1,0 +1,1 @@
+Saga 21 (errors of one's own, docs/plan.md), step 4, moved up by the user (2026-10-03, asks first): X_eTaL-libraries' ask X3 (assert, raise, catch). The Check library's text-report workaround and other workarounds rewritten; goldens rebased on purpose.

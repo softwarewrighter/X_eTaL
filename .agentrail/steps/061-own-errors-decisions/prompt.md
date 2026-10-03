@@ -1,0 +1,1 @@
+Saga 21 (errors of one's own, docs/plan.md), step 1, moved up by the user (2026-10-03, asks first): X_eTaL-libraries' ask X3 (assert, raise, catch). Decide the design with the user; record it in lang-choices and the design register.

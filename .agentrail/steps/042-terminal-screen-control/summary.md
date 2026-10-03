@@ -1,0 +1,1 @@
+Typed screen control: Color/Key built-in enums (Type::Named, Value::Tag) named in lib/Terminal.xtl; typed builders []F_G []B_G []B_OLD []A_T []C_LS; []K_EY (raw at CLI via xetal_line::Terminal; queue + WaitingKey in browser), []K_CHAR, []E_RR, []T_E via xetal-tty; live demo grid. Tests, spec, reference, headless check, D52.

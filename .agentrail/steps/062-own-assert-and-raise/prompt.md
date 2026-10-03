@@ -1,0 +1,1 @@
+Saga 21 (errors of one's own, docs/plan.md), step 2, moved up by the user (2026-10-03, asks first): X_eTaL-libraries' ask X3 (assert, raise, catch). Stop with one's own message and a non-zero exit status (`k:a_ssert 5 = 6` style); spec cases and goldens.

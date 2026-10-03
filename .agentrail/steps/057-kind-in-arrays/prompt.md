@@ -1,0 +1,1 @@
+Saga 20 (array kinds, docs/plan.md), step 1, moved up by the user (2026-10-03, asks first): X_eTaL-libraries' ask X5 (an empty Char vector drawn as numbers). Failing tests first (`d_isplay ""`, an empty piece of a split, `0 t_ake "abc"`, boxes); the array (or the evaluator's array value) carries an item kind; literals and `""` set it.
