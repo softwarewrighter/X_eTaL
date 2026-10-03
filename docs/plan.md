@@ -670,6 +670,39 @@ Retrospective (the lane is closed; its saga is archived in
 
 ## Next, in order (decided with the user, 2026-10-02; asks first, 2026-10-03)
 
+Launch (the user, 2026-10-03): all six repositories are promoted on
+Hacker News on Sunday morning. Reprioritized from docs/research4.txt
+("stabilize, synchronize, explain, give people one obvious path"; no
+new feature sagas before the launch). Must before it, in this order
+(steps 043-063 of the agentrail saga):
+
+1. The higher-order speed regression (Saga 30): guard, primitive
+   operands, lean kernels, performance regression gates (elementwise,
+   reduce, scan, each, table, inner, rotate, transpose, Life, a small
+   matrix product; at most about 15% slower without the user's
+   approval), release.
+2. The promotion-blocker bugs: `--draw` ordering (E6), a bound
+   condition in arithmetic, a `#!` program with `l:` names taken for a
+   library, the empty Char array's DISPLAY kind (Saga 20), an error
+   inside a library naming the calling line (E5); vendored provenance
+   is fixed upstream (the asks ledger says how to use it).
+3. The terminal's close-out (retrofit, release), so the games drop
+   their replay workaround.
+4. The front door: the core Pages site's landing page (TRY IT; LEARN,
+   WATCH, ML, PLAY; EXTEND: libraries, macros, native extensions).
+5. A concise beginner path (the full course follows the launch).
+6. The status table, the README's ecosystem section, the docs sync.
+7. The final cross-repository asks and status audit (the ledger).
+8. Web-release: a version and a tag, a known-compatible snapshot.
+
+In parallel, the macros lane (lanes/macros, a separate agent, one PR
+per step): three system macros beside `u_se<` (`i_f<`, `u_nless<`,
+`e_ach<`), then user `.xtlm` macro libraries and `xetal expand`, so
+X_eTaL-libraries can ship Control.xtlm (the proof) and other
+repositories' demos can use it. Strongly desirable but not blocking:
+Test.xtlm, an ML network macro, the native typed host hook, readable
+type errors. After the launch: everything else, in the order below.
+
 The sibling repositories' asks come first (the user, 2026-10-03, after
 X_eTaL-libraries reported none of its asks had landed). All of these
 run as steps of the current agentrail saga (Saga 10's), before
@@ -680,7 +713,10 @@ web-release:
    to screen control (QD6).
 2. Saga 30, the higher-order speed regression X_eTaL-demos found
    (`t_able`, `i_nner`), with X_eTaL-extensions' bug E6 (`--draw`
-   before the subcommand) fixed right after its guard.
+   before the subcommand) fixed right after its guard, then two bugs
+   from the sibling repos: a bound condition in arithmetic
+   (X_eTaL-demos) and a `#!` program with `l:` names taken for a
+   library (X_eTaL-games).
 3. Saga 19, macros (asks X1, X2, E2): `.xtlm` macro libraries, `u_se<`
    finding `Name.xtl` and `Name.xtlm`, long namespace prefixes,
    `Combinators.xtlm`.
@@ -688,14 +724,18 @@ web-release:
 5. Steps of Saga 13 for asks X4 (`[]U_CS`, `[]A`, `[]D`) and E4 (a
    clock: `[]TS`, `[]D_L`); the rest of the quads later.
 6. Saga 21, errors of one's own (ask X3), then ask E3 (the CLI usable
-   as a library, for X_eTaL-extensions' xetal-x).
+   as a library, for X_eTaL-extensions' xetal-x), then the sibling
+   repos' feature asks that need decisions (mix, grade per row, amend,
+   `[]G_RID` numbers with a typed colour scale): decided with the user,
+   then a step each.
 7. The terminal's last steps (Saga 25: retrofit, release).
 8. Saga 28, learn X_eTaL (a self-paced course, REPL and browser).
 9. Saga 27, readable type errors, with ask E5 (an error in a library
    also names the program line that called it).
 10. Saga 26, are we X_eTaL yet? (cleanup for a release), then
     web-release.
-11. Then Saga 29 (algebraic data), the rest of Saga 13, the retrofit
+11. Then Saga 29 (algebraic data), Saga 31 (complex numbers, X_eTaL-demos'
+    ask for Mandelbrot and Julia, on Saga 29's types), the rest of Saga 13, the retrofit
     saga, and Saga 11 and the rest as numbered: Saga 22 speed (ask D2,
     the speed lane), Saga 23 host bindings and native packages (asks
     D3, E1); the trace through `xetal-play` (ask D8) is a step of Saga
@@ -721,6 +761,18 @@ screen-control step. Overlaps the speed lane's planned operand kernels
 | 2 | prim-operands | A first-order built-in operand (`'*`, `'+`, `'r_ight`, or partly applied) runs no user code, so nothing can pause: the higher-order built-in computes directly (outer product, matrix product, folds) without the machine - past 06d39fa's speed. |
 | 3 | lean-kernels | For user-function operands, `e_ach`, `m_ap`, `t_able`, `i_nner`, reduce and scan as hand-written index state machines, not nested combinators: nothing allocated per element; back to (or past) 06d39fa. |
 | 4 | regression-release | The numbers before and after in `docs/speed.md`, CHANGES, and X_eTaL-demos told it can re-vendor. |
+
+## Saga 31 -- complex numbers
+
+Asked for by X_eTaL-demos (Mandelbrot and Julia, which carry two
+Float planes today); deferred in lang-choices section 15 ("via the
+type-extension mechanism"), now placed after Saga 29 (algebraic data),
+whose types it can build on. Decisions with the user first: the
+literal (`3j4` is reserved and a lex error today), a Complex type in
+the Num class or beside it, printing, the built-ins that extend
+(arithmetic, `a_bs`, `e_xp`, `l_og`, a conjugate, real and imaginary
+parts), equality, and arrays of Complex. Then the type, the
+arithmetic, the demos' rewrite (the retrofit), and the release.
 
 ## Saga 25 -- the terminal (browser and CLI)
 

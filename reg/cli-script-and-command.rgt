@@ -1,0 +1,3 @@
+command = "./target/debug/xetal demos/life.xtl run demos/life.xtl"
+exit_code = 2
+desc = "a bare script and a subcommand together are a usage error (exit 2)"

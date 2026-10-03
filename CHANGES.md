@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 13:53 `plan` Launch reprioritized from docs/research4.txt: speed regression and gates, the promotion-blocker bugs (empty Char kind and library-call errors moved up), the terminal close-out, a front door landing page, a beginner path, status, docs, the asks audit and a tagged release; macros in a parallel lane; X_eTaL-demos/-games asks (bugs next, features after launch) and Saga 31 complex numbers planned.
+- 13:53 `fix` `xetal --draw DIR run FILE` works as `xetal run --draw DIR FILE` does (ask E6 from X_eTaL-extensions): options may come before or after a subcommand; a bare script with a subcommand is a usage error; the usage line shows both forms.
 - 13:53 `test` The higher-order cost guard (Saga 30 step 1): transitions and heap allocations per operand call of `t_able`, `e_ach`, reduce and `i_nner`, bounded at their measured costs (a primitive `t_able` makes 6.5 allocations per multiply); the demos' repro programs in `bench/`.
 - 12:00 `plan` X_eTaL-extensions' asks E3-E6 planned: E6 (the `--draw` ordering bug) next after the speed guard, E4 (a clock: `[]TS`, `[]D_L`) beside the X4 quads step, E3 (the CLI as a library) after errors, E5 (library errors name the calling line) in Saga 27.
 - 11:59 `feat` Typed screen control (QD6, Saga 25 step 7): built-in enums Color and Key named in a Terminal library (`t:RED`, `t:UP`), typed text builders (`[]F_G`, `[]B_G`, `[]B_OLD`, `[]A_T`, `[]C_LS`), `[]K_EY` (one key, raw at the CLI, waited for in the browser), `[]K_CHAR`, `[]E_RR`, `[]T_E`; the live demo draws placed and coloured output as a grid.

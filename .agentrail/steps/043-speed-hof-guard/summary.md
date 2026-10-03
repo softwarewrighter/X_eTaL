@@ -1,0 +1,1 @@
+Cost guard: tests/cost.rs counts transitions and allocations per operand call (counting allocator), bounded at today's costs (table prim 1.05 t / 6.5 alloc per call; inner 3.9 / 16.4); bench/table-right.xtl, bench/inner.xtl repro (0.63 s, 8.3 s).

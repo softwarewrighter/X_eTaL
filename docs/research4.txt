@@ -1,0 +1,347 @@
+Can you take a look at the recent commits, updated plans, and live demos to summarize how much progress is being made towards promoting to a wider audience.  Any big issues that I need to know about to redirect or reprioritize now
+
+Worked for 18s
+Yes. The project has moved materially closer to wider-audience readiness just since our previous audit. My main conclusion has also changed:
+
+I would now stop prioritizing breadth. The ecosystem has enough language features, libraries, games, visual demos, ML demos, and extension demonstrations. The highest-value work is fixing a few visible technical problems and constructing a coherent first-user path.
+
+The six-repo structure now makes sense: X_eTaL, X_eTaL-demos, X_eTaL-ML, X_eTaL-games, X_eTaL-libraries, and X_eTaL-extensions.
+
+Where you are now
+Area	Earlier today	Now	Promotion readiness
+Core language	substantial	terminal input + typed screen-control progressing	high
+Visual demos	mixed visual + ML	clean non-ML gallery, 9 live demos	high
+ML	embedded in demos	dedicated repo, live site, NN library	high and improving rapidly
+Games	handful	9 live games, idiom/refactoring phase	high
+Libraries	8	17 ready libraries, 128+ exports before latest additions	very high
+Macros	designed	still waiting	major story gap
+Extensions	Hello/Clock bridge	considerably beyond that; active media work	good experimental story
+Learning path	scattered docs/tours	dedicated course now planned	currently weak
+Performance	known slow	elementwise ~8× better, but HOF regression	one important red flag
+The especially important signal is that several repos have independently moved from “add examples” to “refactor/release/start-here” phases. That's what I'd expect when an ecosystem is approaching something presentable rather than merely accumulating functionality.
+
+The issues I would redirect for now
+There are four things I'd put above almost all new features.
+
+1. Fix the table / inner performance regression now
+This is the clearest technical red flag I found.
+
+The downstream measurements say the newer core made ordinary elementwise operations roughly 8× faster, which is excellent, but after higher-order operations became steppable kernels:
+
+t_able is about 2.7× slower
+i_nner about 1.5× slower
+actual pages using them became roughly 1.7–2.2× slower
+ML reports matrix product around 700 ns/multiply-add on the current vendored build.
+Core has correctly created Saga 30 for this.
+
+I would do Saga 30 before adding significant language features.
+
+This isn't premature optimization anymore. table and inner product are showcase array operations, and N-body/CNN/MoE/attention naturally stress them. A newcomer should not encounter “the newer version is twice as slow.”
+
+More importantly, establish performance regression gates:
+
+elementwise
+reduce
+scan
+each
+table
+inner
+rotate
+transpose
+Life
+small matmul
+Not absolute “must be fast” thresholds initially—“must not regress >10–15% without an explicit approval” would be enough.
+
+2. Finish the terminal
+This is now tantalizingly close.
+
+Recent core work has delivered:
+
+steppable evaluator
+       ↓
+HOFs themselves steppable
+       ↓
+terminal grid + line editor
+       ↓
+worker can WAIT at []R_EAD
+       ↓
+user types into browser pane
+       ↓
+program RESUMES
+       ↓
+typed screen control ← current work
+That removes one of the largest visible “prototype” seams.
+
+Games still document their browser workaround as replaying the entire typed history on every input line. Once the new terminal propagates downstream, that architectural embarrassment disappears.
+
+I'd finish this rather than interrupting it.
+
+3. Pull macros forward again
+This is where I disagree somewhat with the latest queue.
+
+Libraries currently report macros as approximately fifth in the upstream queue, after performance, terminal and the course.
+
+I'd prefer:
+
+1  HOF performance regression
+2  finish terminal
+3  minimal Start Here / learning page
+4  .xtlm macros
+5  broader course
+rather than finishing a substantial course before macros.
+
+Why?
+
+Because Extensible is in the name.
+
+The ML README already gives an excellent three-part explanation:
+
+Libraries extend the vocabulary.
+Macros extend the language.
+Native extensions extend the machine.
+
+But the middle one is still future tense.
+
+And three separate repos are waiting for it:
+
+X_eTaL-libraries
+    ├── Control.xtlm
+    └── Test.xtlm
+
+X_eTaL-ML
+    └── network macro
+
+X_eTaL-extensions
+    └── FFI/binding macros
+That's unusually strong evidence that .xtlm isn't speculative language ornamentation. Three real downstream consumers are blocked on it.
+
+Once those three independently use the facility, the Extensible claim becomes extremely convincing.
+
+4. Fix the small correctness/consistency bugs before publicity
+Some aren't glamorous, but they're exactly what outside programmers notice.
+
+I'd create a promotion blocker bug list containing at least:
+
+bound Bool arithmetic inconsistency;
+executable program with l: names misclassified as library;
+empty Char array DISPLAY kind;
+--draw argument-order CLI bug;
+vendored xetal --version provenance;
+extension errors pointing at facade rather than useful caller context.
+None individually prevents experimentation. Collectively they say “early prototype.”
+
+I'd rather fix those than add five more libraries.
+
+Things I would not prioritize now
+The latest plans are starting to grow again: tuples, algebraic data, local functions, complex numbers, records, additional graphics/media, more libraries, more games, etc.
+
+They're good ideas, but I would protect the release boundary.
+
+In particular, I would not block wider promotion on:
+
+algebraic data types;
+tuples/records;
+complex numbers;
+BigInt;
+matrix divide;
+local functions;
+amend;
+another dozen games;
+more general libraries;
+audio/3D;
+MicroGPT;
+embedding explorer;
+all planned native extensions.
+Those become excellent post-announcement development material.
+
+That's useful strategically: instead of showing up with a supposedly finished language and nothing to talk about next, you have months of interesting follow-up work.
+
+The ML split worked extremely well
+This was the right decision.
+
+The new X_eTaL-ML already has:
+
+dedicated live catalog;
+ternary-net;
+MoE router;
+CNN;
+an NN library;
+planned Quant/Conv/Attention libraries;
+planned attention, embeddings, gradient descent and MicroGPT;
+its own explanation of why an array language for ML;
+its own explanation of the Haskell/Rust/APL influences;
+the three-layer extensibility story.
+And it happened in hours rather than leaving a half-migrated repository.
+
+That is exactly the sort of ecosystem separation I'd want before publicity.
+
+I would now resist splitting anything else.
+
+Demos: also the right new direction
+The ML extraction left X_eTaL-demos with a remarkably coherent gallery:
+
+Life → Mandelbrot/Julia → reaction diffusion → wave equation → CA → Langton → N-body → image processing.
+
+That's not “miscellaneous demos” anymore. It tells a story:
+
+Whole-array transformations express spatial computation.
+
+And I particularly like that its new saga is called start-here.
+
+That's where effort belongs now.
+
+I'd make its Start Here page answer three questions in under 30 seconds:
+
+What am I looking at?
+       ↓
+Why is this easier/interesting as an array expression?
+       ↓
+Show me the X_eTaL that did it.
+Fourier epicycles and sandpile sound visually good, but I'd do the entry page before adding them.
+
+Games have crossed the proof threshold
+Nine live games is more than enough.
+
+The recent shift to an idioms saga is exactly right.
+
+Instead of:
+
+“Look, we implemented another game!”
+
+you now need:
+
+“Look how several different games collapse onto the same few array idioms.”
+
+The new shared:
+
+Play
+Text
+Board
+State
+libraries are therefore more important than game #10.
+
+I'd continue the idiomatic refactoring and use it to produce something like:
+
+Array idiom	Game
+rotate + reduce neighborhood	Minesweeper
+masks over all subsets	Shut the Box
+compress → merge → pad	2048
+coordinate matrix	Robot Chase
+board/window operations	Trek
+minimax over board states	Tic-tac-toe
+That's promotional gold because it demonstrates why X_eTaL, rather than merely proving it is Turing complete.
+
+Libraries: stop proving you can write libraries
+Seventeen ready libraries is enough.
+
+The progression from 8 → 14 → 17 in a day is impressive, but I wouldn't keep optimizing the library count.
+
+You already cover:
+
+Strings        Sets
+Numbers        Combinatorics
+Lists          Matrix
+Random         Format
+Plot           Dates
+Statistics     Graphs
+Bits           Polynomials
+Grouping       CSV
+...
+The next genuinely important library is Control.xtlm, because it demonstrates a new extension mechanism.
+
+So I'd finish Search/Geometry if they're already cheap/in-flight, then freeze ordinary library expansion until .xtlm.
+
+Extensions: interesting, but don't let it become the critical path
+The extensions project is progressing into UI/media/3D/audio territory, which is fascinating.
+
+But I wouldn't require those for promotion.
+
+The wider-audience message only needs to prove:
+
+ordinary X_eTaL
+      ↓
+typed facade
+      ↓
+stable extension ABI
+      ↓
+Rust/native capability
+If you have a useful nontrivial extension working end-to-end, the point is made.
+
+3D/audio then become great follow-up demos, not release blockers.
+
+The more important upstream extension issue is still the eventual native typed hook so that xetal-x and the text bridge cease being the architectural story.
+
+But even that can be explicitly labeled experimental in the first public release.
+
+One thing I think is still missing: the ecosystem front door
+Each repo is getting good individually.
+
+But a wider audience shouldn't have to discover six READMEs.
+
+I'd create one very small ecosystem landing page—possibly the top of the core Pages site rather than another repository.
+
+The first screen should essentially be:
+
+                         X_eTaL
+       eXperimental Extensible Typed Array Language
+
+   APL's arrays + Haskell's composition/types + Rust's interfaces
+
+        ASCII source → mathematical typography → typed arrays
+
+                         TRY IT
+
+    ┌──────────┬──────────┬──────────┬──────────┐
+    │  LEARN   │  WATCH   │    ML    │   PLAY   │
+    │          │          │          │          │
+    │ language │  visual  │ models & │  games   │
+    │  tour    │  demos   │microscope│          │
+    └──────────┴──────────┴──────────┴──────────┘
+
+                EXTEND X_eTaL
+
+        .xtl             .xtlm            native
+      libraries          macros          extensions
+         │                 │                 │
+    vocabulary          language           machine
+Then below it, the half-page ecosystem summary we discussed.
+
+That gives blog/HN/Reddit/Discord/YouTube visitors one URL.
+
+My revised promotion gate
+You're much closer than I said earlier.
+
+I would now call the gate:
+
+Must before a deliberate wider launch
+fix HOF table/inner regression;
+finish browser terminal and propagate it to Games;
+fix the small P0 correctness/CLI inconsistencies;
+create ecosystem Start Here/front door;
+complete a concise beginner path;
+implement .xtlm + expansion inspection;
+ship Control.xtlm as the proof;
+one final cross-repo ask/status audit;
+tag/version a known-compatible six-repo snapshot.
+Strongly desirable, but not blocking
+Attention demo;
+CNN live page if it isn't live by then;
+native typed host hook;
+Test.xtlm;
+ML network macro;
+readable type-error work.
+Definitely post-launch
+Everything else.
+
+Overall assessment
+If I roughly scored this morning's ecosystem as ~65–70% of the way to something I'd deliberately promote outside the array-language/research circle, I'd put the current state around 80–85%.
+
+More importantly, the remaining 15–20% is no longer “build enough stuff.”
+
+It's:
+
+stabilize → synchronize → explain → give people one obvious path through it.
+
+I would actively resist adding major new feature sagas until that happens. You have enough material now that another feature is generally less valuable than making the existing feature set comprehensible, reliable, and discoverable.
+
+

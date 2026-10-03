@@ -1,0 +1,8 @@
+number = 46
+slug = "program-or-library-bug"
+status = "pending"
+description = "X_eTaL-games' ask (bug): an executable program (a #! line) that defines `l:` ..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T12:59:23"
+commits = []

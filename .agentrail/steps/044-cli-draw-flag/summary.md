@@ -1,0 +1,1 @@
+E6 fixed: removed args_conflicts_with_subcommands; explicit script+subcommand usage error; usage line shows [OPTIONS] <COMMAND>; goldens cli-draw-before, cli-script-and-command; cli-no-subcommand rebased.
