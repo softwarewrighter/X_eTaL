@@ -1,0 +1,1 @@
+Benchmarks (bench/*.xtl, just bench), baseline and perf profile in docs/speed.md. Pushed as pr/speed-bench.
