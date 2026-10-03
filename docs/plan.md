@@ -702,11 +702,13 @@ Retrospective (the lane is closed; its saga is archived in
    ask X5 from X_eTaL-libraries, a wrong picture they hit now).
 8. Saga 13, quads (the user asked for `[]A`, `[]D` and the related
    system names).
-9. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
+9. Saga 29, algebraic data (tuples, records, enums, matching), asked
+   for by the user, before errors, so errors can be typed values.
+10. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
    X_eTaL-libraries).
-10. The retrofit saga after it (below), so it can use quads, macros,
+11. The retrofit saga after it (below), so it can use quads, macros,
    long aliases and errors too.
-11. Then Saga 11 and the rest as numbered, with the sagas added for
+12. Then Saga 11 and the rest as numbered, with the sagas added for
    the sibling repos' asks (2026-10-02): Saga 22 speed (ask D2),
    Saga 23 host bindings and native packages (asks D3 and E1),
    Saga 24 transpose (ask D9, done as the transpose lane); the
@@ -813,6 +815,28 @@ as APL2's prototype does.
 | 1 | kind-in-arrays | Failing tests first (`d_isplay ""`, an empty piece of a split, `0 t_ake "abc"`, boxes); the array (or the evaluator's array value) carries an item kind; literals and `""` set it. |
 | 2 | kind-through-primitives | Every primitive that can make an empty array keeps its argument's kind (reshape, take, drop, compress, replicate, partition, where, each, catenate of empties, outer products); a test per primitive. |
 | 3 | kind-shown | DISPLAY, Boxed output and the live demo mark empty arrays by kind; goldens rebased on purpose; reference and design register. |
+
+## Saga 29 -- algebraic data (tuples, records, enums, matching)
+
+Asked for by the user (2026-10-03): X_eTaL has no typed tuples,
+records or sum types. Every array, nested ones too, has one element
+type (`Box a`, B14), so a pair of an Int and a text, or a game state
+of an Int count and a Float grid (X_eTaL-demos' ask D7), cannot be
+written; and choices are spelled as strings, which the user rejects
+as a code smell in a typed language. The terminal's `Color` and `Key`
+(QD6) are the first built-in enums, made general so this saga absorbs
+them. Placed before errors (Saga 21), whose errors can then be typed
+values. The design is decided with the user first.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | adt-decisions | With the user: how a type is declared (in a program, in a library and exported), constructors (their decoration and class: a constructor is a function, a nullary one a value), tuples (anonymous products) and records (named fields), sum types (enums are the simplest), pattern matching (an extension of guards, or a match form; exhaustiveness), printing, typing (nominal types in the HM checker, polymorphic types such as Maybe a), arrays of ADT values (rank-erased element types), and how `Color` and `Key` become ordinary declarations. |
+| 2 | tuples | Typed tuples: construction, taking apart in parameters (`{ (n grid) -> ... }`), types `(Int, Float)`, printing; spec cases and rejections. |
+| 3 | records | Named fields: declaration, construction, access, functional update; the X_eTaL-demos game states (D7) as the test case. |
+| 4 | sums | Sum types and enums with constructors and exhaustive matching; `Maybe a` and `Result a e` as library types. |
+| 5 | adt-builtins | `Color` and `Key` re-expressed as ordinary enums in the Terminal library (their constructor functions retired); the Combinators library's Church-encoded maybe (CB3) beside a real one. |
+| 6 | adt-retrofit | Programs that packed mixed state or chose by strings rewritten; goldens rebased on purpose. |
+| 7 | adt-release | README tour, reference, design register, CHANGES, pages. |
 
 ## Saga 21 -- errors of one's own (assert, raise, catch)
 
