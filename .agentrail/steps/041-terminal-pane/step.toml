@@ -1,0 +1,8 @@
+number = 41
+slug = "terminal-pane"
+status = "in-progress"
+description = "Saga 25 (the terminal, docs/plan.md), step 4 of 7, moved ahead of web-release..."
+role = "production"
+context_files = []
+created_at = "2026-10-02T17:06:31"
+commits = []

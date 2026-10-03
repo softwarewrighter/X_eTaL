@@ -1,7 +1,8 @@
 #!/usr/bin/env xetal
-# Fibonacci three ways: a recursion as a scalar language writes it, a
-# vector grown by adding its last two items, and powers of a matrix
-# (an inner product), the array way.
+# Fibonacci four ways: a recursion as a scalar language writes it, a
+# vector grown by adding its last two items, powers of a matrix (an
+# inner product), the array way, and recursion with no name at all,
+# through the Y combinator.
 
 # 1. The definition, run on each of 0 to 14.
 u:f_ib := { n -> n < 2 ? n; (u:f_ib n - 1) + u:f_ib n - 2 }
@@ -21,3 +22,11 @@ q := 2 2 r_eshape 1 1 1 0
 u:p_ow := { n -> n = 1 ? q; q '+ '* i_nner u:p_ow n - 1 }
 u:p_ow 10
 2 s_elect r_avel u:p_ow 30    # F(30)
+
+# 4. Recursion without naming itself: u:F_ib is handed the function to
+# call for the smaller cases (its self parameter), and c:Y_ (the Sage
+# Bird of the Combinators library) ties the knot: Y f is f (Y f). The
+# self parameter is lazy (~), so Y f unfolds only as far as it is used.
+"c:" u_se< "Combinators"
+u:F_ib := { ~s_elf n -> n < 2 ? n; (s_elf n - 1) + s_elf n - 2 }
+'{ 'u:F_ib c:Y_ _r } e_ach o_ffsets 15

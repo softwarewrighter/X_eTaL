@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 08:17 `demo` Fibonacci a fourth way: recursion without a name, through the Combinators library's Y combinator (`c:Y_`, a lazy self parameter); the run golden rebased on purpose (one new line).
 - 08:12 `plan` Saga 27, readable type errors (located, explained, hints, a literate type-errors document), asked for by the user, before the release cleanup (steps 053-057).
 - 08:12 `feat` The terminal's grid and line editor (D51, Saga 25 step 5): components/console with xetal-screen (styled cells, wrapping, scrollback) and xetal-lineedit (browser keys translated, a line editor with history), plain Rust after web-sw-tos.
 - 07:06 `plan` Saga 26, are we X_eTaL yet? (cleanup for a release, from docs/research3.txt): a generated status table, the plan audited, the docs synchronized, the ecosystem section, the asks ledger, a fresh-user walkthrough and the release candidate, after Sagas 25 and 19 and before web-release (steps 053-059).

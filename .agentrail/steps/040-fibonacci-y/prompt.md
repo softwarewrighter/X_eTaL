@@ -1,0 +1,1 @@
+User request (2026-10-03): the fibonacci demo (demos/classics/fibonacci.xtl) shows a fourth way, recursion through the Combinators library's Y combinator (c:Y_): a function handed itself as a lazy (~) parameter, so Y f = f (Y f) does not unfold forever. Docs (docs/classics.md, the classics literate doc if it shows fibonacci), the run golden rebased on purpose, pages rebuilt.

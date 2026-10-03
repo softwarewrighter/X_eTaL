@@ -1,3 +1,3 @@
 command = "./target/debug/xetal run demos/classics/fibonacci.xtl"
 exit_code = 0
-desc = "Fibonacci by recursion, by growing a vector, and by matrix power (inner product)"
+desc = "Fibonacci by recursion, by growing a vector, by matrix power (inner product), and through the Y combinator"
