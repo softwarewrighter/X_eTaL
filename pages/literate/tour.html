@@ -1068,6 +1068,46 @@ desserts
 <pre class="example">
 3 3 2 3
 </pre>
+
+
+<p>
+Transpose reverses the order of the axes, so a matrix's rows become
+its columns. A subscript of two axes swaps just those, and
+<code>t_ranspose</code> moves every axis to the place its list names.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">o̲\</span> m                     <span class="c-comment">⍝ transpose: rows become columns</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   o_\ m                    # transpose: rows become columns</span></pre>
+</div>
+
+<pre class="example">
+1 4
+2 5
+3 6
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">a ← <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span> <span class="c-builtin">r̲eshape</span> <span class="c-builtin">r̲ange</span> <span class="c-number">24</span>
+<span class="c-builtin">s̲hape</span> <span class="c-builtin">o̲\</span> a              <span class="c-comment">⍝ every axis reversed: 4 3 2</span>
+<span class="c-builtin">s̲hape</span> <span class="c-builtin">o̲\₂₃</span> a            <span class="c-comment">⍝ axes 2 and 3 swapped: 2 4 3</span>
+<span class="c-builtin">s̲hape</span> <span class="c-number">3</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-builtin">t̲ranspose</span> a     <span class="c-comment">⍝ axis 1 to 3, 2 to 1, 3 to 2: 3 4 2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   a := 2 3 4 r_eshape r_ange 24</span>
+<span class="c-comment typed">⍝   s_hape o_\ a            # every axis reversed: 4 3 2</span>
+<span class="c-comment typed">⍝   s_hape o_\_23 a         # axes 2 and 3 swapped: 2 4 3</span>
+<span class="c-comment typed">⍝   s_hape 3 1 2 t_ranspose a   # axis 1 to 3, 2 to 1, 3 to 2: 3 4 2</span></pre>
+</div>
+
+<pre class="example">
+4 3 2
+2 4 3
+3 4 2
+</pre>
 </div>
 </div>
 <div id="outline-container-orgdd6de05" class="outline-2">
