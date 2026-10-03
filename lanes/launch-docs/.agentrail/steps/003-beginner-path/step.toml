@@ -1,6 +1,6 @@
 number = 3
 slug = "beginner-path"
-status = "pending"
+status = "in-progress"
 description = "Launch-docs lane (see lanes/launch-docs/.agentrail/plan.md), step beginner-pa..."
 role = "production"
 context_files = []

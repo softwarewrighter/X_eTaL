@@ -1,0 +1,184 @@
+#+TITLE: Start here: X_eTaL in fifteen minutes
+#+SUBTITLE: from typing ASCII to importing a library, run as you read
+#+AUTHOR: Michael A Wright
+#+OPTIONS: toc:1 num:nil ^:{}
+#+PROPERTY: header-args:xetal :session beginner :seed 1 :results output :exports both
+
+X_eTaL is an array language: a name like ~r_ev~ is a function, and it
+works on a whole array at once. You type plain ASCII, and X_eTaL draws
+what you typed with the decorations that tell you what each name is.
+Each block below is a line you could type into ~xetal repl~ or the live
+demo; above it is how X_eTaL draws it, and below it what it prints.
+
+* Typing ASCII, seeing it drawn
+
+An underscore after the first letter makes a name a function: ~r_ev~
+is drawn as rev with the r underlined, and it reverses.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+r̲ev "stressed"
+#+end_example
+#+begin_src xetal
+r_ev "stressed"
+#+end_src
+
+#+RESULTS:
+: desserts
+
+The underline is the whole difference between a value and a function:
+~rev~ would be an ordinary variable. The editor and the REPL draw each
+line as you type it, so you always see which is which.
+
+* Arrays
+
+Arithmetic works on whole arrays. A single number on one side meets
+every item on the other.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 2 3 + 10
+#+end_example
+#+begin_src xetal
+1 2 3 + 10
+#+end_src
+
+#+RESULTS:
+: 11 12 13
+
+~r_ange 6~ is 1 to 6, and ~r_eshape~ makes a matrix of it: the shape
+goes on the left.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+m ← 2 3 r̲eshape r̲ange 6
+m
+#+end_example
+#+begin_src xetal
+m := 2 3 r_eshape r_ange 6
+m
+#+end_src
+
+#+RESULTS:
+: 1 2 3
+: 4 5 6
+
+~:=~ binds a name; it is drawn as an arrow.
+
+* Functions and operands
+
+A function passed to another function is quoted. ~'+ r_/~ is "reduce
+by plus": the sum. On a matrix it adds the rows together, giving one
+sum per column.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'+ r̲/ 1 2 3 4
+'+ r̲/ m
+#+end_example
+#+begin_src xetal
+'+ r_/ 1 2 3 4
+'+ r_/ m
+#+end_src
+
+#+RESULTS:
+: 10
+: 5 7 9
+
+Your own functions are lambdas in braces, ~_r~ standing for the right
+argument (drawn as APL's omega). A name of yours carries the ~u:~
+prefix, drawn as a small superscript.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘs̲quare ← { ⍵ × ⍵ }
+ᵘs̲quare 1 2 3
+'ᵘs̲quare e̲ach 4 5
+#+end_example
+#+begin_src xetal
+u:s_quare := { _r * _r }
+u:s_quare 1 2 3
+'u:s_quare e_ach 4 5
+#+end_src
+
+#+RESULTS:
+: 1 4 9
+: 16 25
+
+* An axis
+
+A function works along the first axis unless a subscript names
+another. ~'+ r_/_2 m~ adds along axis 2, within each row; ~1 o_-_2 m~
+rotates each row by one.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'+ r̲/₂ m
+1 o̲-₂ m
+#+end_example
+#+begin_src xetal
+'+ r_/_2 m
+1 o_-_2 m
+#+end_src
+
+#+RESULTS:
+: 6 15
+: 2 3 1
+: 5 6 4
+
+* A train
+
+Functions in square brackets make a new function without naming its
+argument. Three are a fork: ~['+ r_/ / t_ally] x~ is the sum of x
+divided by its count, the mean. Two are an atop: ~[n_eg a_bs] x~ is
+~n_eg (a_bs x)~.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘm̲ean ← ['+ r̲/ ÷ t̲ally]
+ᵘm̲ean 1 2 3 4
+[n̲eg a̲bs] -5
+#+end_example
+#+begin_src xetal
+u:m_ean := ['+ r_/ / t_ally]
+u:m_ean 1 2 3 4
+[n_eg a_bs] -5
+#+end_src
+
+#+RESULTS:
+: 2.5
+: -5
+
+* A library
+
+~u_se<~ imports a library under a prefix of your choice; its names
+then carry that prefix. ~Stats~ is one of the libraries built in.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"s:" u̲se< "Stats"
+ˢs̲d 2 4 4 4 5 5 7 9
+#+end_example
+#+begin_src xetal
+"s:" u_se< "Stats"
+s:s_d 2 4 4 4 5 5 7 9
+#+end_src
+
+#+RESULTS:
+: 2.0
+
+* COMMENT Macros
+
+Placeholder: a section on macros (system macros such as ~i_f<~, and
+~.xtlm~ macro libraries) goes here once they are part of the language.
+
+* Where to go next
+
+- The language tour, ~docs/literate/tour.org~ (and ~just tour~): every
+  feature, a line or two each.
+- The reference, ~docs/reference.md~: every built-in with examples.
+- What works today, ~docs/status.md~.
+- Trains beside the combinators, ~docs/literate/trains.org~; classic
+  APL programs, ~docs/literate/classics.org~.
+- The live demo: the same language in the browser, with the demos and
+  the classics one click away.
