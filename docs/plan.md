@@ -674,7 +674,7 @@ Retrospective (the lane is closed; its saga is archived in
    Demos, Classics, Libraries, Misc), advancedex-transcribe, then two
    steps from X_eTaL-demos' asks (int-strand-speed, ask D1, a
    quadratic type check of long Int strands; exponent-literals, ask
-   D4, `1.5e-7`, decision S8), then Saga 25 and Saga 19 (below),
+   D4, `1.5e-7`, decision S8), then Sagas 25, 28 and 19 (below),
    then Saga 27 (readable type errors), then Saga 26 (cleanup),
    then web-release, so the release ships
    with the terminal and macro libraries and docs that match them.
@@ -682,28 +682,31 @@ Retrospective (the lane is closed; its saga is archived in
    Yew and WASM on the web-sw-tos model, replacing `window.prompt`,
    with named screen-control quads (QD6); its steps run inside Saga
    10's agentrail saga, before web-release (the user's order).
-3. Saga 19, macros (`.xtlm` macro libraries, `u_se<` finding
+3. Saga 28, learn X_eTaL: a self-paced course in the REPL and in a
+   browser REPL (the terminal's session), decided with the user to
+   come right after the terminal.
+4. Saga 19, macros (`.xtlm` macro libraries, `u_se<` finding
    `Name.xtl` and `Name.xtlm`, longer namespace prefixes), moved by
    the user right after Saga 25, also inside Saga 10's agentrail saga
    before web-release; X_eTaL-libraries' Control and Assert macro
    libraries (its saga 4) wait on it.
-4. Saga 27, readable type errors (located, explained, hints, a
+5. Saga 27, readable type errors (located, explained, hints, a
    literate type-errors document), asked for by the user, before the
    release cleanup.
-5. Saga 26, are we X_eTaL yet? (cleanup for a release: a generated
+6. Saga 26, are we X_eTaL yet? (cleanup for a release: a generated
    status table, the plan audited, the docs synchronized, the
    ecosystem section, the asks ledger, a fresh-user walkthrough, the
    release candidate), asked for by the user from docs/research3.txt,
    before web-release.
-6. Saga 20, array kinds (empty arrays remember Char, number or box;
+7. Saga 20, array kinds (empty arrays remember Char, number or box;
    ask X5 from X_eTaL-libraries, a wrong picture they hit now).
-7. Saga 13, quads (the user asked for `[]A`, `[]D` and the related
+8. Saga 13, quads (the user asked for `[]A`, `[]D` and the related
    system names).
-8. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
+9. Saga 21, errors of one's own (assert, raise, catch; ask X3 from
    X_eTaL-libraries).
-9. The retrofit saga after it (below), so it can use quads, macros,
+10. The retrofit saga after it (below), so it can use quads, macros,
    long aliases and errors too.
-10. Then Saga 11 and the rest as numbered, with the sagas added for
+11. Then Saga 11 and the rest as numbered, with the sagas added for
    the sibling repos' asks (2026-10-02): Saga 22 speed (ask D2),
    Saga 23 host bindings and native packages (asks D3 and E1),
    Saga 24 transpose (ask D9, done as the transpose lane); the
@@ -850,6 +853,29 @@ something, a short note keeps both (as `docs/literate/duck.org` does).
 From then on, every saga that adds a feature ends with a retrofit step
 for that feature (cross-cutting, below).
 
+## Saga 28 -- learn X_eTaL (a self-paced course, REPL and browser)
+
+Asked for by the user (2026-10-03): a self-paced interactive course
+that works in the REPL and in a REPL in the browser. A course cannot be
+an X_eTaL program checking what is typed (that needs execute, reserved
+in QD3), so it is a feature of the REPL; the steppable evaluator and
+the terminal (Saga 25) make the browser REPL cheap, the same session
+as the CLI's. Decided with the user: right after Saga 25. The engine
+and the first course live here, so the gate checks every lesson
+against the language. The APL educational workspaces (COURSE, LEARN,
+DRILL; Saga 11) are translated to teach X_eTaL, and become courses in
+this lesson format; later courses (ML, macros) can live in the
+repositories whose subject they teach, as lesson files loaded like
+libraries.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | browser-repl | A REPL in the live demo (a REPL button or a Learn entry): `xetal-repl`'s session in the terminal pane, typed lines drawn decorated, results shown as at the CLI. |
+| 2 | lessons | The lesson format (plain text files: an explanation, a task, how the answer is checked - by value and by type -, hints) and `xetal learn` at the CLI: each typed expression checked, a hint after a wrong try, progress remembered (a file; local storage in the browser). |
+| 3 | first-course | 10 to 15 short lessons following the tour (numbers and arrays, functions, operands, axes, trains, nested arrays, libraries, input), each ending with something built; every lesson's checks run by the gate. |
+| 4 | course-in-browser | Learn in the live demo: the same lessons in the browser REPL, progress in local storage, linked from Help, the README and the start-here page. |
+| 5 | learn-release | Docs, goldens, pages, retrospective. |
+
 ## Saga 19 -- macros (`.xtlm` macro libraries and long prefixes), right after Saga 25
 
 Asked for by the user (2026-10-02); X_eTaL-libraries files it as asks
@@ -939,7 +965,7 @@ needs.
 | 4  | stats           | STATS merged into lib/Stats.xtl (regression, tests, distributions) |
 | 5  | plots           | PLOT: character plots, graphs, scatter, bars               |
 | 6  | games           | LIFE, RACE, TTTML (tic-tac-toe learning), with BIRDS joining Combinators |
-| 7  | teaching        | COURSE, LEARN, DRILL as interactive programs (REPL and web) |
+| 7  | teaching        | COURSE, LEARN, DRILL translated to teach X_eTaL (not APL), as courses in Saga 28's lesson format, run by `xetal learn` and the browser REPL |
 | 8  | edit            | EDIT: port what fits (the del editor itself is the editor's job) |
 | 9  | ports-release   | literate documents for each library, tour links, retrospective |
 

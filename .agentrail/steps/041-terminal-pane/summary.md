@@ -1,0 +1,1 @@
+Terminal pane: Run-mode programs stepped in the worker (xetal_play::Interactive, slices + setTimeout), []R_EAD waits -> Waiting event -> output pane terminal (xetal-typing: line editor, cursor, history, Enter, Ctrl-C) -> typed line sent back; window.prompt path removed. Native tests (play, runner) + headless Chrome Mastermind check. Also the combinators/macros/trains doc.

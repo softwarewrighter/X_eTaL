@@ -1,0 +1,1 @@
+Saga 28 (learn X_eTaL, docs/plan.md), step 5 of 5, asked for by the user 2026-10-03, right after the terminal (Saga 25). The engine and the first course live in this repository; every lesson is checked by the gate. Docs, goldens, pages, retrospective.

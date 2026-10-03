@@ -1,0 +1,1 @@
+Saga 28 (learn X_eTaL, docs/plan.md), step 1 of 5, asked for by the user 2026-10-03, right after the terminal (Saga 25). The engine and the first course live in this repository; every lesson is checked by the gate. A REPL in the live demo (a REPL button or a Learn entry): `xetal-repl`'s session in the terminal pane, typed lines drawn decorated, results shown as at the CLI.

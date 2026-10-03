@@ -1,0 +1,1 @@
+Saga 28 (learn X_eTaL, docs/plan.md), step 4 of 5, asked for by the user 2026-10-03, right after the terminal (Saga 25). The engine and the first course live in this repository; every lesson is checked by the gate. Learn in the live demo: the same lessons in the browser REPL, progress in local storage, linked from Help, the README and the start-here page.
