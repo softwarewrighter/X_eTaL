@@ -1,8 +1,9 @@
 number = 2
 slug = "asks-ledger"
-status = "pending"
+status = "completed"
 description = "Launch-docs lane (see lanes/launch-docs/.agentrail/plan.md), step asks-ledger..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T13:51:40"
-commits = []
+completed_at = "2026-10-03T15:12:26"
+commits = ["3ca963b1021ac9e9d767accca95413bd693e4f08"]

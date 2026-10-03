@@ -1,0 +1,351 @@
+# The asks the sibling repositories filed (each one's docs/xetal-asks.md),
+# with their state in this repository. scripts/asks.py turns this into
+# docs/asks.md, running each repro against this build: `repro` is a
+# program, `works` a whole line its output shows once the ask is met, with
+# no error ("" for "runs without an error"; `error[code]` when the ask is
+# an error that should be reported). A landed ask's repro must pass; a planned
+# or declined one whose repro starts passing is flagged to mark landed.
+# `golden` names a reg-rs golden that pins the ask instead of a repro.
+# The X_eTaL-demos and X_eTaL-games asks carry no numbers there; the D
+# numbers follow this repository's plan.md, the G numbers are given here.
+#
+# state: landed, partly landed, planned, declined, new (not yet triaged)
+
+[[ask]]
+id = "D1"
+repo = "X_eTaL-demos"
+ask = "a long strand of Int literals read in quadratic time"
+state = "landed"
+here = "6010d70 (a long Int strand type-checks in linear time)"
+
+[[ask]]
+id = "D2"
+repo = "X_eTaL-demos"
+ask = "whole-array arithmetic at about 50 ns per element per operation"
+state = "partly landed"
+here = "elementwise about 8x faster since abb8274; vector kernels in Saga 22 (speed), measured by `just bench` (docs/speed.md)"
+
+[[ask]]
+id = "D3"
+repo = "X_eTaL-demos"
+ask = "`xetal-play`: arrays in and out without text, or a session between runs"
+state = "planned"
+here = "Saga 23, host bindings and native packages"
+
+[[ask]]
+id = "D4"
+repo = "X_eTaL-demos"
+ask = "Float literals with an exponent (`1.5e-7`)"
+state = "landed"
+here = "54fea87 (decision S8)"
+repro = "1.5e-7 + 0"
+works = "0.00000015"
+
+[[ask]]
+id = "D5"
+repo = "X_eTaL-demos"
+ask = "complex numbers (Mandelbrot, Julia)"
+state = "planned"
+here = "Saga 31, complex numbers, on Saga 29's types"
+
+[[ask]]
+id = "D6"
+repo = "X_eTaL-demos"
+ask = "nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix)"
+state = "partly landed"
+here = "cf834e1 (`m_ap` boxes each result); mix to decide with the user (plan.md, the sibling asks that need decisions)"
+repro = "d_isclose 2 s_elect '{ r_ange _r } m_ap 2 3"
+works = "1 2 3"
+
+[[ask]]
+id = "D7"
+repo = "X_eTaL-demos"
+ask = "a state of several arrays for `p_ower` (a tuple or record)"
+state = "planned"
+here = "Saga 29, algebraic data (tuples and records); mixed-type records on the wish list"
+
+[[ask]]
+id = "D8"
+repo = "X_eTaL-demos"
+ask = "a per-operation evaluation trace through `xetal-play`"
+state = "planned"
+here = "a step of Saga 17, trace and explain"
+
+[[ask]]
+id = "D9"
+repo = "X_eTaL-demos"
+ask = "transpose"
+state = "landed"
+here = "3ad1f8e (`o_\\`, `t_ranspose`, decision B17)"
+repro = "o_\\ 2 3 r_eshape r_ange 6"
+works = "1 4"
+
+[[ask]]
+id = "D10"
+repo = "X_eTaL-demos"
+ask = "a vendored build reports the outer repo's commit as its own"
+state = "landed"
+here = "4a31ba9 (`XETAL_BUILD_SHA` overrides the build's commit)"
+
+[[ask]]
+id = "D11"
+repo = "X_eTaL-demos"
+ask = "`t_able` about 2.7x and `i_nner` about 1.5x slower since abb8274 (a regression)"
+state = "planned"
+here = "Saga 30, the higher-order speed regression (started: e3e9c3d, a cost guard)"
+
+[[ask]]
+id = "D12"
+repo = "X_eTaL-demos"
+ask = "`i_nner` costs about 370 ns per multiply-add, slower than broadcast-and-reduce"
+state = "planned"
+here = "Saga 30, then Saga 22 (vector kernels)"
+
+[[ask]]
+id = "D13"
+repo = "X_eTaL-demos"
+ask = "grade along an axis per row (`g_rade_2 M`), for top-k per row"
+state = "planned"
+here = "to decide with the user (plan.md, the sibling asks that need decisions)"
+repro = "g_rade_2 2 3 r_eshape 3 1 2 6 5 4"
+works = "3 2 1"
+
+[[ask]]
+id = "D14"
+repo = "X_eTaL-demos"
+ask = "a condition bound to a name cannot be used in arithmetic"
+state = "landed"
+here = "ffd5526 (a bound condition stays Bool, and a Bool converts to Int in arithmetic)"
+repro = "a := 1 2 > 0\n1 * a"
+works = "1 1"
+
+[[ask]]
+id = "M1"
+repo = "X_eTaL-ML"
+ask = "`.xtlm` macro libraries (the same as X1)"
+state = "planned"
+here = "Saga 19, macros (decisions MC10-MC13)"
+
+[[ask]]
+id = "M2"
+repo = "X_eTaL-ML"
+ask = "`xetal expand FILE`: the source after macro expansion (the same as X2)"
+state = "planned"
+here = "Saga 19, its expand-tool step"
+
+[[ask]]
+id = "M3"
+repo = "X_eTaL-ML"
+ask = "`'+ '* i_nner`: about 700 ns per multiply-add at abb8274 (the regression D11)"
+state = "planned"
+here = "Saga 30, the higher-order speed regression"
+
+[[ask]]
+id = "M4"
+repo = "X_eTaL-ML"
+ask = "grade per row, top-k along an axis (the same as D13)"
+state = "planned"
+here = "to decide with the user (plan.md, the sibling asks that need decisions)"
+repro = "g_rade_2 2 3 r_eshape 3 1 2 6 5 4"
+works = "3 2 1"
+
+[[ask]]
+id = "M5"
+repo = "X_eTaL-ML"
+ask = "`xetal-play`: arrays in and out without text, or a session (the same as D3)"
+state = "planned"
+here = "Saga 23, host bindings and native packages"
+
+[[ask]]
+id = "M6"
+repo = "X_eTaL-ML"
+ask = "whole-array arithmetic: vector kernels (the same as D2)"
+state = "partly landed"
+here = "elementwise about 8x faster since abb8274; vector kernels in Saga 22"
+
+[[ask]]
+id = "M7"
+repo = "X_eTaL-ML"
+ask = "long Int literal strands read in quadratic time (the same as D1)"
+state = "landed"
+here = "6010d70"
+
+[[ask]]
+id = "M8"
+repo = "X_eTaL-ML"
+ask = "Float literals with an exponent (the same as D4)"
+state = "landed"
+here = "54fea87 (decision S8)"
+repro = "1.5e-5 * 2"
+works = "0.00003"
+
+[[ask]]
+id = "M9"
+repo = "X_eTaL-ML"
+ask = "a Bool bound to a name cannot be used in arithmetic (the same as D14)"
+state = "landed"
+here = "ffd5526"
+repro = "m := 1 2 3 > 1\nf_loat m"
+works = "0.0 1.0 1.0"
+
+[[ask]]
+id = "G1"
+repo = "X_eTaL-games"
+ask = "a terminal for interactive programs, in the browser too"
+state = "partly landed"
+here = "Saga 25: a run waits for typed lines and resumes (D50), the terminal pane in the live demo (6683d8e), typed screen control (2d65a76); its retrofit and release remain"
+
+[[ask]]
+id = "G2"
+repo = "X_eTaL-games"
+ask = "`[]G_RID` of numbers: the numbers drawn in the cells, a colour scale the program chooses"
+state = "planned"
+here = "to decide with the user (plan.md, the sibling asks that need decisions)"
+
+[[ask]]
+id = "G3"
+repo = "X_eTaL-games"
+ask = "a functional update (amend, APL's at): items replaced at given positions"
+state = "planned"
+here = "to decide with the user (plan.md, the sibling asks that need decisions)"
+
+[[ask]]
+id = "G4"
+repo = "X_eTaL-games"
+ask = "local functions: a function defined inside a lambda and applied there"
+state = "landed"
+here = "a lambda's local function names (`g_ := { ... }` inside a body) work today"
+repro = "u:f_ := { x -> g_ := { _r * 2 }; g_ x }\nu:f_ 3"
+works = "6"
+
+[[ask]]
+id = "G5"
+repo = "X_eTaL-games"
+ask = "an executable program that defines `l:` names is taken for a library"
+state = "landed"
+here = "ffd5526 (a #! file is a program, and `l:` names in it are MC8 row 9)"
+repro = "#!/usr/bin/env xetal\nl:f_ := { _r }\nl:f_ 3"
+works = "error[library-name-in-program]"
+
+[[ask]]
+id = "X1"
+repo = "X_eTaL-libraries"
+ask = "`.xtlm` macro libraries: user-defined macros imported with `u_se<`"
+state = "planned"
+here = "Saga 19, macros (decisions MC10-MC13)"
+
+[[ask]]
+id = "X2"
+repo = "X_eTaL-libraries"
+ask = "seeing the source after macro expansion, with a bounded expansion depth"
+state = "planned"
+here = "Saga 19, its expand-tool step"
+
+[[ask]]
+id = "X3"
+repo = "X_eTaL-libraries"
+ask = "errors of one's own: assert, raise and catch"
+state = "planned"
+here = "Saga 21, errors of one's own"
+
+[[ask]]
+id = "X4"
+repo = "X_eTaL-libraries"
+ask = "character codes `[]U_CS`, and the quad values `[]A`, `[]D`, `[]TS`"
+state = "planned"
+here = "steps of Saga 13, quads (decisions QD2, QD3)"
+repro = "[]U_CS \"a\""
+works = "97"
+
+[[ask]]
+id = "X5"
+repo = "X_eTaL-libraries"
+ask = "an empty Char vector is drawn with the numbers mark"
+state = "planned"
+here = "Saga 20, array kinds (decision T9)"
+repro = "d_isplay \"\""
+works = "└─┘"
+
+[[ask]]
+id = "X6"
+repo = "X_eTaL-libraries"
+ask = "big whole numbers or exact rationals"
+state = "declined"
+here = "for now: on the wish list, after the launch (Floats where a polymorphic function allows)"
+
+[[ask]]
+id = "X7"
+repo = "X_eTaL-libraries"
+ask = "matrix divide (APL's domino); transpose, the other half, landed"
+state = "declined"
+here = "for now: not planned (Matrix solves by Gauss-Jordan in X_eTaL); transpose landed in 3ad1f8e"
+
+[[ask]]
+id = "X8"
+repo = "X_eTaL-libraries"
+ask = "number formatting with width and precision (APL's dyadic format)"
+state = "declined"
+here = "for now: on the wish list, after the launch (Format builds the text from the digits)"
+
+[[ask]]
+id = "X9"
+repo = "X_eTaL-libraries"
+ask = "`d_ecode` and `e_ncode` on Floats (Horner's rule for any numbers)"
+state = "new"
+here = "not yet in plan.md: to decide with the user"
+repro = "2.0 d_ecode 3 -2 1"
+works = "9.0"
+
+[[ask]]
+id = "X10"
+repo = "X_eTaL-libraries"
+ask = "a comparison bound to a top-level name cannot be used in arithmetic (the same as D14)"
+state = "landed"
+here = "ffd5526"
+repro = "up := 1 -2 3 > 0\nup * 10"
+works = "10 0 10"
+
+[[ask]]
+id = "E1"
+repo = "X_eTaL-extensions"
+ask = "a native hook: X_eTaL code calling a function in a native library (`[]S_VO`)"
+state = "planned"
+here = "Saga 23, host bindings and native packages (may start from this repo's ABI V1)"
+
+[[ask]]
+id = "E2"
+repo = "X_eTaL-extensions"
+ask = "`.xtlm` macro libraries (the same as X1)"
+state = "planned"
+here = "Saga 19, macros"
+
+[[ask]]
+id = "E3"
+repo = "X_eTaL-extensions"
+ask = "the CLI as a library: a host entry point so a host can be `xetal` with its own store"
+state = "planned"
+here = "after Saga 21 (plan.md, the sibling asks first)"
+
+[[ask]]
+id = "E4"
+repo = "X_eTaL-extensions"
+ask = "the time: a quad for the current time and a clock"
+state = "planned"
+here = "a step of Saga 13, quads (`[]TS`, `[]D_L`)"
+repro = "s_hape []TS"
+works = "7"
+
+[[ask]]
+id = "E5"
+repo = "X_eTaL-extensions"
+ask = "an error in a library function also names the program line that called it"
+state = "planned"
+here = "Saga 27, readable type errors"
+
+[[ask]]
+id = "E6"
+repo = "X_eTaL-extensions"
+ask = "`xetal --draw DIR run FILE` failed: options before the subcommand"
+state = "landed"
+here = "5f00608 (options before the subcommand)"
+golden = "cli-draw-before"
