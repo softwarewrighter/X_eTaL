@@ -559,6 +559,7 @@ version = "0.1.0"
 dependencies = [
  "xetal-array",
  "xetal-base",
+ "xetal-kernel",
  "xetal-rotate",
  "xetal-transpose",
  "xetal-value",
@@ -653,6 +654,7 @@ dependencies = [
  "xetal-array",
  "xetal-axes",
  "xetal-base",
+ "xetal-kernel",
  "xetal-map",
  "xetal-value",
 ]
@@ -663,6 +665,14 @@ version = "0.1.0"
 dependencies = [
  "xetal-base",
  "xetal-lex",
+]
+
+[[package]]
+name = "xetal-kernel"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-value",
 ]
 
 [[package]]
@@ -708,6 +718,7 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-core",
+ "xetal-kernel",
  "xetal-value",
 ]
 
@@ -801,6 +812,7 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-hof",
+ "xetal-kernel",
  "xetal-lex",
  "xetal-prim",
  "xetal-value",

@@ -101,6 +101,9 @@ pub(crate) enum Kont<'a> {
     },
     /// A function call in progress (the depth a runaway recursion grows).
     Called,
-    /// Where a higher-order built-in's nested call returns.
-    Barrier,
+    /// A higher-order built-in waiting for the call it asked for.
+    Kernel {
+        kernel: xetal_kernel::Kernel<'a, Value<'a>>,
+        span: Span,
+    },
 }

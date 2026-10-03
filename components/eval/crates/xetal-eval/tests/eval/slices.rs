@@ -14,6 +14,15 @@ const PROGRAMS: &[&str] = &[
     "u:a_vg := ['+ r_/ / t_ally]; u:a_vg 1 2 3 4",
     "u:f_ := { @ -> 42 }; u:f_ @",
     "1 o_- 1 2 3",
+    "'+ s_\\ 1 2 3 4; '- s_\\ 5 3 1",
+    "1 2 3 '* t_able 4 5",
+    "M := 2 3 r_eshape r_ange 6; M '+ '* i_nner o_\\ M",
+    "'+ r_/_2 2 3 r_eshape r_ange 6; '+ r_/_12 2 3 r_eshape r_ange 6",
+    "(2 2 r_eshape 1 2 3 4) c_at_2 2 2 r_eshape 5 6 7 8",
+    "'{ _r r_eshape _r } m_ap 1 2 3",
+    "1 2 3 '+ e_ach 10 20 30",
+    "u:i_nc := { _r + 1 }; 'u:i_nc 'n_eg c_ompose 5; 2 '- s_wap 10",
+    "3 '{ p_rint! _r; _r * 2 } p_ower 1",
 ];
 
 fn whole(src: &str) -> String {

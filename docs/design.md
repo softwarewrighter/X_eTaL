@@ -267,9 +267,10 @@ variable is updated in place; a `~` argument is a thunk forced on
 first use and remembered; module definitions are late-bound. In a
 dyadic call a lazy parameter is honoured when the function is a
 lambda written with both parameters; built-ins are strict.
-Higher-order built-ins (`components/hof`, B6) apply their operands
-through a callback the evaluator implements (`xetal_value::Caller`),
-so an operand runs by the ordinary rules whatever it is. `r_/` is a
+Higher-order built-ins (`components/hof`, B6) are kernels
+(`xetal-kernel`, D50): each asks the evaluator for one call of its
+operand at a time, so an operand runs by the ordinary rules whatever
+it is, and a run can stop between any two calls. `r_/` is a
 right fold along the leading axis, taken from the last major cell in
 one pass; item k of `s_\` is the reduce of the first k cells. A scan
 accumulates from the left in one pass only when that is provably the
@@ -283,7 +284,7 @@ currying. `t_able` applies f to each item of A once, then the partial
 result to every item of B. Both require single values from every call
 until nested arrays exist. `i_nner` pairs the last axis of A with the
 first of B (a single value extends), applies the nearest operand to
-each pair and reduces each run by calling `r_/` through the callback,
+each pair and reduces each run by a call of `r_/`,
 so it shares reduce's right fold and identities. `c_ompose` and
 `s_wap` are one-line kernels. The search and order built-ins
 (`components/search`, B7) work on major cells: `i_ndexOf` looks for
@@ -772,5 +773,5 @@ The pinning tests are written as the implementing saga reaches them
 | D47| Train error notes | `xetal-explain` builds, per train element, a note `in the train [..], F is applied as FORM, where x is the train's argument` and an arity hint (`F takes one argument, but here it is given two`; `G takes two arguments, so G x is a function waiting for the other`), from the source spelling and the catalog arity of a built-in that is not shadowed by a local name; `Program::annotate` adds the notes of an error's exact span, called by `infer_program` and the evaluator's run (user request: better diagnostics for train errors); trains lane |
 | D48| Transpose | `o_\` (`a -> a`) reverses the axes and `t_ranspose` (`Int -> a -> a`) permutes them, in a new crate `xetal-transpose` (axes component): one kernel `permute` (axis i to position to[i]) with `reverse_axes` and `swap_axes` on it, and `permutation` checking the 1-origin list (B17); `o_\_jk` is transpose's own axis rule in `xetal-axes` (`transpose_on`, two axes exactly, through the same `checked` as rotate; the lexer already refuses a repeated digit); transposing twice and permuting by the reversed identity are property-tested against it; transpose lane |
 | D49| Exponent literals | `1.5e-7`, `6.02e23`, `2E3` lex as one Float token (S8): `e`/`E` touching the digits, an optional `-`, digits (`literal.rs` `exponent`); `1.5e`, `1.5e-` and `1.5e+3` are `bad-number`, `1e2.5` keeps the follow rule, and a Float that overflows (`1e400`) is `number-out-of-range`. This also mends the formatter's round trip: the canonical form already printed `0.0000001` as `1e-7`, which did not lex before. Spec cases lex/exponent-literals, the rejections, eval/exponent-literals, eval/exponent-canonical. |
-| D50| A steppable evaluator (decided, Saga 25) | the evaluator becomes an explicit machine whose state is data (the expression in hand, pending applications, environments, the higher-order built-ins' progress), run in slices with a budget, as web-sw-tos steps its emulated CPU; `[]R_EAD` with no line yet leaves the run waiting, and a typed line resumes it. One evaluator for the CLI and the page. Chosen with the user over re-running the program per line and over a worker sleeping on Atomics.wait (cross-origin isolation, a non-Rust service worker). The core is in `components/step` (`xetal-step`: `Machine::run(budget)` returns Running or Done; frames `Kont`, control `Control`); each closure call keeps a frame, so a runaway recursion is still `stack-overflow` (at two million frames, on the heap). The higher-order built-ins still call back through `Caller` (a nested run above a barrier frame) until steppable-hof. Tested: xetal-eval tests/eval/slices.rs (any slice size prints what one run prints). |
+| D50| A steppable evaluator (decided, Saga 25) | the evaluator becomes an explicit machine whose state is data (the expression in hand, pending applications, environments, the higher-order built-ins' progress), run in slices with a budget, as web-sw-tos steps its emulated CPU; `[]R_EAD` with no line yet leaves the run waiting, and a typed line resumes it. One evaluator for the CLI and the page. Chosen with the user over re-running the program per line and over a worker sleeping on Atomics.wait (cross-origin isolation, a non-Rust service worker). The core is in `components/step` (`xetal-step`: `Machine::run(budget)` returns Running or Done; frames `Kont`, control `Control`); each closure call keeps a frame, so a runaway recursion is still `stack-overflow` (at two million frames, on the heap). The higher-order built-ins are kernels (`xetal-kernel`): a kernel asks for one call of its operand at a time and is resumed with the result, the call running above it as ordinary frames, so a run stops inside `e_ach`, reduce, `p_ower` and the rest as anywhere else; built with combinators (`apply`, `then`, `all`, `fold`) that keep every call's order, and `Caller` is gone (xetal-step tests/inside.rs). Tested: xetal-eval tests/eval/slices.rs (any slice size prints what one run prints). |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

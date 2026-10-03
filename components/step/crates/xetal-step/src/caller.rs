@@ -1,43 +1,40 @@
-//! The machine as the callback the higher-order built-ins use
-//! (`components/hof`, B6): a call runs the machine above a barrier until
-//! the function's value comes back to it. And functions under an axis
-//! subscript (A6), which wait for their arguments as a built-in value.
+//! Calling built-ins: a first-order one at once (`xetal-prim`), a
+//! higher-order one as a kernel (`components/hof`, B6) whose every call
+//! of its operand is a step of the machine (D50). And functions under
+//! an axis subscript (A6), which wait for their arguments as a built-in
+//! value.
 
 use std::rc::Rc;
 
 use xetal_array::Array;
 use xetal_base::{Diagnostic, Span};
 use xetal_core::Kind;
-use xetal_value::{Caller, Prim, Slot, Value};
+use xetal_kernel::{Kernel, Next};
+use xetal_value::{Prim, Slot, Value};
 
 use crate::kont::{Control, Kont};
 use crate::machine::{Machine, err};
 
-impl<'a> Caller<'a> for Machine<'a, '_> {
-    fn call(&mut self, f: &Value<'a>, x: Value<'a>, span: Span) -> Result<Value<'a>, Diagnostic> {
-        self.stack.push(Kont::Barrier);
-        let result = self.nested(f, x, span);
-        if result.is_err() {
-            self.unwind(|k| matches!(k, Kont::Barrier));
-        }
-        result
-    }
-}
-
 impl<'a> Machine<'a, '_> {
-    /// Run `f x` to its value, above the barrier just pushed.
-    fn nested(&mut self, f: &Value<'a>, x: Value<'a>, span: Span) -> Result<Value<'a>, Diagnostic> {
-        let mut control = self.apply(f.clone(), Slot::Value(x), span)?;
-        loop {
-            if let Control::Return(v) = &control
-                && matches!(self.stack.last(), Some(Kont::Barrier))
-            {
-                self.stack.pop();
-                return Ok(v.clone());
+    /// A higher-order built-in's kernel goes on with the value of the
+    /// call it asked for (`None` to start): it asks for another call,
+    /// which runs above it as ordinary work, or gives its value.
+    pub(crate) fn drive(
+        &mut self,
+        mut kernel: Kernel<'a, Value<'a>>,
+        last: Option<Value<'a>>,
+        span: Span,
+    ) -> Result<Control<'a>, Diagnostic> {
+        let next = kernel.resume(last).map_err(|d| match d.span {
+            Some(_) => d,
+            None => d.with_span(span),
+        })?;
+        match next {
+            Next::Call(f, x) => {
+                self.stack.push(Kont::Kernel { kernel, span });
+                self.apply(f, Slot::Value(x), span)
             }
-            control = self
-                .transition(control)?
-                .ok_or_else(|| err("internal", span, "the program ended inside a call"))?;
+            Next::Done(v) => Ok(Control::Return(v)),
         }
     }
 
@@ -57,11 +54,12 @@ impl<'a> Machine<'a, '_> {
                 args,
             }))));
         }
-        let result = match xetal_hof::call(p.name, &args, span, self) {
-            Some(result) => result,
-            None => xetal_prim::call(p.name, &args, span, self.out, &mut self.rng),
-        };
-        result.map(Control::Return)
+        match xetal_hof::call(p.name, &args, span) {
+            Some(kernel) => self.drive(kernel?, None, span),
+            None => {
+                xetal_prim::call(p.name, &args, span, self.out, &mut self.rng).map(Control::Return)
+            }
+        }
     }
 
     /// `f_axes`: a built-in value `#axes` holding the axes and f, which

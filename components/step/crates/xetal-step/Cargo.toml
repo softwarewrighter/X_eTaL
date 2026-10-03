@@ -16,3 +16,6 @@ xetal-value.workspace = true
 xetal-arith.workspace = true
 xetal-hof.workspace = true
 xetal-prim.workspace = true
+xetal-kernel.workspace = true
+
+[dev-dependencies]

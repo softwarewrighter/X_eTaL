@@ -85,12 +85,14 @@ components/
                            CLI, REPL and live demo call)
   step/                    the steppable evaluator (D50): xetal-step
                            (Core run by an explicit machine whose
-                           state is data, in slices; the callback that
-                           applies function values), xetal-prim (the
-                           first-order built-ins called on values)
+                           state is data, in slices), xetal-kernel (the
+                           higher-order built-ins as kernels: each call
+                           of an operand is a step of the machine),
+                           xetal-prim (the first-order built-ins
+                           called on values)
   hof/                     xetal-hof (higher-order built-ins: reduce,
-                           scan, power, dispatch; operands applied through
-                           the evaluator's callback), xetal-map
+                           scan, power, dispatch; each a kernel whose
+                           operand calls the evaluator makes), xetal-map
                            (item by item: each, table, inner)
   search/                  xetal-search (search and order: index-of,
                            member, unique, sort, grade, where)

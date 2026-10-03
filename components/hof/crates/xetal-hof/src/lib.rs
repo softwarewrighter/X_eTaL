@@ -1,6 +1,6 @@
-//! Higher-order built-ins (B6). Operands are function values applied
-//! through [`xetal_value::Caller`], so the evaluator's ordinary rules
-//! run them; the kernels work along the leading axis (A1).
+//! Higher-order built-ins (B6), each a kernel (`xetal-kernel`, D50):
+//! the evaluator applies the operand by its ordinary rules, one call
+//! at a time; the kernels work along the leading axis (A1).
 
 mod calls;
 mod cells;

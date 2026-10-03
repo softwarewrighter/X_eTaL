@@ -471,6 +471,7 @@ dependencies = [
  "proptest",
  "xetal-array",
  "xetal-base",
+ "xetal-kernel",
  "xetal-rotate",
  "xetal-transpose",
  "xetal-value",
@@ -522,6 +523,14 @@ version = "0.1.0"
 dependencies = [
  "xetal-base",
  "xetal-lex",
+]
+
+[[package]]
+name = "xetal-kernel"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-value",
 ]
 
 [[package]]

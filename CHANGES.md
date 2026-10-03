@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
+- 06:04 `refactor` The higher-order built-ins are kernels (D50, Saga 25 step 3): each call of an operand is a step of the machine, so a run stops inside `e_ach`, reduce, `p_ower` and the rest; `xetal-kernel` combinators keep every call's order; the `Caller` callback is gone.
 - 19:57 `chore` Merge PR #37 (transpose lane released: Saga 24 done and archived).
 - 19:45 `release` Transpose lane closed (Saga 24): retrospective in plan.md, the lane's saga archived.
 - 19:26 `chore` Merge PR #36.
