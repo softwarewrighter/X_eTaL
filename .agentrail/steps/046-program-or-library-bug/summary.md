@@ -1,0 +1,1 @@
+is_library answers no for #! files (S5, D54); xetal run reports library-name-in-program for a program defining l: names; spec case and golden run-program-with-library-names; committed with step 045 in ffd5526
