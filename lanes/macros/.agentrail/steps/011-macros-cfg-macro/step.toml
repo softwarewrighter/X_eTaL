@@ -1,0 +1,8 @@
+number = 11
+slug = "macros-cfg-macro"
+status = "pending"
+description = "c_fg< and the facts a macro may know (ask X11): the platform (cli or web) and..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T21:13:12"
+commits = []
