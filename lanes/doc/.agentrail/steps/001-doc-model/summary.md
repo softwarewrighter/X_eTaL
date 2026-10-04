@@ -1,0 +1,1 @@
+xetal doc --json: model of program, imports, macro libraries and System.xtlm (when called) with types, S9 doc comments, sections, examples, source and resolved uses; components/doc; goldens; D72. Pushed as pr/doc-model.
