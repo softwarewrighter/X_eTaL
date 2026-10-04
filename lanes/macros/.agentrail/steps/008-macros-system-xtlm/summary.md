@@ -1,0 +1,1 @@
+System.xtlm: i_f<, u_nless<, e_ach< in X_eTaL under s:, auto-loaded (MC18, MC19); hooks []R_EJECT, []S_TATEMENT (MC20); @ sides checked (MC22); one Macros table; argument-copy mapping; docs MC18-22, MC24, D65.
