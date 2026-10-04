@@ -1,0 +1,7 @@
+# A p_anic< in an Int position stops the program with its message.
+== SOURCE
+u:s_ize := { k -> k > 3 ? @ p_anic< "bad grid size {k}"; k * 2 }
+u:s_ize 2
+u:s_ize 5
+== ERROR
+error[panic]: bad grid size 5 at 26..55

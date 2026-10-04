@@ -1,6 +1,6 @@
 number = 17
 slug = "macros-panic-macro"
-status = "pending"
+status = "in-progress"
 description = 'p_anic< (decided with the user 2026-10-04): @ p_anic< "bad grid size {n}" STO...'
 role = "production"
 context_files = []

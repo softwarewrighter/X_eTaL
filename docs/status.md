@@ -18,10 +18,10 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 98 | 0 | 0 |
-| Language decisions | 118 | 0 | 2 |
+| Built-in functions | 99 | 0 | 0 |
+| Language decisions | 119 | 0 | 2 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 329 | 0 | 0 |
+| Spec cases | 331 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -36,7 +36,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `+` | `Num a => a -> a -> a` | works | 53 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 25 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 35 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 37 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
@@ -67,7 +67,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 35 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
 | `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 8 | 1 |
-| `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 11 | 1 |
+| `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
 | `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 11 | 1 |
 | `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 4 | 1 |
 | `e_q~` | `(Num a, Truthy b) => a -> a -> b` | works | 2 | 1 |
@@ -93,6 +93,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `[]N_GET` | `Char -> Char` | works | 0 | 1 |
 | `[]R_EAD` | `Unit -> Char` | works | 0 | 1 |
 | `[]E_RR` | `Char -> Char` | works | 0 | 1 |
+| `[]P_ANIC` | `Char -> a` | works | 0 | 1 |
 | `[]T_E` | `Unit -> Int` | works | 0 | 1 |
 | `[]K_EY` | `Unit -> Key` | works | 0 | 1 |
 | `[]K_CHAR` | `Key -> Char` | works | 1 | 1 |
@@ -140,7 +141,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `d_rop` | `Int -> a -> a` | works | 2 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 12 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 5 | 6 |
-| `c_at` | `a -> a -> a` | works | 13 | 5 |
+| `c_at` | `a -> a -> a` | works | 14 | 5 |
 
 ### B6: reduce and scan (leading axis; reduce is a right fold)
 
@@ -327,6 +328,7 @@ conventions (naming, layout) work without a spec case citing them.
 | MC26 | `@ d_bg< "expr"` (Rust's `dbg!`) is a system macro: the value of `expr`, after writing `[file:line] expr = (...) | works | 0 |
 | MC27 | `"cond" a_ssert< "message"` (or `@` for no message) reports and goes on: when the condition does not hold (...) | works | 1 |
 | MC28 | `@ f_ormat< "x = {x}"` (Rust's `format!`) interpolates: each `{expr}` holds any expression (it ends at the (...) | works | 0 |
+| MC29 | `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...) | works | 0 |
 | MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | CB1 | The standard library `Combinators` holds every bird Raymond Smullyan names in *To Mock a Mockingbird* that (...) | works | 1 |
 | CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works (...) | works | 0 |

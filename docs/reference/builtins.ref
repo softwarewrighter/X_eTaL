@@ -568,6 +568,12 @@ Write a line to standard error (red in the live demo), and give the
 text back.
 > t_ally []E_RR "careful"
 
+== []P_ANIC
+Stop the program with error[panic] and the text as its message (what
+`@ p_anic< "..."` writes). Its result has any type, so it stands where
+any value may.
+!> 1 + []P_ANIC "stop here"
+
 == SECTION Macro hooks
 What only the compiler knows, given to a macro body while a call is
 expanded (lib/System.xtlm uses them; docs/literate/macros.org shows
