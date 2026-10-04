@@ -1,0 +1,6 @@
+# f_ormat< takes @ on its left: an empty text there is an argument it
+# does not take (MC22).
+== SOURCE
+"" f_ormat< "x"
+== ERROR
+error[bad-macro-argument]: f_ormat< takes @ on its left, not text at 0..2

@@ -1,0 +1,5 @@
+# An empty {} fails before the program runs (MC24).
+== SOURCE
+@ f_ormat< "x = {}"
+== ERROR
+error[bad-format]: an empty {} in a format text: write {expr}, or {{ for a brace at 11..19

@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 13:09 `feat` `@ f_ormat< "x = {x}"` (macros lane step 16, Rust's `format!`): `{expr}` holes of any expression, `{{` and `}}` braces, bad holes fail before the run, errors in a hole located in the string (MC28, D69).
 - 12:34 `feat` `"cond" a_ssert< "message"` (macros lane step 15; System.xtlm now documented with `##` doc comments and `###` sections, its examples checked): a failed condition is reported on standard error as written, with the message and `[file:line]`, and the program goes on; `@` for no message (MC27, D68).
 - 11:31 `feat` `@ d_bg< "expr"` (macros lane step 14, Rust's `dbg!`): the value of expr, after writing `[file:line] expr = value` to standard error; System.xtlm's comments now one block per macro (what it does, an example) for `xetal doc` (MC26, D67).
 - 10:30 `feat` The compiler-only system macros (macros lane steps 9-13): `@ l_ine< @`, `@ f_ile< @`, `@ i_nclude< "path"` (a file's text as a string, Rust's `include_str!`), `@ c_fg< "name"` (the platform or a flag set with the new `xetal --cfg NAME`) and `"code" e_rror< "message"` (Rust's `compile_error!`), written in System.xtlm over the hooks `[]L_INE`, `[]F_ILE`, `[]I_NCLUDE`, `[]C_FG`; `u_se<` stays built in, with a comment in System.xtlm showing why (MC21 decided); MC25 proposed (include paths), D66.

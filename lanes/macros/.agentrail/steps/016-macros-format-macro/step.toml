@@ -1,6 +1,6 @@
 number = 16
 slug = "macros-format-macro"
-status = "pending"
+status = "in-progress"
 description = """f_ormat< (Rust's format!, MC24): interpolation, p_rint! @ f_ormat< "x = {x}";..."""
 role = "production"
 context_files = []

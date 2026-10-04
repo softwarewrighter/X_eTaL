@@ -1,0 +1,7 @@
+# A type error inside a {hole} is reported where it was written in the
+# string.
+== SOURCE
+x := 6
+@ f_ormat< "x is {x + \"a\"}"
+== ERROR
+error[type-mismatch]: expected Int, found Char at 25..33

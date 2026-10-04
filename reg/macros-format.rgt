@@ -1,0 +1,5 @@
+command = """
+./target/debug/xetal eval -e 'v := 3 1 2
+@ f_ormat< "v = {v}, its sum {'"'"'+ r_/ v}, sorted? {v m_atch s_ort v}, {{braces}}"' && ./target/debug/xetal expand -e '@ f_ormat< "n = {n}"'"""
+exit_code = 0
+desc = "f_ormat< interpolates any expression in {..} as f_ormat writes it (a Bool as 0 or 1); {{ and }} are braces; xetal expand shows the source it writes"

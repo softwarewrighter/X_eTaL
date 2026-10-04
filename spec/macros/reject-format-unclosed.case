@@ -1,0 +1,5 @@
+# An unclosed { fails before the program runs (MC24).
+== SOURCE
+@ f_ormat< "x = {x"
+== ERROR
+error[bad-format]: an unclosed { in a format text at 11..19
