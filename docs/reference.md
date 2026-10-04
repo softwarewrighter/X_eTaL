@@ -1369,6 +1369,19 @@ text back.
 7
 ```
 
+### `[]P_ANIC`
+
+`Char -> a`, one argument.
+
+Stop the program with error[panic] and the text as its message (what
+`@ p_anic< "..."` writes). Its result has any type, so it stands where
+any value may.
+
+```
+      1 + []P_ANIC "stop here"
+error[panic]: stop here
+```
+
 ## Macro hooks
 
 What only the compiler knows, given to a macro body while a call is

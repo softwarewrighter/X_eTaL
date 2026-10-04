@@ -129,6 +129,13 @@ s:a_ssert< := { cond note ->
 ## two and two: 4 {four}
 s:f_ormat< := { u t -> u n_othing o_rEmpty p_ieces t }
 
+## Stop the program with error[panic] and the message on the right,
+## formatted as f_ormat< does, at the call; it stands where any value
+## may (Rust's panic!).
+## >> 1 + @ p_anic< "no {1 + 1}"
+## error[panic]
+s:p_anic< := { u t -> u n_othing "[]P_ANIC (" c_at (o_rEmpty p_ieces t) c_at ")" }
+
 ### Private helpers
 
 ifArgs := "i_f< takes two expressions on its right, separated by ;: \"c\" i_f< \"a; b\""

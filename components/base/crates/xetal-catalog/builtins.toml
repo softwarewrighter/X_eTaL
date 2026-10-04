@@ -67,6 +67,7 @@ entries = [
   ["[]N_GET", 1, "Char -> Char"],
   ["[]R_EAD", 1, "Unit -> Char"],
   ["[]E_RR", 1, "Char -> Char"],
+  ["[]P_ANIC", 1, "Char -> a"],
   ["[]T_E", 1, "Unit -> Int"],
   ["[]K_EY", 1, "Unit -> Key"],
   ["[]K_CHAR", 1, "Key -> Char"],

@@ -1,0 +1,9 @@
+# @ p_anic< "message" stops the program with error[panic] at the call;
+# it type-checks wherever it stands (here an Int result and a Char).
+== SOURCE
+u:s_ize := { k -> k > 3 ? @ p_anic< "bad grid size {k}"; k * 2 }
+u:s_ize 2
+c := "ok" c_at @ p_anic< "never here"
+u:s_ize 5
+== ERROR
+error[panic]: never here at 90..112

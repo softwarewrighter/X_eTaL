@@ -23,6 +23,9 @@ pub fn call<'a>(
         ("[]N_PUT", [t, path]) => put(t, path).map_err(at),
         ("[]N_GET", [path]) => get(path).map_err(at),
         ("[]R_EAD", [_]) => read().map_err(at),
+        ("[]P_ANIC", [t]) => crate::text::chars(t)
+            .and_then(|message| Err(Diagnostic::new("panic", message)))
+            .map_err(at),
         ("[]E_RR", [t]) => crate::text::chars(t).map_err(at).map(|line| {
             xetal_tty::error(&line);
             t.clone()

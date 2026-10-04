@@ -1,0 +1,7 @@
+command = """
+./target/debug/xetal eval -e 'u:s_ize := { k -> k > 3 ? @ p_anic< "bad grid size {k}"; k * 2 }
+u:s_ize 2
+u:s_ize 5
+u:s_ize 1'"""
+exit_code = 1
+desc = "p_anic< stops the program with error[panic] and its formatted message at the call; what ran before it stays printed"

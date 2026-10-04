@@ -1,8 +1,9 @@
 number = 17
 slug = "macros-panic-macro"
-status = "pending"
+status = "completed"
 description = 'p_anic< (decided with the user 2026-10-04): @ p_anic< "bad grid size {n}" STO...'
 role = "production"
 context_files = []
 created_at = "2026-10-04T10:25:42"
-commits = []
+completed_at = "2026-10-04T13:38:00"
+commits = ["c7dc426c9dd9803cd8325e22d3d52123ea618d50"]
