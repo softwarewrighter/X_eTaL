@@ -1,0 +1,12 @@
+# @ d_bg< "expr" gives the value of expr, after writing
+# [file:line] expr = value to standard error (Rust's dbg!).
+== SOURCE
+x := 6
+y := 1 + @ d_bg< "x * 2"
+y
+== EXPAND
+x := 6
+y := 1 + ({ @ -> dbgValue := (x * 2); []E_RR "[-e:2] x * 2 = " c_at f_ormat dbgValue; dbgValue } @)
+y
+== RESULT
+13

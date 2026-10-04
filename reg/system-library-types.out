@@ -1,3 +1,9 @@
 s:i_f< : Char -> Char -> Char
 s:u_nless< : Char -> Char -> Char
 s:e_ach< : Char -> Char -> Char
+s:l_ine< : Unit -> Unit -> Char
+s:f_ile< : Unit -> Unit -> Char
+s:i_nclude< : Unit -> Char -> Char
+s:c_fg< : Unit -> Char -> Char
+s:e_rror< : Char -> Char -> Char
+s:d_bg< : Unit -> Char -> Char

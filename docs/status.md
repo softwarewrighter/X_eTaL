@@ -19,9 +19,9 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 98 | 0 | 0 |
-| Language decisions | 115 | 0 | 2 |
+| Language decisions | 116 | 0 | 2 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 320 | 0 | 0 |
+| Spec cases | 321 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -34,9 +34,9 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 51 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 52 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 25 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 33 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 34 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
@@ -324,6 +324,7 @@ conventions (naming, layout) work without a spec case citing them.
 | MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 4 |
 | MC24 | Which macros are system macros: a macro is a system macro (in `lib/System.xtlm` under `s:`, called (...) | works | 5 |
 | MC25 | The compiler-only system macros, each with `@` for a side that takes nothing: `@ l_ine< @` (the call's (...) | works | 0 |
+| MC26 | `@ d_bg< "expr"` (Rust's `dbg!`) is a system macro: the value of `expr`, after writing `[file:line] expr = (...) | works | 0 |
 | MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | CB1 | The standard library `Combinators` holds every bird Raymond Smullyan names in *To Mock a Mockingbird* that (...) | works | 1 |
 | CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works (...) | works | 0 |
