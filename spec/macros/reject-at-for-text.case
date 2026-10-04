@@ -1,0 +1,5 @@
+# @ stands for no argument; a side that takes text rejects it (MC22).
+== SOURCE
+@ i_f< "1; 2"
+== ERROR
+error[bad-macro-argument]: i_f< takes text on its left, not @ at 0..1

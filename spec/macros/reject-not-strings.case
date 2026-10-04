@@ -1,6 +1,6 @@
-# A macro takes one string on each side (MC8 row 15).
+# A macro takes a string, or @ for none, on each side (MC8 row 15, MC22).
 == SOURCE
 x := 1
 x i_f< "1; 2"
 == ERROR
-error[bad-macro-call]: i_f< takes one string on each side: "left" i_f< "right" at 9..13
+error[bad-macro-call]: i_f< takes a string, or @ for none, on each side: "left" i_f< "right" at 9..13

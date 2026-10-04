@@ -1,0 +1,68 @@
+# System.xtlm: the system macros (lang-choices MC18, MC19, MC24).
+# Loaded before every file, with no import and no alias: each s:
+# macro here is called unprefixed ("c" i_f< "a; b"). Like any macro, a
+# system macro is a function of the source text on each side of its
+# call that gives the text replacing the call. What only the compiler
+# knows comes from hooks ([]R_EJECT, []S_TATEMENT; MC20), usable only
+# in a macro body. Names without s: are private helpers.
+
+# "c" i_f< "a; b": the value of a when c holds, else of b, chosen when
+# the program runs; only the one chosen is evaluated (MC14).
+s:i_f< := { cond both ->
+  p := w_here s_eps both
+  1 != t_ally p ? "bad-macro-argument right" []R_EJECT ifArgs
+  a := t_rim ((f_irst p) - 1) t_ake both
+  b := t_rim (f_irst p) d_rop both
+  (0 = t_ally a) | 0 = t_ally b ? "bad-macro-argument right" []R_EJECT ifArgs
+  "{ @ -> (" c_at (t_rim cond) c_at ") ? " c_at a c_at "; " c_at b c_at " } @"
+}
+
+# "c" u_nless< "b": run the statements b unless c holds; the value is
+# @ (MC15).
+s:u_nless< := { cond body ->
+  "{ @ -> (" c_at (t_rim cond) c_at ") ? @; " c_at (t_rim body) c_at "; @ } @"
+}
+
+# "w1 w2" e_ach< "template": one statement per word, $w in the template
+# replaced by the word (MC16).
+s:e_ach< := { words template ->
+  n_ot []S_TATEMENT @ ? "misplaced-macro call" []R_EJECT eachAlone
+  ws := w_ords words
+  0 = t_ally ws ? "bad-macro-argument left" []R_EJECT "e_ach< needs words on its left"
+  0 = '+ r_/ 0 + h_oles template ? "bad-macro-argument right" []R_EJECT eachHole
+  d_isclose '{ a b -> e_nclose (d_isclose a) c_at "\n" c_at d_isclose b } r_/ '{ w -> template c_opy d_isclose w } m_ap ws
+}
+
+ifArgs := "i_f< takes two expressions on its right, separated by ;: \"c\" i_f< \"a; b\""
+eachAlone := "e_ach< writes statements: it stands as a statement of its own"
+eachHole := "an e_ach< template names the word as $w: \"a b\" e_ach< \"u:$w := 1\""
+
+# The text t without white space at its ends.
+t_rim := { t ->
+  m := n_ot t m_ember? " \n\t"
+  0 = '+ r_/ 0 + m ? ""
+  i := w_here m
+  (1 + (f_irst r_ev i) - f_irst i) t_ake ((f_irst i) - 1) d_rop t
+}
+
+# The words of t: runs of characters other than white space, boxed.
+w_ords := { t -> (n_ot t m_ember? " \n\t") p_artition t }
+
+# Where t separates statements: a ; or a newline outside brackets and
+# strings.
+s_eps := { t ->
+  q := ('+ s_\ 0 + t = f_irst "\"") m_od 2
+  d := '+ s_\ (0 + t m_ember? "([{") - 0 + t m_ember? ")]}"
+  (t m_ember? ";\n") & (0 = d) & 0 = q
+}
+
+# Where $w starts in t.
+h_oles := { t -> (t = f_irst "$") & (1 d_rop t = f_irst "w") c_at 0 }
+
+# The template t with each $w replaced by the word w.
+c_opy := { t w ->
+  h := h_oles t
+  g := 0 c_at -1 d_rop h
+  p_ := { i -> (i s_elect h) ? w; (i s_elect g) ? ""; i s_elect t }
+  d_isclose '{ a b -> e_nclose (d_isclose a) c_at d_isclose b } r_/ 'p_ m_ap r_ange t_ally t
+}

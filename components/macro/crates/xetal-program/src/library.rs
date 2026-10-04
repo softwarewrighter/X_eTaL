@@ -18,7 +18,7 @@ pub fn is_library(text: &str) -> bool {
     let is_l = |ns: &Option<String>| ns.as_deref() == Some("l");
     lex(text).is_ok_and(|tokens| {
         tokens.iter().enumerate().any(|(i, t)| match &t.kind {
-            TokenKind::Func(f) if f.is_macro() && f.ns.as_deref() == Some("m") => {
+            TokenKind::Func(f) if f.is_macro() && matches!(f.ns.as_deref(), Some("m" | "s")) => {
                 matches!(tokens.get(i + 1).map(|t| &t.kind), Some(TokenKind::Assign))
             }
             TokenKind::Func(f) => is_l(&f.ns),

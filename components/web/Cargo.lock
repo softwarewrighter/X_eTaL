@@ -1389,6 +1389,7 @@ dependencies = [
  "xetal-base",
  "xetal-expand",
  "xetal-lex",
+ "xetal-libs",
  "xetal-lookup",
  "xetal-mapped",
  "xetal-names",
@@ -1477,6 +1478,7 @@ dependencies = [
  "xetal-lex",
  "xetal-macro",
  "xetal-sources",
+ "xetal-system",
  "xetal-types",
 ]
 

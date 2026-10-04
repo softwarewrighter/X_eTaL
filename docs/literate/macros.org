@@ -152,11 +152,11 @@ expansion stops with an error when macros nest more than 32 deep.
 
 * Mistakes it catches
 
-A macro takes one string on each side:
+A macro takes a string, or @ for none, on each side:
 
 #+begin_example
 x i_f< "1; 2"
-error[bad-macro-call]: i_f< takes one string on each side: "left" i_f< "right"
+error[bad-macro-call]: i_f< takes a string, or @ for none, on each side: "left" i_f< "right"
 #+end_example
 
 A macro a macro library does not define is an error listing those it
@@ -165,7 +165,7 @@ does:
 #+begin_example
 "x:" u_se< "Macros"
 "a" x:n_ope< "b"
-error[not-exported]: x:n_ope< is not defined by that macro library; it defines u_nless<, d_ef<, c_heck<
+error[not-exported]: x:n_ope< is not defined by that macro library; it defines w_hen<, d_ef<, c_heck<
 #+end_example
 
 Macros are defined only in macro libraries, as ~m:~ names ending in ~<~:

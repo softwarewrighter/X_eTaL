@@ -18,10 +18,10 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 92 | 0 | 0 |
-| Language decisions | 108 | 0 | 2 |
+| Built-in functions | 94 | 0 | 0 |
+| Language decisions | 114 | 0 | 2 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 309 | 0 | 0 |
+| Spec cases | 313 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -65,7 +65,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 32 | 2 |
-| `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 5 | 1 |
+| `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
 | `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 8 | 1 |
 | `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 10 | 1 |
 | `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 11 | 1 |
@@ -105,6 +105,13 @@ conventions (naming, layout) work without a spec case citing them.
 | `[]C_LS` | `Unit -> Char` | works | 0 | 1 |
 | `f_ormat` | `a -> Char` | works | 2 | 2 |
 | `n_umbers` | `Char -> Float` | works | 4 | 1 |
+
+### MC20: macro hooks (only in a macro body, while a call is expanded)
+
+| Name | Type | State | Spec cases | Reference examples |
+| ---- | ---- | ----- | ---------- | ------------------ |
+| `[]R_EJECT` | `Char -> Char -> Char` | works | 0 | 1 |
+| `[]S_TATEMENT` | `Truthy a => Unit -> a` | works | 1 | 1 |
 
 ### QD5: graphics (pure SVG builders, one effect)
 
@@ -302,10 +309,16 @@ conventions (naming, layout) work without a spec case citing them.
 | MC11 | `"m:" u_se< "Name"` finds `Name.xtl` and `Name.xtlm` together: the search directories keep MC4's order, (...) | works | 0 |
 | MC12 | A macro call may stand as a top-level statement or inside an expression; its expansion parses as a block (...) | works | 4 |
 | MC13 | A namespace prefix is a lowercase letter followed by lowercase letters or digits, of any length, then `:` (...) | works | 5 |
-| MC14 | `"c" i_f< "a; b"` is a system macro (no import): the value of `a` when the condition `c` holds, else of `b` | works | 2 |
+| MC14 | `"c" i_f< "a; b"` is a system macro (no import; defined in System.xtlm, MC18): the value of `a` when the (...) | works | 2 |
 | MC15 | `"c" u_nless< "b"` is a system macro: run the statements `b` unless `c` holds | works | 1 |
 | MC16 | `"w1 w2" e_ach< "template"` is a system macro: one copy of the template per word of its left (a word is a (...) | works | 3 |
 | MC17 | System macros are expanded in each file before its imports and names are read, again on each expansion (a (...) | works | 0 |
+| MC18 | The system macros live in `lib/System.xtlm`, written in X_eTaL like any macro library and built into the (...) | works | 2 |
+| MC19 | System.xtlm is loaded before every file, with no import and no alias: its `s:` macros are called (...) | works | 1 |
+| MC20 | What only the compiler knows comes from a few hooks, quad built-ins usable only in a macro body while a (...) | works | 1 |
+| MC21 | `u_se<` is declared in System.xtlm like every other system macro, as `s:u_se<` with a built-in body (as (...) | works | 0 |
+| MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 2 |
+| MC24 | Which macros are system macros: a macro is a system macro (in `lib/System.xtlm` under `s:`, called (...) | works | 0 |
 | MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | CB1 | The standard library `Combinators` holds every bird Raymond Smullyan names in *To Mock a Mockingbird* that (...) | works | 1 |
 | CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works (...) | works | 0 |

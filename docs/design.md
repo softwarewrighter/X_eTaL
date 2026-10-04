@@ -375,16 +375,22 @@ in a library at `FILE:LINE:COLUMN`. The first standard library is
 alias bound to the macro: superscript letters and a superscript
 equals in the library color, then `u_se<`.
 
-System macros (MC14-MC17): before its imports are read, each file's
-macro calls other than `u_se<` are expanded by `xetal-expand`
-(components/expand): `i_f<` and `u_nless<` to run-time guards in a
-niladic lambda, `e_ach<` to one statement per word. Each call is found
-in the file's tokens with its two string arguments, classified as a
-statement of its own or part of an expression (MC12), and replaced by
-its expansion, which is expanded again to a depth of 32. The result is
-an `xetal_mapped::Mapped`: the expanded text with a map from each byte
-back to where it was written (an argument's bytes into its string,
+System macros (MC14-MC20): `lib/System.xtlm`, built in, is loaded as
+a macro library before every file, its `s:` macros (`i_f<`, `u_nless<`,
+`e_ach<`, written in X_eTaL) called unprefixed. Each file's macro calls
+other than `u_se<` are expanded by `xetal-expand` (components/expand):
+each call is found in the file's tokens with its two arguments (a
+string, or `@` for none), classified as a statement of its own or part
+of an expression (MC12), and run through a `Macros` table (the system
+macros and the file's macro libraries alike); the text it gives
+replaces the call, parenthesized inside an expression, and is expanded
+again to a depth of 32. The result is an `xetal_mapped::Mapped`: the
+expanded text with a map from each byte back to where it was written
+(runs of the macro's text found in an argument map into its string,
 escapes to their backslash; the macro's own text to the whole call).
+The hooks (MC20) are quad built-ins in `xetal-system` reading the call
+being expanded, which the runner sets (`expanding`); `[]R_EJECT`
+fails the call with a note naming the side to report at.
 The macro phase then reads the expanded text; `Sources` keeps the map
 (`add_expanded`), so every later diagnostic, from the imports to the
 evaluator, is located in the text as written. `xetal expand` prints
@@ -821,6 +827,7 @@ The pinning tests are written as the implementing saga reaches them
 | D62| Finding libraries and macro libraries | `components/lookup` (`xetal-lookup`: `Found`, `Libraries` with `find_both` and `run_macro`, `FsLibraries`, `StoreLibraries`, moved out of `xetal-macro`, which re-exports them); `xetal-libs` embeds `lib/*.xtlm` as `MACROS` beside `LIBRARIES`; the not-found message names both files (MC11). Tests: lookup tests/pairs.rs (each tier, explicit paths, the store). |
 | D63| Running a macro | a macro library is loaded by its own `Loader` into a `MacroLib`; a call appends `"left" LX:n_ame< "right"` as a file of its own and `xetal-program`'s `Running` lowers, checks (the call's type must be `Char`) and evaluates it (seed 0), its printed text being the macro's result; `xetal type`/`run` on a `.xtlm` lists its macros (`is_library` sees `m:n_ame< :=`). Tests: xetal-program tests/macros.rs, xetal-expand tests/user.rs (the depth limit by a macro calling itself), spec/macros/user-*.case, goldens macros-user-*. (MC23, proposed.) |
 | D64| Long namespace prefixes | the lexer's `namespace` reads `[a-z][a-z0-9]*:` (as written) or `[A-Z]+:` (the macro phase's hidden namespaces, which the combined program holds), anything else `bad-namespace`; `valid_alias` applies the written rule; a hidden prefix written in a file is `hidden-namespace` (names phase); render, LaTeX and the view already draw a prefix raised only when every character has a superscript form, and a digit has none, so `b2:` is drawn as written and inverse rendering stays unambiguous; xetal-mode colours `[a-z][a-z0-9]*:` prefixes (MC13). Tests: lex accept/reject, xetal-macro tests/imports.rs, spec lex/long-prefixes, integration/long-aliases and three rejections, goldens long-prefixes-latex, long-prefixes-color, an ERT test. |
+| D65| System macros in X_eTaL | `lib/System.xtlm` (built in as a standard macro library, key `std:System.xtlm`, its own letter `s`) is loaded by `Loader::load_system` before every file and every macro library; `Table` runs unprefixed calls against it and aliased ones against the file's macro libraries; the Rust generators for `i_f<`, `u_nless<`, `e_ach<` are gone. Their string work is X_eTaL (trim, words by `p_artition`, statement separators by scans over brackets and quotes, `$w` replaced through `m_ap`). Hooks `[]R_EJECT` and `[]S_TATEMENT` in the catalog and `xetal-system` (`hooks.rs`, a call context set by the runner, one call at a time); a rejection carries a `macro-place` note. `Running` checks a call's sides against the macro's parameter types when the call does not type (MC22). The example macro library's `m:u_nless<` became `m:w_hen<` (a macro library may not define a system macro). Tests: xetal-expand tests (user.rs, map.rs with stand-in macros), xetal-program tests/macros.rs (system redefinition, sides, rejection), spec/macros (unchanged expansions; s: as an alias; hook outside; @ for text). (MC18-MC22, MC24.) |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |
 | D70| The status table | `docs/status.md` is generated by `scripts/status.py` from the built-in catalog, `docs/lang-choices.md` (a row saying "not yet implemented" is planned, "partly implemented" partial), the spec cases (a pending case is planned; each built-in counts the cases that use it and the reference examples it runs, and one nothing runs is partial) and `lib/`; `--check` in the gate keeps it current, `just status` regenerates it, and the README's Status points at it (research3's "what works today"); launch-docs lane |
 | D71| The asks ledger | `docs/asks.md` is generated by `scripts/asks.py` from `docs/asks.toml` (every ask in the sibling repositories' `docs/xetal-asks.md`, its state here: landed with the commit, partly landed, planned with the saga, declined with the reason, new); each ask with a `repro` program is run against the release build and passes when a whole output line equals its `works` text with no error (or the output holds the `error[code]` it names); a landed ask whose repro fails fails the gate's `--check`, and a planned, declined or new ask whose repro passes is listed under "To look at"; `--siblings DIR` compares each repository's count of filed asks with the ledger's; launch-docs lane |

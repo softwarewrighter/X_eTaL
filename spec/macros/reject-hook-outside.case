@@ -1,0 +1,6 @@
+# A macro hook works only in a macro body, while a call is expanded
+# (MC20).
+== SOURCE
+[]S_TATEMENT @
+== ERROR
+error[hook-outside-macro]: []S_TATEMENT is a macro hook: it works only in a macro body, while a call is expanded at 0..14

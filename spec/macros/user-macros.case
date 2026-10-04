@@ -1,11 +1,11 @@
 # Macros of your own (MC10-MC12): the standard macro library Macros
-# (lib/Macros.xtlm) defines m:u_nless<, m:d_ef< and m:c_heck<; each is
+# (lib/Macros.xtlm) defines m:w_hen<, m:d_ef< and m:c_heck<; each is
 # a function of the texts on either side of its call, run when the
 # program is expanded, and the text it gives replaces the call.
 == SOURCE
 "x:" u_se< "Macros"
 n := 4
-"n = 0" x:u_nless< "p_rint! 100 / n"
+"n != 0" x:w_hen< "p_rint! 100 / n"
 "s_quare" x:d_ef< "_r * _r"
 u:s_quare 7
 "4 = 2 + 2" x:c_heck< "addition"
@@ -13,7 +13,7 @@ u:s_quare 7
 == EXPAND
 "x:" u_se< "Macros"
 n := 4
-{ @ -> (n = 0) ? @; p_rint! 100 / n; @ } @
+{ @ -> (n_ot n != 0) ? @; p_rint! 100 / n; @ } @
 u:s_quare := { _r * _r }
 u:s_quare 7
 { @ -> (4 = 2 + 2) ? "ok: addition"; "FAIL: addition (4 = 2 + 2)" } @

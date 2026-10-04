@@ -8,6 +8,6 @@ mod found;
 mod fs;
 mod store;
 
-pub use found::{Found, Libraries, Pair};
+pub use found::{Found, Libraries, MacroRun, Pair};
 pub use fs::{FsLibraries, USERLIBS};
 pub use store::StoreLibraries;
