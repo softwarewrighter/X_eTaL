@@ -1,6 +1,6 @@
 number = 5
 slug = "macros-expand-tool"
-status = "pending"
+status = "in-progress"
 description = "Ask X2: xetal expand covers user macros; one call's expansion with where the ..."
 role = "production"
 context_files = []

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal expand demos/macros.xtl"
+exit_code = 0
+desc = "the macros demo after expansion: every call replaced by the source its macro writes, comments and imports as written"

@@ -1,0 +1,181 @@
+#+TITLE: Macros: source that writes source
+#+SUBTITLE: the system macros, seeing an expansion, and macro libraries of your own
+#+AUTHOR: Michael A Wright
+#+OPTIONS: toc:2 num:nil ^:{}
+#+PROPERTY: header-args:xetal :session macros :seed 1 :results output :exports both
+
+A macro is a name with the macro mark ~<~ at its end; ~u_se<~, which
+imports a library, is the one met first. A call is written like a
+dyadic function with a string on each side, ~"left" n_ame< "right"~,
+and before the program is checked the macro replaces the call with
+source it writes from the two texts. Whatever a macro writes is then
+read, type-checked and run like code you typed. Every block below is
+run by ~xetal~ through ~ob-xetal~, and its result recorded under it.
+
+* The system macros
+
+Three macros are built in beside ~u_se<~; no import is needed.
+
+** i_f<: one of two expressions
+
+~"c" i_f< "a; b"~ is the value of ~a~ when ~c~ holds, else of ~b~. The
+condition is evaluated when the program runs, and only the expression
+chosen is evaluated, so the ~1 / 0~ below never is:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+x ← -3
+"x > 0" i̲f< "1; -1"
+10 × "x > 0" i̲f< "1; -1"
+"x < 0" i̲f< "0; 1 / 0"
+#+end_example
+#+begin_src xetal
+x := -3
+"x > 0" i_f< "1; -1"
+10 * "x > 0" i_f< "1; -1"
+"x < 0" i_f< "0; 1 / 0"
+#+end_src
+
+#+RESULTS:
+: -1
+: -10
+: 0.0
+
+The macro writes a guard in a lambda of no argument, applied at once;
+inside an expression it is parenthesized. ~xetal expand~ shows the
+program after the macros have written their source:
+
+#+begin_example
+$ xetal expand -e '"x > 0" i_f< "1; -1"'
+{ @ -> (x > 0) ? 1; -1 } @
+$ xetal expand -e '10 * "x > 0" i_f< "1; -1"'
+10 * ({ @ -> (x > 0) ? 1; -1 } @)
+#+end_example
+
+Both expressions are checked and must have one type, which is why the
+third line gives ~0.0~: ~1 / 0~ is a Float, so the ~0~ is one too.
+
+** u_nless<: statements run unless a condition holds
+
+~"c" u_nless< "b"~ runs the statements ~b~ unless ~c~ holds. It is
+there for what ~b~ does (printing, here), so its own value is ~@~
+(Unit, the value that stands for nothing), shown like any other value
+of a statement:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+n ← 4
+"n = 0" u̲nless< "p_rint! 100 / n"
+#+end_example
+#+begin_src xetal
+n := 4
+"n = 0" u_nless< "p_rint! 100 / n"
+#+end_src
+
+#+RESULTS:
+: 25.0
+: @
+
+It writes ~{ @ -> (n = 0) ? @; p_rint! 100 / n; @ } @~.
+
+** e_ach<: a statement per word
+
+~"w1 w2" e_ach< "template"~ writes one copy of the template for each
+word on its left, with ~$w~ in it replaced by the word. A family of
+definitions is the use a function cannot serve, since a function
+cannot make names:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"m_ax m_in" e̲ach< "u:$w/ := { '$w r_/ _r }"
+ᵘm̲ax/ 3 1 4 1 5
+ᵘm̲in/ 3 1 4 1 5
+#+end_example
+#+begin_src xetal
+"m_ax m_in" e_ach< "u:$w/ := { '$w r_/ _r }"
+u:m_ax/ 3 1 4 1 5
+u:m_in/ 3 1 4 1 5
+#+end_src
+
+#+RESULTS:
+: 5
+: 1
+
+It wrote ~u:m_ax/ := { 'm_ax r_/ _r }~ and ~u:m_in/ := { 'm_in r_/ _r }~,
+one per line: ~e_ach<~ writes statements, so it stands as a statement
+of its own.
+
+* Macros of your own
+
+A macro library is a file ending in ~.xtlm~. It defines its macros as
+~m:n_ame<~, each an ordinary function of the two texts, left and right,
+that gives the text replacing the call. The standard library ~Macros~
+(~lib/Macros.xtlm~) is a small example:
+
+#+INCLUDE: "../../lib/Macros.xtlm" src xetal
+
+It is imported like any library, under a prefix of your choosing:
+~"m:" u_se< "Macros"~ finds ~Macros.xtlm~ (and ~Macros.xtl~, had there
+been one in the same directory: a library and its macro library share
+one prefix). Its macros are called with that prefix:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"m:" u̲se< "Macros"
+"s_quare" ᵐd̲ef< "_r * _r"
+ᵘs̲quare 7
+"4 = 2 + 2" ᵐc̲heck< "addition"
+"5 = 2 * 2" ᵐc̲heck< "doubling"
+#+end_example
+#+begin_src xetal
+"m:" u_se< "Macros"
+"s_quare" m:d_ef< "_r * _r"
+u:s_quare 7
+"4 = 2 + 2" m:c_heck< "addition"
+"5 = 2 * 2" m:c_heck< "doubling"
+#+end_src
+
+#+RESULTS:
+: 49
+: ok: addition
+: FAIL: doubling (5 = 2 * 2)
+
+~m:d_ef<~ made a function from a name given as text. ~m:c_heck<~ shows
+its condition as it was written, which a function, given only the
+condition's value, could not: it wrote
+~{ @ -> (5 = 2 * 2) ? "ok: doubling"; "FAIL: doubling (5 = 2 * 2)" } @~.
+
+A macro runs when the program is expanded, before it is checked: the
+macro library is loaded, its function is applied to the two texts, and
+the text it gives replaces the call. That text may call macros again;
+expansion stops with an error when macros nest more than 32 deep.
+
+* Mistakes it catches
+
+A macro takes one string on each side:
+
+#+begin_example
+x i_f< "1; 2"
+error[bad-macro-call]: i_f< takes one string on each side: "left" i_f< "right"
+#+end_example
+
+A macro a macro library does not define is an error listing those it
+does:
+
+#+begin_example
+"x:" u_se< "Macros"
+"a" x:n_ope< "b"
+error[not-exported]: x:n_ope< is not defined by that macro library; it defines u_nless<, d_ef<, c_heck<
+#+end_example
+
+Macros are defined only in macro libraries, as ~m:~ names ending in ~<~:
+
+#+begin_example
+u:f_< := { a b -> a }
+error[misdefined-macro]: macros are defined in macro libraries (.xtlm files), as m:n_ame<
+#+end_example
+
+And an error in code written inside a macro's argument is reported
+where it was written, inside the string. The whole program of this
+document is ~demos/macros.xtl~; ~xetal expand demos/macros.xtl~ shows
+it after expansion.
