@@ -1,8 +1,9 @@
 number = 51
 slug = "speed-lean-kernels"
-status = "in-progress"
+status = "completed"
 description = "Saga 30 (the higher-order speed regression, docs/plan.md), step 3 of 4: X_eTa..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T09:22:57"
-commits = []
+completed_at = "2026-10-04T13:55:47"
+commits = ["8456e45d204db4fc1bd7ec3fc47ee65b457579eb"]

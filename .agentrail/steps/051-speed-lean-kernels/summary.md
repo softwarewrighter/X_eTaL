@@ -1,0 +1,1 @@
+Lean kernels (D56): e_ach, m_ap, zip, t_able, i_nner, reduce and scan with function operands as single state-machine kernels (xetal-kernel lean), call order unchanged (order tests), lambda t_able 11.6 to 7.2 and e_ach 11.1 to 7.1 allocations per call; S9 doc comments recorded
