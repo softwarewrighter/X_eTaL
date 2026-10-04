@@ -82,6 +82,13 @@ entries = [
 ]
 
 [[group]]
+rule = "MC20: macro hooks (only in a macro body, while a call is expanded)"
+entries = [
+  ["[]R_EJECT", 2, "Char -> Char -> Char"],
+  ["[]S_TATEMENT", 1, "Truthy a => Unit -> a"],
+]
+
+[[group]]
 rule = "QD5: graphics (pure SVG builders, one effect)"
 entries = [
   ["[]G_RID", 1, "Eq a => a -> Char"],

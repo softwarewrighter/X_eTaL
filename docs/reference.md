@@ -1369,6 +1369,35 @@ text back.
 7
 ```
 
+## Macro hooks
+
+What only the compiler knows, given to a macro body while a call is
+expanded (lib/System.xtlm uses them; docs/literate/macros.org shows
+macros). Anywhere else a hook is an error.
+
+### `[]R_EJECT`
+
+`Char -> Char -> Char`, two arguments.
+
+Fail the macro call being expanded: the left text is a code and where
+to report it (call, left or right), the right text the message.
+
+```
+      "bad-macro-argument right" []R_EJECT "no"
+error[hook-outside-macro]: []R_EJECT is a macro hook: it works only in a macro body, while a call is expanded
+```
+
+### `[]S_TATEMENT`
+
+`Truthy a => Unit -> a`, one argument.
+
+Whether the call being expanded stands as a statement of its own.
+
+```
+      []S_TATEMENT @
+error[hook-outside-macro]: []S_TATEMENT is a macro hook: it works only in a macro body, while a call is expanded
+```
+
 ## Graphics
 
 A program computes what to draw as an array. Drawing is pure: the

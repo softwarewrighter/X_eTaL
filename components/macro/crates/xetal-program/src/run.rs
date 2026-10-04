@@ -1,11 +1,12 @@
-//! Running a macro (MC10): the macro phase hands over the macro
-//! library's program with the call appended; it is lowered, checked
-//! (the call must give text) and run, and what the call prints is the
-//! macro's text. The macro phase cannot depend on the evaluator, so
-//! every loader here wraps its libraries in [`Running`].
+//! Running a macro (MC10, MC18-MC22): the macro phase hands over the
+//! macro library's program and the call; the call is appended, the
+//! whole is lowered, checked (the call must give text) and run with the
+//! hooks told about the call, and what the call prints is the macro's
+//! text. The macro phase cannot depend on the evaluator, so every
+//! loader here wraps its libraries in [`Running`].
 
 use xetal_base::Diagnostic;
-use xetal_macro::{Found, Libraries, Pair};
+use xetal_macro::{Found, Libraries, MacroRun, Pair};
 use xetal_sources::Sources;
 
 use crate::load::located;
@@ -22,23 +23,72 @@ impl Libraries for Running<'_> {
         self.0.find_both(spec, from)
     }
 
-    fn run_macro(&self, program: &Sources) -> Result<String, Diagnostic> {
-        run(program)
+    fn run_macro(&self, library: &Sources, call: &MacroRun) -> Result<String, Diagnostic> {
+        let now = xetal_system::Expanding {
+            statement: call.statement,
+        };
+        xetal_system::expanding(now, || run(library, call)).map_err(|d| failed(d, call))
     }
 }
 
-/// The text the last statement of `sources` gives.
-fn run(sources: &Sources) -> Result<String, Diagnostic> {
-    let at = |d| located(sources, d);
+/// The text the call gives, appended to `library`.
+fn run(library: &Sources, call: &MacroRun) -> Result<String, Diagnostic> {
+    let mut sources = library.clone();
+    let index = sources.add(&format!("the call of {}", call.written), &call.line);
+    sources.copy(index, 0..call.line.len());
+    let at = |d| located(&sources, d);
     let mut program = xetal_core::lower(sources.combined()).map_err(at)?;
-    let types = xetal_types::check_program(&mut program).map_err(at)?;
+    let types = match xetal_types::check_program(&mut program) {
+        Ok(types) => types,
+        Err(d) => return Err(sides(library, call).unwrap_or_else(|| at(d))),
+    };
     if let Some(other) = types.last().filter(|t| *t != "Char") {
-        let message = format!("it gives {other}, not text (a macro is (String, String) -> String)");
+        let message = format!("it gives {other}, not text (a macro gives text)");
         return Err(Diagnostic::new("macro-not-text", message));
     }
     let mut out = Vec::new();
     let (_, result) = xetal_eval::eval_program(&program, &mut out, Some(0));
-    result.map_err(at)?;
+    result.map_err(|d| match rejected(&d) {
+        true => Diagnostic { span: None, ..d },
+        false => at(d),
+    })?;
     let text = String::from_utf8_lossy(&out);
     Ok(text.strip_suffix('\n').unwrap_or(&text).to_string())
+}
+
+/// A call whose sides do not match what the macro takes (MC22): text
+/// where it takes `@` (a Unit parameter), or `@` where it takes text.
+fn sides(library: &Sources, call: &MacroRun) -> Option<Diagnostic> {
+    let mut program = xetal_core::lower(library.combined()).ok()?;
+    let types = xetal_types::check_program(&mut program).ok()?;
+    let prefix = format!("{} : ", call.hidden);
+    let ty = types.iter().find_map(|t| t.strip_prefix(&prefix))?;
+    let params: Vec<&str> = ty.rsplit("=> ").next()?.split(" -> ").collect();
+    let names = [("left", call.texts.0), ("right", call.texts.1)];
+    let (place, text) = names
+        .iter()
+        .zip(params)
+        .find(|((_, text), param)| (*param == "Unit") == *text)
+        .map(|(side, _)| *side)?;
+    let message = match text {
+        true => format!("{} takes @ on its {place}, not text", call.written),
+        false => format!("{} takes text on its {place}, not @", call.written),
+    };
+    let d = Diagnostic::new("bad-macro-argument", message);
+    Some(d.with_note(format!("macro-place: {place}")))
+}
+
+/// A macro's own rejection of its call (`[]R_EJECT`), placed by a note.
+fn rejected(d: &Diagnostic) -> bool {
+    d.notes.iter().any(|n| n.starts_with("macro-place: "))
+}
+
+/// `d` as reported at the call: a rejection as the macro wrote it, any
+/// other failure named after the macro.
+fn failed(d: Diagnostic, call: &MacroRun) -> Diagnostic {
+    if rejected(&d) {
+        return d;
+    }
+    let message = format!("the macro {} failed: {}", call.written, d.message);
+    Diagnostic::new(&d.code, message)
 }

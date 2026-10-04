@@ -1,7 +1,7 @@
 command = """
 ./target/debug/xetal expand -e '"x:" u_se< "Macros"
 n := 4
-"n = 0" x:u_nless< "p_rint! 100 / n"
+"n != 0" x:w_hen< "p_rint! 100 / n"
 "s_quare" x:d_ef< "_r * _r"
 u:s_quare 7
 "4 = 2 + 2" x:c_heck< "addition"

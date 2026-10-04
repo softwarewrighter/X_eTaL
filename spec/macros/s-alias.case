@@ -1,0 +1,7 @@
+# s: is the system macro library's placeholder only inside
+# lib/System.xtlm (MC18); elsewhere it is an ordinary alias.
+== SOURCE
+"s:" u_se< "Stats"
+s:m_ean 1 2 3
+== RESULT
+2.0

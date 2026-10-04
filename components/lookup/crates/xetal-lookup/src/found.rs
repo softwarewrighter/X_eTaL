@@ -28,17 +28,32 @@ pub trait Libraries {
         (self.find(spec, from), None)
     }
 
-    /// Run a macro: `program` is its macro library, loaded, with the
-    /// call appended as its last statement; the result is the text that
-    /// statement gives. Running needs the evaluator, which the macro
+    /// Run a macro: `library` is its macro library, loaded; `call.line`
+    /// is the call to append to it as its last statement, and the
+    /// result is the text that statement gives. Running needs the evaluator, which the macro
     /// phase cannot depend on, so a caller that can run (the program
     /// loader) provides it; by default macros cannot run.
-    fn run_macro(&self, _program: &Sources) -> Result<String, Diagnostic> {
+    fn run_macro(&self, _library: &Sources, _call: &MacroRun) -> Result<String, Diagnostic> {
         Err(Diagnostic::new(
             "macro-not-run",
             "macro libraries cannot run here",
         ))
     }
+}
+
+/// A macro call handed to [`Libraries::run_macro`].
+#[derive(Debug, Clone)]
+pub struct MacroRun {
+    /// The macro in the program: its hidden name (`LA:i_f<`).
+    pub hidden: String,
+    /// The macro as the call writes it (`i_f<`, `x:n_ame<`).
+    pub written: String,
+    /// The call stands as a statement of its own.
+    pub statement: bool,
+    /// Each side is text (else `@`, no argument, MC22).
+    pub texts: (bool, bool),
+    /// The call as a statement: `"left" LA:i_f< "right"`.
+    pub line: String,
 }
 
 /// What a library string names (MC4, MC11).

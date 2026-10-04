@@ -1,10 +1,10 @@
 command = """
 ./target/debug/xetal eval -e '"x:" u_se< "Macros"
 n := 4
-"n = 0" x:u_nless< "p_rint! 100 / n"
+"n != 0" x:w_hen< "p_rint! 100 / n"
 "s_quare" x:d_ef< "_r * _r"
 u:s_quare 7
 "4 = 2 + 2" x:c_heck< "addition"
 "5 = 2 * 2" x:c_heck< "doubling"'"""
 exit_code = 0
-desc = "macros of a macro library run when the program is expanded: u_nless<, d_ef< (defines u:s_quare), c_heck< (shows the condition as written)"
+desc = "macros of a macro library run when the program is expanded: w_hen<, d_ef< (defines u:s_quare), c_heck< (shows the condition as written)"

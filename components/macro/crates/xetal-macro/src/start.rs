@@ -32,6 +32,7 @@ pub fn expand_library(
 /// expand` shows). Its macro libraries are loaded and run.
 pub fn expansion(name: &str, text: &str, libs: &dyn Libraries) -> Result<String, Box<MacroError>> {
     let mut loader = loader(libs, false);
+    loader.load_system()?;
     loader.expansion = Some(None);
     loader.load(&main(name, text), true)?;
     Ok(loader.expansion.flatten().unwrap_or_default())
@@ -44,6 +45,7 @@ fn start(
     library: bool,
 ) -> Result<Sources, Box<MacroError>> {
     let mut loader = loader(libs, library);
+    loader.load_system()?;
     loader.load(&main(name, text), true)?;
     Ok(loader.sources)
 }
@@ -57,6 +59,7 @@ fn loader(libs: &dyn Libraries, library: bool) -> Loader<'_> {
         chain: Vec::new(),
         library,
         expansion: None,
+        system: None,
     }
 }
 

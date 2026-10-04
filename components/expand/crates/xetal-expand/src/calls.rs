@@ -1,21 +1,22 @@
-//! Finding the macro calls in a text: `"left" n_ame< "right"`, each
-//! known, written with a string on each side, and standing either as
-//! a statement of its own or inside an expression (MC12).
+//! Finding the macro calls in a text: `"left" n_ame< "right"`, a string
+//! or `@` (no argument, MC22) on each side, standing either as a
+//! statement of its own or inside an expression (MC12).
 
 use xetal_base::{Diagnostic, Span};
 use xetal_lex::{Token, TokenKind};
 
-use crate::system::{SYSTEM, known};
-
 /// One macro call.
 #[derive(Debug, Clone)]
 pub(crate) struct Call {
+    /// The macro as written: `i_f<`, `x:n_ame<`.
     pub name: String,
-    /// The macro's name token, the two string tokens and the whole call.
+    /// The macro's name token, the two argument tokens and the whole call.
     pub token: Span,
     pub left: Span,
     pub right: Span,
     pub span: Span,
+    /// Each side is a string (else `@`, no argument).
+    pub texts: (bool, bool),
     /// It is a statement of its own (else part of an expression).
     pub statement: bool,
 }
@@ -48,13 +49,9 @@ pub(crate) fn calls(tokens: &[Token]) -> Result<Vec<Call>, Diagnostic> {
 /// The call whose macro is token `i`.
 fn call(tokens: &[Token], i: usize, name: String, braced: bool) -> Result<Call, Diagnostic> {
     let token = tokens[i].span;
-    if !name.contains(':') && !known(&name) {
-        let message = format!("there is no macro {name}; the system macros are {SYSTEM}");
-        return Err(Diagnostic::new("unknown-macro", message).with_span(token));
-    }
     let kind = |k: Option<usize>| k.and_then(|k| tokens.get(k)).map(|t| &t.kind);
     let (before, after) = (kind(i.checked_sub(2)), kind(Some(i + 2)));
-    shape(
+    let texts = shape(
         &name,
         [before, kind(i.checked_sub(1)), kind(Some(i + 1)), after],
     )
@@ -66,25 +63,28 @@ fn call(tokens: &[Token], i: usize, name: String, braced: bool) -> Result<Call, 
         left,
         right,
         span: Span::new(left.start, right.end),
+        texts,
         statement: braced && starts(before) && ends(after),
     })
 }
 
 /// The tokens around a call (two before, two after the macro) must be
-/// one string on each side and no more strings or calls beyond them.
-fn shape(name: &str, around: [Option<&TokenKind>; 4]) -> Result<(), String> {
+/// one argument on each side (a string, or `@` for none) and no more
+/// strings or calls beyond them. Which sides are strings.
+fn shape(name: &str, around: [Option<&TokenKind>; 4]) -> Result<(bool, bool), String> {
     let [before, left, right, after] = around;
-    let strings = matches!(
-        (left, right),
-        (Some(TokenKind::Str(_)), Some(TokenKind::Str(_)))
-    );
+    let side = |k: Option<&TokenKind>| match k {
+        Some(TokenKind::Str(_)) => Some(true),
+        Some(TokenKind::Unit) => Some(false),
+        _ => None,
+    };
     let more = matches!(before, Some(TokenKind::Str(_)))
         || matches!(after, Some(TokenKind::Str(_)))
         || matches!(after, Some(TokenKind::Func(f)) if f.is_macro());
-    match strings && !more {
-        true => Ok(()),
-        false => Err(format!(
-            "{name} takes one string on each side: \"left\" {name} \"right\""
+    match (side(left), side(right), more) {
+        (Some(l), Some(r), false) => Ok((l, r)),
+        _ => Err(format!(
+            "{name} takes a string, or @ for none, on each side: \"left\" {name} \"right\""
         )),
     }
 }

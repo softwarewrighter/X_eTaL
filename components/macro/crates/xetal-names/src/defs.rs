@@ -91,8 +91,8 @@ impl Defs {
 /// a macro library, and every `m:` export there is one (MC10).
 fn marks(first: &Token, ns: Option<&str>, cx: &Context) -> Result<(), Diagnostic> {
     let is_macro = matches!(&first.kind, TokenKind::Func(f) if f.is_macro());
-    let in_macros = cx.library.is_some() && cx.own == "m";
-    let export = in_macros && ns == Some("m");
+    let in_macros = cx.library.is_some() && matches!(cx.own, "m" | "s");
+    let export = in_macros && ns == Some(cx.own);
     let message = match (is_macro, export, in_macros) {
         (false, true, _) => NO_MARK,
         (true, false, true) => MARK_UNEXPORTED,

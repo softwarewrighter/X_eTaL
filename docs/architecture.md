@@ -7,8 +7,9 @@ raw ASCII source
     |  xetal-lex        tokens + spans (decoration -> token class)
     v
 tokens
-    |  (macro phase)    system macros expanded (xetal-expand); u_se<
-    |                   libraries, per-file namespaces
+    |  (macro phase)    macro calls expanded (xetal-expand; the system
+    |                   macros from lib/System.xtlm); u_se< libraries,
+    |                   per-file namespaces
     v
 tokens
     |  xetal-syntax     deterministic parse: 0 or 1 tree; boundary
@@ -53,8 +54,8 @@ components/
                            memory, or a store the host installs)
   expand/                  xetal-mapped (a text with a map back to
                            where each byte was written), xetal-expand
-                           (the system macros i_f<, u_nless<, e_ach<
-                           expanded, to a depth limit)
+                           (macro calls found and replaced by what
+                           their macros give, to a depth limit)
   lookup/                  xetal-lookup (where libraries and macro
                            libraries come from: disk, the store,
                            built in; found together, MC11)

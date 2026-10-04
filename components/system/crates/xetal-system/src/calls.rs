@@ -14,6 +14,9 @@ pub fn call<'a>(
     span: Span,
 ) -> Option<Result<Value<'a>, Diagnostic>> {
     let at = |d: Diagnostic| d.with_span(span);
+    if let Some(result) = crate::hooks::hook(name, args) {
+        return Some(result.map_err(at));
+    }
     Some(match (name, args) {
         ("f_ormat", [v]) => Ok(format(v)),
         ("n_umbers", [t]) => numbers(t).map_err(at),

@@ -66,6 +66,11 @@ impl Sources {
         }
     }
 
+    /// The name file `file` is reported by.
+    pub fn name(&self, file: usize) -> &str {
+        self.files.get(file).map_or("", |f| f.name.as_str())
+    }
+
     /// How many files the program was made from.
     pub fn file_count(&self) -> usize {
         self.files.len()

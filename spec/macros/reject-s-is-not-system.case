@@ -1,0 +1,7 @@
+# A system macro is called unprefixed; s:i_f< is i_f< under whatever
+# s: names, here a library without macros (MC18, MC19).
+== SOURCE
+"s:" u_se< "Stats"
+"a" s:i_f< "1; 2"
+== ERROR
+error[unknown-macro]: there is no macro s:i_f<: no macro library is imported as s: ("s:" u_se< "Name" finds Name.xtlm) at 23..29

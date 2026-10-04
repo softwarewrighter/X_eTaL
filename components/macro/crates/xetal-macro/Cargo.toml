@@ -13,6 +13,7 @@ xetal-lex.workspace = true
 xetal-expand.workspace = true
 xetal-sources.workspace = true
 xetal-lookup.workspace = true
+xetal-libs.workspace = true
 xetal-mapped.workspace = true
 xetal-names.workspace = true
 

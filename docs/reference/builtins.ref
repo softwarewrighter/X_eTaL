@@ -568,6 +568,20 @@ Write a line to standard error (red in the live demo), and give the
 text back.
 > t_ally []E_RR "careful"
 
+== SECTION Macro hooks
+What only the compiler knows, given to a macro body while a call is
+expanded (lib/System.xtlm uses them; docs/literate/macros.org shows
+macros). Anywhere else a hook is an error.
+
+== []R_EJECT
+Fail the macro call being expanded: the left text is a code and where
+to report it (call, left or right), the right text the message.
+!> "bad-macro-argument right" []R_EJECT "no"
+
+== []S_TATEMENT
+Whether the call being expanded stands as a statement of its own.
+!> []S_TATEMENT @
+
 == SECTION Graphics
 A program computes what to draw as an array. Drawing is pure: the
 picture comes back as text, an SVG document. Showing it is the effect.

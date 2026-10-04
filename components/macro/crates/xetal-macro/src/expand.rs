@@ -13,7 +13,8 @@ use xetal_sources::Sources;
 
 use crate::MacroError;
 use crate::emit::{emit, hidden};
-use crate::macros::{MacroAliases, MacroLib, Table};
+use crate::macros::{MacroAliases, MacroLib, SYSTEM_KEY};
+use crate::table::Table;
 
 /// Per alias letters: the named library's hidden namespace and exports.
 pub(crate) type Aliases = HashMap<String, (String, Vec<String>)>;
@@ -34,6 +35,8 @@ pub(crate) struct Loader<'l> {
     pub(crate) library: bool,
     /// Stop after expanding the main file, keeping its text here.
     pub(crate) expansion: Option<Option<String>>,
+    /// The system macros (MC19), once loaded.
+    pub(crate) system: Option<Rc<MacroLib>>,
 }
 
 impl Loader<'_> {
@@ -53,6 +56,7 @@ impl Loader<'_> {
         self.chain.pop();
         let table = Table {
             macros: &macros,
+            system: self.system.as_deref(),
             libs: self.libs,
         };
         let expanded = xetal_expand::expand_with(&file.text, &table).map_err(error)?;
@@ -82,11 +86,7 @@ impl Loader<'_> {
         }
         // Named after its imports are loaded, so they take earlier names.
         let own = (!main || self.library).then(|| hidden(self.loaded.len()));
-        let letter = if file.name.ends_with(".xtlm") {
-            "m"
-        } else {
-            "l"
-        };
+        let letter = letter(file);
         let spans: Vec<_> = found.iter().map(|i| i.span).collect();
         let cx = Context {
             library: own.as_ref().map(|(h, p)| (h.as_str(), p.as_str())),
@@ -129,10 +129,24 @@ impl Loader<'_> {
                 aliases.insert(letters.clone(), self.loaded[&lib.key].clone());
             }
             if let Some(xtlm) = xtlm {
-                macros.insert(letters, self.macro_library(&xtlm)?);
+                let lib = self.macro_library(&xtlm)?;
+                self.not_system(&lib, import).map_err(error)?;
+                macros.insert(letters, lib);
             }
         }
         Ok((aliases, macros))
+    }
+}
+
+/// The letter a file writes its own exports with: `s` in the system
+/// macro library, `m` in a macro library, `l` in a library.
+fn letter(file: &Found) -> &'static str {
+    let system =
+        file.key == SYSTEM_KEY || file.name.ends_with("/System.xtlm") || file.name == "System.xtlm";
+    match (system, file.name.ends_with(".xtlm")) {
+        (true, _) => "s",
+        (false, true) => "m",
+        (false, false) => "l",
     }
 }
 
