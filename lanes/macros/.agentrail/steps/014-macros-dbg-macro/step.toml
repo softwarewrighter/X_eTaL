@@ -1,8 +1,9 @@
 number = 14
 slug = "macros-dbg-macro"
-status = "pending"
+status = "completed"
 description = "d_bg< (Rust's dbg!, MC24 general-purpose system macro): prints [file:line] ex..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T21:13:12"
-commits = []
+completed_at = "2026-10-04T11:41:38"
+commits = ["0d8479112aba00575176f20bf4cddc53f6c8d916"]

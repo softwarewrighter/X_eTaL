@@ -1,0 +1,6 @@
+command = """
+./target/debug/xetal eval -e 'x := 6
+y := 1 + @ d_bg< "x * 2"
+y' 2>&1"""
+exit_code = 0
+desc = "d_bg< writes [file:line] expr = value to standard error and gives the value"
