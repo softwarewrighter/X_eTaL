@@ -1,8 +1,9 @@
 number = 13
 slug = "macros-macro-error"
-status = "pending"
+status = "completed"
 description = "e_rror< (Rust's compile_error!, ask X13): a macro reports a bad call as a com..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T21:13:12"
-commits = []
+completed_at = "2026-10-04T10:26:06"
+commits = ["055dd5af802dae585706b2d3d535bbd28e8db1ba"]
