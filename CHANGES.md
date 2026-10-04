@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-04
+
+- 10:24 `build` Merged PR #47 (macros lane step 8: the system macros written in X_eTaL in lib/System.xtlm, the hooks []R_EJECT and []S_TATEMENT, @ for an unused side); pages/ rebuilt.
+
 ## 2026-10-03
 
 - 21:50 `feat` System macros written in X_eTaL (macros lane step 8): `lib/System.xtlm`, built in and loaded before every file, defines `i_f<`, `u_nless<` and `e_ach<` under `s:` (MC18, MC19); the Rust generators are gone; hooks `[]R_EJECT` and `[]S_TATEMENT` (MC20); `@` for a side with no argument, checked against the macro's parameter types (MC22); a macro library may not define a system macro, so the example's `m:u_nless<` is now `m:w_hen<`; `s:` stays an ordinary alias outside System.xtlm. Every expansion and spec result unchanged (two call-shape messages now mention `@`). Decisions MC18-MC20, MC22, MC24 recorded, MC21 proposed; D65.

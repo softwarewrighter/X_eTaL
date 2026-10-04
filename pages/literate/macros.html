@@ -179,9 +179,9 @@ that gives the text replacing the call. The standard library <code>Macros</code>
 <span class="c-comment">⍝   &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span>
 <span class="c-comment">⍝ and see what a program becomes with </span>xetal expand FILE<span class="c-comment">.</span>
 
-<span class="c-comment">⍝ &quot;c&quot; x:u_nless&lt; &quot;b&quot;: run the statements b unless c holds (the value</span>
-<span class="c-comment">⍝ is @), as the system macro u_nless&lt; does.</span>
-<span class="c-macro">ᵐu̲nless&lt;</span> ← { cond body → <span class="c-string">&quot;{ @ -&gt; (&quot;</span> <span class="c-builtin">c̲at</span> cond <span class="c-builtin">c̲at</span> <span class="c-string">&quot;) ? @; &quot;</span> <span class="c-builtin">c̲at</span> body <span class="c-builtin">c̲at</span> <span class="c-string">&quot;; @ } @&quot;</span> }
+<span class="c-comment">⍝ &quot;c&quot; x:w_hen&lt; &quot;b&quot;: run the statements b when c holds (the value is</span>
+<span class="c-comment">⍝ @), the other way round from the system macro u_nless&lt;.</span>
+<span class="c-macro">ᵐw̲hen&lt;</span> ← { cond body → <span class="c-string">&quot;{ @ -&gt; (n_ot &quot;</span> <span class="c-builtin">c̲at</span> cond <span class="c-builtin">c̲at</span> <span class="c-string">&quot;) ? @; &quot;</span> <span class="c-builtin">c̲at</span> body <span class="c-builtin">c̲at</span> <span class="c-string">&quot;; @ } @&quot;</span> }
 
 <span class="c-comment">⍝ &quot;s_quare&quot; x:d_ef&lt; &quot;_r * _r&quot;: define the function u:s_quare as</span>
 <span class="c-comment">⍝ { _r * _r }, its name written as text.</span>
@@ -193,7 +193,7 @@ that gives the text replacing the call. The standard library <code>Macros</code>
 <span class="c-macro">ᵐc̲heck&lt;</span> ← { cond label → <span class="c-string">&quot;{ @ -&gt; (&quot;</span> <span class="c-builtin">c̲at</span> cond <span class="c-builtin">c̲at</span> <span class="c-string">&quot;) ? \&quot;ok: &quot;</span> <span class="c-builtin">c̲at</span> label <span class="c-builtin">c̲at</span> <span class="c-string">&quot;\&quot;; \&quot;FAIL: &quot;</span> <span class="c-builtin">c̲at</span> label <span class="c-builtin">c̲at</span> <span class="c-string">&quot; (&quot;</span> <span class="c-builtin">c̲at</span> cond <span class="c-builtin">c̲at</span> <span class="c-string">&quot;)\&quot; } @&quot;</span> }
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   m:u_nless&lt; := { cond body -&gt; "{ @ -&gt; (" c_at cond c_at ") ? @; " c_at body c_at "; @ } @" }</span>
+<span class="c-comment typed">⍝   m:w_hen&lt; := { cond body -&gt; "{ @ -&gt; (n_ot " c_at cond c_at ") ? @; " c_at body c_at "; @ } @" }</span>
 <span class="c-comment typed">⍝   m:d_ef&lt; := { name body -&gt; "u:" c_at name c_at " := { " c_at body c_at " }" }</span>
 <span class="c-comment typed">⍝   m:c_heck&lt; := { cond label -&gt; "{ @ -&gt; (" c_at cond c_at ") ? \"ok: " c_at label c_at "\"; \"FAIL: " c_at label c_at " (" c_at cond c_at ")\" } @" }</span></pre>
 </div>
@@ -246,12 +246,12 @@ expansion stops with an error when macros nest more than 32 deep.
 <h2 id="org5b4c39d">Mistakes it catches</h2>
 <div class="outline-text-2" id="text-org5b4c39d">
 <p>
-A macro takes one string on each side:
+A macro takes a string, or @ for none, on each side:
 </p>
 
 <pre class="example" id="org422f2a5">
 x i_f&lt; "1; 2"
-error[bad-macro-call]: i_f&lt; takes one string on each side: "left" i_f&lt; "right"
+error[bad-macro-call]: i_f&lt; takes a string, or @ for none, on each side: "left" i_f&lt; "right"
 </pre>
 
 <p>
@@ -262,7 +262,7 @@ does:
 <pre class="example" id="org31e5329">
 "x:" u_se&lt; "Macros"
 "a" x:n_ope&lt; "b"
-error[not-exported]: x:n_ope&lt; is not defined by that macro library; it defines u_nless&lt;, d_ef&lt;, c_heck&lt;
+error[not-exported]: x:n_ope&lt; is not defined by that macro library; it defines w_hen&lt;, d_ef&lt;, c_heck&lt;
 </pre>
 
 <p>

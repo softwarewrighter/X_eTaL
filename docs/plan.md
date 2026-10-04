@@ -688,6 +688,15 @@ new feature sagas before the launch). Must before it, in this order
    is fixed upstream (the asks ledger says how to use it).
 3. The terminal's close-out (retrofit, release), so the games drop
    their replay workaround.
+
+Moved before the launch (the user, 2026-10-04, when the launch moved
+about a week out: features that make X_eTaL easier to use and
+understand): readable type errors (Saga 27), `xetal doc` (Saga 32, a
+rustdoc-style cross-reference), and the learn X_eTaL course (Saga 28),
+in that order; the macros lane's Rust-like system macros (System.xtlm,
+`i_nclude<`, `c_fg<`, `f_ile<`/`l_ine<`, `e_rror<`, `d_bg<`,
+`a_ssert<`, `f_ormat<`, `p_anic<`) become a launch goal.
+
 4. The front door: the core Pages site's landing page (TRY IT; LEARN,
    WATCH, ML, PLAY; EXTEND: libraries, macros, native extensions).
 5. A concise beginner path (the full course follows the launch).
@@ -937,6 +946,29 @@ something, a short note keeps both (as `docs/literate/duck.org` does).
 
 From then on, every saga that adds a feature ends with a retrofit step
 for that feature (cross-cutting, below).
+
+## Saga 32 -- xetal doc (a cross-reference, before the launch)
+
+The user's idea (2026-10-04): a generator, like rustdoc or JavaDoc,
+that takes a program, expands every macro, follows its `.xtl` and
+`.xtlm` imports into the libraries and `System.xtlm`, and builds an
+indexed, searchable site, so a reader can follow a non-trivial program
+down into all the X_eTaL beneath it in small, commented pieces. It
+lives in this repository, as rustdoc ships with rustc: it needs the
+expansion map, library lookup, inferred types, spans and the
+decorated renderer, all internal and still changing.
+
+1. doc-model: what a doc comment is (a decision with the user), and
+   `xetal doc FILE --json`: every item (name, kind, inferred type, doc
+   comment, source, expansion, place, uses).
+2. doc-site: `xetal doc FILE --out DIR`, a static site in rustdoc's
+   style, source drawn decorated, every name linked.
+3. doc-macros: each macro call expands in place, linking into its
+   definition (`.xtlm`, `System.xtlm`), nested to their depth.
+4. doc-search: by name and by type (Hoogle-like), over the program,
+   its libraries and the built-ins.
+5. doc-release: `just doc` builds pages/doc for lib/ and two showcase
+   programs, linked from the README, Help and the front door.
 
 ## Saga 28 -- learn X_eTaL (a self-paced course, REPL and browser)
 
