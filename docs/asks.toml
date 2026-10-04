@@ -123,15 +123,18 @@ works = "1 1"
 id = "M1"
 repo = "X_eTaL-ML"
 ask = "`.xtlm` macro libraries (the same as X1)"
-state = "planned"
-here = "Saga 19, macros (decisions MC10-MC13)"
+state = "landed"
+here = "the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC18); the example `lib/Macros.xtlm`"
+repro = "\"x:\" u_se< \"Macros\"\n\"4 = 2 + 2\" x:c_heck< \"addition\""
+works = "ok: addition"
 
 [[ask]]
 id = "M2"
 repo = "X_eTaL-ML"
 ask = "`xetal expand FILE`: the source after macro expansion (the same as X2)"
-state = "planned"
-here = "Saga 19, its expand-tool step"
+state = "landed"
+here = "`xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61)"
+golden = "macros-user-expand"
 
 [[ask]]
 id = "M3"
@@ -231,15 +234,18 @@ works = "error[library-name-in-program]"
 id = "X1"
 repo = "X_eTaL-libraries"
 ask = "`.xtlm` macro libraries: user-defined macros imported with `u_se<`"
-state = "planned"
-here = "Saga 19, macros (decisions MC10-MC13)"
+state = "landed"
+here = "the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC18); the example `lib/Macros.xtlm`"
+repro = "\"x:\" u_se< \"Macros\"\n\"4 = 2 + 2\" x:c_heck< \"addition\""
+works = "ok: addition"
 
 [[ask]]
 id = "X2"
 repo = "X_eTaL-libraries"
 ask = "seeing the source after macro expansion, with a bounded expansion depth"
-state = "planned"
-here = "Saga 19, its expand-tool step"
+state = "landed"
+here = "`xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61)"
+golden = "macros-user-expand"
 
 [[ask]]
 id = "X3"
@@ -316,8 +322,10 @@ here = "Saga 23, host bindings and native packages (may start from this repo's A
 id = "E2"
 repo = "X_eTaL-extensions"
 ask = "`.xtlm` macro libraries (the same as X1)"
-state = "planned"
-here = "Saga 19, macros"
+state = "landed"
+here = "the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC18); the example `lib/Macros.xtlm`"
+repro = "\"x:\" u_se< \"Macros\"\n\"4 = 2 + 2\" x:c_heck< \"addition\""
+works = "ok: addition"
 
 [[ask]]
 id = "E3"

@@ -1,0 +1,1 @@
+MC11 lookup: Name.xtl and Name.xtlm found together (components/lookup), explicit paths, store, standard MACROS; not-found names both. Committed with steps 3-4 in deb8705 (one PR, pr/macros-xtlm).

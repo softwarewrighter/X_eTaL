@@ -5,7 +5,9 @@ use std::collections::HashMap;
 use xetal_sources::Sources;
 
 use crate::MacroError;
-use crate::expand::{Found, Libraries, Loader};
+use xetal_lookup::{Found, Libraries};
+
+use crate::expand::Loader;
 
 /// The program `text` (reported as `name`) with its libraries, each
 /// loaded once, placed before the files that use it, its names in its
@@ -27,20 +29,12 @@ pub fn expand_library(
 
 /// The program `text` (reported as `name`) after macro expansion, as
 /// written otherwise: imports and names stay as they are (what `xetal
-/// expand` shows).
-pub fn expansion(name: &str, text: &str, _libs: &dyn Libraries) -> Result<String, Box<MacroError>> {
-    let error = |diagnostic| {
-        Box::new(MacroError {
-            diagnostic,
-            file: name.into(),
-            text: text.into(),
-            main: true,
-        })
-    };
-    Ok(xetal_expand::expand(text)
-        .map_err(error)?
-        .text()
-        .to_string())
+/// expand` shows). Its macro libraries are loaded and run.
+pub fn expansion(name: &str, text: &str, libs: &dyn Libraries) -> Result<String, Box<MacroError>> {
+    let mut loader = loader(libs, false);
+    loader.expansion = Some(None);
+    loader.load(&main(name, text), true)?;
+    Ok(loader.expansion.flatten().unwrap_or_default())
 }
 
 fn start(
@@ -49,18 +43,28 @@ fn start(
     libs: &dyn Libraries,
     library: bool,
 ) -> Result<Sources, Box<MacroError>> {
-    let mut loader = Loader {
+    let mut loader = loader(libs, library);
+    loader.load(&main(name, text), true)?;
+    Ok(loader.sources)
+}
+
+fn loader(libs: &dyn Libraries, library: bool) -> Loader<'_> {
+    Loader {
         libs,
         sources: Sources::default(),
         loaded: HashMap::new(),
+        macros: HashMap::new(),
         chain: Vec::new(),
         library,
-    };
-    let main = Found {
+        expansion: None,
+    }
+}
+
+/// The main file (its key cannot be a library's).
+fn main(name: &str, text: &str) -> Found {
+    Found {
         key: format!("\u{0}{name}"),
         name: name.into(),
         text: text.into(),
-    };
-    loader.load(&main, true)?;
-    Ok(loader.sources)
+    }
 }

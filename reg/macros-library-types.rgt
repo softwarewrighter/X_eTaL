@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type lib/Macros.xtlm"
+exit_code = 0
+desc = "xetal type on a macro library lists its macros, each (String, String) -> String"

@@ -1,0 +1,12 @@
+# A macro of your own called inside an expression: its text is
+# parenthesized (MC12).
+== SOURCE
+"x:" u_se< "Macros"
+r := "4 = 2 + 2" x:c_heck< "addition"
+r
+== EXPAND
+"x:" u_se< "Macros"
+r := ({ @ -> (4 = 2 + 2) ? "ok: addition"; "FAIL: addition (4 = 2 + 2)" } @)
+r
+== RESULT
+ok: addition

@@ -30,3 +30,11 @@ pub(crate) const L_IN_PROGRAM: &str =
     "l: names exist only inside a library; import it with an alias";
 pub(crate) const U_IN_LIBRARY: &str =
     "a library defines l: (exported) or unprefixed (private) names, not u:";
+pub(crate) const L_IN_MACROS: &str =
+    "a macro library (.xtlm) defines m: macros (m:n_ame< := ...), not l: names";
+pub(crate) const NO_MARK: &str =
+    "an m: export is a macro: its name ends in < (m:n_ame< := { left right -> ... })";
+pub(crate) const MARK_UNEXPORTED: &str =
+    "a macro is exported: write it m:n_ame< in a macro library (.xtlm)";
+pub(crate) const MARK_OUTSIDE: &str =
+    "macros are defined in macro libraries (.xtlm files), as m:n_ame<";

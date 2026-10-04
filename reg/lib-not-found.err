@@ -1,1 +1,1 @@
-error[library-not-found]: no library "Statz" (looked in the current directory, in userlibs/, in XETAL_PATH and among the standard libraries) at 0..18
+error[library-not-found]: no library "Statz" (looked for Statz.xtl and Statz.xtlm in the current directory, in userlibs/, in XETAL_PATH and among the standard libraries) at 0..18

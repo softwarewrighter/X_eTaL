@@ -20,7 +20,8 @@ pub(crate) struct Call {
     pub statement: bool,
 }
 
-/// The calls among `tokens`, in order (`u_se<` is left for the imports).
+/// The calls among `tokens`, in order (`u_se<` is left for the imports,
+/// and a macro being defined, `m:n_ame< := ...`, for the names phase).
 pub(crate) fn calls(tokens: &[Token]) -> Result<Vec<Call>, Diagnostic> {
     let (mut found, mut open) = (Vec::new(), Vec::new());
     for (i, t) in tokens.iter().enumerate() {
@@ -32,7 +33,8 @@ pub(crate) fn calls(tokens: &[Token]) -> Result<Vec<Call>, Diagnostic> {
                     Some(ns) => format!("{ns}:{}", f.spelled()),
                     None => f.spelled(),
                 };
-                if name != "u_se<" {
+                let defines = matches!(tokens.get(i + 1).map(|t| &t.kind), Some(TokenKind::Assign));
+                if name != "u_se<" && !defines {
                     let braced = matches!(open.last(), None | Some(TokenKind::LBrace));
                     found.push(call(tokens, i, name, braced)?);
                 }
@@ -46,7 +48,7 @@ pub(crate) fn calls(tokens: &[Token]) -> Result<Vec<Call>, Diagnostic> {
 /// The call whose macro is token `i`.
 fn call(tokens: &[Token], i: usize, name: String, braced: bool) -> Result<Call, Diagnostic> {
     let token = tokens[i].span;
-    if !known(&name) {
+    if !name.contains(':') && !known(&name) {
         let message = format!("there is no macro {name}; the system macros are {SYSTEM}");
         return Err(Diagnostic::new("unknown-macro", message).with_span(token));
     }

@@ -15,11 +15,12 @@ pub fn program_types(lines: Vec<String>) -> Vec<String> {
 }
 
 /// The type lines of a library checked on its own (file 0 of
-/// `sources`): its exports only, written `l:` as in the file.
+/// `sources`): its exports only, written `l:` (or `m:` in a macro
+/// library) as in the file.
 pub fn library_types(sources: &Sources, lines: Vec<String>) -> Vec<String> {
     lines
         .iter()
         .map(|line| sources.as_written(0, line))
-        .filter(|line| line.starts_with("l:"))
+        .filter(|line| line.starts_with("l:") || line.starts_with("m:"))
         .collect()
 }

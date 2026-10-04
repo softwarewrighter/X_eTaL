@@ -1,10 +1,14 @@
-//! Libraries on disk (MC4): a path relative to the importing file, or
-//! a name looked for as `Name.xtl` beside the importing file, then in
-//! userlibs/ (libraries of your own), then in each directory of
-//! XETAL_PATH, then among the standard libraries built into xetal.
+//! Libraries on disk (MC4, MC11): a path relative to the importing
+//! file, or a name looked for as `Name.xtl` and `Name.xtlm` beside the
+//! importing file, then in userlibs/ (libraries of your own), then in
+//! each directory of XETAL_PATH, then among the standard libraries
+//! built into xetal. The first directory holding either file gives
+//! both it holds; files from different directories are never mixed.
 
 use std::path::{Path, PathBuf};
 
+use crate::disk::{read, standard};
+use crate::found::{Pair, Spec, spec};
 use crate::{Found, Libraries};
 
 /// The directory of libraries of your own, on the search path.
@@ -45,48 +49,24 @@ impl FsLibraries {
 
 impl Libraries for FsLibraries {
     fn find(&self, spec: &str, from: &str) -> Option<Found> {
+        self.find_both(spec, from).0
+    }
+
+    fn find_both(&self, name: &str, from: &str) -> Pair {
         let base = Path::new(from)
             .parent()
             .filter(|p| !p.as_os_str().is_empty())
             .unwrap_or(Path::new("."));
-        if spec.contains('/') || spec.ends_with(".xtl") {
-            return read(&base.join(spec));
+        match spec(name) {
+            Spec::Library => return (read(&base.join(name)), None),
+            Spec::Macros => return (None, read(&base.join(name))),
+            Spec::Name => {}
         }
-        let file = format!("{spec}.xtl");
+        let (lib, macros) = (format!("{name}.xtl"), format!("{name}.xtlm"));
         std::iter::once(base)
             .chain(self.search.iter().map(PathBuf::as_path))
-            .find_map(|dir| read(&dir.join(&file)))
-            .or_else(|| standard(spec))
+            .map(|dir| (read(&dir.join(&lib)), read(&dir.join(&macros))))
+            .find(|(l, m)| l.is_some() || m.is_some())
+            .unwrap_or_else(|| standard(name))
     }
-}
-
-/// The file at `path`, if its directory holds an entry of exactly that
-/// name (so `Stats` never finds `stats.xtl` on a case-insensitive disk).
-fn read(path: &Path) -> Option<Found> {
-    let (dir, name) = (path.parent()?, path.file_name()?);
-    let listed = if dir.as_os_str().is_empty() {
-        Path::new(".")
-    } else {
-        dir
-    };
-    std::fs::read_dir(listed)
-        .ok()?
-        .flatten()
-        .find(|e| e.file_name() == name)?;
-    let text = std::fs::read_to_string(path).ok()?;
-    let key = path.canonicalize().unwrap_or_else(|_| path.into());
-    Some(Found {
-        key: key.display().to_string(),
-        name: path.display().to_string(),
-        text,
-    })
-}
-
-pub(crate) fn standard(name: &str) -> Option<Found> {
-    let text = xetal_libs::standard(name)?;
-    Some(Found {
-        key: format!("std:{name}"),
-        name: format!("std/{name}.xtl"),
-        text: text.into(),
-    })
 }

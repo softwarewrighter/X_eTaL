@@ -1,0 +1,10 @@
+command = """
+./target/debug/xetal expand -e '"x:" u_se< "Macros"
+n := 4
+"n = 0" x:u_nless< "p_rint! 100 / n"
+"s_quare" x:d_ef< "_r * _r"
+u:s_quare 7
+"4 = 2 + 2" x:c_heck< "addition"
+"5 = 2 * 2" x:c_heck< "doubling"'"""
+exit_code = 0
+desc = "xetal expand with a macro library of your own (lib/Macros.xtlm): each call replaced by the text its macro gives"

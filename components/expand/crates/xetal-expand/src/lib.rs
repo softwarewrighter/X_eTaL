@@ -9,8 +9,10 @@ mod calls;
 mod each;
 mod expand;
 mod system;
+mod user;
 
 pub use each::WORD;
-pub use expand::{DEPTH, expand};
+pub use expand::{DEPTH, expand, expand_with};
 pub use system::SYSTEM;
+pub use user::{Macros, NoMacros};
 pub use xetal_mapped::{Mapped, Piece};

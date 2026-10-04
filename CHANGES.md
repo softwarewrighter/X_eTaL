@@ -13,6 +13,7 @@ saga planning and reordering, `release` milestone release,
 ## 2026-10-03
 
 - 18:36 `fix` Higher-order built-ins call a first-order built-in operand at once (Saga 30 step 2, D55): `t_able`, `i_nner`, `e_ach` and reduce with `'*`, `'+` and the like no longer go through the machine per call; bench/inner.xtl 8.3 s to 0.86 s, bench/table-right.xtl 0.63 s to 0.39 s; the cost guard's bounds lowered to match.
+- 18:30 `feat` Macro libraries of your own (macros lane steps 2-4): `"x:" u_se< "Name"` finds `Name.xtl` and `Name.xtlm` together (MC11, components/lookup); a `.xtlm` defines `m:n_ame< := { left right -> ... }` (MC10, misdefinitions rejected); `"l" x:n_ame< "r"` runs the macro when the program is expanded and its text replaces the call, as statements or parenthesized by where it stands (MC12), expanded again to the depth limit; `xetal expand` and `xetal type X.xtlm` show them; the standard example `lib/Macros.xtlm` (`u_nless<`, `d_ef<`, `c_heck<`). MC18 proposed, D62, D63; the not-found golden rebased on purpose (it names both files).
 
 - 17:21 `build` Merged PR #41 (macros lane step 1: system macros `i_f<`, `u_nless<`, `e_ach<` and `xetal expand`) and PR #42 (launch-docs lane step 3: the beginner path; the lane archived); pages/ rebuilt (the beginner page, the macros in the live demo) and docs/status.md regenerated.
 

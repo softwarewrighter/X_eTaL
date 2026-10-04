@@ -7,6 +7,7 @@ use xetal_mapped::Mapped;
 
 use crate::calls::{Call, calls};
 use crate::system::{Part, parts};
+use crate::user::{Macros, NoMacros, user};
 
 /// How deeply expansions may hold further macro calls.
 pub const DEPTH: usize = 32;
@@ -15,10 +16,16 @@ pub const DEPTH: usize = 32;
 /// are located in `text`. Text that does not lex is left as it is (the
 /// parser reports it).
 pub fn expand(text: &str) -> Result<Mapped, Diagnostic> {
-    expand_at(&Mapped::new(text), 0)
+    expand_with(text, &NoMacros)
 }
 
-fn expand_at(src: &Mapped, depth: usize) -> Result<Mapped, Diagnostic> {
+/// [`expand`], with the macros of macro libraries run by `macros`
+/// (`alias:n_ame<` calls).
+pub fn expand_with(text: &str, macros: &dyn Macros) -> Result<Mapped, Diagnostic> {
+    expand_at(&Mapped::new(text), macros, 0)
+}
+
+fn expand_at(src: &Mapped, macros: &dyn Macros, depth: usize) -> Result<Mapped, Diagnostic> {
     let Ok(tokens) = lex(src.text()) else {
         return Ok(src.clone());
     };
@@ -33,10 +40,8 @@ fn expand_at(src: &Mapped, depth: usize) -> Result<Mapped, Diagnostic> {
     let (mut out, mut at) = (Mapped::default(), 0);
     for call in &found {
         out.push(&src.slice(at..call.span.start));
-        out.push(&expand_at(
-            &expansion(src, call).map_err(located)?,
-            depth + 1,
-        )?);
+        let expanded = expansion(src, call, macros).map_err(located)?;
+        out.push(&expand_at(&expanded, macros, depth + 1)?);
         at = call.span.end;
     }
     out.push(&src.slice(at..src.text().len()));
@@ -44,9 +49,13 @@ fn expand_at(src: &Mapped, depth: usize) -> Result<Mapped, Diagnostic> {
 }
 
 /// The text `call` stands for, its arguments mapped where they were written.
-fn expansion(src: &Mapped, call: &Call) -> Result<Mapped, Diagnostic> {
+fn expansion(src: &Mapped, call: &Call, macros: &dyn Macros) -> Result<Mapped, Diagnostic> {
     let (left, right) = (inside(src, call.left), inside(src, call.right));
     let whole = src.span(call.span);
+    if let Some((ns, name)) = call.name.split_once(':') {
+        let text = macros.run(ns, name, left.text(), right.text());
+        return user(call, text, whole);
+    }
     let mut out = Mapped::default();
     for part in parts(call, left.text(), right.text())? {
         match part {

@@ -1,0 +1,1 @@
+Macro engine: Libraries::run_macro provided by xetal-program (Running): call appended to the macro library's program, checked to give Char, run, printed text taken; result re-expanded to the depth limit; lib/Macros.xtlm example; MC18 proposed, D62, D63. Committed in deb8705.

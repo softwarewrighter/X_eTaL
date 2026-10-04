@@ -1,0 +1,5 @@
+# Macros are defined only in macro libraries, as m: exports (MC10).
+== SOURCE
+u:f_< := { a b -> a }
+== ERROR
+error[misdefined-macro]: macros are defined in macro libraries (.xtlm files), as m:n_ame< at 0..5

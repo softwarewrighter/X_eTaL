@@ -5,6 +5,8 @@ use xetal_core::Program;
 use xetal_macro::{FsLibraries, Libraries, MacroError, expand};
 use xetal_sources::Sources;
 
+use crate::run::Running;
+
 /// A program with its libraries, in Core, and its source map.
 #[derive(Debug)]
 pub struct Loaded {
@@ -22,7 +24,7 @@ pub fn load(name: &str, text: &str) -> Result<Loaded, Diagnostic> {
 /// [`load`], its libraries found by `libs` (the live demo's come from
 /// the browser's storage and the standard libraries).
 pub fn load_with(name: &str, text: &str, libs: &dyn Libraries) -> Result<Loaded, Diagnostic> {
-    lowered(expand(name, text, libs))
+    lowered(expand(name, text, &Running(libs)))
 }
 
 /// The expanded program lowered to Core; errors located.

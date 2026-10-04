@@ -14,11 +14,11 @@ build already does what the ask wants.
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
 | X_eTaL-demos | 5 | 2 | 7 | 0 | 0 |
-| X_eTaL-ML | 3 | 1 | 5 | 0 | 0 |
+| X_eTaL-ML | 5 | 1 | 3 | 0 | 0 |
 | X_eTaL-games | 2 | 1 | 2 | 0 | 0 |
-| X_eTaL-libraries | 1 | 0 | 5 | 3 | 1 |
-| X_eTaL-extensions | 1 | 0 | 5 | 0 | 0 |
-| All | 12 | 4 | 24 | 3 | 1 |
+| X_eTaL-libraries | 3 | 0 | 3 | 3 | 1 |
+| X_eTaL-extensions | 2 | 0 | 4 | 0 | 0 |
+| All | 17 | 4 | 19 | 3 | 1 |
 
 ## X_eTaL-demos
 
@@ -43,8 +43,8 @@ build already does what the ask wants.
 
 | # | Ask | State | Here | Repro |
 | - | --- | ----- | ---- | ----- |
-| M1 | `.xtlm` macro libraries (the same as X1) | planned | Saga 19, macros (decisions MC10-MC13) | - |
-| M2 | `xetal expand FILE`: the source after macro expansion (the same as X2) | planned | Saga 19, its expand-tool step | - |
+| M1 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC18); the example `lib/Macros.xtlm` | passes |
+| M2 | `xetal expand FILE`: the source after macro expansion (the same as X2) | landed | `xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61) | golden `macros-user-expand` |
 | M3 | `'+ '* i_nner`: about 700 ns per multiply-add at abb8274 (the regression D11) | planned | Saga 30, the higher-order speed regression | - |
 | M4 | grade per row, top-k along an axis (the same as D13) | planned | to decide with the user (plan.md, the sibling asks that need decisions) | fails |
 | M5 | `xetal-play`: arrays in and out without text, or a session (the same as D3) | planned | Saga 23, host bindings and native packages | - |
@@ -67,8 +67,8 @@ build already does what the ask wants.
 
 | # | Ask | State | Here | Repro |
 | - | --- | ----- | ---- | ----- |
-| X1 | `.xtlm` macro libraries: user-defined macros imported with `u_se<` | planned | Saga 19, macros (decisions MC10-MC13) | - |
-| X2 | seeing the source after macro expansion, with a bounded expansion depth | planned | Saga 19, its expand-tool step | - |
+| X1 | `.xtlm` macro libraries: user-defined macros imported with `u_se<` | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC18); the example `lib/Macros.xtlm` | passes |
+| X2 | seeing the source after macro expansion, with a bounded expansion depth | landed | `xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61) | golden `macros-user-expand` |
 | X3 | errors of one's own: assert, raise and catch | planned | Saga 21, errors of one's own | - |
 | X4 | character codes `[]U_CS`, and the quad values `[]A`, `[]D`, `[]TS` | planned | steps of Saga 13, quads (decisions QD2, QD3) | fails |
 | X5 | an empty Char vector is drawn with the numbers mark | planned | Saga 20, array kinds (decision T9) | fails |
@@ -83,7 +83,7 @@ build already does what the ask wants.
 | # | Ask | State | Here | Repro |
 | - | --- | ----- | ---- | ----- |
 | E1 | a native hook: X_eTaL code calling a function in a native library (`[]S_VO`) | planned | Saga 23, host bindings and native packages (may start from this repo's ABI V1) | - |
-| E2 | `.xtlm` macro libraries (the same as X1) | planned | Saga 19, macros | - |
+| E2 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC18); the example `lib/Macros.xtlm` | passes |
 | E3 | the CLI as a library: a host entry point so a host can be `xetal` with its own store | planned | after Saga 21 (plan.md, the sibling asks first) | - |
 | E4 | the time: a quad for the current time and a clock | planned | a step of Saga 13, quads (`[]TS`, `[]D_L`) | fails |
 | E5 | an error in a library function also names the program line that called it | planned | Saga 27, readable type errors | - |
