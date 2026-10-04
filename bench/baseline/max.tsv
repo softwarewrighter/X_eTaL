@@ -1,0 +1,13 @@
+bench/each.xtl	155
+bench/float-mul.xtl	104
+bench/inner.xtl	903
+bench/int-add.xtl	73
+bench/life.xtl	546
+bench/matmul.xtl	208
+bench/reduce.xtl	560
+bench/rotate.xtl	90
+bench/scan.xtl	426
+bench/table-lambda.xtl	197
+bench/table-right.xtl	62
+bench/table.xtl	98
+bench/transpose.xtl	129

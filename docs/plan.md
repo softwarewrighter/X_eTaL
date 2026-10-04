@@ -870,7 +870,7 @@ release.
 | 4 | ecosystem | The README's half-page ecosystem section: the value proposition (APL's whole-array model with Haskell's inferred types and composition and Rust's explicit, robust interfaces), Extensible in three layers ("libraries extend the vocabulary; macros extend the language; native extensions extend the machine"), why static typing makes that extensibility safe (library interfaces typed, macro expansions checked, native facades typed), and the repositories (X_eTaL, -demos, -ML, -games, -libraries, -extensions), each with one line and a link; one ecosystem diagram (an image, the README staying ASCII) and a "start here" page. |
 | 5 | asks-ledger | `docs/asks.md`: every ask the sibling repositories filed, with its state in this repository (landed with the commit, planned with the saga, declined with the reason), checked by running each repro against this build (a script here; the siblings update their own files). |
 | 6 | fresh-user | An automated walkthrough as a stranger would take it: a clean clone, build, `just tour`, a hello program, an array program, a library import, a `.xtlm` import, `xetal expand`, the live demo with an interactive program; in the gate or a `just` recipe. |
-| 7 | release-candidate | The walkthrough by hand, a release checklist (the four gates of research3: language, tooling, proof, presentation), CHANGES summarized, a version and a release tag, the pages published. |
+| 7 | release-candidate | The walkthrough by hand, a release checklist (the four gates of research3: language, tooling, proof, presentation; `just bench-check` within 15% of the baseline), CHANGES summarized, a version and a release tag, the pages published. |
 
 ## Saga 20 -- array kinds (empty arrays remember their kind)
 

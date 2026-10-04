@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 15:30 `build` Performance regression gates (Saga 30 step 4, D58): `just bench-check` times every program in bench/ against this machine's baseline (bench/baseline/HOST.tsv) and fails past 15% (and 15 ms) slower, `just bench-bless` records a baseline (a slowdown needs the user's approval); new benchmarks for each and table with a lambda, a small matrix product and transpose; the check joins the release checklist. Also `just serve` moves to port 8490 (one port per repository, so demos of different repositories run side by side); the just-list golden rebased on purpose.
+
 - 14:43 `build` Merged PRs #48-#53 in order (macros lane steps 9-18: `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`, `e_rror<`, `d_bg<`, `a_ssert<`, `f_ormat<`, `p_anic<`, the system macros' release) and PR #54 (doc lane step 1, `xetal doc --json`); the panic entry renumbered D57 (D70 is the status table); pages/ rebuilt.
 
 - 14:05 `feat` `xetal doc --json` (doc lane step 1, D72): the cross-reference model of a program or library, every item of it, of the libraries and macro libraries it imports and of System.xtlm when it calls one: written name, kind, public or private, inferred type, line, `###` section, `##` doc comment and `## >>` examples (S9), source, and the items it uses resolved to their file; new component `components/doc`.

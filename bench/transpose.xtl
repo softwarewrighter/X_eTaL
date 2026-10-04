@@ -1,0 +1,3 @@
+# Transpose a 1500 by 1500 matrix (all axes reversed), five times.
+m := 1500 1500 r_eshape r_ange 2250000
+s_hape o_\ o_\ o_\ o_\ o_\ m
