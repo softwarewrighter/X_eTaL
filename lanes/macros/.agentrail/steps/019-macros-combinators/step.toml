@@ -1,8 +1,9 @@
 number = 19
 slug = "macros-combinators"
-status = "in-progress"
+status = "completed"
 description = "Combinators.xtlm beside Combinators.xtl (one alias, MC11): c:Y_< ties the kno..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T13:46:13"
-commits = []
+completed_at = "2026-10-04T15:28:56"
+commits = ["e9b0aa3e84d2850236d94d5a4cf971072c060856"]
