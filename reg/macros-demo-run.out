@@ -5,6 +5,9 @@
 @
 5
 1
+x is -3, and its square is 9
+@
+1
 49
 ok: addition
 FAIL: doubling (5 = 2 * 2)

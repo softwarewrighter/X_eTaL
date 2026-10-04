@@ -22,6 +22,13 @@ u:m_in/ := { 'm_in r_/ _r }
 u:m_ax/ 3 1 4 1 5
 u:m_in/ 3 1 4 1 5
 
+# f_ormat< puts values into text, a_ssert< reports a condition that does
+# not hold (on standard error) and goes on, and c_fg< says where the
+# program runs: 1 for cli at the command line, 0 in the live demo.
+"x is " c_at (f_ormat (x)) c_at ", and its square is " c_at (f_ormat (x * x))
+{ @ -> (x > 0) ? @; []E_RR "assertion failed: x > 0 (x is positive) [demos/macros.xtl:28]"; @ } @
+1
+
 # Macros of your own live in macro libraries (.xtlm files): each is a
 # function from the two texts to the source that replaces the call.
 # Macros (lib/Macros.xtlm) is a small example, imported like a library.

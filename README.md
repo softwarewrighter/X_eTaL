@@ -178,9 +178,11 @@ reverses the axes, `t_ranspose` permutes them, `o_\_23` swaps two), whole-array 
 `--ascii`), files, the keyboard and numbers as text (`[]N_GET`,
 `[]N_PUT`, `[]R_EAD`, `f_ormat`, `n_umbers`), trigonometry, pictures
 (`[]G_RID` grids and `[]P_ATH` paths as SVG, animated by frames,
-shown with `[]S_HOW`), the system macros `i_f<`, `u_nless<` and
-`e_ach<` (source written for you, shown by `xetal expand`, themselves
-written in X_eTaL in `lib/System.xtlm`), macro
+shown with `[]S_HOW`), the system macros (source written for you,
+shown by `xetal expand`, themselves written in X_eTaL in
+`lib/System.xtlm`: `i_f<`, `u_nless<`, `e_ach<`, `f_ormat<`, `d_bg<`,
+`a_ssert<`, `p_anic<`, `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`,
+`e_rror<`), macro
 libraries of your own (`.xtlm` files: a macro is a function from the
 source text on either side of its call to the source that replaces
 it), and libraries imported with `u_se<`: the
@@ -299,7 +301,8 @@ Other fonts, checked against the font files:
   your own: write `userlibs/Hello.xtl`, import it, call it
 - [`docs/literate/macros.org`](docs/literate/macros.org) -- macros,
   source that writes source: the system macros (`i_f<`, `u_nless<`,
-  `e_ach<`), seeing an expansion with `xetal expand`, and macro
+  `e_ach<`, `f_ormat<`, `d_bg<`, `a_ssert<`, `p_anic<` and those that
+  ask the compiler), seeing an expansion with `xetal expand`, and macro
   libraries of your own (`.xtlm`)
 - [`docs/literate/life.org`](docs/literate/life.org) -- Conway's Life,
   the one line built up a piece at a time
