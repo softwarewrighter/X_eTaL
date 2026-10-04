@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 18:36 `fix` Higher-order built-ins call a first-order built-in operand at once (Saga 30 step 2, D55): `t_able`, `i_nner`, `e_ach` and reduce with `'*`, `'+` and the like no longer go through the machine per call; bench/inner.xtl 8.3 s to 0.86 s, bench/table-right.xtl 0.63 s to 0.39 s; the cost guard's bounds lowered to match.
+
 - 17:21 `build` Merged PR #41 (macros lane step 1: system macros `i_f<`, `u_nless<`, `e_ach<` and `xetal expand`) and PR #42 (launch-docs lane step 3: the beginner path; the lane archived); pages/ rebuilt (the beginner page, the macros in the live demo) and docs/status.md regenerated.
 
 - 16:20 `docs` The beginner path: `docs/literate/beginner.org`, X_eTaL in fifteen minutes (typing ASCII and seeing it drawn, arrays, functions and operands, an axis, a train, a library import, where to go next), every block run by the literate check; linked from the README (Quick Start and the documents), the live demo's Help and the literate index (which also gains trains.org).

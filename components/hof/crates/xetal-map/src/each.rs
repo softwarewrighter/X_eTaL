@@ -1,13 +1,14 @@
 //! `e_ach` (B6) and `m_ap` (B14). Dyadic each is currying: when f applied to the items
 //! gives functions, `f e_ach A` is a pending item-wise application
 //! (`#each`), and [`zip`] applies it to the next argument item by item.
-//! Each is a kernel (D50): one call of f per item, in order.
+//! Each is a kernel (D50): one call of f per item, in order; with a
+//! first-order built-in f the calls are made at once.
 
 use std::rc::Rc;
 
 use xetal_array::{Array, ArrayError};
 use xetal_base::Diagnostic;
-use xetal_kernel::{Kernel, all, apply, done, then};
+use xetal_kernel::{Direct, Kernel, all, apply, done, then};
 use xetal_value::{Prim, Value, as_array, to_value};
 
 use crate::items::{finish, is_function, takes_two};
@@ -24,7 +25,19 @@ fn calls<'a>(f: &Value<'a>, x: &Value<'a>) -> (Vec<usize>, Kernel<'a, Vec<Value<
     (items.shape().to_vec(), all(calls.collect()))
 }
 
-pub fn each<'a>(f: &Value<'a>, x: &Value<'a>) -> Out<'a> {
+pub fn each<'a>(f: &Value<'a>, x: &Value<'a>, direct: &mut dyn Direct<'a>) -> Out<'a> {
+    if direct.takes(f, 1) {
+        let items = as_array(x);
+        let data = items
+            .data()
+            .iter()
+            .map(|item| direct.call(f, std::slice::from_ref(item)));
+        let data = data.collect::<Result<Vec<_>, _>>()?;
+        return Ok(done(finish(
+            "e_ach",
+            Array::new(items.shape().to_vec(), data)?,
+        )?));
+    }
     let (shape, results) = calls(f, x);
     let f = f.clone();
     Ok(then(results, move |data| {

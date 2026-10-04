@@ -4,7 +4,7 @@ use std::rc::Rc;
 
 use xetal_array::Array;
 use xetal_base::Diagnostic;
-use xetal_kernel::drive;
+use xetal_kernel::{Never, drive};
 use xetal_map::{each, table};
 use xetal_value::{Prim, Value};
 
@@ -44,7 +44,7 @@ fn each_visits_items_in_order() {
         arity: 1,
         args: Vec::new(),
     }));
-    let kernel = each(&id, &vector(&[3, 1, 2])).unwrap();
+    let kernel = each(&id, &vector(&[3, 1, 2]), &mut Never).unwrap();
     let out = drive(kernel, |f, x| log.call(f, x)).unwrap();
     assert_eq!(out.to_string(), "3 1 2");
     assert_eq!(log.0, ["3", "1", "2"]);
@@ -54,7 +54,7 @@ fn each_visits_items_in_order() {
 fn table_fixes_each_left_item_once() {
     let mut log = Log::default();
     let f = partial(Vec::new());
-    let kernel = table(&f, &vector(&[1, 2]), &vector(&[7, 8])).unwrap();
+    let kernel = table(&f, &vector(&[1, 2]), &vector(&[7, 8]), &mut Never).unwrap();
     let out = drive(kernel, |f, x| log.call(f, x)).unwrap();
     assert_eq!(out.to_string(), "7 8\n7 8");
     assert_eq!(log.0, ["1", "7", "8", "2", "7", "8"]);

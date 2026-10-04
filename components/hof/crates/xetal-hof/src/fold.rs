@@ -1,12 +1,12 @@
 //! Reduce and scan along the leading axis (B6). Reduce is a right fold
 //! (`'- r_/ 1 2 3` is 1 - (2 - 3)), taken from the last cell in one
 //! pass; item k of a scan is the reduce of the first k cells. Both are
-//! kernels (D50).
+//! kernels (D50); a reduce by a first-order built-in is computed at once.
 
 use std::rc::Rc;
 
 use xetal_base::Diagnostic;
-use xetal_kernel::{Kernel, apply, done, fold, then};
+use xetal_kernel::{Direct, Kernel, apply, done, fold, then};
 use xetal_value::Value;
 
 use crate::cells::join;
@@ -16,9 +16,16 @@ use xetal_value::major_cells;
 type Out<'a> = Result<Kernel<'a, Value<'a>>, Diagnostic>;
 
 /// `f r_/ x`; an empty leading axis gives f's identity (B6).
-pub(crate) fn reduce<'a>(f: &Value<'a>, x: &Value<'a>) -> Out<'a> {
+pub(crate) fn reduce<'a>(f: &Value<'a>, x: &Value<'a>, direct: &mut dyn Direct<'a>) -> Out<'a> {
     let (cells, shape) = major_cells(x);
     match cells.split_last() {
+        Some((last, rest)) if direct.takes(f, 2) => {
+            let mut acc = last.clone();
+            for cell in rest.iter().rev() {
+                acc = direct.call(f, &[cell.clone(), acc])?;
+            }
+            Ok(done(acc))
+        }
         Some((last, rest)) => Ok(right_fold(f, last.clone(), rest.to_vec())),
         None => Ok(done(identity(f, &shape)?)),
     }

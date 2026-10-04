@@ -755,6 +755,8 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-catalog",
+ "xetal-hof",
+ "xetal-kernel",
  "xetal-radix",
  "xetal-rotate",
  "xetal-search",
