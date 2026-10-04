@@ -1,0 +1,1 @@
+d_ecode on any numbers (B18, D73): catalog Num a => a -> a -> a, generic Horner kernel (Int checked, Float), spec cases, reference, asks X9 partly landed. Pushed as pr/decode-any.
