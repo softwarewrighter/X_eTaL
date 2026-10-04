@@ -727,7 +727,10 @@ web-release:
    as a library, for X_eTaL-extensions' xetal-x), then the sibling
    repos' feature asks that need decisions (mix, grade per row, amend,
    `[]G_RID` numbers with a typed colour scale): decided with the user,
-   then a step each.
+   then a step each. Decided already: `d_ecode` on any numbers (B18,
+   ask X9), one small step in the radix component, wanted before
+   X_eTaL-libraries' Polynomials library (macros and functions) ships;
+   `e_ncode` stays Int-only.
 7. The terminal's last steps (Saga 25: retrofit, release).
 8. Saga 28, learn X_eTaL (a self-paced course, REPL and browser).
 9. Saga 27, readable type errors, with ask E5 (an error in a library

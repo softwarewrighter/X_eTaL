@@ -3,6 +3,8 @@
 //! are `xetal-hof`'s; the evaluator (`xetal-step`) chooses.
 
 mod call;
+mod direct;
 mod screen;
 
 pub use call::{arity, call};
+pub use direct::Now;

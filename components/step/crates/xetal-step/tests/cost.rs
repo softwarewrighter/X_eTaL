@@ -68,13 +68,14 @@ fn per_call(
 }
 
 /// Most transitions and allocations allowed per operand call, by case
-/// (the costs measured when the guard was added; Saga 30 lowers them).
+/// (the costs measured when the guard was added; Saga 30 lowers them:
+/// a first-order built-in operand is called at once, step 047).
 const BOUNDS: [(&str, f64, f64); 5] = [
-    ("table prim", 1.1, 6.6),
+    ("table prim", 0.05, 0.1),
     ("table lambda", 10.2, 11.6),
     ("each lambda", 10.1, 11.1),
-    ("reduce prim", 2.1, 7.1),
-    ("inner prim", 3.9, 16.4),
+    ("reduce prim", 0.05, 1.1),
+    ("inner prim", 0.05, 0.3),
 ];
 
 /// A case: its name, its program at size n, and its operand calls.

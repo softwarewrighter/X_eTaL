@@ -60,7 +60,12 @@ impl<'a> Machine<'a, '_> {
         {
             return Ok(control);
         }
-        match xetal_hof::call(p.name, &args, span) {
+        let mut now = xetal_prim::Now {
+            out: &mut *self.out,
+            rng: &mut self.rng,
+            span,
+        };
+        match xetal_hof::call(p.name, &args, span, &mut now) {
             Some(kernel) => self.drive(kernel?, None, span),
             None => {
                 xetal_prim::call(p.name, &args, span, self.out, &mut self.rng).map(Control::Return)

@@ -2,7 +2,7 @@
 //! kernel (D50) the evaluator runs call by call.
 
 use xetal_base::{Diagnostic, Span};
-use xetal_kernel::{Kernel, apply, then};
+use xetal_kernel::{Direct, Kernel, apply, then};
 use xetal_value::Value;
 
 use crate::fold::{reduce, scan};
@@ -13,17 +13,34 @@ use xetal_value::as_array;
 
 type Out<'a> = Result<Kernel<'a, Value<'a>>, Diagnostic>;
 
+/// The higher-order built-ins' names.
+const NAMES: [&str; 11] = [
+    "r_/", "s_\\", "e_ach", "#each", "m_ap", "t_able", "i_nner", "c_ompose", "#axes", "s_wap",
+    "p_ower",
+];
+
+/// Whether `name` is a higher-order built-in (one that calls functions).
+pub fn higher(name: &str) -> bool {
+    NAMES.contains(&name)
+}
+
 /// The kernel of the higher-order built-in `name` on its arguments, if
-/// it is one; an error without a place is given `span`.
-pub fn call<'a>(name: &str, args: &[Value<'a>], span: Span) -> Option<Out<'a>> {
+/// it is one; an error without a place is given `span`. Built-in
+/// operands the runner calls at once (`direct`) need no kernel calls.
+pub fn call<'a>(
+    name: &str,
+    args: &[Value<'a>],
+    span: Span,
+    direct: &mut dyn Direct<'a>,
+) -> Option<Out<'a>> {
     let result = match (name, args) {
-        ("r_/", [f, x]) => reduce(f, x),
+        ("r_/", [f, x]) => reduce(f, x, direct),
         ("s_\\", [f, x]) => scan(f, x),
-        ("e_ach", [f, x]) => each(f, x),
+        ("e_ach", [f, x]) => each(f, x, direct),
         ("#each", [fs, y]) => zip(fs, y),
         ("m_ap", [f, x]) => map(f, x),
-        ("t_able", [f, x, y]) => table(f, x, y),
-        ("i_nner", [g, f, x, y]) => inner(g, f, x, y),
+        ("t_able", [f, x, y]) => table(f, x, y, direct),
+        ("i_nner", [g, f, x, y]) => inner(g, f, x, y, direct),
         ("c_ompose", [g, f, x]) => {
             let f = f.clone();
             Ok(then(apply(g.clone(), vec![x.clone()]), move |gx| {
