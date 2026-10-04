@@ -1,0 +1,9 @@
+# The radix and the digits of d_ecode are one number type (B18, T5).
+# Number literals take either type, but an Int variable is an Int: an
+# Int radix with Float digits is a type error, not a conversion (f_loat
+# converts).
+== SOURCE
+n := 2
+n d_ecode 1.5 2.5
+== ERROR
+error[type-mismatch]: expected Int, found Float at 7..24

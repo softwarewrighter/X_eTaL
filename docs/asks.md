@@ -16,9 +16,9 @@ build already does what the ask wants.
 | X_eTaL-demos | 5 | 2 | 7 | 0 | 0 |
 | X_eTaL-ML | 5 | 1 | 3 | 0 | 0 |
 | X_eTaL-games | 2 | 1 | 2 | 0 | 0 |
-| X_eTaL-libraries | 3 | 0 | 4 | 3 | 0 |
+| X_eTaL-libraries | 3 | 1 | 3 | 3 | 0 |
 | X_eTaL-extensions | 2 | 0 | 4 | 0 | 0 |
-| All | 17 | 4 | 20 | 3 | 0 |
+| All | 17 | 5 | 19 | 3 | 0 |
 
 ## X_eTaL-demos
 
@@ -75,7 +75,7 @@ build already does what the ask wants.
 | X6 | big whole numbers or exact rationals | declined | for now: on the wish list, after the launch (Floats where a polymorphic function allows) | - |
 | X7 | matrix divide (APL's domino); transpose, the other half, landed | declined | for now: not planned (Matrix solves by Gauss-Jordan in X_eTaL); transpose landed in 3ad1f8e | - |
 | X8 | number formatting with width and precision (APL's dyadic format) | declined | for now: on the wish list, after the launch (Format builds the text from the digits) | - |
-| X9 | `d_ecode` and `e_ncode` on Floats (Horner's rule for any numbers) | planned | decode: decision B18 (`Num a => a -> a -> a`), a small step in the radix component before the Polynomials library ships; encode on Floats declined for now (fractional radix, floating residues) | fails |
+| X9 | `d_ecode` and `e_ncode` on Floats (Horner's rule for any numbers) | partly landed | decode landed: B18, D73 (`Num a => a -> a -> a`, Horner's rule on Floats); encode on Floats declined for now (fractional radix, floating residues) | passes |
 | X10 | a comparison bound to a top-level name cannot be used in arithmetic (the same as D14) | landed | ffd5526 | passes |
 
 ## X_eTaL-extensions

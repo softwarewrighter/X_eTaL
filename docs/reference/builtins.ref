@@ -255,11 +255,15 @@ digits per item.
 == d_ecode
 Decode: the number whose digits, in the radix on the left, are on the
 right (APL's decode), the inverse of `e_ncode`. One radix extends to
-every digit; a matrix gives one number per column.
+every digit; a matrix gives one number per column. It is Horner's rule
+on any numbers, radix and digits of one type, so on Floats `x d_ecode
+r_ev c` is the polynomial with coefficients c (lowest first) at x.
 > 2 d_ecode 1 0 1 1
 > 10 d_ecode 1 2 3
 > 24 60 60 d_ecode 1 2 5
 > 2 d_ecode 2 2 2 e_ncode 0 1 2 3
+> 2.0 d_ecode 3.0 -2.0 1.0
+> 0.5 d_ecode r_ev 1.0 -2.0 3.0
 !> 2 2 d_ecode 1 0 1
 
 == e_nclose
