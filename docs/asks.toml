@@ -297,8 +297,8 @@ here = "for now: on the wish list, after the launch (Format builds the text from
 id = "X9"
 repo = "X_eTaL-libraries"
 ask = "`d_ecode` and `e_ncode` on Floats (Horner's rule for any numbers)"
-state = "new"
-here = "not yet in plan.md: to decide with the user"
+state = "planned"
+here = "decode: decision B18 (`Num a => a -> a -> a`), a small step in the radix component before the Polynomials library ships; encode on Floats declined for now (fractional radix, floating residues)"
 repro = "2.0 d_ecode 3 -2 1"
 works = "9.0"
 
