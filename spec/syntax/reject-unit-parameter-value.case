@@ -1,0 +1,6 @@
+# A @ parameter takes only Unit: a value there is a type error.
+== SOURCE
+u:f_ := { @ r -> r + 1 }
+1 u:f_ 2
+== ERROR
+error[type-mismatch]: expected Unit, found a number at 25..33

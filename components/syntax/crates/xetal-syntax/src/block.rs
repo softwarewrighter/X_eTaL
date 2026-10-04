@@ -1,7 +1,7 @@
 //! Lambdas (L1-L7) and trains (TR1-TR3).
 
 use xetal_base::{Diagnostic, Span};
-use xetal_lex::TokenKind;
+use xetal_lex::{Token, TokenKind};
 
 use crate::expr::{Item, bind_operands};
 use crate::parser::{Parser, err};
@@ -92,29 +92,7 @@ impl Parser {
         if tokens.len() == 1 && tokens[0].kind == TokenKind::Unit {
             return Ok(Some(Params::Niladic));
         }
-        let mut params: Vec<Param> = Vec::new();
-        let mut lazy = None;
-        for t in tokens {
-            match (&t.kind, target(&t)) {
-                (TokenKind::Lazy, _) if lazy.is_none() => lazy = Some(t.span),
-                (_, Some(name)) => {
-                    if params.iter().any(|p| p.name == name) {
-                        return Err(err("bad-lambda", t.span, "a parameter name appears twice"));
-                    }
-                    let span = lazy.map_or(t.span, |l| l.join(t.span));
-                    params.push(Param {
-                        name,
-                        lazy: lazy.take().is_some(),
-                        span,
-                    });
-                }
-                (TokenKind::Unit, _) => {
-                    return Err(err("bad-lambda", t.span, "`@` must be the only parameter"));
-                }
-                _ => return Err(err("bad-lambda", t.span, "a parameter must be a name")),
-            }
-        }
-        Ok(Some(Params::Named(params)))
+        Ok(Some(Params::Named(named(tokens)?)))
     }
 
     /// `[F G H]` fork, `[F G]` atop; longer trains group from the right.
@@ -162,4 +140,34 @@ fn group(mut funs: Vec<Fun>, span: Span) -> Fun {
         funs.push(group(rest, rest_span));
     }
     Fun::new(FunKind::Train(funs), span)
+}
+
+/// The parameters `tokens` name: names (a `~` before one makes it lazy)
+/// and `@` (a parameter that takes only Unit, L6).
+fn named(tokens: Vec<Token>) -> Result<Vec<Param>, Diagnostic> {
+    let mut params: Vec<Param> = Vec::new();
+    let mut lazy = None;
+    for t in tokens {
+        match (&t.kind, target(&t)) {
+            (TokenKind::Lazy, _) if lazy.is_none() => lazy = Some(t.span),
+            (_, Some(name)) => {
+                if params.iter().any(|p| p.name.as_ref() == Some(&name)) {
+                    return Err(err("bad-lambda", t.span, "a parameter name appears twice"));
+                }
+                let span = lazy.map_or(t.span, |l| l.join(t.span));
+                params.push(Param {
+                    name: Some(name),
+                    lazy: lazy.take().is_some(),
+                    span,
+                });
+            }
+            (TokenKind::Unit, _) if lazy.is_none() => params.push(Param {
+                name: None,
+                lazy: false,
+                span: t.span,
+            }),
+            _ => return Err(err("bad-lambda", t.span, "a parameter must be a name")),
+        }
+    }
+    Ok(params)
 }

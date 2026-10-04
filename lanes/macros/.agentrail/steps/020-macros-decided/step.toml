@@ -1,6 +1,6 @@
 number = 20
 slug = "macros-decided"
-status = "pending"
+status = "in-progress"
 description = "macros-decided (the user's decisions of 2026-10-04): record MC14-MC17, MC23, ..."
 role = "production"
 context_files = []

@@ -1,0 +1,8 @@
+# Normalization: { @ r -> body } is { @ -> { r -> body } }; both lower
+# to the same Core.
+== SOURCE
+{ @ r -> r }
+{ @ -> { r -> r } }
+== CORE
+(eval (lam @ (lam r r)))
+(eval (lam @ (lam r r)))

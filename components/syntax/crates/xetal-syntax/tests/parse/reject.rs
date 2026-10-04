@@ -43,7 +43,7 @@ fn lambda_parameter_rules() {
     assert_reject("{ _l }", "bad-lambda", (0, 6)); // _l needs _r (L1)
     assert_reject("{ 42 }", "bad-lambda", (0, 6)); // niladic is { @ -> ... } (L6)
     assert_reject("{ x -> x + _r }", "bad-lambda", (0, 15)); // no mixing (L5)
-    assert_reject("{ @ x -> x }", "bad-lambda", (2, 3)); // @ only alone
+    assert_reject("{ @ 3 -> 1 }", "bad-lambda", (4, 5)); // @ may stand among names (L6), a number not
     assert_reject("{ x x -> x }", "bad-lambda", (4, 5)); // duplicate
     assert_reject("{ 3 -> x }", "bad-lambda", (2, 3));
 }

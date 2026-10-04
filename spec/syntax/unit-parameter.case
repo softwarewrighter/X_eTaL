@@ -1,0 +1,17 @@
+# @ may stand among named parameters for an argument that is no value
+# (L6, extended for macro sides that take nothing, MC22): it takes
+# only Unit, and lowers as a niladic lambda does.
+== SOURCE
+u:f_ := { @ r -> r + 1 }
+@ u:f_ 2
+== SURFACE
+(:= u:f_ (lambda (@ r) (+ r 1)))
+(u:f_ @ 2)
+== CORE
+(def u:f_ (lam @ (lam r (app2 #+ r 1))))
+(eval (app2 u:f_ @ 2))
+== TYPE
+u:f_ : Num a => Unit -> a -> a
+Int
+== RESULT
+3

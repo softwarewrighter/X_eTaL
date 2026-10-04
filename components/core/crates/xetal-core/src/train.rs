@@ -21,8 +21,11 @@ impl Lower {
                 .iter()
                 .map(|p| {
                     let name = match &p.name {
-                        Target::Var(v) => format!("{}{}", v.name, if v.mutable { "!" } else { "" }),
-                        Target::Func(f) => f.spelled(),
+                        None => return (Param::Unit, false),
+                        Some(Target::Var(v)) => {
+                            format!("{}{}", v.name, if v.mutable { "!" } else { "" })
+                        }
+                        Some(Target::Func(f)) => f.spelled(),
                     };
                     (Param::Name(name), p.lazy)
                 })

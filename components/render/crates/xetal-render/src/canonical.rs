@@ -100,8 +100,9 @@ fn lambda(l: &Lambda) -> String {
                 .iter()
                 .map(|p| {
                     let name = match &p.name {
-                        Target::Var(v) => var_text(v),
-                        Target::Func(f) => func_text(f),
+                        None => "@".to_string(),
+                        Some(Target::Var(v)) => var_text(v),
+                        Some(Target::Func(f)) => func_text(f),
                     };
                     format!("{}{name}", if p.lazy { "~" } else { "" })
                 })

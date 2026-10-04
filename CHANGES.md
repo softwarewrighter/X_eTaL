@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 16:30 `feat` The user's macro decisions (macros lane step 20): `@` may stand among lambda parameters for a side that takes nothing (L6 extended: `{ @ r -> ... }`, typed Unit), used throughout System.xtlm; `d_bg<` is hygienic (`{ v -> ...; v } (expr)`); `@ t_odo< "what"` stops with `not yet implemented: what`; MC14-MC17, MC23, MC25, `c_fg<` as an Int and the `[]R_EJECT` shape recorded as decided (D59).
 - 15:40 `feat` Combinators.xtlm (macros lane step 19): `c:Y_<` ties the recursive knot when the program is expanded (the self parameter replaced by the name defined) and `c:B_<` writes the Bluebird in place, beside Combinators.xtl under one alias; the fibonacci demo's fifth way, its golden rebased on purpose; timed against `c:Y_` (no faster: 0.43 s against 0.39 s for fib 25) (CB5, D58).
 - 14:43 `build` Merged PRs #48-#53 in order (macros lane steps 9-18: `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`, `e_rror<`, `d_bg<`, `a_ssert<`, `f_ormat<`, `p_anic<`, the system macros' release) and PR #54 (doc lane step 1, `xetal doc --json`); the panic entry renumbered D57 (D70 is the status table); pages/ rebuilt.
 
