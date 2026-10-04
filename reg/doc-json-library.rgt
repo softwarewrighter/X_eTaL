@@ -1,0 +1,3 @@
+command = "./target/debug/xetal doc --json lib/Stats.xtl"
+exit_code = 0
+desc = "xetal doc --json on a library: exported l: names public, the rest private, uses within the file; no system macros, as none is called"

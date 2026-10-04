@@ -7,6 +7,9 @@ STAGES:
             highlights it for a terminal (tolerating errors)
     expand  the program after macro expansion (i_f<, u_nless<,
             e_ach<), imports and names as written
+    doc     --json: every item of a program or library, of what it
+            imports and of the system macros (name, kind, type, doc
+            comment, section, examples, source, uses), as JSON
     parse   surface tree as S-expressions (at most one reading;
             ambiguous shapes are errors)
     fmt     canonical, fully parenthesized form

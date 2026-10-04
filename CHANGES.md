@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 14:05 `feat` `xetal doc --json` (doc lane step 1, D72): the cross-reference model of a program or library, every item of it, of the libraries and macro libraries it imports and of System.xtlm when it calls one: written name, kind, public or private, inferred type, line, `###` section, `##` doc comment and `## >>` examples (S9), source, and the items it uses resolved to their file; new component `components/doc`.
+
 - 13:37 `fix` Lean kernels (Saga 30 step 3, D56): `e_ach`, `m_ap`, `t_able`, `i_nner`, reduce and scan with a function of your own as one hand-written state machine each, nothing allocated per element (a lambda operand of `t_able` 11.6 to 7.2 allocations per call), every call in the same order; doc comments decided (S9: `##` documentation, `###` sections, `## >>` examples) and Saga 32 gains doctests.
 
 - 10:24 `build` Merged PR #47 (macros lane step 8: the system macros written in X_eTaL in lib/System.xtlm, the hooks []R_EJECT and []S_TATEMENT, @ for an unused side); pages/ rebuilt.

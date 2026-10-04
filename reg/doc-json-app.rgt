@@ -1,0 +1,3 @@
+command = "./target/debug/xetal doc --json components/doc/fixtures/app.xtl"
+exit_code = 0
+desc = "xetal doc --json: a program, the library and macro library it imports, each item with kind, type, doc comment (S9), section, examples, source and the items it uses"

@@ -1,0 +1,6 @@
+error: the following required arguments were not provided:
+  --json
+
+Usage: xetal doc --json <FILE>
+
+For more information, try '--help'.

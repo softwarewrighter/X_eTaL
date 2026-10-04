@@ -91,6 +91,17 @@ pub(crate) struct EvalArgs {
     pub(crate) delay: Option<u64>,
 }
 
+/// `doc` options: the cross-reference model as JSON (the site follows).
+#[derive(Args)]
+pub(crate) struct DocArgs {
+    #[command(flatten)]
+    pub(crate) input: Input,
+    /// Print the model as JSON: every item of the file, its imports and
+    /// the system macros, with type, doc comment, source and uses.
+    #[arg(long, required = true)]
+    pub(crate) json: bool,
+}
+
 /// `render` options: decorated Unicode by default.
 #[derive(Args)]
 pub(crate) struct RenderArgs {
@@ -125,6 +136,9 @@ pub(crate) enum Command {
     /// Print the program after macro expansion (imports and names as
     /// written).
     Expand(Input),
+    /// Document a program or library: every item of it, of what it
+    /// imports and of the system macros (--json).
+    Doc(DocArgs),
     /// Print the surface AST or an ambiguity report.
     Parse(Input),
     /// Print the canonical form.
@@ -172,6 +186,7 @@ impl Command {
             Command::Render(_) => "render",
             Command::Diagram(_) => "diagram",
             Command::Expand(_) => "expand",
+            Command::Doc(_) => "doc",
             Command::Parse(_) => "parse",
             Command::Fmt(_) => "fmt",
             Command::Core(_) => "core",
@@ -196,8 +211,9 @@ impl Command {
             | Command::Eval(EvalArgs { input: i, .. }) => {
                 Some(read_input(i.expr.as_deref(), i.file.as_deref()))
             }
-            Command::Render(r) => {
-                Some(read_input(r.input.expr.as_deref(), r.input.file.as_deref()))
+            Command::Render(RenderArgs { input: i, .. })
+            | Command::Doc(DocArgs { input: i, .. }) => {
+                Some(read_input(i.expr.as_deref(), i.file.as_deref()))
             }
             Command::Run { file, .. } => Some(read_input(None, Some(file))),
             Command::Repl | Command::Edit { .. } => None,

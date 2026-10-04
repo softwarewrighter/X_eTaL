@@ -1,0 +1,84 @@
+{
+  "files": [
+    {
+      "name": "lib/Stats.xtl",
+      "kind": "library",
+      "doc": null,
+      "items": [
+        {
+          "name": "l:m_ean",
+          "kind": "function",
+          "public": true,
+          "type": "Num a => a -> Float",
+          "line": 5,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "source": "l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]  # Int or Float numbers",
+          "uses": []
+        },
+        {
+          "name": "s_quare",
+          "kind": "function",
+          "public": false,
+          "type": "Num a => a -> a",
+          "line": 7,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "source": "s_quare := { _r * _r }                  # private: not visible outside",
+          "uses": []
+        },
+        {
+          "name": "d_eviations",
+          "kind": "function",
+          "public": false,
+          "type": "Num a => a -> Float",
+          "line": 8,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "source": "d_eviations := [f_loat - l:m_ean]",
+          "uses": [{"written": "l:m_ean", "file": "lib/Stats.xtl", "item": "l:m_ean"}]
+        },
+        {
+          "name": "l:v_ariance",
+          "kind": "function",
+          "public": true,
+          "type": "Num a => a -> Float",
+          "line": 10,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "source": "l:v_ariance := [l:m_ean [s_quare d_eviations]]",
+          "uses": [{"written": "d_eviations", "file": "lib/Stats.xtl", "item": "d_eviations"}, {"written": "l:m_ean", "file": "lib/Stats.xtl", "item": "l:m_ean"}, {"written": "s_quare", "file": "lib/Stats.xtl", "item": "s_quare"}]
+        },
+        {
+          "name": "l:s_d",
+          "kind": "function",
+          "public": true,
+          "type": "Num a => a -> Float",
+          "line": 11,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "source": "l:s_d := { (l:v_ariance _r) ^ 0.5 }     # the standard deviation",
+          "uses": [{"written": "l:v_ariance", "file": "lib/Stats.xtl", "item": "l:v_ariance"}]
+        },
+        {
+          "name": "l:r_ange",
+          "kind": "function",
+          "public": true,
+          "type": "Num a => a -> a",
+          "line": 12,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "source": "l:r_ange := ['m_ax r_/ - 'm_in r_/]",
+          "uses": []
+        }
+      ]
+    }
+  ]
+}
+

@@ -71,6 +71,18 @@ impl Sources {
         self.files.get(file).map_or("", |f| f.name.as_str())
     }
 
+    /// File `file`'s text as it was written (before macro expansion).
+    pub fn written_text(&self, file: usize) -> &str {
+        match self.files.get(file) {
+            Some(File {
+                origin: Some((written, _)),
+                ..
+            }) => written.as_str(),
+            Some(f) => f.text.as_str(),
+            None => "",
+        }
+    }
+
     /// How many files the program was made from.
     pub fn file_count(&self) -> usize {
         self.files.len()
