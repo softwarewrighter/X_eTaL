@@ -706,6 +706,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-lookup"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-libs",
+ "xetal-sources",
+ "xetal-store",
+]
+
+[[package]]
 name = "xetal-macro"
 version = "0.1.0"
 dependencies = [
@@ -714,10 +724,10 @@ dependencies = [
  "xetal-eval",
  "xetal-expand",
  "xetal-lex",
- "xetal-libs",
+ "xetal-lookup",
+ "xetal-mapped",
  "xetal-names",
  "xetal-sources",
- "xetal-store",
  "xetal-types",
 ]
 
@@ -779,6 +789,7 @@ version = "0.1.0"
 dependencies = [
  "xetal-base",
  "xetal-core",
+ "xetal-eval",
  "xetal-lex",
  "xetal-macro",
  "xetal-sources",

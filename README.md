@@ -173,11 +173,14 @@ reverses the axes, `t_ranspose` permutes them, `o_\_23` swaps two), whole-array 
 `[]N_PUT`, `[]R_EAD`, `f_ormat`, `n_umbers`), trigonometry, pictures
 (`[]G_RID` grids and `[]P_ATH` paths as SVG, animated by frames,
 shown with `[]S_HOW`), the system macros `i_f<`, `u_nless<` and
-`e_ach<` (source written for you, shown by `xetal expand`), and
-libraries imported with `u_se<`: the
+`e_ach<` (source written for you, shown by `xetal expand`), macro
+libraries of your own (`.xtlm` files: a macro is a function from the
+source text on either side of its call to the source that replaces
+it), and libraries imported with `u_se<`: the
 standard libraries `Stats`, `Combinators` (Smullyan's birds), `Maybe`,
-`TTTML` (a machine that learns tic-tac-toe) and `Turtle` (turtle
-graphics as arrays) are built in. The decorated views: `xetal render
+`TTTML` (a machine that learns tic-tac-toe), `Turtle` (turtle
+graphics as arrays) and the macro library `Macros` (an example) are
+built in. The decorated views: `xetal render
 --color`, streaming notebook runs laid out as an APL session, the
 editor, a REPL that draws each line decorated as you type, and
 annotated diagrams, and a live web demo. What comes next is in

@@ -390,6 +390,22 @@ The macro phase then reads the expanded text; `Sources` keeps the map
 evaluator, is located in the text as written. `xetal expand` prints
 the expanded text, and a spec case's `== EXPAND` section pins it.
 
+Macro libraries (MC10-MC12, MC18): libraries are found through
+`xetal-lookup` (components/lookup: `Libraries::find_both` gives the
+`.xtl` and `.xtlm` of the first directory holding either, on disk, in
+the store, or built in from `lib/`). A file's imports are read before
+its macros are expanded; each macro library is loaded once by a
+`Loader` of its own (its `m:` exports renamed to a hidden namespace,
+the names rules checking that every export ends in `<` and no other
+macro is defined) and kept as a `MacroLib` (its program and exports).
+`xetal-expand` asks a `Macros` table for each `alias:n_ame<` call; the
+table appends the call to the macro library's program and hands it to
+`Libraries::run_macro`, which `xetal-program` provides (`Running`
+wraps every loader's libraries: lower, check that the call gives
+`Char`, evaluate, take what it prints), since the macro phase cannot
+depend on the evaluator. The text is glued in at the call and expanded
+again, to the depth limit.
+
 ## 8. Display modes (CLI and web)
 
 | Mode      | What it shows                                              |
@@ -799,4 +815,6 @@ The pinning tests are written as the implementing saga reaches them
 | D52| Typed screen control (QD6) | the checker gains nominal built-in types (`Type::Named`, `ENUMS`: Color and Key, admitted to `Eq`), the evaluator `Value::Tag(type, index)` printed by name (`xetal-value` `tags`); `lib/Terminal.xtl` names the values with the library constructors `[]C_OLOR` and `[]K_NAMED`; `xetal-prim` `screen` builds the typed text (`[]F_G`, `[]B_G`, `[]B_OLD`, `[]A_T`, `[]C_LS`: ANSI with matching resets so builders nest); `xetal-tty` (components/console) is the terminal a program runs on (`[]E_RR`, `[]K_EY`, `[]T_E`): `Plain` by default, `xetal_line::Terminal` at the CLI (a raw-mode key), `Forward` in the worker; the machine waits for `[]K_EY` through its queue (`Status::WaitingKey`), the worker posts WaitingKey and the page sends the key's name; the live demo draws output holding sequences as a 24 by 80 `xetal_screen::Grid`. Tests: xetal-prim tests/screen.rs, xetal-step tests/input.rs, console tests (grid, tty, edit), spec eval/terminal-types and two rejections; checked in headless Chrome. |
 | D60| System macros and the expansion map | `components/expand`: `xetal-mapped` (a text with a map back to the written text: slices, glue mapped to a call, unescaping) and `xetal-expand` (calls found and classified, the three system macros, the depth limit); `xetal-macro` expands each file before reading its imports, and `xetal-sources` keeps each file's map (`add_expanded`, `Location::to`), so errors in expanded code are located as written, one file or several (MC14-MC17, proposed). Tests: expand tests (system.rs, map.rs, mapped.rs), spec/macros. |
 | D61| Seeing an expansion | the subcommand `xetal expand FILE` (or `-e`), not a `--expand` flag, as the CLI's other views (`fmt`, `core`) are subcommands; the spec harness's `== EXPAND` section runs it. The spelling can be switched if the user prefers (ask X2). |
+| D62| Finding libraries and macro libraries | `components/lookup` (`xetal-lookup`: `Found`, `Libraries` with `find_both` and `run_macro`, `FsLibraries`, `StoreLibraries`, moved out of `xetal-macro`, which re-exports them); `xetal-libs` embeds `lib/*.xtlm` as `MACROS` beside `LIBRARIES`; the not-found message names both files (MC11). Tests: lookup tests/pairs.rs (each tier, explicit paths, the store). |
+| D63| Running a macro | a macro library is loaded by its own `Loader` into a `MacroLib`; a call appends `"left" LX:n_ame< "right"` as a file of its own and `xetal-program`'s `Running` lowers, checks (the call's type must be `Char`) and evaluates it (seed 0), its printed text being the macro's result; `xetal type`/`run` on a `.xtlm` lists its macros (`is_library` sees `m:n_ame< :=`). Tests: xetal-program tests/macros.rs, xetal-expand tests/user.rs (the depth limit by a macro calling itself), spec/macros/user-*.case, goldens macros-user-*. (MC18, proposed.) |
 | D20| Comparing characters | `=` / `!=` on any scalar type (`Eq`), orderings on numbers and Char (`Ord`), table-driven classes (T8) |

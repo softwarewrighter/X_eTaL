@@ -1,6 +1,6 @@
 number = 2
 slug = "macros-lookup-xtlm"
-status = "pending"
+status = "in-progress"
 description = "MC11: u_se< finds Name.xtl and Name.xtlm together (first directory holding ei..."
 role = "production"
 context_files = []

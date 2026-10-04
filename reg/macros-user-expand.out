@@ -1,0 +1,7 @@
+"x:" u_se< "Macros"
+n := 4
+{ @ -> (n = 0) ? @; p_rint! 100 / n; @ } @
+u:s_quare := { _r * _r }
+u:s_quare 7
+{ @ -> (4 = 2 + 2) ? "ok: addition"; "FAIL: addition (4 = 2 + 2)" } @
+{ @ -> (5 = 2 * 2) ? "ok: doubling"; "FAIL: doubling (5 = 2 * 2)" } @

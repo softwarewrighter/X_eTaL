@@ -55,14 +55,19 @@ components/
                            where each byte was written), xetal-expand
                            (the system macros i_f<, u_nless<, e_ach<
                            expanded, to a depth limit)
+  lookup/                  xetal-lookup (where libraries and macro
+                           libraries come from: disk, the store,
+                           built in; found together, MC11)
   macro/                   xetal-sources (several files as one combined
                            text with a source map back to file, line
                            and column), xetal-names (one file: its
                            imports, definitions and renamed names),
                            xetal-macro (loading the files into one
-                           program), xetal-program (a program with its
-                           libraries, lowered, errors located; or a
-                           library file on its own),
+                           program; macro libraries loaded and their
+                           macros called), xetal-program (a program
+                           with its libraries, lowered, errors
+                           located; or a library file on its own;
+                           macros run),
                            xetal-libs (the standard libraries, lib/,
                            built in)
   syntax/                  xetal-token (tokens, lexer errors),

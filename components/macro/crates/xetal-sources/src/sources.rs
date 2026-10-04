@@ -46,14 +46,14 @@ impl Sources {
         self.files.len() - 1
     }
 
-    /// Add a file whose macros were expanded: `written` as written,
-    /// `expanded` the text `copy` and `replace` take bytes from.
-    pub fn add_expanded(&mut self, name: &str, written: &str, expanded: &Mapped) -> usize {
-        let index = self.add(name, expanded.text());
-        if expanded.text() != written {
-            self.files[index].origin = Some((written.into(), expanded.clone()));
+    /// File `file` (added as written) had its macros expanded: `copy`
+    /// and `replace` now take bytes from `expanded`, mapped back.
+    pub fn expanded(&mut self, file: usize, expanded: &Mapped) {
+        let f = &mut self.files[file];
+        if expanded.text() != f.text {
+            let written = std::mem::replace(&mut f.text, expanded.text().into());
+            f.origin = Some((written, expanded.clone()));
         }
-        index
     }
 
     /// Append bytes `range` of `file` to the combined text.
