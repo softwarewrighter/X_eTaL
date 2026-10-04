@@ -1,8 +1,9 @@
 number = 1
 slug = "decode-any"
-status = "in-progress"
+status = "completed"
 description = "Implement B18 test-first: d_ecode as Num a => a -> a -> a in the catalog and ..."
 role = "production"
 context_files = []
 created_at = "2026-10-04T15:12:23"
-commits = []
+completed_at = "2026-10-04T15:25:22"
+commits = ["db6bd64fde131056bf9db5799f1b15b46cd0490a"]
