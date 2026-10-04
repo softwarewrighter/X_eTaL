@@ -1,0 +1,5 @@
+# e_ncode stays on Ints (B18): a Float radix is a type error.
+== SOURCE
+2.0 e_ncode 5
+== ERROR
+error[type-mismatch]: expected Int, found Float at 0..13

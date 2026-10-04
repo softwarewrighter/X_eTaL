@@ -616,11 +616,13 @@ error[rank]: e_ncode needs a scalar or a vector, got shape 2 3
 
 ### `d_ecode`
 
-`Int -> Int -> Int`, two arguments.
+`Num a => a -> a -> a`, two arguments.
 
 Decode: the number whose digits, in the radix on the left, are on the
 right (APL's decode), the inverse of `e_ncode`. One radix extends to
-every digit; a matrix gives one number per column.
+every digit; a matrix gives one number per column. It is Horner's rule
+on any numbers, radix and digits of one type, so on Floats `x d_ecode
+r_ev c` is the polynomial with coefficients c (lowest first) at x.
 
 ```
       2 d_ecode 1 0 1 1
@@ -631,6 +633,10 @@ every digit; a matrix gives one number per column.
 3725
       2 d_ecode 2 2 2 e_ncode 0 1 2 3
 0 1 2 3
+      2.0 d_ecode 3.0 -2.0 1.0
+9.0
+      0.5 d_ecode r_ev 1.0 -2.0 3.0
+0.75
       2 2 d_ecode 1 0 1
 error[length-mismatch]: 2 radix values for 3 digits
 ```

@@ -1,0 +1,32 @@
+# d_ecode takes any numbers (B18): Horner's rule with the radix on the
+# left, radix and digits of one number type (T5). On Floats it
+# evaluates a polynomial: x d_ecode r_ev c is the polynomial with
+# coefficients c (lowest first) at x. A vector radix is mixed as on
+# Ints, and a matrix gives one number per column. Number literals take
+# either type (T5), so Int-looking digits with a Float radix are Floats.
+== SOURCE
+2.0 d_ecode 3 -2 1
+2 d_ecode 1.5 2.5
+2.0 d_ecode 3.0 -2.0 1.0
+c := 1.0 -2.0 3.0
+0.5 d_ecode r_ev c
+1.5 2.0 d_ecode 1.0 1.0
+2.0 d_ecode 2 2 r_eshape 1.0 0.5 1.0 0.25
+-1.0 d_ecode 1.0 1.0 1.0
+== TYPE
+Float
+Float
+Float
+c : Float
+Float
+Float
+Float
+Float
+== RESULT
+9.0
+5.5
+9.0
+0.75
+3.0
+3.0 1.25
+1.0
