@@ -14,7 +14,11 @@ run by ~xetal~ through ~ob-xetal~, and its result recorded under it.
 
 * The system macros
 
-Three macros are built in beside ~u_se<~; no import is needed.
+The system macros are always there; no import is needed. They are
+written in X_eTaL like any macro library, in ~lib/System.xtlm~ (built
+into ~xetal~ and loaded before every file), each with a comment saying
+what it does and an example. A side of a call that takes nothing is
+written ~@~: ~@ l_ine< @~. The first three choose and repeat code.
 
 ** i_f<: one of two expressions
 
@@ -104,6 +108,94 @@ u:m_in/ 3 1 4 1 5
 It wrote ~u:m_ax/ := { 'm_ax r_/ _r }~ and ~u:m_in/ := { 'm_in r_/ _r }~,
 one per line: ~e_ach<~ writes statements, so it stands as a statement
 of its own.
+
+** f_ormat<: text with values in it
+
+~@ f_ormat< "text {expr}"~ puts the value of each ~{expr}~, any
+expression, into the text, as the function ~f_ormat~ writes it (a Bool
+as 0 or 1); ~{{~ and ~}}~ are braces (Rust's ~format!~):
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+v ← 3 1 2
+@ f̲ormat< "v = {v}, its sum {'+ r_/ v}, sorted? {v m_atch s_ort v}, {{braces}}"
+#+end_example
+#+begin_src xetal
+v := 3 1 2
+@ f_ormat< "v = {v}, its sum {'+ r_/ v}, sorted? {v m_atch s_ort v}, {{braces}}"
+#+end_src
+
+#+RESULTS:
+: v = 3 1 2, its sum 6, sorted? 0, {braces}
+
+It writes ~"v = " c_at (f_ormat (v)) c_at ...~. An unclosed ~{~, an
+empty ~{}~ or a lone ~}~ is an error before the program runs, and a type
+error inside a hole is reported where it was written in the string.
+
+** d_bg< and a_ssert<: looking and checking
+
+~@ d_bg< "expr"~ gives the value of ~expr~ after writing it, as written,
+with its value and its place, on standard error (Rust's ~dbg!~).
+~"cond" a_ssert< "message"~ (or ~@~ for no message) reports a
+condition that does not hold, as written, and the program goes on;
+unlike Rust's ~assert!~, it never stops the program. Standard error
+shows:
+
+#+begin_example
+$ xetal eval -e 'x := 6
+y := 1 + @ d_bg< "x * 2"
+y'
+[-e:2] x * 2 = 12
+13
+$ xetal eval -e 'x := 6
+"x > 10" a_ssert< "x is big"'
+assertion failed: x > 10 (x is big) [-e:2]
+@
+#+end_example
+
+** p_anic<: stopping
+
+~@ p_anic< "message {expr}"~ stops the program with ~error[panic]~ and
+the message, formatted as ~f_ormat<~ does, at the call. It stands
+where any value may, an Int or a text:
+
+#+begin_example
+$ xetal eval -e 'u:s_ize := { k -> k > 3 ? @ p_anic< "bad grid size {k}"; k * 2 }
+u:s_ize 2
+u:s_ize 5'
+4
+error[panic]: bad grid size 5 at 26..55
+#+end_example
+
+** What the compiler knows
+
+Some macros give what only the compiler knows, through hooks no
+ordinary function can call:
+
+| Call | Gives |
+|------+-------|
+| ~@ l_ine< @~ | the line the call is written on |
+| ~@ f_ile< @~ | the file it is written in (~-e~ for command-line text) |
+| ~@ i_nclude< "data.txt"~ | the text of a file beside it, as a string (Rust's ~include_str!~) |
+| ~@ c_fg< "web"~ | 1 when the fact holds: the platform, ~cli~ or ~web~, or a flag set with ~xetal --cfg NAME~ |
+| ~"code" e_rror< "message"~ | a compile error at the call (Rust's ~compile_error!~) |
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+@ c̲fg< "cli"
+@ c̲fg< "web"
+#+end_example
+#+begin_src xetal
+@ c_fg< "cli"
+@ c_fg< "web"
+#+end_src
+
+#+RESULTS:
+: 1
+: 0
+
+A macro of yours can write ~e_rror<~ into its text to refuse a call:
+the error is reported at your call, with your code and message.
 
 * Macros of your own
 
