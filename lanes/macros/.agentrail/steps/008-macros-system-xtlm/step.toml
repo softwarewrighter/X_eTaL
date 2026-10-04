@@ -1,0 +1,8 @@
+number = 8
+slug = "macros-system-xtlm"
+status = "pending"
+description = "MC18, MC19 (decided): lib/System.xtlm, built in (include_str!), defines the s..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T21:13:12"
+commits = []

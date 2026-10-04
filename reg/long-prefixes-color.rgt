@@ -1,0 +1,3 @@
+command = """./target/debug/xetal render --color -e '"combinators:" u_se< "Combinators"; "b2:" u_se< "Stats"; b2:m_ean 3'"""
+exit_code = 0
+desc = "long namespace prefixes (MC13) highlighted: an alias drawn raised where every letter has a superscript, as written otherwise (b2)"

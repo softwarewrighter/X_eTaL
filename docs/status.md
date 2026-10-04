@@ -19,14 +19,13 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 92 | 0 | 0 |
-| Language decisions | 107 | 0 | 2 |
+| Language decisions | 108 | 0 | 1 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 303 | 0 | 0 |
+| Spec cases | 309 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
 - **T9** (planned): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
-- **MC13** (planned): A namespace prefix is a lowercase letter followed by lowercase letters or digits, of any length, then `:` (...).
 
 ## Built-in functions
 
@@ -300,12 +299,12 @@ conventions (naming, layout) work without a spec case citing them.
 | MC10 | Macro libraries are `.xtlm` files | works | 2 |
 | MC11 | `"m:" u_se< "Name"` finds `Name.xtl` and `Name.xtlm` together: the search directories keep MC4's order, (...) | works | 0 |
 | MC12 | A macro call may stand as a top-level statement or inside an expression; its expansion parses as a block (...) | works | 4 |
-| MC13 | A namespace prefix is a lowercase letter followed by lowercase letters or digits, of any length, then `:` (...) | planned | 0 |
+| MC13 | A namespace prefix is a lowercase letter followed by lowercase letters or digits, of any length, then `:` (...) | works | 5 |
 | MC14 | `"c" i_f< "a; b"` is a system macro (no import): the value of `a` when the condition `c` holds, else of `b` | works | 2 |
 | MC15 | `"c" u_nless< "b"` is a system macro: run the statements `b` unless `c` holds | works | 1 |
 | MC16 | `"w1 w2" e_ach< "template"` is a system macro: one copy of the template per word of its left (a word is a (...) | works | 3 |
 | MC17 | System macros are expanded in each file before its imports and names are read, again on each expansion (a (...) | works | 0 |
-| MC18 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
+| MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | CB1 | The standard library `Combinators` holds every bird Raymond Smullyan names in *To Mock a Mockingbird* that (...) | works | 1 |
 | CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works (...) | works | 0 |
 | CB3 | A second standard library, `Maybe`, Church-encoded (`n_othing`, `j_ust`, `b_ind` and helpers), shows a (...) | works | 2 |

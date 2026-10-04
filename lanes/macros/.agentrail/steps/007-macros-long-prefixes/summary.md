@@ -1,0 +1,1 @@
+MC13 long prefixes: lexer and valid_alias agree ([a-z][a-z0-9]*:, hidden [A-Z]+:), hidden-namespace rejection, b2: drawn raw, xetal-mode; D64; proposed run rule renumbered MC23.

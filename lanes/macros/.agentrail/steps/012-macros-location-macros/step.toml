@@ -1,0 +1,8 @@
+number = 12
+slug = "macros-location-macros"
+status = "pending"
+description = "f_ile<, l_ine< (Rust's file!, line!, column!): the location of the call itsel..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T21:13:12"
+commits = []

@@ -1,0 +1,16 @@
+# A namespace prefix is a lowercase letter, then lowercase letters or
+# digits (MC13). It is drawn as superscript letters; a prefix with a
+# character that has no superscript form (q, a digit) is drawn as written.
+== SOURCE
+combinators:K_ 1 2; b2:m_ean 3; quux:y
+== TOKENS
+0..14 Func(combinators:K_)
+15..16 Num(1)
+17..18 Num(2)
+18..19 Semi
+20..28 Func(b2:m_ean)
+29..30 Num(3)
+30..31 Semi
+32..38 Var(quux:y)
+== RENDER
+ᶜᵒᵐᵇⁱⁿᵃᵗᵒʳˢK̲ 1 2◆ b2:m̲ean 3◆ quux:y

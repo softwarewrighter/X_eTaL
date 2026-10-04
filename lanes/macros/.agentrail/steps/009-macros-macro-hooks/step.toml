@@ -1,0 +1,8 @@
+number = 9
+slug = "macros-macro-hooks"
+status = "pending"
+description = "MC20: the hook built-ins only the compiler knows, usable only in a macro body..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T21:13:12"
+commits = []

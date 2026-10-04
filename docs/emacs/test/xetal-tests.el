@@ -49,6 +49,11 @@
     (should (eq (xetal-tests--face-at line "Stats") 'font-lock-string-face))
     (should (eq (xetal-tests--face-at line "note") 'font-lock-comment-face))))
 
+(ert-deftest xetal-mode-colours-long-prefixes ()
+  (let ((line "combinators:K_ 1 2 b2:m_ean 3"))
+    (should (eq (xetal-tests--face-at line "combinators:K_") 'xetal-library-face))
+    (should (eq (xetal-tests--face-at line "b2:m_ean") 'xetal-library-face))))
+
 (ert-deftest xetal-mode-shows-glyphs-but-keeps-ascii ()
   (with-temp-buffer
     (insert "u:s_ub := { _l - _r }")

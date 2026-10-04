@@ -1,0 +1,10 @@
+# An alias is a prefix of any length, with digits after its first letter
+# (MC13).
+== SOURCE
+"combinators:" u_se< "Combinators"
+1 combinators:K_ 2
+"b2:" u_se< "Stats"
+b2:m_ean 1 2 3
+== RESULT
+1
+2.0

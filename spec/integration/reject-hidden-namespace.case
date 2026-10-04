@@ -1,0 +1,6 @@
+# The macro phase's hidden namespaces (uppercase) cannot be written.
+== SOURCE
+"s:" u_se< "Stats"
+LA:m_ean 1 2
+== ERROR
+error[hidden-namespace]: uppercase prefixes are the macro phase's own (hidden namespaces); import a library with a lowercase alias at 19..27
