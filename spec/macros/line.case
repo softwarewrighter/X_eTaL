@@ -1,0 +1,11 @@
+# @ l_ine< @ is the line its call is written on (MC20, MC24); @ stands
+# for a side with no argument (MC22).
+== SOURCE
+1 + 1
+@ l_ine< @
+== EXPAND
+1 + 1
+2
+== RESULT
+2
+2

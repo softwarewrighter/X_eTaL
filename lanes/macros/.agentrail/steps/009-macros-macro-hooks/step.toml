@@ -1,6 +1,6 @@
 number = 9
 slug = "macros-macro-hooks"
-status = "pending"
+status = "in-progress"
 description = "MC20: the hook built-ins only the compiler knows, usable only in a macro body..."
 role = "production"
 context_files = []

@@ -26,6 +26,8 @@ impl Libraries for Running<'_> {
     fn run_macro(&self, library: &Sources, call: &MacroRun) -> Result<String, Diagnostic> {
         let now = xetal_system::Expanding {
             statement: call.statement,
+            file: call.file.clone(),
+            row: call.row,
         };
         xetal_system::expanding(now, || run(library, call)).map_err(|d| failed(d, call))
     }

@@ -8,13 +8,27 @@ use std::sync::Mutex;
 use xetal_base::Diagnostic;
 use xetal_value::Value;
 
-use crate::text::chars;
+use crate::facts::{holds, include};
+use crate::text::{chars, text};
+
+/// The hooks, by name.
+const HOOKS: [&str; 6] = [
+    "[]R_EJECT",
+    "[]S_TATEMENT",
+    "[]F_ILE",
+    "[]L_INE",
+    "[]I_NCLUDE",
+    "[]C_FG",
+];
 
 /// The macro call being expanded.
 #[derive(Debug, Clone, Default)]
 pub struct Expanding {
     /// The call stands as a statement of its own.
     pub statement: bool,
+    /// The file it is written in, and its line there (from 1).
+    pub file: String,
+    pub row: usize,
 }
 
 static NOW: Mutex<Option<Expanding>> = Mutex::new(None);
@@ -36,7 +50,7 @@ fn set(call: Option<Expanding>) {
 
 /// The hook `name` on `args`, if it is one.
 pub(crate) fn hook<'a>(name: &str, args: &[Value<'a>]) -> Option<Result<Value<'a>, Diagnostic>> {
-    if !matches!(name, "[]R_EJECT" | "[]S_TATEMENT") {
+    if !HOOKS.contains(&name) {
         return None;
     }
     let now = NOW.lock().unwrap_or_else(|e| e.into_inner()).clone();
@@ -49,6 +63,12 @@ pub(crate) fn hook<'a>(name: &str, args: &[Value<'a>]) -> Option<Result<Value<'a
     Some(match (name, args) {
         ("[]S_TATEMENT", [_]) => Ok(Value::Bool(call.statement)),
         ("[]R_EJECT", [code, message]) => reject(code, message),
+        ("[]F_ILE", [_]) => Ok(text(&call.file)),
+        ("[]L_INE", [_]) => Ok(Value::Int(i64::try_from(call.row).unwrap_or(i64::MAX))),
+        ("[]I_NCLUDE", [path]) => chars(path)
+            .and_then(|p| include(&p, &call.file))
+            .map(|t| text(&t)),
+        ("[]C_FG", [flag]) => chars(flag).map(|f| Value::Bool(holds(f.trim()))),
         _ => return None,
     })
 }

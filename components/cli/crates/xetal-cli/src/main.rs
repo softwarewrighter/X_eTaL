@@ -25,6 +25,7 @@ fn main() -> ExitCode {
     let draw = cli.draw.clone();
     xetal_grid::set_ascii(cli.ascii);
     xetal_grid::set_boxed(cli.boxed);
+    xetal_system::set_flags(cli.cfg.clone());
     let command = command(cli.command, cli.script);
     install_drawing(draw, &command);
     match run(&command) {

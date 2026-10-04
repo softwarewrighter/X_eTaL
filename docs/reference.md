@@ -1398,6 +1398,52 @@ Whether the call being expanded stands as a statement of its own.
 error[hook-outside-macro]: []S_TATEMENT is a macro hook: it works only in a macro body, while a call is expanded
 ```
 
+### `[]F_ILE`
+
+`Unit -> Char`, one argument.
+
+The file the call being expanded is written in (`@ f_ile< @`).
+
+```
+      []F_ILE @
+error[hook-outside-macro]: []F_ILE is a macro hook: it works only in a macro body, while a call is expanded
+```
+
+### `[]L_INE`
+
+`Unit -> Int`, one argument.
+
+The line the call being expanded is written on (`@ l_ine< @`).
+
+```
+      []L_INE @
+error[hook-outside-macro]: []L_INE is a macro hook: it works only in a macro body, while a call is expanded
+```
+
+### `[]I_NCLUDE`
+
+`Char -> Char`, one argument.
+
+The text of a file, by a path relative to the file the call being
+expanded is written in (`@ i_nclude< "data.txt"`).
+
+```
+      []I_NCLUDE "data.txt"
+error[hook-outside-macro]: []I_NCLUDE is a macro hook: it works only in a macro body, while a call is expanded
+```
+
+### `[]C_FG`
+
+`Truthy a => Char -> a`, one argument.
+
+Whether a configuration fact holds: the platform (cli or web) or a flag
+set with `xetal --cfg NAME` (`@ c_fg< "web"`).
+
+```
+      []C_FG "cli"
+error[hook-outside-macro]: []C_FG is a macro hook: it works only in a macro body, while a call is expanded
+```
+
 ## Graphics
 
 A program computes what to draw as an array. Drawing is pure: the

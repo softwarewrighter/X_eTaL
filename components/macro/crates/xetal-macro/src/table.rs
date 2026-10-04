@@ -13,6 +13,8 @@ pub(crate) struct Table<'a> {
     pub macros: &'a MacroAliases,
     pub system: Option<&'a MacroLib>,
     pub libs: &'a dyn Libraries,
+    /// The file the calls are written in: its name and text.
+    pub file: (&'a str, &'a str),
 }
 
 impl Macros for Table<'_> {
@@ -26,6 +28,11 @@ impl Macros for Table<'_> {
             written: written(call),
             statement: call.statement,
             texts: (call.left.is_some(), call.right.is_some()),
+            file: self.file.0.to_string(),
+            row: self.file.1[..call.at.min(self.file.1.len())]
+                .matches('\n')
+                .count()
+                + 1,
         };
         self.libs.run_macro(&lib.sources, &run)
     }

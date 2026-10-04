@@ -58,6 +58,7 @@ impl Loader<'_> {
             macros: &macros,
             system: self.system.as_deref(),
             libs: self.libs,
+            file: (&file.name, &file.text),
         };
         let expanded = xetal_expand::expand_with(&file.text, &table).map_err(error)?;
         if let (true, Some(shown)) = (main, self.expansion.as_mut()) {

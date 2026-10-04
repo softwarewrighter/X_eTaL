@@ -2135,6 +2135,7 @@ dependencies = [
  "xetal-spec",
  "xetal-store",
  "xetal-syntax",
+ "xetal-system",
  "xetal-tty",
  "xetal-types",
  "xetal-view",

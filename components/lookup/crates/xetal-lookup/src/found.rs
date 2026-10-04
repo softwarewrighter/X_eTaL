@@ -54,6 +54,9 @@ pub struct MacroRun {
     pub texts: (bool, bool),
     /// The call as a statement: `"left" LA:i_f< "right"`.
     pub line: String,
+    /// The file the call was written in, and its line there (from 1).
+    pub file: String,
+    pub row: usize,
 }
 
 /// What a library string names (MC4, MC11).

@@ -22,6 +22,9 @@ pub struct MacroCall<'a> {
     pub right: Option<&'a str>,
     /// The call stands as a statement of its own.
     pub statement: bool,
+    /// Where the call was written (a byte offset in its file; inside
+    /// another macro's expansion, that macro's call).
+    pub at: usize,
 }
 
 /// What runs the macros a file can call.
@@ -65,6 +68,7 @@ pub(crate) fn user(
         left: call.texts.0.then_some(left.text()),
         right: call.texts.1.then_some(right.text()),
         statement: call.statement,
+        at: whole.start,
     };
     let text = macros.run(&request).map_err(|d| placed(d, call))?;
     let text = match call.statement {

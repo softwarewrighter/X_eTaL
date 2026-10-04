@@ -1,0 +1,6 @@
+# A side that takes no argument takes only @, not even an empty text
+# (MC22).
+== SOURCE
+"" l_ine< @
+== ERROR
+error[bad-macro-argument]: l_ine< takes @ on its left, not text at 0..2

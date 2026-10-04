@@ -18,10 +18,10 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 94 | 0 | 0 |
-| Language decisions | 114 | 0 | 2 |
+| Built-in functions | 98 | 0 | 0 |
+| Language decisions | 115 | 0 | 2 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 313 | 0 | 0 |
+| Spec cases | 320 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -34,7 +34,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 50 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 51 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 25 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 33 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
@@ -112,6 +112,10 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `[]R_EJECT` | `Char -> Char -> Char` | works | 0 | 1 |
 | `[]S_TATEMENT` | `Truthy a => Unit -> a` | works | 1 | 1 |
+| `[]F_ILE` | `Unit -> Char` | works | 0 | 1 |
+| `[]L_INE` | `Unit -> Int` | works | 0 | 1 |
+| `[]I_NCLUDE` | `Char -> Char` | works | 0 | 1 |
+| `[]C_FG` | `Truthy a => Char -> a` | works | 0 | 1 |
 
 ### QD5: graphics (pure SVG builders, one effect)
 
@@ -315,10 +319,11 @@ conventions (naming, layout) work without a spec case citing them.
 | MC17 | System macros are expanded in each file before its imports and names are read, again on each expansion (a (...) | works | 0 |
 | MC18 | The system macros live in `lib/System.xtlm`, written in X_eTaL like any macro library and built into the (...) | works | 2 |
 | MC19 | System.xtlm is loaded before every file, with no import and no alias: its `s:` macros are called (...) | works | 1 |
-| MC20 | What only the compiler knows comes from a few hooks, quad built-ins usable only in a macro body while a (...) | works | 1 |
-| MC21 | `u_se<` is declared in System.xtlm like every other system macro, as `s:u_se<` with a built-in body (as (...) | works | 0 |
-| MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 2 |
-| MC24 | Which macros are system macros: a macro is a system macro (in `lib/System.xtlm` under `s:`, called (...) | works | 0 |
+| MC20 | What only the compiler knows comes from a few hooks, quad built-ins usable only in a macro body while a (...) | works | 2 |
+| MC21 | `u_se<` stays built into the compiler and is not declared as an `s:` macro in System.xtlm: what it does (...) | works | 0 |
+| MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 4 |
+| MC24 | Which macros are system macros: a macro is a system macro (in `lib/System.xtlm` under `s:`, called (...) | works | 5 |
+| MC25 | The compiler-only system macros, each with `@` for a side that takes nothing: `@ l_ine< @` (the call's (...) | works | 0 |
 | MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | CB1 | The standard library `Combinators` holds every bird Raymond Smullyan names in *To Mock a Mockingbird* that (...) | works | 1 |
 | CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works (...) | works | 0 |

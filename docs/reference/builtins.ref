@@ -582,6 +582,24 @@ to report it (call, left or right), the right text the message.
 Whether the call being expanded stands as a statement of its own.
 !> []S_TATEMENT @
 
+== []F_ILE
+The file the call being expanded is written in (`@ f_ile< @`).
+!> []F_ILE @
+
+== []L_INE
+The line the call being expanded is written on (`@ l_ine< @`).
+!> []L_INE @
+
+== []I_NCLUDE
+The text of a file, by a path relative to the file the call being
+expanded is written in (`@ i_nclude< "data.txt"`).
+!> []I_NCLUDE "data.txt"
+
+== []C_FG
+Whether a configuration fact holds: the platform (cli or web) or a flag
+set with `xetal --cfg NAME` (`@ c_fg< "web"`).
+!> []C_FG "cli"
+
 == SECTION Graphics
 A program computes what to draw as an array. Drawing is pure: the
 picture comes back as text, an SVG document. Showing it is the effect.

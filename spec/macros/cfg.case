@@ -1,0 +1,11 @@
+# @ c_fg< "name" is 1 when the fact holds: the platform (cli at the
+# command line, web in the browser) or a flag set with xetal --cfg NAME.
+== SOURCE
+@ c_fg< "cli"
+@ c_fg< "web"
+== EXPAND
+1
+0
+== RESULT
+1
+0
