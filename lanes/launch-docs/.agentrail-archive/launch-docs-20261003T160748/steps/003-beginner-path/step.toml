@@ -1,8 +1,9 @@
 number = 3
 slug = "beginner-path"
-status = "pending"
+status = "completed"
 description = "Launch-docs lane (see lanes/launch-docs/.agentrail/plan.md), step beginner-pa..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T13:51:40"
-commits = []
+completed_at = "2026-10-03T16:07:48"
+commits = ["b4e22af2a102b19e8219b54e42fd06f8e757951e"]

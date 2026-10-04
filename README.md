@@ -214,6 +214,9 @@ the vendored commit instead.
 
 ## Quick Start
 
+New to X_eTaL? [`docs/literate/beginner.org`](docs/literate/beginner.org)
+is a fifteen-minute start.
+
 With [`just`](https://github.com/casey/just) installed (`just` alone
 lists the tasks):
 
@@ -282,6 +285,9 @@ Other fonts, checked against the font files:
   tours (M0 to M6)
 - [The literate documents as web pages](https://softwarewrighter.github.io/X_eTaL/literate/)
   -- the Org documents below exported to HTML, with an index
+- [`docs/literate/beginner.org`](docs/literate/beginner.org) -- start here:
+  X_eTaL in fifteen minutes, from typing ASCII and seeing it drawn to a
+  train and a library import
 - [`docs/literate/tour.org`](docs/literate/tour.org) -- the language tour
   as a literate Org document, every block run and its result recorded
   (`docs/emacs/`: `xetal-mode` and `ob-xetal` for Org Babel)
