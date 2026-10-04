@@ -1,0 +1,1 @@
+Done in the launch-docs lane (PR #42): docs/literate/beginner.org, X_eTaL in fifteen minutes, linked from README, the live demo's Help and the literate index; pages rebuilt. Its macros section is a COMMENT placeholder for the macros release to fill

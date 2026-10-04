@@ -1,4 +1,4 @@
-number = 48
+number = 51
 slug = "speed-lean-kernels"
 status = "pending"
 description = "Saga 30 (the higher-order speed regression, docs/plan.md), step 3 of 4: X_eTa..."

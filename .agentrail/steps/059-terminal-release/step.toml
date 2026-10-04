@@ -1,4 +1,4 @@
-number = 56
+number = 59
 slug = "terminal-release"
 status = "pending"
 description = "Saga 25 (the terminal, docs/plan.md), step 7 of 7, moved ahead of web-release..."
