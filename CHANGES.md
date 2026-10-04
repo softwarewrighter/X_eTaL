@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 20:15 `demo` Macros, shown (macros lane steps 5-6): `demos/macros.xtl` (the system macros and the example macro library `Macros`, also in the live demo's Open menu) and the literate document `docs/literate/macros.org` (source that writes source: `i_f<`, `u_nless<`, `e_ach<`, `xetal expand`, macro libraries of your own, the mistakes caught), with goldens of the demo's run and its expansion.
 - 18:36 `fix` Higher-order built-ins call a first-order built-in operand at once (Saga 30 step 2, D55): `t_able`, `i_nner`, `e_ach` and reduce with `'*`, `'+` and the like no longer go through the machine per call; bench/inner.xtl 8.3 s to 0.86 s, bench/table-right.xtl 0.63 s to 0.39 s; the cost guard's bounds lowered to match.
 - 18:30 `feat` Macro libraries of your own (macros lane steps 2-4): `"x:" u_se< "Name"` finds `Name.xtl` and `Name.xtlm` together (MC11, components/lookup); a `.xtlm` defines `m:n_ame< := { left right -> ... }` (MC10, misdefinitions rejected); `"l" x:n_ame< "r"` runs the macro when the program is expanded and its text replaces the call, as statements or parenthesized by where it stands (MC12), expanded again to the depth limit; `xetal expand` and `xetal type X.xtlm` show them; the standard example `lib/Macros.xtlm` (`u_nless<`, `d_ef<`, `c_heck<`). MC18 proposed, D62, D63; the not-found golden rebased on purpose (it names both files).
 

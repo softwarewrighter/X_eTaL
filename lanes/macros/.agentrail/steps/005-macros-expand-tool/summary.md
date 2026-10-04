@@ -1,0 +1,1 @@
+xetal expand covers macro libraries (from steps 2-4); goldens of the demo's expansion. One call's expansion with where the macro is defined left for later. Committed with step 6.

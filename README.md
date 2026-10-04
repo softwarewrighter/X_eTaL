@@ -296,6 +296,10 @@ Other fonts, checked against the font files:
   (`docs/emacs/`: `xetal-mode` and `ob-xetal` for Org Babel)
 - [`docs/literate/hello.org`](docs/literate/hello.org) -- a library of
   your own: write `userlibs/Hello.xtl`, import it, call it
+- [`docs/literate/macros.org`](docs/literate/macros.org) -- macros,
+  source that writes source: the system macros (`i_f<`, `u_nless<`,
+  `e_ach<`), seeing an expansion with `xetal expand`, and macro
+  libraries of your own (`.xtlm`)
 - [`docs/literate/life.org`](docs/literate/life.org) -- Conway's Life,
   the one line built up a piece at a time
 - [`docs/literate/libraries.org`](docs/literate/libraries.org) -- what a
