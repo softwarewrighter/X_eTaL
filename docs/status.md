@@ -19,13 +19,14 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 92 | 0 | 0 |
-| Language decisions | 103 | 0 | 5 |
+| Language decisions | 103 | 0 | 6 |
 | Standard libraries | 6 | 0 | 0 |
 | Spec cases | 298 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
 - **T9** (planned): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
+- **B18** (planned): `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...).
 - **MC10** (planned): Macro libraries are `.xtlm` files.
 - **MC11** (planned): `"m:" u_se< "Name"` finds `Name.xtl` and `Name.xtlm` together: the search directories keep MC4's order, (...).
 - **MC12** (planned): A macro call may stand as a top-level statement or inside an expression; its expansion parses as a block (...).
@@ -282,6 +283,7 @@ conventions (naming, layout) work without a spec case citing them.
 | B15 | `c_at_k` is APL's catenate along axis k (decided with the user, from the swimming-ducks demo): `c_at` (...) | works | 0 |
 | B16 | Nested arrays print as APL2's DISPLAY draws them (decided with the user for the classics lane): every (...) | works | 1 |
 | B17 | Transpose, decided with the user for the transpose lane (asked for by X_eTaL-demos, ADVANCEDEX and the (...) | works | 11 |
+| B18 | `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...) | planned | 0 |
 | SC1 | A symbol function applied to one argument is an error (`- 3`, `/ 2`, `2 +`): under currying it would fill (...) | works | 4 |
 | ST1 | A string is written `"..."` | works | 2 |
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 2 |

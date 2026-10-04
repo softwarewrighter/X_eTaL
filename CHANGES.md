@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-03
 
+- 21:35 `design` Decode on any numbers (B18, ask X9): `d_ecode` becomes `Num a => a -> a -> a` (Horner's rule; Int programs unchanged), `e_ncode` stays Int-only; planned as one small step before X_eTaL-libraries' Polynomials library; the asks ledger and status table regenerated (X9 planned; B18 planned).
 - 18:36 `fix` Higher-order built-ins call a first-order built-in operand at once (Saga 30 step 2, D55): `t_able`, `i_nner`, `e_ach` and reduce with `'*`, `'+` and the like no longer go through the machine per call; bench/inner.xtl 8.3 s to 0.86 s, bench/table-right.xtl 0.63 s to 0.39 s; the cost guard's bounds lowered to match.
 
 - 17:21 `build` Merged PR #41 (macros lane step 1: system macros `i_f<`, `u_nless<`, `e_ach<` and `xetal expand`) and PR #42 (launch-docs lane step 3: the beginner path; the lane archived); pages/ rebuilt (the beginner page, the macros in the live demo) and docs/status.md regenerated.
