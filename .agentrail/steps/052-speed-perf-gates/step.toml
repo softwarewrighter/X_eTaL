@@ -1,5 +1,5 @@
-number = 57
-slug = "front-door"
+number = 52
+slug = "speed-perf-gates"
 status = "pending"
 description = "Launch reprioritization (the user, 2026-10-03, docs/research4.txt: stabilize,..."
 role = "production"

@@ -1,4 +1,4 @@
-number = 52
+number = 55
 slug = "kind-through-primitives"
 status = "pending"
 description = "Saga 20 (array kinds, docs/plan.md), step 2, moved up by the user (2026-10-03..."
