@@ -7,7 +7,9 @@
 mod combine;
 mod direct;
 mod kernel;
+mod lean;
 
 pub use combine::{all, apply, fold, then};
 pub use direct::{Direct, Never};
 pub use kernel::{Kernel, Next, done, drive, fail};
+pub use lean::{Application, lean};

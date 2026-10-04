@@ -1,8 +1,0 @@
-number = 100
-slug = "asks-row-grade"
-status = "pending"
-description = "Implement grade per row (or the rank form) as decided in asks-decisions (top-..."
-role = "production"
-context_files = []
-created_at = "2026-10-03T12:59:23"
-commits = []

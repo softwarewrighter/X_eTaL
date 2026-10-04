@@ -958,7 +958,10 @@ lives in this repository, as rustdoc ships with rustc: it needs the
 expansion map, library lookup, inferred types, spans and the
 decorated renderer, all internal and still changing.
 
-1. doc-model: what a doc comment is (a decision with the user), and
+Doc comments (S9): `#` ignored, `##` documentation, `###` sections,
+`## >>` example transcripts (doctests follow as step 6).
+
+1. doc-model: doc comments as S9 decides, and
    `xetal doc FILE --json`: every item (name, kind, inferred type, doc
    comment, source, expansion, place, uses).
 2. doc-site: `xetal doc FILE --out DIR`, a static site in rustdoc's
@@ -969,6 +972,9 @@ decorated renderer, all internal and still changing.
    its libraries and the built-ins.
 5. doc-release: `just doc` builds pages/doc for lib/ and two showcase
    programs, linked from the README, Help and the front door.
+6. doc-tests: `xetal doc --test` runs every `## >>` example in its
+   file's context and compares what it prints; the gate runs it over
+   lib/ and System.xtlm.
 
 ## Saga 28 -- learn X_eTaL (a self-paced course, REPL and browser)
 

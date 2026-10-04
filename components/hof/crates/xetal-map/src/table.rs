@@ -6,7 +6,7 @@ use std::rc::Rc;
 
 use xetal_array::{Array, size};
 use xetal_base::Diagnostic;
-use xetal_kernel::{Direct, Kernel, all, apply, done, then};
+use xetal_kernel::{Application, Direct, Kernel, done, lean};
 use xetal_value::{Value, as_array};
 
 use crate::items::finish;
@@ -23,20 +23,57 @@ pub fn table<'a>(
     if direct.takes(f, 2) {
         return at_once(f, &xs, &ys, shape, direct);
     }
-    let rows = xs.data().iter().map(|a| {
-        let ys = ys.clone();
-        then(apply(f.clone(), vec![a.clone()]), move |row| {
-            Ok(all(ys
-                .data()
-                .iter()
-                .map(|b| apply(row.clone(), vec![b.clone()]))
-                .collect()))
-        })
-    });
-    Ok(then(all(rows.collect()), move |rows| {
-        let data = rows.into_iter().flatten().collect();
-        Ok(done(finish("t_able", Array::new(shape, data)?)?))
-    }))
+    let (f, ys) = (
+        f.clone(),
+        Rc::try_unwrap(ys).unwrap_or_else(|ys| (*ys).clone()),
+    );
+    let state = Rows {
+        row: None,
+        i: 0,
+        j: 0,
+        out: Vec::new(),
+    };
+    Ok(lean(
+        state,
+        move |s: &mut Rows<'a>| Ok(s.next(&f, &xs, &ys)),
+        |s, v| {
+            match s.row.is_none() {
+                true => s.row = Some(v),
+                false => s.out.push(v),
+            }
+            Ok(())
+        },
+        move |s| finish("t_able", Array::new(shape, s.out)?),
+    ))
+}
+
+/// Where a table is: the left item's function (`f a`) once called,
+/// the item and column next, and the cells so far.
+struct Rows<'a> {
+    row: Option<Value<'a>>,
+    i: usize,
+    j: usize,
+    out: Vec<Value<'a>>,
+}
+
+impl<'a> Rows<'a> {
+    /// `f a` for the next row, or that row applied to the next item.
+    fn next(
+        &mut self,
+        f: &Value<'a>,
+        xs: &Array<Value<'a>>,
+        ys: &Array<Value<'a>>,
+    ) -> Option<Application<'a>> {
+        if let Some(row) = &self.row {
+            if let Some(b) = ys.data().get(self.j) {
+                self.j += 1;
+                return Some(Application::one(row.clone(), b.clone()));
+            }
+            (self.row, self.i, self.j) = (None, self.i + 1, 0);
+        }
+        let a = xs.data().get(self.i)?;
+        Some(Application::one(f.clone(), a.clone()))
+    }
 }
 
 /// The table with a built-in f, each call made at once, in the

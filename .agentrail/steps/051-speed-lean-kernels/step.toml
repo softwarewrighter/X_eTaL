@@ -1,6 +1,6 @@
 number = 51
 slug = "speed-lean-kernels"
-status = "pending"
+status = "in-progress"
 description = "Saga 30 (the higher-order speed regression, docs/plan.md), step 3 of 4: X_eTa..."
 role = "production"
 context_files = []

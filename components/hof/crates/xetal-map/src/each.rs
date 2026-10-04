@@ -8,7 +8,7 @@ use std::rc::Rc;
 
 use xetal_array::{Array, ArrayError};
 use xetal_base::Diagnostic;
-use xetal_kernel::{Direct, Kernel, all, apply, done, then};
+use xetal_kernel::{Application, Direct, Kernel, done, lean, then};
 use xetal_value::{Prim, Value, as_array, to_value};
 
 use crate::items::{finish, is_function, takes_two};
@@ -18,11 +18,28 @@ type Out<'a> = Result<Kernel<'a, Value<'a>>, Diagnostic>;
 /// f applied to each item, the results in the items' shape.
 fn calls<'a>(f: &Value<'a>, x: &Value<'a>) -> (Vec<usize>, Kernel<'a, Vec<Value<'a>>>) {
     let items = as_array(x);
-    let calls = items
-        .data()
-        .iter()
-        .map(|item| apply(f.clone(), vec![item.clone()]));
-    (items.shape().to_vec(), all(calls.collect()))
+    let shape = items.shape().to_vec();
+    let f = f.clone();
+    (
+        shape,
+        pairwise(move |i| Some(f.clone()).zip(items.data().get(i).cloned())),
+    )
+}
+
+/// The application `call(i)` gives for each i from 0 until it gives
+/// none, the results in order (one lean kernel, nothing per item).
+fn pairwise<'a>(
+    mut call: impl FnMut(usize) -> Option<(Value<'a>, Value<'a>)> + 'a,
+) -> Kernel<'a, Vec<Value<'a>>> {
+    lean(
+        Vec::new(),
+        move |out: &mut Vec<Value<'a>>| Ok(call(out.len()).map(|(f, a)| Application::one(f, a))),
+        |out, v| {
+            out.push(v);
+            Ok(())
+        },
+        Ok,
+    )
 }
 
 pub fn each<'a>(f: &Value<'a>, x: &Value<'a>, direct: &mut dyn Direct<'a>) -> Out<'a> {
@@ -77,11 +94,9 @@ pub fn zip<'a>(fs: &Value<'a>, y: &Value<'a>) -> Out<'a> {
         }
     };
     let at = |a: &Array<Value<'a>>, i: usize| a.data()[if a.rank() == 0 { 0 } else { i }].clone();
-    let n = shape.iter().product();
-    let calls = (0..n)
-        .map(|i| apply(at(&fs, i), vec![at(&ys, i)]))
-        .collect();
-    Ok(then(all(calls), move |data| {
+    let n: usize = shape.iter().product();
+    let calls = pairwise(move |i| (i < n).then(|| (at(&fs, i), at(&ys, i))));
+    Ok(then(calls, move |data| {
         Ok(done(finish("e_ach", Array::new(shape, data)?)?))
     }))
 }

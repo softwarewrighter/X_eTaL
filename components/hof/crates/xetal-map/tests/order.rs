@@ -59,3 +59,20 @@ fn table_fixes_each_left_item_once() {
     assert_eq!(out.to_string(), "7 8\n7 8");
     assert_eq!(log.0, ["1", "7", "8", "2", "7", "8"]);
 }
+
+#[test]
+fn inner_pairs_then_reduces_each_cell() {
+    let mut log = Log::default();
+    let g = partial(Vec::new());
+    let kernel = xetal_map::inner(&g, &g, &vector(&[1, 2]), &vector(&[3, 4]), &mut Never).unwrap();
+    let out = drive(kernel, |f, x| match &f {
+        Value::Prim(p) if p.name == "r_/" => {
+            log.0.push(x.to_string());
+            Ok(Value::Int(9))
+        }
+        _ => log.call(f, x),
+    })
+    .unwrap();
+    assert_eq!(out.to_string(), "9");
+    assert_eq!(log.0, ["1", "3", "2", "4", "3 4"]);
+}
