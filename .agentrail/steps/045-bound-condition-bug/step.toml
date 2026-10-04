@@ -1,0 +1,9 @@
+number = 45
+slug = "bound-condition-bug"
+status = "completed"
+description = "X_eTaL-demos' ask (bug): a condition bound to a name cannot be used in arithm..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T12:59:23"
+completed_at = "2026-10-03T14:08:13"
+commits = ["23ddfeb0ab7d689f8f8e56725024e363362ac6e2"]

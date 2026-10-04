@@ -1,0 +1,7 @@
+# X_eTaL-demos' regression repro (Saga 30): spreading with t_able and a
+# primitive operand, 512 by 512, four times.
+x := (512 c_at 512) r_eshape 0.5 0.25 0.125
+y := (o_ffsets 512) 'r_ight t_able r_avel 1 t_ake x
+y := (o_ffsets 512) 'r_ight t_able r_avel 1 t_ake x
+y := (o_ffsets 512) 'r_ight t_able r_avel 1 t_ake x
+y := (o_ffsets 512) 'r_ight t_able r_avel 1 t_ake x

@@ -1,0 +1,1 @@
+Bound condition (T1/T5): a top-level condition is generalized (closing.rs condition), so a := 1 2 > 0 works in arithmetic, f_loat and reduce; shown as Bool; spec bound-condition + Float rejection; D53; T5 text updated.

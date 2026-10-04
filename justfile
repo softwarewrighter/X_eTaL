@@ -125,6 +125,14 @@ web:
 bench RUNS="3":
     scripts/bench.sh {{RUNS}}
 
+# Regenerate docs/asks.md (the sibling repos' asks and their state here), running each repro
+asks: _quiet-build
+    python3 scripts/asks.py
+
+# Regenerate docs/status.md (what works today) from the catalog, decisions, spec cases and libraries
+status:
+    python3 scripts/status.py
+
 # Regenerate docs/reference.md (every built-in, its examples run) from docs/reference/builtins.ref
 reference: _quiet-build
     python3 scripts/reference.py

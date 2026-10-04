@@ -1,0 +1,6 @@
+# A bound condition mixed with a Float needs f_loat, as an Int does (T5).
+== SOURCE
+a := 1 2 > 0
+a + 2.5
+== ERROR
+error[type-mismatch]: expected Int, found Float at 13..20

@@ -35,7 +35,7 @@ const VERSION: &str = concat!(
                   (`o_-_2` rotates along axis 2), and a quoted function is \
                   an operand (`'+ r_/ v` reduces v by plus).",
     after_long_help = include_str!("cli_help.txt"),
-    args_conflicts_with_subcommands = true
+    override_usage = "xetal [OPTIONS] [SCRIPT]\n       xetal [OPTIONS] <COMMAND>"
 )]
 pub(crate) struct Cli {
     #[command(subcommand)]

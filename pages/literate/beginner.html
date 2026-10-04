@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Start here: X_eTaL in fifteen minutes</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Start here: X_eTaL in fifteen minutes
+<br />
+<span class="subtitle">from typing ASCII to importing a library, run as you read</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org78e6116">Typing ASCII, seeing it drawn</a></li>
+<li><a href="#org9671eb4">Arrays</a></li>
+<li><a href="#orgfa36777">Functions and operands</a></li>
+<li><a href="#org072e073">An axis</a></li>
+<li><a href="#orgf051140">A train</a></li>
+<li><a href="#org6456388">A library</a></li>
+<li><a href="#orgc3919b3">Where to go next</a></li>
+</ul>
+</div>
+</div>
+<p>
+X_eTaL is an array language: a name like <code>r_ev</code> is a function, and it
+works on a whole array at once. You type plain ASCII, and X_eTaL draws
+what you typed with the decorations that tell you what each name is.
+Each block below is a line you could type into <code>xetal repl</code> or the live
+demo; above it is how X_eTaL draws it, and below it what it prints.
+</p>
+<div id="outline-container-org78e6116" class="outline-2">
+<h2 id="org78e6116">Typing ASCII, seeing it drawn</h2>
+<div class="outline-text-2" id="text-org78e6116">
+<p>
+An underscore after the first letter makes a name a function: <code>r_ev</code>
+is drawn as rev with the r underlined, and it reverses.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">r̲ev</span> <span class="c-string">&quot;stressed&quot;</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   r_ev "stressed"</span></pre>
+</div>
+
+<pre class="example">
+desserts
+</pre>
+
+
+<p>
+The underline is the whole difference between a value and a function:
+<code>rev</code> would be an ordinary variable. The editor and the REPL draw each
+line as you type it, so you always see which is which.
+</p>
+</div>
+</div>
+<div id="outline-container-org9671eb4" class="outline-2">
+<h2 id="org9671eb4">Arrays</h2>
+<div class="outline-text-2" id="text-org9671eb4">
+<p>
+Arithmetic works on whole arrays. A single number on one side meets
+every item on the other.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-symbol">+</span> <span class="c-number">10</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 2 3 + 10</span></pre>
+</div>
+
+<pre class="example">
+11 12 13
+</pre>
+
+
+<p>
+<code>r_ange 6</code> is 1 to 6, and <code>r_eshape</code> makes a matrix of it: the shape
+goes on the left.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">m ← <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-builtin">r̲eshape</span> <span class="c-builtin">r̲ange</span> <span class="c-number">6</span>
+m
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   m := 2 3 r_eshape r_ange 6</span>
+<span class="c-comment typed">⍝   m</span></pre>
+</div>
+
+<pre class="example">
+1 2 3
+4 5 6
+</pre>
+
+
+<p>
+<code>:=</code> binds a name; it is drawn as an arrow.
+</p>
+</div>
+</div>
+<div id="outline-container-orgfa36777" class="outline-2">
+<h2 id="orgfa36777">Functions and operands</h2>
+<div class="outline-text-2" id="text-orgfa36777">
+<p>
+A function passed to another function is quoted. <code>'+ r_/</code> is "reduce
+by plus": the sum. On a matrix it adds the rows together, giving one
+sum per column.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>
+<span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> m
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ r_/ 1 2 3 4</span>
+<span class="c-comment typed">⍝   '+ r_/ m</span></pre>
+</div>
+
+<pre class="example">
+10
+5 7 9
+</pre>
+
+
+<p>
+Your own functions are lambdas in braces, <code>_r</code> standing for the right
+argument (drawn as APL's omega). A name of yours carries the <code>u:</code>
+prefix, drawn as a small superscript.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍵</span> }
+<span class="c-userfunc">ᵘs̲quare</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>
+<span class="c-userfunc">'ᵘs̲quare</span> <span class="c-builtin">e̲ach</span> <span class="c-number">4</span> <span class="c-number">5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:s_quare := { _r * _r }</span>
+<span class="c-comment typed">⍝   u:s_quare 1 2 3</span>
+<span class="c-comment typed">⍝   'u:s_quare e_ach 4 5</span></pre>
+</div>
+
+<pre class="example">
+1 4 9
+16 25
+</pre>
+</div>
+</div>
+<div id="outline-container-org072e073" class="outline-2">
+<h2 id="org072e073">An axis</h2>
+<div class="outline-text-2" id="text-org072e073">
+<p>
+A function works along the first axis unless a subscript names
+another. <code>'+ r_/_2 m</code> adds along axis 2, within each row; <code>1 o_-_2 m</code>
+rotates each row by one.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-symbol">'+</span> <span class="c-builtin">r̲/₂</span> m
+<span class="c-number">1</span> <span class="c-builtin">o̲-₂</span> m
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ r_/_2 m</span>
+<span class="c-comment typed">⍝   1 o_-_2 m</span></pre>
+</div>
+
+<pre class="example">
+6 15
+2 3 1
+5 6 4
+</pre>
+</div>
+</div>
+<div id="outline-container-orgf051140" class="outline-2">
+<h2 id="orgf051140">A train</h2>
+<div class="outline-text-2" id="text-orgf051140">
+<p>
+Functions in square brackets make a new function without naming its
+argument. Three are a fork: <code>['+ r_/ / t_ally] x</code> is the sum of x
+divided by its count, the mean. Two are an atop: <code>[n_eg a_bs] x</code> is
+<code>n_eg (a_bs x)</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘm̲ean</span> ← [<span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> <span class="c-symbol">÷</span> <span class="c-builtin">t̲ally</span>]
+<span class="c-userfunc">ᵘm̲ean</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>
+[<span class="c-builtin">n̲eg</span> <span class="c-builtin">a̲bs</span>] <span class="c-number">-5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:m_ean := ['+ r_/ / t_ally]</span>
+<span class="c-comment typed">⍝   u:m_ean 1 2 3 4</span>
+<span class="c-comment typed">⍝   [n_eg a_bs] -5</span></pre>
+</div>
+
+<pre class="example">
+2.5
+-5
+</pre>
+</div>
+</div>
+<div id="outline-container-org6456388" class="outline-2">
+<h2 id="org6456388">A library</h2>
+<div class="outline-text-2" id="text-org6456388">
+<p>
+<code>u_se&lt;</code> imports a library under a prefix of your choice; its names
+then carry that prefix. <code>Stats</code> is one of the libraries built in.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-libfunc">ˢ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Stats&quot;</span>
+<span class="c-libfunc">ˢs̲d</span> <span class="c-number">2</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">5</span> <span class="c-number">7</span> <span class="c-number">9</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "s:" u_se&lt; "Stats"</span>
+<span class="c-comment typed">⍝   s:s_d 2 4 4 4 5 5 7 9</span></pre>
+</div>
+
+<pre class="example">
+2.0
+</pre>
+</div>
+</div>
+<div id="outline-container-orgc3919b3" class="outline-2">
+<h2 id="orgc3919b3">Where to go next</h2>
+<div class="outline-text-2" id="text-orgc3919b3">
+<ul class="org-ul">
+<li>The language tour, <code>docs/literate/tour.org</code> (and <code>just tour</code>): every
+feature, a line or two each.</li>
+<li>The reference, <code>docs/reference.md</code>: every built-in with examples.</li>
+<li>What works today, <code>docs/status.md</code>.</li>
+<li>Trains beside the combinators, <code>docs/literate/trains.org</code>; classic
+APL programs, <code>docs/literate/classics.org</code>.</li>
+<li>The live demo: the same language in the browser, with the demos and
+the classics one click away.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

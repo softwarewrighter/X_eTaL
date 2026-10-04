@@ -1,0 +1,1 @@
+X_eTaL-games' ask (bug): an executable program (a #! line) that defines `l:` names is taken for a library, so MC8 row 9 (a program defines l: names) is never reported and its top-level expressions give expression-in-library instead. A file starting with #! is a program (S5); report MC8 row 9 for its l: names. Spec cases and a golden.

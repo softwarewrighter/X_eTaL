@@ -142,6 +142,7 @@ fn links() -> Html {
                 { for docs.iter().map(|(label, path)| html! {
                     <li><a href={doc(path)} target="_blank">{ *label }</a></li>
                 }) }
+                <li><a href="literate/beginner.html" target="_blank">{ "Start here: XeTaL in fifteen minutes" }</a></li>
                 <li><a href="poster/index.html" target="_blank">{ "Syntax poster: reading XeTaL on one page" }</a></li>
                 <li><a href="literate/index.html" target="_blank">{ "Literate documents" }</a></li>
                 <li><a href="latex/index.html" target="_blank">{ "Every line in LaTeX" }</a></li>

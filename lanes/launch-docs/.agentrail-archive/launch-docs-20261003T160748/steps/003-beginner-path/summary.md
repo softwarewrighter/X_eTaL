@@ -1,0 +1,1 @@
+docs/literate/beginner.org (15-minute start, literate-checked), linked from README, Help and the literate index (+ trains.org). Lane done.

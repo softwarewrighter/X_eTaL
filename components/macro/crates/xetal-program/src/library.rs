@@ -8,8 +8,13 @@ use crate::load::{Loaded, lowered};
 use crate::run::Running;
 
 /// Whether `text` is a library: it names the `l:` namespace, or
-/// defines a macro (`m:n_ame< := ...`, a macro library, MC10).
+/// defines a macro (`m:n_ame< := ...`, a macro library, MC10), and is
+/// not a program (a file starting with `#!` is one, S5, whatever it
+/// names: its `l:` names are then MC8 row 9).
 pub fn is_library(text: &str) -> bool {
+    if text.starts_with("#!") {
+        return false;
+    }
     let is_l = |ns: &Option<String>| ns.as_deref() == Some("l");
     lex(text).is_ok_and(|tokens| {
         tokens.iter().enumerate().any(|(i, t)| match &t.kind {

@@ -1,0 +1,1 @@
+Implement []G_RID drawing numbers in cells with a chosen, typed colour scale as decided in asks-decisions (2048, minesweeper): test-first, reference.

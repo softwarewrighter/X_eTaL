@@ -1,0 +1,6 @@
+error: give a subcommand or a script, not both (demos/life.xtl)
+
+Usage: xetal [OPTIONS] [SCRIPT]
+       xetal [OPTIONS] <COMMAND>
+
+For more information, try '--help'.

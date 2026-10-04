@@ -1,5 +1,6 @@
 Available recipes:
     animate                    # Play the rotate demo (demos/rotate.xtl) as an animation
+    asks                       # Regenerate docs/asks.md (the sibling repos' asks and their state here), running each repro
     bench RUNS="3"             # Time the benchmarks (bench/*.xtl and three demos), best of RUNS, as a table for docs/speed.md
     build                      # Build every component (debug) into the shared target/
     build-release              # Build every component optimized (target/release/xetal: the run recipes use it)
@@ -27,6 +28,7 @@ Available recipes:
     screenshots                # Regenerate the README / docs images (vhs, ImageMagick)
     show file                  # Run a file as a notebook: each statement pretty-printed, then its output (#! flags such as --untyped apply)
     slow-show file delay="500" # A notebook run that pauses after each statement (ms, default 500): for watching or recording
+    status                     # Regenerate docs/status.md (what works today) from the catalog, decisions, spec cases and libraries
     test                       # Run every component's tests
     test-emacs                 # The Emacs mode and Org Babel language, with ERT in a batch Emacs (skipped without Emacs)
     tour                       # The language tour: every feature, commented, each line with its output
