@@ -10,6 +10,7 @@ use xetal_macro::{Found, Libraries, MacroRun, Pair};
 use xetal_sources::Sources;
 
 use crate::load::located;
+use crate::sides::sides;
 
 /// `libs`, able to run macros.
 pub(crate) struct Running<'a>(pub(crate) &'a dyn Libraries);
@@ -56,28 +57,6 @@ fn run(library: &Sources, call: &MacroRun) -> Result<String, Diagnostic> {
     })?;
     let text = String::from_utf8_lossy(&out);
     Ok(text.strip_suffix('\n').unwrap_or(&text).to_string())
-}
-
-/// A call whose sides do not match what the macro takes (MC22): text
-/// where it takes `@` (a Unit parameter), or `@` where it takes text.
-fn sides(library: &Sources, call: &MacroRun) -> Option<Diagnostic> {
-    let mut program = xetal_core::lower(library.combined()).ok()?;
-    let types = xetal_types::check_program(&mut program).ok()?;
-    let prefix = format!("{} : ", call.hidden);
-    let ty = types.iter().find_map(|t| t.strip_prefix(&prefix))?;
-    let params: Vec<&str> = ty.rsplit("=> ").next()?.split(" -> ").collect();
-    let names = [("left", call.texts.0), ("right", call.texts.1)];
-    let (place, text) = names
-        .iter()
-        .zip(params)
-        .find(|((_, text), param)| (*param == "Unit") == *text)
-        .map(|(side, _)| *side)?;
-    let message = match text {
-        true => format!("{} takes @ on its {place}, not text", call.written),
-        false => format!("{} takes text on its {place}, not @", call.written),
-    };
-    let d = Diagnostic::new("bad-macro-argument", message);
-    Some(d.with_note(format!("macro-place: {place}")))
 }
 
 /// A macro's own rejection of its call (`[]R_EJECT`), placed by a note.

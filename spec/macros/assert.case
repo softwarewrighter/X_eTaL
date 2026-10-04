@@ -1,0 +1,17 @@
+# "cond" a_ssert< "message" reports a failed condition, as written, on
+# standard error and goes on; its value is @ (unlike Rust's assert!, it
+# never stops the program).
+== SOURCE
+x := 6
+"x > 10" a_ssert< "x is big"
+"x > 1" a_ssert< @
+x
+== EXPAND
+x := 6
+{ @ -> (x > 10) ? @; []E_RR "assertion failed: x > 10 (x is big) [-e:2]"; @ } @
+{ @ -> (x > 1) ? @; []E_RR "assertion failed: x > 1 [-e:3]"; @ } @
+x
+== RESULT
+@
+@
+6

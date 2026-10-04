@@ -1,17 +1,13 @@
-# System.xtlm: the system macros (lang-choices MC18, MC19, MC24).
-# Loaded before every file, with no import and no alias: each s:
-# macro here is called unprefixed ("c" i_f< "a; b"). Like any macro, a
-# system macro is a function of the source text on each side of its
-# call that gives the text replacing the call; @ on a side means it
-# takes nothing there (MC22). What only the compiler knows comes from
-# hooks (MC20: []R_EJECT, []S_TATEMENT, []F_ILE, []L_INE, []I_NCLUDE,
-# []C_FG), usable only in a macro body. Each macro has one comment
-# block above it: what it does, then an example call. Names without s:
-# are private helpers, at the end.
+## The system macros (lang-choices MC18, MC19, MC24), loaded before
+## every file with no import and no alias: each is called unprefixed,
+## as "c" i_f< "a; b". A macro is a function of the source text on each
+## side of its call; the text it gives replaces the call. @ on a side
+## means the macro takes nothing there (MC22). What only the compiler
+## knows comes from hooks (MC20), usable only in a macro body.
 
-# u_se<: import a library and its macro library under an alias. Built
-# into xetal, not defined here (MC21). Were it a macro of this file, it
-# would read
+# u_se< ("c:" u_se< "Combinators") is a system macro too, but built into
+# xetal, not defined here (MC21). Were it a macro of this file, it would
+# read
 #
 #   s:u_se< := { alias name -> ... }
 #
@@ -24,13 +20,15 @@
 # does. So the compiler does u_se< itself, and this comment stands in
 # for its definition, as Rust's std declares include_str! with a body
 # its compiler builds.
-# Example: "c:" u_se< "Combinators"
 
-# i_f<: the value of the first expression on the right when the
-# condition on the left holds, else of the second; the condition is
-# tested when the program runs, and only the expression chosen is
-# evaluated (MC14).
-# Example: "x > 0" i_f< "1; -1"
+### Choosing and repeating
+
+## The value of the first expression on the right when the condition
+## on the left holds, else of the second. The condition is tested when
+## the program runs, and only the expression chosen is evaluated
+## (MC14).
+## >> "2 > 0" i_f< "1; -1"
+## 1
 s:i_f< := { cond both ->
   p := w_here s_eps both
   1 != t_ally p ? "bad-macro-argument right" []R_EJECT ifArgs
@@ -40,17 +38,21 @@ s:i_f< := { cond both ->
   "{ @ -> (" c_at (t_rim cond) c_at ") ? " c_at a c_at "; " c_at b c_at " } @"
 }
 
-# u_nless<: run the statements on the right unless the condition on the
-# left holds; the value is @ either way (MC15).
-# Example: "n = 0" u_nless< "p_rint! 100 / n"
+## Run the statements on the right unless the condition on the left
+## holds; the value is @ either way (MC15).
+## >> "1 = 0" u_nless< "p_rint! 7"
+## 7
+## @
 s:u_nless< := { cond body ->
   "{ @ -> (" c_at (t_rim cond) c_at ") ? @; " c_at (t_rim body) c_at "; @ } @"
 }
 
-# e_ach<: one statement per word on the left, each a copy of the
-# template on the right with $w replaced by the word; it stands as a
-# statement of its own (MC16).
-# Example: "m_ax m_in" e_ach< "u:$w/ := { '$w r_/ _r }"
+## One statement per word on the left, each a copy of the template on
+## the right with $w replaced by the word; it stands as a statement of
+## its own (MC16).
+## >> "m_ax m_in" e_ach< "u:$w/ := { '$w r_/ _r }"
+## >> u:m_ax/ 3 1 4
+## 4
 s:e_ach< := { words template ->
   n_ot []S_TATEMENT @ ? "misplaced-macro call" []R_EJECT eachAlone
   ws := w_ords words
@@ -59,41 +61,65 @@ s:e_ach< := { words template ->
   d_isclose '{ a b -> e_nclose (d_isclose a) c_at "\n" c_at d_isclose b } r_/ '{ w -> template c_opy d_isclose w } m_ap ws
 }
 
-# l_ine<: the line the call is written on, as a number (inside another
-# macro's expansion, the line of that macro's call).
-# Example: @ l_ine< @
+### What the compiler knows
+
+## The line the call is written on, as a number (inside another
+## macro's expansion, the line of that macro's call).
+## >> @ l_ine< @
+## 1
 s:l_ine< := { u v -> u n_othing v n_othing f_ormat []L_INE @ }
 
-# f_ile<: the file the call is written in, as a string (-e for text
-# given on the command line).
-# Example: @ f_ile< @
+## The file the call is written in, as a string (-e for text given on
+## the command line).
+## >> @ f_ile< @
+## -e
 s:f_ile< := { u v -> u n_othing v n_othing q_uote []F_ILE @ }
 
-# i_nclude<: the text of a file, as a string literal, by a path
-# relative to the file the call is written in; from the disk at the
-# command line, from the store in the browser (Rust's include_str!).
-# Example: @ i_nclude< "data.txt"
+## The text of a file, as a string, by a path relative to the file the
+## call is written in; from the disk at the command line, from the
+## store in the browser (Rust's include_str!). For example,
+## t := @ i_nclude< "data.txt" binds the text of data.txt.
 s:i_nclude< := { u path -> u n_othing q_uote []I_NCLUDE t_rim path }
 
-# c_fg<: 1 when a configuration fact holds, else 0: the platform (cli,
-# or web in the browser) or a flag set with xetal --cfg NAME.
-# Example: @ c_fg< "web"
+## 1 when a configuration fact holds, else 0: the platform (cli, or web
+## in the browser) or a flag set with xetal --cfg NAME.
+## >> @ c_fg< "cli"
+## 1
 s:c_fg< := { u name -> u n_othing f_ormat 0 + []C_FG t_rim name }
 
-# e_rror<: stop with a compile error at the call, with the code on the
-# left and the message on the right (Rust's compile_error!); a macro
-# writes it into its text to refuse a call.
-# Example: "too-big" e_rror< "the grid must be at most 9 wide"
+## Stop with a compile error at the call, with the code on the left and
+## the message on the right (Rust's compile_error!); a macro writes it
+## into its text to refuse a call.
+## >> "too-big" e_rror< "the grid must be at most 9 wide"
+## error[too-big]
 s:e_rror< := { code message -> ((t_rim code) c_at " call") []R_EJECT message }
 
-# d_bg<: the value of the expression on the right, after writing
-# "[file:line] expr = value" to standard error (Rust's dbg!).
-# Example: y := 1 + @ d_bg< "x * 2"
+### Debugging and checking
+
+## The value of the expression on the right, after writing
+## [file:line] expr = value to standard error (Rust's dbg!).
+## >> 1 + @ d_bg< "2 * 3"
+## 7
 s:d_bg< := { u expr ->
   e := t_rim expr
   shown := "[" c_at ([]F_ILE @) c_at ":" c_at (f_ormat []L_INE @) c_at "] " c_at e c_at " = "
   u n_othing "{ @ -> dbgValue := (" c_at e c_at "); []E_RR " c_at (q_uote shown) c_at " c_at f_ormat dbgValue; dbgValue } @"
 }
+
+## When the condition on the left does not hold, write
+## assertion failed: cond (message) [file:line] to standard error, the
+## condition as written, and go on; the message on the right may be @
+## for none. The value is @ either way. Unlike Rust's assert!, it never
+## stops the program (p_anic< does).
+## >> "1 > 2" a_ssert< "one is not more than two"
+## @
+s:a_ssert< := { cond note ->
+  c := t_rim cond
+  line := "assertion failed: " c_at c c_at (w_hy f_ormat note) c_at " [" c_at ([]F_ILE @) c_at ":" c_at (f_ormat []L_INE @) c_at "]"
+  "{ @ -> (" c_at c c_at ") ? @; []E_RR " c_at (q_uote line) c_at "; @ } @"
+}
+
+### Private helpers
 
 ifArgs := "i_f< takes two expressions on its right, separated by ;: \"c\" i_f< \"a; b\""
 eachAlone := "e_ach< writes statements: it stands as a statement of its own"
@@ -142,3 +168,7 @@ c_opy := { t w ->
   p_ := { i -> (i s_elect h) ? w; (i s_elect g) ? ""; i s_elect t }
   j_oin 'p_ m_ap r_ange t_ally t
 }
+
+# An assertion's message in parentheses; none for @ (as f_ormat writes
+# it).
+w_hy := { m -> "@" m_atch m ? ""; " (" c_at m c_at ")" }

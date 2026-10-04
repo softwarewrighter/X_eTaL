@@ -1,0 +1,6 @@
+assertion failed: x > 10 (x is big) [-e:2]
+@
+@
+assertion failed: x < 0 [-e:4]
+@
+6

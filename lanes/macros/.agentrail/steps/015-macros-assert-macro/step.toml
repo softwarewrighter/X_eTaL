@@ -1,6 +1,6 @@
 number = 15
 slug = "macros-assert-macro"
-status = "pending"
+status = "in-progress"
 description = "a_ssert< (Rust's assert!, MC24): reports the condition as written when it fai..."
 role = "production"
 context_files = []
