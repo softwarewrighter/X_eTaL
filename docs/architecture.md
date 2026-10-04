@@ -138,7 +138,16 @@ components/
                            model: every item of a program, of the
                            libraries and macro libraries it imports
                            and of System.xtlm when it calls one, with
-                           type, doc, source and resolved uses; JSON)
+                           type, doc, source and resolved uses; JSON),
+                           xetal-doclink (every name in a source linked
+                           to what it names: an item, an import's
+                           export, a system macro, a built-in; locals
+                           left alone; where each item is used),
+                           xetal-dochtml (source drawn decorated with
+                           links, numbered lines, doc prose, examples,
+                           anchors, the light and dark stylesheet),
+                           xetal-docsite (the static site: index, a
+                           page and a source page per file, built-ins)
   web/                     xetal-play: the live demo's engine
                            (decorate, check, run; libraries and files
                            from the installed store, then the standard
@@ -279,6 +288,7 @@ xetal doc --json <FILE|-e EXPR>
                                the cross-reference model as JSON: every
                                item of the file, its imports and the
                                system macros it calls
+xetal doc --out DIR FILE       the same as a static site in DIR
 ```
 
 Each command runs the earlier stages first, so an early error is

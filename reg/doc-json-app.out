@@ -4,6 +4,7 @@
       "name": "components/doc/fixtures/app.xtl",
       "kind": "program",
       "doc": "A program that greets: the xetal doc tests' main file.",
+      "imports": [{"alias": "g", "spec": "Greet", "files": ["components/doc/fixtures/Greet.xtl", "components/doc/fixtures/Greet.xtlm"]}],
       "items": [
         {
           "name": "u:g_reetAll",
@@ -35,6 +36,7 @@
       "name": "components/doc/fixtures/Greet.xtl",
       "kind": "library",
       "doc": "Greetings: a small library that the xetal doc tests document.",
+      "imports": [],
       "items": [
         {
           "name": "l:h_ello",
@@ -90,6 +92,7 @@
       "name": "components/doc/fixtures/Greet.xtlm",
       "kind": "macro library",
       "doc": "Greeting macros, beside Greet.xtl under the same alias.",
+      "imports": [],
       "items": [
         {
           "name": "m:w_hen<",

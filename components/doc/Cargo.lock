@@ -326,6 +326,37 @@ name = "xetal-doccom"
 version = "0.1.0"
 
 [[package]]
+name = "xetal-dochtml"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-doclink",
+ "xetal-view",
+]
+
+[[package]]
+name = "xetal-doclink"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-doc",
+ "xetal-lex",
+]
+
+[[package]]
+name = "xetal-docsite"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-doc",
+ "xetal-doccom",
+ "xetal-dochtml",
+ "xetal-doclink",
+]
+
+[[package]]
 name = "xetal-draw"
 version = "0.1.0"
 dependencies = [
@@ -543,6 +574,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-render"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-lex",
+ "xetal-syntax",
+]
+
+[[package]]
 name = "xetal-rotate"
 version = "0.1.0"
 dependencies = [
@@ -669,6 +710,16 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-grid",
+]
+
+[[package]]
+name = "xetal-view"
+version = "0.1.0"
+dependencies = [
+ "unicode-width",
+ "xetal-base",
+ "xetal-lex",
+ "xetal-render",
 ]
 
 [[package]]

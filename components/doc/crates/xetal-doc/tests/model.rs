@@ -79,6 +79,21 @@ fn a_use_names_the_item_and_file_it_resolves_to() {
 }
 
 #[test]
+fn a_files_imports_name_the_files_found() {
+    let files = app();
+    let imports = &files[0].imports;
+    assert_eq!(imports.len(), 1);
+    let named = (imports[0].alias.as_str(), imports[0].spec.as_str());
+    assert_eq!(named, ("g", "Greet"));
+    let found: Vec<&str> = imports[0].files.iter().map(String::as_str).collect();
+    let want = [
+        &*file(&files, "Greet.xtl").name,
+        &*file(&files, "Greet.xtlm").name,
+    ];
+    assert_eq!(found, want);
+}
+
+#[test]
 fn a_bad_program_is_a_diagnostic_not_a_panic() {
     assert!(model("bad.xtl", "x := ( 1").is_err());
 }

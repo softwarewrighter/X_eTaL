@@ -2123,6 +2123,7 @@ dependencies = [
  "xetal-core",
  "xetal-diagram",
  "xetal-doc",
+ "xetal-docsite",
  "xetal-edit",
  "xetal-eval",
  "xetal-grid",
@@ -2180,6 +2181,37 @@ dependencies = [
 [[package]]
 name = "xetal-doccom"
 version = "0.1.0"
+
+[[package]]
+name = "xetal-dochtml"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-doclink",
+ "xetal-view",
+]
+
+[[package]]
+name = "xetal-doclink"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-doc",
+ "xetal-lex",
+]
+
+[[package]]
+name = "xetal-docsite"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-doc",
+ "xetal-doccom",
+ "xetal-dochtml",
+ "xetal-doclink",
+]
 
 [[package]]
 name = "xetal-draw"

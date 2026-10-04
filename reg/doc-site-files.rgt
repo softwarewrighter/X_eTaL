@@ -1,0 +1,3 @@
+command = "rm -rf work/doc-site-files && ./target/debug/xetal doc --out work/doc-site-files components/doc/fixtures/app.xtl"
+exit_code = 0
+desc = "xetal doc --out DIR: the site of a program and the library and macro library it imports: an index, the built-ins, a page and a source page per file, the stylesheet and theme switch"
