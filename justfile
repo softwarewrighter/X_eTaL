@@ -117,13 +117,21 @@ pages:
 
 alias serve := web
 
-# Serve the live demo locally (http://127.0.0.1:8095/), rebuilt when a source changes
+# Serve the live demo locally (http://127.0.0.1:8490/), rebuilt when a source changes
 web:
-    cd components/web/crates/xetal-web && trunk serve --release --port 8095 --address 127.0.0.1
+    cd components/web/crates/xetal-web && trunk serve --release --port 8490 --address 127.0.0.1
 
 # Time the benchmarks (bench/*.xtl and three demos), best of RUNS, as a table for docs/speed.md
 bench RUNS="3":
     scripts/bench.sh {{RUNS}}
+
+# Check the benchmarks against this machine's baseline: fails when one is more than 15% slower
+bench-check RUNS="5":
+    scripts/bench-check.sh {{RUNS}}
+
+# Record this machine's benchmark baseline (blessing a slowdown needs the user's approval)
+bench-bless RUNS="5":
+    scripts/bench-check.sh --bless {{RUNS}}
 
 # Regenerate docs/asks.md (the sibling repos' asks and their state here), running each repro
 asks: _quiet-build
