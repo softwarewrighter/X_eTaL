@@ -1,8 +1,9 @@
 number = 15
 slug = "macros-assert-macro"
-status = "pending"
+status = "completed"
 description = "a_ssert< (Rust's assert!, MC24): reports the condition as written when it fai..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T21:13:12"
-commits = []
+completed_at = "2026-10-04T13:01:10"
+commits = ["3d2a7c3a920929e3b5e43bb0cc64cc3c05bd933d"]

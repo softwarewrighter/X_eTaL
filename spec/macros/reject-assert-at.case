@@ -1,0 +1,6 @@
+# a_ssert< takes the condition as text on its left; @ there is no
+# condition (MC22, MC27).
+== SOURCE
+@ a_ssert< "m"
+== ERROR
+error[bad-macro-argument]: a_ssert< takes text on its left, not @ at 0..1

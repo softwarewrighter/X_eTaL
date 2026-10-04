@@ -8,6 +8,7 @@ mod expanded;
 mod library;
 mod load;
 mod run;
+mod sides;
 mod types;
 
 pub use expanded::{expanded, expanded_with};
