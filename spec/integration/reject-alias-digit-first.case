@@ -1,0 +1,5 @@
+# An alias starts with a lowercase letter (MC13, MC8 row 4).
+== SOURCE
+"2b:" u_se< "Stats"
+== ERROR
+error[bad-alias]: "2b:" is not an alias: write a lowercase letter, then lowercase letters or digits, and a colon, like "c:" or "b2:" at 0..5

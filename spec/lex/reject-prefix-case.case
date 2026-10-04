@@ -1,0 +1,6 @@
+# A prefix starts with a lowercase letter and holds no uppercase letter
+# (MC13); uppercase prefixes are the macro phase's hidden namespaces.
+== SOURCE
+Abc:f_ 1
+== ERROR
+error[bad-namespace]: a namespace prefix is a lowercase letter, then lowercase letters or digits (like b2: or combinators:) at 0..4

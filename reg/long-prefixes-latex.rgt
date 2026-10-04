@@ -1,0 +1,3 @@
+command = "./target/debug/xetal render --latex -e '1 combinators:K_ 2; b2:m_ean 3; quux:y'"
+exit_code = 0
+desc = "long namespace prefixes (MC13) in LaTeX: each prefix as a superscript word"

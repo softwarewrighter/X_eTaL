@@ -35,7 +35,7 @@
 (defconst xetal-font-lock-keywords
   `(("\\_<[a-z][A-Za-z0-9]*_[A-Za-z0-9]*<" . 'xetal-macro-face)
     ("\\_<u:[A-Za-z][A-Za-z0-9]*_[A-Za-z0-9]*" . 'xetal-user-face)
-    ("\\_<[a-z]+:[A-Za-z][A-Za-z0-9]*_[A-Za-z0-9]*" . 'xetal-library-face)
+    ("\\_<[a-z][a-z0-9]*:[A-Za-z][A-Za-z0-9]*_[A-Za-z0-9]*" . 'xetal-library-face)
     (,(concat "\\_<_[lr]_?\\_>") . 'xetal-argument-face)
     (,(concat "\\_<[A-Za-z][A-Za-z0-9]*_[A-Za-z0-9]*" xetal--mark "?\\(?:_[1-9]+\\)?")
      . 'xetal-builtin-face)

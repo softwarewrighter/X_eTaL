@@ -1,6 +1,6 @@
 number = 7
 slug = "macros-long-prefixes"
-status = "pending"
+status = "in-progress"
 description = "MC13 test-first: long namespace prefixes (combinators:, b2:), rejections (Abc..."
 role = "production"
 context_files = []
