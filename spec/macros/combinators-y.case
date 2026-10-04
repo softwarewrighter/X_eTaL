@@ -1,0 +1,16 @@
+# c:Y_< (Combinators.xtlm, beside Combinators.xtl under one alias, MC11)
+# ties the knot when the program is expanded: the self parameter is
+# replaced by the name being defined, giving plain named recursion.
+== SOURCE
+"c:" u_se< "Combinators"
+"u:f_ib5" c:Y_< "{ ~s_elf n -> n < 2 ? n; (s_elf n - 1) + s_elf n - 2 }"
+'u:f_ib5 e_ach o_ffsets 10
+1 c:K_ 2
+== EXPAND
+"c:" u_se< "Combinators"
+u:f_ib5 := { n -> n < 2 ? n; (u:f_ib5 n - 1) + u:f_ib5 n - 2 }
+'u:f_ib5 e_ach o_ffsets 10
+1 c:K_ 2
+== RESULT
+0 1 1 2 3 5 8 13 21 34
+1

@@ -19,7 +19,7 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 99 | 0 | 0 |
-| Language decisions | 120 | 0 | 2 |
+| Language decisions | 120 | 0 | 3 |
 | Standard libraries | 6 | 0 | 0 |
 | Spec cases | 334 | 0 | 0 |
 
@@ -27,6 +27,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
 - **T9** (planned): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
+- **B18** (planned): `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...).
 
 ## Built-in functions
 
@@ -34,8 +35,8 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 53 | 3 |
-| `-` | `Num a => a -> a -> a` | works | 25 | 2 |
+| `+` | `Num a => a -> a -> a` | works | 54 | 3 |
+| `-` | `Num a => a -> a -> a` | works | 26 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 37 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
@@ -66,7 +67,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 35 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
-| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 8 | 1 |
+| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 9 | 1 |
 | `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
 | `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 11 | 1 |
 | `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 4 | 1 |
@@ -132,11 +133,11 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `s_hape` | `a -> Int` | works | 13 | 2 |
 | `t_ally` | `a -> Int` | works | 17 | 4 |
-| `r_ange` | `Int -> Int` | works | 36 | 1 |
-| `o_ffsets` | `Int -> Int` | works | 1 | 1 |
+| `r_ange` | `Int -> Int` | works | 37 | 1 |
+| `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 5 | 4 |
 | `r_avel` | `a -> a` | works | 1 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 59 | 2 |
+| `r_eshape` | `Int -> a -> a` | works | 58 | 2 |
 | `t_ake` | `Int -> a -> a` | works | 10 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 2 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 12 | 4 |
@@ -154,7 +155,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `e_ach` | `(a -> b) -> a -> b` | works | 16 | 3 |
+| `e_ach` | `(a -> b) -> a -> b` | works | 17 | 3 |
 | `m_ap` | `(a -> b) -> a -> Box b` | works | 2 | 3 |
 | `t_able` | `(a -> b -> c) -> a -> b -> c` | works | 5 | 1 |
 
@@ -188,18 +189,18 @@ conventions (naming, layout) work without a spec case citing them.
 | `d_isplay` | `a -> Char` | works | 1 | 5 |
 | `p_artition` | `Truthy a => a -> b -> Box b` | works | 3 | 4 |
 
-### B12, B18: encode and decode (radix on the left; decode on any numbers)
+### B12: encode and decode (radix on the left)
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `e_ncode` | `Int -> Int -> Int` | works | 4 | 5 |
-| `d_ecode` | `Num a => a -> a -> a` | works | 5 | 7 |
+| `e_ncode` | `Int -> Int -> Int` | works | 3 | 5 |
+| `d_ecode` | `Int -> Int -> Int` | works | 3 | 5 |
 
 ### A2-A4: rotate and reverse (leading axis)
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `r_ev` | `a -> a` | works | 11 | 4 |
+| `r_ev` | `a -> a` | works | 10 | 4 |
 | `o_-` | `Int -> a -> a` | works | 5 | 6 |
 
 ### B17: transpose
@@ -260,7 +261,7 @@ conventions (naming, layout) work without a spec case citing them.
 | T1 | A real `Bool` type; `=` and the comparisons return Bool | works | 4 |
 | T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and (...) | works | 3 |
 | T3 | `=` is exact (IEEE) equality and transitive; `(0.1 + 0.2) = 0.3` is 0 | works | 2 |
-| T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 6 |
+| T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 4 |
 | T6 | Programs are type-checked before they run: `xetal eval` and `xetal run` refuse an ill-typed program with a (...) | works | 5 |
 | T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 7 |
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
@@ -292,7 +293,7 @@ conventions (naming, layout) work without a spec case citing them.
 | B15 | `c_at_k` is APL's catenate along axis k (decided with the user, from the swimming-ducks demo): `c_at` (...) | works | 0 |
 | B16 | Nested arrays print as APL2's DISPLAY draws them (decided with the user for the classics lane): every (...) | works | 1 |
 | B17 | Transpose, decided with the user for the transpose lane (asked for by X_eTaL-demos, ADVANCEDEX and the (...) | works | 11 |
-| B18 | `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...) | works | 3 |
+| B18 | `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...) | planned | 0 |
 | SC1 | A symbol function applied to one argument is an error (`- 3`, `/ 2`, `2 +`): under currying it would fill (...) | works | 4 |
 | ST1 | A string is written `"..."` | works | 2 |
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 2 |
@@ -312,7 +313,7 @@ conventions (naming, layout) work without a spec case citing them.
 | MC6 | Aliases are per file | works | 0 |
 | MC7 | Each library (identified by its resolved path) is instantiated once and shared by every file that imports (...) | works | 0 |
 | MC10 | Macro libraries are `.xtlm` files | works | 2 |
-| MC11 | `"m:" u_se< "Name"` finds `Name.xtl` and `Name.xtlm` together: the search directories keep MC4's order, (...) | works | 0 |
+| MC11 | `"m:" u_se< "Name"` finds `Name.xtl` and `Name.xtlm` together: the search directories keep MC4's order, (...) | works | 1 |
 | MC12 | A macro call may stand as a top-level statement or inside an expression; its expansion parses as a block (...) | works | 4 |
 | MC13 | A namespace prefix is a lowercase letter followed by lowercase letters or digits, of any length, then `:` (...) | works | 5 |
 | MC14 | `"c" i_f< "a; b"` is a system macro (no import; defined in System.xtlm, MC18): the value of `a` when the (...) | works | 2 |
@@ -335,6 +336,7 @@ conventions (naming, layout) work without a spec case citing them.
 | CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works (...) | works | 0 |
 | CB3 | A second standard library, `Maybe`, Church-encoded (`n_othing`, `j_ust`, `b_ind` and helpers), shows a (...) | works | 2 |
 | CB4 | `xetal type FILE` on a library (a file that names `l:`) checks it on its own, as it is loaded when (...) | works | 0 |
+| CB5 | The standard macro library `Combinators.xtlm` sits beside `Combinators.xtl`, so one alias reaches both (...) | works | 0 |
 
 ## Standard libraries
 
