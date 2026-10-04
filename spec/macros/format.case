@@ -1,0 +1,17 @@
+# @ f_ormat< "text {expr}" interpolates: each {expr} is any expression,
+# written as f_ormat writes its value; {{ and }} are braces (MC24,
+# Rust's format!).
+== SOURCE
+x := 6
+n := 3 4
+@ f_ormat< "x = {x}, twice {x * 2}, n = {n} {{braces}}"
+p_rint! @ f_ormat< "plain"
+== EXPAND
+x := 6
+n := 3 4
+"x = " c_at (f_ormat (x)) c_at ", twice " c_at (f_ormat (x * 2)) c_at ", n = " c_at (f_ormat (n)) c_at " {" c_at "braces}"
+p_rint! ("plain")
+== RESULT
+x = 6, twice 12, n = 3 4 {braces}
+plain
+plain

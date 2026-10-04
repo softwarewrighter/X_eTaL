@@ -1,8 +1,9 @@
 number = 16
 slug = "macros-format-macro"
-status = "pending"
+status = "completed"
 description = """f_ormat< (Rust's format!, MC24): interpolation, p_rint! @ f_ormat< "x = {x}";..."""
 role = "production"
 context_files = []
 created_at = "2026-10-03T21:13:12"
-commits = []
+completed_at = "2026-10-04T13:18:41"
+commits = ["6a3f4498c667955484f8888c3df16be677915f8d"]

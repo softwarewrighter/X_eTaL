@@ -119,6 +119,16 @@ s:a_ssert< := { cond note ->
   "{ @ -> (" c_at c c_at ") ? @; []E_RR " c_at (q_uote line) c_at "; @ } @"
 }
 
+### Text
+
+## The text on the right with each {expr} replaced by the value of
+## expr, as the function f_ormat writes it; {{ and }} are braces. An
+## unclosed {, an empty {} or a lone } fails before the program runs
+## (Rust's format!).
+## >> @ f_ormat< "two and two: {2 + 2} {{four}}"
+## two and two: 4 {four}
+s:f_ormat< := { u t -> u n_othing o_rEmpty p_ieces t }
+
 ### Private helpers
 
 ifArgs := "i_f< takes two expressions on its right, separated by ;: \"c\" i_f< \"a; b\""
@@ -172,3 +182,31 @@ c_opy := { t w ->
 # An assertion's message in parentheses; none for @ (as f_ormat writes
 # it).
 w_hy := { m -> "@" m_atch m ? ""; " (" c_at m c_at ")" }
+
+# Source p, or an empty string literal when there is none.
+o_rEmpty := { p -> 0 = t_ally p ? "\"\""; p }
+
+# t as a string literal, or nothing when it is empty.
+l_it := { t -> 0 = t_ally t ? ""; q_uote t }
+
+# Two pieces of source joined by c_at (either may be missing).
+c_j := { a b -> 0 = t_ally a ? b; 0 = t_ally b ? a; a c_at " c_at " c_at b }
+
+# The format text t as source: its literal text quoted, each {expr} as
+# (f_ormat (expr)), joined by c_at; {{ and }} are braces.
+p_ieces := { t ->
+  b := t m_ember? "{}"
+  0 = '+ r_/ 0 + b ? l_it t
+  k := f_irst w_here b
+  pre := (k - 1) t_ake t
+  c := k s_elect t
+  rest := k d_rop t
+  n := (k + 1) s_elect t c_at " "
+  c = n ? (l_it pre c_at c) c_j p_ieces 1 d_rop rest
+  c = f_irst "}" ? "bad-format right" []R_EJECT "a } in a format text is written }}"
+  e := w_here rest = f_irst "}"
+  0 = t_ally e ? "bad-format right" []R_EJECT "an unclosed { in a format text"
+  x := t_rim ((f_irst e) - 1) t_ake rest
+  0 = t_ally x ? "bad-format right" []R_EJECT "an empty {} in a format text: write {expr}, or {{ for a brace"
+  (l_it pre) c_j ("(f_ormat (" c_at x c_at "))") c_j p_ieces (f_irst e) d_rop rest
+}
