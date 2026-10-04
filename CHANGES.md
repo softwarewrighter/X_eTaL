@@ -12,7 +12,9 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 14:05 `feat` `xetal doc --json` (doc lane step 1, D72): the cross-reference model of a program or library, every item of it, of the libraries and macro libraries it imports and of System.xtlm when it calls one: written name, kind, public or private, inferred type, line, `###` section, `##` doc comment and `## >>` examples (S9), source, and the items it uses resolved to their file; new component `components/doc`.
 - 13:56 `docs` The system macros released (macros lane step 18): docs/literate/macros.org covers every system macro (`f_ormat<`, `d_bg<`, `a_ssert<`, `p_anic<`, the compiler's `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`, `e_rror<`), `demos/macros.xtl` shows `f_ormat<`, `a_ssert<` and `c_fg<`, the README lists them; demo goldens rebased on purpose.
+
 - 13:37 `fix` Lean kernels (Saga 30 step 3, D56): `e_ach`, `m_ap`, `t_able`, `i_nner`, reduce and scan with a function of your own as one hand-written state machine each, nothing allocated per element (a lambda operand of `t_able` 11.6 to 7.2 allocations per call), every call in the same order; doc comments decided (S9: `##` documentation, `###` sections, `## >>` examples) and Saga 32 gains doctests.
 - 13:32 `feat` `@ p_anic< "message {expr}"` (macros lane step 17): stops the program with `error[panic]` and the formatted message at the call, typed wherever it stands, on the new built-in `[]P_ANIC : Char -> a` (MC29, D70).
 - 13:09 `feat` `@ f_ormat< "x = {x}"` (macros lane step 16, Rust's `format!`): `{expr}` holes of any expression, `{{` and `}}` braces, bad holes fail before the run, errors in a hole located in the string (MC28, D69).

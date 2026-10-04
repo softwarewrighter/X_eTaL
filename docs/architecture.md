@@ -131,6 +131,14 @@ components/
                            rendered panes), xetal-term (terminal
                            guard), xetal-edit (`xetal edit`)
   line/                    xetal-line: the REPL's live line editor
+  doc/                     `xetal doc` (Saga 32): xetal-doccom (doc
+                           comments, S9: the `##` block above a
+                           definition, the file's block, `###`
+                           sections, `## >>` examples), xetal-doc (the
+                           model: every item of a program, of the
+                           libraries and macro libraries it imports
+                           and of System.xtlm when it calls one, with
+                           type, doc, source and resolved uses; JSON)
   web/                     xetal-play: the live demo's engine
                            (decorate, check, run; libraries and files
                            from the installed store, then the standard
@@ -267,6 +275,10 @@ xetal FILE.xtl                 the same (for #!/usr/bin/env xetal)
 xetal repl                     interactive session (lines from stdin)
 xetal diagram NOTES            annotated SVG of a line of source (callouts
                                anchored to its tokens)
+xetal doc --json <FILE|-e EXPR>
+                               the cross-reference model as JSON: every
+                               item of the file, its imports and the
+                               system macros it calls
 ```
 
 Each command runs the earlier stages first, so an early error is

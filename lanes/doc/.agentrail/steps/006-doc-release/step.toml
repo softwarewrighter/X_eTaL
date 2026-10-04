@@ -1,0 +1,8 @@
+number = 6
+slug = "doc-release"
+status = "pending"
+description = "Doc lane (see lanes/doc/.agentrail/plan.md), step doc-release. TDD; the gate ..."
+role = "production"
+context_files = []
+created_at = "2026-10-04T13:43:11"
+commits = []

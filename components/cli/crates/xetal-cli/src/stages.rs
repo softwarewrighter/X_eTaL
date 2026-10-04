@@ -39,15 +39,8 @@ pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
         return Err(Diagnostic::unsupported(command.stage()));
     };
     let source = source?;
-    if let Command::Render(args) = command {
-        return render(args, &source);
-    }
-    if let Command::Diagram(_) = command {
-        return xetal_diagram::diagram(&source);
-    }
-    if let Command::Expand(input) = command {
-        let name = input.file.as_deref().unwrap_or("-e");
-        return xetal_program::expanded(name, &source);
+    if let Some(result) = whole(command, &source) {
+        return result;
     }
     if let Some(result) = crate::echo::evaluation(command, &source) {
         return result;
@@ -64,6 +57,19 @@ pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
         Command::Core(_) => Ok(xetal_core::lower(&source)?.to_string()),
         _ => Err(Diagnostic::unsupported(command.stage())),
     }
+}
+
+/// The commands that take the whole source rather than its tokens:
+/// render, diagram, expand and doc.
+fn whole(command: &Command, source: &str) -> Option<Result<String, Diagnostic>> {
+    let named = |input: &crate::args::Input| input.file.clone().unwrap_or("-e".into());
+    Some(match command {
+        Command::Render(args) => render(args, source),
+        Command::Diagram(_) => xetal_diagram::diagram(source),
+        Command::Expand(input) => xetal_program::expanded(&named(input), source),
+        Command::Doc(args) => xetal_doc::json(&named(&args.input), source),
+        _ => return None,
+    })
 }
 
 fn render(args: &RenderArgs, source: &str) -> Result<String, Diagnostic> {

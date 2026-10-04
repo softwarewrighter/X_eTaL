@@ -1,0 +1,1 @@
+Doc lane (see lanes/doc/.agentrail/plan.md), step doc-macros. TDD; the gate before every commit; one PR pr/doc-macros from the latest origin/main.

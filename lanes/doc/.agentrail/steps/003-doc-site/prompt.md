@@ -1,0 +1,1 @@
+Doc lane (see lanes/doc/.agentrail/plan.md), step doc-site. TDD; the gate before every commit; one PR pr/doc-site from the latest origin/main.

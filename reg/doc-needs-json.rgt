@@ -1,0 +1,3 @@
+command = "./target/debug/xetal doc lib/Stats.xtl"
+exit_code = 2
+desc = "xetal doc names its output format: --json for now"

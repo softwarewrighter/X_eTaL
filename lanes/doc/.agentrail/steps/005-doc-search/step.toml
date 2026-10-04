@@ -1,0 +1,8 @@
+number = 5
+slug = "doc-search"
+status = "pending"
+description = "Doc lane (see lanes/doc/.agentrail/plan.md), step doc-search. TDD; the gate b..."
+role = "production"
+context_files = []
+created_at = "2026-10-04T13:43:11"
+commits = []
