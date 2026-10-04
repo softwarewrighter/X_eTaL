@@ -19,16 +19,13 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 92 | 0 | 0 |
-| Language decisions | 103 | 0 | 5 |
+| Language decisions | 107 | 0 | 2 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 298 | 0 | 0 |
+| Spec cases | 303 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
 - **T9** (planned): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
-- **MC10** (planned): Macro libraries are `.xtlm` files.
-- **MC11** (planned): `"m:" u_se< "Name"` finds `Name.xtl` and `Name.xtlm` together: the search directories keep MC4's order, (...).
-- **MC12** (planned): A macro call may stand as a top-level statement or inside an expression; its expansion parses as a block (...).
 - **MC13** (planned): A namespace prefix is a lowercase letter followed by lowercase letters or digits, of any length, then `:` (...).
 
 ## Built-in functions
@@ -37,13 +34,13 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 48 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 50 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 25 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 32 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 33 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
-| `/` | `Num a => a -> a -> Float` | works | 14 | 2 |
+| `/` | `Num a => a -> a -> Float` | works | 15 | 2 |
 | `d_iv` | `Int -> Int -> Int` | works | 2 | 1 |
 | `m_od` | `Int -> Int -> Int` | works | 2 | 2 |
 | `n_eg` | `Num a => a -> a` | works | 19 | 1 |
@@ -67,7 +64,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 30 | 2 |
+| `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 32 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 5 | 1 |
 | `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 8 | 1 |
 | `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 10 | 1 |
@@ -82,7 +79,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `p_rint!` | `a -> a` | works | 10 | 1 |
+| `p_rint!` | `a -> a` | works | 11 | 1 |
 | `r_oll!` | `Int -> Int` | works | 3 | 1 |
 | `i_d` | `a -> a` | works | 2 | 2 |
 | `l_eft` | `a -> b -> a` | works | 1 | 2 |
@@ -300,14 +297,15 @@ conventions (naming, layout) work without a spec case citing them.
 | MC9 | In a library, the `l:` prefix is the export list for variables and functions alike (`l:pi := 3.14...`, (...) | works | 0 |
 | MC6 | Aliases are per file | works | 0 |
 | MC7 | Each library (identified by its resolved path) is instantiated once and shared by every file that imports (...) | works | 0 |
-| MC10 | Macro libraries are `.xtlm` files | planned | 0 |
-| MC11 | `"m:" u_se< "Name"` finds `Name.xtl` and `Name.xtlm` together: the search directories keep MC4's order, (...) | planned | 0 |
-| MC12 | A macro call may stand as a top-level statement or inside an expression; its expansion parses as a block (...) | planned | 2 |
+| MC10 | Macro libraries are `.xtlm` files | works | 2 |
+| MC11 | `"m:" u_se< "Name"` finds `Name.xtl` and `Name.xtlm` together: the search directories keep MC4's order, (...) | works | 0 |
+| MC12 | A macro call may stand as a top-level statement or inside an expression; its expansion parses as a block (...) | works | 4 |
 | MC13 | A namespace prefix is a lowercase letter followed by lowercase letters or digits, of any length, then `:` (...) | planned | 0 |
 | MC14 | `"c" i_f< "a; b"` is a system macro (no import): the value of `a` when the condition `c` holds, else of `b` | works | 2 |
 | MC15 | `"c" u_nless< "b"` is a system macro: run the statements `b` unless `c` holds | works | 1 |
 | MC16 | `"w1 w2" e_ach< "template"` is a system macro: one copy of the template per word of its left (a word is a (...) | works | 3 |
 | MC17 | System macros are expanded in each file before its imports and names are read, again on each expansion (a (...) | works | 0 |
+| MC18 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | CB1 | The standard library `Combinators` holds every bird Raymond Smullyan names in *To Mock a Mockingbird* that (...) | works | 1 |
 | CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works (...) | works | 0 |
 | CB3 | A second standard library, `Maybe`, Church-encoded (`n_othing`, `j_ust`, `b_ind` and helpers), shows a (...) | works | 2 |
