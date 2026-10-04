@@ -164,10 +164,10 @@ entries = [
 ]
 
 [[group]]
-rule = "B12: encode and decode (radix on the left)"
+rule = "B12, B18: encode and decode (radix on the left; decode on any numbers)"
 entries = [
   ["e_ncode", 2, "Int -> Int -> Int"],
-  ["d_ecode", 2, "Int -> Int -> Int"],
+  ["d_ecode", 2, "Num a => a -> a -> a"],
 ]
 
 [[group]]
