@@ -67,9 +67,22 @@ fn whole(command: &Command, source: &str) -> Option<Result<String, Diagnostic>> 
         Command::Render(args) => render(args, source),
         Command::Diagram(_) => xetal_diagram::diagram(source),
         Command::Expand(input) => xetal_program::expanded(&named(input), source),
-        Command::Doc(args) => xetal_doc::json(&named(&args.input), source),
+        Command::Doc(args) => doc(args, &named(&args.input), source),
         _ => return None,
     })
+}
+
+/// `xetal doc`: the model as JSON, or the site written into `--out`
+/// (the paths written, one a line).
+fn doc(args: &crate::args::DocArgs, name: &str, source: &str) -> Result<String, Diagnostic> {
+    match &args.out {
+        Some(dir) => {
+            let files = xetal_doc::model(name, source)?;
+            let written = xetal_docsite::write(std::path::Path::new(dir), &files)?;
+            Ok(written.join("\n"))
+        }
+        None => xetal_doc::json(name, source),
+    }
 }
 
 fn render(args: &RenderArgs, source: &str) -> Result<String, Diagnostic> {

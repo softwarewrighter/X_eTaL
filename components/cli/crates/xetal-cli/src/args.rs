@@ -95,15 +95,21 @@ pub(crate) struct EvalArgs {
     pub(crate) delay: Option<u64>,
 }
 
-/// `doc` options: the cross-reference model as JSON (the site follows).
+/// `doc` options: the cross-reference as JSON, or as a site.
 #[derive(Args)]
+#[command(group(clap::ArgGroup::new("output").required(true).args(["json", "out"])))]
 pub(crate) struct DocArgs {
     #[command(flatten)]
     pub(crate) input: Input,
     /// Print the model as JSON: every item of the file, its imports and
     /// the system macros, with type, doc comment, source and uses.
-    #[arg(long, required = true)]
+    #[arg(long)]
     pub(crate) json: bool,
+    /// Write the documentation as a static site into DIR: an index, a
+    /// page per file with its items, its source drawn decorated, every
+    /// name linked to its definition and its uses.
+    #[arg(long, value_name = "DIR")]
+    pub(crate) out: Option<String>,
 }
 
 /// `render` options: decorated Unicode by default.
@@ -141,7 +147,7 @@ pub(crate) enum Command {
     /// written).
     Expand(Input),
     /// Document a program or library: every item of it, of what it
-    /// imports and of the system macros (--json).
+    /// imports and of the system macros (--json, or a site with --out).
     Doc(DocArgs),
     /// Print the surface AST or an ambiguity report.
     Parse(Input),

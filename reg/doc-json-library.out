@@ -4,6 +4,7 @@
       "name": "lib/Stats.xtl",
       "kind": "library",
       "doc": null,
+      "imports": [],
       "items": [
         {
           "name": "l:m_ean",

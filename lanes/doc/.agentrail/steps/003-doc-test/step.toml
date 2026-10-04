@@ -1,4 +1,4 @@
-number = 2
+number = 3
 slug = "doc-test"
 status = "pending"
 description = "Doc lane (see lanes/doc/.agentrail/plan.md), step doc-test. TDD; the gate bef..."
