@@ -1,0 +1,8 @@
+number = 6
+slug = "macros-macro-example"
+status = "pending"
+description = "A small macro library for the tests and a demo (X1's u_nless< as a user macro..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T13:46:12"
+commits = []

@@ -58,7 +58,7 @@ pub(crate) fn statements(tokens: &[Token]) -> Vec<&[Token]> {
 /// The import in `statement`, whose token `at` is the macro `name`.
 fn import(statement: &[Token], at: usize, token: &Token, name: &str) -> Result<Import, Diagnostic> {
     if name != "u_se<" {
-        let message = format!("there is no macro {name}; the only one is u_se<");
+        let message = format!("there is no macro {name} here");
         return Err(fail("unknown-macro", token.span, message));
     }
     let (first, last) = (&statement[0], &statement[statement.len() - 1]);

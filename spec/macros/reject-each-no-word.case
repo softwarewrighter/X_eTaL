@@ -1,0 +1,5 @@
+# An e_ach< template names the word as $w (MC16).
+== SOURCE
+"a b" e_ach< "u:x := 1"
+== ERROR
+error[bad-macro-argument]: an e_ach< template names the word as $w: "a b" e_ach< "u:$w := 1" at 13..23

@@ -122,6 +122,9 @@ pub(crate) enum Command {
     /// Draw an annotated diagram (SVG) of a line of source from a notes
     /// file: the decorated line with callouts anchored to its tokens.
     Diagram(Input),
+    /// Print the program after macro expansion (imports and names as
+    /// written).
+    Expand(Input),
     /// Print the surface AST or an ambiguity report.
     Parse(Input),
     /// Print the canonical form.
@@ -168,6 +171,7 @@ impl Command {
             Command::Lex(_) => "lex",
             Command::Render(_) => "render",
             Command::Diagram(_) => "diagram",
+            Command::Expand(_) => "expand",
             Command::Parse(_) => "parse",
             Command::Fmt(_) => "fmt",
             Command::Core(_) => "core",
@@ -183,6 +187,7 @@ impl Command {
     pub(crate) fn source(&self) -> Option<Result<String, Diagnostic>> {
         match self {
             Command::Lex(i)
+            | Command::Expand(i)
             | Command::Parse(i)
             | Command::Fmt(i)
             | Command::Core(i)

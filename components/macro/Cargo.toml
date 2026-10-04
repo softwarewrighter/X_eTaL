@@ -14,6 +14,8 @@ repository = "https://github.com/softwarewrighter/X_eTaL"
 [workspace.dependencies]
 xetal-base = { path = "../base/crates/xetal-base" }
 xetal-lex = { path = "../syntax/crates/xetal-lex" }
+xetal-mapped = { path = "../expand/crates/xetal-mapped" }
+xetal-expand = { path = "../expand/crates/xetal-expand" }
 xetal-sources = { path = "crates/xetal-sources" }
 xetal-macro = { path = "crates/xetal-macro" }
 xetal-libs = { path = "crates/xetal-libs" }

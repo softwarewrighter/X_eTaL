@@ -1,0 +1,5 @@
+# e_ach< writes statements: it is a statement of its own (MC16).
+== SOURCE
+1 + "a b" e_ach< "$w"
+== ERROR
+error[misplaced-macro]: e_ach< writes statements: it stands as a statement of its own at 10..16

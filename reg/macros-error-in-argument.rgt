@@ -1,0 +1,5 @@
+command = """
+./target/debug/xetal eval -e 'x := 1
+"x > 0" i_f< "y_z 1; 2"'"""
+exit_code = 1
+desc = "an error in code written in a macro argument is reported inside the string (21..24 is y_z)"

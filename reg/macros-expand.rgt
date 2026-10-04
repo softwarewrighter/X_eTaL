@@ -1,0 +1,7 @@
+command = """
+./target/debug/xetal expand -e 'n := 4
+"n = 0" u_nless< "p_rint! 100 / n"
+2 * "n > 0" i_f< "1; -1"
+"sum max" e_ach< "u:$w_s := { a b -> a + b }"'"""
+exit_code = 0
+desc = "xetal expand: the system macros u_nless<, i_f< (in an expression, parenthesized) and e_ach< replaced by their source; other statements as written"

@@ -1,0 +1,18 @@
+# i_f< chooses between two texts by a condition evaluated when the
+# program runs (MC14); only the chosen one is evaluated (1 / 0 never
+# is), and both have one type (here Float). Inside an expression the
+# expansion is parenthesized (MC12).
+== SOURCE
+x := -3
+"x > 0" i_f< "1; -1"
+10 * "x > 0" i_f< "1; -1"
+"x < 0" i_f< "0; 1 / 0"
+== EXPAND
+x := -3
+{ @ -> (x > 0) ? 1; -1 } @
+10 * ({ @ -> (x > 0) ? 1; -1 } @)
+{ @ -> (x < 0) ? 0; 1 / 0 } @
+== RESULT
+-1
+-10
+0.0

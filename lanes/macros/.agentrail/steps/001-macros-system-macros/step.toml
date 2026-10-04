@@ -1,0 +1,9 @@
+number = 1
+slug = "macros-system-macros"
+status = "completed"
+description = "System macros i_f<, u_nless<, e_ach< built into the macro phase beside u_se< ..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T13:46:12"
+completed_at = "2026-10-03T15:37:45"
+commits = ["70b5687a9d104ba4ab6cf37bb59b96e2c3dc7bdf"]

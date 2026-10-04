@@ -1,0 +1,17 @@
+# e_ach< writes one copy of its template per word on its left, $w
+# replaced by the word (MC16): a family of definitions.
+== SOURCE
+"sum max" e_ach< "u:$w_s := { a b -> a + b }"
+3 u:sum_s 4
+"twice thrice" e_ach< "$w := 2"
+twice + thrice
+== EXPAND
+u:sum_s := { a b -> a + b }
+u:max_s := { a b -> a + b }
+3 u:sum_s 4
+twice := 2
+thrice := 2
+twice + thrice
+== RESULT
+7
+4

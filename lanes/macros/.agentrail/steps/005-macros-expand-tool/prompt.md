@@ -1,0 +1,1 @@
+Ask X2: xetal expand covers user macros; one call's expansion with where the macro is defined; goldens of expansions.

@@ -1,0 +1,8 @@
+number = 3
+slug = "macros-macro-calls"
+status = "pending"
+description = "MC10 and MC12: a .xtlm defines m:name< exports (rejections: l: names, m: name..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T13:46:12"
+commits = []

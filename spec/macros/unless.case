@@ -1,0 +1,16 @@
+# u_nless< runs its right text unless its left condition holds
+# (MC15): a run-time guard in a niladic lambda; its value is Unit.
+== SOURCE
+n := 4
+"n = 0" u_nless< "p_rint! 100 / n"
+n := 0
+"n = 0" u_nless< "p_rint! 100 / n"
+== EXPAND
+n := 4
+{ @ -> (n = 0) ? @; p_rint! 100 / n; @ } @
+n := 0
+{ @ -> (n = 0) ? @; p_rint! 100 / n; @ } @
+== RESULT
+25.0
+@
+@

@@ -1,0 +1,8 @@
+command = """
+./target/debug/xetal eval -e 'n := 4
+"n = 0" u_nless< "p_rint! 100 / n"
+2 * "n > 0" i_f< "1; -1"
+"sum max" e_ach< "u:$w_s := { a b -> a + b }"
+3 u:sum_s 4'"""
+exit_code = 0
+desc = "the system macros run: u_nless< prints 25.0 and shows its Unit, i_f< chooses 1, e_ach< defines u:sum_s and u:max_s"

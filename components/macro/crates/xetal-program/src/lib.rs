@@ -4,10 +4,12 @@
 //! diagnostic for one file or `at FILE:LINE:COLUMN` for several. A
 //! library file can be loaded and checked on its own.
 
+mod expanded;
 mod library;
 mod load;
 mod types;
 
+pub use expanded::{expanded, expanded_with};
 pub use library::{is_library, load_library, load_library_with};
 pub use load::{Loaded, in_program, load, load_with, located};
 pub use types::{library_types, program_types};

@@ -1,0 +1,7 @@
+# An error in code written in a macro's argument is reported where it
+# was written, inside the string.
+== SOURCE
+x := 1
+"x > 0" i_f< "y_z 1; 2"
+== ERROR
+error[unknown-builtin]: there is no built-in y_z at 21..24

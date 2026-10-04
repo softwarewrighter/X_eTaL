@@ -1,0 +1,1 @@
+MC11: u_se< finds Name.xtl and Name.xtlm together (first directory holding either; files, userlibs/, XETAL_PATH, standard libraries, the browser store); explicit paths load only that file; the not-found message names both; each tier tested. A .xtlm is parsed and its exports listed.
