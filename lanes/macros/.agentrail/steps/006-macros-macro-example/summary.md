@@ -1,0 +1,1 @@
+demos/macros.xtl (system macros + Macros library, in the live demo's Open menu), docs/literate/macros.org, goldens macros-demo-run/expand. pages/ left for the merger.
