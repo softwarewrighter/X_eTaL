@@ -12,17 +12,17 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 14:43 `build` Merged PRs #48-#53 in order (macros lane steps 9-18: `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`, `e_rror<`, `d_bg<`, `a_ssert<`, `f_ormat<`, `p_anic<`, the system macros' release) and PR #54 (doc lane step 1, `xetal doc --json`); the panic entry renumbered D57 (D70 is the status table); pages/ rebuilt.
+
 - 14:05 `feat` `xetal doc --json` (doc lane step 1, D72): the cross-reference model of a program or library, every item of it, of the libraries and macro libraries it imports and of System.xtlm when it calls one: written name, kind, public or private, inferred type, line, `###` section, `##` doc comment and `## >>` examples (S9), source, and the items it uses resolved to their file; new component `components/doc`.
 - 13:56 `docs` The system macros released (macros lane step 18): docs/literate/macros.org covers every system macro (`f_ormat<`, `d_bg<`, `a_ssert<`, `p_anic<`, the compiler's `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`, `e_rror<`), `demos/macros.xtl` shows `f_ormat<`, `a_ssert<` and `c_fg<`, the README lists them; demo goldens rebased on purpose.
-
 - 13:37 `fix` Lean kernels (Saga 30 step 3, D56): `e_ach`, `m_ap`, `t_able`, `i_nner`, reduce and scan with a function of your own as one hand-written state machine each, nothing allocated per element (a lambda operand of `t_able` 11.6 to 7.2 allocations per call), every call in the same order; doc comments decided (S9: `##` documentation, `###` sections, `## >>` examples) and Saga 32 gains doctests.
-- 13:32 `feat` `@ p_anic< "message {expr}"` (macros lane step 17): stops the program with `error[panic]` and the formatted message at the call, typed wherever it stands, on the new built-in `[]P_ANIC : Char -> a` (MC29, D70).
+- 13:32 `feat` `@ p_anic< "message {expr}"` (macros lane step 17): stops the program with `error[panic]` and the formatted message at the call, typed wherever it stands, on the new built-in `[]P_ANIC : Char -> a` (MC29, D57).
 - 13:09 `feat` `@ f_ormat< "x = {x}"` (macros lane step 16, Rust's `format!`): `{expr}` holes of any expression, `{{` and `}}` braces, bad holes fail before the run, errors in a hole located in the string (MC28, D69).
 - 12:34 `feat` `"cond" a_ssert< "message"` (macros lane step 15; System.xtlm now documented with `##` doc comments and `###` sections, its examples checked): a failed condition is reported on standard error as written, with the message and `[file:line]`, and the program goes on; `@` for no message (MC27, D68).
 - 11:31 `feat` `@ d_bg< "expr"` (macros lane step 14, Rust's `dbg!`): the value of expr, after writing `[file:line] expr = value` to standard error; System.xtlm's comments now one block per macro (what it does, an example) for `xetal doc` (MC26, D67).
 - 10:30 `feat` The compiler-only system macros (macros lane steps 9-13): `@ l_ine< @`, `@ f_ile< @`, `@ i_nclude< "path"` (a file's text as a string, Rust's `include_str!`), `@ c_fg< "name"` (the platform or a flag set with the new `xetal --cfg NAME`) and `"code" e_rror< "message"` (Rust's `compile_error!`), written in System.xtlm over the hooks `[]L_INE`, `[]F_ILE`, `[]I_NCLUDE`, `[]C_FG`; `u_se<` stays built in, with a comment in System.xtlm showing why (MC21 decided); MC25 proposed (include paths), D66.
 - 10:24 `build` Merged PR #47 (macros lane step 8: the system macros written in X_eTaL in lib/System.xtlm, the hooks []R_EJECT and []S_TATEMENT, @ for an unused side); pages/ rebuilt.
-
 
 ## 2026-10-03
 
@@ -31,7 +31,6 @@ saga planning and reordering, `release` milestone release,
 - 21:26 `build` Merged PRs #43, #44 and #45 in order (macros lane steps 2-7: .xtlm macro libraries, xetal expand, the macros demo and literate document, long namespace prefixes); pages/ rebuilt.
 - 21:20 `feat` Long namespace prefixes (MC13, macros lane step 7): an alias is a lowercase letter then lowercase letters or digits (`"combinators:" u_se< "Combinators"`, `"b2:" u_se< "Stats"`), the lexer and the alias check agreeing; `Abc:` and `2b:` rejected, a hidden (uppercase) namespace written in a file is `hidden-namespace`; `b2:` drawn as written, `combinators:` raised; xetal-mode colours them (D64). The proposed rule for running a macro renumbered MC23 (the user's System.xtlm decisions take MC18-MC22).
 - 20:15 `demo` Macros, shown (macros lane steps 5-6): `demos/macros.xtl` (the system macros and the example macro library `Macros`, also in the live demo's Open menu) and the literate document `docs/literate/macros.org` (source that writes source: `i_f<`, `u_nless<`, `e_ach<`, `xetal expand`, macro libraries of your own, the mistakes caught), with goldens of the demo's run and its expansion.
-
 - 18:36 `fix` Higher-order built-ins call a first-order built-in operand at once (Saga 30 step 2, D55): `t_able`, `i_nner`, `e_ach` and reduce with `'*`, `'+` and the like no longer go through the machine per call; bench/inner.xtl 8.3 s to 0.86 s, bench/table-right.xtl 0.63 s to 0.39 s; the cost guard's bounds lowered to match.
 - 18:30 `feat` Macro libraries of your own (macros lane steps 2-4): `"x:" u_se< "Name"` finds `Name.xtl` and `Name.xtlm` together (MC11, components/lookup); a `.xtlm` defines `m:n_ame< := { left right -> ... }` (MC10, misdefinitions rejected); `"l" x:n_ame< "r"` runs the macro when the program is expanded and its text replaces the call, as statements or parenthesized by where it stands (MC12), expanded again to the depth limit; `xetal expand` and `xetal type X.xtlm` show them; the standard example `lib/Macros.xtlm` (`u_nless<`, `d_ef<`, `c_heck<`). MC23 proposed (first numbered MC18), D62, D63; the not-found golden rebased on purpose (it names both files).
 - 17:21 `build` Merged PR #41 (macros lane step 1: system macros `i_f<`, `u_nless<`, `e_ach<` and `xetal expand`) and PR #42 (launch-docs lane step 3: the beginner path; the lane archived); pages/ rebuilt (the beginner page, the macros in the live demo) and docs/status.md regenerated.
@@ -64,9 +63,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-02
 
-- 06:24 `chore` Merge PR #38.
 - 20:40 `build` Benchmarks: `bench/*.xtl` and `just bench` (best of three wall times, as a table), with the baseline and a profile of where the time goes in docs/speed.md.
-- 06:04 `refactor` The higher-order built-ins are kernels (D50, Saga 25 step 3): each call of an operand is a step of the machine, so a run stops inside `e_ach`, reduce, `p_ower` and the rest; `xetal-kernel` combinators keep every call's order; the `Caller` callback is gone.
 - 19:57 `chore` Merge PR #37 (transpose lane released: Saga 24 done and archived).
 - 19:45 `release` Transpose lane closed (Saga 24): retrospective in plan.md, the lane's saga archived.
 - 19:26 `chore` Merge PR #36.
@@ -108,8 +105,10 @@ saga planning and reordering, `release` milestone release,
 - 07:10 `chore` Merge PR #29 (retrofit survey).
 - 07:09 `chore` Merge PR #28 (trains diagnostics).
 - 07:01 `docs` Dogfooding: the retrofit audit (pre-fills Saga 13a step 1).
+- 06:24 `chore` Merge PR #38.
 - 06:07 `chore` Trains lane step 3 (diagnostics) completed.
 - 06:07 `feat` Errors in a train explain what the train means there.
+- 06:04 `refactor` The higher-order built-ins are kernels (D50, Saga 25 step 3): each call of an operand is a step of the machine, so a run stops inside `e_ach`, reduce, `p_ower` and the rest; `xetal-kernel` combinators keep every call's order; the `Caller` callback is gone.
 - 05:53 `plan` The user's requests: the demo menu, quads next, a retrofit saga.
 - 05:45 `chore` Merge PR #27 (trains errors).
 

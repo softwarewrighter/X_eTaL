@@ -19,12 +19,13 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 99 | 0 | 0 |
-| Language decisions | 119 | 0 | 2 |
+| Language decisions | 119 | 0 | 3 |
 | Standard libraries | 6 | 0 | 0 |
 | Spec cases | 331 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
+- **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
 - **T9** (planned): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
 - **B18** (planned): `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...).
 
@@ -256,6 +257,7 @@ conventions (naming, layout) work without a spec case citing them.
 | S5 | Scripts use the extension `.xtl` and start with `#!/usr/bin/env xetal` (a plain comment) | works | 1 |
 | S8 | A Float literal may have an exponent: `e` or `E` right after the digits, then an optional `-` and digits, (...) | works | 7 |
 | S7 | The command is `xetal` (easy to type, matches the crate slug) | works | 0 |
+| S9 | Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...) | planned | 0 |
 | T1 | A real `Bool` type; `=` and the comparisons return Bool | works | 4 |
 | T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and (...) | works | 3 |
 | T3 | `=` is exact (IEEE) equality and transitive; `(0.1 + 0.2) = 0.3` is 0 | works | 2 |

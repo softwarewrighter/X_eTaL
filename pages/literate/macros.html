@@ -25,10 +25,14 @@
 <li><a href="#org982448a">i_f&lt;: one of two expressions</a></li>
 <li><a href="#orgd9f83ef">u_nless&lt;: statements run unless a condition holds</a></li>
 <li><a href="#org55fb1fb">e_ach&lt;: a statement per word</a></li>
+<li><a href="#org1085744">f_ormat&lt;: text with values in it</a></li>
+<li><a href="#org31e5329">d_bg&lt; and a_ssert&lt;: looking and checking</a></li>
+<li><a href="#org5b4c39d">p_anic&lt;: stopping</a></li>
+<li><a href="#orgf3600f9">What the compiler knows</a></li>
 </ul>
 </li>
-<li><a href="#org1085744">Macros of your own</a></li>
-<li><a href="#org5b4c39d">Mistakes it catches</a></li>
+<li><a href="#orgc5b995b">Macros of your own</a></li>
+<li><a href="#orgbc7cc34">Mistakes it catches</a></li>
 </ul>
 </div>
 </div>
@@ -45,7 +49,11 @@ run by <code>xetal</code> through <code>ob-xetal</code>, and its result recorded
 <h2 id="orge490305">The system macros</h2>
 <div class="outline-text-2" id="text-orge490305">
 <p>
-Three macros are built in beside <code>u_se&lt;</code>; no import is needed.
+The system macros are always there; no import is needed. They are
+written in X_eTaL like any macro library, in <code>lib/System.xtlm</code> (built
+into <code>xetal</code> and loaded before every file), each with a comment saying
+what it does and an example. A side of a call that takes nothing is
+written <code>@</code>: <code>@ l_ine&lt; @</code>. The first three choose and repeat code.
 </p>
 </div>
 <div id="outline-container-org982448a" class="outline-3">
@@ -160,10 +168,154 @@ of its own.
 </p>
 </div>
 </div>
+<div id="outline-container-org1085744" class="outline-3">
+<h3 id="org1085744">f_ormat&lt;: text with values in it</h3>
+<div class="outline-text-3" id="text-org1085744">
+<p>
+<code>@ f_ormat&lt; "text {expr}"</code> puts the value of each <code>{expr}</code>, any
+expression, into the text, as the function <code>f_ormat</code> writes it (a Bool
+as 0 or 1); <code>{{</code> and <code>}}</code> are braces (Rust's <code>format!</code>):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">v ← <span class="c-number">3</span> <span class="c-number">1</span> <span class="c-number">2</span>
+@ <span class="c-macro">f̲ormat&lt;</span> <span class="c-string">&quot;v = {v}, its sum {'+ r_/ v}, sorted? {v m_atch s_ort v}, {{braces}}&quot;</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   v := 3 1 2</span>
+<span class="c-comment typed">⍝   @ f_ormat&lt; "v = {v}, its sum {'+ r_/ v}, sorted? {v m_atch s_ort v}, {{braces}}"</span></pre>
 </div>
-<div id="outline-container-org1085744" class="outline-2">
-<h2 id="org1085744">Macros of your own</h2>
-<div class="outline-text-2" id="text-org1085744">
+
+<pre class="example">
+v = 3 1 2, its sum 6, sorted? 0, {braces}
+</pre>
+
+
+<p>
+It writes <code>"v = " c_at (f_ormat (v)) c_at ...</code>. An unclosed <code>{</code>, an
+empty <code>{}</code> or a lone <code>}</code> is an error before the program runs, and a type
+error inside a hole is reported where it was written in the string.
+</p>
+</div>
+</div>
+<div id="outline-container-org31e5329" class="outline-3">
+<h3 id="org31e5329">d_bg&lt; and a_ssert&lt;: looking and checking</h3>
+<div class="outline-text-3" id="text-org31e5329">
+<p>
+<code>@ d_bg&lt; "expr"</code> gives the value of <code>expr</code> after writing it, as written,
+with its value and its place, on standard error (Rust's <code>dbg!</code>).
+<code>"cond" a_ssert&lt; "message"</code> (or <code>@</code> for no message) reports a
+condition that does not hold, as written, and the program goes on;
+unlike Rust's <code>assert!</code>, it never stops the program. Standard error
+shows:
+</p>
+
+<pre class="example" id="org422f2a5">
+$ xetal eval -e 'x := 6
+y := 1 + @ d_bg&lt; "x * 2"
+y'
+[-e:2] x * 2 = 12
+13
+$ xetal eval -e 'x := 6
+"x &gt; 10" a_ssert&lt; "x is big"'
+assertion failed: x &gt; 10 (x is big) [-e:2]
+@
+</pre>
+</div>
+</div>
+<div id="outline-container-org5b4c39d" class="outline-3">
+<h3 id="org5b4c39d">p_anic&lt;: stopping</h3>
+<div class="outline-text-3" id="text-org5b4c39d">
+<p>
+<code>@ p_anic&lt; "message {expr}"</code> stops the program with <code>error[panic]</code> and
+the message, formatted as <code>f_ormat&lt;</code> does, at the call. It stands
+where any value may, an Int or a text:
+</p>
+
+<pre class="example" id="org9c92b3f">
+$ xetal eval -e 'u:s_ize := { k -&gt; k &gt; 3 ? @ p_anic&lt; "bad grid size {k}"; k * 2 }
+u:s_ize 2
+u:s_ize 5'
+4
+error[panic]: bad grid size 5 at 26..55
+</pre>
+</div>
+</div>
+<div id="outline-container-orgf3600f9" class="outline-3">
+<h3 id="orgf3600f9">What the compiler knows</h3>
+<div class="outline-text-3" id="text-orgf3600f9">
+<p>
+Some macros give what only the compiler knows, through hooks no
+ordinary function can call:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Call</th>
+<th scope="col" class="org-left">Gives</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>@ l_ine&lt; @</code></td>
+<td class="org-left">the line the call is written on</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>@ f_ile&lt; @</code></td>
+<td class="org-left">the file it is written in (<code>-e</code> for command-line text)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>@ i_nclude&lt; "data.txt"</code></td>
+<td class="org-left">the text of a file beside it, as a string (Rust's <code>include_str!</code>)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>@ c_fg&lt; "web"</code></td>
+<td class="org-left">1 when the fact holds: the platform, <code>cli</code> or <code>web</code>, or a flag set with <code>xetal --cfg NAME</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>"code" e_rror&lt; "message"</code></td>
+<td class="org-left">a compile error at the call (Rust's <code>compile_error!</code>)</td>
+</tr>
+</tbody>
+</table>
+
+<div class="org-src-container">
+<pre class="src src-xetal">@ <span class="c-macro">c̲fg&lt;</span> <span class="c-string">&quot;cli&quot;</span>
+@ <span class="c-macro">c̲fg&lt;</span> <span class="c-string">&quot;web&quot;</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   @ c_fg&lt; "cli"</span>
+<span class="c-comment typed">⍝   @ c_fg&lt; "web"</span></pre>
+</div>
+
+<pre class="example">
+1
+0
+</pre>
+
+
+<p>
+A macro of yours can write <code>e_rror&lt;</code> into its text to refuse a call:
+the error is reported at your call, with your code and message.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc5b995b" class="outline-2">
+<h2 id="orgc5b995b">Macros of your own</h2>
+<div class="outline-text-2" id="text-orgc5b995b">
 <p>
 A macro library is a file ending in <code>.xtlm</code>. It defines its macros as
 <code>m:n_ame&lt;</code>, each an ordinary function of the two texts, left and right,
@@ -242,14 +394,14 @@ expansion stops with an error when macros nest more than 32 deep.
 </p>
 </div>
 </div>
-<div id="outline-container-org5b4c39d" class="outline-2">
-<h2 id="org5b4c39d">Mistakes it catches</h2>
-<div class="outline-text-2" id="text-org5b4c39d">
+<div id="outline-container-orgbc7cc34" class="outline-2">
+<h2 id="orgbc7cc34">Mistakes it catches</h2>
+<div class="outline-text-2" id="text-orgbc7cc34">
 <p>
 A macro takes a string, or @ for none, on each side:
 </p>
 
-<pre class="example" id="org422f2a5">
+<pre class="example" id="orgbb55d63">
 x i_f&lt; "1; 2"
 error[bad-macro-call]: i_f&lt; takes a string, or @ for none, on each side: "left" i_f&lt; "right"
 </pre>
@@ -259,7 +411,7 @@ A macro a macro library does not define is an error listing those it
 does:
 </p>
 
-<pre class="example" id="org31e5329">
+<pre class="example" id="org3328a26">
 "x:" u_se&lt; "Macros"
 "a" x:n_ope&lt; "b"
 error[not-exported]: x:n_ope&lt; is not defined by that macro library; it defines w_hen&lt;, d_ef&lt;, c_heck&lt;
@@ -269,7 +421,7 @@ error[not-exported]: x:n_ope&lt; is not defined by that macro library; it define
 Macros are defined only in macro libraries, as <code>m:</code> names ending in <code>&lt;</code>:
 </p>
 
-<pre class="example" id="org9c92b3f">
+<pre class="example" id="orgfd7500f">
 u:f_&lt; := { a b -&gt; a }
 error[misdefined-macro]: macros are defined in macro libraries (.xtlm files), as m:n_ame&lt;
 </pre>
