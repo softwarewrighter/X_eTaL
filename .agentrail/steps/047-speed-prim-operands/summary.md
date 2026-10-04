@@ -1,0 +1,1 @@
+First-order built-in operands of t_able, i_nner, e_ach and reduce are called at once through xetal-kernel Direct (xetal-prim Now), D55; cost bounds lowered to 0 transitions per call; bench/inner.xtl 8.3s to 0.86s, table-right 0.63s to 0.39s
