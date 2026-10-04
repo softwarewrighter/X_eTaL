@@ -1,0 +1,7 @@
+# c:Y_< takes a lambda whose first parameter is the function itself,
+# and at least one more.
+== SOURCE
+"c:" u_se< "Combinators"
+"u:f_" c:Y_< "{ s_elf -> 1 }"
+== ERROR
+error[bad-macro-argument]: c:Y_< takes a lambda whose first parameter is the function itself: { s_elf n -> ... } at 38..54

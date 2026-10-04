@@ -1,0 +1,12 @@
+# c:B_< writes the Bluebird in place: f applied to the result of g, as
+# one lambda (parenthesized inside an expression).
+== SOURCE
+"c:" u_se< "Combinators"
+u:s_umTo := "'+ r_/" c:B_< "r_ange"
+u:s_umTo 4
+== EXPAND
+"c:" u_se< "Combinators"
+u:s_umTo := ({ '+ r_/ r_ange _r })
+u:s_umTo 4
+== RESULT
+10
