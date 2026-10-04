@@ -53,7 +53,7 @@ fn docs_sections_and_examples_come_from_the_comments() {
     let greet = file(&files, "Greet.xtl");
     let hello = item(greet, "l:h_ello");
     assert_eq!(hello.section.as_deref(), Some("Saying hello"));
-    assert_eq!(hello.examples()[0].output, "Hello, Ann");
+    assert_eq!(hello.examples()[1].output, "Hello, Ann");
     assert_eq!(item(greet, "l:count").section.as_deref(), Some("Values"));
     assert!(
         greet
@@ -96,4 +96,17 @@ fn a_files_imports_name_the_files_found() {
 #[test]
 fn a_bad_program_is_a_diagnostic_not_a_panic() {
     assert!(model("bad.xtl", "x := ( 1").is_err());
+}
+
+#[test]
+fn documenting_the_system_macros_lists_them_once() {
+    let text = xetal_libs_text();
+    let files = model("lib/System.xtlm", &text).expect("model");
+    assert_eq!(files.len(), 1);
+    assert_eq!(files[0].kind, "system macros");
+}
+
+fn xetal_libs_text() -> String {
+    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../../../lib/System.xtlm");
+    std::fs::read_to_string(path).expect("System.xtlm")
 }

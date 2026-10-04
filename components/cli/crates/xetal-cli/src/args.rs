@@ -97,7 +97,7 @@ pub(crate) struct EvalArgs {
 
 /// `doc` options: the cross-reference as JSON, or as a site.
 #[derive(Args)]
-#[command(group(clap::ArgGroup::new("output").required(true).args(["json", "out"])))]
+#[command(group(clap::ArgGroup::new("output").required(true).args(["json", "out", "test"])))]
 pub(crate) struct DocArgs {
     #[command(flatten)]
     pub(crate) input: Input,
@@ -110,6 +110,10 @@ pub(crate) struct DocArgs {
     /// name linked to its definition and its uses.
     #[arg(long, value_name = "DIR")]
     pub(crate) out: Option<String>,
+    /// Run the file's `## >>` examples and compare what each prints
+    /// with the output shown under it (each doc block one session).
+    #[arg(long)]
+    pub(crate) test: bool,
 }
 
 /// `render` options: decorated Unicode by default.

@@ -75,6 +75,9 @@ fn whole(command: &Command, source: &str) -> Option<Result<String, Diagnostic>> 
 /// `xetal doc`: the model as JSON, or the site written into `--out`
 /// (the paths written, one a line).
 fn doc(args: &crate::args::DocArgs, name: &str, source: &str) -> Result<String, Diagnostic> {
+    if args.test {
+        return xetal_doctest::test(name, source);
+    }
     match &args.out {
         Some(dir) => {
             let files = xetal_doc::model(name, source)?;

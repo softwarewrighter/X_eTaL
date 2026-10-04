@@ -32,6 +32,7 @@ xetal-line = { path = "../line/crates/xetal-line" }
 xetal-program = { path = "../macro/crates/xetal-program" }
 xetal-doc = { path = "../doc/crates/xetal-doc" }
 xetal-docsite = { path = "../doc/crates/xetal-docsite" }
+xetal-doctest = { path = "../doc/crates/xetal-doctest" }
 xetal-core = { path = "../core/crates/xetal-core" }
 xetal-ty = { path = "../types/crates/xetal-ty" }
 xetal-types = { path = "../types/crates/xetal-types" }

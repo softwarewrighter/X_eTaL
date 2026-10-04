@@ -1,0 +1,3 @@
+command = "cd components/doc/fixtures && ../../../target/debug/xetal doc --test Broken.xtl"
+exit_code = 1
+desc = "xetal doc --test reports each wrong example with what was shown and what was printed, an expected error not raised included; exit 1"

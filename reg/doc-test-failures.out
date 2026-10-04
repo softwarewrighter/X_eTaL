@@ -1,0 +1,17 @@
+doc tests in Broken.xtl: 3 examples
+l:d_ouble >> 2 * 4 ... FAILED
+l:d_ouble >> 2 * 5 ... ok
+l:o_ne >> 1 + 1 ... FAILED
+
+---- l:d_ouble >> 2 * 4
+--- expected
+9
+--- actual
+8
+
+---- l:o_ne >> 1 + 1
+--- expected
+error[type-mismatch]
+--- actual
+2
+doc test result: FAILED. 1 passed; 2 failed

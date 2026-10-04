@@ -118,5 +118,5 @@ fn uses_list_each_items_places_across_files() {
     assert_eq!(at, &[(1, shout_line)]);
     let greet_all = Target::Item { file: 0, item: 0 };
     let lines: Vec<usize> = all[&greet_all].iter().map(|(_, l)| *l).collect();
-    assert_eq!(lines, [10]);
+    assert_eq!(lines, [12]);
 }

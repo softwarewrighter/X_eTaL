@@ -4,6 +4,8 @@
 "g:" u_se< "Greet"
 
 ## Greet everyone in a list, shouting.
+## >> u:g_reetAll "Cy"
+## Hello, Cy!
 u:g_reetAll := { n -> g:s_hout n }
 
 names := "Ann"

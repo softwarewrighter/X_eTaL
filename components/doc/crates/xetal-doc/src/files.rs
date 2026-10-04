@@ -35,7 +35,7 @@ pub fn model(name: &str, text: &str) -> Result<Vec<DocFile>, Diagnostic> {
             add_first(&mut files, &found.0, &found.1)?;
         }
     }
-    if let Some(system) = xetal_libs::standard_macros("System") {
+    if let Some(system) = xetal_libs::standard_macros("System").filter(|s| *s != text) {
         add_first(&mut files, SYSTEM, system)?;
         if !files.last().is_some_and(|f| called(f, &imports)) {
             files.pop();
