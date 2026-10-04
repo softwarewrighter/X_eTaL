@@ -6,9 +6,11 @@
 
 mod calls;
 mod draw;
+mod facts;
 mod files;
 mod hooks;
 mod text;
 
 pub use calls::call;
+pub use facts::set_flags;
 pub use hooks::{Expanding, expanding};

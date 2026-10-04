@@ -1,0 +1,3 @@
+command = """./target/debug/xetal --cfg fast eval -e '@ c_fg< "fast"; @ c_fg< "slow"; @ c_fg< "cli"'"""
+exit_code = 0
+desc = "xetal --cfg NAME sets a fact @ c_fg< \"NAME\" tests while expanding; cli holds at the command line"

@@ -1,0 +1,7 @@
+# "code" e_rror< "message" stops with a compile error at the call
+# (Rust's compile_error!, MC24).
+== SOURCE
+x := 1
+"too-big" e_rror< "x must be small"
+== ERROR
+error[too-big]: x must be small at 17..24

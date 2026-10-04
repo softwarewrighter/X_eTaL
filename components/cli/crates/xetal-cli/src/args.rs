@@ -54,6 +54,10 @@ pub(crate) struct Cli {
     /// draws it (what d_isplay gives).
     #[arg(long = "box", global = true)]
     pub(crate) boxed: bool,
+    /// Set a configuration fact NAME, which a macro tests with
+    /// `@ c_fg< "NAME"` (repeatable; `cli` holds at the command line).
+    #[arg(long = "cfg", global = true, value_name = "NAME")]
+    pub(crate) cfg: Vec<String>,
 }
 
 /// Source given inline with `-e` or as a file path.

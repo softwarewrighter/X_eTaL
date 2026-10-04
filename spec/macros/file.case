@@ -1,0 +1,8 @@
+# @ f_ile< @ is the file its call is written in, as text: -e for text
+# given on the command line (MC24).
+== SOURCE
+@ f_ile< @
+== EXPAND
+"-e"
+== RESULT
+-e

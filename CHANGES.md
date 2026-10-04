@@ -13,8 +13,9 @@ saga planning and reordering, `release` milestone release,
 ## 2026-10-04
 
 - 13:37 `fix` Lean kernels (Saga 30 step 3, D56): `e_ach`, `m_ap`, `t_able`, `i_nner`, reduce and scan with a function of your own as one hand-written state machine each, nothing allocated per element (a lambda operand of `t_able` 11.6 to 7.2 allocations per call), every call in the same order; doc comments decided (S9: `##` documentation, `###` sections, `## >>` examples) and Saga 32 gains doctests.
-
+- 10:30 `feat` The compiler-only system macros (macros lane steps 9-13): `@ l_ine< @`, `@ f_ile< @`, `@ i_nclude< "path"` (a file's text as a string, Rust's `include_str!`), `@ c_fg< "name"` (the platform or a flag set with the new `xetal --cfg NAME`) and `"code" e_rror< "message"` (Rust's `compile_error!`), written in System.xtlm over the hooks `[]L_INE`, `[]F_ILE`, `[]I_NCLUDE`, `[]C_FG`; `u_se<` stays built in, with a comment in System.xtlm showing why (MC21 decided); MC25 proposed (include paths), D66.
 - 10:24 `build` Merged PR #47 (macros lane step 8: the system macros written in X_eTaL in lib/System.xtlm, the hooks []R_EJECT and []S_TATEMENT, @ for an unused side); pages/ rebuilt.
+
 
 ## 2026-10-03
 

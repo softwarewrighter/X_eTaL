@@ -95,6 +95,20 @@ fn a_library_not_found_names_both_kinds() {
 }
 
 #[test]
+fn a_macro_refuses_a_call_with_e_rror_in_its_text() {
+    let lib = "m:s_mall< := { a b -> \"\\\"too-big\\\" e_rror< \\\"keep it small\\\"\" }\n";
+    let main = with_control("refuse", &[("Small.xtlm", lib)]);
+    let src = "\"y:\" u_se< \"Small\"\nx := 1\n\"a\" y:s_mall< \"b\"\n";
+    let err = load(&main, src).unwrap_err();
+    assert_eq!(
+        (err.code.as_str(), err.message.as_str()),
+        ("too-big", "keep it small")
+    );
+    let span = err.span.unwrap();
+    assert!(src[span.start..].starts_with("\"a\" y:s_mall<"), "{span:?}");
+}
+
+#[test]
 fn a_macro_library_may_not_define_a_system_macro() {
     let main = with_control("system", &[("Mine.xtlm", "m:i_f< := { a b -> a }\n")]);
     let err = load(&main, "\"x:\" u_se< \"Mine\"\n").unwrap_err();

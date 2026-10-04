@@ -1,0 +1,6 @@
+# i_nclude< reads a file by a path relative to the program (MC24,
+# proposed rule).
+== SOURCE
+@ i_nclude< "/etc/hosts"
+== ERROR
+error[bad-include]: i_nclude< reads a file by a path relative to the program, not "/etc/hosts" at 12..24
