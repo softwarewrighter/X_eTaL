@@ -138,7 +138,10 @@ components/
                            model: every item of a program, of the
                            libraries and macro libraries it imports
                            and of System.xtlm when it calls one, with
-                           type, doc, source and resolved uses; JSON)
+                           type, doc, source and resolved uses; JSON),
+                           xetal-doctest (S10: each doc block's
+                           examples run as one session, compared
+                           with the output shown)
   web/                     xetal-play: the live demo's engine
                            (decorate, check, run; libraries and files
                            from the installed store, then the standard
@@ -279,6 +282,9 @@ xetal doc --json <FILE|-e EXPR>
                                the cross-reference model as JSON: every
                                item of the file, its imports and the
                                system macros it calls
+xetal doc --test <FILE|-e EXPR>
+                               run the file's ## >> examples, each doc
+                               block one session (the gate runs lib/)
 ```
 
 Each command runs the earlier stages first, so an early error is

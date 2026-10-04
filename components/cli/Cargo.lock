@@ -2123,6 +2123,7 @@ dependencies = [
  "xetal-core",
  "xetal-diagram",
  "xetal-doc",
+ "xetal-doctest",
  "xetal-edit",
  "xetal-eval",
  "xetal-grid",
@@ -2180,6 +2181,17 @@ dependencies = [
 [[package]]
 name = "xetal-doccom"
 version = "0.1.0"
+
+[[package]]
+name = "xetal-doctest"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-doc",
+ "xetal-doccom",
+ "xetal-repl",
+ "xetal-store",
+]
 
 [[package]]
 name = "xetal-draw"

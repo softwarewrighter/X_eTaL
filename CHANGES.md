@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 16:05 `feat` `xetal doc --test` (doc lane step 2, S10, D74): runs a file's `## >>` examples, each doc block one session, and compares what each prints with the output shown (`error[code]` lines by code), reported like `cargo test`; the gate runs it over lib/ (System.xtlm's 12 examples pass). Library examples import the library themselves, as a reader would.
+
 - 14:43 `build` Merged PRs #48-#53 in order (macros lane steps 9-18: `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`, `e_rror<`, `d_bg<`, `a_ssert<`, `f_ormat<`, `p_anic<`, the system macros' release) and PR #54 (doc lane step 1, `xetal doc --json`); the panic entry renumbered D57 (D70 is the status table); pages/ rebuilt.
 
 - 14:05 `feat` `xetal doc --json` (doc lane step 1, D72): the cross-reference model of a program or library, every item of it, of the libraries and macro libraries it imports and of System.xtlm when it calls one: written name, kind, public or private, inferred type, line, `###` section, `##` doc comment and `## >>` examples (S9), source, and the items it uses resolved to their file; new component `components/doc`.
