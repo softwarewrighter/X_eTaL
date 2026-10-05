@@ -1,8 +1,0 @@
-number = 104
-slug = "asks-amend"
-status = "pending"
-description = "Implement amend as decided in asks-decisions (X_eTaL-games' l:u_pdate retired..."
-role = "production"
-context_files = []
-created_at = "2026-10-03T12:59:23"
-commits = []

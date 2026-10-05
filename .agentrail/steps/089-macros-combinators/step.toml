@@ -1,8 +1,0 @@
-number = 89
-slug = "macros-combinators"
-status = "pending"
-description = "User idea (2026-10-03): a Combinators.xtlm macro library beside lib/Combinato..."
-role = "production"
-context_files = []
-created_at = "2026-10-03T08:20:16"
-commits = []

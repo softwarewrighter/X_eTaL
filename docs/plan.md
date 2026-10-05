@@ -1009,8 +1009,12 @@ Doc comments (S9): `#` ignored, `##` documentation, `###` sections,
    linking every repository's index, its own included. The siblings
    run `xetal doc` from their vendored xetal; how they vendor it (today
    X_eTaL's whole source tree, tracked, about 4 MB each, pinned to
-   different commits) is to be settled with the user: a pinned commit
-   built, or a released binary fetched, into a gitignored directory.
+   different commits) is decided (the user, 2026-10-04): each sibling
+   fetches a released `xetal` binary, tied to this repository's tagged
+   release, into a gitignored directory (a `just fetch-xetal` recipe
+   naming the release), so every repository builds its docs with one
+   known-compatible version and the tracked vendor/xetal copies go.
+   The web-release step attaches the binaries to its tag.
 8. rustdoc (the user, 2026-10-04): the implementation's own
    cross-reference, `cargo doc --document-private-items` over every
    component into one site with one search index, published as
