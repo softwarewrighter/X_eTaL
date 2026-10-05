@@ -19,6 +19,7 @@
 <li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
 <li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
 <li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
 <li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
 <li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
 <li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
@@ -106,9 +107,9 @@
 <span class="line" id="L55"><a class="ln" href="#L55">55</a><span class="c-comment">⍝</span><span class="c-comment"># 0</span></span>
 <span class="line" id="L56"><a class="ln" href="#L56">56</a><span class="c-libfunc">ˡt̲urn</span> ← { m points → m <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-symbol">'</span><a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#i_nner" class="c-builtin">i̲nner</a> points }</span>
 <span class="line" id="L57"><a class="ln" href="#L57">57</a></span>
-<span class="line" id="L58"><a class="ln" href="#L58">58</a><span class="c-comment">⍝</span><span class="c-comment"># The points as seen from distance d along the z axis, looking toward</span></span>
-<span class="line" id="L59"><a class="ln" href="#L59">59</a><span class="c-comment">⍝</span><span class="c-comment"># the origin, as 2 rows (x over y) for []P_ATH: a point farther away</span></span>
-<span class="line" id="L60"><a class="ln" href="#L60">60</a><span class="c-comment">⍝</span><span class="c-comment"># (a larger z) is drawn nearer the center. </span><span class="c-comment"></span>d <span class="c-libfunc">ᵍp̲roject</span> points<span class="c-comment"></span><span class="c-comment">.</span></span>
+<span class="line" id="L58"><a class="ln" href="#L58">58</a><span class="c-comment">⍝</span><span class="c-comment"># The points as seen by a viewer at distance d up the z axis, looking</span></span>
+<span class="line" id="L59"><a class="ln" href="#L59">59</a><span class="c-comment">⍝</span><span class="c-comment"># at the origin, as 2 rows (x over y) for []P_ATH: a nearer point (a</span></span>
+<span class="line" id="L60"><a class="ln" href="#L60">60</a><span class="c-comment">⍝</span><span class="c-comment"># larger z) is drawn farther from the center. </span><span class="c-comment"></span>d <span class="c-libfunc">ᵍp̲roject</span> points<span class="c-comment"></span><span class="c-comment">.</span></span>
 <span class="line" id="L61"><a class="ln" href="#L61">61</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;g:&quot; u_se&lt; &quot;Geometry3D&quot;</span></span>
 <span class="line" id="L62"><a class="ln" href="#L62">62</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 10 g:p_roject 3 2 r_eshape 1 1 1 1 0 5</span></span>
 <span class="line" id="L63"><a class="ln" href="#L63">63</a><span class="c-comment">⍝</span><span class="c-comment"># 1.0 2.0</span></span>
@@ -118,8 +119,8 @@
 <span class="line" id="L67"><a class="ln" href="#L67">67</a>  (<span class="c-number">2</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> points) <a href="builtins.html#-2a" class="c-symbol">×</a> (<span class="c-number">2</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> scale) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> scale</span>
 <span class="line" id="L68"><a class="ln" href="#L68">68</a>}</span>
 <span class="line" id="L69"><a class="ln" href="#L69">69</a></span>
-<span class="line" id="L70"><a class="ln" href="#L70">70</a><span class="c-comment">⍝</span><span class="c-comment"># How far each face of a solid is: the mean z of its corners, one</span></span>
-<span class="line" id="L71"><a class="ln" href="#L71">71</a><span class="c-comment">⍝</span><span class="c-comment"># number per face (F x 3 x 4 to F).</span></span>
+<span class="line" id="L70"><a class="ln" href="#L70">70</a><span class="c-comment">⍝</span><span class="c-comment"># How near each face of a solid is to the viewer: the mean z of its</span></span>
+<span class="line" id="L71"><a class="ln" href="#L71">71</a><span class="c-comment">⍝</span><span class="c-comment"># corners, one number per face (F x 3 x 4 to F); larger is nearer.</span></span>
 <span class="line" id="L72"><a class="ln" href="#L72">72</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;g:&quot; u_se&lt; &quot;Geometry3D&quot;</span></span>
 <span class="line" id="L73"><a class="ln" href="#L73">73</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; g:f_ar 2 3 1 r_eshape 0 0 -3 0 0 2</span></span>
 <span class="line" id="L74"><a class="ln" href="#L74">74</a><span class="c-comment">⍝</span><span class="c-comment"># -3.0 2.0</span></span>
@@ -128,13 +129,13 @@
 <span class="line" id="L77"><a class="ln" href="#L77">77</a><span class="c-comment">⍝</span><span class="c-comment"># The faces of a solid from the farthest to the nearest, as positions</span></span>
 <span class="line" id="L78"><a class="ln" href="#L78">78</a><span class="c-comment">⍝</span><span class="c-comment"># (the order to draw them in, so nearer faces cover farther ones).</span></span>
 <span class="line" id="L79"><a class="ln" href="#L79">79</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;g:&quot; u_se&lt; &quot;Geometry3D&quot;</span></span>
-<span class="line" id="L80"><a class="ln" href="#L80">80</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; g:o_rder 2 3 1 r_eshape 0 0 -3 0 0 2</span></span>
+<span class="line" id="L80"><a class="ln" href="#L80">80</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; g:o_rder 2 3 1 r_eshape 0 0 2 0 0 -3</span></span>
 <span class="line" id="L81"><a class="ln" href="#L81">81</a><span class="c-comment">⍝</span><span class="c-comment"># 2 1</span></span>
-<span class="line" id="L82"><a class="ln" href="#L82">82</a><span class="c-libfunc">ˡo̲rder</span> ← { faces → <a href="builtins.html#r_ev" class="c-builtin">r̲ev</a> <a href="builtins.html#g_rade" class="c-builtin">g̲rade</a> <a href="lib-Geometry3D.xtl.html#l.f_ar" class="c-libfunc">ˡf̲ar</a> faces }</span>
+<span class="line" id="L82"><a class="ln" href="#L82">82</a><span class="c-libfunc">ˡo̲rder</span> ← { faces → <a href="builtins.html#g_rade" class="c-builtin">g̲rade</a> <a href="lib-Geometry3D.xtl.html#l.f_ar" class="c-libfunc">ˡf̲ar</a> faces }</span>
 <span class="line" id="L83"><a class="ln" href="#L83">83</a></span>
 <span class="line" id="L84"><a class="ln" href="#L84">84</a><span class="c-comment">⍝</span><span class="c-comment"># The 8 corners of a cube of side s centered on the origin, 3 x 8, in</span></span>
-<span class="line" id="L85"><a class="ln" href="#L85">85</a><span class="c-comment">⍝</span><span class="c-comment"># the order front face (z = s/2) then back face, each anticlockwise</span></span>
-<span class="line" id="L86"><a class="ln" href="#L86">86</a><span class="c-comment">⍝</span><span class="c-comment"># from the top left.</span></span>
+<span class="line" id="L85"><a class="ln" href="#L85">85</a><span class="c-comment">⍝</span><span class="c-comment"># the order near face (z = s/2, toward the viewer) then far face, each</span></span>
+<span class="line" id="L86"><a class="ln" href="#L86">86</a><span class="c-comment">⍝</span><span class="c-comment"># anticlockwise from the top left.</span></span>
 <span class="line" id="L87"><a class="ln" href="#L87">87</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;g:&quot; u_se&lt; &quot;Geometry3D&quot;</span></span>
 <span class="line" id="L88"><a class="ln" href="#L88">88</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; s_hape g:c_ube 2</span></span>
 <span class="line" id="L89"><a class="ln" href="#L89">89</a><span class="c-comment">⍝</span><span class="c-comment"># 3 8</span></span>

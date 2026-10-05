@@ -19,6 +19,7 @@
 <li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
 <li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
 <li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
 <li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
 <li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
 <li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
@@ -53,6 +54,15 @@ xetal). Import it with an alias of your choice: &quot;s:&quot; u_se&lt; &quot;St
 It is a demo library, loaded only by that import: a small subset of
 X_eTaL-libraries' Statistics, which has much more (a program may use
 either).
+Names with l: are exported; the others are private to this file.</li>
+<li>library <a href="lib-Svg.xtl.html">lib/Svg.xtl</a>: Svg: pictures as SVG text, written for you (a standard library, built
+into xetal). Import it with an alias of your choice: &quot;v:&quot; u_se&lt; &quot;Svg&quot;.
+An element is its SVG text; a picture is elements joined with c_at
+inside v:p_icture, which []S_HOW shows and the command line writes.
+Points are a 2-row matrix, x over y, as []P_ATH and Geometry3D's
+v:p_roject give them; y grows downward, as SVG's does. Attributes
+are text made by v:a_ttr, v:f_ill, v:s_troke and the transforms, so
+no program writes a quote mark or an angle bracket of its own.
 Names with l: are exported; the others are private to this file.</li>
 <li>library <a href="lib-Terminal.xtl.html">lib/Terminal.xtl</a></li>
 <li>library <a href="lib-TTTML.xtl.html">lib/TTTML.xtl</a></li>
@@ -141,6 +151,27 @@ knows comes from hooks (MC20), usable only in a macro body.</li>
 <tr><td><a href="lib-Stats.xtl.html#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Stats.xtl.html#l.s_d"><span class="c-libfunc">ˡs̲d</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Stats.xtl.html#l.r_ange"><span class="c-libfunc">ˡr̲ange</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.a_ttr"><span class="c-libfunc">ˡa̲ttr</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.e_scape"><span class="c-libfunc">ˡe̲scape</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.f_ill"><span class="c-libfunc">ˡf̲ill</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.r_gb"><span class="c-libfunc">ˡr̲gb</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.s_troke"><span class="c-libfunc">ˡs̲troke</span></a></td><td>function</td><td><code>Char -&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.p_olygon"><span class="c-libfunc">ˡp̲olygon</span></a></td><td>function</td><td><code>Char -&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.p_olyline"><span class="c-libfunc">ˡp̲olyline</span></a></td><td>function</td><td><code>Char -&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.a_t"><span class="c-libfunc">ˡa̲t</span></a></td><td>function</td><td><code>a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.t_ext"><span class="c-libfunc">ˡt̲ext</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.g_roup"><span class="c-libfunc">ˡg̲roup</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.t_ranslate"><span class="c-libfunc">ˡt̲ranslate</span></a></td><td>function</td><td><code>a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.r_otate"><span class="c-libfunc">ˡr̲otate</span></a></td><td>function</td><td><code>a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.s_cale"><span class="c-libfunc">ˡs̲cale</span></a></td><td>function</td><td><code>a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.c_lip"><span class="c-libfunc">ˡc̲lip</span></a></td><td>function</td><td><code>Char -&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.c_lipped"><span class="c-libfunc">ˡc̲lipped</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.g_radient"><span class="c-libfunc">ˡg̲radient</span></a></td><td>function</td><td><code>Char -&gt; Box Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.p_icture"><span class="c-libfunc">ˡp̲icture</span></a></td><td>function</td><td><code>a -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.p_ictureWith"><span class="c-libfunc">ˡp̲ictureWith</span></a></td><td>function</td><td><code>a -&gt; Box Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#e_sc"><span class="c-builtin">e̲sc</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#j_oin"><span class="c-builtin">j̲oin</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#p_airs"><span class="c-builtin">p̲airs</span></a></td><td>function</td><td><code>a -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Terminal.xtl.html#l.BLACK">ˡBLACK</a></td><td>value</td><td><code>Color</code></td></tr>
 <tr><td><a href="lib-Terminal.xtl.html#l.RED">ˡRED</a></td><td>value</td><td><code>Color</code></td></tr>
 <tr><td><a href="lib-Terminal.xtl.html#l.GREEN">ˡGREEN</a></td><td>value</td><td><code>Color</code></td></tr>
