@@ -6,7 +6,8 @@ with origin/main, or GATE_BASE; committed, uncommitted and untracked
 files all count) and prints one line per thing the gate should do:
 
   check NAME   a component whose own files changed: fmt, clippy, tests
-  test NAME    a component that depends on a changed one: tests only
+  test NAME    a component that depends on a changed one, or whose lock
+               file alone changed: tests only
   flag NAME    a slower check whose inputs changed:
                wasm, literate, emacs, diagrams, smoke, asks
 
@@ -61,8 +62,12 @@ def plan(files, names, deps):
     """The gate's lines for the changed `files`."""
     if any(f.startswith(EVERYTHING) for f in files):
         return [f"check {c}" for c in names] + [f"flag {n}" for n in ("wasm", *FLAGS)]
-    check = {c for c in names if any(f.startswith(f"components/{c}/") for f in files)}
+    # A component's lock file alone changing (a dependency elsewhere moved)
+    # is a reason to test it, not to lint its unchanged code again.
+    own = lambda c: [f for f in files if f.startswith(f"components/{c}/")]
+    check = {c for c in names if any(f != f"components/{c}/Cargo.lock" for f in own(c))}
     test = {c for prefix, c in READ_BY.items() if any(f.startswith(prefix) for f in files)}
+    test |= {c for c in names if own(c)} - check
     touched = check | test
     grew = True
     while grew:
@@ -93,6 +98,8 @@ def self_test():
     assert plan(["components/base/x"], names, deps)[:2] == ["check base", "test syntax"]
     assert plan(["lib/Stats.xtl"], names, deps) == ["test macro", "test cli", "test web", "flag wasm", "flag literate"]
     assert plan(["spec/eval/a.case"], names, deps) == ["test cli"]
+    assert plan(["components/eval/Cargo.lock"], names, deps) == ["test eval", "test cli", "test web", "flag wasm"]
+    assert plan(["components/eval/Cargo.lock", "components/eval/crates/x/a.rs"], names, deps)[0] == "check eval"
     assert plan(["docs/emacs/xetal-mode.el"], names, deps) == ["flag literate", "flag emacs"]
     assert plan(["scripts/gate.sh"], names, deps)[0] == "check base"
     assert "flag asks" in plan(["docs/asks.toml"], names, deps)

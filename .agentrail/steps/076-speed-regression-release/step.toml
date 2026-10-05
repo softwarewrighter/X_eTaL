@@ -1,6 +1,6 @@
 number = 76
 slug = "speed-regression-release"
-status = "pending"
+status = "in-progress"
 description = "Saga 30 (the higher-order speed regression, docs/plan.md), step 4 of 4: X_eTa..."
 role = "production"
 context_files = []

@@ -13,12 +13,12 @@ build already does what the ask wants.
 
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
-| X_eTaL-demos | 5 | 2 | 7 | 0 | 0 |
-| X_eTaL-ML | 5 | 1 | 3 | 0 | 0 |
+| X_eTaL-demos | 6 | 2 | 6 | 0 | 0 |
+| X_eTaL-ML | 6 | 1 | 2 | 0 | 0 |
 | X_eTaL-games | 2 | 1 | 2 | 0 | 0 |
 | X_eTaL-libraries | 4 | 2 | 1 | 3 | 0 |
 | X_eTaL-extensions | 3 | 0 | 3 | 0 | 0 |
-| All | 19 | 6 | 16 | 3 | 0 |
+| All | 21 | 6 | 14 | 3 | 0 |
 
 ## X_eTaL-demos
 
@@ -34,7 +34,7 @@ build already does what the ask wants.
 | D8 | a per-operation evaluation trace through `xetal-play` | planned | a step of Saga 17, trace and explain | - |
 | D9 | transpose | landed | 3ad1f8e (`o_\`, `t_ranspose`, decision B17) | passes |
 | D10 | a vendored build reports the outer repo's commit as its own | landed | 4a31ba9 (`XETAL_BUILD_SHA` overrides the build's commit) | - |
-| D11 | `t_able` about 2.7x and `i_nner` about 1.5x slower since abb8274 (a regression) | planned | Saga 30, the higher-order speed regression (started: e3e9c3d, a cost guard) | - |
+| D11 | `t_able` about 2.7x and `i_nner` about 1.5x slower since abb8274 (a regression) | landed | 16b710d (a built-in operand is called at once) and 8456e45 (lean kernels); X_eTaL-demos measured `t_able` 82% and `i_nner` 86% faster than before the regression (docs/speed.md) | - |
 | D12 | `i_nner` costs about 370 ns per multiply-add, slower than broadcast-and-reduce | planned | Saga 30, then Saga 22 (vector kernels) | - |
 | D13 | grade along an axis per row (`g_rade_2 M`), for top-k per row | planned | to decide with the user (plan.md, the sibling asks that need decisions) | fails |
 | D14 | a condition bound to a name cannot be used in arithmetic | landed | ffd5526 (a bound condition stays Bool, and a Bool converts to Int in arithmetic) | passes |
@@ -45,7 +45,7 @@ build already does what the ask wants.
 | - | --- | ----- | ---- | ----- |
 | M1 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | passes |
 | M2 | `xetal expand FILE`: the source after macro expansion (the same as X2) | landed | `xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61) | golden `macros-user-expand` |
-| M3 | `'+ '* i_nner`: about 700 ns per multiply-add at abb8274 (the regression D11) | planned | Saga 30, the higher-order speed regression | - |
+| M3 | `'+ '* i_nner`: about 700 ns per multiply-add at abb8274 (the regression D11) | landed | 16b710d: `i_nner` with built-in operands is computed at once, 0 transitions and 0.25 allocations per multiply-add (docs/speed.md) | - |
 | M4 | grade per row, top-k along an axis (the same as D13) | planned | to decide with the user (plan.md, the sibling asks that need decisions) | fails |
 | M5 | `xetal-play`: arrays in and out without text, or a session (the same as D3) | planned | Saga 23, host bindings and native packages | - |
 | M6 | whole-array arithmetic: vector kernels (the same as D2) | partly landed | elementwise about 8x faster since abb8274; vector kernels in Saga 22 | - |

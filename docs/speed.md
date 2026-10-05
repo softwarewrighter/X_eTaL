@@ -82,6 +82,57 @@ Profiled with `perf record -g` on the release build:
 - **Axis moves**: `move_axis` (9.6% of Life) copies the array for
   every subscripted function.
 
+## The higher-order regression, fixed
+
+Making the higher-order built-ins steps of the machine (so a program
+can stop inside them and wait for input) had made `t_able` about 2.7
+times and `i_nner` about 1.5 times slower than before, as X_eTaL-demos
+measured. Two changes undid that and more:
+
+- a first-order built-in operand (`'*`, `'+`, `'r_ight`) is called at
+  once, not through the machine, since it runs no code of the user's;
+- an operand that is a function of the user's is driven by one small
+  state machine for the whole built-in, with nothing allocated per
+  element.
+
+Per operand call, counted by the cost guard
+(`components/step/crates/xetal-step/tests/cost.rs`), so the same on
+every machine:
+
+| Case | Transitions before | after | Allocations before | after |
+| ---- | ------------------ | ----- | ------------------ | ----- |
+| `t_able` with a built-in | 1.05 | 0 | 6.5 | 0 |
+| reduce with a built-in | 2.1 | 0 | 7.1 | 1 |
+| `i_nner` with built-ins | 3.9 | 0 | 16.4 | 0.25 |
+| `t_able` with a lambda | 10.2 | 10.2 | 11.6 | 7.2 |
+| `e_ach` with a lambda | 10.1 | 10.0 | 11.1 | 7.0 |
+
+`bench/inner.xtl` (a 64 by 512 by 64 matrix product, four times) went
+from 8.3 s to 0.81 s on the development machine (an Apple M-series
+laptop). X_eTaL-demos, built against the fixed version, measured its
+own benchmarks against its baseline from before the regression:
+`t_able` 82% faster, `i_nner` 86%, its n-body demo 52%, its image
+pipeline 55%, Langton's ant 41%, and nothing slower.
+
+The benchmark times now, the baseline `just bench-check` compares
+with (`bench/baseline/max.tsv`, the development machine, best of 5):
+
+| Program | ms |
+| ------- | -- |
+| `bench/int-add.xtl` | 71 |
+| `bench/float-mul.xtl` | 94 |
+| `bench/reduce.xtl` | 488 |
+| `bench/scan.xtl` | 377 |
+| `bench/each.xtl` | 154 |
+| `bench/table.xtl` | 95 |
+| `bench/table-lambda.xtl` | 186 |
+| `bench/table-right.xtl` | 62 |
+| `bench/inner.xtl` | 811 |
+| `bench/matmul.xtl` | 132 |
+| `bench/rotate.xtl` | 68 |
+| `bench/transpose.xtl` | 122 |
+| `bench/life.xtl` | 546 |
+
 ## The gate's own speed
 
 The gate is fast by default (`scripts/gate.sh`; `--full` runs

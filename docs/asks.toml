@@ -91,8 +91,8 @@ here = "4a31ba9 (`XETAL_BUILD_SHA` overrides the build's commit)"
 id = "D11"
 repo = "X_eTaL-demos"
 ask = "`t_able` about 2.7x and `i_nner` about 1.5x slower since abb8274 (a regression)"
-state = "planned"
-here = "Saga 30, the higher-order speed regression (started: e3e9c3d, a cost guard)"
+state = "landed"
+here = "16b710d (a built-in operand is called at once) and 8456e45 (lean kernels); X_eTaL-demos measured `t_able` 82% and `i_nner` 86% faster than before the regression (docs/speed.md)"
 
 [[ask]]
 id = "D12"
@@ -140,8 +140,8 @@ golden = "macros-user-expand"
 id = "M3"
 repo = "X_eTaL-ML"
 ask = "`'+ '* i_nner`: about 700 ns per multiply-add at abb8274 (the regression D11)"
-state = "planned"
-here = "Saga 30, the higher-order speed regression"
+state = "landed"
+here = "16b710d: `i_nner` with built-in operands is computed at once, 0 transitions and 0.25 allocations per multiply-add (docs/speed.md)"
 
 [[ask]]
 id = "M4"

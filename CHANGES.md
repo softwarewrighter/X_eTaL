@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 08:38 `docs` The higher-order speed regression is closed (Saga 30 step 5; asks D11 and M3 landed): docs/speed.md has the costs per operand call before and after, bench/inner.xtl 8.3 s to 0.81 s, and X_eTaL-demos' own measurements against its baseline from before the regression (`t_able` 82% faster, `i_nner` 86%, nothing slower); the benchmark baseline tightened to the faster of the old and new times. The fast gate tests, rather than lints again, a component whose lock file alone changed.
+
 - 07:02 `build` Merged PR #75 (`just check-live`); its first real run: all 35 github.io links in the six READMEs serve a page. The deployed live demo checked in a browser: a macro library (Combinators.xtlm) shows its macros' types.
 
 - 02:00 `build` `just check-live` (scripts/check-live.py): every github.io link in the six repositories' READMEs fetched; a link fails on a non-200, GitHub's no-site page, or a non-HTML answer; exit status the number of failures (the user, after the siblings' Pages were rebuilt).
