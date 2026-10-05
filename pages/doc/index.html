@@ -16,6 +16,7 @@
 <h2>Files</h2>
 <ul>
 <li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
 <li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
 <li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
 <li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
@@ -36,6 +37,14 @@
 <h2>Files</h2>
 <ul>
 <li>library <a href="lib-Combinators.xtl.html">lib/Combinators.xtl</a></li>
+<li>library <a href="lib-Geometry3D.xtl.html">lib/Geometry3D.xtl</a>: Geometry3D: points in space as arrays (a standard library, built into
+xetal). Import it with an alias of your choice: &quot;g:&quot; u_se&lt; &quot;Geometry3D&quot;.
+Points are a 3-row matrix, x over y over z, one column per point, as
+[]P_ATH takes 2 rows; a rotation is a 3 x 3 matrix, and turning the
+points is one inner product. A face is a 3 x 4 matrix of corners,
+and a solid is faces stacked along a new first axis (F x 3 x 4), so
+one expression orders them far to near for painting.
+Names with l: are exported; the others are private to this file.</li>
 <li>library <a href="lib-Maybe.xtl.html">lib/Maybe.xtl</a>: Maybe: a value that may be missing, and the monad that chains
 computations which can fail (a standard library, built into xetal).
 Import it with an alias of your choice: &quot;m:&quot; u_se&lt; &quot;Maybe&quot;.</li>
@@ -108,6 +117,18 @@ knows comes from hooks (MC20), usable only in a macro body.</li>
 <tr><td><a href="lib-Combinators.xtl.html#l.V_ss"><span class="c-libfunc">ˡV̲ss</span></a></td><td>function</td><td><code>(a -&gt; b -&gt; c -&gt; d -&gt; e) -&gt; a -&gt; c -&gt; d -&gt; b -&gt; e</code></td></tr>
 <tr><td><a href="lib-Combinators.xtl.html#l.W_ss"><span class="c-libfunc">ˡW̲ss</span></a></td><td>function</td><td><code>(a -&gt; b -&gt; c -&gt; c -&gt; d) -&gt; a -&gt; b -&gt; c -&gt; d</code></td></tr>
 <tr><td><a href="lib-Combinators.xtl.html#l.Y_"><span class="c-libfunc">ˡY̲</span></a></td><td>function</td><td><code>(a -&gt; a) -&gt; a</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#r_adians"><span class="c-builtin">r̲adians</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.r_otX"><span class="c-libfunc">ˡr̲otX</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.r_otY"><span class="c-libfunc">ˡr̲otY</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.r_otZ"><span class="c-libfunc">ˡr̲otZ</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.t_urn"><span class="c-libfunc">ˡt̲urn</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.p_roject"><span class="c-libfunc">ˡp̲roject</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.f_ar"><span class="c-libfunc">ˡf̲ar</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.o_rder"><span class="c-libfunc">ˡo̲rder</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Int</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.c_ube"><span class="c-libfunc">ˡc̲ube</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.c_ubeFaces"><span class="c-libfunc">ˡc̲ubeFaces</span></a></td><td>function</td><td><code>Num a =&gt; Unit -&gt; a</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.f_ace"><span class="c-libfunc">ˡf̲ace</span></a></td><td>function</td><td><code>Int -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.s_olid"><span class="c-libfunc">ˡs̲olid</span></a></td><td>function</td><td><code>Int -&gt; a -&gt; a</code></td></tr>
 <tr><td><a href="lib-Maybe.xtl.html#l.n_othing"><span class="c-libfunc">ˡn̲othing</span></a></td><td>function</td><td><code>a -&gt; b -&gt; a</code></td></tr>
 <tr><td><a href="lib-Maybe.xtl.html#l.j_ust"><span class="c-libfunc">ˡj̲ust</span></a></td><td>function</td><td><code>a -&gt; b -&gt; (a -&gt; c) -&gt; c</code></td></tr>
 <tr><td><a href="lib-Maybe.xtl.html#l.m_aybe"><span class="c-libfunc">ˡm̲aybe</span></a></td><td>function</td><td><code>a -&gt; b -&gt; (b -&gt; a -&gt; c) -&gt; c</code></td></tr>

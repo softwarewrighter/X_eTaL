@@ -18,18 +18,16 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 116 | 0 | 0 |
-| Language decisions | 129 | 0 | 6 |
+| Built-in functions | 118 | 0 | 0 |
+| Language decisions | 131 | 0 | 4 |
 | Standard libraries | 7 | 0 | 0 |
-| Spec cases | 366 | 0 | 0 |
+| Spec cases | 381 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
 - **S11** (planned): Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents.
 - **T9** (planned): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
-- **ER3** (planned): A typed continue: the handler's value replaces the failing expression and the program goes on from there.
-- **ER4** (planned): The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler (...).
 - **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
 
 ## Built-in functions
@@ -38,14 +36,14 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 64 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 72 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 40 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
 | `/` | `Num a => a -> a -> Float` | works | 15 | 2 |
-| `d_iv` | `Int -> Int -> Int` | works | 2 | 1 |
+| `d_iv` | `Int -> Int -> Int` | works | 3 | 1 |
 | `m_od` | `Int -> Int -> Int` | works | 2 | 2 |
 | `n_eg` | `Num a => a -> a` | works | 19 | 1 |
 | `a_bs` | `Num a => a -> a` | works | 6 | 1 |
@@ -70,7 +68,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 36 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
-| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 12 | 1 |
+| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
 | `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
 | `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 12 | 1 |
 | `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 5 | 1 |
@@ -83,7 +81,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `p_rint!` | `a -> a` | works | 15 | 1 |
+| `p_rint!` | `a -> a` | works | 19 | 1 |
 | `r_oll!` | `Int -> Int` | works | 3 | 1 |
 | `i_d` | `a -> a` | works | 2 | 2 |
 | `l_eft` | `a -> b -> a` | works | 1 | 2 |
@@ -111,13 +109,15 @@ conventions (naming, layout) work without a spec case citing them.
 | `[]R_EAD` | `Unit -> Char` | works | 0 | 1 |
 | `[]E_RR` | `Char -> Char` | works | 0 | 1 |
 | `[]P_ANIC` | `Char -> a` | works | 0 | 1 |
-| `[]S_IGNAL` | `Char -> Char -> a` | works | 7 | 2 |
-| `[]T_RAP` | `(Unit -> a) -> (Error -> Outcome a) -> a` | works | 5 | 3 |
-| `[]E_NSURE` | `(Unit -> a) -> (Unit -> b) -> a` | works | 2 | 2 |
-| `[]R_ECOVER` | `a -> Outcome a` | works | 4 | 1 |
+| `[]S_IGNAL` | `Char -> Char -> a` | works | 12 | 2 |
+| `[]W_ARN` | `a -> Box Char -> a` | works | 8 | 3 |
+| `[]T_RAP` | `(Unit -> a) -> (Error -> Outcome a) -> a` | works | 11 | 3 |
+| `[]E_NSURE` | `(Unit -> a) -> (Unit -> b) -> a` | works | 4 | 2 |
+| `[]R_ECOVER` | `a -> Outcome a` | works | 6 | 1 |
 | `[]R_ETRY` | `Error -> Outcome a` | works | 1 | 2 |
-| `[]H_ALT` | `Error -> Outcome a` | works | 2 | 1 |
-| `[]E_CODE` | `Error -> Char` | works | 3 | 1 |
+| `[]H_ALT` | `Error -> Outcome a` | works | 3 | 1 |
+| `[]C_ONTINUE` | `Error -> Outcome a` | works | 4 | 2 |
+| `[]E_CODE` | `Error -> Char` | works | 4 | 1 |
 | `[]E_MESSAGE` | `Error -> Char` | works | 1 | 1 |
 | `[]E_WHERE` | `Error -> Char` | works | 0 | 1 |
 | `[]T_E` | `Unit -> Int` | works | 0 | 1 |
@@ -302,8 +302,8 @@ conventions (naming, layout) work without a spec case citing them.
 | E3 | The Y combinator works in its textbook shape when its functional marks its self parameter lazy; Z also works | works | 0 |
 | ER1 | A program raises an error of its own with a typed system function: `"code" []S_IGNAL "message"` stops with (...) | works | 2 |
 | ER2 | Errors are caught by a typed built-in, not by a macro: it runs a protected body (a lambda of `@`) and, on (...) | works | 3 |
-| ER3 | A typed continue: the handler's value replaces the failing expression and the program goes on from there | planned | 0 |
-| ER4 | The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler (...) | planned | 0 |
+| ER3 | A typed continue: the handler's value replaces the failing expression and the program goes on from there | works | 2 |
+| ER4 | The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler (...) | works | 4 |
 | RS1 | Events from the host are one typed built-in, `[]E_VENT @ : Unit -> Event`, a nominal type as `Key` is (...) | works | 0 |
 | RS2 | Tabular data from a TOML file is read by two typed built-ins, strings only, data only: `"file" []L_IST (...) | works | 0 |
 | RS3 | The Rosetta data file, `demos/rosetta/data.toml`, holds the two axes as lists (`idioms`, `languages`, each (...) | works | 0 |
@@ -360,7 +360,7 @@ conventions (naming, layout) work without a spec case citing them.
 | MC19 | System.xtlm is loaded before every file, with no import and no alias: its `s:` macros are called (...) | works | 1 |
 | MC20 | What only the compiler knows comes from a few hooks, quad built-ins usable only in a macro body while a (...) | works | 2 |
 | MC21 | `u_se<` stays built into the compiler and is not declared as an `s:` macro in System.xtlm: what it does (...) | works | 1 |
-| MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 7 |
+| MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 9 |
 | MC24 | Which macros are system macros: a macro is a system macro (in `lib/System.xtlm` under `s:`, called (...) | works | 9 |
 | MC25 | The compiler-only system macros, each with `@` for a side that takes nothing: `@ l_ine< @` (the call's (...) | works | 0 |
 | MC26 | `@ d_bg< "expr"` (Rust's `dbg!`) is a system macro: the value of `expr`, after writing `[file:line] expr = (...) | works | 0 |

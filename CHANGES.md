@@ -12,17 +12,11 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 10:04 `build` Merged PRs #79 (rosetta lane: the host boundary decided, RS1-RS4) and #80 (rosetta lane: lib/Geometry3D.xtl); pages/ rebuilt.
+
 - 10:40 `feat` `lib/Geometry3D.xtl` (rosetta lane step 2): points as a 3-row matrix, `r_otX`/`r_otY`/`r_otZ` rotation matrices, `t_urn` (one inner product), `p_roject` (perspective to the 2 rows `[]P_ATH` draws), `f_ar` and `o_rder` (faces far to near for painting), `c_ube`, `c_ubeFaces`, `f_ace`, `s_olid`; 22 doc examples run by the gate; spec integration/geometry3d; golden type-geometry3d; README lists it.
 - 10:10 `design` The Rosetta stone's host boundary decided with the user (lang-choices 9c, RS1-RS4; D92): `[]E_VENT` as a typed Event through the line queue (`xetal run --events FILE`), `[]L_IST` and `[]T_ABLE` for strings-only TOML tables with the axes named in the call, the data file's schema, the first data; `demos/rosetta/data.toml` begun.
 - 09:40 `build` Merged PR #78 (errors lane: the error macros `t_ry<`, `c_atch<`, `f_inally<` and the outcomes, ER4); pages/ rebuilt.
-- 08:30 `plan` The Rosetta stone (the user, docs/research5.txt): docs/rosetta.md, the design of the idioms-compared demo as an impossible rotating stone written in X_eTaL (Rust the shell; one data.toml as aligned arrays; the CLI writes the same frames); Sagas 34 (M1, lanes/rosetta, 15 steps), 35 (more languages, sets, the microscope), 36 (labeled axes, an experiment) and 37 (.xtln, data-only notation) in docs/plan.md.
-
-
-
-- 07:02 `build` Merged PR #75 (`just check-live`); its first real run: all 35 github.io links in the six READMEs serve a page. The deployed live demo checked in a browser: a macro library (Combinators.xtlm) shows its macros' types.
-
-
-
 - 09:40 `feat` The error macros, ER4 (errors lane step 4): `t_ry<`, `c_atch<`, `f_inally<`, `r_ecover<`, `r_etry<`, `h_alt<`, `c_ontinue<` in System.xtlm over the built-ins of ER1-ER3, the error named `e` in a handler; doc examples run by the gate; spec macros/try, catch, catch-halts, finally, retry-halt-continue, reject-try-at, reject-retry-text; the system-library-types and doc-site-system goldens rebased for the new entries.
 - 08:55 `build` Merged PRs #76 (errors lane: the warning, `[]W_ARN` and `[]C_ONTINUE`, ER3) and #77 (plan: the Rosetta stone, docs/rosetta.md, Sagas 34-37).
 - 08:40 `feat` The warning, ER3 (errors lane step 3, decided with the user: form A, `[]W_ARN`): `default []W_ARN "code" "message"` raises resumably with the value to go on with; a handler answering `[]C_ONTINUE e` makes the program go on from the warning, with the handler running before any cleanup unwinds; `[]H_ALT` passes a warning outward still resumable; continuing a signal is error[not-resumable]. D90; spec eval/warn*, reject-continue-signal, reject-warn-type.
