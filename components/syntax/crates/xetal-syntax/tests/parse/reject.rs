@@ -1,4 +1,4 @@
-//! Rejections: every accepted rule has a malformed neighbour.
+//! Rejections: every accepted rule has a malformed neighbor.
 
 use crate::reject;
 

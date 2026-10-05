@@ -30,7 +30,7 @@ u:c_hoose := { k n -> k > n ? 0; (u:f_act n) d_iv (u:f_act k) * u:f_act n - k }
 (o_ffsets 7) 'u:c_hoose t_able o_ffsets 7
 
 # -- The triangle as it is drawn -------------------------------------------
-# Each row as text (`f_ormat`), its zeros left out, centred in a line
+# Each row as text (`f_ormat`), its zeros left out, centered in a line
 # three columns per item wide: take pads with spaces, a negative count
 # on the left.
 u:l_ine := { w r ->

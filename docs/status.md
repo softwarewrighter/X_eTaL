@@ -375,5 +375,5 @@ Built into `xetal`; import one with
 | `Maybe` | a value that may be missing, and the monad that chains | works |
 | `Stats` | a small statistics library (a standard library, built into | works |
 | `TTTML` | a machine that learns tic-tac-toe by playing itself (a | works |
-| `Terminal` | the names of the colours and keys a program draws and reads | works |
+| `Terminal` | the names of the colors and keys a program draws and reads | works |
 | `Turtle` | turtle graphics as arrays (a standard library, built into | works |

@@ -111,6 +111,9 @@ fi
 # and the checker are settled with the user.
 step "markdown (README ASCII-only)"
 sw-markdown-checker -f README.md
+step "spelling (American only)"
+python3 scripts/check-spelling.py --self-test
+python3 scripts/check-spelling.py
 step "done"
 if [ "$mode" = fast ]; then
     printf 'fast gate: %s of %s components skipped (unchanged); run scripts/gate.sh --full between features\n' "$skipped" "${#COMPONENTS[@]}"

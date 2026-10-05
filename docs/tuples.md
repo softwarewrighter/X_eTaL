@@ -41,9 +41,9 @@ functions (functions stay curried; tuples are data).
 | SML, OCaml, F# | Fully built in: `(1, "a") : int * string`, any arity, pattern matching, structural equality | No programming generic over arity (one function for every tuple size) |
 | Haskell | `(Int, String)`, pattern matching | `fst` and `snd` only for pairs; library instances (Show, Eq, ...) stop at a fixed arity (about 15) |
 | Rust | `(i32, &str)`, `.0` projection, destructuring | Traits implemented only up to 12 elements |
-| Swift | Labelled tuples `(x: 1, y: 2)` | Tuples cannot conform to protocols |
+| Swift | Labeled tuples `(x: 1, y: 2)` | Tuples cannot conform to protocols |
 | Scala 2, Scala 3 | Scala 2: `Tuple1` to `Tuple22`. Scala 3: generic tuples of any arity | Scala 3 comes close to complete |
-| TypeScript | `[number, string]`, labelled and variadic tuple types | Types erased at run time; arrays underneath |
+| TypeScript | `[number, string]`, labeled and variadic tuple types | Types erased at run time; arrays underneath |
 | Julia | `Tuple{Int,String}`, NamedTuple, any arity, dispatch on them | Close to complete |
 | C++ | `std::tuple` (a library), `get<N>`, structured bindings | Not built into the language; clumsy |
 | Python | Immutable heterogeneous sequences | Dynamic; type hints only advisory |

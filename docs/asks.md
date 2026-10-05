@@ -58,7 +58,7 @@ build already does what the ask wants.
 | # | Ask | State | Here | Repro |
 | - | --- | ----- | ---- | ----- |
 | G1 | a terminal for interactive programs, in the browser too | partly landed | Saga 25: a run waits for typed lines and resumes (D50), the terminal pane in the live demo (6683d8e), typed screen control (2d65a76); its retrofit and release remain | - |
-| G2 | `[]G_RID` of numbers: the numbers drawn in the cells, a colour scale the program chooses | planned | to decide with the user (plan.md, the sibling asks that need decisions) | - |
+| G2 | `[]G_RID` of numbers: the numbers drawn in the cells, a color scale the program chooses | planned | to decide with the user (plan.md, the sibling asks that need decisions) | - |
 | G3 | a functional update (amend, APL's at): items replaced at given positions | planned | to decide with the user (plan.md, the sibling asks that need decisions) | - |
 | G4 | local functions: a function defined inside a lambda and applied there | landed | a lambda's local function names (`g_ := { ... }` inside a body) work today | passes |
 | G5 | an executable program that defines `l:` names is taken for a library | landed | ffd5526 (a #! file is a program, and `l:` names in it are MC8 row 9) | passes |

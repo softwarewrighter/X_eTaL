@@ -80,7 +80,7 @@ fn frame(shape: &[usize], mark: char, mut lines: Vec<String>) -> Vec<String> {
 
 /// Each item drawn, placed on a grid of the last axis by the rest:
 /// columns as wide as their widest item, rows as tall as their
-/// tallest (items centred in their row), a space between and around.
+/// tallest (items centered in their row), a space between and around.
 fn items_body(shape: &[usize], items: &[Shown]) -> Vec<String> {
     let blocks: Vec<Vec<String>> = items.iter().map(draw).collect();
     let cols = shape.last().copied().unwrap_or(1).max(1);

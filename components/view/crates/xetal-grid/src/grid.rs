@@ -40,7 +40,7 @@ impl Grid {
         }
     }
 
-    /// Each matrix of the last two axes, labelled by its leading indices
+    /// Each matrix of the last two axes, labeled by its leading indices
     /// when the rank is above 2.
     fn slices(&self) -> Vec<String> {
         let r = self.shape.len();

@@ -226,7 +226,7 @@ t:empty t:l_earn t:g_ame! t:empty
 what the games before it taught; every 250 games it prints how many
 games are still to go and how many positions it knows. After 2000 games it knows how many
 positions (sw-apl's workspace knows 757 after 3000), what it thinks of
-X's three different first moves (a corner, an edge, the centre), and
+X's three different first moves (a corner, an edge, the center), and
 where it opens. Then ~t_rial!~ plays 50 games against a random player
 as X and 50 as O: a row each of games won, lost and drawn. Then
 ~s_elfTrial!~ plays it against itself 50 times, its best move on both

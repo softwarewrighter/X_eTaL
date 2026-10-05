@@ -735,7 +735,7 @@ web-release:
 6. Saga 21, errors of one's own (ask X3), then ask E3 (the CLI usable
    as a library, for X_eTaL-extensions' xetal-x), then the sibling
    repos' feature asks that need decisions (mix, grade per row, amend,
-   `[]G_RID` numbers with a typed colour scale): decided with the user,
+   `[]G_RID` numbers with a typed color scale): decided with the user,
    then a step each. Decided already: `d_ecode` on any numbers (B18,
    ask X9), one small step in the radix component, wanted before
    X_eTaL-libraries' Polynomials library (macros and functions) ships;

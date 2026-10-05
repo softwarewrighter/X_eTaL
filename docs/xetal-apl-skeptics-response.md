@@ -8,7 +8,7 @@
 > inference, ASCII canonical source, and lossless mathematical
 > presentation?
 
-The APL Wiki's [*Humour*](https://aplwiki.com/wiki/Humour) page includes a complaint-bingo card for
+The APL Wiki's [*Humor*](https://aplwiki.com/wiki/Humour) page includes a complaint-bingo card for
 conversations with people unreceptive to APL. XeTaL inherits many of
 those objections simply by being an array language, and creates a few
 new ones of its own.
@@ -344,7 +344,7 @@ Or, more defensively humorous:
 
 ## Source note
 
-This response was prompted by the APL Wiki *Humour* page, especially its
+This response was prompted by the APL Wiki *Humor* page, especially its
 sections on dialect rivalry and criticism of APL, the complaint-bingo
 image, the poem about making three lines of APL run, the index-origin
 jokes, the "Peak Engineering" keyboard meme, the BQN-vs-KamilaLisp

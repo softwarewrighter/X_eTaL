@@ -1,8 +1,8 @@
 //! The built-in enumerated types' values (QD6), by index: `Color` (the
-//! eight colours) and `Key` (the named keys, then a printing key as
+//! eight colors) and `Key` (the named keys, then a printing key as
 //! `PRINTING` plus its code point).
 
-/// The colours, index 0 to 7 (ANSI colour order).
+/// The colors, index 0 to 7 (ANSI color order).
 pub const COLORS: [&str; 8] = [
     "BLACK", "RED", "GREEN", "YELLOW", "BLUE", "MAGENTA", "CYAN", "WHITE",
 ];

@@ -16,7 +16,7 @@ Plus, quoted
 The quote passes + as a value: the operand of the reduce on its right.
 == NOTE r_/_12
 Reduce over axes 1 and 2
-Sums the 3 by 3 shifted boards cell by cell: each cell becomes S, itself plus its 8 neighbours.
+Sums the 3 by 3 shifted boards cell by cell: each cell becomes S, itself plus its 8 neighbors.
 == NOTE -1 0 1
 The offsets
 One strand of three numbers: shift back one, not at all, forward one.
@@ -31,13 +31,13 @@ A second function
 Called as S {...} board: dyadic, so inside it ⍺ (typed _l) is S and ⍵ is the board.
 == NOTE _l = 3
 ⍺ = 3
-1 where S is 3: a dead cell with 3 live neighbours, or a live one with 2. Alive next, either way.
+1 where S is 3: a dead cell with 3 live neighbors, or a live one with 2. Alive next, either way.
 == NOTE + #2
 Either
 The two cases never hold at once (S is not 3 and 4), so adding them is an or: 1 alive, 0 dead.
 == NOTE _r * _l = 4
 ⍵ × ⍺ = 4
-Right to left: ⍺ = 4 first, then times the board ⍵: a live cell with 3 live neighbours stays alive.
+Right to left: ⍺ = 4 first, then times the board ⍵: a live cell with 3 live neighbors stays alive.
 == NOTE _r #3
 ⍵, the board again
 The second function's right argument: the same board, so each cell counts in its own S.

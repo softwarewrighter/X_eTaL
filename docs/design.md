@@ -225,7 +225,7 @@ turn, so `'+ r_/_12` sums the nine boards (R1).
 u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 ```
 
-Conway's rule, with N the count of the 8 neighbours and c the cell:
+Conway's rule, with N the count of the 8 neighbors and c the cell:
 a cell is alive next generation iff `N = 3`, or `c` and `N = 2`.
 Summing the nine rotated boards gives S = N + c (the cell *included*),
 and the same rule is `(S = 3) or (c and S = 4)`. The two terms are
@@ -246,7 +246,7 @@ transliteration:
 
 History: the research's line `{ (+^r ... _r) = 3 + _r }` computed
 `S = 3 + c`, which keeps a live cell only when N = 3; a blinker's
-centre died. Verified with sw-apl: on the 5x5 blinker the old rule
+center died. Verified with sw-apl: on the 5x5 blinker the old rule
 gives row 3 = `0 1 0 1 0`, Conway gives `0 1 1 1 0`; the corrected
 rule equals the APL\360 reference on the blinker, a glider (1, 2 and
 4 generations) and a random 8x8 torus (1 and 3 generations).
@@ -265,7 +265,7 @@ Bool, Char, Unit, arrays of those (`xetal-value`) and functions; variables live 
 of shared slots, so a closure keeps the values it captured while a `!`
 variable is updated in place; a `~` argument is a thunk forced on
 first use and remembered; module definitions are late-bound. In a
-dyadic call a lazy parameter is honoured when the function is a
+dyadic call a lazy parameter is honored when the function is a
 lambda written with both parameters; built-ins are strict.
 Higher-order built-ins (`components/hof`, B6) are kernels
 (`xetal-kernel`, D50): each asks the evaluator for one call of its
@@ -547,7 +547,7 @@ items), in order with the text `p_rint!` printed around it. A grid
 lays itself out as lines: a scalar or vector on one line with its type
 and shape (`1 2 3  : Int 3`, a Char vector as a quoted string), a
 matrix in a box with right-aligned columns, higher ranks as boxed
-matrix slices labelled by their leading indices. The editor's Ctrl-R
+matrix slices labeled by their leading indices. The editor's Ctrl-R
 output uses it; the stepping debugger will show intermediate values
 the same way. `xetal-grid` knows nothing of the evaluator or the
 terminal.
@@ -606,7 +606,7 @@ the browser.
 
 ### 8.1g Emacs and literate documents
 
-`docs/emacs/xetal-mode.el` colours X_eTaL source in the classes of
+`docs/emacs/xetal-mode.el` colors X_eTaL source in the classes of
 `xetal render --color` and, with `prettify-symbols-mode`, shows `:=`
 `->` `_l` `_r` `!=` `<=` `>=` as the decorated glyphs while the file
 keeps its ASCII. `docs/emacs/ob-xetal.el` runs Org Babel blocks with
@@ -827,9 +827,9 @@ The pinning tests are written as the implementing saga reaches them
 | D61| Seeing an expansion | the subcommand `xetal expand FILE` (or `-e`), not a `--expand` flag, as the CLI's other views (`fmt`, `core`) are subcommands; the spec harness's `== EXPAND` section runs it. The spelling can be switched if the user prefers (ask X2). |
 | D62| Finding libraries and macro libraries | `components/lookup` (`xetal-lookup`: `Found`, `Libraries` with `find_both` and `run_macro`, `FsLibraries`, `StoreLibraries`, moved out of `xetal-macro`, which re-exports them); `xetal-libs` embeds `lib/*.xtlm` as `MACROS` beside `LIBRARIES`; the not-found message names both files (MC11). Tests: lookup tests/pairs.rs (each tier, explicit paths, the store). |
 | D63| Running a macro | a macro library is loaded by its own `Loader` into a `MacroLib`; a call appends `"left" LX:n_ame< "right"` as a file of its own and `xetal-program`'s `Running` lowers, checks (the call's type must be `Char`) and evaluates it (seed 0), its printed text being the macro's result; `xetal type`/`run` on a `.xtlm` lists its macros (`is_library` sees `m:n_ame< :=`). Tests: xetal-program tests/macros.rs, xetal-expand tests/user.rs (the depth limit by a macro calling itself), spec/macros/user-*.case, goldens macros-user-*. (MC23, proposed.) |
-| D64| Long namespace prefixes | the lexer's `namespace` reads `[a-z][a-z0-9]*:` (as written) or `[A-Z]+:` (the macro phase's hidden namespaces, which the combined program holds), anything else `bad-namespace`; `valid_alias` applies the written rule; a hidden prefix written in a file is `hidden-namespace` (names phase); render, LaTeX and the view already draw a prefix raised only when every character has a superscript form, and a digit has none, so `b2:` is drawn as written and inverse rendering stays unambiguous; xetal-mode colours `[a-z][a-z0-9]*:` prefixes (MC13). Tests: lex accept/reject, xetal-macro tests/imports.rs, spec lex/long-prefixes, integration/long-aliases and three rejections, goldens long-prefixes-latex, long-prefixes-color, an ERT test. |
+| D64| Long namespace prefixes | the lexer's `namespace` reads `[a-z][a-z0-9]*:` (as written) or `[A-Z]+:` (the macro phase's hidden namespaces, which the combined program holds), anything else `bad-namespace`; `valid_alias` applies the written rule; a hidden prefix written in a file is `hidden-namespace` (names phase); render, LaTeX and the view already draw a prefix raised only when every character has a superscript form, and a digit has none, so `b2:` is drawn as written and inverse rendering stays unambiguous; xetal-mode colors `[a-z][a-z0-9]*:` prefixes (MC13). Tests: lex accept/reject, xetal-macro tests/imports.rs, spec lex/long-prefixes, integration/long-aliases and three rejections, goldens long-prefixes-latex, long-prefixes-color, an ERT test. |
 | D65| System macros in X_eTaL | `lib/System.xtlm` (built in as a standard macro library, key `std:System.xtlm`, its own letter `s`) is loaded by `Loader::load_system` before every file and every macro library; `Table` runs unprefixed calls against it and aliased ones against the file's macro libraries; the Rust generators for `i_f<`, `u_nless<`, `e_ach<` are gone. Their string work is X_eTaL (trim, words by `p_artition`, statement separators by scans over brackets and quotes, `$w` replaced through `m_ap`). Hooks `[]R_EJECT` and `[]S_TATEMENT` in the catalog and `xetal-system` (`hooks.rs`, a call context set by the runner, one call at a time); a rejection carries a `macro-place` note. `Running` checks a call's sides against the macro's parameter types when the call does not type (MC22). The example macro library's `m:u_nless<` became `m:w_hen<` (a macro library may not define a system macro). Tests: xetal-expand tests (user.rs, map.rs with stand-in macros), xetal-program tests/macros.rs (system redefinition, sides, rejection), spec/macros (unchanged expansions; s: as an alias; hook outside; @ for text). (MC18-MC22, MC24.) |
-| D66| The compiler-only system macros | `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`, `e_rror<` in System.xtlm over the hooks `[]L_INE`, `[]F_ILE`, `[]I_NCLUDE`, `[]C_FG` (catalog; `xetal-system` facts.rs: the platform by `cfg!(target_arch = "wasm32")`, flags from `xetal --cfg NAME`, files through `xetal-store` relative to the call's file) and `[]R_EJECT`; the call's file and line reach the hooks through `MacroCall::at` (the call's written offset), `MacroRun::file`/`row` and `Expanding`; a string result is quoted by System.xtlm's own `q_uote`. `u_se<` stays in Rust, with a comment in System.xtlm modelling it (MC21). Tests: spec/macros line, file, cfg, error and rejections, xetal-program tests (a user macro refusing with `e_rror<`), goldens macros-include, macros-cfg, the reference's hook entries. (MC20, MC21, MC25.) |
+| D66| The compiler-only system macros | `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`, `e_rror<` in System.xtlm over the hooks `[]L_INE`, `[]F_ILE`, `[]I_NCLUDE`, `[]C_FG` (catalog; `xetal-system` facts.rs: the platform by `cfg!(target_arch = "wasm32")`, flags from `xetal --cfg NAME`, files through `xetal-store` relative to the call's file) and `[]R_EJECT`; the call's file and line reach the hooks through `MacroCall::at` (the call's written offset), `MacroRun::file`/`row` and `Expanding`; a string result is quoted by System.xtlm's own `q_uote`. `u_se<` stays in Rust, with a comment in System.xtlm modeling it (MC21). Tests: spec/macros line, file, cfg, error and rejections, xetal-program tests (a user macro refusing with `e_rror<`), goldens macros-include, macros-cfg, the reference's hook entries. (MC20, MC21, MC25.) |
 | D67| d_bg< | System.xtlm's `s:d_bg<` writes `{ @ -> dbgValue := (expr); []E_RR "[file:line] expr = " c_at f_ormat dbgValue; dbgValue } @`, its place from `[]F_ILE` and `[]L_INE`. Tests: spec macros/dbg (expansion, value), golden macros-dbg (standard error). (MC26.) |
 | D68| a_ssert< | System.xtlm's `s:a_ssert<` writes `{ @ -> (cond) ? @; []E_RR "assertion failed: ..."; @ } @`; its message parameter is polymorphic (`f_ormat note`), so `Running`'s side check skips type-variable parameters. Tests: spec macros/assert, golden macros-assert (standard error, the program goes on). (MC27.) |
 | D69| f_ormat< | System.xtlm's `p_ieces` walks the text recursively to the next brace, quoting literal runs (`l_it`) and writing `(f_ormat (expr))` per hole, joined by `c_at` (`c_j`); errors by `[]R_EJECT` at the right argument. Tests: spec macros/format, three rejections, a left-side rejection, a type error located in a hole. (MC28.) |
@@ -855,3 +855,4 @@ The pinning tests are written as the implementing saga reaches them
 | D85| `xetal doc` shows `u_se<` | `xetal-doc` `items.rs` `declared`: in the system macros file, each signature line from `xetal_macro::system_signatures()` (MC21) becomes an item in line order: kind `built-in macro`, its type, its line, section and `##` doc (`doc_above`), source the declaration line, no uses; so `--json` has it, the site draws it like the other system macros (and calls of `u_se<` link to it), and `xetal doc --test lib/System.xtlm` runs its examples. Tests: xetal-doc tests/model.rs; golden doc-site-system rebased on purpose (the Importing section and the u_se< item). |
 | D86| `[]S_IGNAL` (ER1, Saga 21 step 1) | `"code" []S_IGNAL "message"` is a built-in of type `Char -> Char -> a` (as `[]P_ANIC` is `Char -> a`) in `xetal-quad` that always fails with `Diagnostic::new(code, message)`, so it is reported, located at the call and given exit status 1 by the machinery every error already has; nothing new in the evaluator. The code must be spelled as xetal's own codes (lowercase letters, digits, hyphens between them), else `error[bad-code]`, so a signal can later be caught by code (ER2) without ambiguity. Spec: eval/signal, eval/reject-signal-code; golden signal-stops (reg/fixtures/signal.xtl); quad tests. |
 | D87| The fast gate | `scripts/gate.sh` is fast by default: `scripts/affected.py` reads the files changed since the merge base with `origin/main` (`GATE_BASE` names another) and plans it: a component whose files changed is checked (format, clippy, tests), a component depending on one (by its crates' own dependencies, transitively) is tested only, the rest are skipped; `lib/`, `spec/`, `demos/` and `userlibs/` count for the components that build them in or test against them; the literate, diagram, Emacs, recipe, asks and browser-build checks run only when their inputs changed; locks, goldens, doc tests, reference, status, checklist and markdown always run. `--full` runs everything: between features, after a batch of merges, before a release. A change to the gate's machinery checks everything. Each step taking 5 seconds or more prints its time. Components are not run in parallel: they share one target directory, which cargo locks. Asked for by the user after 20-minute gates on every merge. |
+| D88| American spellings only | `scripts/check-spelling.py` (the checker X_eTaL-demos uses, with a self-test) scans every tracked text file except pages/, the saga records, the archival research conversations and itself, and fails on British forms (its word list has the families: the -or, -er, -ize and single-l words, gray and the rest); text inside a URL is not checked, and `analyses` (the American plural) is allowed. In the gate, always. The 107 forms found at the audit are fixed in docs, comments, identifiers, demos, literate documents and the reference. The user is American and asked for the test and the audit. |

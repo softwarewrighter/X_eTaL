@@ -142,13 +142,13 @@ pub fn screen(out: &str) -> Option<Html> {
 }
 
 fn style_classes(style: xetal_screen::Style) -> Classes {
-    let colour = |prefix: &str, c: xetal_screen::Color| match c {
+    let color = |prefix: &str, c: xetal_screen::Color| match c {
         xetal_screen::Color::Default => None,
         c => Some(format!("{prefix}-{}", format!("{c:?}").to_lowercase())),
     };
     classes!(
-        colour("fg", style.fg),
-        colour("bg", style.bg),
+        color("fg", style.fg),
+        color("bg", style.bg),
         style.bold.then_some("bold")
     )
 }

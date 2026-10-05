@@ -34,7 +34,7 @@ pub fn cell(r: usize, c: usize, fill: &str) -> String {
     format!("<rect x=\"{x}\" y=\"{y}\" width=\"{CELL}\" height=\"{CELL}\" fill=\"{fill}\"/>\n")
 }
 
-/// A character centred in the cell at row r, column c.
+/// A character centered in the cell at row r, column c.
 pub fn glyph(r: usize, c: usize, ch: char) -> String {
     let (x, y) = (c * CELL + CELL / 2, r * CELL + CELL / 2);
     format!(

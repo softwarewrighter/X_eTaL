@@ -35,7 +35,7 @@ hex := "0123456789ABCDEF"
 0 3 12 e_ncode 100
 
 # Gray code: each number's bits, each differing from the bit above it,
-# so neighbours differ in one bit only.
+# so neighbors differ in one bit only.
 b := 2 2 2 e_ncode o_ffsets 8
 g := 0 + b != (1 8 r_eshape 0) c_at -1 d_rop b
 g

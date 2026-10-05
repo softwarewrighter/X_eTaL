@@ -7,7 +7,7 @@
 # fly-over are animations.
 
 # A view is its size (rows, columns and the steps to iterate, Ints) and
-# where it looks (centre x, centre y and width, Floats). The real parts
+# where it looks (center x, center y and width, Floats). The real parts
 # of c vary along a row, the imaginary parts down a column, both spaced
 # width / columns.
 u:c_entred := { n -> (f_loat o_ffsets n) - (n - 1) / 2 }
@@ -58,7 +58,7 @@ u:f_rames := { k -> k = 0 ? u:z_oom 0; (u:f_rames k - 1) c_at u:z_oom k }
 zoom := []S_HOW []G_RID u:f_rames 11
 
 # -- Flying over ------------------------------------------------------------
-# The same width all the way, the centre moving from the left tip of the
+# The same width all the way, the center moving from the left tip of the
 # set to its right edge.
 u:o_ver := { k -> u:p_lane 60 90 30 u:c_ounts (-1.6 + 0.16 * f_loat k) c_at 0.0 1.0 }
 u:p_ass := { k -> k = 0 ? u:o_ver 0; (u:p_ass k - 1) c_at u:o_ver k }

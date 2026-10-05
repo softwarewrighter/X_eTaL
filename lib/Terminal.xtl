@@ -1,8 +1,8 @@
-# Terminal: the names of the colours and keys a program draws and reads
+# Terminal: the names of the colors and keys a program draws and reads
 # with (QD6), a standard library built into xetal. Import it with an
 # alias of your choice: "t:" u_se< "Terminal".
 #
-# Colours are values of type Color (for []F_G and []B_G); keys are values
+# Colors are values of type Color (for []F_G and []B_G); keys are values
 # of type Key, what []K_EY @ gives (a printing key carries its
 # character: []K_CHAR). A misspelled name is an undefined name, and a
 # Key where a Color is wanted a type error, when the program is checked.

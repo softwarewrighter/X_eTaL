@@ -1,6 +1,6 @@
 #!/usr/bin/env xetal
 # One-dimensional cellular automata (Wolfram's elementary rules): each
-# cell's next state depends on itself and its two neighbours, eight
+# cell's next state depends on itself and its two neighbors, eight
 # cases, and the rule number's eight binary digits say what each case
 # becomes. Every cell is updated at once. "just draw
 # demos/classics/automaton.xtl" opens rule 30; rules 90 and 110 follow.
@@ -10,7 +10,7 @@ u:b_its := { rule -> (rule d_iv 2 ^ o_ffsets 8) m_od 2 }
 u:b_its 30
 
 # One step: each cell's case is 4 * left + 2 * itself + right, the
-# neighbours by rotating the row (so it wraps round), and the case
+# neighbors by rotating the row (so it wraps round), and the case
 # picks the cell's next state from the rule's bits.
 u:s_tep := { bits row -> (1 + (4 * -1 o_- row) + (2 * row) + 1 o_- row) s_elect bits }
 
@@ -29,7 +29,7 @@ r30 := (u:b_its 30) u:e_volve u:s_tart 31
 (1 + 12 t_ake r30) s_elect " #"
 
 # Drawn, 63 cells wide: rule 30; rule 90, Sierpinski's triangle again
-# (each cell the exclusive or of its neighbours, Pascal modulo 2); and
+# (each cell the exclusive or of its neighbors, Pascal modulo 2); and
 # rule 110, which is universal, grown from one cell at the right edge.
 # The first two grow both ways and meet the edges after 32 rows, where
 # the rotation would wrap them round, so 32 rows are drawn.

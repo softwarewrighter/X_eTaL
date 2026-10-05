@@ -71,7 +71,7 @@
 <text x="460.9" y="187.0" class="note">boards cell by cell:</text>
 <text x="460.9" y="205.0" class="note">each cell becomes S,</text>
 <text x="460.9" y="223.0" class="note">itself plus its 8</text>
-<text x="460.9" y="241.0" class="note">neighbours.</text>
+<text x="460.9" y="241.0" class="note">neighbors.</text>
 <path d="M750.0 274.0 C750.0 300.0 702.0 300.0 702.0 326.0" class="leader" stroke="#5b9cff"/>
 <line x1="665.6" y1="326.0" x2="738.4" y2="326.0" class="mark" stroke="#5b9cff"/>
 <rect x="652.3" y="110.0" width="195.4" height="164.0" rx="8" class="box"/>
@@ -151,7 +151,7 @@
 <rect x="998.0" y="466.0" width="5" height="110.0" rx="2" fill="#d25fd2"/>
 <text x="1014.0" y="489.0" class="title">⍺ = 3</text>
 <text x="1014.0" y="507.0" class="note">1 where S is 3: a dead cell</text>
-<text x="1014.0" y="525.0" class="note">with 3 live neighbours, or a</text>
+<text x="1014.0" y="525.0" class="note">with 3 live neighbors, or a</text>
 <text x="1014.0" y="543.0" class="note">live one with 2. Alive next,</text>
 <text x="1014.0" y="561.0" class="note">either way.</text>
 <path d="M1355.0 466.0 C1355.0 440.0 1134.0 440.0 1134.0 414.0" class="leader" stroke="#d25fd2"/>
@@ -162,5 +162,5 @@
 <text x="1256.0" y="507.0" class="note">Right to left: ⍺ = 4 first,</text>
 <text x="1256.0" y="525.0" class="note">then times the board ⍵: a</text>
 <text x="1256.0" y="543.0" class="note">live cell with 3 live</text>
-<text x="1256.0" y="561.0" class="note">neighbours stays alive.</text>
+<text x="1256.0" y="561.0" class="note">neighbors stays alive.</text>
 </svg>

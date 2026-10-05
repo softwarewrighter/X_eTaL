@@ -1,5 +1,5 @@
 //! Rejection tests (docs/lang-choices.md): every accepted token form has
-//! malformed neighbours that must fail with a specific code and span.
+//! malformed neighbors that must fail with a specific code and span.
 
 use crate::common::reject;
 use xetal_base::{Diagnostic, Span};

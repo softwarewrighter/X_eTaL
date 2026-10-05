@@ -392,7 +392,8 @@ fails until the case is flipped to active in a deliberate commit.
 4. `scripts/reg.sh run` -- all pass
 5. `sw-checklist` -- 0 failed (<=7 functions per module, <=7
    modules per crate, functions <=50 lines, CLI version/help rules)
-6. `sw-markdown-checker` on changed docs (ASCII-only markdown)
+6. `sw-markdown-checker` on changed docs (ASCII-only markdown), and
+   `scripts/check-spelling.py` (American spellings only)
 6a. `scripts/check-pages.sh`: pages/ is current with the demos,
    libraries and literate documents (`just pages` rebuilds it and its
    stamp; skipped where trunk is missing, so whoever merges rebuilds)
@@ -474,6 +475,11 @@ axes: rotate, reverse and axis subscripts (move-to-front, A6)
   `docs/lang-choices.md`; implement them test-first, and ask before
   resolving anything that document leaves open.
 - NEVER run `sw-install` unless the user explicitly asks.
+- American spellings only, everywhere: docs, comments, code
+  identifiers, page text, commit messages, PR bodies (color, center,
+  neighbor, gray, behavior, modeled, labeled, -ize). The gate runs
+  `scripts/check-spelling.py`, which fails on British forms; a link
+  keeps its address and gets American link text.
 
 ## Parallel lanes
 

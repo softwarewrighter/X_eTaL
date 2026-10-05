@@ -6,7 +6,7 @@
 ;;; Commentary:
 
 ;; X_eTaL source is plain ASCII; `xetal render --color' and the editor
-;; draw it decorated.  This mode colours the same classes (system
+;; draw it decorated.  This mode colors the same classes (system
 ;; functions blue, symbols light blue, the program's u: functions
 ;; green, library functions cyan, macros bold yellow, the lambda
 ;; arguments magenta, numbers yellow) and, with `prettify-symbols-mode'
@@ -41,7 +41,7 @@
      . 'xetal-builtin-face)
     ("\\^-?[0-9.]+\\|\\_<-?[0-9]+\\(?:\\.[0-9]+\\)?\\(?:[eE]-?[0-9]+\\)?" . 'xetal-number-face)
     ("!=\\|<=\\|>=\\|[-+*/=<>&|^]" . 'xetal-symbol-face))
-  "Colours by token class, as in `xetal render --color'.")
+  "Colors by token class, as in `xetal render --color'.")
 
 (defconst xetal-prettify-symbols
   '((":=" . ?←) ("->" . ?→) ("_l" . ?⍺) ("_r" . ?⍵)

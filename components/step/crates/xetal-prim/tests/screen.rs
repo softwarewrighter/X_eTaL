@@ -54,7 +54,7 @@ fn a_place_is_two_counts_from_one() {
 }
 
 #[test]
-fn colours_and_keys_are_made_by_their_constructors() {
+fn colors_and_keys_are_made_by_their_constructors() {
     assert_eq!(call("[]C_OLOR", &[Value::Int(2)]), "RED");
     assert_eq!(call("[]C_OLOR", &[Value::Int(9)]), "error[domain]");
     assert_eq!(call("[]K_NAMED", &[Value::Int(1)]), "UP");
@@ -71,7 +71,7 @@ fn a_keys_character() {
 }
 
 #[test]
-fn colours_and_keys_compare_with_equals() {
+fn colors_and_keys_compare_with_equals() {
     let (red, blue) = (Value::Tag("Color", 1), Value::Tag("Color", 4));
     assert_eq!(call("=", &[red.clone(), red.clone()]), "1");
     assert_eq!(call("=", &[red.clone(), blue.clone()]), "0");

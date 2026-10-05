@@ -1,6 +1,6 @@
 //! The ANSI sequences the screen functions write (QD6): `ESC [ r ; c H`
 //! places the cursor, `ESC [ 2 J` clears, `ESC [ ... m` sets bold and
-//! colours; any other sequence is read and ignored.
+//! colors; any other sequence is read and ignored.
 
 use std::iter::Peekable;
 

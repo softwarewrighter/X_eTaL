@@ -16,7 +16,7 @@ enough, but for a program that builds something up (the tour, Life, a
 classic like Pascal's triangle) the results alone lose the thread:
 which line printed `3628800`? which made that board? A notebook puts
 each result under the statement that produced it, so you can read a
-program and its behaviour together, top to bottom.
+program and its behavior together, top to bottom.
 
 Stepping goes one further: it runs a program one statement at a time,
 so you can watch it build up, and stop to look at any point. It is the

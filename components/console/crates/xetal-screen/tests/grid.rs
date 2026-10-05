@@ -1,6 +1,6 @@
 //! The terminal's grid (QD6): text with the screen functions' ANSI
 //! sequences drawn into fixed rows and columns - the cursor placed,
-//! the screen cleared, colours and bold applied - as a terminal does.
+//! the screen cleared, colors and bold applied - as a terminal does.
 
 use xetal_screen::{Color, Grid};
 
@@ -32,7 +32,7 @@ fn the_cursor_is_placed_and_the_screen_cleared() {
 }
 
 #[test]
-fn colours_and_bold_apply_until_reset() {
+fn colors_and_bold_apply_until_reset() {
     let mut g = Grid::new(1, 10);
     g.write("\x1b[31m\x1b[1mab\x1b[22m\x1b[39mc");
     let row = &g.rows()[0];

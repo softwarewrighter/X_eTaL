@@ -1,4 +1,4 @@
-# Screen control is typed (QD6): colours and keys are values of the
+# Screen control is typed (QD6): colors and keys are values of the
 # built-in types Color and Key, named in the Terminal library; the
 # screen functions build text a program prints.
 == SOURCE

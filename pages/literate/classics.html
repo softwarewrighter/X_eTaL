@@ -328,8 +328,8 @@ and each half of the recursion permutes it with <code>s_elect</code>.
 To watch it, the state is the peg each disk is on, smallest first; a
 move takes the smallest disk on its first peg (where <code>i_ndexOf</code> first
 finds that peg) to its second. Each state is drawn as bars, a disk of
-size s as wide as 2s - 1 and centred on its peg, by a table of sizes
-against offsets from the centre.
+size s as wide as 2s - 1 and centered on its peg, by a table of sizes
+against offsets from the center.
 </p>
 
 <div class="org-src-container">
@@ -539,10 +539,10 @@ squares ← (<span class="c-builtin">r̲ange</span> <span class="c-number">8</sp
 
 <p>
 A one-dimensional cellular automaton updates every cell at once. Each
-cell's case is 4 * left + 2 * itself + right, its neighbours found by
+cell's case is 4 * left + 2 * itself + right, its neighbors found by
 rotating the row, and the rule number's binary digits say what each of
 the eight cases becomes. Rule 90 makes each cell the exclusive or of
-its neighbours, and grows Sierpinski's triangle yet again:
+its neighbors, and grows Sierpinski's triangle yet again:
 </p>
 
 <div class="org-src-container">
@@ -662,7 +662,7 @@ abcde
 <p>
 The rule in one line (<code>docs/literate/life.org</code> builds it up): the
 board rotated by every offset in <code>-1 0 1</code> along both axes and summed
-gives each cell plus its neighbours, S; a cell lives next when S is 3,
+gives each cell plus its neighbors, S; a cell lives next when S is 3,
 or when it is alive and S is 4.
 </p>
 

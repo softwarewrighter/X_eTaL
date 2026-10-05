@@ -1,8 +1,8 @@
-//! One character cell and its style. Colour is carried from the start,
+//! One character cell and its style. Color is carried from the start,
 //! as web-sw-tos does, so the renderer never changes shape when styles
 //! arrive (standard error is red; screen control sets more).
 
-/// A colour of the terminal's small palette.
+/// A color of the terminal's small palette.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub enum Color {
     #[default]

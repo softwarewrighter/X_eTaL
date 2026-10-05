@@ -59,8 +59,8 @@ u:s_lots := { p ->
 }
 u:s_lots 1 2 3
 
-# Drawn: each disk a bar as wide as twice its size less one, centred
-# on its peg (a table of sizes against offsets from the centre).
+# Drawn: each disk a bar as wide as twice its size less one, centered
+# on its peg (a table of sizes against offsets from the center).
 u:p_icture := { p ->
   n := t_ally p
   w := 1 + 2 * n

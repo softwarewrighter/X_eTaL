@@ -1,9 +1,9 @@
 #!/usr/bin/env xetal
-# Mastermind against the computer: it picks a code of four colours, 1
+# Mastermind against the computer: it picks a code of four colors, 1
 # to 6 (repeats allowed), and you have ten guesses. Type four digits;
 # anything else is asked for again. Each guess is scored with a * for
-# every right colour in the right place and an o for every other right
-# colour (the scoring is explained in demos/classics/mastermind.xtl).
+# every right color in the right place and an o for every other right
+# color (the scoring is explained in demos/classics/mastermind.xtl).
 u:s_core := { s g ->
   black := '+ r_/ s = g
   both := '+ r_/ ('+ r_/_2 (r_ange 6) '= t_able s) m_in '+ r_/_2 (r_ange 6) '= t_able g

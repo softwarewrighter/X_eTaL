@@ -766,7 +766,7 @@ A quoted train is an operand like any function.
 Rotate and reverse work on the leading axis; a subscript names
 another, and any function takes one by the same move-to-front rule. A
 list of amounts gives every rotation, which is exactly what Life's
-neighbour count needs.
+neighbor count needs.
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
@@ -1352,7 +1352,7 @@ n_eg^3 5                 # a superscript repeats a function: n_eg three times
 
 Everything above comes together in Conway's Life: rotate the board by
 every offset in -1 0 1 along both axes, sum the nine boards to count
-each cell and its neighbours, and apply the rule. This is the
+each cell and its neighbors, and apply the rule. This is the
 language's acceptance test.
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below

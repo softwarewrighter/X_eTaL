@@ -1404,7 +1404,7 @@ UP
 
 `Int -> Color`, one argument.
 
-Colour n (1 to 8: black, red, green, yellow, blue, magenta, cyan,
+Color n (1 to 8: black, red, green, yellow, blue, magenta, cyan,
 white), for the Terminal library, which names them (`t:RED`).
 
 ```
@@ -1416,8 +1416,8 @@ RED
 
 `Color -> Char -> Char`, two arguments.
 
-Text in a foreground colour: the text wrapped in the codes a terminal
-(or the live demo's grid) colours it with; print it to see it. Here,
+Text in a foreground color: the text wrapped in the codes a terminal
+(or the live demo's grid) colors it with; print it to see it. Here,
 its length: five characters on each side of the text.
 
 ```
@@ -1429,7 +1429,7 @@ its length: five characters on each side of the text.
 
 `Color -> Char -> Char`, two arguments.
 
-Text on a background colour, as []F_G does the foreground.
+Text on a background color, as []F_G does the foreground.
 
 ```
       t_ally ([]C_OLOR 5) []B_G "hi"

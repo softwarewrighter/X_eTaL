@@ -1,17 +1,17 @@
 #!/usr/bin/env xetal
-# Mastermind: a hidden code of four pegs in six colours (1 to 6). Each
-# guess is scored with a black peg for every right colour in the right
-# place and a white peg for every other right colour. A game against
+# Mastermind: a hidden code of four pegs in six colors (1 to 6). Each
+# guess is scored with a black peg for every right color in the right
+# place and a white peg for every other right color. A game against
 # the computer is demos/classics/mastermind-play.xtl; here, the scoring
 # and a player that asks every possible code at once.
 secret := 1 1 2 3
 guess := 3 1 1 4
 '+ r_/ secret = guess                 # black: equal in place
 c := '+ r_/_2 (r_ange 6) '= t_able secret
-c                                     # how many of each colour
-c m_in '+ r_/_2 (r_ange 6) '= t_able guess   # colours both have
+c                                     # how many of each color
+c m_in '+ r_/_2 (r_ange 6) '= t_able guess   # colors both have
 
-# The score, black then white: the colours in common, less the blacks.
+# The score, black then white: the colors in common, less the blacks.
 u:s_core := { s g ->
   black := '+ r_/ s = g
   both := '+ r_/ ('+ r_/_2 (r_ange 6) '= t_able s) m_in '+ r_/_2 (r_ange 6) '= t_able g

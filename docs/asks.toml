@@ -201,7 +201,7 @@ here = "Saga 25: a run waits for typed lines and resumes (D50), the terminal pan
 [[ask]]
 id = "G2"
 repo = "X_eTaL-games"
-ask = "`[]G_RID` of numbers: the numbers drawn in the cells, a colour scale the program chooses"
+ask = "`[]G_RID` of numbers: the numbers drawn in the cells, a color scale the program chooses"
 state = "planned"
 here = "to decide with the user (plan.md, the sibling asks that need decisions)"
 

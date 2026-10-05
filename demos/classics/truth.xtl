@@ -36,6 +36,6 @@ adder
 
 # A function's outputs, last combination first, read in binary, are
 # its number: the cellular automata's rule 30 is this function of a
-# cell's left neighbour, itself and its right neighbour.
+# cell's left neighbor, itself and its right neighbor.
 rule := 2 d_ecode r_ev a != b | c
 rule

@@ -5,8 +5,8 @@
 #+PROPERTY: header-args:xetal :session life :seed 1 :results output :exports both
 
 Conway's Game of Life is played on a grid of cells, each alive (1) or
-dead (0). At every step a cell with exactly three live neighbours is
-alive next, a live cell with two live neighbours stays alive, and every
+dead (0). At every step a cell with exactly three live neighbors is
+alive next, a live cell with two live neighbors stays alive, and every
 other cell is dead. In X_eTaL the whole rule is one line; this document
 builds it up a piece at a time. Every block below is run by ~xetal~
 through ~ob-xetal~, and its result recorded under it.
@@ -35,7 +35,7 @@ blinker
 : 0 0 1 0 0
 : 0 0 0 0 0
 
-* Neighbours by rotation
+* Neighbors by rotation
 
 ~o_-~ rotates: ~1 o_-_2 b~ shifts every row of ~b~ one place along
 axis 2, wrapping round the edge. With the offsets ~-1 0 1~ on both
@@ -56,7 +56,7 @@ s_hape -1 0 1 o_-_12 blinker
 * Counting
 
 Summing the nine boards over their first two axes, ~'+ r_/_12~, gives
-each cell's count of itself and its neighbours:
+each cell's count of itself and its neighbors:
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
@@ -76,7 +76,7 @@ each cell's count of itself and its neighbours:
 * The rule
 
 With ~S~ that count, a cell lives next when ~S~ is 3 (three
-neighbours, or a live cell with two), or when it is alive and ~S~ is 4
+neighbors, or a live cell with two), or when it is alive and ~S~ is 4
 (a live cell with three): ~(S = 3) + board * S = 4~. Written as an
 inner function applied to ~S~ on its left and the board on its right,
 that is the whole of Life:

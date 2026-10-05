@@ -37,7 +37,7 @@
     (let ((face (get-text-property (match-beginning 0) 'face)))
       (if (consp face) (car face) face))))
 
-(ert-deftest xetal-mode-colours-each-kind ()
+(ert-deftest xetal-mode-colors-each-kind ()
   (let ((line "u:s_q := { _r * _r } '+ r_/ c:K_ 3 \"s:\" u_se< \"Stats\" # note"))
     (should (eq (xetal-tests--face-at line "u:s_q") 'xetal-user-face))
     (should (eq (xetal-tests--face-at line "_r") 'xetal-argument-face))
@@ -49,7 +49,7 @@
     (should (eq (xetal-tests--face-at line "Stats") 'font-lock-string-face))
     (should (eq (xetal-tests--face-at line "note") 'font-lock-comment-face))))
 
-(ert-deftest xetal-mode-colours-long-prefixes ()
+(ert-deftest xetal-mode-colors-long-prefixes ()
   (let ((line "combinators:K_ 1 2 b2:m_ean 3"))
     (should (eq (xetal-tests--face-at line "combinators:K_") 'xetal-library-face))
     (should (eq (xetal-tests--face-at line "b2:m_ean") 'xetal-library-face))))

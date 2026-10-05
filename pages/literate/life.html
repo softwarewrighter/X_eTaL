@@ -21,7 +21,7 @@
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#orgf851060">A board</a></li>
-<li><a href="#orgec83b16">Neighbours by rotation</a></li>
+<li><a href="#orgec83b16">Neighbors by rotation</a></li>
 <li><a href="#org0056de2">Counting</a></li>
 <li><a href="#org73cc3d3">The rule</a></li>
 <li><a href="#orgb6d705a">A glider</a></li>
@@ -30,8 +30,8 @@
 </div>
 <p>
 Conway's Game of Life is played on a grid of cells, each alive (1) or
-dead (0). At every step a cell with exactly three live neighbours is
-alive next, a live cell with two live neighbours stays alive, and every
+dead (0). At every step a cell with exactly three live neighbors is
+alive next, a live cell with two live neighbors stays alive, and every
 other cell is dead. In X_eTaL the whole rule is one line; this document
 builds it up a piece at a time. Every block below is run by <code>xetal</code>
 through <code>ob-xetal</code>, and its result recorded under it.
@@ -69,7 +69,7 @@ blinker
 </div>
 </div>
 <div id="outline-container-orgec83b16" class="outline-2">
-<h2 id="orgec83b16">Neighbours by rotation</h2>
+<h2 id="orgec83b16">Neighbors by rotation</h2>
 <div class="outline-text-2" id="text-orgec83b16">
 <p>
 <code>o_-</code> rotates: <code>1 o_-_2 b</code> shifts every row of <code>b</code> one place along
@@ -95,7 +95,7 @@ shape is a 3 by 3 grid of 5 by 5 boards.
 <div class="outline-text-2" id="text-org0056de2">
 <p>
 Summing the nine boards over their first two axes, <code>'+ r_/_12</code>, gives
-each cell's count of itself and its neighbours:
+each cell's count of itself and its neighbors:
 </p>
 
 <div class="org-src-container">
@@ -119,7 +119,7 @@ each cell's count of itself and its neighbours:
 <div class="outline-text-2" id="text-org73cc3d3">
 <p>
 With <code>S</code> that count, a cell lives next when <code>S</code> is 3 (three
-neighbours, or a live cell with two), or when it is alive and <code>S</code> is 4
+neighbors, or a live cell with two), or when it is alive and <code>S</code> is 4
 (a live cell with three): <code>(S = 3) + board * S = 4</code>. Written as an
 inner function applied to <code>S</code> on its left and the board on its right,
 that is the whole of Life:

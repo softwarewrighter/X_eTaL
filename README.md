@@ -118,7 +118,7 @@ anchored to the tokens it points at):
 
 Read right to left: rotate the board by every offset in `-1 0 1` along
 axes 1 and 2, giving a 3 by 3 arrangement of boards, and sum over those
-two axes, giving S, each cell plus its neighbours. The inner function
+two axes, giving S, each cell plus its neighbors. The inner function
 gets S as its left argument and the board as its right, and computes
 `(S = 3) + board * (S = 4)`: a cell lives next when S is 3, or when it
 is alive and S is 4.
@@ -363,7 +363,7 @@ Other fonts, checked against the font files:
   Checklist](https://www.mcmillen.dev/language_checklist.html)
 - [`docs/xetal-apl-skeptics-response.md`](docs/xetal-apl-skeptics-response.md)
   -- XeTaL plays the APL Wiki's complaint-bingo card
-  ([Humour](https://aplwiki.com/wiki/Humour))
+  ([Humor](https://aplwiki.com/wiki/Humour))
 - [`docs/input.md`](docs/input.md) -- how to type X_eTaL expressions
 - [`docs/birds.md`](docs/birds.md) -- the aviary: Smullyan's combinators,
   which type-check, and how the `Combinators` library spells them
@@ -485,7 +485,7 @@ native extensions for it, each have a repository of their own:
   Wrighter's Machine Learning Programming Language, a Rust array
   language inspired by APL, APL2, J, and BQN.
 - [sw-apl](https://github.com/sw-vibe-coding/sw-apl) -- a clean-room
-  APL interpreter in Rust modelled on APL\360 and IBM 5100 APL, for
+  APL interpreter in Rust modeled on APL\360 and IBM 5100 APL, for
   the terminal, a local service and the browser.
 - [web-sw-cor24-apl](https://github.com/sw-embed/web-sw-cor24-apl) --
   browser-based APL environment running the sw-cor24-apl interpreter
