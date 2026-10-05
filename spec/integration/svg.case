@@ -1,0 +1,11 @@
+# The Svg library (lib/Svg.xtl) with Geometry3D: a square turned 45
+# degrees about z, projected, scaled into a picture and drawn as a
+# polygon with a stroke; the library writes every tag and quote.
+== SOURCE
+"g:" u_se< "Geometry3D"
+"v:" u_se< "Svg"
+sq := f_loat 3 4 r_eshape 1 1 -1 -1 1 -1 -1 1 0 0 0 0
+pts := 50 + 20 * 10 g:p_roject (g:r_otZ 90) g:t_urn sq
+100 100 v:p_icture (v:t_ranslate 0 0) v:g_roup ((v:f_ill "#ccc") c_at "#333" v:s_troke 1) v:p_olygon f_loor 0.5 + pts
+== RESULT
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img"><g transform="translate(0 0)"><polygon points="30,70 70,70 70,30 30,30" fill="#ccc" stroke="#333" stroke-width="1" stroke-linejoin="round"/></g></svg>
