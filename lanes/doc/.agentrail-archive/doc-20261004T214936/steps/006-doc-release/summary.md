@@ -1,0 +1,1 @@
+Doc release: pages/doc built by just doc / just pages (lib/, System.xtlm, built-ins described from the reference, Life, TTTML game), several files as one site, README/reference/Help links, Stats and Maybe documented with run examples; D83; PR pr/doc-release stacked on #66
