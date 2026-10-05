@@ -1,0 +1,1 @@
+lib/Svg.xtl: shapes, text, groups, clips, gradients, picture, attributes; 34 doc examples, spec case, type golden; frictions in dogfooding.md (scene is text, dyadic lambdas). PR pr/svg-lib (carries #77/#79/#80).
