@@ -1,0 +1,1 @@
+Done outside main's own steps: PR #58 (remote session): xetal doc --test, S10, in the gate over lib/, D74; merged and gated on main

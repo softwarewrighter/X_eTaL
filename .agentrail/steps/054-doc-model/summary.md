@@ -1,0 +1,1 @@
+Done outside main's own steps: PR #54 (doc lane): xetal doc --json, the cross-reference model; merged and gated on main

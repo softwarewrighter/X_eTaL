@@ -1,0 +1,9 @@
+number = 66
+slug = "macros-combinators"
+status = "completed"
+description = "User idea (2026-10-03): a Combinators.xtlm macro library beside lib/Combinato..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T08:20:16"
+completed_at = "2026-10-05T00:20:37"
+commits = ["ace1e976ab168b5b709e2554e318f58146a21ebc"]

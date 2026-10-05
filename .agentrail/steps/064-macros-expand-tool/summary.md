@@ -1,0 +1,1 @@
+Done outside main's own steps: PRs #41 and #44 (macros lane): xetal expand and the EXPAND spec section; merged and gated on main

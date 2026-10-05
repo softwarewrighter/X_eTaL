@@ -1,0 +1,9 @@
+number = 72
+slug = "own-errors-decisions"
+status = "completed"
+description = "Saga 21 (errors of one's own, docs/plan.md), step 1, moved up by the user (20..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T11:25:42"
+completed_at = "2026-10-05T00:20:38"
+commits = ["ace1e976ab168b5b709e2554e318f58146a21ebc"]

@@ -1,0 +1,1 @@
+Done outside main's own steps: PR #55 (doc lane): xetal doc --out DIR, the static site, D80; merged and gated on main

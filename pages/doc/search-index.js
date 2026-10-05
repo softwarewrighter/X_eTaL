@@ -208,6 +208,7 @@ window.XETAL_DOC_INDEX = [
 ["[]R_EAD","built-in","Unit -> Char","Unit -> Char","","builtins.html#-5b-5dR_EAD","A line typed at the keyboard (here, the line \"a typed line\")."],
 ["[]E_RR","built-in","Char -> Char","Char -> Char","","builtins.html#-5b-5dE_RR","Write a line to standard error (red in the live demo), and give the text back."],
 ["[]P_ANIC","built-in","Char -> a","Char -> a","","builtins.html#-5b-5dP_ANIC","Stop the program with error[panic] and the text as its message (what `@ p_anic\u003c \"...\"` writes)."],
+["[]S_IGNAL","built-in","Char -> Char -> a","Char -> Char -> a","","builtins.html#-5b-5dS_IGNAL","Stop with an error of your own: the code on the left names the error class, as xetal's own codes do (lowercase letters, digits and hyphens), and the text on the right is its message."],
 ["[]T_E","built-in","Unit -> Int","Unit -> Int","","builtins.html#-5b-5dT_E","The terminal's facts: rows, columns, 1 when output is a terminal, 1 when it does screen control (here, output to a file)."],
 ["[]K_EY","built-in","Unit -> Key","Unit -> Key","","builtins.html#-5b-5dK_EY","One key, without Enter, as a Key (here, the key a): the terminal reads it raw; in the live demo the program waits in the terminal pane."],
 ["[]K_CHAR","built-in","Key -> Char","Key -> Char","","builtins.html#-5b-5dK_CHAR","A printing key's character, or nothing for a named key such as Up."],

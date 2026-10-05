@@ -131,6 +131,8 @@
 </td></tr>
 <tr id="-5b-5dP_ANIC"><td><code><span class="c-builtin">⎕P̲ANIC</span></code></td><td><code>Char -&gt; a</code></td><td><p>Stop the program with error[panic] and the text as its message (what <code>@ <span class="c-macro">p̲anic&lt;</span> <span class="c-string">&quot;...&quot;</span></code> writes). Its result has any type, so it stands where any value may.</p>
 </td></tr>
+<tr id="-5b-5dS_IGNAL"><td><code><span class="c-builtin">⎕S̲IGNAL</span></code></td><td><code>Char -&gt; Char -&gt; a</code></td><td><p>Stop with an error of your own: the code on the left names the error class, as xetal's own codes do (lowercase letters, digits and hyphens), and the text on the right is its message. Uncaught, it ends the program with exit status 1, like any error. Its result has any type.</p>
+</td></tr>
 <tr id="-5b-5dT_E"><td><code><span class="c-builtin">⎕T̲E</span></code></td><td><code>Unit -&gt; Int</code></td><td><p>The terminal's facts: rows, columns, 1 when output is a terminal, 1 when it does screen control (here, output to a file).</p>
 </td></tr>
 <tr id="-5b-5dK_EY"><td><code><span class="c-builtin">⎕K̲EY</span></code></td><td><code>Unit -&gt; Key</code></td><td><p>One key, without Enter, as a Key (here, the key a): the terminal reads it raw; in the live demo the program waits in the terminal pane. Keys are named in the Terminal library (<code><span class="c-libfunc">ᵗ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Terminal&quot;</span></code>, then <code>ᵗUP</code>, <code>ᵗENTER</code>, ...) and compare with <code><span class="c-symbol">=</span></code>.</p>

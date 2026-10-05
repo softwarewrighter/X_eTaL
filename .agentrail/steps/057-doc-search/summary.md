@@ -1,0 +1,1 @@
+Done outside main's own steps: PR #66 (doc lane): search by name and by type, D82; merged and gated on main

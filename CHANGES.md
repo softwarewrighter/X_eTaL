@@ -10,15 +10,18 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-05
+
+- 00:19 `build` Merged PRs #72 (errors lane: `[]S_IGNAL`, an error of one's own, ER1; its quad dispatch and tests joined with the clock's by hand; register entry D86) and #73 (macros lane: the Saga 19 retrospective, the lane archived); pages/ rebuilt.
+
 ## 2026-10-04
 
-- 23:40 `feat` `[]S_IGNAL` (errors lane step 1, ER1, D85; X_eTaL-libraries' ask X3, raise): `"code" []S_IGNAL "message"` stops with an error of one's own, reported at the call with exit status 1; a code is spelled as xetal's own.
+- 23:40 `feat` `[]S_IGNAL` (errors lane step 1, ER1, D86; X_eTaL-libraries' ask X3, raise): `"code" []S_IGNAL "message"` stops with an error of one's own, reported at the call with exit status 1; a code is spelled as xetal's own.
 - 23:25 `fix` The live demo checks a macro library as one: opening Combinators.xtlm (or any `.xtlm`) showed `misdefined-macro` in the Types pane, because the page checked every text as `main.xtl`; `xetal_program::name_for` now names a text by what it defines (`m:` macros a macro library, `s:` the system macros), so each macro's type is shown as `xetal type` gives it.
 - 23:10 `release` Macros lane closed (Saga 19): retrospective in plan.md, the lane's saga archived.
 - 22:55 `feat` `xetal doc` shows `u_se<` (macros lane): the built-in macro declared in System.xtlm is an item of the system macros page (kind built-in macro, its type, its `##` doc and examples, which `xetal doc --test` runs); golden doc-site-system rebased on purpose (D85).
 - 22:24 `build` Merged PRs #69 (quads lane: the clock, `[]TS` and `[]D_L`; its register entry renumbered D84) and #70 (macros lane: Mastermind's messages with `f_ormat<`); pages/ rebuilt.
 - 22:10 `feat` The clock (quads lane step 2, D84; asks X4 and E4 landed): `[]TS`, the local time stamp, and `[]D_L`, a delay giving the seconds waited, through the host's clock (`xetal-clock`; the live demo's worker installs the browser's).
-
 - 22:07 `build` Merged PRs #65 and #68 (macros lane: user macro libraries in the live demo, `s:u_se< ::` in System.xtlm) and #66 and #67 (doc lane: search by name and type, pages/doc); lib/Stats.xtl keeps both its demo-subset note and the doc lane's `##` comments; the doc-json-library golden rewritten on purpose; pages/ rebuilt.
 - 22:06 `refactor` Retrofit (macros lane step 24): Mastermind's interactive game builds its four messages with `f_ormat<` (`@ f_ormat< "guess {n} (four digits, 1 to 6):"`) instead of `c_at` chains with `f_ormat`; output unchanged (golden run-classics-mastermind-play as before). Other programs read as well as they are; long aliases and other macros left where they are.
 - 22:03 `docs` docs/vendoring.md: how a downstream repository uses X_eTaL without tracking a copy: one tracked line (XETAL_COMMIT, the known-good commit), a clone in a gitignored work directory checked out at that commit, a release build, and a symlink bin/xetal to the fresh binary; the script, recipes, crate paths, moving to a newer commit, and replacing a tracked vendor/xetal. The script was run as written in a scratch repository. Replaces the released-binary plan (Saga 32 step 7).

@@ -16,9 +16,9 @@ build already does what the ask wants.
 | X_eTaL-demos | 5 | 2 | 7 | 0 | 0 |
 | X_eTaL-ML | 5 | 1 | 3 | 0 | 0 |
 | X_eTaL-games | 2 | 1 | 2 | 0 | 0 |
-| X_eTaL-libraries | 4 | 1 | 2 | 3 | 0 |
+| X_eTaL-libraries | 4 | 2 | 1 | 3 | 0 |
 | X_eTaL-extensions | 3 | 0 | 3 | 0 | 0 |
-| All | 19 | 5 | 17 | 3 | 0 |
+| All | 19 | 6 | 16 | 3 | 0 |
 
 ## X_eTaL-demos
 
@@ -69,7 +69,7 @@ build already does what the ask wants.
 | - | --- | ----- | ---- | ----- |
 | X1 | `.xtlm` macro libraries: user-defined macros imported with `u_se<` | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | passes |
 | X2 | seeing the source after macro expansion, with a bounded expansion depth | landed | `xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61) | golden `macros-user-expand` |
-| X3 | errors of one's own: assert, raise and catch | planned | Saga 21, errors of one's own | - |
+| X3 | errors of one's own: assert, raise and catch | partly landed | raise: `[]S_IGNAL` (ER1, D85, errors lane step 1); catch and the handler's outcomes follow (ER2-ER4, the lane's next steps) | passes |
 | X4 | character codes `[]U_CS`, and the quad values `[]A`, `[]D`, `[]TS` | landed | `[]U_CS` (and its inverse `[]U_CHAR`, QD7), `[]A`, `[]D`, `[]AV`, `[]IO` (D75), `[]TS` local time (D84): the quads lane | passes |
 | X5 | an empty Char vector is drawn with the numbers mark | planned | Saga 20, array kinds (decision T9) | fails |
 | X6 | big whole numbers or exact rationals | declined | for now: on the wish list, after the launch (Floats where a polymorphic function allows) | - |

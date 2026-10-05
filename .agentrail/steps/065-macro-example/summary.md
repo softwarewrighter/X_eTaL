@@ -1,0 +1,1 @@
+Done outside main's own steps: PR #44 (macros lane): lib/Macros.xtlm, demos/macros.xtl, docs/literate/macros.org; merged and gated on main
