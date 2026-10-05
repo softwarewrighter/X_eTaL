@@ -975,7 +975,16 @@ Doc comments (S9): `#` ignored, `##` documentation, `###` sections,
 6. doc-tests: `xetal doc --test` runs every `## >>` example in its
    file's context and compares what it prints; the gate runs it over
    lib/ and System.xtlm.
-7. rustdoc (the user, 2026-10-04): the implementation's own
+7. doc-everywhere (the user, 2026-10-04): a cross-reference site for
+   every library, app and demo, here and in each sibling repository.
+   Each repository hosts its own, one per program or library, under a
+   repository index page; this repository's site adds an uber index
+   linking every repository's index, its own included. The siblings
+   run `xetal doc` from their vendored xetal; how they vendor it (today
+   X_eTaL's whole source tree, tracked, about 4 MB each, pinned to
+   different commits) is to be settled with the user: a pinned commit
+   built, or a released binary fetched, into a gitignored directory.
+8. rustdoc (the user, 2026-10-04): the implementation's own
    cross-reference, `cargo doc --document-private-items` over every
    component into one site with one search index, published as
    pages/rust/ by `just pages`; an ask to X_eTaL-extensions for the
