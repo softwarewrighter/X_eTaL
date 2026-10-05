@@ -41,6 +41,9 @@ computations which can fail (a standard library, built into xetal).
 Import it with an alias of your choice: &quot;m:&quot; u_se&lt; &quot;Maybe&quot;.</li>
 <li>library <a href="lib-Stats.xtl.html">lib/Stats.xtl</a>: Stats: a small statistics library (a standard library, built into
 xetal). Import it with an alias of your choice: &quot;s:&quot; u_se&lt; &quot;Stats&quot;.
+It is a demo library, loaded only by that import: a small subset of
+X_eTaL-libraries' Statistics, which has much more (a program may use
+either).
 Names with l: are exported; the others are private to this file.</li>
 <li>library <a href="lib-Terminal.xtl.html">lib/Terminal.xtl</a></li>
 <li>library <a href="lib-TTTML.xtl.html">lib/TTTML.xtl</a></li>
@@ -49,7 +52,11 @@ Names with l: are exported; the others are private to this file.</li>
 in at compile time instead of applied when the program runs. Import
 both under one alias: &quot;c:&quot; u_se&lt; &quot;Combinators&quot; finds Combinators.xtl
 (c:Y_, c:B_, ...) and this file (c:Y_&lt;, c:B_&lt;).</li>
-<li>macro library <a href="lib-Macros.xtlm.html">lib/Macros.xtlm</a></li>
+<li>macro library <a href="lib-Macros.xtlm.html">lib/Macros.xtlm</a>: A small macro library, an example of macros of your own (MC10). A
+macro is an ordinary function of the source text written on each
+side of its call; the text it gives replaces the call, then is read
+as code. Import it with an alias of your own, &quot;x:&quot; u_se&lt; &quot;Macros&quot;,
+and see what a program becomes with xetal expand FILE.</li>
 <li>system macros <a href="std-System.xtlm.html">std/System.xtlm</a>: The system macros (lang-choices MC18, MC19, MC24), loaded before
 every file with no import and no alias: each is called unprefixed,
 as &quot;c&quot; i_f&lt; &quot;a; b&quot;. A macro is a function of the source text on each
@@ -181,6 +188,8 @@ knows comes from hooks (MC20), usable only in a macro body.</li>
 <tr><td><a href="lib-Macros.xtlm.html#m.w_hen-3c"><span class="c-macro">ᵐw̲hen&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Macros.xtlm.html#m.d_ef-3c"><span class="c-macro">ᵐd̲ef&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Macros.xtlm.html#m.c_heck-3c"><span class="c-macro">ᵐc̲heck&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Macros.xtlm.html#m.t_wice-3c"><span class="c-macro">ᵐt̲wice&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Macros.xtlm.html#m.w_ith-3c"><span class="c-macro">ᵐw̲ith&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#s.i_f-3c"><span class="c-macro">ˢi̲f&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#s.u_nless-3c"><span class="c-macro">ˢu̲nless&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#s.e_ach-3c"><span class="c-macro">ˢe̲ach&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
@@ -193,6 +202,7 @@ knows comes from hooks (MC20), usable only in a macro body.</li>
 <tr><td><a href="std-System.xtlm.html#s.a_ssert-3c"><span class="c-macro">ˢa̲ssert&lt;</span></a></td><td>macro</td><td><code>Char -&gt; a -&gt; Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#s.f_ormat-3c"><span class="c-macro">ˢf̲ormat&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#s.p_anic-3c"><span class="c-macro">ˢp̲anic&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.t_odo-3c"><span class="c-macro">ˢt̲odo&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#ifArgs">ifArgs</a></td><td>value</td><td><code>Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#eachAlone">eachAlone</a></td><td>value</td><td><code>Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#eachHole">eachHole</a></td><td>value</td><td><code>Char</code></td></tr>
@@ -200,7 +210,6 @@ knows comes from hooks (MC20), usable only in a macro body.</li>
 <tr><td><a href="std-System.xtlm.html#w_ords"><span class="c-builtin">w̲ords</span></a></td><td>function</td><td><code>Char -&gt; Box Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#s_eps"><span class="c-builtin">s̲eps</span></a></td><td>function</td><td><code>Truthy a =&gt; Char -&gt; a</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#h_oles"><span class="c-builtin">h̲oles</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Char -&gt; a</code></td></tr>
-<tr><td><a href="std-System.xtlm.html#n_othing"><span class="c-builtin">n̲othing</span></a></td><td>function</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#j_oin"><span class="c-builtin">j̲oin</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#q_uote"><span class="c-builtin">q̲uote</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#c_opy"><span class="c-builtin">c̲opy</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>

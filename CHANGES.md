@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 22:07 `build` Merged PRs #65 and #68 (macros lane: user macro libraries in the live demo, `s:u_se< ::` in System.xtlm) and #66 and #67 (doc lane: search by name and type, pages/doc); lib/Stats.xtl keeps both its demo-subset note and the doc lane's `##` comments; the doc-json-library golden rewritten on purpose; pages/ rebuilt.
+
 - 22:03 `docs` docs/vendoring.md: how a downstream repository uses X_eTaL without tracking a copy: one tracked line (XETAL_COMMIT, the known-good commit), a clone in a gitignored work directory checked out at that commit, a release build, and a symlink bin/xetal to the fresh binary; the script, recipes, crate paths, moving to a newer commit, and replacing a tracked vendor/xetal. The script was run as written in a scratch repository. Replaces the released-binary plan (Saga 32 step 7).
 - 21:58 `docs` `u_se<` documented in lib/System.xtlm (macros lane step 23): a `##` block above the signature line `s:u_se< :: Char -> Char -> Unit`, the first use of `::` (T4), admitted only there to declare a built-in system macro; its type is checked, and `xetal_macro::system_signatures()` gives it to the doc model; elsewhere `::` is still refused (MC21 completed, D79).
 - 21:44 `build` Merged PRs #62 (plan: cross-references for every repository, Saga 32 step 7; rustdoc becomes step 8), #63 (decisions ER1-ER4, S11; Sagas 21 and 33 planned) and #64 (doc lane: macro expansions in place, example links); pages/ rebuilt.

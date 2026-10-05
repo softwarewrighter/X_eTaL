@@ -105,6 +105,18 @@
 </td></tr>
 <tr id="r_ight"><td><code><span class="c-builtin">r̲ight</span></code></td><td><code>a -&gt; b -&gt; b</code></td><td><p>The right argument.</p>
 </td></tr>
+<tr id="-5b-5dA"><td><code><span class="c-builtin">⎕A</span></code></td><td><code>Char</code></td><td><p>The alphabet, the uppercase letters: a system value, written without an underline and read where it is used.</p>
+</td></tr>
+<tr id="-5b-5dD"><td><code><span class="c-builtin">⎕D</span></code></td><td><code>Char</code></td><td><p>The digits, as characters.</p>
+</td></tr>
+<tr id="-5b-5dAV"><td><code><span class="c-builtin">⎕AV</span></code></td><td><code>Char</code></td><td><p>The atomic vector: every character, ASCII 0 to 127 (source is ASCII), so a character's code is its place in it, less one.</p>
+</td></tr>
+<tr id="-5b-5dIO"><td><code><span class="c-builtin">⎕IO</span></code></td><td><code>Int</code></td><td><p>The index origin: always 1 (there is no setting).</p>
+</td></tr>
+<tr id="-5b-5dU_CS"><td><code><span class="c-builtin">⎕U̲CS</span></code></td><td><code>Char -&gt; Int</code></td><td><p>The code of each character, keeping the shape. Codes go back to characters with <code><span class="c-builtin">⎕U̲CHAR</span></code>.</p>
+</td></tr>
+<tr id="-5b-5dU_CHAR"><td><code><span class="c-builtin">⎕U̲CHAR</span></code></td><td><code>Int -&gt; Char</code></td><td><p>The character of each code, 0 to 127; another code is an error.</p>
+</td></tr>
 <tr id="-5b-5dN_PUT"><td><code><span class="c-builtin">⎕N̲PUT</span></code></td><td><code>Char -&gt; Char -&gt; Int</code></td><td><p>Write the text on the left to the file on the right (made, with its directories, if missing); how many characters it wrote.</p>
 </td></tr>
 <tr id="-5b-5dN_GET"><td><code><span class="c-builtin">⎕N̲GET</span></code></td><td><code>Char -&gt; Char</code></td><td><p>A file's text.</p>

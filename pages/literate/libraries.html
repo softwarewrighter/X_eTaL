@@ -48,28 +48,46 @@ A small statistics library. Its whole source:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal"><span class="c-comment">⍝ Stats: a small statistics library (a standard library, built into</span>
-<span class="c-comment">⍝ xetal). Import it with an alias of your choice: &quot;s:&quot; u_se&lt; &quot;Stats&quot;.</span>
-<span class="c-comment">⍝ It is a demo library, loaded only by that import: a small subset of</span>
-<span class="c-comment">⍝ X_eTaL-libraries' Statistics, which has much more (a program may use</span>
-<span class="c-comment">⍝ either).</span>
-<span class="c-comment">⍝ Names with l: are exported; the others are private to this file.</span>
+<pre class="src src-xetal"><span class="c-comment">⍝# Stats: a small statistics library (a standard library, built into</span>
+<span class="c-comment">⍝# xetal). Import it with an alias of your choice: &quot;s:&quot; u_se&lt; &quot;Stats&quot;.</span>
+<span class="c-comment">⍝# It is a demo library, loaded only by that import: a small subset of</span>
+<span class="c-comment">⍝# X_eTaL-libraries' Statistics, which has much more (a program may use</span>
+<span class="c-comment">⍝# either).</span>
+<span class="c-comment">⍝# Names with l: are exported; the others are private to this file.</span>
 
-<span class="c-libfunc">ˡm̲ean</span> ← [[<span class="c-builtin">f̲loat</span> <span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span>] <span class="c-symbol">÷</span> [<span class="c-builtin">f̲loat</span> <span class="c-builtin">t̲ally</span>]]         <span class="c-comment">⍝ Int or Float numbers</span>
+<span class="c-comment">⍝# The arithmetic mean, of Int or Float numbers.</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; s:m_ean 2 4 4 4 5 5 7 9</span>
+<span class="c-comment">⍝# 5.0</span>
+<span class="c-libfunc">ˡm̲ean</span> ← [[<span class="c-builtin">f̲loat</span> <span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span>] <span class="c-symbol">÷</span> [<span class="c-builtin">f̲loat</span> <span class="c-builtin">t̲ally</span>]]
 
 <span class="c-builtin">s̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍵</span> }                      <span class="c-comment">⍝ private: not visible outside</span>
 <span class="c-builtin">d̲eviations</span> ← [<span class="c-builtin">f̲loat</span> <span class="c-symbol">−</span> <span class="c-libfunc">ˡm̲ean</span>]
 
+<span class="c-comment">⍝# The variance: the mean squared deviation from the mean.</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; s:v_ariance 2 4 4 4 5 5 7 9</span>
+<span class="c-comment">⍝# 4.0</span>
 <span class="c-libfunc">ˡv̲ariance</span> ← [<span class="c-libfunc">ˡm̲ean</span> [<span class="c-builtin">s̲quare</span> <span class="c-builtin">d̲eviations</span>]]
-<span class="c-libfunc">ˡs̲d</span> ← { (<span class="c-libfunc">ˡv̲ariance</span> <span class="c-lambdaarg">⍵</span>) <span class="c-symbol">^</span> <span class="c-number">0.5</span> }           <span class="c-comment">⍝ the standard deviation</span>
+
+<span class="c-comment">⍝# The standard deviation: the square root of the variance.</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; s:s_d 2 4 4 4 5 5 7 9</span>
+<span class="c-comment">⍝# 2.0</span>
+<span class="c-libfunc">ˡs̲d</span> ← { (<span class="c-libfunc">ˡv̲ariance</span> <span class="c-lambdaarg">⍵</span>) <span class="c-symbol">^</span> <span class="c-number">0.5</span> }
+
+<span class="c-comment">⍝# The range: the largest minus the smallest.</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; s:r_ange 2 4 4 4 5 5 7 9</span>
+<span class="c-comment">⍝# 7</span>
 <span class="c-libfunc">ˡr̲ange</span> ← [<span class="c-builtin">'m̲ax</span> <span class="c-builtin">r̲/</span> <span class="c-symbol">−</span> <span class="c-builtin">'m̲in</span> <span class="c-builtin">r̲/</span>]
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]  # Int or Float numbers</span>
+<span class="c-comment typed">⍝   l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]</span>
 <span class="c-comment typed">⍝   s_quare := { _r * _r }                  # private: not visible outside</span>
 <span class="c-comment typed">⍝   d_eviations := [f_loat - l:m_ean]</span>
 <span class="c-comment typed">⍝   l:v_ariance := [l:m_ean [s_quare d_eviations]]</span>
-<span class="c-comment typed">⍝   l:s_d := { (l:v_ariance _r) ^ 0.5 }     # the standard deviation</span>
+<span class="c-comment typed">⍝   l:s_d := { (l:v_ariance _r) ^ 0.5 }</span>
 <span class="c-comment typed">⍝   l:r_ange := ['m_ax r_/ - 'm_in r_/]</span></pre>
 </div>
 

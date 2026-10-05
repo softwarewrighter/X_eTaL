@@ -479,12 +479,8 @@ function __wbg_get_imports() {
             return ret;
         },
         __wbindgen_generic_0000000000000001: function(arg0, arg1) {
-            // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [Externref], shim_idx: 271, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
-<<<<<<<< HEAD:pages/xetal-web-32e274a0f245e9d5.js
-            const ret = makeMutClosure(arg0, arg1, wasm_bindgen__convert__closures_____invoke__h39e7a5d5f0aa1b6c);
-========
-            const ret = makeMutClosure(arg0, arg1, wasm_bindgen__convert__closures_____invoke__hd46734ccd4450b1b);
->>>>>>>> origin/pr/doc-release:pages/xetal-web-e4ec812fcd5f1947.js
+            // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [Externref], shim_idx: 270, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
+            const ret = makeMutClosure(arg0, arg1, wasm_bindgen__convert__closures_____invoke__h8b14834188510069);
             return ret;
         },
         __wbindgen_generic_0000000000000002: function(arg0, arg1) {
@@ -518,13 +514,8 @@ function __wbg_get_imports() {
     };
 }
 
-<<<<<<<< HEAD:pages/xetal-web-32e274a0f245e9d5.js
-function wasm_bindgen__convert__closures_____invoke__h39e7a5d5f0aa1b6c(arg0, arg1, arg2) {
-    wasm.wasm_bindgen__convert__closures_____invoke__h39e7a5d5f0aa1b6c(arg0, arg1, arg2);
-========
-function wasm_bindgen__convert__closures_____invoke__hd46734ccd4450b1b(arg0, arg1, arg2) {
-    wasm.wasm_bindgen__convert__closures_____invoke__hd46734ccd4450b1b(arg0, arg1, arg2);
->>>>>>>> origin/pr/doc-release:pages/xetal-web-e4ec812fcd5f1947.js
+function wasm_bindgen__convert__closures_____invoke__h8b14834188510069(arg0, arg1, arg2) {
+    wasm.wasm_bindgen__convert__closures_____invoke__h8b14834188510069(arg0, arg1, arg2);
 }
 
 function wasm_bindgen__convert__closures________invoke__ha4a644ec55ad8460(arg0, arg1, arg2) {

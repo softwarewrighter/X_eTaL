@@ -30,30 +30,97 @@
 </ul>
 <h2>On this page</h2>
 <ul>
+<li><a href="#section-1">Statements and definitions</a></li>
 <li class="item"><a href="#m.w_hen-3c"><span class="c-macro">ᵐw̲hen&lt;</span></a></li>
 <li class="item"><a href="#m.d_ef-3c"><span class="c-macro">ᵐd̲ef&lt;</span></a></li>
+<li><a href="#section-2">Checks</a></li>
 <li class="item"><a href="#m.c_heck-3c"><span class="c-macro">ᵐc̲heck&lt;</span></a></li>
+<li><a href="#section-3">Names a macro binds</a></li>
+<li class="item"><a href="#m.t_wice-3c"><span class="c-macro">ᵐt̲wice&lt;</span></a></li>
+<li class="item"><a href="#m.w_ith-3c"><span class="c-macro">ᵐw̲ith&lt;</span></a></li>
 </ul>
 </nav>
 <main>
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">macro library</span>lib/Macros.xtlm</h1>
+<div class="doc">
+<p>A small macro library, an example of macros of your own (MC10). A
+macro is an ordinary function of the source text written on each
+side of its call; the text it gives replaces the call, then is read
+as code. Import it with an alias of your own, &quot;x:&quot; u_se&lt; &quot;Macros&quot;,
+and see what a program becomes with xetal expand FILE.</p>
+</div>
 <p class="meta"><a href="lib-Macros.xtlm.src.html">source</a></p>
+<h2 class="section" id="section-1">Statements and definitions</h2>
 <div class="item" id="m.w_hen-3c">
 <h3><a href="#m.w_hen-3c"><span class="c-macro">ᵐw̲hen&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L10">line 10</a></div>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L16">line 16</a></div>
+<div class="doc">
+<p>Run the statements on the right when the condition on the left
+holds; the value is @ either way (the other way round from the
+system macro u_nless&lt;).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-string">&quot;1 &lt; 2&quot;</span> <a href="lib-Macros.xtlm.html#m.w_hen-3c" class="c-macro">ˣw̲hen&lt;</a> <span class="c-string">&quot;p_rint! 7&quot;</span>
+7
+@</pre>
+</div>
 <pre class="code"><span class="c-macro">ᵐw̲hen&lt;</span> ← { cond body → <span class="c-string">&quot;{ @ -&gt; (n_ot &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> cond <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) ? @; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> body <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;; @ } @&quot;</span> }</pre>
 </div>
 <div class="item" id="m.d_ef-3c">
 <h3><a href="#m.d_ef-3c"><span class="c-macro">ᵐd̲ef&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L14">line 14</a></div>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L24">line 24</a></div>
+<div class="doc">
+<p>Define the function named on the left (in u:) as the lambda body on
+the right, its name written as text.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-string">&quot;s_quare&quot;</span> <a href="lib-Macros.xtlm.html#m.d_ef-3c" class="c-macro">ˣd̲ef&lt;</a> <span class="c-string">&quot;_r * _r&quot;</span></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘs̲quare</span> <span class="c-number">7</span>
+49</pre>
+</div>
 <pre class="code"><span class="c-macro">ᵐd̲ef&lt;</span> ← { name body → <span class="c-string">&quot;u:&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> name <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; := { &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> body <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; }&quot;</span> }</pre>
 </div>
+<h2 class="section" id="section-2">Checks</h2>
 <div class="item" id="m.c_heck-3c">
 <h3><a href="#m.c_heck-3c"><span class="c-macro">ᵐc̲heck&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L19">line 19</a></div>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L34">line 34</a></div>
+<div class="doc">
+<p>The line &quot;ok: label&quot; when the condition on the left holds, else
+&quot;FAIL: label (cond)&quot;, the condition shown as it was written, which a
+function, given only the condition's value, cannot do.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-string">&quot;5 = 2 * 2&quot;</span> <a href="lib-Macros.xtlm.html#m.c_heck-3c" class="c-macro">ˣc̲heck&lt;</a> <span class="c-string">&quot;doubling&quot;</span>
+FAIL: doubling (5 = 2 * 2)</pre>
+</div>
 <pre class="code"><span class="c-macro">ᵐc̲heck&lt;</span> ← { cond label → <span class="c-string">&quot;{ @ -&gt; (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> cond <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) ? \&quot;ok: &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> label <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\&quot;; \&quot;FAIL: &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> label <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> cond <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;)\&quot; } @&quot;</span> }</pre>
+</div>
+<h2 class="section" id="section-3">Names a macro binds</h2>
+<div class="item" id="m.t_wice-3c">
+<h3><a href="#m.t_wice-3c"><span class="c-macro">ᵐt̲wice&lt;</span></a> <span class="type">: Unit -&gt; Char -&gt; Char</span></h3>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L45">line 45</a></div>
+<div class="doc">
+<p>Twice the expression on the right: the macro binds a local t (to 2)
+around your expression, and hygiene renames it (to g1:t, say), so a
+t of your own is still yours.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>t ← <span class="c-number">5</span></pre>
+<pre class="example"><span class="prompt">      </span>@ <a href="lib-Macros.xtlm.html#m.t_wice-3c" class="c-macro">ˣt̲wice&lt;</a> <span class="c-string">&quot;t + 1&quot;</span>
+12</pre>
+</div>
+<pre class="code"><span class="c-macro">ᵐt̲wice&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; t := 2; t * (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) } @&quot;</span> }</pre>
+</div>
+<div class="item" id="m.w_ith-3c">
+<h3><a href="#m.w_ith-3c"><span class="c-macro">ᵐw̲ith&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L54">line 54</a> &middot; binds <code>it</code></div>
+<div class="doc">
+<p>The text on the right with it bound to the value of the expression
+on the left (an anaphoric macro: it is meant for your text, so it is
+declared below and hygiene leaves it as written).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-string">&quot;3 + 4&quot;</span> <a href="lib-Macros.xtlm.html#m.w_ith-3c" class="c-macro">ˣw̲ith&lt;</a> <span class="c-string">&quot;it * it&quot;</span>
+49</pre>
+</div>
+<pre class="code"><span class="c-macro">ᵐw̲ith&lt;</span> ← { e body → <span class="c-string">&quot;{ @ -&gt; it := (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;); &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> body <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; } @&quot;</span> }</pre>
 </div>
 </main>
 </body>

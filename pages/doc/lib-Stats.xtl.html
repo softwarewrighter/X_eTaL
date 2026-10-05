@@ -45,12 +45,15 @@
 <div class="doc">
 <p>Stats: a small statistics library (a standard library, built into
 xetal). Import it with an alias of your choice: &quot;s:&quot; u_se&lt; &quot;Stats&quot;.
+It is a demo library, loaded only by that import: a small subset of
+X_eTaL-libraries' Statistics, which has much more (a program may use
+either).
 Names with l: are exported; the others are private to this file.</p>
 </div>
 <p class="meta"><a href="lib-Stats.xtl.src.html">source</a></p>
 <div class="item" id="l.m_ean">
 <h3><a href="#l.m_ean"><span class="c-libfunc">ˡm̲ean</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="lib-Stats.xtl.src.html#L9">line 9</a></div>
+<div class="meta">function &middot; <a href="lib-Stats.xtl.src.html#L12">line 12</a></div>
 <div class="doc">
 <p>The arithmetic mean, of Int or Float numbers.</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˢ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Stats.xtl.html" class="c-string">&quot;Stats&quot;</a></pre>
@@ -62,19 +65,19 @@ Names with l: are exported; the others are private to this file.</p>
 </div>
 <div class="item" id="s_quare">
 <h3><a href="#s_quare"><span class="c-builtin">s̲quare</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Stats.xtl.src.html#L11">line 11</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Stats.xtl.src.html#L14">line 14</a></div>
 <pre class="code"><span class="c-builtin">s̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍵</span> }                      <span class="c-comment">⍝</span><span class="c-comment"> private: not visible outside</span></pre>
 <div class="uses">Used in: <a href="lib-Stats.xtl.html#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a></div>
 </div>
 <div class="item" id="d_eviations">
 <h3><a href="#d_eviations"><span class="c-builtin">d̲eviations</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Stats.xtl.src.html#L12">line 12</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Stats.xtl.src.html#L15">line 15</a></div>
 <pre class="code"><span class="c-builtin">d̲eviations</span> ← [<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#-2d" class="c-symbol">−</a> <a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˡm̲ean</a>]</pre>
 <div class="uses">Used in: <a href="lib-Stats.xtl.html#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a></div>
 </div>
 <div class="item" id="l.v_ariance">
 <h3><a href="#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="lib-Stats.xtl.src.html#L18">line 18</a></div>
+<div class="meta">function &middot; <a href="lib-Stats.xtl.src.html#L21">line 21</a></div>
 <div class="doc">
 <p>The variance: the mean squared deviation from the mean.</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˢ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Stats.xtl.html" class="c-string">&quot;Stats&quot;</a></pre>
@@ -86,7 +89,7 @@ Names with l: are exported; the others are private to this file.</p>
 </div>
 <div class="item" id="l.s_d">
 <h3><a href="#l.s_d"><span class="c-libfunc">ˡs̲d</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="lib-Stats.xtl.src.html#L24">line 24</a></div>
+<div class="meta">function &middot; <a href="lib-Stats.xtl.src.html#L27">line 27</a></div>
 <div class="doc">
 <p>The standard deviation: the square root of the variance.</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˢ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Stats.xtl.html" class="c-string">&quot;Stats&quot;</a></pre>
@@ -97,7 +100,7 @@ Names with l: are exported; the others are private to this file.</p>
 </div>
 <div class="item" id="l.r_ange">
 <h3><a href="#l.r_ange"><span class="c-libfunc">ˡr̲ange</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="lib-Stats.xtl.src.html#L30">line 30</a></div>
+<div class="meta">function &middot; <a href="lib-Stats.xtl.src.html#L33">line 33</a></div>
 <div class="doc">
 <p>The range: the largest minus the smallest.</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˢ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Stats.xtl.html" class="c-string">&quot;Stats&quot;</a></pre>

@@ -18,16 +18,20 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 99 | 0 | 0 |
-| Language decisions | 120 | 0 | 4 |
+| Built-in functions | 105 | 0 | 0 |
+| Language decisions | 123 | 0 | 8 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 346 | 0 | 0 |
+| Spec cases | 354 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
+- **S11** (planned): Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents.
 - **T9** (planned): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
-- **B18** (planned): `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...).
+- **ER1** (planned): A program raises an error of its own with a typed system function: `"code" []S_IGNAL "message"` stops with (...).
+- **ER2** (planned): Errors are caught by a typed built-in, not by a macro: it runs a protected body (a lambda of `@`) and, on (...).
+- **ER3** (planned): A typed continue: the handler's value replaces the failing expression and the program goes on from there.
+- **ER4** (planned): The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler (...).
 - **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
 
 ## Built-in functions
@@ -37,7 +41,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `+` | `Num a => a -> a -> a` | works | 60 | 3 |
-| `-` | `Num a => a -> a -> a` | works | 26 | 2 |
+| `-` | `Num a => a -> a -> a` | works | 27 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 40 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
@@ -87,6 +91,17 @@ conventions (naming, layout) work without a spec case citing them.
 | `l_eft` | `a -> b -> a` | works | 1 | 2 |
 | `r_ight` | `a -> b -> b` | works | 2 | 2 |
 
+### QD2, QD3, QD7: system values and character codes
+
+| Name | Type | State | Spec cases | Reference examples |
+| ---- | ---- | ----- | ---------- | ------------------ |
+| `[]A` | `Char` | works | 2 | 2 |
+| `[]D` | `Char` | works | 1 | 1 |
+| `[]AV` | `Char` | works | 1 | 2 |
+| `[]IO` | `Int` | works | 1 | 1 |
+| `[]U_CS` | `Char -> Int` | works | 2 | 2 |
+| `[]U_CHAR` | `Int -> Char` | works | 2 | 3 |
+
 ### QD4: system functions (files, the keyboard) and numbers as text
 
 | Name | Type | State | Spec cases | Reference examples |
@@ -133,13 +148,13 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `s_hape` | `a -> Int` | works | 13 | 2 |
-| `t_ally` | `a -> Int` | works | 17 | 4 |
+| `t_ally` | `a -> Int` | works | 18 | 4 |
 | `r_ange` | `Int -> Int` | works | 37 | 1 |
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 5 | 4 |
 | `r_avel` | `a -> a` | works | 1 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 58 | 2 |
-| `t_ake` | `Int -> a -> a` | works | 10 | 5 |
+| `r_eshape` | `Int -> a -> a` | works | 59 | 2 |
+| `t_ake` | `Int -> a -> a` | works | 11 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 2 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 12 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 5 | 6 |
@@ -190,18 +205,18 @@ conventions (naming, layout) work without a spec case citing them.
 | `d_isplay` | `a -> Char` | works | 1 | 5 |
 | `p_artition` | `Truthy a => a -> b -> Box b` | works | 3 | 4 |
 
-### B12: encode and decode (radix on the left)
+### B12, B18: encode and decode (radix on the left; decode on any numbers)
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `e_ncode` | `Int -> Int -> Int` | works | 3 | 5 |
-| `d_ecode` | `Int -> Int -> Int` | works | 3 | 5 |
+| `e_ncode` | `Int -> Int -> Int` | works | 4 | 5 |
+| `d_ecode` | `Num a => a -> a -> a` | works | 5 | 7 |
 
 ### A2-A4: rotate and reverse (leading axis)
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `r_ev` | `a -> a` | works | 10 | 4 |
+| `r_ev` | `a -> a` | works | 11 | 4 |
 | `o_-` | `Int -> a -> a` | works | 5 | 6 |
 
 ### B17: transpose
@@ -259,10 +274,12 @@ conventions (naming, layout) work without a spec case citing them.
 | S8 | A Float literal may have an exponent: `e` or `E` right after the digits, then an optional `-` and digits, (...) | works | 7 |
 | S7 | The command is `xetal` (easy to type, matches the crate slug) | works | 0 |
 | S9 | Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...) | planned | 0 |
+| S10 | Doc examples are run (Saga 32 step doc-test), as rustdoc runs doc tests: `xetal doc --test FILE` runs the (...) | works | 0 |
+| S11 | Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents | planned | 0 |
 | T1 | A real `Bool` type; `=` and the comparisons return Bool | works | 4 |
 | T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and (...) | works | 3 |
 | T3 | `=` is exact (IEEE) equality and transitive; `(0.1 + 0.2) = 0.3` is 0 | works | 2 |
-| T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 4 |
+| T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 6 |
 | T6 | Programs are type-checked before they run: `xetal eval` and `xetal run` refuse an ill-typed program with a (...) | works | 5 |
 | T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 7 |
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
@@ -274,6 +291,10 @@ conventions (naming, layout) work without a spec case citing them.
 | E2 | A function is evaluated before its argument, so the evaluator knows whether the parameter is lazy | works | 0 |
 | E4 | Evaluation order is the function first, then its arguments right to left (APL order): in `x f y`, `f`, (...) | works | 1 |
 | E3 | The Y combinator works in its textbook shape when its functional marks its self parameter lazy; Z also works | works | 0 |
+| ER1 | A program raises an error of its own with a typed system function: `"code" []S_IGNAL "message"` stops with (...) | planned | 0 |
+| ER2 | Errors are caught by a typed built-in, not by a macro: it runs a protected body (a lambda of `@`) and, on (...) | planned | 0 |
+| ER3 | A typed continue: the handler's value replaces the failing expression and the program goes on from there | planned | 0 |
+| ER4 | The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler (...) | planned | 0 |
 | I1 | Source is ASCII, except inside string literals and comments, which may hold any Unicode (revised with the (...) | works | 2 |
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example (...) | works | 2 |
 | I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` (...) | works | 3 |
@@ -294,17 +315,18 @@ conventions (naming, layout) work without a spec case citing them.
 | B15 | `c_at_k` is APL's catenate along axis k (decided with the user, from the swimming-ducks demo): `c_at` (...) | works | 0 |
 | B16 | Nested arrays print as APL2's DISPLAY draws them (decided with the user for the classics lane): every (...) | works | 1 |
 | B17 | Transpose, decided with the user for the transpose lane (asked for by X_eTaL-demos, ADVANCEDEX and the (...) | works | 11 |
-| B18 | `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...) | planned | 0 |
+| B18 | `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...) | works | 3 |
 | SC1 | A symbol function applied to one argument is an error (`- 3`, `/ 2`, `2 +`): under currying it would fill (...) | works | 4 |
 | ST1 | A string is written `"..."` | works | 2 |
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 2 |
 | ST3 | A string is a 1-D array of characters: `"abc"` is a 3-element Char vector and every array function applies (...) | works | 2 |
-| QD1 | `[]` written touching a name is the system namespace, APL's quad: `[]A`, `[]D_L 0.5` | works | 1 |
-| QD2 | System values, read-only: `[]A` the alphabet `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"`, `[]D` the digits (...) | works | 0 |
+| QD1 | `[]` written touching a name is the system namespace, APL's quad: `[]A`, `[]D_L 0.5` | works | 2 |
+| QD2 | System values, read-only: `[]A` the alphabet `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"`, `[]D` the digits (...) | works | 1 |
 | QD3 | System functions live in the quad namespace and are named like any function: `[]D_L s` waits s seconds (...) | works | 1 |
 | QD4 | Files, the keyboard and numbers as text (decided with the user for TTTML's saved model and its moves): `t (...) | works | 3 |
 | QD6 | A terminal for interactive programs (asked for by X_eTaL-games): screen control is named, typed system (...) | works | 2 |
 | QD5 | Graphics, decided with the user for the classics lane: programs compute what to draw as ordinary arrays, (...) | works | 5 |
+| QD7 | One static type per quad name: `[]U_CS` is `Char -> Int` (the code of each character) and `[]U_CHAR` is (...) | works | 5 |
 | MC1 | A macro phase runs between the lexer and the parser | works | 0 |
 | MC2 | A macro is a function-shaped name ending in `<` ("slurp in"): `u_se<` | works | 1 |
 | MC3 | `u_se<` is applied like a dyadic function: `"c:" u_se< "Combinators"` inlines the library with its (...) | works | 1 |
