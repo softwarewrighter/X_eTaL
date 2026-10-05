@@ -1,6 +1,7 @@
 l:a_ttr : Char -> Char -> Char
 l:e_scape : Char -> Char
 l:f_ill : Char -> Char
+l:r_gb : Num a => a -> Char
 l:s_troke : Char -> a -> Char
 l:p_olygon : Char -> a -> Char
 l:p_olyline : Char -> a -> Char

@@ -1,7 +1,8 @@
 # The Geometry3D library (lib/Geometry3D.xtl): points are a 3-row
 # matrix (x over y over z), rotations are 3 x 3 matrices applied with
 # g:t_urn, a perspective projection gives the 2-row points []P_ATH
-# draws, and faces are ordered far to near for painting. Rounded here,
+# draws, and faces are ordered far to near for painting (the viewer
+# is up the z axis, so a larger z is nearer). Rounded here,
 # since cosines of right angles are only nearly 0.
 == SOURCE
 "g:" u_se< "Geometry3D"
@@ -27,7 +28,7 @@ s_hape g:c_ube 2
 1.0 2.0
 1.0 2.0
 -3.0 2.0
-2 1
+1 2
 3 8
 1.0  1.0 -1.0
 1.0 -1.0 -1.0
