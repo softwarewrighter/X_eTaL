@@ -19,14 +19,19 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 99 | 0 | 0 |
-| Language decisions | 122 | 0 | 2 |
+| Language decisions | 122 | 0 | 7 |
 | Standard libraries | 6 | 0 | 0 |
 | Spec cases | 337 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
+- **S11** (planned): Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents.
 - **T9** (planned): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
+- **ER1** (planned): A program raises an error of its own with a typed system function: `"code" []S_IGNAL "message"` stops with (...).
+- **ER2** (planned): Errors are caught by a typed built-in, not by a macro: it runs a protected body (a lambda of `@`) and, on (...).
+- **ER3** (planned): A typed continue: the handler's value replaces the failing expression and the program goes on from there.
+- **ER4** (planned): The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler (...).
 
 ## Built-in functions
 
@@ -258,6 +263,7 @@ conventions (naming, layout) work without a spec case citing them.
 | S7 | The command is `xetal` (easy to type, matches the crate slug) | works | 0 |
 | S9 | Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...) | planned | 0 |
 | S10 | Doc examples are run (Saga 32 step doc-test), as rustdoc runs doc tests: `xetal doc --test FILE` runs the (...) | works | 0 |
+| S11 | Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents | planned | 0 |
 | T1 | A real `Bool` type; `=` and the comparisons return Bool | works | 4 |
 | T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and (...) | works | 3 |
 | T3 | `=` is exact (IEEE) equality and transitive; `(0.1 + 0.2) = 0.3` is 0 | works | 2 |
@@ -273,6 +279,10 @@ conventions (naming, layout) work without a spec case citing them.
 | E2 | A function is evaluated before its argument, so the evaluator knows whether the parameter is lazy | works | 0 |
 | E4 | Evaluation order is the function first, then its arguments right to left (APL order): in `x f y`, `f`, (...) | works | 1 |
 | E3 | The Y combinator works in its textbook shape when its functional marks its self parameter lazy; Z also works | works | 0 |
+| ER1 | A program raises an error of its own with a typed system function: `"code" []S_IGNAL "message"` stops with (...) | planned | 0 |
+| ER2 | Errors are caught by a typed built-in, not by a macro: it runs a protected body (a lambda of `@`) and, on (...) | planned | 0 |
+| ER3 | A typed continue: the handler's value replaces the failing expression and the program goes on from there | planned | 0 |
+| ER4 | The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler (...) | planned | 0 |
 | I1 | Source is ASCII, except inside string literals and comments, which may hold any Unicode (revised with the (...) | works | 2 |
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example (...) | works | 2 |
 | I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` (...) | works | 3 |

@@ -908,23 +908,50 @@ values. The design is decided with the user first.
 | 6 | adt-retrofit | Programs that packed mixed state or chose by strings rewritten; goldens rebased on purpose. |
 | 7 | adt-release | README tour, reference, design register, CHANGES, pages. |
 
-## Saga 21 -- errors of one's own (assert, raise, catch)
+## Saga 21 -- errors of one's own (raise, catch, retry, continue)
 
 Asked for by X_eTaL-libraries (ask X3) and on the wish list (error
 handling, tests in XeTaL): a program cannot stop with an error it
 chooses, nor recover from one (a failing `[]N_GET`). Decided with the
-user to come after macros. The design is open and is made with the
-user first: the spelling (`a_ssert`, a raise built-in, a typed result
-or a handler-taking `t_ry`), error kinds and messages, the exit
-status, and how a caught error is typed.
+user (2026-10-04; lang-choices ER1-ER4): `[]S_IGNAL` raises an error
+of one's own; a typed built-in runs a protected body and, on an error,
+a handler whose outcome is recover (a value of the body's type), retry,
+halt or a typed continue (for errors raised resumably), with a cleanup
+that always runs; `t_ry<`, `c_atch<`, `f_inally<` and the handler's
+`r_ecover<`, `r_etry<`, `h_alt<`, `c_ontinue<` are System.xtlm macros
+over those built-ins. Run as lanes/errors (one PR per step).
 
 | Step | Slug | Content |
 | ---- | ---- | ------- |
-| 1 | errors-decisions | Decide the design with the user; record it in lang-choices and the design register. |
-| 2 | assert-and-raise | Stop with one's own message and a non-zero exit status (`k:a_ssert 5 = 6` style); spec cases and goldens. |
-| 3 | catch | Recover from an error, typed as decided; `[]N_GET` on a missing file as the first case. |
-| 4 | errors-retrofit | The Check library's text-report workaround and other workarounds rewritten; goldens rebased on purpose. |
-| 5 | errors-release | README tour, reference, CHANGES, pages, retrospective. |
+| 1 | signal | `[]S_IGNAL`: an error of one's own, reported as any error, a non-zero exit status uncaught; `[]P_ANIC` as a signal; spec cases and goldens. |
+| 2 | trap | The trap built-in: a protected body, codes to catch, a handler given an `Error` (code, message, place, read by quads) choosing recover, retry or halt, a cleanup always run; the step evaluator unwinds to it; `[]N_GET` of a missing file as the first case. Names settled with the user. |
+| 3 | continue | The typed continue (ER3): the resumable form of a signal, designed with the user, and resuming at the point of error. |
+| 4 | try-macros | System.xtlm: `t_ry<`, `c_atch<`, `f_inally<`, `r_ecover<`, `r_etry<`, `h_alt<`, `c_ontinue<`, with doc comments and examples (run by `xetal doc --test`). |
+| 5 | errors-retrofit | Check's text-report workaround and other workarounds rewritten; goldens rebased on purpose. |
+| 6 | errors-release | README tour, reference, literate section, CHANGES, pages. |
+
+## Saga 33 -- unit tests (`xetal test`, assertions, xetalunit)
+
+Asked for by the user (2026-10-04), after sw-MLPL's mlplunit: unit
+testing of X_eTaL programs and libraries in the manner of JUnit 4 and
+TestNG. Decided with the user: tests are definitions of `@` tagged
+`## @test` in a `tests/` directory (S11: `@expect error[code]`,
+`@skip`, `@tag name`; any other `@word` is an error); `xetal test`
+finds and runs them, each in its own session (the doc tests'
+machinery), reporting as `cargo test` does (and JUnit XML for CI),
+with a non-zero exit status on a failure; Check is split: its
+assertions become a standard library here (usable by X_eTaL's own
+tests and doc tests), and xetalunit, a separate library in
+X_eTaL-libraries, builds fixtures, parameterized cases and reports on
+them. After Saga 21, so `@expect` and xetalunit can use catching.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | test-tags | S11: `## @` tags in the doc model, unknown tags an error (`xetal doc` reports them too). |
+| 2 | xetal-test | `xetal test [FILE or DIR]`: `tests/` found, each test one session, `@expect` matched, report, JUnit XML, exit status; goldens; the gate runs this repository's tests. |
+| 3 | assertions | The assertion standard library (from Check's `i_s`, `n_ear`, ...), with doc examples; X_eTaL-libraries' Check rebased on it. |
+| 4 | xetalunit | In X_eTaL-libraries (that repository's PR): fixtures, parameterized cases and reports on the assertions and `xetal test`. |
+| 5 | tests-everywhere | `tests/` and `just test` in each sibling repository, through each one's own process. |
 
 ## Saga 13a -- retrofit (newer features in older programs)
 
