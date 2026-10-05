@@ -94,6 +94,18 @@ fn a_files_imports_name_the_files_found() {
 }
 
 #[test]
+fn each_macro_call_comes_with_its_expansion() {
+    let files = app();
+    let calls: Vec<(&str, usize)> = files[0]
+        .expansions
+        .iter()
+        .map(|e| (e.name.as_str(), e.line))
+        .collect();
+    assert_eq!(calls, [("g:w_hen<", 13)]);
+    assert!(files[1].expansions.is_empty());
+}
+
+#[test]
 fn a_bad_program_is_a_diagnostic_not_a_panic() {
     assert!(model("bad.xtl", "x := ( 1").is_err());
 }

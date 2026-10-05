@@ -89,6 +89,7 @@ fn doc_file(s: &Sources, i: usize) -> DocFile {
         doc: file_doc(s.written_text(i)),
         imports: imports_of(name, s.written_text(i)),
         items: Vec::new(),
+        expansions: Vec::new(),
         text: s.written_text(i).to_string(),
     }
 }

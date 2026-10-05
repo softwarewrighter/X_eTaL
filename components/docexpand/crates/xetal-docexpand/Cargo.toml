@@ -1,0 +1,16 @@
+[package]
+name = "xetal-docexpand"
+description = "xetal doc: each macro call of a file with the text its macro gave, the calls in that text expanded in turn"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-lex.workspace = true
+xetal-expand.workspace = true
+xetal-macro.workspace = true
+xetal-sources.workspace = true
+xetal-program.workspace = true

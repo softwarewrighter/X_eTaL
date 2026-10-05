@@ -35,7 +35,15 @@ fn text_is_escaped() {
 
 #[test]
 fn source_lines_are_numbered_with_anchors() {
-    let html = lined("x := 1\ny := 2\n", &[], &href);
+    let after = |n: usize| match n {
+        1 => "<details>one</details>".to_string(),
+        _ => String::new(),
+    };
+    let html = lined("x := 1\ny := 2\n", &[], &href, &after);
+    assert!(
+        html.contains("</span>\n<details>one</details><span class=\"line\" id=\"L2\">"),
+        "{html}"
+    );
     assert!(
         html.contains("<span class=\"line\" id=\"L1\"><a class=\"ln\" href=\"#L1\">1</a>"),
         "{html}"

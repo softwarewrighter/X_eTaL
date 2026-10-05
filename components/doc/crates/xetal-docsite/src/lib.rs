@@ -7,6 +7,7 @@
 //! Every name is linked to what it names; light and dark styles.
 
 mod context;
+mod expansion;
 mod index;
 mod item;
 mod layout;

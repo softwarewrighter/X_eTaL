@@ -4,8 +4,26 @@
 
 use std::path::PathBuf;
 
-use xetal_doc::{DocFile, model};
+use xetal_doc::{DocFile, imports_of, model};
 use xetal_doclink::{Resolver, Target, links, uses};
+
+#[test]
+fn an_examples_import_links_the_names_after_it() {
+    let files = app();
+    let r = Resolver::new(&files);
+    let code = "g:h_ello \"Ann\"";
+    assert!(links(&r, 1, code).is_empty(), "no g: in Greet.xtl itself");
+    let session = r.session(imports_of(&files[1].name, "\"g:\" u_se< \"Greet\""));
+    let found = links(&session, 1, code);
+    let hello = files[1].items.iter().position(|i| i.name == "l:h_ello");
+    assert_eq!(
+        found[0].target,
+        Target::Item {
+            file: 1,
+            item: hello.expect("hello")
+        }
+    );
+}
 
 fn fixtures() -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../fixtures")
@@ -119,4 +137,16 @@ fn uses_list_each_items_places_across_files() {
     let greet_all = Target::Item { file: 0, item: 0 };
     let lines: Vec<usize> = all[&greet_all].iter().map(|(_, l)| *l).collect();
     assert_eq!(lines, [12]);
+}
+
+#[test]
+fn a_use_inside_a_macros_argument_counts_at_the_calls_line() {
+    let files = app();
+    let all = uses(&Resolver::new(&files));
+    let count = files[1].items.iter().position(|i| i.name == "l:count");
+    let at = &all[&Target::Item {
+        file: 1,
+        item: count.expect("count"),
+    }];
+    assert_eq!(at, &[(0, 13)]);
 }

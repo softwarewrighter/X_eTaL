@@ -104,6 +104,26 @@ fn docs_examples_and_source_lines_are_drawn() {
 }
 
 #[test]
+fn a_macro_call_shows_its_expansion_in_place_linked_to_the_macro() {
+    let files = app();
+    let pages = site(&files);
+    let main = xetal_dochtml::page(&files[0].name);
+    let macros = xetal_dochtml::page(&files[2].name);
+    let source = page(&pages, &format!("{main}.src.html"));
+    let line = source.find("id=\"L13\"").expect("line 13");
+    let rest = &source[line..];
+    let details = rest
+        .find("<details class=\"expansion\">")
+        .expect("expansion");
+    assert!(details < rest.find("id=\"L14\"").unwrap_or(usize::MAX));
+    assert!(
+        rest.contains(&format!("href=\"{macros}.html#m.w_hen-3c\"")),
+        "{rest}"
+    );
+    assert!(rest.contains("expands to</summary>"), "{rest}");
+}
+
+#[test]
 fn the_site_is_written_into_a_directory() {
     let dir = std::env::temp_dir().join(format!("xetal-docsite-{}-write", std::process::id()));
     let _ = std::fs::remove_dir_all(&dir);

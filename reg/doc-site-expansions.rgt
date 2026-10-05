@@ -1,0 +1,3 @@
+command = """rm -rf work/doc-site-expansions && ./target/debug/xetal doc --out work/doc-site-expansions components/doc/fixtures/app.xtl >/dev/null && grep -B1 'class="expansion"' work/doc-site-expansions/components-doc-fixtures-app.xtl.src.html"""
+exit_code = 0
+desc = "xetal doc --out: a macro call on a source page with its expansion in place under its line, collapsed: the macro linked to its definition in the macro library, its text drawn decorated with every name linked"

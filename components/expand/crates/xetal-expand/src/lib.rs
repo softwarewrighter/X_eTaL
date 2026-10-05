@@ -11,6 +11,7 @@ mod copied;
 mod expand;
 mod user;
 
+pub use calls::{Call, calls};
 pub use expand::{DEPTH, expand, expand_with};
 pub use user::{MacroCall, Macros, NoMacros};
 pub use xetal_mapped::{Mapped, Piece};

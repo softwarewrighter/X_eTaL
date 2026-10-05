@@ -1,6 +1,6 @@
 number = 4
 slug = "doc-macros"
-status = "pending"
+status = "in-progress"
 description = "Doc lane (see lanes/doc/.agentrail/plan.md), step doc-macros. TDD; the gate b..."
 role = "production"
 context_files = []

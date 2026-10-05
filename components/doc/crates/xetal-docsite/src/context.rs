@@ -42,6 +42,12 @@ impl<'a> Ctx<'a> {
         code(text, &links(&self.r, file, text), &|t| self.href(t))
     }
 
+    /// `text` drawn as [`Ctx::draw`] does, its names resolved by `r`
+    /// (an example's session).
+    pub(crate) fn draw_with(&self, r: &Resolver, file: usize, text: &str) -> String {
+        code(text, &links(r, file, text), &|t| self.href(t))
+    }
+
     /// A name drawn decorated, not linked.
     pub(crate) fn name(&self, text: &str) -> String {
         code(text, &[], &|_| String::new())

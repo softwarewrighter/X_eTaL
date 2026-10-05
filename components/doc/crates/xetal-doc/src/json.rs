@@ -26,17 +26,24 @@ fn file(f: &DocFile) -> String {
             ])
         })
         .collect();
+    let expansions: Vec<String> = f.expansions.iter().map(|e| e.to_json()).collect();
     let fields = [
         ("name", string(&f.name)),
         ("kind", string(f.kind)),
         ("doc", doc_text(&f.doc)),
         ("imports", format!("[{}]", imports.join(", "))),
+        ("expansions", format!("[{}]", expansions.join(", "))),
         ("items", format!("[\n{}\n      ]", items.join(",\n"))),
     ];
     object(&fields, 4)
 }
 
 fn item(i: &Item) -> String {
+    let binds: Vec<String> = i
+        .doc
+        .iter()
+        .flat_map(|d| d.binds.iter().map(|b| string(b)))
+        .collect();
     let uses: Vec<String> = i
         .uses
         .iter()
@@ -68,6 +75,7 @@ fn item(i: &Item) -> String {
         ),
         ("doc", doc_text(&i.doc)),
         ("examples", format!("[{}]", examples.join(", "))),
+        ("binds", format!("[{}]", binds.join(", "))),
         ("source", string(&i.source)),
         ("uses", format!("[{}]", uses.join(", "))),
     ];

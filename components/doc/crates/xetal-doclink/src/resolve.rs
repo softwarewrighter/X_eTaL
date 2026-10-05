@@ -2,7 +2,7 @@
 //! export of the library imported under its alias, a system macro, or
 //! a built-in.
 
-use xetal_doc::DocFile;
+use xetal_doc::{DocFile, Import};
 
 use crate::lookup::{builtin, export};
 use crate::name::Name;
@@ -16,14 +16,30 @@ pub enum Target {
     Builtin(&'static str),
 }
 
-/// Resolves names among the documented files.
+/// Resolves names among the documented files; `extra` holds imports
+/// made by examples (S10: `## >> "g:" u_se< "Greet"` imports for the
+/// rest of its doc comment's examples).
 pub struct Resolver<'a> {
     pub files: &'a [DocFile],
+    pub extra: Vec<Import>,
 }
 
 impl<'a> Resolver<'a> {
     pub fn new(files: &'a [DocFile]) -> Self {
-        Resolver { files }
+        let extra = Vec::new();
+        Resolver { files, extra }
+    }
+
+    /// This resolver with the imports `extra` made too.
+    pub fn session(&self, extra: Vec<Import>) -> Resolver<'a> {
+        let files = self.files;
+        Resolver { files, extra }
+    }
+
+    /// The imports file `file` sees: its own, then the examples'.
+    pub fn imports(&self, file: usize) -> impl Iterator<Item = &Import> {
+        let own = self.files.get(file).map_or(&[][..], |f| &f.imports[..]);
+        own.iter().chain(&self.extra)
     }
 
     /// What `name`, written in file `file`, names.
@@ -49,7 +65,7 @@ impl<'a> Resolver<'a> {
     /// `alias:key`: the export `key` of a file imported as `alias`.
     fn imported(&self, file: usize, name: &Name) -> Option<Target> {
         let ns = name.ns.as_deref()?;
-        let import = self.files[file].imports.iter().find(|i| i.alias == ns)?;
+        let import = self.imports(file).find(|i| i.alias == ns)?;
         let mut found = import.files.iter().filter_map(|f| self.file_index(f));
         found.find_map(|f| export(self.files, f, &name.key))
     }

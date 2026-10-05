@@ -5,6 +5,7 @@
       "kind": "program",
       "doc": "A program that greets: the xetal doc tests' main file.",
       "imports": [{"alias": "g", "spec": "Greet", "files": ["components/doc/fixtures/Greet.xtl", "components/doc/fixtures/Greet.xtlm"]}],
+      "expansions": [{"line": 13, "macro": "g:w_hen<", "call": "\"1 = 1\" g:w_hen< \"p_rint! g:count\"", "text": "{ @ -> (n_ot 1 = 1) ? @; p_rint! g:count; @ } @", "nested": []}],
       "items": [
         {
           "name": "u:g_reetAll",
@@ -15,6 +16,7 @@
           "section": null,
           "doc": "Greet everyone in a list, shouting.",
           "examples": [{"code": "u:g_reetAll \"Cy\"", "output": "Hello, Cy!"}],
+          "binds": [],
           "source": "u:g_reetAll := { n -> g:s_hout n }",
           "uses": [{"written": "g:s_hout", "file": "components/doc/fixtures/Greet.xtl", "item": "l:s_hout"}]
         },
@@ -27,6 +29,7 @@
           "section": null,
           "doc": null,
           "examples": [],
+          "binds": [],
           "source": "names := \"Ann\"",
           "uses": []
         }
@@ -37,6 +40,7 @@
       "kind": "library",
       "doc": "Greetings: a small library that the xetal doc tests document.",
       "imports": [],
+      "expansions": [],
       "items": [
         {
           "name": "l:h_ello",
@@ -47,6 +51,7 @@
           "section": "Saying hello",
           "doc": "The greeting for a name.",
           "examples": [{"code": "\"g:\" u_se< \"Greet\"", "output": ""}, {"code": "g:h_ello \"Ann\"", "output": "Hello, Ann"}],
+          "binds": [],
           "source": "l:h_ello := { n -> \"Hello, \" c_at n }",
           "uses": []
         },
@@ -59,6 +64,7 @@
           "section": "Saying hello",
           "doc": "A greeting shouted.\n\nIt reuses the plain greeting.",
           "examples": [{"code": "\"g:\" u_se< \"Greet\"", "output": ""}, {"code": "g:s_hout \"Bo\"", "output": "Hello, Bo!"}, {"code": "g:count", "output": "2"}],
+          "binds": [],
           "source": "l:s_hout := { n -> (l:h_ello n) c_at mark }",
           "uses": [{"written": "l:h_ello", "file": "components/doc/fixtures/Greet.xtl", "item": "l:h_ello"}, {"written": "mark", "file": "components/doc/fixtures/Greet.xtl", "item": "mark"}]
         },
@@ -71,6 +77,7 @@
           "section": "Values",
           "doc": null,
           "examples": [],
+          "binds": [],
           "source": "mark := \"!\"",
           "uses": []
         },
@@ -83,6 +90,7 @@
           "section": "Values",
           "doc": "How many greetings there are.",
           "examples": [],
+          "binds": [],
           "source": "l:count := 2",
           "uses": []
         }
@@ -93,6 +101,7 @@
       "kind": "macro library",
       "doc": "Greeting macros, beside Greet.xtl under the same alias.",
       "imports": [],
+      "expansions": [],
       "items": [
         {
           "name": "m:w_hen<",
@@ -103,6 +112,7 @@
           "section": null,
           "doc": "\"c\" g:w_hen< \"b\": run b when c holds.",
           "examples": [],
+          "binds": [],
           "source": "m:w_hen< := { cond body -> \"{ @ -> (n_ot \" c_at cond c_at \") ? @; \" c_at body c_at \"; @ } @\" }",
           "uses": []
         }

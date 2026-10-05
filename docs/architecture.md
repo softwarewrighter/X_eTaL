@@ -131,6 +131,9 @@ components/
                            rendered panes), xetal-term (terminal
                            guard), xetal-edit (`xetal edit`)
   line/                    xetal-line: the REPL's live line editor
+  docexpand/               xetal-docexpand (each macro call of a file
+                           with the text its macro gave, nested to
+                           their depth: what `xetal doc` shows in place)
   doc/                     `xetal doc` (Saga 32): xetal-doccom (doc
                            comments, S9: the `##` block above a
                            definition, the file's block, `###`
