@@ -113,6 +113,10 @@
 </td></tr>
 <tr id="-5b-5dIO"><td><code><span class="c-builtin">⎕IO</span></code></td><td><code>Int</code></td><td><p>The index origin: always 1 (there is no setting).</p>
 </td></tr>
+<tr id="-5b-5dTS"><td><code><span class="c-builtin">⎕TS</span></code></td><td><code>Int</code></td><td><p>The local time stamp: year, month, day, hour, minute, second and millisecond, read each time it is used (a host without a clock reports <code>error[no<span class="c-symbol">−</span>clock]</code>). Shown here by its shape, since it changes.</p>
+</td></tr>
+<tr id="-5b-5dD_L"><td><code><span class="c-builtin">⎕D̲L</span></code></td><td><code>Num a =&gt; a -&gt; Float</code></td><td><p>Wait the given seconds (an Int or a Float); the result is the seconds actually waited, at least those asked for. A negative delay is an error.</p>
+</td></tr>
 <tr id="-5b-5dU_CS"><td><code><span class="c-builtin">⎕U̲CS</span></code></td><td><code>Char -&gt; Int</code></td><td><p>The code of each character, keeping the shape. Codes go back to characters with <code><span class="c-builtin">⎕U̲CHAR</span></code>.</p>
 </td></tr>
 <tr id="-5b-5dU_CHAR"><td><code><span class="c-builtin">⎕U̲CHAR</span></code></td><td><code>Int -&gt; Char</code></td><td><p>The character of each code, 0 to 127; another code is an error.</p>
