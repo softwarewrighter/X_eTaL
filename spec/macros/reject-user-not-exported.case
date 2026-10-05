@@ -4,4 +4,4 @@
 "x:" u_se< "Macros"
 "a" x:n_ope< "b"
 == ERROR
-error[not-exported]: x:n_ope< is not defined by that macro library; it defines w_hen<, d_ef<, c_heck< at 24..32
+error[not-exported]: x:n_ope< is not defined by that macro library; it defines w_hen<, d_ef<, c_heck<, t_wice<, w_ith< at 24..32

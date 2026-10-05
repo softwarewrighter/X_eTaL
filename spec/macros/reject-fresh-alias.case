@@ -1,0 +1,5 @@
+# g and a number cannot be an alias either (MC30, MC8 row 5).
+== SOURCE
+"g1:" u_se< "Stats"
+== ERROR
+error[reserved-alias]: g and a number (g1:) cannot be an alias: it names what a macro binds at 0..5

@@ -1,0 +1,13 @@
+# Hygiene (MC30): x:t_wice< binds a local t around the text of its
+# call; the macro phase renames that binder to a fresh name, so the
+# program's own t (5) is the one its text sees: 2 * (5 + 1).
+== SOURCE
+"x:" u_se< "Macros"
+t := 5
+@ x:t_wice< "t + 1"
+== EXPAND
+"x:" u_se< "Macros"
+t := 5
+{ @ -> g1:t := 2; g1:t * (t + 1) } @
+== RESULT
+12

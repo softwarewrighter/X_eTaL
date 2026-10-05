@@ -21,6 +21,9 @@ pub(crate) fn valid_alias(alias: &str, span: Span) -> Result<(), Diagnostic> {
         );
         return Err(fail("bad-alias", span, message));
     }
+    if xetal_lex::is_fresh(letters) {
+        return Err(fail("reserved-alias", span, FRESH));
+    }
     if letters == "u" || letters == "l" {
         return Err(fail("reserved-alias", span, RESERVED));
     }
@@ -29,6 +32,8 @@ pub(crate) fn valid_alias(alias: &str, span: Span) -> Result<(), Diagnostic> {
 
 pub(crate) const RESERVED: &str =
     "u: and l: cannot be aliases (u: is the program, l: a library itself)";
+pub(crate) const FRESH: &str =
+    "g and a number (g1:) cannot be an alias: it names what a macro binds";
 pub(crate) const MISSING: &str = "u_se< needs an alias on its left: \"c:\" u_se< \"Library\"";
 pub(crate) const STRINGS: &str = "both sides of u_se< are strings: \"c:\" u_se< \"Library\"";
 pub(crate) const MISPLACED: &str = "u_se< is a statement of its own at the top level of a file";

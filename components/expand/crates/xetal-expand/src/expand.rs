@@ -5,7 +5,10 @@ use xetal_base::{Diagnostic, Span};
 use xetal_lex::lex;
 use xetal_mapped::Mapped;
 
+use std::cell::Cell;
+
 use crate::calls::{Call, calls};
+use crate::hygiene::{hygiene, unwritten};
 use crate::user::{Macros, NoMacros, user};
 
 /// How deeply expansions may hold further macro calls.
@@ -21,10 +24,23 @@ pub fn expand(text: &str) -> Result<Mapped, Diagnostic> {
 /// `text`; errors are located in `text`. Text that does not lex is left
 /// as it is (the parser reports it).
 pub fn expand_with(text: &str, macros: &dyn Macros) -> Result<Mapped, Diagnostic> {
-    expand_at(&Mapped::new(text), macros, 0)
+    if let Ok(tokens) = lex(text) {
+        unwritten(&tokens)?;
+    }
+    let cx = Cx {
+        macros,
+        fresh: Cell::new(0),
+    };
+    expand_at(&Mapped::new(text), &cx, 0)
 }
 
-fn expand_at(src: &Mapped, macros: &dyn Macros, depth: usize) -> Result<Mapped, Diagnostic> {
+/// The macros, and the count of fresh names given so far (hygiene).
+struct Cx<'a> {
+    macros: &'a dyn Macros,
+    fresh: Cell<usize>,
+}
+
+fn expand_at(src: &Mapped, cx: &Cx, depth: usize) -> Result<Mapped, Diagnostic> {
     let Ok(tokens) = lex(src.text()) else {
         return Ok(src.clone());
     };
@@ -39,8 +55,8 @@ fn expand_at(src: &Mapped, macros: &dyn Macros, depth: usize) -> Result<Mapped, 
     let (mut out, mut at) = (Mapped::default(), 0);
     for call in &found {
         out.push(&src.slice(at..call.span.start));
-        let expanded = expansion(src, call, macros).map_err(located)?;
-        out.push(&expand_at(&expanded, macros, depth + 1)?);
+        let expanded = expansion(src, call, cx).map_err(located)?;
+        out.push(&expand_at(&expanded, cx, depth + 1)?);
         at = call.span.end;
     }
     out.push(&src.slice(at..src.text().len()));
@@ -48,7 +64,7 @@ fn expand_at(src: &Mapped, macros: &dyn Macros, depth: usize) -> Result<Mapped, 
 }
 
 /// The text `call` stands for, its arguments mapped where they were written.
-fn expansion(src: &Mapped, call: &Call, macros: &dyn Macros) -> Result<Mapped, Diagnostic> {
+fn expansion(src: &Mapped, call: &Call, cx: &Cx) -> Result<Mapped, Diagnostic> {
     let side = |text: bool, span: Span| match text {
         true => inside(src, span),
         false => Mapped::default(),
@@ -57,7 +73,8 @@ fn expansion(src: &Mapped, call: &Call, macros: &dyn Macros) -> Result<Mapped, D
         side(call.texts.0, call.left),
         side(call.texts.1, call.right),
     );
-    user(call, (&left, &right), macros, src.span(call.span))
+    let (text, binds) = user(call, (&left, &right), cx.macros, src.span(call.span))?;
+    Ok(hygiene(&text, &binds, &cx.fresh))
 }
 
 /// The inside of the string literal at `span`, escapes replaced.

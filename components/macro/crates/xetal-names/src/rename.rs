@@ -34,6 +34,7 @@ pub(crate) fn rename(
     let hidden = match (ns.as_deref(), cx.library) {
         (None, Some((_, private))) if privates.contains(&key) && !bound => private.to_string(),
         (None, _) | (Some("u"), None) | (Some(xetal_lex::SYSTEM), _) => return Ok(None),
+        (Some(ns), _) if xetal_lex::is_fresh(ns) => return Ok(None),
         (Some("u"), Some(_)) => return Err(fail("user-name-in-library", t.span, U_IN_LIBRARY)),
         (Some(ns), Some((own, _))) if ns == cx.own => own.to_string(),
         (Some("l"), Some(_)) => return Err(fail("library-name-in-macros", t.span, L_IN_MACROS)),

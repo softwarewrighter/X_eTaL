@@ -23,6 +23,7 @@ impl Lower {
             ExprKind::Var(v) => {
                 let name = format!("{}{}", v.name, if v.mutable { "!" } else { "" });
                 match &v.ns {
+                    Some(ns) if xetal_lex::is_fresh(ns) => Kind::Var(format!("{ns}:{name}")),
                     Some(ns) => Kind::Global(format!("{ns}:{name}")),
                     None => Kind::Var(name),
                 }
@@ -115,6 +116,7 @@ impl Lower {
         let spelled = n.spelled();
         let kind = match n.ns.as_deref() {
             Some(xetal_lex::SYSTEM) => Kind::Prim(format!("{}{spelled}", xetal_lex::SYSTEM)),
+            Some(ns) if xetal_lex::is_fresh(ns) => Kind::Var(format!("{ns}:{spelled}")),
             Some(ns) => Kind::Global(format!("{ns}:{spelled}")),
             None if self.is_bound(&spelled) => Kind::Var(spelled),
             None => Kind::Prim(spelled),

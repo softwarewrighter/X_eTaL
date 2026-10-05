@@ -1,19 +1,54 @@
-# Macros.xtlm: a small macro library, an example of macros of your own
-# (lang-choices MC10). A macro is an ordinary function of the source
-# text written on each side of its call; the text it gives replaces
-# the call, then is read as code. Import it with an alias of your own:
-#   "x:" u_se< "Macros"
-# and see what a program becomes with `xetal expand FILE`.
+## A small macro library, an example of macros of your own (MC10). A
+## macro is an ordinary function of the source text written on each
+## side of its call; the text it gives replaces the call, then is read
+## as code. Import it with an alias of your own, "x:" u_se< "Macros",
+## and see what a program becomes with xetal expand FILE.
 
-# "c" x:w_hen< "b": run the statements b when c holds (the value is
-# @), the other way round from the system macro u_nless<.
+### Statements and definitions
+
+## Run the statements on the right when the condition on the left
+## holds; the value is @ either way (the other way round from the
+## system macro u_nless<).
+## >> "x:" u_se< "Macros"
+## >> "1 < 2" x:w_hen< "p_rint! 7"
+## 7
+## @
 m:w_hen< := { cond body -> "{ @ -> (n_ot " c_at cond c_at ") ? @; " c_at body c_at "; @ } @" }
 
-# "s_quare" x:d_ef< "_r * _r": define the function u:s_quare as
-# { _r * _r }, its name written as text.
+## Define the function named on the left (in u:) as the lambda body on
+## the right, its name written as text.
+## >> "x:" u_se< "Macros"
+## >> "s_quare" x:d_ef< "_r * _r"
+## >> u:s_quare 7
+## 49
 m:d_ef< := { name body -> "u:" c_at name c_at " := { " c_at body c_at " }" }
 
-# "4 = 2 + 2" x:c_heck< "addition": the line "ok: addition" or
-# "FAIL: addition (4 = 2 + 2)", the condition shown as it was written,
-# which a function, given only the condition's value, cannot do.
+### Checks
+
+## The line "ok: label" when the condition on the left holds, else
+## "FAIL: label (cond)", the condition shown as it was written, which a
+## function, given only the condition's value, cannot do.
+## >> "x:" u_se< "Macros"
+## >> "5 = 2 * 2" x:c_heck< "doubling"
+## FAIL: doubling (5 = 2 * 2)
 m:c_heck< := { cond label -> "{ @ -> (" c_at cond c_at ") ? \"ok: " c_at label c_at "\"; \"FAIL: " c_at label c_at " (" c_at cond c_at ")\" } @" }
+
+### Names a macro binds
+
+## Twice the expression on the right: the macro binds a local t (to 2)
+## around your expression, and hygiene renames it (to g1:t, say), so a
+## t of your own is still yours.
+## >> "x:" u_se< "Macros"
+## >> t := 5
+## >> @ x:t_wice< "t + 1"
+## 12
+m:t_wice< := { @ e -> "{ @ -> t := 2; t * (" c_at e c_at ") } @" }
+
+## The text on the right with it bound to the value of the expression
+## on the left (an anaphoric macro: it is meant for your text, so it is
+## declared below and hygiene leaves it as written).
+## binds: it
+## >> "x:" u_se< "Macros"
+## >> "3 + 4" x:w_ith< "it * it"
+## 49
+m:w_ith< := { e body -> "{ @ -> it := (" c_at e c_at "); " c_at body c_at " } @" }

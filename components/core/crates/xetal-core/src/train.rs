@@ -6,6 +6,14 @@ use xetal_syntax::{Fun, FunKind, Lambda, Params, Target};
 use crate::lower::Lower;
 use xetal_ir::{Expr, Kind, Param};
 
+/// A fresh name's prefix (`g1:`, hygiene), else nothing.
+pub(crate) fn fresh(ns: &Option<String>) -> String {
+    match ns.as_deref() {
+        Some(ns) if xetal_lex::is_fresh(ns) => format!("{ns}:"),
+        _ => String::new(),
+    }
+}
+
 impl Lower {
     /// Curried one-parameter lambdas; `_l` / `_r` are ordinary names
     /// that the innermost lambda rebinds (L2).
@@ -22,10 +30,13 @@ impl Lower {
                 .map(|p| {
                     let name = match &p.name {
                         None => return (Param::Unit, false),
-                        Some(Target::Var(v)) => {
-                            format!("{}{}", v.name, if v.mutable { "!" } else { "" })
-                        }
-                        Some(Target::Func(f)) => f.spelled(),
+                        Some(Target::Var(v)) => format!(
+                            "{}{}{}",
+                            fresh(&v.ns),
+                            v.name,
+                            if v.mutable { "!" } else { "" }
+                        ),
+                        Some(Target::Func(f)) => format!("{}{}", fresh(&f.ns), f.spelled()),
                     };
                     (Param::Name(name), p.lazy)
                 })

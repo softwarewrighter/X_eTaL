@@ -1,3 +1,5 @@
 m:w_hen< : Char -> Char -> Char
 m:d_ef< : Char -> Char -> Char
 m:c_heck< : Char -> Char -> Char
+m:t_wice< : Unit -> Char -> Char
+m:w_ith< : Char -> Char -> Char
