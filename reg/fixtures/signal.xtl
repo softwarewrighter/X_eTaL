@@ -1,0 +1,6 @@
+#!/usr/bin/env xetal
+## A program that stops with an error of its own.
+u:w_idth := { w -> w > 9 ? "too-wide" []S_IGNAL "the grid is at most 9 wide"; w }
+p_rint! u:w_idth 5
+p_rint! u:w_idth 12
+p_rint! "not reached"

@@ -1507,6 +1507,22 @@ any value may.
 error[panic]: stop here
 ```
 
+### `[]S_IGNAL`
+
+`Char -> Char -> a`, two arguments.
+
+Stop with an error of your own: the code on the left names the error
+class, as xetal's own codes do (lowercase letters, digits and hyphens),
+and the text on the right is its message. Uncaught, it ends the
+program with exit status 1, like any error. Its result has any type.
+
+```
+      "too-wide" []S_IGNAL "the grid is at most 9 wide"
+error[too-wide]: the grid is at most 9 wide
+      "Bad Code" []S_IGNAL "not a code"
+error[bad-code]: an error code is lowercase letters, digits and hyphens, got "Bad Code"
+```
+
 ## Macro hooks
 
 What only the compiler knows, given to a macro body while a call is

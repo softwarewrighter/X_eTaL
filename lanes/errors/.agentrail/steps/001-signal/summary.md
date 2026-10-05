@@ -1,0 +1,1 @@
+[]S_IGNAL (ER1, D85): a built-in in xetal-quad that fails with the given code and message; code spelling checked; spec, golden, reference; asks X3 partly landed. Pushed as pr/errors-signal.

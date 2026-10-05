@@ -1,0 +1,6 @@
+# A signal's code names the error class, as the codes xetal itself
+# uses do (ER1): lowercase letters, digits and hyphens, not empty.
+== SOURCE
+"Bad Code" []S_IGNAL "message"
+== ERROR
+error[bad-code]: an error code is lowercase letters, digits and hyphens, got "Bad Code" at 0..30

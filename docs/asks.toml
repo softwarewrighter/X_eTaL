@@ -251,8 +251,10 @@ golden = "macros-user-expand"
 id = "X3"
 repo = "X_eTaL-libraries"
 ask = "errors of one's own: assert, raise and catch"
-state = "planned"
-here = "Saga 21, errors of one's own"
+state = "partly landed"
+here = "raise: `[]S_IGNAL` (ER1, D85, errors lane step 1); catch and the handler's outcomes follow (ER2-ER4, the lane's next steps)"
+repro = "\"my-code\" []S_IGNAL \"stop\""
+works = "error[my-code]"
 
 [[ask]]
 id = "X4"
