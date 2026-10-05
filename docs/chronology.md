@@ -16,6 +16,19 @@ Several preferences recur throughout the history:
 - **Tests are part of the specification.** Spec cases, goldens, property tests, browser tests, documentation examples and performance baselines constrain the implementation.
 - **A demo should show the real program.** Rust/Yew may provide a shell, but the interesting computation should remain X_eTaL.
 - **Prefer a small useful mechanism to speculative generality.** Several plausible ideas were deliberately deferred or abandoned after experimentation.
+- **A tool of thought, tested by use.** A feature should not merely make X_eTaL different. Dogfooding has to show that the language encourages a useful way of representing problems.
+
+## The question asked early: what does it offer as a tool of thought?
+
+Early on, someone looking at X_eTaL asked what it offered as a *tool of thought*, rather than which implementation language or feature checklist distinguished it. At the time that was a hard question to answer: there was a notation, a type checker and one program, and no body of work to point to.
+
+It became a design test instead of an embarrassment. A new feature was not justified by making X_eTaL different from APL, J or BQN. It was justified when writing real programs showed that the language led to a useful way of representing a problem: a rule as one whole-array expression, a game as a few array idioms, a model as shapes and products, a syntax form as a macro.
+
+The rest of this chronology is the answer, in the order it was found:
+
+**Life → axes → classics → higher-order arrays → visual microscopes → games → libraries → ML → macros → Rosetta.**
+
+Each stage was a set of programs that had to be written, and each showed something about how the language makes one think. The answer did not have to exist first. Enough of X_eTaL was built to discover it.
 
 ---
 
@@ -586,3 +599,5 @@ The answer was not produced by a single up-front design. It emerged from a repea
 **choose a concrete program → discover friction → decide whether the friction is local or general → implement the smallest general mechanism → test it at the language level → retrofit the programs → document what was learned.**
 
 That loop is arguably the defining historical feature of X_eTaL.
+
+It is also the reply to the early question about a tool of thought. Nobody could say at the start what X_eTaL offered as a way of thinking. The programs said it, one stage at a time: Life showed a rule as a single expression over a whole grid; axes and the classics showed which shapes of problem fit arrays; higher-order arrays and the microscopes showed computation that can be watched; games and libraries showed the same few idioms recurring; ML showed models as shapes and products; macros showed the notation itself as something a program can extend; and the Rosetta stone turns the question around, setting X_eTaL beside other languages idiom by idiom so a reader can judge the answer directly.
