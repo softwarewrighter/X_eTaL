@@ -1,0 +1,3 @@
+command = "rm -rf work/doc-site-several && ./target/debug/xetal doc --out work/doc-site-several lib/Stats.xtl demos/stats.xtl"
+exit_code = 0
+desc = "xetal doc --out DIR FILE MORE: one site of several files, each file once: the program imports the built-in Stats, documented already as lib/Stats.xtl"

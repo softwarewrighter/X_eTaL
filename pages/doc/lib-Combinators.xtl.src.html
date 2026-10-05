@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lib/Combinators.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#L11"><span class="c-libfunc">ˡI̲</span></a></li>
+<li class="item"><a href="#L12"><span class="c-libfunc">ˡK̲</span></a></li>
+<li class="item"><a href="#L13"><span class="c-libfunc">ˡT̲</span></a></li>
+<li class="item"><a href="#L14"><span class="c-libfunc">ˡW̲</span></a></li>
+<li class="item"><a href="#L15"><span class="c-libfunc">ˡW̲1</span></a></li>
+<li class="item"><a href="#L17"><span class="c-libfunc">ˡB̲</span></a></li>
+<li class="item"><a href="#L18"><span class="c-libfunc">ˡB̲1</span></a></li>
+<li class="item"><a href="#L19"><span class="c-libfunc">ˡB̲2</span></a></li>
+<li class="item"><a href="#L20"><span class="c-libfunc">ˡB̲3</span></a></li>
+<li class="item"><a href="#L21"><span class="c-libfunc">ˡC̲</span></a></li>
+<li class="item"><a href="#L22"><span class="c-libfunc">ˡD̲</span></a></li>
+<li class="item"><a href="#L23"><span class="c-libfunc">ˡD̲1</span></a></li>
+<li class="item"><a href="#L24"><span class="c-libfunc">ˡD̲2</span></a></li>
+<li class="item"><a href="#L25"><span class="c-libfunc">ˡE̲</span></a></li>
+<li class="item"><a href="#L26"><span class="c-libfunc">ˡE̲h</span></a></li>
+<li class="item"><a href="#L27"><span class="c-libfunc">ˡF̲</span></a></li>
+<li class="item"><a href="#L28"><span class="c-libfunc">ˡG̲</span></a></li>
+<li class="item"><a href="#L29"><span class="c-libfunc">ˡH̲</span></a></li>
+<li class="item"><a href="#L30"><span class="c-libfunc">ˡJ̲</span></a></li>
+<li class="item"><a href="#L31"><span class="c-libfunc">ˡO̲</span></a></li>
+<li class="item"><a href="#L32"><span class="c-libfunc">ˡQ̲</span></a></li>
+<li class="item"><a href="#L33"><span class="c-libfunc">ˡQ̲1</span></a></li>
+<li class="item"><a href="#L34"><span class="c-libfunc">ˡQ̲2</span></a></li>
+<li class="item"><a href="#L35"><span class="c-libfunc">ˡQ̲3</span></a></li>
+<li class="item"><a href="#L36"><span class="c-libfunc">ˡQ̲4</span></a></li>
+<li class="item"><a href="#L37"><span class="c-libfunc">ˡR̲</span></a></li>
+<li class="item"><a href="#L38"><span class="c-libfunc">ˡS̲</span></a></li>
+<li class="item"><a href="#L39"><span class="c-libfunc">ˡV̲</span></a></li>
+<li class="item"><a href="#L42"><span class="c-libfunc">ˡC̲s</span></a></li>
+<li class="item"><a href="#L43"><span class="c-libfunc">ˡR̲s</span></a></li>
+<li class="item"><a href="#L44"><span class="c-libfunc">ˡF̲s</span></a></li>
+<li class="item"><a href="#L45"><span class="c-libfunc">ˡV̲s</span></a></li>
+<li class="item"><a href="#L46"><span class="c-libfunc">ˡW̲s</span></a></li>
+<li class="item"><a href="#L49"><span class="c-libfunc">ˡC̲ss</span></a></li>
+<li class="item"><a href="#L50"><span class="c-libfunc">ˡR̲ss</span></a></li>
+<li class="item"><a href="#L51"><span class="c-libfunc">ˡF̲ss</span></a></li>
+<li class="item"><a href="#L52"><span class="c-libfunc">ˡV̲ss</span></a></li>
+<li class="item"><a href="#L53"><span class="c-libfunc">ˡW̲ss</span></a></li>
+<li class="item"><a href="#L57"><span class="c-libfunc">ˡY̲</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">source</span><a href="lib-Combinators.xtl.html">lib/Combinators.xtl</a></h1>
+<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment"> Combinators: the birds Raymond Smullyan names in &quot;To Mock a</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> Mockingbird&quot; that type-check (a standard library, built into xetal).</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"> Import it with an alias of your choice: &quot;c:&quot; u_se&lt; &quot;Combinators&quot;.</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"> docs/birds.md lists them all; the self-applying birds (L, M, M2, U)</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"> have no finite type and are in demos/birds-untyped.xtl.</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"> How the definitions read: </span><span class="c-comment"></span>a <span class="c-builtin">x̲</span> b<span class="c-comment"></span><span class="c-comment"> is x applied to a and then b (every</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"> function is curried); </span><span class="c-comment"></span>(e)_ v<span class="c-comment"></span><span class="c-comment"> applies the function e computes; a</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"> function passed along as a value is quoted, </span><span class="c-comment"></span><span class="c-builtin">'</span><span class="c-builtin">y̲</span><span class="c-comment"></span><span class="c-comment">.</span></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-libfunc">ˡI̲</span> ← { x → x }                                      <span class="c-comment">⍝</span><span class="c-comment"> Idiot Bird (identity)</span></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-libfunc">ˡK̲</span> ← { x y → x }                                    <span class="c-comment">⍝</span><span class="c-comment"> Kestrel</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-libfunc">ˡT̲</span> ← { x <span class="c-builtin">y̲</span> → <span class="c-builtin">y̲</span> x }                                  <span class="c-comment">⍝</span><span class="c-comment"> Thrush</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-libfunc">ˡW̲</span> ← { <span class="c-builtin">x̲</span> y → y <span class="c-builtin">x̲</span> y }                                <span class="c-comment">⍝</span><span class="c-comment"> Warbler</span></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-libfunc">ˡW̲1</span> ← { x <span class="c-builtin">y̲</span> → x <span class="c-builtin">y̲</span> x }                               <span class="c-comment">⍝</span><span class="c-comment"> Converse Warbler</span></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-libfunc">ˡB̲</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z → <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z }                              <span class="c-comment">⍝</span><span class="c-comment"> Bluebird: compose</span></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-libfunc">ˡB̲1</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z w → <span class="c-builtin">x̲</span> z <span class="c-builtin">y̲</span> w }                         <span class="c-comment">⍝</span><span class="c-comment"> Blackbird</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-libfunc">ˡB̲2</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z w v → <span class="c-builtin">x̲</span> (z <span class="c-builtin">y̲</span> w)_ v }                  <span class="c-comment">⍝</span><span class="c-comment"> Bunting</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-libfunc">ˡB̲3</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> <span class="c-builtin">z̲</span> w → <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> <span class="c-builtin">z̲</span> w }                         <span class="c-comment">⍝</span><span class="c-comment"> Becard</span></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-libfunc">ˡC̲</span> ← { <span class="c-builtin">x̲</span> y z → z <span class="c-builtin">x̲</span> y }                              <span class="c-comment">⍝</span><span class="c-comment"> Cardinal: swap</span></span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a><span class="c-libfunc">ˡD̲</span> ← { <span class="c-builtin">x̲</span> y <span class="c-builtin">z̲</span> w → y <span class="c-builtin">x̲</span> <span class="c-builtin">z̲</span> w }                          <span class="c-comment">⍝</span><span class="c-comment"> Dove</span></span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-libfunc">ˡD̲1</span> ← { <span class="c-builtin">x̲</span> y z <span class="c-builtin">w̲</span> v → (y <span class="c-builtin">x̲</span> z)_ <span class="c-builtin">w̲</span> v }                  <span class="c-comment">⍝</span><span class="c-comment"> Dickcissel</span></span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-libfunc">ˡD̲2</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z <span class="c-builtin">w̲</span> v → (<span class="c-builtin">y̲</span> z) <span class="c-builtin">x̲</span> <span class="c-builtin">w̲</span> v }                   <span class="c-comment">⍝</span><span class="c-comment"> Dovekie</span></span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a><span class="c-libfunc">ˡE̲</span> ← { <span class="c-builtin">x̲</span> y <span class="c-builtin">z̲</span> w v → y <span class="c-builtin">x̲</span> w <span class="c-builtin">z̲</span> v }                      <span class="c-comment">⍝</span><span class="c-comment"> Eagle</span></span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a><span class="c-libfunc">ˡE̲h</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">a̲</span> b c <span class="c-builtin">d̲</span> e f → (b <span class="c-builtin">a̲</span> c) <span class="c-builtin">x̲</span> e <span class="c-builtin">d̲</span> f }           <span class="c-comment">⍝</span><span class="c-comment"> Bald Eagle</span></span>
+<span class="line" id="L27"><a class="ln" href="#L27">27</a><span class="c-libfunc">ˡF̲</span> ← { x y <span class="c-builtin">z̲</span> → y <span class="c-builtin">z̲</span> x }                              <span class="c-comment">⍝</span><span class="c-comment"> Finch</span></span>
+<span class="line" id="L28"><a class="ln" href="#L28">28</a><span class="c-libfunc">ˡG̲</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z w → w <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z }                          <span class="c-comment">⍝</span><span class="c-comment"> Goldfinch</span></span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-libfunc">ˡH̲</span> ← { <span class="c-builtin">x̲</span> y z → (y <span class="c-builtin">x̲</span> z)_ y }                         <span class="c-comment">⍝</span><span class="c-comment"> Hummingbird</span></span>
+<span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-libfunc">ˡJ̲</span> ← { <span class="c-builtin">x̲</span> y z w → y <span class="c-builtin">x̲</span> w <span class="c-builtin">x̲</span> z }                        <span class="c-comment">⍝</span><span class="c-comment"> Jay</span></span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-libfunc">ˡO̲</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> → <span class="c-builtin">y̲</span> <span class="c-builtin">x̲</span> <span class="c-builtin">'</span><span class="c-builtin">y̲</span> }                               <span class="c-comment">⍝</span><span class="c-comment"> Owl</span></span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a><span class="c-libfunc">ˡQ̲</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z → <span class="c-builtin">y̲</span> <span class="c-builtin">x̲</span> z }                              <span class="c-comment">⍝</span><span class="c-comment"> Queer Bird</span></span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-libfunc">ˡQ̲1</span> ← { <span class="c-builtin">x̲</span> y <span class="c-builtin">z̲</span> → <span class="c-builtin">x̲</span> <span class="c-builtin">z̲</span> y }                             <span class="c-comment">⍝</span><span class="c-comment"> Quixotic Bird</span></span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a><span class="c-libfunc">ˡQ̲2</span> ← { x <span class="c-builtin">y̲</span> <span class="c-builtin">z̲</span> → <span class="c-builtin">y̲</span> <span class="c-builtin">z̲</span> x }                             <span class="c-comment">⍝</span><span class="c-comment"> Quizzical Bird</span></span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a><span class="c-libfunc">ˡQ̲3</span> ← { <span class="c-builtin">x̲</span> y <span class="c-builtin">z̲</span> → <span class="c-builtin">z̲</span> <span class="c-builtin">x̲</span> y }                             <span class="c-comment">⍝</span><span class="c-comment"> Quirky Bird</span></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-libfunc">ˡQ̲4</span> ← { x <span class="c-builtin">y̲</span> <span class="c-builtin">z̲</span> → <span class="c-builtin">z̲</span> <span class="c-builtin">y̲</span> x }                             <span class="c-comment">⍝</span><span class="c-comment"> Quacky Bird</span></span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a><span class="c-libfunc">ˡR̲</span> ← { x <span class="c-builtin">y̲</span> z → z <span class="c-builtin">y̲</span> x }                              <span class="c-comment">⍝</span><span class="c-comment"> Robin</span></span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-libfunc">ˡS̲</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z → z <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z }                            <span class="c-comment">⍝</span><span class="c-comment"> Starling</span></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-libfunc">ˡV̲</span> ← { x y <span class="c-builtin">z̲</span> → x <span class="c-builtin">z̲</span> y }                              <span class="c-comment">⍝</span><span class="c-comment"> Vireo: a pair</span></span>
+<span class="line" id="L40"><a class="ln" href="#L40">40</a></span>
+<span class="line" id="L41"><a class="ln" href="#L41">41</a><span class="c-comment">⍝</span><span class="c-comment"> Once removed: the first argument passes through, then the bird.</span></span>
+<span class="line" id="L42"><a class="ln" href="#L42">42</a><span class="c-libfunc">ˡC̲s</span> ← { <span class="c-builtin">x̲</span> y z w → (y <span class="c-builtin">x̲</span> w)_ z }</span>
+<span class="line" id="L43"><a class="ln" href="#L43">43</a><span class="c-libfunc">ˡR̲s</span> ← { <span class="c-builtin">x̲</span> y z w → (z <span class="c-builtin">x̲</span> w)_ y }</span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a><span class="c-libfunc">ˡF̲s</span> ← { <span class="c-builtin">x̲</span> y z w → (w <span class="c-builtin">x̲</span> z)_ y }</span>
+<span class="line" id="L45"><a class="ln" href="#L45">45</a><span class="c-libfunc">ˡV̲s</span> ← { <span class="c-builtin">x̲</span> y z w → (w <span class="c-builtin">x̲</span> y)_ z }</span>
+<span class="line" id="L46"><a class="ln" href="#L46">46</a><span class="c-libfunc">ˡW̲s</span> ← { <span class="c-builtin">x̲</span> y z → (y <span class="c-builtin">x̲</span> z)_ z }</span>
+<span class="line" id="L47"><a class="ln" href="#L47">47</a></span>
+<span class="line" id="L48"><a class="ln" href="#L48">48</a><span class="c-comment">⍝</span><span class="c-comment"> Twice removed: the first two pass through.</span></span>
+<span class="line" id="L49"><a class="ln" href="#L49">49</a><span class="c-libfunc">ˡC̲ss</span> ← { <span class="c-builtin">x̲</span> y z w v → ((y <span class="c-builtin">x̲</span> z)_ v)_ w }</span>
+<span class="line" id="L50"><a class="ln" href="#L50">50</a><span class="c-libfunc">ˡR̲ss</span> ← { <span class="c-builtin">x̲</span> y z w v → ((y <span class="c-builtin">x̲</span> w)_ v)_ z }</span>
+<span class="line" id="L51"><a class="ln" href="#L51">51</a><span class="c-libfunc">ˡF̲ss</span> ← { <span class="c-builtin">x̲</span> y z w v → ((y <span class="c-builtin">x̲</span> v)_ w)_ z }</span>
+<span class="line" id="L52"><a class="ln" href="#L52">52</a><span class="c-libfunc">ˡV̲ss</span> ← { <span class="c-builtin">x̲</span> y z w v → ((y <span class="c-builtin">x̲</span> v)_ z)_ w }</span>
+<span class="line" id="L53"><a class="ln" href="#L53">53</a><span class="c-libfunc">ˡW̲ss</span> ← { <span class="c-builtin">x̲</span> y z w → ((y <span class="c-builtin">x̲</span> z)_ w)_ w }</span>
+<span class="line" id="L54"><a class="ln" href="#L54">54</a></span>
+<span class="line" id="L55"><a class="ln" href="#L55">55</a><span class="c-comment">⍝</span><span class="c-comment"> The Sage Bird by recursion: Y f is f (Y f). It works because a</span></span>
+<span class="line" id="L56"><a class="ln" href="#L56">56</a><span class="c-comment">⍝</span><span class="c-comment"> function's parameter is evaluated only when used.</span></span>
+<span class="line" id="L57"><a class="ln" href="#L57">57</a><span class="c-libfunc">ˡY̲</span> ← { <span class="c-builtin">f̲</span> → <span class="c-builtin">f̲</span> <a href="lib-Combinators.xtl.html#l.Y_" class="c-libfunc">ˡY̲</a> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</span>
+</div>
+</main>
+</body>
+</html>

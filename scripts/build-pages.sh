@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Build the live demo (components/web/crates/xetal-web) into pages/, which
 # is committed: the Pages workflow publishes that folder as it is. Then
-# export the literate documents into pages/literate/ and screenshot the
+# export the literate documents into pages/literate/, build the
+# documentation site into pages/doc/ (xetal doc) and screenshot the
 # built page into images/live-demo.png for the README.
 #   scripts/build-pages.sh
 set -euo pipefail
@@ -12,8 +13,9 @@ trunk build --release --public-url /X_eTaL/ --dist "$dist"
 mkdir -p "$root/pages"
 touch "$root/pages/.nojekyll"
 # pages/literate/ is written by scripts/literate-html.sh; keep it.
-rsync -a --delete --exclude='.nojekyll' --exclude='INPUTS' --exclude='literate/' --exclude='poster/' "$dist/" "$root/pages/"
+rsync -a --delete --exclude='.nojekyll' --exclude='INPUTS' --exclude='literate/' --exclude='poster/' --exclude='doc/' "$dist/" "$root/pages/"
 "$root/scripts/literate-html.sh"
+"$root/scripts/doc-site.sh"
 python3 "$root/scripts/poster.py"
 "$root/scripts/latex-gallery.sh" --write
 "$root/scripts/live-screenshot.sh"

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lib/Macros.xtlm - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#m.w_hen-3c"><span class="c-macro">ᵐw̲hen&lt;</span></a></li>
+<li class="item"><a href="#m.d_ef-3c"><span class="c-macro">ᵐd̲ef&lt;</span></a></li>
+<li class="item"><a href="#m.c_heck-3c"><span class="c-macro">ᵐc̲heck&lt;</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">macro library</span>lib/Macros.xtlm</h1>
+<p class="meta"><a href="lib-Macros.xtlm.src.html">source</a></p>
+<div class="item" id="m.w_hen-3c">
+<h3><a href="#m.w_hen-3c"><span class="c-macro">ᵐw̲hen&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L10">line 10</a></div>
+<pre class="code"><span class="c-macro">ᵐw̲hen&lt;</span> ← { cond body → <span class="c-string">&quot;{ @ -&gt; (n_ot &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> cond <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) ? @; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> body <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;; @ } @&quot;</span> }</pre>
+</div>
+<div class="item" id="m.d_ef-3c">
+<h3><a href="#m.d_ef-3c"><span class="c-macro">ᵐd̲ef&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L14">line 14</a></div>
+<pre class="code"><span class="c-macro">ᵐd̲ef&lt;</span> ← { name body → <span class="c-string">&quot;u:&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> name <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; := { &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> body <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; }&quot;</span> }</pre>
+</div>
+<div class="item" id="m.c_heck-3c">
+<h3><a href="#m.c_heck-3c"><span class="c-macro">ᵐc̲heck&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L19">line 19</a></div>
+<pre class="code"><span class="c-macro">ᵐc̲heck&lt;</span> ← { cond label → <span class="c-string">&quot;{ @ -&gt; (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> cond <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) ? \&quot;ok: &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> label <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\&quot;; \&quot;FAIL: &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> label <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> cond <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;)\&quot; } @&quot;</span> }</pre>
+</div>
+</main>
+</body>
+</html>

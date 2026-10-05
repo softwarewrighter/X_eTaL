@@ -287,6 +287,14 @@ Other fonts, checked against the font files:
 
 ## Documentation
 
+- [The library documentation](https://softwarewrighter.github.io/X_eTaL/doc/)
+  -- every standard library and macro library (`System.xtlm` among
+  them), the built-ins, and two programs to read from the top down
+  (Life and the TTTML game): each item with its type, doc comment,
+  examples, source drawn decorated and where it is used, every macro
+  call with its expansion, every name linked, and a search by name or
+  by type (`Num a => a -> a -> a` finds `+` and `m_ax`). Made by
+  `xetal doc` (below); `just doc` rebuilds it into `pages/doc`.
 - [`docs/tour.md`](docs/tour.md) -- the language tour and the milestone
   tours (M0 to M6)
 - [The literate documents as web pages](https://softwarewrighter.github.io/X_eTaL/literate/)
@@ -366,7 +374,29 @@ Other fonts, checked against the font files:
 - [`docs/plan.md`](docs/plan.md) -- implementation plan and retrospectives
 - `docs/research.txt`, `docs/research2.txt` -- archival design research
 
-## Install
+## Documenting your own code: xetal doc
+
+`xetal doc` reads a program or a library the way rustdoc reads a
+crate: it expands every macro, follows the `.xtl` and `.xtlm` imports
+(and `System.xtlm` when a system macro is called) and builds a
+cross-reference of every definition.
+
+- `#` is an ordinary comment. A `##` block directly above a
+  definition documents it; a `##` block at the top of a file documents
+  the file; `### Title` starts a section. Inside `##`, `code` in
+  backquotes is drawn decorated, and `## >> expr` followed by `##`
+  lines is an example with the output it prints.
+- `xetal doc --out DIR FILE [MORE...]` writes a static site into DIR:
+  an index, a page per file (its doc, sections, items with type, doc
+  comment, examples, source drawn decorated, where each is used, macro
+  calls with their expansions in place), a source page per file, the
+  built-ins, and a search by name or by type. Several files make one
+  site, each file once.
+- `xetal doc --json FILE` prints the same model as JSON.
+- `xetal doc --test FILE` runs the file's `## >>` examples and compares
+  what they print (each `##` block one session); the gate runs it over
+  `lib/`.
+
 
 ```bash
 just install                                   # or: just install /some/dir/on/PATH

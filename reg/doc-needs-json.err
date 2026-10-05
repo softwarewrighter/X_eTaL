@@ -1,6 +1,6 @@
 error: the following required arguments were not provided:
   <--json|--out <DIR>|--test>
 
-Usage: xetal doc <--json|--out <DIR>|--test> <FILE>
+Usage: xetal doc <--json|--out <DIR>|--test> <FILE> [MORE]...
 
 For more information, try '--help'.

@@ -145,6 +145,7 @@ fn links() -> Html {
                 <li><a href="literate/beginner.html" target="_blank">{ "Start here: XeTaL in fifteen minutes" }</a></li>
                 <li><a href="poster/index.html" target="_blank">{ "Syntax poster: reading XeTaL on one page" }</a></li>
                 <li><a href="literate/index.html" target="_blank">{ "Literate documents" }</a></li>
+                <li><a href="doc/index.html" target="_blank">{ "Library documentation (xetal doc): every library, System.xtlm, Life and TTTML, searchable" }</a></li>
                 <li><a href="latex/index.html" target="_blank">{ "Every line in LaTeX" }</a></li>
             </ul>
         </>

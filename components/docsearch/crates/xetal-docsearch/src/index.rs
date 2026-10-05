@@ -39,14 +39,16 @@ pub fn entries(files: &[DocFile]) -> Vec<Entry> {
         norm: normalize(b.sig),
         file: String::new(),
         href: format!("builtins.html#{}", anchor(b.name)),
-        about: b.rule.to_string(),
+        about: xetal_dochtml::described(b.name).map_or(b.rule.to_string(), |d| first(&d)),
     });
     items.chain(builtins).collect()
 }
 
-/// The first line of a doc's prose.
+/// The first line of a doc's prose (its first sentence, at most).
 fn first(text: &str) -> String {
-    text.lines().next().unwrap_or("").to_string()
+    let line = text.lines().next().unwrap_or("");
+    let end = line.find(". ").map_or(line.len(), |i| i + 1);
+    line[..end].to_string()
 }
 
 /// The index as a script defining `window.XETAL_DOC_INDEX`: one array
