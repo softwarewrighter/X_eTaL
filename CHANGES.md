@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 21:05 `design` Errors of one's own decided with the user (ER1-ER4: `[]S_IGNAL`; a typed trap built-in whose handler recovers, retries, halts or continues, typed; a cleanup; `t_ry<`/`c_atch<`/`f_inally<` and friends as System.xtlm macros) and unit tests (S11: `## @test` tags, unknown tags an error; `xetal test`; Check split into a standard assertion library and X_eTaL-libraries' xetalunit); Saga 21 replanned, Saga 33 planned.
 - 20:45 `plan` Doc lane step 7, doc-everywhere (the user): a cross-reference site for every library, app and demo here and in each sibling repository, each repository with its own index and this one with an uber index; how the siblings vendor xetal to be settled.
 - 20:34 `build` Merged PRs #59 and #60 (macros lane: the user's macro decisions, `@` parameters, `t_odo<`, automatic hygiene) and #61 (quads lane: `[]A`, `[]D`, `[]AV`, `[]IO`, `[]U_CS`, `[]U_CHAR`; its system-name case joined with hygiene's fresh names in xetal-core by hand); register entries renumbered (decisions D76, hygiene D77, Combinators D59 once); lib/Stats.xtl says it is a demo subset of X_eTaL-libraries' Statistics; pages/ rebuilt.
 - 20:20 `feat` System values and character codes (quads lane step 1, QD7, D75; X_eTaL-libraries' ask X4): `[]A`, `[]D`, `[]AV`, `[]IO` as values read where they are used, `[]U_CS` (characters to codes) and `[]U_CHAR` (codes to characters), one static type each.

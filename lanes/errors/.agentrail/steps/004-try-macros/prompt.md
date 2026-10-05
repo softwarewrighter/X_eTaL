@@ -1,0 +1,1 @@
+Errors lane (see lanes/errors/.agentrail/plan.md and docs/plan.md Saga 21), step try-macros. TDD; the gate before every commit; one PR pr/errors-try-macros from the latest origin/main.

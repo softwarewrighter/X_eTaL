@@ -143,6 +143,7 @@ u:s_ign := { x -> x < 0 ? -1; x = 0 ? 0; 1 }
 | S7 | The command is `xetal` (easy to type, matches the crate slug). `x_etal` is installed as an alias (symlink), so `#!/usr/bin/env x_etal` also works. The display name stays `X_eTaL`, which decorates as X underlined, matching the logo. |
 | S9 | Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and end-of-line remarks are ordinary comments, ignored by `xetal doc`; `##` is documentation (a block directly above a definition documents it, a block at the top of a file, after any `#!`, documents the file); `###` is a section heading (it groups the definitions after it, an anchor and a table-of-contents entry). Inside `##`, backquoted code is drawn decorated, and an example is a transcript: `## >> expression` and the expected output on the following `##` lines (`## error[code]` for an expected error), shown by `xetal doc` and run by its doctests. Decided with the user, 2026-10-04; not yet implemented (Saga 32). |
 | S10 | Doc examples are run (Saga 32 step doc-test), as rustdoc runs doc tests: `xetal doc --test FILE` runs the file's `## >>` examples and compares what each prints with the `##` lines under it. A `##` block is one session: each example runs after the earlier examples of its block, whose definitions it sees (and whose output is not shown again). Each runs as `-e` text would (`f_ile<` is `-e`, imports are found from the current directory, then `XETAL_PATH` and the standard libraries), after the program for an example in a program file, and after nothing else in a library: an example that uses a library imports it itself, as a reader would (`## >> "s:" u_se< "Stats"`, then `## >> s:m_ean 1 2 3 4`), so it can be copied and run as it stands. An expected `error[code]` line matches an error with that code; other lines match the output exactly; an unexpected error fails the example; warnings are not compared. The gate runs it over `lib/`. Decided with the user, 2026-10-04. |
+| S11 | Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents. `@test` makes a definition of `@` (`u:t_estSum := { @ -> ... }`) a unit test for `xetal test`; `@expect error[code]` says the test must stop with that error, `@skip` leaves it out (counted as skipped), `@tag name` puts it in a group that can be run alone. Any other `@word` is an error, so a misspelled tag never silently skips a test. Decided with the user, 2026-10-04; not yet implemented (Saga 33). |
 
 ## 8. Symbols
 
@@ -200,6 +201,15 @@ reductions can stream over virtual arrays, so `'+ r_/ r_ange 1000000000`
 never builds the array. Results are exactly those of full evaluation.
 Arrays have finite shape; infinite sequences would be a separate
 stream type later.
+
+## 9b. Errors of one's own
+
+| Rule | Decision |
+|------|----------|
+| ER1 | A program raises an error of its own with a typed system function: `"code" []S_IGNAL "message"` stops with `error[code]: message` (type `Char -> Char -> a`), reported as any error is and, uncaught, with a non-zero exit status. `[]P_ANIC` stays (a signal whose code is `panic`). Decided with the user, 2026-10-04; not yet implemented (Saga 21). |
+| ER2 | Errors are caught by a typed built-in, not by a macro: it runs a protected body (a lambda of `@`) and, on an error whose code is in its list (or any error), calls a handler with an `Error` value (a built-in type: the code, the message and the place, read with quad functions). The handler's outcome is one of four: recover with a value of the body's type (unwinding to the handler), retry the body (with a limit), halt (pass the error on), or continue (ER3). A cleanup, when given, runs after the body and any handler, whatever the outcome. Retry and recover follow APL2's and Dyalog's traps and PL/I's ON-units; the outcomes as a handler's choice follow Common Lisp's restarts. Decided with the user, 2026-10-04; not yet implemented (Saga 21). |
+| ER3 | A typed continue: the handler's value replaces the failing expression and the program goes on from there. It is sound only where the type of that expression is known when the error is raised, so it applies to errors raised resumably, whose form names the type the handler must give; the form is designed with the user at its step. Decided with the user, 2026-10-04; not yet implemented (Saga 21). |
+| ER4 | The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler `r_ecover<`, `r_etry<`, `h_alt<` and `c_ontinue<`, each a wrapper over the built-ins of ER1 to ER3, so the semantics live in typed built-ins and the macros only give the syntax. Decided with the user, 2026-10-04; not yet implemented (Saga 21). |
 
 ## 10. Input and display
 
