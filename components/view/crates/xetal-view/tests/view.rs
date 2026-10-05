@@ -194,3 +194,14 @@ proptest! {
         }
     }
 }
+
+#[test]
+fn a_system_value_is_colored_as_a_built_in() {
+    assert_eq!(
+        classes("[]A x"),
+        [
+            ("\u{2395}A".to_string(), Class::Builtin),
+            ("x".to_string(), Class::Variable)
+        ]
+    );
+}

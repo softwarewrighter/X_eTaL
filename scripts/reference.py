@@ -21,7 +21,7 @@ CATALOG = ROOT / "components/base/crates/xetal-catalog/builtins.toml"
 OUT = ROOT / "docs/reference.md"
 XETAL = ROOT / "target/release/xetal"
 PRELUDE = ["v := 3 1 2", "M := 2 3 r_eshape r_ange 6", "N := 2 3 r_eshape 3 1 2 6 4 5"]
-ARGS = {1: "one argument", 2: "two arguments", 3: "three arguments", 4: "four arguments"}
+ARGS = {0: "a system value, no arguments", 1: "one argument", 2: "two arguments", 3: "three arguments", 4: "four arguments"}
 
 
 def catalog():

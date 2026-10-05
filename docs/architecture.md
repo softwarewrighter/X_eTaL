@@ -115,7 +115,10 @@ components/
                            paths; no knowledge of the language)
   system/                  xetal-system (files, the keyboard, numbers as
                            text: []N_PUT, []N_GET, []R_EAD, f_ormat,
-                           n_umbers; graphics: []G_RID, []S_HOW)
+                           n_umbers; graphics: []G_RID, []S_HOW),
+                           xetal-quad (system values and character
+                           codes: []A, []D, []AV, []IO, []U_CS,
+                           []U_CHAR)
   axes/                    xetal-rotate (rotate and reverse along the
                            leading axis), xetal-axes (axis subscripts:
                            the move-to-front rule)

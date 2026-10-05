@@ -1,0 +1,1 @@
+Quads lane step 1: []A, []D, []AV, []IO as niladic system values, []U_CS (Char -> Int) and []U_CHAR (Int -> Char); TDD with spec cases and rejections; reference; QD7 recorded; asks X4 partly landed.

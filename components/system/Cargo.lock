@@ -326,6 +326,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-quad"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
+]
+
+[[package]]
 name = "xetal-store"
 version = "0.1.0"
 

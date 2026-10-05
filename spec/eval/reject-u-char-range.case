@@ -1,0 +1,6 @@
+# []U_CHAR takes codes of ASCII characters, 0 to 127 (QD7): a code
+# outside is an error, not a replacement character.
+== SOURCE
+[]U_CHAR 65 200
+== ERROR
+error[domain]: []U_CHAR takes codes 0 to 127, got 200 at 0..15

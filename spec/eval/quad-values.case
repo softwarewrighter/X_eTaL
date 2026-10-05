@@ -1,0 +1,35 @@
+# The read-only system values (QD2, QD7): a quad name without an
+# underline is a value. []A is the alphabet, []D the digits, []AV every
+# character (ASCII 0 to 127), []IO the index origin (always 1).
+# []U_CS gives the codes of characters and []U_CHAR the characters of
+# codes, one static type each (QD7).
+== SOURCE
+[]A
+[]D
+t_ally []AV
+[]IO
+[]U_CS "AB"
+[]U_CHAR 72 105
+[]U_CHAR []U_CS "abc"
+([]U_CS "a") - []U_CS "A"
+3 t_ake []A
+== TYPE
+Char
+Char
+Int
+Int
+Int
+Char
+Char
+Int
+Char
+== RESULT
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+0123456789
+128
+1
+65 66
+Hi
+abc
+32
+ABC
