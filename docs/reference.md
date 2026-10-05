@@ -1618,6 +1618,43 @@ source text, `start..end`.
 76..99
 ```
 
+### `[]W_ARN`
+
+`a -> Box Char -> a`, two arguments.
+
+An error the program can go on from (a warning): the left argument is
+the value to go on with, of the type of the place the warning stands
+in, and the right is the code and the message, a strand of two
+strings. Uncaught, a warning is an error like a signal. A handler that
+answers `[]C_ONTINUE` makes the program go on from the warning with
+that value; the other answers unwind as they do for any error.
+
+```
+      '{ @ -> 10 + (0 []W_ARN "empty" "nothing to add") } []T_RAP '{ e -> []C_ONTINUE e }
+10
+      '{ @ -> 10 + (0 []W_ARN "empty" "nothing to add") } []T_RAP '{ e -> []R_ECOVER 99 }
+99
+      10 + (0 []W_ARN "empty" "nothing to add")
+error[empty]: nothing to add
+```
+
+### `[]C_ONTINUE`
+
+`Error -> Outcome a`, one argument.
+
+The handler's answer to a warning: go on from it, with its value. The
+handler runs where the warning was raised, before any cleanup between
+it and the trap, so nothing has been undone. Halting a warning passes
+it outward still a warning; continuing an error raised by `[]S_IGNAL`
+is error[not-resumable], since it has no value to go on with.
+
+```
+      '{ @ -> '{ @ -> 10 + (0 []W_ARN "empty" "nothing") } []T_RAP '{ e -> []H_ALT e } } []T_RAP '{ e -> []C_ONTINUE e }
+10
+      '{ @ -> "a" []S_IGNAL "b" } []T_RAP '{ e -> []C_ONTINUE e }
+error[not-resumable]: error[a] was raised by []S_IGNAL, not []W_ARN, so it has no value to go on with
+```
+
 ### `[]E_NSURE`
 
 `(Unit -> a) -> (Unit -> b) -> a`, two arguments.

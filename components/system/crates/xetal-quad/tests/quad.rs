@@ -1,6 +1,6 @@
 //! The system values and character codes (QD2, QD7).
 
-use xetal_base::Span;
+use xetal_base::{Diagnostic, Span};
 use xetal_quad::call;
 use xetal_value::{Value, printed};
 
@@ -101,4 +101,44 @@ fn a_signal_code_is_lowercase_digits_and_hyphens() {
         run("[]S_IGNAL", &[chars("a-1"), chars("m")]).unwrap_err(),
         "a-1"
     );
+}
+
+#[test]
+fn a_warning_is_the_error_of_its_pair_and_wants_two_items() {
+    let pair = |a: &str, b: &str| {
+        xetal_value::to_value(xetal_array::Array::vector(vec![
+            Value::Boxed(std::rc::Rc::new(chars(a))),
+            Value::Boxed(std::rc::Rc::new(chars(b))),
+        ]))
+    };
+    let err = match call(
+        "[]W_ARN",
+        &[Value::Int(0), pair("empty", "nothing")],
+        Span::new(0, 1),
+    ) {
+        Some(Err(d)) => d,
+        other => panic!("{other:?}"),
+    };
+    assert_eq!(
+        (err.code.as_str(), err.message.as_str()),
+        ("empty", "nothing")
+    );
+    assert_eq!(
+        run("[]W_ARN", &[Value::Int(0), chars("abc")]).unwrap_err(),
+        "domain"
+    );
+    assert_eq!(
+        run("[]W_ARN", &[Value::Int(0), pair("Bad", "m")]).unwrap_err(),
+        "bad-code"
+    );
+}
+
+#[test]
+fn continue_is_an_outcome_of_an_error_only() {
+    let e = Value::Error(std::rc::Rc::new(Diagnostic::new("x", "y")));
+    assert!(matches!(
+        call("[]C_ONTINUE", &[e], Span::new(0, 1)),
+        Some(Ok(Value::Outcome(_)))
+    ));
+    assert_eq!(run("[]C_ONTINUE", &[Value::Int(1)]).unwrap_err(), "domain");
 }

@@ -38,6 +38,9 @@ pub enum Outcome<'a> {
     Retry,
     /// Let this error go on.
     Halt(Rc<xetal_base::Diagnostic>),
+    /// Go on from the warning with its value (ER3); an error for an
+    /// error that is not a warning.
+    Continue(Rc<xetal_base::Diagnostic>),
 }
 
 #[derive(Debug)]

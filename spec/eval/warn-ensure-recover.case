@@ -1,0 +1,11 @@
+# When the handler of a warning recovers instead, the body unwinds:
+# the cleanups between the warning and the trap run, then the trap
+# gives the handler's value.
+== SOURCE
+'{ @ -> '{ @ -> 10 + (0 []W_ARN "empty" "nothing") } []E_NSURE '{ @ -> p_rint! "cleaned" } } []T_RAP '{ e -> p_rint! "handled"; []R_ECOVER 99 }
+== TYPE
+Int
+== RESULT
+handled
+cleaned
+99

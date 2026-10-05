@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 08:40 `feat` The warning, ER3 (errors lane step 3, decided with the user: form A, `[]W_ARN`): `default []W_ARN "code" "message"` raises resumably with the value to go on with; a handler answering `[]C_ONTINUE e` makes the program go on from the warning, with the handler running before any cleanup unwinds; `[]H_ALT` passes a warning outward still resumable; continuing a signal is error[not-resumable]. D90; spec eval/warn*, reject-continue-signal, reject-warn-type.
+
 - 07:02 `build` Merged PR #75 (`just check-live`); its first real run: all 35 github.io links in the six READMEs serve a page. The deployed live demo checked in a browser: a macro library (Combinators.xtlm) shows its macros' types.
 
 - 02:00 `build` `just check-live` (scripts/check-live.py): every github.io link in the six repositories' READMEs fetched; a link fails on a non-200, GitHub's no-site page, or a non-HTML answer; exit status the number of failures (the user, after the siblings' Pages were rebuilt).

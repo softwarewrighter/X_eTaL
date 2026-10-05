@@ -1,0 +1,10 @@
+# []W_ARN raises an error resumably (ER3): the left argument is the
+# value to go on with. A handler answering []C_ONTINUE e makes the
+# program go on from the warning, with that value, so the rest of the
+# body still runs.
+== SOURCE
+'{ @ -> 10 + (0 []W_ARN "empty" "nothing to add") } []T_RAP '{ e -> []C_ONTINUE e }
+== TYPE
+Int
+== RESULT
+10

@@ -34,3 +34,21 @@ pub(crate) fn signal<'a>(code: &Value<'a>, message: &Value<'a>) -> Result<Value<
     }
     Err(Diagnostic::new(code, message))
 }
+
+/// `default []W_ARN ("code"; "message")` (ER3): the error of the pair (a 2-item `Box Char`, a strand of two strings),
+/// which the machine raises resumably with the default. Here it is
+/// always the error: the machine catches it before it would end the
+/// run, and a `[]W_ARN` that reaches no trap is an error like a signal.
+pub(crate) fn warn<'a>(what: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
+    let items = as_array(what);
+    let items = items.data();
+    let [code, message] = items else {
+        let what = format!("[]W_ARN takes (code; message), got {} items", items.len());
+        return Err(Diagnostic::new("domain", what));
+    };
+    let open = |v: &Value<'a>| match v {
+        Value::Boxed(b) => b.as_ref().clone(),
+        other => other.clone(),
+    };
+    signal(&open(code), &open(message))
+}

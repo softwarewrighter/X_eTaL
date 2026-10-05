@@ -39,11 +39,12 @@ pub(crate) fn read<'a>(what: &str, e: &Value<'a>) -> Result<Value<'a>, Diagnosti
     })
 }
 
-/// `[]R_ECOVER v`, `[]R_ETRY e`, `[]H_ALT e`.
+/// `[]R_ECOVER v`, `[]R_ETRY e`, `[]H_ALT e`, `[]C_ONTINUE e`.
 pub(crate) fn outcome<'a>(what: &str, v: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
     let outcome = match what {
         "[]R_ECOVER" => Outcome::Recover(v.clone()),
         "[]R_ETRY" => error(v).map(|_| Outcome::Retry)?,
+        "[]C_ONTINUE" => Outcome::Continue(error(v)?.clone()),
         _ => Outcome::Halt(error(v)?.clone()),
     };
     Ok(Value::Outcome(Rc::new(outcome)))

@@ -101,7 +101,8 @@ components/
                            the frames of pending work, traps included),
                            xetal-step (Core run by an explicit machine
                            over those frames, in slices; an error
-                           unwinds to the nearest trap), xetal-kernel (the
+                           unwinds to the nearest trap, a warning runs
+                           the handler in place), xetal-kernel (the
                            higher-order built-ins as kernels: each call
                            of an operand is a step of the machine),
                            xetal-prim (the first-order built-ins
