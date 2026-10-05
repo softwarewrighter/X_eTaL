@@ -65,7 +65,7 @@ whose first parameter is the function itself: the knot c:Y_ ties
 when the program runs is tied here, by writing the name in place of
 the self parameter. The result is plain named recursion, with no
 lazy parameter and no combinator left to run.</p>
-<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
 <pre class="example"><span class="prompt">      </span><span class="c-string">&quot;u:f_act&quot;</span> <a href="lib-Combinators.xtlm.html#m.Y_-3c" class="c-macro">ᶜY̲&lt;</a> <span class="c-string">&quot;{ ~s_elf n -&gt; n &lt;= 1 ? 1; n * s_elf n - 1 }&quot;</span></pre>
 <pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘf̲act</span> <span class="c-number">5</span>
 120</pre>
@@ -91,7 +91,7 @@ lazy parameter and no combinator left to run.</p>
 <p>The function on the left applied to the result of the one on the
 right, as one lambda written in place (the Bluebird, B f g x =
 f (g x)); either may be a name, a derived function or a lambda.</p>
-<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
 <pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘs̲umTo</span> ← <span class="c-string">&quot;'+ r_/&quot;</span> <a href="lib-Combinators.xtlm.html#m.B_-3c" class="c-macro">ᶜB̲&lt;</a> <span class="c-string">&quot;r_ange&quot;</span></pre>
 <pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘs̲umTo</span> <span class="c-number">4</span>
 10</pre>
@@ -134,7 +134,7 @@ f (g x)); either may be a name, a derived function or a lambda.</p>
 <div class="uses">Used in: <a href="lib-Combinators.xtlm.html#m.Y_-3c"><span class="c-macro">ᵐY̲&lt;</span></a></div>
 </div>
 <div class="item" id="s_tarts">
-<h3><a href="#s_tarts"><span class="c-builtin">s̲tarts</span></a> <span class="type">: Char -&gt; Char -&gt; Int</span></h3>
+<h3><a href="#s_tarts"><span class="c-builtin">s̲tarts</span></a> <span class="type">: (Num a, Truthy a) =&gt; Char -&gt; Char -&gt; a</span></h3>
 <div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L61">line 61</a></div>
 <pre class="code"><span class="c-builtin">s̲tarts</span> ← { w t → <span class="c-quote">'</span>{ i → w <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> w) <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> (i <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> t } <a href="builtins.html#e_ach" class="c-builtin">e̲ach</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> t }</pre>
 <div class="uses">Used in: <a href="lib-Combinators.xtlm.html#m.Y_-3c"><span class="c-macro">ᵐY̲&lt;</span></a>, <a href="lib-Combinators.xtlm.html#w_ord"><span class="c-builtin">w̲ord</span></a></div>

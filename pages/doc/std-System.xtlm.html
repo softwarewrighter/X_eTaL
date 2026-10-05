@@ -30,24 +30,26 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li><a href="#section-1">Choosing and repeating</a></li>
+<li><a href="#section-1">Importing</a></li>
+<li class="item"><a href="#s.u_se-3c"><span class="c-macro">ˢu̲se&lt;</span></a></li>
+<li><a href="#section-2">Choosing and repeating</a></li>
 <li class="item"><a href="#s.i_f-3c"><span class="c-macro">ˢi̲f&lt;</span></a></li>
 <li class="item"><a href="#s.u_nless-3c"><span class="c-macro">ˢu̲nless&lt;</span></a></li>
 <li class="item"><a href="#s.e_ach-3c"><span class="c-macro">ˢe̲ach&lt;</span></a></li>
-<li><a href="#section-2">What the compiler knows</a></li>
+<li><a href="#section-3">What the compiler knows</a></li>
 <li class="item"><a href="#s.l_ine-3c"><span class="c-macro">ˢl̲ine&lt;</span></a></li>
 <li class="item"><a href="#s.f_ile-3c"><span class="c-macro">ˢf̲ile&lt;</span></a></li>
 <li class="item"><a href="#s.i_nclude-3c"><span class="c-macro">ˢi̲nclude&lt;</span></a></li>
 <li class="item"><a href="#s.c_fg-3c"><span class="c-macro">ˢc̲fg&lt;</span></a></li>
 <li class="item"><a href="#s.e_rror-3c"><span class="c-macro">ˢe̲rror&lt;</span></a></li>
-<li><a href="#section-3">Debugging and checking</a></li>
+<li><a href="#section-4">Debugging and checking</a></li>
 <li class="item"><a href="#s.d_bg-3c"><span class="c-macro">ˢd̲bg&lt;</span></a></li>
 <li class="item"><a href="#s.a_ssert-3c"><span class="c-macro">ˢa̲ssert&lt;</span></a></li>
-<li><a href="#section-4">Text</a></li>
+<li><a href="#section-5">Text</a></li>
 <li class="item"><a href="#s.f_ormat-3c"><span class="c-macro">ˢf̲ormat&lt;</span></a></li>
 <li class="item"><a href="#s.p_anic-3c"><span class="c-macro">ˢp̲anic&lt;</span></a></li>
 <li class="item"><a href="#s.t_odo-3c"><span class="c-macro">ˢt̲odo&lt;</span></a></li>
-<li><a href="#section-5">Private helpers</a></li>
+<li><a href="#section-6">Private helpers</a></li>
 <li class="item"><a href="#ifArgs">ifArgs</a></li>
 <li class="item"><a href="#eachAlone">eachAlone</a></li>
 <li class="item"><a href="#eachHole">eachHole</a></li>
@@ -78,7 +80,29 @@ means the macro takes nothing there (MC22). What only the compiler
 knows comes from hooks (MC20), usable only in a macro body.</p>
 </div>
 <p class="meta"><a href="std-System.xtlm.src.html">source</a></p>
-<h2 class="section" id="section-1">Choosing and repeating</h2>
+<h2 class="section" id="section-1">Importing</h2>
+<div class="item" id="s.u_se-3c">
+<h3><a href="#s.u_se-3c"><span class="c-macro">ˢu̲se&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Unit</span></h3>
+<div class="meta">built-in macro &middot; <a href="std-System.xtlm.src.html#L23">line 23</a></div>
+<div class="doc">
+<p>Import a library under an alias of your choice: the alias on the
+left (lowercase letters and digits, then a colon), the library's name
+or path on the right. A name Name finds Name.xtl and Name.xtlm
+together, beside the importing file, then in userlibs/, then in each
+directory of XETAL_PATH, then among the standard libraries built
+into xetal; the first place holding either gives both. Their exports
+are then written with the alias (s:m_ean). Built into xetal: it makes
+names exist under the alias, which no macro's text can do (a macro
+gives source, and source can only use names that exist), so it has a
+signature here and no definition.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˢ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <span class="c-string">&quot;Stats&quot;</span></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˢm̲ean</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>
+2.0</pre>
+</div>
+<pre class="code"><span class="c-macro">ˢu̲se&lt;</span> <span class="c-error">:</span><span class="c-error">:</span> Char → Char → Unit</pre>
+<div class="uses">Used in: <a href="demos-tttml-play.xtl.src.html#L6">tttml-play.xtl:6</a></div>
+</div>
+<h2 class="section" id="section-2">Choosing and repeating</h2>
 <div class="item" id="s.i_f-3c">
 <h3><a href="#s.i_f-3c"><span class="c-macro">ˢi̲f&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
 <div class="meta">macro &middot; <a href="std-System.xtlm.src.html#L33">line 33</a></div>
@@ -132,7 +156,7 @@ its own (MC16).</p>
   <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ a b → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> a) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\n&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> b } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <span class="c-quote">'</span>{ w → template <a href="std-System.xtlm.html#c_opy" class="c-builtin">c̲opy</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> w } <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> ws
 }</pre>
 </div>
-<h2 class="section" id="section-2">What the compiler knows</h2>
+<h2 class="section" id="section-3">What the compiler knows</h2>
 <div class="item" id="s.l_ine-3c">
 <h3><a href="#s.l_ine-3c"><span class="c-macro">ˢl̲ine&lt;</span></a> <span class="type">: Unit -&gt; Unit -&gt; Char</span></h3>
 <div class="meta">macro &middot; <a href="std-System.xtlm.src.html#L71">line 71</a></div>
@@ -189,7 +213,7 @@ error[too-big]</pre>
 </div>
 <pre class="code"><span class="c-macro">ˢe̲rror&lt;</span> ← { code message → ((<a href="std-System.xtlm.html#t_rim" class="c-builtin">t̲rim</a> code) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; call&quot;</span>) <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> message }</pre>
 </div>
-<h2 class="section" id="section-3">Debugging and checking</h2>
+<h2 class="section" id="section-4">Debugging and checking</h2>
 <div class="item" id="s.d_bg-3c">
 <h3><a href="#s.d_bg-3c"><span class="c-macro">ˢd̲bg&lt;</span></a> <span class="type">: Unit -&gt; Char -&gt; Char</span></h3>
 <div class="meta">macro &middot; <a href="std-System.xtlm.src.html#L104">line 104</a></div>
@@ -223,7 +247,7 @@ stops the program (p_anic&lt; does).</p>
   <span class="c-string">&quot;{ @ -&gt; (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> c <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) ? @; []E_RR &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="std-System.xtlm.html#q_uote" class="c-builtin">q̲uote</a> line) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;; @ } @&quot;</span>
 }</pre>
 </div>
-<h2 class="section" id="section-4">Text</h2>
+<h2 class="section" id="section-5">Text</h2>
 <div class="item" id="s.f_ormat-3c">
 <h3><a href="#s.f_ormat-3c"><span class="c-macro">ˢf̲ormat&lt;</span></a> <span class="type">: Unit -&gt; Char -&gt; Char</span></h3>
 <div class="meta">macro &middot; <a href="std-System.xtlm.src.html#L131">line 131</a></div>
@@ -262,7 +286,7 @@ error[panic]</pre>
 </div>
 <pre class="code"><span class="c-macro">ˢt̲odo&lt;</span> ← { @ t → <span class="c-string">&quot;@ p_anic&lt; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="std-System.xtlm.html#q_uote" class="c-builtin">q̲uote</a> <span class="c-string">&quot;not yet implemented: &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> t }</pre>
 </div>
-<h2 class="section" id="section-5">Private helpers</h2>
+<h2 class="section" id="section-6">Private helpers</h2>
 <div class="item" id="ifArgs">
 <h3><a href="#ifArgs">ifArgs</a> <span class="type">: Char</span></h3>
 <div class="meta">value <span class="private">(private)</span> &middot; <a href="std-System.xtlm.src.html#L150">line 150</a></div>

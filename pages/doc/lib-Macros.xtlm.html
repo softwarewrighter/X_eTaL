@@ -60,7 +60,7 @@ and see what a program becomes with xetal expand FILE.</p>
 <p>Run the statements on the right when the condition on the left
 holds; the value is @ either way (the other way round from the
 system macro u_nless&lt;).</p>
-<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
 <pre class="example"><span class="prompt">      </span><span class="c-string">&quot;1 &lt; 2&quot;</span> <a href="lib-Macros.xtlm.html#m.w_hen-3c" class="c-macro">ˣw̲hen&lt;</a> <span class="c-string">&quot;p_rint! 7&quot;</span>
 7
 @</pre>
@@ -73,7 +73,7 @@ system macro u_nless&lt;).</p>
 <div class="doc">
 <p>Define the function named on the left (in u:) as the lambda body on
 the right, its name written as text.</p>
-<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
 <pre class="example"><span class="prompt">      </span><span class="c-string">&quot;s_quare&quot;</span> <a href="lib-Macros.xtlm.html#m.d_ef-3c" class="c-macro">ˣd̲ef&lt;</a> <span class="c-string">&quot;_r * _r&quot;</span></pre>
 <pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘs̲quare</span> <span class="c-number">7</span>
 49</pre>
@@ -88,7 +88,7 @@ the right, its name written as text.</p>
 <p>The line &quot;ok: label&quot; when the condition on the left holds, else
 &quot;FAIL: label (cond)&quot;, the condition shown as it was written, which a
 function, given only the condition's value, cannot do.</p>
-<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
 <pre class="example"><span class="prompt">      </span><span class="c-string">&quot;5 = 2 * 2&quot;</span> <a href="lib-Macros.xtlm.html#m.c_heck-3c" class="c-macro">ˣc̲heck&lt;</a> <span class="c-string">&quot;doubling&quot;</span>
 FAIL: doubling (5 = 2 * 2)</pre>
 </div>
@@ -102,7 +102,7 @@ FAIL: doubling (5 = 2 * 2)</pre>
 <p>Twice the expression on the right: the macro binds a local t (to 2)
 around your expression, and hygiene renames it (to g1:t, say), so a
 t of your own is still yours.</p>
-<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
 <pre class="example"><span class="prompt">      </span>t ← <span class="c-number">5</span></pre>
 <pre class="example"><span class="prompt">      </span>@ <a href="lib-Macros.xtlm.html#m.t_wice-3c" class="c-macro">ˣt̲wice&lt;</a> <span class="c-string">&quot;t + 1&quot;</span>
 12</pre>
@@ -116,7 +116,7 @@ t of your own is still yours.</p>
 <p>The text on the right with it bound to the value of the expression
 on the left (an anaphoric macro: it is meant for your text, so it is
 declared below and hygiene leaves it as written).</p>
-<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
 <pre class="example"><span class="prompt">      </span><span class="c-string">&quot;3 + 4&quot;</span> <a href="lib-Macros.xtlm.html#m.w_ith-3c" class="c-macro">ˣw̲ith&lt;</a> <span class="c-string">&quot;it * it&quot;</span>
 49</pre>
 </div>
