@@ -60,13 +60,14 @@ pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
 }
 
 /// The commands that take the whole source rather than its tokens:
-/// render, diagram, expand and doc.
+/// render, diagram, expand and doc (its model or its tests).
 fn whole(command: &Command, source: &str) -> Option<Result<String, Diagnostic>> {
     let named = |input: &crate::args::Input| input.file.clone().unwrap_or("-e".into());
     Some(match command {
         Command::Render(args) => render(args, source),
         Command::Diagram(_) => xetal_diagram::diagram(source),
         Command::Expand(input) => xetal_program::expanded(&named(input), source),
+        Command::Doc(args) if args.test => xetal_doctest::test(&named(&args.input), source),
         Command::Doc(args) => doc(args, &named(&args.input), source),
         _ => return None,
     })

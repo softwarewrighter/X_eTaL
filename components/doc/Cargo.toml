@@ -8,6 +8,7 @@ members = [
     "crates/xetal-doclink",
     "crates/xetal-dochtml",
     "crates/xetal-docsite",
+    "crates/xetal-doctest",
 ]
 
 [workspace.package]
@@ -40,6 +41,9 @@ xetal-doclink = { path = "crates/xetal-doclink" }
 xetal-dochtml = { path = "crates/xetal-dochtml" }
 xetal-docsite = { path = "crates/xetal-docsite" }
 xetal-view = { path = "../view/crates/xetal-view" }
+xetal-doctest = { path = "crates/xetal-doctest" }
+xetal-repl = { path = "../cli/crates/xetal-repl" }
+xetal-store = { path = "../base/crates/xetal-store" }
 xetal-program = { path = "../macro/crates/xetal-program" }
 xetal-sources = { path = "../macro/crates/xetal-sources" }
 xetal-names = { path = "../macro/crates/xetal-names" }

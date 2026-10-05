@@ -27,6 +27,7 @@ xetal-tty.workspace = true
 xetal-program.workspace = true
 xetal-doc.workspace = true
 xetal-docsite.workspace = true
+xetal-doctest.workspace = true
 xetal-lint.workspace = true
 xetal-sources.workspace = true
 xetal-diagram.workspace = true

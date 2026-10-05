@@ -147,7 +147,10 @@ components/
                            links, numbered lines, doc prose, examples,
                            anchors, the light and dark stylesheet),
                            xetal-docsite (the static site: index, a
-                           page and a source page per file, built-ins)
+                           page and a source page per file, built-ins),
+                           xetal-doctest (S10: each doc block's
+                           examples run as one session, compared
+                           with the output shown)
   web/                     xetal-play: the live demo's engine
                            (decorate, check, run; libraries and files
                            from the installed store, then the standard
@@ -289,6 +292,9 @@ xetal doc --json <FILE|-e EXPR>
                                item of the file, its imports and the
                                system macros it calls
 xetal doc --out DIR FILE       the same as a static site in DIR
+xetal doc --test <FILE|-e EXPR>
+                               run the file's ## >> examples, each doc
+                               block one session (the gate runs lib/)
 ```
 
 Each command runs the earlier stages first, so an early error is
