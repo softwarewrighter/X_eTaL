@@ -1,0 +1,1 @@
+Attract mode: clock row, dwell/idle as data, nested traversal (bottom, then top after a sweep, then the drum), touch pauses for the idle time; 36 claims; golden run-rosetta-attract. PR pr/attract (on #87).
