@@ -2145,6 +2145,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-clock"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+]
+
+[[package]]
 name = "xetal-core"
 version = "0.1.0"
 dependencies = [
@@ -2484,6 +2491,7 @@ version = "0.1.0"
 dependencies = [
  "xetal-array",
  "xetal-base",
+ "xetal-clock",
  "xetal-value",
 ]
 

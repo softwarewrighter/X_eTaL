@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-base", "crates/xetal-catalog", "crates/xetal-store"]
+members = ["crates/xetal-base", "crates/xetal-catalog", "crates/xetal-store", "crates/xetal-clock"]
 
 [workspace.package]
 version = "0.1.0"
