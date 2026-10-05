@@ -1,0 +1,116 @@
+## Geometry3D: points in space as arrays (a standard library, built into
+## xetal). Import it with an alias of your choice: "g:" u_se< "Geometry3D".
+## Points are a 3-row matrix, x over y over z, one column per point, as
+## []P_ATH takes 2 rows; a rotation is a 3 x 3 matrix, and turning the
+## points is one inner product. A face is a 3 x 4 matrix of corners,
+## and a solid is faces stacked along a new first axis (F x 3 x 4), so
+## one expression orders them far to near for painting.
+## Names with l: are exported; the others are private to this file.
+
+r_adians := { (f_loat _r) * (p_i @) / 180 }   # private
+
+## The rotation of d degrees about the x axis (y toward z), 3 x 3.
+## >> "g:" u_se< "Geometry3D"
+## >> f_loor 0.5 + g:r_otX 90
+## 1 0  0
+## 0 0 -1
+## 0 1  0
+l:r_otX := { d ->
+  c := c_os r_adians d
+  s := s_in r_adians d
+  3 3 r_eshape 1.0 0.0 0.0 0.0 c_at c c_at (n_eg s) c_at 0.0 c_at s c_at c
+}
+
+## The rotation of d degrees about the y axis (z toward x), 3 x 3.
+## >> "g:" u_se< "Geometry3D"
+## >> f_loor 0.5 + g:r_otY 90
+##  0 0 1
+##  0 1 0
+## -1 0 0
+l:r_otY := { d ->
+  c := c_os r_adians d
+  s := s_in r_adians d
+  3 3 r_eshape c c_at 0.0 c_at s c_at 0.0 1.0 0.0 c_at (n_eg s) c_at 0.0 c_at c
+}
+
+## The rotation of d degrees about the z axis (x toward y), 3 x 3.
+## >> "g:" u_se< "Geometry3D"
+## >> f_loor 0.5 + g:r_otZ 90
+## 0 -1 0
+## 1  0 0
+## 0  0 1
+l:r_otZ := { d ->
+  c := c_os r_adians d
+  s := s_in r_adians d
+  3 3 r_eshape c c_at (n_eg s) c_at 0.0 c_at s c_at c c_at 0.0 0.0 0.0 1.0
+}
+
+## The points turned by a rotation (or moved by any 3 x 3 matrix):
+## `m g:t_urn points`. Rotations compose by g:t_urn too, the rightmost
+## applied first: `(g:r_otX 30) g:t_urn g:r_otY 45`.
+## >> "g:" u_se< "Geometry3D"
+## >> f_loor 0.5 + (g:r_otZ 90) g:t_urn 3 1 r_eshape 1 0 0
+## 0
+## 1
+## 0
+l:t_urn := { m points -> m '+ '* i_nner points }
+
+## The points as seen from distance d along the z axis, looking toward
+## the origin, as 2 rows (x over y) for []P_ATH: a point farther away
+## (a larger z) is drawn nearer the center. `d g:p_roject points`.
+## >> "g:" u_se< "Geometry3D"
+## >> 10 g:p_roject 3 2 r_eshape 1 1 1 1 0 5
+## 1.0 2.0
+## 1.0 2.0
+l:p_roject := { d points ->
+  scale := (f_loat d) / (f_loat d) - 3 s_elect points
+  (2 t_ake points) * (2 c_at t_ally scale) r_eshape scale
+}
+
+## How far each face of a solid is: the mean z of its corners, one
+## number per face (F x 3 x 4 to F).
+## >> "g:" u_se< "Geometry3D"
+## >> g:f_ar 2 3 1 r_eshape 0 0 -3 0 0 2
+## -3.0 2.0
+l:f_ar := { faces -> (f_loat '+ r_/ o_\ 3 s_elect_2 faces) / f_loat 1 s_elect r_ev s_hape faces }
+
+## The faces of a solid from the farthest to the nearest, as positions
+## (the order to draw them in, so nearer faces cover farther ones).
+## >> "g:" u_se< "Geometry3D"
+## >> g:o_rder 2 3 1 r_eshape 0 0 -3 0 0 2
+## 2 1
+l:o_rder := { faces -> r_ev g_rade l:f_ar faces }
+
+## The 8 corners of a cube of side s centered on the origin, 3 x 8, in
+## the order front face (z = s/2) then back face, each anticlockwise
+## from the top left.
+## >> "g:" u_se< "Geometry3D"
+## >> s_hape g:c_ube 2
+## 3 8
+l:c_ube := { s ->
+  h := (f_loat s) / 2
+  h * 3 8 r_eshape -1 1 1 -1 -1 1 1 -1 1 1 -1 -1 1 1 -1 -1 1 1 1 1 -1 -1 -1 -1
+}
+
+## The six faces of the cube corners g:c_ube gives, as corner positions,
+## 6 x 4: front, back, top, bottom, left, right.
+## >> "g:" u_se< "Geometry3D"
+## >> 1 s_elect g:c_ubeFaces @
+## 1 2 3 4
+l:c_ubeFaces := { @ -> 6 4 r_eshape 1 2 3 4 5 6 7 8 1 2 6 5 4 3 7 8 1 4 8 5 2 3 7 6 }
+
+## One face of a solid's points: the corners at the given positions,
+## as a 3 x n matrix. `positions g:f_ace points`.
+## >> "g:" u_se< "Geometry3D"
+## >> 1 2 g:f_ace g:c_ube 2
+## -1.0 1.0
+##  1.0 1.0
+##  1.0 1.0
+l:f_ace := { positions points -> positions s_elect_2 points }
+
+## Every face of a solid as corners: F x 3 x n from the points and the
+## F x n positions of g:c_ubeFaces. `faces g:s_olid points`.
+## >> "g:" u_se< "Geometry3D"
+## >> s_hape (g:c_ubeFaces @) g:s_olid g:c_ube 2
+## 6 3 4
+l:s_olid := { faces points -> 2 1 3 t_ranspose (3 c_at s_hape faces) r_eshape (r_avel faces) s_elect_2 points }
