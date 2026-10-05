@@ -1,0 +1,1 @@
+[]T_RAP / []E_NSURE with []R_ECOVER []R_ETRY []H_ALT and the Error readers (ER2, D86): Outcome a and Error types, Value variants, trap frames and Machine::catch in xetal-step (frames moved to xetal-frame), spec cases, reference. Pushed as pr/errors-trap.
