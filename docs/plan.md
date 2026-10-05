@@ -1024,6 +1024,56 @@ xetal-names; libraries are `.xtl` only; aliases are lowercase letters
 | 8 | retrofit-macros | Older programs and libraries rewritten where long aliases or macros read better; goldens rebased on purpose. |
 | 9 | macros-release | README tour, reference, design.md register, CHANGES, pages, retrospective. |
 
+### Saga 19 retrospective (the macros lane)
+
+Worked as a parallel lane (`lanes/macros/.agentrail`, archived), one
+PR per step from #41 to #70, reordered twice by the user as it went:
+system macros first, then `.xtlm` libraries end to end, then the
+Rust-like system macros as a launch goal, then hygiene. 25 steps
+landed where 9 were planned.
+
+Delivered:
+
+- The macro phase expands every call through one table: the system
+  macros written in X_eTaL in `lib/System.xtlm` (`i_f<`, `u_nless<`,
+  `e_ach<`, `f_ormat<`, `d_bg<`, `a_ssert<`, `p_anic<`, `t_odo<`,
+  `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`, `e_rror<`; `u_se<`
+  declared by a signature line) and macro libraries of your own
+  (`.xtlm`, found with the `.xtl` under one alias), run when the
+  program is expanded, to a depth of 32.
+- `xetal expand FILE` and the spec `== EXPAND` section; an expansion
+  keeps a byte map, so errors in a macro's argument are reported inside
+  the string; hooks (`[]R_EJECT`, `[]S_TATEMENT`, `[]F_ILE`, ...) give
+  macros what only the compiler knows; `@` for a side that takes
+  nothing, and as a lambda parameter (L6 extended).
+- Automatic hygiene with declared anaphora (`## binds:`), long
+  namespace prefixes (MC13), Combinators.xtlm, Macros.xtlm and
+  userlibs/Repeat.xtlm as examples, `.xtlm` in the live demo, and
+  `##` doc comments with `## >>` examples, each checked to run.
+
+What went well:
+
+- Writing the system macros in X_eTaL (step 8) removed the Rust
+  generators and proved the facility on itself: every later macro was
+  a few lines of `lib/System.xtlm` over a hook.
+- The byte map from the expanded text to the text as written paid for
+  itself three times: error locations, `xetal expand`, and hygiene.
+- Spec cases with `== EXPAND` pinned each expansion before its
+  implementation, and every expansion stayed unchanged through the
+  System.xtlm rewrite and hygiene.
+
+What to watch:
+
+- Telling the call's text from the macro's own is a heuristic on text
+  (whole arguments, then runs of three bytes); a one- or two-character
+  argument the macro also writes is not protected by hygiene. Macros
+  over token trees would close this, at the cost of a second
+  macro-writing style.
+- Each macro call runs its library's program once; fine for the
+  examples, worth measuring for a library with many calls.
+- `c:Y_<` gave no speed over `c:Y_` (fib 25: 0.43 s against 0.39 s);
+  its value is the plain named function it writes.
+
 ## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
 
 Asked for by the user after Saga 9, sooner rather than later: an

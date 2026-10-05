@@ -1,6 +1,6 @@
 number = 25
 slug = "macros-release"
-status = "pending"
+status = "in-progress"
 description = "README tour, reference, design.md register, CHANGES, plan.md retrospective; t..."
 role = "production"
 context_files = []
