@@ -404,3 +404,16 @@ xetal = "none yet: the Maybe library for failure as a value"
 
 [notes.transpose]
 k = "no matrix transpose; +x flips a list of lists"
+
+# Spans: how a cell is colored, "class text|class text|...", with the
+# classes X_eTaL's []V_IEW names (number, string, symbol, builtin,
+# variable, comment, keyword, function, operator, punct); a cell
+# without spans is shown plain. A few to begin with.
+[spans.rotate]
+k = "number 1|symbol !|variable v"
+j = "number 1|space  |builtin |.|space  |variable v"
+uiua = "builtin ↻|number 1|space  |variable v"
+
+[spans.reverse]
+k = "symbol ||variable v"
+j = "builtin |.|space  |variable v"

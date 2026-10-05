@@ -18,8 +18,8 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 124 | 0 | 0 |
-| Language decisions | 131 | 0 | 4 |
+| Built-in functions | 125 | 0 | 0 |
+| Language decisions | 132 | 0 | 4 |
 | Standard libraries | 8 | 0 | 0 |
 | Spec cases | 382 | 0 | 0 |
 
@@ -124,6 +124,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `[]K_EY` | `Unit -> Key` | works | 0 | 1 |
 | `[]K_CHAR` | `Key -> Char` | works | 1 | 1 |
 | `[]K_NAMED` | `Int -> Key` | works | 0 | 1 |
+| `[]V_IEW` | `Char -> Box Char` | works | 0 | 1 |
 | `[]L_IST` | `Char -> Char -> Box Char` | works | 0 | 2 |
 | `[]T_ABLE` | `Box Char -> Box Char -> Box Char` | works | 0 | 2 |
 | `[]E_VENT` | `Unit -> Event` | works | 0 | 1 |
@@ -313,6 +314,7 @@ conventions (naming, layout) work without a spec case citing them.
 | RS1 | Events from the host are one typed built-in, `[]E_VENT @ : Unit -> Event`, a nominal type as `Key` is (...) | works | 0 |
 | RS2 | Tabular data from a TOML file is read by two typed built-ins, strings only, data only: `"file" []L_IST (...) | works | 0 |
 | RS3 | The Rosetta data file, `demos/rosetta/data.toml`, holds the two axes as lists (`idioms`, `languages`, each (...) | works | 0 |
+| RS5 | Source text is data a program can color: `[]V_IEW "src" : Char -> Box Char` gives xetal-view's segments (...) | works | 0 |
 | RS4 | The Rosetta stone is an X_eTaL program whose host is Rust: the state machine, projection and SVG scene are (...) | works | 0 |
 | I1 | Source is ASCII, except inside string literals and comments, which may hold any Unicode (revised with the (...) | works | 2 |
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example (...) | works | 2 |

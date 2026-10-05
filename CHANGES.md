@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 17:10 `feat` Faces (rosetta lane step 11, RS5 decided with the user): `[]V_IEW` (source as decorated runs with their classes, a new crate xetal-source over xetal-view); `v:s_pan`, `v:m_arkup` in Svg; X_eTaL cells colored by their own classes, other cells by optional spans in data.toml, titles and results laid out on the faces, a caption with the idiom's name; D99.
+
 - 16:30 `feat` Attract mode (rosetta lane step 10): the nested traversal (the bottom ring every dwell of 3 s; the top ring with it after a sweep; the drum after the top sweeps: the tumble), paused by any touch for 8 s, the pace as data in Comparison.xtl; D98; 36 transition claims; golden run-rosetta-attract.
 
 - 15:50 `feat` The pointer (rosetta lane step 9): drags in Comparison.xtl as state transitions (a sideways drag turns the half under it, an up-or-down drag rolls the drum, the axis decided by the first real move and paused; release snaps to the nearest face, a flick carries one further; a press without movement is a click that pauses or resumes the half); D97; 26 transition claims; golden run-rosetta-drag.

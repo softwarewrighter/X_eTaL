@@ -96,6 +96,7 @@ entries = [
   ["[]K_EY", 1, "Unit -> Key"],
   ["[]K_CHAR", 1, "Key -> Char"],
   ["[]K_NAMED", 1, "Int -> Key"],
+  ["[]V_IEW", 1, "Char -> Box Char"],
   ["[]L_IST", 2, "Char -> Char -> Box Char"],
   ["[]T_ABLE", 2, "Box Char -> Box Char -> Box Char"],
   ["[]E_VENT", 1, "Unit -> Event"],

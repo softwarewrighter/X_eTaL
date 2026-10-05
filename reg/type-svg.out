@@ -7,6 +7,8 @@ l:p_olygon : Char -> a -> Char
 l:p_olyline : Char -> a -> Char
 l:a_t : a -> Char
 l:t_ext : Char -> Char -> Char
+l:s_pan : Char -> Char -> Char
+l:m_arkup : Char -> Char -> Char
 l:g_roup : Char -> Char -> Char
 l:t_ranslate : a -> Char
 l:r_otate : a -> Char

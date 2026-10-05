@@ -623,6 +623,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-render"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-lex",
+ "xetal-syntax",
+]
+
+[[package]]
+name = "xetal-source"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
+ "xetal-view",
+]
+
+[[package]]
 name = "xetal-store"
 version = "0.1.0"
 
@@ -681,6 +701,16 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-grid",
+]
+
+[[package]]
+name = "xetal-view"
+version = "0.1.0"
+dependencies = [
+ "unicode-width",
+ "xetal-base",
+ "xetal-lex",
+ "xetal-render",
 ]
 
 [[package]]

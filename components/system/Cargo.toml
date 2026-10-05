@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-system", "crates/xetal-quad", "crates/xetal-table"]
+members = ["crates/xetal-system", "crates/xetal-quad", "crates/xetal-table", "crates/xetal-source"]
 
 [workspace.package]
 version = "0.1.0"
@@ -30,6 +30,8 @@ xetal-arith = { path = "../eval/crates/xetal-arith" }
 xetal-system = { path = "crates/xetal-system" }
 xetal-quad = { path = "crates/xetal-quad" }
 xetal-table = { path = "crates/xetal-table" }
+xetal-source = { path = "crates/xetal-source" }
+xetal-view = { path = "../view/crates/xetal-view" }
 toml = { version = "0.8", default-features = false, features = ["parse"] }
 xetal-clock = { path = "../base/crates/xetal-clock" }
 xetal-store = { path = "../base/crates/xetal-store" }
