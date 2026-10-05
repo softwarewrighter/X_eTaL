@@ -300,9 +300,10 @@ Normative docs (read before working):
 - `docs/design.md` -- language design + decisions register
 - `docs/architecture.md` -- crates, pipeline, test architecture
 - `docs/plan.md` -- saga roadmap
-- `docs/research.txt` to `docs/research4.txt` -- archival design
+- `docs/research.txt` to `docs/research5.txt` -- archival design
   conversations, NOT normative (research3: the release review behind
-  Saga 26; research4: the launch reprioritization)
+  Saga 26; research4: the launch reprioritization; research5: the
+  Rosetta stone, whose design is `docs/rosetta.md`)
 
 Code uses the slug `xetal` (crates `xetal-*`, binary `xetal`). The
 display name lives only in `xetal_base::LANG_NAME`; never hard-code

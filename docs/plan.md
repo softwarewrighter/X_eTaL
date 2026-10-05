@@ -953,6 +953,97 @@ them. After Saga 21, so `@expect` and xetalunit can use catching.
 | 4 | xetalunit | In X_eTaL-libraries (that repository's PR): fixtures, parameterized cases and reports on the assertions and `xetal test`. |
 | 5 | tests-everywhere | `tests/` and `just test` in each sibling repository, through each one's own process. |
 
+## Saga 34 -- rosetta (the idioms compared, on an impossible stone)
+
+The user's idea (2026-10-05, from docs/research5.txt; the design is
+docs/rosetta.md): a live demo that compares how languages write the
+same idiom as a split rotating stone. Rolling the stone up and down
+changes the idiom, turning the top half the language shown, turning
+the bottom half the language compared with; unattended it tumbles
+through `for idiom, for top, for bottom`, dwelling long enough to read.
+The demo is an X_eTaL program (state machine, projection, SVG scene);
+Rust is its shell (events, the picture pane, the TOML reader). The
+data is one `data.toml` read as aligned arrays over the idiom and
+language axes (not records), which also generates `docs/idioms.md`.
+The acceptance test of the architecture: `xetal run` with a scripted
+event queue writes the same frames the browser shows. Run as
+lanes/rosetta (one PR per step from the latest main); decisions with
+the user at step 1 before anything is built; the cube steps come
+before the stone and are the review point.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | rosetta-decisions | With the user: the event built-in (`[]E_VENT` and its readers, the CLI's scripted queue), the table built-in (`[]T_ABLE file name`, strings only), the TOML schema (axes, then `names`, `input`, `source`, `output`, `notes`), the first idiom and language lists; recorded in lang-choices (RS1..) and design.md. |
+| 2 | geometry-lib | `lib/Geometry3D.xtl`: rotations about three axes, a perspective projection, depth order of faces; tests on known rotations; doc examples. |
+| 3 | svg-lib | `lib/Svg.xtl`: scene values (polygon, path, text, group, clip, transform, gradient) and their SVG text; `[]S_HOW` of a scene; tests. |
+| 4 | cube | A rotating wireframe, then solid, cube from the two libraries, animated with the clock: frames to files from the CLI, the pane in the browser. The review point: if the cube is not elegant X_eTaL, the plan changes here. |
+| 5 | events | `[]E_VENT` and readers in the catalog; `xetal run --events FILE` (a scripted queue; the CLI acceptance test); the browser's pointer and clock bridge in the worker; spec cases and goldens. |
+| 6 | table | `[]T_ABLE`: the Rust TOML loader, aligned arrays, missing cells empty; `demos/rosetta/data.toml` with the array languages' idioms; `just rosetta-check` (every cell named, every X_eTaL cell runs). |
+| 7 | split-face | The impossible geometry: a vertical carousel of idioms and two horizontal carousels of languages, clipped to the halves; one static comparison (Rotate: X_eTaL vs K) from the data. |
+| 8 | axes | `comparison.xtl`: one Axis abstraction (items, enabled, current, angle, target, advance, retreat, snap, select) for the idiom, top and bottom axes; indexes are the truth; transition tests from the CLI with scripted events. |
+| 9 | pointer | Drag a half sideways, drag anywhere up and down, click to pause a half, inertia and snapping to the nearest face, the short-way turn on a selection that leaves the half paused. |
+| 10 | attract | The nested traversal with dwell points, the overlapped tumble, pause on interaction and resume after idle; the velocities as data. |
+| 11 | faces | Faces: name, source, output; X_eTaL colored by xetal-view, other languages by classified spans from the data; the missing-implementation face. |
+| 12 | web-host | `pages/rosetta/`: the Yew page with the idiom list, the two-level language lists, URL state, keyboard, `prefers-reduced-motion`; the worker runs the program; the catalog links it. |
+| 13 | idioms-doc | `docs/idioms.md` generated from `data.toml` (`just idioms`), checked by the gate; the X_eTaL column still run by the idioms spec case. |
+| 14 | profile | Frame time in the worker and from the CLI against the budget (30 frames a second, about 60 shapes); what the interpreter needs goes to Saga 30's follow-up, and only a measured shortfall moves work into Rust. |
+| 15 | rosetta-release | `docs/literate/rosetta.org`, screenshots in the visual regression, README and catalog links, the frictions in dogfooding.md, CHANGES, pages; the lane archived. |
+
+## Saga 35 -- rosetta-languages (more languages, sets, the microscope)
+
+After Saga 34 (docs/rosetta.md, M2): the mainstream languages of
+docs/idioms.md and then C++, FORTH, Go, Haskell, Kotlin and Scala, as
+data grouped into families (the acceptance test: no program file
+changes); language sets per half and idiom sets (membership by check
+box, selection by radio button; attract mode walks the enabled ones;
+the halves may differ in face count); diagonal drags (dx the half's
+language, dy the idiom); the microscope view (the matrix beside the
+stone with the two cursors). A desktop host in X_eTaL-extensions
+(the same program, a native window) is planned in that repository.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | mainstream-data | The mainstream languages' cells, families in the data, classified spans; the stone unchanged. |
+| 2 | language-sets | Presets and custom membership per half, idiom sets; attract over the enabled; URL state for sets. |
+| 3 | diagonal-drag | Both axes from one drag of a half. |
+| 4 | microscope | The matrix view with the cursors. |
+| 5 | languages-release | Docs, screenshots, CHANGES, pages. |
+
+## Saga 36 -- labeled axes (an experiment, from Rosetta's data)
+
+After Saga 34 (docs/rosetta.md, M3): Rosetta's data is several aligned
+arrays over named dimensions (`source[idiom; language]`), and ML will
+bring more (`weights[layer; expert; in; out]`). With the Rosetta
+program as the case, decide with the user whether X_eTaL wants to
+associate coordinates with dimensions (selection by label, alignment
+by name, an axis's names printed with its values) and how the
+decoration system would spell it; commit to nothing from this one use
+case. The result is a decision in lang-choices.md, possibly "not yet".
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | axes-survey | What Rosetta does today (indexes found by search, names carried beside), what xarray, Dyalog's and BQN's conventions do; the frictions from dogfooding.md. |
+| 2 | axes-decision | With the user: a design or a deferral, recorded. |
+| 3+ | axes-* | If decided: the implementation, test-first, with Rosetta retrofitted. |
+
+## Saga 37 -- xtln (X_eTaL notation: data only, safe by construction)
+
+After Saga 34, and after Saga 36 has decided (docs/rosetta.md, M4): a
+serialization of X_eTaL values that keeps what JSON loses (element
+type, rank, shape, nesting, the kind of an empty array, dimension
+labels if Saga 36 made them) and that cannot execute anything: the
+reader's grammar has no call, definition, macro, import, quad or
+binding, so a `.xtln` file is as inert as JSON. Designed from the
+value model, not from TOML or JSON (the reasons are in research5.txt).
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | xtln-design | With the user: the syntax, from the value model; what a reader accepts; the error reporting; recorded in lang-choices. |
+| 2 | xtln-reader | A reader crate (no evaluator dependency), round-trip tests over every value kind, fuzz tests on malformed and hostile input. |
+| 3 | xtln-writer | `xetal` writes it (the REPL, `[]N_PUT`-style built-ins); `read (write x)` is `x`. |
+| 4 | xtln-table | `[]T_ABLE` and a general reader built-in over `.xtln`; Rosetta's `data.toml` converted as the first user, TOML kept as an input format. |
+| 5 | xtln-release | Reference, literate section, CHANGES. |
+
 ## Saga 13a -- retrofit (newer features in older programs)
 
 Asked for by the user: programs written before a feature existed carry
