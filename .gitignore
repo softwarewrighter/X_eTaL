@@ -29,3 +29,4 @@ tools/katex/node_modules/
 
 # trunk serve output (just serve); the published copy is pages/
 components/web/crates/xetal-web/dist/
+__pycache__/
