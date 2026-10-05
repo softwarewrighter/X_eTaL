@@ -7,6 +7,7 @@ Available recipes:
     build                      # Build every component (debug) into the shared target/
     build-release              # Build every component optimized (target/release/xetal: the run recipes use it)
     check-literate             # The literate documents' recorded results are current
+    check-live                 # Are the live demos live? Fetch every github.io link in the six repositories' READMEs (network)
     clippy                     # Lint every component (warnings are errors)
     default                    # List the recipes
     diagrams                   # Regenerate the annotated diagrams (images/*-annotated.svg) from docs/diagrams/*.notes

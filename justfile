@@ -145,6 +145,10 @@ doc: _quiet-build
 status:
     python3 scripts/status.py
 
+# Are the live demos live? Fetch every github.io link in the six repositories' READMEs (network)
+check-live:
+    python3 scripts/check-live.py
+
 # Regenerate docs/reference.md (every built-in, its examples run) from docs/reference/builtins.ref
 reference: _quiet-build
     python3 scripts/reference.py

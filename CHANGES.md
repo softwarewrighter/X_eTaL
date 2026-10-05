@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 02:00 `build` `just check-live` (scripts/check-live.py): every github.io link in the six repositories' READMEs fetched; a link fails on a non-200, GitHub's no-site page, or a non-HTML answer; exit status the number of failures (the user, after the siblings' Pages were rebuilt).
+
 - 00:19 `build` Merged PRs #72 (errors lane: `[]S_IGNAL`, an error of one's own, ER1; its quad dispatch and tests joined with the clock's by hand; register entry D86) and #73 (macros lane: the Saga 19 retrospective, the lane archived); pages/ rebuilt.
 
 ## 2026-10-04

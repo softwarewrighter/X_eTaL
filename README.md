@@ -160,7 +160,9 @@ smaller, sharper [WebM video](videos/tour.webm)):
 today: every built-in, language decision and standard library, marked
 works, partial or planned, with the spec cases behind it (regenerated
 by `just status`, checked by the gate), and [`docs/asks.md`](docs/asks.md)
-says where each ask from the sibling repositories stands. In short:
+says where each ask from the sibling repositories stands;
+`just check-live` fetches every live-demo link in the six repositories'
+READMEs and reports any that no longer serve a page. In short:
 
 Early, and specified by its test suite as it is built. Working: the
 whole pipeline (lexer, parser, formatter, Core, Hindley-Milner type
