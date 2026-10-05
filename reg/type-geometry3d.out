@@ -1,0 +1,11 @@
+l:r_otX : Num a => a -> Float
+l:r_otY : Num a => a -> Float
+l:r_otZ : Num a => a -> Float
+l:t_urn : Num a => a -> a -> a
+l:p_roject : Num a => a -> Float -> Float
+l:f_ar : Num a => a -> Float
+l:o_rder : Num a => a -> Int
+l:c_ube : Num a => a -> Float
+l:c_ubeFaces : Num a => Unit -> a
+l:f_ace : Int -> a -> a
+l:s_olid : Int -> a -> a

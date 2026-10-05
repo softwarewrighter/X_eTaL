@@ -220,6 +220,11 @@ stream type later.
 | RS3 | The Rosetta data file, `demos/rosetta/data.toml`, holds the two axes as lists (`idioms`, `languages`, each a key per item), one `names` table (key to display name, idioms and languages alike), `input` (idiom to the example's input), and the matrices `source`, `output` and `notes` as tables of tables keyed idiom then language; `available` is derived in the program as `"" /= source`. The first data (step 6): the idioms of docs/idioms.md's array table, the languages APL2, Dyalog, J, BQN, X_eTaL from it and K and Uiua added where confident, the rest left as missing faces for review. Decided with the user, 2026-10-05. |
 | RS4 | The Rosetta stone is an X_eTaL program whose host is Rust: the state machine, projection and SVG scene are X_eTaL (`demos/rosetta/`, `lib/Geometry3D.xtl`, `lib/Svg.xtl`), and the host supplies only events (RS1), tables (RS2) and the picture sink (`[]S_HOW`); `xetal run demos/rosetta/rosetta.xtl --events FILE --draw DIR` writes the frames the browser shows. The design is docs/rosetta.md. Decided with the user, 2026-10-05. |
 
+## 9c. Events and tables (the Rosetta stone's host boundary)
+
+| Rule | Decision |
+|------|----------|
+
 ## 10. Input and display
 
 | #  | Decision |
