@@ -582,6 +582,23 @@ Named key n (1 to 11: Up, Down, Left, Right, Enter, Escape, Backspace,
 Tab, Delete, Home, End), for the Terminal library, which names them.
 > []K_NAMED 1
 
+== []L_IST
+A top-level list of strings in a TOML file, as boxed texts: `"file"
+[]L_IST "name"`. Strings only, and nothing in the file is run; a
+missing list, a value that is not a list of strings, or a file that is
+not TOML is error[bad-table], naming the file and the key.
+> "reg/fixtures/table.toml" []L_IST "cols"
+!> "reg/fixtures/table.toml" []L_IST "count"
+
+== []T_ABLE
+A table of tables in a TOML file as a matrix of texts whose rows and
+columns follow two top-level lists: `("file" "name") []T_ABLE ("rows"
+"cols")`; a cell the file does not have is the empty text. The Rosetta
+stone reads its idioms this way: `("data.toml" "source") []T_ABLE
+("idioms" "languages")`.
+> s_hape ("reg/fixtures/table.toml" "cells") []T_ABLE ("rows" "cols")
+> 1 s_elect ("reg/fixtures/table.toml" "cells") []T_ABLE ("rows" "cols")
+
 == []E_VENT
 The next event from the host, as an Event: a tick of the clock, a
 pointer down, move, up or click, a key, or `end` when there are no

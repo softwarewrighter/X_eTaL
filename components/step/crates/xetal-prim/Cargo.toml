@@ -20,6 +20,7 @@ xetal-search.workspace = true
 xetal-radix.workspace = true
 xetal-system.workspace = true
 xetal-quad.workspace = true
+xetal-table.workspace = true
 xetal-rotate.workspace = true
 xetal-transpose.workspace = true
 

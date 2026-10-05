@@ -1,18 +1,46 @@
 # The Rosetta stone's data (docs/rosetta.md, lang-choices RS3): the
 # idioms compared, and how each language writes them. Two axes, then
-# names, inputs, and three matrices keyed idiom then language. A cell
-# that is missing is a face that says so; nothing here is ever run by
-# the stone (the X_eTaL cells are run by spec/integration/idioms.case).
+# names, inputs (a binding the example runs with), and three matrices
+# keyed idiom then language: source, output, notes. A missing cell is
+# a face that says so; nothing here is ever run by the stone (the X_eTaL
+# cells follow docs/idioms.md, whose spec case runs them). The K and
+# Uiua cells were added from memory and are reviewed by the user.
 
-idioms = ["reverse", "rotate", "shape", "reshape", "sum"]
+idioms = ["sum", "running-sum", "iota", "reshape", "shape", "count", "reverse", "rotate", "transpose", "outer", "inner", "each", "swap", "compose", "power", "mean-train", "lambda", "conditional", "self", "index-of", "member", "match", "where", "sort", "format", "numbers", "read-file", "read-line", "print", "trap", "use"]
 languages = ["apl2", "dyalog", "j", "bqn", "k", "uiua", "xetal"]
 
 [names]
-reverse = "Reverse"
-rotate = "Rotate left by one"
-shape = "Shape"
-reshape = "Reshape"
 sum = "Sum"
+running-sum = "Running sum"
+iota = "1 to n"
+reshape = "Reshape"
+shape = "Shape"
+count = "Count"
+reverse = "Reverse"
+rotate = "Rotate"
+transpose = "Transpose"
+outer = "Outer product"
+inner = "Inner product"
+each = "Each"
+swap = "Swap arguments"
+compose = "Compose"
+power = "Power (repeat)"
+mean-train = "Train: the mean"
+lambda = "Anonymous function"
+conditional = "Conditional"
+self = "Self-reference"
+index-of = "Index of"
+member = "Membership"
+match = "Match"
+where = "Where"
+sort = "Sort"
+format = "Number to text"
+numbers = "Text to numbers"
+read-file = "Read a file"
+read-line = "Read a line"
+print = "Print"
+trap = "Trap an error"
+use = "Use a library"
 apl2 = "APL2"
 dyalog = "Dyalog APL"
 j = "J"
@@ -22,71 +50,364 @@ uiua = "Uiua"
 xetal = "X_eTaL"
 
 [input]
-reverse = '"ABCDE"'
-rotate = '"ABCDE"'
-shape = '2 3 r_eshape 1 2 3 4 5 6'
-reshape = '1 2 3 4 5 6'
-sum = '1 2 3 4'
-
-[source.reverse]
-apl2 = "⌽V"
-dyalog = "⌽v"
-j = "|. v"
-bqn = "⌽v"
-k = "|v"
-uiua = "⇌v"
-xetal = 'r_ev "ABCDE"'
-
-[source.rotate]
-apl2 = "1⌽V"
-dyalog = "1⌽v"
-j = "1 |. v"
-bqn = "1⌽v"
-k = "1!v"
-uiua = "↻1 v"
-xetal = '1 r_otate "ABCDE"'
-
-[source.shape]
-apl2 = "⍴A"
-dyalog = "⍴a"
-j = "$ a"
-bqn = "≢a"
-k = "#a"
-uiua = "△a"
-xetal = 's_hape 2 3 r_eshape 1 2 3 4 5 6'
-
-[source.reshape]
-apl2 = "2 3⍴V"
-dyalog = "2 3⍴v"
-j = "2 3 $ v"
-bqn = "2‿3⥊v"
-k = "2 3#v"
-uiua = "↯2_3 v"
-xetal = '2 3 r_eshape 1 2 3 4 5 6'
+sum = 'v := 1 2 3 4'
+running-sum = 'v := 1 2 3 4'
+iota = 'n := 5'
+reshape = 'v := 1 2 3 4 5 6'
+shape = 'a := 2 3 r_eshape 1 2 3 4 5 6'
+count = 'v := 3 1 4 1 5'
+reverse = 'v := "ABCDE"'
+rotate = 'v := "ABCDE"'
+transpose = 'a := 2 3 r_eshape 1 2 3 4 5 6'
+index-of = 'v := 3 1 4; x := 4'
+member = 'x := 2; v := 1 2 3'
+match = 'a := 1 2; b := 1 2'
+where = 'b := 0 1 1 0'
+sort = 'v := 3 1 2'
+format = 'v := 1 2'
+numbers = 't := "1 2 3"'
 
 [source.sum]
-apl2 = "+/V"
-dyalog = "+/v"
-j = "+/ v"
-bqn = "+´v"
-k = "+/v"
-uiua = "/+ v"
-xetal = "'+ r_/ 1 2 3 4"
+apl2 = '+/V'
+dyalog = '+/v'
+j = '+/ v'
+bqn = '+´ v'
+xetal = "'+ r_/ v"
+k = '+/v'
+uiua = '/+ v'
 
-[output.reverse]
-xetal = '"EDCBA"'
+[source.running-sum]
+apl2 = '+\V'
+dyalog = '+\v'
+j = '+/\ v'
+bqn = '+` v'
+xetal = "'+ s_\\ v"
+k = '+\v'
+uiua = '\+ v'
 
-[output.rotate]
-xetal = '"BCDEA"'
+[source.iota]
+apl2 = '⍳N'
+dyalog = '⍳n'
+j = '>: i. n'
+bqn = '1+↕n'
+xetal = 'r_ange n'
+k = '1+!n'
+uiua = '+1⇡n'
 
-[output.shape]
-xetal = '2 3'
+[source.reshape]
+apl2 = '2 3⍴V'
+dyalog = '2 3⍴v'
+j = '2 3 $ v'
+bqn = '2‿3⥊v'
+xetal = '2 3 r_eshape v'
+k = '2 3#v'
+uiua = '↯2_3 v'
 
-[output.reshape]
-xetal = '1 2 3\n4 5 6'
+[source.shape]
+apl2 = '⍴A'
+dyalog = '⍴a'
+j = '$ a'
+bqn = '≢a'
+xetal = 's_hape a'
+k = '#a'
+uiua = '△a'
+
+[source.count]
+apl2 = '↑⍴V'
+dyalog = '≢v'
+j = '# v'
+bqn = '≠v'
+xetal = 't_ally v'
+k = '#v'
+uiua = '⧻v'
+
+[source.reverse]
+apl2 = '⌽V'
+dyalog = '⌽v'
+j = '|. v'
+bqn = '⌽v'
+xetal = 'r_ev v'
+k = '|v'
+uiua = '⇌v'
+
+[source.rotate]
+apl2 = '1⌽V'
+dyalog = '1⌽v'
+j = '1 |. v'
+bqn = '1⌽v'
+xetal = '1 o_- v'
+k = '1!v'
+uiua = '↻1 v'
+
+[source.transpose]
+apl2 = '⍉A'
+dyalog = '⍉a'
+j = '|: a'
+bqn = '⍉a (a matrix)'
+xetal = 'o_\ a'
+k = '+a'
+uiua = '⍉a'
+
+[source.outer]
+apl2 = 'A∘.×B'
+dyalog = 'a∘.×b'
+j = 'a */ b'
+bqn = 'a ×⌜ b'
+xetal = "a '* t_able b"
+k = 'a*/:\:b'
+uiua = '⊞× a b'
+
+[source.inner]
+apl2 = 'A+.×B'
+dyalog = 'a+.×b'
+j = 'a +/ .* b'
+bqn = 'a +˝∘×⎉1‿∞ b'
+xetal = "a '+ '* i_nner b"
+k = 'a+/@*b'
+uiua = '/+×a b'
+
+[source.each]
+apl2 = 'F¨V'
+dyalog = 'f¨v'
+j = 'f"0 v'
+bqn = 'F¨v'
+xetal = "'f_ e_ach v"
+k = "f'v"
+uiua = '∵F v'
+
+[source.swap]
+dyalog = 'x f⍨ y'
+j = 'x f~ y'
+bqn = 'x F˜ y'
+xetal = "x 'f_ s_wap y"
+k = 'y f x'
+uiua = 'F ⊙⊙∘ x y'
+
+[source.compose]
+dyalog = 'f∘g'
+j = 'f@:g'
+bqn = 'F∘G'
+xetal = "'f_ 'g_ c_ompose x"
+k = 'f g x'
+uiua = 'F G x'
+
+[source.power]
+dyalog = 'f⍣3 ⊢x'
+j = 'f^:3 x'
+bqn = 'F⍟3 x'
+xetal = 'f_^3 x'
+k = 'f/[3;x]'
+uiua = '⍥F 3 x'
+
+[source.mean-train]
+dyalog = '(+/÷≢)'
+j = '(+/ % #)'
+bqn = '(+´÷≠)'
+xetal = "['+ r_/ / t_ally]"
+k = '{(+/x)%#x}'
+uiua = '÷⧻⟜/+'
+
+[source.lambda]
+apl2 = '∇Z←SQ X'
+dyalog = '{⍵×⍵}'
+j = '{{ y*y }}'
+bqn = '{𝕩×𝕩}'
+xetal = '{ _r * _r }'
+k = '{x*x}'
+uiua = '×.'
+
+[source.conditional]
+apl2 = '→(X<0)/NEG'
+dyalog = '{⍵<0:-⍵ ⋄ ⍵}'
+j = '{{ if. y<0 do. -y else. y end. }}'
+bqn = '{𝕩<0 ? -𝕩 ; 𝕩}'
+xetal = '{ x -> x < 0 ? n_eg x; x }'
+k = '{$[x<0;-x;x]}'
+uiua = '⨬(¯|∘) <0.'
+
+[source.self]
+dyalog = '∇'
+j = '$:'
+bqn = '𝕊'
+k = 'o'
+uiua = '↬'
+
+[source.index-of]
+apl2 = 'V⍳X'
+dyalog = 'v⍳x'
+j = 'v i. x'
+bqn = 'v⊐x'
+xetal = 'v i_ndexOf x'
+k = 'v?x'
+uiua = '⊗x v'
+
+[source.member]
+apl2 = 'X∊V'
+dyalog = 'x∊v'
+j = 'x e. v'
+bqn = 'x∊v'
+xetal = 'x m_ember? v'
+k = 'x in v'
+uiua = '∊x v'
+
+[source.match]
+apl2 = 'A≡B'
+dyalog = 'a≡b'
+j = 'a -: b'
+bqn = 'a≡b'
+xetal = 'a m_atch b'
+k = 'a~b'
+uiua = '≍a b'
+
+[source.where]
+apl2 = 'B/⍳⍴B'
+dyalog = '⍸b'
+j = 'I. b'
+bqn = '/b'
+xetal = 'w_here b'
+k = '&b'
+uiua = '⊚b'
+
+[source.sort]
+apl2 = 'V[⍋V]'
+dyalog = 'v[⍋v]'
+j = '/:~ v'
+bqn = '∧v'
+xetal = 's_ort v'
+k = 'v@<v'
+uiua = '⍆v'
+
+[source.format]
+apl2 = '⍕V'
+dyalog = '⍕v'
+j = '": v'
+bqn = '•Fmt v'
+xetal = 'f_ormat v'
+k = '$v'
+uiua = '°⋕ v'
+
+[source.numbers]
+apl2 = '⍎T'
+dyalog = '⍎t'
+j = '". t'
+bqn = '•ParseFloat t'
+xetal = 'n_umbers t'
+k = '.t'
+uiua = '⋕ t'
+
+[source.read-file]
+dyalog = '⊃⎕NGET f'
+j = '1!:1 < f'
+bqn = '•FChars f'
+xetal = '[]N_GET f'
+k = '0:f'
+uiua = '&fras f'
+
+[source.read-line]
+apl2 = '⍞'
+dyalog = '⍞'
+j = '1!:1 ] 1'
+bqn = '•GetLine @'
+xetal = '[]R_EAD @'
+k = '0:0'
+uiua = '&sc'
+
+[source.print]
+apl2 = '⎕←V'
+dyalog = '⎕←v'
+j = 'echo v'
+bqn = '•Show v'
+xetal = 'p_rint! v'
+k = '`0:v'
+uiua = '&p v'
+
+[source.trap]
+apl2 = '⎕EA'
+dyalog = ':Trap / 0::'
+j = 'try. catch. end.'
+bqn = 'F⎊G'
+k = '.[f;x;:]'
+uiua = '⍣F G'
+
+[source.use]
+apl2 = ')COPY WS'
+dyalog = ')COPY / ⎕FIX'
+j = "require 'x'"
+bqn = '•Import "x.bqn"'
+xetal = '"c:" u_se< "Combinators"'
+k = '\l x.k'
+uiua = '~"x.ua"'
 
 [output.sum]
-xetal = '10'
+xetal = "10"
 
-[notes.shape]
-k = "the count of the first axis only; K has no shape of a nested list"
+[output.running-sum]
+xetal = "1 3 6 10"
+
+[output.iota]
+xetal = "1 2 3 4 5"
+
+[output.reshape]
+xetal = "1 2 3\n4 5 6"
+
+[output.shape]
+xetal = "2 3"
+
+[output.count]
+xetal = "5"
+
+[output.reverse]
+xetal = "EDCBA"
+
+[output.rotate]
+xetal = "BCDEA"
+
+[output.transpose]
+xetal = "1 4\n2 5\n3 6"
+
+[output.index-of]
+xetal = "3"
+
+[output.member]
+xetal = "1"
+
+[output.match]
+xetal = "1"
+
+[output.where]
+xetal = "2 3"
+
+[output.sort]
+xetal = "1 2 3"
+
+[output.format]
+xetal = "1 2"
+
+[output.numbers]
+xetal = "1.0 2.0 3.0"
+
+[notes.swap]
+apl2 = "not directly expressible"
+
+[notes.compose]
+apl2 = "not directly expressible"
+
+[notes.power]
+apl2 = "not directly expressible"
+
+[notes.mean-train]
+apl2 = "not directly expressible"
+k = "K has no trains; a lambda does it"
+
+[notes.self]
+apl2 = "the function's own name"
+xetal = "its own name, or c:Y_ from the Combinators library"
+
+[notes.read-file]
+apl2 = "a shared variable ([]SVO) with a file processor"
+
+[notes.trap]
+xetal = "none yet: the Maybe library for failure as a value"
+
+[notes.transpose]
+k = "no matrix transpose; +x flips a list of lists"

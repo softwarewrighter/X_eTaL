@@ -36,6 +36,7 @@ xetal-search = { path = "../search/crates/xetal-search" }
 xetal-radix = { path = "../radix/crates/xetal-radix" }
 xetal-system = { path = "../system/crates/xetal-system" }
 xetal-quad = { path = "../system/crates/xetal-quad" }
+xetal-table = { path = "../system/crates/xetal-table" }
 xetal-rotate = { path = "../axes/crates/xetal-rotate" }
 xetal-transpose = { path = "../axes/crates/xetal-transpose" }
 xetal-grid = { path = "../view/crates/xetal-grid" }

@@ -18,7 +18,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 122 | 0 | 0 |
+| Built-in functions | 124 | 0 | 0 |
 | Language decisions | 131 | 0 | 4 |
 | Standard libraries | 8 | 0 | 0 |
 | Spec cases | 382 | 0 | 0 |
@@ -124,6 +124,8 @@ conventions (naming, layout) work without a spec case citing them.
 | `[]K_EY` | `Unit -> Key` | works | 0 | 1 |
 | `[]K_CHAR` | `Key -> Char` | works | 1 | 1 |
 | `[]K_NAMED` | `Int -> Key` | works | 0 | 1 |
+| `[]L_IST` | `Char -> Char -> Box Char` | works | 0 | 2 |
+| `[]T_ABLE` | `Box Char -> Box Char -> Box Char` | works | 0 | 2 |
 | `[]E_VENT` | `Unit -> Event` | works | 0 | 1 |
 | `[]E_KIND` | `Event -> Char` | works | 0 | 1 |
 | `[]E_AT` | `Event -> Float` | works | 0 | 1 |

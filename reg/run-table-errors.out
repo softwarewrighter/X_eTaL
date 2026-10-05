@@ -1,0 +1,5 @@
+error[bad-table]: reg/fixtures/table.toml: nope: no such list at the top level at 0..40
+error[bad-table]: reg/fixtures/table.toml: count: not a list at 0..41
+error[bad-table]: reg/fixtures/table.toml: bad: a.x: not a string at 0..58
+error[bad-table]: reg/fixtures/table.xtl: expected `.`, `=` at 0..39
+error[io]: []T_ABLE: nope.toml: No such file or directory (os error 2) at 0..26

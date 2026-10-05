@@ -652,6 +652,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-table"
+version = "0.1.0"
+dependencies = [
+ "toml",
+ "xetal-array",
+ "xetal-base",
+ "xetal-store",
+ "xetal-value",
+]
+
+[[package]]
 name = "xetal-token"
 version = "0.1.0"
 dependencies = [

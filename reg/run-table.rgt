@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run reg/fixtures/table.xtl"
+exit_code = 0
+desc = "[]L_IST and []T_ABLE (RS2): a top-level list of strings, and a table of tables as a matrix following two lists, a missing cell the empty string"

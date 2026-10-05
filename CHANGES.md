@@ -12,7 +12,11 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 12:50 `feat` Tables from TOML, RS2 (rosetta lane step 6): `"file" []L_IST "name"` and `("file" "name") []T_ABLE ("rows" "cols")` in a new crate xetal-table (strings only, errors name the file and key); `demos/rosetta/data.toml` filled with the 31 idioms of docs/idioms.md across seven languages (K and Uiua added for review); `just rosetta-check` runs every X_eTaL cell, and the gate runs it; D94; goldens run-table, run-table-errors.
+- 12:30 `feat` Events from the host, RS1 (rosetta lane step 5): `[]E_VENT @ : Unit -> Event` with `[]E_KIND`, `[]E_AT`, `[]E_KEY`; one line per event through the queue `[]K_EY` uses; `xetal run --events FILE` (or standard input), `end` at the end of input; the live demo gives a tick per wait and `key NAME`; D93; goldens run-events, run-events-bad.
 - 11:59 `build` Merged PR #83 (rosetta lane: events from the host, `[]E_VENT` and its readers; its quad dispatch joined with the warning's by hand).
+- 11:36 `build` Merged PRs #81 (rosetta lane: lib/Svg.xtl) and #82 (rosetta lane: the turning cube, demos/rosetta/cube.xtl, the review point); the lane's own files taken as its newest; pages/ rebuilt.
+
 
 - 12:30 `feat` Events from the host, RS1 (rosetta lane step 5): `[]E_VENT @ : Unit -> Event` with `[]E_KIND`, `[]E_AT`, `[]E_KEY`; one line per event through the queue `[]K_EY` uses; `xetal run --events FILE` (or standard input), `end` at the end of input; the live demo gives a tick per wait and `key NAME`; D93; goldens run-events, run-events-bad.
 - 11:50 `feat` `demos/rosetta/cube.xtl` (rosetta lane step 4, the review point): a cube turning in space from Geometry3D and Svg, 12 wireframe then 12 shaded frames (faces far to near, Lambert shading from outward normals), shown with `[]S_HOW`; listed in the live demo; golden run-rosetta-cube (a frame as written); `v:r_gb` added to Svg; Geometry3D's viewer convention fixed (the viewer is up the z axis, so `o_rder` paints ascending z).

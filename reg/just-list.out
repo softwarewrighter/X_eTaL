@@ -28,6 +28,7 @@ Available recipes:
     reference                  # Regenerate docs/reference.md (every built-in, its examples run) from docs/reference/builtins.ref
     reg                        # Run the reg-rs CLI goldens in reg/
     repl                       # Start the interactive session
+    rosetta-check              # Check the Rosetta stone's data: names, keys, and every X_eTaL cell runs
     run +args                  # Type-check and run a script, flags first: just run --echo demos/tour.xtl
     screenshots                # Regenerate the README / docs images (vhs, ImageMagick)
     show file                  # Run a file as a notebook: each statement pretty-printed, then its output (#! flags such as --untyped apply)

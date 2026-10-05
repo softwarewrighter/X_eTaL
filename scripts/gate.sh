@@ -85,6 +85,8 @@ step "built-in reference (docs/reference.md)"
 python3 scripts/reference.py --check
 step "status table (docs/status.md)"
 python3 scripts/status.py --check
+step "the Rosetta stone's data (demos/rosetta/data.toml)"
+python3 scripts/rosetta-check.py | tail -1
 if does "flag asks"; then
     step "asks ledger (docs/asks.md, each repro run)"
     python3 scripts/asks.py --check
