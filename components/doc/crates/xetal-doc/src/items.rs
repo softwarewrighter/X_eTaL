@@ -49,7 +49,37 @@ pub(crate) fn files_of(loaded: &mut Loaded) -> Result<Vec<DocFile>, Diagnostic> 
         let public = d.written.contains(':') || files[d.file].kind == "program";
         files[d.file].items.push(item(s, d, public, uses));
     }
+    for f in files.iter_mut().filter(|f| f.kind == "system macros") {
+        declared(f)?;
+    }
     Ok(files)
+}
+
+/// The built-in macros the system macro library declares by signature
+/// lines (`s:u_se< :: Char -> Char -> Unit`, MC21), as items in line
+/// order: their doc is the `##` block above, their source the line.
+fn declared(file: &mut DocFile) -> Result<(), Diagnostic> {
+    for sig in xetal_macro::system_signatures()? {
+        let line = 1 + file.text[..sig.span.start.min(file.text.len())]
+            .matches('\n')
+            .count();
+        let name = format!("s:{}", sig.name);
+        let source = format!("{name} :: {}", sig.ty);
+        let at = file.items.iter().position(|i| i.line > line);
+        let item = Item {
+            name,
+            kind: "built-in macro",
+            public: true,
+            ty: sig.ty,
+            line,
+            section: section_at(&file.text, line),
+            doc: doc_above(&file.text, line),
+            source,
+            uses: Vec::new(),
+        };
+        file.items.insert(at.unwrap_or(file.items.len()), item);
+    }
+    Ok(())
 }
 
 /// The definitions of a program with their types (one line per item).

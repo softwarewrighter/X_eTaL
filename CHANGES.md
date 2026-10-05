@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 22:55 `feat` `xetal doc` shows `u_se<` (macros lane): the built-in macro declared in System.xtlm is an item of the system macros page (kind built-in macro, its type, its `##` doc and examples, which `xetal doc --test` runs); golden doc-site-system rebased on purpose (D84).
 - 22:07 `build` Merged PRs #65 and #68 (macros lane: user macro libraries in the live demo, `s:u_se< ::` in System.xtlm) and #66 and #67 (doc lane: search by name and type, pages/doc); lib/Stats.xtl keeps both its demo-subset note and the doc lane's `##` comments; the doc-json-library golden rewritten on purpose; pages/ rebuilt.
 
 - 22:03 `docs` docs/vendoring.md: how a downstream repository uses X_eTaL without tracking a copy: one tracked line (XETAL_COMMIT, the known-good commit), a clone in a gitignored work directory checked out at that commit, a release build, and a symlink bin/xetal to the fresh binary; the script, recipes, crate paths, moving to a newer commit, and replacing a tracked vendor/xetal. The script was run as written in a scratch repository. Replaces the released-binary plan (Saga 32 step 7).
