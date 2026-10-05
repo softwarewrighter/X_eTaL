@@ -1,8 +1,9 @@
 number = 5
 slug = "events"
-status = "in-progress"
+status = "completed"
 description = "Rosetta lane (see lanes/rosetta/.agentrail/plan.md, docs/rosetta.md and docs/..."
 role = "production"
 context_files = []
 created_at = "2026-10-05T08:23:15"
-commits = []
+completed_at = "2026-10-05T11:49:37"
+commits = ["b936a46153e50dfd70dbdc15a00224e7e37188cc"]
