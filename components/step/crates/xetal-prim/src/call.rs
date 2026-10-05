@@ -46,6 +46,7 @@ pub fn call<'a>(
         .or_else(|| xetal_system::call(name, args, span))
         .or_else(|| xetal_quad::call(name, args, span))
         .or_else(|| xetal_table::call(name, args, span))
+        .or_else(|| xetal_source::call(name, args, span))
     {
         return result;
     }

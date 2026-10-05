@@ -129,7 +129,8 @@ components/
                            and the Outcome constructors; events:
                            []E_VENT and its readers), xetal-table
                            (tables from TOML files, strings only:
-                           []L_IST, []T_ABLE)
+                           []L_IST, []T_ABLE), xetal-source (source
+                           text as data: []V_IEW)
   axes/                    xetal-rotate (rotate and reverse along the
                            leading axis), xetal-axes (axis subscripts:
                            the move-to-front rule)

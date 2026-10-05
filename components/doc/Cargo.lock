@@ -2299,6 +2299,7 @@ dependencies = [
  "xetal-radix",
  "xetal-rotate",
  "xetal-search",
+ "xetal-source",
  "xetal-struct",
  "xetal-system",
  "xetal-table",
@@ -2399,6 +2400,16 @@ dependencies = [
  "xetal-libs",
  "xetal-prim-types",
  "xetal-ty",
+]
+
+[[package]]
+name = "xetal-source"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
+ "xetal-view",
 ]
 
 [[package]]

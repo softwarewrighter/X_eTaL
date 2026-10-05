@@ -688,6 +688,7 @@ dependencies = [
  "xetal-radix",
  "xetal-rotate",
  "xetal-search",
+ "xetal-source",
  "xetal-struct",
  "xetal-system",
  "xetal-table",
@@ -716,6 +717,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-render"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-lex",
+ "xetal-syntax",
+]
+
+[[package]]
 name = "xetal-rotate"
 version = "0.1.0"
 dependencies = [
@@ -732,6 +743,16 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-value",
+]
+
+[[package]]
+name = "xetal-source"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
+ "xetal-view",
 ]
 
 [[package]]
@@ -827,6 +848,16 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-grid",
+]
+
+[[package]]
+name = "xetal-view"
+version = "0.1.0"
+dependencies = [
+ "unicode-width",
+ "xetal-base",
+ "xetal-lex",
+ "xetal-render",
 ]
 
 [[package]]

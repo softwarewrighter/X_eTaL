@@ -70,6 +70,20 @@ l:a_t := { xy -> ("x" l:a_ttr f_ormat 1 s_elect xy) c_at "y" l:a_ttr f_ormat 2 s
 ## <text x="12" y="30" font-size="14">a &lt; b</text>
 l:t_ext := { attrs t -> "<text" c_at attrs c_at ">" c_at (l:e_scape t) c_at "</text>" }
 
+## A run of text in a color inside a text element: `color v:s_pan "text"`,
+## the text escaped; runs join with c_at into v:m_arkup.
+## >> "v:" u_se< "Svg"
+## >> "#1f2937" v:s_pan "a < b"
+## <tspan fill="#1f2937">a &lt; b</tspan>
+l:s_pan := { color t -> "<tspan" c_at (l:f_ill color) c_at ">" c_at (l:e_scape t) c_at "</tspan>" }
+
+## Text whose content is already markup (runs from v:s_pan, or escaped
+## text): `attrs v:m_arkup inner`.
+## >> "v:" u_se< "Svg"
+## >> (v:a_t 1 2) v:m_arkup ("red" v:s_pan "a") c_at "blue" v:s_pan "b"
+## <text x="1" y="2"><tspan fill="red">a</tspan><tspan fill="blue">b</tspan></text>
+l:m_arkup := { attrs inner -> "<text" c_at attrs c_at ">" c_at inner c_at "</text>" }
+
 ## A group of elements with attributes (a transform, a clip, a fill
 ## for all): `attrs v:g_roup elements`.
 ## >> "v:" u_se< "Svg"

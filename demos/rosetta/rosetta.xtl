@@ -22,19 +22,63 @@ u:t_able := { name -> ((e_nclose data) c_at e_nclose name) []T_ABLE "idioms" "la
 source := u:t_able "source"
 output := u:t_able "output"
 notes := u:t_able "notes"
+spans := u:t_able "spans"
 
-# The text lines of a language's face for an idiom: its name, the
-# source, and the output when there is one, or the note for a missing
-# source.
+# The colors of code on a face, by class: X_eTaL's classes as []V_IEW
+# names them, and the same names for the spans other languages' cells
+# may carry in data.toml.
+u:c_olor := { class ->
+  class m_atch "builtin" ? "#1d4ed8"
+  class m_atch "userfunc" ? "#7c3aed"
+  class m_atch "libfunc" ? "#7c3aed"
+  class m_atch "macro" ? "#7c3aed"
+  class m_atch "number" ? "#b45309"
+  class m_atch "string" ? "#15803d"
+  class m_atch "symbol" ? "#111827"
+  class m_atch "comment" ? "#6b7280"
+  class m_atch "lambdaarg" ? "#0f766e"
+  class m_atch "keyword" ? "#1d4ed8"
+  class m_atch "function" ? "#1d4ed8"
+  class m_atch "operator" ? "#111827"
+  "#111827"
+}
+
+# Runs of classified text (an n x 2 matrix of boxed texts, text then
+# class) as colored markup for a face.
+u:r_uns := { m -> u:j_oin '{ k -> (u:c_olor d_isclose 2 s_elect k s_elect m) v:s_pan d_isclose 1 s_elect k s_elect m } m_ap r_ange 1 s_elect s_hape m }
+
+# A cell's spans from data.toml, "class text|class text|...", as the
+# same n x 2 matrix; a cell without spans is one run of plain text.
+u:s_pans := { src spans ->
+  0 = t_ally spans ? 1 2 r_eshape (e_nclose src) c_at e_nclose "plain"
+  pieces := (n_ot spans = f_irst "|") p_artition spans
+  o_ne := { p -> t := d_isclose p; cut := t i_ndexOf f_irst " "; (e_nclose cut d_rop t) c_at e_nclose (cut - 1) t_ake t }
+  ((t_ally pieces) c_at 2) r_eshape d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ 'o_ne m_ap pieces
+}
+
+# The source of a cell as colored markup: X_eTaL source through
+# []V_IEW (so the coloring is the language's own), any other through
+# the cell's spans when it has them.
+u:c_olored := { il src ->
+  i := 1 s_elect il
+  l := 2 s_elect il
+  (d_isclose l s_elect languages) m_atch "xetal" ? u:r_uns []V_IEW src
+  u:r_uns src u:s_pans d_isclose l s_elect i s_elect spans
+}
+
+# The lines of a language's face for an idiom: its name, the source
+# colored, and the output when there is one; or the note for a missing
+# source. Each line is markup.
 u:f_ace := { i l ->
-  name := d_isclose l s_elect languageNames
+  name := v:e_scape d_isclose l s_elect languageNames
   src := d_isclose l s_elect i s_elect source
   out := d_isclose l s_elect i s_elect output
   note := d_isclose l s_elect i s_elect notes
   missing := "0 = t_ally note" i_f< "\"(no concise idiom)\"; note"
   result := "0 = t_ally out" i_f< "\"\"; \"-> \" c_at out"
-  0 = t_ally src ? (e_nclose name) c_at e_nclose missing
-  (e_nclose name) c_at (e_nclose src) c_at e_nclose result
+  0 = t_ally src ? (e_nclose name) c_at e_nclose "#6b7280" v:s_pan missing
+  code := (i c_at l) u:c_olored src
+  (e_nclose name) c_at (e_nclose code) c_at e_nclose "#6b7280" v:s_pan result
 }
 
 # The item an axis's side shows: the one its turn started from plus
@@ -55,13 +99,14 @@ u:s_tone := { state ->
   drum := st:d_rum roll
   top := 1 st:r_ing ((cm:TOP c_at cm:ANGLE) cm:a_t state) c_at roll
   bottom := -1 st:r_ing ((cm:BOTTOM c_at cm:ANGLE) cm:a_t state) c_at roll
-  d_rumPanel := { k -> ((e_nclose "#d9d2c5") c_at ((cm:IDIOM c_at f_loat k s_elect st:drumOffsets) u:i_tem state) s_elect idiomNames) st:p_anel k s_elect drum }
+  d_rumPanel := { k -> ((e_nclose "#d9d2c5") c_at e_nclose v:e_scape d_isclose ((cm:IDIOM c_at f_loat k s_elect st:drumOffsets) u:i_tem state) s_elect idiomNames) st:p_anel k s_elect drum }
   t_opPanel := { k -> ((e_nclose "#f2ede4") c_at i u:f_ace (cm:TOP c_at f_loat k s_elect st:ringOffsets) u:i_tem state) st:p_anel k s_elect top }
   b_ottomPanel := { k -> ((e_nclose "#e6e0d4") c_at i u:f_ace (cm:BOTTOM c_at f_loat k s_elect st:ringOffsets) u:i_tem state) st:p_anel k s_elect bottom }
   p_anel := { k -> k <= 3 ? d_rumPanel k; k <= 7 ? t_opPanel k - 3; b_ottomPanel k - 7 }
   all := drum c_at top c_at bottom
   painted := u:j_oin 'p_anel m_ap st:p_ainting all
-  (st:size c_at st:size) v:p_icture painted
+  caption := ((v:a_t (st:size / 2) c_at 28) c_at ("font-size" v:a_ttr "18") c_at ("text-anchor" v:a_ttr "middle") c_at (v:f_ill "#374151") c_at "font-family" v:a_ttr "ui-sans-serif, system-ui, sans-serif") v:t_ext d_isclose i s_elect idiomNames
+  (st:size c_at st:size) v:p_icture caption c_at painted
 }
 
 u:j_oin := { b -> d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b }

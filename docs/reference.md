@@ -1400,6 +1400,45 @@ Tab, Delete, Home, End), for the Terminal library, which names them.
 UP
 ```
 
+### `[]V_IEW`
+
+`Char -> Box Char`, one argument.
+
+Source text as the editor and the HTML export see it: a matrix of
+boxed texts, a row per run of one class, two columns: the decorated
+text (underlines drawn, as `xetal render` shows it) and the class
+(`builtin`, `userfunc`, `libfunc`, `variable`, `lambdaarg`, `number`,
+`exponent`, `string`, `symbol`, `quote`, `punct`, `unit`, `comment`,
+`space`, `macro`, `error`). A program colors code in a picture or a
+page from it, so the coloring never drifts from the language.
+
+```
+      []V_IEW "1 + r_ange n"
+.>-------------------.
+v .>.     .>-----.   |
+| |1|     |number|   |
+| '-'     '------'   |
+| .>.     .>----.    |
+| | |     |space|    |
+| '-'     '-----'    |
+| .>.     .>-----.   |
+| |+|     |symbol|   |
+| '-'     '------'   |
+| .>.     .>----.    |
+| | |     |space|    |
+| '-'     '-----'    |
+| .>----. .>------.  |
+| |r̲ange| |builtin|  |
+| '-----' '-------'  |
+| .>.     .>----.    |
+| | |     |space|    |
+| '-'     '-----'    |
+| .>.     .>-------. |
+| |n|     |variable| |
+| '-'     '--------' |
+'e-------------------'
+```
+
 ### `[]L_IST`
 
 `Char -> Char -> Box Char`, two arguments.

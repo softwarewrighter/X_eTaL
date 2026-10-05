@@ -1,0 +1,14 @@
+[package]
+name = "xetal-source"
+description = "Source text as data for programs: []V_IEW, the decorated segments of X_eTaL source with their classes (the view model), for coloring code in pictures and pages"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-array.workspace = true
+xetal-value.workspace = true
+xetal-view.workspace = true
