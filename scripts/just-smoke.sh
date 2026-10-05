@@ -49,6 +49,7 @@ for recipe in $(just --summary); do
     draw) skip draw "opens a viewer; just run of each demo covers the drawing" ;;
     build-release) skip "$recipe" "the release profile of build (slow)" ;;
     install) skip "$recipe" "writes outside the repository" ;;
+    check-live) skip "$recipe" "fetches the live sites (network); run it by hand" ;;
     test | fmt | clippy | reg | gate | test-emacs | check-literate)
         skip "$recipe" "run by the gate itself" ;;
     literate) skip "$recipe" "rewrites docs/literate; check-literate checks it" ;;
