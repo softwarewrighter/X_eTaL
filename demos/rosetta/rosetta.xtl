@@ -77,9 +77,10 @@ u:l_oop := { state ->
   u:l_oop next
 }
 
-# Start on Rotate, X_eTaL over K, at rest.
+# Start on Rotate, X_eTaL over K, at rest, every axis playing (the
+# attract mode begins after the first dwell).
 rotate := f_loat idioms i_ndexOf e_nclose "rotate"
 xetal := f_loat languages i_ndexOf e_nclose "xetal"
 k := f_loat languages i_ndexOf e_nclose "k"
-start := cm:s_ettle (cm:BOTTOM c_at k) cm:c_hoose (cm:TOP c_at xetal) cm:c_hoose (cm:IDIOM c_at rotate) cm:c_hoose (t_ally idioms) cm:s_tart t_ally languages
+start := cm:r_esume cm:s_ettle (cm:BOTTOM c_at k) cm:c_hoose (cm:TOP c_at xetal) cm:c_hoose (cm:IDIOM c_at rotate) cm:c_hoose (t_ally idioms) cm:s_tart t_ally languages
 u:l_oop start

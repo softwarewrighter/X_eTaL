@@ -26,8 +26,8 @@ stepped := (cm:TOP c_at 1.0) cm:s_tep s0
 ((cm:TOP c_at cm:ANGLE) cm:a_t stepped) = 0.0
 ((cm:TOP c_at cm:ANGLE) cm:a_t (cm:TOP c_at 0.25) cm:e_ase stepped) = 45.0
 ((cm:TOP c_at cm:ANGLE) cm:a_t cm:s_ettle stepped) = 90.0
-# a tick eases every axis and never moves one at rest
-(0.1 cm:t_ick s0) m_atch s0
+# a tick eases every axis and never moves one at rest (the first three rows are the axes)
+(3 t_ake 0.1 cm:t_ick s0) m_atch 3 t_ake s0
 # the idiom axis wraps both ways
 (cm:IDIOM cm:c_urrent (cm:IDIOM c_at -1.0) cm:s_tep s0) = 31
 (cm:IDIOM cm:c_urrent (cm:IDIOM c_at 31.0) cm:s_tep s0) = 1
@@ -35,8 +35,9 @@ stepped := (cm:TOP c_at 1.0) cm:s_tep s0
 drag := 142.0 50.0 cm:m_ove 100.0 50.0 cm:d_own s0
 ((cm:TOP c_at cm:ANGLE) cm:a_t drag) = -18.0
 ((cm:BOTTOM c_at cm:ANGLE) cm:a_t drag) = 0.0
-# a drag pauses the half it turns
-((cm:TOP c_at cm:PLAYING) cm:a_t drag) = 0.0
+# a drag does not pause the half for good; it resets the idle clock
+((cm:TOP c_at cm:PLAYING) cm:a_t drag) = 1.0
+((cm:ATTRACT c_at cm:IDLE) cm:a_t cm:t_ouched 2.0 cm:t_ick s0) = 0.0
 # a vertical drag anywhere rolls the drum, and the halves stay put
 roll := 100.0 92.0 cm:m_ove 100.0 50.0 cm:d_own s0
 ((cm:IDIOM c_at cm:ANGLE) cm:a_t roll) = -18.0
@@ -55,3 +56,16 @@ kept := 142.0 100.0 cm:m_ove drag
 ((cm:TOP c_at cm:PLAYING) cm:a_t 100.0 50.0 cm:c_lick s0) = 0.0
 # a move with nothing pressed changes nothing
 (100.0 50.0 cm:m_ove s0) m_atch s0
+# attract: the bottom steps at each dwell, the top after a sweep of six (the other languages), the drum after six sweeps
+(cm:BOTTOM cm:c_urrent cm:a_ttract s0) = 2
+((cm:TOP cm:c_urrent cm:a_ttract^5 s0) c_at cm:TOP cm:c_urrent cm:a_ttract^6 s0) m_atch 1 2
+((cm:IDIOM cm:c_urrent cm:a_ttract^35 s0) c_at cm:IDIOM cm:c_urrent cm:a_ttract^36 s0) m_atch 1 2
+# the rings never coincide while sweeping: 12 steps never put the bottom on the top's language
+'* r_/ '{ k -> (cm:TOP cm:c_urrent k 'cm:a_ttract p_ower s0) != cm:BOTTOM cm:c_urrent k 'cm:a_ttract p_ower s0 } e_ach r_ange 12
+# a paused half is counted but not turned
+((cm:BOTTOM cm:c_urrent cm:a_ttract^2 cm:BOTTOM cm:t_oggle s0) c_at cm:TOP cm:c_urrent cm:a_ttract^6 cm:BOTTOM cm:t_oggle s0) m_atch 1 2
+# ticks: nothing moves before a dwell, the bottom steps at the dwell, and a touch (any event but a tick) holds the stone still for the idle time
+(cm:BOTTOM cm:c_urrent 2.9 cm:t_ick s0) = 1
+(cm:BOTTOM cm:c_urrent 3.0 cm:t_ick s0) = 2
+(cm:BOTTOM cm:c_urrent 7.9 cm:t_ick cm:t_ouched s0) = 1
+(cm:BOTTOM cm:c_urrent 8.0 cm:t_ick cm:t_ouched s0) = 2
