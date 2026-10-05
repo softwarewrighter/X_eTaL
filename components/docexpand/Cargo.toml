@@ -1,0 +1,23 @@
+# X_eTaL component `docexpand`: one Cargo workspace (see docs/architecture.md).
+# `xetal doc`'s macro expansions: each call of a file with the text its
+# macro gave, nested to their depth.
+
+[workspace]
+resolver = "3"
+members = ["crates/xetal-docexpand"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+authors = ["Michael A Wright"]
+repository = "https://github.com/softwarewrighter/X_eTaL"
+
+[workspace.dependencies]
+xetal-base = { path = "../base/crates/xetal-base" }
+xetal-lex = { path = "../syntax/crates/xetal-lex" }
+xetal-expand = { path = "../expand/crates/xetal-expand" }
+xetal-macro = { path = "../macro/crates/xetal-macro" }
+xetal-sources = { path = "../macro/crates/xetal-sources" }
+xetal-program = { path = "../macro/crates/xetal-program" }
+xetal-docexpand = { path = "crates/xetal-docexpand" }

@@ -36,6 +36,7 @@ xetal-arith = { path = "../eval/crates/xetal-arith" }
 xetal-search = { path = "../search/crates/xetal-search" }
 xetal-radix = { path = "../radix/crates/xetal-radix" }
 xetal-doccom = { path = "crates/xetal-doccom" }
+xetal-docexpand = { path = "../docexpand/crates/xetal-docexpand" }
 xetal-doc = { path = "crates/xetal-doc" }
 xetal-doclink = { path = "crates/xetal-doclink" }
 xetal-dochtml = { path = "crates/xetal-dochtml" }

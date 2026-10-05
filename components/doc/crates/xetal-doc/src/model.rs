@@ -1,6 +1,7 @@
 //! The model: files, the items defined in them, and what each uses.
 
 use xetal_doccom::{Doc, Example};
+use xetal_docexpand::Expansion;
 use xetal_macro::{FsLibraries, Libraries};
 
 /// One source file: a program, a library, a macro library or the
@@ -12,6 +13,8 @@ pub struct DocFile {
     pub doc: Option<Doc>,
     pub imports: Vec<Import>,
     pub items: Vec<Item>,
+    /// Each macro call written in the file and what it expanded to.
+    pub expansions: Vec<Expansion>,
     /// The file as written (the site draws it; not in the JSON).
     pub text: String,
 }
@@ -56,7 +59,7 @@ impl Item {
 
 /// The imports of file `name`, whose text is `text`, with the files
 /// each finds.
-pub(crate) fn imports_of(name: &str, text: &str) -> Vec<Import> {
+pub fn imports_of(name: &str, text: &str) -> Vec<Import> {
     let libs = FsLibraries::from_env();
     let found = xetal_names::imports(text).unwrap_or_default();
     found

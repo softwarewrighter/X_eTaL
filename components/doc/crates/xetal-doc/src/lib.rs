@@ -13,7 +13,8 @@ mod uses;
 
 pub use files::model;
 pub use json::to_json;
-pub use model::{DocFile, Import, Item, Use};
+pub use model::{DocFile, Import, Item, Use, imports_of};
+pub use xetal_docexpand::Expansion;
 
 /// `xetal doc FILE --json`: the model of the program or library `text`
 /// (reported as `name`), as JSON.

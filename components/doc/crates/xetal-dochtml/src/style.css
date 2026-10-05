@@ -61,10 +61,14 @@ details > summary { cursor: pointer; color: var(--dim); font-size: .88rem; }
 table.items { border-collapse: collapse; width: 100%; font-size: .92rem; }
 table.items td, table.items th { text-align: left; padding: .25rem .6rem .25rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
 table.items th { color: var(--dim); font-weight: normal; }
-pre.source { padding: .6rem 0; line-height: 1.45; }
-pre.source .line { display: block; padding-right: .9rem; }
-pre.source .line:target { background: color-mix(in srgb, var(--accent) 22%, transparent); }
-pre.source .ln { display: inline-block; width: 3.4rem; padding-right: .9rem; text-align: right; color: var(--dim); user-select: none; }
+div.source { background: var(--code); border-radius: 6px; padding: .6rem 0; line-height: 1.45; overflow-x: auto; font-family: "JuliaMono", "DejaVu Sans Mono", Menlo, Consolas, monospace; font-size: .92rem; }
+div.source .line { display: block; white-space: pre; padding-right: .9rem; }
+div.source .line:target { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+div.source details.expansion { margin: .1rem .9rem .3rem 4.3rem; }
+details.expansion { border-left: 3px solid var(--macro); padding-left: .6rem; margin: .3rem 0; }
+details.expansion > summary { font-family: system-ui, sans-serif; }
+details.expansion pre.code { margin: .3rem 0; }
+div.source .ln { display: inline-block; width: 3.4rem; padding-right: .9rem; text-align: right; color: var(--dim); user-select: none; }
 .c-builtin { color: var(--builtin); } .c-userfunc { color: var(--userfunc); }
 .c-libfunc { color: var(--libfunc); } .c-lambdaarg { color: var(--lambdaarg); }
 .c-number, .c-exponent { color: var(--number); } .c-string { color: var(--string); }

@@ -16,8 +16,9 @@ pub fn code(text: &str, links: &[Link], href: Href) -> String {
 }
 
 /// `text` drawn decorated line by line, each line numbered and
-/// anchored (`id="L3"`), for a source page's `<pre>`.
-pub fn lined(text: &str, links: &[Link], href: Href) -> String {
+/// anchored (`id="L3"`), what `after` gives for a line (by its number)
+/// placed after it (a call's expansion), for a source page.
+pub fn lined(text: &str, links: &[Link], href: Href, after: &dyn Fn(usize) -> String) -> String {
     let all = lines(&view(text));
     let count = text.lines().count();
     let mut out = String::new();
@@ -25,7 +26,8 @@ pub fn lined(text: &str, links: &[Link], href: Href) -> String {
         let n = i + 1;
         let shown: String = line.iter().map(|s| segment(s, links, href)).collect();
         out.push_str(&format!(
-            "<span class=\"line\" id=\"L{n}\"><a class=\"ln\" href=\"#L{n}\">{n}</a>{shown}</span>\n"
+            "<span class=\"line\" id=\"L{n}\"><a class=\"ln\" href=\"#L{n}\">{n}</a>{shown}</span>\n{}",
+            after(n)
         ));
     }
     out

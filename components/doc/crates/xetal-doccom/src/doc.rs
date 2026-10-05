@@ -7,12 +7,14 @@ pub struct Example {
     pub output: String,
 }
 
-/// A doc comment: its prose (paragraphs split by a blank line) and its
-/// examples, in order.
+/// A doc comment: its prose (paragraphs split by a blank line), its
+/// examples in order, and the names a macro binds for the text it is
+/// given on purpose (a `## binds: it` line).
 #[derive(Debug, Clone, PartialEq, Eq, Default)]
 pub struct Doc {
     pub text: String,
     pub examples: Vec<Example>,
+    pub binds: Vec<String>,
 }
 
 impl Doc {
@@ -22,7 +24,9 @@ impl Doc {
         let mut prose: Vec<&str> = Vec::new();
         let mut example: Option<(String, Vec<&str>)> = None;
         for line in lines {
-            if let Some(code) = line.strip_prefix(">> ") {
+            if let Some(names) = line.strip_prefix("binds:") {
+                doc.binds.extend(names.split_whitespace().map(String::from));
+            } else if let Some(code) = line.strip_prefix(">> ") {
                 doc.close(example.take());
                 example = Some((code.trim().to_string(), Vec::new()));
             } else if let (Some((_, out)), false) = (example.as_mut(), line.is_empty()) {

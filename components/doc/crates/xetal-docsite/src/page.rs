@@ -6,6 +6,7 @@ use xetal_dochtml::{anchor, escape, lined, page};
 use xetal_doclink::links;
 
 use crate::context::Ctx;
+use crate::expansion::on_lines;
 use crate::item::{doc, item};
 use crate::layout::shell;
 
@@ -82,14 +83,20 @@ fn imports(cx: &Ctx, f: &DocFile) -> String {
 /// every name linked; each item's line links to its documentation.
 pub(crate) fn source_page(cx: &Ctx, file: usize) -> String {
     let f = &cx.files[file];
-    let drawn = lined(&f.text, &links(&cx.r, file, &f.text), &|t| cx.href(t));
+    let after = |n: usize| on_lines(cx, file, n, n);
+    let drawn = lined(
+        &f.text,
+        &links(&cx.r, file, &f.text),
+        &|t| cx.href(t),
+        &after,
+    );
     let toc: String = f
         .items
         .iter()
         .map(|i| entry(cx, &format!("#L{}", i.line), &i.name))
         .collect();
     let body = format!(
-        "<h1><span class=\"kind\">source</span><a href=\"{}.html\">{}</a></h1>\n<pre class=\"source\">{drawn}</pre>\n",
+        "<h1><span class=\"kind\">source</span><a href=\"{}.html\">{}</a></h1>\n<div class=\"source\">{drawn}</div>\n",
         page(&f.name),
         escape(&f.name)
     );

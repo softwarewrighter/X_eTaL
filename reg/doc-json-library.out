@@ -5,6 +5,7 @@
       "kind": "library",
       "doc": null,
       "imports": [],
+      "expansions": [],
       "items": [
         {
           "name": "l:m_ean",
@@ -15,6 +16,7 @@
           "section": null,
           "doc": null,
           "examples": [],
+          "binds": [],
           "source": "l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]  # Int or Float numbers",
           "uses": []
         },
@@ -27,6 +29,7 @@
           "section": null,
           "doc": null,
           "examples": [],
+          "binds": [],
           "source": "s_quare := { _r * _r }                  # private: not visible outside",
           "uses": []
         },
@@ -39,6 +42,7 @@
           "section": null,
           "doc": null,
           "examples": [],
+          "binds": [],
           "source": "d_eviations := [f_loat - l:m_ean]",
           "uses": [{"written": "l:m_ean", "file": "lib/Stats.xtl", "item": "l:m_ean"}]
         },
@@ -51,6 +55,7 @@
           "section": null,
           "doc": null,
           "examples": [],
+          "binds": [],
           "source": "l:v_ariance := [l:m_ean [s_quare d_eviations]]",
           "uses": [{"written": "d_eviations", "file": "lib/Stats.xtl", "item": "d_eviations"}, {"written": "l:m_ean", "file": "lib/Stats.xtl", "item": "l:m_ean"}, {"written": "s_quare", "file": "lib/Stats.xtl", "item": "s_quare"}]
         },
@@ -63,6 +68,7 @@
           "section": null,
           "doc": null,
           "examples": [],
+          "binds": [],
           "source": "l:s_d := { (l:v_ariance _r) ^ 0.5 }     # the standard deviation",
           "uses": [{"written": "l:v_ariance", "file": "lib/Stats.xtl", "item": "l:v_ariance"}]
         },
@@ -75,6 +81,7 @@
           "section": null,
           "doc": null,
           "examples": [],
+          "binds": [],
           "source": "l:r_ange := ['m_ax r_/ - 'm_in r_/]",
           "uses": []
         }

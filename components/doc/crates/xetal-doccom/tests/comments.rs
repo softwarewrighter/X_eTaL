@@ -112,7 +112,8 @@ fn a_first_block_attached_to_a_definition_documents_it_not_the_file() {
         doc_above(text, 2),
         Some(Doc {
             text: "Only for x.".into(),
-            examples: vec![]
+            examples: vec![],
+            binds: vec![]
         })
     );
 }
@@ -138,4 +139,13 @@ fn an_expected_error_is_shown_as_the_output() {
     let text = "## >> l:h_ello 1\n## error[type-mismatch]\nl:h_ello := { n -> n }\n";
     let doc = doc_above(text, 3).expect("doc");
     assert_eq!(doc.examples[0].output, "error[type-mismatch]");
+}
+
+#[test]
+fn a_binds_line_is_a_field_not_prose() {
+    let text =
+        "## Binds it for the body.\n## binds: it that\n## More prose.\nm:a_nd< := { a b -> a }\n";
+    let doc = doc_above(text, 4).expect("doc");
+    assert_eq!(doc.binds, ["it", "that"]);
+    assert_eq!(doc.text, "Binds it for the body.\nMore prose.");
 }

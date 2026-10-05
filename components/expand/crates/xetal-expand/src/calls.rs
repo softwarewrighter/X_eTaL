@@ -7,7 +7,7 @@ use xetal_lex::{Token, TokenKind};
 
 /// One macro call.
 #[derive(Debug, Clone)]
-pub(crate) struct Call {
+pub struct Call {
     /// The macro as written: `i_f<`, `x:n_ame<`.
     pub name: String,
     /// The macro's name token, the two argument tokens and the whole call.
@@ -23,7 +23,7 @@ pub(crate) struct Call {
 
 /// The calls among `tokens`, in order (`u_se<` is left for the imports,
 /// and a macro being defined, `m:n_ame< := ...`, for the names phase).
-pub(crate) fn calls(tokens: &[Token]) -> Result<Vec<Call>, Diagnostic> {
+pub fn calls(tokens: &[Token]) -> Result<Vec<Call>, Diagnostic> {
     let (mut found, mut open) = (Vec::new(), Vec::new());
     for (i, t) in tokens.iter().enumerate() {
         match &t.kind {

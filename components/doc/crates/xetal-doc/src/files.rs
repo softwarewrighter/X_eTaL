@@ -41,6 +41,9 @@ pub fn model(name: &str, text: &str) -> Result<Vec<DocFile>, Diagnostic> {
             files.pop();
         }
     }
+    for f in &mut files {
+        f.expansions = xetal_docexpand::expansions(&f.name, &f.text)?;
+    }
     Ok(files)
 }
 

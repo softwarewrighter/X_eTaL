@@ -1,8 +1,9 @@
 number = 4
 slug = "doc-macros"
-status = "pending"
+status = "completed"
 description = "Doc lane (see lanes/doc/.agentrail/plan.md), step doc-macros. TDD; the gate b..."
 role = "production"
 context_files = []
 created_at = "2026-10-04T13:43:11"
-commits = []
+completed_at = "2026-10-04T21:05:34"
+commits = ["a4fcba4e9f336270b98d40753dd5bbe93612617e"]

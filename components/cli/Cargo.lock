@@ -2171,6 +2171,7 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-doccom",
+ "xetal-docexpand",
  "xetal-libs",
  "xetal-macro",
  "xetal-names",
@@ -2182,6 +2183,18 @@ dependencies = [
 [[package]]
 name = "xetal-doccom"
 version = "0.1.0"
+
+[[package]]
+name = "xetal-docexpand"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-expand",
+ "xetal-lex",
+ "xetal-macro",
+ "xetal-program",
+ "xetal-sources",
+]
 
 [[package]]
 name = "xetal-dochtml"
