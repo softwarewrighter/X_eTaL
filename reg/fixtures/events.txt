@@ -1,0 +1,8 @@
+# a scripted queue
+tick 0.016
+down 120 80
+move 130 80
+up 130 80
+click 130 80
+key Up
+key a

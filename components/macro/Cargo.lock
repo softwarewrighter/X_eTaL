@@ -895,6 +895,7 @@ dependencies = [
 name = "xetal-frame"
 version = "0.1.0"
 dependencies = [
+ "xetal-array",
  "xetal-base",
  "xetal-core",
  "xetal-kernel",
@@ -1061,6 +1062,7 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-clock",
+ "xetal-store",
  "xetal-value",
 ]
 

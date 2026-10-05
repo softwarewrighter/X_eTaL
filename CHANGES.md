@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 12:30 `feat` Events from the host, RS1 (rosetta lane step 5): `[]E_VENT @ : Unit -> Event` with `[]E_KIND`, `[]E_AT`, `[]E_KEY`; one line per event through the queue `[]K_EY` uses; `xetal run --events FILE` (or standard input), `end` at the end of input; the live demo gives a tick per wait and `key NAME`; D93; goldens run-events, run-events-bad.
+
 - 11:50 `feat` `demos/rosetta/cube.xtl` (rosetta lane step 4, the review point): a cube turning in space from Geometry3D and Svg, 12 wireframe then 12 shaded frames (faces far to near, Lambert shading from outward normals), shown with `[]S_HOW`; listed in the live demo; golden run-rosetta-cube (a frame as written); `v:r_gb` added to Svg; Geometry3D's viewer convention fixed (the viewer is up the z axis, so `o_rder` paints ascending z).
 
 - 11:10 `feat` `lib/Svg.xtl` (rosetta lane step 3): pictures as SVG text written by the library (`p_olygon`, `p_olyline`, `t_ext`, `g_roup`, `c_lip`/`c_lipped`, `g_radient`, `p_icture`/`p_ictureWith`, the attributes `a_ttr`, `a_t`, `f_ill`, `s_troke`, `t_ranslate`, `r_otate`, `s_cale`, `e_scape`); 34 doc examples; spec integration/svg (a square from Geometry3D drawn); golden type-svg; README lists it.

@@ -67,3 +67,33 @@ fn a_run_waits_for_one_key_and_gets_a_key() {
     drop(machine);
     assert_eq!(String::from_utf8(out).expect("utf-8"), "UP\nUP\n1\n");
 }
+
+#[test]
+fn a_run_waits_for_an_event_and_reads_it_apart() {
+    let src = "e := []E_VENT @; p_rint! []E_KIND e; p_rint! []E_AT e; f := []E_VENT @; []K_CHAR []E_KEY f";
+    let program = xetal_core::lower(src).expect("lowers");
+    let mut out = Vec::new();
+    let mut machine = Machine::new(&program, &mut out, Rng::seeded(1)).waiting_for_input();
+    assert_eq!(machine.run(1_000_000).expect("runs"), Status::WaitingEvent);
+    machine.feed("down 120 80".to_string());
+    assert_eq!(machine.run(1_000_000).expect("runs"), Status::WaitingEvent);
+    machine.feed("key a".to_string());
+    assert_eq!(machine.run(1_000_000).expect("runs"), Status::Done);
+    drop(machine);
+    assert_eq!(
+        String::from_utf8(out).expect("utf-8"),
+        "down\ndown\n120.0 80.0\n120.0 80.0\na\n"
+    );
+}
+
+#[test]
+fn a_line_that_is_not_an_event_is_an_error() {
+    let src = "[]E_VENT @";
+    let program = xetal_core::lower(src).expect("lowers");
+    let mut out = Vec::new();
+    let mut machine = Machine::new(&program, &mut out, Rng::seeded(1)).waiting_for_input();
+    assert_eq!(machine.run(1_000_000).expect("runs"), Status::WaitingEvent);
+    machine.feed("down 120".to_string());
+    let err = machine.run(1_000_000).expect_err("a bad event");
+    assert_eq!(err.code, "bad-event");
+}

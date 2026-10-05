@@ -3,11 +3,12 @@
 //! time they are used, and `[]U_CS` (characters to codes) and
 //! `[]U_CHAR` (codes to characters), one static type each; the
 //! clock: `[]TS` (the local time stamp) and `[]D_L` (a delay), read
-//! from the host's clock (`xetal-clock`); and `[]S_IGNAL`, an error
-//! of one's own (ER1).
+//! from the host's clock (`xetal-clock`); `[]S_IGNAL`, an error of
+//! one's own (ER1); and events from the host (RS1).
 
 mod clock;
 mod codes;
+mod event;
 mod outcome;
 mod signal;
 mod values;
@@ -31,6 +32,8 @@ pub fn call<'a>(
         ("[]U_CS", [t]) => codes::codes(t),
         ("[]U_CHAR", [n]) => codes::chars(n),
         ("[]S_IGNAL", [code, message]) => signal::signal(code, message),
+        ("[]E_VENT", [_]) => event::next(),
+        ("[]E_KIND" | "[]E_AT" | "[]E_KEY", [e]) => event::read(name, e),
         ("[]E_CODE" | "[]E_MESSAGE" | "[]E_WHERE", [e]) => outcome::read(name, e),
         ("[]R_ECOVER" | "[]R_ETRY" | "[]H_ALT", [v]) => outcome::outcome(name, v),
         _ => return None,

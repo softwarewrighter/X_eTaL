@@ -23,11 +23,12 @@ fn main() -> ExitCode {
     xetal_tty::install(std::sync::Arc::new(xetal_line::Terminal));
     let cli = Cli::parse();
     let draw = cli.draw.clone();
+    let events = cli.events.clone();
     xetal_grid::set_ascii(cli.ascii);
     xetal_grid::set_boxed(cli.boxed);
     xetal_system::set_flags(cli.cfg.clone());
     let command = command(cli.command, cli.script);
-    install_drawing(draw, &command);
+    install_drawing(draw, events, &command);
     match run(&command) {
         Ok(text) => {
             if !text.is_empty() {
@@ -81,7 +82,7 @@ fn command(command: Option<Command>, script: Option<String>) -> Command {
 /// program (`life.xtl` draws `life-1.svg`, ...; `-e` text draws
 /// `eval-1.svg`) in `--draw DIR`, else `XETAL_DRAW`, else the current
 /// directory; each path written is reported on stderr.
-fn install_drawing(draw: Option<String>, command: &Command) {
+fn install_drawing(draw: Option<String>, events: Option<String>, command: &Command) {
     let dir = draw
         .or_else(|| std::env::var("XETAL_DRAW").ok())
         .unwrap_or_else(|| ".".into());
@@ -98,5 +99,13 @@ fn install_drawing(draw: Option<String>, command: &Command) {
         );
     let notify = |path: &std::path::Path| eprintln!("drawn {}", path.display());
     let store = xetal_store::Drawing::new(dir, &stem, notify);
+    let store = match events.map(std::fs::read_to_string) {
+        Some(Ok(lines)) => store.scripted(&lines),
+        Some(Err(e)) => {
+            eprintln!("error[io]: --events: {e}");
+            std::process::exit(2);
+        }
+        None => store,
+    };
     xetal_store::install(std::sync::Arc::new(store));
 }

@@ -27,6 +27,8 @@ pub enum Value<'a> {
     Error(Rc<xetal_base::Diagnostic>),
     /// A handler's outcome (ER2): what the trap does next.
     Outcome(Rc<Outcome<'a>>),
+    /// An event from the host (RS1): what `[]E_VENT` gives.
+    Event(Rc<crate::Event>),
 }
 
 /// What a handler asks its trap to do (ER2).

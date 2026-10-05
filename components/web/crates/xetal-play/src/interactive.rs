@@ -26,6 +26,8 @@ pub enum Step {
     Waiting,
     /// Waiting for one key, fed by its name (`Up`, `a`).
     WaitingKey,
+    /// Waiting for an event's line (`tick 0.016`, `down 120 80`; RS1).
+    WaitingEvent,
     /// Finished: its warnings and error, and the pictures it showed.
     Done(Run),
 }
@@ -63,6 +65,7 @@ impl Interactive {
             Ok(Status::Running) => return Step::Running,
             Ok(Status::Waiting) => return Step::Waiting,
             Ok(Status::WaitingKey) => return Step::WaitingKey,
+            Ok(Status::WaitingEvent) => return Step::WaitingEvent,
             Ok(Status::Done) => Ok(()),
             Err(e) => Err(self.loaded.program.annotate(e)),
         };
