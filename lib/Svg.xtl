@@ -1,0 +1,148 @@
+## Svg: pictures as SVG text, written for you (a standard library, built
+## into xetal). Import it with an alias of your choice: "v:" u_se< "Svg".
+## An element is its SVG text; a picture is elements joined with c_at
+## inside v:p_icture, which []S_HOW shows and the command line writes.
+## Points are a 2-row matrix, x over y, as []P_ATH and Geometry3D's
+## v:p_roject give them; y grows downward, as SVG's does. Attributes
+## are text made by v:a_ttr, v:f_ill, v:s_troke and the transforms, so
+## no program writes a quote mark or an angle bracket of its own.
+## Names with l: are exported; the others are private to this file.
+
+## An attribute: `"id" v:a_ttr "top"` is ` id="top"` (with its leading
+## space, so attributes join by c_at). The value is escaped.
+## >> "v:" u_se< "Svg"
+## >> "id" v:a_ttr "a&b"
+##  id="a&amp;b"
+l:a_ttr := { name value -> " " c_at name c_at "=\"" c_at (l:e_scape value) c_at "\"" }
+
+## Text with &, < and > escaped, as SVG needs it in attributes and
+## text alike.
+## >> "v:" u_se< "Svg"
+## >> v:e_scape "a < b & c"
+## a &lt; b &amp; c
+l:e_scape := { t -> j_oin 'e_sc m_ap t }
+
+## The fill attribute: a color (`"#1f2937"`, `"none"`, a name).
+## >> "v:" u_se< "Svg"
+## >> v:f_ill "none"
+##  fill="none"
+l:f_ill := { color -> "fill" l:a_ttr color }
+
+## The stroke attributes: `color v:s_troke width`, with round joins.
+## >> "v:" u_se< "Svg"
+## >> "#333" v:s_troke 1.5
+##  stroke="#333" stroke-width="1.5" stroke-linejoin="round"
+l:s_troke := { color width -> ("stroke" l:a_ttr color) c_at ("stroke-width" l:a_ttr f_ormat width) c_at " stroke-linejoin=\"round\"" }
+
+## A polygon through the points (2 rows, x over y), closed, with the
+## given attributes: `attrs v:p_olygon points`.
+## >> "v:" u_se< "Svg"
+## >> (v:f_ill "#ccc") v:p_olygon 2 3 r_eshape 0 10 20 0 10 0
+## <polygon points="0,0 10,10 20,0" fill="#ccc"/>
+l:p_olygon := { attrs points -> "<polygon points=\"" c_at (p_airs points) c_at "\"" c_at attrs c_at "/>" }
+
+## A polyline through the points, open: `attrs v:p_olyline points`.
+## >> "v:" u_se< "Svg"
+## >> ((v:f_ill "none") c_at "#000" v:s_troke 1) v:p_olyline 2 2 r_eshape 0 10 0 10
+## <polyline points="0,0 10,10" fill="none" stroke="#000" stroke-width="1" stroke-linejoin="round"/>
+l:p_olyline := { attrs points -> "<polyline points=\"" c_at (p_airs points) c_at "\"" c_at attrs c_at "/>" }
+
+## The position attributes of text: `v:a_t 12 30` is ` x="12" y="30"`.
+## >> "v:" u_se< "Svg"
+## >> v:a_t 12 30.5
+##  x="12.0" y="30.5"
+l:a_t := { xy -> ("x" l:a_ttr f_ormat 1 s_elect xy) c_at "y" l:a_ttr f_ormat 2 s_elect xy }
+
+## Text with its attributes (v:a_t for where, and any others), escaped:
+## `attrs v:t_ext "the text"`.
+## >> "v:" u_se< "Svg"
+## >> ((v:a_t 12 30) c_at "font-size" v:a_ttr "14") v:t_ext "a < b"
+## <text x="12" y="30" font-size="14">a &lt; b</text>
+l:t_ext := { attrs t -> "<text" c_at attrs c_at ">" c_at (l:e_scape t) c_at "</text>" }
+
+## A group of elements with attributes (a transform, a clip, a fill
+## for all): `attrs v:g_roup elements`.
+## >> "v:" u_se< "Svg"
+## >> (v:t_ranslate 5 5) v:g_roup (v:f_ill "red") v:p_olygon 2 3 r_eshape 0 1 2 0 1 0
+## <g transform="translate(5 5)"><polygon points="0,0 1,1 2,0" fill="red"/></g>
+l:g_roup := { attrs elements -> "<g" c_at attrs c_at ">" c_at elements c_at "</g>" }
+
+## The transform attribute moving by dx and dy: `v:t_ranslate dx dy`.
+## >> "v:" u_se< "Svg"
+## >> v:t_ranslate 5 -2.5
+##  transform="translate(5.0 -2.5)"
+l:t_ranslate := { d -> "transform" l:a_ttr "translate(" c_at (f_ormat 1 s_elect d) c_at " " c_at (f_ormat 2 s_elect d) c_at ")" }
+
+## The transform attribute turning by d degrees about the origin
+## (clockwise on the screen, since y grows downward).
+## >> "v:" u_se< "Svg"
+## >> v:r_otate 90
+##  transform="rotate(90)"
+l:r_otate := { d -> "transform" l:a_ttr "rotate(" c_at (f_ormat d) c_at ")" }
+
+## The transform attribute scaling by k about the origin.
+## >> "v:" u_se< "Svg"
+## >> v:s_cale 2
+##  transform="scale(2)"
+l:s_cale := { k -> "transform" l:a_ttr "scale(" c_at (f_ormat k) c_at ")" }
+
+## A clip region named id, a polygon through the points, to put among
+## the picture's definitions; `id v:c_lipped elements` then shows only
+## what falls inside it.
+## >> "v:" u_se< "Svg"
+## >> "top" v:c_lip 2 3 r_eshape 0 10 20 0 10 0
+## <clipPath id="top"><polygon points="0,0 10,10 20,0"/></clipPath>
+l:c_lip := { id points -> "<clipPath" c_at ("id" l:a_ttr id) c_at ">" c_at ("" l:p_olygon points) c_at "</clipPath>" }
+
+## Elements shown only inside the clip region named id.
+## >> "v:" u_se< "Svg"
+## >> "top" v:c_lipped "<rect/>"
+## <g clip-path="url(#top)"><rect/></g>
+l:c_lipped := { id elements -> ("clip-path" l:a_ttr "url(#" c_at id c_at ")") l:g_roup elements }
+
+## A gradient named id from one color at the top to another at the
+## bottom, to put among the definitions; fill with `"url(#id)"`.
+## >> "v:" u_se< "Svg"
+## >> "sky" v:g_radient "#fff" "#88f"
+## <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#88f"/></linearGradient>
+l:g_radient := { id colors ->
+  top := d_isclose 1 s_elect colors
+  bottom := d_isclose 2 s_elect colors
+  "<linearGradient" c_at ("id" l:a_ttr id) c_at " x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\"" c_at ("stop-color" l:a_ttr top) c_at "/><stop offset=\"1\"" c_at ("stop-color" l:a_ttr bottom) c_at "/></linearGradient>"
+}
+
+## The picture: `w h v:p_icture elements`, with the definitions (clips,
+## gradients) first among the elements if any. The view is w by h with
+## the origin at the top left, and the picture scales to its place.
+## >> "v:" u_se< "Svg"
+## >> 20 10 v:p_icture ""
+## <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" width="20" height="10" role="img"></svg>
+l:p_icture := { wh elements ->
+  w := f_ormat 1 s_elect wh
+  h := f_ormat 2 s_elect wh
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 " c_at w c_at " " c_at h c_at "\"" c_at ("width" l:a_ttr w) c_at ("height" l:a_ttr h) c_at " role=\"img\">" c_at elements c_at "</svg>"
+}
+
+## A picture whose definitions (clips, gradients) come first: `w h
+## v:p_ictureWith (defs; elements)` is `w h v:p_icture <defs>defs</defs>
+## elements`.
+## >> "v:" u_se< "Svg"
+## >> 2 2 v:p_ictureWith "<clipPath/>" "<rect/>"
+## <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2" width="2" height="2" role="img"><defs><clipPath/></defs><rect/></svg>
+l:p_ictureWith := { wh parts -> wh l:p_icture "<defs>" c_at (d_isclose 1 s_elect parts) c_at "</defs>" c_at d_isclose 2 s_elect parts }
+
+### Private helpers
+
+# One character escaped for SVG text and attributes.
+e_sc := { c -> c = f_irst "&" ? "&amp;"; c = f_irst "<" ? "&lt;"; c = f_irst ">" ? "&gt;"; c = f_irst "\"" ? "&quot;"; c }
+
+# Boxed texts joined into one.
+j_oin := { b -> d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b }
+
+# The columns of a 2-row matrix as "x,y x,y ...".
+p_airs := { points ->
+  xs := 'f_ormat m_ap 1 s_elect points
+  ys := 'f_ormat m_ap 2 s_elect points
+  ps := xs '{ x y -> e_nclose (d_isclose x) c_at "," c_at d_isclose y } e_ach ys
+  d_isclose '{ x y -> e_nclose (d_isclose x) c_at " " c_at d_isclose y } r_/ ps
+}

@@ -74,6 +74,8 @@ coming up.
 | `s_elect` takes no index from the end | the mini APL interpreter, the last token | `(t_ally t) s_elect t` |
 | No table of functions to dispatch on | the mini APL interpreter, picking a function by its name | a chain of guards, one per name |
 | A train's type is fixed by its elements, and a mismatch is reported where it is applied, over the whole call, without the train notes: the mean `['+ r_/ / t_ally]` takes Ints only (`t_ally` gives an Int, `/` one number type) | the trains document | `[[f_loat '+ r_/] / [f_loat t_ally]]` for Floats |
+| A scene is text, not a tree: with no record or sum type, an SVG element is its text and a picture is elements joined with `c_at`; a scene cannot be inspected or transformed after it is built, only generated | lib/Svg.xtl (the Rosetta stone) | the library writes every tag and attribute, so programs never concatenate XML themselves; a scene value waits on Saga 29 (algebraic data) |
+| A function of two numbers is dyadic, so `v:t_ranslate 5 -2.5` cannot be a lambda of `dx dy`; `d_isclose` opens one box only, so a rank-3 array cannot be built from a vector of boxed matrices | lib/Svg.xtl, lib/Geometry3D.xtl | a 2-vector parameter (`{ d -> ... 1 s_elect d }`); a reshape of a column selection and `t_ranspose` (which is also shorter) |
 
 ## Retrofit audit (for Saga 13a)
 

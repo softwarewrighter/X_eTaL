@@ -191,8 +191,9 @@ it), and libraries imported with `u_se<`: the
 standard libraries `Stats`, `Combinators` (Smullyan's birds), `Maybe`,
 `TTTML` (a machine that learns tic-tac-toe), `Turtle` (turtle
 graphics as arrays), `Geometry3D` (points in space as arrays:
-rotations, a projection, faces ordered for painting) and the macro
-library `Macros` (an example) are built in. The decorated views: `xetal render
+rotations, a projection, faces ordered for painting), `Svg` (pictures
+as SVG text, every tag written for you) and the macro library `Macros`
+(an example) are built in. The decorated views: `xetal render
 --color`, streaming notebook runs laid out as an APL session, the
 editor, a REPL that draws each line decorated as you type, and
 annotated diagrams, and a live web demo. What comes next is in
