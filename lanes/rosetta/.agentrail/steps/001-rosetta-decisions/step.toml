@@ -1,6 +1,6 @@
 number = 1
 slug = "rosetta-decisions"
-status = "pending"
+status = "in-progress"
 description = "Rosetta lane (see lanes/rosetta/.agentrail/plan.md, docs/rosetta.md and docs/..."
 role = "production"
 context_files = []
