@@ -31,8 +31,9 @@ pub fn call<'a>(
         ("[]U_CS", [t]) => codes::codes(t),
         ("[]U_CHAR", [n]) => codes::chars(n),
         ("[]S_IGNAL", [code, message]) => signal::signal(code, message),
+        ("[]W_ARN", [_, what]) => signal::warn(what),
         ("[]E_CODE" | "[]E_MESSAGE" | "[]E_WHERE", [e]) => outcome::read(name, e),
-        ("[]R_ECOVER" | "[]R_ETRY" | "[]H_ALT", [v]) => outcome::outcome(name, v),
+        ("[]R_ECOVER" | "[]R_ETRY" | "[]H_ALT" | "[]C_ONTINUE", [v]) => outcome::outcome(name, v),
         _ => return None,
     };
     Some(result.map_err(|d| d.with_span(span)))

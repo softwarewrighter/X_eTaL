@@ -1,0 +1,1 @@
+The warning: default []W_ARN "code" "message" (a -> Box Char -> a) and []C_ONTINUE (ER3, D90), form A decided with the user. Machine::resumable runs the handler above the intact stack; continue returns the default; halt passes outward still resumable; recover/retry unwind through cleanups. 8 spec cases, quad tests, reference, lang-choices, design. PR pr/errors-continue.

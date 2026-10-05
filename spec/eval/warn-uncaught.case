@@ -1,0 +1,8 @@
+# An uncaught []W_ARN is an error like any other: the default is not
+# taken on its own.
+== SOURCE
+10 + (0 []W_ARN "empty" "nothing to add")
+== TYPE
+Int
+== ERROR
+error[empty]: nothing to add at 6..40

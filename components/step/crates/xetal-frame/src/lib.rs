@@ -8,7 +8,7 @@ use std::rc::Rc;
 
 use xetal_base::{Diagnostic, Span};
 use xetal_core::Expr;
-use xetal_value::{Env, Prim, Slot, Value};
+use xetal_value::{Env, Outcome, Prim, Slot, Value};
 
 /// Evaluate an expression, or give a value to the frame on top.
 pub enum Control<'a> {
@@ -127,9 +127,21 @@ pub enum Kont<'a> {
     /// `'body []E_NSURE 'cleanup`: the body runs above; the cleanup runs
     /// after it, whatever happened.
     Ensure { cleanup: Value<'a>, span: Span },
-    /// The cleanup running above; then the body's result goes on.
+    /// The cleanup running above; then the body's result goes on. With
+    /// an error and an outcome `decided` (a warning's handler chose to
+    /// unwind), the unwinding goes on to the trap with that outcome.
     Cleaning {
         result: Result<Value<'a>, Diagnostic>,
+        decided: Option<Rc<Outcome<'a>>>,
+    },
+    /// A warning (`[]W_ARN`, ER3) raised at this point of the stack,
+    /// which stays as it was; the handler of the trap at `trap_at`
+    /// runs above. Continue gives `default` here; the other outcomes
+    /// unwind to the trap.
+    Continuing {
+        error: Rc<Diagnostic>,
+        default: Value<'a>,
+        trap_at: usize,
     },
 }
 

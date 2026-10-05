@@ -37,7 +37,8 @@ impl<'a> Machine<'a, '_> {
             k @ (Kont::Trap { .. }
             | Kont::Handling { .. }
             | Kont::Ensure { .. }
-            | Kont::Cleaning { .. }) => {
+            | Kont::Cleaning { .. }
+            | Kont::Continuing { .. }) => {
                 return self.resume_trap(k, v);
             }
             other => self.resume_app(other, v)?,

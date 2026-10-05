@@ -1,0 +1,7 @@
+# The value to go on with has the type of the expression it stands in
+# (ER3): a warning's default is typed statically, so a Char default in
+# a numeric place is a type error at the call.
+== SOURCE
+10 + ("x" []W_ARN "empty" "nothing")
+== ERROR
+error[type-mismatch]: expected a number, found Char at 0..35

@@ -1,0 +1,8 @@
+# A handler may still recover from a warning: the rest of the body
+# does not run and the trap's value is the handler's.
+== SOURCE
+'{ @ -> 10 + (0 []W_ARN "empty" "nothing to add") } []T_RAP '{ e -> []R_ECOVER 99 }
+== TYPE
+Int
+== RESULT
+99
