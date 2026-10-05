@@ -1,8 +1,9 @@
 number = 23
 slug = "macros-use-signature"
-status = "in-progress"
+status = "completed"
 description = "MC21 completed (decided with the user): u_se< documented in lib/System.xtlm b..."
 role = "production"
 context_files = []
 created_at = "2026-10-04T21:34:25"
-commits = []
+completed_at = "2026-10-04T21:58:34"
+commits = ["4f66ce70f9297f061eabce06b0856e8dfab59aa2"]
