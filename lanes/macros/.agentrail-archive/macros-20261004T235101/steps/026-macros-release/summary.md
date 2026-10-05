@@ -1,0 +1,1 @@
+Saga 19 retrospective in docs/plan.md; README, reference, register and pages brought along per step; the lane closed and archived. PRs #41-#71.
