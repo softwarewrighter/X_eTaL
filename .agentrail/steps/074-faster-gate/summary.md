@@ -1,0 +1,1 @@
+Fast gate by default (D87): scripts/affected.py plans check/test/skip per component from the files changed since the merge base with origin/main and flags the slow document checks; scripts/gate.sh --full runs everything; step timings; CLAUDE.md policy (fast per commit and merge, full between features and before a release)
