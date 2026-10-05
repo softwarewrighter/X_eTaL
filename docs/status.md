@@ -20,8 +20,8 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 116 | 0 | 0 |
 | Language decisions | 129 | 0 | 6 |
-| Standard libraries | 7 | 0 | 0 |
-| Spec cases | 366 | 0 | 0 |
+| Standard libraries | 8 | 0 | 0 |
+| Spec cases | 367 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -38,9 +38,9 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 64 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 65 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 40 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 41 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
@@ -49,11 +49,11 @@ conventions (naming, layout) work without a spec case citing them.
 | `m_od` | `Int -> Int -> Int` | works | 2 | 2 |
 | `n_eg` | `Num a => a -> a` | works | 19 | 1 |
 | `a_bs` | `Num a => a -> a` | works | 6 | 1 |
-| `f_loor` | `Num a => a -> Int` | works | 3 | 1 |
+| `f_loor` | `Num a => a -> Int` | works | 4 | 1 |
 | `c_eiling` | `Num a => a -> Int` | works | 0 | 1 |
 | `e_xp` | `Num a => a -> Float` | works | 0 | 1 |
 | `l_og` | `Num a => a -> Float` | works | 0 | 1 |
-| `f_loat` | `Num a => a -> Float` | works | 3 | 1 |
+| `f_loat` | `Num a => a -> Float` | works | 4 | 1 |
 
 ### B13: trigonometry (radians)
 
@@ -162,12 +162,12 @@ conventions (naming, layout) work without a spec case citing them.
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 6 | 4 |
 | `r_avel` | `a -> a` | works | 1 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 60 | 2 |
+| `r_eshape` | `Int -> a -> a` | works | 61 | 2 |
 | `t_ake` | `Int -> a -> a` | works | 12 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 2 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 13 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 5 | 6 |
-| `c_at` | `a -> a -> a` | works | 14 | 5 |
+| `c_at` | `a -> a -> a` | works | 15 | 5 |
 
 ### B6: reduce and scan (leading axis; reduce is a right fold)
 
@@ -386,6 +386,7 @@ Built into `xetal`; import one with
 | `Geometry3D` | points in space as arrays (a standard library, built into | works |
 | `Maybe` | a value that may be missing, and the monad that chains | works |
 | `Stats` | a small statistics library (a standard library, built into | works |
+| `Svg` | pictures as SVG text, written for you (a standard library, built | works |
 | `TTTML` | a machine that learns tic-tac-toe by playing itself (a | works |
 | `Terminal` | the names of the colors and keys a program draws and reads | works |
 | `Turtle` | turtle graphics as arrays (a standard library, built into | works |
