@@ -12,12 +12,13 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 07:02 `build` Merged PR #75 (`just check-live`); its first real run: all 35 github.io links in the six READMEs serve a page. The deployed live demo checked in a browser: a macro library (Combinators.xtlm) shows its macros' types.
+
 - 02:00 `build` `just check-live` (scripts/check-live.py): every github.io link in the six repositories' READMEs fetched; a link fails on a non-200, GitHub's no-site page, or a non-HTML answer; exit status the number of failures (the user, after the siblings' Pages were rebuilt).
 - 01:50 `feat` Catching errors (errors lane step 2, ER2, D89; ask X3, catch): `'body []T_RAP 'handler` runs the body and, on an error, the handler, which answers `[]R_ECOVER v`, `[]R_ETRY e` or `[]H_ALT e` (typed: `Outcome a`, `Error` read by `[]E_CODE`, `[]E_MESSAGE`, `[]E_WHERE`); `'body []E_NSURE 'cleanup` always runs the cleanup; the step evaluator unwinds to the nearest trap.
 - 01:43 `build` Merged PR #74 (errors lane: catching errors, `[]T_RAP` and `[]E_NSURE`, ER2; its register entry renumbered D89).
 - 01:12 `fix` American spellings only (D88; the user): `scripts/check-spelling.py` (X_eTaL-demos' checker, with a self-test; URLs skipped, the plural "analyses" allowed) is in the gate, and the 107 British forms the audit found are fixed in docs, comments, identifiers, demos, literate documents, the reference and the Emacs mode; links keep their addresses. CLAUDE.md records the rule. pages/ rebuilt.
 - 00:55 `build` The gate is fast by default (D87; the user, after 20-minute gates on every merge): `scripts/gate.sh` checks the components whose files changed, tests the ones that depend on them, skips the rest, and runs the slower document checks only when their inputs changed (`scripts/affected.py` plans it, measured from the merge base with origin/main); `just gate --full` runs everything, between features and before a release; each longer step prints its time. The just-list golden rewritten on purpose.
-
 - 00:19 `build` Merged PRs #72 (errors lane: `[]S_IGNAL`, an error of one's own, ER1; its quad dispatch and tests joined with the clock's by hand; register entry D86) and #73 (macros lane: the Saga 19 retrospective, the lane archived); pages/ rebuilt.
 
 ## 2026-10-04
