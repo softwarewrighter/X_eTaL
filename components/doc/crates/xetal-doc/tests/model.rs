@@ -153,6 +153,25 @@ fn documenting_the_system_macros_lists_them_once() {
     assert_eq!(files[0].kind, "system macros");
 }
 
+#[test]
+fn u_se_is_documented_as_a_built_in_macro() {
+    let text = xetal_libs_text();
+    let files = model("lib/System.xtlm", &text).expect("model");
+    let u_se = item(&files[0], "s:u_se<");
+    assert_eq!(u_se.kind, "built-in macro");
+    assert_eq!(u_se.ty, "Char -> Char -> Unit");
+    assert_eq!(u_se.source, "s:u_se< :: Char -> Char -> Unit");
+    assert!(u_se.public);
+    assert!(!u_se.examples().is_empty());
+    let line = text
+        .lines()
+        .position(|l| l.starts_with("s:u_se< ::"))
+        .unwrap()
+        + 1;
+    assert_eq!(u_se.line, line);
+    assert_eq!(files[0].items[0].name, "s:u_se<", "in line order");
+}
+
 fn xetal_libs_text() -> String {
     let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../../../lib/System.xtlm");
     std::fs::read_to_string(path).expect("System.xtlm")

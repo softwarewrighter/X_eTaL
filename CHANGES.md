@@ -13,6 +13,8 @@ saga planning and reordering, `release` milestone release,
 ## 2026-10-04
 
 - 23:25 `fix` The live demo checks a macro library as one: opening Combinators.xtlm (or any `.xtlm`) showed `misdefined-macro` in the Types pane, because the page checked every text as `main.xtl`; `xetal_program::name_for` now names a text by what it defines (`m:` macros a macro library, `s:` the system macros), so each macro's type is shown as `xetal type` gives it.
+- 22:55 `feat` `xetal doc` shows `u_se<` (macros lane): the built-in macro declared in System.xtlm is an item of the system macros page (kind built-in macro, its type, its `##` doc and examples, which `xetal doc --test` runs); golden doc-site-system rebased on purpose (D84).
+- 22:07 `build` Merged PRs #65 and #68 (macros lane: user macro libraries in the live demo, `s:u_se< ::` in System.xtlm) and #66 and #67 (doc lane: search by name and type, pages/doc); lib/Stats.xtl keeps both its demo-subset note and the doc lane's `##` comments; the doc-json-library golden rewritten on purpose; pages/ rebuilt.
 
 - 22:24 `build` Merged PRs #69 (quads lane: the clock, `[]TS` and `[]D_L`; its register entry renumbered D84) and #70 (macros lane: Mastermind's messages with `f_ormat<`); pages/ rebuilt.
 
