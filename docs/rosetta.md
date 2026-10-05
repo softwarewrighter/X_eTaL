@@ -114,23 +114,26 @@ today. Both are designed as general facilities, not Rosetta's.
    the same for pointer and clock events: a built-in that gives the
    next event, with readers for its kind, position and elapsed time,
    so the program's loop is `e := []E_VENT @; s := u:u_pdate s e;
-   []S_HOW u:s_cene s`. The command line feeds it from a file (a
-   scripted queue, for tests and for the CLI acceptance test above),
-   the browser from the page. Its exact form (one `Event` type with
-   readers, as `Key` has `[]K_CHAR`; or several queues) is decided
-   with the user at the lane's first step, as the errors lane decided
-   its names.
-2. **Tables.** The data is read by a built-in that gives one named
-   table of a TOML file as a matrix of strings, `[]T_ABLE "data.toml"
-   "source"`, of type `Char -> Char -> Box Char` (rank 2, each cell a
-   string), with the row and column keys from two named lists in the
-   same file. It is data only: no evaluation, and a file that does not
-   fit (a missing key, a non-string cell) is an error. The Rust side
-   normalizes: a missing cell is the empty string, and `available` is
-   derived in X_eTaL as `"" /= cell`. A `[]T_ABLE` is useful to any
-   program with tabular data, and it is the first step toward the
-   `.xtln` reader of Saga 37, which replaces the TOML path without the
-   program noticing. Also decided with the user at the first step.
+   []S_HOW u:s_cene s`. Decided (RS1): `[]E_VENT @ : Unit -> Event`, a
+   nominal type as `Key` is, read by `[]E_KIND e` (`tick`, `down`,
+   `move`, `up`, `click`, `key`), `[]E_AT e` (`x y`, or the seconds
+   since the last tick) and `[]E_KEY e`; the events arrive through the
+   line queue `[]K_EY` uses, one line each (`down 120 80`), the browser
+   posting them and `xetal run --events FILE` reading them from a file,
+   so a scripted queue is a text file and an empty queue ends the
+   program.
+2. **Tables.** The data is read by two built-ins, strings only, data
+   only (RS2): `"file" []L_IST "idioms"` gives a top-level list of
+   strings (`Box Char`), and `("file" "source") []T_ABLE ("idioms"
+   "languages")` gives the table of tables `source` as a matrix whose
+   rows and columns follow the two named lists, a missing cell the
+   empty string; `available` is derived in X_eTaL as `"" /= cell`. A
+   value that is not a string, a missing list, or a file that does not
+   parse is an error naming the file and the key; nothing is ever
+   evaluated. The axes are named in the call, so the file stays plain
+   TOML that any tool reads. Both built-ins are useful to any program
+   with tabular data, and they are the seam where the `.xtln` reader of
+   Saga 37 slots in without the program noticing.
 
 ### The data model: aligned arrays, not records
 
@@ -187,8 +190,8 @@ reverse = '"ABCDE"'
 
 [source.reverse]
 xetal = 'r_ev "ABCDE"'
-k = '|"ABCDE"'
-j = "|. 'ABCDE'"
+k = "|v"
+j = "|. v"
 
 [output.reverse]
 xetal = '"EDCBA"'
@@ -196,6 +199,8 @@ xetal = '"EDCBA"'
 [notes.compose]
 apl2 = "not directly expressible"
 ```
+
+(`demos/rosetta/data.toml` begins with this schema, RS3.)
 
 The same file generates the tables of `docs/idioms.md` (one database,
 not two), and the X_eTaL column keeps being run by
