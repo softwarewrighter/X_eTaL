@@ -14,6 +14,9 @@ pub struct Run {
     pub out: String,
     pub err: String,
     pub pictures: Vec<String>,
+    /// The latest frame of a program whose pictures replace one another
+    /// (an animation run with `frames`), kept instead of every picture.
+    pub frame: Option<String>,
 }
 
 /// The program loaded, reported by the name its text is checked under

@@ -58,8 +58,9 @@ for c in "${COMPONENTS[@]}"; do
     fi
 done
 if does "flag wasm"; then
-    step "the live demo's engine builds for the browser (wasm32)"
+    step "the live demo's engine and the Rosetta page build for the browser (wasm32)"
     (cd components/web && cargo check -q --target wasm32-unknown-unknown)
+    (cd components/rosetta && cargo check -q --target wasm32-unknown-unknown)
 fi
 # The goldens run target/debug/xetal: current even when cli was skipped.
 (cd components/cli && cargo build -q -p xetal-cli)

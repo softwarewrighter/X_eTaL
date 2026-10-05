@@ -75,7 +75,7 @@ def plan(files, names, deps):
         touched |= more
         grew = bool(more)
     lines = [f"check {c}" if c in check else f"test {c}" for c in names if c in touched]
-    if "web" in touched:
+    if "web" in touched or "rosetta" in touched:
         lines.append("flag wasm")
     lines += [f"flag {n}" for n, prefixes in FLAGS.items() if any(f.startswith(prefixes) for f in files)]
     return lines

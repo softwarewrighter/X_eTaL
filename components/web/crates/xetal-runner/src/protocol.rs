@@ -7,6 +7,9 @@ pub struct Request {
     pub mode: Mode,
     /// Print every array result boxed (the Boxed toggle, `--box`).
     pub boxed: bool,
+    /// The pictures are frames of an animation: each replaces the last
+    /// (posted as `Event::Frame`), so a long run never piles them up.
+    pub frames: bool,
     pub files: Vec<(String, String)>,
 }
 
@@ -36,6 +39,8 @@ pub enum Event {
     WaitingKey,
     /// The program waits at `[]E_VENT` for an event's line (RS1).
     WaitingEvent,
+    /// A frame of an animation (a run with `frames`): it replaces the last.
+    Frame(String),
 }
 
 /// Fields as `LEN:TEXT`, one after another (LEN in bytes), so any text
@@ -64,7 +69,12 @@ impl Request {
             Mode::Notebook(Some(k)) => format!("n{k}"),
         };
         let seed = self.seed.to_string();
-        let boxed = if self.boxed { "b" } else { "-" };
+        let boxed = match (self.boxed, self.frames) {
+            (true, true) => "bf",
+            (true, false) => "b",
+            (false, true) => "f",
+            (false, false) => "-",
+        };
         let mut all = vec![self.src.as_str(), seed.as_str(), mode.as_str(), boxed];
         all.extend(
             self.files
@@ -77,7 +87,8 @@ impl Request {
     pub fn decode(text: &str) -> Option<Request> {
         let f = fields(text)?;
         let (src, seed, files) = (f.first()?, f.get(1)?, f.get(4..)?);
-        let boxed = *f.get(3)? == "b";
+        let flags = *f.get(3)?;
+        let (boxed, frames) = (flags.contains('b'), flags.contains('f'));
         let mode = match f.get(2)?.strip_prefix('n') {
             None => (*f.get(2)? == "r").then_some(Mode::Run)?,
             Some("") => Mode::Notebook(None),
@@ -88,6 +99,7 @@ impl Request {
             seed: seed.parse().unwrap_or(0),
             mode,
             boxed,
+            frames,
             files: files
                 .chunks(2)
                 .map(|c| (c[0].into(), c[1].into()))
@@ -109,6 +121,7 @@ impl Event {
             Event::Waiting => frame(&["a"]),
             Event::WaitingKey => frame(&["k"]),
             Event::WaitingEvent => frame(&["v"]),
+            Event::Frame(svg) => frame(&["F", svg]),
         }
     }
 
@@ -124,6 +137,7 @@ impl Event {
             ["a"] => Some(Event::Waiting),
             ["k"] => Some(Event::WaitingKey),
             ["v"] => Some(Event::WaitingEvent),
+            ["F", svg] => Some(Event::Frame((*svg).into())),
             _ => None,
         }
     }

@@ -83,7 +83,7 @@ pub fn value_of<'a>(wants: Wants, line: &str) -> Result<Value<'a>, Diagnostic> {
             Some(e) => Value::Event(Rc::new(e)),
             None => {
                 let what = format!(
-                    "not an event: {line:?} (tick S, down X Y, move X Y, up X Y, click X Y, key NAME, end)"
+                    "not an event: {line:?} (tick S, down X Y, move X Y, up X Y, click X Y, key NAME, choose A N, end)"
                 );
                 return Err(Diagnostic::new("bad-event", what));
             }

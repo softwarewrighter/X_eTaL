@@ -1,0 +1,18 @@
+[package]
+name = "xetal-rosetta"
+description = "The Rosetta stone's page: a Yew host around demos/rosetta/rosetta.xtl, run by the live demo's worker (docs/rosetta.md)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-runner.workspace = true
+xetal-typing.workspace = true
+xetal-lineedit.workspace = true
+yew.workspace = true
+wasm-bindgen.workspace = true
+js-sys.workspace = true
+web-sys.workspace = true
+console_error_panic_hook.workspace = true

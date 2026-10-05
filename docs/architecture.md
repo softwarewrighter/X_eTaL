@@ -131,6 +131,10 @@ components/
                            (tables from TOML files, strings only:
                            []L_IST, []T_ABLE), xetal-source (source
                            text as data: []V_IEW)
+  rosetta/                 xetal-rosetta (the Rosetta stone's page: a
+                           Yew host around demos/rosetta/rosetta.xtl,
+                           run by web's worker with frames; the page
+                           carries events, nothing else)
   axes/                    xetal-rotate (rotate and reverse along the
                            leading axis), xetal-axes (axis subscripts:
                            the move-to-front rule)

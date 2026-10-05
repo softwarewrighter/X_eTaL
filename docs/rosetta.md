@@ -253,6 +253,21 @@ languages are colored from classified spans in the data (`plain`,
 languages in the first milestone. The fonts: a monospace with the APL
 glyphs for the array languages, and the view model's for X_eTaL.
 
+## The page, as built (Saga 34 step 12)
+
+`pages/rosetta/` is a page of its own beside the live editor, built by
+`just pages` from the `rosetta` component (one Yew crate). It starts
+the live demo's worker with the program, its two libraries and the
+data file, with frames replacing one another; shows the latest frame
+as inline SVG; and sends events: the pointer in the picture's own
+pixels, keys by their names, a tick each time the program waits, and
+`choose AXIS ITEM` from the three lists under the stone. The program
+prints `at IDIOM TOP BOTTOM` whenever it moves, and the page reads
+that line for its lists and the address bar, so the page never infers
+the stone's position from anything but the program's word. With
+`prefers-reduced-motion` the page sends the three pauses as it opens.
+The page holds no geometry, traversal or language.
+
 ## The -ilities
 
 - Availability: GitHub Pages, static, no server; the same build

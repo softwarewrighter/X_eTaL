@@ -10,6 +10,7 @@ fn a_request_round_trips() {
         seed: 42,
         mode: Mode::Notebook(None),
         boxed: true,
+        frames: false,
         files: vec![
             (
                 "Hello.xtl".into(),
@@ -23,6 +24,7 @@ fn a_request_round_trips() {
         let req = Request {
             mode,
             boxed: false,
+            frames: false,
             ..req.clone()
         };
         assert_eq!(Request::decode(&req.encode()), Some(req));
@@ -67,6 +69,7 @@ fn a_typed_line_round_trips_and_is_not_a_request() {
         seed: 1,
         mode: xetal_runner::Mode::Run,
         boxed: false,
+        frames: false,
         files: Vec::new(),
     };
     assert_eq!(xetal_runner::typed_line(&request.encode()), None);

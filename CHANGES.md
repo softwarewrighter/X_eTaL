@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 18:10 `feat` The Rosetta stone's page (rosetta lane step 12): a new component `rosetta` (Yew) around the live demo's worker, the program and its files in the request, frames replacing one another (`frames`, `Event::Frame`), pointer, keys, ticks and the three lists as events (`choose`, a new kind), the position read back for the lists and the address bar, reduced motion honored; built to pages/rosetta/ by `just pages`; linked from the README and the live demo's Help; D100.
+
 - 17:10 `feat` Faces (rosetta lane step 11, RS5 decided with the user): `[]V_IEW` (source as decorated runs with their classes, a new crate xetal-source over xetal-view); `v:s_pan`, `v:m_arkup` in Svg; X_eTaL cells colored by their own classes, other cells by optional spans in data.toml, titles and results laid out on the faces, a caption with the idiom's name; D99.
 
 - 16:30 `feat` Attract mode (rosetta lane step 10): the nested traversal (the bottom ring every dwell of 3 s; the top ring with it after a sweep; the drum after the top sweeps: the tumble), paused by any touch for 8 s, the pace as data in Comparison.xtl; D98; 36 transition claims; golden run-rosetta-attract.

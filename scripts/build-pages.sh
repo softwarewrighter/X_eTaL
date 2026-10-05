@@ -10,6 +10,10 @@ root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 dist="$root/target/dist-pages"
 cd "$root/components/web/crates/xetal-web"
 trunk build --release --public-url /X_eTaL/ --dist "$dist"
+# The Rosetta stone's page (docs/rosetta.md), at /X_eTaL/rosetta/.
+cd "$root/components/rosetta/crates/xetal-rosetta"
+trunk build --release --public-url /X_eTaL/rosetta/ --dist "$dist/rosetta"
+cd "$root"
 mkdir -p "$root/pages"
 touch "$root/pages/.nojekyll"
 # pages/literate/ is written by scripts/literate-html.sh; keep it.

@@ -1502,7 +1502,8 @@ down 120 80
 `Event -> Char`, one argument.
 
 What kind an event is, as text: `tick`, `down`, `move`, `up`, `click`,
-`key` or `end`.
+`key`, `choose` (a choice in the host's controls, `[]E_AT` giving which
+list and which item) or `end`.
 
 ```
       []E_KIND []E_VENT @
@@ -1514,7 +1515,8 @@ down
 `Event -> Float`, one argument.
 
 An event's numbers: `x y` for a pointer, the seconds since the last
-tick for a tick, none for a key or the end.
+tick for a tick, the list and the item for a choice, none for a key or
+the end.
 
 ```
       []E_AT []E_VENT @

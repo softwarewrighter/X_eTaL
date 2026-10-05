@@ -291,6 +291,11 @@ Other fonts, checked against the font files:
 
 ## Documentation
 
+- [The Rosetta stone](https://softwarewrighter.github.io/X_eTaL/rosetta/)
+  -- the same idiom in seven array languages on a stone that rolls
+  through the idioms while its halves turn through the languages; an
+  X_eTaL program drawing SVG, the page only carrying your drags
+  ([how it works](docs/rosetta.md))
 - [The library documentation](https://softwarewrighter.github.io/X_eTaL/doc/)
   -- every standard library and macro library (`System.xtlm` among
   them), the built-ins, and two programs to read from the top down

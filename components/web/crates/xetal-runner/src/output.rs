@@ -108,6 +108,7 @@ impl Reducible for Output {
             Action::Event(Event::Out(line)) => run.out += &format!("{line}\n"),
             Action::Event(Event::Err(line)) => run.err += &format!("{line}\n"),
             Action::Event(Event::Picture(svg)) => run.pictures.push(svg),
+            Action::Event(Event::Frame(svg)) => run.frame = Some(svg),
             Action::Event(Event::Wrote(..) | Event::Ready) => {}
             Action::Event(Event::Done) => (next.running, next.waiting) = (false, false),
             Action::Event(Event::Waiting) => next.waits(Some(false)),

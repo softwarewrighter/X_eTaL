@@ -111,13 +111,24 @@ u:s_tone := { state ->
 
 u:j_oin := { b -> d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b }
 
-# The loop: an event, the state after it, a frame on each tick; the
-# state when the events end.
+# Where the stone stands, for the host: "at IDIOM TOP BOTTOM" by their
+# keys, printed whenever it changes (the page reads it for its controls
+# and the address bar).
+u:w_here := { s ->
+  i := d_isclose (cm:IDIOM cm:c_urrent s) s_elect idioms
+  t := d_isclose (cm:TOP cm:c_urrent s) s_elect languages
+  b := d_isclose (cm:BOTTOM cm:c_urrent s) s_elect languages
+  "at " c_at i c_at " " c_at t c_at " " c_at b
+}
+
+# The loop: an event, the state after it, a frame on each tick, the
+# position when it changes; the state when the events end.
 u:l_oop := { state ->
   e := []E_VENT @
   kind := []E_KIND e
   kind m_atch "end" ? state
   next := state cm:u_pdate e
+  "(u:w_here state) m_atch u:w_here next" u_nless< "p_rint! u:w_here next"
   "n_ot kind m_atch \"tick\"" u_nless< "[]S_HOW u:s_tone next"
   u:l_oop next
 }
@@ -128,4 +139,5 @@ rotate := f_loat idioms i_ndexOf e_nclose "rotate"
 xetal := f_loat languages i_ndexOf e_nclose "xetal"
 k := f_loat languages i_ndexOf e_nclose "k"
 start := cm:r_esume cm:s_ettle (cm:BOTTOM c_at k) cm:c_hoose (cm:TOP c_at xetal) cm:c_hoose (cm:IDIOM c_at rotate) cm:c_hoose (t_ally idioms) cm:s_tart t_ally languages
+shown := p_rint! u:w_here start
 u:l_oop start
