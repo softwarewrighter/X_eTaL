@@ -133,6 +133,26 @@
 </td></tr>
 <tr id="-5b-5dS_IGNAL"><td><code><span class="c-builtin">⎕S̲IGNAL</span></code></td><td><code>Char -&gt; Char -&gt; a</code></td><td><p>Stop with an error of your own: the code on the left names the error class, as xetal's own codes do (lowercase letters, digits and hyphens), and the text on the right is its message. Uncaught, it ends the program with exit status 1, like any error. Its result has any type.</p>
 </td></tr>
+<tr id="-5b-5dW_ARN"><td><code><span class="c-builtin">⎕W̲ARN</span></code></td><td><code>a -&gt; Box Char -&gt; a</code></td><td><p>An error the program can go on from (a warning): the left argument is the value to go on with, of the type of the place the warning stands in, and the right is the code and the message, a strand of two strings. Uncaught, a warning is an error like a signal. A handler that answers <code><span class="c-builtin">⎕C̲ONTINUE</span></code> makes the program go on from the warning with that value; the other answers unwind as they do for any error.</p>
+</td></tr>
+<tr id="-5b-5dT_RAP"><td><code><span class="c-builtin">⎕T̲RAP</span></code></td><td><code>(Unit -&gt; a) -&gt; (Error -&gt; Outcome a) -&gt; a</code></td><td><p>Run the body; on any error, call the handler with it. The trap's value is the body's, or what the handler recovers with.</p>
+</td></tr>
+<tr id="-5b-5dE_NSURE"><td><code><span class="c-builtin">⎕E̲NSURE</span></code></td><td><code>(Unit -&gt; a) -&gt; (Unit -&gt; b) -&gt; a</code></td><td><p>Run the body, then the cleanup (a function of <code>@</code>), whether the body gave a value or stopped with an error; the body's value, or its error going on. The <code><span class="c-macro">f̲inally&lt;</span></code> macro writes it.</p>
+</td></tr>
+<tr id="-5b-5dR_ECOVER"><td><code><span class="c-builtin">⎕R̲ECOVER</span></code></td><td><code>a -&gt; Outcome a</code></td><td><p>The handler's answer: the trap's value is this one, of the body's type.</p>
+</td></tr>
+<tr id="-5b-5dR_ETRY"><td><code><span class="c-builtin">⎕R̲ETRY</span></code></td><td><code>Error -&gt; Outcome a</code></td><td><p>The handler's answer: run the body again. After 1000 runs the trap gives up with error[retry-limit].</p>
+</td></tr>
+<tr id="-5b-5dH_ALT"><td><code><span class="c-builtin">⎕H̲ALT</span></code></td><td><code>Error -&gt; Outcome a</code></td><td><p>The handler's answer: the error goes on as it was, from where it was raised. A handler for one kind of error halts on the others.</p>
+</td></tr>
+<tr id="-5b-5dC_ONTINUE"><td><code><span class="c-builtin">⎕C̲ONTINUE</span></code></td><td><code>Error -&gt; Outcome a</code></td><td><p>The handler's answer to a warning: go on from it, with its value. The handler runs where the warning was raised, before any cleanup between it and the trap, so nothing has been undone. Halting a warning passes it outward still a warning; continuing an error raised by <code><span class="c-builtin">⎕S̲IGNAL</span></code> is error[not-resumable], since it has no value to go on with.</p>
+</td></tr>
+<tr id="-5b-5dE_CODE"><td><code><span class="c-builtin">⎕E̲CODE</span></code></td><td><code>Error -&gt; Char</code></td><td><p>The code of a caught error (<code>mine</code> of error[mine]).</p>
+</td></tr>
+<tr id="-5b-5dE_MESSAGE"><td><code><span class="c-builtin">⎕E̲MESSAGE</span></code></td><td><code>Error -&gt; Char</code></td><td><p>The message of a caught error.</p>
+</td></tr>
+<tr id="-5b-5dE_WHERE"><td><code><span class="c-builtin">⎕E̲WHERE</span></code></td><td><code>Error -&gt; Char</code></td><td><p>Where a caught error was raised, as errors print it: the span of source text, <code>start<span class="c-error">.</span><span class="c-error">.</span>end</code>.</p>
+</td></tr>
 <tr id="-5b-5dT_E"><td><code><span class="c-builtin">⎕T̲E</span></code></td><td><code>Unit -&gt; Int</code></td><td><p>The terminal's facts: rows, columns, 1 when output is a terminal, 1 when it does screen control (here, output to a file).</p>
 </td></tr>
 <tr id="-5b-5dK_EY"><td><code><span class="c-builtin">⎕K̲EY</span></code></td><td><code>Unit -&gt; Key</code></td><td><p>One key, without Enter, as a Key (here, the key a): the terminal reads it raw; in the live demo the program waits in the terminal pane. Keys are named in the Terminal library (<code><span class="c-libfunc">ᵗ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Terminal&quot;</span></code>, then <code>ᵗUP</code>, <code>ᵗENTER</code>, ...) and compare with <code><span class="c-symbol">=</span></code>.</p>

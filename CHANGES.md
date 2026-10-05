@@ -12,13 +12,10 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 09:40 `build` Merged PR #78 (errors lane: the error macros `t_ry<`, `c_atch<`, `f_inally<` and the outcomes, ER4); pages/ rebuilt.
+
 - 09:40 `feat` The error macros, ER4 (errors lane step 4): `t_ry<`, `c_atch<`, `f_inally<`, `r_ecover<`, `r_etry<`, `h_alt<`, `c_ontinue<` in System.xtlm over the built-ins of ER1-ER3, the error named `e` in a handler; doc examples run by the gate; spec macros/try, catch, catch-halts, finally, retry-halt-continue, reject-try-at, reject-retry-text; the system-library-types and doc-site-system goldens rebased for the new entries.
 - 08:55 `build` Merged PRs #76 (errors lane: the warning, `[]W_ARN` and `[]C_ONTINUE`, ER3) and #77 (plan: the Rosetta stone, docs/rosetta.md, Sagas 34-37).
-- 08:40 `feat` The warning, ER3 (errors lane step 3, decided with the user: form A, `[]W_ARN`): `default []W_ARN "code" "message"` raises resumably with the value to go on with; a handler answering `[]C_ONTINUE e` makes the program go on from the warning, with the handler running before any cleanup unwinds; `[]H_ALT` passes a warning outward still resumable; continuing a signal is error[not-resumable]. D90; spec eval/warn*, reject-continue-signal, reject-warn-type.
-- 07:02 `build` Merged PR #75 (`just check-live`); its first real run: all 35 github.io links in the six READMEs serve a page. The deployed live demo checked in a browser: a macro library (Combinators.xtlm) shows its macros' types.
-
-
-
 - 08:40 `feat` The warning, ER3 (errors lane step 3, decided with the user: form A, `[]W_ARN`): `default []W_ARN "code" "message"` raises resumably with the value to go on with; a handler answering `[]C_ONTINUE e` makes the program go on from the warning, with the handler running before any cleanup unwinds; `[]H_ALT` passes a warning outward still resumable; continuing a signal is error[not-resumable]. D90; spec eval/warn*, reject-continue-signal, reject-warn-type.
 - 08:38 `docs` The higher-order speed regression is closed (Saga 30 step 5; asks D11 and M3 landed): docs/speed.md has the costs per operand call before and after, bench/inner.xtl 8.3 s to 0.81 s, and X_eTaL-demos' own measurements against its baseline from before the regression (`t_able` 82% faster, `i_nner` 86%, nothing slower); the benchmark baseline tightened to the faster of the old and new times. The fast gate tests, rather than lints again, a component whose lock file alone changed.
 - 08:30 `plan` The Rosetta stone (the user, docs/research5.txt): docs/rosetta.md, the design of the idioms-compared demo as an impossible rotating stone written in X_eTaL (Rust the shell; one data.toml as aligned arrays; the CLI writes the same frames); Sagas 34 (M1, lanes/rosetta, 15 steps), 35 (more languages, sets, the microscope), 36 (labeled axes, an experiment) and 37 (.xtln, data-only notation) in docs/plan.md.
