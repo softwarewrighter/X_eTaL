@@ -1,0 +1,27 @@
+hip hip
+hip hip
+hip hip
+hooray
+32
+#!/usr/bin/env xetal
+# A macro library of your own: userlibs/Repeat.xtlm (in the live demo,
+# Repeat.xtlm among your files). It is found as a library of your own
+# is, and its macro r:t_imes< writes statements as many times as you
+# ask, when the program is expanded: a loop unrolled before it runs.
+# `xetal expand demos/user-macros.xtl` shows the three copies.
+"r:" u_se< "Repeat"
+"hip hip"
+"hip hip"
+"hip hip"
+"hooray"
+
+# The copies are ordinary statements, so they can rebind a variable:
+# five doublings, unrolled.
+x := 1
+x := x * 2
+x := x * 2
+x := x * 2
+x := x * 2
+x := x * 2
+x
+

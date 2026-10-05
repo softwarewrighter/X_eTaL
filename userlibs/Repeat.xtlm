@@ -1,0 +1,23 @@
+## A macro library of your own (userlibs/, found as libraries of your
+## own are): statements written as many times as you ask, when the
+## program is expanded, a loop unrolled at compile time.
+
+### Repeating statements
+
+## The statements on the right, written the number of times on the
+## left, one copy per line; it stands as a statement of its own. A
+## count below 1 is refused when the program is expanded.
+## >> "r:" u_se< "Repeat"
+## >> "3" r:t_imes< "\"hip hip\""
+## hip hip
+## hip hip
+## hip hip
+m:t_imes< := { count body ->
+  n_ot []S_TATEMENT @ ? "misplaced-macro call" []R_EJECT "r:t_imes< writes statements: it stands as a statement of its own"
+  k := f_loor f_irst (n_umbers count) c_at 0.0
+  k < 1 ? "bad-macro-argument left" []R_EJECT "r:t_imes< writes its statements 1 or more times"
+  k c_opies body
+}
+
+# k copies of t, one per line.
+c_opies := { k t -> k <= 1 ? t; t c_at "\n" c_at (k - 1) c_opies t }

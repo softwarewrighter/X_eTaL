@@ -46,12 +46,12 @@ pub(crate) fn help_text() -> Html {
                        closes. " }<b>{ "Clear" }</b>
                     { " (or \"(empty)\") gives an empty editor to type into." }</li>
                 <li><b>{ "Save" }</b>{ " and " }<b>{ "Save as" }</b>{ " keep files in this \
-                       browser's local storage. A saved library (lib/Name.xtl) is \
-                       imported with u_se<; []N_PUT and []N_GET use the same files \
-                       (open work/tttml.model after tttml-train), and []R_EAD asks \
-                       for a line. Hello.xtl, a library of your own, is among your \
-                       files: the hello-library demo imports it; edit it, Save, \
-                       and run the demo again." }</li>
+                       browser's local storage. A saved library (Name.xtl) or macro \
+                       library (Name.xtlm) is imported with u_se<; []N_PUT and []N_GET \
+                       use the same files (open work/tttml.model after tttml-train), and \
+                       []R_EAD asks for a line. Hello.xtl and Repeat.xtlm, of your own, \
+                       are among your files (the hello-library and user-macros demos \
+                       import them): edit one, Save, and run its demo again." }</li>
             </ul>
             { reading() }
             { reference() }
