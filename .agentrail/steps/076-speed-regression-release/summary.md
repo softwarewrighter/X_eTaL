@@ -1,0 +1,1 @@
+Saga 30 closed: docs/speed.md records the regression and fix (per-call costs, bench/inner 8.3 s to 0.81 s, X_eTaL-demos' measurements: t_able 82% and i_nner 86% faster, nothing slower); asks D11 and M3 landed; baseline tightened; fast gate tests lock-only changes (3802d68)

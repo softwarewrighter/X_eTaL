@@ -1,8 +1,9 @@
 number = 76
 slug = "speed-regression-release"
-status = "in-progress"
+status = "completed"
 description = "Saga 30 (the higher-order speed regression, docs/plan.md), step 4 of 4: X_eTa..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T09:22:57"
-commits = []
+completed_at = "2026-10-05T09:38:03"
+commits = ["bc7f8f5b93c2a3e28ccb42a7b518655a98447d21"]
