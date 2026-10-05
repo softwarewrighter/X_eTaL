@@ -1,0 +1,1 @@
+demos/rosetta/cube.xtl: wireframe then shaded cube from Geometry3D and Svg, 24 frames via []S_HOW; viewer convention fixed in Geometry3D; v:r_gb; golden; listed in the live demo. Review in the PR: the geometry and scene code is elegant X_eTaL; the frictions are Int/Float mixing and scene-as-text. PR pr/cube (carries #77/#79/#80/#81).
