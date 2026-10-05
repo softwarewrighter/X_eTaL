@@ -1,0 +1,1 @@
+Macro expansions in the docs: components/docexpand records each call's text through the public Running; the model gains expansions and binds; the site shows each call's expansion in place (collapsed, macro linked to its definition, nested); example imports (S10) link names; uses inside macro arguments counted; D81; PR pr/doc-macros
