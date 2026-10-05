@@ -53,6 +53,7 @@ impl Store for Snapshot {
 fn run(req: Request) {
     let files = req.files.into_iter().collect();
     xetal_store::install(Arc::new(Snapshot(Mutex::new(files))));
+    xetal_clock::install(Arc::new(xetal_webclock::Browser));
     // The program's terminal: standard error a red line, a 24 by 80 grid.
     let error = |line: &str| post(Event::Out(format!("\x1b[31m{line}\x1b[39m")));
     let tty = xetal_tty::Forward {

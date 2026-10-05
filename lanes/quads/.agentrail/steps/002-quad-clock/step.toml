@@ -1,6 +1,6 @@
 number = 2
 slug = "quad-clock"
-status = "pending"
+status = "in-progress"
 description = "Quads lane step 2: []TS (local time stamp) and []D_L (delay) through the host..."
 role = "production"
 context_files = []

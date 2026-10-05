@@ -18,10 +18,10 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 105 | 0 | 0 |
+| Built-in functions | 107 | 0 | 0 |
 | Language decisions | 123 | 0 | 8 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 354 | 0 | 0 |
+| Spec cases | 356 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -74,8 +74,8 @@ conventions (naming, layout) work without a spec case citing them.
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
 | `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 10 | 1 |
 | `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
-| `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 11 | 1 |
-| `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 4 | 1 |
+| `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 12 | 1 |
+| `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 5 | 1 |
 | `e_q~` | `(Num a, Truthy b) => a -> a -> b` | works | 2 | 1 |
 | `&` | `(Truthy a, Truthy b) => a -> a -> b` | works | 4 | 1 |
 | `|` | `(Truthy a, Truthy b) => a -> a -> b` | works | 2 | 1 |
@@ -91,7 +91,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `l_eft` | `a -> b -> a` | works | 1 | 2 |
 | `r_ight` | `a -> b -> b` | works | 2 | 2 |
 
-### QD2, QD3, QD7: system values and character codes
+### QD2, QD3, QD7: system values, character codes and the clock
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
@@ -99,6 +99,8 @@ conventions (naming, layout) work without a spec case citing them.
 | `[]D` | `Char` | works | 1 | 1 |
 | `[]AV` | `Char` | works | 1 | 2 |
 | `[]IO` | `Int` | works | 1 | 1 |
+| `[]TS` | `Int` | works | 1 | 2 |
+| `[]D_L` | `Num a => a -> Float` | works | 2 | 2 |
 | `[]U_CS` | `Char -> Int` | works | 2 | 2 |
 | `[]U_CHAR` | `Int -> Char` | works | 2 | 3 |
 
@@ -147,7 +149,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `s_hape` | `a -> Int` | works | 13 | 2 |
+| `s_hape` | `a -> Int` | works | 14 | 2 |
 | `t_ally` | `a -> Int` | works | 18 | 4 |
 | `r_ange` | `Int -> Int` | works | 37 | 1 |
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
@@ -156,7 +158,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `r_eshape` | `Int -> a -> a` | works | 59 | 2 |
 | `t_ake` | `Int -> a -> a` | works | 11 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 2 | 4 |
-| `s_elect` | `Int -> a -> a` | works | 12 | 4 |
+| `s_elect` | `Int -> a -> a` | works | 13 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 5 | 6 |
 | `c_at` | `a -> a -> a` | works | 14 | 5 |
 
@@ -289,7 +291,7 @@ conventions (naming, layout) work without a spec case citing them.
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (...) | works | 2 |
 | E1 | Evaluation is strict by default | works | 3 |
 | E2 | A function is evaluated before its argument, so the evaluator knows whether the parameter is lazy | works | 0 |
-| E4 | Evaluation order is the function first, then its arguments right to left (APL order): in `x f y`, `f`, (...) | works | 1 |
+| E4 | Evaluation order is the function first, then its arguments right to left (APL order): in `x f y`, `f`, (...) | works | 2 |
 | E3 | The Y combinator works in its textbook shape when its functional marks its self parameter lazy; Z also works | works | 0 |
 | ER1 | A program raises an error of its own with a typed system function: `"code" []S_IGNAL "message"` stops with (...) | planned | 0 |
 | ER2 | Errors are caught by a typed built-in, not by a macro: it runs a protected body (a lambda of `@`) and, on (...) | planned | 0 |
@@ -321,12 +323,12 @@ conventions (naming, layout) work without a spec case citing them.
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 2 |
 | ST3 | A string is a 1-D array of characters: `"abc"` is a 3-element Char vector and every array function applies (...) | works | 2 |
 | QD1 | `[]` written touching a name is the system namespace, APL's quad: `[]A`, `[]D_L 0.5` | works | 2 |
-| QD2 | System values, read-only: `[]A` the alphabet `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"`, `[]D` the digits (...) | works | 1 |
-| QD3 | System functions live in the quad namespace and are named like any function: `[]D_L s` waits s seconds (...) | works | 1 |
+| QD2 | System values, read-only: `[]A` the alphabet `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"`, `[]D` the digits (...) | works | 2 |
+| QD3 | System functions live in the quad namespace and are named like any function: `[]D_L s` waits s seconds (...) | works | 3 |
 | QD4 | Files, the keyboard and numbers as text (decided with the user for TTTML's saved model and its moves): `t (...) | works | 3 |
 | QD6 | A terminal for interactive programs (asked for by X_eTaL-games): screen control is named, typed system (...) | works | 2 |
 | QD5 | Graphics, decided with the user for the classics lane: programs compute what to draw as ordinary arrays, (...) | works | 5 |
-| QD7 | One static type per quad name: `[]U_CS` is `Char -> Int` (the code of each character) and `[]U_CHAR` is (...) | works | 5 |
+| QD7 | One static type per quad name: `[]U_CS` is `Char -> Int` (the code of each character) and `[]U_CHAR` is (...) | works | 6 |
 | MC1 | A macro phase runs between the lexer and the parser | works | 0 |
 | MC2 | A macro is a function-shaped name ending in `<` ("slurp in"): `u_se<` | works | 1 |
 | MC3 | `u_se<` is applied like a dyadic function: `"c:" u_se< "Combinators"` inlines the library with its (...) | works | 1 |
