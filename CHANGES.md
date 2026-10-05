@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 21:58 `docs` `u_se<` documented in lib/System.xtlm (macros lane step 23): a `##` block above the signature line `s:u_se< :: Char -> Char -> Unit`, the first use of `::` (T4), admitted only there to declare a built-in system macro; its type is checked, and `xetal_macro::system_signatures()` gives it to the doc model; elsewhere `::` is still refused (MC21 completed, D75).
 - 21:34 `demo` A macro library of your own (macros lane step 22): `userlibs/Repeat.xtlm` (`r:t_imes<`, statements written as many times as asked) and `demos/user-macros.xtl`; in the live demo `Repeat.xtlm` is among your files and Open lists the standard macro libraries (System, Macros, Combinators) (D74).
 - 20:15 `feat` Hygienic macros (macros lane step 21): names a macro binds around the text of its call are renamed to fresh `g1:` names (numbered in expansion order, shown by `xetal expand`), names it declares with `## binds: it` stay for anaphoric macros; `g1:` is reserved; examples `x:t_wice<` and `x:w_ith<` in lib/Macros.xtlm, which now has `##` doc comments; every earlier expansion unchanged (MC30, D73).
 - 16:30 `feat` The user's macro decisions (macros lane step 20): `@` may stand among lambda parameters for a side that takes nothing (L6 extended: `{ @ r -> ... }`, typed Unit), used throughout System.xtlm; `d_bg<` is hygienic (`{ v -> ...; v } (expr)`); `@ t_odo< "what"` stops with `not yet implemented: what`; MC14-MC17, MC23, MC25, `c_fg<` as an Int and the `[]R_EJECT` shape recorded as decided (D59).

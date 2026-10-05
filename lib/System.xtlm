@@ -5,21 +5,22 @@
 ## means the macro takes nothing there (MC22). What only the compiler
 ## knows comes from hooks (MC20), usable only in a macro body.
 
-# u_se< ("c:" u_se< "Combinators") is a system macro too, but built into
-# xetal, not defined here (MC21). Were it a macro of this file, it would
-# read
-#
-#   s:u_se< := { alias name -> ... }
-#
-# taking the two texts, the alias ("c:") on the left and the library's
-# name or path ("Name") on the right, like any macro. But what u_se<
-# does is not text: it finds Name.xtl and Name.xtlm, loads them, and
-# makes their exported names exist in this file under c:. A macro
-# cannot do that: a macro of yours gives source text, and that text can
-# only use names that exist, never create bindings the way an import
-# does. So the compiler does u_se< itself, and this comment stands in
-# for its definition, as Rust's std declares include_str! with a body
-# its compiler builds.
+### Importing
+
+## Import a library under an alias of your choice: the alias on the
+## left (lowercase letters and digits, then a colon), the library's name
+## or path on the right. A name Name finds Name.xtl and Name.xtlm
+## together, beside the importing file, then in userlibs/, then in each
+## directory of XETAL_PATH, then among the standard libraries built
+## into xetal; the first place holding either gives both. Their exports
+## are then written with the alias (s:m_ean). Built into xetal: it makes
+## names exist under the alias, which no macro's text can do (a macro
+## gives source, and source can only use names that exist), so it has a
+## signature here and no definition.
+## >> "s:" u_se< "Stats"
+## >> s:m_ean 1 2 3
+## 2.0
+s:u_se< :: Char -> Char -> Unit
 
 ### Choosing and repeating
 

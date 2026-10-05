@@ -462,6 +462,7 @@ dependencies = [
  "xetal-lookup",
  "xetal-mapped",
  "xetal-names",
+ "xetal-sigs",
  "xetal-sources",
 ]
 
@@ -559,6 +560,16 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-value",
+]
+
+[[package]]
+name = "xetal-sigs"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-libs",
+ "xetal-prim-types",
+ "xetal-ty",
 ]
 
 [[package]]

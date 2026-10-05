@@ -21,7 +21,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Built-in functions | 99 | 0 | 0 |
 | Language decisions | 120 | 0 | 4 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 345 | 0 | 0 |
+| Spec cases | 346 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -267,7 +267,7 @@ conventions (naming, layout) work without a spec case citing them.
 | T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 7 |
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
 | T9 | An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...) | planned | 0 |
-| T4 | Type annotations: none in v0 (types are inferred) | works | 0 |
+| T4 | Type annotations: none in v0 (types are inferred) | works | 1 |
 | M1 | Values are immutable | works | 7 |
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (...) | works | 2 |
 | E1 | Evaluation is strict by default | works | 3 |
@@ -324,7 +324,7 @@ conventions (naming, layout) work without a spec case citing them.
 | MC18 | The system macros live in `lib/System.xtlm`, written in X_eTaL like any macro library and built into the (...) | works | 2 |
 | MC19 | System.xtlm is loaded before every file, with no import and no alias: its `s:` macros are called (...) | works | 1 |
 | MC20 | What only the compiler knows comes from a few hooks, quad built-ins usable only in a macro body while a (...) | works | 2 |
-| MC21 | `u_se<` stays built into the compiler and is not declared as an `s:` macro in System.xtlm: what it does (...) | works | 0 |
+| MC21 | `u_se<` stays built into the compiler and is not declared as an `s:` macro in System.xtlm: what it does (...) | works | 1 |
 | MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 7 |
 | MC24 | Which macros are system macros: a macro is a system macro (in `lib/System.xtlm` under `s:`, called (...) | works | 9 |
 | MC25 | The compiler-only system macros, each with `@` for a side that takes nothing: `@ l_ine< @` (the call's (...) | works | 0 |
