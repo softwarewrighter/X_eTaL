@@ -1,0 +1,1 @@
+[]L_IST and []T_ABLE in a new xetal-table crate (RS2, D94); data.toml with 31 idioms x 7 languages; just rosetta-check in the gate; goldens run-table, run-table-errors. PR pr/table (carries #83).

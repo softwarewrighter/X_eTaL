@@ -1,8 +1,9 @@
 number = 6
 slug = "table"
-status = "in-progress"
+status = "completed"
 description = "Rosetta lane (see lanes/rosetta/.agentrail/plan.md, docs/rosetta.md and docs/..."
 role = "production"
 context_files = []
 created_at = "2026-10-05T08:23:15"
-commits = []
+completed_at = "2026-10-05T12:29:18"
+commits = ["f2b3ff25a761b6313edfdc8f3b72e373d18e86ca"]
