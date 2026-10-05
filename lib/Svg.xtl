@@ -90,6 +90,21 @@ l:t_ranslate := { d -> "transform" l:a_ttr "translate(" c_at (f_ormat 1 s_elect 
 ##  transform="rotate(90)"
 l:r_otate := { d -> "transform" l:a_ttr "rotate(" c_at (f_ormat d) c_at ")" }
 
+## The transform attribute mapping the unit square onto a quadrilateral
+## given by three of its screen corners, top left, top right and bottom
+## left (an affine fit; the fourth corner follows): `v:m_atrix (2 3
+## r_eshape ...)`, the corners as columns, x over y. Text drawn inside
+## it at unit coordinates lands on the face.
+## >> "v:" u_se< "Svg"
+## >> v:m_atrix 2 3 r_eshape 10 30 10 20 20 40
+##  transform="matrix(20 0 0 20 10 20)"
+l:m_atrix := { c ->
+  tl := 1 s_elect_2 c
+  tr := (2 s_elect_2 c) - tl
+  bl := (3 s_elect_2 c) - tl
+  "transform" l:a_ttr "matrix(" c_at (f_ormat tr) c_at " " c_at (f_ormat bl) c_at " " c_at (f_ormat tl) c_at ")"
+}
+
 ## The transform attribute scaling by k about the origin.
 ## >> "v:" u_se< "Svg"
 ## >> v:s_cale 2
@@ -146,8 +161,11 @@ l:p_ictureWith := { wh parts -> wh l:p_icture "<defs>" c_at (d_isclose 1 s_elect
 # One character escaped for SVG text and attributes.
 e_sc := { c -> c = f_irst "&" ? "&amp;"; c = f_irst "<" ? "&lt;"; c = f_irst ">" ? "&gt;"; c = f_irst "\"" ? "&quot;"; c }
 
-# Boxed texts joined into one.
-j_oin := { b -> d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b }
+# Boxed texts joined into one (none is the empty text).
+j_oin := { b ->
+  0 = t_ally b ? ""
+  d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b
+}
 
 # The columns of a 2-row matrix as "x,y x,y ...".
 p_airs := { points ->

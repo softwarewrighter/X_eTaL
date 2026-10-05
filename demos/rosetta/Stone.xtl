@@ -1,0 +1,94 @@
+## Stone: the Rosetta stone's geometry and faces (docs/rosetta.md), a
+## library beside the demo ("st:" u_se< "Stone"). The stone is three
+## carousels sharing one place: a drum of idioms turning about the x
+## axis (roll it up or down for the previous or next idiom), and two
+## rings of languages turning about the y axis, one for the top half of
+## the facing idiom, one for the bottom. Each is a square prism, so the
+## geometry never changes: the facing side shows the current item and
+## the sides at right angles show its neighbors, found by index. The
+## rings are drawn over the drum, each clipped to its half, which is the
+## impossible part: no solid turns like this, and none needs to.
+## Points are Geometry3D's (3 rows), pictures Svg's.
+"g:" u_se< "Geometry3D"
+"v:" u_se< "Svg"
+
+## The stone's size: width, height (the halves are each half of it) and
+## depth, in scene units; the viewer's distance; the picture's size in
+## pixels and its scale.
+l:width := 2.4
+l:height := 2.0
+l:depth := 2.0
+l:eye := 7.0
+l:size := 420.0
+zoom := 90.0
+
+## The corners of a box centered on the origin: `w h d` in a 3-vector,
+## 3 x 8 (near face then far face, each from the top left anticlockwise,
+## as g:c_ube orders them).
+l:b_ox := { whd -> (3 8 r_eshape 8 r_eplicate 0.5 * whd) * g:c_ube 2 }
+
+## The view: the stone turned a little about x and y so three sides
+## show; every solid below is given in the view's frame.
+l:v_iew := { points -> ((g:r_otX 12.0) g:t_urn g:r_otY -28.0) g:t_urn points }
+
+## Points in the view's frame projected and placed in the picture, y
+## up: a 3 x n matrix of points to a 2 x n matrix of pixels.
+l:s_creen := { points ->
+  p := l:eye g:p_roject points
+  xs := (l:size / 2) + zoom * 1 s_elect p
+  ys := (l:size / 2) - zoom * 2 s_elect p
+  (2 c_at t_ally xs) r_eshape xs c_at ys
+}
+
+## The sides of the idiom drum turned by a degrees about x: the bottom,
+## back and top of the box (its front is the two rings), each 3 x 4
+## with its corners ordered so that text reads upright as the side
+## rolls round to the front, as a 3 x 3 x 4 array; and which idiom each
+## shows relative to the facing one: 1 (coming up from below), 2, -1
+## (just rolled over the top).
+l:d_rum := { a ->
+  box := l:b_ox l:width c_at l:height c_at l:depth
+  sides := 3 4 r_eshape 4 3 7 8 8 7 6 5 5 6 2 1
+  sides g:s_olid l:v_iew (g:r_otX a) g:t_urn box
+}
+l:drumOffsets := 1 2 -1
+
+## The four sides of a language ring turned by a degrees about y: the
+## box of one half (`1` the top half, `-1` the bottom), its front, right,
+## back and left sides as a 4 x 3 x 4 array, and which language each
+## shows relative to the facing one.
+l:r_ing := { half a ->
+  box := l:b_ox l:width c_at (l:height / 2) c_at l:depth
+  lifted := box + 3 8 r_eshape 8 r_eplicate 0.0 c_at (half * l:height / 4) c_at 0.0
+  sides := 4 4 r_eshape 1 2 3 4 2 6 7 3 6 5 8 7 5 1 4 8
+  sides g:s_olid l:v_iew (g:r_otY a) g:t_urn lifted
+}
+l:ringOffsets := 0 1 2 -1
+
+## A face as a panel in the picture: its corners (top left, top right,
+## bottom right, bottom left; 3 x 4) turned by the view, filled, with
+## the given text lines drawn on it in face coordinates (0 to 1 across
+## and down), each line a boxed text. `fill lines st:p_anel face`.
+l:p_anel := { style f ->
+  s := l:s_creen f
+  fill := d_isclose 1 s_elect style
+  lines := 1 d_rop style
+  shape := ((v:f_ill fill) c_at "#30363d" v:s_troke 1.2) v:p_olygon f_loor 0.5 + s
+  on := v:m_atrix 1 2 4 s_elect_2 s
+  texts := j_oin '{ k -> k l:l_ine d_isclose k s_elect lines } m_ap r_ange t_ally lines
+  shape c_at on v:g_roup texts
+}
+
+## One line of text on a face: line k from the top, in a monospace face
+## 0.07 of the face high, with & < > escaped by Svg.
+l:l_ine := { k t -> ((v:a_t 0.06 c_at 0.14 + 0.13 * f_loat k) c_at ("font-size" v:a_ttr "0.075") c_at "font-family" v:a_ttr "ui-monospace, monospace") v:t_ext t }
+
+## The faces of a solid (F x 3 x 4, in the view's frame) in the order
+## to paint them: far to near, so nearer faces cover farther ones.
+l:p_ainting := { solid -> g:o_rder solid }
+
+# Boxed texts joined into one (none is the empty text).
+j_oin := { b ->
+  0 = t_ally b ? ""
+  d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b
+}
