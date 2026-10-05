@@ -1,0 +1,15 @@
+# An error of one's own (ER1): "code" []S_IGNAL "message" stops with
+# error[code]: message, reported at the call as any error is, and
+# stands where any value may (its type is free, as []P_ANIC's is).
+== SOURCE
+u:c_heck := { n -> n < 0 ? "negative" []S_IGNAL "n must be 0 or more"; n }
+p_rint! u:c_heck 3
+u:c_heck -1
+p_rint! "not reached"
+== TYPE
+u:c_heck : Num a => a -> a
+Int
+Int
+Char
+== ERROR
+error[negative]: n must be 0 or more at 27..69

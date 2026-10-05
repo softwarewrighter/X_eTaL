@@ -54,3 +54,34 @@ fn a_code_outside_ascii_is_a_domain_error() {
 fn other_names_are_not_quads() {
     assert_eq!(run("[]N_GET", &[]).unwrap_err(), "not a quad");
 }
+
+#[test]
+fn a_signal_is_an_error_with_the_given_code_and_message() {
+    let err = match call(
+        "[]S_IGNAL",
+        &[chars("too-big"), chars("9 wide at most")],
+        Span::new(0, 1),
+    ) {
+        Some(Err(d)) => d,
+        other => panic!("{other:?}"),
+    };
+    assert_eq!(
+        (err.code.as_str(), err.message.as_str()),
+        ("too-big", "9 wide at most")
+    );
+}
+
+#[test]
+fn a_signal_code_is_lowercase_digits_and_hyphens() {
+    for bad in ["", "Bad Code", "x_y", "-lead"] {
+        assert_eq!(
+            run("[]S_IGNAL", &[chars(bad), chars("m")]).unwrap_err(),
+            "bad-code",
+            "{bad:?}"
+        );
+    }
+    assert_eq!(
+        run("[]S_IGNAL", &[chars("a-1"), chars("m")]).unwrap_err(),
+        "a-1"
+    );
+}

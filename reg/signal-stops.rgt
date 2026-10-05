@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run reg/fixtures/signal.xtl"
+exit_code = 1
+desc = "[]S_IGNAL (ER1): an error of ones own stops the program with error[code]: message at the call and exit status 1; what ran before stays printed"

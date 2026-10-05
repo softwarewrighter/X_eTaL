@@ -1,9 +1,11 @@
 //! System values and character codes (QD2, QD3, QD7): the read-only
 //! values `[]A`, `[]D`, `[]AV` and `[]IO`, niladic built-ins read each
 //! time they are used, and `[]U_CS` (characters to codes) and
-//! `[]U_CHAR` (codes to characters), one static type each.
+//! `[]U_CHAR` (codes to characters), one static type each; and
+//! `[]S_IGNAL`, an error of one's own (ER1).
 
 mod codes;
+mod signal;
 mod values;
 
 use xetal_base::{Diagnostic, Span};
@@ -22,6 +24,7 @@ pub fn call<'a>(
         ("[]IO", []) => Ok(Value::Int(1)),
         ("[]U_CS", [t]) => codes::codes(t),
         ("[]U_CHAR", [n]) => codes::chars(n),
+        ("[]S_IGNAL", [code, message]) => signal::signal(code, message),
         _ => return None,
     };
     Some(result.map_err(|d| d.with_span(span)))
