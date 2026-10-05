@@ -81,3 +81,8 @@ button.theme { float: right; background: none; color: var(--dim); border: 1px so
   nav.side { border-right: none; border-bottom: 1px solid var(--rule); }
   main { padding: 1rem; }
 }
+#search { width: 100%; margin: .8rem 0 0; padding: .35rem .5rem; border: 1px solid var(--rule); border-radius: 4px; background: var(--bg); color: var(--fg); font-size: .9rem; }
+#results { display: none; }
+body.searching #results { display: block; }
+body.searching main > :not(#results):not(button.theme) { display: none; }
+#results td.type { font-family: "JuliaMono", "DejaVu Sans Mono", Menlo, monospace; font-size: .88rem; }

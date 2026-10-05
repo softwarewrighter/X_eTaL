@@ -1,0 +1,3 @@
+command = '''rm -rf work/doc-search-index && ./target/debug/xetal doc --out work/doc-search-index components/doc/fixtures/app.xtl >/dev/null && head -1 work/doc-search-index/search-index.js && grep -E '^\["(u:g_reetAll|l:h_ello|m:w_hen<|\+|r_ev)"' work/doc-search-index/search-index.js'''
+exit_code = 0
+desc = "xetal doc --out: the search index, one row per item and built-in: name, kind, type, the type normalized for search by type (no constraints, type variables renamed a, b, ...), file, link, first line of its doc"

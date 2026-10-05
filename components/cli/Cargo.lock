@@ -2123,7 +2123,7 @@ dependencies = [
  "xetal-core",
  "xetal-diagram",
  "xetal-doc",
- "xetal-docsite",
+ "xetal-docsearch",
  "xetal-doctest",
  "xetal-edit",
  "xetal-eval",
@@ -2213,6 +2213,17 @@ dependencies = [
  "xetal-catalog",
  "xetal-doc",
  "xetal-lex",
+]
+
+[[package]]
+name = "xetal-docsearch"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-doc",
+ "xetal-dochtml",
+ "xetal-docsite",
 ]
 
 [[package]]

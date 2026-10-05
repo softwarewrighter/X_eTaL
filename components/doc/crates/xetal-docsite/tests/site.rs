@@ -124,6 +124,15 @@ fn a_macro_call_shows_its_expansion_in_place_linked_to_the_macro() {
 }
 
 #[test]
+fn every_page_has_the_search_box_and_its_scripts() {
+    for (name, html) in site(&app()).iter().filter(|(p, _)| p.ends_with(".html")) {
+        assert!(html.contains("<input id=\"search\""), "{name}");
+        assert!(html.contains("<section id=\"results\">"), "{name}");
+        assert!(html.contains("src=\"search-index.js\""), "{name}");
+    }
+}
+
+#[test]
 fn the_site_is_written_into_a_directory() {
     let dir = std::env::temp_dir().join(format!("xetal-docsite-{}-write", std::process::id()));
     let _ = std::fs::remove_dir_all(&dir);
