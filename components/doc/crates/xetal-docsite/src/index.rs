@@ -3,9 +3,9 @@
 
 use std::path::Path;
 
-use xetal_base::Diagnostic;
+use xetal_base::{Diagnostic, LANG_NAME};
 use xetal_doc::DocFile;
-use xetal_dochtml::{STYLE, THEME, anchor, escape, page};
+use xetal_dochtml::{STYLE, THEME, anchor, described, escape, page, prose};
 use xetal_doclink::Target;
 
 use crate::context::Ctx;
@@ -45,10 +45,7 @@ pub fn write(dir: &Path, files: &[DocFile]) -> Result<Vec<String>, Diagnostic> {
 /// The index: each file with the first paragraph of its doc, then
 /// every item with its kind, type and file.
 fn index(cx: &Ctx) -> String {
-    let mut body = format!(
-        "<h1>{}</h1>\n<h2>Files</h2>\n<ul>\n",
-        escape(&cx.files[0].name)
-    );
+    let mut body = format!("<h1>{LANG_NAME} documentation</h1>\n<h2>Files</h2>\n<ul>\n");
     for f in cx.files {
         let first = f.doc.as_ref().and_then(|d| d.text.split("\n\n").next());
         let about = first.map_or(String::new(), |p| format!(": {}", escape(p)));
@@ -61,7 +58,7 @@ fn index(cx: &Ctx) -> String {
     }
     body.push_str("</ul>\n");
     body.push_str(&items(cx));
-    shell(cx, &cx.files[0].name, "", &body)
+    shell(cx, "index", "", &body)
 }
 
 /// Every item: name, kind and type, linked to its documentation.
@@ -86,7 +83,7 @@ fn items(cx: &Ctx) -> String {
 /// define them.
 fn builtins(cx: &Ctx) -> String {
     let mut body = String::from(
-        "<h1>Built-ins</h1>\n<table class=\"items\">\n<tr><th>name</th><th>type</th><th>rules</th></tr>\n",
+        "<h1>Built-ins</h1>\n<table class=\"items\">\n<tr><th>name</th><th>type</th><th>what it does</th></tr>\n",
     );
     for b in xetal_catalog::BUILTINS.iter().filter(|b| b.implemented) {
         body.push_str(&format!(
@@ -94,7 +91,7 @@ fn builtins(cx: &Ctx) -> String {
             anchor(b.name),
             cx.name(b.name),
             escape(b.sig),
-            escape(b.rule)
+            described(b.name).map_or(escape(b.rule), |d| prose(&d, &|c: &str| cx.name(c)))
         ));
     }
     body.push_str("</table>\n");

@@ -74,11 +74,15 @@ fn whole(command: &Command, source: &str) -> Option<Result<String, Diagnostic>> 
 }
 
 /// `xetal doc`: the model as JSON, or the site with its search written
-/// into `--out` (the paths written, one a line).
+/// into `--out` (the paths written, one a line); of FILE and any MORE.
 fn doc(args: &crate::args::DocArgs, name: &str, source: &str) -> Result<String, Diagnostic> {
+    let mut inputs = vec![(name.to_string(), source.to_string())];
+    for more in &args.more {
+        inputs.push((more.clone(), read_input(None, Some(more))?));
+    }
     match &args.out {
-        Some(dir) => xetal_docsearch::document(name, source, std::path::Path::new(dir)),
-        None => xetal_doc::json(name, source),
+        Some(dir) => xetal_docsearch::document(&inputs, std::path::Path::new(dir)),
+        None => Ok(xetal_doc::to_json(&xetal_doc::models(&inputs)?)),
     }
 }
 

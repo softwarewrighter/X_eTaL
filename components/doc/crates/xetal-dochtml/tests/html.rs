@@ -90,3 +90,10 @@ fn anchors_and_pages_are_plain_ascii() {
     assert_eq!(page("../lib/Stats.xtl"), "lib-Stats.xtl");
     assert_eq!(page("-e"), "program");
 }
+
+#[test]
+fn a_builtins_description_comes_from_the_reference() {
+    let plus = xetal_dochtml::described("+").expect("plus");
+    assert_eq!(plus, "Plus.");
+    assert!(xetal_dochtml::described("n_o_such").is_none());
+}

@@ -4,10 +4,12 @@
 //! anchors and page names, and the light and dark stylesheet. Plain
 //! HTML and CSS written by Rust; the only script switches the theme.
 
+mod builtins;
 mod code;
 mod escape;
 mod prose;
 
+pub use builtins::described;
 pub use code::{Href, code, lined};
 pub use escape::{anchor, escape, page};
 pub use prose::{Draw, example, prose};

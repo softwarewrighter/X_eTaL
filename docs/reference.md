@@ -19,6 +19,14 @@ function's name picks the axis it works along: `'+ r_/ M` works
 along axis 1, the default; `'+ r_/_1 M` writes that axis out; and
 `'+ r_/_2 M` works along axis 2 instead.
 
+`xetal doc` documents programs and libraries the same way: each
+definition with its type, its `##` doc comment and `## >>`
+examples, its source drawn decorated and every name linked, the
+built-ins among them (`xetal doc --out DIR FILE` writes the site;
+`xetal doc --test FILE` runs the examples). The standard
+libraries' site is at
+https://softwarewrighter.github.io/X_eTaL/doc/ (`just doc`).
+
 ## Arithmetic
 
 Arithmetic works item by item on arrays of any shape; a single number

@@ -10,11 +10,11 @@ use crate::index::{entries, script};
 /// The search, as a script (`search.js`).
 const SEARCH: &str = include_str!("search.js");
 
-/// `xetal doc --out DIR`: the program or library `text` (reported as
-/// `name`) documented into `dir` with its search; the paths written,
-/// one a line.
-pub fn document(name: &str, text: &str, dir: &Path) -> Result<String, Diagnostic> {
-    let files = xetal_doc::model(name, text)?;
+/// `xetal doc --out DIR`: the programs and libraries `inputs` (each
+/// a name it is reported by and its text) documented into `dir` as one
+/// site with its search; the paths written, one a line.
+pub fn document(inputs: &[(String, String)], dir: &Path) -> Result<String, Diagnostic> {
+    let files = xetal_doc::models(inputs)?;
     let mut written = xetal_docsite::write(dir, &files)?;
     written.extend(search(dir, &files)?);
     Ok(written.join("\n"))

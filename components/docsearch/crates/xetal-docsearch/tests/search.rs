@@ -42,7 +42,8 @@ fn the_site_is_written_with_its_search() {
     let _ = std::fs::remove_dir_all(&dir);
     let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../../doc/fixtures/app.xtl");
     let text = std::fs::read_to_string(&path).expect("fixture");
-    let written = document(&path.to_string_lossy(), &text, &dir).expect("written");
+    let inputs = [(path.to_string_lossy().into_owned(), text)];
+    let written = document(&inputs, &dir).expect("written");
     assert!(written.contains("search-index.js"), "{written}");
     let index = std::fs::read_to_string(dir.join("search-index.js")).expect("index");
     assert!(index.starts_with("window.XETAL_DOC_INDEX = ["), "{index}");

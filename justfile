@@ -137,6 +137,10 @@ bench-bless RUNS="5":
 asks: _quiet-build
     python3 scripts/asks.py
 
+# Build the documentation site of lib/ and two programs (xetal doc) into pages/doc
+doc: _quiet-build
+    scripts/doc-site.sh
+
 # Regenerate docs/status.md (what works today) from the catalog, decisions, spec cases and libraries
 status:
     python3 scripts/status.py

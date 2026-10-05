@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lib/Maybe.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li><a href="#section-1">Making a maybe</a></li>
+<li class="item"><a href="#l.n_othing"><span class="c-libfunc">ˡn̲othing</span></a></li>
+<li class="item"><a href="#l.j_ust"><span class="c-libfunc">ˡj̲ust</span></a></li>
+<li><a href="#section-2">Using a maybe</a></li>
+<li class="item"><a href="#l.m_aybe"><span class="c-libfunc">ˡm̲aybe</span></a></li>
+<li class="item"><a href="#l.o_r"><span class="c-libfunc">ˡo̲r</span></a></li>
+<li class="item"><a href="#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a></li>
+<li class="item"><a href="#l.b_ind"><span class="c-libfunc">ˡb̲ind</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">library</span>lib/Maybe.xtl</h1>
+<div class="doc">
+<p>Maybe: a value that may be missing, and the monad that chains
+computations which can fail (a standard library, built into xetal).
+Import it with an alias of your choice: &quot;m:&quot; u_se&lt; &quot;Maybe&quot;.</p>
+<p>A maybe is Church-encoded: it is a function of two arguments, what
+to give when it is empty and what to do with its value. n_othing
+gives the first; j_ust x applies the second to x.</p>
+<p>Like '+ r_/ A, the function comes first, as a quoted operand, so a
+chain reads right to left: 'g b_ind 'f b_ind m is f, then g.</p>
+</div>
+<p class="meta"><a href="lib-Maybe.xtl.src.html">source</a></p>
+<h2 class="section" id="section-1">Making a maybe</h2>
+<div class="item" id="l.n_othing">
+<h3><a href="#l.n_othing"><span class="c-libfunc">ˡn̲othing</span></a> <span class="type">: a -&gt; b -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="lib-Maybe.xtl.src.html#L18">line 18</a></div>
+<div class="doc">
+<p>The empty maybe.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵐ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Maybe.xtl.html" class="c-string">&quot;Maybe&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">0</span> <a href="lib-Maybe.xtl.html#l.o_r" class="c-libfunc">ᵐo̲r</a> <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ᵐn̲othing</a>
+0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡn̲othing</span> ← { n j → n }</pre>
+<div class="uses">Used in: <a href="lib-Maybe.xtl.html#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a>, <a href="lib-Maybe.xtl.html#l.b_ind"><span class="c-libfunc">ˡb̲ind</span></a></div>
+</div>
+<div class="item" id="l.j_ust">
+<h3><a href="#l.j_ust"><span class="c-libfunc">ˡj̲ust</span></a> <span class="type">: a -&gt; b -&gt; (a -&gt; c) -&gt; c</span></h3>
+<div class="meta">function &middot; <a href="lib-Maybe.xtl.src.html#L24">line 24</a></div>
+<div class="doc">
+<p>A maybe holding x.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵐ⁼</span><span class="c-macro">u̲se&lt;</span> <a href="lib-Maybe.xtl.html" class="c-string">&quot;Maybe&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">0</span> <a href="lib-Maybe.xtl.html#l.o_r" class="c-libfunc">ᵐo̲r</a> <a href="lib-Maybe.xtl.html#l.j_ust" class="c-libfunc">ᵐj̲ust</a> <span class="c-number">7</span>
+7</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡj̲ust</span> ← { x n <span class="c-builtin">j̲</span> → <span class="c-builtin">j̲</span> x }</pre>
+<div class="uses">Used in: <a href="lib-Maybe.xtl.html#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a></div>
+</div>
+<h2 class="section" id="section-2">Using a maybe</h2>
+<div class="item" id="l.m_aybe">
+<h3><a href="#l.m_aybe"><span class="c-libfunc">ˡm̲aybe</span></a> <span class="type">: a -&gt; b -&gt; (b -&gt; a -&gt; c) -&gt; c</span></h3>
+<div class="meta">function &middot; <a href="lib-Maybe.xtl.src.html#L29">line 29</a></div>
+<div class="doc">
+<p>d 'f m_aybe m: f applied to m's value, or d when m is empty.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡm̲aybe</span> ← { <span class="c-builtin">f̲</span> d <span class="c-builtin">m̲</span> → d <span class="c-builtin">m̲</span> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</pre>
+</div>
+<div class="item" id="l.o_r">
+<h3><a href="#l.o_r"><span class="c-libfunc">ˡo̲r</span></a> <span class="type">: a -&gt; (a -&gt; (b -&gt; b) -&gt; c) -&gt; c</span></h3>
+<div class="meta">function &middot; <a href="lib-Maybe.xtl.src.html#L32">line 32</a></div>
+<div class="doc">
+<p>d o_r m: m's value, or d when m is empty.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡo̲r</span> ← { d <span class="c-builtin">m̲</span> → d <span class="c-builtin">m̲</span> <span class="c-quote">'</span>{ x → x } }</pre>
+</div>
+<div class="item" id="l.m_ap">
+<h3><a href="#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a> <span class="type">: (a -&gt; b) -&gt; ((c -&gt; d -&gt; c) -&gt; (a -&gt; e -&gt; (b -&gt; f) -&gt; f) -&gt; g) -&gt; g</span></h3>
+<div class="meta">function &middot; <a href="lib-Maybe.xtl.src.html#L35">line 35</a></div>
+<div class="doc">
+<p>'f m_ap m: f applied inside the maybe; empty stays empty.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡm̲ap</span> ← { <span class="c-builtin">f̲</span> <span class="c-builtin">m̲</span> → <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ˡn̲othing</a> <span class="c-builtin">m̲</span> <span class="c-quote">'</span>{ x → <a href="lib-Maybe.xtl.html#l.j_ust" class="c-libfunc">ˡj̲ust</a> <span class="c-builtin">f̲</span> x } }</pre>
+</div>
+<div class="item" id="l.b_ind">
+<h3><a href="#l.b_ind"><span class="c-libfunc">ˡb̲ind</span></a> <span class="type">: a -&gt; ((b -&gt; c -&gt; b) -&gt; a -&gt; d) -&gt; d</span></h3>
+<div class="meta">function &middot; <a href="lib-Maybe.xtl.src.html#L39">line 39</a></div>
+<div class="doc">
+<p>'f b_ind m: f (which gives a maybe) applied to m's value; empty
+stays empty, so a chain of steps stops at the first that fails.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡb̲ind</span> ← { <span class="c-builtin">f̲</span> <span class="c-builtin">m̲</span> → <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ˡn̲othing</a> <span class="c-builtin">m̲</span> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</pre>
+</div>
+</main>
+</body>
+</html>

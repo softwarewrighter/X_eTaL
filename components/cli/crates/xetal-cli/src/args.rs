@@ -115,6 +115,10 @@ pub(crate) struct DocArgs {
     /// with the output shown under it (each doc block one session).
     #[arg(long)]
     pub(crate) test: bool,
+    /// More programs and libraries documented in the same site or model
+    /// (each file once, however many of them import it).
+    #[arg(conflicts_with = "test", value_name = "MORE")]
+    pub(crate) more: Vec<String>,
 }
 
 /// `render` options: decorated Unicode by default.

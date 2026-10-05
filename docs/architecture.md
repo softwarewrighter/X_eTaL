@@ -298,7 +298,9 @@ xetal doc --json <FILE|-e EXPR>
                                the cross-reference model as JSON: every
                                item of the file, its imports and the
                                system macros it calls
-xetal doc --out DIR FILE       the same as a static site in DIR
+xetal doc --out DIR FILE [MORE...]
+                               the same as a static site in DIR (several
+                               files make one site; `just doc`: pages/doc)
 xetal doc --test <FILE|-e EXPR>
                                run the file's ## >> examples, each doc
                                block one session (the gate runs lib/)

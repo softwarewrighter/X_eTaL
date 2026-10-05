@@ -106,6 +106,41 @@ fn each_macro_call_comes_with_its_expansion() {
 }
 
 #[test]
+fn several_files_make_one_model_each_file_once() {
+    let greet = fixtures().join("Greet.xtl");
+    let app_path = fixtures().join("app.xtl");
+    let read = |p: &PathBuf| {
+        (
+            p.to_string_lossy().into_owned(),
+            std::fs::read_to_string(p).expect("read"),
+        )
+    };
+    let stats = (
+        "lib/Stats.xtl".to_string(),
+        xetal_libs::standard("Stats").expect("Stats").to_string(),
+    );
+    let prog = (
+        "-e".to_string(),
+        "\"s:\" u_se< \"Stats\"\nx := s:m_ean 1 2\n".to_string(),
+    );
+    let files =
+        xetal_doc::models(&[read(&greet), read(&app_path), stats.clone(), prog]).expect("models");
+    let names: Vec<&str> = files.iter().map(|f| f.name.as_str()).collect();
+    assert_eq!(
+        names.iter().filter(|n| n.ends_with("Greet.xtl")).count(),
+        1,
+        "{names:?}"
+    );
+    assert_eq!(
+        names.iter().filter(|n| n.ends_with("Stats.xtl")).count(),
+        1,
+        "{names:?}"
+    );
+    let program = files.iter().find(|f| f.name == "-e").expect("program");
+    assert_eq!(program.imports[0].files, ["lib/Stats.xtl"]);
+}
+
+#[test]
 fn a_bad_program_is_a_diagnostic_not_a_panic() {
     assert!(model("bad.xtl", "x := ( 1").is_err());
 }

@@ -8,11 +8,13 @@
 mod files;
 mod items;
 mod json;
+mod merge;
 mod model;
 mod uses;
 
 pub use files::model;
 pub use json::to_json;
+pub use merge::models;
 pub use model::{DocFile, Import, Item, Use, imports_of};
 pub use xetal_docexpand::Expansion;
 

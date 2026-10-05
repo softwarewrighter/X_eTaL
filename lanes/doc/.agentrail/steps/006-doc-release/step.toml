@@ -1,6 +1,6 @@
 number = 6
 slug = "doc-release"
-status = "pending"
+status = "in-progress"
 description = "Doc lane (see lanes/doc/.agentrail/plan.md), step doc-release. TDD; the gate ..."
 role = "production"
 context_files = []

@@ -1,5 +1,5 @@
 window.XETAL_DOC_INDEX = [
 ["u:g_reetAll","function","Char -> Char","Char -> Char","app.xtl","components-doc-fixtures-app.xtl.html#u.g_reetAll","Greet everyone in a list, shouting."],
 ["l:h_ello","function","Char -> Char","Char -> Char","Greet.xtl","components-doc-fixtures-Greet.xtl.html#l.h_ello","The greeting for a name."],
-["+","built-in","Num a => a -> a -> a","a -> a -> a","","builtins.html#-2b","B7, D-10: arithmetic"],
-["r_ev","built-in","a -> a","a -> a","","builtins.html#r_ev","A2-A4: rotate and reverse (leading axis)"],
+["+","built-in","Num a => a -> a -> a","a -> a -> a","","builtins.html#-2b","Plus."],
+["r_ev","built-in","a -> a","a -> a","","builtins.html#r_ev","Reverse the order of the items along the first axis (the rows of a matrix), or along the subscript's axis."],
