@@ -6,8 +6,8 @@
 mod apply;
 mod caller;
 mod eval;
-mod kont;
 mod machine;
 mod resume;
+mod trap;
 
 pub use machine::{Machine, Status};

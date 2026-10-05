@@ -8,6 +8,7 @@
 
 mod clock;
 mod codes;
+mod outcome;
 mod signal;
 mod values;
 
@@ -30,6 +31,8 @@ pub fn call<'a>(
         ("[]U_CS", [t]) => codes::codes(t),
         ("[]U_CHAR", [n]) => codes::chars(n),
         ("[]S_IGNAL", [code, message]) => signal::signal(code, message),
+        ("[]E_CODE" | "[]E_MESSAGE" | "[]E_WHERE", [e]) => outcome::read(name, e),
+        ("[]R_ECOVER" | "[]R_ETRY" | "[]H_ALT", [v]) => outcome::outcome(name, v),
         _ => return None,
     };
     Some(result.map_err(|d| d.with_span(span)))

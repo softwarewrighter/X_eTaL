@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-prim", "crates/xetal-step", "crates/xetal-kernel"]
+members = ["crates/xetal-prim", "crates/xetal-step", "crates/xetal-kernel", "crates/xetal-frame"]
 
 [workspace.package]
 version = "0.1.0"
@@ -12,6 +12,7 @@ authors = ["Michael A Wright"]
 repository = "https://github.com/softwarewrighter/X_eTaL"
 
 [workspace.dependencies]
+xetal-frame = { path = "crates/xetal-frame" }
 xetal-prim = { path = "crates/xetal-prim" }
 xetal-step = { path = "crates/xetal-step" }
 xetal-kernel = { path = "crates/xetal-kernel" }

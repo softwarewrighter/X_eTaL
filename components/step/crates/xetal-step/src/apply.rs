@@ -6,9 +6,9 @@ use xetal_base::{Diagnostic, Span};
 use xetal_core::{Expr, Kind, Param};
 use xetal_value::{Env, Slot, Value, extend};
 
-use crate::kont::err;
-use crate::kont::{Control, Kont};
 use crate::machine::Machine;
+use xetal_frame::err;
+use xetal_frame::{Control, Kont};
 
 impl<'a> Machine<'a, '_> {
     /// The application frames take their value.

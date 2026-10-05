@@ -12,9 +12,9 @@ use xetal_core::Kind;
 use xetal_kernel::{Kernel, Next};
 use xetal_value::{Prim, Slot, Value};
 
-use crate::kont::err;
-use crate::kont::{Control, Kont};
 use crate::machine::Machine;
+use xetal_frame::err;
+use xetal_frame::{Control, Kont};
 
 impl<'a> Machine<'a, '_> {
     /// A higher-order built-in's kernel goes on with the value of the
@@ -59,6 +59,9 @@ impl<'a> Machine<'a, '_> {
             && let Some(control) = self.typed_line(p, &args, span)
         {
             return Ok(control);
+        }
+        if let Some(control) = self.trapping(p.name, &args, span) {
+            return control;
         }
         let mut now = xetal_prim::Now {
             out: &mut *self.out,

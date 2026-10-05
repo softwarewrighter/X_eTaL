@@ -12,9 +12,10 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 01:50 `feat` Catching errors (errors lane step 2, ER2, D86; ask X3, catch): `'body []T_RAP 'handler` runs the body and, on an error, the handler, which answers `[]R_ECOVER v`, `[]R_ETRY e` or `[]H_ALT e` (typed: `Outcome a`, `Error` read by `[]E_CODE`, `[]E_MESSAGE`, `[]E_WHERE`); `'body []E_NSURE 'cleanup` always runs the cleanup; the step evaluator unwinds to the nearest trap.
 - 01:12 `fix` American spellings only (D88; the user): `scripts/check-spelling.py` (X_eTaL-demos' checker, with a self-test; URLs skipped, the plural "analyses" allowed) is in the gate, and the 107 British forms the audit found are fixed in docs, comments, identifiers, demos, literate documents, the reference and the Emacs mode; links keep their addresses. CLAUDE.md records the rule. pages/ rebuilt.
-
 - 00:55 `build` The gate is fast by default (D87; the user, after 20-minute gates on every merge): `scripts/gate.sh` checks the components whose files changed, tests the ones that depend on them, skips the rest, and runs the slower document checks only when their inputs changed (`scripts/affected.py` plans it, measured from the merge base with origin/main); `just gate --full` runs everything, between features and before a release; each longer step prints its time. The just-list golden rewritten on purpose.
+
 
 - 00:19 `build` Merged PRs #72 (errors lane: `[]S_IGNAL`, an error of one's own, ER1; its quad dispatch and tests joined with the clock's by hand; register entry D86) and #73 (macros lane: the Saga 19 retrospective, the lane archived); pages/ rebuilt.
 

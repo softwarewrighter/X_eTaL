@@ -1,0 +1,22 @@
+# Catching an error (ER2): 'body []T_RAP 'handler runs the body (a
+# lambda of @) and, when it stops with an error, the handler, given the
+# Error; the handler's outcome is []R_ECOVER v (the trap's value, of the
+# body's type), []R_ETRY e (the body again) or []H_ALT e (the error goes
+# on, as it was). []E_CODE, []E_MESSAGE and []E_LINE read an Error.
+== SOURCE
+u:r_ead := { path -> '{ @ -> []N_GET path } []T_RAP '{ e -> []R_ECOVER "" } }
+t_ally u:r_ead "no/such/file.txt"
+'{ @ -> "mine" []S_IGNAL "oops" } []T_RAP '{ e -> []R_ECOVER []E_CODE e }
+'{ @ -> "mine" []S_IGNAL "oops" } []T_RAP '{ e -> []R_ECOVER []E_MESSAGE e }
+'{ @ -> 1 + 2 } []T_RAP '{ e -> []R_ECOVER 0 }
+== TYPE
+u:r_ead : Char -> Char
+Int
+Char
+Char
+Int
+== RESULT
+0
+mine
+oops
+3

@@ -1,0 +1,16 @@
+# []R_ETRY e runs the body again; a counter in a ! variable shows how
+# many times. The retries are limited, so a body that always fails
+# ends with its error after the limit.
+== SOURCE
+n! := 0
+u:f_laky := { @ -> n! := n! + 1; n! < 3 ? "again" []S_IGNAL "not yet"; n! }
+'u:f_laky []T_RAP '{ e -> []R_ETRY e }
+n!
+== TYPE
+n! : Int
+u:f_laky : Unit -> Int
+Int
+Int
+== RESULT
+3
+3

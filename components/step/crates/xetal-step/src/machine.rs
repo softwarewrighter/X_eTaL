@@ -7,9 +7,9 @@ use std::io::Write;
 use xetal_arith::Rng;
 use xetal_base::{Diagnostic, Span};
 use xetal_core::Program;
-use xetal_value::{Env, Slot, Value};
+use xetal_value::{Env, Value};
 
-use crate::kont::{Control, Kont};
+use xetal_frame::{Control, Kont};
 
 /// Pending frames allowed before reporting `stack-overflow` (the depth a
 /// runaway recursion reaches; deep finite recursion is well within it).
@@ -93,11 +93,7 @@ impl<'a, 'o> Machine<'a, 'o> {
             };
             match self.transition(control) {
                 Ok(next) => self.control = next,
-                Err(e) => {
-                    self.unwind(|k| matches!(k, Kont::Items { .. }));
-                    self.stack.clear();
-                    return Err(e);
-                }
+                Err(e) => self.control = Some(self.catch(e)?),
             }
         }
         Ok(match (self.waiting, self.control.is_some()) {
@@ -135,19 +131,6 @@ impl<'a, 'o> Machine<'a, 'o> {
         match self.wants_key {
             true => Status::WaitingKey,
             false => Status::Waiting,
-        }
-    }
-
-    /// Pop frames until `stop` matches one (popped too) or the stack is
-    /// empty, giving a lazy argument whose forcing failed its thunk back.
-    pub(crate) fn unwind(&mut self, stop: impl Fn(&Kont<'a>) -> bool) {
-        while let Some(k) = self.stack.pop() {
-            if let Kont::Force { slot, expr, env } = &k {
-                *slot.borrow_mut() = Slot::Thunk(expr, env.clone());
-            }
-            if stop(&k) {
-                return;
-            }
         }
     }
 }

@@ -1523,6 +1523,118 @@ error[too-wide]: the grid is at most 9 wide
 error[bad-code]: an error code is lowercase letters, digits and hyphens, got "Bad Code"
 ```
 
+## Errors caught
+
+A trap runs a protected body and, when it stops with an error, a
+handler (ER2). The body is a function of `@`; the handler takes the
+Error and answers an Outcome of the body's type: recover with a value,
+retry the body, or halt and let the error go on. The `t_ry<` and
+`c_atch<` macros of System.xtlm write these for you.
+
+### `[]T_RAP`
+
+`(Unit -> a) -> (Error -> Outcome a) -> a`, two arguments.
+
+Run the body; on any error, call the handler with it. The trap's value
+is the body's, or what the handler recovers with.
+
+```
+      '{ @ -> []N_GET "no/such/file" } []T_RAP '{ e -> []R_ECOVER "" }
+
+      '{ @ -> "mine" []S_IGNAL "oops" } []T_RAP '{ e -> []R_ECOVER []E_CODE e }
+mine
+      '{ @ -> 1 + 2 } []T_RAP '{ e -> []R_ECOVER 0 }
+3
+```
+
+### `[]R_ECOVER`
+
+`a -> Outcome a`, one argument.
+
+The handler's answer: the trap's value is this one, of the body's type.
+
+```
+      '{ @ -> f_irst 0 t_ake 1 2 } []T_RAP '{ e -> []R_ECOVER -1 }
+-1
+```
+
+### `[]H_ALT`
+
+`Error -> Outcome a`, one argument.
+
+The handler's answer: the error goes on as it was, from where it was
+raised. A handler for one kind of error halts on the others.
+
+```
+      '{ @ -> "a" []S_IGNAL "b" } []T_RAP '{ e -> ([]E_CODE e) m_atch "io" ? []R_ECOVER 1; []H_ALT e }
+error[a]: b
+```
+
+### `[]R_ETRY`
+
+`Error -> Outcome a`, one argument.
+
+The handler's answer: run the body again. After 1000 runs the trap
+gives up with error[retry-limit].
+
+```
+      n! := 0; '{ @ -> n! := n! + 1; n! < 3 ? "again" []S_IGNAL "not yet"; n! } []T_RAP '{ e -> []R_ETRY e }
+3
+      '{ @ -> "a" []S_IGNAL "b" } []T_RAP '{ e -> []R_ETRY e }
+error[retry-limit]: the body was retried 1000 times
+```
+
+### `[]E_CODE`
+
+`Error -> Char`, one argument.
+
+The code of a caught error (`mine` of error[mine]).
+
+```
+      '{ @ -> "mine" []S_IGNAL "oops" } []T_RAP '{ e -> []R_ECOVER []E_CODE e }
+mine
+```
+
+### `[]E_MESSAGE`
+
+`Error -> Char`, one argument.
+
+The message of a caught error.
+
+```
+      '{ @ -> "mine" []S_IGNAL "oops" } []T_RAP '{ e -> []R_ECOVER []E_MESSAGE e }
+oops
+```
+
+### `[]E_WHERE`
+
+`Error -> Char`, one argument.
+
+Where a caught error was raised, as errors print it: the span of
+source text, `start..end`.
+
+```
+      '{ @ -> "mine" []S_IGNAL "oops" } []T_RAP '{ e -> []R_ECOVER []E_WHERE e }
+76..99
+```
+
+### `[]E_NSURE`
+
+`(Unit -> a) -> (Unit -> b) -> a`, two arguments.
+
+Run the body, then the cleanup (a function of `@`), whether the body
+gave a value or stopped with an error; the body's value, or its error
+going on. The `f_inally<` macro writes it.
+
+```
+      '{ @ -> p_rint! 1; 2 } []E_NSURE '{ @ -> p_rint! "cleaned" }
+1
+cleaned
+2
+      '{ @ -> "x" []S_IGNAL "y" } []E_NSURE '{ @ -> p_rint! "cleaned" }
+error[x]: y
+```
+
 ## Macro hooks
 
 What only the compiler knows, given to a macro body while a call is

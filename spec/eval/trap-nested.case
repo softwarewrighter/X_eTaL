@@ -1,0 +1,16 @@
+# Traps nest (ER2): an inner handler that halts passes the error to the
+# outer trap, as it was. An error inside an operand of e_ach, inside a
+# built-in, or inside the handler itself is caught, or goes on, the same
+# way: the handler's own error replaces the one being handled.
+== SOURCE
+'{ @ -> '{ @ -> "in" []S_IGNAL "deep" } []T_RAP '{ e -> []H_ALT e } } []T_RAP '{ e -> []R_ECOVER []E_CODE e }
+'{ @ -> '{ x -> x = 2 ? "two" []S_IGNAL "no twos"; x } e_ach 1 2 3 } []T_RAP '{ e -> []R_ECOVER 0 0 0 }
+'{ @ -> f_irst 0 t_ake 1 2 } []T_RAP '{ e -> []R_ECOVER -1 }
+'{ @ -> "a" []S_IGNAL "b" } []T_RAP '{ e -> "handler-broke" []S_IGNAL "while handling" }
+== TYPE
+Char
+Int
+Int
+a
+== ERROR
+error[handler-broke]: while handling at 319..361

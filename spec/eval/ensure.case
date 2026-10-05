@@ -1,0 +1,11 @@
+# 'body []E_NSURE 'cleanup runs the cleanup (a lambda of @) after the
+# body, whether the body gave a value or stopped with an error, and
+# gives the body's value (the error case is ensure-error).
+== SOURCE
+'{ @ -> p_rint! 1; 2 } []E_NSURE '{ @ -> p_rint! "cleaned" }
+== TYPE
+Int
+== RESULT
+1
+cleaned
+2

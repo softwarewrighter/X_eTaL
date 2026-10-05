@@ -1,0 +1,8 @@
+# []H_ALT e passes the error on as it was, from where it was raised:
+# the handler of a trap that catches only io errors lets another through.
+== SOURCE
+'{ @ -> "a" []S_IGNAL "b" } []T_RAP '{ e -> ([]E_CODE e) m_atch "io" ? []R_ECOVER 1; []H_ALT e }
+== TYPE
+Int
+== ERROR
+error[a]: b at 8..25
