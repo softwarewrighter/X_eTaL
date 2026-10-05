@@ -36,6 +36,13 @@ impl Macros for Table<'_> {
         };
         self.libs.run_macro(&lib.sources, &run)
     }
+
+    fn binds(&self, call: &MacroCall) -> Vec<String> {
+        self.library(call)
+            .ok()
+            .and_then(|lib| lib.binds.get(call.name).cloned())
+            .unwrap_or_default()
+    }
 }
 
 impl Table<'_> {

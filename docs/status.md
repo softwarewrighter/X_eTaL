@@ -19,9 +19,9 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 99 | 0 | 0 |
-| Language decisions | 119 | 0 | 4 |
+| Language decisions | 120 | 0 | 4 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 340 | 0 | 0 |
+| Spec cases | 345 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -36,9 +36,9 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 57 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 60 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 26 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 38 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 40 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
@@ -332,6 +332,7 @@ conventions (naming, layout) work without a spec case citing them.
 | MC27 | `"cond" a_ssert< "message"` (or `@` for no message) reports and goes on: when the condition does not hold (...) | works | 1 |
 | MC28 | `@ f_ormat< "x = {x}"` (Rust's `format!`) interpolates: each `{expr}` holds any expression (it ends at the (...) | works | 0 |
 | MC29 | `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...) | planned | 0 |
+| MC30 | Macros are hygienic, automatically (as Scheme's): after a macro gives its text, the macro phase finds each (...) | works | 5 |
 | MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | CB1 | The standard library `Combinators` holds every bird Raymond Smullyan names in *To Mock a Mockingbird* that (...) | works | 1 |
 | CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works (...) | works | 0 |

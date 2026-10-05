@@ -26,6 +26,8 @@ pub struct MacroLib {
     pub sources: Sources,
     pub own: String,
     pub exports: Vec<String>,
+    /// Per macro, the names it declares it binds (`## binds:`).
+    pub binds: HashMap<String, Vec<String>>,
 }
 
 /// Per alias letters: the macro library named.
@@ -53,6 +55,7 @@ impl Loader<'_> {
             sources: inner.sources,
             own,
             exports,
+            binds: xetal_expand::binds_of(&found.text),
         });
         self.macros.insert(found.key.clone(), lib.clone());
         Ok(lib)

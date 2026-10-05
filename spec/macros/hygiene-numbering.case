@@ -1,0 +1,15 @@
+# Fresh names are numbered in the order calls are expanded, so an
+# expansion reads the same every time (MC30).
+== SOURCE
+"x:" u_se< "Macros"
+t := 5
+@ x:t_wice< "t + 1"
+@ x:t_wice< "t * 2"
+== EXPAND
+"x:" u_se< "Macros"
+t := 5
+{ @ -> g1:t := 2; g1:t * (t + 1) } @
+{ @ -> g2:t := 2; g2:t * (t * 2) } @
+== RESULT
+12
+20

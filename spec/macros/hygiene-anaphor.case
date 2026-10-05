@@ -1,0 +1,10 @@
+# A name a macro declares in its doc comment (## binds: it) is meant
+# for the text of its call: hygiene leaves it as written (MC30).
+== SOURCE
+"x:" u_se< "Macros"
+"3 + 4" x:w_ith< "it * it"
+== EXPAND
+"x:" u_se< "Macros"
+{ @ -> it := (3 + 4); it * it } @
+== RESULT
+49

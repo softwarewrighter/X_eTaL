@@ -163,8 +163,15 @@ impl Lower {
     fn binding_name(&self, target: &Target, span: Span) -> Result<String, Diagnostic> {
         let top = self.lambdas == 0;
         match target {
-            Target::Var(v) if v.ns.is_none() => {
-                Ok(format!("{}{}", v.name, if v.mutable { "!" } else { "" }))
+            Target::Var(v)
+                if v.ns.is_none() || (!crate::train::fresh(&v.ns).is_empty() && !top) =>
+            {
+                Ok(format!(
+                    "{}{}{}",
+                    crate::train::fresh(&v.ns),
+                    v.name,
+                    if v.mutable { "!" } else { "" }
+                ))
             }
             Target::Var(v) if hidden(&v.ns) && top => {
                 Ok(format!("{}:{}", v.ns.as_deref().unwrap_or(""), v.name))
@@ -180,7 +187,11 @@ impl Lower {
             Target::Func(f) if f.ns.as_deref() == Some("u") && top => {
                 Ok(format!("u:{}", f.spelled()))
             }
-            Target::Func(f) if f.ns.is_none() && !top => Ok(f.spelled()),
+            Target::Func(f)
+                if (f.ns.is_none() || !crate::train::fresh(&f.ns).is_empty()) && !top =>
+            {
+                Ok(format!("{}{}", crate::train::fresh(&f.ns), f.spelled()))
+            }
             Target::Func(f) if f.ns.is_none() => Err(err(
                 "bad-binding",
                 span,

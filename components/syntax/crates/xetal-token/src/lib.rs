@@ -2,7 +2,9 @@
 //! re-exports them) produces from raw ASCII source.
 
 mod error;
+mod fresh;
 mod token;
 
 pub use error::{ErrorKind, LexError};
+pub use fresh::is_fresh;
 pub use token::{FuncName, Number, SYSTEM, Side, Symbol, Token, TokenKind, Var, ns_text};

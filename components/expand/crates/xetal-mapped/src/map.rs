@@ -44,6 +44,16 @@ impl Mapped {
         &self.pieces
     }
 
+    /// Whether expanded byte `at` was copied byte for byte from the text
+    /// (in a macro's expansion: from the call's arguments).
+    pub fn copied(&self, at: usize) -> bool {
+        self.pieces
+            .iter()
+            .rev()
+            .find(|p| p.at <= at)
+            .is_some_and(|p| p.exact)
+    }
+
     /// The written span behind expanded span `span`.
     pub fn span(&self, span: Span) -> Span {
         let last = span.end.max(span.start + 1) - 1;

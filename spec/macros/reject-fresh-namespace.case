@@ -1,0 +1,6 @@
+# g and a number (g1:) is the namespace of names a macro binds; a
+# program cannot write it (MC30).
+== SOURCE
+g1:t := 2
+== ERROR
+error[reserved-namespace]: g and a number (g1:) is the namespace of names a macro binds; a program cannot write it at 0..4

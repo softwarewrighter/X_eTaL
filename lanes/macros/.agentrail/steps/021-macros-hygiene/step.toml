@@ -1,6 +1,6 @@
 number = 21
 slug = "macros-hygiene"
-status = "pending"
+status = "in-progress"
 description = "macros-hygiene (decided with the user 2026-10-04): automatic, Scheme-like hyg..."
 role = "production"
 context_files = []

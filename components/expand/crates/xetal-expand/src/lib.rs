@@ -4,13 +4,18 @@
 //! again to a depth limit, with a map from the expanded text back to
 //! where each byte was written (text copied from a macro's argument
 //! maps into the string it was written in; the macro's own text maps
-//! to the whole call). `u_se<` is left for the imports.
+//! to the whole call). Names a macro binds around the call's text are
+//! renamed to fresh ones (hygiene, MC30). `u_se<` is left for the
+//! imports.
 
+mod binds;
 mod calls;
 mod copied;
 mod expand;
+mod hygiene;
 mod user;
 
+pub use binds::binds_of;
 pub use expand::{DEPTH, expand, expand_with};
 pub use user::{MacroCall, Macros, NoMacros};
 pub use xetal_mapped::{Mapped, Piece};

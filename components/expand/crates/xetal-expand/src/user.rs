@@ -32,6 +32,12 @@ pub trait Macros {
     /// The text `call` gives. An error with a note `macro-place: left`
     /// or `right` is reported at that argument, else at the macro.
     fn run(&self, call: &MacroCall) -> Result<String, Diagnostic>;
+
+    /// The names the macro of `call` declares it binds for the call's
+    /// text (`## binds:`, anaphora); hygiene keeps them as written.
+    fn binds(&self, _call: &MacroCall) -> Vec<String> {
+        Vec::new()
+    }
 }
 
 /// No macros at all: every call is unknown.
@@ -57,7 +63,7 @@ pub(crate) fn user(
     (left, right): (&Mapped, &Mapped),
     macros: &dyn Macros,
     whole: Span,
-) -> Result<Mapped, Diagnostic> {
+) -> Result<(Mapped, Vec<String>), Diagnostic> {
     let (ns, name) = match call.name.split_once(':') {
         Some((ns, name)) => (Some(ns), name),
         None => (None, call.name.as_str()),
@@ -75,7 +81,7 @@ pub(crate) fn user(
         true => text,
         false => format!("({text})"),
     };
-    Ok(copied(&text, &[left, right], whole))
+    Ok((copied(&text, &[left, right], whole), macros.binds(&request)))
 }
 
 /// `d` at the place it names (its `macro-place` note), else at the macro.
