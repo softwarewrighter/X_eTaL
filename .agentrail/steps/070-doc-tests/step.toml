@@ -1,8 +1,0 @@
-number = 70
-slug = "doc-tests"
-status = "pending"
-description = "Saga 32 (xetal doc), step 6 (doctests, the user's follow-on, 2026-10-04): xet..."
-role = "production"
-context_files = []
-created_at = "2026-10-04T11:41:28"
-commits = []

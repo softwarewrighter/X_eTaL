@@ -1,0 +1,8 @@
+number = 53
+slug = "american-spelling"
+status = "pending"
+description = "American spellings only (the user, 2026-10-04, after fixing the same in X_eTa..."
+role = "production"
+context_files = []
+created_at = "2026-10-04T21:29:56"
+commits = []

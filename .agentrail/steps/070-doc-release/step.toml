@@ -1,0 +1,8 @@
+number = 70
+slug = "doc-release"
+status = "pending"
+description = "Saga 32 (xetal doc, a cross-reference; the user, 2026-10-04, before the launc..."
+role = "production"
+context_files = []
+created_at = "2026-10-04T10:30:11"
+commits = []

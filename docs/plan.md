@@ -975,6 +975,11 @@ Doc comments (S9): `#` ignored, `##` documentation, `###` sections,
 6. doc-tests: `xetal doc --test` runs every `## >>` example in its
    file's context and compares what it prints; the gate runs it over
    lib/ and System.xtlm.
+7. rustdoc (the user, 2026-10-04): the implementation's own
+   cross-reference, `cargo doc --document-private-items` over every
+   component into one site with one search index, published as
+   pages/rust/ by `just pages`; an ask to X_eTaL-extensions for the
+   same, linked to this site.
 
 ## Saga 28 -- learn X_eTaL (a self-paced course, REPL and browser)
 

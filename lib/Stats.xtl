@@ -1,5 +1,8 @@
 # Stats: a small statistics library (a standard library, built into
 # xetal). Import it with an alias of your choice: "s:" u_se< "Stats".
+# It is a demo library, loaded only by that import: a small subset of
+# X_eTaL-libraries' Statistics, which has much more (a program may use
+# either).
 # Names with l: are exported; the others are private to this file.
 
 l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]  # Int or Float numbers

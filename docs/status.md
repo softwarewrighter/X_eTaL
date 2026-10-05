@@ -19,14 +19,15 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 105 | 0 | 0 |
-| Language decisions | 123 | 0 | 2 |
+| Language decisions | 123 | 0 | 3 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 342 | 0 | 0 |
+| Spec cases | 353 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
 - **T9** (planned): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
+- **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
 
 ## Built-in functions
 
@@ -34,9 +35,9 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 54 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 60 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 37 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 40 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
@@ -66,7 +67,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 35 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
-| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 9 | 1 |
+| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 10 | 1 |
 | `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
 | `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 11 | 1 |
 | `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 4 | 1 |
@@ -253,7 +254,7 @@ conventions (naming, layout) work without a spec case citing them.
 | L4 | Named parameters, decorated like names, separated from the body by `->`: `{ f_ g_ x -> f_ g_ x }` | works | 3 |
 | L5 | Shorthand and named parameters may not be mixed in one lambda | works | 1 |
 | L7 | Names resolve lexically: the innermost enclosing lambda's parameter, then outer lambdas, then the program (...) | works | 0 |
-| L6 | A niladic function is defined with `@` as its only parameter: `u:n_ow! := { @ -> ... }`, and called as (...) | works | 4 |
+| L6 | A niladic function is defined with `@` as its only parameter: `u:n_ow! := { @ -> ... }`, and called as (...) | works | 5 |
 | TR1 | Trains are written in square brackets | works | 3 |
 | TR2 | A two-element train is atop: `[F G] x` is `F (G x)` (BQN / Dyalog, not J's hook) | works | 1 |
 | TR4 | A train's arity comes from where it is written: `[F G H] x` is monadic, `x [F G H] y` dyadic | works | 0 |
@@ -336,13 +337,14 @@ conventions (naming, layout) work without a spec case citing them.
 | MC19 | System.xtlm is loaded before every file, with no import and no alias: its `s:` macros are called (...) | works | 1 |
 | MC20 | What only the compiler knows comes from a few hooks, quad built-ins usable only in a macro body while a (...) | works | 2 |
 | MC21 | `u_se<` stays built into the compiler and is not declared as an `s:` macro in System.xtlm: what it does (...) | works | 0 |
-| MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 6 |
+| MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 7 |
 | MC24 | Which macros are system macros: a macro is a system macro (in `lib/System.xtlm` under `s:`, called (...) | works | 9 |
 | MC25 | The compiler-only system macros, each with `@` for a side that takes nothing: `@ l_ine< @` (the call's (...) | works | 0 |
 | MC26 | `@ d_bg< "expr"` (Rust's `dbg!`) is a system macro: the value of `expr`, after writing `[file:line] expr = (...) | works | 0 |
 | MC27 | `"cond" a_ssert< "message"` (or `@` for no message) reports and goes on: when the condition does not hold (...) | works | 1 |
 | MC28 | `@ f_ormat< "x = {x}"` (Rust's `format!`) interpolates: each `{expr}` holds any expression (it ends at the (...) | works | 0 |
-| MC29 | `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...) | works | 0 |
+| MC29 | `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...) | planned | 0 |
+| MC30 | Macros are hygienic, automatically (as Scheme's): after a macro gives its text, the macro phase finds each (...) | works | 5 |
 | MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | CB1 | The standard library `Combinators` holds every bird Raymond Smullyan names in *To Mock a Mockingbird* that (...) | works | 1 |
 | CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works (...) | works | 0 |

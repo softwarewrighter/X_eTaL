@@ -324,30 +324,67 @@ that gives the text replacing the call. The standard library <code>Macros</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal"><span class="c-comment">⍝ Macros.xtlm: a small macro library, an example of macros of your own</span>
-<span class="c-comment">⍝ (lang-choices MC10). A macro is an ordinary function of the source</span>
-<span class="c-comment">⍝ text written on each side of its call; the text it gives replaces</span>
-<span class="c-comment">⍝ the call, then is read as code. Import it with an alias of your own:</span>
-<span class="c-comment">⍝   &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span>
-<span class="c-comment">⍝ and see what a program becomes with </span>xetal expand FILE<span class="c-comment">.</span>
+<pre class="src src-xetal"><span class="c-comment">⍝# A small macro library, an example of macros of your own (MC10). A</span>
+<span class="c-comment">⍝# macro is an ordinary function of the source text written on each</span>
+<span class="c-comment">⍝# side of its call; the text it gives replaces the call, then is read</span>
+<span class="c-comment">⍝# as code. Import it with an alias of your own, &quot;x:&quot; u_se&lt; &quot;Macros&quot;,</span>
+<span class="c-comment">⍝# and see what a program becomes with xetal expand FILE.</span>
 
-<span class="c-comment">⍝ &quot;c&quot; x:w_hen&lt; &quot;b&quot;: run the statements b when c holds (the value is</span>
-<span class="c-comment">⍝ @), the other way round from the system macro u_nless&lt;.</span>
+<span class="c-comment">⍝## Statements and definitions</span>
+
+<span class="c-comment">⍝# Run the statements on the right when the condition on the left</span>
+<span class="c-comment">⍝# holds; the value is @ either way (the other way round from the</span>
+<span class="c-comment">⍝# system macro u_nless&lt;).</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;1 &lt; 2&quot; x:w_hen&lt; &quot;p_rint! 7&quot;</span>
+<span class="c-comment">⍝# 7</span>
+<span class="c-comment">⍝# @</span>
 <span class="c-macro">ᵐw̲hen&lt;</span> ← { cond body → <span class="c-string">&quot;{ @ -&gt; (n_ot &quot;</span> <span class="c-builtin">c̲at</span> cond <span class="c-builtin">c̲at</span> <span class="c-string">&quot;) ? @; &quot;</span> <span class="c-builtin">c̲at</span> body <span class="c-builtin">c̲at</span> <span class="c-string">&quot;; @ } @&quot;</span> }
 
-<span class="c-comment">⍝ &quot;s_quare&quot; x:d_ef&lt; &quot;_r * _r&quot;: define the function u:s_quare as</span>
-<span class="c-comment">⍝ { _r * _r }, its name written as text.</span>
+<span class="c-comment">⍝# Define the function named on the left (in u:) as the lambda body on</span>
+<span class="c-comment">⍝# the right, its name written as text.</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;s_quare&quot; x:d_ef&lt; &quot;_r * _r&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; u:s_quare 7</span>
+<span class="c-comment">⍝# 49</span>
 <span class="c-macro">ᵐd̲ef&lt;</span> ← { name body → <span class="c-string">&quot;u:&quot;</span> <span class="c-builtin">c̲at</span> name <span class="c-builtin">c̲at</span> <span class="c-string">&quot; := { &quot;</span> <span class="c-builtin">c̲at</span> body <span class="c-builtin">c̲at</span> <span class="c-string">&quot; }&quot;</span> }
 
-<span class="c-comment">⍝ &quot;4 = 2 + 2&quot; x:c_heck&lt; &quot;addition&quot;: the line &quot;ok: addition&quot; or</span>
-<span class="c-comment">⍝ &quot;FAIL: addition (4 = 2 + 2)&quot;, the condition shown as it was written,</span>
-<span class="c-comment">⍝ which a function, given only the condition's value, cannot do.</span>
+<span class="c-comment">⍝## Checks</span>
+
+<span class="c-comment">⍝# The line &quot;ok: label&quot; when the condition on the left holds, else</span>
+<span class="c-comment">⍝# &quot;FAIL: label (cond)&quot;, the condition shown as it was written, which a</span>
+<span class="c-comment">⍝# function, given only the condition's value, cannot do.</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;5 = 2 * 2&quot; x:c_heck&lt; &quot;doubling&quot;</span>
+<span class="c-comment">⍝# FAIL: doubling (5 = 2 * 2)</span>
 <span class="c-macro">ᵐc̲heck&lt;</span> ← { cond label → <span class="c-string">&quot;{ @ -&gt; (&quot;</span> <span class="c-builtin">c̲at</span> cond <span class="c-builtin">c̲at</span> <span class="c-string">&quot;) ? \&quot;ok: &quot;</span> <span class="c-builtin">c̲at</span> label <span class="c-builtin">c̲at</span> <span class="c-string">&quot;\&quot;; \&quot;FAIL: &quot;</span> <span class="c-builtin">c̲at</span> label <span class="c-builtin">c̲at</span> <span class="c-string">&quot; (&quot;</span> <span class="c-builtin">c̲at</span> cond <span class="c-builtin">c̲at</span> <span class="c-string">&quot;)\&quot; } @&quot;</span> }
+
+<span class="c-comment">⍝## Names a macro binds</span>
+
+<span class="c-comment">⍝# Twice the expression on the right: the macro binds a local t (to 2)</span>
+<span class="c-comment">⍝# around your expression, and hygiene renames it (to g1:t, say), so a</span>
+<span class="c-comment">⍝# t of your own is still yours.</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; t := 5</span>
+<span class="c-comment">⍝# &gt;&gt; @ x:t_wice&lt; &quot;t + 1&quot;</span>
+<span class="c-comment">⍝# 12</span>
+<span class="c-macro">ᵐt̲wice&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; t := 2; t * (&quot;</span> <span class="c-builtin">c̲at</span> e <span class="c-builtin">c̲at</span> <span class="c-string">&quot;) } @&quot;</span> }
+
+<span class="c-comment">⍝# The text on the right with it bound to the value of the expression</span>
+<span class="c-comment">⍝# on the left (an anaphoric macro: it is meant for your text, so it is</span>
+<span class="c-comment">⍝# declared below and hygiene leaves it as written).</span>
+<span class="c-comment">⍝# binds: it</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;3 + 4&quot; x:w_ith&lt; &quot;it * it&quot;</span>
+<span class="c-comment">⍝# 49</span>
+<span class="c-macro">ᵐw̲ith&lt;</span> ← { e body → <span class="c-string">&quot;{ @ -&gt; it := (&quot;</span> <span class="c-builtin">c̲at</span> e <span class="c-builtin">c̲at</span> <span class="c-string">&quot;); &quot;</span> <span class="c-builtin">c̲at</span> body <span class="c-builtin">c̲at</span> <span class="c-string">&quot; } @&quot;</span> }
 
 <span class="c-comment typed">⍝ typed:</span>
 <span class="c-comment typed">⍝   m:w_hen&lt; := { cond body -&gt; "{ @ -&gt; (n_ot " c_at cond c_at ") ? @; " c_at body c_at "; @ } @" }</span>
 <span class="c-comment typed">⍝   m:d_ef&lt; := { name body -&gt; "u:" c_at name c_at " := { " c_at body c_at " }" }</span>
-<span class="c-comment typed">⍝   m:c_heck&lt; := { cond label -&gt; "{ @ -&gt; (" c_at cond c_at ") ? \"ok: " c_at label c_at "\"; \"FAIL: " c_at label c_at " (" c_at cond c_at ")\" } @" }</span></pre>
+<span class="c-comment typed">⍝   m:c_heck&lt; := { cond label -&gt; "{ @ -&gt; (" c_at cond c_at ") ? \"ok: " c_at label c_at "\"; \"FAIL: " c_at label c_at " (" c_at cond c_at ")\" } @" }</span>
+<span class="c-comment typed">⍝   m:t_wice&lt; := { @ e -&gt; "{ @ -&gt; t := 2; t * (" c_at e c_at ") } @" }</span>
+<span class="c-comment typed">⍝   m:w_ith&lt; := { e body -&gt; "{ @ -&gt; it := (" c_at e c_at "); " c_at body c_at " } @" }</span></pre>
 </div>
 
 <p>

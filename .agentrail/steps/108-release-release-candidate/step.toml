@@ -1,0 +1,8 @@
+number = 108
+slug = "release-release-candidate"
+status = "pending"
+description = "Saga 26 (are we X_eTaL yet? cleanup for a release, docs/plan.md), step 7 of 7..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T07:04:05"
+commits = []
