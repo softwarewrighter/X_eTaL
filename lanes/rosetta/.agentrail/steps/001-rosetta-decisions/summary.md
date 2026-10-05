@@ -1,0 +1,1 @@
+RS1-RS4 decided with the user (events as a typed Event through the line queue; []L_IST/[]T_ABLE strings-only with axes named in the call; the TOML schema; the first data), recorded in lang-choices 9c and D92; data.toml begun. PR pr/rosetta-decisions (carries #77's plan commit until it merges).
