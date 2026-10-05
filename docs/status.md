@@ -19,7 +19,7 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 116 | 0 | 0 |
-| Language decisions | 125 | 0 | 6 |
+| Language decisions | 129 | 0 | 6 |
 | Standard libraries | 6 | 0 | 0 |
 | Spec cases | 365 | 0 | 0 |
 
@@ -304,6 +304,10 @@ conventions (naming, layout) work without a spec case citing them.
 | ER2 | Errors are caught by a typed built-in, not by a macro: it runs a protected body (a lambda of `@`) and, on (...) | works | 3 |
 | ER3 | A typed continue: the handler's value replaces the failing expression and the program goes on from there | planned | 0 |
 | ER4 | The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler (...) | planned | 0 |
+| RS1 | Events from the host are one typed built-in, `[]E_VENT @ : Unit -> Event`, a nominal type as `Key` is (...) | works | 0 |
+| RS2 | Tabular data from a TOML file is read by two typed built-ins, strings only, data only: `"file" []L_IST (...) | works | 0 |
+| RS3 | The Rosetta data file, `demos/rosetta/data.toml`, holds the two axes as lists (`idioms`, `languages`, each (...) | works | 0 |
+| RS4 | The Rosetta stone is an X_eTaL program whose host is Rust: the state machine, projection and SVG scene are (...) | works | 0 |
 | I1 | Source is ASCII, except inside string literals and comments, which may hold any Unicode (revised with the (...) | works | 2 |
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example (...) | works | 2 |
 | I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` (...) | works | 3 |
