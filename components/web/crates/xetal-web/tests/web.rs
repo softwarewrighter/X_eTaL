@@ -68,6 +68,41 @@ fn open_offers_the_demos_the_libraries_and_the_saved_files() {
 }
 
 #[test]
+fn open_offers_the_macro_libraries_too() {
+    let list = choices(&["Mine.xtlm".to_string()]);
+    let label = |v: &str| {
+        list.iter()
+            .find(|(_, value, _)| value == v)
+            .map(|(g, _, l)| (*g, l.clone()))
+    };
+    assert_eq!(
+        label("macros:System"),
+        Some(("Libraries", "System.xtlm".into()))
+    );
+    assert_eq!(
+        label("macros:Combinators"),
+        Some(("Libraries", "Combinators.xtlm".into()))
+    );
+    assert_eq!(
+        label("file:Mine.xtlm"),
+        Some(("Your files", "Mine.xtlm".into()))
+    );
+    let (name, text) = open("macros:Macros").unwrap();
+    assert_eq!(name, "Macros.xtlm");
+    assert!(text.contains("m:w_hen<"));
+}
+
+#[test]
+fn a_demo_imports_a_macro_library_of_your_own_from_the_store() {
+    let store = store();
+    assert!(store.get("Repeat.xtlm").unwrap().contains("m:t_imes<"));
+    let demo = DEMOS.iter().find(|d| d.name == "user-macros.xtl").unwrap();
+    let run = xetal_play::run(demo.text, 1);
+    assert!(run.err.is_empty(), "{}", run.err);
+    assert!(run.out.contains("hip hip"), "{}", run.out);
+}
+
+#[test]
 fn the_demos_own_libraries_are_among_your_files_and_edits_are_kept() {
     let store = store();
     assert!(store.get("Hello.xtl").unwrap().contains("l:h_ello"));

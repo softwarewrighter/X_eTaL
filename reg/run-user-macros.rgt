@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/user-macros.xtl && ./target/debug/xetal expand demos/user-macros.xtl"
+exit_code = 0
+desc = "a macro library of your own (userlibs/Repeat.xtlm): r:t_imes< writes statements as many times as asked when the program is expanded; the run, then the expansion"

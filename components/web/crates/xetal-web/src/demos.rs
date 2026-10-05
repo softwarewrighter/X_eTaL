@@ -70,13 +70,15 @@ pub const DEMOS: &[Demo] = demos![
     "tttml-play.xtl",
     "tttml-train.xtl",
     "tttml.xtl",
+    "user-macros.xtl",
 ];
 
 /// The choices, as (group, value, label), group by group: Demos (the
 /// tour, the empty editor, then the top folder's demos), Classics (shown
 /// without their folder), Libraries, Misc (any other folder), Your files;
-/// each group alphabetical. A value is `demo:N`, `lib:Name` or
-/// `file:path`, and [`open`] reads it.
+/// each group alphabetical. A value is `demo:N`, `lib:Name` (a
+/// library), `macros:Name` (a macro library) or `file:path`, and
+/// [`open`] reads it.
 pub fn choices(saved: &[String]) -> Vec<(&'static str, String, String)> {
     let by_label = |mut group: Vec<(&'static str, String, String)>| {
         group.sort_by_key(|(_, _, label)| label.to_lowercase());
@@ -90,11 +92,15 @@ pub fn choices(saved: &[String]) -> Vec<(&'static str, String, String)> {
     let mut demos: Vec<_> = DEMOS.iter().enumerate().map(demo).collect();
     let rest = demos.split_off(2.min(demos.len()));
     let pick = |g: &str| by_label(rest.iter().filter(|c| c.0 == g).cloned().collect());
-    let libs = xetal_libs::LIBRARIES.iter();
-    let libs = by_label(
-        libs.map(|(n, _)| ("Libraries", format!("lib:{n}"), format!("{n}.xtl")))
-            .collect(),
-    );
+    let lib =
+        |kind: &str, ext: &str, n: &str| ("Libraries", format!("{kind}:{n}"), format!("{n}.{ext}"));
+    let libs = xetal_libs::LIBRARIES
+        .iter()
+        .map(|(n, _)| lib("lib", "xtl", n));
+    let macros = xetal_libs::MACROS
+        .iter()
+        .map(|(n, _)| lib("macros", "xtlm", n));
+    let libs = by_label(libs.chain(macros).collect());
     let files = by_label(
         saved
             .iter()
@@ -119,6 +125,7 @@ pub fn open(value: &str) -> Option<(String, String)> {
             .get(i.parse::<usize>().ok()?)
             .map(|d| (d.name.into(), d.text.into())),
         ("lib", n) => xetal_libs::standard(n).map(|t| (format!("{n}.xtl"), t.into())),
+        ("macros", n) => xetal_libs::standard_macros(n).map(|t| (format!("{n}.xtlm"), t.into())),
         ("file", p) => xetal_store::read(p).ok().map(|t| (p.to_string(), t)),
         _ => None,
     }
@@ -144,5 +151,9 @@ const OWN_LIBRARIES: &[(&str, &str)] = &[
     (
         "Greetings.xtl",
         include_str!("../../../../../userlibs/Greetings.xtl"),
+    ),
+    (
+        "Repeat.xtlm",
+        include_str!("../../../../../userlibs/Repeat.xtlm"),
     ),
 ];
