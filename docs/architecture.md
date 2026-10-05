@@ -154,6 +154,10 @@ components/
                            xetal-doctest (S10: each doc block's
                            examples run as one session, compared
                            with the output shown)
+  docsearch/               xetal-docsearch (`xetal doc --out`'s search:
+                           the index of every item and built-in, by
+                           name and by type, Hoogle-like, searched by a
+                           plain script)
   web/                     xetal-play: the live demo's engine
                            (decorate, check, run; libraries and files
                            from the installed store, then the standard
