@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 22:06 `refactor` Retrofit (macros lane step 24): Mastermind's interactive game builds its four messages with `f_ormat<` (`@ f_ormat< "guess {n} (four digits, 1 to 6):"`) instead of `c_at` chains with `f_ormat`; output unchanged (golden run-classics-mastermind-play as before). Other programs read as well as they are; long aliases and other macros left where they are.
 - 21:58 `docs` `u_se<` documented in lib/System.xtlm (macros lane step 23): a `##` block above the signature line `s:u_se< :: Char -> Char -> Unit`, the first use of `::` (T4), admitted only there to declare a built-in system macro; its type is checked, and `xetal_macro::system_signatures()` gives it to the doc model; elsewhere `::` is still refused (MC21 completed, D75).
 - 21:34 `demo` A macro library of your own (macros lane step 22): `userlibs/Repeat.xtlm` (`r:t_imes<`, statements written as many times as asked) and `demos/user-macros.xtl`; in the live demo `Repeat.xtlm` is among your files and Open lists the standard macro libraries (System, Macros, Combinators) (D74).
 - 20:15 `feat` Hygienic macros (macros lane step 21): names a macro binds around the text of its call are renamed to fresh `g1:` names (numbered in expansion order, shown by `xetal expand`), names it declares with `## binds: it` stay for anaphoric macros; `g1:` is reserved; examples `x:t_wice<` and `x:w_ith<` in lib/Macros.xtlm, which now has `##` doc comments; every earlier expansion unchanged (MC30, D73).

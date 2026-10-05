@@ -1,6 +1,6 @@
 number = 24
 slug = "macros-retrofit-macros"
-status = "pending"
+status = "in-progress"
 description = "Older programs and libraries rewritten where long aliases or macros read bett..."
 role = "production"
 context_files = []
