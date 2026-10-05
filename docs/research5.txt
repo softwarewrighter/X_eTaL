@@ -1,0 +1,2632 @@
+
+look at m-poc to see how the "stone" is rotated.  look at X_eTaL to see a language comparison table.  Consider a new kind of 3D graphic which is a split stone.  The top half rotates left and the bottom half rotates right, slowly.  A 2-level dropdown can freeze the two stones at a certain face each.  Each stone half is a language.  Another dropdown is a list of idiom describing short phrases.  So, I want to see how a language rotates a string.  I want the top half to be X_eTaL and the bottom half to be K.  I could wait until this idiom comes up in the rotation of idioms in the top language and the compared language rotates into view on the bottom.  I can click on a top or bottom half to toggle pause/play, drag the half to rotate left or right.  Or I can pick the idion dropdown "Rotate string" and then the 2-level-dropdown: first level (top) languages when clicked, opens the 2nd leve list of languages (with the same language omitted or disabled.  So I select the "X_eTal vs." menu heading which expands to show APL, APL2, BQN, Dyalog, J, K, X_eTaL (grayed out or omitted) and UIUA.    This is the first milestone.  A future milestone introduces a way to easily add non-APL languages, like C++, FORTH, Go, Haskell, Java, JavaScript, Kotlin, Python, Rust, and Scala.  Can you come up with a detailed plan and design for a local agent to build this interactive 3D visual comparison of language idioms.
+…
+
+Worked for 19s
+so you started showing an interesting response, then cleared it and announced "Worked for 19s" with no usable output.
+You're right. I had already inspected both repositories and had the core design worked out, but the response failed before delivering it. Here is the useful part.
+
+What I found
+In sw-ml-study/m-poc, the existing stone is a particularly good starting point. It uses CSS 3D rather than WebGL/Three.js, with transform-style: preserve-3d, independently positioned faces, pointer dragging, automatic rotation, face targeting, and related interaction machinery in pages/rosetta.js and style.css.
+
+I would extract and generalize that mechanism, not replace it.
+
+In softwarewrighter/X_eTaL, docs/idioms.md is almost exactly the initial database we need. It currently contains an array-language table covering APL2, Dyalog APL, J, BQN, and X_eTaL, including:
+
+Idiom	APL2	Dyalog	J	BQN	X_eTaL
+Reverse	⌽V	⌽v	`	. v`	⌽v
+Rotate	1⌽V	1⌽v	`1	. v`	1⌽v
+Shape	⍴A	⍴a	$ a	≢a	s_hape a
+Sum	+/V	+/v	+/ v	+´ v	'+ r_/ v
+That strongly suggests the right abstraction:
+
+The stone is a physical visualization of an idiom × language matrix.
+
+And the split stone gives us two simultaneous projections into that matrix.
+
+Split Rosetta Stone
+I would give the feature/project a working name such as Split Rosetta Stone or simply Rosetta Stone Comparator.
+
+The object looks approximately like:
+
+              Idiom: [ Rotate string ▼ ]
+
+                  X_eTaL vs. K
+             ┌───────────────────┐
+          ↶  │      X_eTaL       │  ↶
+             │                   │
+             │   1 o_- "ABCDE"   │
+             ├───────────────────┤
+          ↷  │         K         │  ↷
+             │                   │
+             │   1 rotate-code   │
+             └───────────────────┘
+
+              [ X_eTaL vs.  ▼ ]
+                 APL
+                 APL2
+                 BQN
+                 Dyalog
+                 J
+                 K
+                 X_eTaL   disabled
+                 UIUA
+But visually I would retain the stone/slab aesthetic of m-poc, including perspective and side faces.
+
+The horizontal seam should be obvious enough to communicate that these are two independently rotating rings, while still appearing to be one object.
+
+The key interaction model
+There are three independent state variables:
+
+idiom
+top_language
+bottom_language
+plus:
+
+top_angle
+bottom_angle
+top_playing
+bottom_playing
+The default might be:
+
+idiom           = rotate-string
+top_language    = X_eTaL
+bottom_language = K
+
+top_playing     = true
+bottom_playing  = true
+
+top_direction    = left
+bottom_direction = right
+That counter-rotation is important. It immediately communicates that the object consists of two independently controllable halves.
+
+One change I would make to your proposed semantics
+I would not couple automatic language rotation to automatic idiom rotation.
+
+There are really two useful viewing modes.
+
+Explore mode
+The selected idiom stays fixed:
+
+Rotate string
+while languages rotate past:
+
+       X_eTaL
+APL2 → Dyalog → J → K → BQN → ...
+This makes the stone itself a language-comparison device.
+
+Tour mode — later
+Both dimensions can advance automatically:
+
+Rotate string
+      ↓
+Reverse string
+      ↓
+Sum
+      ↓
+Reshape
+But that's a second behavior and makes understanding the animation considerably harder.
+
+Milestone 1 should keep the idiom fixed unless the user changes it.
+
+What is a "face"?
+This is the most important architectural decision.
+
+Do not make each idiom a physical stone face.
+
+Make each language a physical face.
+
+For example, an eight-language stone has eight sides:
+
+APL
+APL2
+BQN
+Dyalog
+J
+K
+UIUA
+X_eTaL
+The currently selected idiom determines the content rendered onto those faces.
+
+So selecting:
+
+Rotate string
+changes every face to the rotate-string implementation.
+
+Selecting:
+
+Reverse string
+changes all eight faces to reverse-string implementations.
+
+This makes the geometry stable.
+
+                 IDIOM
+                   │
+                   ▼
+             content lookup
+                   │
+                   ▼
+        ┌─────────────────────┐
+        │  language carousel  │
+        │                     │
+        │ APL APL2 BQN ... K  │
+        └─────────────────────┘
+That is considerably cleaner than dynamically changing stone geometry as idioms change.
+
+Split geometry
+Take the current m-poc stone concept and create:
+
+SplitStone
+    │
+    ├── StoneRing(top)
+    │
+    └── StoneRing(bottom)
+Each StoneRing owns:
+
+angle
+velocity
+direction
+playing
+drag_state
+selected_language
+They share:
+
+geometry
+languages
+idiom
+camera
+perspective
+Conceptually:
+
+             TOP RING
+       ┌──────────────────┐
+       │     X_eTaL       │
+       │  1 o_- "ABCDE"   │
+       └──────────────────┘
+                 ↶
+
+                 ↷
+       ┌──────────────────┐
+       │        K         │
+       │   1 |. "ABCDE"   │
+       └──────────────────┘
+            BOTTOM RING
+The small physical gap between them can cast a shadow and make the independent rotation immediately legible.
+
+Data model
+This should not be encoded into DOM construction logic.
+
+Start with something like:
+
+const LANGUAGES = [
+    { id: "apl",    label: "APL" },
+    { id: "apl2",   label: "APL2" },
+    { id: "bqn",    label: "BQN" },
+    { id: "dyalog", label: "Dyalog" },
+    { id: "j",      label: "J" },
+    { id: "k",      label: "K" },
+    { id: "uiua",   label: "Uiua" },
+    { id: "xetal",  label: "X_eTaL" },
+];
+
+And idioms:
+
+const IDIOMS = [
+    {
+        id: "rotate-string",
+        label: "Rotate string",
+        example: "\"ABCDE\"",
+        implementations: {
+            apl:    "...",
+            apl2:   "...",
+            bqn:    "...",
+            dyalog: "...",
+            j:      "...",
+            k:      "...",
+            uiua:   "...",
+            xetal:  "1 o_- \"ABCDE\"",
+        }
+    },
+
+    ...
+];
+
+But I would go one step further now because it makes milestone 2 dramatically easier.
+
+Define an actual Rosetta schema
+Use data files such as:
+
+data/
+    languages.json
+    idioms.json
+with idioms referencing implementations:
+
+{
+  "id": "rotate-string",
+  "title": "Rotate string",
+  "category": "arrays",
+  "input": "\"ABCDE\"",
+  "expected": "\"BCDEA\"",
+  "implementations": {
+    "xetal": {
+      "source": "1 o_- \"ABCDE\""
+    },
+    "k": {
+      "source": "..."
+    }
+  }
+}
+
+A language entry can eventually contain:
+
+{
+  "id": "rust",
+  "name": "Rust",
+  "family": "mainstream",
+  "font": "JuliaMono",
+  "syntax": "rust",
+  "url": "...",
+  "enabled": true
+}
+
+Now adding Rust in milestone 2 doesn't touch the renderer at all.
+
+That separation is essential.
+
+The language selector
+I like your two-level selector, but I'd make the first level explicitly represent the anchor language.
+
+Closed:
+
+[X_eTaL vs. K ▼]
+Opened:
+
+X_eTaL vs.
+   APL
+   APL2
+   BQN
+   Dyalog
+   J
+   K            ✓
+   UIUA
+   X_eTaL       disabled
+But clicking X_eTaL itself should expose:
+
+APL vs.        >
+APL2 vs.       >
+BQN vs.        >
+Dyalog vs.     >
+J vs.          >
+K vs.          >
+UIUA vs.       >
+X_eTaL vs.     >
+Then hover/click:
+
+X_eTaL vs.  ▶  APL
+                APL2
+                BQN
+                Dyalog
+                J
+                K
+                UIUA
+This allows arbitrary pairwise comparison without privileging X_eTaL architecturally, even though X_eTaL can be the default.
+
+That's important for credibility as a comparison tool.
+
+Direct manipulation
+Reuse the pointer mechanics from m-poc, but make the two rings separate hit targets.
+
+Click
+Click without appreciable movement:
+
+playing = !playing
+Only the clicked half changes.
+
+Thus:
+
+top    paused
+bottom rotating
+is perfectly valid.
+
+Drag
+Horizontal drag directly changes yaw:
+
+Δangle = Δx * sensitivity
+Release should use a little momentum, followed by face snapping.
+
+So:
+
+drag
+  ↓
+release
+  ↓
+inertia
+  ↓
+nearest language face
+  ↓
+snap
+That last step matters. You want the code sample facing squarely toward the viewer.
+
+Double click
+I'd reserve this for:
+
+freeze both + center clicked face
+or omit it in M1.
+
+Rotation behavior
+Automatic rotation should be deliberately slow.
+
+Something around:
+
+top:    -2°/second
+bottom: +2°/second
+would take 180 seconds for a revolution, which may actually be appropriate for an ambient exhibit.
+
+But when a menu selects a language, don't slowly wait for it.
+
+Animate using the shortest path:
+
+current angle
+     ↓
+ shortest angular distance
+     ↓
+target language
+over perhaps 400–700 ms.
+
+Then leave that half paused.
+
+That gives menu selection a very different semantic from ambient rotation:
+
+Rotation is exploration. Selection is navigation.
+
+Selecting an idiom
+Suppose the current state is:
+
+Reverse string
+X_eTaL vs K
+and the user chooses:
+
+Rotate string
+Do not change either stone angle.
+
+Only replace the face contents.
+
+That means the user's comparison remains:
+
+X_eTaL
+────────
+K
+while the operation changes.
+
+This is exactly how a comparison matrix ought to behave.
+
+URL-addressable state
+I would preserve the good idea already present in m-poc.
+
+For example:
+
+?idiom=rotate-string&top=xetal&bottom=k
+Potentially:
+
+&topPaused=1&bottomPaused=1
+but don't serialize transient angles unless there's a compelling reason.
+
+This means you can link directly from a blog article to:
+
+Rotate string — X_eTaL vs K
+or:
+
+Outer product — X_eTaL vs Dyalog
+That could become surprisingly valuable for your X_eTaL documentation.
+
+Architecture
+For M1 I would stay with the technological approach of m-poc:
+
+HTML
+ CSS
+ JavaScript
+   │
+   ├── data
+   │    ├── languages
+   │    └── idioms
+   │
+   ├── model
+   │    └── comparison state
+   │
+   ├── stone
+   │    ├── geometry
+   │    ├── ring
+   │    └── face
+   │
+   ├── interaction
+   │    ├── drag
+   │    ├── rotation
+   │    └── snapping
+   │
+   └── UI
+        ├── idiom selector
+        └── language-pair selector
+No WASM.
+
+No Yew.
+
+No Three.js.
+
+No framework.
+
+No server.
+
+That keeps it suitable for GitHub Pages and makes it conceptually compatible with m-poc.
+
+I would make one extraction from m-poc
+Don't copy rosetta.js wholesale.
+
+Extract the useful primitive:
+
+RotatingRing
+Its API should know nothing about ML, X_eTaL, languages, or idioms.
+
+Something conceptually like:
+
+new RotatingRing({
+    element,
+    faceCount,
+    direction,
+    speed,
+    onFaceChanged
+});
+
+Operations:
+
+play()
+pause()
+toggle()
+rotateBy(delta)
+rotateTo(index)
+snap()
+setFaceCount(n)
+Then:
+
+LanguageStone
+adapts language IDs to face indices.
+
+This preserves one of the strongest design properties I saw in m-poc: the visualization machinery needn't understand the domain being visualized.
+
+Milestone 1 backlog
+I would give the coding agent this sequence:
+
+Step	Deliverable	Acceptance criterion
+001	Extract rotation model	Existing single stone still behaves identically
+002	Create RotatingRing	Synthetic 8-face test rotates/snaps correctly
+003	Split geometry	Two visually joined halves rotate independently
+004	Counter rotation	Top automatically left, bottom automatically right
+005	Independent input	Drag/click affects only selected half
+006	Language schema	Eight APL-family languages load from data
+007	Idiom schema	Idioms load independently of geometry
+008	Face rendering	Language + source appear correctly on each face
+009	Idiom selector	Changing idiom preserves selected languages
+010	Pair selector	Any two distinct languages can be selected
+011	Programmatic navigation	Selection animates to target face and stops
+012	URL state	URL reproduces idiom/top/bottom
+013	Keyboard controls	Entire comparison usable without dragging
+014	Reduced motion	prefers-reduced-motion disables ambient rotation
+015	Visual regression	screenshots verify front/angled/split states
+016	M1 demo	Rotate string: X_eTaL vs K opens directly
+I'd have the agent commit each step independently.
+
+Tests I would insist on
+The geometry tests are less important than state-machine tests.
+
+For example:
+
+Given top=X_eTaL and bottom=K
+When idiom changes Rotate → Reverse
+Then top=X_eTaL
+And bottom=K
+And neither angular target changes
+And:
+
+Given top=X_eTaL
+When pair menu chooses X_eTaL vs K
+Then bottom target becomes K
+And top target remains X_eTaL
+And top != bottom
+And:
+
+Given both rings playing
+When top is clicked
+Then top is paused
+And bottom remains playing
+And:
+
+Given top is being dragged
+Then bottom angle does not change
+These are much more valuable than testing CSS transforms.
+
+Milestone 2: mainstream languages
+Your proposed future set:
+
+C++
+FORTH
+Go
+Haskell
+Java
+JavaScript
+Kotlin
+Python
+Rust
+Scala
+should require zero changes to stone code.
+
+That is the architectural acceptance test for M1.
+
+The only additions should be essentially:
+
+languages.json
+idioms.json
+syntax presentation
+At that point language families can appear as groups:
+
+Array
+  APL
+  APL2
+  BQN
+  Dyalog
+  J
+  K
+  Uiua
+  X_eTaL
+
+Functional
+  Haskell
+  ...
+
+Systems
+  C++
+  Rust
+
+Mainstream
+  Go
+  Java
+  JavaScript
+  Kotlin
+  Python
+  Scala
+
+Stack
+  FORTH
+The stone itself shouldn't care.
+
+A particularly interesting M2/M3 extension
+Eventually the two halves need not contain the same number of faces.
+
+Imagine:
+
+TOP:    array languages — 8 faces
+BOTTOM: mainstream      — 10 faces
+They're independent rings anyway.
+
+So you could say:
+
+           X_eTaL
+       ┌─────────────┐
+       │ 1 o_- "ABC" │
+       └─────────────┘
+             ↶
+
+             ↷
+       ┌─────────────┐
+       │ Rust code   │
+       └─────────────┘
+            Rust
+That makes the physical metaphor even better: the two rings don't merely show two faces of the same polygon. They're two independent language wheels joined into a Rosetta Stone.
+
+The most important implementation instruction for the local agent
+I would put this at the top of its design document:
+
+Do not implement a 3D language demo. Implement a generic pair of independently rotating, selectable data rings, and then supply language idioms as its first dataset.
+
+That distinction is what will let this grow from the initial X_eTaL ↔ K / APL-family visual comparison into the much more interesting cross-paradigm Rosetta viewer without having to redesign the
+
+But wait! we have 3D (and we do not need to observe physical laws) so we could rotate a "cube" (of sorts) where each face is a split view of an idiom.  So rotating the stone up or down changes the idiom compared and rotating the top half left or right shows a language (usually not rotating) and the bottom half left or right shows the comparison language.  Another control can change the set of comparison languages for the top or bottom half.  This way, via 3D "cube" mouse interactions or multiple dropdown (with checkboxes and radio buttons) can compare any two lanuages for any choosen idiom.  The key change here is that in "attract mode" the "cube" can "tumble" in 2 dimensions at once, slowly rotating up to show the next idiom (in alphabetical order), the top half rotates very slowly (like the "i" variable in an outer nested for loop) and the bottom half rotates faster (like the inner for loop "j").  Makes sense?
+Yes. This is a better mapping of the data dimensions onto 3D motion.
+
+The crucial insight is that you actually have three discrete dimensions:
+
+Idiom
+×
+Top Language
+×
+Bottom Language
+Idiom×Top Language×Bottom Language
+and the object can map each dimension to a physical-looking—but deliberately impossible—rotation axis.
+
+Revised mental model
+Think of it less as a cube and more as an impossible split Rosetta polyhedron:
+
+                         IDIOM
+                          ↑
+                    rotate up/down
+                          │
+                  ┌───────────────┐
+ top language ←── │    X_eTaL     │ ──→
+                  │ 1 o_- "ABCDE" │
+                  ├───────────────┤
+bottom language ← │       K       │ ──→
+                  │ 1 |. "ABCDE"  │
+                  └───────────────┘
+                          │
+                    rotate up/down
+                          ↓
+                         IDIOM
+There are therefore three controls embodied directly in the object:
+
+Whole stone up/down → previous/next idiom.
+Top half left/right → previous/next top language.
+Bottom half left/right → previous/next comparison language.
+That's substantially more intuitive than putting idioms in a separate dropdown and using all horizontal faces for languages.
+
+And, as you point out, we don't care whether such an object could physically exist. CSS 3D only needs to create the visual illusion.
+
+The geometry I would build
+I wouldn't literally implement a conventional cube.
+
+Instead, implement three logical rotating structures sharing a viewport:
+
+                  IdiomRing
+                      │
+             ┌────────┴────────┐
+             │                 │
+       TopLanguageRing   BottomLanguageRing
+Visually they masquerade as one object.
+
+Each idiom is effectively a vertical face:
+
+                 Rotate
+                   │
+                   ▼
+            ┌─────────────┐
+            │    TOP      │
+            ├─────────────┤
+            │   BOTTOM    │
+            └─────────────┘
+                   │
+                   ▼
+                Reshape
+                   │
+                   ▼
+                Reverse
+                   │
+                   ▼
+                  ...
+But when the upper language ring rotates horizontally, only the upper half of the current idiom face changes.
+
+Likewise for the lower ring.
+
+So we are deliberately violating rigid-body geometry.
+
+Good.
+
+It means the visualization corresponds to the data rather than to Euclidean mechanics.
+
+Attract mode becomes much more interesting
+Your nested-loop analogy is exactly how I would specify it to the agent.
+
+Conceptually:
+
+for idiom in idioms {
+    for top in top_languages {
+        for bottom in bottom_languages {
+            display(idiom, top, bottom)
+        }
+    }
+}
+But continuous animation shouldn't literally finish every combination before changing idioms—that could take forever.
+
+Instead, give each axis a different angular velocity.
+
+For example:
+
+vertical / idiom     0.10 units
+top language         0.025 units
+bottom language      0.15 units
+Thus visually:
+
+             ↥ VERY SLOW
+          ┌───────────┐
+    ←slow │   X_eTaL  │
+          ├───────────┤
+    fast→ │     K     │
+          └───────────┘
+The bottom continually exposes comparisons.
+
+The top changes occasionally.
+
+The idiom changes at a third cadence.
+
+That gives you something much closer to an animated multiplication table of programming-language ideas.
+
+But I would make attract mode discrete-continuous
+Rather than everything drifting endlessly, I'd introduce dwell points.
+
+Something like:
+
+X_eTaL
+────────────
+K
+
+Rotate string
+holds square to the camera for perhaps 3 seconds.
+
+Then:
+
+bottom → J
+with a slow 700–1000 ms rotation.
+
+Hold.
+
+Then:
+
+bottom → BQN
+Hold.
+
+Occasionally:
+
+top → Dyalog
+And after some number of comparisons:
+
+              ↑
+        whole stone
+        rolls upward
+              ↑
+
+Rotate
+   becomes
+Running sum
+This is still "tumbling," but viewers actually get time to read the code.
+
+That's important because unlike an ordinary decorative 3D object, the faces contain information.
+
+There are now three kinds of drag
+This is where the UI can become particularly satisfying.
+
+Drag upper half horizontally
+       ← X_eTaL →
+     ┌─────────────┐
+ ←── │  TOP HALF   │ ──→
+     ├─────────────┤
+     │      K      │
+     └─────────────┘
+Changes top language.
+
+Drag lower half horizontally
+     ┌─────────────┐
+     │   X_eTaL    │
+     ├─────────────┤
+ ←── │ BOTTOM HALF │ ──→
+     └─────────────┘
+Changes bottom language.
+
+Drag vertically anywhere
+            ↑
+     ┌─────────────┐
+     │   X_eTaL    │
+     ├─────────────┤
+     │      K      │
+     └─────────────┘
+            ↓
+Changes idiom.
+
+This is unusually clean because the gesture direction corresponds directly to the dimension being navigated.
+
+Diagonal dragging could be allowed
+This is where abandoning physical laws pays off again.
+
+Suppose I grab the top and drag:
+
+             ↖
+That can simultaneously mean:
+
+Δx → top language
+Δy → idiom
+Likewise dragging the bottom diagonally controls:
+
+Δx → bottom language
+Δy → idiom
+So an actual pointer movement maps naturally into two dimensions.
+
+I would support this, but only after the orthogonal interactions work well.
+
+It makes the object feel like a real manipulable 3D artifact even though its geometry is impossible.
+
+The state model becomes beautifully simple
+The entire semantic state can be:
+
+ComparisonState
+    idiom_index
+    top_language_index
+    bottom_language_index
+
+    idiom_set
+    top_language_set
+    bottom_language_set
+
+    mode
+        manual
+        attract
+Animation state is separate:
+
+AnimationState
+    idiom_angle
+    top_angle
+    bottom_angle
+
+    idiom_velocity
+    top_velocity
+    bottom_velocity
+
+    dragging_axis
+This separation is important.
+
+Indexes are truth. Angles are presentation.
+
+Never infer the currently selected language from a CSS transform.
+
+Your "language sets" idea solves an important scaling problem
+This is better than simply adding all future languages to one giant ring.
+
+Have named/preset language sets:
+
+APL family
+☑ APL
+☑ APL2
+☑ BQN
+☑ Dyalog
+☑ J
+☑ K
+☑ Uiua
+☑ X_eTaL
+
+Mainstream
+☑ C++
+☑ Go
+☑ Java
+☑ JavaScript
+☑ Kotlin
+☑ Python
+☑ Rust
+☑ Scala
+
+Functional
+☑ Haskell
+...
+
+Stack
+☑ FORTH
+...
+But top and bottom should have independent sets.
+
+That lets me configure:
+
+TOP
+  ○ APL family
+  ○ Mainstream
+  ● Custom
+
+BOTTOM
+  ● APL family
+  ○ Mainstream
+  ○ Custom
+Then something really useful becomes possible:
+
+Rotate X_eTaL/Rust/Haskell on top while comparing each against APL/J/K/BQN below.
+
+Or:
+
+Keep X_eTaL as the only top language while cycling every other language below.
+
+Checkboxes + radio buttons make sense
+I'd distinguish membership from selection.
+
+For example:
+
+TOP LANGUAGES
+
+Preset:
+  ○ All
+  ● Array
+  ○ Mainstream
+  ○ Custom
+
+Languages:
+  ☑ APL
+  ☑ APL2
+  ☑ BQN
+  ☑ Dyalog
+  ☑ J
+  ☑ K
+  ☑ Uiua
+  ☑ X_eTaL
+
+Current:
+  ○ APL
+  ○ APL2
+  ...
+  ● X_eTaL
+Checkbox:
+
+Is this language part of the rotation?
+
+Radio:
+
+Which language is facing me now?
+
+That distinction is worth retaining internally even if we eventually design a more compact visual control.
+
+Idioms get exactly the same abstraction
+This also means idioms should have sets/categories.
+
+From the existing X_eTaL comparison material you already have natural groups such as:
+
+Arrays
+  Count
+  Each
+  Inner product
+  Outer product
+  Reshape
+  Reverse
+  Rotate
+  Shape
+  Sort
+  Transpose
+
+Functional
+  Anonymous function
+  Compose
+  Power
+  Swap arguments
+  Train
+
+General
+  Conditional
+  Membership
+  Print
+  Read file
+  Sum
+  ...
+Then:
+
+IDIOMS
+
+Preset:
+  ○ All
+  ● Array operations
+  ○ Functional
+  ○ I/O
+  ○ Custom
+
+☑ Reverse
+☑ Rotate
+☑ Shape
+☑ Reshape
+...
+Attract mode only tumbles through enabled idioms.
+
+One issue: not every language supports every idiom
+This becomes much more significant once you add mainstream languages.
+
+Don't skip the face.
+
+A missing implementation should itself be data:
+
+Rust
+─────────────
+Rotate array
+
+No concise
+built-in idiom
+or perhaps:
+
+Rust
+─────────────
+xs.rotate_left(1)
+while something genuinely unsupported might display:
+
+APL2
+─────────────
+Compose
+
+—
+not directly
+supported
+The stone should therefore always maintain its topology.
+
+Missing data is a face state, not a missing face.
+
+I would also put the result on each face
+This wasn't explicit in the first design, but the larger face gives us room.
+
+For example:
+
+┌─────────────────────────────┐
+│ X_eTaL                      │
+│                             │
+│ Rotate string left by 1     │
+│                             │
+│ 1 o_- "ABCDE"               │
+│                             │
+│ → "BCDEA"                   │
+├─────────────────────────────┤
+│ K                           │
+│                             │
+│ Rotate string left by 1     │
+│                             │
+│ 1 |. "ABCDE"                │
+│                             │
+│ → "BCDEA"                   │
+└─────────────────────────────┘
+The repeated idiom label might eventually move to the stone edge or surrounding UI, but showing same input → same output reinforces that these really are equivalent expressions.
+
+Revised implementation architecture
+I would now tell the local agent not to create RotatingRing as the primary abstraction I suggested before.
+
+Instead:
+
+                   ComparisonStone
+                          │
+        ┌─────────────────┼─────────────────┐
+        │                 │                 │
+   IdiomAxis        TopLanguageAxis   BottomLanguageAxis
+        │                 │                 │
+     vertical          horizontal        horizontal
+        │                 │                 │
+        └─────────────────┼─────────────────┘
+                          │
+                     FaceRenderer
+                          │
+                          ▼
+                 ComparisonDataset
+Each axis has the same generic behavior:
+
+Axis
+    items[]
+    current
+    enabled[]
+    angle
+    target_angle
+    velocity
+    direction
+    advance()
+    retreat()
+    snap()
+    select(item)
+The only meaningful differences are orientation and hit region.
+
+That's a much better reusable abstraction.
+
+The rendering trick
+I would still start from the m-poc CSS-3D machinery.
+
+But don't try to create a mathematically valid mesh.
+
+Generate independently transformed DOM planes:
+
+stone
+ ├── idiom-surfaces
+ ├── top-language-surfaces
+ └── bottom-language-surfaces
+and coordinate their clipping/z-order so the viewer perceives:
+
+       one stone
+while the browser is actually rendering:
+
+vertical carousel
+      +
+horizontal upper carousel
+      +
+horizontal lower carousel
+This is effectively three interpenetrating CSS-3D carousels.
+
+That's the implementation insight I'd want the coding agent to understand before writing anything.
+
+Attract-mode state machine
+Rather than animation being an accidental set of timers, make it explicit:
+
+DWELL
+  ↓
+ADVANCE_BOTTOM
+  ↓
+SNAP_BOTTOM
+  ↓
+DWELL
+  ↓
+ADVANCE_BOTTOM
+  ↓
+...
+  ↓
+ADVANCE_TOP
+  ↓
+...
+  ↓
+ADVANCE_IDIOM
+  ↓
+...
+But allow overlapping animation during transitions:
+
+       idiom ↑
+
+ top ← STONE → bottom
+to create the tumble effect.
+
+The nested-counter concept can determine when those transitions happen:
+
+bottom_count++
+
+if bottom_count == bottom_languages.len {
+    bottom_count = 0
+    top_count++
+
+    if top_count == top_languages.len {
+        top_count = 0
+        idiom_count++
+    }
+}
+We can then visually cheat by beginning the next-axis rotation before the previous one has completely settled.
+
+That gives the impression of continuous two-dimensional tumbling while retaining deterministic enumeration.
+
+And this creates a delightful attract-mode moment
+Imagine the page initially unattended:
+
+               X_eTaL
+            ╱─────────╲
+           │ r_ev "ABC"│
+           ├───────────┤
+           │  ⌽"ABC"   │
+            ╲─────────╱
+               Dyalog
+Bottom slowly rolls:
+
+Dyalog → J → K → BQN
+Then top turns:
+
+X_eTaL → APL2
+while the bottom starts another sweep.
+
+Then the entire object rolls upward:
+
+Reverse
+   ↓
+Rotate
+while both horizontal halves are still slightly moving.
+
+That's the point where it stops looking like a fancy comparison table and starts looking like an impossible computational sculpture.
+
+And unlike gratuitous 3D, every rotational degree of freedom actually means something:
+
+X
+=
+language
+,
+Y
+=
+idiom
+,
+X
+top
+≠
+X
+bottom
+X=language,Y=idiom,X 
+top
+​
+ 
+
+=X 
+bottom
+​
+ 
+​
+ 
+I think this revised concept is strong enough that I would make the three-axis semantic model and impossible three-carousel geometry the M1 design, rather than building the simpler two-ring version first and then replacing its fundamental geometry.
+
+Now, when planning, designing, consider implementing this in X_eTaL itself.  This would be a live-demo Rust/Yew/WASM "wrapper" around xetal code generating the animated svg with color syntax highlighted code snippets.  An ../*-extensions based 3D Desktop version would be a follow-on, perhaps.  If needed, we can add language or library features as needed (dogfooding)
+
+Worked for 7s
+Yes. After looking at the current X_eTaL repository, I think implementing the semantic/rendering part in X_eTaL is preferable to implementing the demo in JavaScript.
+
+It also fits the project's existing dogfooding philosophy unusually well: docs/dogfooding.md explicitly says demos should be written as X_eTaL ought to express them, and if that cannot be done cleanly, the demo should expose the missing language/library feature rather than work around it.
+
+1. Revised architecture
+I would draw the boundary here:
+
+┌────────────────────────────────────────────────────────────┐
+│                 Rust / Yew / WASM host                     │
+│                                                            │
+│  browser events        timer/RAF         DOM mounting      │
+│  pointer events        resize            URL state         │
+│       │                   │                  │              │
+│       └───────────────────┼──────────────────┘              │
+│                           ▼                                 │
+│                 X_eTaL WASM evaluator                      │
+│                           │                                 │
+│              ┌────────────┴────────────┐                    │
+│              ▼                         ▼                    │
+│       comparison.xtl              stone.xtl                │
+│                                                            │
+│       state transitions           SVG generation           │
+│       language sets               transforms               │
+│       idiom lookup                faces                    │
+│       attract sequencing          syntax-colored text      │
+│       drag mathematics            labels                   │
+│              │                         │                    │
+│              └────────────┬────────────┘                    │
+│                           ▼                                 │
+│                     SVG string                             │
+│                           │                                 │
+│                           ▼                                 │
+│                     Yew displays it                         │
+└────────────────────────────────────────────────────────────┘
+So Rust/Yew is the shell, not the application.
+
+Ideally the interesting code shown in the repository is X_eTaL.
+
+2. SVG rather than CSS 3D becomes attractive
+This changes my earlier recommendation somewhat.
+
+m-poc demonstrates that CSS 3D works well for the existing stone, but the new requirement is:
+
+X_eTaL code generates the visualization.
+
+SVG is much better suited to that goal because an X_eTaL program can generate the complete scene declaratively.
+
+You already have an SVG infrastructure in xetal-svg, and X_eTaL already has graphics concepts such as []G_RID, []P_ATH, and []S_HOW.
+
+I'd therefore make this a deliberate next step:
+
+current graphics
+
+X_eTaL
+   ↓
+[]GRID / []PATH
+   ↓
+Rust xetal-svg
+   ↓
+SVG
+
+
+new capability
+
+X_eTaL
+   ↓
+SVG library / scene representation
+   ↓
+Rust xetal-svg
+   ↓
+SVG
+The language shouldn't concatenate XML strings everywhere. Give it a small declarative vector graphics library.
+
+3. Don't add "3D" to the language
+I would resist adding a 3D primitive specifically for this demo.
+
+The actual graphics requirements are relatively modest:
+
+polygon
+path
+text
+group
+clip
+transform
+gradient/shading
+plus transforms such as:
+
+translate
+scale
+rotate
+matrix
+X_eTaL computes the projected 3D coordinates itself.
+
+Conceptually:
+
+P
+s
+c
+r
+e
+e
+n
+=
+P
+r
+o
+j
+e
+c
+t
+i
+o
+n
+×
+R
+o
+t
+a
+t
+i
+o
+n
+×
+P
+o
+b
+j
+e
+c
+t
+P 
+screen
+​
+ =Projection×Rotation×P 
+object
+​
+ 
+That computation is exactly the sort of thing an array language should be excellent at.
+
+For a face represented by:
+
+4 × 3 matrix
+of XYZ vertices, apply a transformation matrix to the whole thing.
+
+This is actually a great X_eTaL demo in its own right.
+
+4. The stone becomes array programming
+The underlying model can be beautifully array-oriented.
+
+Suppose the object contains vertices:
+
+vertices : N × 3
+Rotation matrices:
+
+Rx(angle)
+Ry(angle)
+Then:
+
+rotated := vertices × rotation
+projected := rotated × projection
+followed by depth sorting.
+
+The three semantic axes are:
+
+idiom
+top-language
+bottom-language
+and three animation coordinates:
+
+iy
+tx
+bx
+or perhaps:
+
+idiom-angle
+top-angle
+bottom-angle
+The entire displayed object can be derived from those values.
+
+That means the animation remains purely functional:
+
+state
+  ↓
+scene(state)
+  ↓
+svg(scene)
+This is a much better showcase of X_eTaL than an imperative DOM animation.
+
+5. State should also live in X_eTaL
+I would have Yew send events such as:
+
+Tick(dt)
+PointerDown(x,y)
+PointerMove(x,y)
+PointerUp
+SelectIdiom(id)
+SelectTopLanguage(id)
+SelectBottomLanguage(id)
+SetTopLanguages(mask)
+SetBottomLanguages(mask)
+ToggleAttract
+But X_eTaL should implement:
+
+n
+e
+w
+S
+t
+a
+t
+e
+=
+u
+p
+d
+a
+t
+e
+(
+s
+t
+a
+t
+e
+,
+e
+v
+e
+n
+t
+)
+newState=update(state,event)
+Conceptually:
+
+update state event
+followed by:
+
+render state
+That's Elm/Redux-like architecture, but the reducer and rendering calculations are X_eTaL.
+
+Rust owns only:
+
+browser → Event → X_eTaL → SVG → browser
+This gives you a very strong demo story:
+
+The browser application, animation state machine, 3D projection and SVG scene are written in X_eTaL. Rust/Yew/WASM supplies the browser runtime.
+
+6. Syntax highlighting is already mostly solved
+This is another reason the idea fits the repository now rather than later.
+
+You already have xetal-view, described as a front-end-agnostic representation of source code with:
+
+Segment
+semantic Class
+decorated text
+raw byte span
+and it already supports HTML/color rendering.
+
+So don't invent a second X_eTaL syntax highlighter.
+
+Expose the existing decorator/view functionality to the demo.
+
+A face might conceptually be:
+
+┌───────────────────────────────┐
+│ X_eTaL                        │
+│                               │
+│ Rotate string left            │
+│                               │
+│ 1 o_- "ABCDE"                 │ ← decorated/colorized
+│                               │
+│ → "BCDEA"                     │
+├───────────────────────────────┤
+│ K                             │
+│                               │
+│ 1 |. "ABCDE"                  │ ← K styling
+│                               │
+│ → "BCDEA"                     │
+└───────────────────────────────┘
+X_eTaL syntax can use the actual X_eTaL formatter/decorator, so it cannot drift from the language.
+
+That's consistent with what you're already doing with the syntax poster.
+
+7. Other-language highlighting should initially be data
+Don't build eight parsers.
+
+For M1 I'd define a deliberately small token classification:
+
+plain
+keyword
+function
+operator
+number
+string
+comment
+punctuation
+Each idiom implementation can contain preclassified spans.
+
+Something conceptually like:
+
+source:
+    "1 |. \"ABCDE\""
+
+spans:
+    number   0..1
+    operator 2..4
+    string   5..12
+Later a Rust syntax-highlighting service could tokenize mainstream languages, but that is unnecessary for the first milestone.
+
+For X_eTaL, always use the real X_eTaL decorator.
+
+8. Data should probably be X_eTaL too
+This is where I would dogfood harder than the previous design.
+
+Instead of:
+
+idioms.json
+languages.json
+I'd prefer something such as:
+
+lib/Rosetta.xtl
+or a demo-local library:
+
+demos/rosetta/
+    rosetta.xtl
+    data.xtl
+Then the comparison database itself exercises nested X_eTaL data.
+
+For example conceptually:
+
+languages :=
+    "APL"
+    "APL2"
+    "BQN"
+    "Dyalog"
+    "J"
+    "K"
+    "Uiua"
+    "X_eTaL"
+The current nested-array support makes this much more feasible than it would have been earlier.
+
+And this demo will immediately stress the current nested-data ergonomics.
+
+Good.
+
+If representing:
+
+idiom → language → source
+is ugly, that's exactly the sort of dogfooding result worth investigating.
+
+9. I expect the demo to ask X_eTaL for new features
+I would explicitly budget for that.
+
+Based on the current dogfooding notes, I suspect these areas will be stressed first:
+
+Need	Current likely answer	Possible dogfood result
+Records	nested arrays/parallel arrays	lightweight records/tuples may become compelling
+Lookup by language ID	arrays/search	perhaps associative structures eventually
+Scene tree	nested boxes	stress nested-data ergonomics
+SVG construction	Rust graphics backend	X_eTaL SVG library
+Matrix transforms	arrays/inner product	probably already elegant
+Event variants	values/nested data	may expose sum-type ergonomics
+Formatting	existing formatter/view	expose clean library API
+String construction	current strings/catenate	may expose interpolation need
+Sorting faces by Z	sort/indexing	should fit array model
+State updates	immutable values	should fit functional model
+The record/tuple question jumps out at me most.
+
+You have recently been thinking about tuples in the neighboring language work; this demo may give X_eTaL a concrete reason to need something record-like without importing a feature merely because other languages have it.
+
+10. A particularly nice dogfood target: scene graphs
+I'd try to make an X_eTaL library capable of expressing:
+
+scene :=
+    group [
+        polygon vertices style
+        text position style "X_eTaL"
+        code position source
+        group [...]
+    ]
+Not necessarily with that syntax—the existing language should dictate the idiom.
+
+Then:
+
+renderSvg scene
+is provided by a small host primitive.
+
+This creates a capability useful far beyond this demo:
+
+X_eTaL programs
+       │
+       ├── diagrams
+       ├── charts
+       ├── animated demos
+       ├── educational visualization
+       ├── language visualizers
+       └── Rosetta stone
+That seems much more worthwhile than adding a []STONE quad or specialized 3D support.
+
+11. Keep animation calculations in X_eTaL
+Each browser frame should ideally amount to:
+
+now
+ │
+ ▼
+Rust requestAnimationFrame
+ │
+ ▼
+dt
+ │
+ ▼
+X_eTaL tick(state, dt)
+ │
+ ├── idiom angle
+ ├── top angle
+ ├── bottom angle
+ ├── snap/interpolation
+ └── attract counters
+ │
+ ▼
+X_eTaL scene(state)
+ │
+ ▼
+SVG
+For performance, don't prematurely optimize this.
+
+This is another useful benchmark.
+
+If regenerating a moderate SVG scene at 30/60 fps proves too slow, that is valuable X_eTaL performance data.
+
+Then optimize the language/runtime rather than immediately moving the computation into Rust.
+
+12. Attract mode is especially suited to X_eTaL
+Your nested-loop analogy could become actual array-language logic.
+
+The logical comparison space is essentially:
+
+I
+×
+T
+×
+B
+I×T×B
+where:
+
+I
+I = enabled idioms
+T
+T = enabled top languages
+B
+B = enabled bottom languages.
+The traversal order is lexicographic:
+
+idiom
+   top
+      bottom
+Bottom advances fastest.
+
+Top advances on bottom wrap.
+
+Idiom advances on top wrap.
+
+But animation interpolates between those discrete states.
+
+That gives a clean separation:
+
+logical state
+    (i,t,b)
+
+visual state
+    (θi,θt,θb)
+Again: a very array-language-friendly problem.
+
+13. Suggested repository placement
+Initially, I would keep this inside X_eTaL, rather than create another repository immediately.
+
+Something like:
+
+X_eTaL/
+  demos/
+    rosetta/
+      main.xtl
+      data.xtl
+
+  lib/
+    Svg.xtl
+    Geometry3D.xtl
+
+  components/
+    web/
+       ...
+If Svg and Geometry3D prove generally useful, promote them into standard libraries.
+
+The web host gets something like:
+
+components/web/
+    src/
+      rosetta.rs
+but that file should remain boring.
+
+If rosetta.rs starts acquiring geometry, comparison rules, idiom traversal, language knowledge, or animation policy, that's an architectural smell.
+
+14. Milestone sequence for the local agent
+I'd alter the implementation plan substantially:
+
+Step	Deliverable	What it tests
+001	X_eTaL 3D matrix demo	Can X_eTaL express transforms cleanly?
+002	X_eTaL polygon → SVG	Establish generic vector rendering
+003	Rotating wireframe cube	Projection + animation, no Rosetta semantics
+004	Colored solid faces	Z/depth/face rendering
+005	Split independently rotating face	Impossible geometry
+006	X_eTaL scene library	Remove demo-specific SVG construction
+007	Idiom/language data in X_eTaL	Stress nested data
+008	One static comparison	Rotate: X_eTaL vs K
+009	Top horizontal axis	Language selection
+010	Bottom horizontal axis	Independent comparison selection
+011	Vertical idiom axis	Full three-dimensional semantic model
+012	Pointer event bridge	Drag X/Y
+013	Snap/interpolation	Readable faces
+014	X_eTaL syntax decoration	Real xetal-view output
+015	Other-language styling	Generic code spans
+016	Language/idiom set controls	Checkbox/radio model
+017	Attract traversal	(idiom,top,bottom) nested iteration
+018	Tumbling attract animation	overlapping axis interpolation
+019	URL state	shareable comparison
+020	Profile WASM	identify actual X_eTaL bottlenecks
+021	Dogfood retrospective	promote only justified features/libraries
+Do not jump directly to step 008. Steps 001–006 determine whether the language itself can naturally own this visualization.
+
+15. Acceptance test for "written in X_eTaL"
+I'd make this explicit because otherwise functionality will gradually leak into Rust.
+
+A useful rule:
+
+Given an X_eTaL state value and a time value, a native X_eTaL test must be able to generate essentially the same scene that the browser displays, without Yew or a browser.
+
+That means this should eventually work conceptually:
+
+xetal run demos/rosetta/main.xtl
+and produce/save an SVG snapshot.
+
+The browser merely animates successive snapshots and supplies interaction.
+
+That makes the demo genuinely an X_eTaL program, rather than a Yew application that happens to evaluate a few X_eTaL expressions.
+
+Desktop follow-on
+Then I like your ../*-extensions idea considerably more.
+
+The architecture naturally becomes:
+
+                    Rosetta.xtl
+                         │
+                ┌────────┴────────┐
+                │                 │
+             Web host         Desktop host
+                │                 │
+          Yew / WASM       X_eTaL extension
+                │                 │
+              SVG          native GPU/window
+The X_eTaL program, state machine, dataset and scene description remain the same.
+
+The desktop extension could eventually provide hardware-accelerated 3D, native pointer/window interaction, richer typography, screenshots/video, and perhaps genuinely extruded geometry.
+
+That would demonstrate the "Extensible" in X_eTaL in a much stronger way: the same X_eTaL application running against a browser/SVG backend and later a native extension-backed 3D backend.
+
+So I would make the first experiment Geometry3D.xtl + Svg.xtl + a rotating wireframe cube entirely from X_eTaL-calculated coordinates. If that code is elegant, we have validated the fundamental architecture before the agent builds the considerably larger Rosetta application.
+
+so what is data.xtl exactly?  would data.toml be better?  or is this an opportunity (which we may want to resist?) to create yet another data format, i.e., .xtln - X_eTaL notation, like JSON or YAML?
+data.xtl in my proposal was underspecified. I meant ordinary X_eTaL source whose evaluated value is the Rosetta dataset, not a new file format. But looking at the problem more carefully, I would not start there.
+
+You have three distinct choices, and they serve different purposes.
+
+1. data.toml — my preference for M1
+The Rosetta data is fundamentally configuration/content:
+
+[[languages]]
+id = "xetal"
+name = "X_eTaL"
+family = "array"
+
+[[languages]]
+id = "k"
+name = "K"
+family = "array"
+
+[[idioms]]
+id = "rotate-string"
+name = "Rotate string"
+input = "ABCDE"
+output = "BCDEA"
+
+[idioms.code]
+xetal = '1 o_- "ABCDE"'
+k = '1 !- "ABCDE"'
+Probably with a slightly more normalized schema than that.
+
+Advantages
+Humans can edit it easily.
+Rust already has excellent TOML support.
+No X_eTaL language feature needs to be invented.
+Code snippets remain strings; they don't accidentally get evaluated.
+Other tools can consume the comparison database.
+Future Python/Rust/etc. additions don't require understanding X_eTaL.
+It clearly separates program from data.
+Most importantly, it keeps this project focused on:
+
+Can X_eTaL implement the visualization and interaction elegantly?
+
+rather than:
+
+Can X_eTaL also invent a serialization format?
+
+I'd choose TOML for M1.
+
+2. data.xtl — executable data
+This would mean something analogous to a JS module exporting a value.
+
+Conceptually:
+
+languages := ...
+
+idioms := ...
+
+...
+The Rosetta program imports it and obtains those values.
+
+This has one major attraction: dogfooding nested X_eTaL values.
+
+But there is a semantic problem. We're storing source code inside source code:
+
+X_eTaL source
+    containing
+       X_eTaL source as strings
+       K source as strings
+       APL source as strings
+       ...
+Quoting and escaping immediately become part of the content-management problem.
+
+And there's an architectural problem:
+
+data.xtl
+doesn't clearly distinguish:
+
+data
+from:
+
+code that computes data
+For something like the Rosetta database, I think that distinction is useful.
+
+3. .xtln — X_eTaL Notation
+Yes, this is a very tempting opportunity.
+
+And I think we should resist it for now.
+
+But it is worth designing the project so that the question naturally gets revisited.
+
+Think:
+
+JSON   JavaScript Object Notation
+XTλN   X_eTaL Notation
+or simply:
+
+.xtln
+X_eTaL Notation
+It could potentially be a very nice typed/nested array notation.
+
+For example, imagine something roughly like:
+
+{
+  languages:
+    [
+      { id: "xetal", name: "X_eTaL", family: "array" }
+      { id: "k",     name: "K",      family: "array" }
+    ]
+
+  idioms:
+    [
+      {
+        id: "rotate-string"
+        name: "Rotate string"
+        input: "ABCDE"
+        output: "BCDEA"
+
+        code: {
+          xetal: '1 o_- "ABCDE"'
+          k:     '1 !- "ABCDE"'
+        }
+      }
+    ]
+}
+But notice what just happened.
+
+To make that pleasant I quietly invented:
+
+records/maps
+key: value
+heterogeneous objects
+perhaps symbols
+array delimiters
+escaping rules
+a grammar
+a parser
+serialization
+deserialization
+type mapping
+error diagnostics
+That's no longer a file extension.
+
+That's a substantial new feature of the language ecosystem.
+
+The interesting question is whether X_eTaL's data model wants XTλN
+There actually could be a deeper reason for it eventually.
+
+APL-family languages have interesting data models. X_eTaL now has:
+
+dense arrays
+static typing
+nested arrays / Box a
+strings
+homogeneous values
+shape
+typed functions
+So a native notation could potentially preserve things JSON cannot:
+
+shape
+element type
+nested-array structure
+For example, instead of JSON:
+
+[[1,2,3],[4,5,6]]
+
+XTλN could theoretically distinguish a genuine:
+
+2
+×
+3
+ 
+I
+n
+t
+2×3 Int
+array from a two-element nested vector containing two three-element vectors.
+
+That distinction matters enormously in an array language.
+
+An eventual format might represent:
+
+2 3 ⍴ 1 2 3 4 5 6
+semantically as:
+
+Array<Int>
+shape = [2,3]
+data  = [1,2,3,4,5,6]
+rather than destroying that information through JSON nesting.
+
+That is a legitimate reason for an X_eTaL-native data format.
+
+"Wouldn't .xtln be cute?" isn't.
+
+Rosetta is actually a poor justification for XTλN
+Its data is primarily records, not arrays:
+
+Language
+    id
+    name
+    family
+    syntax
+
+Idiom
+    id
+    name
+    description
+    input
+    output
+
+Implementation
+    idiom
+    language
+    source
+    notes
+That's precisely TOML's wheelhouse.
+
+If we invent XTλN because Rosetta wants records, we're likely to distort an array-language data format around a configuration-file use case.
+
+I'd rather let a future ML/array problem force its design.
+
+For example:
+
+tensor
+shape
+dtype
+nested arrays
+labels
+metadata
+would give us much stronger evidence for what X_eTaL Notation should actually be.
+
+However, Rosetta can expose the need for records
+This is the dogfooding opportunity I would pursue.
+
+Parse TOML in the Rust host:
+
+data.toml
+    ↓
+Rust toml
+    ↓
+RosettaDataset
+    ↓
+X_eTaL value
+And then ask:
+
+What X_eTaL value should represent this?
+
+If the answer is horrible, don't invent XTλN yet.
+
+Instead, ask whether X_eTaL itself lacks a useful data abstraction.
+
+For example, if we end up with ugly parallel arrays:
+
+language_ids
+language_names
+language_families
+rather than something conceptually like:
+
+Language {
+    id
+    name
+    family
+}
+then the demo has exposed a potentially meaningful language issue.
+
+That's much more valuable dogfooding.
+
+I'd therefore make the architecture
+                        data.toml
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │ Rosetta loader│  Rust, boring
+                    └───────┬───────┘
+                            │
+                       X_eTaL value
+                            │
+              ┌─────────────┴──────────────┐
+              ▼                            ▼
+       comparison.xtl                 stone.xtl
+       selection                      geometry
+       filtering                      projection
+       traversal                      SVG scene
+Eventually:
+
+                   ┌── data.toml
+                   │
+Rosetta loader  ◀──┼── data.json
+                   │
+                   └── data.xtln    ← someday, perhaps
+The application shouldn't know which serialization format supplied the value.
+
+There's another advantage to TOML
+It can become a useful cross-repository artifact.
+
+The Rosetta database doesn't necessarily belong conceptually to the X_eTaL interpreter.
+
+You might eventually have:
+
+X_eTaL
+X_eTaL-demos
+X_eTaL-games
+X_eTaL-libraries
+...
+and potentially other array-language projects consuming it.
+
+A language-neutral file gives you:
+
+                   rosetta.toml
+                       │
+       ┌───────────────┼────────────────┐
+       ▼               ▼                ▼
+   web demo        desktop demo      docs generator
+       │               │                │
+    X_eTaL           X_eTaL          Markdown/HTML
+That also opens an interesting possibility: generate docs/idioms.md from the same canonical data rather than maintaining two comparison databases.
+
+That is something I would strongly consider.
+
+So I'd change my earlier proposal
+Instead of:
+
+demos/rosetta/
+    main.xtl
+    data.xtl
+I'd use something closer to:
+
+demos/rosetta/
+    rosetta.xtl
+    geometry.xtl
+    scene.xtl
+    data.toml
+perhaps eventually moving reusable pieces to:
+
+lib/
+    Svg.xtl
+    Geometry3D.xtl
+And ideally:
+
+data.toml
+    │
+    ├── generates docs/idioms.md table
+    │
+    ├── feeds Rosetta live demo
+    │
+    └── tests implementations where executable
+That gives the data a much more important role than merely feeding the animation.
+
+Keep .xtln in the idea bank
+I'd actually add something like this to the design/wish list:
+
+XTλN / .xtln — deferred native data notation. Do not design from the Rosetta configuration use case. Reconsider when multiple applications need serialization preserving X_eTaL-specific type, shape, and nested-array semantics.
+
+Then Rosetta gets to contribute a data point toward the design without prematurely causing the feature.
+
+So my recommendation is:
+
+data.toml now; typed X_eTaL values internally; no data.xtl; explicitly defer .xtln.
+
+If Rosetta makes the TOML→X_eTaL boundary painful, investigate the X_eTaL data model first, not a new serialization syntax. That is the more interesting dogfooding result.
+
+okay for the MVP, toml works.  However a future milestone would be to develop a useful .xtln for data only serialization (i.e. safe, no code execution like python pickle files).  And instead of records, or parallel arrays, why not encode everything into high-order matrices?
+Yes. In fact, higher-rank arrays are probably the more X_eTaL-native direction than adding records merely because TOML naturally parses into records.
+
+The distinction I'd make is:
+
+TOML is the external authoring format for the MVP.
+Higher-rank typed arrays are the internal X_eTaL representation.
+Future .xtln should serialize X_eTaL's data model safely, rather than imitate JSON/TOML objects.
+
+Rosetta as a tensor
+The comparison data is naturally multidimensional already:
+
+Idiom
+×
+Language
+×
+Attribute
+Idiom×Language×Attribute
+For the core code comparison, it's even simpler:
+
+C
+[
+i
+,
+l
+]
+=
+source code for idiom 
+i
+ in language 
+l
+C[i,l]=source code for idiom i in language l
+So instead of records:
+
+Idiom {
+    name,
+    implementations {
+        X_eTaL: ...,
+        K: ...,
+        J: ...
+    }
+}
+think:
+
+                    language →
+              APL  BQN  J   K   X_eTaL
+             ┌────┬────┬───┬───┬────────┐
+Rotate       │ .. │ .. │.. │.. │  ...   │
+Reverse      │ .. │ .. │.. │.. │  ...   │
+Shape        │ .. │ .. │.. │.. │  ...   │
+Reshape      │ .. │ .. │.. │.. │  ...   │
+Sum          │ .. │ .. │.. │.. │  ...   │
+             └────┴────┴───┴───┴────────┘
+       idiom ↓
+That's not forcing an array representation onto the problem. The problem actually is a matrix.
+
+And the visualization is literally navigating its axes.
+
+Add another dimension for attributes
+Suppose every (idiom, language) entry needs:
+
+source
+input
+output
+notes
+status
+Then conceptually:
+
+D
+[
+idiom
+,
+language
+,
+attribute
+]
+D[idiom,language,attribute]
+or:
+
+shape:
+    idioms × languages × attributes
+For example:
+
+D[Rotate, K, Source]
+D[Rotate, K, Output]
+D[Rotate, K, Notes]
+
+D[Rotate, X_eTaL, Source]
+...
+Now the Rosetta Stone's coordinates are almost embarrassingly direct:
+
+vertical rotation      → axis 1: idiom
+top horizontal rotation → axis 2: language
+bottom horizontal       → axis 2: language
+The top and bottom aren't really two dimensions of the dataset. They're two cursors into the same language dimension.
+
+So state becomes approximately:
+
+(
+i
+,
+t
+,
+b
+)
+(i,t,b)
+and display is:
+
+D
+[
+i
+,
+t
+,
+∗
+]
+,
+D
+[
+i
+,
+b
+,
+∗
+]
+D[i,t,∗],D[i,b,∗]
+That is extremely X_eTaL-ish.
+
+But homogeneous arrays matter
+There is one important complication.
+
+X_eTaL's static/homogeneous array model means this:
+
+source = String
+output = String
+notes  = String
+status = enum/bool
+doesn't naturally form one homogeneous third axis unless everything becomes text.
+
+I would not solve that by weakening the type system.
+
+Instead use several aligned arrays:
+
+sources : Idiom × Language → String
+outputs : Idiom × Language → String
+notes   : Idiom × Language → String
+status  : Idiom × Language → Status
+That's technically parallel arrays, but importantly they're not "parallel arrays pretending to be records."
+
+They're aligned tensors sharing named dimensions.
+
+That's a much stronger abstraction.
+
+Think of the dataset as:
+
+Rosetta dataset
+
+languages     : Language
+idioms        : Idiom
+
+source        : Idiom × Language → String
+output        : Idiom × Language → String
+notes         : Idiom × Language → String
+available     : Idiom × Language → Bool
+That resembles scientific datasets much more than database rows.
+
+Named axes may be the feature this exposes
+And this gets interesting for future X_eTaL development.
+
+Today we'd have:
+
+shape source
+→ 28 8
+But semantically those dimensions mean:
+
+28 idioms × 8 languages
+An eventual concept such as named dimensions/axes could make this considerably richer:
+
+source[
+    idiom,
+    language
+]
+Not necessarily that syntax.
+
+Then:
+
+source[Rotate, X_eTaL]
+isn't record lookup.
+
+It's coordinate selection from a labeled array.
+
+That concept has enormous ML relevance too:
+
+weights[layer, expert, input, output]
+
+activations[
+    batch,
+    token,
+    hidden
+]
+
+image[
+    batch,
+    height,
+    width,
+    channel
+]
+So Rosetta could expose a need that aligns remarkably well with the ML goals of the language.
+
+Think xarray, not structs
+The conceptual precedent I'd investigate isn't primarily Rust structs or JSON objects.
+
+It's closer to labeled multidimensional arrays.
+
+A dataset consists of:
+
+dimensions
+coordinates
+variables
+For Rosetta:
+
+dimensions:
+    idiom
+    language
+
+coordinates:
+    idiom =
+        Reverse
+        Rotate
+        Shape
+        Sum
+        ...
+
+    language =
+        APL
+        APL2
+        BQN
+        Dyalog
+        J
+        K
+        Uiua
+        X_eTaL
+
+variables:
+
+    source[idiom, language] : String
+
+    output[idiom, language] : String
+
+    available[idiom, language] : Bool
+That's much more interesting for X_eTaL than:
+
+Vec<IdiomRecord>
+And now .xtln gets a compelling purpose
+Future .xtln shouldn't be:
+
+JSON with X_eTaL punctuation.
+
+It could be:
+
+A safe textual serialization of typed, shaped, nested X_eTaL values.
+
+No functions.
+
+No macros.
+
+No expressions.
+
+No imports.
+
+No evaluation.
+
+No executable constructors.
+
+Just values.
+
+For example—and I'm deliberately not proposing syntax yet—the conceptual serialized information for an array would be:
+
+type: String
+shape: 4 3
+data:
+    ...
+while a numeric matrix might encode:
+
+type: Int
+shape: 2 3
+data:
+    1 2 3
+    4 5 6
+The important invariant would be:
+
+d
+e
+s
+e
+r
+i
+a
+l
+i
+z
+e
+(
+s
+e
+r
+i
+a
+l
+i
+z
+e
+(
+x
+)
+)
+≡
+x
+deserialize(serialize(x))≡x
+including:
+
+element type,
+rank,
+shape,
+nesting/boxing,
+strings,
+empty arrays,
+perhaps dimensional labels later.
+This also avoids the pickle problem cleanly
+Absolutely make this a hard requirement:
+
+.xtln contains VALUES ONLY
+Loading an XTλN file must never invoke the ordinary X_eTaL parser/evaluator and then say "we promise the AST is harmless."
+
+Instead:
+
+file
+  ↓
+XTλN parser
+  ↓
+DataValue
+  ↓
+type/shape validation
+  ↓
+X_eTaL Value
+There should simply be no AST nodes for:
+
+function calls
+function definitions
+macros
+imports
+system quads
+I/O
+bindings
+expressions
+Then arbitrary .xtln is no more executable than arbitrary JSON.
+
+That's a much stronger security property.
+
+Higher-rank arrays also make the Rosetta code better
+Suppose:
+
+source : I × L
+Then selecting one idiom:
+
+source[i;]
+conceptually yields the entire language comparison row:
+
+APL       ...
+APL2      ...
+BQN       ...
+Dyalog    ...
+J         ...
+K         ...
+Uiua      ...
+X_eTaL    ...
+Attract mode is then walking coordinates through an actual matrix.
+
+And comparing two languages is just selecting two cells:
+
+s
+o
+u
+r
+c
+e
+[
+i
+,
+t
+]
+,
+s
+o
+u
+r
+c
+e
+[
+i
+,
+b
+]
+source[i,t],source[i,b]
+The UI is literally a 3D physical navigator over array coordinates.
+
+That gives the demo a second teaching purpose:
+
+The impossible stone is itself a visualization of array indexing.
+
+I like that a lot.
+
+There's an even better visualization opportunity
+At some point you could expose this relationship.
+
+Maybe a small optional "microscope" view shows:
+
+              LANGUAGE
+          A  B  D  J  K  U  X
+        ┌─────────────────────
+Reverse │ ·  ·  ·  ·  ·  ·  ·
+Rotate  │ ·  ·  ·  · [B] · [T]
+Shape   │ ·  ·  ·  ·  ·  ·  ·
+Sum     │ ·  ·  ·  ·  ·  ·  ·
+        ↑
+      idiom
+where:
+
+[T] = top face cursor
+[B] = bottom face cursor.
+As you physically manipulate the stone, those two matrix cursors move.
+
+That makes the underlying array representation visible rather than merely an implementation detail.
+
+What I would do for the MVP
+Keep the file boring:
+
+data.toml
+But do not expose TOML's record structure to the X_eTaL application.
+
+Have the loader normalize it immediately:
+
+              data.toml
+                  │
+                  ▼
+             Rust loader
+                  │
+          normalize/validate
+                  │
+        ┌─────────┴──────────┐
+        ▼                    ▼
+    coordinates           variables
+
+    idioms[I]             source[I,L]
+    languages[L]          output[I,L]
+                          notes[I,L]
+                          available[I,L]
+Then hand those arrays to X_eTaL.
+
+That means the X_eTaL implementation starts life using the same data model that future XTλN should naturally represent.
+
+And I'd explicitly add two future milestones
+M2 — Labeled/higher-rank data experiment: use the Rosetta application to investigate whether X_eTaL needs better ways to associate semantic coordinates with dimensions. Don't commit to syntax prematurely.
+
+M3 — XTλN: design a safe, non-executable serialization format around the actual X_eTaL value model, especially type + rank + shape + nested arrays. Require round-trip tests and fuzz malformed/untrusted input.
+
+That gives .xtln a reason to exist that is much stronger than "our project needs another configuration format." It becomes a serialization of the thing that makes X_eTaL distinctive: typed multidimensional data.
+
+
+
+
