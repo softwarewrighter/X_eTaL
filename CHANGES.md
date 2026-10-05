@@ -12,7 +12,10 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 22:10 `feat` The clock (quads lane step 2, D76; asks X4 and E4 landed): `[]TS`, the local time stamp, and `[]D_L`, a delay giving the seconds waited, through the host's clock (`xetal-clock`; the live demo's worker installs the browser's).
 - 22:07 `build` Merged PRs #65 and #68 (macros lane: user macro libraries in the live demo, `s:u_se< ::` in System.xtlm) and #66 and #67 (doc lane: search by name and type, pages/doc); lib/Stats.xtl keeps both its demo-subset note and the doc lane's `##` comments; the doc-json-library golden rewritten on purpose; pages/ rebuilt.
+- 20:34 `build` Merged PRs #59 and #60 (macros lane: the user's macro decisions, `@` parameters, `t_odo<`, automatic hygiene) and #61 (quads lane: `[]A`, `[]D`, `[]AV`, `[]IO`, `[]U_CS`, `[]U_CHAR`; its system-name case joined with hygiene's fresh names in xetal-core by hand); register entries renumbered (decisions D76, hygiene D77, Combinators D59 once); lib/Stats.xtl says it is a demo subset of X_eTaL-libraries' Statistics; pages/ rebuilt.
+
 
 - 22:03 `docs` docs/vendoring.md: how a downstream repository uses X_eTaL without tracking a copy: one tracked line (XETAL_COMMIT, the known-good commit), a clone in a gitignored work directory checked out at that commit, a release build, and a symlink bin/xetal to the fresh binary; the script, recipes, crate paths, moving to a newer commit, and replacing a tracked vendor/xetal. The script was run as written in a scratch repository. Replaces the released-binary plan (Saga 32 step 7).
 - 21:58 `docs` `u_se<` documented in lib/System.xtlm (macros lane step 23): a `##` block above the signature line `s:u_se< :: Char -> Char -> Unit`, the first use of `::` (T4), admitted only there to declare a built-in system macro; its type is checked, and `xetal_macro::system_signatures()` gives it to the doc model; elsewhere `::` is still refused (MC21 completed, D79).
