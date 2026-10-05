@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type lib/Geometry3D.xtl"
+exit_code = 0
+desc = "the Geometry3D library: each export with its inferred type"
