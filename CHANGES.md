@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 11:50 `feat` `demos/rosetta/cube.xtl` (rosetta lane step 4, the review point): a cube turning in space from Geometry3D and Svg, 12 wireframe then 12 shaded frames (faces far to near, Lambert shading from outward normals), shown with `[]S_HOW`; listed in the live demo; golden run-rosetta-cube (a frame as written); `v:r_gb` added to Svg; Geometry3D's viewer convention fixed (the viewer is up the z axis, so `o_rder` paints ascending z).
+
 - 11:10 `feat` `lib/Svg.xtl` (rosetta lane step 3): pictures as SVG text written by the library (`p_olygon`, `p_olyline`, `t_ext`, `g_roup`, `c_lip`/`c_lipped`, `g_radient`, `p_icture`/`p_ictureWith`, the attributes `a_ttr`, `a_t`, `f_ill`, `s_troke`, `t_ranslate`, `r_otate`, `s_cale`, `e_scape`); 34 doc examples; spec integration/svg (a square from Geometry3D drawn); golden type-svg; README lists it.
 
 - 10:40 `feat` `lib/Geometry3D.xtl` (rosetta lane step 2): points as a 3-row matrix, `r_otX`/`r_otY`/`r_otZ` rotation matrices, `t_urn` (one inner product), `p_roject` (perspective to the 2 rows `[]P_ATH` draws), `f_ar` and `o_rder` (faces far to near for painting), `c_ube`, `c_ubeFaces`, `f_ace`, `s_olid`; 22 doc examples run by the gate; spec integration/geometry3d; golden type-geometry3d; README lists it.

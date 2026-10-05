@@ -1,0 +1,66 @@
+#!/usr/bin/env xetal
+# A cube turning in space, drawn by the Geometry3D and Svg libraries:
+# twelve frames as a wireframe, then twelve shaded, each shown with
+# []S_HOW (the browser's pane shows them in turn; the command line
+# writes cube-1.svg, cube-2.svg, ... under --draw). Every number here
+# is computed by arrays: the eight corners are one matrix, a turn is
+# one inner product, the faces are ordered far to near by their mean
+# depth, and a face's shade is the angle between its normal and the
+# light. The Rosetta stone's rehearsal (docs/rosetta.md).
+"g:" u_se< "Geometry3D"
+"v:" u_se< "Svg"
+
+size := 300.0                # the picture is size by size
+eye := 6.0                   # the viewer's distance along z
+zoom := 70.0                 # pixels per unit
+light := 0.3 0.5 0.8         # from the viewer's side, upper right
+
+cube := g:c_ube 2
+faces := g:c_ubeFaces @
+
+# The screen points of a face: projected, zoomed, centered, y up.
+u:s_creen := { f ->
+  p := eye g:p_roject f
+  xs := (size / 2) + zoom * 1 s_elect p
+  ys := (size / 2) - zoom * 2 s_elect p
+  (2 c_at t_ally xs) r_eshape xs c_at ys
+}
+
+# The normal of a face: the cross product of two of its edges.
+u:n_ormal := { f ->
+  u := (2 s_elect_2 f) - 1 s_elect_2 f
+  w := (4 s_elect_2 f) - 1 s_elect_2 f
+  ((1 o_- u) * 2 o_- w) - (2 o_- u) * 1 o_- w
+}
+
+# How lit a face is, 0 to 1: the cosine of the angle between its
+# outward normal and the light, and 0 when it faces away. The normal
+# is turned outward by the side of the cube's center it is on.
+u:l_it := { f ->
+  n := u:n_ormal f
+  center := ('+ r_/ o_\ f) / 4.0
+  outward := n * (2.0 * f_loat 0 < '+ r_/ n * center) - 1.0
+  0 m_ax ('+ r_/ outward * light) / ('+ r_/ n * n) ^ 0.5
+}
+
+# A face as a polygon, shaded (or, with fill "none", as a wireframe).
+u:p_olygon := { shaded f ->
+  fill := v:f_ill "shaded" i_f< "v:r_gb 3 r_eshape 40 + 200 * u:l_it f; \"none\""
+  (fill c_at "#222" v:s_troke 1.5) v:p_olygon f_loor 0.5 + u:s_creen f
+}
+
+# The cube turned by a degrees about x and 1.3 a about y, as a picture:
+# its faces drawn far to near, so nearer faces cover farther ones.
+u:s_cene := { shaded a ->
+  turned := ((g:r_otY 1.3 * a) g:t_urn g:r_otX a) g:t_urn cube
+  solid := faces g:s_olid turned
+  polygons := '{ i -> shaded u:p_olygon i s_elect solid } m_ap g:o_rder solid
+  (size c_at size) v:p_icture d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ polygons
+}
+
+u:f_rame := { shaded a -> []S_HOW shaded u:s_cene a; []D_L 0.04; @ }
+
+angles := 30.0 * f_loat o_ffsets 12
+shown := '{ a -> 0 u:f_rame a } e_ach angles
+shown := '{ a -> 1 u:f_rame a } e_ach angles
+"24 frames shown"

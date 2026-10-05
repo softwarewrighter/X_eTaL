@@ -66,6 +66,7 @@ pub const DEMOS: &[Demo] = demos![
     "macros.xtl",
     "magmas.xtl",
     "monads.xtl",
+    "rosetta/cube.xtl",
     "stats.xtl",
     "tttml-play.xtl",
     "tttml-train.xtl",

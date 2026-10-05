@@ -28,6 +28,16 @@ l:e_scape := { t -> j_oin 'e_sc m_ap t }
 ##  fill="none"
 l:f_ill := { color -> "fill" l:a_ttr color }
 
+## A color from red, green and blue levels 0 to 255: `v:r_gb 40 80 120`
+## is `rgb(40,80,120)`; a level is rounded and kept in range.
+## >> "v:" u_se< "Svg"
+## >> v:r_gb 40 80.4 300
+## rgb(40,80,255)
+l:r_gb := { c ->
+  k := 0 m_ax 255 m_in f_loor 0.5 + f_loat c
+  "rgb(" c_at (f_ormat 1 s_elect k) c_at "," c_at (f_ormat 2 s_elect k) c_at "," c_at (f_ormat 3 s_elect k) c_at ")"
+}
+
 ## The stroke attributes: `color v:s_troke width`, with round joins.
 ## >> "v:" u_se< "Svg"
 ## >> "#333" v:s_troke 1.5
