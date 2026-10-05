@@ -1,0 +1,1 @@
+lib/Geometry3D.xtl: rotations, t_urn, p_roject, f_ar/o_rder, c_ube/c_ubeFaces/f_ace/s_olid; 22 doc examples, spec case, type golden. PR pr/geometry-lib (carries #77/#79 commits).
