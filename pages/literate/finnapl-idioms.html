@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Some FinnAPL idioms in X_eTaL</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Some FinnAPL idioms in X_eTaL
+<br />
+<span class="subtitle">historical APL idioms re-expressed as typed, extensible array programs</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org2d77838">Setup</a></li>
+<li><a href="#org1b7aacf">Reduction: sum</a></li>
+<li><a href="#orgda67aab">Reduction: maximum and minimum</a></li>
+<li><a href="#orgf5dfa20">Scan: cumulative sum</a></li>
+<li><a href="#orgbedaaee">Grade and sorting</a></li>
+<li><a href="#orga41fd82">Descending sort</a></li>
+<li><a href="#org95eae68">Boolean positions</a></li>
+<li><a href="#org9b1948a">Unique items / nub</a></li>
+<li><a href="#org7e08ca2">Multiplication table / outer product</a></li>
+<li><a href="#orge5fc5cb">Equality table / identity matrix</a></li>
+<li><a href="#org6f91327">Dot product</a></li>
+<li><a href="#orgb4e1003">Matrix product</a></li>
+<li><a href="#org2cc44ff">Sum of squares</a></li>
+<li><a href="#orgc11387c">Mean as a train</a></li>
+<li><a href="#orgb1e864b">Whole-array equality</a></li>
+<li><a href="#org3c96afc">All and any</a></li>
+<li><a href="#orgf91012c">Even numbers</a></li>
+<li><a href="#org34a9679">Reverse and rotate</a></li>
+<li><a href="#orgff818ae">Transpose</a></li>
+<li><a href="#org23e89de">Range / consecutive integers</a></li>
+<li><a href="#org612b3ed">Number of elements and shape</a></li>
+<li><a href="#org3ac35ee">Zero array by scalar extension</a></li>
+<li><a href="#orgc1ca367">Selection by a mask</a></li>
+<li><a href="#org4fce3ca">What should <b>not</b> be translated literally</a></li>
+<li><a href="#org16333db">Classification for the larger corpus</a></li>
+<li><a href="#org8a65f98">Reproducing the document</a></li>
+</ul>
+</div>
+</div>
+<p>
+The FinnAPL idiom library is a collection of more than 700 one-line APL
+idioms, first presented at the 1984 APL conference in Helsinki.  This
+document does not transliterate APL glyph-for-glyph.  It asks a more
+useful question: what is the corresponding <b>X_eTaL way of thinking</b>?
+</p>
+
+<p>
+Each example keeps the original APL expression beside executable
+X_eTaL.  The X_eTaL blocks are ordinary <code>ob-xetal</code> blocks: run this
+document with <code>just literate</code>, then run <code>scripts/literate-draw.py</code> to
+place <code>xetal render</code>'s decorated form above every executable block.
+The HTML literate exporter uses <code>xetal render --html</code>, so the pretty
+X_eTaL is syntax-colored there.  The APL blocks deliberately do not
+execute; with APL mode/font-lock installed they are syntax-colored in
+Emacs.  A future small extension to <code>literate-export.el</code> can preserve
+APL font-lock or render these blocks with an APL-specific highlighter
+in HTML.
+</p>
+
+<p>
+The examples below favor idioms that illuminate X_eTaL's vocabulary:
+<code>r_/</code>, <code>s_\</code>, <code>t_able</code>, <code>i_nner</code>, trains, grade, selection, shape, and
+whole-array match.  They are therefore a language-design sample, not a
+claim that every FinnAPL idiom should survive unchanged.
+</p>
+<div id="outline-container-org2d77838" class="outline-2">
+<h2 id="org2d77838">Setup</h2>
+<div class="outline-text-2" id="text-org2d77838">
+<p>
+A few values are shared by later examples.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">v ← <span class="c-number">3</span> <span class="c-number">1</span> <span class="c-number">4</span> <span class="c-number">1</span> <span class="c-number">5</span> <span class="c-number">9</span> <span class="c-number">2</span> <span class="c-number">6</span>
+b ← <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span>
+m ← <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">6</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   v := 3 1 4 1 5 9 2 6</span>
+<span class="c-comment typed">⍝   b := 0 1 1 0 1 0</span>
+<span class="c-comment typed">⍝   m := 2 3 r_eshape 1 2 3 4 5 6</span></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1b7aacf" class="outline-2">
+<h2 id="org1b7aacf">Reduction: sum</h2>
+<div class="outline-text-2" id="text-org1b7aacf">
+<p>
+FinnAPL #473 is simply reduction by addition.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">+/X
+</pre>
+</div>
+
+<p>
+X_eTaL makes the higher-order operation a word-like operator and quotes
+the function supplied to it.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ r_/ v</span></pre>
+</div>
+
+<pre class="example">
+31
+</pre>
+
+
+<p>
+The extra spelling is intentional: <code>r_/</code> is visibly the same abstraction
+whether its operand is <code>+</code>, <code>m_ax</code>, a lambda, or a user function.
+</p>
+</div>
+</div>
+<div id="outline-container-orgda67aab" class="outline-2">
+<h2 id="orgda67aab">Reduction: maximum and minimum</h2>
+<div class="outline-text-2" id="text-orgda67aab">
+<p>
+FinnAPL #433 and #435:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">⌈/X
+⌊/X
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">'m̲ax</span> <span class="c-builtin">r̲/</span> v
+<span class="c-builtin">'m̲in</span> <span class="c-builtin">r̲/</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   'm_ax r_/ v</span>
+<span class="c-comment typed">⍝   'm_in r_/ v</span></pre>
+</div>
+
+<pre class="example">
+9
+1
+</pre>
+
+
+<p>
+This regularity matters more than preserving a separate glyph for every
+APL reduction.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf5dfa20" class="outline-2">
+<h2 id="orgf5dfa20">Scan: cumulative sum</h2>
+<div class="outline-text-2" id="text-orgf5dfa20">
+<p>
+FinnAPL #410:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">+\X
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '+ s_\ v</span></pre>
+</div>
+
+<pre class="example">
+3 4 8 9 14 23 25 31
+</pre>
+
+
+<p>
+<code>s_\</code> is the running form of the same reduction vocabulary: every
+prefix result is retained.
+</p>
+</div>
+</div>
+<div id="outline-container-orgbedaaee" class="outline-2">
+<h2 id="orgbedaaee">Grade and sorting</h2>
+<div class="outline-text-2" id="text-orgbedaaee">
+<p>
+FinnAPL #47 sorts by grading and indexing:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">X[⍋X]
+</pre>
+</div>
+
+<p>
+X_eTaL has the direct operation:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">s̲ort</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   s_ort v</span></pre>
+</div>
+
+<pre class="example">
+1 1 2 3 4 5 6 9
+</pre>
+
+
+<p>
+but retains grade as a first-class array idea:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">g̲rade</span> v
+(<span class="c-builtin">g̲rade</span> v) <span class="c-builtin">s̲elect</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   g_rade v</span>
+<span class="c-comment typed">⍝   (g_rade v) s_elect v</span></pre>
+</div>
+
+<pre class="example">
+2 4 7 1 3 5 8 6
+1 1 2 3 4 5 6 9
+</pre>
+
+
+<p>
+The second expression is deliberately equivalent to <code>s_ort v</code>.  Grade
+is useful when the same permutation must order several related arrays.
+</p>
+</div>
+</div>
+<div id="outline-container-orga41fd82" class="outline-2">
+<h2 id="orga41fd82">Descending sort</h2>
+<div class="outline-text-2" id="text-orga41fd82">
+<p>
+FinnAPL #58:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">X[⍒X]
+</pre>
+</div>
+
+<p>
+X_eTaL can compose ascending sort with reverse:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">r̲ev</span> <span class="c-builtin">s̲ort</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   r_ev s_ort v</span></pre>
+</div>
+
+<pre class="example">
+9 6 5 4 3 2 1 1
+</pre>
+
+
+<p>
+This is a useful example of preferring composition over adding a second
+sorting primitive merely to mirror APL's grade-down glyph.
+</p>
+</div>
+</div>
+<div id="outline-container-org95eae68" class="outline-2">
+<h2 id="org95eae68">Boolean positions</h2>
+<div class="outline-text-2" id="text-org95eae68">
+<p>
+FinnAPL has several historical forms for "indices of ones"; #594 is:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">X/⍳⍴X
+</pre>
+</div>
+
+<p>
+X_eTaL names the idea directly:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">w̲here</span> b
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   w_here b</span></pre>
+</div>
+
+<pre class="example">
+2 3 5
+</pre>
+
+
+<p>
+This is shorter semantically even though it is longer typographically.
+</p>
+</div>
+</div>
+<div id="outline-container-org9b1948a" class="outline-2">
+<h2 id="org9b1948a">Unique items / nub</h2>
+<div class="outline-text-2" id="text-org9b1948a">
+<p>
+FinnAPL #205 removes duplicate elements while retaining first occurrence:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">((X⍳X)=⍳⍴X)/X
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">u̲nique</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u_nique v</span></pre>
+</div>
+
+<pre class="example">
+3 1 4 5 9 2 6
+</pre>
+
+
+<p>
+This is a good example of an old idiom becoming a library/builtin concept
+rather than remaining a puzzle to reconstruct at every use.
+</p>
+</div>
+</div>
+<div id="outline-container-org7e08ca2" class="outline-2">
+<h2 id="org7e08ca2">Multiplication table / outer product</h2>
+<div class="outline-text-2" id="text-org7e08ca2">
+<p>
+FinnAPL #230:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">(⍳X)∘.×⍳X
+</pre>
+</div>
+
+<p>
+In X_eTaL, <code>t_able</code> names APL's outer-product idea.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(<span class="c-builtin">r̲ange</span> <span class="c-number">5</span>) <span class="c-symbol">'×</span> <span class="c-builtin">t̲able</span> <span class="c-builtin">r̲ange</span> <span class="c-number">5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (r_ange 5) '* t_able r_ange 5</span></pre>
+</div>
+
+<pre class="example">
+1  2  3  4  5
+2  4  6  8 10
+3  6  9 12 15
+4  8 12 16 20
+5 10 15 20 25
+</pre>
+
+
+<p>
+Read it as: make a table by applying multiplication to every left/right
+pair.  The same operator accepts any dyadic function value.
+</p>
+</div>
+</div>
+<div id="outline-container-orge5fc5cb" class="outline-2">
+<h2 id="orge5fc5cb">Equality table / identity matrix</h2>
+<div class="outline-text-2" id="text-orge5fc5cb">
+<p>
+FinnAPL #286:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">(⍳X)∘.=⍳X
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(<span class="c-builtin">r̲ange</span> <span class="c-number">5</span>) <span class="c-symbol">'=</span> <span class="c-builtin">t̲able</span> <span class="c-builtin">r̲ange</span> <span class="c-number">5</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (r_ange 5) '= t_able r_ange 5</span></pre>
+</div>
+
+<pre class="example">
+1 0 0 0 0
+0 1 0 0 0
+0 0 1 0 0
+0 0 0 1 0
+0 0 0 0 1
+</pre>
+
+
+<p>
+The structure is identical to the multiplication table; only the
+function operand changes.
+</p>
+</div>
+</div>
+<div id="outline-container-org6f91327" class="outline-2">
+<h2 id="org6f91327">Dot product</h2>
+<div class="outline-text-2" id="text-org6f91327">
+<p>
+FinnAPL #333:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">Y+.×X
+</pre>
+</div>
+
+<p>
+X_eTaL writes the reducing function and pairing function explicitly:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-symbol">'+</span> <span class="c-symbol">'×</span> <span class="c-builtin">i̲nner</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">6</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 2 3 '+ '* i_nner 4 5 6</span></pre>
+</div>
+
+<pre class="example">
+32
+</pre>
+
+
+<p>
+The nearest operand, <code>*</code>, pairs items; <code>+</code> reduces them.
+</p>
+</div>
+</div>
+<div id="outline-container-orgb4e1003" class="outline-2">
+<h2 id="orgb4e1003">Matrix product</h2>
+<div class="outline-text-2" id="text-orgb4e1003">
+<p>
+FinnAPL #336 uses exactly the same APL inner product:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">X+.×Y
+</pre>
+</div>
+
+<p>
+and X_eTaL deliberately generalizes the same expression from vectors to
+matrices.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">m <span class="c-symbol">'+</span> <span class="c-symbol">'×</span> <span class="c-builtin">i̲nner</span> <span class="c-builtin">o̲\</span> m
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   m '+ '* i_nner o_\ m</span></pre>
+</div>
+
+<pre class="example">
+14 32
+32 77
+</pre>
+
+
+<p>
+This is one of the strongest correspondences between the two languages:
+the array abstraction survives, while the syntax makes the two roles of
+the inner product explicit.
+</p>
+</div>
+</div>
+<div id="outline-container-org2cc44ff" class="outline-2">
+<h2 id="org2cc44ff">Sum of squares</h2>
+<div class="outline-text-2" id="text-org2cc44ff">
+<p>
+FinnAPL #334:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">X+.×X
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal">v <span class="c-symbol">'+</span> <span class="c-symbol">'×</span> <span class="c-builtin">i̲nner</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   v '+ '* i_nner v</span></pre>
+</div>
+
+<pre class="example">
+173
+</pre>
+
+
+<p>
+For teaching, this version is interesting because it exposes "multiply
+corresponding items, then add" rather than introducing a special
+sum-of-squares operation.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc11387c" class="outline-2">
+<h2 id="orgc11387c">Mean as a train</h2>
+<div class="outline-text-2" id="text-orgc11387c">
+<p>
+FinnAPL #471:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">(+/X)÷⍴X
+</pre>
+</div>
+
+<p>
+X_eTaL can express the same dataflow as a fork: sum and tally see the
+same argument, then their results are divided.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘm̲ean</span> ← [<span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span> <span class="c-symbol">÷</span> <span class="c-builtin">t̲ally</span>]
+<span class="c-userfunc">ᵘm̲ean</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:m_ean := ['+ r_/ / t_ally]</span>
+<span class="c-comment typed">⍝   u:m_ean v</span></pre>
+</div>
+
+<pre class="example">
+3.875
+</pre>
+
+
+<p>
+This is a particularly useful X_eTaL comparison: square brackets make
+the train structure explicit rather than relying on tacit parsing alone.
+</p>
+</div>
+</div>
+<div id="outline-container-orgb1e864b" class="outline-2">
+<h2 id="orgb1e864b">Whole-array equality</h2>
+<div class="outline-text-2" id="text-orgb1e864b">
+<p>
+Many FinnAPL idioms reduce elementwise equality.  For equal-shaped arrays
+#458 is:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">∧/,X=Y
+</pre>
+</div>
+
+<p>
+X_eTaL distinguishes elementwise <code>=</code> from whole-array <code>m_atch</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-builtin">m̲atch</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>
+<span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-builtin">m̲atch</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">4</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   1 2 3 m_atch 1 2 3</span>
+<span class="c-comment typed">⍝   1 2 3 m_atch 1 2 4</span></pre>
+</div>
+
+<pre class="example">
+1
+0
+</pre>
+
+
+<p>
+<code>m_atch</code> also checks shape, so it states the actual intention directly.
+</p>
+</div>
+</div>
+<div id="outline-container-org3c96afc" class="outline-2">
+<h2 id="org3c96afc">All and any</h2>
+<div class="outline-text-2" id="text-org3c96afc">
+<p>
+FinnAPL #461 and #444:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">∧/X
+∨/X
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-symbol">'∧</span> <span class="c-builtin">r̲/</span> b
+<span class="c-symbol">'∨</span> <span class="c-builtin">r̲/</span> b
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '&amp; r_/ b</span>
+<span class="c-comment typed">⍝   '| r_/ b</span></pre>
+</div>
+
+<pre class="example">
+0
+1
+</pre>
+
+
+<p>
+Again, reduction is one concept with different function operands.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf91012c" class="outline-2">
+<h2 id="orgf91012c">Even numbers</h2>
+<div class="outline-text-2" id="text-orgf91012c">
+<p>
+FinnAPL #551:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">~2|X
+</pre>
+</div>
+
+<p>
+X_eTaL uses the named remainder operation in mathematical argument order.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-number">0</span> <span class="c-symbol">=</span> v <span class="c-builtin">m̲od</span> <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   0 = v m_od 2</span></pre>
+</div>
+
+<pre class="example">
+0 0 1 0 0 0 1 1
+</pre>
+
+
+<p>
+To retain only the even values, combine the mask with <code>w_here</code> and
+<code>s_elect</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(<span class="c-builtin">w̲here</span> <span class="c-number">0</span> <span class="c-symbol">=</span> v <span class="c-builtin">m̲od</span> <span class="c-number">2</span>) <span class="c-builtin">s̲elect</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (w_here 0 = v m_od 2) s_elect v</span></pre>
+</div>
+
+<pre class="example">
+4 2 6
+</pre>
+</div>
+</div>
+<div id="outline-container-org34a9679" class="outline-2">
+<h2 id="org34a9679">Reverse and rotate</h2>
+<div class="outline-text-2" id="text-org34a9679">
+<p>
+FinnAPL uses the same glyph family for reverse and rotate.  For example,
+a one-place cyclic neighbor is written:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">¯1⌽X
+</pre>
+</div>
+
+<p>
+X_eTaL separates the named reverse operation from rotation:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">r̲ev</span> v
+<span class="c-number">-1</span> <span class="c-builtin">o̲-</span> v
+<span class="c-number">1</span> <span class="c-builtin">o̲-</span> v
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   r_ev v</span>
+<span class="c-comment typed">⍝   -1 o_- v</span>
+<span class="c-comment typed">⍝   1 o_- v</span></pre>
+</div>
+
+<pre class="example">
+6 2 9 5 1 4 1 3
+6 3 1 4 1 5 9 2
+1 4 1 5 9 2 6 3
+</pre>
+
+
+<p>
+That distinction is slightly more verbose but easier to search, explain,
+and type-check.
+</p>
+</div>
+</div>
+<div id="outline-container-orgff818ae" class="outline-2">
+<h2 id="orgff818ae">Transpose</h2>
+<div class="outline-text-2" id="text-orgff818ae">
+<p>
+FinnAPL matrix transpose:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">⍉X
+</pre>
+</div>
+
+<p>
+X_eTaL's decorated form renders the ASCII <code>o_\</code> operator:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">o̲\</span> m
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   o_\ m</span></pre>
+</div>
+
+<pre class="example">
+1 4
+2 5
+3 6
+</pre>
+
+
+<p>
+For higher-rank arrays X_eTaL also has <code>t_ranspose</code> for an explicit axis
+permutation.
+</p>
+</div>
+</div>
+<div id="outline-container-org23e89de" class="outline-2">
+<h2 id="org23e89de">Range / consecutive integers</h2>
+<div class="outline-text-2" id="text-org23e89de">
+<p>
+FinnAPL #658:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">(X-⎕IO)+⍳1+Y-X
+</pre>
+</div>
+
+<p>
+For the common 1-origin case, X_eTaL's structural vocabulary avoids an
+index-origin variable:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">r̲ange</span> <span class="c-number">8</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   r_ange 8</span></pre>
+</div>
+
+<pre class="example">
+1 2 3 4 5 6 7 8
+</pre>
+
+
+<p>
+The historical idiom is also a reminder that X_eTaL should not reproduce
+<code>⎕IO</code>-dependent programming merely for source similarity.
+</p>
+</div>
+</div>
+<div id="outline-container-org612b3ed" class="outline-2">
+<h2 id="org612b3ed">Number of elements and shape</h2>
+<div class="outline-text-2" id="text-org612b3ed">
+<p>
+FinnAPL #684 counts all elements by ravelling first:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">⍴,X
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">t̲ally</span> <span class="c-builtin">r̲avel</span> m
+<span class="c-builtin">s̲hape</span> m
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   t_ally r_avel m</span>
+<span class="c-comment typed">⍝   s_hape m</span></pre>
+</div>
+
+<pre class="example">
+6
+2 3
+</pre>
+
+
+<p>
+Because X_eTaL distinguishes these structural questions by name, code
+can usually say which property it actually wants.
+</p>
+</div>
+</div>
+<div id="outline-container-org3ac35ee" class="outline-2">
+<h2 id="org3ac35ee">Zero array by scalar extension</h2>
+<div class="outline-text-2" id="text-org3ac35ee">
+<p>
+FinnAPL #727:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">0×X
+</pre>
+</div>
+
+<p>
+The same array idea survives directly because X_eTaL scalar functions
+extend over arrays:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-number">0</span> <span class="c-symbol">×</span> m
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   0 * m</span></pre>
+</div>
+
+<pre class="example">
+0 0 0
+0 0 0
+</pre>
+
+
+<p>
+No special zero-array constructor is necessary for this case.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc1ca367" class="outline-2">
+<h2 id="orgc1ca367">Selection by a mask</h2>
+<div class="outline-text-2" id="text-orgc1ca367">
+<p>
+FinnAPL #602 is compress:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">Y/X
+</pre>
+</div>
+
+<p>
+X_eTaL separates finding positions from selecting them:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(<span class="c-builtin">w̲here</span> b) <span class="c-builtin">s̲elect</span> <span class="c-number">10</span> <span class="c-number">20</span> <span class="c-number">30</span> <span class="c-number">40</span> <span class="c-number">50</span> <span class="c-number">60</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (w_here b) s_elect 10 20 30 40 50 60</span></pre>
+</div>
+
+<pre class="example">
+20 30 50
+</pre>
+
+
+<p>
+That is less glyph-dense, but both intermediate concepts are named and
+independently reusable.
+</p>
+</div>
+</div>
+<div id="outline-container-org4fce3ca" class="outline-2">
+<h2 id="org4fce3ca">What should <b>not</b> be translated literally</h2>
+<div class="outline-text-2" id="text-org4fce3ca">
+<p>
+Some FinnAPL idioms are valuable precisely because X_eTaL should reject
+their technique.  FinnAPL #133 constructs and executes an assignment to
+a dynamically generated variable name:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-apl">⍎'VAR',(⍕X),'←Y'
+</pre>
+</div>
+
+<p>
+There should be no X_eTaL transliteration of this expression.  Dynamic
+code generation fights static name resolution and static typing.  The
+X_eTaL answer is normally to represent the varying association as data
+(an array, table, map-like library abstraction, or another typed
+structure), not to manufacture source code.
+</p>
+
+<p>
+Likewise, old idioms based on <code>→</code>, <code>⍎</code>, terminal state, or <code>⎕IO</code> should
+be classified before they are translated.  A historical corpus is most
+useful when it tells us which old techniques disappear, not only which
+glyphs can be respelled.
+</p>
+</div>
+</div>
+<div id="outline-container-org16333db" class="outline-2">
+<h2 id="org16333db">Classification for the larger corpus</h2>
+<div class="outline-text-2" id="text-org16333db">
+<p>
+A full FinnAPL port should give every idiom one primary disposition:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">class</th>
+<th scope="col" class="org-left">meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">direct</td>
+<td class="org-left">the array idea maps naturally to existing X_eTaL</td>
+</tr>
+
+<tr>
+<td class="org-left">composed</td>
+<td class="org-left">ordinary X_eTaL composition is clearer than a new primitive</td>
+</tr>
+
+<tr>
+<td class="org-left">train</td>
+<td class="org-left">a bracketed train exposes the dataflow</td>
+</tr>
+
+<tr>
+<td class="org-left">library</td>
+<td class="org-left">a recurring domain idea deserves a named typed function</td>
+</tr>
+
+<tr>
+<td class="org-left">macro</td>
+<td class="org-left">syntax/control structure belongs in the extensibility layer</td>
+</tr>
+
+<tr>
+<td class="org-left">type-level</td>
+<td class="org-left">static typing makes a runtime test unnecessary or different</td>
+</tr>
+
+<tr>
+<td class="org-left">obsolete</td>
+<td class="org-left">the idiom solves a historical APL environment problem</td>
+</tr>
+
+<tr>
+<td class="org-left">reject</td>
+<td class="org-left">reproducing it would undermine X_eTaL's design</td>
+</tr>
+
+<tr>
+<td class="org-left">gap</td>
+<td class="org-left">the idiom exposes a useful missing X_eTaL capability</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+The important metric is therefore not "how many APL one-liners can be
+transliterated?"  It is "how many useful array ideas remain concise and
+compositional, and what do the failures teach us about the language?"
+</p>
+</div>
+</div>
+<div id="outline-container-org8a65f98" class="outline-2">
+<h2 id="org8a65f98">Reproducing the document</h2>
+<div class="outline-text-2" id="text-org8a65f98">
+<p>
+From the X_eTaL repository:
+</p>
+
+<pre class="example" id="org7ecf096">
+just literate
+scripts/literate-draw.py docs/literate/finnapl-idioms.org
+scripts/literate-html.sh
+</pre>
+
+<p>
+The first command executes the X_eTaL blocks and records their results.
+The draw pass inserts the pretty Unicode rendering above each ASCII
+source block.  The HTML export invokes <code>xetal render --html</code> for the
+X_eTaL blocks, preserving the language's syntax colors.
+</p>
+
+<p>
+For APL, keep the source as <code>#+begin_src apl</code> rather than an example
+block.  That lets Emacs use APL font-lock when an APL major mode is
+installed and leaves a clean hook for adding APL coloring to the custom
+HTML exporter.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

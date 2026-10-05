@@ -1,0 +1,685 @@
+#+TITLE: Some FinnAPL idioms in X_eTaL
+#+SUBTITLE: historical APL idioms re-expressed as typed, extensible array programs
+#+AUTHOR: Michael A Wright
+#+OPTIONS: toc:2 num:nil ^:{}
+#+PROPERTY: header-args:xetal :session finnapl :seed 1 :results output :exports both
+#+PROPERTY: header-args:apl :eval never :exports code
+
+The FinnAPL idiom library is a collection of more than 700 one-line APL
+idioms, first presented at the 1984 APL conference in Helsinki.  This
+document does not transliterate APL glyph-for-glyph.  It asks a more
+useful question: what is the corresponding *X_eTaL way of thinking*?
+
+Each example keeps the original APL expression beside executable
+X_eTaL.  The X_eTaL blocks are ordinary ~ob-xetal~ blocks: run this
+document with ~just literate~, then run ~scripts/literate-draw.py~ to
+place ~xetal render~'s decorated form above every executable block.
+The HTML literate exporter uses ~xetal render --html~, so the pretty
+X_eTaL is syntax-colored there.  The APL blocks deliberately do not
+execute; with APL mode/font-lock installed they are syntax-colored in
+Emacs.  A future small extension to ~literate-export.el~ can preserve
+APL font-lock or render these blocks with an APL-specific highlighter
+in HTML.
+
+The examples below favor idioms that illuminate X_eTaL's vocabulary:
+~r_/~, ~s_\~, ~t_able~, ~i_nner~, trains, grade, selection, shape, and
+whole-array match.  They are therefore a language-design sample, not a
+claim that every FinnAPL idiom should survive unchanged.
+
+* Setup
+
+A few values are shared by later examples.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+v ← 3 1 4 1 5 9 2 6
+b ← 0 1 1 0 1 0
+m ← 2 3 r̲eshape 1 2 3 4 5 6
+#+end_example
+#+begin_src xetal
+v := 3 1 4 1 5 9 2 6
+b := 0 1 1 0 1 0
+m := 2 3 r_eshape 1 2 3 4 5 6
+#+end_src
+
+#+RESULTS:
+
+* Reduction: sum
+
+FinnAPL #473 is simply reduction by addition.
+
+#+begin_src apl
++/X
+#+end_src
+
+X_eTaL makes the higher-order operation a word-like operator and quotes
+the function supplied to it.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'+ r̲/ v
+#+end_example
+#+begin_src xetal
+'+ r_/ v
+#+end_src
+
+#+RESULTS:
+: 31
+
+The extra spelling is intentional: ~r_/~ is visibly the same abstraction
+whether its operand is ~+~, ~m_ax~, a lambda, or a user function.
+
+* Reduction: maximum and minimum
+
+FinnAPL #433 and #435:
+
+#+begin_src apl
+⌈/X
+⌊/X
+#+end_src
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'m̲ax r̲/ v
+'m̲in r̲/ v
+#+end_example
+#+begin_src xetal
+'m_ax r_/ v
+'m_in r_/ v
+#+end_src
+
+#+RESULTS:
+: 9
+: 1
+
+This regularity matters more than preserving a separate glyph for every
+APL reduction.
+
+* Scan: cumulative sum
+
+FinnAPL #410:
+
+#+begin_src apl
++\X
+#+end_src
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'+ s̲\ v
+#+end_example
+#+begin_src xetal
+'+ s_\ v
+#+end_src
+
+#+RESULTS:
+: 3 4 8 9 14 23 25 31
+
+~s_\~ is the running form of the same reduction vocabulary: every
+prefix result is retained.
+
+* Grade and sorting
+
+FinnAPL #47 sorts by grading and indexing:
+
+#+begin_src apl
+X[⍋X]
+#+end_src
+
+X_eTaL has the direct operation:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+s̲ort v
+#+end_example
+#+begin_src xetal
+s_ort v
+#+end_src
+
+#+RESULTS:
+: 1 1 2 3 4 5 6 9
+
+but retains grade as a first-class array idea:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+g̲rade v
+(g̲rade v) s̲elect v
+#+end_example
+#+begin_src xetal
+g_rade v
+(g_rade v) s_elect v
+#+end_src
+
+#+RESULTS:
+: 2 4 7 1 3 5 8 6
+: 1 1 2 3 4 5 6 9
+
+The second expression is deliberately equivalent to ~s_ort v~.  Grade
+is useful when the same permutation must order several related arrays.
+
+* Descending sort
+
+FinnAPL #58:
+
+#+begin_src apl
+X[⍒X]
+#+end_src
+
+X_eTaL can compose ascending sort with reverse:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+r̲ev s̲ort v
+#+end_example
+#+begin_src xetal
+r_ev s_ort v
+#+end_src
+
+#+RESULTS:
+: 9 6 5 4 3 2 1 1
+
+This is a useful example of preferring composition over adding a second
+sorting primitive merely to mirror APL's grade-down glyph.
+
+* Boolean positions
+
+FinnAPL has several historical forms for "indices of ones"; #594 is:
+
+#+begin_src apl
+X/⍳⍴X
+#+end_src
+
+X_eTaL names the idea directly:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+w̲here b
+#+end_example
+#+begin_src xetal
+w_here b
+#+end_src
+
+#+RESULTS:
+: 2 3 5
+
+This is shorter semantically even though it is longer typographically.
+
+* Unique items / nub
+
+FinnAPL #205 removes duplicate elements while retaining first occurrence:
+
+#+begin_src apl
+((X⍳X)=⍳⍴X)/X
+#+end_src
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+u̲nique v
+#+end_example
+#+begin_src xetal
+u_nique v
+#+end_src
+
+#+RESULTS:
+: 3 1 4 5 9 2 6
+
+This is a good example of an old idiom becoming a library/builtin concept
+rather than remaining a puzzle to reconstruct at every use.
+
+* Multiplication table / outer product
+
+FinnAPL #230:
+
+#+begin_src apl
+(⍳X)∘.×⍳X
+#+end_src
+
+In X_eTaL, ~t_able~ names APL's outer-product idea.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(r̲ange 5) '× t̲able r̲ange 5
+#+end_example
+#+begin_src xetal
+(r_ange 5) '* t_able r_ange 5
+#+end_src
+
+#+RESULTS:
+: 1  2  3  4  5
+: 2  4  6  8 10
+: 3  6  9 12 15
+: 4  8 12 16 20
+: 5 10 15 20 25
+
+Read it as: make a table by applying multiplication to every left/right
+pair.  The same operator accepts any dyadic function value.
+
+* Equality table / identity matrix
+
+FinnAPL #286:
+
+#+begin_src apl
+(⍳X)∘.=⍳X
+#+end_src
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(r̲ange 5) '= t̲able r̲ange 5
+#+end_example
+#+begin_src xetal
+(r_ange 5) '= t_able r_ange 5
+#+end_src
+
+#+RESULTS:
+: 1 0 0 0 0
+: 0 1 0 0 0
+: 0 0 1 0 0
+: 0 0 0 1 0
+: 0 0 0 0 1
+
+The structure is identical to the multiplication table; only the
+function operand changes.
+
+* Dot product
+
+FinnAPL #333:
+
+#+begin_src apl
+Y+.×X
+#+end_src
+
+X_eTaL writes the reducing function and pairing function explicitly:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 2 3 '+ '× i̲nner 4 5 6
+#+end_example
+#+begin_src xetal
+1 2 3 '+ '* i_nner 4 5 6
+#+end_src
+
+#+RESULTS:
+: 32
+
+The nearest operand, ~*~, pairs items; ~+~ reduces them.
+
+* Matrix product
+
+FinnAPL #336 uses exactly the same APL inner product:
+
+#+begin_src apl
+X+.×Y
+#+end_src
+
+and X_eTaL deliberately generalizes the same expression from vectors to
+matrices.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+m '+ '× i̲nner o̲\ m
+#+end_example
+#+begin_src xetal
+m '+ '* i_nner o_\ m
+#+end_src
+
+#+RESULTS:
+: 14 32
+: 32 77
+
+This is one of the strongest correspondences between the two languages:
+the array abstraction survives, while the syntax makes the two roles of
+the inner product explicit.
+
+* Sum of squares
+
+FinnAPL #334:
+
+#+begin_src apl
+X+.×X
+#+end_src
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+v '+ '× i̲nner v
+#+end_example
+#+begin_src xetal
+v '+ '* i_nner v
+#+end_src
+
+#+RESULTS:
+: 173
+
+For teaching, this version is interesting because it exposes "multiply
+corresponding items, then add" rather than introducing a special
+sum-of-squares operation.
+
+* Mean as a train
+
+FinnAPL #471:
+
+#+begin_src apl
+(+/X)÷⍴X
+#+end_src
+
+X_eTaL can express the same dataflow as a fork: sum and tally see the
+same argument, then their results are divided.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘm̲ean ← ['+ r̲/ ÷ t̲ally]
+ᵘm̲ean v
+#+end_example
+#+begin_src xetal
+u:m_ean := ['+ r_/ / t_ally]
+u:m_ean v
+#+end_src
+
+#+RESULTS:
+: 3.875
+
+This is a particularly useful X_eTaL comparison: square brackets make
+the train structure explicit rather than relying on tacit parsing alone.
+
+* Whole-array equality
+
+Many FinnAPL idioms reduce elementwise equality.  For equal-shaped arrays
+#458 is:
+
+#+begin_src apl
+∧/,X=Y
+#+end_src
+
+X_eTaL distinguishes elementwise ~=~ from whole-array ~m_atch~:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+1 2 3 m̲atch 1 2 3
+1 2 3 m̲atch 1 2 4
+#+end_example
+#+begin_src xetal
+1 2 3 m_atch 1 2 3
+1 2 3 m_atch 1 2 4
+#+end_src
+
+#+RESULTS:
+: 1
+: 0
+
+~m_atch~ also checks shape, so it states the actual intention directly.
+
+* All and any
+
+FinnAPL #461 and #444:
+
+#+begin_src apl
+∧/X
+∨/X
+#+end_src
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'∧ r̲/ b
+'∨ r̲/ b
+#+end_example
+#+begin_src xetal
+'& r_/ b
+'| r_/ b
+#+end_src
+
+#+RESULTS:
+: 0
+: 1
+
+Again, reduction is one concept with different function operands.
+
+* Even numbers
+
+FinnAPL #551:
+
+#+begin_src apl
+~2|X
+#+end_src
+
+X_eTaL uses the named remainder operation in mathematical argument order.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+0 = v m̲od 2
+#+end_example
+#+begin_src xetal
+0 = v m_od 2
+#+end_src
+
+#+RESULTS:
+: 0 0 1 0 0 0 1 1
+
+To retain only the even values, combine the mask with ~w_here~ and
+~s_elect~:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(w̲here 0 = v m̲od 2) s̲elect v
+#+end_example
+#+begin_src xetal
+(w_here 0 = v m_od 2) s_elect v
+#+end_src
+
+#+RESULTS:
+: 4 2 6
+
+* Reverse and rotate
+
+FinnAPL uses the same glyph family for reverse and rotate.  For example,
+a one-place cyclic neighbor is written:
+
+#+begin_src apl
+¯1⌽X
+#+end_src
+
+X_eTaL separates the named reverse operation from rotation:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+r̲ev v
+-1 o̲- v
+1 o̲- v
+#+end_example
+#+begin_src xetal
+r_ev v
+-1 o_- v
+1 o_- v
+#+end_src
+
+#+RESULTS:
+: 6 2 9 5 1 4 1 3
+: 6 3 1 4 1 5 9 2
+: 1 4 1 5 9 2 6 3
+
+That distinction is slightly more verbose but easier to search, explain,
+and type-check.
+
+* Transpose
+
+FinnAPL matrix transpose:
+
+#+begin_src apl
+⍉X
+#+end_src
+
+X_eTaL's decorated form renders the ASCII ~o_\~ operator:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+o̲\ m
+#+end_example
+#+begin_src xetal
+o_\ m
+#+end_src
+
+#+RESULTS:
+: 1 4
+: 2 5
+: 3 6
+
+For higher-rank arrays X_eTaL also has ~t_ranspose~ for an explicit axis
+permutation.
+
+* Range / consecutive integers
+
+FinnAPL #658:
+
+#+begin_src apl
+(X-⎕IO)+⍳1+Y-X
+#+end_src
+
+For the common 1-origin case, X_eTaL's structural vocabulary avoids an
+index-origin variable:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+r̲ange 8
+#+end_example
+#+begin_src xetal
+r_ange 8
+#+end_src
+
+#+RESULTS:
+: 1 2 3 4 5 6 7 8
+
+The historical idiom is also a reminder that X_eTaL should not reproduce
+~⎕IO~-dependent programming merely for source similarity.
+
+* Number of elements and shape
+
+FinnAPL #684 counts all elements by ravelling first:
+
+#+begin_src apl
+⍴,X
+#+end_src
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+t̲ally r̲avel m
+s̲hape m
+#+end_example
+#+begin_src xetal
+t_ally r_avel m
+s_hape m
+#+end_src
+
+#+RESULTS:
+: 6
+: 2 3
+
+Because X_eTaL distinguishes these structural questions by name, code
+can usually say which property it actually wants.
+
+* Zero array by scalar extension
+
+FinnAPL #727:
+
+#+begin_src apl
+0×X
+#+end_src
+
+The same array idea survives directly because X_eTaL scalar functions
+extend over arrays:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+0 × m
+#+end_example
+#+begin_src xetal
+0 * m
+#+end_src
+
+#+RESULTS:
+: 0 0 0
+: 0 0 0
+
+No special zero-array constructor is necessary for this case.
+
+* Selection by a mask
+
+FinnAPL #602 is compress:
+
+#+begin_src apl
+Y/X
+#+end_src
+
+X_eTaL separates finding positions from selecting them:
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(w̲here b) s̲elect 10 20 30 40 50 60
+#+end_example
+#+begin_src xetal
+(w_here b) s_elect 10 20 30 40 50 60
+#+end_src
+
+#+RESULTS:
+: 20 30 50
+
+That is less glyph-dense, but both intermediate concepts are named and
+independently reusable.
+
+* What should *not* be translated literally
+
+Some FinnAPL idioms are valuable precisely because X_eTaL should reject
+their technique.  FinnAPL #133 constructs and executes an assignment to
+a dynamically generated variable name:
+
+#+begin_src apl
+⍎'VAR',(⍕X),'←Y'
+#+end_src
+
+There should be no X_eTaL transliteration of this expression.  Dynamic
+code generation fights static name resolution and static typing.  The
+X_eTaL answer is normally to represent the varying association as data
+(an array, table, map-like library abstraction, or another typed
+structure), not to manufacture source code.
+
+Likewise, old idioms based on ~→~, ~⍎~, terminal state, or ~⎕IO~ should
+be classified before they are translated.  A historical corpus is most
+useful when it tells us which old techniques disappear, not only which
+glyphs can be respelled.
+
+* Classification for the larger corpus
+
+A full FinnAPL port should give every idiom one primary disposition:
+
+| class | meaning |
+|-------+---------|
+| direct | the array idea maps naturally to existing X_eTaL |
+| composed | ordinary X_eTaL composition is clearer than a new primitive |
+| train | a bracketed train exposes the dataflow |
+| library | a recurring domain idea deserves a named typed function |
+| macro | syntax/control structure belongs in the extensibility layer |
+| type-level | static typing makes a runtime test unnecessary or different |
+| obsolete | the idiom solves a historical APL environment problem |
+| reject | reproducing it would undermine X_eTaL's design |
+| gap | the idiom exposes a useful missing X_eTaL capability |
+
+The important metric is therefore not "how many APL one-liners can be
+transliterated?"  It is "how many useful array ideas remain concise and
+compositional, and what do the failures teach us about the language?"
+
+* Reproducing the document
+
+From the X_eTaL repository:
+
+#+begin_example
+just literate
+scripts/literate-draw.py docs/literate/finnapl-idioms.org
+scripts/literate-html.sh
+#+end_example
+
+The first command executes the X_eTaL blocks and records their results.
+The draw pass inserts the pretty Unicode rendering above each ASCII
+source block.  The HTML export invokes ~xetal render --html~ for the
+X_eTaL blocks, preserving the language's syntax colors.
+
+For APL, keep the source as ~#+begin_src apl~ rather than an example
+block.  That lets Emacs use APL font-lock when an APL major mode is
+installed and leaves a clean hook for adding APL coloring to the custom
+HTML exporter.

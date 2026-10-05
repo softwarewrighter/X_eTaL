@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 14:40 `docs` docs/literate/finnapl-idioms.org (the user's): twenty FinnAPL idioms, each APL line beside X_eTaL that runs, its results recorded; published as pages/literate/finnapl-idioms.html and listed in the literate index, which also gains the macros document it was missing.
+
 - 13:24 `build` Merged PRs #84 (rosetta lane: tables from TOML, `[]L_IST` and `[]T_ABLE`) and #85 (rosetta lane: the split face); `Wants::of` kept where the lane's older copy differed; pages/ rebuilt.
 
 - 13:30 `feat` The split face (rosetta lane step 7): `demos/rosetta/Stone.xtl` (the drum of idioms and the two rings of languages as square prisms sharing one place, painted far to near) and `demos/rosetta/rosetta.xtl` reading data.toml into aligned arrays and drawing the stone at rest and turning; `v:m_atrix` in Svg puts text on a face; the data's names are now aligned lists and `input` is per cell (RS3 refined); D95; golden run-rosetta-stone (the live demo gets it with its page, step 12).

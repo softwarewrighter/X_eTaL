@@ -146,7 +146,7 @@ window.XETAL_DOC_INDEX = [
 ["w_ords","function","Char -> Box Char","Char -> Box Char","Combinators.xtlm","lib-Combinators.xtlm.html#w_ords",""],
 ["j_oin","function","Box Char -> Char","Box Char -> Char","Combinators.xtlm","lib-Combinators.xtlm.html#j_oin",""],
 ["s_trip","function","Char -> Char","Char -> Char","Combinators.xtlm","lib-Combinators.xtlm.html#s_trip",""],
-["s_tarts","function","(Num a, Truthy a) => Char -> Char -> a","Char -> Char -> a","Combinators.xtlm","lib-Combinators.xtlm.html#s_tarts",""],
+["s_tarts","function","Char -> Char -> Int","Char -> Char -> Int","Combinators.xtlm","lib-Combinators.xtlm.html#s_tarts",""],
 ["nameChars","value","Char","Char","Combinators.xtlm","lib-Combinators.xtlm.html#nameChars",""],
 ["w_ord","function","Char -> Char -> Char -> Char","Char -> Char -> Char -> Char","Combinators.xtlm","lib-Combinators.xtlm.html#w_ord",""],
 ["m:w_hen\u003c","macro","Char -> Char -> Char","Char -> Char -> Char","Macros.xtlm","lib-Macros.xtlm.html#m.w_hen-3c","Run the statements on the right when the condition on the left"],
