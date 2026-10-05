@@ -884,6 +884,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-frame"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-kernel",
+ "xetal-value",
+]
+
+[[package]]
 name = "xetal-grid"
 version = "0.1.0"
 dependencies = [
@@ -1021,6 +1031,7 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-core",
+ "xetal-frame",
  "xetal-hof",
  "xetal-kernel",
  "xetal-lex",

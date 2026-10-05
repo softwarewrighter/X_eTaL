@@ -1,0 +1,9 @@
+# The cleanup runs when the body stops with an error too, which then
+# goes on as it was. The body's type is free, since it never gives a
+# value: the signal stands where any value may.
+== SOURCE
+'{ @ -> p_rint! 3; "x" []S_IGNAL "y" } []E_NSURE '{ @ -> p_rint! "cleaned" }
+== TYPE
+a
+== ERROR
+error[x]: y at 19..36

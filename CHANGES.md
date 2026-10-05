@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 01:50 `feat` Catching errors (errors lane step 2, ER2, D86; ask X3, catch): `'body []T_RAP 'handler` runs the body and, on an error, the handler, which answers `[]R_ECOVER v`, `[]R_ETRY e` or `[]H_ALT e` (typed: `Outcome a`, `Error` read by `[]E_CODE`, `[]E_MESSAGE`, `[]E_WHERE`); `'body []E_NSURE 'cleanup` always runs the cleanup; the step evaluator unwinds to the nearest trap.
+
 - 00:19 `build` Merged PRs #72 (errors lane: `[]S_IGNAL`, an error of one's own, ER1; its quad dispatch and tests joined with the clock's by hand; register entry D86) and #73 (macros lane: the Saga 19 retrospective, the lane archived); pages/ rebuilt.
 
 ## 2026-10-04

@@ -28,6 +28,8 @@ impl fmt::Display for Value<'_> {
                 f.write_str(&layout(a.shape(), &cells, sep))
             }
             Value::Closure(_) | Value::Prim(_) => f.write_str("<function>"),
+            Value::Error(e) => write!(f, "error[{}]: {}", e.code, e.message),
+            Value::Outcome(_) => f.write_str("<outcome>"),
         }
     }
 }

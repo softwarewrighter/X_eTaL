@@ -252,7 +252,7 @@ id = "X3"
 repo = "X_eTaL-libraries"
 ask = "errors of one's own: assert, raise and catch"
 state = "partly landed"
-here = "raise: `[]S_IGNAL` (ER1, D85, errors lane step 1); catch and the handler's outcomes follow (ER2-ER4, the lane's next steps)"
+here = "raise: `[]S_IGNAL` (ER1, D85); catch: `[]T_RAP` with `[]R_ECOVER`, `[]R_ETRY`, `[]H_ALT`, and `[]E_NSURE` (ER2, D86); the `t_ry<`/`c_atch<` macros and assert follow (the lane's next steps)"
 repro = "\"my-code\" []S_IGNAL \"stop\""
 works = "error[my-code]"
 

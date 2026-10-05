@@ -96,9 +96,12 @@ components/
                            xetal-struct (structural built-ins),
                            xetal-eval (running a program: the API the
                            CLI, REPL and live demo call)
-  step/                    the steppable evaluator (D50): xetal-step
-                           (Core run by an explicit machine whose
-                           state is data, in slices), xetal-kernel (the
+  step/                    the steppable evaluator (D50): xetal-frame
+                           (the state as data: the control in hand and
+                           the frames of pending work, traps included),
+                           xetal-step (Core run by an explicit machine
+                           over those frames, in slices; an error
+                           unwinds to the nearest trap), xetal-kernel (the
                            higher-order built-ins as kernels: each call
                            of an operand is a step of the machine),
                            xetal-prim (the first-order built-ins
@@ -120,7 +123,9 @@ components/
                            n_umbers; graphics: []G_RID, []S_HOW),
                            xetal-quad (system values, character codes
                            and the clock: []A, []D, []AV, []IO,
-                           []U_CS, []U_CHAR, []TS, []D_L)
+                           []U_CS, []U_CHAR, []TS, []D_L; errors of
+                           one's own: []S_IGNAL, the Error readers
+                           and the Outcome constructors)
   axes/                    xetal-rotate (rotate and reverse along the
                            leading axis), xetal-axes (axis subscripts:
                            the move-to-front rule)

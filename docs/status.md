@@ -18,17 +18,16 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 108 | 0 | 0 |
-| Language decisions | 124 | 0 | 7 |
+| Built-in functions | 116 | 0 | 0 |
+| Language decisions | 125 | 0 | 6 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 358 | 0 | 0 |
+| Spec cases | 365 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
 - **S11** (planned): Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents.
 - **T9** (planned): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
-- **ER2** (planned): Errors are caught by a typed built-in, not by a macro: it runs a protected body (a lambda of `@`) and, on (...).
 - **ER3** (planned): A typed continue: the handler's value replaces the failing expression and the program goes on from there.
 - **ER4** (planned): The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler (...).
 - **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
@@ -39,7 +38,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 60 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 63 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 40 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
@@ -69,9 +68,9 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 35 | 2 |
+| `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 36 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
-| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 11 | 1 |
+| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 12 | 1 |
 | `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
 | `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 12 | 1 |
 | `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 5 | 1 |
@@ -84,7 +83,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `p_rint!` | `a -> a` | works | 13 | 1 |
+| `p_rint!` | `a -> a` | works | 15 | 1 |
 | `r_oll!` | `Int -> Int` | works | 3 | 1 |
 | `i_d` | `a -> a` | works | 2 | 2 |
 | `l_eft` | `a -> b -> a` | works | 1 | 2 |
@@ -108,11 +107,19 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `[]N_PUT` | `Char -> Char -> Int` | works | 1 | 1 |
-| `[]N_GET` | `Char -> Char` | works | 0 | 1 |
+| `[]N_GET` | `Char -> Char` | works | 1 | 1 |
 | `[]R_EAD` | `Unit -> Char` | works | 0 | 1 |
 | `[]E_RR` | `Char -> Char` | works | 0 | 1 |
 | `[]P_ANIC` | `Char -> a` | works | 0 | 1 |
-| `[]S_IGNAL` | `Char -> Char -> a` | works | 2 | 2 |
+| `[]S_IGNAL` | `Char -> Char -> a` | works | 7 | 2 |
+| `[]T_RAP` | `(Unit -> a) -> (Error -> Outcome a) -> a` | works | 5 | 3 |
+| `[]E_NSURE` | `(Unit -> a) -> (Unit -> b) -> a` | works | 2 | 2 |
+| `[]R_ECOVER` | `a -> Outcome a` | works | 4 | 1 |
+| `[]R_ETRY` | `Error -> Outcome a` | works | 1 | 2 |
+| `[]H_ALT` | `Error -> Outcome a` | works | 2 | 1 |
+| `[]E_CODE` | `Error -> Char` | works | 3 | 1 |
+| `[]E_MESSAGE` | `Error -> Char` | works | 1 | 1 |
+| `[]E_WHERE` | `Error -> Char` | works | 0 | 1 |
 | `[]T_E` | `Unit -> Int` | works | 0 | 1 |
 | `[]K_EY` | `Unit -> Key` | works | 0 | 1 |
 | `[]K_CHAR` | `Key -> Char` | works | 1 | 1 |
@@ -150,13 +157,13 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `s_hape` | `a -> Int` | works | 14 | 2 |
-| `t_ally` | `a -> Int` | works | 18 | 4 |
+| `t_ally` | `a -> Int` | works | 19 | 4 |
 | `r_ange` | `Int -> Int` | works | 37 | 1 |
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
-| `f_irst` | `a -> a` | works | 5 | 4 |
+| `f_irst` | `a -> a` | works | 6 | 4 |
 | `r_avel` | `a -> a` | works | 1 | 2 |
 | `r_eshape` | `Int -> a -> a` | works | 59 | 2 |
-| `t_ake` | `Int -> a -> a` | works | 11 | 5 |
+| `t_ake` | `Int -> a -> a` | works | 12 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 2 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 13 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 5 | 6 |
@@ -173,7 +180,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `e_ach` | `(a -> b) -> a -> b` | works | 17 | 3 |
+| `e_ach` | `(a -> b) -> a -> b` | works | 18 | 3 |
 | `m_ap` | `(a -> b) -> a -> Box b` | works | 2 | 3 |
 | `t_able` | `(a -> b -> c) -> a -> b -> c` | works | 5 | 1 |
 
@@ -192,7 +199,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `i_ndexOf` | `Eq a => a -> a -> Int` | works | 5 | 2 |
 | `m_ember?` | `(Eq a, Truthy b) => a -> a -> b` | works | 2 | 1 |
-| `m_atch` | `(Eq a, Truthy b) => a -> a -> b` | works | 7 | 5 |
+| `m_atch` | `(Eq a, Truthy b) => a -> a -> b` | works | 8 | 5 |
 | `u_nique` | `Eq a => a -> a` | works | 3 | 1 |
 | `s_ort` | `Ord a => a -> a` | works | 4 | 3 |
 | `g_rade` | `Ord a => a -> Int` | works | 1 | 2 |
@@ -281,7 +288,7 @@ conventions (naming, layout) work without a spec case citing them.
 | T1 | A real `Bool` type; `=` and the comparisons return Bool | works | 4 |
 | T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and (...) | works | 3 |
 | T3 | `=` is exact (IEEE) equality and transitive; `(0.1 + 0.2) = 0.3` is 0 | works | 2 |
-| T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 6 |
+| T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 7 |
 | T6 | Programs are type-checked before they run: `xetal eval` and `xetal run` refuse an ill-typed program with a (...) | works | 5 |
 | T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 7 |
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
@@ -294,7 +301,7 @@ conventions (naming, layout) work without a spec case citing them.
 | E4 | Evaluation order is the function first, then its arguments right to left (APL order): in `x f y`, `f`, (...) | works | 2 |
 | E3 | The Y combinator works in its textbook shape when its functional marks its self parameter lazy; Z also works | works | 0 |
 | ER1 | A program raises an error of its own with a typed system function: `"code" []S_IGNAL "message"` stops with (...) | works | 2 |
-| ER2 | Errors are caught by a typed built-in, not by a macro: it runs a protected body (a lambda of `@`) and, on (...) | planned | 0 |
+| ER2 | Errors are caught by a typed built-in, not by a macro: it runs a protected body (a lambda of `@`) and, on (...) | works | 3 |
 | ER3 | A typed continue: the handler's value replaces the failing expression and the program goes on from there | planned | 0 |
 | ER4 | The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler (...) | planned | 0 |
 | I1 | Source is ASCII, except inside string literals and comments, which may hold any Unicode (revised with the (...) | works | 2 |

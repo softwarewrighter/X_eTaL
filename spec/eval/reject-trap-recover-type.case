@@ -1,0 +1,6 @@
+# A handler recovers with a value of the body's type (ER2): the checker
+# refuses one of another type (the body's literals are numbers, T5).
+== SOURCE
+'{ @ -> 1 + 2 } []T_RAP '{ e -> []R_ECOVER "text" }
+== ERROR
+error[type-mismatch]: expected a number, found Char at 0..51

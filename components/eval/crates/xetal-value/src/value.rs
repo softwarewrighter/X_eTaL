@@ -23,6 +23,21 @@ pub enum Value<'a> {
     Boxed(Rc<Value<'a>>),
     Closure(Rc<Closure<'a>>),
     Prim(Rc<Prim<'a>>),
+    /// An error caught by a trap (ER2): the diagnostic as it was raised.
+    Error(Rc<xetal_base::Diagnostic>),
+    /// A handler's outcome (ER2): what the trap does next.
+    Outcome(Rc<Outcome<'a>>),
+}
+
+/// What a handler asks its trap to do (ER2).
+#[derive(Debug)]
+pub enum Outcome<'a> {
+    /// The trap's value is this one.
+    Recover(Value<'a>),
+    /// Run the body again.
+    Retry,
+    /// Let this error go on.
+    Halt(Rc<xetal_base::Diagnostic>),
 }
 
 #[derive(Debug)]

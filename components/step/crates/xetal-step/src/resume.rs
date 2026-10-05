@@ -9,9 +9,9 @@ use xetal_base::Diagnostic;
 use xetal_core::Item;
 use xetal_value::{Slot, Value, extend};
 
-use crate::kont::err;
-use crate::kont::{Control, Kont};
 use crate::machine::Machine;
+use xetal_frame::err;
+use xetal_frame::{Control, Kont};
 
 impl<'a> Machine<'a, '_> {
     /// The frame on top takes `v`; `None` when the program has finished.
@@ -34,6 +34,12 @@ impl<'a> Machine<'a, '_> {
             | Kont::Choose { .. }
             | Kont::Array { .. }) => self.resume_local(k, v)?,
             Kont::Axes { axes, arity, span } => Control::Return(self.axes(axes, arity, v, span)?),
+            k @ (Kont::Trap { .. }
+            | Kont::Handling { .. }
+            | Kont::Ensure { .. }
+            | Kont::Cleaning { .. }) => {
+                return self.resume_trap(k, v);
+            }
             other => self.resume_app(other, v)?,
         }))
     }

@@ -1,5 +1,7 @@
-//! The machine's state as data: what to do next ([`Control`]) and the
-//! stack of pending work, each frame waiting for a value ([`Kont`]).
+//! The steppable evaluator's state as data (D50): what to do next
+//! ([`Control`]) and the stack of pending work, each frame waiting for
+//! the value of what runs above it ([`Kont`]). A crate of its own so
+//! `xetal-step` keeps to its modules; it holds no logic.
 
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -9,13 +11,13 @@ use xetal_core::Expr;
 use xetal_value::{Env, Prim, Slot, Value};
 
 /// Evaluate an expression, or give a value to the frame on top.
-pub(crate) enum Control<'a> {
+pub enum Control<'a> {
     Eval(&'a Expr, Env<'a>),
     Return(Value<'a>),
 }
 
 /// A pending piece of work, waiting for the value of what runs above it.
-pub(crate) enum Kont<'a> {
+pub enum Kont<'a> {
     /// The program's items from `next` on.
     Items { next: usize },
     /// A definition's value, to store under `name`.
@@ -106,8 +108,31 @@ pub(crate) enum Kont<'a> {
         kernel: xetal_kernel::Kernel<'a, Value<'a>>,
         span: Span,
     },
+    /// `'body []T_RAP 'handler` (ER2): the body runs above; an error
+    /// raised there unwinds to this frame, which calls the handler.
+    Trap {
+        body: Value<'a>,
+        handler: Value<'a>,
+        /// How many times the body has run.
+        runs: usize,
+        span: Span,
+    },
+    /// The handler of a trap running above; its outcome decides.
+    Handling {
+        body: Value<'a>,
+        handler: Value<'a>,
+        runs: usize,
+        span: Span,
+    },
+    /// `'body []E_NSURE 'cleanup`: the body runs above; the cleanup runs
+    /// after it, whatever happened.
+    Ensure { cleanup: Value<'a>, span: Span },
+    /// The cleanup running above; then the body's result goes on.
+    Cleaning {
+        result: Result<Value<'a>, Diagnostic>,
+    },
 }
 
-pub(crate) fn err(code: &str, span: Span, message: impl Into<String>) -> Diagnostic {
+pub fn err(code: &str, span: Span, message: impl Into<String>) -> Diagnostic {
     Diagnostic::new(code, message).with_span(span)
 }
