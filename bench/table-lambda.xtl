@@ -1,0 +1,2 @@
+# An outer product with a function of your own, 600 by 600, reduced.
+'+ r_/_12 (r_ange 600) '{ _l * _r } t_able r_ange 600

@@ -19,6 +19,14 @@ function's name picks the axis it works along: `'+ r_/ M` works
 along axis 1, the default; `'+ r_/_1 M` writes that axis out; and
 `'+ r_/_2 M` works along axis 2 instead.
 
+`xetal doc` documents programs and libraries the same way: each
+definition with its type, its `##` doc comment and `## >>`
+examples, its source drawn decorated and every name linked, the
+built-ins among them (`xetal doc --out DIR FILE` writes the site;
+`xetal doc --test FILE` runs the examples). The standard
+libraries' site is at
+https://softwarewrighter.github.io/X_eTaL/doc/ (`just doc`).
+
 ## Arithmetic
 
 Arithmetic works item by item on arrays of any shape; a single number
@@ -616,11 +624,13 @@ error[rank]: e_ncode needs a scalar or a vector, got shape 2 3
 
 ### `d_ecode`
 
-`Int -> Int -> Int`, two arguments.
+`Num a => a -> a -> a`, two arguments.
 
 Decode: the number whose digits, in the radix on the left, are on the
 right (APL's decode), the inverse of `e_ncode`. One radix extends to
-every digit; a matrix gives one number per column.
+every digit; a matrix gives one number per column. It is Horner's rule
+on any numbers, radix and digits of one type, so on Floats `x d_ecode
+r_ev c` is the polynomial with coefficients c (lowest first) at x.
 
 ```
       2 d_ecode 1 0 1 1
@@ -631,6 +641,10 @@ every digit; a matrix gives one number per column.
 3725
       2 d_ecode 2 2 2 e_ncode 0 1 2 3
 0 1 2 3
+      2.0 d_ecode 3.0 -2.0 1.0
+9.0
+      0.5 d_ecode r_ev 1.0 -2.0 3.0
+0.75
       2 2 d_ecode 1 0 1
 error[length-mismatch]: 2 radix values for 3 digits
 ```
@@ -1110,6 +1124,117 @@ the axes in reverse is `o_\`.
 3 4 2
       1 1 t_ranspose M
 error[domain]: a permutation lists each axis once, got 1 1
+```
+
+## System values, character codes and the clock
+
+### `[]A`
+
+`Char`, a system value, no arguments.
+
+The alphabet, the uppercase letters: a system value, written without
+an underline and read where it is used.
+
+```
+      []A
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+      3 t_ake []A
+ABC
+```
+
+### `[]D`
+
+`Char`, a system value, no arguments.
+
+The digits, as characters.
+
+```
+      []D
+0123456789
+```
+
+### `[]AV`
+
+`Char`, a system value, no arguments.
+
+The atomic vector: every character, ASCII 0 to 127 (source is ASCII),
+so a character's code is its place in it, less one.
+
+```
+      t_ally []AV
+128
+      66 s_elect []AV
+A
+```
+
+### `[]IO`
+
+`Int`, a system value, no arguments.
+
+The index origin: always 1 (there is no setting).
+
+```
+      []IO
+1
+```
+
+### `[]U_CS`
+
+`Char -> Int`, one argument.
+
+The code of each character, keeping the shape. Codes go back to
+characters with `[]U_CHAR`.
+
+```
+      []U_CS "Hi"
+72 105
+      ([]U_CS "a") - []U_CS "A"
+32
+```
+
+### `[]U_CHAR`
+
+`Int -> Char`, one argument.
+
+The character of each code, 0 to 127; another code is an error.
+
+```
+      []U_CHAR 72 105
+Hi
+      []U_CHAR 1 + []U_CS "HAL"
+IBM
+      []U_CHAR 200
+error[domain]: []U_CHAR takes codes 0 to 127, got 200
+```
+
+### `[]TS`
+
+`Int`, a system value, no arguments.
+
+The local time stamp: year, month, day, hour, minute, second and
+millisecond, read each time it is used (a host without a clock reports
+`error[no-clock]`). Shown here by its shape, since it changes.
+
+```
+      s_hape []TS
+7
+      2026 <= 1 s_elect []TS
+1
+```
+
+### `[]D_L`
+
+`Num a => a -> Float`, one argument.
+
+Wait the given seconds (an Int or a Float); the result is the seconds
+actually waited, at least those asked for. A negative delay is an
+error.
+
+```
+      ([]D_L 0.01) >= 0.01
+1
+      []D_L -1
+error[domain]: a delay is a finite number of seconds, 0 or more, not -1
 ```
 
 ## Effects, identity, text and files

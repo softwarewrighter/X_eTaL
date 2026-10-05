@@ -44,7 +44,7 @@ plan, and move a row from "Planned" to "Added" when it lands.
 | Feature | Needed by | Status |
 | ------- | --------- | ------ |
 | Matrix inverse and division (APL's domino) | ADVANCEDEX's INV and INVP, regression in STATS | to decide with the user, when the ADVANCEDEX ports reach it |
-| Execute (`[]V_ALUE`, read and evaluate) | the APL subset interpreter, the COURSE and DRILL ports | reserved (lang-choices QD3); to decide |
+| Execute (`[]V_ALUE`, read and evaluate) | the APL subset interpreter, the X_eTaL course's answer checking (COURSE and DRILL translated to teach X_eTaL, Saga 28) | reserved (lang-choices QD3); to decide |
 | Complex numbers | Mandelbrot (z is two Float arrays today) | deferred (lang-choices section 15) |
 | Evaluator speed: a primitive operand applied as a vector kernel | TTTML's training time; Mandelbrot is kept small (60 by 90 frames) for it; Mastermind's player over all 1296 secrets takes 25 s in a release build, so the demo plays 35 of them | measuring: `just bench`, baseline and profile in docs/speed.md (speed lane) |
 

@@ -1,0 +1,7 @@
+doc tests in Greet.xtl: 5 examples
+l:h_ello >> "g:" u_se< "Greet" ... ok
+l:h_ello >> g:h_ello "Ann" ... ok
+l:s_hout >> "g:" u_se< "Greet" ... ok
+l:s_hout >> g:s_hout "Bo" ... ok
+l:s_hout >> g:count ... ok
+doc test result: ok. 5 passed; 0 failed

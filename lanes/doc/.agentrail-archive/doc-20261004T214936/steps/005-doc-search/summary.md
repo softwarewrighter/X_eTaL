@@ -1,0 +1,1 @@
+Search in the doc site: components/docsearch writes search-index.js (items and built-ins, types normalized Hoogle-like) and a plain search.js; search box on every page; by name and by type; D82; PR pr/doc-search stacked on pr/doc-macros

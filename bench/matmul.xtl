@@ -1,0 +1,4 @@
+# A small matrix product, 16 by 16, repeated 300 times through p_ower.
+m := 16 16 r_eshape 0.5 0.25 0.125 0.0625
+u:s_tep := { _r '+ '* i_nner m }
+s_hape u:s_tep^300 m

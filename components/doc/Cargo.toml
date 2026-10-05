@@ -2,7 +2,14 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-doccom", "crates/xetal-doc"]
+members = [
+    "crates/xetal-doccom",
+    "crates/xetal-doc",
+    "crates/xetal-doclink",
+    "crates/xetal-dochtml",
+    "crates/xetal-docsite",
+    "crates/xetal-doctest",
+]
 
 [workspace.package]
 version = "0.1.0"
@@ -29,7 +36,15 @@ xetal-arith = { path = "../eval/crates/xetal-arith" }
 xetal-search = { path = "../search/crates/xetal-search" }
 xetal-radix = { path = "../radix/crates/xetal-radix" }
 xetal-doccom = { path = "crates/xetal-doccom" }
+xetal-docexpand = { path = "../docexpand/crates/xetal-docexpand" }
 xetal-doc = { path = "crates/xetal-doc" }
+xetal-doclink = { path = "crates/xetal-doclink" }
+xetal-dochtml = { path = "crates/xetal-dochtml" }
+xetal-docsite = { path = "crates/xetal-docsite" }
+xetal-view = { path = "../view/crates/xetal-view" }
+xetal-doctest = { path = "crates/xetal-doctest" }
+xetal-repl = { path = "../cli/crates/xetal-repl" }
+xetal-store = { path = "../base/crates/xetal-store" }
 xetal-program = { path = "../macro/crates/xetal-program" }
 xetal-sources = { path = "../macro/crates/xetal-sources" }
 xetal-names = { path = "../macro/crates/xetal-names" }

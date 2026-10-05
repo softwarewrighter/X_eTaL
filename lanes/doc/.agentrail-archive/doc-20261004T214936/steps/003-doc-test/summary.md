@@ -1,0 +1,1 @@
+xetal doc --test (S10, D74): each doc block one session, outputs compared, error codes matched, cargo-test style report; gate runs lib/; goldens. Pushed as pr/doc-test.

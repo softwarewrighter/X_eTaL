@@ -1,8 +1,0 @@
-number = 86
-slug = "macro-example"
-status = "pending"
-description = "Saga 19 (macros, docs/plan.md), step 6 of 9, moved right after Saga 25 by the..."
-role = "production"
-context_files = []
-created_at = "2026-10-02T19:20:43"
-commits = []

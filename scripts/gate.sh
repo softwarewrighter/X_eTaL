@@ -26,6 +26,12 @@ step "the live demo's engine builds for the browser (wasm32)"
 (cd components/web && cargo check -q --target wasm32-unknown-unknown)
 step "reg-rs goldens"
 scripts/reg.sh run
+# Every ## >> example in lib/ prints what its doc shows (S10).
+step "doc tests (xetal doc --test over lib/)"
+for f in lib/*.xtl lib/*.xtlm; do
+    report="$(target/debug/xetal doc --test "$f" 2>&1)" || { echo "$report"; exit 1; }
+done
+echo "doc tests: lib/ passes"
 step "every just recipe runs (scripts/just-smoke.sh)"
 smoke="$(scripts/just-smoke.sh 2>&1)" || { echo "$smoke"; exit 1; }
 echo "$smoke" | tail -1

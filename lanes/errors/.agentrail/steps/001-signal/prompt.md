@@ -1,0 +1,1 @@
+Errors lane (see lanes/errors/.agentrail/plan.md and docs/plan.md Saga 21), step signal. TDD; the gate before every commit; one PR pr/errors-signal from the latest origin/main.

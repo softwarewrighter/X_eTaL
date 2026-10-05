@@ -1,0 +1,19 @@
+# The clock (QD2, QD3, QD7; X_eTaL-extensions' ask E4): []TS is the
+# local time stamp, year month day hour minute second millisecond,
+# read each time it is used; []D_L s waits s seconds and gives the
+# seconds waited (a Float), at least s.
+== SOURCE
+s_hape []TS
+2026 <= 1 s_elect []TS
+([]D_L 0.01) >= 0.01
+([]D_L 0) >= 0
+== TYPE
+Int
+Bool
+Bool
+Bool
+== RESULT
+7
+1
+1
+1

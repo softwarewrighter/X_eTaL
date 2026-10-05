@@ -10,7 +10,7 @@ use xetal_doccom::{doc_above, file_doc, section_at};
 use xetal_program::{Loaded, located};
 use xetal_sources::Sources;
 
-use crate::model::{DocFile, Item, Use, kind_of};
+use crate::model::{DocFile, Item, Use, imports_of, kind_of};
 use crate::uses::used;
 
 /// A definition found in the Core program.
@@ -87,7 +87,10 @@ fn doc_file(s: &Sources, i: usize) -> DocFile {
         name: name.to_string(),
         kind,
         doc: file_doc(s.written_text(i)),
+        imports: imports_of(name, s.written_text(i)),
         items: Vec::new(),
+        expansions: Vec::new(),
+        text: s.written_text(i).to_string(),
     }
 }
 

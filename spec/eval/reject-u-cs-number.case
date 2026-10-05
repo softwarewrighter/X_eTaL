@@ -1,0 +1,5 @@
+# []U_CS takes characters (QD7); codes go back with []U_CHAR.
+== SOURCE
+[]U_CS 65
+== ERROR
+error[type-mismatch]: expected Char, found a number at 0..9

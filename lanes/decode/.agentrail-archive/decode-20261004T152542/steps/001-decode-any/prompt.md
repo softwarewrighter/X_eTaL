@@ -1,0 +1,1 @@
+Implement B18 test-first: d_ecode as Num a => a -> a -> a in the catalog and the radix kernel (Ints with overflow checked, Floats), spec cases (Float decode, polynomial evaluation, reject an Int variable with Float digits, e_ncode stays Int), the reference entry, D73, B18 implemented, asks X9 partly landed.

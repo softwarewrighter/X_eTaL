@@ -22,7 +22,8 @@ impl Lower {
             }
             ExprKind::Var(v) => {
                 let name = format!("{}{}", v.name, if v.mutable { "!" } else { "" });
-                match &v.ns {
+                match v.ns.as_deref() {
+                    Some(xetal_lex::SYSTEM) => Kind::Prim(format!("{}{name}", xetal_lex::SYSTEM)),
                     Some(ns) if xetal_lex::is_fresh(ns) => Kind::Var(format!("{ns}:{name}")),
                     Some(ns) => Kind::Global(format!("{ns}:{name}")),
                     None => Kind::Var(name),

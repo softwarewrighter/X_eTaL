@@ -255,11 +255,15 @@ digits per item.
 == d_ecode
 Decode: the number whose digits, in the radix on the left, are on the
 right (APL's decode), the inverse of `e_ncode`. One radix extends to
-every digit; a matrix gives one number per column.
+every digit; a matrix gives one number per column. It is Horner's rule
+on any numbers, radix and digits of one type, so on Floats `x d_ecode
+r_ev c` is the polynomial with coefficients c (lowest first) at x.
 > 2 d_ecode 1 0 1 1
 > 10 d_ecode 1 2 3
 > 24 60 60 d_ecode 1 2 5
 > 2 d_ecode 2 2 2 e_ncode 0 1 2 3
+> 2.0 d_ecode 3.0 -2.0 1.0
+> 0.5 d_ecode r_ev 1.0 -2.0 3.0
 !> 2 2 d_ecode 1 0 1
 
 == e_nclose
@@ -462,6 +466,54 @@ the axes in reverse is `o_\`.
 > 2 1 t_ranspose M
 > s_hape 3 1 2 t_ranspose 2 3 4 r_eshape 0
 !> 1 1 t_ranspose M
+
+== SECTION System values, character codes and the clock
+
+== []A
+The alphabet, the uppercase letters: a system value, written without
+an underline and read where it is used.
+> []A
+> 3 t_ake []A
+
+== []D
+The digits, as characters.
+> []D
+
+== []AV
+The atomic vector: every character, ASCII 0 to 127 (source is ASCII),
+so a character's code is its place in it, less one.
+> t_ally []AV
+> 66 s_elect []AV
+
+== []IO
+The index origin: always 1 (there is no setting).
+> []IO
+
+== []U_CS
+The code of each character, keeping the shape. Codes go back to
+characters with `[]U_CHAR`.
+> []U_CS "Hi"
+> ([]U_CS "a") - []U_CS "A"
+
+== []U_CHAR
+The character of each code, 0 to 127; another code is an error.
+> []U_CHAR 72 105
+> []U_CHAR 1 + []U_CS "HAL"
+!> []U_CHAR 200
+
+== []TS
+The local time stamp: year, month, day, hour, minute, second and
+millisecond, read each time it is used (a host without a clock reports
+`error[no-clock]`). Shown here by its shape, since it changes.
+> s_hape []TS
+> 2026 <= 1 s_elect []TS
+
+== []D_L
+Wait the given seconds (an Int or a Float); the result is the seconds
+actually waited, at least those asked for. A negative delay is an
+error.
+> ([]D_L 0.01) >= 0.01
+!> []D_L -1
 
 == SECTION Effects, identity, text and files
 

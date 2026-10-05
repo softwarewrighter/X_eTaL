@@ -1,0 +1,15 @@
+[package]
+name = "xetal-docsearch"
+description = "xetal doc's search: an index of every item and built-in, by name and by type (Hoogle-like), searched by plain JavaScript"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-catalog.workspace = true
+xetal-doc.workspace = true
+xetal-dochtml.workspace = true
+xetal-docsite.workspace = true

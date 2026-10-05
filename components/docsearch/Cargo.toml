@@ -1,0 +1,22 @@
+# X_eTaL component `docsearch`: one Cargo workspace (see docs/architecture.md).
+# `xetal doc`'s search: by name and by type, over the documented files
+# and the built-ins, in the browser with plain JavaScript.
+
+[workspace]
+resolver = "3"
+members = ["crates/xetal-docsearch"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+authors = ["Michael A Wright"]
+repository = "https://github.com/softwarewrighter/X_eTaL"
+
+[workspace.dependencies]
+xetal-base = { path = "../base/crates/xetal-base" }
+xetal-catalog = { path = "../base/crates/xetal-catalog" }
+xetal-doc = { path = "../doc/crates/xetal-doc" }
+xetal-dochtml = { path = "../doc/crates/xetal-dochtml" }
+xetal-docsite = { path = "../doc/crates/xetal-docsite" }
+xetal-docsearch = { path = "crates/xetal-docsearch" }

@@ -1,0 +1,1 @@
+Errors lane (see lanes/errors/.agentrail/plan.md and docs/plan.md Saga 21), step errors-retrofit. TDD; the gate before every commit; one PR pr/errors-errors-retrofit from the latest origin/main.

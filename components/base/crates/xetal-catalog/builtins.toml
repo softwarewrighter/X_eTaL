@@ -61,6 +61,19 @@ entries = [
 ]
 
 [[group]]
+rule = "QD2, QD3, QD7: system values, character codes and the clock"
+entries = [
+  ["[]A", 0, "Char"],
+  ["[]D", 0, "Char"],
+  ["[]AV", 0, "Char"],
+  ["[]IO", 0, "Int"],
+  ["[]TS", 0, "Int"],
+  ["[]D_L", 1, "Num a => a -> Float"],
+  ["[]U_CS", 1, "Char -> Int"],
+  ["[]U_CHAR", 1, "Int -> Char"],
+]
+
+[[group]]
 rule = "QD4: system functions (files, the keyboard) and numbers as text"
 entries = [
   ["[]N_PUT", 2, "Char -> Char -> Int"],
@@ -164,10 +177,10 @@ entries = [
 ]
 
 [[group]]
-rule = "B12: encode and decode (radix on the left)"
+rule = "B12, B18: encode and decode (radix on the left; decode on any numbers)"
 entries = [
   ["e_ncode", 2, "Int -> Int -> Int"],
-  ["d_ecode", 2, "Int -> Int -> Int"],
+  ["d_ecode", 2, "Num a => a -> a -> a"],
 ]
 
 [[group]]

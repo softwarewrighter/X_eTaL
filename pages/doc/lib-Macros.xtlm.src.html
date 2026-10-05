@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lib/Macros.xtlm - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#L16"><span class="c-macro">ᵐw̲hen&lt;</span></a></li>
+<li class="item"><a href="#L24"><span class="c-macro">ᵐd̲ef&lt;</span></a></li>
+<li class="item"><a href="#L34"><span class="c-macro">ᵐc̲heck&lt;</span></a></li>
+<li class="item"><a href="#L45"><span class="c-macro">ᵐt̲wice&lt;</span></a></li>
+<li class="item"><a href="#L54"><span class="c-macro">ᵐw̲ith&lt;</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">source</span><a href="lib-Macros.xtlm.html">lib/Macros.xtlm</a></h1>
+<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment"># A small macro library, an example of macros of your own (MC10). A</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># macro is an ordinary function of the source text written on each</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># side of its call; the text it gives replaces the call, then is read</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"># as code. Import it with an alias of your own, &quot;x:&quot; u_se&lt; &quot;Macros&quot;,</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"># and see what a program becomes with xetal expand FILE.</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment">## Statements and definitions</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"># Run the statements on the right when the condition on the left</span></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment"># holds; the value is @ either way (the other way round from the</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"># system macro u_nless&lt;).</span></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;1 &lt; 2&quot; x:w_hen&lt; &quot;p_rint! 7&quot;</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-comment">⍝</span><span class="c-comment"># 7</span></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-comment">⍝</span><span class="c-comment"># @</span></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-macro">ᵐw̲hen&lt;</span> ← { cond body → <span class="c-string">&quot;{ @ -&gt; (n_ot &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> cond <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) ? @; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> body <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;; @ } @&quot;</span> }</span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-comment">⍝</span><span class="c-comment"># Define the function named on the left (in u:) as the lambda body on</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-comment">⍝</span><span class="c-comment"># the right, its name written as text.</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;s_quare&quot; x:d_ef&lt; &quot;_r * _r&quot;</span></span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; u:s_quare 7</span></span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-comment">⍝</span><span class="c-comment"># 49</span></span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-macro">ᵐd̲ef&lt;</span> ← { name body → <span class="c-string">&quot;u:&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> name <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; := { &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> body <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; }&quot;</span> }</span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a></span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a><span class="c-comment">⍝</span><span class="c-comment">## Checks</span></span>
+<span class="line" id="L27"><a class="ln" href="#L27">27</a></span>
+<span class="line" id="L28"><a class="ln" href="#L28">28</a><span class="c-comment">⍝</span><span class="c-comment"># The line &quot;ok: label&quot; when the condition on the left holds, else</span></span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-comment">⍝</span><span class="c-comment"># &quot;FAIL: label (cond)&quot;, the condition shown as it was written, which a</span></span>
+<span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-comment">⍝</span><span class="c-comment"># function, given only the condition's value, cannot do.</span></span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span></span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;5 = 2 * 2&quot; x:c_heck&lt; &quot;doubling&quot;</span></span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-comment">⍝</span><span class="c-comment"># FAIL: doubling (5 = 2 * 2)</span></span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a><span class="c-macro">ᵐc̲heck&lt;</span> ← { cond label → <span class="c-string">&quot;{ @ -&gt; (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> cond <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) ? \&quot;ok: &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> label <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\&quot;; \&quot;FAIL: &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> label <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> cond <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;)\&quot; } @&quot;</span> }</span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-comment">⍝</span><span class="c-comment">## Names a macro binds</span></span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a></span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-comment">⍝</span><span class="c-comment"># Twice the expression on the right: the macro binds a local t (to 2)</span></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-comment">⍝</span><span class="c-comment"># around your expression, and hygiene renames it (to g1:t, say), so a</span></span>
+<span class="line" id="L40"><a class="ln" href="#L40">40</a><span class="c-comment">⍝</span><span class="c-comment"># t of your own is still yours.</span></span>
+<span class="line" id="L41"><a class="ln" href="#L41">41</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span></span>
+<span class="line" id="L42"><a class="ln" href="#L42">42</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; t := 5</span></span>
+<span class="line" id="L43"><a class="ln" href="#L43">43</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; @ x:t_wice&lt; &quot;t + 1&quot;</span></span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a><span class="c-comment">⍝</span><span class="c-comment"># 12</span></span>
+<span class="line" id="L45"><a class="ln" href="#L45">45</a><span class="c-macro">ᵐt̲wice&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; t := 2; t * (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) } @&quot;</span> }</span>
+<span class="line" id="L46"><a class="ln" href="#L46">46</a></span>
+<span class="line" id="L47"><a class="ln" href="#L47">47</a><span class="c-comment">⍝</span><span class="c-comment"># The text on the right with it bound to the value of the expression</span></span>
+<span class="line" id="L48"><a class="ln" href="#L48">48</a><span class="c-comment">⍝</span><span class="c-comment"># on the left (an anaphoric macro: it is meant for your text, so it is</span></span>
+<span class="line" id="L49"><a class="ln" href="#L49">49</a><span class="c-comment">⍝</span><span class="c-comment"># declared below and hygiene leaves it as written).</span></span>
+<span class="line" id="L50"><a class="ln" href="#L50">50</a><span class="c-comment">⍝</span><span class="c-comment"># binds: it</span></span>
+<span class="line" id="L51"><a class="ln" href="#L51">51</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span></span>
+<span class="line" id="L52"><a class="ln" href="#L52">52</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;3 + 4&quot; x:w_ith&lt; &quot;it * it&quot;</span></span>
+<span class="line" id="L53"><a class="ln" href="#L53">53</a><span class="c-comment">⍝</span><span class="c-comment"># 49</span></span>
+<span class="line" id="L54"><a class="ln" href="#L54">54</a><span class="c-macro">ᵐw̲ith&lt;</span> ← { e body → <span class="c-string">&quot;{ @ -&gt; it := (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;); &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> body <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; } @&quot;</span> }</span>
+</div>
+</main>
+</body>
+</html>

@@ -2123,6 +2123,8 @@ dependencies = [
  "xetal-core",
  "xetal-diagram",
  "xetal-doc",
+ "xetal-docsearch",
+ "xetal-doctest",
  "xetal-edit",
  "xetal-eval",
  "xetal-grid",
@@ -2140,6 +2142,13 @@ dependencies = [
  "xetal-tty",
  "xetal-types",
  "xetal-view",
+]
+
+[[package]]
+name = "xetal-clock"
+version = "0.1.0"
+dependencies = [
+ "chrono",
 ]
 
 [[package]]
@@ -2169,6 +2178,7 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-doccom",
+ "xetal-docexpand",
  "xetal-libs",
  "xetal-macro",
  "xetal-names",
@@ -2180,6 +2190,71 @@ dependencies = [
 [[package]]
 name = "xetal-doccom"
 version = "0.1.0"
+
+[[package]]
+name = "xetal-docexpand"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-expand",
+ "xetal-lex",
+ "xetal-macro",
+ "xetal-program",
+ "xetal-sources",
+]
+
+[[package]]
+name = "xetal-dochtml"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-doclink",
+ "xetal-view",
+]
+
+[[package]]
+name = "xetal-doclink"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-doc",
+ "xetal-lex",
+]
+
+[[package]]
+name = "xetal-docsearch"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-doc",
+ "xetal-dochtml",
+ "xetal-docsite",
+]
+
+[[package]]
+name = "xetal-docsite"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-doc",
+ "xetal-doccom",
+ "xetal-dochtml",
+ "xetal-doclink",
+]
+
+[[package]]
+name = "xetal-doctest"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-doc",
+ "xetal-doccom",
+ "xetal-repl",
+ "xetal-store",
+]
 
 [[package]]
 name = "xetal-draw"
@@ -2402,6 +2477,7 @@ dependencies = [
  "xetal-catalog",
  "xetal-hof",
  "xetal-kernel",
+ "xetal-quad",
  "xetal-radix",
  "xetal-rotate",
  "xetal-search",
@@ -2432,6 +2508,16 @@ dependencies = [
  "xetal-sources",
  "xetal-system",
  "xetal-types",
+]
+
+[[package]]
+name = "xetal-quad"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-clock",
+ "xetal-value",
 ]
 
 [[package]]

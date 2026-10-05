@@ -1,0 +1,1 @@
+just bench-check / bench-bless (D58): 13 benchmarks vs per-machine baseline, fails past 15% and 15 ms; new each/table lambda, matmul, transpose benches; release checklist; provisional baseline (machine busy); also just serve on port 8490

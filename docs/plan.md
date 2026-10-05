@@ -870,7 +870,7 @@ release.
 | 4 | ecosystem | The README's half-page ecosystem section: the value proposition (APL's whole-array model with Haskell's inferred types and composition and Rust's explicit, robust interfaces), Extensible in three layers ("libraries extend the vocabulary; macros extend the language; native extensions extend the machine"), why static typing makes that extensibility safe (library interfaces typed, macro expansions checked, native facades typed), and the repositories (X_eTaL, -demos, -ML, -games, -libraries, -extensions), each with one line and a link; one ecosystem diagram (an image, the README staying ASCII) and a "start here" page. |
 | 5 | asks-ledger | `docs/asks.md`: every ask the sibling repositories filed, with its state in this repository (landed with the commit, planned with the saga, declined with the reason), checked by running each repro against this build (a script here; the siblings update their own files). |
 | 6 | fresh-user | An automated walkthrough as a stranger would take it: a clean clone, build, `just tour`, a hello program, an array program, a library import, a `.xtlm` import, `xetal expand`, the live demo with an interactive program; in the gate or a `just` recipe. |
-| 7 | release-candidate | The walkthrough by hand, a release checklist (the four gates of research3: language, tooling, proof, presentation), CHANGES summarized, a version and a release tag, the pages published. |
+| 7 | release-candidate | The walkthrough by hand, a release checklist (the four gates of research3: language, tooling, proof, presentation; `just bench-check` within 15% of the baseline), CHANGES summarized, a version and a release tag, the pages published. |
 
 ## Saga 20 -- array kinds (empty arrays remember their kind)
 
@@ -908,23 +908,50 @@ values. The design is decided with the user first.
 | 6 | adt-retrofit | Programs that packed mixed state or chose by strings rewritten; goldens rebased on purpose. |
 | 7 | adt-release | README tour, reference, design register, CHANGES, pages. |
 
-## Saga 21 -- errors of one's own (assert, raise, catch)
+## Saga 21 -- errors of one's own (raise, catch, retry, continue)
 
 Asked for by X_eTaL-libraries (ask X3) and on the wish list (error
 handling, tests in XeTaL): a program cannot stop with an error it
 chooses, nor recover from one (a failing `[]N_GET`). Decided with the
-user to come after macros. The design is open and is made with the
-user first: the spelling (`a_ssert`, a raise built-in, a typed result
-or a handler-taking `t_ry`), error kinds and messages, the exit
-status, and how a caught error is typed.
+user (2026-10-04; lang-choices ER1-ER4): `[]S_IGNAL` raises an error
+of one's own; a typed built-in runs a protected body and, on an error,
+a handler whose outcome is recover (a value of the body's type), retry,
+halt or a typed continue (for errors raised resumably), with a cleanup
+that always runs; `t_ry<`, `c_atch<`, `f_inally<` and the handler's
+`r_ecover<`, `r_etry<`, `h_alt<`, `c_ontinue<` are System.xtlm macros
+over those built-ins. Run as lanes/errors (one PR per step).
 
 | Step | Slug | Content |
 | ---- | ---- | ------- |
-| 1 | errors-decisions | Decide the design with the user; record it in lang-choices and the design register. |
-| 2 | assert-and-raise | Stop with one's own message and a non-zero exit status (`k:a_ssert 5 = 6` style); spec cases and goldens. |
-| 3 | catch | Recover from an error, typed as decided; `[]N_GET` on a missing file as the first case. |
-| 4 | errors-retrofit | The Check library's text-report workaround and other workarounds rewritten; goldens rebased on purpose. |
-| 5 | errors-release | README tour, reference, CHANGES, pages, retrospective. |
+| 1 | signal | `[]S_IGNAL`: an error of one's own, reported as any error, a non-zero exit status uncaught; `[]P_ANIC` as a signal; spec cases and goldens. |
+| 2 | trap | The trap built-in: a protected body, codes to catch, a handler given an `Error` (code, message, place, read by quads) choosing recover, retry or halt, a cleanup always run; the step evaluator unwinds to it; `[]N_GET` of a missing file as the first case. Names settled with the user. |
+| 3 | continue | The typed continue (ER3): the resumable form of a signal, designed with the user, and resuming at the point of error. |
+| 4 | try-macros | System.xtlm: `t_ry<`, `c_atch<`, `f_inally<`, `r_ecover<`, `r_etry<`, `h_alt<`, `c_ontinue<`, with doc comments and examples (run by `xetal doc --test`). |
+| 5 | errors-retrofit | Check's text-report workaround and other workarounds rewritten; goldens rebased on purpose. |
+| 6 | errors-release | README tour, reference, literate section, CHANGES, pages. |
+
+## Saga 33 -- unit tests (`xetal test`, assertions, xetalunit)
+
+Asked for by the user (2026-10-04), after sw-MLPL's mlplunit: unit
+testing of X_eTaL programs and libraries in the manner of JUnit 4 and
+TestNG. Decided with the user: tests are definitions of `@` tagged
+`## @test` in a `tests/` directory (S11: `@expect error[code]`,
+`@skip`, `@tag name`; any other `@word` is an error); `xetal test`
+finds and runs them, each in its own session (the doc tests'
+machinery), reporting as `cargo test` does (and JUnit XML for CI),
+with a non-zero exit status on a failure; Check is split: its
+assertions become a standard library here (usable by X_eTaL's own
+tests and doc tests), and xetalunit, a separate library in
+X_eTaL-libraries, builds fixtures, parameterized cases and reports on
+them. After Saga 21, so `@expect` and xetalunit can use catching.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | test-tags | S11: `## @` tags in the doc model, unknown tags an error (`xetal doc` reports them too). |
+| 2 | xetal-test | `xetal test [FILE or DIR]`: `tests/` found, each test one session, `@expect` matched, report, JUnit XML, exit status; goldens; the gate runs this repository's tests. |
+| 3 | assertions | The assertion standard library (from Check's `i_s`, `n_ear`, ...), with doc examples; X_eTaL-libraries' Check rebased on it. |
+| 4 | xetalunit | In X_eTaL-libraries (that repository's PR): fixtures, parameterized cases and reports on the assertions and `xetal test`. |
+| 5 | tests-everywhere | `tests/` and `just test` in each sibling repository, through each one's own process. |
 
 ## Saga 13a -- retrofit (newer features in older programs)
 
@@ -975,6 +1002,25 @@ Doc comments (S9): `#` ignored, `##` documentation, `###` sections,
 6. doc-tests: `xetal doc --test` runs every `## >>` example in its
    file's context and compares what it prints; the gate runs it over
    lib/ and System.xtlm.
+7. doc-everywhere (the user, 2026-10-04): a cross-reference site for
+   every library, app and demo, here and in each sibling repository.
+   Each repository hosts its own, one per program or library, under a
+   repository index page; this repository's site adds an uber index
+   linking every repository's index, its own included. The siblings
+   run `xetal doc` from their vendored xetal; how they vendor it (today
+   X_eTaL's whole source tree, tracked, about 4 MB each, pinned to
+   different commits) is decided (the user, 2026-10-04,
+   docs/vendoring.md): each sibling tracks one line, the known-good
+   X_eTaL commit, clones this repository into a gitignored work
+   directory, checks that commit out, builds it, and symlinks to the
+   fresh binary; the tracked vendor/xetal copies go. (This replaces
+   the released-binary idea of the same day; agentrail step
+   release-binaries is closed as superseded when reached.)
+8. rustdoc (the user, 2026-10-04): the implementation's own
+   cross-reference, `cargo doc --document-private-items` over every
+   component into one site with one search index, published as
+   pages/rust/ by `just pages`; an ask to X_eTaL-extensions for the
+   same, linked to this site.
 
 ## Saga 28 -- learn X_eTaL (a self-paced course, REPL and browser)
 
@@ -1027,9 +1073,9 @@ xetal-names; libraries are `.xtl` only; aliases are lowercase letters
 ### Saga 19 retrospective (the macros lane)
 
 Worked as a parallel lane (`lanes/macros/.agentrail`, archived), one
-PR per step from #41 to #70, reordered twice by the user as it went:
+PR per step from #41 to #71, reordered twice by the user as it went:
 system macros first, then `.xtlm` libraries end to end, then the
-Rust-like system macros as a launch goal, then hygiene. 25 steps
+Rust-like system macros as a launch goal, then hygiene. 26 steps
 landed where 9 were planned.
 
 Delivered:
@@ -1074,29 +1120,45 @@ What to watch:
 - `c:Y_<` gave no speed over `c:Y_` (fib 25: 0.43 s against 0.39 s);
   its value is the plain named function it writes.
 
-## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
+## Saga 11 -- ports-first (the inventory; teaching moved to Saga 28)
 
 Asked for by the user after Saga 9, sooner rather than later: an
 inventory of sw-apl's library 1 and sw-apl-workspaces (every
 function mapped to a target file, marked "works now" or "needs
-feature X", docs/apl-ports.md), then LEARN, COURSE and PLOT ported as
-libraries with demos, goldens and literate documents, with the
-features they need added first (each decided with the user). Reading
+feature X", docs/apl-ports.md). Plotting is not ported here: the
+library lives in X_eTaL-libraries (`libs/Plot`), and this repository
+adds only the language features it asks for. LEARN, COURSE and DRILL are
+not ported to teach APL: the user's intent (2026-10-03, restated
+2026-10-04) is that they are translated to teach X_eTaL, in the
+classic workspaces' self-paced, interactive style, as courses in Saga
+28's lesson format (`xetal learn` and the browser REPL). The course
+engine and the core course live in this repository, so the gate
+checks every lesson against the language; the sibling repositories
+may later add topic courses as lesson files. Reading
 input and numbers as text exist already; PLOT's character plots may
 call for nested arrays (A7).
 
-## Saga 12 -- ports-now (the other libraries that work as the language is)
+## Saga 12 -- ports-now (closed: done here or in the sibling repositories)
 
-Phased at the user's request, to demo more libraries soon: the APL
-ports are split in two. This saga ports every workspace function that
-X_eTaL can already say cleanly; Saga 14 adds the features the rest
-need, then ports those. The inventory decides which is which.
+The user's APL workspaces have homes now (checked 2026-10-04): RACE in
+X_eTaL-games (horse-race); TTTML here (lib/TTTML.xtl, demos) and a
+tic-tac-toe in X_eTaL-games; LIFE here (demos, literate document) and
+in X_eTaL-demos (life-microscope); BIRDS here (lib/Combinators.xtl
+and .xtlm); PLOT, STATS, MATRIX, POLY, MATH and CALC in
+X_eTaL-libraries (Plot, Statistics, Matrix, Polynomials, Numbers and
+the rest). Nothing is ported again here; this repository adds the
+language features the siblings ask for (docs/asks.md). Left: COURSE,
+LEARN and DRILL, translated to teach X_eTaL (Saga 28). EDIT is not
+ported (the user, 2026-10-04): APL's del editor is not reimplemented;
+the split-screen editor already edits at the CLI (`xetal edit`, the
+TUI) and in the browser (the live demo, the same panes and preview),
+and any text editor works on `.xtl` files.
 
-| #  | Step slug       | Delivers                                                   |
-| -- | --------------- | ---------------------------------------------------------- |
-| 1  | review          | the Saga 11 inventory brought up to date |
-| 2+ | one per library | each group of "works now" functions as `lib/*.xtl` (for example MATH, POLY, Stats additions, LIFE, BIRDS into Combinators), with a `just show` notebook demo, goldens and a tour or literate link; steps added by the inventory |
-| n  | ports-now-release | README and tour links to the new libraries, retrospective |
+`lib/Stats.xtl` (the user, 2026-10-04) is this repository's demo
+library: a small subset of X_eTaL-libraries' Statistics, loaded only
+by an explicit import (`"s:" u_se< "Stats"`, never automatically, unlike
+System.xtlm), used by the tour, the literate documents and the doc
+tests. A program may use either library (seldom both).
 
 ## Saga 13 -- quads (system names), next after Saga 10
 
@@ -1124,37 +1186,13 @@ user at the step: what the text may see (the program's globals only,
 or locals too), effects, and the names. Compile-time code building is
 the macros' job (Saga 19); the course checks answers itself (Saga 28).
 
-## Saga 14 -- ports-later (dogfooding)
+## Saga 14 -- ports-later (closed, see Saga 12)
 
-After Sagas 11 and 12 have ported what works as the language is, port the
-rest of every workspace, function and demo of the user's APL projects
-into X_eTaL libraries (`lib/*.xtl`), demos (`demos/`) and literate
-documents (`docs/literate/`): sw-apl's library 1 (BIRDS in both
-modes, EDIT, LEARN, LIFE, RACE, TTTML; about 70 functions) and
-sw-apl-workspaces (CALC, COURSE, DRILL in both modes, MATH, MATRIX,
-PLOT, POLY, STATS; about 220 functions), with their sample transcripts
-as goldens. Decided with the user: the ports are forcing functions.
-They are written as X_eTaL should say them, not transliterated; a
-port that cannot be written cleanly names a missing feature, which is
-added first, test-first, with the user's decision recorded in
-lang-choices, rather than worked around. Features the inventory
-already points to: reading input (the course and drill quizzes),
-numbers as text (formatting for PLOT and the drills), matrix
-division (APL's domino, for MATRIX and STATS regression), and
-whatever nested arrays (A7) the character-plot and course material
-needs.
-
-| #  | Step slug       | Delivers                                                   |
-| -- | --------------- | ---------------------------------------------------------- |
-| 1  | review          | the Saga 11 inventory brought up to date: what is left and the features it needs |
-| 2  | features        | the missing features, one decision and step each, test-first |
-| 3  | math            | MATH, POLY, CALC, MATRIX as libraries; demos and goldens    |
-| 4  | stats           | STATS merged into lib/Stats.xtl (regression, tests, distributions) |
-| 5  | plots           | PLOT: character plots, graphs, scatter, bars               |
-| 6  | games           | LIFE, RACE, TTTML (tic-tac-toe learning), with BIRDS joining Combinators |
-| 7  | teaching        | COURSE, LEARN, DRILL translated to teach X_eTaL (not APL), as courses in Saga 28's lesson format, run by `xetal learn` and the browser REPL |
-| 8  | edit            | EDIT: port what fits (the del editor itself is the editor's job) |
-| 9  | ports-release   | literate documents for each library, tour links, retrospective |
+Everything Saga 14 planned to port has a home (Saga 12 lists where);
+the part left is the teaching workspaces, translated to teach X_eTaL
+in Saga 28 (`xetal learn` and the browser REPL); EDIT is not ported. The forcing-function rule still holds for
+the sibling repositories: a port that cannot be written cleanly names
+a missing feature, asked for here and added test-first.
 
 ## Saga 15 -- trains (M7)  [DONE, ARCHIVED]
 

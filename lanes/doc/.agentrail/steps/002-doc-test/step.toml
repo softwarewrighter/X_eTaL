@@ -1,8 +1,0 @@
-number = 2
-slug = "doc-test"
-status = "pending"
-description = "Doc lane (see lanes/doc/.agentrail/plan.md), step doc-test. TDD; the gate bef..."
-role = "production"
-context_files = []
-created_at = "2026-10-04T13:43:11"
-commits = []

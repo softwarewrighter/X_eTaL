@@ -16,6 +16,7 @@ mod hygiene;
 mod user;
 
 pub use binds::binds_of;
+pub use calls::{Call, calls};
 pub use expand::{DEPTH, expand, expand_with};
 pub use user::{MacroCall, Macros, NoMacros};
 pub use xetal_mapped::{Mapped, Piece};

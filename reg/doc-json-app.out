@@ -4,16 +4,19 @@
       "name": "components/doc/fixtures/app.xtl",
       "kind": "program",
       "doc": "A program that greets: the xetal doc tests' main file.",
+      "imports": [{"alias": "g", "spec": "Greet", "files": ["components/doc/fixtures/Greet.xtl", "components/doc/fixtures/Greet.xtlm"]}],
+      "expansions": [{"line": 13, "macro": "g:w_hen<", "call": "\"1 = 1\" g:w_hen< \"p_rint! g:count\"", "text": "{ @ -> (n_ot 1 = 1) ? @; p_rint! g:count; @ } @", "nested": []}],
       "items": [
         {
           "name": "u:g_reetAll",
           "kind": "function",
           "public": true,
           "type": "Char -> Char",
-          "line": 7,
+          "line": 9,
           "section": null,
           "doc": "Greet everyone in a list, shouting.",
-          "examples": [],
+          "examples": [{"code": "u:g_reetAll \"Cy\"", "output": "Hello, Cy!"}],
+          "binds": [],
           "source": "u:g_reetAll := { n -> g:s_hout n }",
           "uses": [{"written": "g:s_hout", "file": "components/doc/fixtures/Greet.xtl", "item": "l:s_hout"}]
         },
@@ -22,10 +25,11 @@
           "kind": "value",
           "public": true,
           "type": "Char",
-          "line": 9,
+          "line": 11,
           "section": null,
           "doc": null,
           "examples": [],
+          "binds": [],
           "source": "names := \"Ann\"",
           "uses": []
         }
@@ -35,16 +39,19 @@
       "name": "components/doc/fixtures/Greet.xtl",
       "kind": "library",
       "doc": "Greetings: a small library that the xetal doc tests document.",
+      "imports": [],
+      "expansions": [],
       "items": [
         {
           "name": "l:h_ello",
           "kind": "function",
           "public": true,
           "type": "Char -> Char",
-          "line": 8,
+          "line": 9,
           "section": "Saying hello",
           "doc": "The greeting for a name.",
-          "examples": [{"code": "l:h_ello \"Ann\"", "output": "Hello, Ann"}],
+          "examples": [{"code": "\"g:\" u_se< \"Greet\"", "output": ""}, {"code": "g:h_ello \"Ann\"", "output": "Hello, Ann"}],
+          "binds": [],
           "source": "l:h_ello := { n -> \"Hello, \" c_at n }",
           "uses": []
         },
@@ -53,10 +60,11 @@
           "kind": "function",
           "public": true,
           "type": "Char -> Char",
-          "line": 13,
+          "line": 19,
           "section": "Saying hello",
           "doc": "A greeting shouted.\n\nIt reuses the plain greeting.",
-          "examples": [],
+          "examples": [{"code": "\"g:\" u_se< \"Greet\"", "output": ""}, {"code": "g:s_hout \"Bo\"", "output": "Hello, Bo!"}, {"code": "g:count", "output": "2"}],
+          "binds": [],
           "source": "l:s_hout := { n -> (l:h_ello n) c_at mark }",
           "uses": [{"written": "l:h_ello", "file": "components/doc/fixtures/Greet.xtl", "item": "l:h_ello"}, {"written": "mark", "file": "components/doc/fixtures/Greet.xtl", "item": "mark"}]
         },
@@ -65,10 +73,11 @@
           "kind": "value",
           "public": false,
           "type": "Char",
-          "line": 18,
+          "line": 24,
           "section": "Values",
           "doc": null,
           "examples": [],
+          "binds": [],
           "source": "mark := \"!\"",
           "uses": []
         },
@@ -77,10 +86,11 @@
           "kind": "value",
           "public": true,
           "type": "Int",
-          "line": 21,
+          "line": 27,
           "section": "Values",
           "doc": "How many greetings there are.",
           "examples": [],
+          "binds": [],
           "source": "l:count := 2",
           "uses": []
         }
@@ -90,6 +100,8 @@
       "name": "components/doc/fixtures/Greet.xtlm",
       "kind": "macro library",
       "doc": "Greeting macros, beside Greet.xtl under the same alias.",
+      "imports": [],
+      "expansions": [],
       "items": [
         {
           "name": "m:w_hen<",
@@ -100,6 +112,7 @@
           "section": null,
           "doc": "\"c\" g:w_hen< \"b\": run b when c holds.",
           "examples": [],
+          "binds": [],
           "source": "m:w_hen< := { cond body -> \"{ @ -> (n_ot \" c_at cond c_at \") ? @; \" c_at body c_at \"; @ } @\" }",
           "uses": []
         }

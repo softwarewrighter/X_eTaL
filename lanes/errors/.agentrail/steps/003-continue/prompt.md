@@ -1,0 +1,1 @@
+Errors lane (see lanes/errors/.agentrail/plan.md and docs/plan.md Saga 21), step continue. TDD; the gate before every commit; one PR pr/errors-continue from the latest origin/main.

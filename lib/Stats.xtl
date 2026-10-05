@@ -1,12 +1,33 @@
-# Stats: a small statistics library (a standard library, built into
-# xetal). Import it with an alias of your choice: "s:" u_se< "Stats".
-# Names with l: are exported; the others are private to this file.
+## Stats: a small statistics library (a standard library, built into
+## xetal). Import it with an alias of your choice: "s:" u_se< "Stats".
+## It is a demo library, loaded only by that import: a small subset of
+## X_eTaL-libraries' Statistics, which has much more (a program may use
+## either).
+## Names with l: are exported; the others are private to this file.
 
-l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]  # Int or Float numbers
+## The arithmetic mean, of Int or Float numbers.
+## >> "s:" u_se< "Stats"
+## >> s:m_ean 2 4 4 4 5 5 7 9
+## 5.0
+l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]
 
 s_quare := { _r * _r }                  # private: not visible outside
 d_eviations := [f_loat - l:m_ean]
 
+## The variance: the mean squared deviation from the mean.
+## >> "s:" u_se< "Stats"
+## >> s:v_ariance 2 4 4 4 5 5 7 9
+## 4.0
 l:v_ariance := [l:m_ean [s_quare d_eviations]]
-l:s_d := { (l:v_ariance _r) ^ 0.5 }     # the standard deviation
+
+## The standard deviation: the square root of the variance.
+## >> "s:" u_se< "Stats"
+## >> s:s_d 2 4 4 4 5 5 7 9
+## 2.0
+l:s_d := { (l:v_ariance _r) ^ 0.5 }
+
+## The range: the largest minus the smallest.
+## >> "s:" u_se< "Stats"
+## >> s:r_ange 2 4 4 4 5 5 7 9
+## 7
 l:r_ange := ['m_ax r_/ - 'm_in r_/]

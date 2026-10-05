@@ -17,12 +17,34 @@ machine; the benchmarks are not part of the gate.
 | `bench/rotate.xtl` | three rotations of a 1000 by 1000 matrix |
 | `bench/table.xtl` | an outer product of 1000 by 1000, reduced |
 | `bench/life.xtl` | Conway's Life on a 200 by 200 torus, 20 generations |
+| `bench/each.xtl` | each with a lambda on 300K Ints |
+| `bench/table-lambda.xtl` | an outer product with a lambda, 600 by 600, reduced |
+| `bench/table-right.xtl` | spreading with `t_able` and `'r_ight`, 512 by 512, four times |
+| `bench/inner.xtl` | a matrix product with `i_nner`, 64 by 512 by 64, four times |
+| `bench/matmul.xtl` | a small matrix product, 16 by 16, 300 times through `p_ower` |
+| `bench/transpose.xtl` | five transposes of a 1500 by 1500 matrix |
 | `demos/classics/mandelbrot.xtl` | the Mandelbrot zoom (Float planes, many steps) |
 | `demos/classics/mastermind.xtl` | Mastermind's scoring against all 1296 codes |
 | `demos/tttml-train.xtl` | TTTML learning tic-tac-toe by playing itself |
 
 Each benchmark program prints one small value (a count, a sum, a
 shape), so printing does not count.
+
+## Regression check
+
+`just bench-check` times every program in `bench/` (the release
+build, best of 5) and compares it with this machine's baseline,
+`bench/baseline/HOST.tsv` (HOST is `hostname -s`). A program more than
+15% slower than its baseline, and slower by more than 15 ms, fails
+the check; it prints each program's baseline, time now and change.
+`just bench-bless` records the times now as the baseline: run it on a
+quiet machine (other builds running make the times swing by a third),
+and blessing a slowdown needs the user's approval, said in the commit
+message. `BENCH_LIMIT` and `BENCH_FLOOR` change the percentage and the
+floor. The check is part of the release checklist; the gate keeps the
+deterministic guard instead (`components/step/crates/xetal-step/tests/cost.rs`:
+transitions and allocations per operand call, which do not depend on
+the machine).
 
 ## Baseline
 

@@ -3,7 +3,7 @@
 
 use xetal_doccom::Doc;
 
-use crate::model::{DocFile, Item, Use};
+use crate::model::{DocFile, Item};
 
 /// The files as a JSON document.
 pub fn to_json(files: &[DocFile]) -> String {
@@ -13,17 +13,45 @@ pub fn to_json(files: &[DocFile]) -> String {
 
 fn file(f: &DocFile) -> String {
     let items: Vec<String> = f.items.iter().map(item).collect();
+    let imports: Vec<String> = f
+        .imports
+        .iter()
+        .map(|i| {
+            let files: Vec<String> = i.files.iter().map(|f| string(f)).collect();
+            let files = format!("[{}]", files.join(", "));
+            inline(&[
+                ("alias", string(&i.alias)),
+                ("spec", string(&i.spec)),
+                ("files", files),
+            ])
+        })
+        .collect();
+    let expansions: Vec<String> = f.expansions.iter().map(|e| e.to_json()).collect();
     let fields = [
         ("name", string(&f.name)),
         ("kind", string(f.kind)),
         ("doc", doc_text(&f.doc)),
+        ("imports", format!("[{}]", imports.join(", "))),
+        ("expansions", format!("[{}]", expansions.join(", "))),
         ("items", format!("[\n{}\n      ]", items.join(",\n"))),
     ];
     object(&fields, 4)
 }
 
 fn item(i: &Item) -> String {
-    let uses: Vec<String> = i.uses.iter().map(use_of).collect();
+    let binds: Vec<String> = i
+        .doc
+        .iter()
+        .flat_map(|d| d.binds.iter().map(|b| string(b)))
+        .collect();
+    let uses: Vec<String> = i
+        .uses
+        .iter()
+        .map(|u| {
+            let (w, f, it) = (string(&u.written), string(&u.file), string(&u.item));
+            inline(&[("written", w), ("file", f), ("item", it)])
+        })
+        .collect();
     let examples: Vec<String> = i
         .examples()
         .iter()
@@ -47,19 +75,20 @@ fn item(i: &Item) -> String {
         ),
         ("doc", doc_text(&i.doc)),
         ("examples", format!("[{}]", examples.join(", "))),
+        ("binds", format!("[{}]", binds.join(", "))),
         ("source", string(&i.source)),
         ("uses", format!("[{}]", uses.join(", "))),
     ];
     object(&fields, 8)
 }
 
-fn use_of(u: &Use) -> String {
-    format!(
-        "{{\"written\": {}, \"file\": {}, \"item\": {}}}",
-        string(&u.written),
-        string(&u.file),
-        string(&u.item)
-    )
+/// `{"key": value, ...}` on one line.
+fn inline(fields: &[(&str, String)]) -> String {
+    let shown: Vec<String> = fields
+        .iter()
+        .map(|(k, v)| format!("\"{k}\": {v}"))
+        .collect();
+    format!("{{{}}}", shown.join(", "))
 }
 
 fn doc_text(doc: &Option<Doc>) -> String {

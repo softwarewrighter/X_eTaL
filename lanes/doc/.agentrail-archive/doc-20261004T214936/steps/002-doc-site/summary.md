@@ -1,0 +1,1 @@
+xetal doc --out DIR: static site (index, built-ins, page and source page per file, every name linked, light and dark); model gains imports; D80; goldens doc-site-files, doc-site-links, doc-site-system; PR pr/doc-site

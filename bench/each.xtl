@@ -1,0 +1,2 @@
+# Each with a function of your own (a lambda) on 300K Ints.
+t_ally '{ _r * 2 } e_ach r_ange 300000

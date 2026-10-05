@@ -1,0 +1,8 @@
+number = 7
+slug = "doc-everywhere"
+status = "pending"
+description = "Doc lane step 7, asked for by the user (2026-10-04): a cross-reference site f..."
+role = "production"
+context_files = []
+created_at = "2026-10-04T20:35:36"
+commits = []

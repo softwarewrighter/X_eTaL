@@ -17,3 +17,4 @@ xetal-names.workspace = true
 xetal-libs.workspace = true
 xetal-macro.workspace = true
 xetal-doccom.workspace = true
+xetal-docexpand.workspace = true

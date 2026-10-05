@@ -13,7 +13,7 @@ use crate::load::located;
 use crate::sides::sides;
 
 /// `libs`, able to run macros.
-pub(crate) struct Running<'a>(pub(crate) &'a dyn Libraries);
+pub struct Running<'a>(pub &'a dyn Libraries);
 
 impl Libraries for Running<'_> {
     fn find(&self, spec: &str, from: &str) -> Option<Found> {

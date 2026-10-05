@@ -51,7 +51,9 @@ components/
                            LANG_NAME), xetal-catalog (the built-in
                            catalog, generated from builtins.toml),
                            xetal-store (where files live: the disk,
-                           memory, or a store the host installs)
+                           memory, or a store the host installs),
+                           xetal-clock (the clock []TS and []D_L read:
+                           the system's, or one the host installs)
   expand/                  xetal-mapped (a text with a map back to
                            where each byte was written), xetal-expand
                            (macro calls found and replaced by what
@@ -115,7 +117,10 @@ components/
                            paths; no knowledge of the language)
   system/                  xetal-system (files, the keyboard, numbers as
                            text: []N_PUT, []N_GET, []R_EAD, f_ormat,
-                           n_umbers; graphics: []G_RID, []S_HOW)
+                           n_umbers; graphics: []G_RID, []S_HOW),
+                           xetal-quad (system values, character codes
+                           and the clock: []A, []D, []AV, []IO,
+                           []U_CS, []U_CHAR, []TS, []D_L)
   axes/                    xetal-rotate (rotate and reverse along the
                            leading axis), xetal-axes (axis subscripts:
                            the move-to-front rule)
@@ -131,6 +136,9 @@ components/
                            rendered panes), xetal-term (terminal
                            guard), xetal-edit (`xetal edit`)
   line/                    xetal-line: the REPL's live line editor
+  docexpand/               xetal-docexpand (each macro call of a file
+                           with the text its macro gave, nested to
+                           their depth: what `xetal doc` shows in place)
   doc/                     `xetal doc` (Saga 32): xetal-doccom (doc
                            comments, S9: the `##` block above a
                            definition, the file's block, `###`
@@ -138,11 +146,29 @@ components/
                            model: every item of a program, of the
                            libraries and macro libraries it imports
                            and of System.xtlm when it calls one, with
-                           type, doc, source and resolved uses; JSON)
+                           type, doc, source and resolved uses; JSON),
+                           xetal-doclink (every name in a source linked
+                           to what it names: an item, an import's
+                           export, a system macro, a built-in; locals
+                           left alone; where each item is used),
+                           xetal-dochtml (source drawn decorated with
+                           links, numbered lines, doc prose, examples,
+                           anchors, the light and dark stylesheet),
+                           xetal-docsite (the static site: index, a
+                           page and a source page per file, built-ins),
+                           xetal-doctest (S10: each doc block's
+                           examples run as one session, compared
+                           with the output shown)
+  docsearch/               xetal-docsearch (`xetal doc --out`'s search:
+                           the index of every item and built-in, by
+                           name and by type, Hoogle-like, searched by a
+                           plain script)
   web/                     xetal-play: the live demo's engine
                            (decorate, check, run; libraries and files
                            from the installed store, then the standard
-                           libraries); builds for wasm32
+                           libraries); builds for wasm32;
+                           xetal-webclock (the browser's clock, which
+                           the worker installs)
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
                            harness), xetal-spec (case files),
                            xetal-repl (interactive session)
@@ -279,6 +305,12 @@ xetal doc --json <FILE|-e EXPR>
                                the cross-reference model as JSON: every
                                item of the file, its imports and the
                                system macros it calls
+xetal doc --out DIR FILE [MORE...]
+                               the same as a static site in DIR (several
+                               files make one site; `just doc`: pages/doc)
+xetal doc --test <FILE|-e EXPR>
+                               run the file's ## >> examples, each doc
+                               block one session (the gate runs lib/)
 ```
 
 Each command runs the earlier stages first, so an early error is
