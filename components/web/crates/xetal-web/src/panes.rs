@@ -89,6 +89,7 @@ pub(crate) fn output(
     let title = match (&o.run, o.running, o.cells.is_empty()) {
         (None, ..) => "Types".to_string(),
         (_, true, _) if o.waiting && o.wants_key => "Output (waiting for a key)".to_string(),
+        (_, true, _) if o.waiting && o.wants_event => "Output (running on events)".to_string(),
         (_, true, _) if o.waiting => "Output (waiting for a line: type it, Enter)".to_string(),
         (_, true, _) => "Output (running...)".to_string(),
         (_, false, true) => "Output".to_string(),

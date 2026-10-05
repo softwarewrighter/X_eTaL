@@ -582,6 +582,32 @@ Named key n (1 to 11: Up, Down, Left, Right, Enter, Escape, Backspace,
 Tab, Delete, Home, End), for the Terminal library, which names them.
 > []K_NAMED 1
 
+== []E_VENT
+The next event from the host, as an Event: a tick of the clock, a
+pointer down, move, up or click, a key, or `end` when there are no
+more. The command line reads them one per line from standard input or
+`--events FILE` (`tick 0.016`, `down 120 80`, `key Up`); in the live
+demo the page gives ticks on each frame and the keys pressed. A program
+that draws loops on them: `e := []E_VENT @`, update, `[]S_HOW`, again,
+until `[]E_KIND e` is `end`. Here the next event is `down 120 80`.
+> []E_VENT @
+
+== []E_KIND
+What kind an event is, as text: `tick`, `down`, `move`, `up`, `click`,
+`key` or `end`.
+> []E_KIND []E_VENT @
+
+== []E_AT
+An event's numbers: `x y` for a pointer, the seconds since the last
+tick for a tick, none for a key or the end.
+> []E_AT []E_VENT @
+
+== []E_KEY
+A key event's key (`[]K_CHAR` reads its character); an error for the
+other kinds. Here the events are `down 120 80` then `key a`.
+> e := []E_VENT @; []K_CHAR []E_KEY []E_VENT @
+!> []E_KEY []E_VENT @
+
 == []C_OLOR
 Color n (1 to 8: black, red, green, yellow, blue, magenta, cyan,
 white), for the Terminal library, which names them (`t:RED`).

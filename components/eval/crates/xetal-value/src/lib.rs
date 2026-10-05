@@ -13,5 +13,5 @@ pub use convert::{as_array, as_vector, major_cells, to_value};
 pub use display::{picture, printed};
 pub use grid::grid;
 pub use shown::{nested, shown};
-pub use tags::{COLORS, KEYS, key_named, name as tag_name};
+pub use tags::{COLORS, Event, KEYS, KINDS, key_named, name as tag_name};
 pub use value::{Closure, Env, Frame, Outcome, Prim, Slot, Value, extend, lookup};

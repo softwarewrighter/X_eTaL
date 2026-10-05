@@ -14,7 +14,7 @@ use xetal_value::{Prim, Slot, Value};
 
 use crate::machine::Machine;
 use xetal_frame::err;
-use xetal_frame::{Control, Kont};
+use xetal_frame::{Control, Kont, Wants};
 
 impl<'a> Machine<'a, '_> {
     /// A higher-order built-in's kernel goes on with the value of the
@@ -55,10 +55,10 @@ impl<'a> Machine<'a, '_> {
                 args,
             }))));
         }
-        if (p.name == "[]R_EAD" || p.name == "[]K_EY")
-            && let Some(control) = self.typed_line(p, &args, span)
+        if let Some(wants) = wanted(p.name)
+            && let Some(control) = self.typed_line(p, &args, span, wants)
         {
-            return Ok(control);
+            return control;
         }
         if let Some(control) = self.trapping(p.name, &args, span) {
             return control;
@@ -76,31 +76,22 @@ impl<'a> Machine<'a, '_> {
         }
     }
 
-    /// `[]R_EAD` (or `[]K_EY`) with an input queue: the next line typed
-    /// (or key, by name), or, when none is, the call left pending (its
-    /// argument handed back to it) and the run waiting. `None` without a
-    /// queue (standard input, the terminal).
+    /// `[]R_EAD`, `[]K_EY` or `[]E_VENT` with an input queue: the next
+    /// line as what it wants, or, when none is, the call left pending
+    /// (its argument handed back to it) and the run waiting. `None`
+    /// without a queue (standard input, the terminal).
     fn typed_line(
         &mut self,
         p: &Rc<Prim<'a>>,
         args: &[Value<'a>],
         span: Span,
-    ) -> Option<Control<'a>> {
-        let queue = self.input.as_mut()?;
-        let key = p.name == "[]K_EY";
-        match queue.pop_front() {
-            Some(name) if key => Some(Control::Return(Value::Tag(
-                "Key",
-                xetal_value::key_named(&name).unwrap_or(0),
-            ))),
-            Some(line) => Some(Control::Return(Value::Array(Rc::new(Array::vector(
-                line.chars().map(Value::Char).collect(),
-            ))))),
+        wants: Wants,
+    ) -> Option<Result<Control<'a>, Diagnostic>> {
+        match self.inbox.next(wants)? {
+            Some(value) => Some(value.map(Control::Return).map_err(|d| d.with_span(span))),
             None => {
-                self.waiting = true;
-                self.wants_key = key;
                 self.stack.push(Kont::PrimArg { p: p.clone(), span });
-                args.last().cloned().map(Control::Return)
+                args.last().cloned().map(Control::Return).map(Ok)
             }
         }
     }
@@ -108,16 +99,13 @@ impl<'a> Machine<'a, '_> {
     /// Read typed lines from a queue fed with [`Machine::feed`]: a run
     /// that needs a line before one is fed stops as Waiting.
     pub fn waiting_for_input(mut self) -> Self {
-        self.input = Some(std::collections::VecDeque::new());
+        self.inbox.open();
         self
     }
 
     /// A line typed (without its newline); a waiting run can go on.
     pub fn feed(&mut self, line: String) {
-        self.input
-            .get_or_insert_with(Default::default)
-            .push_back(line);
-        self.waiting = false;
+        self.inbox.feed(line);
     }
 
     /// `f_axes`: a built-in value `#axes` holding the axes and f, which
@@ -159,5 +147,15 @@ fn visible_arity(f: &Value<'_>) -> usize {
             n
         }
         _ => 0,
+    }
+}
+
+/// What a built-in reading from the inbox wants, if it is one.
+fn wanted(name: &str) -> Option<Wants> {
+    match name {
+        "[]R_EAD" => Some(Wants::Line),
+        "[]K_EY" => Some(Wants::Key),
+        "[]E_VENT" => Some(Wants::Event),
+        _ => None,
     }
 }

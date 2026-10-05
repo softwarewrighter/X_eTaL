@@ -1,0 +1,12 @@
+#!/usr/bin/env xetal
+# Echo each event the host gives ([]E_VENT, RS1) until the end of
+# input, then the count: the events golden, run with --events.
+u:k_ey := { e -> ([]E_KIND e) m_atch "key" ? " " c_at []K_CHAR []E_KEY e; "" }
+u:l_oop := { n ->
+  e := []E_VENT @
+  k := []E_KIND e
+  k m_atch "end" ? n
+  p_rint! k c_at " " c_at (f_ormat []E_AT e) c_at u:k_ey e
+  u:l_oop n + 1
+}
+u:l_oop 0

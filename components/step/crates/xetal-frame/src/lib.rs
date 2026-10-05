@@ -1,7 +1,12 @@
 //! The steppable evaluator's state as data (D50): what to do next
 //! ([`Control`]) and the stack of pending work, each frame waiting for
 //! the value of what runs above it ([`Kont`]). A crate of its own so
-//! `xetal-step` keeps to its modules; it holds no logic.
+//! `xetal-step` keeps to its modules; it holds no logic beyond the
+//! inbox of fed lines ([`Inbox`]).
+
+mod inbox;
+
+pub use inbox::{Inbox, Wants, value_of};
 
 use std::cell::RefCell;
 use std::rc::Rc;

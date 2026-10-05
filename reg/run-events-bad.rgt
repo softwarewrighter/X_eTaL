@@ -1,0 +1,3 @@
+command = "bash -c 'printf \"tick 1\\nbogus\\n\" | ./target/debug/xetal run reg/fixtures/events-echo.xtl'"
+exit_code = 1
+desc = "[]E_VENT reads standard input without --events; a line that is not an event is error[bad-event]"

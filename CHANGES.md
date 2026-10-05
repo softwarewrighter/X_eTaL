@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 12:30 `feat` Events from the host, RS1 (rosetta lane step 5): `[]E_VENT @ : Unit -> Event` with `[]E_KIND`, `[]E_AT`, `[]E_KEY`; one line per event through the queue `[]K_EY` uses; `xetal run --events FILE` (or standard input), `end` at the end of input; the live demo gives a tick per wait and `key NAME`; D93; goldens run-events, run-events-bad.
 - 11:36 `build` Merged PRs #81 (rosetta lane: lib/Svg.xtl) and #82 (rosetta lane: the turning cube, demos/rosetta/cube.xtl, the review point); the lane's own files taken as its newest; pages/ rebuilt.
 
 - 11:50 `feat` `demos/rosetta/cube.xtl` (rosetta lane step 4, the review point): a cube turning in space from Geometry3D and Svg, 12 wireframe then 12 shaded frames (faces far to near, Lambert shading from outward normals), shown with `[]S_HOW`; listed in the live demo; golden run-rosetta-cube (a frame as written); `v:r_gb` added to Svg; Geometry3D's viewer convention fixed (the viewer is up the z axis, so `o_rder` paints ascending z).

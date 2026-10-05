@@ -1,9 +1,14 @@
 //! The disk, with pictures: what the command line installs. Files and
 //! the keyboard behave as on the disk; each picture shown (`[]S_HOW`) is
 //! written to the next numbered file, `DIR/STEM-1.svg`, `DIR/STEM-2.svg`,
-//! ..., and reported by the host's callback.
+//! ..., and reported by the host's callback. With a script of lines
+//! (`--events FILE`), `[]R_EAD`, `[]K_EY` and `[]E_VENT` read those
+//! instead of standard input, and the end of the script is the end of
+//! input.
 
+use std::collections::VecDeque;
 use std::path::{Path, PathBuf};
+use std::sync::Mutex;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 use crate::{Disk, Store};
@@ -14,6 +19,7 @@ pub struct Drawing {
     stem: String,
     shown: AtomicUsize,
     notify: fn(&Path),
+    script: Option<Mutex<VecDeque<String>>>,
 }
 
 impl Drawing {
@@ -24,7 +30,22 @@ impl Drawing {
             stem: stem.into(),
             shown: AtomicUsize::new(0),
             notify,
+            script: None,
         }
+    }
+
+    /// Lines typed come from `lines` (a scripted queue of events, RS1)
+    /// instead of standard input; blank lines and `#` comments are
+    /// skipped, and after the last line input has ended.
+    pub fn scripted(mut self, lines: &str) -> Drawing {
+        let kept = lines
+            .lines()
+            .map(str::trim)
+            .filter(|l| !l.is_empty() && !l.starts_with('#'))
+            .map(String::from)
+            .collect();
+        self.script = Some(Mutex::new(kept));
+        self
     }
 }
 
@@ -35,6 +56,14 @@ impl Store for Drawing {
 
     fn put(&self, path: &str, text: &str) -> Result<(), String> {
         Disk.put(path, text)
+    }
+
+    fn line(&self) -> Result<String, String> {
+        let Some(script) = &self.script else {
+            return Disk.line();
+        };
+        let mut lines = script.lock().map_err(|e| e.to_string())?;
+        lines.pop_front().ok_or_else(|| "no more input".into())
     }
 
     fn show(&self, svg: &str) -> Result<(), String> {

@@ -1467,6 +1467,7 @@ dependencies = [
 name = "xetal-frame"
 version = "0.1.0"
 dependencies = [
+ "xetal-array",
  "xetal-base",
  "xetal-core",
  "xetal-kernel",
@@ -1661,6 +1662,7 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-clock",
+ "xetal-store",
  "xetal-value",
 ]
 
@@ -1836,6 +1838,7 @@ dependencies = [
 name = "xetal-typing"
 version = "0.1.0"
 dependencies = [
+ "wasm-bindgen",
  "web-sys",
  "xetal-lineedit",
  "xetal-runner",

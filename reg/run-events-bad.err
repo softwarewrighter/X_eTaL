@@ -1,0 +1,1 @@
+error[bad-event]: not an event: "bogus" (tick S, down X Y, move X Y, up X Y, click X Y, key NAME, end) at 254..264

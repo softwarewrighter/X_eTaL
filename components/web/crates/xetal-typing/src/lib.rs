@@ -4,6 +4,10 @@
 //! cursor and history; Enter gives the line to the program, Ctrl-C
 //! stops it. Meta and Alt stay with the browser.
 
+mod ticks;
+
+pub use ticks::use_ticks;
+
 use xetal_lineedit::{LineEditor, Outcome, key};
 use xetal_runner::Runs;
 use yew::prelude::*;
@@ -74,12 +78,17 @@ pub fn terminal_keys(
 ) -> Callback<KeyboardEvent> {
     let (terminal, press) = (typing.key.clone(), runs.press_key.clone());
     let (waiting, wants_key) = (runs.output.waiting, runs.output.wants_key);
+    let wants_event = runs.output.wants_event;
     Callback::from(move |e: KeyboardEvent| {
         let page_key = e.meta_key() || (e.ctrl_key() && e.key() == "Enter");
-        let named = (wants_key && !e.ctrl_key())
+        let named = ((wants_key || wants_event) && !e.ctrl_key())
             .then(|| xetal_lineedit::key_name(&e.key()))
             .flatten();
         match (waiting && !in_source && !page_key, named) {
+            (true, Some(name)) if wants_event => {
+                e.prevent_default();
+                press.emit(format!("key {name}"));
+            }
             (true, Some(name)) => {
                 e.prevent_default();
                 press.emit(name);
@@ -118,6 +127,7 @@ pub fn use_terminal(
     let (runs, in_source, to_output) = terminal;
     let typing = use_typing(runs.type_line.clone(), runs.stop.clone());
     use_waiting(runs.output.waiting, to_output, pane);
+    use_ticks(runs.output.wants_event, runs.press_key.clone());
     let keys = terminal_keys(&typing, page, runs, in_source);
     (typing, keys)
 }

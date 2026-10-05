@@ -618,6 +618,7 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-clock",
+ "xetal-store",
  "xetal-value",
 ]
 

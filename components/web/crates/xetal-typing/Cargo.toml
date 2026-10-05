@@ -10,6 +10,7 @@ repository.workspace = true
 [dependencies]
 yew.workspace = true
 web-sys.workspace = true
+wasm-bindgen.workspace = true
 xetal-lineedit.workspace = true
 xetal-screen.workspace = true
 xetal-runner.workspace = true

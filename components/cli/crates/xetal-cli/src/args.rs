@@ -46,6 +46,12 @@ pub(crate) struct Cli {
     /// NAME-2.svg, ... (default: XETAL_DRAW, else the current directory).
     #[arg(long, global = true, value_name = "DIR")]
     pub(crate) draw: Option<String>,
+    /// Read the events a program waits for ([]E_VENT, and lines for
+    /// []R_EAD and []K_EY) from this file instead of standard input, one
+    /// per line (`tick 0.016`, `down 120 80`, `key Up`; blank lines and
+    /// # comments skipped); the end of the file is the end of input.
+    #[arg(long, global = true, value_name = "FILE")]
+    pub(crate) events: Option<String>,
     /// Draw nested arrays in plain ASCII (. ' - | > v e) instead of box
     /// characters, as APL2's DISPLAY did on plain terminals.
     #[arg(long, global = true)]

@@ -34,6 +34,8 @@ pub enum Event {
     Waiting,
     /// The program waits at `[]K_EY` for one key.
     WaitingKey,
+    /// The program waits at `[]E_VENT` for an event's line (RS1).
+    WaitingEvent,
 }
 
 /// Fields as `LEN:TEXT`, one after another (LEN in bytes), so any text
@@ -106,6 +108,7 @@ impl Event {
             Event::Source(t) => frame(&["s", t]),
             Event::Waiting => frame(&["a"]),
             Event::WaitingKey => frame(&["k"]),
+            Event::WaitingEvent => frame(&["v"]),
         }
     }
 
@@ -120,6 +123,7 @@ impl Event {
             ["s", t] => Some(Event::Source(t.to_string())),
             ["a"] => Some(Event::Waiting),
             ["k"] => Some(Event::WaitingKey),
+            ["v"] => Some(Event::WaitingEvent),
             _ => None,
         }
     }

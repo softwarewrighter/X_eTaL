@@ -23,7 +23,7 @@ impl<'a> Direct<'a> for Now<'_> {
     fn takes(&self, f: &Value<'a>, n: usize) -> bool {
         matches!(f, Value::Prim(p) if p.args.len() + n == p.arity
             && !xetal_hof::higher(p.name)
-            && !matches!(p.name, "[]R_EAD" | "[]K_EY"))
+            && !matches!(p.name, "[]R_EAD" | "[]K_EY" | "[]E_VENT"))
     }
 
     fn call(&mut self, f: &Value<'a>, args: &[Value<'a>]) -> Result<Value<'a>, Diagnostic> {

@@ -52,8 +52,9 @@ def sections():
 def run(code, must_fail):
     source = "\n".join(PRELUDE + [code])
     env = dict(os.environ, XETAL_DRAW="work/draw")  # pictures never land in the repo
+    typed = "down 120 80\nkey a\n" if "[]E_VENT" in code else "a typed line\n"  # what []R_EAD and []E_VENT read
     p = subprocess.run([str(XETAL), "eval", "--ascii", "--seed", "1", "-e", source], cwd=ROOT,
-                       input="a typed line\n", capture_output=True, text=True, env=env)
+                       input=typed, capture_output=True, text=True, env=env)
     if must_fail != (p.returncode != 0):
         sys.exit(f"reference: {code!r} {'should fail' if must_fail else 'failed'}: {p.stderr.strip()}")
     if must_fail:
