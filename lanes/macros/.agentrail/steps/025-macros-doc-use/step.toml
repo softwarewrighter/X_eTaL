@@ -1,0 +1,8 @@
+number = 25
+slug = "macros-doc-use"
+status = "pending"
+description = "xetal doc shows u_se<: add the built-in macro item from xetal_macro::system_s..."
+role = "production"
+context_files = []
+created_at = "2026-10-04T22:07:49"
+commits = []
