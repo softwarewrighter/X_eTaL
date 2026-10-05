@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type lib/Svg.xtl"
+exit_code = 0
+desc = "the Svg library: each export with its inferred type"

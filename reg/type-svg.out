@@ -1,0 +1,17 @@
+l:a_ttr : Char -> Char -> Char
+l:e_scape : Char -> Char
+l:f_ill : Char -> Char
+l:s_troke : Char -> a -> Char
+l:p_olygon : Char -> a -> Char
+l:p_olyline : Char -> a -> Char
+l:a_t : a -> Char
+l:t_ext : Char -> Char -> Char
+l:g_roup : Char -> Char -> Char
+l:t_ranslate : a -> Char
+l:r_otate : a -> Char
+l:s_cale : a -> Char
+l:c_lip : Char -> a -> Char
+l:c_lipped : Char -> Char -> Char
+l:g_radient : Char -> Box Char -> Char
+l:p_icture : a -> Char -> Char
+l:p_ictureWith : a -> Box Char -> Char
