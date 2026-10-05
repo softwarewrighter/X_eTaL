@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 16:30 `feat` Attract mode (rosetta lane step 10): the nested traversal (the bottom ring every dwell of 3 s; the top ring with it after a sweep; the drum after the top sweeps: the tumble), paused by any touch for 8 s, the pace as data in Comparison.xtl; D98; 36 transition claims; golden run-rosetta-attract.
+
 - 15:50 `feat` The pointer (rosetta lane step 9): drags in Comparison.xtl as state transitions (a sideways drag turns the half under it, an up-or-down drag rolls the drum, the axis decided by the first real move and paused; release snaps to the nearest face, a flick carries one further; a press without movement is a click that pauses or resumes the half); D97; 26 transition claims; golden run-rosetta-drag.
 
 - 15:10 `feat` The axes (rosetta lane step 8): `demos/rosetta/Comparison.xtl`, the stone's state machine (steps are the truth, angles ease on ticks; step, choose the short way, pause; the rings never coincide; `u_pdate` over events), `rosetta.xtl` as the event loop with keys, the Stone drawing quarter turns so the rings always stand at the front; D96; goldens run-rosetta-transitions (thirteen claims), run-rosetta-keys; rosetta-check runs the libraries' doc examples.

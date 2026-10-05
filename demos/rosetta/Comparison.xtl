@@ -8,26 +8,46 @@
 ## and whether it plays on its own. The fourth row is the pointer: the
 ## axis being dragged (0 none, 0.5 pressed and not yet moved, else the
 ## axis), where it last was (x, y), how far it has moved in all, and the
-## last turn it gave in degrees (for a flick). Nothing is ever inferred
-## from an angle except what to draw. Every function gives a new state;
-## none has an effect. Events (RS1) come in as []E_VENT gives them;
-## cm:u_pdate takes one.
+## last turn it gave in degrees (for a flick). The fifth row is the
+## attract mode's clock: seconds since the last interaction, seconds
+## since its last step, and its two counters (how far the bottom ring
+## is through its sweep, how far the top ring is through its). Nothing
+## is ever inferred from an angle except what to draw. Every function
+## gives a new state; none has an effect. Events (RS1) come in as
+## []E_VENT gives them; cm:u_pdate takes one.
+
+## The attract mode's pace, in seconds: how long a comparison holds
+## still before the next (long enough to read), and how long after an
+## interaction the stone waits before moving on its own again. The
+## traversal is the nested loop `for idiom, for top, for bottom`: the
+## bottom ring steps at each dwell; when it has swept every other
+## language the top ring steps too, in the same instant, and when the
+## top has swept, the drum rolls too: three turns at once, the tumble.
+l:dwell := 3.0
+l:idleBefore := 8.0
 
 ## The state for i idioms and l languages, `i cm:s_tart l`: nothing
-## turned, all playing, no pointer.
+## turned, all playing, no pointer, the attract mode ready (idle long
+## enough already).
 ## >> "cm:" u_se< "Comparison"
 ## >> 31 cm:s_tart 7
 ## 31.0 0.0 0.0 1.0 0.0
 ##  7.0 0.0 0.0 1.0 0.0
 ##  7.0 0.0 0.0 1.0 0.0
 ##  0.0 0.0 0.0 0.0 0.0
-l:s_tart := { i l -> 4 5 r_eshape (f_loat i) c_at 0.0 0.0 1.0 0.0 c_at (f_loat l) c_at 0.0 0.0 1.0 0.0 c_at (f_loat l) c_at 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 }
+##  8.0 0.0 0.0 0.0 0.0
+l:s_tart := { i l -> 5 5 r_eshape (f_loat i) c_at 0.0 0.0 1.0 0.0 c_at (f_loat l) c_at 0.0 0.0 1.0 0.0 c_at (f_loat l) c_at 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 c_at l:idleBefore c_at 0.0 0.0 0.0 0.0 }
 
 ## The rows and columns, by name.
 l:IDIOM := 1.0
 l:TOP := 2.0
 l:BOTTOM := 3.0
 l:POINTER := 4.0
+l:ATTRACT := 5.0
+l:IDLE := 1.0
+l:SINCE := 2.0
+l:BOTTOMS := 3.0
+l:TOPS := 4.0
 l:COUNT := 1.0
 l:STEPS := 2.0
 l:ANGLE := 3.0
@@ -53,8 +73,8 @@ l:p_ut := { rcv state ->
   mask := f_loat (rows = 1 s_elect rcv) * cols = 2 s_elect rcv
   (state * 1.0 - mask) + mask * 3 s_elect rcv
 }
-rows := 4 5 r_eshape 5 r_eplicate 1.0 2.0 3.0 4.0
-cols := 4 5 r_eshape 1.0 2.0 3.0 4.0 5.0
+rows := 5 5 r_eshape 5 r_eplicate 1.0 2.0 3.0 4.0 5.0
+cols := 5 5 r_eshape 1.0 2.0 3.0 4.0 5.0
 
 ## An item of an axis of n, wrapped around: item k of n for any integer k.
 l:w_rap := { n k -> 1 + (k - 1) m_od n }
@@ -128,10 +148,57 @@ l:e_ase := { adt state ->
 ##  7.0 0.0   0.0 1.0 0.0
 ##  7.0 0.0   0.0 1.0 0.0
 ##  0.0 0.0   0.0 0.0 0.0
+##  8.0 0.0   0.0 0.0 0.0
 l:s_ettle := { state -> (l:BOTTOM c_at 9.0) l:e_ase (l:TOP c_at 9.0) l:e_ase (l:IDIOM c_at 9.0) l:e_ase state }
 
-## Every axis eased over dt seconds (a tick).
-l:t_ick := { dt state -> (l:BOTTOM c_at dt) l:e_ase (l:TOP c_at dt) l:e_ase (l:IDIOM c_at dt) l:e_ase state }
+## Every axis eased over dt seconds (a tick), and the attract mode's
+## clock advanced: when the stone has been left alone long enough and
+## the last comparison has held still for a dwell, the attract mode
+## steps (cm:a_ttract).
+## >> "cm:" u_se< "Comparison"
+## >> cm:BOTTOM cm:c_urrent 3.0 cm:t_ick 31 cm:s_tart 7
+## 2
+## >> cm:BOTTOM cm:c_urrent 2.9 cm:t_ick 31 cm:s_tart 7
+## 1
+l:t_ick := { dt state ->
+  eased := (l:BOTTOM c_at dt) l:e_ase (l:TOP c_at dt) l:e_ase (l:IDIOM c_at dt) l:e_ase state
+  idle := dt + (l:ATTRACT c_at l:IDLE) l:a_t state
+  since := dt + (l:ATTRACT c_at l:SINCE) l:a_t state
+  timed := (l:ATTRACT c_at l:SINCE c_at since) l:p_ut (l:ATTRACT c_at l:IDLE c_at idle) l:p_ut eased
+  (idle < l:idleBefore) | since < l:dwell ? timed
+  l:a_ttract (l:ATTRACT c_at l:SINCE c_at 0.0) l:p_ut timed
+}
+
+## One step of the attract mode: the bottom ring steps (if it plays);
+## when it has swept every other language (its count reaches one less
+## than the languages), the top ring steps too and the bottom's count
+## starts over; when the top has swept, the drum rolls too. A paused
+## axis is counted but not turned, so the sweeps keep their rhythm.
+## >> "cm:" u_se< "Comparison"
+## >> s := 31 cm:s_tart 7
+## >> (cm:TOP cm:c_urrent cm:a_ttract^5 s) c_at cm:TOP cm:c_urrent cm:a_ttract^6 s
+## 1 2
+## >> cm:IDIOM cm:c_urrent cm:a_ttract^36 s
+## 2
+l:a_ttract := { state ->
+  n := (f_loor 0.5 + (l:TOP c_at l:COUNT) l:a_t state) - 1
+  bottoms := 1.0 + (l:ATTRACT c_at l:BOTTOMS) l:a_t state
+  tops := (l:ATTRACT c_at l:TOPS) l:a_t state
+  moved := l:BOTTOM l:p_lay state
+  bottoms < f_loat n ? (l:ATTRACT c_at l:BOTTOMS c_at bottoms) l:p_ut moved
+  swept := l:TOP l:p_lay (l:ATTRACT c_at l:BOTTOMS c_at 0.0) l:p_ut moved
+  (1.0 + tops) < f_loat n ? (l:ATTRACT c_at l:TOPS c_at 1.0 + tops) l:p_ut swept
+  l:IDIOM l:p_lay (l:ATTRACT c_at l:TOPS c_at 0.0) l:p_ut swept
+}
+
+## An axis stepped forward if it plays, else left as it is.
+l:p_lay := { axis state -> "1.0 = (axis c_at l:PLAYING) l:a_t state" i_f< "(axis c_at 1.0) l:s_tep state; state" }
+
+## The stone touched: the attract mode waits again from now.
+l:t_ouched := { state -> (l:ATTRACT c_at l:SINCE c_at 0.0) l:p_ut (l:ATTRACT c_at l:IDLE c_at 0.0) l:p_ut state }
+
+## Every axis playing again (a start chosen with cm:c_hoose is paused).
+l:r_esume := { state -> (l:BOTTOM c_at l:PLAYING c_at 1.0) l:p_ut (l:TOP c_at l:PLAYING c_at 1.0) l:p_ut (l:IDIOM c_at l:PLAYING c_at 1.0) l:p_ut state }
 
 ## An axis paused or resumed.
 l:t_oggle := { axis state -> (axis c_at l:PLAYING c_at 1.0 - (axis c_at l:PLAYING) l:a_t state) l:p_ut state }
@@ -144,11 +211,12 @@ l:t_oggle := { axis state -> (axis c_at l:PLAYING c_at 1.0 - (axis c_at l:PLAYIN
 l:u_pdate := { state e ->
   kind := []E_KIND e
   kind m_atch "tick" ? (f_irst []E_AT e) l:t_ick state
-  kind m_atch "key" ? ([]E_KEY e) l:k_ey state
-  kind m_atch "down" ? ([]E_AT e) l:d_own state
-  kind m_atch "move" ? ([]E_AT e) l:m_ove state
-  kind m_atch "up" ? ([]E_AT e) l:u_p state
-  kind m_atch "click" ? ([]E_AT e) l:c_lick state
+  touched := l:t_ouched state
+  kind m_atch "key" ? ([]E_KEY e) l:k_ey touched
+  kind m_atch "down" ? ([]E_AT e) l:d_own touched
+  kind m_atch "move" ? ([]E_AT e) l:m_ove touched
+  kind m_atch "up" ? ([]E_AT e) l:u_p touched
+  kind m_atch "click" ? ([]E_AT e) l:c_lick touched
   state
 }
 
@@ -165,9 +233,11 @@ l:d_own := { xy state -> (l:POINTER c_at l:LAST c_at 0.0) l:p_ut (l:POINTER c_at
 
 ## The pointer moved to a point: nothing unless it is pressed; the
 ## first move of more than a few pixels decides which axis it drags (a
-## sideways move the half it is over, an up or down move the drum) and
-## pauses it; then each move turns that axis by its distance, a drag
-## right or down turning toward the previous item. `xy cm:m_ove state`.
+## sideways move the half it is over, an up or down move the drum);
+## then each move turns that axis by its distance, a drag right or down
+## turning toward the previous item. A drag does not pause the axis for
+## good: the stone waits cm:idleBefore seconds after any touch before
+## moving on its own again. `xy cm:m_ove state`.
 ## >> "cm:" u_se< "Comparison"
 ## >> (cm:TOP c_at cm:ANGLE) cm:a_t 142.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
 ## -18.0
@@ -185,7 +255,7 @@ l:m_ove := { xy state ->
   along := "axis = l:IDIOM" i_f< "dy; dx"
   turn := n_eg along * l:perPixel
   angle := turn + (axis c_at l:ANGLE) l:a_t placed
-  (l:POINTER c_at l:LAST c_at turn) l:p_ut (l:POINTER c_at l:DRAGGING c_at axis) l:p_ut (axis c_at l:PLAYING c_at 0.0) l:p_ut (axis c_at l:ANGLE c_at angle) l:p_ut placed
+  (l:POINTER c_at l:LAST c_at turn) l:p_ut (l:POINTER c_at l:DRAGGING c_at axis) l:p_ut (axis c_at l:ANGLE c_at angle) l:p_ut placed
 }
 
 ## The pointer released: a drag settles on the nearest item, one

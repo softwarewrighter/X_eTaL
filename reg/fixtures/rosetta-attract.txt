@@ -1,0 +1,52 @@
+# The stone left alone: ticks only. Half-second ticks for 24 seconds,
+# with a frame each; the bottom ring steps every three seconds (the
+# idle wait is already over at the start), and after six steps the
+# top ring turns with it: the tumble.
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
+tick 0.5
