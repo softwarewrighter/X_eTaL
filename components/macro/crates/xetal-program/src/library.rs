@@ -16,7 +16,13 @@ pub fn is_library(text: &str) -> bool {
         return false;
     }
     let is_l = |ns: &Option<String>| ns.as_deref() == Some("l");
-    lex(text).is_ok_and(|tokens| {
+    // Signature lines (`s:u_se< :: ...`, System.xtlm) do not lex; they
+    // are not what makes a file a library either way.
+    let code: String = text
+        .split_inclusive('\n')
+        .map(|l| if l.contains("::") { "\n" } else { l })
+        .collect();
+    lex(&code).is_ok_and(|tokens| {
         tokens.iter().enumerate().any(|(i, t)| match &t.kind {
             TokenKind::Func(f) if f.is_macro() && matches!(f.ns.as_deref(), Some("m" | "s")) => {
                 matches!(tokens.get(i + 1).map(|t| &t.kind), Some(TokenKind::Assign))

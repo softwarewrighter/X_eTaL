@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-lookup"]
+members = ["crates/xetal-lookup", "crates/xetal-sigs"]
 
 [workspace.package]
 version = "0.1.0"
@@ -17,3 +17,6 @@ xetal-store = { path = "../base/crates/xetal-store" }
 xetal-sources = { path = "../macro/crates/xetal-sources" }
 xetal-libs = { path = "../macro/crates/xetal-libs" }
 xetal-lookup = { path = "crates/xetal-lookup" }
+xetal-sigs = { path = "crates/xetal-sigs" }
+xetal-ty = { path = "../types/crates/xetal-ty" }
+xetal-prim-types = { path = "../types/crates/xetal-prim-types" }

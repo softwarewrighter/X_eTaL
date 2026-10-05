@@ -16,3 +16,4 @@ pub use macros::MacroLib;
 pub use report::MacroError;
 pub use start::{expand, expand_library, expansion};
 pub use xetal_lookup::{Found, FsLibraries, Libraries, MacroRun, Pair, StoreLibraries};
+pub use xetal_sigs::{Signature, system_signatures};

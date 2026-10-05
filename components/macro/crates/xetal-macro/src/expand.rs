@@ -40,7 +40,31 @@ pub(crate) struct Loader<'l> {
 }
 
 impl Loader<'_> {
+    /// Load `file`; in the system macro library, signature lines (MC21)
+    /// are read and blanked first.
     pub(crate) fn load(&mut self, file: &Found, main: bool) -> Result<(), Box<MacroError>> {
+        if letter(file) != "s" {
+            return self.load_text(file, main);
+        }
+        let read = xetal_sigs::signatures(&file.text).map_err(|diagnostic| {
+            Box::new(MacroError {
+                diagnostic,
+                file: file.name.clone(),
+                text: file.text.clone(),
+                main,
+            })
+        })?;
+        let text = read.0;
+        self.load_text(
+            &Found {
+                text,
+                ..file.clone()
+            },
+            main,
+        )
+    }
+
+    fn load_text(&mut self, file: &Found, main: bool) -> Result<(), Box<MacroError>> {
         let error = |diagnostic: Diagnostic| {
             Box::new(MacroError {
                 diagnostic,

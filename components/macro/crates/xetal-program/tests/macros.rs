@@ -138,3 +138,11 @@ fn a_macro_says_which_sides_it_takes() {
     let err = load(&main, &src("\"a\" y:r_eject< \"b\"")).unwrap_err();
     assert_eq!((err.code.as_str(), err.message.as_str()), ("oops", "no"));
 }
+
+#[test]
+fn a_signature_line_is_refused_outside_system_xtlm() {
+    let err = load("main.xtl", "u:f_ :: Int -> Int\n").unwrap_err();
+    assert_eq!(err.code, "unexpected-char");
+    let err = load_library("M.xtlm", "m:f_< :: Char -> Char -> Char\n").unwrap_err();
+    assert_eq!(err.code, "unexpected-char");
+}

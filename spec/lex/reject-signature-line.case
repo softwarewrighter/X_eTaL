@@ -1,0 +1,7 @@
+# `::` is reserved for signature lines (T4); only System.xtlm uses one
+# today, to declare the built-in u_se< (MC21). In a program it is
+# refused.
+== SOURCE
+u:f_ :: Int -> Int
+== ERROR
+error[unexpected-char]: unexpected character at 5..6
