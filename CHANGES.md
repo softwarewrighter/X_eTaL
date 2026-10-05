@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 10:40 `feat` `lib/Geometry3D.xtl` (rosetta lane step 2): points as a 3-row matrix, `r_otX`/`r_otY`/`r_otZ` rotation matrices, `t_urn` (one inner product), `p_roject` (perspective to the 2 rows `[]P_ATH` draws), `f_ar` and `o_rder` (faces far to near for painting), `c_ube`, `c_ubeFaces`, `f_ace`, `s_olid`; 22 doc examples run by the gate; spec integration/geometry3d; golden type-geometry3d; README lists it.
+
 - 10:10 `design` The Rosetta stone's host boundary decided with the user (lang-choices 9c, RS1-RS4; D92): `[]E_VENT` as a typed Event through the line queue (`xetal run --events FILE`), `[]L_IST` and `[]T_ABLE` for strings-only TOML tables with the axes named in the call, the data file's schema, the first data; `demos/rosetta/data.toml` begun.
 
 - 08:30 `plan` The Rosetta stone (the user, docs/research5.txt): docs/rosetta.md, the design of the idioms-compared demo as an impossible rotating stone written in X_eTaL (Rust the shell; one data.toml as aligned arrays; the CLI writes the same frames); Sagas 34 (M1, lanes/rosetta, 15 steps), 35 (more languages, sets, the microscope), 36 (labeled axes, an experiment) and 37 (.xtln, data-only notation) in docs/plan.md.
