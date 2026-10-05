@@ -6,6 +6,9 @@
 # Run by the gate.
 #   scripts/check-modes.sh
 set -euo pipefail
+# [A-Z] means capitals only in the C locale; in others (macOS) it can
+# match lowercase letters too.
+export LC_ALL=C
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 status=0
 for f in $(find demos -name '*.xtl' | sort); do
