@@ -1,0 +1,1 @@
+American spellings only (D88): scripts/check-spelling.py with self-test in the gate (URLs skipped, plural analyses allowed, saga records and research archives skipped); 107 British forms fixed across 51 files; CLAUDE.md rule; pages rebuilt
