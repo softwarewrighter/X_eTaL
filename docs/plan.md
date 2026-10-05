@@ -1024,29 +1024,45 @@ xetal-names; libraries are `.xtl` only; aliases are lowercase letters
 | 8 | retrofit-macros | Older programs and libraries rewritten where long aliases or macros read better; goldens rebased on purpose. |
 | 9 | macros-release | README tour, reference, design.md register, CHANGES, pages, retrospective. |
 
-## Saga 11 -- ports-first (LEARN, COURSE and PLOT)
+## Saga 11 -- ports-first (the inventory; teaching moved to Saga 28)
 
 Asked for by the user after Saga 9, sooner rather than later: an
 inventory of sw-apl's library 1 and sw-apl-workspaces (every
 function mapped to a target file, marked "works now" or "needs
-feature X", docs/apl-ports.md), then LEARN, COURSE and PLOT ported as
-libraries with demos, goldens and literate documents, with the
-features they need added first (each decided with the user). Reading
+feature X", docs/apl-ports.md). Plotting is not ported here: the
+library lives in X_eTaL-libraries (`libs/Plot`), and this repository
+adds only the language features it asks for. LEARN, COURSE and DRILL are
+not ported to teach APL: the user's intent (2026-10-03, restated
+2026-10-04) is that they are translated to teach X_eTaL, in the
+classic workspaces' self-paced, interactive style, as courses in Saga
+28's lesson format (`xetal learn` and the browser REPL). The course
+engine and the core course live in this repository, so the gate
+checks every lesson against the language; the sibling repositories
+may later add topic courses as lesson files. Reading
 input and numbers as text exist already; PLOT's character plots may
 call for nested arrays (A7).
 
-## Saga 12 -- ports-now (the other libraries that work as the language is)
+## Saga 12 -- ports-now (closed: done here or in the sibling repositories)
 
-Phased at the user's request, to demo more libraries soon: the APL
-ports are split in two. This saga ports every workspace function that
-X_eTaL can already say cleanly; Saga 14 adds the features the rest
-need, then ports those. The inventory decides which is which.
+The user's APL workspaces have homes now (checked 2026-10-04): RACE in
+X_eTaL-games (horse-race); TTTML here (lib/TTTML.xtl, demos) and a
+tic-tac-toe in X_eTaL-games; LIFE here (demos, literate document) and
+in X_eTaL-demos (life-microscope); BIRDS here (lib/Combinators.xtl
+and .xtlm); PLOT, STATS, MATRIX, POLY, MATH and CALC in
+X_eTaL-libraries (Plot, Statistics, Matrix, Polynomials, Numbers and
+the rest). Nothing is ported again here; this repository adds the
+language features the siblings ask for (docs/asks.md). Left: COURSE,
+LEARN and DRILL, translated to teach X_eTaL (Saga 28). EDIT is not
+ported (the user, 2026-10-04): APL's del editor is not reimplemented;
+the split-screen editor already edits at the CLI (`xetal edit`, the
+TUI) and in the browser (the live demo, the same panes and preview),
+and any text editor works on `.xtl` files.
 
-| #  | Step slug       | Delivers                                                   |
-| -- | --------------- | ---------------------------------------------------------- |
-| 1  | review          | the Saga 11 inventory brought up to date |
-| 2+ | one per library | each group of "works now" functions as `lib/*.xtl` (for example MATH, POLY, Stats additions, LIFE, BIRDS into Combinators), with a `just show` notebook demo, goldens and a tour or literate link; steps added by the inventory |
-| n  | ports-now-release | README and tour links to the new libraries, retrospective |
+`lib/Stats.xtl` (the user, 2026-10-04) is this repository's demo
+library: a small subset of X_eTaL-libraries' Statistics, loaded only
+by an explicit import (`"s:" u_se< "Stats"`, never automatically, unlike
+System.xtlm), used by the tour, the literate documents and the doc
+tests. A program may use either library (seldom both).
 
 ## Saga 13 -- quads (system names), next after Saga 10
 
@@ -1074,37 +1090,13 @@ user at the step: what the text may see (the program's globals only,
 or locals too), effects, and the names. Compile-time code building is
 the macros' job (Saga 19); the course checks answers itself (Saga 28).
 
-## Saga 14 -- ports-later (dogfooding)
+## Saga 14 -- ports-later (closed, see Saga 12)
 
-After Sagas 11 and 12 have ported what works as the language is, port the
-rest of every workspace, function and demo of the user's APL projects
-into X_eTaL libraries (`lib/*.xtl`), demos (`demos/`) and literate
-documents (`docs/literate/`): sw-apl's library 1 (BIRDS in both
-modes, EDIT, LEARN, LIFE, RACE, TTTML; about 70 functions) and
-sw-apl-workspaces (CALC, COURSE, DRILL in both modes, MATH, MATRIX,
-PLOT, POLY, STATS; about 220 functions), with their sample transcripts
-as goldens. Decided with the user: the ports are forcing functions.
-They are written as X_eTaL should say them, not transliterated; a
-port that cannot be written cleanly names a missing feature, which is
-added first, test-first, with the user's decision recorded in
-lang-choices, rather than worked around. Features the inventory
-already points to: reading input (the course and drill quizzes),
-numbers as text (formatting for PLOT and the drills), matrix
-division (APL's domino, for MATRIX and STATS regression), and
-whatever nested arrays (A7) the character-plot and course material
-needs.
-
-| #  | Step slug       | Delivers                                                   |
-| -- | --------------- | ---------------------------------------------------------- |
-| 1  | review          | the Saga 11 inventory brought up to date: what is left and the features it needs |
-| 2  | features        | the missing features, one decision and step each, test-first |
-| 3  | math            | MATH, POLY, CALC, MATRIX as libraries; demos and goldens    |
-| 4  | stats           | STATS merged into lib/Stats.xtl (regression, tests, distributions) |
-| 5  | plots           | PLOT: character plots, graphs, scatter, bars               |
-| 6  | games           | LIFE, RACE, TTTML (tic-tac-toe learning), with BIRDS joining Combinators |
-| 7  | teaching        | COURSE, LEARN, DRILL translated to teach X_eTaL (not APL), as courses in Saga 28's lesson format, run by `xetal learn` and the browser REPL |
-| 8  | edit            | EDIT: port what fits (the del editor itself is the editor's job) |
-| 9  | ports-release   | literate documents for each library, tour links, retrospective |
+Everything Saga 14 planned to port has a home (Saga 12 lists where);
+the part left is the teaching workspaces, translated to teach X_eTaL
+in Saga 28 (`xetal learn` and the browser REPL); EDIT is not ported. The forcing-function rule still holds for
+the sibling repositories: a port that cannot be written cleanly names
+a missing feature, asked for here and added test-first.
 
 ## Saga 15 -- trains (M7)  [DONE, ARCHIVED]
 
