@@ -56,9 +56,9 @@ reg:
 locks *args:
     scripts/check-locks.sh "$@"
 
-# The full pre-commit gate: locks, fmt, clippy, tests, goldens, checklist, markdown
-gate:
-    scripts/gate.sh
+# The pre-commit gate: fast (what the change affects) by default; `just gate --full` runs everything
+gate *FLAGS:
+    scripts/gate.sh {{FLAGS}}
 
 # Start the interactive session
 repl: _quiet-build

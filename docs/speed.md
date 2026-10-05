@@ -81,3 +81,22 @@ Profiled with `perf record -g` on the release build:
   shared or moved.
 - **Axis moves**: `move_axis` (9.6% of Life) copies the array for
   every subscripted function.
+
+## The gate's own speed
+
+The gate is fast by default (`scripts/gate.sh`; `--full` runs
+everything): it checks the components a change touches, tests the
+ones that depend on them and skips the rest (`scripts/affected.py`).
+What it would have run for some recent changes, of 25 components:
+
+| Change | Checked | Tested | Skipped |
+| ------ | ------- | ------ | ------- |
+| a document only | 0 | 0 | 25 |
+| a demo program (Mastermind) | 0 | 1 | 24 |
+| the live demo's engine (macro, web) | 2 | 7 | 16 |
+| the higher-order kernels (hof, step) | 2 | 14 | 9 |
+| a new built-in (base, system) | 2 | 21 | 2 |
+
+The full gate took about 20 minutes after a merge that touched a low
+crate; the times of the fast gate are printed by the gate itself (each
+step of 5 seconds or more, and the total).

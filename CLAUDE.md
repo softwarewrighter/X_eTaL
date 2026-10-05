@@ -350,7 +350,8 @@ scripts/build-all.sh                                # build every component (sha
 (cd components/cli && XETAL_BLESS=1 cargo test -p xetal-cli --test spec)   # rewrite spec expectations (review the diff!)
 scripts/check-locks.sh [--fix]                      # component Cargo.lock consistency
 scripts/reg.sh run                                  # reg-rs CLI goldens (REG_RS_DATA_DIR=reg)
-scripts/gate.sh                                     # full pre-commit gate
+scripts/gate.sh                                     # the fast gate (what the change affects)
+scripts/gate.sh --full                              # the full gate (everything)
 sw-markdown-checker -f "docs/*.md"                  # ASCII-only markdown for our docs
 ```
 
@@ -400,6 +401,27 @@ fails until the case is flipped to active in a deliberate commit.
 9. then `agentrail complete`, push
 
 `scripts/gate.sh` runs 1-6.
+
+### Fast gate and full gate
+
+`scripts/gate.sh` (`just gate`) is the fast gate: it measures what
+changed since the merge base with `origin/main` (everything not yet
+pushed), checks the components whose files changed (format, clippy,
+tests), tests the components that depend on them, skips the rest, and
+runs a slower document check (literate, diagrams, Emacs, the recipes,
+the asks ledger, the browser build) only when its inputs changed; the
+cheap checks always run. `scripts/affected.py` plans it.
+
+`scripts/gate.sh --full` (`just gate --full`) runs everything.
+
+- Before each commit and push, and when merging a lane's or a remote
+  agent's PR: the fast gate.
+- Between features (before `agentrail complete` of a step that changed
+  code, after a batch of merges) and before any release or tag: the
+  full gate.
+- A change to the gate's own machinery (`scripts/gate.sh`,
+  `scripts/affected.py`, `scripts/components.sh`, the cargo
+  configuration) makes the fast gate check everything.
 
 ## User-facing docs: what and how, never when or plans
 

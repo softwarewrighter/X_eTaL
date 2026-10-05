@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 00:55 `build` The gate is fast by default (D87; the user, after 20-minute gates on every merge): `scripts/gate.sh` checks the components whose files changed, tests the ones that depend on them, skips the rest, and runs the slower document checks only when their inputs changed (`scripts/affected.py` plans it, measured from the merge base with origin/main); `just gate --full` runs everything, between features and before a release; each longer step prints its time. The just-list golden rewritten on purpose.
+
 - 00:19 `build` Merged PRs #72 (errors lane: `[]S_IGNAL`, an error of one's own, ER1; its quad dispatch and tests joined with the clock's by hand; register entry D86) and #73 (macros lane: the Saga 19 retrospective, the lane archived); pages/ rebuilt.
 
 ## 2026-10-04
