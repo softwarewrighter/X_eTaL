@@ -1,0 +1,1 @@
+Retrofit: mastermind-play messages with f_ormat<, output unchanged; other programs left as they are.

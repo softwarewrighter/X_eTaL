@@ -1,0 +1,5 @@
+# A delay is a finite number of seconds, 0 or more (QD3).
+== SOURCE
+[]D_L -1
+== ERROR
+error[domain]: a delay is a finite number of seconds, 0 or more, not -1 at 0..8

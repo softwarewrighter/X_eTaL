@@ -1,8 +1,11 @@
 //! System values and character codes (QD2, QD3, QD7): the read-only
 //! values `[]A`, `[]D`, `[]AV` and `[]IO`, niladic built-ins read each
 //! time they are used, and `[]U_CS` (characters to codes) and
-//! `[]U_CHAR` (codes to characters), one static type each.
+//! `[]U_CHAR` (codes to characters), one static type each; and the
+//! clock: `[]TS` (the local time stamp) and `[]D_L` (a delay), read
+//! from the host's clock (`xetal-clock`).
 
+mod clock;
 mod codes;
 mod values;
 
@@ -20,6 +23,8 @@ pub fn call<'a>(
         ("[]D", []) => Ok(values::text("0123456789")),
         ("[]AV", []) => Ok(values::atomic()),
         ("[]IO", []) => Ok(Value::Int(1)),
+        ("[]TS", []) => clock::stamp(),
+        ("[]D_L", [s]) => clock::delay(s),
         ("[]U_CS", [t]) => codes::codes(t),
         ("[]U_CHAR", [n]) => codes::chars(n),
         _ => return None,

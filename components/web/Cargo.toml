@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-play", "crates/xetal-chrome", "crates/xetal-layout", "crates/xetal-runner", "crates/xetal-web", "crates/xetal-typing"]
+members = ["crates/xetal-play", "crates/xetal-chrome", "crates/xetal-layout", "crates/xetal-runner", "crates/xetal-web", "crates/xetal-typing", "crates/xetal-webclock"]
 
 [workspace.package]
 version = "0.1.0"
@@ -12,6 +12,8 @@ authors = ["Michael A Wright"]
 repository = "https://github.com/softwarewrighter/X_eTaL"
 
 [workspace.dependencies]
+xetal-clock = { path = "../base/crates/xetal-clock" }
+xetal-webclock = { path = "crates/xetal-webclock" }
 xetal-tty = { path = "../console/crates/xetal-tty" }
 xetal-typing = { path = "crates/xetal-typing" }
 xetal-step = { path = "../step/crates/xetal-step" }

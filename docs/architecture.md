@@ -51,7 +51,9 @@ components/
                            LANG_NAME), xetal-catalog (the built-in
                            catalog, generated from builtins.toml),
                            xetal-store (where files live: the disk,
-                           memory, or a store the host installs)
+                           memory, or a store the host installs),
+                           xetal-clock (the clock []TS and []D_L read:
+                           the system's, or one the host installs)
   expand/                  xetal-mapped (a text with a map back to
                            where each byte was written), xetal-expand
                            (macro calls found and replaced by what
@@ -116,9 +118,9 @@ components/
   system/                  xetal-system (files, the keyboard, numbers as
                            text: []N_PUT, []N_GET, []R_EAD, f_ormat,
                            n_umbers; graphics: []G_RID, []S_HOW),
-                           xetal-quad (system values and character
-                           codes: []A, []D, []AV, []IO, []U_CS,
-                           []U_CHAR)
+                           xetal-quad (system values, character codes
+                           and the clock: []A, []D, []AV, []IO,
+                           []U_CS, []U_CHAR, []TS, []D_L)
   axes/                    xetal-rotate (rotate and reverse along the
                            leading axis), xetal-axes (axis subscripts:
                            the move-to-front rule)
@@ -164,7 +166,9 @@ components/
   web/                     xetal-play: the live demo's engine
                            (decorate, check, run; libraries and files
                            from the installed store, then the standard
-                           libraries); builds for wasm32
+                           libraries); builds for wasm32;
+                           xetal-webclock (the browser's clock, which
+                           the worker installs)
   cli/                     xetal-cli (`xetal` binary + tests/spec.rs
                            harness), xetal-spec (case files),
                            xetal-repl (interactive session)

@@ -1126,7 +1126,7 @@ the axes in reverse is `o_\`.
 error[domain]: a permutation lists each axis once, got 1 1
 ```
 
-## System values and character codes
+## System values, character codes and the clock
 
 ### `[]A`
 
@@ -1205,6 +1205,36 @@ Hi
 IBM
       []U_CHAR 200
 error[domain]: []U_CHAR takes codes 0 to 127, got 200
+```
+
+### `[]TS`
+
+`Int`, a system value, no arguments.
+
+The local time stamp: year, month, day, hour, minute, second and
+millisecond, read each time it is used (a host without a clock reports
+`error[no-clock]`). Shown here by its shape, since it changes.
+
+```
+      s_hape []TS
+7
+      2026 <= 1 s_elect []TS
+1
+```
+
+### `[]D_L`
+
+`Num a => a -> Float`, one argument.
+
+Wait the given seconds (an Int or a Float); the result is the seconds
+actually waited, at least those asked for. A negative delay is an
+error.
+
+```
+      ([]D_L 0.01) >= 0.01
+1
+      []D_L -1
+error[domain]: a delay is a finite number of seconds, 0 or more, not -1
 ```
 
 ## Effects, identity, text and files

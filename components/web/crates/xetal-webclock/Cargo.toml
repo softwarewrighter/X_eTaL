@@ -1,0 +1,12 @@
+[package]
+name = "xetal-webclock"
+description = "The browser's clock for []TS and []D_L, installed by the live demo's worker"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-clock.workspace = true
+js-sys.workspace = true

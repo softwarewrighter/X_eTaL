@@ -54,3 +54,20 @@ fn a_code_outside_ascii_is_a_domain_error() {
 fn other_names_are_not_quads() {
     assert_eq!(run("[]N_GET", &[]).unwrap_err(), "not a quad");
 }
+
+#[test]
+fn the_time_stamp_is_seven_numbers() {
+    let Some(Ok(Value::Array(ts))) = call("[]TS", &[], Span::new(0, 1)) else {
+        panic!("[]TS is a vector")
+    };
+    assert_eq!(ts.data().len(), 7);
+}
+
+#[test]
+fn a_delay_gives_the_seconds_waited_and_refuses_negative_ones() {
+    let Some(Ok(Value::Float(waited))) = call("[]D_L", &[Value::Int(0)], Span::new(0, 1)) else {
+        panic!("[]D_L gives a Float")
+    };
+    assert!(waited >= 0.0);
+    assert_eq!(run("[]D_L", &[Value::Float(-0.5)]).unwrap_err(), "domain");
+}
