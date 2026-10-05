@@ -55,7 +55,7 @@ impl<'a> Machine<'a, '_> {
                 args,
             }))));
         }
-        if let Some(wants) = wanted(p.name)
+        if let Some(wants) = Wants::of(p.name)
             && let Some(control) = self.typed_line(p, &args, span, wants)
         {
             return control;
@@ -147,15 +147,5 @@ fn visible_arity(f: &Value<'_>) -> usize {
             n
         }
         _ => 0,
-    }
-}
-
-/// What a built-in reading from the inbox wants, if it is one.
-fn wanted(name: &str) -> Option<Wants> {
-    match name {
-        "[]R_EAD" => Some(Wants::Line),
-        "[]K_EY" => Some(Wants::Key),
-        "[]E_VENT" => Some(Wants::Event),
-        _ => None,
     }
 }

@@ -20,6 +20,18 @@ pub enum Wants {
     Event,
 }
 
+impl Wants {
+    /// What the built-in `name` reads from the inbox, if it reads it.
+    pub fn of(name: &str) -> Option<Wants> {
+        match name {
+            "[]R_EAD" => Some(Wants::Line),
+            "[]K_EY" => Some(Wants::Key),
+            "[]E_VENT" => Some(Wants::Event),
+            _ => None,
+        }
+    }
+}
+
 /// The queue of lines fed to a run, and whether the run waits on it.
 #[derive(Debug, Default)]
 pub struct Inbox {
