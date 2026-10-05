@@ -32,7 +32,25 @@
 <pre class="example">
 <div class="item" id="s.t_odo-3c"
 <pre class="example">
-<h2 class="section" id="section-6">Private helpers</h2>
+<h2 class="section" id="section-6">Errors</h2>
+<div class="item" id="s.t_ry-3c"
+<pre class="example">
+<div class="item" id="s.c_atch-3c"
+<pre class="example">
+<div class="item" id="s.f_inally-3c"
+<pre class="example">
+<div class="item" id="s.r_ecover-3c"
+<pre class="example">
+<div class="item" id="s.r_etry-3c"
+<pre class="example">
+<pre class="example">
+<div class="item" id="s.h_alt-3c"
+<pre class="example">
+<div class="item" id="s.c_ontinue-3c"
+<pre class="example">
+<h2 class="section" id="section-7">Private helpers</h2>
+<div class="item" id="catchCodes"
+<div class="item" id="m_atchCode"
 <div class="item" id="ifArgs"
 <div class="item" id="eachAlone"
 <div class="item" id="eachHole"

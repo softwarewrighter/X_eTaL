@@ -1,0 +1,6 @@
+# r_etry<, h_alt< and c_ontinue< take nothing: text on the right is an
+# error (MC22).
+== SOURCE
+"1 d_iv 0" t_ry< "@ r_etry< \"e\""
+== ERROR
+error[bad-macro-argument]: r_etry< takes @ on its right, not text at 28..32

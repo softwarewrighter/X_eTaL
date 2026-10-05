@@ -1,0 +1,10 @@
+# "body" f_inally< "cleanup" runs the cleanup after the body, whatever
+# happened, and gives the body's value (ER4, over []E_NSURE).
+== SOURCE
+"p_rint! 1; 2" f_inally< "p_rint! \"cleaned\""
+== EXPAND
+'{ @ -> p_rint! 1; 2 } []E_NSURE '{ @ -> p_rint! "cleaned" }
+== RESULT
+1
+cleaned
+2

@@ -1,0 +1,7 @@
+# An error whose code is not among a c_atch<'s words is halted: it
+# goes on as it was, from where it was raised.
+== SOURCE
+u:r_ead := { c -> c []S_IGNAL "stopped" }
+"u:r_ead \"other\"" t_ry< "\"io empty\" c_atch< \"@ r_ecover< \\\"1\\\"\""
+== ERROR
+error[other]: stopped at 18..39

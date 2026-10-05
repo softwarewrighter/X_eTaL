@@ -3,4 +3,4 @@
 == SOURCE
 "a" x_yz< "b"
 == ERROR
-error[unknown-macro]: there is no macro x_yz<; the system macros are u_se<, i_f<, u_nless<, e_ach<, l_ine<, f_ile<, i_nclude<, c_fg<, e_rror<, d_bg<, a_ssert<, f_ormat<, p_anic< and t_odo< at 4..9
+error[unknown-macro]: there is no macro x_yz<; the system macros are u_se<, i_f<, u_nless<, e_ach<, l_ine<, f_ile<, i_nclude<, c_fg<, e_rror<, d_bg<, a_ssert<, f_ormat<, p_anic<, t_odo<, t_ry<, c_atch<, f_inally<, r_ecover<, r_etry<, h_alt< and c_ontinue< at 4..9

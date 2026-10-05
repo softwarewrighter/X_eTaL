@@ -11,3 +11,10 @@ s:a_ssert< : Char -> a -> Char
 s:f_ormat< : Unit -> Char -> Char
 s:p_anic< : Unit -> Char -> Char
 s:t_odo< : Unit -> Char -> Char
+s:t_ry< : Char -> Char -> Char
+s:c_atch< : Char -> Char -> Char
+s:f_inally< : Char -> Char -> Char
+s:r_ecover< : Unit -> Char -> Char
+s:r_etry< : Unit -> Unit -> Char
+s:h_alt< : Unit -> Unit -> Char
+s:c_ontinue< : Unit -> Unit -> Char

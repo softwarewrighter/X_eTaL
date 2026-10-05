@@ -252,7 +252,7 @@ id = "X3"
 repo = "X_eTaL-libraries"
 ask = "errors of one's own: assert, raise and catch"
 state = "partly landed"
-here = "raise: `[]S_IGNAL` (ER1, D85); catch: `[]T_RAP` with `[]R_ECOVER`, `[]R_ETRY`, `[]H_ALT`, and `[]E_NSURE` (ER2, D89); go on: `default []W_ARN \"code\" \"message\"` and `[]C_ONTINUE` (ER3, D90); the `t_ry<`/`c_atch<` macros and assert follow (the lane's next steps)"
+here = "raise: `[]S_IGNAL` (ER1, D85); catch: `[]T_RAP` with `[]R_ECOVER`, `[]R_ETRY`, `[]H_ALT`, and `[]E_NSURE` (ER2, D89); go on: `default []W_ARN \"code\" \"message\"` and `[]C_ONTINUE` (ER3, D90); the macros `t_ry<`, `c_atch<`, `f_inally<`, `r_ecover<`, `r_etry<`, `h_alt<`, `c_ontinue<` (ER4, D91); assert is Saga 33"
 repro = "\"my-code\" []S_IGNAL \"stop\""
 works = "error[my-code]"
 

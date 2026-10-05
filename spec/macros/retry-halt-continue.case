@@ -1,0 +1,11 @@
+# The handler's other outcomes as macros, each taking nothing (@ on
+# both sides): r_etry<, h_alt< and c_ontinue< name the error e the
+# t_ry< bound (ER4). A warning is continued; a signal is retried twice,
+# then halted outward and recovered by the outer try.
+== SOURCE
+n! := 0
+"10 + (0 []W_ARN \"empty\" \"nothing\")" t_ry< "@ c_ontinue< @"
+"\"\\\"x\\\" []S_IGNAL \\\"y\\\"\" t_ry< \"n! := n! + 1; n! < 3 ? @ r_etry< @; @ h_alt< @\"" t_ry< "@ r_ecover< \"n!\""
+== RESULT
+10
+3
