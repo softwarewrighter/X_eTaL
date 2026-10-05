@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 12:50 `feat` Tables from TOML, RS2 (rosetta lane step 6): `"file" []L_IST "name"` and `("file" "name") []T_ABLE ("rows" "cols")` in a new crate xetal-table (strings only, errors name the file and key); `demos/rosetta/data.toml` filled with the 31 idioms of docs/idioms.md across seven languages (K and Uiua added for review); `just rosetta-check` runs every X_eTaL cell, and the gate runs it; D94; goldens run-table, run-table-errors.
+
 - 12:30 `feat` Events from the host, RS1 (rosetta lane step 5): `[]E_VENT @ : Unit -> Event` with `[]E_KIND`, `[]E_AT`, `[]E_KEY`; one line per event through the queue `[]K_EY` uses; `xetal run --events FILE` (or standard input), `end` at the end of input; the live demo gives a tick per wait and `key NAME`; D93; goldens run-events, run-events-bad.
 - 11:36 `build` Merged PRs #81 (rosetta lane: lib/Svg.xtl) and #82 (rosetta lane: the turning cube, demos/rosetta/cube.xtl, the review point); the lane's own files taken as its newest; pages/ rebuilt.
 

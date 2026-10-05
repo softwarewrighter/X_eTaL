@@ -1,0 +1,3 @@
+command = "bash -c 'for e in \"\\\"reg/fixtures/table.toml\\\" []L_IST \\\"nope\\\"\" \"\\\"reg/fixtures/table.toml\\\" []L_IST \\\"count\\\"\" \"(\\\"reg/fixtures/table.toml\\\" \\\"bad\\\") []T_ABLE (\\\"rows\\\" \\\"cols\\\")\" \"\\\"reg/fixtures/table.xtl\\\" []L_IST \\\"rows\\\"\" \"\\\"nope.toml\\\" []L_IST \\\"rows\\\"\"; do ./target/debug/xetal eval -e \"$e\" 2>&1; done'"
+exit_code = 1
+desc = "[]L_IST and []T_ABLE errors name the file and the key: a missing list, a value that is not a list, a cell that is not a string, a file that is not TOML, a missing file"

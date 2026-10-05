@@ -973,6 +973,7 @@ dependencies = [
  "xetal-search",
  "xetal-struct",
  "xetal-system",
+ "xetal-table",
  "xetal-transpose",
  "xetal-value",
 ]
@@ -1077,6 +1078,17 @@ dependencies = [
  "xetal-draw",
  "xetal-store",
  "xetal-tty",
+ "xetal-value",
+]
+
+[[package]]
+name = "xetal-table"
+version = "0.1.0"
+dependencies = [
+ "toml",
+ "xetal-array",
+ "xetal-base",
+ "xetal-store",
  "xetal-value",
 ]
 

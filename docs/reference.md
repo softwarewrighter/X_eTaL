@@ -1400,6 +1400,47 @@ Tab, Delete, Home, End), for the Terminal library, which names them.
 UP
 ```
 
+### `[]L_IST`
+
+`Char -> Char -> Box Char`, two arguments.
+
+A top-level list of strings in a TOML file, as boxed texts: `"file"
+[]L_IST "name"`. Strings only, and nothing in the file is run; a
+missing list, a value that is not a list of strings, or a file that is
+not TOML is error[bad-table], naming the file and the key.
+
+```
+      "reg/fixtures/table.toml" []L_IST "cols"
+.>------------.
+| .>. .>. .>. |
+| |x| |y| |z| |
+| '-' '-' '-' |
+'e------------'
+      "reg/fixtures/table.toml" []L_IST "count"
+error[bad-table]: reg/fixtures/table.toml: count: not a list
+```
+
+### `[]T_ABLE`
+
+`Box Char -> Box Char -> Box Char`, two arguments.
+
+A table of tables in a TOML file as a matrix of texts whose rows and
+columns follow two top-level lists: `("file" "name") []T_ABLE ("rows"
+"cols")`; a cell the file does not have is the empty text. The Rosetta
+stone reads its idioms this way: `("data.toml" "source") []T_ABLE
+("idioms" "languages")`.
+
+```
+      s_hape ("reg/fixtures/table.toml" "cells") []T_ABLE ("rows" "cols")
+2 3
+      1 s_elect ("reg/fixtures/table.toml" "cells") []T_ABLE ("rows" "cols")
+.>--------------.
+| .>-. .O. .>-. |
+| |ax| | | |az| |
+| '--' '~' '--' |
+'e--------------'
+```
+
 ### `[]E_VENT`
 
 `Unit -> Event`, one argument.

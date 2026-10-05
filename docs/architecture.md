@@ -126,7 +126,10 @@ components/
                            and the clock: []A, []D, []AV, []IO,
                            []U_CS, []U_CHAR, []TS, []D_L; errors of
                            one's own: []S_IGNAL, the Error readers
-                           and the Outcome constructors)
+                           and the Outcome constructors; events:
+                           []E_VENT and its readers), xetal-table
+                           (tables from TOML files, strings only:
+                           []L_IST, []T_ABLE)
   axes/                    xetal-rotate (rotate and reverse along the
                            leading axis), xetal-axes (axis subscripts:
                            the move-to-front rule)

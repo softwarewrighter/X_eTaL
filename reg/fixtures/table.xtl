@@ -1,0 +1,10 @@
+#!/usr/bin/env xetal
+# []L_IST and []T_ABLE (RS2) on reg/fixtures/table.toml: a list, a
+# table following two lists (a missing cell empty), the shape, and the
+# errors for a missing key, a list that is not one, a cell that is not
+# a string, and a file that is not TOML.
+"reg/fixtures/table.toml" []L_IST "cols"
+t := ("reg/fixtures/table.toml" "cells") []T_ABLE ("rows" "cols")
+s_hape t
+t
+0 = t_ally d_isclose 2 s_elect 1 s_elect t

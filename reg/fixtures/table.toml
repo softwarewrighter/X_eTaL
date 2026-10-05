@@ -1,0 +1,14 @@
+# A small table for the []L_IST and []T_ABLE goldens.
+rows = ["a", "b"]
+cols = ["x", "y", "z"]
+count = 3
+
+[cells.a]
+x = "ax"
+z = "az"
+
+[cells.b]
+y = "by"
+
+[bad.a]
+x = 1

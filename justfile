@@ -145,6 +145,10 @@ doc: _quiet-build
 status:
     python3 scripts/status.py
 
+# Check the Rosetta stone's data: names, keys, and every X_eTaL cell runs
+rosetta-check: _quiet-build
+    python3 scripts/rosetta-check.py
+
 # Are the live demos live? Fetch every github.io link in the six repositories' READMEs (network)
 check-live:
     python3 scripts/check-live.py
