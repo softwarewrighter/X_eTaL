@@ -1,0 +1,1 @@
+Pages in parts (web, literate, doc, poster, latex; per-part hashes in pages/INPUTS; just pages rebuilds stale parts, --all everything) and the gate's build tier (dependents compiled only, spec cases always run, gate-script changes no longer re-check every component), D93; probe: a base change about 8 minutes

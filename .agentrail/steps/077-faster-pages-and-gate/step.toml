@@ -1,8 +1,9 @@
 number = 77
 slug = "faster-pages-and-gate"
-status = "in-progress"
+status = "completed"
 description = "Speed (the user, 2026-10-05, after a 41-minute merge): (1) pages built as par..."
 role = "production"
 context_files = []
 created_at = "2026-10-05T14:51:12"
-commits = []
+completed_at = "2026-10-05T16:26:24"
+commits = ["d7fe0440f5aaa76d4adac226af3d1b7237f2b053"]
