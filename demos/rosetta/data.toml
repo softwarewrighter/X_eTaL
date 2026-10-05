@@ -1,0 +1,92 @@
+# The Rosetta stone's data (docs/rosetta.md, lang-choices RS3): the
+# idioms compared, and how each language writes them. Two axes, then
+# names, inputs, and three matrices keyed idiom then language. A cell
+# that is missing is a face that says so; nothing here is ever run by
+# the stone (the X_eTaL cells are run by spec/integration/idioms.case).
+
+idioms = ["reverse", "rotate", "shape", "reshape", "sum"]
+languages = ["apl2", "dyalog", "j", "bqn", "k", "uiua", "xetal"]
+
+[names]
+reverse = "Reverse"
+rotate = "Rotate left by one"
+shape = "Shape"
+reshape = "Reshape"
+sum = "Sum"
+apl2 = "APL2"
+dyalog = "Dyalog APL"
+j = "J"
+bqn = "BQN"
+k = "K"
+uiua = "Uiua"
+xetal = "X_eTaL"
+
+[input]
+reverse = '"ABCDE"'
+rotate = '"ABCDE"'
+shape = '2 3 r_eshape 1 2 3 4 5 6'
+reshape = '1 2 3 4 5 6'
+sum = '1 2 3 4'
+
+[source.reverse]
+apl2 = "⌽V"
+dyalog = "⌽v"
+j = "|. v"
+bqn = "⌽v"
+k = "|v"
+uiua = "⇌v"
+xetal = 'r_ev "ABCDE"'
+
+[source.rotate]
+apl2 = "1⌽V"
+dyalog = "1⌽v"
+j = "1 |. v"
+bqn = "1⌽v"
+k = "1!v"
+uiua = "↻1 v"
+xetal = '1 r_otate "ABCDE"'
+
+[source.shape]
+apl2 = "⍴A"
+dyalog = "⍴a"
+j = "$ a"
+bqn = "≢a"
+k = "#a"
+uiua = "△a"
+xetal = 's_hape 2 3 r_eshape 1 2 3 4 5 6'
+
+[source.reshape]
+apl2 = "2 3⍴V"
+dyalog = "2 3⍴v"
+j = "2 3 $ v"
+bqn = "2‿3⥊v"
+k = "2 3#v"
+uiua = "↯2_3 v"
+xetal = '2 3 r_eshape 1 2 3 4 5 6'
+
+[source.sum]
+apl2 = "+/V"
+dyalog = "+/v"
+j = "+/ v"
+bqn = "+´v"
+k = "+/v"
+uiua = "/+ v"
+xetal = "'+ r_/ 1 2 3 4"
+
+[output.reverse]
+xetal = '"EDCBA"'
+
+[output.rotate]
+xetal = '"BCDEA"'
+
+[output.shape]
+xetal = '2 3'
+
+[output.reshape]
+xetal = '1 2 3\n4 5 6'
+
+[output.sum]
+xetal = '10'
+
+[notes.shape]
+k = "the count of the first axis only; K has no shape of a nested list"
