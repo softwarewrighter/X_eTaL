@@ -1,0 +1,3 @@
+command = "env XETAL_PATH=demos/rosetta ./target/debug/xetal run reg/fixtures/comparison-tests.xtl"
+exit_code = 0
+desc = "the Rosetta stone's state machine as transitions (step 8): choosing an idiom keeps both languages, a pair sets the bottom only, the rings never coincide, a paused half stays paused while the other turns, steps change the truth at once and angles only on ticks; every line 1"

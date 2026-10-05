@@ -1,0 +1,33 @@
+#!/usr/bin/env xetal
+# The Rosetta stone's state machine (demos/rosetta/Comparison.xtl)
+# checked as transitions, each line a claim from docs/rosetta.md: run
+# with XETAL_PATH=demos/rosetta. Every line should print 1.
+"cm:" u_se< "Comparison"
+s0 := 31 cm:s_tart 7
+xk := (cm:BOTTOM c_at 5.0) cm:c_hoose (cm:TOP c_at 7.0) cm:c_hoose s0
+u:c_urrents := { s -> (cm:IDIOM cm:c_urrent s) c_at (cm:TOP cm:c_urrent s) c_at cm:BOTTOM cm:c_urrent s }
+
+# choosing an idiom keeps both languages
+(u:c_urrents (cm:IDIOM c_at 8.0) cm:c_hoose xk) m_atch 8 7 5
+# choosing a pair sets the bottom only
+(u:c_urrents (cm:BOTTOM c_at 3.0) cm:c_hoose xk) m_atch 1 7 3
+# top and bottom never equal: choosing the top's language below changes nothing
+(u:c_urrents (cm:BOTTOM c_at 7.0) cm:c_hoose xk) m_atch 1 7 5
+# stepping onto the other ring's language steps past it
+(u:c_urrents (cm:BOTTOM c_at 1.0) cm:s_tep (cm:BOTTOM c_at 6.0) cm:c_hoose xk) m_atch 1 7 1
+# a choice turns the short way round: 7 from 1 is one step back
+((cm:TOP c_at cm:STEPS) cm:a_t xk) = -1.0
+# a paused top stays paused while the bottom turns
+paused := cm:TOP cm:t_oggle s0
+((cm:TOP c_at cm:PLAYING) cm:a_t (cm:BOTTOM c_at 1.0) cm:s_tep paused) = 0.0
+((cm:BOTTOM c_at cm:PLAYING) cm:a_t (cm:BOTTOM c_at 1.0) cm:s_tep paused) = 1.0
+# a step changes the truth at once and the angle only on ticks
+stepped := (cm:TOP c_at 1.0) cm:s_tep s0
+((cm:TOP c_at cm:ANGLE) cm:a_t stepped) = 0.0
+((cm:TOP c_at cm:ANGLE) cm:a_t (cm:TOP c_at 0.25) cm:e_ase stepped) = 45.0
+((cm:TOP c_at cm:ANGLE) cm:a_t cm:s_ettle stepped) = 90.0
+# a tick eases every axis and never moves one at rest
+(0.1 cm:t_ick s0) m_atch s0
+# the idiom axis wraps both ways
+(cm:IDIOM cm:c_urrent (cm:IDIOM c_at -1.0) cm:s_tep s0) = 31
+(cm:IDIOM cm:c_urrent (cm:IDIOM c_at 31.0) cm:s_tep s0) = 1
