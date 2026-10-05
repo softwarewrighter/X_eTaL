@@ -18,17 +18,16 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 116 | 0 | 0 |
-| Language decisions | 125 | 0 | 6 |
+| Built-in functions | 118 | 0 | 0 |
+| Language decisions | 126 | 0 | 5 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 365 | 0 | 0 |
+| Spec cases | 373 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
 - **S11** (planned): Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents.
 - **T9** (planned): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
-- **ER3** (planned): A typed continue: the handler's value replaces the failing expression and the program goes on from there.
 - **ER4** (planned): The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler (...).
 - **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
 
@@ -38,7 +37,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 63 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 70 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 40 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
@@ -83,7 +82,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `p_rint!` | `a -> a` | works | 15 | 1 |
+| `p_rint!` | `a -> a` | works | 17 | 1 |
 | `r_oll!` | `Int -> Int` | works | 3 | 1 |
 | `i_d` | `a -> a` | works | 2 | 2 |
 | `l_eft` | `a -> b -> a` | works | 1 | 2 |
@@ -111,12 +110,14 @@ conventions (naming, layout) work without a spec case citing them.
 | `[]R_EAD` | `Unit -> Char` | works | 0 | 1 |
 | `[]E_RR` | `Char -> Char` | works | 0 | 1 |
 | `[]P_ANIC` | `Char -> a` | works | 0 | 1 |
-| `[]S_IGNAL` | `Char -> Char -> a` | works | 7 | 2 |
-| `[]T_RAP` | `(Unit -> a) -> (Error -> Outcome a) -> a` | works | 5 | 3 |
-| `[]E_NSURE` | `(Unit -> a) -> (Unit -> b) -> a` | works | 2 | 2 |
-| `[]R_ECOVER` | `a -> Outcome a` | works | 4 | 1 |
+| `[]S_IGNAL` | `Char -> Char -> a` | works | 8 | 2 |
+| `[]W_ARN` | `a -> Box Char -> a` | works | 7 | 3 |
+| `[]T_RAP` | `(Unit -> a) -> (Error -> Outcome a) -> a` | works | 11 | 3 |
+| `[]E_NSURE` | `(Unit -> a) -> (Unit -> b) -> a` | works | 4 | 2 |
+| `[]R_ECOVER` | `a -> Outcome a` | works | 6 | 1 |
 | `[]R_ETRY` | `Error -> Outcome a` | works | 1 | 2 |
-| `[]H_ALT` | `Error -> Outcome a` | works | 2 | 1 |
+| `[]H_ALT` | `Error -> Outcome a` | works | 3 | 1 |
+| `[]C_ONTINUE` | `Error -> Outcome a` | works | 4 | 2 |
 | `[]E_CODE` | `Error -> Char` | works | 3 | 1 |
 | `[]E_MESSAGE` | `Error -> Char` | works | 1 | 1 |
 | `[]E_WHERE` | `Error -> Char` | works | 0 | 1 |
@@ -302,7 +303,7 @@ conventions (naming, layout) work without a spec case citing them.
 | E3 | The Y combinator works in its textbook shape when its functional marks its self parameter lazy; Z also works | works | 0 |
 | ER1 | A program raises an error of its own with a typed system function: `"code" []S_IGNAL "message"` stops with (...) | works | 2 |
 | ER2 | Errors are caught by a typed built-in, not by a macro: it runs a protected body (a lambda of `@`) and, on (...) | works | 3 |
-| ER3 | A typed continue: the handler's value replaces the failing expression and the program goes on from there | planned | 0 |
+| ER3 | A typed continue: the handler's value replaces the failing expression and the program goes on from there | works | 2 |
 | ER4 | The syntax is system macros in System.xtlm (MC18): `t_ry<`, `c_atch<`, `f_inally<`, and in a handler (...) | planned | 0 |
 | I1 | Source is ASCII, except inside string literals and comments, which may hold any Unicode (revised with the (...) | works | 2 |
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example (...) | works | 2 |

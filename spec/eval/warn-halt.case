@@ -1,0 +1,8 @@
+# []H_ALT on a warning passes it outward still resumable: the outer
+# trap can continue it, and the body goes on from the warning.
+== SOURCE
+'{ @ -> '{ @ -> 10 + (0 []W_ARN "empty" "nothing") } []T_RAP '{ e -> []H_ALT e } } []T_RAP '{ e -> []C_ONTINUE e }
+== TYPE
+Int
+== RESULT
+10

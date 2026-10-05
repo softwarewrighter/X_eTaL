@@ -1,6 +1,6 @@
 number = 3
 slug = "continue"
-status = "pending"
+status = "in-progress"
 description = "Errors lane (see lanes/errors/.agentrail/plan.md and docs/plan.md Saga 21), s..."
 role = "production"
 context_files = []

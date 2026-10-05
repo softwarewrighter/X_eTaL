@@ -1,0 +1,11 @@
+# The handler runs at the warning, before any cleanup between it and
+# the trap (the warning has not unwound anything); the cleanup runs
+# once, when the body finishes.
+== SOURCE
+'{ @ -> '{ @ -> 10 + (0 []W_ARN "empty" "nothing") } []E_NSURE '{ @ -> p_rint! "cleaned" } } []T_RAP '{ e -> p_rint! "handled"; []C_ONTINUE e }
+== TYPE
+Int
+== RESULT
+handled
+cleaned
+10
