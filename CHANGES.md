@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 23:25 `fix` The live demo checks a macro library as one: opening Combinators.xtlm (or any `.xtlm`) showed `misdefined-macro` in the Types pane, because the page checked every text as `main.xtl`; `xetal_program::name_for` now names a text by what it defines (`m:` macros a macro library, `s:` the system macros), so each macro's type is shown as `xetal type` gives it.
+
 - 22:24 `build` Merged PRs #69 (quads lane: the clock, `[]TS` and `[]D_L`; its register entry renumbered D84) and #70 (macros lane: Mastermind's messages with `f_ormat<`); pages/ rebuilt.
 
 - 22:10 `feat` The clock (quads lane step 2, D84; asks X4 and E4 landed): `[]TS`, the local time stamp, and `[]D_L`, a delay giving the seconds waited, through the host's clock (`xetal-clock`; the live demo's worker installs the browser's).

@@ -70,7 +70,7 @@ build already does what the ask wants.
 | X1 | `.xtlm` macro libraries: user-defined macros imported with `u_se<` | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | passes |
 | X2 | seeing the source after macro expansion, with a bounded expansion depth | landed | `xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61) | golden `macros-user-expand` |
 | X3 | errors of one's own: assert, raise and catch | planned | Saga 21, errors of one's own | - |
-| X4 | character codes `[]U_CS`, and the quad values `[]A`, `[]D`, `[]TS` | landed | `[]U_CS` (and its inverse `[]U_CHAR`, QD7), `[]A`, `[]D`, `[]AV`, `[]IO` (D75), `[]TS` local time (D76): the quads lane | passes |
+| X4 | character codes `[]U_CS`, and the quad values `[]A`, `[]D`, `[]TS` | landed | `[]U_CS` (and its inverse `[]U_CHAR`, QD7), `[]A`, `[]D`, `[]AV`, `[]IO` (D75), `[]TS` local time (D84): the quads lane | passes |
 | X5 | an empty Char vector is drawn with the numbers mark | planned | Saga 20, array kinds (decision T9) | fails |
 | X6 | big whole numbers or exact rationals | declined | for now: on the wish list, after the launch (Floats where a polymorphic function allows) | - |
 | X7 | matrix divide (APL's domino); transpose, the other half, landed | declined | for now: not planned (Matrix solves by Gauss-Jordan in X_eTaL); transpose landed in 3ad1f8e | - |
@@ -85,6 +85,6 @@ build already does what the ask wants.
 | E1 | a native hook: X_eTaL code calling a function in a native library (`[]S_VO`) | planned | Saga 23, host bindings and native packages (may start from this repo's ABI V1) | - |
 | E2 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | passes |
 | E3 | the CLI as a library: a host entry point so a host can be `xetal` with its own store | planned | after Saga 21 (plan.md, the sibling asks first) | - |
-| E4 | the time: a quad for the current time and a clock | landed | `[]TS` (the local time stamp) and `[]D_L` (a delay), through the host's clock (D76, quads lane step 2) | passes |
+| E4 | the time: a quad for the current time and a clock | landed | `[]TS` (the local time stamp) and `[]D_L` (a delay), through the host's clock (D84, quads lane step 2) | passes |
 | E5 | an error in a library function also names the program line that called it | planned | Saga 27, readable type errors | - |
 | E6 | `xetal --draw DIR run FILE` failed: options before the subcommand | landed | 5f00608 (options before the subcommand) | golden `cli-draw-before` |

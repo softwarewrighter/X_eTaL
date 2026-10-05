@@ -3,7 +3,8 @@
 use xetal_base::Diagnostic;
 use xetal_macro::StoreLibraries;
 use xetal_program::{
-    Loaded, in_program, is_library, library_types, load_library_with, load_with, program_types,
+    Loaded, in_program, is_library, library_types, load_library_with, load_with, name_for,
+    program_types,
 };
 
 /// What a run printed, its warnings and error (one per line), and the
@@ -15,19 +16,19 @@ pub struct Run {
     pub pictures: Vec<String>,
 }
 
-/// The name the program is reported by.
-const NAME: &str = "main.xtl";
-
+/// The program loaded, reported by the name its text is checked under
+/// (the page's text has no file name; `name_for` reads what it defines).
 fn loaded(src: &str) -> Result<Loaded, Diagnostic> {
-    load_with(NAME, src, &StoreLibraries)
+    load_with(name_for(src), src, &StoreLibraries)
 }
 
 /// The type of each top-level item, or the first error; for a library
-/// (a file naming `l:`), each export's type, as `xetal type` gives.
+/// (a file naming `l:`) or a macro library (defining `m:` or `s:`
+/// macros), each export's type, as `xetal type` gives.
 pub fn check(src: &str) -> Vec<String> {
     let library = is_library(src);
     let loaded = match library {
-        true => load_library_with(NAME, src, &StoreLibraries),
+        true => load_library_with(name_for(src), src, &StoreLibraries),
         false => loaded(src),
     };
     let checked = loaded.and_then(|mut l| {

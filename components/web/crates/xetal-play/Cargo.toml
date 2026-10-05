@@ -20,3 +20,6 @@ xetal-step.workspace = true
 xetal-arith.workspace = true
 xetal-lint.workspace = true
 xetal-store.workspace = true
+
+[dev-dependencies]
+xetal-libs.workspace = true

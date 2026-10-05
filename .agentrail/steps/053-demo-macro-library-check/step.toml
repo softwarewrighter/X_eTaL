@@ -1,0 +1,8 @@
+number = 53
+slug = "demo-macro-library-check"
+status = "in-progress"
+description = "Bug (the user, 2026-10-04): in the live demo, opening a macro library (Open, ..."
+role = "production"
+context_files = []
+created_at = "2026-10-04T23:16:52"
+commits = []

@@ -1591,6 +1591,7 @@ dependencies = [
  "xetal-core",
  "xetal-eval",
  "xetal-grid",
+ "xetal-libs",
  "xetal-lint",
  "xetal-macro",
  "xetal-program",

@@ -12,7 +12,7 @@ mod sides;
 mod types;
 
 pub use expanded::{expanded, expanded_with};
-pub use library::{is_library, load_library, load_library_with};
+pub use library::{is_library, load_library, load_library_with, name_for};
 pub use load::{Loaded, in_program, load, load_with, located};
 pub use run::Running;
 pub use types::{library_types, program_types};
