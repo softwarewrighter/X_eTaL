@@ -20,13 +20,16 @@ pub enum Type {
     Fn(Box<Type>, Box<Type>),
     /// An enclosed item of a nested array (A7, B14).
     Box(Box<Type>),
-    /// A built-in enumerated type, by name (QD6: `Color`, `Key`).
+    /// A handler's outcome for a protected body of this type (ER2).
+    Outcome(Box<Type>),
+    /// A built-in nominal type, by name (QD6: `Color`, `Key`; ER2:
+    /// `Error`).
     Named(&'static str),
 }
 
-/// The built-in enumerated types (QD6); Saga 29 makes them ordinary
-/// declarations.
-pub const ENUMS: [&str; 2] = ["Color", "Key"];
+/// The built-in nominal types (QD6, ER2); Saga 29 makes the enumerated
+/// ones ordinary declarations.
+pub const ENUMS: [&str; 3] = ["Color", "Key", "Error"];
 
 /// A polymorphic type: `forall vars. ty`, with the variables that must
 /// be numbers (`Num`) or usable as conditions (`Truthy`).
@@ -45,6 +48,7 @@ impl Type {
             Type::Var(v) => map.get(v).cloned().unwrap_or_else(|| self.clone()),
             Type::Fn(a, b) => Type::Fn(Box::new(a.rename(map)), Box::new(b.rename(map))),
             Type::Box(a) => Type::Box(Box::new(a.rename(map))),
+            Type::Outcome(a) => Type::Outcome(Box::new(a.rename(map))),
             other => other.clone(),
         }
     }
@@ -57,7 +61,7 @@ impl Type {
                 a.vars(out);
                 b.vars(out);
             }
-            Type::Box(a) => a.vars(out),
+            Type::Box(a) | Type::Outcome(a) => a.vars(out),
             _ => {}
         }
     }
@@ -76,10 +80,14 @@ fn write(ty: &Type, names: &HashMap<TypeVar, String>, f: &mut fmt::Formatter<'_>
             Some(name) => f.write_str(name),
             None => write!(f, "t{}", v.0),
         },
-        Type::Box(a) => {
-            f.write_str("Box ")?;
+        Type::Box(a) | Type::Outcome(a) => {
+            f.write_str(if matches!(ty, Type::Box(_)) {
+                "Box "
+            } else {
+                "Outcome "
+            })?;
             match **a {
-                Type::Fn(..) | Type::Box(_) => {
+                Type::Fn(..) | Type::Box(_) | Type::Outcome(_) => {
                     f.write_str("(")?;
                     write(a, names, f)?;
                     f.write_str(")")

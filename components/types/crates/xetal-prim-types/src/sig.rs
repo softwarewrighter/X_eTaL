@@ -56,6 +56,7 @@ fn atom(tokens: &mut Vec<&str>, vars: &mut Vars, u: &mut Unifier) -> Result<Type
         "Unit" => Type::Unit,
         name if let Some(e) = xetal_ty::ENUMS.iter().find(|e| **e == name) => Type::Named(e),
         "Box" => Type::Box(Box::new(atom(tokens, vars, u)?)),
+        "Outcome" => Type::Outcome(Box::new(atom(tokens, vars, u)?)),
         "(" => {
             let t = arrow(tokens, vars, u)?;
             (tokens.pop() == Some(")"))
