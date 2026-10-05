@@ -714,6 +714,7 @@ dependencies = [
  "xetal-catalog",
  "xetal-hof",
  "xetal-kernel",
+ "xetal-quad",
  "xetal-radix",
  "xetal-rotate",
  "xetal-search",
@@ -730,6 +731,15 @@ dependencies = [
  "xetal-base",
  "xetal-catalog",
  "xetal-ty",
+]
+
+[[package]]
+name = "xetal-quad"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
 ]
 
 [[package]]
