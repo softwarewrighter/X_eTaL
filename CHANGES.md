@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 09:40 `feat` The error macros, ER4 (errors lane step 4): `t_ry<`, `c_atch<`, `f_inally<`, `r_ecover<`, `r_etry<`, `h_alt<`, `c_ontinue<` in System.xtlm over the built-ins of ER1-ER3, the error named `e` in a handler; doc examples run by the gate; spec macros/try, catch, catch-halts, finally, retry-halt-continue, reject-try-at, reject-retry-text; the system-library-types and doc-site-system goldens rebased for the new entries.
+
 - 08:40 `feat` The warning, ER3 (errors lane step 3, decided with the user: form A, `[]W_ARN`): `default []W_ARN "code" "message"` raises resumably with the value to go on with; a handler answering `[]C_ONTINUE e` makes the program go on from the warning, with the handler running before any cleanup unwinds; `[]H_ALT` passes a warning outward still resumable; continuing a signal is error[not-resumable]. D90; spec eval/warn*, reject-continue-signal, reject-warn-type.
 
 - 07:02 `build` Merged PR #75 (`just check-live`); its first real run: all 35 github.io links in the six READMEs serve a page. The deployed live demo checked in a browser: a macro library (Combinators.xtlm) shows its macros' types.

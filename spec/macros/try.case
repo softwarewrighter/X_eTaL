@@ -1,0 +1,11 @@
+# "body" t_ry< "handler" (ER4) runs the body under a trap; the handler
+# sees the error as e and answers with the outcome macros. The body
+# and the handler are written as lambda bodies (statements).
+== SOURCE
+"p_rint! 1; \"io\" []S_IGNAL \"gone\"" t_ry< "p_rint! []E_CODE e; @ r_ecover< \"0\""
+== EXPAND
+'{ @ -> p_rint! 1; "io" []S_IGNAL "gone" } []T_RAP '{ e -> p_rint! []E_CODE e; []R_ECOVER (0) }
+== RESULT
+1
+io
+0

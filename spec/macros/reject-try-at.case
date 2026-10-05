@@ -1,0 +1,6 @@
+# t_ry< takes a body on its left and a handler on its right; @ on
+# either side is an error (MC22).
+== SOURCE
+@ t_ry< "@ r_ecover< 0"
+== ERROR
+error[bad-macro-argument]: t_ry< takes text on its left, not @ at 0..1

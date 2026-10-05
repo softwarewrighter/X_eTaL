@@ -145,7 +145,73 @@ s:p_anic< := { @ t -> "[]P_ANIC (" c_at (o_rEmpty p_ieces t) c_at ")" }
 ## error[panic]
 s:t_odo< := { @ t -> "@ p_anic< " c_at q_uote "not yet implemented: " c_at t }
 
+### Errors
+
+## Run the statements on the left under a trap: when they stop with an
+## error, the handler on the right runs with the error as e and
+## answers an outcome (r_ecover<, r_etry<, h_alt<, c_ontinue<, or a
+## c_atch< choosing among them); the value is the body's or the
+## recovery. Both sides are written as lambda bodies ([]T_RAP).
+## binds: e
+## >> "1 d_iv 0" t_ry< "@ r_ecover< \"-1\""
+## -1
+s:t_ry< := { body handler ->
+  "'{ @ -> " c_at (t_rim body) c_at " } []T_RAP '{ e -> " c_at (t_rim handler) c_at " }"
+}
+
+## In a handler: the outcome on the right for an error whose code is
+## one of the words on the left, and h_alt< for any other error.
+## >> "\"io\" []S_IGNAL \"gone\"" t_ry< "\"io empty\" c_atch< \"@ r_ecover< \\\"0\\\"\""
+## 0
+s:c_atch< := { codes outcome ->
+  ws := w_ords codes
+  0 = t_ally ws ? "bad-macro-argument left" []R_EJECT catchCodes
+  tests := j_oin '{ w -> m_atchCode d_isclose w } m_ap ws
+  "(" c_at (((t_ally tests) - 3) t_ake tests) c_at ") ? " c_at (t_rim outcome) c_at "; []H_ALT e"
+}
+
+## Run the statements on the left, then the cleanup on the right,
+## whether the body gave a value or an error; the value is the body's,
+## or its error going on ([]E_NSURE).
+## >> "p_rint! 1; 2" f_inally< "p_rint! \"cleaned\""
+## 1
+## cleaned
+## 2
+s:f_inally< := { body cleanup ->
+  "'{ @ -> " c_at (t_rim body) c_at " } []E_NSURE '{ @ -> " c_at (t_rim cleanup) c_at " }"
+}
+
+## In a handler: recover with the value on the right, of the body's
+## type; the try's value is this one ([]R_ECOVER).
+## >> "1 d_iv 0" t_ry< "@ r_ecover< \"2 + 2\""
+## 4
+s:r_ecover< := { @ value -> "[]R_ECOVER (" c_at (t_rim value) c_at ")" }
+
+## In a handler: run the body again (at most 1000 times; []R_ETRY).
+## >> n! := 0
+## >> "n! := n! + 1; n! < 3 ? \"again\" []S_IGNAL \"not yet\"; n!" t_ry< "@ r_etry< @"
+## 3
+s:r_etry< := { @ @ -> "[]R_ETRY e" }
+
+## In a handler: let the error go on as it was ([]H_ALT).
+## >> "1 d_iv 0" t_ry< "@ h_alt< @"
+## error[division-by-zero]
+s:h_alt< := { @ @ -> "[]H_ALT e" }
+
+## In a handler: go on from a warning ([]W_ARN) with its value
+## ([]C_ONTINUE).
+## >> "10 + (0 []W_ARN \"empty\" \"nothing\")" t_ry< "@ c_ontinue< @"
+## 10
+s:c_ontinue< := { @ @ -> "[]C_ONTINUE e" }
+
 ### Private helpers
+
+catchCodes := "c_atch< needs error codes on its left: \"io\" c_atch< \"@ r_ecover< \\\"0\\\"\""
+
+# One test of the error's code against the word w, with the | that
+# joins it to the next.
+m_atchCode := { w -> "(([]E_CODE e) m_atch " c_at (q_uote w) c_at ") | " }
+
 
 ifArgs := "i_f< takes two expressions on its right, separated by ;: \"c\" i_f< \"a; b\""
 eachAlone := "e_ach< writes statements: it stands as a statement of its own"

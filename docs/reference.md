@@ -1528,8 +1528,12 @@ error[bad-code]: an error code is lowercase letters, digits and hyphens, got "Ba
 A trap runs a protected body and, when it stops with an error, a
 handler (ER2). The body is a function of `@`; the handler takes the
 Error and answers an Outcome of the body's type: recover with a value,
-retry the body, or halt and let the error go on. The `t_ry<` and
-`c_atch<` macros of System.xtlm write these for you.
+retry the body, halt and let the error go on, or continue from a
+warning. The system macros write these for you: `"body" t_ry<
+"handler"` (the error is `e` in the handler), `"codes" c_atch<
+"outcome"`, `"body" f_inally< "cleanup"`, and in a handler `@ r_ecover<
+"v"`, `@ r_etry< @`, `@ h_alt< @`, `@ c_ontinue< @`; `xetal doc
+lib/System.xtlm` shows each with an example that runs.
 
 ### `[]T_RAP`
 

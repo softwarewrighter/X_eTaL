@@ -1,0 +1,11 @@
+# "codes" c_atch< "outcome" in a handler: the outcome for an error whose
+# code is one of the words on the left (ER4). The empty error is one of
+# "io empty", so it is recovered.
+== SOURCE
+u:r_ead := { c -> c []S_IGNAL "stopped" }
+"u:r_ead \"empty\"" t_ry< "\"io empty\" c_atch< \"@ r_ecover< \\\"1\\\"\""
+== EXPAND
+u:r_ead := { c -> c []S_IGNAL "stopped" }
+'{ @ -> u:r_ead "empty" } []T_RAP '{ e -> ((([]E_CODE e) m_atch "io") | (([]E_CODE e) m_atch "empty")) ? ([]R_ECOVER (1)); []H_ALT e }
+== RESULT
+1
