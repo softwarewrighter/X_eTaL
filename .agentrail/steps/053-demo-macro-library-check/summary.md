@@ -1,0 +1,1 @@
+Live demo checks a macro library as one: xetal_program::name_for names a page text by what it defines (s: System.xtlm, m: main.xtlm, else main.xtl); xetal-play uses it; tests/macro_library.rs (a small macro library, Combinators, Macros, System); fix in 90f857e, pages rebuilt
