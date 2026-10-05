@@ -3,9 +3,13 @@
 # idiom, on an impossible object. The whole stone rolls through the
 # idioms; its top half turns through the languages; its bottom half
 # turns, on its own, through the languages compared with. The data is
-# demos/rosetta/data.toml, read as aligned arrays over the two axes.
-# This stage draws still pictures: the stone at rest on Rotate, X_eTaL
-# over K, then with the top half turning and the drum rolling.
+# demos/rosetta/data.toml, read as aligned arrays over the two axes;
+# the state machine is Comparison.xtl, the geometry Stone.xtl. The
+# program runs on events ([]E_VENT): each tick eases the axes and
+# shows a frame; keys turn the axes (Up/Down the idioms, Left/Right
+# the top language, a/d the bottom; space, s, w pause a half or the
+# drum); the end of the events prints the state and stops.
+"cm:" u_se< "Comparison"
 "st:" u_se< "Stone"
 "v:" u_se< "Svg"
 
@@ -18,9 +22,6 @@ u:t_able := { name -> ((e_nclose data) c_at e_nclose name) []T_ABLE "idioms" "la
 source := u:t_able "source"
 output := u:t_able "output"
 notes := u:t_able "notes"
-
-# An index into an axis, wrapped around: item k of n, for any integer k.
-u:w_rap := { n k -> 1 + (k - 1) m_od n }
 
 # The text lines of a language's face for an idiom: its name, the
 # source, and the output when there is one, or the note for a missing
@@ -36,23 +37,27 @@ u:f_ace := { i l ->
   (e_nclose name) c_at (e_nclose src) c_at e_nclose result
 }
 
-# The stone as a picture: idiom i facing, language t on top and b
-# below, the drum rolled by ia degrees and the rings turned by ta and
-# ba. The drum's top, bottom and back sides name the neighboring
-# idioms; the rings' sides show the languages, the neighbors on their
-# sides; everything is painted far to near as one solid.
-u:s_tone := { itb angles ->
-  i := 1 s_elect itb
-  t := 2 s_elect itb
-  b := 3 s_elect itb
-  drum := st:d_rum 1 s_elect angles
-  top := 1 st:r_ing 2 s_elect angles
-  bottom := -1 st:r_ing 3 s_elect angles
-  n := t_ally idioms
-  m := t_ally languages
-  d_rumPanel := { k -> ((e_nclose "#d9d2c5") c_at (n u:w_rap i + k s_elect st:drumOffsets) s_elect idiomNames) st:p_anel k s_elect drum }
-  t_opPanel := { k -> ((e_nclose "#f2ede4") c_at i u:f_ace m u:w_rap t + k s_elect st:ringOffsets) st:p_anel k s_elect top }
-  b_ottomPanel := { k -> ((e_nclose "#e6e0d4") c_at i u:f_ace m u:w_rap b + k s_elect st:ringOffsets) st:p_anel k s_elect bottom }
+# The item an axis's side shows: the one its turn started from plus
+# the side's offset, wrapped. `(axis offset) u:i_tem state`.
+u:i_tem := { ao state ->
+  axis := 1 s_elect ao
+  n := f_loor 0.5 + (axis c_at cm:COUNT) cm:a_t state
+  n cm:w_rap 1 + (f_loor 2 s_elect ao) + st:b_ase (axis c_at cm:ANGLE) cm:a_t state
+}
+
+# The stone as a picture of a state: the drum's sides name the
+# neighboring idioms, the rings' sides show the languages for the
+# idiom the rings stand on; everything is painted far to near as one
+# solid.
+u:s_tone := { state ->
+  i := (cm:IDIOM c_at 0.0) u:i_tem state
+  roll := (cm:IDIOM c_at cm:ANGLE) cm:a_t state
+  drum := st:d_rum roll
+  top := 1 st:r_ing ((cm:TOP c_at cm:ANGLE) cm:a_t state) c_at roll
+  bottom := -1 st:r_ing ((cm:BOTTOM c_at cm:ANGLE) cm:a_t state) c_at roll
+  d_rumPanel := { k -> ((e_nclose "#d9d2c5") c_at ((cm:IDIOM c_at f_loat k s_elect st:drumOffsets) u:i_tem state) s_elect idiomNames) st:p_anel k s_elect drum }
+  t_opPanel := { k -> ((e_nclose "#f2ede4") c_at i u:f_ace (cm:TOP c_at f_loat k s_elect st:ringOffsets) u:i_tem state) st:p_anel k s_elect top }
+  b_ottomPanel := { k -> ((e_nclose "#e6e0d4") c_at i u:f_ace (cm:BOTTOM c_at f_loat k s_elect st:ringOffsets) u:i_tem state) st:p_anel k s_elect bottom }
   p_anel := { k -> k <= 3 ? d_rumPanel k; k <= 7 ? t_opPanel k - 3; b_ottomPanel k - 7 }
   all := drum c_at top c_at bottom
   painted := u:j_oin 'p_anel m_ap st:p_ainting all
@@ -61,11 +66,20 @@ u:s_tone := { itb angles ->
 
 u:j_oin := { b -> d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b }
 
-rotate := idioms i_ndexOf e_nclose "rotate"
-xetal := languages i_ndexOf e_nclose "xetal"
-k := languages i_ndexOf e_nclose "k"
-at := rotate c_at xetal c_at k
-shown := []S_HOW at u:s_tone 0.0 0.0 0.0
-shown := []S_HOW at u:s_tone 0.0 35.0 0.0
-shown := []S_HOW at u:s_tone 25.0 0.0 -50.0
-"the stone, three ways"
+# The loop: an event, the state after it, a frame on each tick; the
+# state when the events end.
+u:l_oop := { state ->
+  e := []E_VENT @
+  kind := []E_KIND e
+  kind m_atch "end" ? state
+  next := state cm:u_pdate e
+  "n_ot kind m_atch \"tick\"" u_nless< "[]S_HOW u:s_tone next"
+  u:l_oop next
+}
+
+# Start on Rotate, X_eTaL over K, at rest.
+rotate := f_loat idioms i_ndexOf e_nclose "rotate"
+xetal := f_loat languages i_ndexOf e_nclose "xetal"
+k := f_loat languages i_ndexOf e_nclose "k"
+start := cm:s_ettle (cm:BOTTOM c_at k) cm:c_hoose (cm:TOP c_at xetal) cm:c_hoose (cm:IDIOM c_at rotate) cm:c_hoose (t_ally idioms) cm:s_tart t_ally languages
+u:l_oop start

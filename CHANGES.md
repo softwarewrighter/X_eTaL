@@ -13,8 +13,9 @@ saga planning and reordering, `release` milestone release,
 ## 2026-10-05
 
 - 15:59 `build` Pages in parts and a lighter fast gate (D93; the user, after a 41-minute merge): `just pages` rebuilds only the parts whose inputs changed (live demo, literate HTML, doc site, poster, LaTeX gallery; one hash each in pages/INPUTS; `--all` rebuilds everything); the fast gate only compiles a component that merely depends on a change and always runs the spec cases, and a change to its own scripts no longer re-checks every component (a probe: a change to base now takes about eight minutes). The just-list golden rewritten on purpose.
-
+- 15:10 `feat` The axes (rosetta lane step 8): `demos/rosetta/Comparison.xtl`, the stone's state machine (steps are the truth, angles ease on ticks; step, choose the short way, pause; the rings never coincide; `u_pdate` over events), `rosetta.xtl` as the event loop with keys, the Stone drawing quarter turns so the rings always stand at the front; D96; goldens run-rosetta-transitions (thirteen claims), run-rosetta-keys; rosetta-check runs the libraries' doc examples.
 - 14:40 `docs` docs/literate/finnapl-idioms.org (the user's): twenty FinnAPL idioms, each APL line beside X_eTaL that runs, its results recorded; published as pages/literate/finnapl-idioms.html and listed in the literate index, which also gains the macros document it was missing.
+
 
 - 13:24 `build` Merged PRs #84 (rosetta lane: tables from TOML, `[]L_IST` and `[]T_ABLE`) and #85 (rosetta lane: the split face); `Wants::of` kept where the lane's older copy differed; pages/ rebuilt.
 

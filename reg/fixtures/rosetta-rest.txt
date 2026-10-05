@@ -1,0 +1,2 @@
+# One tick: the stone at rest, one frame.
+tick 0.016

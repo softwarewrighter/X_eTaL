@@ -1,3 +1,3 @@
-command = 'rm -rf work/reg-stone && ./target/release/xetal run demos/rosetta/rosetta.xtl --draw work/reg-stone && cat work/reg-stone/rosetta-1.svg'
+command = 'rm -rf work/reg-stone && env XETAL_PATH=demos/rosetta ./target/release/xetal run demos/rosetta/rosetta.xtl --events reg/fixtures/rosetta-rest.txt --draw work/reg-stone && cat work/reg-stone/rosetta-1.svg'
 exit_code = 0
-desc = "the Rosetta stone at rest (step 7): Rotate, X_eTaL over K, with APL2 and Uiua on the right sides and Reverse on top; the drum, two rings and their text, painted far to near, as the first picture is written"
+desc = "the Rosetta stone at rest (one tick): Rotate, X_eTaL over K, with APL2 and Uiua on the right sides and Reverse on top; the drum, two rings and their text, painted far to near, as the picture is written"

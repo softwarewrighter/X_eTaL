@@ -1,0 +1,146 @@
+## Comparison: the Rosetta stone's state machine (docs/rosetta.md), a
+## library beside the demo ("cm:" u_se< "Comparison"). The state is one
+## 3 x 4 matrix of numbers, one row per axis (the idiom drum, the top
+## ring, the bottom ring) and four columns: how many items the axis
+## has, how many steps it has taken (an integer; the item facing is
+## 1 + steps, wrapped, and this is the truth), its angle in degrees (90
+## per step; the presentation, easing toward 90 * steps) and whether it
+## plays on its own. Nothing is ever inferred from an angle except what
+## to draw. Every function gives a new state; none has an effect.
+## Events (RS1) come in as []E_VENT gives them; cm:u_pdate takes one.
+
+## The state for i idioms and l languages, `i cm:s_tart l`: nothing
+## turned, all playing.
+## >> "cm:" u_se< "Comparison"
+## >> 31 cm:s_tart 7
+## 31.0 0.0 0.0 1.0
+##  7.0 0.0 0.0 1.0
+##  7.0 0.0 0.0 1.0
+l:s_tart := { i l -> 3 4 r_eshape (f_loat i) c_at 0.0 0.0 1.0 c_at (f_loat l) c_at 0.0 0.0 1.0 c_at (f_loat l) c_at 0.0 0.0 1.0 }
+
+## The rows and columns, by name.
+l:IDIOM := 1.0
+l:TOP := 2.0
+l:BOTTOM := 3.0
+l:COUNT := 1.0
+l:STEPS := 2.0
+l:ANGLE := 3.0
+l:PLAYING := 4.0
+
+## A cell of the state: `(row c_at col) cm:a_t state`.
+l:a_t := { rc state -> (f_loor 2 s_elect rc) s_elect (f_loor 1 s_elect rc) s_elect state }
+
+## The state with one cell replaced: `(row c_at col c_at v) cm:p_ut state` (a
+## mask over the matrix, so no cell is ever addressed by hand).
+l:p_ut := { rcv state ->
+  mask := f_loat (rows = 1 s_elect rcv) * cols = 2 s_elect rcv
+  (state * 1.0 - mask) + mask * 3 s_elect rcv
+}
+rows := 3 4 r_eshape 1.0 1.0 1.0 1.0 2.0 2.0 2.0 2.0 3.0 3.0 3.0 3.0
+cols := 3 4 r_eshape 1.0 2.0 3.0 4.0 1.0 2.0 3.0 4.0 1.0 2.0 3.0 4.0
+
+## An item of an axis of n, wrapped around: item k of n for any integer k.
+l:w_rap := { n k -> 1 + (k - 1) m_od n }
+
+## The item facing on an axis: 1 + its steps, wrapped.
+## >> "cm:" u_se< "Comparison"
+## >> cm:TOP cm:c_urrent (cm:TOP c_at 1.0) cm:s_tep 31 cm:s_tart 7
+## 2
+l:c_urrent := { axis state -> (f_loor 0.5 + (axis c_at l:COUNT) l:a_t state) l:w_rap f_loor 1.5 + (axis c_at l:STEPS) l:a_t state }
+
+## An axis stepped by d items (1 forward, -1 back): its steps change,
+## its angle will follow at each tick. A ring never stops on the other
+## ring's language (the two halves always compare two languages): it
+## steps once more the same way. `(axis c_at d) cm:s_tep state`.
+## >> "cm:" u_se< "Comparison"
+## >> cm:IDIOM cm:c_urrent (cm:IDIOM c_at -1.0) cm:s_tep 31 cm:s_tart 7
+## 31
+## >> cm:BOTTOM cm:c_urrent (cm:BOTTOM c_at 1.0) cm:s_tep (cm:TOP c_at 2.0) cm:c_hoose 31 cm:s_tart 7
+## 3
+l:s_tep := { ad state ->
+  axis := 1 s_elect ad
+  d := 2 s_elect ad
+  moved := (axis c_at l:STEPS c_at d + (axis c_at l:STEPS) l:a_t state) l:p_ut state
+  axis = l:IDIOM ? moved
+  other := 5.0 - axis
+  clash := (axis l:c_urrent moved) = other l:c_urrent moved
+  "clash" i_f< "(axis c_at d) l:s_tep moved; moved"
+}
+
+## An axis turned to item k the short way round, and paused: choosing
+## is navigating, turning is exploring. A ring is not turned to the
+## other ring's language (the choice is offered disabled); the state is
+## unchanged. `(axis c_at k) cm:c_hoose state`.
+## >> "cm:" u_se< "Comparison"
+## >> cm:TOP cm:c_urrent (cm:TOP c_at 7.0) cm:c_hoose 31 cm:s_tart 7
+## 7
+## >> (cm:TOP c_at cm:STEPS) cm:a_t (cm:TOP c_at 7.0) cm:c_hoose 31 cm:s_tart 7
+## -1.0
+l:c_hoose := { ak state ->
+  axis := 1 s_elect ak
+  n := f_loor 0.5 + (axis c_at l:COUNT) l:a_t state
+  d := ((f_loor 2 s_elect ak) - axis l:c_urrent state) m_od n
+  short := "(2 * d) > n" i_f< "d - n; d"
+  chosen := (axis c_at l:PLAYING c_at 0.0) l:p_ut (axis c_at f_loat short) l:s_tep state
+  axis = l:IDIOM ? chosen
+  (f_loor 2 s_elect ak) = (5.0 - axis) l:c_urrent state ? state
+  chosen
+}
+
+## An axis's angle eased toward 90 times its steps over dt seconds: it
+## covers the gap in about half a second, and lands exactly when near.
+## `(axis c_at dt) cm:e_ase state`.
+## >> "cm:" u_se< "Comparison"
+## >> (cm:TOP c_at cm:ANGLE) cm:a_t (cm:TOP c_at 0.25) cm:e_ase (cm:TOP c_at 1.0) cm:s_tep 31 cm:s_tart 7
+## 45.0
+l:e_ase := { adt state ->
+  axis := 1 s_elect adt
+  angle := (axis c_at l:ANGLE) l:a_t state
+  target := 90.0 * (axis c_at l:STEPS) l:a_t state
+  gap := target - angle
+  moved := angle + gap * 1.0 m_in 2.0 * 2 s_elect adt
+  near := "0.5 > a_bs target - moved" i_f< "target; moved"
+  (axis c_at l:ANGLE c_at near) l:p_ut state
+}
+
+## Every axis at rest where its steps put it (angles 90 times steps),
+## for a state built by choosing before the first tick.
+## >> "cm:" u_se< "Comparison"
+## >> cm:s_ettle (cm:IDIOM c_at 3.0) cm:c_hoose 31 cm:s_tart 7
+## 31.0 2.0 180.0 0.0
+##  7.0 0.0   0.0 1.0
+##  7.0 0.0   0.0 1.0
+l:s_ettle := { state -> (l:BOTTOM c_at 9.0) l:e_ase (l:TOP c_at 9.0) l:e_ase (l:IDIOM c_at 9.0) l:e_ase state }
+
+## Every axis eased over dt seconds (a tick).
+l:t_ick := { dt state -> (l:BOTTOM c_at dt) l:e_ase (l:TOP c_at dt) l:e_ase (l:IDIOM c_at dt) l:e_ase state }
+
+## An axis paused or resumed.
+l:t_oggle := { axis state -> (axis c_at l:PLAYING c_at 1.0 - (axis c_at l:PLAYING) l:a_t state) l:p_ut state }
+
+## The state after an event: a tick eases every axis; the arrow keys
+## step the drum (Up, Down) and the top ring (Left, Right), a and d the
+## bottom ring, space pauses or resumes the top ring, s the bottom and
+## w the drum. Pointer events are the next step's.
+l:u_pdate := { state e ->
+  kind := []E_KIND e
+  kind m_atch "tick" ? (f_irst []E_AT e) l:t_ick state
+  kind m_atch "key" ? ([]E_KEY e) l:k_ey state
+  state
+}
+
+## A key's effect: see cm:u_pdate. Named keys compare with []K_NAMED
+## (1 Up, 2 Down, 3 Left, 4 Right); printing keys by their character.
+l:k_ey := { k state ->
+  k = []K_NAMED 1 ? (l:IDIOM c_at -1.0) l:s_tep state
+  k = []K_NAMED 2 ? (l:IDIOM c_at 1.0) l:s_tep state
+  k = []K_NAMED 3 ? (l:TOP c_at -1.0) l:s_tep state
+  k = []K_NAMED 4 ? (l:TOP c_at 1.0) l:s_tep state
+  c := []K_CHAR k
+  c m_atch "a" ? (l:BOTTOM c_at -1.0) l:s_tep state
+  c m_atch "d" ? (l:BOTTOM c_at 1.0) l:s_tep state
+  c m_atch " " ? l:TOP l:t_oggle state
+  c m_atch "s" ? l:BOTTOM l:t_oggle state
+  c m_atch "w" ? l:IDIOM l:t_oggle state
+  state
+}

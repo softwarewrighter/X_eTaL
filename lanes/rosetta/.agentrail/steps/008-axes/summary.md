@@ -1,0 +1,1 @@
+Comparison.xtl state machine (3x4 matrix, steps truth / angles presentation, step/choose/toggle/tick/update), Stone draws quarter turns with rings at the front, rosetta.xtl the event loop with keys; 13 transition claims golden, key-session golden. PR pr/axes from clean main.
