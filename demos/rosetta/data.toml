@@ -1,71 +1,64 @@
 # The Rosetta stone's data (docs/rosetta.md, lang-choices RS3): the
 # idioms compared, and how each language writes them. Two axes, then
-# names, inputs (a binding the example runs with), and three matrices
-# keyed idiom then language: source, output, notes. A missing cell is
+# their display names as lists in the same order, and four matrices
+# keyed idiom then language: input (a binding the example runs with),
+# source, output, notes. A missing cell is
 # a face that says so; nothing here is ever run by the stone (the X_eTaL
 # cells follow docs/idioms.md, whose spec case runs them). The K and
 # Uiua cells were added from memory and are reviewed by the user.
 
 idioms = ["sum", "running-sum", "iota", "reshape", "shape", "count", "reverse", "rotate", "transpose", "outer", "inner", "each", "swap", "compose", "power", "mean-train", "lambda", "conditional", "self", "index-of", "member", "match", "where", "sort", "format", "numbers", "read-file", "read-line", "print", "trap", "use"]
+idiom_names = ["Sum", "Running sum", "1 to n", "Reshape", "Shape", "Count", "Reverse", "Rotate", "Transpose", "Outer product", "Inner product", "Each", "Swap arguments", "Compose", "Power (repeat)", "Train: the mean", "Anonymous function", "Conditional", "Self-reference", "Index of", "Membership", "Match", "Where", "Sort", "Number to text", "Text to numbers", "Read a file", "Read a line", "Print", "Trap an error", "Use a library"]
 languages = ["apl2", "dyalog", "j", "bqn", "k", "uiua", "xetal"]
+language_names = ["APL2", "Dyalog APL", "J", "BQN", "K", "Uiua", "X_eTaL"]
 
-[names]
-sum = "Sum"
-running-sum = "Running sum"
-iota = "1 to n"
-reshape = "Reshape"
-shape = "Shape"
-count = "Count"
-reverse = "Reverse"
-rotate = "Rotate"
-transpose = "Transpose"
-outer = "Outer product"
-inner = "Inner product"
-each = "Each"
-swap = "Swap arguments"
-compose = "Compose"
-power = "Power (repeat)"
-mean-train = "Train: the mean"
-lambda = "Anonymous function"
-conditional = "Conditional"
-self = "Self-reference"
-index-of = "Index of"
-member = "Membership"
-match = "Match"
-where = "Where"
-sort = "Sort"
-format = "Number to text"
-numbers = "Text to numbers"
-read-file = "Read a file"
-read-line = "Read a line"
-print = "Print"
-trap = "Trap an error"
-use = "Use a library"
-apl2 = "APL2"
-dyalog = "Dyalog APL"
-j = "J"
-bqn = "BQN"
-k = "K"
-uiua = "Uiua"
-xetal = "X_eTaL"
+[input.sum]
+xetal = 'v := 1 2 3 4'
 
-[input]
-sum = 'v := 1 2 3 4'
-running-sum = 'v := 1 2 3 4'
-iota = 'n := 5'
-reshape = 'v := 1 2 3 4 5 6'
-shape = 'a := 2 3 r_eshape 1 2 3 4 5 6'
-count = 'v := 3 1 4 1 5'
-reverse = 'v := "ABCDE"'
-rotate = 'v := "ABCDE"'
-transpose = 'a := 2 3 r_eshape 1 2 3 4 5 6'
-index-of = 'v := 3 1 4; x := 4'
-member = 'x := 2; v := 1 2 3'
-match = 'a := 1 2; b := 1 2'
-where = 'b := 0 1 1 0'
-sort = 'v := 3 1 2'
-format = 'v := 1 2'
-numbers = 't := "1 2 3"'
+[input.running-sum]
+xetal = 'v := 1 2 3 4'
+
+[input.iota]
+xetal = 'n := 5'
+
+[input.reshape]
+xetal = 'v := 1 2 3 4 5 6'
+
+[input.shape]
+xetal = 'a := 2 3 r_eshape 1 2 3 4 5 6'
+
+[input.count]
+xetal = 'v := 3 1 4 1 5'
+
+[input.reverse]
+xetal = 'v := "ABCDE"'
+
+[input.rotate]
+xetal = 'v := "ABCDE"'
+
+[input.transpose]
+xetal = 'a := 2 3 r_eshape 1 2 3 4 5 6'
+
+[input.index-of]
+xetal = 'v := 3 1 4; x := 4'
+
+[input.member]
+xetal = 'x := 2; v := 1 2 3'
+
+[input.match]
+xetal = 'a := 1 2; b := 1 2'
+
+[input.where]
+xetal = 'b := 0 1 1 0'
+
+[input.sort]
+xetal = 'v := 3 1 2'
+
+[input.format]
+xetal = 'v := 1 2'
+
+[input.numbers]
+xetal = 't := "1 2 3"'
 
 [source.sum]
 apl2 = '+/V'

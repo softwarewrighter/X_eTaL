@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Check the Rosetta stone's data (demos/rosetta/data.toml, RS3): every
-idiom and language has a name, every table is keyed by known idioms and
+"""Check the Rosetta stone's data (demos/rosetta/data.toml, RS3): the
+name lists match the axes, every table is keyed by known idioms and
 languages, and every X_eTaL cell with an input runs and prints its
 output. Exit status: the number of problems."""
 
@@ -19,10 +19,10 @@ def main():
         d = tomllib.load(f)
     idioms, languages = d["idioms"], d["languages"]
     problems = []
-    for key in idioms + languages:
-        if key not in d["names"]:
-            problems.append(f"{key}: no name")
-    for table in ("source", "output", "notes"):
+    for axis, names in (("idioms", "idiom_names"), ("languages", "language_names")):
+        if len(d.get(names, [])) != len(d[axis]):
+            problems.append(f"{names}: {len(d.get(names, []))} names for {len(d[axis])} {axis}")
+    for table in ("input", "source", "output", "notes"):
         for idiom, row in d.get(table, {}).items():
             if idiom not in idioms:
                 problems.append(f"{table}.{idiom}: not an idiom")
@@ -31,7 +31,7 @@ def main():
                     problems.append(f"{table}.{idiom}.{lang}: not a language")
     for idiom in idioms:
         source = d["source"].get(idiom, {}).get("xetal")
-        prelude = d.get("input", {}).get(idiom)
+        prelude = d.get("input", {}).get(idiom, {}).get("xetal")
         expected = d.get("output", {}).get(idiom, {}).get("xetal")
         if not (source and prelude and expected):
             continue

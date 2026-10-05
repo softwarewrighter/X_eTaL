@@ -1,0 +1,1 @@
+Stone.xtl (drum + two rings as square prisms, painted far to near, text via v:m_atrix) and rosetta.xtl drawing three still pictures from data.toml; RS3 refined (aligned name lists, input per cell); golden run-rosetta-stone. PR pr/split-face (carries #83, #84).

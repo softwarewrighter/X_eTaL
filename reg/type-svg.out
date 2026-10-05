@@ -10,6 +10,7 @@ l:t_ext : Char -> Char -> Char
 l:g_roup : Char -> Char -> Char
 l:t_ranslate : a -> Char
 l:r_otate : a -> Char
+l:m_atrix : Num a => a -> Char
 l:s_cale : a -> Char
 l:c_lip : Char -> a -> Char
 l:c_lipped : Char -> Char -> Char

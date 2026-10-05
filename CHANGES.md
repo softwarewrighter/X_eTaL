@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 13:30 `feat` The split face (rosetta lane step 7): `demos/rosetta/Stone.xtl` (the drum of idioms and the two rings of languages as square prisms sharing one place, painted far to near) and `demos/rosetta/rosetta.xtl` reading data.toml into aligned arrays and drawing the stone at rest and turning; `v:m_atrix` in Svg puts text on a face; the data's names are now aligned lists and `input` is per cell (RS3 refined); D95; golden run-rosetta-stone (the live demo gets it with its page, step 12).
+
 - 12:50 `feat` Tables from TOML, RS2 (rosetta lane step 6): `"file" []L_IST "name"` and `("file" "name") []T_ABLE ("rows" "cols")` in a new crate xetal-table (strings only, errors name the file and key); `demos/rosetta/data.toml` filled with the 31 idioms of docs/idioms.md across seven languages (K and Uiua added for review); `just rosetta-check` runs every X_eTaL cell, and the gate runs it; D94; goldens run-table, run-table-errors.
 - 12:30 `feat` Events from the host, RS1 (rosetta lane step 5): `[]E_VENT @ : Unit -> Event` with `[]E_KIND`, `[]E_AT`, `[]E_KEY`; one line per event through the queue `[]K_EY` uses; `xetal run --events FILE` (or standard input), `end` at the end of input; the live demo gives a tick per wait and `key NAME`; D93; goldens run-events, run-events-bad.
 - 11:59 `build` Merged PR #83 (rosetta lane: events from the host, `[]E_VENT` and its readers; its quad dispatch joined with the warning's by hand).
