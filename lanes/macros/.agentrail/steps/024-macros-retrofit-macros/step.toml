@@ -1,8 +1,9 @@
 number = 24
 slug = "macros-retrofit-macros"
-status = "in-progress"
+status = "completed"
 description = "Older programs and libraries rewritten where long aliases or macros read bett..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T13:46:13"
-commits = []
+completed_at = "2026-10-04T22:07:10"
+commits = ["a7801d1dc78b21e11088ed9ec6030157751bf865"]
