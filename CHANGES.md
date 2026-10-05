@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 08:30 `plan` The Rosetta stone (the user, docs/research5.txt): docs/rosetta.md, the design of the idioms-compared demo as an impossible rotating stone written in X_eTaL (Rust the shell; one data.toml as aligned arrays; the CLI writes the same frames); Sagas 34 (M1, lanes/rosetta, 15 steps), 35 (more languages, sets, the microscope), 36 (labeled axes, an experiment) and 37 (.xtln, data-only notation) in docs/plan.md.
+
 - 07:02 `build` Merged PR #75 (`just check-live`); its first real run: all 35 github.io links in the six READMEs serve a page. The deployed live demo checked in a browser: a macro library (Combinators.xtlm) shows its macros' types.
 
 - 02:00 `build` `just check-live` (scripts/check-live.py): every github.io link in the six repositories' READMEs fetched; a link fails on a non-200, GitHub's no-site page, or a non-HTML answer; exit status the number of failures (the user, after the siblings' Pages were rebuilt).

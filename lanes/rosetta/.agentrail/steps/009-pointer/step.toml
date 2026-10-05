@@ -1,0 +1,8 @@
+number = 9
+slug = "pointer"
+status = "pending"
+description = "Rosetta lane (see lanes/rosetta/.agentrail/plan.md, docs/rosetta.md and docs/..."
+role = "production"
+context_files = []
+created_at = "2026-10-05T08:23:15"
+commits = []
