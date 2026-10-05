@@ -31,3 +31,27 @@ stepped := (cm:TOP c_at 1.0) cm:s_tep s0
 # the idiom axis wraps both ways
 (cm:IDIOM cm:c_urrent (cm:IDIOM c_at -1.0) cm:s_tep s0) = 31
 (cm:IDIOM cm:c_urrent (cm:IDIOM c_at 31.0) cm:s_tep s0) = 1
+# a drag of the top turns the top only; the bottom's angle is unchanged
+drag := 142.0 50.0 cm:m_ove 100.0 50.0 cm:d_own s0
+((cm:TOP c_at cm:ANGLE) cm:a_t drag) = -18.0
+((cm:BOTTOM c_at cm:ANGLE) cm:a_t drag) = 0.0
+# a drag pauses the half it turns
+((cm:TOP c_at cm:PLAYING) cm:a_t drag) = 0.0
+# a vertical drag anywhere rolls the drum, and the halves stay put
+roll := 100.0 92.0 cm:m_ove 100.0 50.0 cm:d_own s0
+((cm:IDIOM c_at cm:ANGLE) cm:a_t roll) = -18.0
+((cm:TOP c_at cm:ANGLE) cm:a_t roll) = 0.0
+# the axis is decided by the first real move and kept: a later vertical move still turns the top
+kept := 142.0 100.0 cm:m_ove drag
+((cm:TOP c_at cm:ANGLE) cm:a_t kept) = -18.0
+((cm:IDIOM c_at cm:ANGLE) cm:a_t kept) = 0.0
+# release snaps to the nearest item (a slow drag of less than half a face goes back)
+((cm:TOP c_at cm:STEPS) cm:a_t 125.0 50.0 cm:u_p 125.0 50.0 cm:m_ove 120.0 50.0 cm:m_ove 100.0 50.0 cm:d_own s0) = 0.0
+# a flick carries one item further
+((cm:TOP c_at cm:STEPS) cm:a_t 142.0 50.0 cm:u_p drag) = -1.0
+# a click without movement toggles the half under it, and a click on the top never touches the bottom
+((cm:BOTTOM c_at cm:PLAYING) cm:a_t 100.0 300.0 cm:u_p 100.0 300.0 cm:d_own s0) = 0.0
+((cm:TOP c_at cm:PLAYING) cm:a_t 100.0 300.0 cm:u_p 100.0 300.0 cm:d_own s0) = 1.0
+((cm:TOP c_at cm:PLAYING) cm:a_t 100.0 50.0 cm:c_lick s0) = 0.0
+# a move with nothing pressed changes nothing
+(100.0 50.0 cm:m_ove s0) m_atch s0

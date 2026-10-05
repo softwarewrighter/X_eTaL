@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 15:50 `feat` The pointer (rosetta lane step 9): drags in Comparison.xtl as state transitions (a sideways drag turns the half under it, an up-or-down drag rolls the drum, the axis decided by the first real move and paused; release snaps to the nearest face, a flick carries one further; a press without movement is a click that pauses or resumes the half); D97; 26 transition claims; golden run-rosetta-drag.
+
 - 15:10 `feat` The axes (rosetta lane step 8): `demos/rosetta/Comparison.xtl`, the stone's state machine (steps are the truth, angles ease on ticks; step, choose the short way, pause; the rings never coincide; `u_pdate` over events), `rosetta.xtl` as the event loop with keys, the Stone drawing quarter turns so the rings always stand at the front; D96; goldens run-rosetta-transitions (thirteen claims), run-rosetta-keys; rosetta-check runs the libraries' doc examples.
 
 - 13:24 `build` Merged PRs #84 (rosetta lane: tables from TOML, `[]L_IST` and `[]T_ABLE`) and #85 (rosetta lane: the split face); `Wants::of` kept where the lane's older copy differed; pages/ rebuilt.

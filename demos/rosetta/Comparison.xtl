@@ -1,31 +1,48 @@
 ## Comparison: the Rosetta stone's state machine (docs/rosetta.md), a
 ## library beside the demo ("cm:" u_se< "Comparison"). The state is one
-## 3 x 4 matrix of numbers, one row per axis (the idiom drum, the top
-## ring, the bottom ring) and four columns: how many items the axis
-## has, how many steps it has taken (an integer; the item facing is
-## 1 + steps, wrapped, and this is the truth), its angle in degrees (90
-## per step; the presentation, easing toward 90 * steps) and whether it
-## plays on its own. Nothing is ever inferred from an angle except what
-## to draw. Every function gives a new state; none has an effect.
-## Events (RS1) come in as []E_VENT gives them; cm:u_pdate takes one.
+## 4 x 5 matrix of numbers. The first three rows are the axes (the
+## idiom drum, the top ring, the bottom ring), four columns each: how
+## many items the axis has, how many steps it has taken (an integer; the
+## item facing is 1 + steps, wrapped, and this is the truth), its angle
+## in degrees (90 per step; the presentation, easing toward 90 * steps)
+## and whether it plays on its own. The fourth row is the pointer: the
+## axis being dragged (0 none, 0.5 pressed and not yet moved, else the
+## axis), where it last was (x, y), how far it has moved in all, and the
+## last turn it gave in degrees (for a flick). Nothing is ever inferred
+## from an angle except what to draw. Every function gives a new state;
+## none has an effect. Events (RS1) come in as []E_VENT gives them;
+## cm:u_pdate takes one.
 
 ## The state for i idioms and l languages, `i cm:s_tart l`: nothing
-## turned, all playing.
+## turned, all playing, no pointer.
 ## >> "cm:" u_se< "Comparison"
 ## >> 31 cm:s_tart 7
-## 31.0 0.0 0.0 1.0
-##  7.0 0.0 0.0 1.0
-##  7.0 0.0 0.0 1.0
-l:s_tart := { i l -> 3 4 r_eshape (f_loat i) c_at 0.0 0.0 1.0 c_at (f_loat l) c_at 0.0 0.0 1.0 c_at (f_loat l) c_at 0.0 0.0 1.0 }
+## 31.0 0.0 0.0 1.0 0.0
+##  7.0 0.0 0.0 1.0 0.0
+##  7.0 0.0 0.0 1.0 0.0
+##  0.0 0.0 0.0 0.0 0.0
+l:s_tart := { i l -> 4 5 r_eshape (f_loat i) c_at 0.0 0.0 1.0 0.0 c_at (f_loat l) c_at 0.0 0.0 1.0 0.0 c_at (f_loat l) c_at 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 }
 
 ## The rows and columns, by name.
 l:IDIOM := 1.0
 l:TOP := 2.0
 l:BOTTOM := 3.0
+l:POINTER := 4.0
 l:COUNT := 1.0
 l:STEPS := 2.0
 l:ANGLE := 3.0
 l:PLAYING := 4.0
+l:DRAGGING := 1.0
+l:X := 2.0
+l:Y := 3.0
+l:MOVED := 4.0
+l:LAST := 5.0
+
+## The picture's middle, in its own pixels (Stone's size is 420): the
+## top half above it, the bottom half below; and how many degrees a
+## pixel of drag turns an axis (a quarter turn across half the picture).
+l:middle := 210.0
+l:perPixel := 90.0 / 210.0
 
 ## A cell of the state: `(row c_at col) cm:a_t state`.
 l:a_t := { rc state -> (f_loor 2 s_elect rc) s_elect (f_loor 1 s_elect rc) s_elect state }
@@ -36,8 +53,8 @@ l:p_ut := { rcv state ->
   mask := f_loat (rows = 1 s_elect rcv) * cols = 2 s_elect rcv
   (state * 1.0 - mask) + mask * 3 s_elect rcv
 }
-rows := 3 4 r_eshape 1.0 1.0 1.0 1.0 2.0 2.0 2.0 2.0 3.0 3.0 3.0 3.0
-cols := 3 4 r_eshape 1.0 2.0 3.0 4.0 1.0 2.0 3.0 4.0 1.0 2.0 3.0 4.0
+rows := 4 5 r_eshape 5 r_eplicate 1.0 2.0 3.0 4.0
+cols := 4 5 r_eshape 1.0 2.0 3.0 4.0 5.0
 
 ## An item of an axis of n, wrapped around: item k of n for any integer k.
 l:w_rap := { n k -> 1 + (k - 1) m_od n }
@@ -107,9 +124,10 @@ l:e_ase := { adt state ->
 ## for a state built by choosing before the first tick.
 ## >> "cm:" u_se< "Comparison"
 ## >> cm:s_ettle (cm:IDIOM c_at 3.0) cm:c_hoose 31 cm:s_tart 7
-## 31.0 2.0 180.0 0.0
-##  7.0 0.0   0.0 1.0
-##  7.0 0.0   0.0 1.0
+## 31.0 2.0 180.0 0.0 0.0
+##  7.0 0.0   0.0 1.0 0.0
+##  7.0 0.0   0.0 1.0 0.0
+##  0.0 0.0   0.0 0.0 0.0
 l:s_ettle := { state -> (l:BOTTOM c_at 9.0) l:e_ase (l:TOP c_at 9.0) l:e_ase (l:IDIOM c_at 9.0) l:e_ase state }
 
 ## Every axis eased over dt seconds (a tick).
@@ -121,13 +139,80 @@ l:t_oggle := { axis state -> (axis c_at l:PLAYING c_at 1.0 - (axis c_at l:PLAYIN
 ## The state after an event: a tick eases every axis; the arrow keys
 ## step the drum (Up, Down) and the top ring (Left, Right), a and d the
 ## bottom ring, space pauses or resumes the top ring, s the bottom and
-## w the drum. Pointer events are the next step's.
+## w the drum; the pointer drags and clicks (cm:d_own, cm:m_ove, cm:u_p,
+## cm:c_lick).
 l:u_pdate := { state e ->
   kind := []E_KIND e
   kind m_atch "tick" ? (f_irst []E_AT e) l:t_ick state
   kind m_atch "key" ? ([]E_KEY e) l:k_ey state
+  kind m_atch "down" ? ([]E_AT e) l:d_own state
+  kind m_atch "move" ? ([]E_AT e) l:m_ove state
+  kind m_atch "up" ? ([]E_AT e) l:u_p state
+  kind m_atch "click" ? ([]E_AT e) l:c_lick state
   state
 }
+
+## The half under a point: the top ring above the middle, the bottom
+## ring below.
+l:h_alf := { xy -> "(2 s_elect xy) < l:middle" i_f< "l:TOP; l:BOTTOM" }
+
+## The pointer pressed at a point: remembered, nothing turned yet.
+## `xy cm:d_own state`.
+## >> "cm:" u_se< "Comparison"
+## >> 4 s_elect 100.0 50.0 cm:d_own 31 cm:s_tart 7
+## 0.5 100.0 50.0 0.0 0.0
+l:d_own := { xy state -> (l:POINTER c_at l:LAST c_at 0.0) l:p_ut (l:POINTER c_at l:MOVED c_at 0.0) l:p_ut (l:POINTER c_at l:Y c_at 2 s_elect xy) l:p_ut (l:POINTER c_at l:X c_at 1 s_elect xy) l:p_ut (l:POINTER c_at l:DRAGGING c_at 0.5) l:p_ut state }
+
+## The pointer moved to a point: nothing unless it is pressed; the
+## first move of more than a few pixels decides which axis it drags (a
+## sideways move the half it is over, an up or down move the drum) and
+## pauses it; then each move turns that axis by its distance, a drag
+## right or down turning toward the previous item. `xy cm:m_ove state`.
+## >> "cm:" u_se< "Comparison"
+## >> (cm:TOP c_at cm:ANGLE) cm:a_t 142.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
+## -18.0
+## >> (cm:BOTTOM c_at cm:ANGLE) cm:a_t 142.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
+## 0.0
+l:m_ove := { xy state ->
+  held := (l:POINTER c_at l:DRAGGING) l:a_t state
+  held = 0.0 ? state
+  dx := (1 s_elect xy) - (l:POINTER c_at l:X) l:a_t state
+  dy := (2 s_elect xy) - (l:POINTER c_at l:Y) l:a_t state
+  moved := (a_bs dx) + (a_bs dy) + (l:POINTER c_at l:MOVED) l:a_t state
+  placed := (l:POINTER c_at l:MOVED c_at moved) l:p_ut (l:POINTER c_at l:Y c_at 2 s_elect xy) l:p_ut (l:POINTER c_at l:X c_at 1 s_elect xy) l:p_ut state
+  (held = 0.5) & moved <= 4.0 ? placed
+  axis := "held = 0.5" i_f< "\"(a_bs dx) >= a_bs dy\" i_f< \"l:h_alf xy; l:IDIOM\"; held"
+  along := "axis = l:IDIOM" i_f< "dy; dx"
+  turn := n_eg along * l:perPixel
+  angle := turn + (axis c_at l:ANGLE) l:a_t placed
+  (l:POINTER c_at l:LAST c_at turn) l:p_ut (l:POINTER c_at l:DRAGGING c_at axis) l:p_ut (axis c_at l:PLAYING c_at 0.0) l:p_ut (axis c_at l:ANGLE c_at angle) l:p_ut placed
+}
+
+## The pointer released: a drag settles on the nearest item, one
+## further along when the last move was a flick (more than 6 degrees),
+## its steps becoming that item so the angle eases the rest of the way;
+## a press that never moved is a click. `xy cm:u_p state`.
+## >> "cm:" u_se< "Comparison"
+## >> (cm:TOP c_at cm:STEPS) cm:a_t 142.0 50.0 cm:u_p 142.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
+## -1.0
+## >> (cm:TOP c_at cm:STEPS) cm:a_t 125.0 50.0 cm:u_p 125.0 50.0 cm:m_ove 120.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
+## 0.0
+l:u_p := { xy state ->
+  held := (l:POINTER c_at l:DRAGGING) l:a_t state
+  held = 0.0 ? state
+  released := (l:POINTER c_at l:DRAGGING c_at 0.0) l:p_ut state
+  held = 0.5 ? xy l:c_lick released
+  last := (l:POINTER c_at l:LAST) l:a_t state
+  flick := "6.0 < a_bs last" i_f< "45.0 * last / a_bs last; 0.0"
+  angle := (held c_at l:ANGLE) l:a_t state
+  (held c_at l:STEPS c_at f_loat f_loor 0.5 + (angle + flick) / 90.0) l:p_ut released
+}
+
+## A click on a half pauses or resumes it. `xy cm:c_lick state`.
+## >> "cm:" u_se< "Comparison"
+## >> (cm:BOTTOM c_at cm:PLAYING) cm:a_t 100.0 300.0 cm:c_lick 31 cm:s_tart 7
+## 0.0
+l:c_lick := { xy state -> (l:h_alf xy) l:t_oggle state }
 
 ## A key's effect: see cm:u_pdate. Named keys compare with []K_NAMED
 ## (1 Up, 2 Down, 3 Left, 4 Right); printing keys by their character.
