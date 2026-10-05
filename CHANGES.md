@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 22:03 `docs` docs/vendoring.md: how a downstream repository uses X_eTaL without tracking a copy: one tracked line (XETAL_COMMIT, the known-good commit), a clone in a gitignored work directory checked out at that commit, a release build, and a symlink bin/xetal to the fresh binary; the script, recipes, crate paths, moving to a newer commit, and replacing a tracked vendor/xetal. The script was run as written in a scratch repository. Replaces the released-binary plan (Saga 32 step 7).
+
 - 21:44 `build` Merged PRs #62 (plan: cross-references for every repository, Saga 32 step 7; rustdoc becomes step 8), #63 (decisions ER1-ER4, S11; Sagas 21 and 33 planned) and #64 (doc lane: macro expansions in place, example links); pages/ rebuilt.
 
 - 21:05 `design` Errors of one's own decided with the user (ER1-ER4: `[]S_IGNAL`; a typed trap built-in whose handler recovers, retries, halts or continues, typed; a cleanup; `t_ry<`/`c_atch<`/`f_inally<` and friends as System.xtlm macros) and unit tests (S11: `## @test` tags, unknown tags an error; `xetal test`; Check split into a standard assertion library and X_eTaL-libraries' xetalunit); Saga 21 replanned, Saga 33 planned.
