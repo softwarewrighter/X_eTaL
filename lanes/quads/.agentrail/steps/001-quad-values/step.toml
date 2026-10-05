@@ -1,0 +1,8 @@
+number = 1
+slug = "quad-values"
+status = "in-progress"
+description = "Quads lane step 1: []A, []D, []AV, []IO as niladic system values, []U_CS (Cha..."
+role = "production"
+context_files = []
+created_at = "2026-10-04T20:10:30"
+commits = []

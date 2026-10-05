@@ -61,6 +61,17 @@ entries = [
 ]
 
 [[group]]
+rule = "QD2, QD3, QD7: system values and character codes"
+entries = [
+  ["[]A", 0, "Char"],
+  ["[]D", 0, "Char"],
+  ["[]AV", 0, "Char"],
+  ["[]IO", 0, "Int"],
+  ["[]U_CS", 1, "Char -> Int"],
+  ["[]U_CHAR", 1, "Int -> Char"],
+]
+
+[[group]]
 rule = "QD4: system functions (files, the keyboard) and numbers as text"
 entries = [
   ["[]N_PUT", 2, "Char -> Char -> Int"],

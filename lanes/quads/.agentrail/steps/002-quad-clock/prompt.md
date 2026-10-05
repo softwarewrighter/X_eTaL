@@ -1,0 +1,1 @@
+Quads lane step 2: []TS (local time stamp) and []D_L (delay) through the host store; browser and hosts without a clock give errors, not panics; asks X4 and E4.

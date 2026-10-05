@@ -1,0 +1,13 @@
+[package]
+name = "xetal-quad"
+description = "System values and character codes (QD2, QD3, QD7): []A, []D, []AV, []IO, []U_CS, []U_CHAR"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-array.workspace = true
+xetal-value.workspace = true

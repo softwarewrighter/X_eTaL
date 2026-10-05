@@ -1,0 +1,6 @@
+# A system value is a value, not a function (QD7): written before
+# another value it is two values side by side, as any value would be.
+== SOURCE
+[]A 1
+== ERROR
+error[adjacent-values]: two values side by side (only literals of one kind form strands: numbers, or strings) at 0..3

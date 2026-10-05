@@ -107,6 +107,10 @@ impl<'a> Machine<'a, '_> {
             }
             Kind::Prim(name) => {
                 let (name, arity) = xetal_prim::arity(name, e.span)?;
+                if arity == 0 {
+                    // A system value (QD7): read each time it is used.
+                    return xetal_prim::call(name, &[], e.span, self.out, &mut self.rng);
+                }
                 Value::Prim(Rc::new(Prim {
                     name,
                     arity,

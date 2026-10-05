@@ -1,0 +1,6 @@
+# A quad value that is not a system name is an error, as an unknown
+# quad function is (QD1, QD7).
+== SOURCE
+[]XYZ
+== ERROR
+error[unknown-builtin]: there is no built-in []XYZ at 0..5

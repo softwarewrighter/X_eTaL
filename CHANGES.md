@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-04
 
+- 20:20 `feat` System values and character codes (quads lane step 1, QD7, D75; X_eTaL-libraries' ask X4): `[]A`, `[]D`, `[]AV`, `[]IO` as values read where they are used, `[]U_CS` (characters to codes) and `[]U_CHAR` (codes to characters), one static type each.
+
 - 16:28 `build` Merged PRs #55 (doc lane: the static site, `xetal doc --out DIR`), #56 (decode lane: `d_ecode` on any numbers, B18) and #57 (macros lane: Combinators.xtlm) and #58 (`xetal doc --test`, S10; its `--test` joined with the site's `--out` by hand, the doc-needs-json and doc-site-links goldens rewritten on purpose); Combinators' register entry renumbered D59; pages/ rebuilt.
 - 16:05 `feat` `xetal doc --test` (doc lane step 2, S10, D74): runs a file's `## >>` examples, each doc block one session, and compares what each prints with the output shown (`error[code]` lines by code), reported like `cargo test`; the gate runs it over lib/ (System.xtlm's 12 examples pass). Library examples import the library themselves, as a reader would.
 - 15:40 `feat` `xetal doc --out DIR` (doc lane step 2, D80): the documentation as a static site written by Rust: an index of files and items, the built-ins, a page per file (doc, imports, `###` sections with a table of contents, each item with its type, doc prose, `## >>` examples as a session, source drawn decorated and where it is used) and a source page per file with numbered lines; every name linked to what it names (an item, an alias's export, a system macro, a built-in; parameters and locals left alone); light and dark styles. The model gains each file's imports (JSON goldens rebased on purpose).

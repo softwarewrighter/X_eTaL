@@ -18,10 +18,10 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 99 | 0 | 0 |
-| Language decisions | 122 | 0 | 2 |
+| Built-in functions | 105 | 0 | 0 |
+| Language decisions | 123 | 0 | 2 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 337 | 0 | 0 |
+| Spec cases | 342 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -35,7 +35,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `+` | `Num a => a -> a -> a` | works | 54 | 3 |
-| `-` | `Num a => a -> a -> a` | works | 26 | 2 |
+| `-` | `Num a => a -> a -> a` | works | 27 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 37 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
@@ -85,6 +85,17 @@ conventions (naming, layout) work without a spec case citing them.
 | `l_eft` | `a -> b -> a` | works | 1 | 2 |
 | `r_ight` | `a -> b -> b` | works | 2 | 2 |
 
+### QD2, QD3, QD7: system values and character codes
+
+| Name | Type | State | Spec cases | Reference examples |
+| ---- | ---- | ----- | ---------- | ------------------ |
+| `[]A` | `Char` | works | 2 | 2 |
+| `[]D` | `Char` | works | 1 | 1 |
+| `[]AV` | `Char` | works | 1 | 2 |
+| `[]IO` | `Int` | works | 1 | 1 |
+| `[]U_CS` | `Char -> Int` | works | 2 | 2 |
+| `[]U_CHAR` | `Int -> Char` | works | 2 | 3 |
+
 ### QD4: system functions (files, the keyboard) and numbers as text
 
 | Name | Type | State | Spec cases | Reference examples |
@@ -131,13 +142,13 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `s_hape` | `a -> Int` | works | 13 | 2 |
-| `t_ally` | `a -> Int` | works | 17 | 4 |
+| `t_ally` | `a -> Int` | works | 18 | 4 |
 | `r_ange` | `Int -> Int` | works | 37 | 1 |
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 5 | 4 |
 | `r_avel` | `a -> a` | works | 1 | 2 |
 | `r_eshape` | `Int -> a -> a` | works | 59 | 2 |
-| `t_ake` | `Int -> a -> a` | works | 10 | 5 |
+| `t_ake` | `Int -> a -> a` | works | 11 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 2 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 12 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 5 | 6 |
@@ -298,12 +309,13 @@ conventions (naming, layout) work without a spec case citing them.
 | ST1 | A string is written `"..."` | works | 2 |
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 2 |
 | ST3 | A string is a 1-D array of characters: `"abc"` is a 3-element Char vector and every array function applies (...) | works | 2 |
-| QD1 | `[]` written touching a name is the system namespace, APL's quad: `[]A`, `[]D_L 0.5` | works | 1 |
-| QD2 | System values, read-only: `[]A` the alphabet `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"`, `[]D` the digits (...) | works | 0 |
+| QD1 | `[]` written touching a name is the system namespace, APL's quad: `[]A`, `[]D_L 0.5` | works | 2 |
+| QD2 | System values, read-only: `[]A` the alphabet `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"`, `[]D` the digits (...) | works | 1 |
 | QD3 | System functions live in the quad namespace and are named like any function: `[]D_L s` waits s seconds (...) | works | 1 |
 | QD4 | Files, the keyboard and numbers as text (decided with the user for TTTML's saved model and its moves): `t (...) | works | 3 |
 | QD6 | A terminal for interactive programs (asked for by X_eTaL-games): screen control is named, typed system (...) | works | 2 |
 | QD5 | Graphics, decided with the user for the classics lane: programs compute what to draw as ordinary arrays, (...) | works | 5 |
+| QD7 | One static type per quad name: `[]U_CS` is `Char -> Int` (the code of each character) and `[]U_CHAR` is (...) | works | 5 |
 | MC1 | A macro phase runs between the lexer and the parser | works | 0 |
 | MC2 | A macro is a function-shaped name ending in `<` ("slurp in"): `u_se<` | works | 1 |
 | MC3 | `u_se<` is applied like a dyadic function: `"c:" u_se< "Combinators"` inlines the library with its (...) | works | 1 |

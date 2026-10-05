@@ -1118,6 +1118,87 @@ the axes in reverse is `o_\`.
 error[domain]: a permutation lists each axis once, got 1 1
 ```
 
+## System values and character codes
+
+### `[]A`
+
+`Char`, a system value, no arguments.
+
+The alphabet, the uppercase letters: a system value, written without
+an underline and read where it is used.
+
+```
+      []A
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+      3 t_ake []A
+ABC
+```
+
+### `[]D`
+
+`Char`, a system value, no arguments.
+
+The digits, as characters.
+
+```
+      []D
+0123456789
+```
+
+### `[]AV`
+
+`Char`, a system value, no arguments.
+
+The atomic vector: every character, ASCII 0 to 127 (source is ASCII),
+so a character's code is its place in it, less one.
+
+```
+      t_ally []AV
+128
+      66 s_elect []AV
+A
+```
+
+### `[]IO`
+
+`Int`, a system value, no arguments.
+
+The index origin: always 1 (there is no setting).
+
+```
+      []IO
+1
+```
+
+### `[]U_CS`
+
+`Char -> Int`, one argument.
+
+The code of each character, keeping the shape. Codes go back to
+characters with `[]U_CHAR`.
+
+```
+      []U_CS "Hi"
+72 105
+      ([]U_CS "a") - []U_CS "A"
+32
+```
+
+### `[]U_CHAR`
+
+`Int -> Char`, one argument.
+
+The character of each code, 0 to 127; another code is an error.
+
+```
+      []U_CHAR 72 105
+Hi
+      []U_CHAR 1 + []U_CS "HAL"
+IBM
+      []U_CHAR 200
+error[domain]: []U_CHAR takes codes 0 to 127, got 200
+```
+
 ## Effects, identity, text and files
 
 ### `p_rint!`

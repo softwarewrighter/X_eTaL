@@ -467,6 +467,40 @@ the axes in reverse is `o_\`.
 > s_hape 3 1 2 t_ranspose 2 3 4 r_eshape 0
 !> 1 1 t_ranspose M
 
+== SECTION System values and character codes
+
+== []A
+The alphabet, the uppercase letters: a system value, written without
+an underline and read where it is used.
+> []A
+> 3 t_ake []A
+
+== []D
+The digits, as characters.
+> []D
+
+== []AV
+The atomic vector: every character, ASCII 0 to 127 (source is ASCII),
+so a character's code is its place in it, less one.
+> t_ally []AV
+> 66 s_elect []AV
+
+== []IO
+The index origin: always 1 (there is no setting).
+> []IO
+
+== []U_CS
+The code of each character, keeping the shape. Codes go back to
+characters with `[]U_CHAR`.
+> []U_CS "Hi"
+> ([]U_CS "a") - []U_CS "A"
+
+== []U_CHAR
+The character of each code, 0 to 127; another code is an error.
+> []U_CHAR 72 105
+> []U_CHAR 1 + []U_CS "HAL"
+!> []U_CHAR 200
+
 == SECTION Effects, identity, text and files
 
 == p_rint!
