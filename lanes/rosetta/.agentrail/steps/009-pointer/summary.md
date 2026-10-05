@@ -1,0 +1,1 @@
+Pointer row in the state; down/move/up/click as transitions (axis decided by the first real move, snap and flick on release, click toggles the half); 26 transition claims; drag-session golden. PR pr/pointer (on top of pr/axes, #86).

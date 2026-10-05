@@ -1,0 +1,21 @@
+# The stone driven by the pointer: the top half dragged left one face
+# and released (snaps), the drum rolled by a vertical drag, a click on
+# the bottom half, a frame after each.
+tick 0.016
+down 300 100
+move 280 100
+move 240 100
+move 200 100
+up 200 100
+tick 0.25
+tick 0.25
+tick 0.25
+down 200 300
+move 200 330
+move 200 380
+up 200 380
+tick 0.5
+tick 0.5
+down 200 300
+up 200 300
+tick 0.1

@@ -1,0 +1,3 @@
+command = "rm -rf work/reg-drag && ./target/release/xetal run demos/rosetta/rosetta.xtl --events reg/fixtures/rosetta-drag.txt --draw work/reg-drag"
+exit_code = 0
+desc = "the Rosetta stone run on a scripted queue of pointer events (step 9): the top half dragged a face to the left and released, the drum rolled by a vertical drag, a click pausing the bottom half; 7 frames and the state at the end"
