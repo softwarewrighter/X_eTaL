@@ -1,0 +1,1 @@
+xetal doc shows u_se< as a built-in macro item (D84); done on pr/macros-doc-use, commit 02b9b1f, PR #71 (from main, merged before #70).
