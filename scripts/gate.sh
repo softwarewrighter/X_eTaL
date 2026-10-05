@@ -3,13 +3,16 @@
 #   scripts/gate.sh          the fast gate: what the change affects
 #   scripts/gate.sh --full   everything, whatever changed
 # The fast gate (scripts/affected.py plans it) checks the components
-# whose files changed (format, lint, tests), tests the components that
-# depend on them, skips the rest, and runs a slower document check only
-# when its inputs changed; the cheap checks (locks, goldens, doc tests,
-# reference, status, checklist, markdown) always run. "Changed" is
-# measured from the merge base with origin/main (GATE_BASE names
-# another), so it covers everything not yet pushed. Run the full gate
-# between features, after a batch of merges, and before a release.
+# whose files changed (format, lint, tests), tests the ones that build
+# in or test against changed files, only compiles the ones that merely
+# depend on a change (the spec cases and the goldens, which always run,
+# cover their behavior), skips the rest, and runs a slower document
+# check only when its inputs changed; the cheap checks (locks, goldens,
+# doc tests, reference, status, checklist, markdown, spelling) always
+# run. "Changed" is measured from the merge base with origin/main
+# (GATE_BASE names another), so it covers everything not yet pushed.
+# Run the full gate between features, after a batch of merges, and
+# before a release.
 set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$root"
@@ -51,12 +54,22 @@ for c in "${COMPONENTS[@]}"; do
             cargo test -q --workspace
         )
     elif does "test $c"; then
-        step "components/$c: test (it depends on what changed)"
+        step "components/$c: test (files it builds in or tests against changed)"
         (cd "components/$c" && cargo test -q --workspace)
+    elif does "build $c"; then
+        step "components/$c: compiles (it depends on what changed)"
+        (cd "components/$c" && cargo check -q --workspace)
     else
         skipped=$((skipped + 1))
     fi
 done
+# The spec cases run the whole pipeline: always, even when cli itself
+# was only compiled or skipped (with the goldens below, they are what
+# covers a component whose tests the fast gate did not run).
+if ! does "check cli" && ! does "test cli"; then
+    step "spec cases (the whole pipeline)"
+    (cd components/cli && cargo test -q -p xetal-cli --test spec)
+fi
 if does "flag wasm"; then
     step "the live demo's engine builds for the browser (wasm32)"
     (cd components/web && cargo check -q --target wasm32-unknown-unknown)
@@ -118,6 +131,6 @@ python3 scripts/check-spelling.py --self-test
 python3 scripts/check-spelling.py
 step "done"
 if [ "$mode" = fast ]; then
-    printf 'fast gate: %s of %s components skipped (unchanged); run scripts/gate.sh --full between features\n' "$skipped" "${#COMPONENTS[@]}"
+    printf 'fast gate: %s of %s components skipped (unaffected); run scripts/gate.sh --full between features\n' "$skipped" "${#COMPONENTS[@]}"
 fi
 printf 'gate: all checks passed (%s, %ss)\n' "$mode" $((SECONDS - started))

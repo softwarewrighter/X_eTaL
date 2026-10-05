@@ -1,30 +1,74 @@
 #!/usr/bin/env bash
-# pages/ (the published live demo and literate pages) is built locally
-# and committed, so it can fall behind what it shows. pages/INPUTS holds
-# a hash of the contents of the demos, the libraries, the literate
-# documents and the syntax poster's template as they were at the last
-# `just pages`; this check recomputes
-# it and fails when they have changed since. Run by the gate;
-# scripts/build-pages.sh writes the stamp (--write).
-#   scripts/check-pages.sh [--write]
+# pages/ (the published live demo and its pages) is built locally and
+# committed, so it can fall behind what it shows. It is built in parts,
+# each from its own inputs:
+#   web       the live demo: the demos and libraries built into it
+#   literate  the literate documents' HTML: the documents, their style,
+#             and the libraries and demos they include
+#   doc       the documentation site: the libraries and two programs
+#   poster    the syntax poster: its template
+#   latex     the LaTeX gallery: every line of code shipped or documented
+# pages/INPUTS holds one line per part, the part's name and a hash of
+# its inputs as they were when the part was last built. This check
+# recomputes the hashes and fails, naming the parts, when inputs have
+# changed since. Run by the gate; scripts/build-pages.sh rebuilds the
+# stale parts and writes their lines.
+#   scripts/check-pages.sh            # check every part
+#   scripts/check-pages.sh --stale    # print the stale parts, one per line
+#   scripts/check-pages.sh --write PART...   # record these parts as built
 set -euo pipefail
+export LC_ALL=C
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
-inputs() {
-    find demos lib userlibs docs/literate scripts/poster -type f \( -name '*.xtl' -o -name '*.org' -o -name '*.html' \) \
-        | LC_ALL=C sort | xargs shasum -a 256 | shasum -a 256 | cut -d' ' -f1
+PARTS="web literate doc poster latex"
+
+# The files a part is built from, one per line.
+files() {
+    case "$1" in
+        web) find demos lib userlibs -type f \( -name '*.xtl' -o -name '*.xtlm' -o -name '*.toml' \) ;;
+        literate) find docs/literate lib userlibs demos -type f \( -name '*.org' -o -name '*.css' -o -name '*.xtl' -o -name '*.xtlm' \) ;;
+        doc) find lib -type f; echo demos/life.xtl; echo demos/tttml-play.xtl; echo scripts/doc-site.sh ;;
+        poster) find scripts/poster -type f -name '*.html' ;;
+        latex) find demos lib userlibs docs/literate spec -type f \( -name '*.xtl' -o -name '*.org' -o -name '*.case' \); ls README.md docs/*.md ;;
+    esac
 }
-if [ "${1:-}" = "--write" ]; then
-    inputs > pages/INPUTS
-    exit 0
-fi
+
+# A part's hash: the contents of its files, by name.
+hash_of() {
+    files "$1" | sort | xargs shasum -a 256 | shasum -a 256 | cut -d' ' -f1
+}
+
+# The hash recorded for a part when it was last built.
+recorded() {
+    [ -f pages/INPUTS ] && awk -v p="$1" '$1 == p { print $2 }' pages/INPUTS || true
+}
+
+stale() {
+    for part in $PARTS; do
+        [ "$(recorded "$part")" = "$(hash_of "$part")" ] || echo "$part"
+    done
+}
+
+case "${1:-}" in
+    --write)
+        shift
+        touch pages/INPUTS
+        for part in "$@"; do
+            { grep -v "^$part " pages/INPUTS || true; echo "$part $(hash_of "$part")"; } > pages/INPUTS.new
+            sort pages/INPUTS.new > pages/INPUTS
+            rm pages/INPUTS.new
+        done
+        exit 0 ;;
+    --stale) stale; exit 0 ;;
+esac
 # Where pages/ cannot be built (no trunk: the cloud sandbox), the check
 # is skipped; whoever merges with trunk rebuilds pages/.
 if ! command -v trunk > /dev/null; then
     echo "check-pages: no trunk to rebuild pages/ with; skipped"
     exit 0
 fi
-if [ "$(cat pages/INPUTS 2>/dev/null)" != "$(inputs)" ]; then
-    echo "check-pages: pages/ is stale (a demo, library or literate document changed): run just pages"
+behind="$(stale | tr '\n' ' ')"
+if [ -n "$behind" ]; then
+    echo "check-pages: pages/ is stale in: ${behind}(their inputs changed): run just pages"
     exit 1
 fi
 echo "pages: current with the demos, libraries and literate documents"

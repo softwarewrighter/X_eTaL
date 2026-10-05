@@ -148,6 +148,21 @@ What it would have run for some recent changes, of 25 components:
 | the higher-order kernels (hof, step) | 2 | 14 | 9 |
 | a new built-in (base, system) | 2 | 21 | 2 |
 
-The full gate took about 20 minutes after a merge that touched a low
-crate; the times of the fast gate are printed by the gate itself (each
-step of 5 seconds or more, and the total).
+A component that merely depends on a change is only compiled (its
+library code, `cargo check`); the spec cases and the goldens, which
+always run, cover its behavior end to end, and the full gate compiles
+and runs every test. With nothing changed the fast gate takes about
+two minutes; a change to `base`, which everything depends on, about
+eight (the probe of 2026-10-05: 494 s to check `base`, compile the
+other 24 components, run the spec cases and the browser build, before
+the goldens and the document checks). The full gate took 20 minutes
+after such a merge, 40 on a loaded machine; each step of 5 seconds or
+more prints its time, and the total.
+
+Pages are built in parts (`scripts/build-pages.sh`), each only when
+its inputs changed: the live demo, the literate HTML, the doc site,
+the poster and the LaTeX gallery; `pages/INPUTS` records a hash per
+part, `just pages --all` rebuilds everything. A literate document
+alone rebuilds the literate HTML and the gallery; a library rebuilds
+the live demo, the literate HTML, the doc site and the gallery; the
+poster's template only the poster.

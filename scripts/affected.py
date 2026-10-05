@@ -6,14 +6,20 @@ with origin/main, or GATE_BASE; committed, uncommitted and untracked
 files all count) and prints one line per thing the gate should do:
 
   check NAME   a component whose own files changed: fmt, clippy, tests
-  test NAME    a component that depends on a changed one, or whose lock
-               file alone changed: tests only
+  test NAME    a component whose lock file alone changed, or that builds
+               in or tests against changed files outside it (lib/,
+               spec/, demos/, userlibs/): tests only
+  build NAME   a component that only depends on a changed one: its
+               library code compiled (cargo check), its tests neither
+               compiled nor run; the spec cases and the goldens, which
+               always run, cover its behavior, and the full gate the rest
   flag NAME    a slower check whose inputs changed:
                wasm, literate, emacs, diagrams, smoke, asks
 
-A component neither checked nor tested is skipped. A change to the
-gate's own machinery (this script, gate.sh, components.sh, the cargo
-configuration) checks everything.
+A component with no line is skipped. A change to the list of components
+or the cargo configuration checks everything; a change to the gate's
+own scripts (gate.sh, this file) turns on every flag and leaves the
+components to the plan.
 
   scripts/affected.py              # the plan for the present change
   scripts/affected.py --self-test  # check the planner on known changes
@@ -25,7 +31,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-EVERYTHING = ("scripts/gate.sh", "scripts/components.sh", "scripts/affected.py", ".cargo/", "rust-toolchain")
+EVERYTHING = ("scripts/components.sh", ".cargo/", "rust-toolchain")
+GATE = ("scripts/gate.sh", "scripts/affected.py")
 # Files outside components/ that a component builds in or tests against.
 READ_BY = {"lib/": "macro", "spec/": "cli", "demos/": "web", "userlibs/": "web"}
 FLAGS = {
@@ -74,7 +81,10 @@ def plan(files, names, deps):
         more = {c for c in names if deps[c] & touched} - touched
         touched |= more
         grew = bool(more)
-    lines = [f"check {c}" if c in check else f"test {c}" for c in names if c in touched]
+    tier = lambda c: "check" if c in check else "test" if c in test else "build"
+    lines = [f"{tier(c)} {c}" for c in names if c in touched]
+    if any(f.startswith(GATE) for f in files):
+        return lines + [f"flag {n}" for n in ("wasm", *FLAGS)]
     if "web" in touched:
         lines.append("flag wasm")
     lines += [f"flag {n}" for n, prefixes in FLAGS.items() if any(f.startswith(prefixes) for f in files)]
@@ -94,14 +104,16 @@ def self_test():
     names = ["base", "syntax", "macro", "eval", "cli", "web"]
     deps = {"base": set(), "syntax": {"base"}, "macro": {"syntax"}, "eval": {"base"}, "cli": {"macro", "eval"}, "web": {"macro", "eval"}}
     assert plan(["docs/plan.md", "CHANGES.md"], names, deps) == []
-    assert plan(["components/eval/crates/x/src/a.rs"], names, deps) == ["check eval", "test cli", "test web", "flag wasm"]
-    assert plan(["components/base/x"], names, deps)[:2] == ["check base", "test syntax"]
-    assert plan(["lib/Stats.xtl"], names, deps) == ["test macro", "test cli", "test web", "flag wasm", "flag literate"]
+    assert plan(["components/eval/crates/x/src/a.rs"], names, deps) == ["check eval", "build cli", "build web", "flag wasm"]
+    assert plan(["components/base/x"], names, deps)[:2] == ["check base", "build syntax"]
+    assert plan(["lib/Stats.xtl"], names, deps) == ["test macro", "build cli", "build web", "flag wasm", "flag literate"]
     assert plan(["spec/eval/a.case"], names, deps) == ["test cli"]
-    assert plan(["components/eval/Cargo.lock"], names, deps) == ["test eval", "test cli", "test web", "flag wasm"]
+    assert plan(["components/eval/Cargo.lock"], names, deps) == ["test eval", "build cli", "build web", "flag wasm"]
     assert plan(["components/eval/Cargo.lock", "components/eval/crates/x/a.rs"], names, deps)[0] == "check eval"
     assert plan(["docs/emacs/xetal-mode.el"], names, deps) == ["flag literate", "flag emacs"]
-    assert plan(["scripts/gate.sh"], names, deps)[0] == "check base"
+    assert plan(["scripts/components.sh"], names, deps)[0] == "check base"
+    gate = plan(["scripts/gate.sh", "components/eval/a.rs"], names, deps)
+    assert gate[:3] == ["check eval", "build cli", "build web"] and "flag literate" in gate and "flag asks" in gate
     assert "flag asks" in plan(["docs/asks.toml"], names, deps)
     print("affected: self-test ok")
 

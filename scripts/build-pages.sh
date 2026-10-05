@@ -1,24 +1,47 @@
 #!/usr/bin/env bash
-# Build the live demo (components/web/crates/xetal-web) into pages/, which
-# is committed: the Pages workflow publishes that folder as it is. Then
-# export the literate documents into pages/literate/, build the
-# documentation site into pages/doc/ (xetal doc) and screenshot the
-# built page into images/live-demo.png for the README.
-#   scripts/build-pages.sh
+# Build pages/ (the published live demo and its pages), in parts: only
+# the parts whose inputs changed since they were last built are rebuilt
+# (scripts/check-pages.sh names the parts and their inputs). The Rust
+# sources are not inputs: after a change to how programs are drawn or
+# run, rebuild everything.
+#   scripts/build-pages.sh          # rebuild the stale parts
+#   scripts/build-pages.sh --all    # rebuild every part
+#   scripts/build-pages.sh web doc  # rebuild the parts named
 set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-dist="$root/target/dist-pages"
-cd "$root/components/web/crates/xetal-web"
-trunk build --release --public-url /X_eTaL/ --dist "$dist"
-mkdir -p "$root/pages"
-touch "$root/pages/.nojekyll"
-# pages/literate/ is written by scripts/literate-html.sh; keep it.
-rsync -a --delete --exclude='.nojekyll' --exclude='INPUTS' --exclude='literate/' --exclude='poster/' --exclude='doc/' "$dist/" "$root/pages/"
-"$root/scripts/literate-html.sh"
-"$root/scripts/doc-site.sh"
-python3 "$root/scripts/poster.py"
-"$root/scripts/latex-gallery.sh" --write
-"$root/scripts/live-screenshot.sh"
-# What pages/ now shows, for the gate's staleness check.
-"$root/scripts/check-pages.sh" --write
-echo "pages/ built; commit it (git add pages/) and push to publish."
+cd "$root"
+case "${1:-}" in
+    --all) parts="web literate doc poster latex" ;;
+    "") parts="$(scripts/check-pages.sh --stale | tr '\n' ' ')" ;;
+    *) parts="$*" ;;
+esac
+if [ -z "${parts// /}" ]; then
+    echo "pages/ is current: nothing to rebuild (scripts/build-pages.sh --all rebuilds everything)"
+    exit 0
+fi
+mkdir -p pages
+touch pages/.nojekyll
+
+# The live demo: trunk's build, copied over everything but the other parts.
+web() {
+    local dist="$root/target/dist-pages"
+    (cd components/web/crates/xetal-web && trunk build --release --public-url /X_eTaL/ --dist "$dist")
+    rsync -a --delete --exclude='.nojekyll' --exclude='INPUTS' --exclude='literate/' --exclude='poster/' --exclude='doc/' --exclude='latex/' "$dist/" pages/
+    scripts/live-screenshot.sh
+}
+
+for part in $parts; do
+    echo "==> pages: $part"
+    since=$SECONDS
+    case "$part" in
+        web) web ;;
+        literate) scripts/literate-html.sh ;;
+        doc) scripts/doc-site.sh ;;
+        poster) python3 scripts/poster.py ;;
+        latex) scripts/latex-gallery.sh --write ;;
+        *) echo "build-pages: no part named $part (web literate doc poster latex)" >&2; exit 2 ;;
+    esac
+    scripts/check-pages.sh --write "$part"
+    echo "    ($((SECONDS - since))s)"
+done
+echo "pages/ built ($parts): commit it (git add pages/) and push to publish."

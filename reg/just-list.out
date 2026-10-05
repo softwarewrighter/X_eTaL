@@ -23,7 +23,7 @@ Available recipes:
     literate-html              # Export the literate documents to HTML under pages/literate/ (with an index page)
     locks *args                # Check (or with --fix, regenerate) the component Cargo.lock files
     name-image                 # Draw images/name-forms.png, the name every way (docs/name.md, the live demo's Help)
-    pages                      # Build the live demo into pages/ (committed; the Pages workflow publishes it) and screenshot it
+    pages *PARTS               # Build pages/ (committed; the Pages workflow publishes it): only the parts whose inputs changed; `just pages --all` rebuilds everything
     pp file                    # Pretty-print a file like cat: decorated and highlighted (errors in red)
     reference                  # Regenerate docs/reference.md (every built-in, its examples run) from docs/reference/builtins.ref
     reg                        # Run the reg-rs CLI goldens in reg/

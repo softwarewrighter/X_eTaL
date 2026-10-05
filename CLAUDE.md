@@ -396,8 +396,12 @@ fails until the case is flipped to active in a deliberate commit.
 6. `sw-markdown-checker` on changed docs (ASCII-only markdown), and
    `scripts/check-spelling.py` (American spellings only)
 6a. `scripts/check-pages.sh`: pages/ is current with the demos,
-   libraries and literate documents (`just pages` rebuilds it and its
-   stamp; skipped where trunk is missing, so whoever merges rebuilds)
+   libraries, literate documents and the poster template. Pages are
+   built in parts (live demo, literate, doc site, poster, LaTeX
+   gallery); `just pages` rebuilds only the stale parts and their
+   stamps in pages/INPUTS, `just pages --all` everything (do that after
+   a change to how programs are drawn or run; skipped where trunk is
+   missing, so whoever merges rebuilds)
 7. docs updated if behavior changed (README, docs/design.md)
 8. detailed commit message; commit `.agentrail/` changes too
 9. then `agentrail complete`, push
@@ -409,7 +413,10 @@ fails until the case is flipped to active in a deliberate commit.
 `scripts/gate.sh` (`just gate`) is the fast gate: it measures what
 changed since the merge base with `origin/main` (everything not yet
 pushed), checks the components whose files changed (format, clippy,
-tests), tests the components that depend on them, skips the rest, and
+tests), tests the components that build in or test against changed
+files, only compiles the components that merely depend on a change
+(the spec cases and the goldens, which always run, cover them), skips
+the rest, and
 runs a slower document check (literate, diagrams, Emacs, the recipes,
 the asks ledger, the browser build) only when its inputs changed; the
 cheap checks always run. `scripts/affected.py` plans it.
@@ -421,9 +428,10 @@ cheap checks always run. `scripts/affected.py` plans it.
 - Between features (before `agentrail complete` of a step that changed
   code, after a batch of merges) and before any release or tag: the
   full gate.
-- A change to the gate's own machinery (`scripts/gate.sh`,
-  `scripts/affected.py`, `scripts/components.sh`, the cargo
-  configuration) makes the fast gate check everything.
+- A change to the list of components or the cargo configuration makes
+  the fast gate check everything; a change to `scripts/gate.sh` or
+  `scripts/affected.py` turns on every document check and leaves the
+  components to the plan.
 
 ## User-facing docs: what and how, never when or plans
 

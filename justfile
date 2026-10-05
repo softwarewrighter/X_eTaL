@@ -111,9 +111,9 @@ name-image:
 literate-html:
     scripts/literate-html.sh
 
-# Build the live demo into pages/ (committed; the Pages workflow publishes it) and screenshot it
-pages:
-    scripts/build-pages.sh
+# Build pages/ (committed; the Pages workflow publishes it): only the parts whose inputs changed; `just pages --all` rebuilds everything
+pages *PARTS:
+    scripts/build-pages.sh {{PARTS}}
 
 alias serve := web
 
