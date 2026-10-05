@@ -1,0 +1,12 @@
+# @ t_odo< "what" stops the program with error[panic] and "not yet
+# implemented: what"; it types wherever it stands (Rust's todo!).
+== SOURCE
+u:a_rea := { r -> r < 0 ? @ t_odo< "negative sizes"; r * r }
+u:a_rea 3
+u:a_rea -1
+== EXPAND
+u:a_rea := { r -> r < 0 ? (([]P_ANIC ("not yet implemented: negative sizes"))); r * r }
+u:a_rea 3
+u:a_rea -1
+== ERROR
+error[panic]: not yet implemented: negative sizes at 26..51

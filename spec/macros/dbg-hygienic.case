@@ -1,0 +1,13 @@
+# d_bg< is hygienic: its expression is evaluated outside the lambda it
+# writes, so an expression naming v (the lambda's parameter) or the old
+# local dbgValue sees its own value.
+== SOURCE
+v := 10
+dbgValue := 20
+1 + @ d_bg< "v + dbgValue"
+== EXPAND
+v := 10
+dbgValue := 20
+1 + ({ v -> []E_RR "[-e:3] v + dbgValue = " c_at f_ormat v; v } (v + dbgValue))
+== RESULT
+31

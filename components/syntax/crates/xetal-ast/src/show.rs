@@ -98,7 +98,12 @@ impl fmt::Display for Fun {
                     Params::Niladic => vec!["@".into()],
                     Params::Named(ps) => ps
                         .iter()
-                        .map(|p| format!("{}{}", if p.lazy { "~" } else { "" }, target(&p.name)))
+                        .map(|p| match &p.name {
+                            None => "@".to_string(),
+                            Some(name) => {
+                                format!("{}{}", if p.lazy { "~" } else { "" }, target(name))
+                            }
+                        })
                         .collect(),
                 };
                 let body: Vec<String> = lam.body.iter().map(ToString::to_string).collect();

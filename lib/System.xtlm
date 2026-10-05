@@ -67,25 +67,25 @@ s:e_ach< := { words template ->
 ## macro's expansion, the line of that macro's call).
 ## >> @ l_ine< @
 ## 1
-s:l_ine< := { u v -> u n_othing v n_othing f_ormat []L_INE @ }
+s:l_ine< := { @ @ -> f_ormat []L_INE @ }
 
 ## The file the call is written in, as a string (-e for text given on
 ## the command line).
 ## >> @ f_ile< @
 ## -e
-s:f_ile< := { u v -> u n_othing v n_othing q_uote []F_ILE @ }
+s:f_ile< := { @ @ -> q_uote []F_ILE @ }
 
 ## The text of a file, as a string, by a path relative to the file the
 ## call is written in; from the disk at the command line, from the
 ## store in the browser (Rust's include_str!). For example,
 ## t := @ i_nclude< "data.txt" binds the text of data.txt.
-s:i_nclude< := { u path -> u n_othing q_uote []I_NCLUDE t_rim path }
+s:i_nclude< := { @ path -> q_uote []I_NCLUDE t_rim path }
 
 ## 1 when a configuration fact holds, else 0: the platform (cli, or web
 ## in the browser) or a flag set with xetal --cfg NAME.
 ## >> @ c_fg< "cli"
 ## 1
-s:c_fg< := { u name -> u n_othing f_ormat 0 + []C_FG t_rim name }
+s:c_fg< := { @ name -> f_ormat 0 + []C_FG t_rim name }
 
 ## Stop with a compile error at the call, with the code on the left and
 ## the message on the right (Rust's compile_error!); a macro writes it
@@ -100,10 +100,10 @@ s:e_rror< := { code message -> ((t_rim code) c_at " call") []R_EJECT message }
 ## [file:line] expr = value to standard error (Rust's dbg!).
 ## >> 1 + @ d_bg< "2 * 3"
 ## 7
-s:d_bg< := { u expr ->
+s:d_bg< := { @ expr ->
   e := t_rim expr
   shown := "[" c_at ([]F_ILE @) c_at ":" c_at (f_ormat []L_INE @) c_at "] " c_at e c_at " = "
-  u n_othing "{ @ -> dbgValue := (" c_at e c_at "); []E_RR " c_at (q_uote shown) c_at " c_at f_ormat dbgValue; dbgValue } @"
+  "{ v -> []E_RR " c_at (q_uote shown) c_at " c_at f_ormat v; v } (" c_at e c_at ")"
 }
 
 ## When the condition on the left does not hold, write
@@ -127,14 +127,22 @@ s:a_ssert< := { cond note ->
 ## (Rust's format!).
 ## >> @ f_ormat< "two and two: {2 + 2} {{four}}"
 ## two and two: 4 {four}
-s:f_ormat< := { u t -> u n_othing o_rEmpty p_ieces t }
+s:f_ormat< := { @ t -> o_rEmpty p_ieces t }
 
 ## Stop the program with error[panic] and the message on the right,
 ## formatted as f_ormat< does, at the call; it stands where any value
 ## may (Rust's panic!).
 ## >> 1 + @ p_anic< "no {1 + 1}"
 ## error[panic]
-s:p_anic< := { u t -> u n_othing "[]P_ANIC (" c_at (o_rEmpty p_ieces t) c_at ")" }
+s:p_anic< := { @ t -> "[]P_ANIC (" c_at (o_rEmpty p_ieces t) c_at ")" }
+
+## Stop the program with error[panic] and the message
+## "not yet implemented: " followed by the text on the right (formatted
+## as f_ormat< does); a placeholder for code still to write, standing
+## where any value may (Rust's todo!).
+## >> 1 + @ t_odo< "the size check"
+## error[panic]
+s:t_odo< := { @ t -> "@ p_anic< " c_at q_uote "not yet implemented: " c_at t }
 
 ### Private helpers
 
@@ -163,9 +171,6 @@ s_eps := { t ->
 
 # Where $w starts in t.
 h_oles := { t -> (t = f_irst "$") & (1 d_rop t = f_irst "w") c_at 0 }
-
-# x, once u (the side of a call that takes no argument, @) is Unit.
-n_othing := { u x -> ({ @ -> x })_ u }
 
 # The boxed texts b joined into one text.
 j_oin := { b -> d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b }

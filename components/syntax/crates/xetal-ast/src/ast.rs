@@ -115,7 +115,9 @@ pub enum Params {
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Param {
-    pub name: Target,
+    /// The parameter's name; none for `@`, a parameter that takes only
+    /// Unit (L6, among others for a macro side that takes nothing).
+    pub name: Option<Target>,
     pub lazy: bool,
     pub span: Span,
 }

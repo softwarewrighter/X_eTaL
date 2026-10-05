@@ -1,8 +1,9 @@
 number = 20
 slug = "macros-decided"
-status = "pending"
+status = "completed"
 description = "macros-decided (the user's decisions of 2026-10-04): record MC14-MC17, MC23, ..."
 role = "production"
 context_files = []
 created_at = "2026-10-04T15:16:21"
-commits = []
+completed_at = "2026-10-04T16:32:25"
+commits = ["4016f29e60eb187a699fd9763440b00ef37e9c32"]

@@ -19,14 +19,16 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 99 | 0 | 0 |
-| Language decisions | 122 | 0 | 2 |
+| Language decisions | 119 | 0 | 4 |
 | Standard libraries | 6 | 0 | 0 |
-| Spec cases | 337 | 0 | 0 |
+| Spec cases | 340 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
 - **T9** (planned): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
+- **B18** (planned): `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...).
+- **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
 
 ## Built-in functions
 
@@ -34,9 +36,9 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 54 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 57 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 26 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 37 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 38 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
@@ -66,7 +68,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 35 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
-| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 9 | 1 |
+| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 10 | 1 |
 | `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
 | `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 11 | 1 |
 | `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 4 | 1 |
@@ -136,7 +138,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 5 | 4 |
 | `r_avel` | `a -> a` | works | 1 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 59 | 2 |
+| `r_eshape` | `Int -> a -> a` | works | 58 | 2 |
 | `t_ake` | `Int -> a -> a` | works | 10 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 2 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 12 | 4 |
@@ -188,18 +190,18 @@ conventions (naming, layout) work without a spec case citing them.
 | `d_isplay` | `a -> Char` | works | 1 | 5 |
 | `p_artition` | `Truthy a => a -> b -> Box b` | works | 3 | 4 |
 
-### B12, B18: encode and decode (radix on the left; decode on any numbers)
+### B12: encode and decode (radix on the left)
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `e_ncode` | `Int -> Int -> Int` | works | 4 | 5 |
-| `d_ecode` | `Num a => a -> a -> a` | works | 5 | 7 |
+| `e_ncode` | `Int -> Int -> Int` | works | 3 | 5 |
+| `d_ecode` | `Int -> Int -> Int` | works | 3 | 5 |
 
 ### A2-A4: rotate and reverse (leading axis)
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `r_ev` | `a -> a` | works | 11 | 4 |
+| `r_ev` | `a -> a` | works | 10 | 4 |
 | `o_-` | `Int -> a -> a` | works | 5 | 6 |
 
 ### B17: transpose
@@ -242,7 +244,7 @@ conventions (naming, layout) work without a spec case citing them.
 | L4 | Named parameters, decorated like names, separated from the body by `->`: `{ f_ g_ x -> f_ g_ x }` | works | 3 |
 | L5 | Shorthand and named parameters may not be mixed in one lambda | works | 1 |
 | L7 | Names resolve lexically: the innermost enclosing lambda's parameter, then outer lambdas, then the program (...) | works | 0 |
-| L6 | A niladic function is defined with `@` as its only parameter: `u:n_ow! := { @ -> ... }`, and called as (...) | works | 4 |
+| L6 | A niladic function is defined with `@` as its only parameter: `u:n_ow! := { @ -> ... }`, and called as (...) | works | 5 |
 | TR1 | Trains are written in square brackets | works | 3 |
 | TR2 | A two-element train is atop: `[F G] x` is `F (G x)` (BQN / Dyalog, not J's hook) | works | 1 |
 | TR4 | A train's arity comes from where it is written: `[F G H] x` is monadic, `x [F G H] y` dyadic | works | 0 |
@@ -257,11 +259,10 @@ conventions (naming, layout) work without a spec case citing them.
 | S8 | A Float literal may have an exponent: `e` or `E` right after the digits, then an optional `-` and digits, (...) | works | 7 |
 | S7 | The command is `xetal` (easy to type, matches the crate slug) | works | 0 |
 | S9 | Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...) | planned | 0 |
-| S10 | Doc examples are run (Saga 32 step doc-test), as rustdoc runs doc tests: `xetal doc --test FILE` runs the (...) | works | 0 |
 | T1 | A real `Bool` type; `=` and the comparisons return Bool | works | 4 |
 | T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and (...) | works | 3 |
 | T3 | `=` is exact (IEEE) equality and transitive; `(0.1 + 0.2) = 0.3` is 0 | works | 2 |
-| T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 6 |
+| T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 4 |
 | T6 | Programs are type-checked before they run: `xetal eval` and `xetal run` refuse an ill-typed program with a (...) | works | 5 |
 | T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 7 |
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
@@ -293,7 +294,7 @@ conventions (naming, layout) work without a spec case citing them.
 | B15 | `c_at_k` is APL's catenate along axis k (decided with the user, from the swimming-ducks demo): `c_at` (...) | works | 0 |
 | B16 | Nested arrays print as APL2's DISPLAY draws them (decided with the user for the classics lane): every (...) | works | 1 |
 | B17 | Transpose, decided with the user for the transpose lane (asked for by X_eTaL-demos, ADVANCEDEX and the (...) | works | 11 |
-| B18 | `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...) | works | 3 |
+| B18 | `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...) | planned | 0 |
 | SC1 | A symbol function applied to one argument is an error (`- 3`, `/ 2`, `2 +`): under currying it would fill (...) | works | 4 |
 | ST1 | A string is written `"..."` | works | 2 |
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 2 |
@@ -324,13 +325,13 @@ conventions (naming, layout) work without a spec case citing them.
 | MC19 | System.xtlm is loaded before every file, with no import and no alias: its `s:` macros are called (...) | works | 1 |
 | MC20 | What only the compiler knows comes from a few hooks, quad built-ins usable only in a macro body while a (...) | works | 2 |
 | MC21 | `u_se<` stays built into the compiler and is not declared as an `s:` macro in System.xtlm: what it does (...) | works | 0 |
-| MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 6 |
+| MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 7 |
 | MC24 | Which macros are system macros: a macro is a system macro (in `lib/System.xtlm` under `s:`, called (...) | works | 9 |
 | MC25 | The compiler-only system macros, each with `@` for a side that takes nothing: `@ l_ine< @` (the call's (...) | works | 0 |
 | MC26 | `@ d_bg< "expr"` (Rust's `dbg!`) is a system macro: the value of `expr`, after writing `[file:line] expr = (...) | works | 0 |
 | MC27 | `"cond" a_ssert< "message"` (or `@` for no message) reports and goes on: when the condition does not hold (...) | works | 1 |
 | MC28 | `@ f_ormat< "x = {x}"` (Rust's `format!`) interpolates: each `{expr}` holds any expression (it ends at the (...) | works | 0 |
-| MC29 | `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...) | works | 0 |
+| MC29 | `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...) | planned | 0 |
 | MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | CB1 | The standard library `Combinators` holds every bird Raymond Smullyan names in *To Mock a Mockingbird* that (...) | works | 1 |
 | CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works (...) | works | 0 |
