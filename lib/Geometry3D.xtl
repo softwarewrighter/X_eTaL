@@ -55,9 +55,9 @@ l:r_otZ := { d ->
 ## 0
 l:t_urn := { m points -> m '+ '* i_nner points }
 
-## The points as seen from distance d along the z axis, looking toward
-## the origin, as 2 rows (x over y) for []P_ATH: a point farther away
-## (a larger z) is drawn nearer the center. `d g:p_roject points`.
+## The points as seen by a viewer at distance d up the z axis, looking
+## at the origin, as 2 rows (x over y) for []P_ATH: a nearer point (a
+## larger z) is drawn farther from the center. `d g:p_roject points`.
 ## >> "g:" u_se< "Geometry3D"
 ## >> 10 g:p_roject 3 2 r_eshape 1 1 1 1 0 5
 ## 1.0 2.0
@@ -67,8 +67,8 @@ l:p_roject := { d points ->
   (2 t_ake points) * (2 c_at t_ally scale) r_eshape scale
 }
 
-## How far each face of a solid is: the mean z of its corners, one
-## number per face (F x 3 x 4 to F).
+## How near each face of a solid is to the viewer: the mean z of its
+## corners, one number per face (F x 3 x 4 to F); larger is nearer.
 ## >> "g:" u_se< "Geometry3D"
 ## >> g:f_ar 2 3 1 r_eshape 0 0 -3 0 0 2
 ## -3.0 2.0
@@ -77,13 +77,13 @@ l:f_ar := { faces -> (f_loat '+ r_/ o_\ 3 s_elect_2 faces) / f_loat 1 s_elect r_
 ## The faces of a solid from the farthest to the nearest, as positions
 ## (the order to draw them in, so nearer faces cover farther ones).
 ## >> "g:" u_se< "Geometry3D"
-## >> g:o_rder 2 3 1 r_eshape 0 0 -3 0 0 2
+## >> g:o_rder 2 3 1 r_eshape 0 0 2 0 0 -3
 ## 2 1
-l:o_rder := { faces -> r_ev g_rade l:f_ar faces }
+l:o_rder := { faces -> g_rade l:f_ar faces }
 
 ## The 8 corners of a cube of side s centered on the origin, 3 x 8, in
-## the order front face (z = s/2) then back face, each anticlockwise
-## from the top left.
+## the order near face (z = s/2, toward the viewer) then far face, each
+## anticlockwise from the top left.
 ## >> "g:" u_se< "Geometry3D"
 ## >> s_hape g:c_ube 2
 ## 3 8

@@ -1,0 +1,3 @@
+command = "rm -rf work/reg-cube && ./target/release/xetal run demos/rosetta/cube.xtl --draw work/reg-cube && cat work/reg-cube/cube-14.svg"
+exit_code = 0
+desc = "the Rosetta stone's rehearsal: a cube turning, 12 wireframe and 12 shaded frames drawn by Geometry3D and Svg; the first shaded, turned frame as it is written"
