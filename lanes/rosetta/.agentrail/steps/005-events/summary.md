@@ -1,0 +1,1 @@
+[]E_VENT/[]E_KIND/[]E_AT/[]E_KEY (RS1, D93): Event value and type, Inbox in xetal-frame, --events FILE and stdin with end, WaitingEvent through the live demo with a tick per wait and key events; goldens run-events, run-events-bad. PR pr/events (carries #77..#82).

@@ -235,6 +235,11 @@ stream type later.
 | Rule | Decision |
 |------|----------|
 
+## 9c. Events and tables (the Rosetta stone's host boundary)
+
+| Rule | Decision |
+|------|----------|
+
 ## 10. Input and display
 
 | #  | Decision |

@@ -19,6 +19,8 @@ pub struct Output {
     pub waiting: bool,
     /// What it waits for is one key, sent at once, not echoed.
     pub wants_key: bool,
+    /// What it waits for is an event's line (a tick, a pointer, a key).
+    pub wants_event: bool,
     /// In a notebook, each statement and where its output and pictures
     /// begin in the run's; none for a plain run.
     pub cells: Vec<Cell>,
@@ -44,6 +46,14 @@ impl Output {
         let all = self.run.as_ref().map_or(&[][..], |r| r.pictures.as_slice());
         let end = self.after(cell).map_or(all.len(), |c| c.pictures_at);
         &all[cell.pictures_at..end]
+    }
+
+    /// Waiting for a line (`Some(false)`), a key (`Some(true)`) or
+    /// nothing (`None`, fed).
+    fn waits(&mut self, key: Option<bool>) {
+        self.waiting = key.is_some();
+        self.wants_key = key == Some(true);
+        self.wants_event = false;
     }
 
     fn after(&self, cell: &Cell) -> Option<&Cell> {
@@ -83,6 +93,7 @@ impl Reducible for Output {
                     running: true,
                     waiting: false,
                     wants_key: false,
+                    wants_event: false,
                     cells: Vec::new(),
                 });
             }
@@ -99,9 +110,12 @@ impl Reducible for Output {
             Action::Event(Event::Picture(svg)) => run.pictures.push(svg),
             Action::Event(Event::Wrote(..) | Event::Ready) => {}
             Action::Event(Event::Done) => (next.running, next.waiting) = (false, false),
-            Action::Event(Event::Waiting) => (next.waiting, next.wants_key) = (true, false),
-            Action::Event(Event::WaitingKey) => (next.waiting, next.wants_key) = (true, true),
-            Action::Pressed => (next.waiting, next.wants_key) = (false, false),
+            Action::Event(Event::Waiting) => next.waits(Some(false)),
+            Action::Event(Event::WaitingKey) => next.waits(Some(true)),
+            Action::Event(Event::WaitingEvent) => {
+                (next.waiting, next.wants_key, next.wants_event) = (true, false, true);
+            }
+            Action::Pressed => next.waits(None),
             Action::Typed(line) => {
                 run.out += &format!("{line}\n");
                 next.waiting = false;

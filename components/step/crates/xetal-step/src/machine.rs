@@ -9,7 +9,7 @@ use xetal_base::{Diagnostic, Span};
 use xetal_core::Program;
 use xetal_value::{Env, Value};
 
-use xetal_frame::{Control, Kont};
+use xetal_frame::{Control, Inbox, Kont, Wants};
 
 /// Pending frames allowed before reporting `stack-overflow` (the depth a
 /// runaway recursion reaches; deep finite recursion is well within it).
@@ -24,6 +24,8 @@ pub enum Status {
     Waiting,
     /// Stopped at `[]K_EY` until a key's name is fed.
     WaitingKey,
+    /// Stopped at `[]E_VENT` until an event's line is fed (RS1).
+    WaitingEvent,
     /// Every item has run.
     Done,
 }
@@ -43,12 +45,9 @@ pub struct Machine<'a, 'o> {
     pub(crate) keep: Option<&'o mut dyn FnMut(&Value<'a>)>,
     /// Called with each top-level item's span just before it runs.
     pub(crate) before: Option<&'o mut (dyn FnMut(Span) + Send)>,
-    /// Lines typed for `[]R_EAD`; without a queue it reads standard
-    /// input (the CLI), with one an empty queue makes the run wait.
-    pub(crate) input: Option<std::collections::VecDeque<String>>,
-    pub(crate) waiting: bool,
-    /// What it waits for is one key (`[]K_EY`), not a line.
-    pub(crate) wants_key: bool,
+    /// Lines fed for `[]R_EAD`, `[]K_EY` and `[]E_VENT`, and what the
+    /// run waits for; without a queue those read standard input.
+    pub(crate) inbox: Inbox,
 }
 
 impl<'a, 'o> Machine<'a, 'o> {
@@ -64,9 +63,7 @@ impl<'a, 'o> Machine<'a, 'o> {
             rng,
             keep: None,
             before: None,
-            input: None,
-            waiting: false,
-            wants_key: false,
+            inbox: Inbox::default(),
         }
     }
 
@@ -85,7 +82,7 @@ impl<'a, 'o> Machine<'a, 'o> {
     /// Run at most `budget` transitions.
     pub fn run(&mut self, budget: usize) -> Result<Status, Diagnostic> {
         for _ in 0..budget {
-            if self.waiting {
+            if self.inbox.waiting {
                 return Ok(self.waited());
             }
             let Some(control) = self.control.take() else {
@@ -96,7 +93,7 @@ impl<'a, 'o> Machine<'a, 'o> {
                 Err(e) => self.control = Some(self.catch(e)?),
             }
         }
-        Ok(match (self.waiting, self.control.is_some()) {
+        Ok(match (self.inbox.waiting, self.control.is_some()) {
             (true, _) => self.waited(),
             (false, true) => Status::Running,
             (false, false) => Status::Done,
@@ -128,9 +125,10 @@ impl<'a, 'o> Machine<'a, 'o> {
 
     /// What the run waits for.
     fn waited(&self) -> Status {
-        match self.wants_key {
-            true => Status::WaitingKey,
-            false => Status::Waiting,
+        match self.inbox.wants {
+            Some(Wants::Key) => Status::WaitingKey,
+            Some(Wants::Event) => Status::WaitingEvent,
+            _ => Status::Waiting,
         }
     }
 }

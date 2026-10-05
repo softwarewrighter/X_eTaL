@@ -18,6 +18,7 @@ fn kind(v: &Value<'_>) -> &'static str {
         Value::Boxed(_) => "Box",
         Value::Closure(_) | Value::Prim(_) => "function",
         Value::Error(_) => "Error",
+        Value::Event(_) => "Event",
         Value::Outcome(_) => "Outcome",
     }
 }

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run reg/fixtures/events-echo.xtl --events reg/fixtures/events.txt"
+exit_code = 0
+desc = "[]E_VENT (RS1): a scripted queue of events read with --events, each taken apart by []E_KIND, []E_AT and []E_KEY; the end of the file is the event `end`"
