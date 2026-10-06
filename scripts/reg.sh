@@ -11,7 +11,9 @@ export REG_RS_DATA_DIR="$root/reg"
 # Pictures a golden draws go to work/draw (gitignored), never the repo.
 export XETAL_DRAW="${XETAL_DRAW:-work/draw}"
 command -v reg-rs >/dev/null || { echo "reg-rs not found on PATH" >&2; exit 127; }
-(cd components/cli && cargo build -q -p xetal-cli && cargo build -q --release -p xetal-cli)
+# The gate builds both first (GATE_BUILT) so no two cargos relink the
+# binary while a golden or the spec cases run it.
+[ "${GATE_BUILT:-}" = 1 ] || (cd components/cli && cargo build -q -p xetal-cli && cargo build -q --release -p xetal-cli)
 if [ "${1:-}" = "run" ] && [ "$#" -eq 1 ]; then
     # In parallel: every golden writes only under its own path (CLAUDE.md).
     exec reg-rs run -p .rgt --parallel

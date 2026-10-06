@@ -82,8 +82,9 @@ if does "flag wasm"; then
 fi
 # The goldens and the rest run target/debug/xetal: built here, so it is
 # current whatever the component plan did.
-step "the CLI (debug) for the end-to-end checks"
-(cd components/cli && cargo build -q -p xetal-cli)
+step "the CLI (debug and release) for the end-to-end checks"
+(cd components/cli && cargo build -q -p xetal-cli && cargo build -q --release -p xetal-cli)
+export GATE_BUILT=1
 # The end-to-end checks share nothing once the CLI is built: all at once,
 # each to its own log, reported in order when all are done.
 step "end-to-end checks, in parallel: goldens, spec cases, doc tests, reference, status, data tables, spelling, markdown"
