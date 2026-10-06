@@ -186,11 +186,13 @@ u:j_oin := { b -> d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } 
 
 # Where the stone stands, for the host: "at IDIOM TOP BOTTOM" by their
 # keys, printed whenever it changes (the page reads it for its controls
-# and the address bar).
+# and the address bar). It names what the faces show, which changes
+# when a turn lands, not what an axis is turning toward (its steps),
+# so the page's lists never run ahead of the picture.
 u:w_here := { s ->
-  i := d_isclose (cm:IDIOM cm:c_urrent s) s_elect idioms
-  t := d_isclose (cm:TOP cm:c_urrent s) s_elect languages
-  b := d_isclose (cm:BOTTOM cm:c_urrent s) s_elect languages
+  i := d_isclose ((cm:IDIOM c_at 0.0) u:i_tem s) s_elect idioms
+  t := d_isclose ((cm:TOP c_at 0.0) u:i_tem s) s_elect languages
+  b := d_isclose ((cm:BOTTOM c_at 0.0) u:i_tem s) s_elect languages
   "at " c_at i c_at " " c_at t c_at " " c_at b
 }
 

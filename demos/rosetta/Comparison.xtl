@@ -17,14 +17,15 @@
 ## []E_VENT gives them; cm:u_pdate takes one.
 
 ## The attract mode's pace, in seconds: how long a comparison holds
-## still before the next (long enough to read), and how long after an
-## interaction the stone waits before moving on its own again. The
+## still before the next (long enough to read two faces of code), and
+## how long after an interaction the stone waits before moving on its
+## own again (long enough to look round a comparison by hand). The
 ## traversal is the nested loop `for idiom, for top, for bottom`: the
 ## bottom ring steps at each dwell; when it has swept every other
 ## language the top ring steps too, in the same instant, and when the
 ## top has swept, the drum rolls too: three turns at once, the tumble.
-l:dwell := 3.0
-l:idleBefore := 8.0
+l:dwell := 5.0
+l:idleBefore := 20.0
 
 ## The state for i idioms and l languages, `i cm:s_tart l`: nothing
 ## turned, all playing, no pointer, the attract mode ready (idle long
@@ -35,7 +36,7 @@ l:idleBefore := 8.0
 ##  7.0 0.0 0.0 1.0 0.0
 ##  7.0 0.0 0.0 1.0 0.0
 ##  0.0 0.0 0.0 0.0 0.0
-##  8.0 0.0 0.0 0.0 0.0
+## 20.0 0.0 0.0 0.0 0.0
 l:s_tart := { i l -> 5 5 r_eshape (f_loat i) c_at 0.0 0.0 1.0 0.0 c_at (f_loat l) c_at 0.0 0.0 1.0 0.0 c_at (f_loat l) c_at 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 c_at l:idleBefore c_at 0.0 0.0 0.0 0.0 }
 
 ## The rows and columns, by name.
@@ -148,7 +149,7 @@ l:e_ase := { adt state ->
 ##  7.0 0.0   0.0 1.0 0.0
 ##  7.0 0.0   0.0 1.0 0.0
 ##  0.0 0.0   0.0 0.0 0.0
-##  8.0 0.0   0.0 0.0 0.0
+## 20.0 0.0   0.0 0.0 0.0
 l:s_ettle := { state -> (l:BOTTOM c_at 9.0) l:e_ase (l:TOP c_at 9.0) l:e_ase (l:IDIOM c_at 9.0) l:e_ase state }
 
 ## Every axis eased over dt seconds (a tick), and the attract mode's
@@ -156,9 +157,9 @@ l:s_ettle := { state -> (l:BOTTOM c_at 9.0) l:e_ase (l:TOP c_at 9.0) l:e_ase (l:
 ## the last comparison has held still for a dwell, the attract mode
 ## steps (cm:a_ttract).
 ## >> "cm:" u_se< "Comparison"
-## >> cm:BOTTOM cm:c_urrent 3.0 cm:t_ick 31 cm:s_tart 7
+## >> cm:BOTTOM cm:c_urrent cm:dwell cm:t_ick 31 cm:s_tart 7
 ## 2
-## >> cm:BOTTOM cm:c_urrent 2.9 cm:t_ick 31 cm:s_tart 7
+## >> cm:BOTTOM cm:c_urrent (cm:dwell - 0.1) cm:t_ick 31 cm:s_tart 7
 ## 1
 l:t_ick := { dt state ->
   eased := (l:BOTTOM c_at dt) l:e_ase (l:TOP c_at dt) l:e_ase (l:IDIOM c_at dt) l:e_ase state
@@ -200,13 +201,29 @@ l:t_ouched := { state -> (l:ATTRACT c_at l:SINCE c_at 0.0) l:p_ut (l:ATTRACT c_a
 ## Every axis playing again (a start chosen with cm:c_hoose is paused).
 l:r_esume := { state -> (l:BOTTOM c_at l:PLAYING c_at 1.0) l:p_ut (l:TOP c_at l:PLAYING c_at 1.0) l:p_ut (l:IDIOM c_at l:PLAYING c_at 1.0) l:p_ut state }
 
+## The tour paused when any axis plays, else every axis resumed (the
+## space bar: one key stops everything, and starts it again).
+## >> "cm:" u_se< "Comparison"
+## >> (cm:TOP c_at cm:PLAYING) cm:a_t cm:t_oggleTour 31 cm:s_tart 7
+## 0.0
+## >> (cm:BOTTOM c_at cm:PLAYING) cm:a_t cm:t_oggleTour cm:TOP cm:t_oggle 31 cm:s_tart 7
+## 0.0
+## >> (cm:TOP c_at cm:PLAYING) cm:a_t cm:t_oggleTour cm:t_oggleTour 31 cm:s_tart 7
+## 1.0
+l:t_oggleTour := { state ->
+  playing := ((l:IDIOM c_at l:PLAYING) l:a_t state) + ((l:TOP c_at l:PLAYING) l:a_t state) + (l:BOTTOM c_at l:PLAYING) l:a_t state
+  0.0 < playing ? (l:BOTTOM c_at l:PLAYING c_at 0.0) l:p_ut (l:TOP c_at l:PLAYING c_at 0.0) l:p_ut (l:IDIOM c_at l:PLAYING c_at 0.0) l:p_ut state
+  l:r_esume state
+}
+
 ## An axis paused or resumed.
 l:t_oggle := { axis state -> (axis c_at l:PLAYING c_at 1.0 - (axis c_at l:PLAYING) l:a_t state) l:p_ut state }
 
 ## The state after an event: a tick eases every axis; the arrow keys
 ## step the drum (Up, Down) and the top ring (Left, Right), a and d the
-## bottom ring, space pauses or resumes the top ring, s the bottom and
-## w the drum; the pointer drags and clicks (cm:d_own, cm:m_ove, cm:u_p,
+## bottom ring, space pauses or resumes the whole tour (cm:t_oggleTour),
+## s the bottom ring and w the drum on their own; the pointer drags and
+## clicks (cm:d_own, cm:m_ove, cm:u_p,
 ## cm:c_lick); a choice from the host's controls, `choose AXIS ITEM`,
 ## turns that axis to the item (cm:c_hoose).
 l:u_pdate := { state e ->
@@ -296,7 +313,7 @@ l:k_ey := { k state ->
   c := []K_CHAR k
   c m_atch "a" ? (l:BOTTOM c_at -1.0) l:s_tep state
   c m_atch "d" ? (l:BOTTOM c_at 1.0) l:s_tep state
-  c m_atch " " ? l:TOP l:t_oggle state
+  c m_atch " " ? l:t_oggleTour state
   c m_atch "s" ? l:BOTTOM l:t_oggle state
   c m_atch "w" ? l:IDIOM l:t_oggle state
   state

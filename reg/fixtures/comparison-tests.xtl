@@ -65,7 +65,7 @@ kept := 142.0 100.0 cm:m_ove drag
 # a paused half is counted but not turned
 ((cm:BOTTOM cm:c_urrent cm:a_ttract^2 cm:BOTTOM cm:t_oggle s0) c_at cm:TOP cm:c_urrent cm:a_ttract^6 cm:BOTTOM cm:t_oggle s0) m_atch 1 2
 # ticks: nothing moves before a dwell, the bottom steps at the dwell, and a touch (any event but a tick) holds the stone still for the idle time
-(cm:BOTTOM cm:c_urrent 2.9 cm:t_ick s0) = 1
-(cm:BOTTOM cm:c_urrent 3.0 cm:t_ick s0) = 2
-(cm:BOTTOM cm:c_urrent 7.9 cm:t_ick cm:t_ouched s0) = 1
-(cm:BOTTOM cm:c_urrent 8.0 cm:t_ick cm:t_ouched s0) = 2
+(cm:BOTTOM cm:c_urrent (cm:dwell - 0.1) cm:t_ick s0) = 1
+(cm:BOTTOM cm:c_urrent cm:dwell cm:t_ick s0) = 2
+(cm:BOTTOM cm:c_urrent (cm:idleBefore - 0.1) cm:t_ick cm:t_ouched s0) = 1
+(cm:BOTTOM cm:c_urrent cm:idleBefore cm:t_ick cm:t_ouched s0) = 2

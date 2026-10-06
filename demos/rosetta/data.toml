@@ -102,7 +102,7 @@ dyalog = '⍴a'
 j = '$ a'
 bqn = '≢a'
 xetal = 's_hape a'
-k = '#a'
+k = '(#a),#*a'
 uiua = '△a'
 
 [source.count]
@@ -156,7 +156,7 @@ dyalog = 'a+.×b'
 j = 'a +/ .* b'
 bqn = 'a +˝∘×⎉1‿∞ b'
 xetal = "a '+ '* i_nner b"
-k = 'a+/@*b'
+k = '+/a*b'
 uiua = '/+×a b'
 
 [source.each]
@@ -173,8 +173,7 @@ dyalog = 'x f⍨ y'
 j = 'x f~ y'
 bqn = 'x F˜ y'
 xetal = "x 'f_ s_wap y"
-k = 'y f x'
-uiua = 'F ⊙⊙∘ x y'
+uiua = 'F : x y'
 
 [source.compose]
 dyalog = 'f∘g'
@@ -201,7 +200,6 @@ k = '{(+/x)%#x}'
 uiua = '÷⧻⟜/+'
 
 [source.lambda]
-apl2 = '∇Z←SQ X'
 dyalog = '{⍵×⍵}'
 j = '{{ y*y }}'
 bqn = '{𝕩×𝕩}'
@@ -216,7 +214,7 @@ j = '{{ if. y<0 do. -y else. y end. }}'
 bqn = '{𝕩<0 ? -𝕩 ; 𝕩}'
 xetal = '{ x -> x < 0 ? n_eg x; x }'
 k = '{$[x<0;-x;x]}'
-uiua = '⨬(¯|∘) <0.'
+uiua = '⨬(∘|¯)<0.'
 
 [source.self]
 dyalog = '∇'
@@ -240,7 +238,7 @@ dyalog = 'x∊v'
 j = 'x e. v'
 bqn = 'x∊v'
 xetal = 'x m_ember? v'
-k = 'x in v'
+k = '(v?x)<#v'
 uiua = '∊x v'
 
 [source.match]
@@ -383,11 +381,16 @@ xetal = "1 2"
 [output.numbers]
 xetal = "1.0 2.0 3.0"
 
+[notes.lambda]
+apl2 = "none: every function is defined and named, ∇Z←SQ X"
+
 [notes.swap]
 apl2 = "not directly expressible"
+k = "none: the arguments are written the other way round, y f x"
 
 [notes.compose]
 apl2 = "not directly expressible"
+k = "no composition operator: the functions are applied in turn"
 
 [notes.power]
 apl2 = "not directly expressible"
@@ -403,9 +406,22 @@ xetal = "its own name, or c:Y_ from the Combinators library"
 [notes.read-file]
 apl2 = "a shared variable ([]SVO) with a file processor"
 
+[notes.inner]
+k = "the dot product of two vectors"
+uiua = "the dot product of two vectors"
+
+[notes.member]
+k = "no member primitive: the index found before the end"
+
+[notes.read-line]
+k = "the dialects differ"
+
+[notes.shape]
+k = "no shape primitive: the count, then the first row's"
+
 [notes.transpose]
 bqn = "a matrix"
-k = "no matrix transpose; +x flips a list of lists"
+k = "flip: + transposes a list of lists"
 
 # Spans: how a cell is colored, "class text|class text|...", with the
 # classes X_eTaL's []V_IEW names (number, string, symbol, builtin,

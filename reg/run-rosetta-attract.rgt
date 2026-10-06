@@ -1,3 +1,3 @@
 command = "rm -rf work/reg-attract && ./target/release/xetal run demos/rosetta/rosetta.xtl --events reg/fixtures/rosetta-attract.txt --draw work/reg-attract"
 exit_code = 0
-desc = "the Rosetta stone left alone for 24 seconds (step 10): the attract mode steps the bottom ring every three seconds and the top ring with it after a sweep; 48 frames and the state at the end"
+desc = "the Rosetta stone left alone for 40 seconds (step 10): the attract mode steps the bottom ring every dwell of five seconds and the top ring with it after a sweep; 80 frames and the state at the end"

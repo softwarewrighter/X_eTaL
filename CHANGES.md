@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 09:00 `fix` The stone after the user's hands-on hour: zoom buttons and full screen; the tour dwells 5 s and waits 20 s after a touch, the space bar pauses it whole; the lists and address follow the faces (printed when a turn lands); the data reviewed cell by cell (APL2's anonymous function and K's swap are honest nones; K's shape, inner and member, Uiua's swap and conditional corrected); D110.
 - 08:11 `build` Merged PR #94 (rosetta lane: the trap idiom in X_eTaL, text that fits its face); the register's D103-D106 as the lane numbered them; pages/ rebuilt.
 
 - 08:30 `fix` The stone's faces after the user's second note (rosetta lane step 15): the trap idiom shows the error-handling macros (`t_ry<`, `r_ecover<`) in the data, docs/idioms.md and the spec case; long code split in two lines and shrunk to fit, notes wrapped, text only on faces toward the viewer (`st:f_acing`), the view tilted to 22 degrees; `v:s_ized` in Svg; D106.
