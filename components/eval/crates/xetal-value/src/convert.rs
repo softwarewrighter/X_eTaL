@@ -2,7 +2,7 @@
 
 use std::rc::Rc;
 
-use xetal_array::Array;
+use xetal_array::{Array, Kind};
 
 use crate::Value;
 
@@ -10,7 +10,16 @@ use crate::Value;
 pub fn as_array<'a>(v: &Value<'a>) -> Array<Value<'a>> {
     match v {
         Value::Array(a) => (**a).clone(),
-        s => Array::scalar(s.clone()),
+        s => Array::scalar(s.clone()).with_kind(kind_of(s)),
+    }
+}
+
+/// The kind of a scalar (T9): a character, a box, or a number.
+pub fn kind_of(v: &Value<'_>) -> Kind {
+    match v {
+        Value::Char(_) => Kind::Char,
+        Value::Boxed(_) | Value::Array(_) => Kind::Box,
+        _ => Kind::Number,
     }
 }
 
@@ -18,7 +27,7 @@ pub fn as_array<'a>(v: &Value<'a>) -> Array<Value<'a>> {
 pub fn as_vector<'a>(v: &Value<'a>) -> Array<Value<'a>> {
     match v {
         Value::Array(a) => (**a).clone(),
-        s => Array::vector(vec![s.clone()]),
+        s => Array::vector(vec![s.clone()]).with_kind(kind_of(s)),
     }
 }
 

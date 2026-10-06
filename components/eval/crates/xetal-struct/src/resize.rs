@@ -1,4 +1,5 @@
-//! Reshape, take and drop.
+//! Reshape, take and drop. Each keeps the kind of the array it works
+//! on (T9): what an empty result says it holds.
 
 use xetal_array::{Array, ArrayError, size};
 
@@ -6,12 +7,12 @@ use crate::cells::cell_len;
 
 /// `shape` filled with `items`, reused cyclically (B4); no items for a
 /// non-empty shape is an error (B10).
-pub fn reshape<T: Clone>(shape: Vec<usize>, items: &[T]) -> Result<Array<T>, ArrayError> {
-    let n = size(&shape)?;
+pub fn reshape<T: Clone>(shape: Vec<usize>, a: &Array<T>) -> Result<Array<T>, ArrayError> {
+    let (n, items) = (size(&shape)?, a.data());
     if n > 0 && items.is_empty() {
         return Err(ArrayError::Empty);
     }
-    Array::new(shape, items.iter().cycle().take(n).cloned().collect())
+    Ok(Array::new(shape, items.iter().cycle().take(n).cloned().collect())?.with_kind(a.kind()))
 }
 
 /// The first `n` major cells (the last `-n` when negative); missing
@@ -28,7 +29,7 @@ pub fn take<T: Clone>(n: i64, a: &Array<T>, fill: Option<T>) -> Result<Array<T>,
         &a.data()[(len - want.min(len)) * cell..]
     };
     if pad == 0 {
-        return Array::new(shape, kept.to_vec());
+        return Ok(Array::new(shape, kept.to_vec())?.with_kind(a.kind()));
     }
     let padding = vec![fill.ok_or(ArrayError::Empty)?; pad];
     let data = if n >= 0 {
@@ -36,7 +37,7 @@ pub fn take<T: Clone>(n: i64, a: &Array<T>, fill: Option<T>) -> Result<Array<T>,
     } else {
         [&padding, kept].concat()
     };
-    Array::new(shape, data)
+    Ok(Array::new(shape, data)?.with_kind(a.kind()))
 }
 
 /// All but the first `n` major cells (the last `-n` when negative).
@@ -50,5 +51,7 @@ pub fn drop<T: Clone>(n: i64, a: &Array<T>) -> Array<T> {
     } else {
         &a.data()[..(len - k) * cell]
     };
-    Array::new(shape, kept.to_vec()).unwrap_or_else(|_| unreachable!("whole cells"))
+    Array::new(shape, kept.to_vec())
+        .unwrap_or_else(|_| unreachable!("whole cells"))
+        .with_kind(a.kind())
 }

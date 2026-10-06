@@ -19,18 +19,15 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 125 | 0 | 0 |
-| Language decisions | 132 | 1 | 3 |
+| Language decisions | 133 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 383 | 0 | 2 |
+| Spec cases | 386 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
 - **S11** (planned): Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents.
-- **T9** (partial): An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...).
 - **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
-- spec case `eval/empty-kind-boxes.case` (pending)
-- spec case `eval/empty-kind-through-take.case` (pending)
 
 ## Built-in functions
 
@@ -86,7 +83,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `p_rint!` | `a -> a` | works | 19 | 1 |
 | `r_oll!` | `Int -> Int` | works | 3 | 1 |
 | `i_d` | `a -> a` | works | 2 | 2 |
-| `l_eft` | `a -> b -> a` | works | 1 | 2 |
+| `l_eft` | `a -> b -> a` | works | 2 | 2 |
 | `r_ight` | `a -> b -> b` | works | 2 | 2 |
 
 ### QD2, QD3, QD7: system values, character codes and the clock
@@ -170,13 +167,13 @@ conventions (naming, layout) work without a spec case citing them.
 | `r_ange` | `Int -> Int` | works | 37 | 1 |
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 6 | 4 |
-| `r_avel` | `a -> a` | works | 1 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 62 | 2 |
-| `t_ake` | `Int -> a -> a` | works | 14 | 5 |
+| `r_avel` | `a -> a` | works | 2 | 2 |
+| `r_eshape` | `Int -> a -> a` | works | 63 | 2 |
+| `t_ake` | `Int -> a -> a` | works | 15 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 3 | 4 |
-| `s_elect` | `Int -> a -> a` | works | 13 | 4 |
-| `r_eplicate` | `Truthy a => a -> b -> b` | works | 5 | 6 |
-| `c_at` | `a -> a -> a` | works | 15 | 5 |
+| `s_elect` | `Int -> a -> a` | works | 14 | 4 |
+| `r_eplicate` | `Truthy a => a -> b -> b` | works | 6 | 6 |
+| `c_at` | `a -> a -> a` | works | 16 | 5 |
 
 ### B6: reduce and scan (leading axis; reduce is a right fold)
 
@@ -189,9 +186,9 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `e_ach` | `(a -> b) -> a -> b` | works | 18 | 3 |
+| `e_ach` | `(a -> b) -> a -> b` | works | 19 | 3 |
 | `m_ap` | `(a -> b) -> a -> Box b` | works | 2 | 3 |
-| `t_able` | `(a -> b -> c) -> a -> b -> c` | works | 5 | 1 |
+| `t_able` | `(a -> b -> c) -> a -> b -> c` | works | 6 | 1 |
 
 ### B6: inner product and combinators (operands nearest-first, F9)
 
@@ -212,7 +209,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `u_nique` | `Eq a => a -> a` | works | 3 | 1 |
 | `s_ort` | `Ord a => a -> a` | works | 4 | 3 |
 | `g_rade` | `Ord a => a -> Int` | works | 1 | 2 |
-| `w_here` | `Truthy a => a -> Int` | works | 4 | 2 |
+| `w_here` | `Truthy a => a -> Int` | works | 5 | 2 |
 
 ### A7, B14: nested arrays (Box a)
 
@@ -220,8 +217,8 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `e_nclose` | `a -> Box a` | works | 3 | 4 |
 | `d_isclose` | `Box a -> a` | works | 5 | 3 |
-| `d_isplay` | `a -> Char` | works | 4 | 5 |
-| `p_artition` | `Truthy a => a -> b -> Box b` | works | 3 | 4 |
+| `d_isplay` | `a -> Char` | works | 5 | 5 |
+| `p_artition` | `Truthy a => a -> b -> Box b` | works | 4 | 4 |
 
 ### B12, B18: encode and decode (radix on the left; decode on any numbers)
 
@@ -234,7 +231,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `r_ev` | `a -> a` | works | 11 | 4 |
+| `r_ev` | `a -> a` | works | 12 | 4 |
 | `o_-` | `Int -> a -> a` | works | 5 | 6 |
 
 ### B17: transpose
@@ -301,7 +298,7 @@ conventions (naming, layout) work without a spec case citing them.
 | T6 | Programs are type-checked before they run: `xetal eval` and `xetal run` refuse an ill-typed program with a (...) | works | 5 |
 | T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 7 |
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
-| T9 | An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...) | partial | 3 |
+| T9 | An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...) | works | 4 |
 | T4 | Type annotations: none in v0 (types are inferred) | works | 1 |
 | M1 | Values are immutable | works | 7 |
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (...) | works | 2 |

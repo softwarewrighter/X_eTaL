@@ -351,8 +351,9 @@ scripts/build-all.sh                                # build every component (sha
 (cd components/cli && XETAL_BLESS=1 cargo test -p xetal-cli --test spec)   # rewrite spec expectations (review the diff!)
 scripts/check-locks.sh [--fix]                      # component Cargo.lock consistency
 scripts/reg.sh run                                  # reg-rs CLI goldens (REG_RS_DATA_DIR=reg)
-scripts/gate.sh                                     # the fast gate (what the change affects)
-scripts/gate.sh --full                              # the full gate (everything)
+scripts/gate.sh                                     # the sample gate (end to end, parallel)
+scripts/gate.sh --affected                          # plus what the change touches
+scripts/gate.sh --full                              # everything (nightly)
 sw-markdown-checker -f "docs/*.md"                  # ASCII-only markdown for our docs
 ```
 
@@ -408,30 +409,33 @@ fails until the case is flipped to active in a deliberate commit.
 
 `scripts/gate.sh` runs 1-6.
 
-### Fast gate and full gate
+### Three gates: sample, affected, full
 
-`scripts/gate.sh` (`just gate`) is the fast gate: it measures what
-changed since the merge base with `origin/main` (everything not yet
-pushed), checks the components whose files changed (format, clippy,
-tests), tests the components that build in or test against changed
-files, only compiles the components that merely depend on a change
-(the spec cases and the goldens, which always run, cover them), skips
-the rest, and
-runs a slower document check (literate, diagrams, Emacs, the recipes,
-the asks ledger, the browser build) only when its inputs changed; the
-cheap checks always run. `scripts/affected.py` plans it.
-
-`scripts/gate.sh --full` (`just gate --full`) runs everything.
-
-- Before each commit and push, and when merging a lane's or a remote
-  agent's PR: the fast gate.
-- Between features (before `agentrail complete` of a step that changed
-  code, after a batch of merges) and before any release or tag: the
-  full gate.
-- A change to the list of components or the cargo configuration makes
-  the fast gate check everything; a change to `scripts/gate.sh` or
-  `scripts/affected.py` turns on every document check and leaves the
-  components to the plan.
+- `just gate` (sample, about 30 seconds): the end-to-end checks only,
+  in parallel: goldens, spec cases, doc tests, reference, status, data
+  tables, spelling, markdown. Before every commit, merge and push.
+  A merge of a lane's PR is: merge, `just gate`, `just pages` (only
+  the stale parts rebuild), push.
+- `just gate --affected`: the sample plus the components the change
+  touches (`scripts/affected.py` plans it: changed ones checked,
+  dependents compiled), the browser build and the document checks
+  whose inputs changed, sw-checklist. Before `agentrail complete` of a
+  step that changed code.
+- `just gate --full`: everything. Nightly (`scripts/nightly.sh`, a
+  launchd job in `scripts/nightly.plist`; its log in `work/nightly/`,
+  a GitHub issue when it fails) and before a release.
+- A merge pushed after the sample gate that the nightly then faults:
+  fix forward, or `git revert -m 1 <merge>` and tell the lane.
+- A change to data or documents only (demos/rosetta/data.toml,
+  docs/*.md, a label, README text): `just pages` if a part is stale,
+  then push; no gate.
+- Nothing else may be building in this repository while a gate or
+  `just pages` runs: `scripts/check-busy.sh` (their first step) fails
+  on a `trunk serve` or another session's cargo. Never leave
+  `just web` running in the background: it rebuilds the live demo on
+  every file change and holds the cargo lock. `just stop-serve` stops
+  one. A `trunk serve` from an earlier session cost days of slow
+  builds and gates (2026-10-03 to 10-06).
 
 ## User-facing docs: what and how, never when or plans
 

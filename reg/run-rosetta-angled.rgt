@@ -1,0 +1,3 @@
+command = "rm -rf work/reg-angled && env XETAL_PATH=demos/rosetta ./target/release/xetal run demos/rosetta/rosetta.xtl --events reg/fixtures/rosetta-angled.txt --draw work/reg-angled && cat work/reg-angled/rosetta-2.svg"
+exit_code = 0
+desc = "the Rosetta stone angled: the top half part way round after a Right key (the second frame), its lid turning with it, the bottom half still; the picture as written"

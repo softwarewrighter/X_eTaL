@@ -20,6 +20,8 @@ trap 'rm -rf "$work"' EXIT
 mkdir -p "$work/docs/literate" "$out/images"
 cp docs/literate/*.org "$work/docs/literate/"
 mkdir -p "$work/lib" "$work/demos" && cp lib/*.xtl lib/*.xtlm "$work/lib/" && cp demos/*.xtl "$work/demos/" && mkdir -p "$work/userlibs" && cp userlibs/*.xtl "$work/userlibs/"
+mkdir -p "$work/demos/rosetta" && cp demos/rosetta/*.xtl "$work/demos/rosetta/"   # the stone's libraries, beside its demo
+export XETAL_PATH="$work/userlibs:$work/demos/rosetta"
 "$emacs" --batch -Q -l docs/emacs/literate-export.el "$work"/docs/literate/*.org > "$work/emacs.log" 2>&1 \
     || { cat "$work/emacs.log"; exit 1; }
 rm -f "$out"/*.html

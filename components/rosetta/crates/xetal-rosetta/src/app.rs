@@ -43,6 +43,7 @@ pub fn app() -> Html {
         .map(|r| r.err.clone())
         .unwrap_or_default();
     html! {
+        <>
         <main class="rosetta">
             <h1>{ "The Rosetta stone" }</h1>
             <p class="lead">{ "How languages write the same idiom. Drag the top half or the bottom half sideways to turn it; drag up or down to roll to another idiom; click a half to pause it. Left alone, it tours." }</p>
@@ -52,8 +53,10 @@ pub fn app() -> Html {
             { controls(&lists, at.as_ref(), &selects, send) }
             { zoom(scale) }
             if !err.is_empty() { <pre class="err">{ err }</pre> }
-            <p class="foot">{ "An X_eTaL program (demos/rosetta/rosetta.xtl) drawing SVG; Rust and Yew only carry the events. " }<a href="../">{ "The live editor" }</a>{ " · " }<a href="https://github.com/softwarewrighter/X_eTaL/blob/main/docs/rosetta.md">{ "How it works" }</a></p>
+            <p class="foot">{ "An X_eTaL program (demos/rosetta/rosetta.xtl) drawing SVG; Rust and Yew only carry the events. " }<a href="https://github.com/softwarewrighter/X_eTaL/blob/main/docs/rosetta.md">{ "How it works" }</a></p>
         </main>
+        { xetal_chrome::footer_at("../") }
+        </>
     }
 }
 

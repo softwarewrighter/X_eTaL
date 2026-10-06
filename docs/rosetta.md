@@ -366,8 +366,9 @@ it starts, so neither runs ahead of the faces. The page holds no geometry, trave
   moved into Rust; what remains is Saga 30's case (the cost of a
   lambda operand per call), recorded there with the measurement.
 - Understandability: a literate document (`docs/literate/rosetta.org`)
-  walks the geometry, the three carousels and the attract traversal
-  with pictures drawn by the program itself.
+  walks the geometry, the three carousels, the quarter turn, the state
+  machine and the attract traversal with pictures the libraries draw
+  and results recorded as they run.
 
 ## Milestones
 

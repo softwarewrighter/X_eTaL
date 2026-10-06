@@ -9,6 +9,6 @@ mod running;
 mod toolbar;
 
 pub use dialog::help;
-pub use footer::footer;
+pub use footer::{footer, footer_at};
 pub use running::RunButtons;
 pub use toolbar::{Bar, toolbar};

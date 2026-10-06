@@ -47,10 +47,9 @@ pub(crate) fn rotate_on<'a>(
         0 => Vec::new(),
         _ => vec![lists.len(); axes.len()],
     };
-    Ok(to_value(Array::new(
-        [&lead[..], xs.shape()].concat(),
-        data,
-    )?))
+    Ok(to_value(
+        Array::new([&lead[..], xs.shape()].concat(), data)?.with_kind(xs.kind()),
+    ))
 }
 
 /// Rotate `a` by `n` along 1-origin axis `k`.

@@ -52,13 +52,14 @@ pub fn each<'a>(f: &Value<'a>, x: &Value<'a>, direct: &mut dyn Direct<'a>) -> Ou
         let data = data.collect::<Result<Vec<_>, _>>()?;
         return Ok(done(finish(
             "e_ach",
-            Array::new(items.shape().to_vec(), data)?,
+            Array::new(items.shape().to_vec(), data)?.with_kind(items.kind()),
         )?));
     }
     let (shape, results) = calls(f, x);
-    let f = f.clone();
+    let (f, kind) = (f.clone(), as_array(x).kind());
     Ok(then(results, move |data| {
-        let results = Array::new(shape, data)?;
+        // An empty each gives what it was given (T9), f never having run.
+        let results = Array::new(shape, data)?.with_kind(kind);
         let pending = match results.data().first() {
             Some(first) => is_function(first),
             None => takes_two(&f),

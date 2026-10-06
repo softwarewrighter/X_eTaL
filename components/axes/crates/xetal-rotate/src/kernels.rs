@@ -15,7 +15,9 @@ pub fn rotate<T: Clone>(n: i64, a: &Array<T>) -> Array<T> {
     }
     let start = n.rem_euclid(len as i64) as usize * cell;
     let data = [&a.data()[start..], &a.data()[..start]].concat();
-    Array::new(a.shape().to_vec(), data).unwrap_or_else(|_| a.clone())
+    Array::new(a.shape().to_vec(), data)
+        .unwrap_or_else(|_| a.clone())
+        .with_kind(a.kind())
 }
 
 /// The major cells in reverse order.
@@ -25,5 +27,7 @@ pub fn reverse<T: Clone>(a: &Array<T>) -> Array<T> {
         0 => a.data().to_vec(),
         _ => a.data().chunks(cell).rev().flatten().cloned().collect(),
     };
-    Array::new(a.shape().to_vec(), data).unwrap_or_else(|_| a.clone())
+    Array::new(a.shape().to_vec(), data)
+        .unwrap_or_else(|_| a.clone())
+        .with_kind(a.kind())
 }

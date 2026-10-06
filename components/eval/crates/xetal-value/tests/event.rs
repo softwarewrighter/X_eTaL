@@ -34,6 +34,18 @@ fn a_key_event_carries_its_key() {
 }
 
 #[test]
+fn the_space_key_is_a_key_written_either_way() {
+    // The page writes the key as the browser names it, a space after
+    // the space that follows `key`; a fixture may write Space.
+    let typed = Event::parse("key  ").expect("a space key");
+    let named = Event::parse("key Space").expect("a space key by name");
+    assert_eq!(typed.key, xetal_value::key_named(" "));
+    assert_eq!(named.key, typed.key);
+    assert_eq!(typed.to_string(), "key  ");
+    assert!(Event::parse("key   ").is_none(), "two spaces are not a key");
+}
+
+#[test]
 fn a_line_that_is_not_an_event_is_none() {
     for line in [
         "",

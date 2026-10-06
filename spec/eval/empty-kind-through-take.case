@@ -3,7 +3,7 @@
 # character vector, and an empty piece of a split is too.
 == SOURCE
 d_isplay 0 t_ake "abc"
-d_isplay 0 d_rop "ab"
+d_isplay 2 d_rop "ab"
 == TYPE
 Char
 Char
@@ -14,5 +14,3 @@ Char
 ┌⊖┐
 │ │
 └─┘
-== STATUS
-pending

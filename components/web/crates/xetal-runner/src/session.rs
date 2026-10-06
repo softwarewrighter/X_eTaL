@@ -9,10 +9,7 @@ use web_sys::{ErrorEvent, MessageEvent, Worker};
 use xetal_play::Run;
 use yew::prelude::*;
 
-use crate::{Action, Event, Mode, Output, Request};
-
-/// The worker's script (trunk builds it beside the page).
-const WORKER: &str = "./xetal-runner_loader.js";
+use crate::{Action, Event, Mode, Output, Request, worker_url};
 
 /// A handler the worker calls (a message, an error).
 type Handler = Closure<dyn FnMut(JsValue)>;
@@ -143,7 +140,10 @@ fn end(live: &Live) -> bool {
 fn begin(req: Request, state: &UseReducerDispatcher<Output>, live: &Live) {
     end(live);
     state.dispatch(Action::Start);
-    let Ok(worker) = Worker::new(WORKER) else {
+    let Ok(worker) = worker_url()
+        .ok_or(())
+        .and_then(|url| Worker::new(&url).map_err(drop))
+    else {
         let err = "the worker that runs programs could not start\n".into();
         return state.dispatch(Action::Finished(Run {
             err,

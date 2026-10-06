@@ -10,7 +10,7 @@
 idioms = ["sum", "running-sum", "iota", "reshape", "shape", "count", "reverse", "rotate", "transpose", "outer", "inner", "each", "swap", "compose", "power", "mean-train", "lambda", "conditional", "self", "index-of", "member", "match", "where", "sort", "format", "numbers", "read-file", "read-line", "print", "trap", "use"]
 idiom_names = ["Sum", "Running sum", "1 to n", "Reshape", "Shape", "Count", "Reverse", "Rotate", "Transpose", "Outer product", "Inner product", "Each", "Swap arguments", "Compose", "Power (repeat)", "Train: the mean", "Anonymous function", "Conditional", "Self-reference", "Index of", "Membership", "Match", "Where", "Sort", "Number to text", "Text to numbers", "Read a file", "Read a line", "Print", "Trap an error", "Use a library"]
 languages = ["apl2", "dyalog", "j", "bqn", "k", "uiua", "xetal"]
-language_names = ["APL2", "Dyalog APL", "J", "BQN", "K", "Uiua", "X_eTaL"]
+language_names = ["APL2", "Dyalog APL", "J", "BQN", "ngn/k", "Uiua", "X_eTaL"]
 
 [input.sum]
 bqn = 'v←1‿2‿3‿4'

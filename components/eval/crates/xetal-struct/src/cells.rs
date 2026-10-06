@@ -20,7 +20,7 @@ pub fn select<T: Clone>(indices: &Array<i64>, a: &Array<T>) -> Result<Array<T>, 
             .ok_or(ArrayError::Index { index, len })?;
         data.extend_from_slice(&a.data()[(at - 1) * cell..at * cell]);
     }
-    Array::new([indices.shape(), &a.shape()[1..]].concat(), data)
+    Ok(Array::new([indices.shape(), &a.shape()[1..]].concat(), data)?.with_kind(a.kind()))
 }
 
 /// Each major cell of `a` repeated `counts` times, in order (B11);
@@ -45,7 +45,7 @@ pub fn replicate<T: Clone>(counts: &[usize], a: &Array<T>) -> Result<Array<T>, A
             data.extend_from_slice(&a.data()[i * cell..(i + 1) * cell]);
         }
     }
-    Array::new(shape, data)
+    Ok(Array::new(shape, data)?.with_kind(a.kind()))
 }
 
 /// The first major cell; an empty array has none (no fill, B10).
@@ -53,7 +53,7 @@ pub fn first<T: Clone>(a: &Array<T>) -> Result<Array<T>, ArrayError> {
     if a.shape()[0] == 0 {
         return Err(ArrayError::Empty);
     }
-    Array::new(a.shape()[1..].to_vec(), a.data()[..cell_len(a)].to_vec())
+    Ok(Array::new(a.shape()[1..].to_vec(), a.data()[..cell_len(a)].to_vec())?.with_kind(a.kind()))
 }
 
 /// Join along the leading axis (B10): an argument one rank lower than
@@ -66,10 +66,16 @@ pub fn cat<T: Clone>(a: &Array<T>, b: &Array<T>) -> Result<Array<T>, ArrayError>
         _ => None,
     };
     match (cells(a), cells(b)) {
-        (Some((na, ca)), Some((nb, cb))) if ca == cb => Array::new(
+        // The kind of the one that has items, else the left one's (T9).
+        (Some((na, ca)), Some((nb, cb))) if ca == cb => Ok(Array::new(
             [&[na + nb], &ca[..]].concat(),
             [a.data(), b.data()].concat(),
-        ),
+        )?
+        .with_kind(if a.data().is_empty() {
+            b.kind()
+        } else {
+            a.kind()
+        })),
         _ => Err(ArrayError::Shape {
             left: a.shape().to_vec(),
             right: b.shape().to_vec(),

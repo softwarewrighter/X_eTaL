@@ -88,5 +88,7 @@ pub(crate) fn boxes<'a>(pieces: Vec<Array<Value<'a>>>) -> Value<'a> {
         .into_iter()
         .map(|p| Value::Boxed(std::rc::Rc::new(to_value(p))))
         .collect();
-    Value::Array(std::rc::Rc::new(Array::vector(items)))
+    Value::Array(std::rc::Rc::new(
+        Array::vector(items).with_kind(xetal_array::Kind::Box),
+    ))
 }

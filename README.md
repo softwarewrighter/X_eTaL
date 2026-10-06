@@ -296,6 +296,8 @@ Other fonts, checked against the font files:
   through the idioms while its halves turn through the languages; an
   X_eTaL program drawing SVG, the page only carrying your drags
   ([how it works](docs/rosetta.md))
+
+  ![The Rosetta stone at rest, with its top half turning, and mid-tumble](images/rosetta-three.png)
 - [The library documentation](https://softwarewrighter.github.io/X_eTaL/doc/)
   -- every standard library and macro library (`System.xtlm` among
   them), the built-ins, and two programs to read from the top down
@@ -332,6 +334,10 @@ Other fonts, checked against the font files:
 - [`docs/literate/tttml.org`](docs/literate/tttml.org) -- TTTML, a machine
   that learns tic-tac-toe by playing itself, as a literate program over the
   `TTTML` library
+- [`docs/literate/rosetta.org`](docs/literate/rosetta.org) -- the Rosetta
+  stone built up from its two libraries: the geometry and its pictures,
+  the three carousels, the quarter turn, the state machine, the attract
+  tour
 - [`docs/literate/classics.org`](docs/literate/classics.org) -- classic APL
   programs (Pascal's triangle, Life, turtle graphics) run as you read, with
   their pictures; the animated ones play on the web page
@@ -350,7 +356,7 @@ Other fonts, checked against the font files:
   axis 1 written out, and another axis)
 - [`docs/idioms.md`](docs/idioms.md) -- everyday idioms in X_eTaL beside Java,
   JavaScript, Python, C++ and Rust, and beside APL2, Dyalog APL, J, BQN,
-  K and Uiua (the array table is the Rosetta stone's data, generated)
+  ngn/k and Uiua (the array table is the Rosetta stone's data, generated)
 - [`docs/classics.md`](docs/classics.md) -- the classic APL programs
   (Pascal's triangle, Life, tic-tac-toe, ...) as commented X_eTaL notebooks
 - [`docs/leetcode.md`](docs/leetcode.md) -- LeetCode problems answered the

@@ -1,0 +1,7 @@
+# The tumble: the stone rolling while both halves turn (three keys at
+# once, then a short tick), every face mid-turn, for the picture.
+tick 0.0333
+key Down
+key Right
+key a
+tick 0.15

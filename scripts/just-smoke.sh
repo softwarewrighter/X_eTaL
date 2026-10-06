@@ -56,6 +56,7 @@ for recipe in $(just --summary); do
     screenshots | videos) skip "$recipe" "regenerates media (vhs)" ;;
     edit) skip "$recipe" "needs a terminal; the editor has its own tests" ;;
     web) skip "$recipe" "a server that runs until stopped; the gate checks the wasm32 build" ;;
+    stop-serve) check just "$recipe" ;;
     name-image) skip "$recipe" "regenerates images/name-forms.png (headless Chrome)" ;;
     literate-html) skip "$recipe" "rewrites pages/literate; run by pages" ;;
     pages) skip "$recipe" "rewrites pages/ and the screenshot; run before publishing" ;;
@@ -63,6 +64,7 @@ for recipe in $(just --summary); do
     bench-check | bench-bless) skip "$recipe" "times the benchmarks against this machine's baseline (minutes)" ;;
     rosetta-run) check just rosetta-run ;;
     install-array-langs) skip "$recipe" "builds two interpreters under tools/bin (minutes); rosetta-run skips without them" ;;
+    nightly) skip "$recipe" "the full gate (minutes); scheduled" ;;
     *)
         printf 'FAIL: no smoke test for recipe %s (add one to %s)\n' "$recipe" "$0"
         failed=1

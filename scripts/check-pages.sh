@@ -30,7 +30,9 @@ files() {
         literate) find docs/literate lib userlibs demos -type f \( -name '*.org' -o -name '*.css' -o -name '*.xtl' -o -name '*.xtlm' \) ;;
         doc) find lib -type f; echo demos/life.xtl; echo demos/tttml-play.xtl; echo scripts/doc-site.sh ;;
         poster) find scripts/poster -type f -name '*.html' ;;
-        latex) find demos lib userlibs docs/literate spec -type f \( -name '*.xtl' -o -name '*.org' -o -name '*.case' \); ls README.md docs/*.md ;;
+        # The gallery reads the session lines (six spaces in) of the markdown:
+        # only the files that have any count.
+        latex) find demos lib userlibs docs/literate spec -type f \( -name '*.xtl' -o -name '*.org' -o -name '*.case' \); grep -l '^      [^ ]' README.md docs/*.md || true ;;
     esac
 }
 

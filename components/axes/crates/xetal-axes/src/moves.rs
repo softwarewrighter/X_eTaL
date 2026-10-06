@@ -24,7 +24,9 @@ pub fn move_axis<T: Clone>(a: &Array<T>, from: usize, to: usize) -> Array<T> {
         data.push(a.data()[at].clone());
         step(&mut index, &shape);
     }
-    Array::new(shape, data).unwrap_or_else(|_| a.clone())
+    Array::new(shape, data)
+        .unwrap_or_else(|_| a.clone())
+        .with_kind(a.kind())
 }
 
 /// The next row-major index within `shape`.

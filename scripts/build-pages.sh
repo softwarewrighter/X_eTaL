@@ -20,6 +20,7 @@ if [ -z "${parts// /}" ]; then
     echo "pages/ is current: nothing to rebuild (scripts/build-pages.sh --all rebuilds everything)"
     exit 0
 fi
+scripts/check-busy.sh
 mkdir -p pages
 touch pages/.nojekyll
 

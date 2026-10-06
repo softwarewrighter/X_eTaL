@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Rosetta stone</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">The Rosetta stone
+<br />
+<span class="subtitle">idioms compared on an impossible object: the geometry, the three carousels, the attract traversal</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org1aed276">1. A box, viewed and projected</a></li>
+<li><a href="#org00a7e12">2. Faces as panels</a></li>
+<li><a href="#org869da03">3. The three carousels</a>
+<ul>
+<li><a href="#orgbdf0858">The quarter turn</a></li>
+</ul>
+</li>
+<li><a href="#org4038ff1">4. The state machine</a></li>
+<li><a href="#org857cf31">5. The attract traversal</a></li>
+<li><a href="#org0201582">6. The program and the page</a></li>
+</ul>
+</div>
+</div>
+<p>
+The Rosetta stone (<code>demos/rosetta/</code>, design in <code>docs/rosetta.md</code>) shows
+how array languages write the same idiom: a box whose whole body rolls
+through the idioms while its top half turns through the languages and
+its bottom half turns, on its own, through the languages compared
+with. No solid turns like this, and none needs to: the picture is
+drawn fresh for every frame by an X_eTaL program, and the web page
+around it only carries drags, keys and ticks in and SVG out. This
+document builds the stone up from its two libraries, <code>Stone.xtl</code> (the
+geometry) and <code>Comparison.xtl</code> (the state machine), with pictures the
+libraries draw. Every block below is run by <code>xetal</code> and its result
+recorded under it.
+</p>
+
+<p>
+The libraries live beside the demo, so a program elsewhere names their
+directory on <code>XETAL_PATH</code> (<code>demos/rosetta</code>); this document does.
+</p>
+<div id="outline-container-org1aed276" class="outline-2">
+<h2 id="org1aed276">1. A box, viewed and projected</h2>
+<div class="outline-text-2" id="text-org1aed276">
+<p>
+<code>Geometry3D</code> gives points as a matrix of three rows (x, y, z), turns
+them about an axis and projects them for a viewer on the z axis;
+<code>Svg</code> writes the picture. <code>Stone</code> builds on both: <code>st:r_ing</code> is one
+half of the stone as a closed box of six faces, each face its four
+corners (3 x 4), as an array of faces (6 x 3 x 4); the first argument
+says which half (1 the top, -1 the bottom), the second is a pair, the
+half's own turn about y and the whole stone's roll about x, both in
+degrees.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-libfunc">ˢᵗ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Stone&quot;</span>
+<span class="c-libfunc">ᵛ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Svg&quot;</span>
+<span class="c-libfunc">ᵍ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Geometry3D&quot;</span>
+<span class="c-builtin">s̲hape</span> <span class="c-number">1</span> <span class="c-libfunc">ˢᵗr̲ing</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span>
+<span class="c-builtin">s̲hape</span> (<span class="c-number">1</span> <span class="c-libfunc">ˢᵗr̲ing</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span>) <span class="c-builtin">c̲at</span> <span class="c-number">-1</span> <span class="c-libfunc">ˢᵗr̲ing</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "st:" u_se&lt; "Stone"</span>
+<span class="c-comment typed">⍝   "v:" u_se&lt; "Svg"</span>
+<span class="c-comment typed">⍝   "g:" u_se&lt; "Geometry3D"</span>
+<span class="c-comment typed">⍝   s_hape 1 st:r_ing 0.0 0.0</span>
+<span class="c-comment typed">⍝   s_hape (1 st:r_ing 0.0 0.0) c_at -1 st:r_ing 0.0 0.0</span></pre>
+</div>
+
+<pre class="example">
+6 3 4
+12 3 4
+</pre>
+
+
+<p>
+The faces come in the view's frame already (the stone is seen a little
+from above and from the left), so a face's picture coordinates are one
+projection away: <code>st:s_creen</code> puts a face's corners in the 420 by 420
+picture. The front face of the top half at rest:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-builtin">f̲loor</span> <span class="c-number">0.5</span> <span class="c-symbol">+</span> <span class="c-libfunc">ˢᵗs̲creen</span> <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> <span class="c-number">1</span> <span class="c-libfunc">ˢᵗr̲ing</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   f_loor 0.5 + st:s_creen 1 s_elect 1 st:r_ing 0.0 0.0</span></pre>
+</div>
+
+<pre class="example">
+ 21 298 292  31
+110 153 285 224
+</pre>
+</div>
+</div>
+<div id="outline-container-org00a7e12" class="outline-2">
+<h2 id="org00a7e12">2. Faces as panels</h2>
+<div class="outline-text-2" id="text-org00a7e12">
+<p>
+A face is drawn by <code>st:p_anel</code>: its corners filled and outlined, and
+lines of markup laid on it in face coordinates (0 to 1 across and
+down), the first line a small title, the rest code. The lines are
+boxed texts: <code>Svg</code>'s <code>v:s_pan</code> colors a run, <code>v:e_scape</code> makes plain
+text safe. Faces are painted far to near (<code>st:p_ainting</code> orders them
+by depth), so nearer faces cover farther ones, which is all the hidden
+surface removal a convex box needs. Here is a stone at rest with a
+label on each face: the top half's four sides, its lid and floor, then
+the bottom half's.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘf̲ace</span> ← { title code → (<span class="c-builtin">e̲nclose</span> <span class="c-string">&quot;#fdfcfa&quot;</span>) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> <span class="c-libfunc">ᵛe̲scape</span> title) <span class="c-builtin">c̲at</span> <span class="c-builtin">e̲nclose</span> <span class="c-string">&quot;#1d4ed8&quot;</span> <span class="c-libfunc">ᵛs̲pan</span> code }
+names ← (<span class="c-builtin">e̲nclose</span> <span class="c-string">&quot;front&quot;</span>) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> <span class="c-string">&quot;right&quot;</span>) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> <span class="c-string">&quot;back&quot;</span>) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> <span class="c-string">&quot;left&quot;</span>) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> <span class="c-string">&quot;lid&quot;</span>) <span class="c-builtin">c̲at</span> <span class="c-builtin">e̲nclose</span> <span class="c-string">&quot;floor&quot;</span>
+<span class="c-userfunc">ᵘo̲ne</span> ← { k halves →
+  half ← <span class="c-string">&quot;k &lt;= 6&quot;</span> <span class="c-macro">i̲f&lt;</span> <span class="c-string">&quot;\&quot;top\&quot;; \&quot;bottom\&quot;&quot;</span>
+  side ← <span class="c-builtin">d̲isclose</span> (<span class="c-number">1</span> <span class="c-symbol">+</span> (k <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-builtin">m̲od</span> <span class="c-number">6</span>) <span class="c-builtin">s̲elect</span> names
+  (half <span class="c-userfunc">ᵘf̲ace</span> side) <span class="c-libfunc">ˢᵗp̲anel</span> k <span class="c-builtin">s̲elect</span> halves
+}
+<span class="c-userfunc">ᵘp̲anels</span> ← { halves → <span class="c-builtin">d̲isclose</span> <span class="c-quote">'</span>{ x y → <span class="c-builtin">e̲nclose</span> (<span class="c-builtin">d̲isclose</span> x) <span class="c-builtin">c̲at</span> <span class="c-builtin">d̲isclose</span> y } <span class="c-builtin">r̲/</span> <span class="c-quote">'</span>{ k → k <span class="c-userfunc">ᵘo̲ne</span> halves } <span class="c-builtin">m̲ap</span> <span class="c-libfunc">ˢᵗp̲ainting</span> halves }
+<span class="c-userfunc">ᵘp̲icture</span> ← { halves → (ˢᵗsize <span class="c-builtin">c̲at</span> ˢᵗsize) <span class="c-libfunc">ᵛp̲icture</span> <span class="c-userfunc">ᵘp̲anels</span> halves }
+rest ← (<span class="c-number">1</span> <span class="c-libfunc">ˢᵗr̲ing</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span>) <span class="c-builtin">c̲at</span> <span class="c-number">-1</span> <span class="c-libfunc">ˢᵗr̲ing</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span>
+<span class="c-builtin">t̲ally</span> <span class="c-userfunc">ᵘp̲icture</span> rest
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:f_ace := { title code -&gt; (e_nclose "#fdfcfa") c_at (e_nclose v:e_scape title) c_at e_nclose "#1d4ed8" v:s_pan code }</span>
+<span class="c-comment typed">⍝   names := (e_nclose "front") c_at (e_nclose "right") c_at (e_nclose "back") c_at (e_nclose "left") c_at (e_nclose "lid") c_at e_nclose "floor"</span>
+<span class="c-comment typed">⍝   u:o_ne := { k halves -&gt;</span>
+<span class="c-comment typed">⍝     half := "k &lt;= 6" i_f&lt; "\"top\"; \"bottom\""</span>
+<span class="c-comment typed">⍝     side := d_isclose (1 + (k - 1) m_od 6) s_elect names</span>
+<span class="c-comment typed">⍝     (half u:f_ace side) st:p_anel k s_elect halves</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   u:p_anels := { halves -&gt; d_isclose '{ x y -&gt; e_nclose (d_isclose x) c_at d_isclose y } r_/ '{ k -&gt; k u:o_ne halves } m_ap st:p_ainting halves }</span>
+<span class="c-comment typed">⍝   u:p_icture := { halves -&gt; (st:size c_at st:size) v:p_icture u:p_anels halves }</span>
+<span class="c-comment typed">⍝   rest := (1 st:r_ing 0.0 0.0) c_at -1 st:r_ing 0.0 0.0</span>
+<span class="c-comment typed">⍝   t_ally u:p_icture rest</span></pre>
+</div>
+
+<pre class="example">
+4094
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">shown ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-userfunc">ᵘp̲icture</span> rest
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   shown := []S_HOW u:p_icture rest</span></pre>
+</div>
+
+
+<div id="orgcbd2983" class="figure">
+<p><img src="images/literate-rosetta-rest.svg" alt="literate-rosetta-rest.svg" class="org-svg" />
+</p>
+</div>
+
+<p>
+Three faces show: the front, the right side and the lid (the view is
+turned 22 degrees down and 28 degrees round). The lid is the top
+half's; the bottom half's lid and the top half's floor meet in the
+middle and are hidden, which is why each half can be a closed box
+without a seam showing.
+</p>
+</div>
+</div>
+<div id="outline-container-org869da03" class="outline-2">
+<h2 id="org869da03">3. The three carousels</h2>
+<div class="outline-text-2" id="text-org869da03">
+<p>
+Each half turns about y on its own; the whole stone rolls about x.
+Turning the top half by 45 degrees brings its right side round to the
+front and leaves the bottom half where it was: this is the impossible
+part, two halves of one box turning separately.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">turned ← (<span class="c-number">1</span> <span class="c-libfunc">ˢᵗr̲ing</span> <span class="c-number">45.0</span> <span class="c-number">0.0</span>) <span class="c-builtin">c̲at</span> <span class="c-number">-1</span> <span class="c-libfunc">ˢᵗr̲ing</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span>
+shown ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-userfunc">ᵘp̲icture</span> turned
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   turned := (1 st:r_ing 45.0 0.0) c_at -1 st:r_ing 0.0 0.0</span>
+<span class="c-comment typed">⍝   shown := []S_HOW u:p_icture turned</span></pre>
+</div>
+
+
+<div id="org51d0d0a" class="figure">
+<p><img src="images/literate-rosetta-turn.svg" alt="literate-rosetta-turn.svg" class="org-svg" />
+</p>
+</div>
+
+<p>
+Rolling the stone by 45 degrees (both halves given the same roll)
+brings the bottom half's floor up toward the front: the next idiom
+comes up from below.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">rolled ← (<span class="c-number">1</span> <span class="c-libfunc">ˢᵗr̲ing</span> <span class="c-number">0.0</span> <span class="c-number">45.0</span>) <span class="c-builtin">c̲at</span> <span class="c-number">-1</span> <span class="c-libfunc">ˢᵗr̲ing</span> <span class="c-number">0.0</span> <span class="c-number">45.0</span>
+shown ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-userfunc">ᵘp̲icture</span> rolled
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   rolled := (1 st:r_ing 0.0 45.0) c_at -1 st:r_ing 0.0 45.0</span>
+<span class="c-comment typed">⍝   shown := []S_HOW u:p_icture rolled</span></pre>
+</div>
+
+
+<div id="org42a6915" class="figure">
+<p><img src="images/literate-rosetta-roll.svg" alt="literate-rosetta-roll.svg" class="org-svg" />
+</p>
+</div>
+</div>
+<div id="outline-container-orgbdf0858" class="outline-3">
+<h3 id="orgbdf0858">The quarter turn</h3>
+<div class="outline-text-3" id="text-orgbdf0858">
+<p>
+An axis advanced by a degrees (90 per item) is not drawn turned by a:
+it is drawn turned by only the part of a quarter turn under way, and
+its sides show the items counted from the one the turn started at.
+<code>st:p_art</code> and <code>st:b_ase</code> split an angle so: a turn ends with the
+same picture it would have begun from, the sides relabel only at that
+instant, and the geometry never leaves its rest position by more than
+a quarter turn, so the halves always stand upright where they can
+turn.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">angles ← <span class="c-number">0.0</span> <span class="c-number">30.0</span> <span class="c-number">89.0</span> <span class="c-number">90.0</span> <span class="c-number">135.0</span> <span class="c-number">180.0</span> <span class="c-number">-45.0</span>
+<span class="c-libfunc">'ˢᵗp̲art</span> <span class="c-builtin">e̲ach</span> angles
+<span class="c-libfunc">'ˢᵗb̲ase</span> <span class="c-builtin">e̲ach</span> angles
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   angles := 0.0 30.0 89.0 90.0 135.0 180.0 -45.0</span>
+<span class="c-comment typed">⍝   'st:p_art e_ach angles</span>
+<span class="c-comment typed">⍝   'st:b_ase e_ach angles</span></pre>
+</div>
+
+<pre class="example">
+0.0 30.0 89.0 0.0 45.0 0.0 45.0
+0 0 0 1 1 2 -1
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4038ff1" class="outline-2">
+<h2 id="org4038ff1">4. The state machine</h2>
+<div class="outline-text-2" id="text-org4038ff1">
+<p>
+<code>Comparison</code> keeps the whole stone as one 5 x 5 matrix of numbers.
+The first three rows are the axes (the idiom roll, the top half, the
+bottom half): how many items the axis has, how many steps it has taken
+(an integer; the item facing is 1 + steps, wrapped, and this is the
+truth), its angle in degrees (the presentation, easing toward 90 times
+the steps), and whether it plays on its own. The fourth row is the
+pointer, the fifth the attract mode's clock. Nothing is ever inferred
+from an angle except what to draw.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-libfunc">ᶜᵐ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Comparison&quot;</span>
+s0 ← <span class="c-number">31</span> <span class="c-libfunc">ᶜᵐs̲tart</span> <span class="c-number">7</span>
+s0
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "cm:" u_se&lt; "Comparison"</span>
+<span class="c-comment typed">⍝   s0 := 31 cm:s_tart 7</span>
+<span class="c-comment typed">⍝   s0</span></pre>
+</div>
+
+<pre class="example">
+31.0 0.0 0.0 1.0 0.0
+ 7.0 0.0 0.0 1.0 0.0
+ 7.0 0.0 0.0 1.0 0.0
+ 0.0 0.0 0.0 0.0 0.0
+ 8.0 0.0 0.0 0.0 0.0
+</pre>
+
+
+<p>
+Choosing an item turns its axis the short way round and pauses it;
+the steps change at once, the angle follows over the next ticks. A
+tick carries the seconds since the last one and eases every moving
+angle toward its target, landing exactly when near.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">chosen ← (ᶜᵐTOP <span class="c-builtin">c̲at</span> <span class="c-number">7.0</span>) <span class="c-libfunc">ᶜᵐc̲hoose</span> s0
+ᶜᵐTOP <span class="c-libfunc">ᶜᵐc̲urrent</span> chosen
+(ᶜᵐTOP <span class="c-builtin">c̲at</span> ᶜᵐSTEPS) <span class="c-libfunc">ᶜᵐa̲t</span> chosen
+(ᶜᵐTOP <span class="c-builtin">c̲at</span> ᶜᵐANGLE) <span class="c-libfunc">ᶜᵐa̲t</span> chosen
+(ᶜᵐTOP <span class="c-builtin">c̲at</span> ᶜᵐANGLE) <span class="c-libfunc">ᶜᵐa̲t</span> <span class="c-number">0.1</span> <span class="c-libfunc">ᶜᵐt̲ick</span> chosen
+(ᶜᵐTOP <span class="c-builtin">c̲at</span> ᶜᵐANGLE) <span class="c-libfunc">ᶜᵐa̲t</span> <span class="c-number">0.1</span> <span class="c-libfunc">ᶜᵐt̲ick</span> <span class="c-number">0.1</span> <span class="c-libfunc">ᶜᵐt̲ick</span> chosen
+(ᶜᵐTOP <span class="c-builtin">c̲at</span> ᶜᵐANGLE) <span class="c-libfunc">ᶜᵐa̲t</span> <span class="c-libfunc">ᶜᵐs̲ettle</span> chosen
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   chosen := (cm:TOP c_at 7.0) cm:c_hoose s0</span>
+<span class="c-comment typed">⍝   cm:TOP cm:c_urrent chosen</span>
+<span class="c-comment typed">⍝   (cm:TOP c_at cm:STEPS) cm:a_t chosen</span>
+<span class="c-comment typed">⍝   (cm:TOP c_at cm:ANGLE) cm:a_t chosen</span>
+<span class="c-comment typed">⍝   (cm:TOP c_at cm:ANGLE) cm:a_t 0.1 cm:t_ick chosen</span>
+<span class="c-comment typed">⍝   (cm:TOP c_at cm:ANGLE) cm:a_t 0.1 cm:t_ick 0.1 cm:t_ick chosen</span>
+<span class="c-comment typed">⍝   (cm:TOP c_at cm:ANGLE) cm:a_t cm:s_ettle chosen</span></pre>
+</div>
+
+<pre class="example">
+7
+-1.0
+0.0
+-18.0
+-32.4
+-90.0
+</pre>
+
+
+<p>
+Item 7 of 7 is one step back from item 1, so the top half turned -1
+step, not 6 forward; the angle eases from 0 toward -90 and <code>cm:s_ettle</code>
+finishes every move at once (the page does that when the viewer
+prefers reduced motion).
+</p>
+
+<p>
+The two halves always compare two different languages: a step on a
+half never lands on the language the other half shows (stepping onto
+it steps past it), and choosing that language is refused (the page
+offers it disabled).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">stepped ← (ᶜᵐBOTTOM <span class="c-builtin">c̲at</span> <span class="c-number">1.0</span>) <span class="c-libfunc">ᶜᵐs̲tep</span> (ᶜᵐTOP <span class="c-builtin">c̲at</span> <span class="c-number">2.0</span>) <span class="c-libfunc">ᶜᵐc̲hoose</span> s0
+ᶜᵐBOTTOM <span class="c-libfunc">ᶜᵐc̲urrent</span> stepped
+ᶜᵐBOTTOM <span class="c-libfunc">ᶜᵐc̲urrent</span> (ᶜᵐBOTTOM <span class="c-builtin">c̲at</span> <span class="c-number">2.0</span>) <span class="c-libfunc">ᶜᵐc̲hoose</span> stepped
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   stepped := (cm:BOTTOM c_at 1.0) cm:s_tep (cm:TOP c_at 2.0) cm:c_hoose s0</span>
+<span class="c-comment typed">⍝   cm:BOTTOM cm:c_urrent stepped</span>
+<span class="c-comment typed">⍝   cm:BOTTOM cm:c_urrent (cm:BOTTOM c_at 2.0) cm:c_hoose stepped</span></pre>
+</div>
+
+<pre class="example">
+3
+3
+</pre>
+</div>
+</div>
+<div id="outline-container-org857cf31" class="outline-2">
+<h2 id="org857cf31">5. The attract traversal</h2>
+<div class="outline-text-2" id="text-org857cf31">
+<p>
+Left alone, the stone tours the comparisons as the nested loop <i>for
+idiom, for top, for bottom</i>: every dwell (three seconds) the bottom
+half steps; when it has swept every other language the top half steps
+too, in the same instant; and when the top has swept, the whole stone
+rolls as well, three turns at once, the tumble. Any touch pauses the
+tour for eight seconds. Ticking a fresh state (its idle wait already
+over) by three seconds at a time and watching which items face:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘf̲acing</span> ← { s → (ᶜᵐIDIOM <span class="c-libfunc">ᶜᵐc̲urrent</span> s) <span class="c-builtin">c̲at</span> (ᶜᵐTOP <span class="c-libfunc">ᶜᵐc̲urrent</span> s) <span class="c-builtin">c̲at</span> ᶜᵐBOTTOM <span class="c-libfunc">ᶜᵐc̲urrent</span> s }
+<span class="c-userfunc">ᵘd̲well</span> ← { s → <span class="c-number">3.0</span> <span class="c-libfunc">ᶜᵐt̲ick</span> s }
+<span class="c-userfunc">ᵘt̲our</span> ← { n → <span class="c-userfunc">ᵘf̲acing</span> <span class="c-libfunc">ᶜᵐs̲ettle</span> n <span class="c-userfunc">'ᵘd̲well</span> <span class="c-builtin">p̲ower</span> <span class="c-libfunc">ᶜᵐr̲esume</span> s0 }
+<span class="c-number">8</span> <span class="c-number">3</span> <span class="c-builtin">r̲eshape</span> <span class="c-builtin">d̲isclose</span> <span class="c-quote">'</span>{ x y → <span class="c-builtin">e̲nclose</span> (<span class="c-builtin">d̲isclose</span> x) <span class="c-builtin">c̲at</span> <span class="c-builtin">d̲isclose</span> y } <span class="c-builtin">r̲/</span> <span class="c-userfunc">'ᵘt̲our</span> <span class="c-builtin">m̲ap</span> <span class="c-builtin">r̲ange</span> <span class="c-number">8</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:f_acing := { s -&gt; (cm:IDIOM cm:c_urrent s) c_at (cm:TOP cm:c_urrent s) c_at cm:BOTTOM cm:c_urrent s }</span>
+<span class="c-comment typed">⍝   u:d_well := { s -&gt; 3.0 cm:t_ick s }</span>
+<span class="c-comment typed">⍝   u:t_our := { n -&gt; u:f_acing cm:s_ettle n 'u:d_well p_ower cm:r_esume s0 }</span>
+<span class="c-comment typed">⍝   8 3 r_eshape d_isclose '{ x y -&gt; e_nclose (d_isclose x) c_at d_isclose y } r_/ 'u:t_our m_ap r_ange 8</span></pre>
+</div>
+
+<pre class="example">
+1 1 2
+1 1 3
+1 1 4
+1 1 5
+1 1 6
+1 2 7
+1 2 1
+1 2 3
+</pre>
+
+
+<p>
+Each row is idiom, top, bottom. The bottom half walks 2, 3, 4, 5, 6;
+when it has swept, the top steps to 2 in the same instant and the
+bottom goes on round, 7, 1, 3, never landing on 2 while the top shows
+it. After the top's own sweep the stone rolls to the next idiom too.
+</p>
+</div>
+</div>
+<div id="outline-container-org0201582" class="outline-2">
+<h2 id="org0201582">6. The program and the page</h2>
+<div class="outline-text-2" id="text-org0201582">
+<p>
+<code>demos/rosetta/rosetta.xtl</code> is the loop: an event from <code>[]E_VENT</code>
+(a tick, a key, the pointer, a choice from the page's lists), the state
+after it through <code>cm:u_pdate</code>, and on each tick a frame: the two
+halves from <code>st:r_ing</code> at the state's angles, a face for each side
+from the data (<code>demos/rosetta/data.toml</code>, read as aligned arrays with
+<code>[]L_IST</code> and <code>[]T_ABLE</code>), X_eTaL cells colored by the language's own
+view model (<code>[]V_IEW</code>) and the other languages by their spans or a
+guess from their characters, the lid and the floor naming the idioms
+before and after. Whenever the stone moves it prints where it stands,
+<code>at IDIOM TOP BOTTOM</code>, and the page reads that line for its lists and
+the address bar. The same program runs from the command line with
+scripted events (<code>xetal run --events FILE</code>), which is how its
+transitions are tested, and on the page, where a Rust worker runs it
+and the page sends events in; the page knows no geometry, traversal or
+language. The web page is at <code>softwarewrighter.github.io/X_eTaL/rosetta/</code>.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

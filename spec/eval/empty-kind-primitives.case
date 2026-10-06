@@ -1,0 +1,56 @@
+# T9, step 2: every primitive that can make an empty array keeps its
+# argument's kind. A line per primitive; the bottom mark says the kind
+# (characters: the plain line; boxes: the epsilon; numbers: the tilde).
+== SOURCE
+d_isplay 0 r_eshape "abc"
+d_isplay 0 0 0 r_eplicate "abc"
+d_isplay (0 t_ake 1 2) s_elect "abc"
+d_isplay "" c_at ""
+d_isplay r_avel 0 t_ake "abc"
+d_isplay r_ev 0 t_ake "abc"
+d_isplay 0 t_ake 1 1 p_artition "ab"
+d_isplay '{ _r } e_ach 0 t_ake "abc"
+d_isplay (0 t_ake "ab") 'l_eft t_able "ab"
+d_isplay w_here 0 t_ake 1 0
+== TYPE
+Char
+Char
+Char
+Char
+Char
+Char
+Char
+Char
+Char
+Char
+== RESULT
+┌⊖┐
+│ │
+└─┘
+┌⊖┐
+│ │
+└─┘
+┌⊖┐
+│ │
+└─┘
+┌⊖┐
+│ │
+└─┘
+┌⊖┐
+│ │
+└─┘
+┌⊖┐
+│ │
+└─┘
+┌⊖┐
+│ │
+└∊┘
+┌⊖┐
+│ │
+└─┘
+┌→┐
+⌽ │
+└─┘
+┌⊖┐
+│ │
+└~┘
