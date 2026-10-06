@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 09:33 `build` Merged PR #95 (web: the worker is never served stale, a build id on its files; its entry D112); the web and rosetta pages parts rebuilt.
+
 - 09:26 `build` Merged PRs #96 (rosetta lane: the stone released: literate document, pinned views, the lane archived), #97 (the footer, the space bar), #98 (zoom, full screen, a slower tour, the data reviewed) and #99 (the K column is ngn/k); the three Rosetta goldens rebased on purpose (the label, and the slower tour's positions at the same ticks); literate.sh runs named documents, in parallel; the gates entry is D111.
 - 08:30 `fix` The worker is never served stale (the user, right after a deploy: `v:s_ized is not defined`): the page creates the worker through a blob script whose file URLs carry a build id, since trunk leaves the worker's files unhashed and GitHub Pages caches them for ten minutes; D107.
 - 08:11 `build` Merged PR #94 (rosetta lane: the trap idiom in X_eTaL, text that fits its face); the register's D103-D106 as the lane numbered them; pages/ rebuilt.
