@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 11:21 `build` Merged PR #100 (rosetta: the BQN and Uiua cells run in their own interpreters, Uiua and APL2 corrected); rosetta-run joins the sample gate's parallel group; the gates entry is D113.
+
 - 10:50 `test` The stone's BQN and Uiua cells run in their own interpreters (`scripts/rosetta-run.py`, 44 cells, outputs recorded in the data; `scripts/install-array-langs.sh` builds CBQN and Uiua 0.19.1 under tools/bin); seven Uiua cells corrected against 0.19.1 (deprecated each, flip and duplicate; indexin and memberof take the array first; the conditional; no recur), APL2's count is IBM's `×/⍴V`; D111.
 - 09:36 `build` A trunk serve left from 2026-10-03 had been rebuilding the live demo on every change for three days, holding the cargo lock: found and stopped; `scripts/check-busy.sh` now runs first in the gate and in `just pages` and fails on a trunk serve or a foreign cargo, `just stop-serve` stops one; a data-or-documents-only change gets pages and a push, no gate (CLAUDE.md).
 - 09:33 `build` Merged PR #95 (web: the worker is never served stale, a build id on its files; its entry D112); the web and rosetta pages parts rebuilt.
