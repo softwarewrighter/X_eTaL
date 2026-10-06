@@ -12,7 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
-- 10:50 `test` The stone's BQN and Uiua cells run in their own interpreters (`scripts/rosetta-run.py`, 44 cells, outputs recorded in the data; `scripts/install-array-langs.sh` builds CBQN and Uiua 0.19.1 under tools/bin); seven Uiua cells corrected against 0.19.1 (deprecated each, flip and duplicate; indexin and memberof take the array first; the conditional; no recur), APL2's count is IBM's `×/⍴V`; D111.
+- 11:20 `docs` Dyalog APL dropped from the stone entirely and the APL column labeled GNU APL (the user; a vetted idiom set with three K dialects and no Dyalog is coming); six languages now; D114.
+- 10:50 `test` The stone's BQN and Uiua cells run in their own interpreters (`scripts/rosetta-run.py`, 44 cells, outputs recorded in the data; `scripts/install-array-langs.sh` builds CBQN and Uiua 0.19.1 under tools/bin); seven Uiua cells corrected against 0.19.1 (deprecated each, flip and duplicate; indexin and memberof take the array first; the conditional; no recur), APL2's count is IBM's `×/⍴V`; D113.
 - 09:00 `fix` The stone after the user's hands-on hour: zoom buttons and full screen; the tour dwells 5 s and waits 20 s after a touch, the space bar pauses it whole; the lists and address follow the faces (printed when a turn lands); the data reviewed cell by cell (APL2's anonymous function and K's swap are honest nones; K's shape, inner and member, Uiua's swap and conditional corrected); D110.
 - 09:36 `build` A trunk serve left from 2026-10-03 had been rebuilding the live demo on every change for three days, holding the cargo lock: found and stopped; `scripts/check-busy.sh` now runs first in the gate and in `just pages` and fails on a trunk serve or a foreign cargo, `just stop-serve` stops one; a data-or-documents-only change gets pages and a push, no gate (CLAUDE.md).
 

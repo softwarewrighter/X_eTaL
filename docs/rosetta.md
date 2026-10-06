@@ -345,9 +345,15 @@ it starts, so neither runs ahead of the faces. The page holds no geometry, trave
   `tools/bin`, CBQN from GitHub and Uiua 0.19.1 from crates.io (the
   version whose primitive documentation the cells follow); where they
   are not built the check says so and passes, so the gate never fails
-  for want of a tool. APL2's cells follow IBM's APL2 Idioms list
-  (public.dhe.ibm.com/ps/products/apl2/info/APL2IDIOMS.pdf); Dyalog,
-  J and ngn/k have no interpreter here yet and are the next to add.
+  for want of a tool. The APL column is labeled GNU APL (the APL2
+  dialect people can run today) and its cells follow IBM's APL2 Idioms
+  list (public.dhe.ibm.com/ps/products/apl2/info/APL2IDIOMS.pdf),
+  GNU APL's own extensions not yet claimed; GNU APL, J and ngn/k have
+  no interpreter here yet and are the next to add. Dyalog
+  APL is not on the stone: the user's choice (2026-10-06); a vetted set
+  of idioms across languages, with three K dialects and no Dyalog, is
+  being built elsewhere and will replace the hand-kept cells when it
+  is ready.
 - Traceability: the design here; the decisions of the lane in
   `docs/lang-choices.md` (the event and table built-ins) and
   `docs/design.md` (the register); the data file's cells cite their
@@ -374,7 +380,7 @@ it starts, so neither runs ahead of the faces. The page holds no geometry, trave
 
 ### M1, Saga 34: the stone, TOML, the array languages
 
-The APL family on both halves: APL2, Dyalog, J, BQN, K, Uiua and
+The APL family on both halves: GNU APL (APL2's idioms), J, BQN, ngn/k, Uiua and
 X_eTaL (APL\360 when the classics lane's eras work gives it idioms),
 with the idioms of `docs/idioms.md`'s array table and the classics the
 lane has in common. Three axes, attract mode, the controls, the URL,
