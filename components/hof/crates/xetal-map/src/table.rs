@@ -27,6 +27,8 @@ pub fn table<'a>(
         f.clone(),
         Rc::try_unwrap(ys).unwrap_or_else(|ys| (*ys).clone()),
     );
+    // An empty table is of the left argument's kind (T9), f never run.
+    let kind = xs.kind();
     let state = Rows {
         row: None,
         i: 0,
@@ -43,7 +45,7 @@ pub fn table<'a>(
             }
             Ok(())
         },
-        move |s| finish("t_able", Array::new(shape, s.out)?),
+        move |s| finish("t_able", Array::new(shape, s.out)?.with_kind(kind)),
     ))
 }
 
@@ -91,5 +93,8 @@ fn at_once<'a>(
             data.push(direct.call(f, &[a.clone(), b.clone()])?);
         }
     }
-    Ok(done(finish("t_able", Array::new(shape, data)?)?))
+    Ok(done(finish(
+        "t_able",
+        Array::new(shape, data)?.with_kind(xs.kind()),
+    )?))
 }

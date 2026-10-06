@@ -15,15 +15,21 @@ fn m(shape: &[usize], xs: &[i64]) -> Array<i64> {
 #[test]
 fn reshape_reuses_items_cyclically() {
     assert_eq!(
-        reshape(vec![2, 2], &[1, 2, 3]).unwrap(),
+        reshape(vec![2, 2], &Array::vector(vec![1, 2, 3])).unwrap(),
         m(&[2, 2], &[1, 2, 3, 1])
     );
-    assert_eq!(reshape(vec![0], &[1]).unwrap(), m(&[0], &[]));
     assert_eq!(
-        reshape(vec![3], &[] as &[i64]).unwrap_err(),
+        reshape(vec![0], &Array::vector(vec![1])).unwrap(),
+        m(&[0], &[])
+    );
+    assert_eq!(
+        reshape(vec![3], &Array::vector(Vec::<i64>::new())).unwrap_err(),
         ArrayError::Empty
     );
-    assert_eq!(reshape(vec![], &[9, 8]).unwrap(), m(&[], &[9]));
+    assert_eq!(
+        reshape(vec![], &Array::vector(vec![9, 8])).unwrap(),
+        m(&[], &[9])
+    );
 }
 
 #[test]
@@ -86,7 +92,7 @@ proptest! {
         shape in prop::collection::vec(0usize..4, 0..4),
         items in prop::collection::vec(any::<i64>(), 1..10),
     ) {
-        let a = reshape(shape.clone(), &items).unwrap();
+        let a = reshape(shape.clone(), &Array::vector(items.clone())).unwrap();
         prop_assert_eq!(a.shape(), &shape[..]);
     }
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- The nightly full gate at 02:00 (scripts/nightly.sh). Install:
+       cp scripts/nightly.plist ~/Library/LaunchAgents/com.softwarewrighter.xetal-nightly.plist
+       launchctl load ~/Library/LaunchAgents/com.softwarewrighter.xetal-nightly.plist
+     Remove: launchctl unload the same file, then delete it.
+     The log of each run is work/nightly/DATE.log in the repository. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.softwarewrighter.xetal-nightly</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/mike/github/softwarewrighter/X_eTaL/scripts/nightly.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict><key>Hour</key><integer>2</integer><key>Minute</key><integer>0</integer></dict>
+  <key>StandardOutPath</key><string>/Users/mike/github/softwarewrighter/X_eTaL/work/nightly/launchd.out</string>
+  <key>StandardErrorPath</key><string>/Users/mike/github/softwarewrighter/X_eTaL/work/nightly/launchd.err</string>
+</dict>
+</plist>

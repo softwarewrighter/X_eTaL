@@ -195,7 +195,9 @@ fn the_live_demo_is_an_installable_app() {
     for part in [
         "addEventListener(\"fetch\"",
         "caches.open",
-        "fetch(event.request)",
+        // Always revalidated: a new build is seen at once (GitHub Pages
+        // caches for ten minutes, and the worker's files carry no hash).
+        "fetch(event.request, { cache: \"no-cache\" })",
     ] {
         assert!(worker.contains(part), "sw.js lacks {part}");
     }

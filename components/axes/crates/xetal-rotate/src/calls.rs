@@ -52,10 +52,9 @@ fn rotations<'a>(n: &Value<'a>, x: &Value<'a>) -> Out<'a> {
                 .iter()
                 .flat_map(|k| as_array(&on_array(x, |a| rotate(*k, a))).data().to_vec())
                 .collect();
-            Ok(to_value(Array::new(
-                [&[counts.len()], xs.shape()].concat(),
-                data,
-            )?))
+            Ok(to_value(
+                Array::new([&[counts.len()], xs.shape()].concat(), data)?.with_kind(xs.kind()),
+            ))
         }
         _ => Err(Diagnostic::new(
             "rank",

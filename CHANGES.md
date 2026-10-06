@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 08:39 `feat` The primitives that make empty arrays keep their argument's kind (T9, Saga 20 step 2, D107): reshape, take, drop, select, replicate, catenate, ravel, first, partition, reverse and rotate, `e_ach` and `t_able`; `0 t_ake "abc"` now displays as empty text. The live demo's service worker revalidates every request (`cache: "no-cache"`), so a new build is seen at once although GitHub Pages caches for ten minutes and the worker's files carry no hash.
+
 - 08:11 `build` Merged PR #94 (rosetta lane: the trap idiom in X_eTaL, text that fits its face); the register's D103-D106 as the lane numbered them; pages/ rebuilt.
 
 - 08:30 `fix` The stone's faces after the user's second note (rosetta lane step 15): the trap idiom shows the error-handling macros (`t_ry<`, `r_ecover<`) in the data, docs/idioms.md and the spec case; long code split in two lines and shrunk to fit, notes wrapped, text only on faces toward the viewer (`st:f_acing`), the view tilted to 22 degrees; `v:s_ized` in Svg; D106.

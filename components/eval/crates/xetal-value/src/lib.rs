@@ -9,7 +9,7 @@ mod shown;
 mod tags;
 mod value;
 
-pub use convert::{as_array, as_vector, major_cells, to_value};
+pub use convert::{as_array, as_vector, kind_of, major_cells, to_value};
 pub use display::{picture, printed};
 pub use grid::grid;
 pub use shown::{nested, shown};

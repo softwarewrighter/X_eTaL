@@ -32,7 +32,7 @@ pub fn partition<T: Clone>(keys: &[usize], a: &Array<T>) -> Result<Vec<Array<T>>
         .map(|(from, to)| {
             let mut shape = a.shape().to_vec();
             shape[0] = to - from;
-            Array::new(shape, a.data()[from * cell..to * cell].to_vec())
+            Ok(Array::new(shape, a.data()[from * cell..to * cell].to_vec())?.with_kind(a.kind()))
         })
         .collect()
 }

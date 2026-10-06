@@ -15,11 +15,16 @@ pub fn call<'a>(name: &str, args: &[Value<'a>], span: Span) -> Option<Out<'a>> {
     let result = match (name, args) {
         ("s_hape", [x]) => Ok(shape(x)),
         ("t_ally", [x]) => Ok(Value::Int(as_vector(x).shape()[0] as i64)),
-        ("r_avel", [x]) => Ok(to_value(Array::vector(as_array(x).data().to_vec()))),
+        ("r_avel", [x]) => {
+            let a = as_array(x);
+            Ok(to_value(
+                Array::vector(a.data().to_vec()).with_kind(a.kind()),
+            ))
+        }
         ("f_irst", [x]) => first(&as_vector(x)).map(to_value).map_err(Into::into),
         ("r_ange", [n]) => range(n, 1),
         ("o_ffsets", [n]) => range(n, 0),
-        ("r_eshape", [s, x]) => dims(s).and_then(|d| Ok(to_value(reshape(d, as_array(x).data())?))),
+        ("r_eshape", [s, x]) => dims(s).and_then(|d| Ok(to_value(reshape(d, &as_array(x))?))),
         ("t_ake", [n, x]) => count(n).and_then(|k| {
             let a = as_vector(x);
             Ok(to_value(take(k, &a, fill(&a))?))
@@ -91,7 +96,7 @@ fn range<'a>(n: &Value<'a>, from: i64) -> Out<'a> {
 fn join<'a>(a: &Value<'a>, b: &Value<'a>) -> Out<'a> {
     let (a, b) = (as_array(a), as_array(b));
     let cell = |x: &Array<Value<'a>>, other: &Array<Value<'a>>| match (x.rank(), other.rank()) {
-        (0, r) if r > 1 => reshape(other.shape()[1..].to_vec(), x.data()),
+        (0, r) if r > 1 => reshape(other.shape()[1..].to_vec(), x),
         _ => Ok(x.clone()),
     };
     Ok(to_value(cat(&cell(&a, &b)?, &cell(&b, &a)?)?))
