@@ -1,13 +1,13 @@
-at rotate xetal k
-at rotate xetal uiua
-at rotate xetal bqn
-at rotate xetal apl2
-at rotate xetal j
-at rotate bqn k
-at rotate bqn uiua
-at rotate bqn xetal
-31.0 -13.0 -1170.0 1.0 0.0
- 6.0   0.0     0.0 1.0 0.0
- 6.0  13.0   990.0 1.0 0.0
- 0.0   0.0     0.0 0.0 0.0
-60.0   0.0     3.0 1.0 0.0
+at iota bqn apl2
+at iota bqn j
+at iota bqn k
+at iota bqn uiua
+at iota bqn xetal
+at lambda bqn apl2
+at lambda bqn j
+at lambda bqn k
+31.0  1.0  90.0 1.0 0.0
+ 6.0  0.0   0.0 1.0 0.0
+ 6.0 10.0 810.0 1.0 0.0
+ 0.0  0.0   0.0 0.0 0.0
+60.0  0.0   3.0 1.0 0.0

@@ -56,14 +56,16 @@ kept := 142.0 100.0 cm:m_ove drag
 ((cm:TOP c_at cm:PLAYING) cm:a_t 100.0 50.0 cm:c_lick s0) = 0.0
 # a move with nothing pressed changes nothing
 (100.0 50.0 cm:m_ove s0) m_atch s0
-# attract: the bottom steps at each dwell, the top after a sweep of six (the other languages), the drum after six sweeps
+# attract: the bottom steps at each dwell, the drum rolls after a sweep of six (the other languages), the top only after every idiom (31 x 6 = 186 steps)
 (cm:BOTTOM cm:c_urrent cm:a_ttract s0) = 2
-((cm:TOP cm:c_urrent cm:a_ttract^5 s0) c_at cm:TOP cm:c_urrent cm:a_ttract^6 s0) m_atch 1 2
-((cm:IDIOM cm:c_urrent cm:a_ttract^35 s0) c_at cm:IDIOM cm:c_urrent cm:a_ttract^36 s0) m_atch 1 2
+((cm:IDIOM cm:c_urrent cm:a_ttract^5 s0) c_at cm:IDIOM cm:c_urrent cm:a_ttract^6 s0) m_atch 1 2
+((cm:IDIOM cm:c_urrent cm:a_ttract^11 s0) c_at cm:IDIOM cm:c_urrent cm:a_ttract^12 s0) m_atch 2 3
+(cm:TOP cm:c_urrent 36 'cm:a_ttract p_ower s0) = 1
+((cm:TOP cm:c_urrent 185 'cm:a_ttract p_ower s0) c_at cm:TOP cm:c_urrent 186 'cm:a_ttract p_ower s0) m_atch 1 2
 # the rings never coincide while sweeping: 12 steps never put the bottom on the top's language
 '* r_/ '{ k -> (cm:TOP cm:c_urrent k 'cm:a_ttract p_ower s0) != cm:BOTTOM cm:c_urrent k 'cm:a_ttract p_ower s0 } e_ach r_ange 12
 # a paused half is counted but not turned
-((cm:BOTTOM cm:c_urrent cm:a_ttract^2 cm:BOTTOM cm:t_oggle s0) c_at cm:TOP cm:c_urrent cm:a_ttract^6 cm:BOTTOM cm:t_oggle s0) m_atch 1 2
+((cm:BOTTOM cm:c_urrent cm:a_ttract^2 cm:BOTTOM cm:t_oggle s0) c_at cm:IDIOM cm:c_urrent cm:a_ttract^6 cm:BOTTOM cm:t_oggle s0) m_atch 1 2
 # ticks: nothing moves before a dwell, the bottom steps at the dwell, and a touch (any event but a tick) holds the stone still for the idle time
 (cm:BOTTOM cm:c_urrent (cm:dwell - 0.1) cm:t_ick s0) = 1
 (cm:BOTTOM cm:c_urrent cm:dwell cm:t_ick s0) = 2
