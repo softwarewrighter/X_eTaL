@@ -149,7 +149,7 @@ rest ← (<span class="c-number">1</span> <span class="c-libfunc">ˢᵗr̲ing</s
 </div>
 
 <pre class="example">
-4094
+3695
 </pre>
 
 
@@ -283,7 +283,7 @@ s0
  7.0 0.0 0.0 1.0 0.0
  7.0 0.0 0.0 1.0 0.0
  0.0 0.0 0.0 0.0 0.0
- 8.0 0.0 0.0 0.0 0.0
+20.0 0.0 0.0 0.0 0.0
 </pre>
 
 
@@ -359,23 +359,26 @@ offers it disabled).
 <div class="outline-text-2" id="text-org857cf31">
 <p>
 Left alone, the stone tours the comparisons as the nested loop <i>for
-idiom, for top, for bottom</i>: every dwell (three seconds) the bottom
-half steps; when it has swept every other language the top half steps
-too, in the same instant; and when the top has swept, the whole stone
-rolls as well, three turns at once, the tumble. Any touch pauses the
-tour for eight seconds. Ticking a fresh state (its idle wait already
-over) by three seconds at a time and watching which items face:
+top, for idiom, for bottom</i>: every dwell (<code>cm:dwell</code> seconds) the
+bottom half steps to the next language; when it has swept every other
+language the whole stone rolls to the next idiom in the same instant,
+the bottom going on round; and only when every idiom has been shown
+does the top half advance to the next language. So the language
+compared from stays put through the whole table, and no comparison
+comes round again within minutes. Any touch holds the tour for
+<code>cm:idleBefore</code> seconds. Ticking a fresh state (its idle wait already
+over) by a dwell at a time and watching which items face:
 </p>
 
 <div class="org-src-container">
 <pre class="src src-xetal"><span class="c-userfunc">ᵘf̲acing</span> ← { s → (ᶜᵐIDIOM <span class="c-libfunc">ᶜᵐc̲urrent</span> s) <span class="c-builtin">c̲at</span> (ᶜᵐTOP <span class="c-libfunc">ᶜᵐc̲urrent</span> s) <span class="c-builtin">c̲at</span> ᶜᵐBOTTOM <span class="c-libfunc">ᶜᵐc̲urrent</span> s }
-<span class="c-userfunc">ᵘd̲well</span> ← { s → <span class="c-number">3.0</span> <span class="c-libfunc">ᶜᵐt̲ick</span> s }
+<span class="c-userfunc">ᵘd̲well</span> ← { s → ᶜᵐdwell <span class="c-libfunc">ᶜᵐt̲ick</span> s }
 <span class="c-userfunc">ᵘt̲our</span> ← { n → <span class="c-userfunc">ᵘf̲acing</span> <span class="c-libfunc">ᶜᵐs̲ettle</span> n <span class="c-userfunc">'ᵘd̲well</span> <span class="c-builtin">p̲ower</span> <span class="c-libfunc">ᶜᵐr̲esume</span> s0 }
 <span class="c-number">8</span> <span class="c-number">3</span> <span class="c-builtin">r̲eshape</span> <span class="c-builtin">d̲isclose</span> <span class="c-quote">'</span>{ x y → <span class="c-builtin">e̲nclose</span> (<span class="c-builtin">d̲isclose</span> x) <span class="c-builtin">c̲at</span> <span class="c-builtin">d̲isclose</span> y } <span class="c-builtin">r̲/</span> <span class="c-userfunc">'ᵘt̲our</span> <span class="c-builtin">m̲ap</span> <span class="c-builtin">r̲ange</span> <span class="c-number">8</span>
 
 <span class="c-comment typed">⍝ typed:</span>
 <span class="c-comment typed">⍝   u:f_acing := { s -&gt; (cm:IDIOM cm:c_urrent s) c_at (cm:TOP cm:c_urrent s) c_at cm:BOTTOM cm:c_urrent s }</span>
-<span class="c-comment typed">⍝   u:d_well := { s -&gt; 3.0 cm:t_ick s }</span>
+<span class="c-comment typed">⍝   u:d_well := { s -&gt; cm:dwell cm:t_ick s }</span>
 <span class="c-comment typed">⍝   u:t_our := { n -&gt; u:f_acing cm:s_ettle n 'u:d_well p_ower cm:r_esume s0 }</span>
 <span class="c-comment typed">⍝   8 3 r_eshape d_isclose '{ x y -&gt; e_nclose (d_isclose x) c_at d_isclose y } r_/ 'u:t_our m_ap r_ange 8</span></pre>
 </div>
@@ -386,17 +389,18 @@ over) by three seconds at a time and watching which items face:
 1 1 4
 1 1 5
 1 1 6
-1 2 7
-1 2 1
-1 2 3
+2 1 7
+2 1 2
+2 1 3
 </pre>
 
 
 <p>
-Each row is idiom, top, bottom. The bottom half walks 2, 3, 4, 5, 6;
-when it has swept, the top steps to 2 in the same instant and the
-bottom goes on round, 7, 1, 3, never landing on 2 while the top shows
-it. After the top's own sweep the stone rolls to the next idiom too.
+Each row is idiom, top, bottom. The bottom half walks 2, 3, 4, 5, 6,
+7 past the top's language 1; when it has swept the six others, the
+stone rolls to idiom 2 in the same instant and the bottom goes on
+round, 2, 3, &#x2026; The top stays on 1 until all 31 idioms have been
+shown, 186 dwells later.
 </p>
 </div>
 </div>
