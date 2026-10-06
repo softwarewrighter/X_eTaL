@@ -11,6 +11,7 @@ runs="${1:-3}"
 scripts/build-all.sh --release -q > /dev/null
 xetal=target/release/xetal
 export XETAL_DRAW="${XETAL_DRAW:-work/bench-draw}"   # pictures out of the way
+export XETAL_PATH="${XETAL_PATH:-demos/rosetta}"   # the rosetta-* programs use the stone's libraries
 programs=(bench/*.xtl demos/classics/mandelbrot.xtl demos/classics/mastermind.xtl demos/tttml-train.xtl)
 
 # The best of $runs wall times of one program, in seconds.

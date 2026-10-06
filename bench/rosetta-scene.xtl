@@ -1,0 +1,11 @@
+#!/usr/bin/env xetal
+# The Rosetta stone's scene phase (docs/rosetta.md, the frame budget):
+# 300 frames of geometry, both halves turned and rolled, viewed and
+# ordered far to near, no faces and no SVG. Prints the shapes counted.
+"st:" u_se< "Stone"
+u:f_rame := { a ->
+  top := 1 st:r_ing a c_at a
+  bottom := -1 st:r_ing a c_at a
+  t_ally st:p_ainting top c_at bottom
+}
+p_rint! '+ r_/ 'u:f_rame e_ach 0.3 * f_loat r_ange 300

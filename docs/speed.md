@@ -23,6 +23,9 @@ machine; the benchmarks are not part of the gate.
 | `bench/inner.xtl` | a matrix product with `i_nner`, 64 by 512 by 64, four times |
 | `bench/matmul.xtl` | a small matrix product, 16 by 16, 300 times through `p_ower` |
 | `bench/transpose.xtl` | five transposes of a 1500 by 1500 matrix |
+| `bench/rosetta-update.xtl` | the Rosetta stone's update phase: 3000 ticks through `Comparison` |
+| `bench/rosetta-scene.xtl` | the stone's scene phase: 300 frames of geometry, both halves turned and ordered |
+| `bench/rosetta-svg.xtl` | the stone's SVG phase: 100 frames of the twelve panels as markup through `Svg` |
 | `demos/classics/mandelbrot.xtl` | the Mandelbrot zoom (Float planes, many steps) |
 | `demos/classics/mastermind.xtl` | Mastermind's scoring against all 1296 codes |
 | `demos/tttml-train.xtl` | TTTML learning tic-tac-toe by playing itself |
@@ -63,6 +66,39 @@ at 2.80 GHz), on 2026-10-02:
 | `demos/classics/mandelbrot.xtl` | 7.665 |
 | `demos/classics/mastermind.xtl` | 0.786 |
 | `demos/tttml-train.xtl` | 14.122 |
+
+## The Rosetta stone's frame
+
+The stone (`demos/rosetta/`, docs/rosetta.md) draws a frame per tick:
+`update` (the state machine), `scene` (the geometry) and the SVG text
+of twelve panels. Its budget is 30 frames a second, 33 ms, in the
+browser's worker. Measured with the release build in the cloud
+sandbox (2 cores) on 2026-10-06, the three phases from the benchmarks
+above and the whole frame from the program itself under 300 scripted
+ticks (`xetal run --events`):
+
+| Phase | Per frame, before | Per frame, after |
+| ----- | ----------------- | ---------------- |
+| update (`cm:t_ick`) | 0.2 ms | 0.2 ms |
+| scene (`st:r_ing` twice, `st:p_ainting`) | 0.5 ms | 0.5 ms |
+| SVG text (twelve `st:p_anel`) | 34 ms | 9 ms |
+| the whole frame, from the program | 37 ms | 16 ms |
+
+The cost was all in `Svg`: `v:e_scape` ran a lambda over every
+character of every attribute value and text (about 8 us a character
+through the machine, 180 us for one font-family value) and joined the
+pieces with a boxed reduce, and a frame escapes some hundreds of
+texts. "After" is one change in X_eTaL, not Rust: text with none of
+`&<>"` (found with one primitive `m_ember?`) is returned as it is, and
+only text with a special character takes the slow path. The frame
+meets its budget on the CLI with headroom of two; the worker's share
+in the browser is for the page's own measurement (the browser's
+performance panel, recording a few seconds of the stone turning), as
+wasm32 is not built in this sandbox. What is left (about 6 ms of the
+16 is the faces: `[]V_IEW`, the guessed classes, the escapes that do
+have specials, `j_oin`) is the Saga 30 case: a lambda operand costs
+about 8 us a call, and a reduce with a lambda over boxed texts is
+quadratic in copies. Nothing moved into Rust.
 
 ## Where the time goes
 
