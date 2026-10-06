@@ -12,17 +12,16 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 07:53 `build` Merged PRs #92 (rosetta: the page after its first viewing: keys on load, the address read as well as written, closed halves, bold code) and #93 (rosetta lane: the stone's frame measured and under budget); the empty-kind entry is D105; pages/ rebuilt (the Rosetta page included).
+
 - 08:05 `perf` The Rosetta stone's frame measured (rosetta lane step 14): update 0.2 ms, scene 0.5 ms, SVG 34 ms, the frame 37 ms against 33 on the release CLI; `v:e_scape` (a lambda per character) was the cost, and one X_eTaL change (text without specials passes through) makes the frame 16 ms; three bench programs; the rest recorded as Saga 30's measured case; D104; docs/speed.md.
 - 07:40 `fix` The Rosetta page after its first viewing (the user): keys heard on the window (no focus needed), the address bar's choices sent once the program waits (they were posted before the worker had the program, and lost); the halves are closed boxes with labeled caps in place of an open drum behind two rings (the open box and the planes sticking out whenever a half stood turned); code bold, black and a tenth of the face high on near-white faces, cells without spans colored by guessed classes (digits, names, glyphs), the view closer (zoom 112); D103. Golden run-rosetta-stone rebased on purpose.
-- 07:28 `build` Merged PR #91 (rosetta lane: docs/idioms.md generated from the stone's data); the empty-kind entry is D104.
-- 06:57 `feat` An array remembers the kind of its items when empty (T9, Saga 20 step 1, D104; X_eTaL-libraries' ask X5): `xetal_array::Kind`, set to Char by `""`, so `d_isplay ""` draws the plain bottom line and `0 r_eshape 1` the numbers mark; the primitives that make empty arrays keep the kind in step 2 (two pending spec cases).
-
+- 07:28 `build` Merged PR #91 (rosetta lane: docs/idioms.md generated from the stone's data); the empty-kind entry is D105.
+- 06:57 `feat` An array remembers the kind of its items when empty (T9, Saga 20 step 1, D105; X_eTaL-libraries' ask X5): `xetal_array::Kind`, set to Char by `""`, so `d_isplay ""` draws the plain bottom line and `0 r_eshape 1` the numbers mark; the primitives that make empty arrays keep the kind in step 2 (two pending spec cases).
 
 ## 2026-10-05
 
 - 19:11 `feat` docs/idioms.md generated from the stone's data (rosetta lane step 13): `scripts/idioms.py` (`just idioms`) expands the marker of docs/idioms.template.md into the array table (now with K and Uiua), ASCII through entities; the gate checks it is current; BQN's transpose note moved out of its source; D102.
-- 18:06 `build` Merged PR #90 (rosetta lane: the stone's page, a component of its own built by trunk); it is the sixth pages part, rosetta (pages/rosetta/), rebuilt when its programs, libraries or data change; the fast gate checks the browser build when web's or rosetta's own files change.
-
 - 18:10 `feat` The Rosetta stone's page (rosetta lane step 12): a new component `rosetta` (Yew) around the live demo's worker, the program and its files in the request, frames replacing one another (`frames`, `Event::Frame`), pointer, keys, ticks and the three lists as events (`choose`, a new kind), the position read back for the lists and the address bar, reduced motion honored; built to pages/rosetta/ by `just pages`; linked from the README and the live demo's Help; D100.
 - 18:06 `build` Merged PR #90 (rosetta lane: the stone's page, a component of its own built by trunk); it is the sixth pages part, rosetta (pages/rosetta/), rebuilt when its programs, libraries or data change; the fast gate checks the browser build when web's or rosetta's own files change.
 - 17:10 `feat` Faces (rosetta lane step 11, RS5 decided with the user): `[]V_IEW` (source as decorated runs with their classes, a new crate xetal-source over xetal-view); `v:s_pan`, `v:m_arkup` in Svg; X_eTaL cells colored by their own classes, other cells by optional spans in data.toml, titles and results laid out on the faces, a caption with the idiom's name; D99.
