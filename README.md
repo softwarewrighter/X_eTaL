@@ -292,7 +292,7 @@ Other fonts, checked against the font files:
 ## Documentation
 
 - [The Rosetta stone](https://softwarewrighter.github.io/X_eTaL/rosetta/)
-  -- the same idiom in seven array languages on a stone that rolls
+  -- the same idiom in six array languages on a stone that rolls
   through the idioms while its halves turn through the languages; an
   X_eTaL program drawing SVG, the page only carrying your drags
   ([how it works](docs/rosetta.md))
@@ -355,8 +355,8 @@ Other fonts, checked against the font files:
   examples (and, for the ones that work along an axis, the default axis,
   axis 1 written out, and another axis)
 - [`docs/idioms.md`](docs/idioms.md) -- everyday idioms in X_eTaL beside Java,
-  JavaScript, Python, C++ and Rust, and beside APL2, Dyalog APL, J, BQN,
-  ngn/k and Uiua (the array table is the Rosetta stone's data, generated)
+  JavaScript, Python, C++ and Rust, and beside GNU APL, J, BQN, ngn/k
+  and Uiua (the array table is the Rosetta stone's data, generated)
 - [`docs/classics.md`](docs/classics.md) -- the classic APL programs
   (Pascal's triangle, Life, tic-tac-toe, ...) as commented X_eTaL notebooks
 - [`docs/leetcode.md`](docs/leetcode.md) -- LeetCode problems answered the
