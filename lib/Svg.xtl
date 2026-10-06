@@ -15,12 +15,21 @@
 ##  id="a&amp;b"
 l:a_ttr := { name value -> " " c_at name c_at "=\"" c_at (l:e_scape value) c_at "\"" }
 
-## Text with &, < and > escaped, as SVG needs it in attributes and
-## text alike.
+## Text with &, <, > and the quote mark escaped, as SVG needs it in
+## attributes and text alike. Text with none of them is itself, found
+## with one primitive test (most attribute values and titles are such,
+## and a frame of the Rosetta stone escapes some hundreds of texts).
 ## >> "v:" u_se< "Svg"
 ## >> v:e_scape "a < b & c"
 ## a &lt; b &amp; c
-l:e_scape := { t -> j_oin 'e_sc m_ap t }
+## >> v:e_scape "ui-monospace, monospace"
+## ui-monospace, monospace
+## >> t_ally v:e_scape ""
+## 0
+l:e_scape := { t ->
+  0 = '+ r_/ t m_ember? "&<>\"" ? t
+  j_oin 'e_sc m_ap t
+}
 
 ## The fill attribute: a color (`"#1f2937"`, `"none"`, a name).
 ## >> "v:" u_se< "Svg"

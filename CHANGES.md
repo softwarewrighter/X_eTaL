@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 08:05 `perf` The Rosetta stone's frame measured (rosetta lane step 14): update 0.2 ms, scene 0.5 ms, SVG 34 ms, the frame 37 ms against 33 on the release CLI; `v:e_scape` (a lambda per character) was the cost, and one X_eTaL change (text without specials passes through) makes the frame 16 ms; three bench programs; the rest recorded as Saga 30's measured case; D105; docs/speed.md.
 - 07:40 `fix` The Rosetta page after its first viewing (the user): keys heard on the window (no focus needed), the address bar's choices sent once the program waits (they were posted before the worker had the program, and lost); the halves are closed boxes with labeled caps in place of an open drum behind two rings (the open box and the planes sticking out whenever a half stood turned); code bold, black and a tenth of the face high on near-white faces, cells without spans colored by guessed classes (digits, names, glyphs), the view closer (zoom 112); D104. Golden run-rosetta-stone rebased on purpose.
 - 07:28 `build` Merged PR #91 (rosetta lane: docs/idioms.md generated from the stone's data); the empty-kind entry is D103.
 - 06:57 `feat` An array remembers the kind of its items when empty (T9, Saga 20 step 1, D103; X_eTaL-libraries' ask X5): `xetal_array::Kind`, set to Char by `""`, so `d_isplay ""` draws the plain bottom line and `0 r_eshape 1` the numbers mark; the primitives that make empty arrays keep the kind in step 2 (two pending spec cases).

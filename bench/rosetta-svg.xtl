@@ -1,0 +1,12 @@
+#!/usr/bin/env xetal
+# The Rosetta stone's SVG phase (docs/rosetta.md, the frame budget):
+# 100 frames of the twelve panels at rest, each a filled face with a
+# title, a line of colored code and a result, as markup through Svg;
+# no update and the geometry only once. Prints the characters made.
+"st:" u_se< "Stone"
+"v:" u_se< "Svg"
+faces := (1 st:r_ing 0.0 0.0) c_at -1 st:r_ing 0.0 0.0
+code := ("#b45309" v:s_pan "1") c_at ("#111827" v:s_pan " ") c_at ("#1d4ed8" v:s_pan "o_-") c_at ("#111827" v:s_pan " ") c_at "#111827" v:s_pan "v"
+style := (e_nclose "#f2ede4") c_at (e_nclose v:e_scape "X_eTaL") c_at (e_nclose code) c_at e_nclose "#6b7280" v:s_pan "-> BCDEA"
+u:f_rame := { k -> t_ally d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ '{ k -> style st:p_anel k s_elect faces } m_ap r_ange 12 }
+total := p_rint! '+ r_/ 'u:f_rame e_ach r_ange 100
