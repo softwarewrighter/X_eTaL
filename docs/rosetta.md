@@ -202,10 +202,16 @@ apl2 = "not directly expressible"
 
 (`demos/rosetta/data.toml` begins with this schema, RS3.)
 
-The same file generates the tables of `docs/idioms.md` (one database,
-not two), and the X_eTaL column keeps being run by
-`spec/integration/idioms.case`, so every X_eTaL cell on the stone is an
-example that executes.
+The same file generates the array table of `docs/idioms.md` (one
+database, not two): `scripts/idioms.py` (`just idioms`) copies the
+prose of `docs/idioms.template.md` through and expands its one marker
+into the table, every non-ASCII glyph an HTML entity, a cell's note in
+parentheses after its source (or standing alone where the language has
+no source); the gate fails when the document is not current
+(`scripts/idioms.py --check`). The mainstream table stays in the
+template until Saga 35 puts those languages in the data. The X_eTaL
+column keeps being run by `spec/integration/idioms.case`, so every
+X_eTaL cell on the stone is an example that executes.
 
 `.xtln`, X_eTaL notation, is deliberately not designed from this use
 case (Saga 37 says why and what it is for). The program reads its data

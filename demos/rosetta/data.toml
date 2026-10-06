@@ -136,7 +136,7 @@ uiua = '↻1 v'
 apl2 = '⍉A'
 dyalog = '⍉a'
 j = '|: a'
-bqn = '⍉a (a matrix)'
+bqn = '⍉a'
 xetal = 'o_\ a'
 k = '+a'
 uiua = '⍉a'
@@ -403,6 +403,7 @@ apl2 = "a shared variable ([]SVO) with a file processor"
 xetal = "none yet: the Maybe library for failure as a value"
 
 [notes.transpose]
+bqn = "a matrix"
 k = "no matrix transpose; +x flips a list of lists"
 
 # Spans: how a cell is colored, "class text|class text|...", with the

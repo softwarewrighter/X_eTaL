@@ -149,6 +149,10 @@ status:
 rosetta-check: _quiet-build
     python3 scripts/rosetta-check.py
 
+# Regenerate docs/idioms.md from docs/idioms.template.md and the stone's data
+idioms:
+    python3 scripts/idioms.py
+
 # Are the live demos live? Fetch every github.io link in the six repositories' READMEs (network)
 check-live:
     python3 scripts/check-live.py

@@ -101,6 +101,9 @@ step "status table (docs/status.md)"
 python3 scripts/status.py --check
 step "the Rosetta stone's data (demos/rosetta/data.toml)"
 python3 scripts/rosetta-check.py | tail -1
+step "idioms table (docs/idioms.md from the stone's data)"
+python3 scripts/idioms.py --self-test
+python3 scripts/idioms.py --check
 if does "flag asks"; then
     step "asks ledger (docs/asks.md, each repro run)"
     python3 scripts/asks.py --check
