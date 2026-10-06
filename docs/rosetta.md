@@ -334,9 +334,13 @@ way. The page holds no geometry, traversal or language.
   reader is replaced by the `.xtln` reader behind `[]T_ABLE`.
 - Performance: a frame is `update` then `scene` then SVG text. The
   budget is 30 frames a second for a scene of about 60 shapes in the
-  worker. Measured at the profiling step; if the interpreter is short,
-  the interpreter is what gets faster (this is the benchmark Saga 30
-  wanted), and only a measured shortfall moves work into Rust.
+  worker. Measured at the profiling step (`docs/speed.md`, the
+  Rosetta stone's frame): 0.2 ms, 0.5 ms and 34 ms on the release CLI,
+  the last all in `v:e_scape` running a lambda per character; one
+  X_eTaL change (text without `&<>"` passes through, one primitive
+  test) made it 9 ms, the frame 16 ms, within budget by two. Nothing
+  moved into Rust; what remains is Saga 30's case (the cost of a
+  lambda operand per call), recorded there with the measurement.
 - Understandability: a literate document (`docs/literate/rosetta.org`)
   walks the geometry, the three carousels and the attract traversal
   with pictures drawn by the program itself.

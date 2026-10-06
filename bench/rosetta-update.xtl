@@ -1,0 +1,10 @@
+#!/usr/bin/env xetal
+# The Rosetta stone's update phase (docs/rosetta.md, the frame budget):
+# 3000 ticks of a thirtieth of a second through Comparison's t_ick (the
+# easing, the attract clock and its traversal), no drawing. Prints the
+# idiom the drum ends on.
+"cm:" u_se< "Comparison"
+start := cm:r_esume cm:s_ettle 31 cm:s_tart 7
+u:t_ick := { s -> 0.0333 cm:t_ick s }
+final := u:t_ick^3000 start
+idiom := p_rint! cm:IDIOM cm:c_urrent final

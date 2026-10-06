@@ -771,7 +771,7 @@ screen-control step. Overlaps the speed lane's planned operand kernels
 | ---- | ---- | ------- |
 | 1 | hof-guard | A deterministic guard: the machine transitions a `t_able`, `i_nner`, `e_ach`, reduce or scan takes, counted in tests (a primitive operand must cost no machine work per element; a lambda a fixed small number of transitions per call); the demos' repro programs in `bench/`. |
 | 2 | prim-operands | A first-order built-in operand (`'*`, `'+`, `'r_ight`, or partly applied) runs no user code, so nothing can pause: the higher-order built-in computes directly (outer product, matrix product, folds) without the machine - past 06d39fa's speed. |
-| 3 | lean-kernels | For user-function operands, `e_ach`, `m_ap`, `t_able`, `i_nner`, reduce and scan as hand-written index state machines, not nested combinators: nothing allocated per element; back to (or past) 06d39fa. |
+| 3 | lean-kernels | For user-function operands, `e_ach`, `m_ap`, `t_able`, `i_nner`, reduce and scan as hand-written index state machines, not nested combinators: nothing allocated per element; back to (or past) 06d39fa. Measured case from the Rosetta stone's profiling (Saga 34 step 14, docs/speed.md): `v:e_scape` as `j_oin 'e_sc m_ap t` cost about 8 us a character (a lambda call through the machine, a box, then a reduce with a lambda over boxed texts, quadratic in copies), 180 us for a 23-character attribute value; the frame's remaining 6 ms of faces is this cost. The targets: a lambda operand under 1 us a call, and a join of boxed texts that copies each once. |
 | 4 | regression-release | The numbers before and after in `docs/speed.md`, CHANGES, and X_eTaL-demos told it can re-vendor. |
 
 ## Saga 31 -- complex numbers

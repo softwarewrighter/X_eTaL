@@ -20,6 +20,7 @@ baseline="bench/baseline/$host.tsv"
 scripts/build-all.sh --release -q > /dev/null
 xetal=target/release/xetal
 export XETAL_DRAW="${XETAL_DRAW:-work/bench-draw}"
+export XETAL_PATH="${XETAL_PATH:-demos/rosetta}"   # the rosetta-* programs use the stone's libraries
 
 # The best of $runs wall times of one program, in milliseconds.
 best() {
