@@ -11,8 +11,31 @@ use yew::prelude::*;
 
 use crate::{Action, Event, Mode, Output, Request};
 
-/// The worker's script (trunk builds it beside the page).
-const WORKER: &str = "./xetal-runner_loader.js";
+/// The worker's files (trunk builds them beside the page, unhashed).
+const WORKER: [&str; 2] = ["xetal-runner.js", "xetal-runner_bg.wasm"];
+
+/// The build id the worker's URLs carry (build.rs), so a new page is
+/// never run by a cached old worker.
+const BUILD: &str = env!("XETAL_RUNNER_BUILD");
+
+/// The worker's script as a blob URL: trunk's loader shim rewritten
+/// with the page's address as the base and the build id on each file,
+/// which is what makes the browser fetch this build's worker and not
+/// the one it cached (the files' names never change).
+fn worker_url() -> Option<String> {
+    let base = web_sys::window()?.location().href().ok()?;
+    let at = |file: &str| format!("new URL('{file}?v={BUILD}', '{base}').href");
+    let script = format!(
+        "importScripts({});wasm_bindgen({});",
+        at(WORKER[0]),
+        at(WORKER[1])
+    );
+    let parts = js_sys::Array::of1(&JsValue::from_str(&script));
+    let options = web_sys::BlobPropertyBag::new();
+    options.set_type("text/javascript");
+    let blob = web_sys::Blob::new_with_str_sequence_and_options(&parts, &options).ok()?;
+    web_sys::Url::create_object_url_with_blob(&blob).ok()
+}
 
 /// A handler the worker calls (a message, an error).
 type Handler = Closure<dyn FnMut(JsValue)>;
@@ -143,7 +166,10 @@ fn end(live: &Live) -> bool {
 fn begin(req: Request, state: &UseReducerDispatcher<Output>, live: &Live) {
     end(live);
     state.dispatch(Action::Start);
-    let Ok(worker) = Worker::new(WORKER) else {
+    let Ok(worker) = worker_url()
+        .ok_or(())
+        .and_then(|url| Worker::new(&url).map_err(drop))
+    else {
         let err = "the worker that runs programs could not start\n".into();
         return state.dispatch(Action::Finished(Run {
             err,

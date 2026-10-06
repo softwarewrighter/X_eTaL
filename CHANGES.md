@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 08:30 `fix` The worker is never served stale (the user, right after a deploy: `v:s_ized is not defined`): the page creates the worker through a blob script whose file URLs carry a build id, since trunk leaves the worker's files unhashed and GitHub Pages caches them for ten minutes; D107.
 - 08:11 `build` Merged PR #94 (rosetta lane: the trap idiom in X_eTaL, text that fits its face); the register's D103-D106 as the lane numbered them; pages/ rebuilt.
 
 - 08:30 `fix` The stone's faces after the user's second note (rosetta lane step 15): the trap idiom shows the error-handling macros (`t_ry<`, `r_ecover<`) in the data, docs/idioms.md and the spec case; long code split in two lines and shrunk to fit, notes wrapped, text only on faces toward the viewer (`st:f_acing`), the view tilted to 22 degrees; `v:s_ized` in Svg; D106.
