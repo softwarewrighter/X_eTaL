@@ -11,6 +11,7 @@ mod stepping;
 mod worker;
 
 pub use output::{Action, Cell, Output};
+pub(crate) use protocol::worker_url;
 pub use protocol::{Event, Mode, Request};
 pub use session::{Runs, use_runs};
 pub use stepping::{line_message, typed_line};
