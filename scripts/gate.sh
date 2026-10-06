@@ -86,7 +86,7 @@ step "the CLI (debug) for the end-to-end checks"
 # each to its own log, reported in order when all are done.
 step "end-to-end checks, in parallel: goldens, spec cases, doc tests, reference, status, data tables, spelling, markdown"
 logs="$(mktemp -d "${TMPDIR:-/tmp}/gate.XXXXXX")"
-run() { local name="$1"; shift; ( started_at=$SECONDS; "$@" > "$logs/$name" 2>&1; echo "$? $((SECONDS - started_at))" > "$logs/$name.status" ) & }
+run() { local name="$1"; shift; ( set +e; started_at=$SECONDS; "$@" > "$logs/$name" 2>&1; echo "$? $((SECONDS - started_at))" > "$logs/$name.status" ) & }
 doctests() { for f in lib/*.xtl lib/*.xtlm; do target/debug/xetal doc --test "$f" || return 1; done; echo "doc tests: lib/ passes"; }
 run goldens scripts/reg.sh run
 run spec bash -c 'cd components/cli && cargo test -q -p xetal-cli --test spec'
