@@ -4,8 +4,9 @@
 //! (RS1): one line of text parsed into its kind, its numbers and its
 //! key. The lines: `tick 0.016` (the seconds since the last tick),
 //! `down 120 80`, `move 120 80`, `up 120 80`, `click 120 80` (a
-//! pointer, x then y), `key Up` (a key as `[]K_EY` names it) and `end`
-//! (no more events).
+//! pointer, x then y), `key Up` (a key as `[]K_EY` names it), `choose 2 7`
+//! (a choice made in the host's controls: which axis or list, and which
+//! item) and `end` (no more events).
 
 use std::fmt;
 
@@ -59,7 +60,9 @@ pub fn key_named(name: &str) -> Option<u32> {
 }
 
 /// The kinds, as `[]E_KIND` names them.
-pub const KINDS: [&str; 7] = ["tick", "down", "move", "up", "click", "key", "end"];
+pub const KINDS: [&str; 8] = [
+    "tick", "down", "move", "up", "click", "key", "choose", "end",
+];
 
 /// One event: its kind, its numbers (`x y`, or the seconds of a tick,
 /// or none) and its key (a Key index, for a key event).

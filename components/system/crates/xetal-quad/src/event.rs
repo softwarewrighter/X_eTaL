@@ -31,7 +31,7 @@ pub(crate) fn next<'a>() -> Result<Value<'a>, Diagnostic> {
         None => Err(Diagnostic::new(
             "bad-event",
             format!(
-                "not an event: {line:?} (tick S, down X Y, move X Y, up X Y, click X Y, key NAME, end)"
+                "not an event: {line:?} (tick S, down X Y, move X Y, up X Y, click X Y, key NAME, choose A N, end)"
             ),
         )),
     }

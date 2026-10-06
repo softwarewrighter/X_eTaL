@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 18:10 `feat` The Rosetta stone's page (rosetta lane step 12): a new component `rosetta` (Yew) around the live demo's worker, the program and its files in the request, frames replacing one another (`frames`, `Event::Frame`), pointer, keys, ticks and the three lists as events (`choose`, a new kind), the position read back for the lists and the address bar, reduced motion honored; built to pages/rosetta/ by `just pages`; linked from the README and the live demo's Help; D100.
 - 16:53 `build` Merged PR #89 (rosetta lane: faces, code colored by its own classes, RS5); the pages entry is D100 (the lane took D99).
 
 - 17:10 `feat` Faces (rosetta lane step 11, RS5 decided with the user): `[]V_IEW` (source as decorated runs with their classes, a new crate xetal-source over xetal-view); `v:s_pan`, `v:m_arkup` in Svg; X_eTaL cells colored by their own classes, other cells by optional spans in data.toml, titles and results laid out on the faces, a caption with the idiom's name; D99.

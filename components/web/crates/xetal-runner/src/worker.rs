@@ -19,7 +19,7 @@ pub(crate) fn post(event: Event) {
 
 /// The page's files as they were when the run began, and what the
 /// program writes, posted back as it is written.
-struct Snapshot(Mutex<BTreeMap<String, String>>);
+struct Snapshot(Mutex<BTreeMap<String, String>>, bool);
 
 impl Store for Snapshot {
     fn get(&self, path: &str) -> Result<String, String> {
@@ -42,7 +42,10 @@ impl Store for Snapshot {
     }
 
     fn show(&self, svg: &str) -> Result<(), String> {
-        post(Event::Picture(svg.into()));
+        post(match self.1 {
+            true => Event::Frame(svg.into()),
+            false => Event::Picture(svg.into()),
+        });
         Ok(())
     }
 }
@@ -52,7 +55,7 @@ impl Store for Snapshot {
 /// posting each statement before it runs.
 fn run(req: Request) {
     let files = req.files.into_iter().collect();
-    xetal_store::install(Arc::new(Snapshot(Mutex::new(files))));
+    xetal_store::install(Arc::new(Snapshot(Mutex::new(files), req.frames)));
     xetal_clock::install(Arc::new(xetal_webclock::Browser));
     // The program's terminal: standard error a red line, a 24 by 80 grid.
     let error = |line: &str| post(Event::Out(format!("\x1b[31m{line}\x1b[39m")));

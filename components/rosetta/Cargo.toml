@@ -1,0 +1,24 @@
+# X_eTaL component `rosetta`: one Cargo workspace (see docs/architecture.md).
+# The Rosetta stone's page (docs/rosetta.md): a Yew host around the
+# X_eTaL program demos/rosetta/rosetta.xtl, run by the live demo's worker.
+
+[workspace]
+resolver = "3"
+members = ["crates/xetal-rosetta"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+authors = ["Michael A Wright"]
+repository = "https://github.com/softwarewrighter/X_eTaL"
+
+[workspace.dependencies]
+xetal-runner = { path = "../web/crates/xetal-runner" }
+xetal-typing = { path = "../web/crates/xetal-typing" }
+xetal-lineedit = { path = "../console/crates/xetal-lineedit" }
+yew = { version = "0.21", features = ["csr"] }
+wasm-bindgen = "0.2"
+js-sys = "0.3"
+web-sys = { version = "0.3", features = ["Element", "HtmlElement", "Document", "KeyboardEvent", "Window", "PointerEvent", "DomRect", "Location", "History", "UrlSearchParams", "HtmlSelectElement", "MediaQueryList"] }
+console_error_panic_hook = "0.1"

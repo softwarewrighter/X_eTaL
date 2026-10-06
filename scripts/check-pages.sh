@@ -3,6 +3,7 @@
 # committed, so it can fall behind what it shows. It is built in parts,
 # each from its own inputs:
 #   web       the live demo: the demos and libraries built into it
+#   rosetta   the Rosetta stone's page: its programs, libraries and data
 #   literate  the literate documents' HTML: the documents, their style,
 #             and the libraries and demos they include
 #   doc       the documentation site: the libraries and two programs
@@ -19,12 +20,13 @@
 set -euo pipefail
 export LC_ALL=C
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
-PARTS="web literate doc poster latex"
+PARTS="web rosetta literate doc poster latex"
 
 # The files a part is built from, one per line.
 files() {
     case "$1" in
         web) find demos lib userlibs -type f \( -name '*.xtl' -o -name '*.xtlm' -o -name '*.toml' \) ;;
+        rosetta) find demos/rosetta lib -type f; echo components/rosetta/crates/xetal-rosetta/index.html ;;
         literate) find docs/literate lib userlibs demos -type f \( -name '*.org' -o -name '*.css' -o -name '*.xtl' -o -name '*.xtlm' \) ;;
         doc) find lib -type f; echo demos/life.xtl; echo demos/tttml-play.xtl; echo scripts/doc-site.sh ;;
         poster) find scripts/poster -type f -name '*.html' ;;

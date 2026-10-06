@@ -147,6 +147,7 @@ fn links() -> Html {
                 <li><a href="literate/index.html" target="_blank">{ "Literate documents" }</a></li>
                 <li><a href="doc/index.html" target="_blank">{ "Library documentation (xetal doc): every library, System.xtlm, Life and TTTML, searchable" }</a></li>
                 <li><a href="latex/index.html" target="_blank">{ "Every line in LaTeX" }</a></li>
+                <li><a href="rosetta/index.html" target="_blank">{ "The Rosetta stone: the same idiom in seven array languages, on an impossible object" }</a></li>
             </ul>
         </>
     }

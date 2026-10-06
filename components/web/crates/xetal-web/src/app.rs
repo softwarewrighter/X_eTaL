@@ -188,6 +188,7 @@ fn request(text: &str, paths: &[String], mode: Mode) -> Request {
         seed,
         mode,
         boxed: false,
+        frames: false,
         files: files.collect(),
     }
 }

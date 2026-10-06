@@ -1,0 +1,1 @@
+The rosetta component: a Yew page around the worker (program + files in the request, frames flag, pointer/keys/ticks/choose events, position read back for lists and URL, reduced motion); build-pages builds it to pages/rosetta/; links from README and Help. Unbuilt here (no trunk/wasm32): first seen where just pages runs. PR pr/web-host (on #89).

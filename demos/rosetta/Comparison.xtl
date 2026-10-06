@@ -207,7 +207,8 @@ l:t_oggle := { axis state -> (axis c_at l:PLAYING c_at 1.0 - (axis c_at l:PLAYIN
 ## step the drum (Up, Down) and the top ring (Left, Right), a and d the
 ## bottom ring, space pauses or resumes the top ring, s the bottom and
 ## w the drum; the pointer drags and clicks (cm:d_own, cm:m_ove, cm:u_p,
-## cm:c_lick).
+## cm:c_lick); a choice from the host's controls, `choose AXIS ITEM`,
+## turns that axis to the item (cm:c_hoose).
 l:u_pdate := { state e ->
   kind := []E_KIND e
   kind m_atch "tick" ? (f_irst []E_AT e) l:t_ick state
@@ -217,6 +218,7 @@ l:u_pdate := { state e ->
   kind m_atch "move" ? ([]E_AT e) l:m_ove touched
   kind m_atch "up" ? ([]E_AT e) l:u_p touched
   kind m_atch "click" ? ([]E_AT e) l:c_lick touched
+  kind m_atch "choose" ? ([]E_AT e) l:c_hoose touched
   state
 }
 

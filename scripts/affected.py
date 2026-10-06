@@ -87,7 +87,7 @@ def plan(files, names, deps):
         return lines + [f"flag {n}" for n in ("wasm", *FLAGS)]
     # The browser build is checked when web's own files or inputs changed;
     # a dependency's change is covered by the pages build and the full gate.
-    if "web" in check | test:
+    if (check | test) & {"web", "rosetta"}:
         lines.append("flag wasm")
     lines += [f"flag {n}" for n, prefixes in FLAGS.items() if any(f.startswith(prefixes) for f in files)]
     return lines
