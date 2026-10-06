@@ -16,6 +16,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-05
 
+- 19:11 `feat` docs/idioms.md generated from the stone's data (rosetta lane step 13): `scripts/idioms.py` (`just idioms`) expands the marker of docs/idioms.template.md into the array table (now with K and Uiua), ASCII through entities; the gate checks it is current; BQN's transpose note moved out of its source; D102.
 - 18:06 `build` Merged PR #90 (rosetta lane: the stone's page, a component of its own built by trunk); it is the sixth pages part, rosetta (pages/rosetta/), rebuilt when its programs, libraries or data change; the fast gate checks the browser build when web's or rosetta's own files change.
 
 - 18:10 `feat` The Rosetta stone's page (rosetta lane step 12): a new component `rosetta` (Yew) around the live demo's worker, the program and its files in the request, frames replacing one another (`frames`, `Event::Frame`), pointer, keys, ticks and the three lists as events (`choose`, a new kind), the position read back for the lists and the address bar, reduced motion honored; built to pages/rosetta/ by `just pages`; linked from the README and the live demo's Help; D100.
