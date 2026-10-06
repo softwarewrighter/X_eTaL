@@ -336,7 +336,18 @@ it starts, so neither runs ahead of the faces. The page holds no geometry, trave
 - Serviceability: `xetal run demos/rosetta/rosetta.xtl --events
   FILE --draw DIR` reproduces any frame from a bug report's URL and
   event log; the data file is checked by `just rosetta-check` (every
-  idiom has a name, every language a name, every X_eTaL cell runs).
+  idiom has a name, every language a name, every X_eTaL cell runs),
+  and the BQN and Uiua cells are run in their own interpreters by
+  `scripts/rosetta-run.py` (`just rosetta-run`; `--bless` records the
+  outputs): a cell with an input for its language is a claim that has
+  been executed, not remembered. `scripts/install-array-langs.sh`
+  (`just install-array-langs`) builds the interpreters under
+  `tools/bin`, CBQN from GitHub and Uiua 0.19.1 from crates.io (the
+  version whose primitive documentation the cells follow); where they
+  are not built the check says so and passes, so the gate never fails
+  for want of a tool. APL2's cells follow IBM's APL2 Idioms list
+  (public.dhe.ibm.com/ps/products/apl2/info/APL2IDIOMS.pdf); Dyalog,
+  J and ngn/k have no interpreter here yet and are the next to add.
 - Traceability: the design here; the decisions of the lane in
   `docs/lang-choices.md` (the event and table built-ins) and
   `docs/design.md` (the register); the data file's cells cite their

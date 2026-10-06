@@ -148,6 +148,15 @@ status:
 # Check the Rosetta stone's data: names, keys, and every X_eTaL cell runs
 rosetta-check: _quiet-build
     python3 scripts/rosetta-check.py
+    python3 scripts/rosetta-run.py
+
+# Run the stone's BQN and Uiua cells in their own interpreters (tools/bin; `just install-array-langs` builds them); --bless records the outputs
+rosetta-run *ARGS:
+    python3 scripts/rosetta-run.py {{ARGS}}
+
+# Build CBQN and Uiua 0.19.1 under tools/bin for just rosetta-run (nothing installed outside the repository)
+install-array-langs:
+    scripts/install-array-langs.sh
 
 # Regenerate docs/idioms.md from docs/idioms.template.md and the stone's data
 idioms:

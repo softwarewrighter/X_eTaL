@@ -101,6 +101,7 @@ step "status table (docs/status.md)"
 python3 scripts/status.py --check
 step "the Rosetta stone's data (demos/rosetta/data.toml)"
 python3 scripts/rosetta-check.py | tail -1
+python3 scripts/rosetta-run.py | tail -1
 step "idioms table (docs/idioms.md from the stone's data)"
 python3 scripts/idioms.py --self-test
 python3 scripts/idioms.py --check

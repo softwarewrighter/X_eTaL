@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 10:50 `test` The stone's BQN and Uiua cells run in their own interpreters (`scripts/rosetta-run.py`, 44 cells, outputs recorded in the data; `scripts/install-array-langs.sh` builds CBQN and Uiua 0.19.1 under tools/bin); seven Uiua cells corrected against 0.19.1 (deprecated each, flip and duplicate; indexin and memberof take the array first; the conditional; no recur), APL2's count is IBM's `×/⍴V`; D111.
 - 09:00 `fix` The stone after the user's hands-on hour: zoom buttons and full screen; the tour dwells 5 s and waits 20 s after a touch, the space bar pauses it whole; the lists and address follow the faces (printed when a turn lands); the data reviewed cell by cell (APL2's anonymous function and K's swap are honest nones; K's shape, inner and member, Uiua's swap and conditional corrected); D110.
 - 08:11 `build` Merged PR #94 (rosetta lane: the trap idiom in X_eTaL, text that fits its face); the register's D103-D106 as the lane numbered them; pages/ rebuilt.
 

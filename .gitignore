@@ -30,3 +30,6 @@ tools/katex/node_modules/
 # trunk serve output (just serve); the published copy is pages/
 components/web/crates/xetal-web/dist/
 __pycache__/
+# interpreters built by scripts/install-array-langs.sh
+tools/bin/
+tools/src/
