@@ -19,6 +19,7 @@ Available recipes:
     gate *FLAGS                # The gate: sample (end to end, about 30 s) by default; --affected adds what the change touches; --full everything
     idioms                     # Regenerate docs/idioms.md from docs/idioms.template.md and the stone's data
     install dir="~/.local/bin" # Build optimized and install xetal and x_etal into a PATH directory (for #! scripts)
+    install-array-langs        # Build CBQN and Uiua 0.19.1 under tools/bin for just rosetta-run (nothing installed outside the repository)
     life                       # Life: a blinker and a glider, stepped (demos/life.xtl)
     literate                   # Run the literate documents (docs/literate/*.org), recording each block's result
     literate-html              # Export the literate documents to HTML under pages/literate/ (with an index page)
@@ -31,6 +32,7 @@ Available recipes:
     reg                        # Run the reg-rs CLI goldens in reg/
     repl                       # Start the interactive session
     rosetta-check              # Check the Rosetta stone's data: names, keys, and every X_eTaL cell runs
+    rosetta-run *ARGS          # Run the stone's BQN and Uiua cells in their own interpreters (tools/bin; `just install-array-langs` builds them); --bless records the outputs
     run +args                  # Type-check and run a script, flags first: just run --echo demos/tour.xtl
     screenshots                # Regenerate the README / docs images (vhs, ImageMagick)
     show file                  # Run a file as a notebook: each statement pretty-printed, then its output (#! flags such as --untyped apply)

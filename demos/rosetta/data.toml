@@ -13,52 +13,114 @@ languages = ["apl2", "dyalog", "j", "bqn", "k", "uiua", "xetal"]
 language_names = ["APL2", "Dyalog APL", "J", "BQN", "ngn/k", "Uiua", "X_eTaL"]
 
 [input.sum]
+bqn = 'v←1‿2‿3‿4'
+uiua = "v ← [1 2 3 4]"
 xetal = 'v := 1 2 3 4'
 
 [input.running-sum]
+bqn = 'v←1‿2‿3‿4'
+uiua = "v ← [1 2 3 4]"
 xetal = 'v := 1 2 3 4'
 
 [input.iota]
+bqn = 'n←5'
+uiua = "n ← 5"
 xetal = 'n := 5'
 
 [input.reshape]
+bqn = 'v←1‿2‿3‿4‿5‿6'
+uiua = "v ← [1 2 3 4 5 6]"
 xetal = 'v := 1 2 3 4 5 6'
 
 [input.shape]
+bqn = 'a←2‿3⥊1‿2‿3‿4‿5‿6'
+uiua = "a ← ↯2_3 [1 2 3 4 5 6]"
 xetal = 'a := 2 3 r_eshape 1 2 3 4 5 6'
 
 [input.count]
+bqn = 'v←3‿1‿4‿1‿5'
+uiua = "v ← [3 1 4 1 5]"
 xetal = 'v := 3 1 4 1 5'
 
 [input.reverse]
+bqn = 'v←"ABCDE"'
+uiua = 'v ← "ABCDE"'
 xetal = 'v := "ABCDE"'
 
 [input.rotate]
+bqn = 'v←"ABCDE"'
+uiua = 'v ← "ABCDE"'
 xetal = 'v := "ABCDE"'
 
 [input.transpose]
+bqn = 'a←2‿3⥊1‿2‿3‿4‿5‿6'
+uiua = "a ← ↯2_3 [1 2 3 4 5 6]"
 xetal = 'a := 2 3 r_eshape 1 2 3 4 5 6'
 
 [input.index-of]
+bqn = 'v←3‿1‿4 ⋄ x←4'
+uiua = "v ← [3 1 4]\nx ← 4"
 xetal = 'v := 3 1 4; x := 4'
 
 [input.member]
+bqn = 'x←2 ⋄ v←1‿2‿3'
+uiua = "x ← 2\nv ← [1 2 3]"
 xetal = 'x := 2; v := 1 2 3'
 
 [input.match]
+bqn = 'a←1‿2 ⋄ b←1‿2'
+uiua = "a ← [1 2]\nb ← [1 2]"
 xetal = 'a := 1 2; b := 1 2'
 
 [input.where]
+bqn = 'b←0‿1‿1‿0'
+uiua = "b ← [0 1 1 0]"
 xetal = 'b := 0 1 1 0'
 
 [input.sort]
+bqn = 'v←3‿1‿2'
+uiua = "v ← [3 1 2]"
 xetal = 'v := 3 1 2'
 
 [input.format]
-xetal = 'v := 1 2'
+bqn = 'v←42'
+uiua = "v ← 42"
+xetal = 'v := 42'
 
 [input.numbers]
+bqn = 't←"3.5"'
+uiua = 't ← "3.5"'
 xetal = 't := "1 2 3"'
+
+[input.outer]
+xetal = 'a := 1 2 3; b := 1 2 3'
+bqn = 'a←1‿2‿3 ⋄ b←1‿2‿3'
+uiua = "a ← [1 2 3]\nb ← [1 2 3]"
+
+[input.inner]
+xetal = 'a := 1 2 3; b := 1 2 3'
+bqn = 'a←1‿2‿3 ⋄ b←1‿2‿3'
+uiua = "a ← [1 2 3]\nb ← [1 2 3]"
+
+[input.each]
+xetal = 'u:f_ := { x -> n_eg x }; v := 1 2 3'
+bqn = 'F←- ⋄ v←1‿2‿3'
+uiua = "F ← ¯\nv ← [1 2 3]"
+
+[input.swap]
+xetal = 'u:f_ := { x y -> x - y }; x := 1; y := 2'
+bqn = 'F←- ⋄ x←1 ⋄ y←2'
+uiua = "F ← -\nx ← 1\ny ← 2"
+
+[input.compose]
+xetal = 'u:f_ := { x -> n_eg x }; u:g_ := { x -> x * 2 }; x := 3'
+bqn = 'F←- ⋄ G←×⟜2 ⋄ x←3'
+uiua = "F ← ¯\nG ← ×2\nx ← 3"
+
+[input.power]
+xetal = 'u:f_ := { x -> x + 1 }; x := 0'
+bqn = 'F←+⟜1 ⋄ x←0'
+uiua = "F ← +1\nx ← 0"
 
 [source.sum]
 apl2 = '+/V'
@@ -106,7 +168,7 @@ k = '(#a),#*a'
 uiua = '△a'
 
 [source.count]
-apl2 = '↑⍴V'
+apl2 = '×/⍴V'
 dyalog = '≢v'
 j = '# v'
 bqn = '≠v'
@@ -166,19 +228,19 @@ j = 'f"0 v'
 bqn = 'F¨v'
 xetal = "'f_ e_ach v"
 k = "f'v"
-uiua = '∵F v'
+uiua = '≡F v'
 
 [source.swap]
 dyalog = 'x f⍨ y'
 j = 'x f~ y'
 bqn = 'x F˜ y'
 xetal = "x 'f_ s_wap y"
-uiua = 'F : x y'
+uiua = '˜F x y'
 
 [source.compose]
 dyalog = 'f∘g'
 j = 'f@:g'
-bqn = 'F∘G'
+bqn = 'F∘G x'
 xetal = "'f_ 'g_ c_ompose x"
 k = 'f g x'
 uiua = 'F G x'
@@ -205,7 +267,7 @@ j = '{{ y*y }}'
 bqn = '{𝕩×𝕩}'
 xetal = '{ _r * _r }'
 k = '{x*x}'
-uiua = '×.'
+uiua = '˙×'
 
 [source.conditional]
 apl2 = '→(X<0)/NEG'
@@ -214,14 +276,13 @@ j = '{{ if. y<0 do. -y else. y end. }}'
 bqn = '{𝕩<0 ? -𝕩 ; 𝕩}'
 xetal = '{ x -> x < 0 ? n_eg x; x }'
 k = '{$[x<0;-x;x]}'
-uiua = '⨬(∘|¯)<0.'
+uiua = '⨬(∘|¯)⊸<0'
 
 [source.self]
 dyalog = '∇'
 j = '$:'
 bqn = '𝕊'
 k = 'o'
-uiua = '↬'
 
 [source.index-of]
 apl2 = 'V⍳X'
@@ -230,7 +291,7 @@ j = 'v i. x'
 bqn = 'v⊐x'
 xetal = 'v i_ndexOf x'
 k = 'v?x'
-uiua = '⊗x v'
+uiua = '⊗ v x'
 
 [source.member]
 apl2 = 'X∊V'
@@ -239,7 +300,7 @@ j = 'x e. v'
 bqn = 'x∊v'
 xetal = 'x m_ember? v'
 k = '(v?x)<#v'
-uiua = '∊x v'
+uiua = '∊ v x'
 
 [source.match]
 apl2 = 'A≡B'
@@ -332,54 +393,86 @@ uiua = '~"x.ua"'
 
 [output.sum]
 xetal = "10"
+bqn = "10"
+uiua = "10"
 
 [output.running-sum]
 xetal = "1 3 6 10"
+bqn = "⟨ 1 3 6 10 ⟩"
+uiua = "[1 3 6 10]"
 
 [output.iota]
 xetal = "1 2 3 4 5"
+bqn = "⟨ 1 2 3 4 5 ⟩"
+uiua = "[1 2 3 4 5]"
 
 [output.reshape]
 xetal = "1 2 3\n4 5 6"
+bqn = "┌─\n╵ 1 2 3\n  4 5 6\n        ┘"
+uiua = "╭─\n╷ 1 2 3\n  4 5 6\n        ╯"
 
 [output.shape]
 xetal = "2 3"
+bqn = "⟨ 2 3 ⟩"
+uiua = "[2 3]"
 
 [output.count]
 xetal = "5"
+bqn = "5"
+uiua = "5"
 
 [output.reverse]
 xetal = "EDCBA"
+bqn = "\"EDCBA\""
+uiua = "\"EDCBA\""
 
 [output.rotate]
 xetal = "BCDEA"
+bqn = "\"BCDEA\""
+uiua = "\"BCDEA\""
 
 [output.transpose]
 xetal = "1 4\n2 5\n3 6"
+bqn = "┌─\n╵ 1 4\n  2 5\n  3 6\n      ┘"
+uiua = "╭─\n╷ 1 4\n  2 5\n  3 6\n      ╯"
 
 [output.trap]
 xetal = "-1"
 
 [output.index-of]
 xetal = "3"
+bqn = "┌·\n· 2\n    ┘"
+uiua = "2"
 
 [output.member]
 xetal = "1"
+bqn = "┌·\n· 1\n    ┘"
+uiua = "1"
 
 [output.match]
 xetal = "1"
+bqn = "1"
+uiua = "1"
 
 [output.where]
 xetal = "2 3"
+bqn = "⟨ 1 2 ⟩"
+uiua = "[1 2]"
 
 [output.sort]
 xetal = "1 2 3"
+bqn = "⟨ 1 2 3 ⟩"
+uiua = "[1 2 3]"
 
 [output.format]
-xetal = "1 2"
+xetal = "42"
+bqn = "\"42\""
+uiua = "\"42\""
 
 [output.numbers]
 xetal = "1.0 2.0 3.0"
+uiua = "3.5"
+bqn = "3.5"
 
 [notes.lambda]
 apl2 = "none: every function is defined and named, ∇Z←SQ X"
@@ -401,6 +494,7 @@ k = "K has no trains; a lambda does it"
 
 [notes.self]
 apl2 = "the function's own name"
+uiua = "its own name, with its signature declared: F ← |1 ... F ..."
 xetal = "its own name, or c:Y_ from the Combinators library"
 
 [notes.read-file]
@@ -435,3 +529,27 @@ uiua = "builtin ↻|number 1|space  |variable v"
 [spans.reverse]
 k = "symbol ||variable v"
 j = "builtin |.|space  |variable v"
+
+[output.outer]
+bqn = "┌─\n╵ 1 2 3\n  2 4 6\n  3 6 9\n        ┘"
+uiua = "╭─\n╷ 1 2 3\n  2 4 6\n  3 6 9\n        ╯"
+
+[output.inner]
+bqn = "┌·\n· 14\n     ┘"
+uiua = "14"
+
+[output.each]
+uiua = "[¯1 ¯2 ¯3]"
+bqn = "⟨ ¯1 ¯2 ¯3 ⟩"
+
+[output.swap]
+uiua = "¯1"
+bqn = "1"
+
+[output.compose]
+uiua = "¯6"
+bqn = "¯6"
+
+[output.power]
+uiua = "3"
+bqn = "3"

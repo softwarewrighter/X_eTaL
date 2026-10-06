@@ -123,6 +123,10 @@ u:l_ines := { width ws ->
 # A text wrapped at its spaces into lines of at most width characters.
 u:w_rap := { width t -> width u:l_ines (n_ot t = f_irst " ") p_artition t }
 
+# A result's lines as one, " / " between them (a matrix, or a language's
+# own box drawing of one, on a face's single result line).
+u:o_neLine := { out -> d_isclose '{ x y -> e_nclose (d_isclose x) c_at " / " c_at d_isclose y } r_/ (n_ot out = f_irst "\n") p_artition out }
+
 # The lines of a language's face for an idiom: its name, the source
 # colored (on two lines when it is long, each shrunk to fit), and the
 # output when there is one; or the note for a missing source, wrapped.
@@ -133,7 +137,7 @@ u:f_ace := { i l ->
   out := d_isclose l s_elect i s_elect output
   note := d_isclose l s_elect i s_elect notes
   missing := "0 = t_ally note" i_f< "\"(no concise idiom)\"; note"
-  result := "0 = t_ally out" i_f< "\"\"; \"-> \" c_at out"
+  result := "0 = t_ally out" i_f< "\"\"; \"-> \" c_at u:o_neLine out"
   n_oteLine := { b -> 0.07 v:s_ized "#4b5563" v:s_pan d_isclose b }
   0 = t_ally src ? (e_nclose name) c_at 'n_oteLine m_ap 18 u:w_rap missing
   c_odeLine := { b -> (t_ally d_isclose b) u:f_itted (i c_at l) u:c_olored d_isclose b }

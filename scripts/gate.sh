@@ -96,12 +96,13 @@ run doctests doctests
 run reference python3 scripts/reference.py --check
 run status python3 scripts/status.py --check
 run rosetta python3 scripts/rosetta-check.py
+run rosettarun python3 scripts/rosetta-run.py
 run idioms bash -c 'python3 scripts/idioms.py --self-test && python3 scripts/idioms.py --check'
 run spelling bash -c 'python3 scripts/check-spelling.py --self-test && python3 scripts/check-spelling.py'
 run markdown sw-markdown-checker -f README.md
 wait
 failed=0
-for name in goldens spec doctests reference status rosetta idioms spelling markdown; do
+for name in goldens spec doctests reference status rosetta rosettarun idioms spelling markdown; do
     read -r code took < "$logs/$name.status"
     printf '    %-10s %3ss  %s\n' "$name" "$took" "$(tail -1 "$logs/$name" | cut -c1-100)"
     if [ "$code" -ne 0 ]; then failed=1; printf '\n--- %s failed:\n' "$name"; tail -40 "$logs/$name"; fi
