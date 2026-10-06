@@ -1,13 +1,15 @@
 ## Stone: the Rosetta stone's geometry and faces (docs/rosetta.md), a
 ## library beside the demo ("st:" u_se< "Stone"). The stone is three
-## carousels sharing one place: a drum of idioms turning about the x
-## axis (roll it up or down for the previous or next idiom), and two
-## rings of languages turning about the y axis, one for the top half of
-## the facing idiom, one for the bottom. Each is a square prism, so the
-## geometry never changes: the facing side shows the current item and
-## the sides at right angles show its neighbors, found by index. The
-## rings are drawn over the drum, each clipped to its half, which is the
-## impossible part: no solid turns like this, and none needs to.
+## carousels sharing one place: the whole stone rolling about the x
+## axis through the idioms (roll it up or down for the previous or next
+## idiom), and its two halves, closed boxes, each turning about the y
+## axis through the languages, one for the top half of the facing
+## idiom, one for the bottom. Each is a square prism, so the geometry
+## never changes: the facing side shows the current item and the sides
+## at right angles show its neighbors, found by index; the lid of the
+## top half and the floor of the bottom name the idioms before and
+## after. The halves turn independently, which is the impossible part:
+## no solid turns like this, and none needs to.
 ## Points are Geometry3D's (3 rows), pictures Svg's.
 "g:" u_se< "Geometry3D"
 "v:" u_se< "Svg"
@@ -20,7 +22,7 @@ l:height := 2.0
 l:depth := 2.0
 l:eye := 7.0
 l:size := 420.0
-zoom := 90.0
+zoom := 112.0
 
 ## The corners of a box centered on the origin: `w h d` in a 3-vector,
 ## 3 x 8 (near face then far face, each from the top left anticlockwise,
@@ -45,40 +47,40 @@ l:s_creen := { points ->
 ## 90`, and its sides show the items counted from the one the turn
 ## started at, `f_loor a / 90` steps from the first. So a turn ends
 ## with the same picture it would have begun from, the sides relabel
-## only at that instant, and the rings always stand at the front of
-## the drum where they can turn.
+## only at that instant, and the halves always stand upright where
+## they can turn.
 l:b_ase := { a -> f_loor a / 90.0 }
 l:p_art := { a -> a - 90.0 * f_loat l:b_ase a }
 
-## The sides of the idiom drum advanced by a degrees: the bottom, back
-## and top of the box (its front is the two rings), each 3 x 4 with its
-## corners ordered so that text reads upright as the side rolls round
-## to the front, as a 3 x 3 x 4 array. The next idiom comes up from
-## below, so the drum turns by -a about x. `st:drumOffsets` says which
-## idiom each side shows, counted from st:b_ase: 1 (below), 2 (behind),
-## -1 (on top).
-l:d_rum := { a ->
-  box := l:b_ox l:width c_at l:height c_at l:depth
-  sides := 3 4 r_eshape 4 3 7 8 8 7 6 5 5 6 2 1
-  sides g:s_olid l:v_iew (g:r_otX n_eg l:p_art a) g:t_urn box
-}
-l:drumOffsets := 1 2 -1
-
-## The four sides of a language ring advanced by a degrees: the box of
-## one half (`1` the top half, `-1` the bottom), its front, right, back
-## and left sides as a 4 x 3 x 4 array, rolled with the drum by d
-## degrees (the rings are the drum's front, so they roll with it). The
-## next language comes round from the right, so the ring turns by -a
-## about y. `st:ringOffsets` says which language each side shows,
-## counted from st:b_ase: 0, 1, 2, -1. `half (a d) st:r_ing @`.
+## The six sides of a language half advanced by a degrees: the closed
+## box of one half (`1` the top half, `-1` the bottom), its front,
+## right, back and left sides, then its lid and its floor, as a
+## 6 x 3 x 4 array, rolled with the whole stone by d degrees about x.
+## The next language comes round from the right, so the half turns by
+## -a about y. `st:ringOffsets` says which language each side shows,
+## counted from st:b_ase: 0, 1, 2, -1. The lid and the floor are
+## ordered so that text reads upright as they roll round to the front:
+## the next idiom comes up from below, so the stone rolls by -d about
+## x; `st:capOffsets` says which idiom each shows, counted from
+## st:b_ase: -1 on the lid, 1 on the floor (so the top half's lid and
+## the bottom half's floor name the stone's neighbors; the two caps
+## between the halves are hidden until a half turns). A half is a
+## closed box so that nothing shows through it while it turns.
+## `half (a d) st:r_ing @`.
+## >> "st:" u_se< "Stone"
+## >> s_hape 1 st:r_ing 0.0 0.0
+## 6 3 4
+## >> s_hape -1 st:r_ing 45.0 30.0
+## 6 3 4
 l:r_ing := { half ad ->
   box := l:b_ox l:width c_at (l:height / 2) c_at l:depth
   lifted := box + 3 8 r_eshape 8 r_eplicate 0.0 c_at (half * l:height / 4) c_at 0.0
-  sides := 4 4 r_eshape 1 2 3 4 2 6 7 3 6 5 8 7 5 1 4 8
+  sides := 6 4 r_eshape 1 2 3 4 2 6 7 3 6 5 8 7 5 1 4 8 5 6 2 1 4 3 7 8
   turned := (g:r_otY n_eg l:p_art 1 s_elect ad) g:t_urn lifted
   sides g:s_olid l:v_iew (g:r_otX n_eg l:p_art 2 s_elect ad) g:t_urn turned
 }
 l:ringOffsets := 0 1 2 -1
+l:capOffsets := -1 1
 
 ## A face as a panel in the picture: its corners (top left, top right,
 ## bottom right, bottom left; 3 x 4) turned by the view, filled, with
@@ -97,13 +99,15 @@ l:p_anel := { style f ->
 }
 
 ## One line of markup on a face: line k from the top; the first line
-## is the title, small and gray, the others code in a monospace face
-## 0.08 of the face high.
+## is the title, small and gray, the others code, bold and black in a
+## monospace face a tenth of the face high (the faces are small on a
+## phone, so the code is the boldest thing on them).
 l:l_ine := { k t ->
-  size := "k = 1" i_f< "\"0.055\"; \"0.08\""
-  y := "k = 1" i_f< "0.12; 0.16 + 0.13 * f_loat k"
-  color := "k = 1" i_f< "\"#6b7280\"; \"#111827\""
-  ((v:a_t 0.06 c_at y) c_at ("font-size" v:a_ttr size) c_at (v:f_ill color) c_at "font-family" v:a_ttr "ui-monospace, monospace") v:m_arkup t
+  size := "k = 1" i_f< "\"0.06\"; \"0.1\""
+  y := "k = 1" i_f< "0.13; 0.14 + 0.16 * f_loat k"
+  color := "k = 1" i_f< "\"#4b5563\"; \"#000000\""
+  weight := "k = 1" i_f< "\"500\"; \"700\""
+  ((v:a_t 0.06 c_at y) c_at ("font-size" v:a_ttr size) c_at ("font-weight" v:a_ttr weight) c_at (v:f_ill color) c_at "font-family" v:a_ttr "ui-monospace, monospace") v:m_arkup t
 }
 
 ## The faces of a solid (F x 3 x 4, in the view's frame) in the order

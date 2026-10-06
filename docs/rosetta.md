@@ -256,8 +256,25 @@ export use, so the demo cannot drift from the language. The other
 languages are colored from classified spans in the data (`plain`,
 `keyword`, `function`, `operator`, `number`, `string`, `comment`,
 `punctuation`), given per cell; no parsers are written for eight
-languages in the first milestone. The fonts: a monospace with the APL
-glyphs for the array languages, and the view model's for X_eTaL.
+languages in the first milestone. A cell without spans has its
+classes guessed from its characters (digits numbers, letters names,
+anything else a built-in, which in an array language's glyphs is
+nearly always right), by primitives on the whole text, one span per
+run. Code on a face is bold and black on a near-white face, a tenth of
+the face high: the faces are small on a phone, and the code is what
+the stone is for. The fonts: a monospace with the APL glyphs for the
+array languages, and the view model's for X_eTaL.
+
+### The halves are closed boxes
+
+Each half is a closed box of six faces: four language sides, a lid and
+a floor. The top half's lid and the bottom half's floor name the idioms
+before and after (they come round as the stone rolls); the two caps
+between the halves are bare and hidden until a half turns. The first
+build had instead one open drum (bottom, back, top) behind two
+four-sided rings, which showed its inside as an open box, and the
+drum's far corners as planes sticking out, whenever a ring stood
+turned; closed halves have nothing to show through.
 
 ## The page, as built (Saga 34 step 12)
 
@@ -267,12 +284,17 @@ the live demo's worker with the program, its two libraries and the
 data file, with frames replacing one another; shows the latest frame
 as inline SVG; and sends events: the pointer in the picture's own
 pixels, keys by their names, a tick each time the program waits, and
-`choose AXIS ITEM` from the three lists under the stone. The program
-prints `at IDIOM TOP BOTTOM` whenever it moves, and the page reads
-that line for its lists and the address bar, so the page never infers
-the stone's position from anything but the program's word. With
-`prefers-reduced-motion` the page sends the three pauses as it opens.
-The page holds no geometry, traversal or language.
+`choose AXIS ITEM` from the three lists under the stone. Keys are
+heard on the whole window, so nothing needs the focus first; a key
+typed into one of the lists is left to it. The program prints `at
+IDIOM TOP BOTTOM` whenever it moves, and the page reads that line for
+its lists and the address bar, so the page never infers the stone's
+position from anything but the program's word. The address bar's
+`?idiom=&top=&bottom=` is read as the page opens and sent as choices
+the first time the program waits for an event (a line sent before the
+worker has the program is lost), so a link or a bookmark opens on its
+comparison; with `prefers-reduced-motion` the three pauses go the same
+way. The page holds no geometry, traversal or language.
 
 ## The -ilities
 
