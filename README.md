@@ -350,7 +350,7 @@ Other fonts, checked against the font files:
   axis 1 written out, and another axis)
 - [`docs/idioms.md`](docs/idioms.md) -- everyday idioms in X_eTaL beside Java,
   JavaScript, Python, C++ and Rust, and beside APL2, Dyalog APL, J, BQN,
-  K and Uiua (the array table is the Rosetta stone's data, generated)
+  ngn/k and Uiua (the array table is the Rosetta stone's data, generated)
 - [`docs/classics.md`](docs/classics.md) -- the classic APL programs
   (Pascal's triangle, Life, tic-tac-toe, ...) as commented X_eTaL notebooks
 - [`docs/leetcode.md`](docs/leetcode.md) -- LeetCode problems answered the
