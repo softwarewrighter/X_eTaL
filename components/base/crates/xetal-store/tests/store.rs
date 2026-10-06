@@ -107,3 +107,16 @@ fn the_pictures_shown_are_kept_until_taken() {
     assert!(store.take_shown().is_empty());
     assert!(xetal_store::Disk.take_shown().is_empty());
 }
+
+/// A scripted queue of events keeps a line's trailing spaces: the
+/// space bar is the line `key` followed by two spaces, and trimming it
+/// made it a key without a name. Leading blanks, blank lines and
+/// comments still go.
+#[test]
+fn a_scripted_queue_keeps_trailing_spaces_but_not_blank_lines_or_comments() {
+    let dir = std::env::temp_dir().join(format!("xetal-scripted-{}", std::process::id()));
+    let store = xetal_store::Drawing::new(&dir, "keys", |_| {}).scripted("# a comment\n\ntick 0.1\nkey  \n  key a\n");
+    assert_eq!(store.line().unwrap(), "tick 0.1");
+    assert_eq!(store.line().unwrap(), "key  ");
+    assert_eq!(store.line().unwrap(), "key a");
+}
