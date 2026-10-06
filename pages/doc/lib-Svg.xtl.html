@@ -42,6 +42,7 @@
 <li class="item"><a href="#l.a_t"><span class="c-libfunc">ˡa̲t</span></a></li>
 <li class="item"><a href="#l.t_ext"><span class="c-libfunc">ˡt̲ext</span></a></li>
 <li class="item"><a href="#l.s_pan"><span class="c-libfunc">ˡs̲pan</span></a></li>
+<li class="item"><a href="#l.s_ized"><span class="c-libfunc">ˡs̲ized</span></a></li>
 <li class="item"><a href="#l.m_arkup"><span class="c-libfunc">ˡm̲arkup</span></a></li>
 <li class="item"><a href="#l.g_roup"><span class="c-libfunc">ˡg̲roup</span></a></li>
 <li class="item"><a href="#l.t_ranslate"><span class="c-libfunc">ˡt̲ranslate</span></a></li>
@@ -86,7 +87,7 @@ space, so attributes join by c_at). The value is escaped.</p>
  id=&quot;a&amp;amp;b&quot;</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡa̲ttr</span> ← { name value → <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> name <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;=\&quot;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="lib-Svg.xtl.html#l.e_scape" class="c-libfunc">ˡe̲scape</a> value) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\&quot;&quot;</span> }</pre>
-<div class="uses">Used in: <a href="lib-Svg.xtl.html#l.f_ill"><span class="c-libfunc">ˡf̲ill</span></a>, <a href="lib-Svg.xtl.html#l.s_troke"><span class="c-libfunc">ˡs̲troke</span></a>, <a href="lib-Svg.xtl.html#l.a_t"><span class="c-libfunc">ˡa̲t</span></a>, <a href="lib-Svg.xtl.html#l.t_ranslate"><span class="c-libfunc">ˡt̲ranslate</span></a>, <a href="lib-Svg.xtl.html#l.r_otate"><span class="c-libfunc">ˡr̲otate</span></a>, <a href="lib-Svg.xtl.html#l.m_atrix"><span class="c-libfunc">ˡm̲atrix</span></a>, <a href="lib-Svg.xtl.html#l.s_cale"><span class="c-libfunc">ˡs̲cale</span></a>, <a href="lib-Svg.xtl.html#l.c_lip"><span class="c-libfunc">ˡc̲lip</span></a>, <a href="lib-Svg.xtl.html#l.c_lipped"><span class="c-libfunc">ˡc̲lipped</span></a>, <a href="lib-Svg.xtl.html#l.g_radient"><span class="c-libfunc">ˡg̲radient</span></a>, <a href="lib-Svg.xtl.html#l.p_icture"><span class="c-libfunc">ˡp̲icture</span></a></div>
+<div class="uses">Used in: <a href="lib-Svg.xtl.html#l.f_ill"><span class="c-libfunc">ˡf̲ill</span></a>, <a href="lib-Svg.xtl.html#l.s_troke"><span class="c-libfunc">ˡs̲troke</span></a>, <a href="lib-Svg.xtl.html#l.a_t"><span class="c-libfunc">ˡa̲t</span></a>, <a href="lib-Svg.xtl.html#l.s_ized"><span class="c-libfunc">ˡs̲ized</span></a>, <a href="lib-Svg.xtl.html#l.t_ranslate"><span class="c-libfunc">ˡt̲ranslate</span></a>, <a href="lib-Svg.xtl.html#l.r_otate"><span class="c-libfunc">ˡr̲otate</span></a>, <a href="lib-Svg.xtl.html#l.m_atrix"><span class="c-libfunc">ˡm̲atrix</span></a>, <a href="lib-Svg.xtl.html#l.s_cale"><span class="c-libfunc">ˡs̲cale</span></a>, <a href="lib-Svg.xtl.html#l.c_lip"><span class="c-libfunc">ˡc̲lip</span></a>, <a href="lib-Svg.xtl.html#l.c_lipped"><span class="c-libfunc">ˡc̲lipped</span></a>, <a href="lib-Svg.xtl.html#l.g_radient"><span class="c-libfunc">ˡg̲radient</span></a>, <a href="lib-Svg.xtl.html#l.p_icture"><span class="c-libfunc">ˡp̲icture</span></a></div>
 </div>
 <div class="item" id="l.e_scape">
 <h3><a href="#l.e_scape"><span class="c-libfunc">ˡe̲scape</span></a> <span class="type">: Char -&gt; Char</span></h3>
@@ -207,9 +208,21 @@ the text escaped; runs join with c_at into v:m_arkup.</p>
 </div>
 <pre class="code"><span class="c-libfunc">ˡs̲pan</span> ← { color t → <span class="c-string">&quot;&lt;tspan&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="lib-Svg.xtl.html#l.f_ill" class="c-libfunc">ˡf̲ill</a> color) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;&gt;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="lib-Svg.xtl.html#l.e_scape" class="c-libfunc">ˡe̲scape</a> t) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;&lt;/tspan&gt;&quot;</span> }</pre>
 </div>
+<div class="item" id="l.s_ized">
+<h3><a href="#l.s_ized"><span class="c-libfunc">ˡs̲ized</span></a> <span class="type">: a -&gt; Char -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L94">line 94</a></div>
+<div class="doc">
+<p>Markup at a font size of its own inside a text element, for a line
+that must fit where a larger one would not: <code>size <a href="lib-Svg.xtl.html#l.s_ized" class="c-libfunc">ᵛs̲ized</a> inner</code>.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵛ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Svg.xtl.html" class="c-string">&quot;Svg&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">0.05</span> <a href="lib-Svg.xtl.html#l.s_ized" class="c-libfunc">ᵛs̲ized</a> <span class="c-string">&quot;red&quot;</span> <a href="lib-Svg.xtl.html#l.s_pan" class="c-libfunc">ᵛs̲pan</a> <span class="c-string">&quot;a&quot;</span>
+&lt;tspan font-size=&quot;0.05&quot;&gt;&lt;tspan fill=&quot;red&quot;&gt;a&lt;/tspan&gt;&lt;/tspan&gt;</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲ized</span> ← { size inner → <span class="c-string">&quot;&lt;tspan&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-string">&quot;font-size&quot;</span> <a href="lib-Svg.xtl.html#l.a_ttr" class="c-libfunc">ˡa̲ttr</a> <a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> size) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;&gt;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> inner <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;&lt;/tspan&gt;&quot;</span> }</pre>
+</div>
 <div class="item" id="l.m_arkup">
 <h3><a href="#l.m_arkup"><span class="c-libfunc">ˡm̲arkup</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L94">line 94</a></div>
+<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L101">line 101</a></div>
 <div class="doc">
 <p>Text whose content is already markup (runs from v:s_pan, or escaped
 text): <code>attrs <a href="lib-Svg.xtl.html#l.m_arkup" class="c-libfunc">ᵛm̲arkup</a> inner</code>.</p>
@@ -221,7 +234,7 @@ text): <code>attrs <a href="lib-Svg.xtl.html#l.m_arkup" class="c-libfunc">ᵛm̲
 </div>
 <div class="item" id="l.g_roup">
 <h3><a href="#l.g_roup"><span class="c-libfunc">ˡg̲roup</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L101">line 101</a></div>
+<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L108">line 108</a></div>
 <div class="doc">
 <p>A group of elements with attributes (a transform, a clip, a fill
 for all): <code>attrs <a href="lib-Svg.xtl.html#l.g_roup" class="c-libfunc">ᵛg̲roup</a> elements</code>.</p>
@@ -234,7 +247,7 @@ for all): <code>attrs <a href="lib-Svg.xtl.html#l.g_roup" class="c-libfunc">ᵛg
 </div>
 <div class="item" id="l.t_ranslate">
 <h3><a href="#l.t_ranslate"><span class="c-libfunc">ˡt̲ranslate</span></a> <span class="type">: a -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L107">line 107</a></div>
+<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L114">line 114</a></div>
 <div class="doc">
 <p>The transform attribute moving by dx and dy: <code><a href="lib-Svg.xtl.html#l.t_ranslate" class="c-libfunc">ᵛt̲ranslate</a> dx dy</code>.</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵛ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Svg.xtl.html" class="c-string">&quot;Svg&quot;</a></pre>
@@ -245,7 +258,7 @@ for all): <code>attrs <a href="lib-Svg.xtl.html#l.g_roup" class="c-libfunc">ᵛg
 </div>
 <div class="item" id="l.r_otate">
 <h3><a href="#l.r_otate"><span class="c-libfunc">ˡr̲otate</span></a> <span class="type">: a -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L114">line 114</a></div>
+<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L121">line 121</a></div>
 <div class="doc">
 <p>The transform attribute turning by d degrees about the origin
 (clockwise on the screen, since y grows downward).</p>
@@ -257,7 +270,7 @@ for all): <code>attrs <a href="lib-Svg.xtl.html#l.g_roup" class="c-libfunc">ᵛg
 </div>
 <div class="item" id="l.m_atrix">
 <h3><a href="#l.m_atrix"><span class="c-libfunc">ˡm̲atrix</span></a> <span class="type">: Num a =&gt; a -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L124">line 124</a></div>
+<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L131">line 131</a></div>
 <div class="doc">
 <p>The transform attribute mapping the unit square onto a quadrilateral
 given by three of its screen corners, top left, top right and bottom
@@ -277,7 +290,7 @@ it at unit coordinates lands on the face.</p>
 </div>
 <div class="item" id="l.s_cale">
 <h3><a href="#l.s_cale"><span class="c-libfunc">ˡs̲cale</span></a> <span class="type">: a -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L135">line 135</a></div>
+<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L142">line 142</a></div>
 <div class="doc">
 <p>The transform attribute scaling by k about the origin.</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵛ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Svg.xtl.html" class="c-string">&quot;Svg&quot;</a></pre>
@@ -288,7 +301,7 @@ it at unit coordinates lands on the face.</p>
 </div>
 <div class="item" id="l.c_lip">
 <h3><a href="#l.c_lip"><span class="c-libfunc">ˡc̲lip</span></a> <span class="type">: Char -&gt; a -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L143">line 143</a></div>
+<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L150">line 150</a></div>
 <div class="doc">
 <p>A clip region named id, a polygon through the points, to put among
 the picture's definitions; <code>id <a href="lib-Svg.xtl.html#l.c_lipped" class="c-libfunc">ᵛc̲lipped</a> elements</code> then shows only
@@ -301,7 +314,7 @@ what falls inside it.</p>
 </div>
 <div class="item" id="l.c_lipped">
 <h3><a href="#l.c_lipped"><span class="c-libfunc">ˡc̲lipped</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L149">line 149</a></div>
+<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L156">line 156</a></div>
 <div class="doc">
 <p>Elements shown only inside the clip region named id.</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵛ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Svg.xtl.html" class="c-string">&quot;Svg&quot;</a></pre>
@@ -312,7 +325,7 @@ what falls inside it.</p>
 </div>
 <div class="item" id="l.g_radient">
 <h3><a href="#l.g_radient"><span class="c-libfunc">ˡg̲radient</span></a> <span class="type">: Char -&gt; Box Char -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L156">line 156</a></div>
+<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L163">line 163</a></div>
 <div class="doc">
 <p>A gradient named id from one color at the top to another at the
 bottom, to put among the definitions; fill with <code><span class="c-string">&quot;url(#id)&quot;</span></code>.</p>
@@ -328,7 +341,7 @@ bottom, to put among the definitions; fill with <code><span class="c-string">&qu
 </div>
 <div class="item" id="l.p_icture">
 <h3><a href="#l.p_icture"><span class="c-libfunc">ˡp̲icture</span></a> <span class="type">: a -&gt; Char -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L168">line 168</a></div>
+<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L175">line 175</a></div>
 <div class="doc">
 <p>The picture: <code>w h <a href="lib-Svg.xtl.html#l.p_icture" class="c-libfunc">ᵛp̲icture</a> elements</code>, with the definitions (clips,
 gradients) first among the elements if any. The view is w by h with
@@ -346,7 +359,7 @@ the origin at the top left, and the picture scales to its place.</p>
 </div>
 <div class="item" id="l.p_ictureWith">
 <h3><a href="#l.p_ictureWith"><span class="c-libfunc">ˡp̲ictureWith</span></a> <span class="type">: a -&gt; Box Char -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L180">line 180</a></div>
+<div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L187">line 187</a></div>
 <div class="doc">
 <p>A picture whose definitions (clips, gradients) come first: <code>w h
 <a href="lib-Svg.xtl.html#l.p_ictureWith" class="c-libfunc">ᵛp̲ictureWith</a> (defs◆ elements)</code> is <code>w h <a href="lib-Svg.xtl.html#l.p_icture" class="c-libfunc">ᵛp̲icture</a> <a href="builtins.html#-3c" class="c-symbol">&lt;</a>defs<a href="builtins.html#-3e" class="c-symbol">&gt;</a>defs<a href="builtins.html#-3c" class="c-symbol">&lt;</a><a href="builtins.html#-2f" class="c-symbol">÷</a>defs<a href="builtins.html#-3e" class="c-symbol">&gt;</a>
@@ -360,13 +373,13 @@ elements</code>.</p>
 <h2 class="section" id="section-1">Private helpers</h2>
 <div class="item" id="e_sc">
 <h3><a href="#e_sc"><span class="c-builtin">e̲sc</span></a> <span class="type">: Char -&gt; Char</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Svg.xtl.src.html#L185">line 185</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Svg.xtl.src.html#L192">line 192</a></div>
 <pre class="code"><span class="c-builtin">e̲sc</span> ← { c → c <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;&amp;&quot;</span> ? <span class="c-string">&quot;&amp;amp;&quot;</span>◆ c <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;&lt;&quot;</span> ? <span class="c-string">&quot;&amp;lt;&quot;</span>◆ c <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;&gt;&quot;</span> ? <span class="c-string">&quot;&amp;gt;&quot;</span>◆ c <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;\&quot;&quot;</span> ? <span class="c-string">&quot;&amp;quot;&quot;</span>◆ c }</pre>
 <div class="uses">Used in: <a href="lib-Svg.xtl.html#l.e_scape"><span class="c-libfunc">ˡe̲scape</span></a></div>
 </div>
 <div class="item" id="j_oin">
 <h3><a href="#j_oin"><span class="c-builtin">j̲oin</span></a> <span class="type">: Box Char -&gt; Char</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Svg.xtl.src.html#L188">line 188</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Svg.xtl.src.html#L195">line 195</a></div>
 <pre class="code"><span class="c-builtin">j̲oin</span> ← { b →
   <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> b ? <span class="c-string">&quot;&quot;</span>
   <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ x y → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> x) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> y } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> b
@@ -375,7 +388,7 @@ elements</code>.</p>
 </div>
 <div class="item" id="p_airs">
 <h3><a href="#p_airs"><span class="c-builtin">p̲airs</span></a> <span class="type">: a -&gt; Char</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Svg.xtl.src.html#L194">line 194</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Svg.xtl.src.html#L201">line 201</a></div>
 <pre class="code"><span class="c-builtin">p̲airs</span> ← { points →
   xs ← <span class="c-builtin">'</span><a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> points
   ys ← <span class="c-builtin">'</span><a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> points
