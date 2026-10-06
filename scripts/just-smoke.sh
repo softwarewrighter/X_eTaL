@@ -61,6 +61,7 @@ for recipe in $(just --summary); do
     pages) skip "$recipe" "rewrites pages/ and the screenshot; run before publishing" ;;
     bench) skip "$recipe" "times the benchmarks (minutes); docs/speed.md records the results" ;;
     bench-check | bench-bless) skip "$recipe" "times the benchmarks against this machine's baseline (minutes)" ;;
+    nightly) skip "$recipe" "the full gate (minutes); scheduled" ;;
     *)
         printf 'FAIL: no smoke test for recipe %s (add one to %s)\n' "$recipe" "$0"
         failed=1

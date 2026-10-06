@@ -16,7 +16,7 @@ Available recipes:
     edit file                  # Edit a file with the live decorated view: just edit demos/life.xtl
     eval +args                 # Evaluate an expression, flags first: just eval --echo "'+ r_/ 1 2 3"
     fmt                        # Format every component
-    gate *FLAGS                # The pre-commit gate: fast (what the change affects) by default; `just gate --full` runs everything
+    gate *FLAGS                # The gate: sample (end to end, about 30 s) by default; --affected adds what the change touches; --full everything
     idioms                     # Regenerate docs/idioms.md from docs/idioms.template.md and the stone's data
     install dir="~/.local/bin" # Build optimized and install xetal and x_etal into a PATH directory (for #! scripts)
     life                       # Life: a blinker and a glider, stepped (demos/life.xtl)
@@ -24,6 +24,7 @@ Available recipes:
     literate-html              # Export the literate documents to HTML under pages/literate/ (with an index page)
     locks *args                # Check (or with --fix, regenerate) the component Cargo.lock files
     name-image                 # Draw images/name-forms.png, the name every way (docs/name.md, the live demo's Help)
+    nightly                    # The nightly full gate: pull main, run everything, keep the log, open an issue on failure
     pages *PARTS               # Build pages/ (committed; the Pages workflow publishes it): only the parts whose inputs changed; `just pages --all` rebuilds everything
     pp file                    # Pretty-print a file like cat: decorated and highlighted (errors in red)
     reference                  # Regenerate docs/reference.md (every built-in, its examples run) from docs/reference/builtins.ref

@@ -56,7 +56,7 @@ reg:
 locks *args:
     scripts/check-locks.sh "$@"
 
-# The pre-commit gate: fast (what the change affects) by default; `just gate --full` runs everything
+# The gate: sample (end to end, about 30 s) by default; --affected adds what the change touches; --full everything
 gate *FLAGS:
     scripts/gate.sh {{FLAGS}}
 
@@ -120,6 +120,10 @@ alias serve := web
 # Serve the live demo locally (http://127.0.0.1:8490/), rebuilt when a source changes
 web:
     cd components/web/crates/xetal-web && trunk serve --release --port 8490 --address 127.0.0.1
+
+# The nightly full gate: pull main, run everything, keep the log, open an issue on failure
+nightly:
+    scripts/nightly.sh
 
 # Time the benchmarks (bench/*.xtl and three demos), best of RUNS, as a table for docs/speed.md
 bench RUNS="3":

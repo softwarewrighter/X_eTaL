@@ -171,29 +171,36 @@ with (`bench/baseline/max.tsv`, the development machine, best of 5):
 
 ## The gate's own speed
 
-The gate is fast by default (`scripts/gate.sh`; `--full` runs
-everything): it checks the components a change touches, tests the
-ones that depend on them and skips the rest (`scripts/affected.py`).
-What it would have run for some recent changes, of 25 components:
+The gate comes in three sizes (`scripts/gate.sh`):
 
-| Change | Checked | Tested | Skipped |
-| ------ | ------- | ------ | ------- |
-| a document only | 0 | 0 | 25 |
-| a demo program (Mastermind) | 0 | 1 | 24 |
-| the live demo's engine (macro, web) | 2 | 7 | 16 |
-| the higher-order kernels (hof, step) | 2 | 14 | 9 |
-| a new built-in (base, system) | 2 | 21 | 2 |
+- `just gate`, the sample gate: only the checks that run the whole
+  pipeline end to end (the goldens, the spec cases, the doc tests, the
+  reference, status and data tables, spelling, markdown), all at once
+  after one build of the CLI. Measured 2026-10-06: 28 seconds, the
+  goldens (190, run in parallel, 15 s) and the spec cases (18 s) the
+  longest. Before every commit, merge and push.
+- `just gate --affected`: the sample plus the components the change
+  touches (`scripts/affected.py` plans it: a changed component gets
+  format, clippy and tests; one that builds in changed files its
+  tests; one that merely depends on a change is compiled), the browser
+  build when the pages' own files changed, the document checks whose
+  inputs changed, and sw-checklist. A change to `base`, which
+  everything depends on, takes about eight minutes. Before
+  `agentrail complete` of a step that changed code.
+- `just gate --full`: everything, about 20 minutes (40 on a loaded
+  machine). Nightly, and before a release.
 
-A component that merely depends on a change is only compiled (its
-library code, `cargo check`); the spec cases and the goldens, which
-always run, cover its behavior end to end, and the full gate compiles
-and runs every test. With nothing changed the fast gate takes about
-two minutes; a change to `base`, which everything depends on, about
-eight (the probe of 2026-10-05: 494 s to check `base`, compile the
-other 24 components, run the spec cases and the browser build, before
-the goldens and the document checks). The full gate took 20 minutes
-after such a merge, 40 on a loaded machine; each step of 5 seconds or
-more prints its time, and the total.
+Each step of 5 seconds or more prints its time, and the end lists the
+slowest three. What the gates would run for some recent changes, of
+26 components, under `--affected`:
+
+| Change | Checked | Tested | Compiled | Skipped |
+| ------ | ------- | ------ | -------- | ------- |
+| a document only | 0 | 0 | 0 | 26 |
+| a demo program (Mastermind) | 0 | 1 | 0 | 25 |
+| the live demo's engine (macro, web) | 2 | 0 | 7 | 17 |
+| the higher-order kernels (hof, step) | 2 | 0 | 14 | 10 |
+| a new built-in (base, system) | 2 | 0 | 22 | 2 |
 
 Pages are built in parts (`scripts/build-pages.sh`), each only when
 its inputs changed: the live demo, the literate HTML, the doc site,
