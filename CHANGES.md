@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 13:52 `build` Merged PRs #103 (rosetta: the tour's mode shown as a badge; a page opened from a link tours) and #104 (rustfmt of a test).
+
 - 13:30 `fix` The tour's mode is visible (a badge: touring, holding, paused with the axes named; the program prints `mode` lines) and a page opened from a link tours (`key r` after the opening choices resumes at once; a choice had paused every axis); D118.
 - 13:01 `build` Merged PR #102 (rosetta: the tour for top, for idiom, for bottom; face transforms rounded, which ends the cross-machine golden churn); the gates entry is D117.
 

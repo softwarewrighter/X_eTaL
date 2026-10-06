@@ -28,3 +28,7 @@ footer {
 }
 footer a { color: var(--dim); } footer a:hover { color: var(--ink); }
 footer .sep { opacity: 0.6; }
+/* The tour's mode: a dot that is green while touring, amber paused. */
+.mode { text-align: center; margin: 6px 0 0; font-size: 0.85rem; color: var(--dim); }
+.mode .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #16a34a; margin-right: 6px; vertical-align: middle; }
+.mode.paused .dot { background: #d97706; }
