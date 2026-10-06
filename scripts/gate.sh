@@ -127,7 +127,10 @@ if does "flag diagrams"; then
 fi
 if does "flag literate"; then
     step "literate documents (docs/literate)"
-    scripts/literate.sh --check
+    docs=""
+    if [ "$mode" = fast ]; then docs="$(python3 scripts/affected.py --literate)"; fi
+    # shellcheck disable=SC2086
+    scripts/literate.sh --check $docs
 fi
 if [ "$mode" != sample ]; then
 step "sw-checklist (structure; the affected and full gates)"

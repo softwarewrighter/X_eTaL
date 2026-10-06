@@ -5,10 +5,14 @@
 # fails when either is out of date). Blocks with `:results file :file
 # ../../images/NAME.svg` save their pictures there; --check runs each
 # document in a copy of that layout and fails when a picture differs. Blocks find
-# libraries of your own (userlibs/) through XETAL_PATH, since Emacs runs
-# them from the document's directory. Commit what
+# libraries of your own (userlibs/) and the Rosetta stone's (beside its
+# demo) through XETAL_PATH, since Emacs runs them from the document's
+# directory. Commit what
 # changes; scripts/check-literate.sh fails until then.
-#   scripts/literate.sh [--check]   # --check: run on copies and compare
+#   scripts/literate.sh [--check] [DOC.org...]   # --check: run on copies and compare
+# With documents named, only those run (a new or edited document
+# alone takes seconds; all of them take minutes); the gate names the
+# documents that changed, or all of them when a library or demo did.
 set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$root"
@@ -17,7 +21,10 @@ emacs="${EMACS:-}"
 [ -n "$emacs" ] || [ ! -x /Applications/Emacs.app/Contents/MacOS/Emacs ] || emacs=/Applications/Emacs.app/Contents/MacOS/Emacs
 if [ -z "$emacs" ]; then echo "literate: no Emacs; skipped"; exit 0; fi
 scripts/build-all.sh --release -q > /dev/null
-check="${1:-}"
+check=""
+if [ "${1:-}" = "--check" ]; then check="--check"; shift; fi
+docs=("$@")
+[ ${#docs[@]} -gt 0 ] || docs=(docs/literate/*.org)
 # One document: run it (in a copy, with --check) and, checking, compare.
 one() {
     local doc="$1" target="$1" tree=""
@@ -53,12 +60,12 @@ one() {
 
 # Every document at once (each in its own Emacs), the results in order.
 logs="$(mktemp -d "${TMPDIR:-/tmp}/literate-logs.XXXXXX")"
-for doc in docs/literate/*.org; do
+for doc in "${docs[@]}"; do
     ( one "$doc" > "$logs/$(basename "$doc").log" 2>&1; echo $? > "$logs/$(basename "$doc").status" ) &
 done
 wait
 status=0
-for doc in docs/literate/*.org; do
+for doc in "${docs[@]}"; do
     cat "$logs/$(basename "$doc").log"
     [ "$(cat "$logs/$(basename "$doc").status")" = 0 ] || status=1
 done

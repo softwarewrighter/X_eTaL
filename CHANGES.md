@@ -13,8 +13,9 @@ saga planning and reordering, `release` milestone release,
 ## 2026-10-06
 
 - 09:19 `build` The gate in three sizes (the user: merges took 10-45 minutes): `just gate` is the sample gate, the end-to-end checks run in parallel (goldens now parallel too, 46 s to 15 s), 28 seconds; `--affected` adds what the change touches; `--full` is nightly (scripts/nightly.sh, a launchd job, an issue on failure). The literate check runs every document at once.
-
+- 08:50 `docs` The Rosetta stone released (rosetta lane step 16): the literate document docs/literate/rosetta.org (geometry, carousels, quarter turn, state machine, attract tour, with pictures), goldens for the three views (front, angled, mid-tumble) and their screenshot in the README, the lane's frictions in docs/dogfooding.md, Saga 34 done in docs/plan.md, the lane archived; scripts/literate.sh runs only the documents named (the fast gate passes the changed ones); D108.
 - 08:39 `feat` The primitives that make empty arrays keep their argument's kind (T9, Saga 20 step 2, D107): reshape, take, drop, select, replicate, catenate, ravel, first, partition, reverse and rotate, `e_ach` and `t_able`; `0 t_ake "abc"` now displays as empty text. The live demo's service worker revalidates every request (`cache: "no-cache"`), so a new build is seen at once although GitHub Pages caches for ten minutes and the worker's files carry no hash.
+
 
 - 08:11 `build` Merged PR #94 (rosetta lane: the trap idiom in X_eTaL, text that fits its face); the register's D103-D106 as the lane numbered them; pages/ rebuilt.
 

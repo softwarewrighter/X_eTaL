@@ -953,9 +953,10 @@ them. After Saga 21, so `@expect` and xetalunit can use catching.
 | 4 | xetalunit | In X_eTaL-libraries (that repository's PR): fixtures, parameterized cases and reports on the assertions and `xetal test`. |
 | 5 | tests-everywhere | `tests/` and `just test` in each sibling repository, through each one's own process. |
 
-## Saga 34 -- rosetta (the idioms compared, on an impossible stone)
+## Saga 34 -- rosetta (the idioms compared, on an impossible stone) (done)
 
-The user's idea (2026-10-05, from docs/research5.txt; the design is
+Done 2026-10-06 (lanes/rosetta, PRs #80 to #95; D92 to D106; the
+literate document docs/literate/rosetta.org). The user's idea (2026-10-05, from docs/research5.txt; the design is
 docs/rosetta.md): a live demo that compares how languages write the
 same idiom as a split rotating stone. Rolling the stone up and down
 changes the idiom, turning the top half the language shown, turning

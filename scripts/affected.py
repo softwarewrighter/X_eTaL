@@ -102,7 +102,19 @@ def changed():
     return sorted({f for f in files if f})
 
 
+def literate_docs(files):
+    """The literate documents the gate must run: the changed ones alone
+    when nothing else a document depends on changed (a library, a demo,
+    the Emacs code), else nothing, meaning all of them."""
+    inputs = [f for f in files if f.startswith(FLAGS["literate"])]
+    docs = [f for f in inputs if f.startswith("docs/literate/") and f.endswith(".org")]
+    return docs if len(docs) == len(inputs) else []
+
+
 def self_test():
+    assert literate_docs(["docs/literate/a.org", "CHANGES.md"]) == ["docs/literate/a.org"]
+    assert literate_docs(["docs/literate/a.org", "lib/Svg.xtl"]) == []
+    assert literate_docs(["docs/literate/style.css"]) == []
     names = ["base", "syntax", "macro", "eval", "cli", "web"]
     deps = {"base": set(), "syntax": {"base"}, "macro": {"syntax"}, "eval": {"base"}, "cli": {"macro", "eval"}, "web": {"macro", "eval"}}
     assert plan(["docs/plan.md", "CHANGES.md"], names, deps) == []
@@ -124,6 +136,8 @@ def self_test():
 if __name__ == "__main__":
     if "--self-test" in sys.argv:
         self_test()
+    elif "--literate" in sys.argv:
+        print("\n".join(literate_docs(changed())))
     else:
         names = components()
         print("\n".join(plan(changed(), names, depends(names))))

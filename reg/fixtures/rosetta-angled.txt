@@ -1,0 +1,5 @@
+# The stone with its top half a third of the way round (one key, then
+# a short tick): the turning half and the still one, for the picture.
+tick 0.0333
+key Right
+tick 0.15

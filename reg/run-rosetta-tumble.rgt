@@ -1,0 +1,3 @@
+command = "rm -rf work/reg-tumble && env XETAL_PATH=demos/rosetta ./target/release/xetal run demos/rosetta/rosetta.xtl --events reg/fixtures/rosetta-tumble.txt --draw work/reg-tumble && cat work/reg-tumble/rosetta-2.svg"
+exit_code = 0
+desc = "the Rosetta stone mid-tumble: rolling to the next idiom while both halves turn (Down, Right and a at once; the second frame), the floor's idiom coming up, text only on the faces toward the viewer; the picture as written"
