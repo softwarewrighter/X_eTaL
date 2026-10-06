@@ -54,10 +54,10 @@ except E: ...</code> | <code>try { ... } catch (const E&amp; e) { ... }</code> |
 
 ## Array languages
 
-APL2 (IBM's second-generation APL), Dyalog APL, J, BQN, K and Uiua:
+APL2 (IBM's second-generation APL), Dyalog APL, J, BQN, ngn/k and Uiua:
 the same table the Rosetta stone (`demos/rosetta/`) turns, generated
 from its data. Indexing in the X_eTaL column starts at 1, as in APL2
-and Dyalog (with its index origin 1); J, BQN, K and Uiua count from 0. X_eTaL's functions take their
+and Dyalog (with its index origin 1); J, BQN, ngn/k and Uiua count from 0. X_eTaL's functions take their
 operands as quoted arguments where APL has operators (`/`, <code>&#168;</code>, <code>&#8728;</code>),
 and names are words where APL has glyphs; the source is plain ASCII.
 
