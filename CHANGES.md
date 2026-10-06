@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 08:45 `fix` The stone's page has the site's footer and the live demo links to the stone (`footer_at`); the space bar pauses again (`key` and two spaces parsed as the space key, `key Space` too, scripted lines keep trailing spaces; the user, on the live page); D109.
 - 08:11 `build` Merged PR #94 (rosetta lane: the trap idiom in X_eTaL, text that fits its face); the register's D103-D106 as the lane numbered them; pages/ rebuilt.
 
 - 08:30 `fix` The stone's faces after the user's second note (rosetta lane step 15): the trap idiom shows the error-handling macros (`t_ry<`, `r_ecover<`) in the data, docs/idioms.md and the spec case; long code split in two lines and shrunk to fit, notes wrapped, text only on faces toward the viewer (`st:f_acing`), the view tilted to 22 degrees; `v:s_ized` in Svg; D106.

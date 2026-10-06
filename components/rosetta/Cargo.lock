@@ -1376,6 +1376,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-chrome"
+version = "0.1.0"
+dependencies = [
+ "wasm-bindgen",
+ "web-sys",
+ "yew",
+]
+
+[[package]]
 name = "xetal-clock"
 version = "0.1.0"
 dependencies = [
@@ -1677,6 +1686,7 @@ dependencies = [
  "js-sys",
  "wasm-bindgen",
  "web-sys",
+ "xetal-chrome",
  "xetal-lineedit",
  "xetal-runner",
  "xetal-typing",

@@ -1,6 +1,8 @@
 # The stone driven by keys: a frame, the top ring stepped right and
 # eased over three ticks, the drum rolled down one, the bottom ring
-# stepped left, a frame each; then the end.
+# stepped left, a frame each; the space bar (written both ways the
+# page and a fixture write it) pausing the top and resuming it; then
+# the end.
 tick 0.016
 key Right
 tick 0.25
@@ -12,3 +14,7 @@ tick 0.5
 key a
 tick 0.5
 tick 0.5
+key  
+tick 0.1
+key Space
+tick 0.1

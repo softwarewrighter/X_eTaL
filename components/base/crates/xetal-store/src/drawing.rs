@@ -36,12 +36,13 @@ impl Drawing {
 
     /// Lines typed come from `lines` (a scripted queue of events, RS1)
     /// instead of standard input; blank lines and `#` comments are
-    /// skipped, and after the last line input has ended.
+    /// skipped, and after the last line input has ended. A line keeps
+    /// its trailing spaces: the space bar is `key` and two spaces.
     pub fn scripted(mut self, lines: &str) -> Drawing {
         let kept = lines
             .lines()
-            .map(str::trim)
-            .filter(|l| !l.is_empty() && !l.starts_with('#'))
+            .map(str::trim_start)
+            .filter(|l| !l.trim().is_empty() && !l.starts_with('#'))
             .map(String::from)
             .collect();
         self.script = Some(Mutex::new(kept));

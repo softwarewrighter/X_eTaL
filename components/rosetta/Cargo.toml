@@ -16,6 +16,7 @@ repository = "https://github.com/softwarewrighter/X_eTaL"
 [workspace.dependencies]
 xetal-runner = { path = "../web/crates/xetal-runner" }
 xetal-typing = { path = "../web/crates/xetal-typing" }
+xetal-chrome = { path = "../web/crates/xetal-chrome" }
 xetal-lineedit = { path = "../console/crates/xetal-lineedit" }
 yew = { version = "0.21", features = ["csr"] }
 wasm-bindgen = "0.2"

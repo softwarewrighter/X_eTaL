@@ -52,6 +52,9 @@ pub fn key_named(name: &str) -> Option<u32> {
     if let Some(i) = KEYS.iter().position(|k| k.eq_ignore_ascii_case(name)) {
         return Some(i as u32);
     }
+    if name.eq_ignore_ascii_case("space") {
+        return Some(PRINTING + ' ' as u32);
+    }
     let mut chars = name.chars();
     match (chars.next(), chars.next()) {
         (Some(c), None) => Some(PRINTING + c as u32),
@@ -76,6 +79,14 @@ pub struct Event {
 impl Event {
     /// The event a line describes, if it is one.
     pub fn parse(line: &str) -> Option<Event> {
+        // `key` and one character, the space among them: "key  ".
+        if let Some(c) = line.strip_prefix("key ").filter(|c| c.chars().count() == 1) {
+            return Some(Event {
+                kind: "key",
+                at: Vec::new(),
+                key: key_named(c),
+            });
+        }
         let mut words = line.split_whitespace();
         let first = words.next()?;
         let kind = *KINDS.iter().find(|k| **k == first)?;
