@@ -40,17 +40,33 @@ u:c_olor := { class ->
   class m_atch "keyword" ? "#1d4ed8"
   class m_atch "function" ? "#1d4ed8"
   class m_atch "operator" ? "#111827"
-  "#111827"
+  class m_atch "name" ? "#000000"
+  "#000000"
 }
 
 # Runs of classified text (an n x 2 matrix of boxed texts, text then
 # class) as colored markup for a face.
 u:r_uns := { m -> u:j_oin '{ k -> (u:c_olor d_isclose 2 s_elect k s_elect m) v:s_pan d_isclose 1 s_elect k s_elect m } m_ap r_ange 1 s_elect s_hape m }
 
+# The classes of a cell that has no spans of its own, guessed from its
+# characters, as the same n x 2 matrix: digits are
+# numbers, letters and the underscore names, spaces plain, and
+# everything else a built-in, which in an array language's glyphs is
+# nearly always right. Runs of one class are one span; the work is
+# all primitives (one lambda per run, not per character).
+u:g_uess := { src ->
+  cls := (src m_ember? "0123456789") + (2 * src m_ember? "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_") + 3 * src = f_irst " "
+  starts := 1 c_at (1 d_rop cls) != -1 d_rop cls
+  runs := ('+ s_\ starts) p_artition src
+  kinds := (e_nclose "builtin") c_at (e_nclose "number") c_at (e_nclose "name") c_at e_nclose "plain"
+  classes := (1 + (w_here starts) s_elect cls) s_elect kinds
+  o_\ (2 c_at t_ally runs) r_eshape runs c_at classes
+}
+
 # A cell's spans from data.toml, "class text|class text|...", as the
-# same n x 2 matrix; a cell without spans is one run of plain text.
+# same n x 2 matrix; a cell without spans has its classes guessed.
 u:s_pans := { src spans ->
-  0 = t_ally spans ? 1 2 r_eshape (e_nclose src) c_at e_nclose "plain"
+  0 = t_ally spans ? u:g_uess src
   pieces := (n_ot spans = f_irst "|") p_artition spans
   o_ne := { p -> t := d_isclose p; cut := t i_ndexOf f_irst " "; (e_nclose cut d_rop t) c_at e_nclose (cut - 1) t_ake t }
   ((t_ally pieces) c_at 2) r_eshape d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ 'o_ne m_ap pieces
@@ -89,21 +105,34 @@ u:i_tem := { ao state ->
   n cm:w_rap 1 + (f_loor 2 s_elect ao) + st:b_ase (axis c_at cm:ANGLE) cm:a_t state
 }
 
-# The stone as a picture of a state: the drum's sides name the
-# neighboring idioms, the rings' sides show the languages for the
-# idiom the rings stand on; everything is painted far to near as one
-# solid.
+# The stone as a picture of a state: the two halves' sides show the
+# languages for the idiom the stone stands on, the top half's lid and
+# the bottom half's floor name the neighboring idioms, the caps between
+# the halves are bare; everything is painted far to near as one solid.
+# Faces 1 to 6 are the top half's (front, right, back, left, lid,
+# floor), 7 to 12 the bottom half's.
 u:s_tone := { state ->
   i := (cm:IDIOM c_at 0.0) u:i_tem state
   roll := (cm:IDIOM c_at cm:ANGLE) cm:a_t state
-  drum := st:d_rum roll
   top := 1 st:r_ing ((cm:TOP c_at cm:ANGLE) cm:a_t state) c_at roll
   bottom := -1 st:r_ing ((cm:BOTTOM c_at cm:ANGLE) cm:a_t state) c_at roll
-  d_rumPanel := { k -> ((e_nclose "#d9d2c5") c_at e_nclose v:e_scape d_isclose ((cm:IDIOM c_at f_loat k s_elect st:drumOffsets) u:i_tem state) s_elect idiomNames) st:p_anel k s_elect drum }
-  t_opPanel := { k -> ((e_nclose "#f2ede4") c_at i u:f_ace (cm:TOP c_at f_loat k s_elect st:ringOffsets) u:i_tem state) st:p_anel k s_elect top }
-  b_ottomPanel := { k -> ((e_nclose "#e6e0d4") c_at i u:f_ace (cm:BOTTOM c_at f_loat k s_elect st:ringOffsets) u:i_tem state) st:p_anel k s_elect bottom }
-  p_anel := { k -> k <= 3 ? d_rumPanel k; k <= 7 ? t_opPanel k - 3; b_ottomPanel k - 7 }
-  all := drum c_at top c_at bottom
+  all := top c_at bottom
+  c_apName := { k -> v:e_scape d_isclose ((cm:IDIOM c_at f_loat k s_elect st:capOffsets) u:i_tem state) s_elect idiomNames }
+  c_apText := { k ->
+    k = 5 ? c_apName 1
+    k = 12 ? c_apName 2
+    ""
+  }
+  c_ap := { k -> (e_nclose "#e9e4db") c_at (e_nclose "") c_at e_nclose c_apText k }
+  t_opPanel := { k -> (e_nclose "#fdfcfa") c_at i u:f_ace (cm:TOP c_at f_loat k s_elect st:ringOffsets) u:i_tem state }
+  b_ottomPanel := { k -> (e_nclose "#f4f1ec") c_at i u:f_ace (cm:BOTTOM c_at f_loat k s_elect st:ringOffsets) u:i_tem state }
+  l_ines := { k ->
+    k <= 4 ? t_opPanel k
+    k <= 6 ? c_ap k
+    k <= 10 ? b_ottomPanel k - 6
+    c_ap k
+  }
+  p_anel := { k -> (l_ines k) st:p_anel k s_elect all }
   painted := u:j_oin 'p_anel m_ap st:p_ainting all
   caption := ((v:a_t (st:size / 2) c_at 28) c_at ("font-size" v:a_ttr "18") c_at ("text-anchor" v:a_ttr "middle") c_at (v:f_ill "#374151") c_at "font-family" v:a_ttr "ui-sans-serif, system-ui, sans-serif") v:t_ext d_isclose i s_elect idiomNames
   (st:size c_at st:size) v:p_icture caption c_at painted

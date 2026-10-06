@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-06
+
+- 07:40 `fix` The Rosetta page after its first viewing (the user): keys heard on the window (no focus needed), the address bar's choices sent once the program waits (they were posted before the worker had the program, and lost); the halves are closed boxes with labeled caps in place of an open drum behind two rings (the open box and the planes sticking out whenever a half stood turned); code bold, black and a tenth of the face high on near-white faces, cells without spans colored by guessed classes (digits, names, glyphs), the view closer (zoom 112); D103. Golden run-rosetta-stone rebased on purpose.
+
 ## 2026-10-05
 
 - 18:06 `build` Merged PR #90 (rosetta lane: the stone's page, a component of its own built by trunk); it is the sixth pages part, rosetta (pages/rosetta/), rebuilt when its programs, libraries or data change; the fast gate checks the browser build when web's or rosetta's own files change.

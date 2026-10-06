@@ -6,7 +6,7 @@ use web_sys::HtmlSelectElement;
 use xetal_runner::{Runs, use_runs};
 use yew::prelude::*;
 
-use crate::events::{keys, pointer};
+use crate::events::{pointer, use_keys};
 use crate::program::{Named, lists, position, request};
 use crate::url;
 
@@ -19,6 +19,7 @@ pub fn app() -> Html {
     let lists: UseStateHandle<Lists> = use_state(lists);
     let send = runs.press_key.clone();
     use_start(&runs, &lists);
+    use_keys(send.clone(), runs.output.running);
     xetal_typing::use_ticks(runs.output.wants_event, send.clone());
     let out = runs
         .output
@@ -32,7 +33,6 @@ pub fn app() -> Html {
     }
     let frame = runs.output.run.as_ref().and_then(|r| r.frame.clone());
     let (down, moved, up) = pointer(send.clone());
-    let on_key = keys(send.clone(), runs.output.running);
     let picture = Html::from_html_unchecked(AttrValue::from(frame.unwrap_or_default()));
     let err = runs
         .output
@@ -41,7 +41,7 @@ pub fn app() -> Html {
         .map(|r| r.err.clone())
         .unwrap_or_default();
     html! {
-        <main class="rosetta" tabindex="0" onkeydown={on_key}>
+        <main class="rosetta">
             <h1>{ "The Rosetta stone" }</h1>
             <p class="lead">{ "How languages write the same idiom. Drag the top half or the bottom half sideways to turn it; drag up or down to roll to another idiom; click a half to pause it. Left alone, it tours." }</p>
             <div class="stone" onpointerdown={down} onpointermove={moved} onpointerup={up}>
@@ -54,17 +54,25 @@ pub fn app() -> Html {
     }
 }
 
-/// Start the program once, then send the address bar's choices and,
-/// with reduced motion asked for, pause the three axes.
+/// Start the program once; the address bar's choices (and, with
+/// reduced motion asked for, the three pauses) go to it the first time
+/// it waits for an event, since a line sent before the worker has the
+/// program is lost. The address is read at once, before the program's
+/// first position replaces it.
 #[hook]
 fn use_start(runs: &Runs, lists: &UseStateHandle<Lists>) {
     let started = use_mut_ref(|| false);
-    let (start, send, lists) = (runs.start.clone(), runs.press_key.clone(), lists.clone());
+    let pending = use_mut_ref(|| opening(lists));
+    let (start, send) = (runs.start.clone(), runs.press_key.clone());
     use_effect(move || {
         if !*started.borrow() {
             *started.borrow_mut() = true;
             start.emit(request());
-            for line in opening(&lists) {
+        }
+    });
+    use_effect_with(runs.output.wants_event, move |wants| {
+        if *wants {
+            for line in pending.borrow_mut().drain(..) {
                 send.emit(line);
             }
         }
