@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 11:50 `fix` The stone's lists are alphabetical: both axes of the data sorted by display name, and rosetta-check fails on any pair out of order (the user); D115.
 - 11:33 `build` Merged the rest of PR #100 (its branch had grown: Dyalog APL dropped from the stone, the APL column is GNU APL; the goldens as the lane rebased them); the gates entry is D115.
 
 - 11:21 `build` Merged PR #100 (rosetta: the BQN and Uiua cells run in their own interpreters, Uiua and APL2 corrected); rosetta-run joins the sample gate's parallel group; the gates entry is D115.

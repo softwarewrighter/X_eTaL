@@ -62,36 +62,36 @@ J, BQN, ngn/k and Uiua count from 0. X_eTaL's functions take their
 operands as quoted arguments where APL has operators (`/`, <code>&#168;</code>, <code>&#8728;</code>),
 and names are words where APL has glyphs; the source is plain ASCII.
 
-| Idiom | GNU APL | J | BQN | ngn/k | Uiua | X_eTaL |
-| ----- | ------- | --- | --- | ----- | ---- | ------ |
-| Sum | <code>+/V</code> | <code>+/ v</code> | <code>+&#180; v</code> | <code>+/v</code> | <code>/+ v</code> | <code>'+ r_/ v</code> |
-| Running sum | <code>+\V</code> | <code>+/\ v</code> | <code>+` v</code> | <code>+\v</code> | <code>\+ v</code> | <code>'+ s_\ v</code> |
-| 1 to n | <code>&#9075;N</code> | <code>&gt;: i. n</code> | <code>1+&#8597;n</code> | <code>1+!n</code> | <code>+1&#8673;n</code> | <code>r_ange n</code> |
-| Reshape | <code>2 3&#9076;V</code> | <code>2 3 $ v</code> | <code>2&#8255;3&#10570;v</code> | <code>2 3#v</code> | <code>&#8623;2_3 v</code> | <code>2 3 r_eshape v</code> |
-| Shape | <code>&#9076;A</code> | <code>$ a</code> | <code>&#8802;a</code> | <code>(#a),#*a</code> (no shape primitive: the count, then the first row's) | <code>&#9651;a</code> | <code>s_hape a</code> |
-| Count | <code>&#215;/&#9076;V</code> | <code># v</code> | <code>&#8800;v</code> | <code>#v</code> | <code>&#10747;v</code> | <code>t_ally v</code> |
-| Reverse | <code>&#9021;V</code> | <code>&#124;. v</code> | <code>&#9021;v</code> | <code>&#124;v</code> | <code>&#8652;v</code> | <code>r_ev v</code> |
-| Rotate | <code>1&#9021;V</code> | <code>1 &#124;. v</code> | <code>1&#9021;v</code> | <code>1!v</code> | <code>&#8635;1 v</code> | <code>1 o_- v</code> |
-| Transpose | <code>&#9033;A</code> | <code>&#124;: a</code> | <code>&#9033;a</code> (a matrix) | <code>+a</code> (flip: + transposes a list of lists) | <code>&#9033;a</code> | <code>o_\ a</code> |
-| Outer product | <code>A&#8728;.&#215;B</code> | <code>a */ b</code> | <code>a &#215;&#8988; b</code> | <code>a*/:\:b</code> | <code>&#8862;&#215; a b</code> | <code>a '* t_able b</code> |
-| Inner product | <code>A+.&#215;B</code> | <code>a +/ .* b</code> | <code>a +&#733;&#8728;&#215;&#9097;1&#8255;&#8734; b</code> | <code>+/a*b</code> (the dot product of two vectors) | <code>/+&#215;a b</code> (the dot product of two vectors) | <code>a '+ '* i_nner b</code> |
-| Each | <code>F&#168;V</code> | <code>f"0 v</code> | <code>F&#168;v</code> | <code>f'v</code> | <code>&#8801;F v</code> | <code>'f_ e_ach v</code> |
-| Swap arguments | not directly expressible | <code>x f~ y</code> | <code>x F&#732; y</code> | none: the arguments are written the other way round, y f x | <code>&#732;F x y</code> | <code>x 'f_ s_wap y</code> |
-| Compose | not directly expressible | <code>f@:g</code> | <code>F&#8728;G x</code> | <code>f g x</code> (no composition operator: the functions are applied in turn) | <code>F G x</code> | <code>'f_ 'g_ c_ompose x</code> |
-| Power (repeat) | not directly expressible | <code>f^:3 x</code> | <code>F&#9055;3 x</code> | <code>f/[3;x]</code> | <code>&#9061;F 3 x</code> | <code>f_^3 x</code> |
-| Train: the mean | not directly expressible | <code>(+/ % #)</code> | <code>(+&#180;&#247;&#8800;)</code> | <code>{(+/x)%#x}</code> (K has no trains; a lambda does it) | <code>&#247;&#10747;&#10204;/+</code> | <code>['+ r_/ / t_ally]</code> |
-| Anonymous function | none: every function is defined and named, &#8711;Z&#8592;SQ X | <code>{{ y*y }}</code> | <code>{&#120169;&#215;&#120169;}</code> | <code>{x*x}</code> | <code>&#729;&#215;</code> | <code>{ _r * _r }</code> |
-| Conditional | <code>&#8594;(X&lt;0)/NEG</code> | <code>{{ if. y&lt;0 do. -y else. y end. }}</code> | <code>{&#120169;&lt;0 ? -&#120169; ; &#120169;}</code> | <code>{$[x&lt;0;-x;x]}</code> | <code>&#10796;(&#8728;&#124;&#175;)&#8888;&lt;0</code> | <code>{ x -&gt; x &lt; 0 ? n_eg x; x }</code> |
-| Self-reference | the function's own name | <code>$:</code> | <code>&#120138;</code> | <code>o</code> | its own name, with its signature declared: F &#8592; &#124;1 ... F ... | its own name, or c:Y_ from the Combinators library |
-| Index of | <code>V&#9075;X</code> | <code>v i. x</code> | <code>v&#8848;x</code> | <code>v?x</code> | <code>&#8855; v x</code> | <code>v i_ndexOf x</code> |
-| Membership | <code>X&#8714;V</code> | <code>x e. v</code> | <code>x&#8714;v</code> | <code>(v?x)&lt;#v</code> (no member primitive: the index found before the end) | <code>&#8714; v x</code> | <code>x m_ember? v</code> |
-| Match | <code>A&#8801;B</code> | <code>a -: b</code> | <code>a&#8801;b</code> | <code>a~b</code> | <code>&#8781;a b</code> | <code>a m_atch b</code> |
-| Where | <code>B/&#9075;&#9076;B</code> | <code>I. b</code> | <code>/b</code> | <code>&amp;b</code> | <code>&#8858;b</code> | <code>w_here b</code> |
-| Sort | <code>V[&#9035;V]</code> | <code>/:~ v</code> | <code>&#8743;v</code> | <code>v@&lt;v</code> | <code>&#9030;v</code> | <code>s_ort v</code> |
-| Number to text | <code>&#9045;V</code> | <code>": v</code> | <code>&#8226;Fmt v</code> | <code>$v</code> | <code>&#176;&#8917; v</code> | <code>f_ormat v</code> |
-| Text to numbers | <code>&#9038;T</code> | <code>". t</code> | <code>&#8226;ParseFloat t</code> | <code>.t</code> | <code>&#8917; t</code> | <code>n_umbers t</code> |
-| Read a file | a shared variable ([]SVO) with a file processor | <code>1!:1 &lt; f</code> | <code>&#8226;FChars f</code> | <code>0:f</code> | <code>&amp;fras f</code> | <code>[]N_GET f</code> |
-| Read a line | <code>&#9054;</code> | <code>1!:1 ] 1</code> | <code>&#8226;GetLine @</code> | <code>0:0</code> (the dialects differ) | <code>&amp;sc</code> | <code>[]R_EAD @</code> |
-| Print | <code>&#9109;&#8592;V</code> | <code>echo v</code> | <code>&#8226;Show v</code> | <code>`0:v</code> | <code>&amp;p v</code> | <code>p_rint! v</code> |
-| Trap an error | <code>&#9109;EA</code> | <code>try. catch. end.</code> | <code>F&#9098;G</code> | <code>.[f;x;:]</code> | <code>&#9059;F G</code> | <code>"1 d_iv 0" t_ry&lt; "@ r_ecover&lt; \"-1\""</code> |
-| Use a library | <code>)COPY WS</code> | <code>require 'x'</code> | <code>&#8226;Import "x.bqn"</code> | <code>\l x.k</code> | <code>~"x.ua"</code> | <code>"c:" u_se&lt; "Combinators"</code> |
+| Idiom | BQN | GNU APL | J | ngn/k | Uiua | X_eTaL |
+| ----- | --- | ------- | --- | ----- | ---- | ------ |
+| 1 to n | <code>1+&#8597;n</code> | <code>&#9075;N</code> | <code>&gt;: i. n</code> | <code>1+!n</code> | <code>+1&#8673;n</code> | <code>r_ange n</code> |
+| Anonymous function | <code>{&#120169;&#215;&#120169;}</code> | none: every function is defined and named, &#8711;Z&#8592;SQ X | <code>{{ y*y }}</code> | <code>{x*x}</code> | <code>&#729;&#215;</code> | <code>{ _r * _r }</code> |
+| Compose | <code>F&#8728;G x</code> | not directly expressible | <code>f@:g</code> | <code>f g x</code> (no composition operator: the functions are applied in turn) | <code>F G x</code> | <code>'f_ 'g_ c_ompose x</code> |
+| Conditional | <code>{&#120169;&lt;0 ? -&#120169; ; &#120169;}</code> | <code>&#8594;(X&lt;0)/NEG</code> | <code>{{ if. y&lt;0 do. -y else. y end. }}</code> | <code>{$[x&lt;0;-x;x]}</code> | <code>&#10796;(&#8728;&#124;&#175;)&#8888;&lt;0</code> | <code>{ x -&gt; x &lt; 0 ? n_eg x; x }</code> |
+| Count | <code>&#8800;v</code> | <code>&#215;/&#9076;V</code> | <code># v</code> | <code>#v</code> | <code>&#10747;v</code> | <code>t_ally v</code> |
+| Each | <code>F&#168;v</code> | <code>F&#168;V</code> | <code>f"0 v</code> | <code>f'v</code> | <code>&#8801;F v</code> | <code>'f_ e_ach v</code> |
+| Index of | <code>v&#8848;x</code> | <code>V&#9075;X</code> | <code>v i. x</code> | <code>v?x</code> | <code>&#8855; v x</code> | <code>v i_ndexOf x</code> |
+| Inner product | <code>a +&#733;&#8728;&#215;&#9097;1&#8255;&#8734; b</code> | <code>A+.&#215;B</code> | <code>a +/ .* b</code> | <code>+/a*b</code> (the dot product of two vectors) | <code>/+&#215;a b</code> (the dot product of two vectors) | <code>a '+ '* i_nner b</code> |
+| Match | <code>a&#8801;b</code> | <code>A&#8801;B</code> | <code>a -: b</code> | <code>a~b</code> | <code>&#8781;a b</code> | <code>a m_atch b</code> |
+| Membership | <code>x&#8714;v</code> | <code>X&#8714;V</code> | <code>x e. v</code> | <code>(v?x)&lt;#v</code> (no member primitive: the index found before the end) | <code>&#8714; v x</code> | <code>x m_ember? v</code> |
+| Number to text | <code>&#8226;Fmt v</code> | <code>&#9045;V</code> | <code>": v</code> | <code>$v</code> | <code>&#176;&#8917; v</code> | <code>f_ormat v</code> |
+| Outer product | <code>a &#215;&#8988; b</code> | <code>A&#8728;.&#215;B</code> | <code>a */ b</code> | <code>a*/:\:b</code> | <code>&#8862;&#215; a b</code> | <code>a '* t_able b</code> |
+| Power (repeat) | <code>F&#9055;3 x</code> | not directly expressible | <code>f^:3 x</code> | <code>f/[3;x]</code> | <code>&#9061;F 3 x</code> | <code>f_^3 x</code> |
+| Print | <code>&#8226;Show v</code> | <code>&#9109;&#8592;V</code> | <code>echo v</code> | <code>`0:v</code> | <code>&amp;p v</code> | <code>p_rint! v</code> |
+| Read a file | <code>&#8226;FChars f</code> | a shared variable ([]SVO) with a file processor | <code>1!:1 &lt; f</code> | <code>0:f</code> | <code>&amp;fras f</code> | <code>[]N_GET f</code> |
+| Read a line | <code>&#8226;GetLine @</code> | <code>&#9054;</code> | <code>1!:1 ] 1</code> | <code>0:0</code> (the dialects differ) | <code>&amp;sc</code> | <code>[]R_EAD @</code> |
+| Reshape | <code>2&#8255;3&#10570;v</code> | <code>2 3&#9076;V</code> | <code>2 3 $ v</code> | <code>2 3#v</code> | <code>&#8623;2_3 v</code> | <code>2 3 r_eshape v</code> |
+| Reverse | <code>&#9021;v</code> | <code>&#9021;V</code> | <code>&#124;. v</code> | <code>&#124;v</code> | <code>&#8652;v</code> | <code>r_ev v</code> |
+| Rotate | <code>1&#9021;v</code> | <code>1&#9021;V</code> | <code>1 &#124;. v</code> | <code>1!v</code> | <code>&#8635;1 v</code> | <code>1 o_- v</code> |
+| Running sum | <code>+` v</code> | <code>+\V</code> | <code>+/\ v</code> | <code>+\v</code> | <code>\+ v</code> | <code>'+ s_\ v</code> |
+| Self-reference | <code>&#120138;</code> | the function's own name | <code>$:</code> | <code>o</code> | its own name, with its signature declared: F &#8592; &#124;1 ... F ... | its own name, or c:Y_ from the Combinators library |
+| Shape | <code>&#8802;a</code> | <code>&#9076;A</code> | <code>$ a</code> | <code>(#a),#*a</code> (no shape primitive: the count, then the first row's) | <code>&#9651;a</code> | <code>s_hape a</code> |
+| Sort | <code>&#8743;v</code> | <code>V[&#9035;V]</code> | <code>/:~ v</code> | <code>v@&lt;v</code> | <code>&#9030;v</code> | <code>s_ort v</code> |
+| Sum | <code>+&#180; v</code> | <code>+/V</code> | <code>+/ v</code> | <code>+/v</code> | <code>/+ v</code> | <code>'+ r_/ v</code> |
+| Swap arguments | <code>x F&#732; y</code> | not directly expressible | <code>x f~ y</code> | none: the arguments are written the other way round, y f x | <code>&#732;F x y</code> | <code>x 'f_ s_wap y</code> |
+| Text to numbers | <code>&#8226;ParseFloat t</code> | <code>&#9038;T</code> | <code>". t</code> | <code>.t</code> | <code>&#8917; t</code> | <code>n_umbers t</code> |
+| Train: the mean | <code>(+&#180;&#247;&#8800;)</code> | not directly expressible | <code>(+/ % #)</code> | <code>{(+/x)%#x}</code> (K has no trains; a lambda does it) | <code>&#247;&#10747;&#10204;/+</code> | <code>['+ r_/ / t_ally]</code> |
+| Transpose | <code>&#9033;a</code> (a matrix) | <code>&#9033;A</code> | <code>&#124;: a</code> | <code>+a</code> (flip: + transposes a list of lists) | <code>&#9033;a</code> | <code>o_\ a</code> |
+| Trap an error | <code>F&#9098;G</code> | <code>&#9109;EA</code> | <code>try. catch. end.</code> | <code>.[f;x;:]</code> | <code>&#9059;F G</code> | <code>"1 d_iv 0" t_ry&lt; "@ r_ecover&lt; \"-1\""</code> |
+| Use a library | <code>&#8226;Import "x.bqn"</code> | <code>)COPY WS</code> | <code>require 'x'</code> | <code>\l x.k</code> | <code>~"x.ua"</code> | <code>"c:" u_se&lt; "Combinators"</code> |
+| Where | <code>/b</code> | <code>B/&#9075;&#9076;B</code> | <code>I. b</code> | <code>&amp;b</code> | <code>&#8858;b</code> | <code>w_here b</code> |
