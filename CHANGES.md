@@ -12,14 +12,15 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
-- 06:57 `feat` An array remembers the kind of its items when empty (T9, Saga 20 step 1, D102; X_eTaL-libraries' ask X5): `xetal_array::Kind`, set to Char by `""`, so `d_isplay ""` draws the plain bottom line and `0 r_eshape 1` the numbers mark; the primitives that make empty arrays keep the kind in step 2 (two pending spec cases).
+- 07:28 `build` Merged PR #91 (rosetta lane: docs/idioms.md generated from the stone's data); the empty-kind entry is D103.
+
+- 06:57 `feat` An array remembers the kind of its items when empty (T9, Saga 20 step 1, D103; X_eTaL-libraries' ask X5): `xetal_array::Kind`, set to Char by `""`, so `d_isplay ""` draws the plain bottom line and `0 r_eshape 1` the numbers mark; the primitives that make empty arrays keep the kind in step 2 (two pending spec cases).
 
 ## 2026-10-05
 
 - 19:11 `feat` docs/idioms.md generated from the stone's data (rosetta lane step 13): `scripts/idioms.py` (`just idioms`) expands the marker of docs/idioms.template.md into the array table (now with K and Uiua), ASCII through entities; the gate checks it is current; BQN's transpose note moved out of its source; D102.
-- 18:06 `build` Merged PR #90 (rosetta lane: the stone's page, a component of its own built by trunk); it is the sixth pages part, rosetta (pages/rosetta/), rebuilt when its programs, libraries or data change; the fast gate checks the browser build when web's or rosetta's own files change.
-
 - 18:10 `feat` The Rosetta stone's page (rosetta lane step 12): a new component `rosetta` (Yew) around the live demo's worker, the program and its files in the request, frames replacing one another (`frames`, `Event::Frame`), pointer, keys, ticks and the three lists as events (`choose`, a new kind), the position read back for the lists and the address bar, reduced motion honored; built to pages/rosetta/ by `just pages`; linked from the README and the live demo's Help; D100.
+- 18:06 `build` Merged PR #90 (rosetta lane: the stone's page, a component of its own built by trunk); it is the sixth pages part, rosetta (pages/rosetta/), rebuilt when its programs, libraries or data change; the fast gate checks the browser build when web's or rosetta's own files change.
 - 17:10 `feat` Faces (rosetta lane step 11, RS5 decided with the user): `[]V_IEW` (source as decorated runs with their classes, a new crate xetal-source over xetal-view); `v:s_pan`, `v:m_arkup` in Svg; X_eTaL cells colored by their own classes, other cells by optional spans in data.toml, titles and results laid out on the faces, a caption with the idiom's name; D99.
 - 16:53 `build` Merged PR #89 (rosetta lane: faces, code colored by its own classes, RS5); the pages entry is D101 (the lane took D99 and D100).
 - 16:40 `build` Merged PRs #86, #87 and #88 (rosetta lane: the axes and the event loop, the pointer, attract mode); the pages entry renumbered D100.
