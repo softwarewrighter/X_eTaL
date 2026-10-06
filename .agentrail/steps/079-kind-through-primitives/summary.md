@@ -1,0 +1,1 @@
+Kinds kept by reshape, take, drop, select, replicate, first, partition, cat, rotate, reverse, each, table (D107); scalars carry their kind; two pending cases active plus a per-primitive case; service worker revalidates; nightly gate script
