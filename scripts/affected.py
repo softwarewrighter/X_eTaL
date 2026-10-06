@@ -13,8 +13,8 @@ files all count) and prints one line per thing the gate should do:
                library code compiled (cargo check), its tests neither
                compiled nor run; the spec cases and the goldens, which
                always run, cover its behavior, and the full gate the rest
-  flag NAME    a slower check whose inputs changed:
-               wasm, literate, emacs, diagrams, smoke, asks
+  flag NAME    a slower check whose inputs changed: wasm (web's own
+               files or inputs), literate, emacs, diagrams, smoke, asks
 
 A component with no line is skipped. A change to the list of components
 or the cargo configuration checks everything; a change to the gate's
@@ -85,7 +85,9 @@ def plan(files, names, deps):
     lines = [f"{tier(c)} {c}" for c in names if c in touched]
     if any(f.startswith(GATE) for f in files):
         return lines + [f"flag {n}" for n in ("wasm", *FLAGS)]
-    if "web" in touched:
+    # The browser build is checked when web's own files or inputs changed;
+    # a dependency's change is covered by the pages build and the full gate.
+    if "web" in check | test:
         lines.append("flag wasm")
     lines += [f"flag {n}" for n, prefixes in FLAGS.items() if any(f.startswith(prefixes) for f in files)]
     return lines
@@ -104,11 +106,12 @@ def self_test():
     names = ["base", "syntax", "macro", "eval", "cli", "web"]
     deps = {"base": set(), "syntax": {"base"}, "macro": {"syntax"}, "eval": {"base"}, "cli": {"macro", "eval"}, "web": {"macro", "eval"}}
     assert plan(["docs/plan.md", "CHANGES.md"], names, deps) == []
-    assert plan(["components/eval/crates/x/src/a.rs"], names, deps) == ["check eval", "build cli", "build web", "flag wasm"]
+    assert plan(["components/eval/crates/x/src/a.rs"], names, deps) == ["check eval", "build cli", "build web"]
     assert plan(["components/base/x"], names, deps)[:2] == ["check base", "build syntax"]
-    assert plan(["lib/Stats.xtl"], names, deps) == ["test macro", "build cli", "build web", "flag wasm", "flag literate"]
+    assert plan(["lib/Stats.xtl"], names, deps) == ["test macro", "build cli", "build web", "flag literate"]
     assert plan(["spec/eval/a.case"], names, deps) == ["test cli"]
-    assert plan(["components/eval/Cargo.lock"], names, deps) == ["test eval", "build cli", "build web", "flag wasm"]
+    assert plan(["components/eval/Cargo.lock"], names, deps) == ["test eval", "build cli", "build web"]
+    assert "flag wasm" in plan(["demos/x.xtl"], names, deps)
     assert plan(["components/eval/Cargo.lock", "components/eval/crates/x/a.rs"], names, deps)[0] == "check eval"
     assert plan(["docs/emacs/xetal-mode.el"], names, deps) == ["flag literate", "flag emacs"]
     assert plan(["scripts/components.sh"], names, deps)[0] == "check base"
