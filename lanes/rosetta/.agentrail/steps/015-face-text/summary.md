@@ -1,0 +1,1 @@
+Trap idiom's X_eTaL cell is the t_ry</r_ecover< macro form (data, both idioms.md tables, spec case). Face text fits: long code split at the middle space and shrunk (v:s_ized), notes wrapped, text only on faces toward the viewer (st:f_acing), view tilted to 22 degrees. Goldens run-rosetta-stone, type-svg rebased. D105. Branch pr/face-text stacked on pr/profile.
