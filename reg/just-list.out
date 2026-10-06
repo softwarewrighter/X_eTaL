@@ -17,6 +17,7 @@ Available recipes:
     eval +args                 # Evaluate an expression, flags first: just eval --echo "'+ r_/ 1 2 3"
     fmt                        # Format every component
     gate *FLAGS                # The pre-commit gate: fast (what the change affects) by default; `just gate --full` runs everything
+    idioms                     # Regenerate docs/idioms.md from docs/idioms.template.md and the stone's data
     install dir="~/.local/bin" # Build optimized and install xetal and x_etal into a PATH directory (for #! scripts)
     life                       # Life: a blinker and a glider, stepped (demos/life.xtl)
     literate                   # Run the literate documents (docs/literate/*.org), recording each block's result
