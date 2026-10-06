@@ -36,6 +36,7 @@ Available recipes:
     show file                  # Run a file as a notebook: each statement pretty-printed, then its output (#! flags such as --untyped apply)
     slow-show file delay="500" # A notebook run that pauses after each statement (ms, default 500): for watching or recording
     status                     # Regenerate docs/status.md (what works today) from the catalog, decisions, spec cases and libraries
+    stop-serve                 # Stop a trunk serve left running (it rebuilds on every change and slows every build and gate)
     test                       # Run every component's tests
     test-emacs                 # The Emacs mode and Org Babel language, with ERT in a batch Emacs (skipped without Emacs)
     tour                       # The language tour: every feature, commented, each line with its output

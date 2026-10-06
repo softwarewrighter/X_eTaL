@@ -117,6 +117,10 @@ pages *PARTS:
 
 alias serve := web
 
+# Stop a trunk serve left running (it rebuilds on every change and slows every build and gate)
+stop-serve:
+    scripts/check-busy.sh --stop
+
 # Serve the live demo locally (http://127.0.0.1:8490/), rebuilt when a source changes
 web:
     cd components/web/crates/xetal-web && trunk serve --release --port 8490 --address 127.0.0.1

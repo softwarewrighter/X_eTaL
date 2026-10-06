@@ -49,6 +49,8 @@ fi
 # all, the sample gate none of the planned steps.
 does() { case "$mode" in full) true ;; sample) false ;; *) grep -qx "$1" <<< "$plan" ;; esac; }
 
+step "nothing else is building here"
+scripts/check-busy.sh
 step "Cargo.lock consistency"
 scripts/check-locks.sh
 scripts/check-modes.sh

@@ -426,6 +426,16 @@ fails until the case is flipped to active in a deliberate commit.
   a GitHub issue when it fails) and before a release.
 - A merge pushed after the sample gate that the nightly then faults:
   fix forward, or `git revert -m 1 <merge>` and tell the lane.
+- A change to data or documents only (demos/rosetta/data.toml,
+  docs/*.md, a label, README text): `just pages` if a part is stale,
+  then push; no gate.
+- Nothing else may be building in this repository while a gate or
+  `just pages` runs: `scripts/check-busy.sh` (their first step) fails
+  on a `trunk serve` or another session's cargo. Never leave
+  `just web` running in the background: it rebuilds the live demo on
+  every file change and holds the cargo lock. `just stop-serve` stops
+  one. A `trunk serve` from an earlier session cost days of slow
+  builds and gates (2026-10-03 to 10-06).
 
 ## User-facing docs: what and how, never when or plans
 

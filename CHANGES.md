@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 09:36 `build` A trunk serve left from 2026-10-03 had been rebuilding the live demo on every change for three days, holding the cargo lock: found and stopped; `scripts/check-busy.sh` now runs first in the gate and in `just pages` and fails on a trunk serve or a foreign cargo, `just stop-serve` stops one; a data-or-documents-only change gets pages and a push, no gate (CLAUDE.md).
+
 - 09:33 `build` Merged PR #95 (web: the worker is never served stale, a build id on its files; its entry D112); the web and rosetta pages parts rebuilt.
 
 - 09:26 `build` Merged PRs #96 (rosetta lane: the stone released: literate document, pinned views, the lane archived), #97 (the footer, the space bar), #98 (zoom, full screen, a slower tour, the data reviewed) and #99 (the K column is ngn/k); the three Rosetta goldens rebased on purpose (the label, and the slower tour's positions at the same ticks); literate.sh runs named documents, in parallel; the gates entry is D111.
