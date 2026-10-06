@@ -1,6 +1,8 @@
 # The Rosetta stone's data (docs/rosetta.md, lang-choices RS3): the
 # idioms compared, and how each language writes them (Dyalog APL is
-# left out on purpose: the user's choice, 2026-10-06). Two axes, then
+# left out on purpose: the user's choice, 2026-10-06). Two axes, each
+# in alphabetical order of its display name (the page's lists and the
+# stone's tour follow it; rosetta-check insists, case aside), then
 # their display names as lists in the same order, and four matrices
 # keyed idiom then language: input (a binding the example runs with),
 # source, output, notes. A missing cell is a face that says so.
@@ -13,10 +15,10 @@
 # claimed; the J and ngn/k cells are reviewed by hand until their
 # interpreters join.
 
-idioms = ["sum", "running-sum", "iota", "reshape", "shape", "count", "reverse", "rotate", "transpose", "outer", "inner", "each", "swap", "compose", "power", "mean-train", "lambda", "conditional", "self", "index-of", "member", "match", "where", "sort", "format", "numbers", "read-file", "read-line", "print", "trap", "use"]
-idiom_names = ["Sum", "Running sum", "1 to n", "Reshape", "Shape", "Count", "Reverse", "Rotate", "Transpose", "Outer product", "Inner product", "Each", "Swap arguments", "Compose", "Power (repeat)", "Train: the mean", "Anonymous function", "Conditional", "Self-reference", "Index of", "Membership", "Match", "Where", "Sort", "Number to text", "Text to numbers", "Read a file", "Read a line", "Print", "Trap an error", "Use a library"]
-languages = ["apl2", "j", "bqn", "k", "uiua", "xetal"]
-language_names = ["GNU APL", "J", "BQN", "ngn/k", "Uiua", "X_eTaL"]
+idioms = ["iota", "lambda", "compose", "conditional", "count", "each", "index-of", "inner", "match", "member", "format", "outer", "power", "print", "read-file", "read-line", "reshape", "reverse", "rotate", "running-sum", "self", "shape", "sort", "sum", "swap", "numbers", "mean-train", "transpose", "trap", "use", "where"]
+idiom_names = ["1 to n", "Anonymous function", "Compose", "Conditional", "Count", "Each", "Index of", "Inner product", "Match", "Membership", "Number to text", "Outer product", "Power (repeat)", "Print", "Read a file", "Read a line", "Reshape", "Reverse", "Rotate", "Running sum", "Self-reference", "Shape", "Sort", "Sum", "Swap arguments", "Text to numbers", "Train: the mean", "Transpose", "Trap an error", "Use a library", "Where"]
+languages = ["bqn", "apl2", "j", "k", "uiua", "xetal"]
+language_names = ["BQN", "GNU APL", "J", "ngn/k", "Uiua", "X_eTaL"]
 
 [input.sum]
 bqn = 'v←1‿2‿3‿4'

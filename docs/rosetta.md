@@ -336,7 +336,8 @@ it starts, so neither runs ahead of the faces. The page holds no geometry, trave
 - Serviceability: `xetal run demos/rosetta/rosetta.xtl --events
   FILE --draw DIR` reproduces any frame from a bug report's URL and
   event log; the data file is checked by `just rosetta-check` (every
-  idiom has a name, every language a name, every X_eTaL cell runs),
+  idiom has a name, every language a name, both axes alphabetical by
+  display name so the page's lists stay sorted, every X_eTaL cell runs),
   and the BQN and Uiua cells are run in their own interpreters by
   `scripts/rosetta-run.py` (`just rosetta-run`; `--bless` records the
   outputs): a cell with an input for its language is a claim that has

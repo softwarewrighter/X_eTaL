@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Check the Rosetta stone's data (demos/rosetta/data.toml, RS3): the
-name lists match the axes, every table is keyed by known idioms and
-languages, and every X_eTaL cell with an input runs and prints its
-output; then run the doc examples of the libraries beside the demo
+name lists match the axes, each axis is in alphabetical order of its
+display names (the page's lists show that order; case aside), every
+table is keyed by known idioms and languages, and every X_eTaL cell
+with an input runs and prints its output; then run the doc examples of the libraries beside the demo
 (Stone, Comparison), which import each other from that directory.
 Exit status: the number of problems."""
 
@@ -17,7 +18,26 @@ DATA = ROOT / "demos/rosetta/data.toml"
 XETAL = ROOT / "target/debug/xetal"
 
 
+def out_of_order(axis, names):
+    """The places where an axis's display names are not alphabetical
+    (case aside): the page's lists show the data's order, so the data
+    keeps them sorted, whatever is added later."""
+    return [
+        f"{axis}: {a!r} comes before {b!r}; keep the axis alphabetical (case aside)"
+        for a, b in zip(names, names[1:])
+        if a.casefold() > b.casefold()
+    ]
+
+
+def self_test():
+    assert out_of_order("x", ["Apple", "bee", "Cat"]) == []
+    assert len(out_of_order("x", ["bee", "Apple"])) == 1
+    print("rosetta-check: self-test ok")
+
+
 def main():
+    if "--self-test" in sys.argv:
+        return self_test()
     with DATA.open("rb") as f:
         d = tomllib.load(f)
     idioms, languages = d["idioms"], d["languages"]
@@ -25,6 +45,7 @@ def main():
     for axis, names in (("idioms", "idiom_names"), ("languages", "language_names")):
         if len(d.get(names, [])) != len(d[axis]):
             problems.append(f"{names}: {len(d.get(names, []))} names for {len(d[axis])} {axis}")
+        problems += out_of_order(names, d.get(names, []))
     for table in ("input", "source", "output", "notes"):
         for idiom, row in d.get(table, {}).items():
             if idiom not in idioms:

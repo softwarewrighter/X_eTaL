@@ -96,7 +96,7 @@ run spec bash -c 'cd components/cli && cargo test -q -p xetal-cli --test spec'
 run doctests doctests
 run reference python3 scripts/reference.py --check
 run status python3 scripts/status.py --check
-run rosetta python3 scripts/rosetta-check.py
+run rosetta bash -c 'python3 scripts/rosetta-check.py --self-test && python3 scripts/rosetta-check.py'
 run rosettarun python3 scripts/rosetta-run.py
 run idioms bash -c 'python3 scripts/idioms.py --self-test && python3 scripts/idioms.py --check'
 run spelling bash -c 'python3 scripts/check-spelling.py --self-test && python3 scripts/check-spelling.py'
