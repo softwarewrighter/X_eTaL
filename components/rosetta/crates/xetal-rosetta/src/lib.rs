@@ -8,8 +8,9 @@
 
 mod app;
 mod events;
+mod follow;
 mod program;
-mod url;
+mod zoom;
 
 pub use app::App;
 

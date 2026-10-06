@@ -32,12 +32,16 @@ design. Saga 34 in `docs/plan.md` builds the first milestone; Sagas
   bottom half changes the language it is compared with. No rotation
   is decorative.
 - Unattended, the stone is in attract mode: it dwells on a comparison
-  long enough to read (about three seconds), turns the bottom half to
+  long enough to read two faces of code (five seconds; it was three,
+  too quick to read), turns the bottom half to
   the next language, dwells again, and so on; when the bottom half has
   come round, the top half turns once; when the top half has come
   round, the whole stone rolls to the next idiom. The three motions
   overlap a little, so the stone tumbles rather than ticks. The
-  traversal is the nested loop `for idiom, for top, for bottom`.
+  traversal is the nested loop `for idiom, for top, for bottom`. Any
+  key or drag holds the tour for twenty seconds (it was eight: an
+  arrow-key look round a comparison was interrupted), and the space
+  bar pauses and resumes the whole tour.
 - A click on a half pauses or resumes it; dragging a half sideways
   turns it; dragging anywhere up or down rolls the stone; on release
   the nearest face snaps square to the viewer. Choosing from the
@@ -297,8 +301,13 @@ position from anything but the program's word. The address bar's
 `?idiom=&top=&bottom=` is read as the page opens and sent as choices
 the first time the program waits for an event (a line sent before the
 worker has the program is lost), so a link or a bookmark opens on its
-comparison; with `prefers-reduced-motion` the three pauses go the same
-way. The page holds no geometry, traversal or language.
+comparison; with `prefers-reduced-motion` the space bar, which pauses
+the tour, goes the same way. Two buttons scale the stone (50 to 250
+percent; it fills the window's shorter side at 100) and one shows it
+alone, full screen; the picture's own size never changes, so the
+program knows nothing of this. The lists and the address follow the
+picture: the program prints its position when a turn lands, not when
+it starts, so neither runs ahead of the faces. The page holds no geometry, traversal or language.
 
 ## The -ilities
 
