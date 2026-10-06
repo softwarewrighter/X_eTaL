@@ -1,0 +1,1 @@
+Array carries xetal_array::Kind (Number/Char/Box), set by string literals, read by DISPLAY for empties, in equality for empties (D102); spec empty-char-kind active, two pending for step 2; tests/kind.rs
