@@ -6,7 +6,7 @@ use yew::prelude::*;
 
 use crate::events::{pointer, use_keys};
 use crate::follow::{Selects, chosen, read_address, use_follow, write_address};
-use crate::program::{Named, lists, position, request};
+use crate::program::{Named, lists, mode, position, request};
 use crate::zoom::zoom;
 
 /// The idiom and language lists, read once.
@@ -29,6 +29,7 @@ pub fn app() -> Html {
         .map(|r| r.out.clone())
         .unwrap_or_default();
     let at = position(&out);
+    let tour = mode(&out);
     if let Some(at) = &at {
         write_address(at);
     }
@@ -50,6 +51,7 @@ pub fn app() -> Html {
             <div class="stone" style={format!("--scale: {}", *scale)} onpointerdown={down} onpointermove={moved} onpointerup={up}>
                 { picture }
             </div>
+            { badge(tour.as_deref()) }
             { controls(&lists, at.as_ref(), &selects, send) }
             { zoom(scale) }
             if !err.is_empty() { <pre class="err">{ err }</pre> }
@@ -104,6 +106,8 @@ fn opening(lists: &Lists) -> Vec<String> {
             lines.push(format!("choose {axis} {item}"));
         }
     }
+    // A choice pauses its axis (choosing is navigating); the tour goes on.
+    lines.push("key r".to_string());
     let reduced = web_sys::window()
         .and_then(|w| {
             w.match_media("(prefers-reduced-motion: reduce)")
@@ -115,6 +119,36 @@ fn opening(lists: &Lists) -> Vec<String> {
         lines.push("key  ".to_string());
     }
     lines
+}
+
+/// The tour's mode under the stone, in the program's words: touring,
+/// holding (after a touch), or paused with the axes paused; and what
+/// to press.
+fn badge(mode: Option<&str>) -> Html {
+    let Some(mode) = mode else {
+        return html! { <p class="mode">{ "Starting" }</p> };
+    };
+    let hint = if mode.starts_with("paused") {
+        " (space resumes)"
+    } else if mode == "holding" {
+        " after your move; the tour goes on in a moment (space pauses)"
+    } else {
+        " (space pauses)"
+    };
+    let class = if mode.starts_with("paused") {
+        "mode paused"
+    } else {
+        "mode"
+    };
+    html! { <p class={class}><span class="dot"></span>{ format!("{}{hint}", capitalized(mode)) }</p> }
+}
+
+/// A word with its first letter capitalized.
+fn capitalized(s: &str) -> String {
+    let mut c = s.chars();
+    c.next()
+        .map(|f| f.to_uppercase().collect::<String>() + c.as_str())
+        .unwrap_or_default()
 }
 
 /// The controls: the idiom, the top language and the bottom language,
@@ -147,7 +181,7 @@ fn controls(
             { select(1, "Idiom", &lists.0, None) }
             { select(2, "Top", &lists.1, bottom) }
             { select(3, "vs.", &lists.1, top) }
-            <span class="keys">{ "Keys: arrows roll and turn the top; a/d turn the bottom; space pauses and resumes the tour (s the bottom, w the roll)." }</span>
+            <span class="keys">{ "Keys: arrows roll and turn the top; a/d turn the bottom; space pauses and resumes the tour, r resumes it (s the bottom, w the roll)." }</span>
         </div>
     }
 }

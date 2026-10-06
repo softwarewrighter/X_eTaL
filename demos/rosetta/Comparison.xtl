@@ -229,13 +229,38 @@ l:t_oggleTour := { state ->
   l:r_esume state
 }
 
+## The tour's mode, for the host to show: "paused" when every axis is
+## paused, "paused: top, bottom" naming the axes paused when some are,
+## "holding" while the stone waits after a touch, else "touring".
+## >> "cm:" u_se< "Comparison"
+## >> cm:m_ode 31 cm:s_tart 7
+## touring
+## >> cm:m_ode cm:t_ouched 31 cm:s_tart 7
+## holding
+## >> cm:m_ode cm:TOP cm:t_oggle 31 cm:s_tart 7
+## paused: top
+## >> cm:m_ode cm:t_oggleTour 31 cm:s_tart 7
+## paused
+l:m_ode := { state ->
+  p_aused := { axis -> 0.0 = (axis c_at l:PLAYING) l:a_t state }
+  paused := (p_aused l:IDIOM) c_at (p_aused l:TOP) c_at p_aused l:BOTTOM
+  3 = '+ r_/ paused ? "paused"
+  names := paused r_eplicate (e_nclose "roll") c_at (e_nclose "top") c_at e_nclose "bottom"
+  0 < '+ r_/ paused ? "paused: " c_at d_isclose '{ x y -> e_nclose (d_isclose x) c_at ", " c_at d_isclose y } r_/ names
+  l:idleBefore > (l:ATTRACT c_at l:IDLE) l:a_t state ? "holding"
+  "touring"
+}
+
 ## An axis paused or resumed.
 l:t_oggle := { axis state -> (axis c_at l:PLAYING c_at 1.0 - (axis c_at l:PLAYING) l:a_t state) l:p_ut state }
 
 ## The state after an event: a tick eases every axis; the arrow keys
 ## step the drum (Up, Down) and the top ring (Left, Right), a and d the
 ## bottom ring, space pauses or resumes the whole tour (cm:t_oggleTour),
-## s the bottom ring and w the drum on their own; the pointer drags and
+## r resumes it at once, the idle wait over (cm:r_esume; the host
+## sends it after its opening choices, since a choice pauses its
+## axis), s the bottom ring and w
+## the drum on their own; the pointer drags and
 ## clicks (cm:d_own, cm:m_ove, cm:u_p,
 ## cm:c_lick); a choice from the host's controls, `choose AXIS ITEM`,
 ## turns that axis to the item (cm:c_hoose).
@@ -327,6 +352,7 @@ l:k_ey := { k state ->
   c m_atch "a" ? (l:BOTTOM c_at -1.0) l:s_tep state
   c m_atch "d" ? (l:BOTTOM c_at 1.0) l:s_tep state
   c m_atch " " ? l:t_oggleTour state
+  c m_atch "r" ? (l:ATTRACT c_at l:IDLE c_at l:idleBefore) l:p_ut l:r_esume state
   c m_atch "s" ? l:BOTTOM l:t_oggle state
   c m_atch "w" ? l:IDIOM l:t_oggle state
   state

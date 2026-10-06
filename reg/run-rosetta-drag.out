@@ -1,6 +1,9 @@
 at iota bqn apl2
+mode touring
+mode holding
 at where bqn apl2
 at where apl2 apl2
+mode paused: bottom
 31.0  -1.0 -90.0 1.0 0.0
  6.0   1.0  90.0 1.0 0.0
  6.0   1.0  90.0 0.0 0.0
