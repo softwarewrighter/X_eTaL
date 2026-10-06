@@ -1,7 +1,7 @@
 //! A value as APL2's DISPLAY draws it (A7): what `xetal_grid::display`
 //! needs, built from the value. Nested arrays print this way.
 
-use xetal_array::layout;
+use xetal_array::{Kind, layout};
 use xetal_grid::{Body, Shown};
 
 use crate::{Value, as_array};
@@ -43,7 +43,7 @@ fn scalar_frame(x: &Value<'_>) -> Shown {
         Shown::Atom(text) => Body::Text(vec![text]),
         frame => Body::Items(vec![frame]),
     };
-    let mark = mark(std::slice::from_ref(x));
+    let mark = mark(std::slice::from_ref(x), Kind::Number);
     Shown::Frame {
         shape: Vec::new(),
         mark,
@@ -66,7 +66,7 @@ fn array_frame(v: &Value<'_>) -> Shown {
                 .collect(),
         )
     };
-    let mark = mark(a.data());
+    let mark = mark(a.data(), a.kind());
     Shown::Frame {
         shape: a.shape().to_vec(),
         mark,
@@ -74,16 +74,22 @@ fn array_frame(v: &Value<'_>) -> Shown {
     }
 }
 
-/// The bottom mark: boxes, characters or numbers.
-fn mark(items: &[Value<'_>]) -> char {
+/// The bottom mark: boxes, characters or numbers; an empty array says
+/// by its kind (T9).
+fn mark(items: &[Value<'_>], kind: Kind) -> char {
     match items {
+        [] => match kind {
+            Kind::Box => '∊',
+            Kind::Char => '─',
+            Kind::Number => '~',
+        },
         _ if items
             .iter()
             .any(|x| matches!(x, Value::Boxed(_) | Value::Array(_))) =>
         {
             '∊'
         }
-        [_, ..] if items.iter().all(|x| matches!(x, Value::Char(_))) => '─',
+        _ if items.iter().all(|x| matches!(x, Value::Char(_))) => '─',
         _ => '~',
     }
 }

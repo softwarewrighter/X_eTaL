@@ -97,9 +97,10 @@ impl<'a> Machine<'a, '_> {
             Kind::Lit(Number::Int(i)) => Value::Int(*i),
             Kind::Lit(Number::Float(x)) => Value::Float(*x),
             Kind::Unit => Value::Unit,
-            Kind::Str(text) => Value::Array(Rc::new(Array::vector(
-                text.chars().map(Value::Char).collect(),
-            ))),
+            Kind::Str(text) => Value::Array(Rc::new(
+                Array::vector(text.chars().map(Value::Char).collect())
+                    .with_kind(xetal_array::Kind::Char),
+            )),
             Kind::Array(_) => Value::Array(Rc::new(Array::vector(Vec::new()))),
             Kind::Global(name) => {
                 let v = self.globals.get(name).cloned();

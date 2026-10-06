@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-06
+
+- 06:57 `feat` An array remembers the kind of its items when empty (T9, Saga 20 step 1, D102; X_eTaL-libraries' ask X5): `xetal_array::Kind`, set to Char by `""`, so `d_isplay ""` draws the plain bottom line and `0 r_eshape 1` the numbers mark; the primitives that make empty arrays keep the kind in step 2 (two pending spec cases).
+
 ## 2026-10-05
 
 - 18:06 `build` Merged PR #90 (rosetta lane: the stone's page, a component of its own built by trunk); it is the sixth pages part, rosetta (pages/rosetta/), rebuilt when its programs, libraries or data change; the fast gate checks the browser build when web's or rosetta's own files change.

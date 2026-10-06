@@ -1,0 +1,19 @@
+# T9, step 2 (kind-through-primitives): an empty array of boxes keeps
+# the boxes mark, as an enclosed empty text keeps its own.
+== SOURCE
+d_isplay 0 t_ake e_nclose "ab"
+d_isplay e_nclose ""
+== TYPE
+Char
+Char
+== RESULT
+┌⊖┐
+│ │
+└∊┘
+┌─────┐
+│ ┌⊖┐ │
+│ │ │ │
+│ └─┘ │
+└∊────┘
+== STATUS
+pending

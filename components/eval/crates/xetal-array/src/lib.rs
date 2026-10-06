@@ -4,10 +4,12 @@
 
 mod array;
 mod error;
+mod kind;
 mod layout;
 mod ops;
 
 pub use array::Array;
 pub use error::{ArrayError, MAX_ITEMS, size};
+pub use kind::Kind;
 pub use layout::layout;
 pub use ops::zip;

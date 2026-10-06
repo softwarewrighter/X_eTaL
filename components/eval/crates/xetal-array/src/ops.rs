@@ -1,4 +1,6 @@
 //! Item-wise operations: map, and zip over arrays of the same shape.
+//! Both keep the kind of the array they walk (T9): what an empty result
+//! says it holds.
 
 use crate::{Array, ArrayError};
 
@@ -9,6 +11,7 @@ impl<T> Array<T> {
         Ok(Array {
             shape: self.shape.clone(),
             data,
+            kind: self.kind,
         })
     }
 }
@@ -35,5 +38,6 @@ pub fn zip<T, U, E: From<ArrayError>>(
     Ok(Array {
         shape: a.shape.clone(),
         data,
+        kind: a.kind,
     })
 }

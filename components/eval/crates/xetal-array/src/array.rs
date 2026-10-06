@@ -1,11 +1,13 @@
 //! The array type: a shape and its items in row-major order.
 
-use crate::ArrayError;
+use crate::{ArrayError, Kind};
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone)]
 pub struct Array<T> {
     pub(crate) shape: Vec<usize>,
     pub(crate) data: Vec<T>,
+    /// The kind of the items (T9): what an empty array remembers.
+    pub(crate) kind: Kind,
 }
 
 impl<T> Array<T> {
@@ -17,7 +19,11 @@ impl<T> Array<T> {
                 len: data.len(),
             });
         }
-        Ok(Array { shape, data })
+        Ok(Array {
+            shape,
+            data,
+            kind: Kind::Number,
+        })
     }
 
     /// A vector (rank 1).
@@ -25,6 +31,7 @@ impl<T> Array<T> {
         Array {
             shape: vec![data.len()],
             data,
+            kind: Kind::Number,
         }
     }
 
@@ -33,6 +40,7 @@ impl<T> Array<T> {
         Array {
             shape: Vec::new(),
             data: vec![item],
+            kind: Kind::Number,
         }
     }
 

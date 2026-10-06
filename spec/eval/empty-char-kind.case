@@ -1,0 +1,20 @@
+# T9: an array remembers the kind of its items when it is empty, as
+# APL2's prototype does: "" is an empty character vector, so DISPLAY
+# marks it as characters (the plain bottom line), while an empty
+# number vector keeps the numbers mark.
+== SOURCE
+d_isplay ""
+d_isplay 0 r_eshape 1
+s_hape ""
+== TYPE
+Char
+Char
+Int
+== RESULT
+┌⊖┐
+│ │
+└─┘
+┌⊖┐
+│ │
+└~┘
+0
