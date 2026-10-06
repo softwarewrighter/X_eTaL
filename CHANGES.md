@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 08:50 `docs` The Rosetta stone released (rosetta lane step 16): the literate document docs/literate/rosetta.org (geometry, carousels, quarter turn, state machine, attract tour, with pictures), goldens for the three views (front, angled, mid-tumble) and their screenshot in the README, the lane's frictions in docs/dogfooding.md, Saga 34 done in docs/plan.md, the lane archived; scripts/literate.sh runs only the documents named (the fast gate passes the changed ones); D108.
 - 08:11 `build` Merged PR #94 (rosetta lane: the trap idiom in X_eTaL, text that fits its face); the register's D103-D106 as the lane numbered them; pages/ rebuilt.
 
 - 08:30 `fix` The stone's faces after the user's second note (rosetta lane step 15): the trap idiom shows the error-handling macros (`t_ry<`, `r_ecover<`) in the data, docs/idioms.md and the spec case; long code split in two lines and shrunk to fit, notes wrapped, text only on faces toward the viewer (`st:f_acing`), the view tilted to 22 degrees; `v:s_ized` in Svg; D106.
