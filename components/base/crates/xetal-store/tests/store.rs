@@ -115,7 +115,8 @@ fn the_pictures_shown_are_kept_until_taken() {
 #[test]
 fn a_scripted_queue_keeps_trailing_spaces_but_not_blank_lines_or_comments() {
     let dir = std::env::temp_dir().join(format!("xetal-scripted-{}", std::process::id()));
-    let store = xetal_store::Drawing::new(&dir, "keys", |_| {}).scripted("# a comment\n\ntick 0.1\nkey  \n  key a\n");
+    let store = xetal_store::Drawing::new(&dir, "keys", |_| {})
+        .scripted("# a comment\n\ntick 0.1\nkey  \n  key a\n");
     assert_eq!(store.line().unwrap(), "tick 0.1");
     assert_eq!(store.line().unwrap(), "key  ");
     assert_eq!(store.line().unwrap(), "key a");
