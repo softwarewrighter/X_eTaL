@@ -13,6 +13,8 @@ saga planning and reordering, `release` milestone release,
 ## 2026-10-06
 
 - 09:26 `build` Merged PRs #96 (rosetta lane: the stone released: literate document, pinned views, the lane archived), #97 (the footer, the space bar), #98 (zoom, full screen, a slower tour, the data reviewed) and #99 (the K column is ngn/k); the three Rosetta goldens rebased on purpose (the label, and the slower tour's positions at the same ticks); literate.sh runs named documents, in parallel; the gates entry is D111.
+- 08:30 `fix` The worker is never served stale (the user, right after a deploy: `v:s_ized is not defined`): the page creates the worker through a blob script whose file URLs carry a build id, since trunk leaves the worker's files unhashed and GitHub Pages caches them for ten minutes; D107.
+- 08:11 `build` Merged PR #94 (rosetta lane: the trap idiom in X_eTaL, text that fits its face); the register's D103-D106 as the lane numbered them; pages/ rebuilt.
 
 - 09:19 `build` The gate in three sizes (D111; the user: merges took 10-45 minutes): `just gate` is the sample gate, the end-to-end checks run in parallel (goldens now parallel too, 46 s to 15 s), 28 seconds; `--affected` adds what the change touches; `--full` is nightly (scripts/nightly.sh, a launchd job, an issue on failure). The literate check runs every document at once.
 - 09:05 `docs` The K column is named ngn/k (the user: its idioms are that dialect's), on the stone, in docs/idioms.md and the README.
