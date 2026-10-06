@@ -1,8 +1,9 @@
-at rotate xetal k
-at running-sum bqn k
-at running-sum bqn j
-31.0 -12.0 -1080.0 1.0 0.0
- 6.0   0.0     0.0 1.0 0.0
- 6.0   2.0   180.0 1.0 0.0
- 0.0   0.0     0.0 0.0 0.0
- 0.1   0.1     0.0 0.0 0.0
+at iota bqn apl2
+at iota apl2 apl2
+at lambda j apl2
+at lambda j bqn
+31.0 1.0  90.0 1.0 0.0
+ 6.0 2.0 180.0 1.0 0.0
+ 6.0 0.0   0.0 1.0 0.0
+ 0.0 0.0   0.0 0.0 0.0
+ 0.1 0.1   0.0 0.0 0.0

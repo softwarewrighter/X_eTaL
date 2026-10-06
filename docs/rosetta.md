@@ -33,13 +33,18 @@ design. Saga 34 in `docs/plan.md` builds the first milestone; Sagas
   is decorative.
 - Unattended, the stone is in attract mode: it dwells on a comparison
   long enough to read two faces of code (five seconds; it was three,
-  too quick to read), turns the bottom half to
-  the next language, dwells again, and so on; when the bottom half has
-  come round, the top half turns once; when the top half has come
-  round, the whole stone rolls to the next idiom. The three motions
-  overlap a little, so the stone tumbles rather than ticks. The
-  traversal is the nested loop `for idiom, for top, for bottom`. Any
-  key or drag holds the tour for twenty seconds (it was eight: an
+  too quick to read), turns the bottom half to the next language,
+  dwells again, and so on; when the bottom half has come round the
+  other languages, the whole stone rolls to the next idiom and the
+  bottom goes on round; only when every idiom has been shown does the
+  top half advance to the next language. The traversal is the nested
+  loop `for top, for idiom, for bottom`: the language compared from
+  stays put through the whole table, and no comparison comes round
+  again within minutes (the user, 2026-10-06; it was `for idiom, for
+  top, for bottom`, two minutes per idiom and the same pairs again
+  and again). The tour starts at its beginning: the first idiom, the
+  first language on top, the second below.
+  Any key or drag holds the tour for twenty seconds (it was eight: an
   arrow-key look round a comparison was interrupted), and the space
   bar pauses and resumes the whole tour.
 - A click on a half pauses or resumes it; dragging a half sideways

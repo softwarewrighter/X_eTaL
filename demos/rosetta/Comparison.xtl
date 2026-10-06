@@ -11,7 +11,8 @@
 ## last turn it gave in degrees (for a flick). The fifth row is the
 ## attract mode's clock: seconds since the last interaction, seconds
 ## since its last step, and its two counters (how far the bottom ring
-## is through its sweep, how far the top ring is through its). Nothing
+## is through its sweep of the other languages, how far the drum is
+## through its sweep of the idioms). Nothing
 ## is ever inferred from an angle except what to draw. Every function
 ## gives a new state; none has an effect. Events (RS1) come in as
 ## []E_VENT gives them; cm:u_pdate takes one.
@@ -20,10 +21,16 @@
 ## still before the next (long enough to read two faces of code), and
 ## how long after an interaction the stone waits before moving on its
 ## own again (long enough to look round a comparison by hand). The
-## traversal is the nested loop `for idiom, for top, for bottom`: the
+## traversal is the nested loop `for top, for idiom, for bottom`: the
 ## bottom ring steps at each dwell; when it has swept every other
-## language the top ring steps too, in the same instant, and when the
-## top has swept, the drum rolls too: three turns at once, the tumble.
+## language the drum rolls to the next idiom in the same instant, the
+## bottom going on round; and only when every idiom has been shown
+## does the top ring advance to the next language. So the language
+## compared from stays put through the whole table, and no comparison
+## comes round again within minutes (the user, 2026-10-06; before,
+## the top stepped after each sweep of the bottom and the drum after
+## each sweep of the top: two minutes per idiom and the same pairs
+## again and again).
 l:dwell := 5.0
 l:idleBefore := 20.0
 
@@ -48,7 +55,7 @@ l:ATTRACT := 5.0
 l:IDLE := 1.0
 l:SINCE := 2.0
 l:BOTTOMS := 3.0
-l:TOPS := 4.0
+l:IDIOMS := 4.0
 l:COUNT := 1.0
 l:STEPS := 2.0
 l:ANGLE := 3.0
@@ -172,24 +179,30 @@ l:t_ick := { dt state ->
 
 ## One step of the attract mode: the bottom ring steps (if it plays);
 ## when it has swept every other language (its count reaches one less
-## than the languages), the top ring steps too and the bottom's count
-## starts over; when the top has swept, the drum rolls too. A paused
-## axis is counted but not turned, so the sweeps keep their rhythm.
+## than the languages), the drum rolls to the next idiom too and the
+## bottom's count starts over; when the drum has rolled through every
+## idiom, the top ring steps too and the drum's count starts over. A
+## paused axis is counted but not turned, so the sweeps keep their
+## rhythm. With 3 idioms and 4 languages: the drum rolls at every
+## third step, the top steps at the ninth.
 ## >> "cm:" u_se< "Comparison"
-## >> s := 31 cm:s_tart 7
-## >> (cm:TOP cm:c_urrent cm:a_ttract^5 s) c_at cm:TOP cm:c_urrent cm:a_ttract^6 s
+## >> s := 3 cm:s_tart 4
+## >> (cm:IDIOM cm:c_urrent cm:a_ttract^2 s) c_at cm:IDIOM cm:c_urrent cm:a_ttract^3 s
 ## 1 2
-## >> cm:IDIOM cm:c_urrent cm:a_ttract^36 s
-## 2
+## >> (cm:TOP cm:c_urrent cm:a_ttract^8 s) c_at cm:TOP cm:c_urrent cm:a_ttract^9 s
+## 1 2
+## >> cm:IDIOM cm:c_urrent cm:a_ttract^9 s
+## 1
 l:a_ttract := { state ->
   n := (f_loor 0.5 + (l:TOP c_at l:COUNT) l:a_t state) - 1
+  m := f_loor 0.5 + (l:IDIOM c_at l:COUNT) l:a_t state
   bottoms := 1.0 + (l:ATTRACT c_at l:BOTTOMS) l:a_t state
-  tops := (l:ATTRACT c_at l:TOPS) l:a_t state
+  idioms := 1.0 + (l:ATTRACT c_at l:IDIOMS) l:a_t state
   moved := l:BOTTOM l:p_lay state
   bottoms < f_loat n ? (l:ATTRACT c_at l:BOTTOMS c_at bottoms) l:p_ut moved
-  swept := l:TOP l:p_lay (l:ATTRACT c_at l:BOTTOMS c_at 0.0) l:p_ut moved
-  (1.0 + tops) < f_loat n ? (l:ATTRACT c_at l:TOPS c_at 1.0 + tops) l:p_ut swept
-  l:IDIOM l:p_lay (l:ATTRACT c_at l:TOPS c_at 0.0) l:p_ut swept
+  rolled := l:IDIOM l:p_lay (l:ATTRACT c_at l:BOTTOMS c_at 0.0) l:p_ut moved
+  idioms < f_loat m ? (l:ATTRACT c_at l:IDIOMS c_at idioms) l:p_ut rolled
+  l:TOP l:p_lay (l:ATTRACT c_at l:IDIOMS c_at 0.0) l:p_ut rolled
 }
 
 ## An axis stepped forward if it plays, else left as it is.

@@ -96,9 +96,31 @@ l:p_anel := { style f ->
   lines := 1 d_rop style
   shape := ((v:f_ill fill) c_at "#30363d" v:s_troke 1.2) v:p_olygon f_loor 0.5 + s
   n_ot l:f_acing s ? shape
-  on := v:m_atrix 1 2 4 s_elect_2 s
+  on := l:a_ffine 1 2 4 s_elect_2 s
   texts := j_oin '{ k -> k l:l_ine d_isclose k s_elect lines } m_ap r_ange t_ally lines
   shape c_at on v:g_roup texts
+}
+
+## Picture coordinates to a thousandth of a pixel: the last digits of a
+## projected coordinate differ between machines (their sine and cosine
+## differ in the last place), and the pictures are pinned as text.
+## >> "st:" u_se< "Stone"
+## >> st:r_ounded 1.23456789 100.0004
+## 1.235 100.0
+l:r_ounded := { xs -> (f_loat f_loor 0.5 + 1000.0 * xs) / 1000.0 }
+
+## The transform attribute mapping the unit square onto a face from its
+## top left, top right and bottom left corners (2 x 3, picture
+## coordinates), as v:m_atrix does, the six numbers rounded after the
+## differences are taken (rounding before them leaves float noise).
+## >> "st:" u_se< "Stone"
+## >> st:a_ffine 2 3 r_eshape 10.0 30.0 10.0 20.0 20.0 40.0
+##  transform="matrix(20.0 0.0 0.0 20.0 10.0 20.0)"
+l:a_ffine := { c ->
+  tl := 1 s_elect_2 c
+  tr := (2 s_elect_2 c) - tl
+  bl := (3 s_elect_2 c) - tl
+  "transform" v:a_ttr "matrix(" c_at (f_ormat l:r_ounded tr) c_at " " c_at (f_ormat l:r_ounded bl) c_at " " c_at (f_ormat l:r_ounded tl) c_at ")"
 }
 
 ## Whether a face's corners (2 x 4 in the picture, y down) go round

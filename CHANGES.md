@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 12:30 `fix` The tour is `for top, for idiom, for bottom`: the bottom sweeps the other languages, the stone rolls to the next idiom, and the top advances only after every idiom (the user: no pair twice within minutes); the tour starts at its beginning; face transforms rounded to a thousandth so the pictures agree across machines; the literate tour table re-recorded; D116.
 - 12:02 `build` Merged PR #101 (rosetta: the lists alphabetical, rosetta-check keeps them so); the gates entry is D116.
 
 - 11:50 `fix` The stone's lists are alphabetical: both axes of the data sorted by display name, and rosetta-check fails on any pair out of order (the user); D115.
