@@ -55,6 +55,13 @@ pub fn request() -> Request {
 
 /// Where the program says it stands, from its output: the last
 /// `at IDIOM TOP BOTTOM` line, as the three keys.
+/// The tour's mode as the program last printed it (`mode touring`,
+/// `mode holding`, `mode paused: top`), for the page's badge.
+pub fn mode(out: &str) -> Option<String> {
+    let line = out.lines().rev().find(|l| l.starts_with("mode "))?;
+    Some(line["mode ".len()..].to_string())
+}
+
 pub fn position(out: &str) -> Option<[String; 3]> {
     let line = out.lines().rev().find(|l| l.starts_with("at "))?;
     let mut words = line.split_whitespace().skip(1).map(String::from);

@@ -71,3 +71,9 @@ kept := 142.0 100.0 cm:m_ove drag
 (cm:BOTTOM cm:c_urrent cm:dwell cm:t_ick s0) = 2
 (cm:BOTTOM cm:c_urrent (cm:idleBefore - 0.1) cm:t_ick cm:t_ouched s0) = 1
 (cm:BOTTOM cm:c_urrent cm:idleBefore cm:t_ick cm:t_ouched s0) = 2
+# the mode the host shows: touring at the start, holding after a touch, paused naming the axes; a step leaves a pause alone
+(cm:m_ode s0) m_atch "touring"
+(cm:m_ode cm:t_ouched s0) m_atch "holding"
+(cm:m_ode cm:BOTTOM cm:t_oggle cm:TOP cm:t_oggle s0) m_atch "paused: top, bottom"
+(cm:m_ode cm:t_oggleTour s0) m_atch "paused"
+(cm:m_ode ([]K_NAMED 1) cm:k_ey cm:t_oggleTour s0) m_atch "paused"

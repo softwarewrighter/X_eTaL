@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-06
 
+- 13:30 `fix` The tour's mode is visible (a badge: touring, holding, paused with the axes named; the program prints `mode` lines) and a page opened from a link tours (`key r` after the opening choices resumes at once; a choice had paused every axis); D118.
 - 13:01 `build` Merged PR #102 (rosetta: the tour for top, for idiom, for bottom; face transforms rounded, which ends the cross-machine golden churn); the gates entry is D117.
 
 - 12:30 `fix` The tour is `for top, for idiom, for bottom`: the bottom sweeps the other languages, the stone rolls to the next idiom, and the top advances only after every idiom (the user: no pair twice within minutes); the tour starts at its beginning; face transforms rounded to a thousandth so the pictures agree across machines; the literate tour table re-recorded; D116.

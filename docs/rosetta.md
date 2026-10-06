@@ -306,8 +306,14 @@ position from anything but the program's word. The address bar's
 `?idiom=&top=&bottom=` is read as the page opens and sent as choices
 the first time the program waits for an event (a line sent before the
 worker has the program is lost), so a link or a bookmark opens on its
-comparison; with `prefers-reduced-motion` the space bar, which pauses
-the tour, goes the same way. Two buttons scale the stone (50 to 250
+comparison, followed by `key r`, which resumes the tour at once (a
+choice pauses its axis, so a link would otherwise open paused); with
+`prefers-reduced-motion` the space bar, which pauses the tour, goes
+after it. The program prints `mode touring`, `mode holding` (after a
+touch, until the idle wait is over) or `mode paused: top, bottom`
+(naming the axes paused; `paused` alone when all are) whenever the
+mode changes, and the page shows it as a badge under the stone with
+what to press, so the state is visible without waiting for motion. Two buttons scale the stone (50 to 250
 percent; it fills the window's shorter side at 100) and one shows it
 alone, full screen; the picture's own size never changes, so the
 program knows nothing of this. The lists and the address follow the

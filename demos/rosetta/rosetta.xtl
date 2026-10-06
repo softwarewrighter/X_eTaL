@@ -201,13 +201,16 @@ u:w_here := { s ->
 }
 
 # The loop: an event, the state after it, a frame on each tick, the
-# position when it changes; the state when the events end.
+# position and the tour's mode when they change ("at IDIOM TOP
+# BOTTOM", "mode touring|holding|paused..."); the state when the
+# events end.
 u:l_oop := { state ->
   e := []E_VENT @
   kind := []E_KIND e
   kind m_atch "end" ? state
   next := state cm:u_pdate e
   "(u:w_here state) m_atch u:w_here next" u_nless< "p_rint! u:w_here next"
+  "(cm:m_ode state) m_atch cm:m_ode next" u_nless< "p_rint! \"mode \" c_at cm:m_ode next"
   "n_ot kind m_atch \"tick\"" u_nless< "[]S_HOW u:s_tone next"
   u:l_oop next
 }
@@ -217,4 +220,5 @@ u:l_oop := { state ->
 # (the attract mode begins after the first dwell).
 start := cm:r_esume cm:s_ettle (cm:BOTTOM c_at 2.0) cm:c_hoose (t_ally idioms) cm:s_tart t_ally languages
 shown := p_rint! u:w_here start
+mode := p_rint! "mode " c_at cm:m_ode start
 u:l_oop start

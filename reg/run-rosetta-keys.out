@@ -1,7 +1,11 @@
 at iota bqn apl2
+mode touring
+mode holding
 at iota apl2 apl2
 at lambda j apl2
 at lambda j bqn
+mode paused
+mode holding
 31.0 1.0  90.0 1.0 0.0
  6.0 2.0 180.0 1.0 0.0
  6.0 0.0   0.0 1.0 0.0
