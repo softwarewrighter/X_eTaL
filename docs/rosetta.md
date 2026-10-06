@@ -262,7 +262,11 @@ anything else a built-in, which in an array language's glyphs is
 nearly always right), by primitives on the whole text, one span per
 run. Code on a face is bold and black on a near-white face, a tenth of
 the face high: the faces are small on a phone, and the code is what
-the stone is for. The fonts: a monospace with the APL glyphs for the
+the stone is for. Code longer than fifteen characters is split in two
+lines at the space nearest its middle and each line shrunk to fit;
+notes wrap at their spaces; a face turned away from the viewer gets
+no text (it is covered, but text on a face seen edge-on would poke
+out past it). The fonts: a monospace with the APL glyphs for the
 array languages, and the view model's for X_eTaL.
 
 ### The halves are closed boxes

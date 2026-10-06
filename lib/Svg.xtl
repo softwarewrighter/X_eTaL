@@ -86,6 +86,13 @@ l:t_ext := { attrs t -> "<text" c_at attrs c_at ">" c_at (l:e_scape t) c_at "</t
 ## <tspan fill="#1f2937">a &lt; b</tspan>
 l:s_pan := { color t -> "<tspan" c_at (l:f_ill color) c_at ">" c_at (l:e_scape t) c_at "</tspan>" }
 
+## Markup at a font size of its own inside a text element, for a line
+## that must fit where a larger one would not: `size v:s_ized inner`.
+## >> "v:" u_se< "Svg"
+## >> 0.05 v:s_ized "red" v:s_pan "a"
+## <tspan font-size="0.05"><tspan fill="red">a</tspan></tspan>
+l:s_ized := { size inner -> "<tspan" c_at ("font-size" l:a_ttr f_ormat size) c_at ">" c_at inner c_at "</tspan>" }
+
 ## Text whose content is already markup (runs from v:s_pan, or escaped
 ## text): `attrs v:m_arkup inner`.
 ## >> "v:" u_se< "Svg"

@@ -82,9 +82,51 @@ u:c_olored := { il src ->
   u:r_uns src u:s_pans d_isclose l s_elect i s_elect spans
 }
 
+# How many characters a line of code fits at full size (the code is a
+# tenth of the face high and about 0.6 as wide), and the smallest the
+# code may get.
+fits := 15
+smallest := 0.05
+
+# A line of markup of n visible characters, shrunk to fit the face when
+# it is longer than fits characters (never below smallest).
+u:f_itted := { n markup ->
+  n <= fits ? markup
+  size := 0.1 * (f_loat fits) / f_loat n
+  (size m_ax smallest) v:s_ized markup
+}
+
+# Source too long for one line split in two at the space nearest its
+# middle, as a box of one or two texts (a text without spaces stays
+# whole, however long).
+u:s_plit := { src ->
+  n := t_ally src
+  n <= fits ? e_nclose src
+  spaces := w_here src = f_irst " "
+  0 = t_ally spaces ? e_nclose src
+  away := a_bs (2 * spaces) - n
+  cut := (away i_ndexOf 'm_in r_/ away) s_elect spaces
+  (e_nclose (cut - 1) t_ake src) c_at e_nclose cut d_rop src
+}
+
+# Words (a box of texts) as lines of at most width characters, as a box
+# of texts; a word longer than the width is a line of its own.
+u:l_ines := { width ws ->
+  0 = t_ally ws ? ws
+  lens := '{ b -> t_ally d_isclose b } e_ach ws
+  room := width >= (('+ s_\ lens) + r_ange t_ally ws) - 1
+  k := 1 m_ax '+ r_/ room
+  line := d_isclose '{ x y -> e_nclose (d_isclose x) c_at " " c_at d_isclose y } r_/ k t_ake ws
+  (e_nclose line) c_at width u:l_ines k d_rop ws
+}
+
+# A text wrapped at its spaces into lines of at most width characters.
+u:w_rap := { width t -> width u:l_ines (n_ot t = f_irst " ") p_artition t }
+
 # The lines of a language's face for an idiom: its name, the source
-# colored, and the output when there is one; or the note for a missing
-# source. Each line is markup.
+# colored (on two lines when it is long, each shrunk to fit), and the
+# output when there is one; or the note for a missing source, wrapped.
+# Each line is markup.
 u:f_ace := { i l ->
   name := v:e_scape d_isclose l s_elect languageNames
   src := d_isclose l s_elect i s_elect source
@@ -92,9 +134,11 @@ u:f_ace := { i l ->
   note := d_isclose l s_elect i s_elect notes
   missing := "0 = t_ally note" i_f< "\"(no concise idiom)\"; note"
   result := "0 = t_ally out" i_f< "\"\"; \"-> \" c_at out"
-  0 = t_ally src ? (e_nclose name) c_at e_nclose "#6b7280" v:s_pan missing
-  code := (i c_at l) u:c_olored src
-  (e_nclose name) c_at (e_nclose code) c_at e_nclose "#6b7280" v:s_pan result
+  n_oteLine := { b -> 0.07 v:s_ized "#4b5563" v:s_pan d_isclose b }
+  0 = t_ally src ? (e_nclose name) c_at 'n_oteLine m_ap 18 u:w_rap missing
+  c_odeLine := { b -> (t_ally d_isclose b) u:f_itted (i c_at l) u:c_olored d_isclose b }
+  code := 'c_odeLine m_ap u:s_plit src
+  (e_nclose name) c_at code c_at e_nclose (t_ally result) u:f_itted "#4b5563" v:s_pan result
 }
 
 # The item an axis's side shows: the one its turn started from plus

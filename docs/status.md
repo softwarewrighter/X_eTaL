@@ -45,7 +45,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
 | `/` | `Num a => a -> a -> Float` | works | 15 | 2 |
-| `d_iv` | `Int -> Int -> Int` | works | 3 | 1 |
+| `d_iv` | `Int -> Int -> Int` | works | 4 | 1 |
 | `m_od` | `Int -> Int -> Int` | works | 2 | 2 |
 | `n_eg` | `Num a => a -> a` | works | 19 | 1 |
 | `a_bs` | `Num a => a -> a` | works | 6 | 1 |

@@ -1,4 +1,4 @@
-number = 15
+number = 16
 slug = "rosetta-release"
 status = "pending"
 description = "Rosetta lane (see lanes/rosetta/.agentrail/plan.md, docs/rosetta.md and docs/..."

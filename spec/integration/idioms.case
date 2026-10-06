@@ -55,6 +55,7 @@ w_here 0 1 1 0
 f_ormat v
 "c:" u_se< "Combinators"
 10 '- c:C_ 3
+"1 d_iv 0" t_ry< "@ r_ecover< \"-1\""
 == RESULT
 14
 1
@@ -102,3 +103,4 @@ abcd
 2 3
 3 1 2
 -7
+-1
