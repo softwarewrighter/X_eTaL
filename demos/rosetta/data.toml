@@ -321,6 +321,7 @@ j = 'try. catch. end.'
 bqn = 'F⎊G'
 k = '.[f;x;:]'
 uiua = '⍣F G'
+xetal = '"1 d_iv 0" t_ry< "@ r_ecover< \"-1\""'
 
 [source.use]
 apl2 = ')COPY WS'
@@ -357,6 +358,9 @@ xetal = "BCDEA"
 
 [output.transpose]
 xetal = "1 4\n2 5\n3 6"
+
+[output.trap]
+xetal = "-1"
 
 [output.index-of]
 xetal = "3"
@@ -398,9 +402,6 @@ xetal = "its own name, or c:Y_ from the Combinators library"
 
 [notes.read-file]
 apl2 = "a shared variable ([]SVO) with a file processor"
-
-[notes.trap]
-xetal = "none yet: the Maybe library for failure as a value"
 
 [notes.transpose]
 bqn = "a matrix"

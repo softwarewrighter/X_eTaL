@@ -48,7 +48,7 @@ Three things to know when reading the X_eTaL column:
 | Text to number | <code>Double.parseDouble(s)</code> | <code>parseFloat(s)</code> | <code>float(s)</code> | <code>std::stod(s)</code> | <code>s.parse::&lt;f64&gt;()</code> | <code>n_umbers s</code> |
 | Importing | <code>import java.util.List;</code> | <code>import { f } from "./m.js";</code> | <code>import stats</code> | <code>#include &lt;vector&gt;</code> | <code>use std::fs;</code> | <code>"s:" u_se&lt; "Stats"</code> |
 | Error handling | <code>try { ... } catch (E e) { ... }</code> | <code>try { ... } catch (e) { ... }</code> | <code>try: ...
-except E: ...</code> | <code>try { ... } catch (const E&amp; e) { ... }</code> | <code>fallible()?  // Result</code> | none yet: an error stops the program; a failure can be a value (<code>-1 m:o_r ...</code>, the Maybe library) |
+except E: ...</code> | <code>try { ... } catch (const E&amp; e) { ... }</code> | <code>fallible()?  // Result</code> | <code>"1 d_iv 0" t_ry&lt; "@ r_ecover&lt; \"-1\""</code> |
 | Pattern matching | <code>switch (o) { case Point(var x, var y) -&gt; ... }</code> | none (destructuring only) | <code>match p:
  case Point(x=0): ...</code> | none (<code>std::visit</code>) | <code>match p { Point { x: 0, .. } =&gt; ... }</code> | none: guards on values |
 
@@ -92,5 +92,5 @@ and names are words where APL has glyphs; the source is plain ASCII.
 | Read a file | a shared variable ([]SVO) with a file processor | <code>&#8835;&#9109;NGET f</code> | <code>1!:1 &lt; f</code> | <code>&#8226;FChars f</code> | <code>0:f</code> | <code>&amp;fras f</code> | <code>[]N_GET f</code> |
 | Read a line | <code>&#9054;</code> | <code>&#9054;</code> | <code>1!:1 ] 1</code> | <code>&#8226;GetLine @</code> | <code>0:0</code> | <code>&amp;sc</code> | <code>[]R_EAD @</code> |
 | Print | <code>&#9109;&#8592;V</code> | <code>&#9109;&#8592;v</code> | <code>echo v</code> | <code>&#8226;Show v</code> | <code>`0:v</code> | <code>&amp;p v</code> | <code>p_rint! v</code> |
-| Trap an error | <code>&#9109;EA</code> | <code>:Trap / 0::</code> | <code>try. catch. end.</code> | <code>F&#9098;G</code> | <code>.[f;x;:]</code> | <code>&#9059;F G</code> | none yet: the Maybe library for failure as a value |
+| Trap an error | <code>&#9109;EA</code> | <code>:Trap / 0::</code> | <code>try. catch. end.</code> | <code>F&#9098;G</code> | <code>.[f;x;:]</code> | <code>&#9059;F G</code> | <code>"1 d_iv 0" t_ry&lt; "@ r_ecover&lt; \"-1\""</code> |
 | Use a library | <code>)COPY WS</code> | <code>)COPY / &#9109;FIX</code> | <code>require 'x'</code> | <code>&#8226;Import "x.bqn"</code> | <code>\l x.k</code> | <code>~"x.ua"</code> | <code>"c:" u_se&lt; "Combinators"</code> |

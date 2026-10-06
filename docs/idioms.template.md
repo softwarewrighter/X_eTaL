@@ -48,7 +48,7 @@ Three things to know when reading the X_eTaL column:
 | Text to number | <code>Double.parseDouble(s)</code> | <code>parseFloat(s)</code> | <code>float(s)</code> | <code>std::stod(s)</code> | <code>s.parse::&lt;f64&gt;()</code> | <code>n_umbers s</code> |
 | Importing | <code>import java.util.List;</code> | <code>import { f } from "./m.js";</code> | <code>import stats</code> | <code>#include &lt;vector&gt;</code> | <code>use std::fs;</code> | <code>"s:" u_se&lt; "Stats"</code> |
 | Error handling | <code>try { ... } catch (E e) { ... }</code> | <code>try { ... } catch (e) { ... }</code> | <code>try: ...
-except E: ...</code> | <code>try { ... } catch (const E&amp; e) { ... }</code> | <code>fallible()?  // Result</code> | none yet: an error stops the program; a failure can be a value (<code>-1 m:o_r ...</code>, the Maybe library) |
+except E: ...</code> | <code>try { ... } catch (const E&amp; e) { ... }</code> | <code>fallible()?  // Result</code> | <code>"1 d_iv 0" t_ry&lt; "@ r_ecover&lt; \"-1\""</code> |
 | Pattern matching | <code>switch (o) { case Point(var x, var y) -&gt; ... }</code> | none (destructuring only) | <code>match p:
  case Point(x=0): ...</code> | none (<code>std::visit</code>) | <code>match p { Point { x: 0, .. } =&gt; ... }</code> | none: guards on values |
 

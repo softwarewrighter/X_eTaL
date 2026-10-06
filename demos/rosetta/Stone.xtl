@@ -31,7 +31,7 @@ l:b_ox := { whd -> (3 8 r_eshape 8 r_eplicate 0.5 * whd) * g:c_ube 2 }
 
 ## The view: the stone turned a little about x and y so three sides
 ## show; every solid below is given in the view's frame.
-l:v_iew := { points -> ((g:r_otX 12.0) g:t_urn g:r_otY -28.0) g:t_urn points }
+l:v_iew := { points -> ((g:r_otX 22.0) g:t_urn g:r_otY -28.0) g:t_urn points }
 
 ## Points in the view's frame projected and placed in the picture, y
 ## up: a 3 x n matrix of points to a 2 x n matrix of pixels.
@@ -87,15 +87,33 @@ l:capOffsets := -1 1
 ## the given lines drawn on it in face coordinates (0 to 1 across and
 ## down), each line a boxed text of markup (runs from v:s_pan, or text
 ## through v:e_scape), the first line small (a title), the rest in the
-## code size. `(fill c_at lines) st:p_anel face`.
+## code size. A face turned away from the viewer gets its fill only:
+## nearer faces cover it, but text laid on a face seen nearly edge-on
+## could poke out past it. `(fill c_at lines) st:p_anel face`.
 l:p_anel := { style f ->
   s := l:s_creen f
   fill := d_isclose 1 s_elect style
   lines := 1 d_rop style
   shape := ((v:f_ill fill) c_at "#30363d" v:s_troke 1.2) v:p_olygon f_loor 0.5 + s
+  n_ot l:f_acing s ? shape
   on := v:m_atrix 1 2 4 s_elect_2 s
   texts := j_oin '{ k -> k l:l_ine d_isclose k s_elect lines } m_ap r_ange t_ally lines
   shape c_at on v:g_roup texts
+}
+
+## Whether a face's corners (2 x 4 in the picture, y down) go round
+## clockwise on the screen, which is how a face toward the viewer
+## reads (its signed area is positive); a face turned away goes round
+## the other way.
+## >> "st:" u_se< "Stone"
+## >> st:f_acing 2 4 r_eshape 0 1 1 0 0 0 1 1
+## 1
+## >> st:f_acing 2 4 r_eshape 0 0 1 1 0 1 1 0
+## 0
+l:f_acing := { s ->
+  xs := 1 s_elect s
+  ys := 2 s_elect s
+  0 < '+ r_/ (xs * 1 o_- ys) - ys * 1 o_- xs
 }
 
 ## One line of markup on a face: line k from the top; the first line
