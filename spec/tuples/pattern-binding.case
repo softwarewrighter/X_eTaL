@@ -1,0 +1,13 @@
+# TU3: a pattern binding takes a tuple apart.
+== SOURCE
+s := (1, 2.5, "ab")
+(n, x, t) := s
+n
+x
+t
+== RESULT
+1
+2.5
+ab
+== STATUS
+pending

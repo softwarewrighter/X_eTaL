@@ -1,0 +1,8 @@
+# TU5: a pattern of the wrong size is a type error, before the program
+# runs.
+== SOURCE
+(a, b) := (1, 2, 3)
+== ERROR
+error[type-mismatch]: a pair where a 3-tuple is expected at 0..6
+== STATUS
+pending

@@ -1,0 +1,17 @@
+# TU8: a tuple can be boxed; m_ap of a function giving a tuple boxes
+# each result, and a box is opened and taken apart by a pattern.
+== SOURCE
+ps := '{ k -> (k, f_loat k) } m_ap r_ange 3
+(a, b) := d_isclose 2 s_elect ps
+a
+b
+== TYPE
+ps : Box (Int, Float)
+(a, b) : (Int, Float)
+Int
+Float
+== RESULT
+2
+2.0
+== STATUS
+pending

@@ -1,0 +1,7 @@
+# TU7: `=` does not compare tuples; m_atch does.
+== SOURCE
+(1, 2) = (1, 2)
+== ERROR
+error[type-mismatch]: a tuple where an array is expected at 0..6
+== STATUS
+pending

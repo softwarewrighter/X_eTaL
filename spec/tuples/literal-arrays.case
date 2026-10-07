@@ -1,0 +1,10 @@
+# TU1, TU2, TU6: the parts are arrays of any rank (T7); each part is a
+# whole expression read right to left on its own.
+== SOURCE
+(1 2 3, 4.5, 2 * 3 + 1)
+== TYPE
+(Int, Float, Int)
+== RESULT
+(1 2 3, 4.5, 7)
+== STATUS
+pending

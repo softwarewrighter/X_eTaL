@@ -1,0 +1,10 @@
+# TU1, TU2, TU6: a pair of an Int and a Float, its type printed as
+# written, its value on one line.
+== SOURCE
+(1, 2.5)
+== TYPE
+(Int, Float)
+== RESULT
+(1, 2.5)
+== STATUS
+pending

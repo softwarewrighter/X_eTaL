@@ -1,0 +1,10 @@
+# TU1: parentheses without a comma at their own level are grouping, as
+# today; a grouped expression may be a part.
+== SOURCE
+((1 + 2), 3)
+(4)
+== RESULT
+(3, 3)
+4
+== STATUS
+pending

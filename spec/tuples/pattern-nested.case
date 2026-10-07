@@ -1,0 +1,8 @@
+# TU3: patterns nest.
+== SOURCE
+((a, b), c) := ((1, 2), 3)
+a + b + c
+== RESULT
+6
+== STATUS
+pending

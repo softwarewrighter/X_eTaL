@@ -1,0 +1,8 @@
+# Rule 3 (D121): a lambda without `->` has no parameter list, so a
+# parenthesized group at its start is its body, here a tuple.
+== SOURCE
+{ (_r, _r * 2) } 3
+== RESULT
+(3, 6)
+== STATUS
+pending

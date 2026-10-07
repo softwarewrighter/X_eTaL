@@ -3,9 +3,10 @@
 A design note (asked for by the user, 2026-10-03), and since
 2026-10-07 the plan of Saga 39 (lanes/tuples): tuples first, at the
 asks of X_eTaL-ML (M13) and X_eTaL-demos (D7), as the first part of
-Saga 29 (algebraic data). Saga 39's first step settles the questions
-below with the user and records the answers in `lang-choices.md`; until
-then each question carries a recommendation, not a decision.
+Saga 29 (algebraic data). The questions below were settled with the
+user at Saga 39's first step (2026-10-07): every one as recommended.
+The rules are TU1-TU12 in `lang-choices.md` section 9d, which governs
+where this note and they differ.
 
 ## Where X_eTaL is
 
@@ -96,13 +97,14 @@ The train-live step, once tuples land, would read something like this
 and `xetal type` would show `u:s_tep : (Float, Float, Float, Int) ->
 (Float, Float, Float, Int)`.
 
-## The questions for step 1
+## The decisions (step 1, 2026-10-07)
 
-Each recommendation is the starting point for the conversation, chosen
-to keep the grammar unambiguous (rule 3: two parses are an error, never
-a guess) and to leave room for records.
+Each was the recommendation below, chosen to keep the grammar
+unambiguous (rule 3: two parses are an error, never a guess) and to
+leave room for records; the user took every one. The rules as recorded
+are TU1-TU12 in `lang-choices.md` section 9d.
 
-| #    | Question | Recommendation |
+| #    | Question | Decision (as recommended) |
 | ---- | -------- | -------------- |
 | TU1  | The literal | Parentheses and commas: `(w, m, v, k)`. The comma is unused today (a lex error), and `;` is taken (statements and guards). A comma is legal only directly inside parentheses or a pattern; `(x)` stays grouping; there is no one-element tuple; the empty tuple is not needed (`@` is unit). Each component is a whole expression, read right to left on its own. |
 | TU2  | The type | `(Float, Float, Float, Int)`, written and printed as the literal is; components are the ordinary rank-erased types (B14), so `(Float, Int)` is a pair of a Float array of any rank and an Int array of any rank. Polymorphic components unify as usual: `(a, b) -> (b, a)`. |

@@ -221,25 +221,28 @@ stream type later.
 | RS5 | Source text is data a program can color: `[]V_IEW "src" : Char -> Box Char` gives xetal-view's segments (the model behind the editor, the HTML export and the poster) as a matrix of boxed texts, a row per run of one class, the decorated text and the class name (the HTML export's CSS classes without their prefix). The program maps classes to colors itself (SVG spans, `v:s_pan`), and other languages' cells may carry spans of the same shape in the data (`"class text|class text"`), so one coloring model serves every language on a face and the X_eTaL column cannot drift from the language. Chosen over the host returning colored markup (the palette would live in Rust, unrestylable) and over no coloring. Decided with the user, 2026-10-05 (Saga 34 step 11). |
 | RS4 | The Rosetta stone is an X_eTaL program whose host is Rust: the state machine, projection and SVG scene are X_eTaL (`demos/rosetta/`, `lib/Geometry3D.xtl`, `lib/Svg.xtl`), and the host supplies only events (RS1), tables (RS2) and the picture sink (`[]S_HOW`); `xetal run demos/rosetta/rosetta.xtl --events FILE --draw DIR` writes the frames the browser shows. The design is docs/rosetta.md. Decided with the user, 2026-10-05. |
 
-## 9c. Events and tables (the Rosetta stone's host boundary)
+## 9d. Tuples
+
+Decided with the user (2026-10-07) for Saga 39 (lanes/tuples), at the
+asks of X_eTaL-ML (M13: a training state of several arrays for
+`p_ower`) and X_eTaL-demos (D7). `docs/tuples.md` has the reasoning and
+the alternatives; records, sums and matching follow in Saga 29 on
+these types.
 
 | Rule | Decision |
 |------|----------|
-
-## 9c. Events and tables (the Rosetta stone's host boundary)
-
-| Rule | Decision |
-|------|----------|
-
-## 9c. Events and tables (the Rosetta stone's host boundary)
-
-| Rule | Decision |
-|------|----------|
-
-## 9c. Events and tables (the Rosetta stone's host boundary)
-
-| Rule | Decision |
-|------|----------|
+| TU1 | A tuple is written in parentheses with commas: `(w, m, v, k)`. Each part is a whole expression, read right to left on its own. A comma is legal only directly inside parentheses (and in a pattern, TU3): `1, 2` is an error, and so are `(1,)` and `(, 1)`. `(x)` stays grouping, so there is no one-part tuple; `@` stays the unit value. |
+| TU2 | A tuple's type is written and printed as the literal is: `(Float, Float, Float, Int)`. Its parts are the ordinary rank-erased types (T7), so `(Float, Int)` is a pair of a Float array of any rank and an Int array of any rank; parts may be polymorphic and unify part by part (`(a, b) -> (b, a)`). A tuple is not an array: it has no shape, rank or items. |
+| TU3 | A tuple is taken apart by a pattern only: in a binding at the top level or in a lambda, `(w, m, v, k) := s`, and in a lambda's parameters, `{ (w, m) -> ... }` (monadic, its argument a pair) or `{ (w, m) x -> ... }` (dyadic, its left argument a pair). Patterns nest: `((a, b), c) := t`. There is no projection by position; named access is the records' (Saga 29). |
+| TU4 | In a pattern, `_` binds nothing and may repeat: `(w, _, _, k) := s`. Outside a pattern a bare `_` stays the error it is today (`_l` and `_r` are the lambda arguments). |
+| TU5 | A tuple used where an array is expected, an array where a tuple is expected, or a pattern of the wrong size is a type error, reported before the program runs with spans on both sides ("a pair where a 4-tuple is expected"). |
+| TU6 | A tuple prints on one line, `(1 2 3, 4.5, 7)`, when every part prints on one line; when a part prints on several (a matrix), every part is a block of its own introduced by its position (`(1:` ... `, 2: 4.5` ... `)`). Boxed printing and DISPLAY draw a tuple as a box with a distinct corner. The layouts are pinned by goldens. |
+| TU7 | `m_atch` compares two tuples part by part and answers one truth. `=` and arithmetic do not reach into tuples: `(1, 2) = (1, 2)` and `(1, 2) + 1` are type errors. Pervasion through tuples may be added later without breaking a program. |
+| TU8 | A tuple is not an array item in v1, but it can be boxed: `e_nclose (1, 2.5)` is a `Box (Int, Float)`, `m_ap` of a function giving a tuple boxes each result, and a vector of boxed tuples is the array of tuples. Unboxed arrays of tuples (stored as a tuple of arrays, as Futhark does) are a later decision. |
+| TU9 | The higher-order built-ins are unchanged: their types are polymorphic, so `p_ower` repeats a step on a tuple state (`n 'f_ p_ower (w, m, v, 0)`), and `c_ompose`, `s_wap` and the others take tuples as they are. `e_ach` still needs one value per call; `m_ap` collects tuples (TU8). |
+| TU10 | A tuple is a Core form of its own, and a pattern desugars to bindings of projections in Core, so the evaluator never sees surface patterns (rule 5). Each sugar has a normalization test: a lambda with a pattern parameter and the same lambda binding its argument with the pattern give identical Core (rule 8). |
+| TU11 | Every name a pattern binds is a binder for macro hygiene (MC30) and for the shadowing warning (L7). The formatter round-trips tuples and patterns (rule 10). |
+| TU12 | The record field syntax of Saga 29 is kept free: a name followed by `:` and a space inside parentheses (`(w: w0, k: 0)`) means nothing in a tuple and stays an error until records give it a meaning; a namespace prefix touches its name (`u:f_`), a field colon is followed by a space. |
 
 ## 10. Input and display
 

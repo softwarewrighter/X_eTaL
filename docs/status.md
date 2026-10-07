@@ -19,9 +19,9 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 125 | 0 | 0 |
-| Language decisions | 136 | 0 | 7 |
+| Language decisions | 148 | 0 | 7 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 388 | 0 | 1 |
+| Spec cases | 389 | 0 | 20 |
 
 ## Planned (decided, not yet implemented)
 
@@ -33,6 +33,25 @@ conventions (naming, layout) work without a spec case citing them.
 - **PN4** (planned): Importing an `.xtl` file that defines no `l:` name, function or variable, is an error (a new MC8 row): (...).
 - **PN6** (planned): Unchanged: local functions inside a lambda are bare and scoped to it (`c_ap := { ... }`), and one named (...).
 - spec case `names/reject-bare-function-in-app.case` (pending)
+- spec case `tuples/boxed.case` (pending)
+- spec case `tuples/lambda-body-tuple.case` (pending)
+- spec case `tuples/literal-arrays.case` (pending)
+- spec case `tuples/literal-grouping.case` (pending)
+- spec case `tuples/literal-pair.case` (pending)
+- spec case `tuples/match.case` (pending)
+- spec case `tuples/pattern-binding.case` (pending)
+- spec case `tuples/pattern-dyadic.case` (pending)
+- spec case `tuples/pattern-nested.case` (pending)
+- spec case `tuples/pattern-parameter.case` (pending)
+- spec case `tuples/pattern-wildcard.case` (pending)
+- spec case `tuples/power-state.case` (pending)
+- spec case `tuples/print-tall.case` (pending)
+- spec case `tuples/reject-arithmetic.case` (pending)
+- spec case `tuples/reject-comma-outside.case` (pending)
+- spec case `tuples/reject-equals.case` (pending)
+- spec case `tuples/reject-pattern-size.case` (pending)
+- spec case `tuples/reject-record-field.case` (pending)
+- spec case `tuples/reject-trailing-comma.case` (pending)
 
 ## Built-in functions
 
@@ -40,9 +59,9 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 73 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 80 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 42 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 46 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
@@ -55,7 +74,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `c_eiling` | `Num a => a -> Int` | works | 0 | 1 |
 | `e_xp` | `Num a => a -> Float` | works | 0 | 1 |
 | `l_og` | `Num a => a -> Float` | works | 0 | 1 |
-| `f_loat` | `Num a => a -> Float` | works | 4 | 1 |
+| `f_loat` | `Num a => a -> Float` | works | 5 | 1 |
 
 ### B13: trigonometry (radians)
 
@@ -70,7 +89,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 36 | 2 |
+| `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 37 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
 | `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
 | `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
@@ -169,14 +188,14 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `s_hape` | `a -> Int` | works | 16 | 2 |
 | `t_ally` | `a -> Int` | works | 19 | 4 |
-| `r_ange` | `Int -> Int` | works | 37 | 1 |
+| `r_ange` | `Int -> Int` | works | 39 | 1 |
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 6 | 4 |
 | `r_avel` | `a -> a` | works | 2 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 63 | 2 |
+| `r_eshape` | `Int -> a -> a` | works | 64 | 2 |
 | `t_ake` | `Int -> a -> a` | works | 15 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 3 | 4 |
-| `s_elect` | `Int -> a -> a` | works | 14 | 4 |
+| `s_elect` | `Int -> a -> a` | works | 15 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 6 | 6 |
 | `c_at` | `a -> a -> a` | works | 16 | 5 |
 
@@ -192,7 +211,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `e_ach` | `(a -> b) -> a -> b` | works | 19 | 3 |
-| `m_ap` | `(a -> b) -> a -> Box b` | works | 2 | 3 |
+| `m_ap` | `(a -> b) -> a -> Box b` | works | 3 | 3 |
 | `t_able` | `(a -> b -> c) -> a -> b -> c` | works | 6 | 1 |
 
 ### B6: inner product and combinators (operands nearest-first, F9)
@@ -202,7 +221,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `i_nner` | `(a -> b -> c) -> (c -> c -> c) -> a -> b -> c` | works | 6 | 1 |
 | `c_ompose` | `(a -> b) -> (b -> c) -> a -> c` | works | 3 | 2 |
 | `s_wap` | `(a -> b -> c) -> b -> a -> c` | works | 4 | 1 |
-| `p_ower` | `(a -> a) -> Int -> a -> a` | works | 2 | 2 |
+| `p_ower` | `(a -> a) -> Int -> a -> a` | works | 3 | 2 |
 
 ### B7: search and order (over major cells)
 
@@ -210,7 +229,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `i_ndexOf` | `Eq a => a -> a -> Int` | works | 5 | 2 |
 | `m_ember?` | `(Eq a, Truthy b) => a -> a -> b` | works | 2 | 1 |
-| `m_atch` | `(Eq a, Truthy b) => a -> a -> b` | works | 8 | 5 |
+| `m_atch` | `(Eq a, Truthy b) => a -> a -> b` | works | 9 | 5 |
 | `u_nique` | `Eq a => a -> a` | works | 3 | 1 |
 | `s_ort` | `Ord a => a -> a` | works | 4 | 3 |
 | `g_rade` | `Ord a => a -> Int` | works | 1 | 2 |
@@ -221,7 +240,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `e_nclose` | `a -> Box a` | works | 3 | 4 |
-| `d_isclose` | `Box a -> a` | works | 5 | 3 |
+| `d_isclose` | `Box a -> a` | works | 6 | 3 |
 | `d_isplay` | `a -> Char` | works | 5 | 5 |
 | `p_artition` | `Truthy a => a -> b -> Box b` | works | 4 | 4 |
 
@@ -301,7 +320,7 @@ conventions (naming, layout) work without a spec case citing them.
 | T3 | `=` is exact (IEEE) equality and transitive; `(0.1 + 0.2) = 0.3` is 0 | works | 2 |
 | T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 7 |
 | T6 | Programs are type-checked before they run: `xetal eval` and `xetal run` refuse an ill-typed program with a (...) | works | 5 |
-| T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 7 |
+| T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 8 |
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
 | T9 | An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...) | works | 4 |
 | T4 | Type annotations: none in v0 (types are inferred) | works | 1 |
@@ -320,6 +339,18 @@ conventions (naming, layout) work without a spec case citing them.
 | RS3 | The Rosetta data file, `demos/rosetta/data.toml`, holds the two axes as lists (`idioms`, `languages`, each (...) | works | 0 |
 | RS5 | Source text is data a program can color: `[]V_IEW "src" : Char -> Box Char` gives xetal-view's segments (...) | works | 0 |
 | RS4 | The Rosetta stone is an X_eTaL program whose host is Rust: the state machine, projection and SVG scene are (...) | works | 0 |
+| TU1 | A tuple is written in parentheses with commas: `(w, m, v, k)` | works | 5 |
+| TU2 | A tuple's type is written and printed as the literal is: `(Float, Float, Float, Int)` | works | 3 |
+| TU3 | A tuple is taken apart by a pattern only: in a binding at the top level or in a lambda, `(w, m, v, k) := (...) | works | 4 |
+| TU4 | In a pattern, `_` binds nothing and may repeat: `(w, _, _, k) := s` | works | 2 |
+| TU5 | A tuple used where an array is expected, an array where a tuple is expected, or a pattern of the wrong (...) | works | 2 |
+| TU6 | A tuple prints on one line, `(1 2 3, 4.5, 7)`, when every part prints on one line; when a part prints on (...) | works | 3 |
+| TU7 | `m_atch` compares two tuples part by part and answers one truth | works | 3 |
+| TU8 | A tuple is not an array item in v1, but it can be boxed: `e_nclose (1, 2.5)` is a `Box (Int, Float)`, (...) | works | 1 |
+| TU9 | The higher-order built-ins are unchanged: their types are polymorphic, so `p_ower` repeats a step on a (...) | works | 1 |
+| TU10 | A tuple is a Core form of its own, and a pattern desugars to bindings of projections in Core, so the (...) | works | 0 |
+| TU11 | Every name a pattern binds is a binder for macro hygiene (MC30) and for the shadowing warning (L7) | works | 0 |
+| TU12 | The record field syntax of Saga 29 is kept free: a name followed by `:` and a space inside parentheses (...) | works | 1 |
 | I1 | Source is ASCII, except inside string literals and comments, which may hold any Unicode (revised with the (...) | works | 2 |
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example (...) | works | 2 |
 | I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` (...) | works | 3 |

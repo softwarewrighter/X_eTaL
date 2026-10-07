@@ -1,0 +1,7 @@
+# TU1, rule 9: there is no one-part tuple and no empty part.
+== SOURCE
+(1,)
+== ERROR
+error[empty-tuple-part]: a tuple part is missing after the comma at 2..3
+== STATUS
+pending

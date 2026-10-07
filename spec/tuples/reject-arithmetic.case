@@ -1,0 +1,7 @@
+# TU5, TU7: arithmetic does not reach into a tuple.
+== SOURCE
+(1, 2) + 1
+== ERROR
+error[type-mismatch]: a tuple where an array is expected at 0..6
+== STATUS
+pending
