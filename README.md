@@ -391,6 +391,8 @@ Other fonts, checked against the font files:
 - [`docs/chronology.md`](docs/chronology.md) -- a chronology of the
   ecosystem: each problem, the decision, what was built, and what
   using it taught
+- [`docs/private-names.md`](docs/private-names.md) -- the `h:` namespace
+  for file-private helpers, the plan and its migration
 - [`docs/rosetta.md`](docs/rosetta.md) -- the Rosetta stone: idioms compared
   on an impossible rotating object, a demo written in X_eTaL (planned)
 - `docs/research.txt` to `docs/research5.txt` -- archival design research
