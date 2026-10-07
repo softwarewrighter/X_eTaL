@@ -1,0 +1,4 @@
+# Only helpers (h:): run as an app it is a script with no interface
+# (PN7); imported, it is a library that exports nothing (PN4).
+h:d_ouble := { 2 * _r }
+h:t_riple := { 3 * _r }

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run reg/fixtures/names/use-helpers.xtl"
+exit_code = 1
+desc = "PN4, MC8 row 22: importing an .xtl that exports nothing is an error"

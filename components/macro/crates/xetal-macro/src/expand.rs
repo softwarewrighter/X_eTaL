@@ -151,6 +151,15 @@ impl Loader<'_> {
                 if !self.loaded.contains_key(&lib.key) {
                     self.load(&lib, false)?;
                 }
+                // A library must export something (PN4, MC8 row 22).
+                if self.loaded[&lib.key].1.is_empty() {
+                    let message = format!(
+                        "library {} exports nothing; mark its exports with l:",
+                        import.spec
+                    );
+                    let empty = Diagnostic::new("library-exports-nothing", message);
+                    return Err(error(empty.with_span(import.span)));
+                }
                 aliases.insert(letters.clone(), self.loaded[&lib.key].clone());
             }
             if let Some(xtlm) = xtlm {
