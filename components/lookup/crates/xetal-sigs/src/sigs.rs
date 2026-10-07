@@ -86,8 +86,9 @@ fn signature(
 
 /// A word a signature may hold: a type, a class, or a type variable.
 fn known(word: &str) -> bool {
-    const NAMES: [&str; 12] = [
-        "Int", "Float", "Char", "Bool", "Unit", "Box", "Color", "Key", "Num", "Eq", "Ord", "Truthy",
+    const NAMES: [&str; 13] = [
+        "Int", "Float", "Char", "Bool", "Unit", "Box", "Color", "Key", "Num", "Eq", "Ord",
+        "Truthy", "Match",
     ];
     NAMES.contains(&word) || word.bytes().all(|b| b.is_ascii_lowercase())
 }

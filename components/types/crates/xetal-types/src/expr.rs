@@ -28,6 +28,12 @@ impl Infer {
                 }
                 elem
             }
+            Kind::Tuple(parts) => Type::Tuple(
+                parts
+                    .iter()
+                    .map(|p| self.expr(p))
+                    .collect::<Result<_, _>>()?,
+            ),
             Kind::Var(name) => self.variable(name, e)?,
             Kind::Global(name) => self.global(name, e),
             Kind::Prim(name) => self.builtin(name, e)?,

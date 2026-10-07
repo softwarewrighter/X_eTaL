@@ -1,4 +1,14 @@
-//! Printed results (lang-choices 10a).
+//! Printed results (lang-choices 10a). A tuple prints on one line,
+//! `(1 2 3, 4.5)`, when every part does; otherwise one block per part,
+//! introduced by its position, a tall part's lines indented under it
+//! (TU6):
+//!
+//! ```text
+//! (1:
+//!  1 2 3
+//!  4 5 6
+//! , 2: 4.5)
+//! ```
 
 use std::fmt;
 
@@ -31,6 +41,7 @@ impl fmt::Display for Value<'_> {
             Value::Closure(_) | Value::Prim(_) => f.write_str("<function>"),
             Value::Error(e) => write!(f, "error[{}]: {}", e.code, e.message),
             Value::Outcome(_) => f.write_str("<outcome>"),
+            Value::Tuple(parts) => f.write_str(&tuple_text(parts)),
         }
     }
 }
@@ -47,5 +58,32 @@ pub fn printed(v: &Value<'_>) -> String {
     match v {
         Value::Array(_) | Value::Boxed(_) if xetal_grid::boxed() => picture(v).join("\n"),
         other => other.to_string(),
+    }
+}
+
+/// The printed text of a tuple with these parts.
+fn tuple_text(parts: &[Value<'_>]) -> String {
+    let texts: Vec<String> = parts.iter().map(printed).collect();
+    if texts.iter().all(|t| !t.contains('\n')) {
+        return format!("({})", texts.join(", "));
+    }
+    let mut out = String::new();
+    for (i, part) in texts.iter().enumerate() {
+        let lead = if i == 0 { "(" } else { "\n, " };
+        out.push_str(&format!("{lead}{}:", i + 1));
+        out.push_str(&block(part));
+    }
+    let tall_last = texts.last().is_some_and(|t| t.contains('\n'));
+    out.push_str(if tall_last { "\n)" } else { ")" });
+    out
+}
+
+/// A part after its position: a line on the same line, a block on the
+/// lines below, each indented by one space.
+fn block(part: &str) -> String {
+    if part.contains('\n') {
+        part.lines().map(|l| format!("\n {l}")).collect()
+    } else {
+        format!(" {part}")
     }
 }

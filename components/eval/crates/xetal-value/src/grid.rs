@@ -20,6 +20,7 @@ fn kind(v: &Value<'_>) -> &'static str {
         Value::Error(_) => "Error",
         Value::Event(_) => "Event",
         Value::Outcome(_) => "Outcome",
+        Value::Tuple(_) => "Tuple",
     }
 }
 

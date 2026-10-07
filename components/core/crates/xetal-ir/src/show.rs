@@ -48,6 +48,10 @@ impl fmt::Display for Expr {
                 let parts: Vec<String> = items.iter().map(ToString::to_string).collect();
                 write!(f, "(array {})", parts.join(" "))
             }
+            Kind::Tuple(items) => {
+                let parts: Vec<String> = items.iter().map(ToString::to_string).collect();
+                write!(f, "(tuple {})", parts.join(" "))
+            }
             Kind::Var(name) | Kind::Global(name) => f.write_str(name),
             Kind::Prim(name) => write!(f, "#{name}"),
             Kind::Axes { axes, f: fun, .. } => {

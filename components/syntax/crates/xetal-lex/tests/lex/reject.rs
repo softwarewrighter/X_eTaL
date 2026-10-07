@@ -124,7 +124,7 @@ fn numbers_and_minus() {
 
 #[test]
 fn unexpected_and_non_ascii_characters() {
-    assert_reject("a , b", "unexpected-char", 2, 3);
+    assert_reject("a % b", "unexpected-char", 2, 3);
     assert_reject("x $ 3", "unexpected-char", 2, 3);
     assert_reject("x \u{2190} 3", "non-ascii", 2, 5);
     // Unicode is allowed in strings and comments only.

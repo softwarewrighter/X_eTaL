@@ -1,0 +1,9 @@
+# TU6: a tall last part closes the tuple on a line of its own.
+== SOURCE
+(1, 2 2 r_eshape 1)
+== RESULT
+(1: 1
+, 2:
+ 1 1
+ 1 1
+)

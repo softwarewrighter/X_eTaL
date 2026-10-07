@@ -1,0 +1,8 @@
+# TU4: `_` in a pattern binds nothing and may repeat.
+== SOURCE
+(w, _, _, k) := (1, 2, 3, 4)
+w + k
+== RESULT
+5
+== STATUS
+pending

@@ -33,14 +33,15 @@ fn stmt(s: &Stmt) -> String {
 /// supplies them, as in `(expr)_`).
 fn expr(e: &Expr, wrap: bool) -> String {
     let group = |text: String| if wrap { format!("({text})") } else { text };
+    let joined = |items: &[Expr], sep: &str| {
+        let parts: Vec<String> = items.iter().map(|x| expr(x, true)).collect();
+        parts.join(sep)
+    };
     match &e.kind {
         ExprKind::Num(Number::Int(i)) => i.to_string(),
         ExprKind::Num(Number::Float(x)) => format!("{x:?}"),
-        ExprKind::Strand(items) => items
-            .iter()
-            .map(|x| expr(x, true))
-            .collect::<Vec<_>>()
-            .join(" "),
+        ExprKind::Strand(items) => joined(items, " "),
+        ExprKind::Tuple(items) => format!("({})", joined(items, ", ")),
         ExprKind::Var(v) => var_text(v),
         ExprKind::Arg(side) => if *side == Side::Left { "_l" } else { "_r" }.into(),
         ExprKind::Str(s) => {

@@ -67,6 +67,7 @@ fn punct(byte: u8) -> Option<TokenKind> {
     Some(match byte {
         b'\n' => TokenKind::Newline,
         b';' => TokenKind::Semi,
+        b',' => TokenKind::Comma,
         b'@' => TokenKind::Unit,
         b'(' => TokenKind::LParen,
         b')' => TokenKind::RParen,

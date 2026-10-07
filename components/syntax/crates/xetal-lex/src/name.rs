@@ -34,6 +34,18 @@ fn namespace(cur: &mut Cursor) -> Result<Option<String>, LexError> {
     }
     let span = Span::new(cur.pos, cur.pos + i + 1);
     let bad = |message| Err(LexError::new(ErrorKind::BadNamespace, span, message));
+    // `(w: 1, k: 0)`: a record field, kept for records (TU12).
+    let opens_part = cur.text(0).trim_end().ends_with(['(', ',']);
+    if opens_part && matches!(cur.peek_at(i + 1), Some(b' ' | b'\t')) {
+        let prefix: String = (0..=i)
+            .filter_map(|k| cur.peek_at(k))
+            .map(char::from)
+            .collect();
+        let message = format!(
+            "`{prefix}` names a record field, and tuples have no fields (records come later)"
+        );
+        return Err(LexError::new(ErrorKind::RecordField, span, message));
+    }
     if !cur.peek_at(i + 1).is_some_and(|b| b.is_ascii_alphabetic()) {
         return bad(
             "a namespace prefix must be followed by a name (aliases are written as strings)",

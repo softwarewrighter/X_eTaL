@@ -1,0 +1,5 @@
+# TU5, TU7: arithmetic does not reach into a tuple.
+== SOURCE
+(1, 2) + 1
+== ERROR
+error[type-mismatch]: expected an array, found a tuple at 0..10

@@ -32,6 +32,16 @@ fn values() {
 }
 
 #[test]
+fn tuples_print_as_written_and_reparse() {
+    assert_eq!(fmt("( 1 ,2.5 )"), "(1, 2.5)");
+    assert_eq!(fmt("(1 2 3, a + b, (4, 5))"), "(1 2 3, (a + b), (4, 5))");
+    for src in ["(1, 2.5)", "(1 2 3, a + b, (4, 5))", "{ (_r, _r * 2) } 3"] {
+        let formatted = fmt(src);
+        assert_eq!(fmt(&formatted), formatted, "{src}");
+    }
+}
+
+#[test]
 fn quotes_operands_and_applied_values() {
     assert_eq!(fmt("'+ r_/ v"), "('+ r_/ v)");
     assert_eq!(fmt("r_/ '+"), "(r_/ '+)");

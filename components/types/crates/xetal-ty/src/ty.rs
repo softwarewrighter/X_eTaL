@@ -25,6 +25,9 @@ pub enum Type {
     /// A built-in nominal type, by name (QD6: `Color`, `Key`; ER2:
     /// `Error`).
     Named(&'static str),
+    /// A tuple of values of these types (TU2): not an array, so it has
+    /// no shape or items, and it is printed as written, `(Int, Float)`.
+    Tuple(Vec<Type>),
 }
 
 /// The built-in nominal types (QD6, ER2); Saga 29 makes the enumerated
@@ -49,6 +52,7 @@ impl Type {
             Type::Fn(a, b) => Type::Fn(Box::new(a.rename(map)), Box::new(b.rename(map))),
             Type::Box(a) => Type::Box(Box::new(a.rename(map))),
             Type::Outcome(a) => Type::Outcome(Box::new(a.rename(map))),
+            Type::Tuple(parts) => Type::Tuple(parts.iter().map(|p| p.rename(map)).collect()),
             other => other.clone(),
         }
     }
@@ -62,6 +66,7 @@ impl Type {
                 b.vars(out);
             }
             Type::Box(a) | Type::Outcome(a) => a.vars(out),
+            Type::Tuple(parts) => parts.iter().for_each(|p| p.vars(out)),
             _ => {}
         }
     }
@@ -76,6 +81,7 @@ fn write(ty: &Type, names: &HashMap<TypeVar, String>, f: &mut fmt::Formatter<'_>
         Type::Float => f.write_str("Float"),
         Type::Char => f.write_str("Char"),
         Type::Named(name) => f.write_str(name),
+        Type::Tuple(parts) => write_tuple(parts, names, f),
         Type::Var(v) => match names.get(v) {
             Some(name) => f.write_str(name),
             None => write!(f, "t{}", v.0),
@@ -107,6 +113,22 @@ fn write(ty: &Type, names: &HashMap<TypeVar, String>, f: &mut fmt::Formatter<'_>
             write(b, names, f)
         }
     }
+}
+
+/// A tuple type as written: `(Int, Float)` (TU2).
+fn write_tuple(
+    parts: &[Type],
+    names: &HashMap<TypeVar, String>,
+    f: &mut fmt::Formatter<'_>,
+) -> fmt::Result {
+    f.write_str("(")?;
+    for (i, part) in parts.iter().enumerate() {
+        if i > 0 {
+            f.write_str(", ")?;
+        }
+        write(part, names, f)?;
+    }
+    f.write_str(")")
 }
 
 fn letters(vars: &[TypeVar]) -> HashMap<TypeVar, String> {

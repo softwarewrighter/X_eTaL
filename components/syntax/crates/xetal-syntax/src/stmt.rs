@@ -10,9 +10,8 @@ use xetal_ast::{Program, Stmt, Target};
 impl Parser {
     pub(crate) fn program(&mut self) -> Result<Program, Diagnostic> {
         let stmts = self.statements(false)?;
-        if let Some(t) = self.peek() {
-            let span = t.span;
-            return Err(err("unexpected-token", span, "unexpected token"));
+        if self.peek().is_some() {
+            return Err(self.end_of_statement("unexpected token"));
         }
         Ok(Program { stmts })
     }
@@ -31,12 +30,7 @@ impl Parser {
                     match self.peek().map(|t| &t.kind) {
                         None | Some(TokenKind::Newline | TokenKind::Semi | TokenKind::RBrace) => {}
                         Some(_) => {
-                            let span = self.here();
-                            return Err(err(
-                                "unexpected-token",
-                                span,
-                                "expected the end of the statement",
-                            ));
+                            return Err(self.end_of_statement("expected the end of the statement"));
                         }
                     }
                 }

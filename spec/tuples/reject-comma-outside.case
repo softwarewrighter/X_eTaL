@@ -1,0 +1,5 @@
+# TU1, rule 9: a comma outside parentheses is an error.
+== SOURCE
+1, 2
+== ERROR
+error[comma-outside-tuple]: a comma separates the parts of a tuple, inside parentheses: (a, b) at 1..2

@@ -24,6 +24,7 @@ pub enum ErrorKind {
     NumberOutOfRange,
     UnexpectedChar,
     NonAscii,
+    RecordField,
 }
 
 impl ErrorKind {
@@ -48,6 +49,7 @@ impl ErrorKind {
             ErrorKind::NumberOutOfRange => "number-out-of-range",
             ErrorKind::UnexpectedChar => "unexpected-char",
             ErrorKind::NonAscii => "non-ascii",
+            ErrorKind::RecordField => "record-field",
         }
     }
 }

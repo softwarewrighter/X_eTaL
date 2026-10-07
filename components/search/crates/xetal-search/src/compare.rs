@@ -26,13 +26,17 @@ fn key(v: &Value<'_>) -> Key {
 /// Numbers compare exactly (Int with Int as integers), Chars by code;
 /// a number sorts before a Char (mixing is a type error when checked).
 /// Boxes compare by what they hold: its shape, then its items.
+/// Tuples compare part by part, each part as a box's item (TU7).
 pub(crate) fn order(a: &Value<'_>, b: &Value<'_>) -> Ordering {
-    if let (Value::Boxed(x), Value::Boxed(y)) = (a, b) {
-        let (p, q) = (as_array(x), as_array(y));
-        return p
-            .shape()
-            .cmp(q.shape())
-            .then_with(|| order_cells(p.data(), q.data()));
+    match (a, b) {
+        (Value::Boxed(x), Value::Boxed(y)) => return held(x, y),
+        (Value::Tuple(p), Value::Tuple(q)) => {
+            let mut parts = p.iter().zip(q.iter()).map(|(x, y)| held(x, y));
+            return parts
+                .find(|o| o.is_ne())
+                .unwrap_or_else(|| p.len().cmp(&q.len()));
+        }
+        _ => {}
     }
     match (key(a), key(b)) {
         (Key::Int(x), Key::Int(y)) => x.cmp(&y),
@@ -44,6 +48,14 @@ pub(crate) fn order(a: &Value<'_>, b: &Value<'_>) -> Ordering {
         (_, Key::Char(_)) => Ordering::Less,
         _ => Ordering::Equal,
     }
+}
+
+/// Two values as whole arrays: shape first, then the items in order.
+fn held(x: &Value<'_>, y: &Value<'_>) -> Ordering {
+    let (p, q) = (as_array(x), as_array(y));
+    p.shape()
+        .cmp(q.shape())
+        .then_with(|| order_cells(p.data(), q.data()))
 }
 
 /// Whether two items are equal as `=` and `m_atch` see them; boxes are

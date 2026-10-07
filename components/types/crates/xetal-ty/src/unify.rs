@@ -54,6 +54,7 @@ impl Unifier {
             Type::Fn(a, b) => Type::Fn(Box::new(self.resolve(a)), Box::new(self.resolve(b))),
             Type::Box(a) => Type::Box(Box::new(self.resolve(a))),
             Type::Outcome(a) => Type::Outcome(Box::new(self.resolve(a))),
+            Type::Tuple(parts) => Type::Tuple(parts.iter().map(|p| self.resolve(p)).collect()),
             other => other.clone(),
         }
     }
@@ -75,6 +76,10 @@ impl Unifier {
             (Type::Box(a1), Type::Box(b1)) | (Type::Outcome(a1), Type::Outcome(b1)) => {
                 self.unify(a1, b1, span)
             }
+            (Type::Tuple(ps), Type::Tuple(qs)) if ps.len() == qs.len() => ps
+                .iter()
+                .zip(qs)
+                .try_for_each(|(p, q)| self.unify(p, q, span)),
             _ => Err(
                 Diagnostic::new("type-mismatch", format!("expected {a}, found {b}"))
                     .with_span(span),
@@ -104,7 +109,10 @@ impl Unifier {
                 }
             }
             t if !classes.admits(t) => {
-                let (want, got) = (classes.describe(), t.to_string());
+                let (want, got) = match t {
+                    Type::Tuple(_) => ("an array".to_string(), "a tuple".to_string()),
+                    _ => (classes.describe(), t.to_string()),
+                };
                 let (e, f) = if expected { (want, got) } else { (got, want) };
                 return Err(
                     Diagnostic::new("type-mismatch", format!("expected {e}, found {f}"))
@@ -112,6 +120,9 @@ impl Unifier {
                 );
             }
             Type::Box(inner) => self.constrain(inner, classes, span)?,
+            Type::Tuple(parts) => parts
+                .iter()
+                .try_for_each(|p| self.constrain(p, classes, span))?,
             _ => {}
         }
         self.subst.insert(v, t.clone());

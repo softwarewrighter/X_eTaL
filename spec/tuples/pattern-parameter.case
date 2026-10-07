@@ -1,0 +1,12 @@
+# TU3: a pattern in a lambda parameter (monadic); the type is
+# polymorphic part by part (TU2).
+== SOURCE
+u:s_wapped := { (a, b) -> (b, a) }
+u:s_wapped (1, "x")
+== TYPE
+u:s_wapped : (a, b) -> (b, a)
+(Char, Int)
+== RESULT
+(x, 1)
+== STATUS
+pending

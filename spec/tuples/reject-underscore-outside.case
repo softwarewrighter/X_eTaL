@@ -1,0 +1,5 @@
+# TU4: outside a pattern a bare `_` stays the error it is today.
+== SOURCE
+_ + 1
+== ERROR
+error[bad-lambda-arg]: lambda arguments are `_l` and `_r` (and `_l_` / `_r_` to apply them) at 0..1

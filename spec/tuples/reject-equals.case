@@ -1,0 +1,5 @@
+# TU7: `=` does not compare tuples; m_atch does.
+== SOURCE
+(1, 2) = (1, 2)
+== ERROR
+error[type-mismatch]: expected an array, found a tuple at 0..15

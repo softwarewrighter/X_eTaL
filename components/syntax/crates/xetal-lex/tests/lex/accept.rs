@@ -184,6 +184,22 @@ fn numbers_and_the_negative_literal_rule() {
     assert_eq!(kinds("3 -1"), ["Num(3)", "Num(-1)"]);
     assert_eq!(kinds("x - -3"), ["Var(x)", "Sym(-)", "Num(-3)"]);
     assert_eq!(kinds("(-1)"), ["LParen", "Num(-1)", "RParen"]);
+    // After a tuple's comma a minus touching a digit is a negative
+    // literal, as after `(` (TU1).
+    assert_eq!(
+        kinds("(1,-2)"),
+        ["LParen", "Num(1)", "Comma", "Num(-2)", "RParen"]
+    );
+}
+
+#[test]
+fn the_comma_separates_tuple_parts() {
+    assert_eq!(
+        kinds("(w, m) := s"),
+        [
+            "LParen", "Var(w)", "Comma", "Var(m)", "RParen", "Assign", "Var(s)"
+        ]
+    );
 }
 
 #[test]

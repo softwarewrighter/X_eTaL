@@ -28,7 +28,8 @@ impl<'a> Machine<'a, '_> {
             Kind::App(..) | Kind::App2 { .. } | Kind::If { .. } | Kind::Axes { .. } => {
                 self.compound(e, env)
             }
-            Kind::Array(items) if !items.is_empty() => self.array_start(items, env),
+            Kind::Array(items) if !items.is_empty() => self.array_start(items, false, env),
+            Kind::Tuple(parts) => self.array_start(parts, true, env),
             _ => Control::Return(self.leaf(e, env)?),
         })
     }
@@ -78,12 +79,13 @@ impl<'a> Machine<'a, '_> {
         Control::Eval(next, env)
     }
 
-    /// An array's items, right to left: the last one first.
-    fn array_start(&mut self, items: &'a [Expr], env: &Env<'a>) -> Control<'a> {
+    /// An array's items (a tuple's parts), right to left: the last one first.
+    fn array_start(&mut self, items: &'a [Expr], tuple: bool, env: &Env<'a>) -> Control<'a> {
         let left = items.len() - 1;
         let done = Vec::new();
         self.stack.push(Kont::Array {
             items,
+            tuple,
             left,
             done,
             env: env.clone(),

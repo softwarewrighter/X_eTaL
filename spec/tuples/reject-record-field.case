@@ -1,0 +1,6 @@
+# TU12: a name, a colon and a space inside parentheses is the record
+# field syntax kept for Saga 29; tuples give it no meaning.
+== SOURCE
+(w: 1, k: 0)
+== ERROR
+error[record-field]: `w:` names a record field, and tuples have no fields (records come later) at 1..3

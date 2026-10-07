@@ -43,6 +43,8 @@ pub enum ExprKind {
     Num(Number),
     /// Adjacent numbers (each possibly with an exponent).
     Strand(Vec<Expr>),
+    /// `(a, b, ...)`: a tuple of two or more parts (TU1).
+    Tuple(Vec<Expr>),
     Var(Var),
     Arg(Side),
     Str(String),
@@ -130,7 +132,9 @@ pub const MAX_DEPTH: u32 = 256;
 impl Expr {
     pub fn new(kind: ExprKind, span: Span) -> Self {
         let children = match &kind {
-            ExprKind::Strand(items) => items.iter().map(|x| x.depth).max().unwrap_or(0),
+            ExprKind::Strand(items) | ExprKind::Tuple(items) => {
+                items.iter().map(|x| x.depth).max().unwrap_or(0)
+            }
             ExprKind::Pow { base, .. } => base.depth,
             ExprKind::Quote(f) | ExprKind::Fn(f) => f.depth,
             ExprKind::Monadic { f, arg } => f.depth.max(arg.depth),

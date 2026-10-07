@@ -49,9 +49,11 @@ pub enum Kont<'a> {
         env: Env<'a>,
         span: Span,
     },
-    /// An array's items, right to left: `left` still to evaluate.
+    /// An array's items (or a tuple's parts, when `tuple`), right to
+    /// left: `left` still to evaluate.
     Array {
         items: &'a [Expr],
+        tuple: bool,
         left: usize,
         done: Vec<Value<'a>>,
         env: Env<'a>,

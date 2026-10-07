@@ -130,18 +130,20 @@ impl Parser {
 
     fn paren_inner(&mut self, open: Span) -> Result<Item, Diagnostic> {
         self.newline_is_space.push(true);
-        let inner = if self.expr_is_empty() {
+        let inner = if self.peek().is_some_and(|t| t.kind == TokenKind::Comma) {
+            Err(crate::tuple::missing_part(self.here(), "before"))
+        } else if self.expr_is_empty() {
             Err(err(
                 "missing-value",
                 self.here(),
                 "expected an expression inside `( )`",
             ))
         } else {
-            self.expr()
+            self.expr().and_then(|first| self.tuple_parts(first))
         };
         let close = self.next();
         self.newline_is_space.pop();
-        let inner = inner?;
+        let mut parts = inner?;
         let span = match close {
             Some(Token {
                 kind: TokenKind::RParen,
@@ -150,6 +152,10 @@ impl Parser {
             Some(t) => return Err(err("unexpected-token", t.span, "expected `)`")),
             None => return Err(err("unclosed", open, "this `(` is never closed")),
         };
+        if parts.len() > 1 {
+            return Ok(Item::Value(Self::tuple(parts, span)));
+        }
+        let inner = parts.pop().expect("one part");
         if self.peek().is_some_and(|t| t.kind == TokenKind::Apply) {
             let apply = self.next().expect("checked");
             let kind = FunKind::Apply(Box::new(inner));
