@@ -1,0 +1,1 @@
+PN4: importing an .xtl with no l: export fails with library-exports-nothing at the import (D121, MC8 row 22); the file still runs as an app; two goldens
