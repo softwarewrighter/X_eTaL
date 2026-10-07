@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-07
 
+- 15:27 `feat` Importing a library that exports nothing is an error (PN4, Saga 38 step 3, D121): `library-exports-nothing`, at the import; the same file still runs as an app.
+
 - 13:55 `plan` Saga 39, tuples (lanes/tuples): asked for by the user after X_eTaL-ML's ask M13 (train-live packs Adam's state into one vector because `p_ower` iterates one value) and X_eTaL-demos' D7; docs/tuples.md extended with the plan, twelve questions (TU1-TU12) with a recommendation each for step 1, and eight steps; Saga 29's tuple step moved there.
 - 13:46 `feat` The `h:` namespace (Saga 38 step 2, D120): file-private definitions in apps and libraries, reserved as an alias, hidden with a library's internals so no importer can name them, left out of `xetal type` and marked not public by `xetal doc` (PN7); the tour and the hello document import Hello as `hi:` now.
 
