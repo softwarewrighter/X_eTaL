@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-07
+
+- 11:40 `docs` Merged PR #105: docs/private-names.md, the plan for `h:` (file-private names, PN1-PN7), linked from the README.
+
 ## 2026-10-06
 
 - 13:52 `build` Merged PRs #103 (rosetta: the tour's mode shown as a badge; a page opened from a link tours) and #104 (rustfmt of a test).
