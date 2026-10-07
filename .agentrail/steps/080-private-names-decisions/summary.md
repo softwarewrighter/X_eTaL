@@ -1,0 +1,1 @@
+PN1-PN7 and MC8 rows 5, 21-23 in lang-choices; D119; three pending spec cases in spec/names; the poster and README explanation noted for step 5
