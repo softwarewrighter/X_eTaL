@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-07
 
+- 16:45 `build` The LaTeX gallery skips a pending spec case whose source does not lex yet (as it does an error case), so the tuple cases still pending do not fail it; gallery rebuilt after merging PR #108.
 - 16:35 `chore` Merged PR #108 (tuple values, Saga 39 step 2, with the decisions of step 1); PR #107 closed as superseded by it.
 - 16:30 `feat` Tuple values (Saga 39 step 2, D123): `(1, 2.5)` is a tuple of type `(Int, Float)`, its parts evaluated right to left; printed on one line, or one block per part when a part is tall; `m_atch` compares tuples part by part (a class `Match` for it), `=` and arithmetic on a tuple are type errors; errors for a comma outside parentheses, an empty part and a record field `(w: 1)`.
 - 15:40 `design` Tuples decided (Saga 39 step 1, D122): TU1-TU12 in lang-choices section 9d, every one as recommended in docs/tuples.md: `(w, m, v, k)`, types printed as written, patterns only (bindings and lambda parameters, nested, `_`), mismatches as type errors, `m_atch` only, boxed tuples only in arrays, the higher-order built-ins unchanged, `(w: ...)` kept for records; twenty spec cases in spec/tuples, nineteen pending. Four empty duplicate `9c` headings removed from lang-choices.

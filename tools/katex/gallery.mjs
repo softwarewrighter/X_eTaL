@@ -8,7 +8,7 @@
 // Sources: demos/, lib/ and userlibs/ (every line of code), the xetal
 // blocks of docs/literate/*.org, the session input lines (six spaces in)
 // of the README's and docs/*.md's session blocks, and the SOURCE of every
-// spec case (a case whose source does not lex, by design, is skipped).
+// spec case (an error or pending case whose source does not lex is skipped).
 
 import { spawnSync } from 'node:child_process';
 import { cpSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
@@ -58,7 +58,9 @@ function lines() {
     const m = text.match(/== SOURCE\n([\s\S]*?)(?=\n== |$)/);
     if (!m) continue;
     const at = text.slice(0, m.index).split('\n').length + 1;
-    m[1].split('\n').forEach((l, i) => add(f, at + i, l, text.includes('== ERROR')));
+    // An error case, or a pending one (not yet implemented), may not lex.
+    const mayFail = text.includes('== ERROR') || /== STATUS\npending/.test(text);
+    m[1].split('\n').forEach((l, i) => add(f, at + i, l, mayFail));
   }
   return out;
 }
