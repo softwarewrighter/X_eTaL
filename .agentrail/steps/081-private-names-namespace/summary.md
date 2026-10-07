@@ -1,0 +1,1 @@
+h: namespace (D120): reserved alias, program h: kept, library h: hidden (importer gets not-exported), core accepts h: functions and variables at top level, xetal type omits and xetal doc marks not public (PN7); Hello alias h: -> hi: in tour/hello; spec cases active, 5 goldens
