@@ -1,0 +1,1 @@
+TU1-TU12 decided with the user (all as recommended) and recorded as lang-choices 9d, D121 with the rule-3 grammar reading; docs/tuples.md marked decided; 20 spec cases in spec/tuples (19 pending, 1 active).
