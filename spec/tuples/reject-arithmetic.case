@@ -2,6 +2,4 @@
 == SOURCE
 (1, 2) + 1
 == ERROR
-error[type-mismatch]: a tuple where an array is expected at 0..6
-== STATUS
-pending
+error[type-mismatch]: expected an array, found a tuple at 0..10

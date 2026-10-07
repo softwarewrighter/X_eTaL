@@ -1,6 +1,6 @@
 # TU6: when a part prints on several lines, every part is a block of
-# its own introduced by its position (the exact layout is pinned by
-# goldens at step 2).
+# its own introduced by its position (a tall last part closes on a line of
+# its own).
 == SOURCE
 (2 3 r_eshape r_ange 6, 4.5)
 == RESULT
@@ -8,5 +8,3 @@
  1 2 3
  4 5 6
 , 2: 4.5)
-== STATUS
-pending

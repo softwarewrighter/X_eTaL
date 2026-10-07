@@ -22,6 +22,7 @@ impl Parser {
             None | Some(
                 TokenKind::Newline
                     | TokenKind::Semi
+                    | TokenKind::Comma
                     | TokenKind::Guard
                     | TokenKind::RParen
                     | TokenKind::RBracket

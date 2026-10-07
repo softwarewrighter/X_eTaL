@@ -1,0 +1,7 @@
+# TU7: m_atch compares each part as a whole array, shape and items.
+== SOURCE
+(1 2, 3) m_atch (1 2, 3)
+(1 2, 3) m_atch (2 1 r_eshape 1 2, 3)
+== RESULT
+1
+0

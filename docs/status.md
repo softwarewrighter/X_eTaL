@@ -21,7 +21,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Built-in functions | 125 | 0 | 0 |
 | Language decisions | 148 | 0 | 7 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 389 | 0 | 20 |
+| Spec cases | 402 | 0 | 9 |
 
 ## Planned (decided, not yet implemented)
 
@@ -34,24 +34,13 @@ conventions (naming, layout) work without a spec case citing them.
 - **PN6** (planned): Unchanged: local functions inside a lambda are bare and scoped to it (`c_ap := { ... }`), and one named (...).
 - spec case `names/reject-bare-function-in-app.case` (pending)
 - spec case `tuples/boxed.case` (pending)
-- spec case `tuples/lambda-body-tuple.case` (pending)
-- spec case `tuples/literal-arrays.case` (pending)
-- spec case `tuples/literal-grouping.case` (pending)
-- spec case `tuples/literal-pair.case` (pending)
-- spec case `tuples/match.case` (pending)
 - spec case `tuples/pattern-binding.case` (pending)
 - spec case `tuples/pattern-dyadic.case` (pending)
 - spec case `tuples/pattern-nested.case` (pending)
 - spec case `tuples/pattern-parameter.case` (pending)
 - spec case `tuples/pattern-wildcard.case` (pending)
 - spec case `tuples/power-state.case` (pending)
-- spec case `tuples/print-tall.case` (pending)
-- spec case `tuples/reject-arithmetic.case` (pending)
-- spec case `tuples/reject-comma-outside.case` (pending)
-- spec case `tuples/reject-equals.case` (pending)
 - spec case `tuples/reject-pattern-size.case` (pending)
-- spec case `tuples/reject-record-field.case` (pending)
-- spec case `tuples/reject-trailing-comma.case` (pending)
 
 ## Built-in functions
 
@@ -192,7 +181,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 6 | 4 |
 | `r_avel` | `a -> a` | works | 2 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 64 | 2 |
+| `r_eshape` | `Int -> a -> a` | works | 66 | 2 |
 | `t_ake` | `Int -> a -> a` | works | 15 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 3 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 15 | 4 |
@@ -229,7 +218,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `i_ndexOf` | `Eq a => a -> a -> Int` | works | 5 | 2 |
 | `m_ember?` | `(Eq a, Truthy b) => a -> a -> b` | works | 2 | 1 |
-| `m_atch` | `(Eq a, Truthy b) => a -> a -> b` | works | 9 | 5 |
+| `m_atch` | `(Match a, Truthy b) => a -> a -> b` | works | 10 | 5 |
 | `u_nique` | `Eq a => a -> a` | works | 3 | 1 |
 | `s_ort` | `Ord a => a -> a` | works | 4 | 3 |
 | `g_rade` | `Ord a => a -> Int` | works | 1 | 2 |
@@ -344,8 +333,8 @@ conventions (naming, layout) work without a spec case citing them.
 | TU3 | A tuple is taken apart by a pattern only: in a binding at the top level or in a lambda, `(w, m, v, k) := (...) | works | 4 |
 | TU4 | In a pattern, `_` binds nothing and may repeat: `(w, _, _, k) := s` | works | 2 |
 | TU5 | A tuple used where an array is expected, an array where a tuple is expected, or a pattern of the wrong (...) | works | 2 |
-| TU6 | A tuple prints on one line, `(1 2 3, 4.5, 7)`, when every part prints on one line; when a part prints on (...) | works | 3 |
-| TU7 | `m_atch` compares two tuples part by part and answers one truth | works | 3 |
+| TU6 | A tuple prints on one line, `(1 2 3, 4.5, 7)`, when every part prints on one line; when a part prints on (...) | works | 4 |
+| TU7 | `m_atch` compares two tuples part by part and answers one truth | works | 4 |
 | TU8 | A tuple is not an array item in v1, but it can be boxed: `e_nclose (1, 2.5)` is a `Box (Int, Float)`, (...) | works | 1 |
 | TU9 | The higher-order built-ins are unchanged: their types are polymorphic, so `p_ower` repeats a step on a (...) | works | 1 |
 | TU10 | A tuple is a Core form of its own, and a pattern desugars to bindings of projections in Core, so the (...) | works | 0 |

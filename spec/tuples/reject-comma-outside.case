@@ -2,6 +2,4 @@
 == SOURCE
 1, 2
 == ERROR
-error[comma-outside-tuple]: a comma separates the parts of a tuple, inside parentheses: write (1, 2) at 1..2
-== STATUS
-pending
+error[comma-outside-tuple]: a comma separates the parts of a tuple, inside parentheses: (a, b) at 1..2

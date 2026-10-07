@@ -4,5 +4,3 @@
 { (_r, _r * 2) } 3
 == RESULT
 (3, 6)
-== STATUS
-pending

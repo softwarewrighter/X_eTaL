@@ -13,13 +13,8 @@ impl Lower {
     pub(crate) fn expr(&mut self, e: &Surface) -> Result<Expr, Diagnostic> {
         let kind = match &e.kind {
             ExprKind::Num(n) => Kind::Lit(*n),
-            ExprKind::Strand(items) => {
-                let items = items
-                    .iter()
-                    .map(|x| self.strand_item(x))
-                    .collect::<Result<_, _>>()?;
-                Kind::Array(items)
-            }
+            ExprKind::Strand(items) => Kind::Array(self.parts(items, true)?),
+            ExprKind::Tuple(items) => Kind::Tuple(self.parts(items, false)?),
             ExprKind::Var(v) => {
                 let name = format!("{}{}", v.name, if v.mutable { "!" } else { "" });
                 match v.ns.as_deref() {

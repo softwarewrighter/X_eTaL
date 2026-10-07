@@ -17,7 +17,9 @@ fn expr_args(e: &Expr, (l, r): (bool, bool)) -> (bool, bool) {
     let side = |s: &Side| (l || *s == Side::Left, r || *s == Side::Right);
     match &e.kind {
         ExprKind::Arg(s) => side(s),
-        ExprKind::Strand(items) => items.iter().fold((l, r), |acc, x| expr_args(x, acc)),
+        ExprKind::Strand(items) | ExprKind::Tuple(items) => {
+            items.iter().fold((l, r), |acc, x| expr_args(x, acc))
+        }
         ExprKind::Pow { base, .. } => expr_args(base, (l, r)),
         ExprKind::Quote(f) | ExprKind::Fn(f) => fun_args(f, (l, r)),
         ExprKind::Monadic { f, arg } => expr_args(arg, fun_args(f, (l, r))),

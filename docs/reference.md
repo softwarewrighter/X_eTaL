@@ -958,7 +958,7 @@ Whether each item of the left is among the items of the right.
 
 ### `m_atch`
 
-`(Eq a, Truthy b) => a -> a -> b`, two arguments.
+`(Match a, Truthy b) => a -> a -> b`, two arguments.
 
 Whether both sides have the same shape and equal items (APL's match):
 one result for the whole arrays, where `=` compares item by item. The

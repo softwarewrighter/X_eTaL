@@ -61,6 +61,10 @@ impl fmt::Display for Expr {
                 let parts: Vec<String> = items.iter().map(ToString::to_string).collect();
                 write!(f, "(strand {})", parts.join(" "))
             }
+            ExprKind::Tuple(items) => {
+                let parts: Vec<String> = items.iter().map(ToString::to_string).collect();
+                write!(f, "(tuple {})", parts.join(" "))
+            }
             ExprKind::Var(v) => f.write_str(&target(&Target::Var(v.clone()))),
             ExprKind::Arg(side) => f.write_str(if *side == Side::Left { "_l" } else { "_r" }),
             ExprKind::Str(s) => write!(f, "{s:?}"),

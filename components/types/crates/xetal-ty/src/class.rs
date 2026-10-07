@@ -9,7 +9,7 @@ struct Class {
     phrase: &'static str,
 }
 
-const TABLE: [Class; 4] = [
+const TABLE: [Class; 5] = [
     Class {
         name: "Num",
         admits: |t| matches!(t, Type::Int | Type::Float),
@@ -35,10 +35,37 @@ const TABLE: [Class; 4] = [
         admits: |t| matches!(t, Type::Int | Type::Float | Type::Char),
         phrase: "a number or Char",
     },
+    // What m_atch compares (TU7): what Eq admits, and tuples, part by
+    // part (the parts are constrained as a box's item is).
+    Class {
+        name: "Match",
+        admits: |t| {
+            matches!(
+                t,
+                Type::Int
+                    | Type::Float
+                    | Type::Bool
+                    | Type::Char
+                    | Type::Box(_)
+                    | Type::Named(_)
+                    | Type::Tuple(_)
+            )
+        },
+        phrase: "Int, Float, Bool, Char or a tuple of them",
+    },
 ];
 
 /// The base types a class may admit.
 const BASE: [Type; 4] = [Type::Int, Type::Float, Type::Bool, Type::Char];
+
+/// The types that tell classes apart: the base types and a tuple.
+const PROBES: [Type; 5] = [
+    Type::Int,
+    Type::Float,
+    Type::Bool,
+    Type::Char,
+    Type::Tuple(Vec::new()),
+];
 
 /// The classes a type variable must belong to (a set, one bit per row
 /// of the table).
@@ -46,7 +73,7 @@ const BASE: [Type; 4] = [Type::Int, Type::Float, Type::Bool, Type::Char];
 pub struct Classes(u8);
 
 impl Classes {
-    /// The class spelled `name` (`Num`, `Truthy`, `Eq`, `Ord`).
+    /// The class spelled `name` (`Num`, `Truthy`, `Eq`, `Ord`, `Match`).
     pub fn named(name: &str) -> Option<Classes> {
         TABLE
             .iter()
@@ -72,7 +99,7 @@ impl Classes {
     pub fn names(self) -> impl Iterator<Item = &'static str> {
         let implied = move |c: &Class| {
             self.rows()
-                .any(|d| d.name != c.name && BASE.iter().all(|t| !(d.admits)(t) || (c.admits)(t)))
+                .any(|d| d.name != c.name && PROBES.iter().all(|t| !(d.admits)(t) || (c.admits)(t)))
         };
         self.rows().filter(move |c| !implied(c)).map(|c| c.name)
     }

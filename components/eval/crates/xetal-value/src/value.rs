@@ -29,6 +29,9 @@ pub enum Value<'a> {
     Outcome(Rc<Outcome<'a>>),
     /// An event from the host (RS1): what `[]E_VENT` gives.
     Event(Rc<crate::Event>),
+    /// A tuple (TU1): two or more values side by side, each with its
+    /// own type and shape; not an array.
+    Tuple(Rc<[Value<'a>]>),
 }
 
 /// What a handler asks its trap to do (ER2).

@@ -41,7 +41,7 @@ fn walk(e: &Expr, out: &mut Vec<Diagnostic>) {
             walk(value, out);
             walk(body, out);
         }
-        Kind::Array(items) => items.iter().for_each(|x| walk(x, out)),
+        Kind::Array(items) | Kind::Tuple(items) => items.iter().for_each(|x| walk(x, out)),
         Kind::Axes { f, .. } => walk(f, out),
         Kind::App(f, x) => {
             walk(f, out);

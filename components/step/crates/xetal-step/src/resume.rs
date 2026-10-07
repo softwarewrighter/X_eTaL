@@ -77,10 +77,11 @@ impl<'a> Machine<'a, '_> {
             } => Control::Eval(if truth(&v, span)? { then } else { other }, env),
             Kont::Array {
                 items,
+                tuple,
                 left,
                 done,
                 env,
-            } => self.array(items, left, done, env, v),
+            } => self.array((items, tuple), left, done, env, v),
             _ => return Err(Diagnostic::new("internal", "a frame out of place")),
         })
     }
@@ -88,7 +89,7 @@ impl<'a> Machine<'a, '_> {
     /// One more array item in hand (right to left): the next, or the array.
     fn array(
         &mut self,
-        items: &'a [xetal_core::Expr],
+        (items, tuple): (&'a [xetal_core::Expr], bool),
         left: usize,
         mut done: Vec<Value<'a>>,
         env: xetal_value::Env<'a>,
@@ -97,11 +98,16 @@ impl<'a> Machine<'a, '_> {
         done.push(v);
         if left == 0 {
             done.reverse();
-            return Control::Return(Value::Array(Rc::new(Array::vector(done))));
+            return Control::Return(if tuple {
+                Value::Tuple(done.into())
+            } else {
+                Value::Array(Rc::new(Array::vector(done)))
+            });
         }
         let next = &items[left - 1];
         let k = Kont::Array {
             items,
+            tuple,
             left: left - 1,
             done,
             env: env.clone(),

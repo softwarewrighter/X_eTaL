@@ -4,5 +4,3 @@
 (w: 1, k: 0)
 == ERROR
 error[record-field]: `w:` names a record field, and tuples have no fields (records come later) at 1..3
-== STATUS
-pending

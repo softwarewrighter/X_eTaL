@@ -133,7 +133,7 @@ pub(crate) fn minus(cur: &mut Cursor) -> Result<TokenKind, LexError> {
         cur.pos += 1;
         return Ok(TokenKind::Sym(Symbol::Minus));
     }
-    if !cur.prev().is_none_or(|b| b" \t\r\n({[;".contains(&b)) {
+    if !cur.prev().is_none_or(|b| b" \t\r\n({[;,".contains(&b)) {
         return Err(LexError::new(
             ErrorKind::AmbiguousMinus,
             Span::new(cur.pos, cur.pos + 1),

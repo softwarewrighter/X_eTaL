@@ -8,11 +8,11 @@
 //! specific error (the ambiguity corpus in `spec/ambiguity/`).
 
 mod block;
-mod cursor;
 mod expr;
 mod item;
 mod parser;
 mod stmt;
+mod tuple;
 
 pub use parser::{MAX_NESTING, parse};
 pub use xetal_ast::{

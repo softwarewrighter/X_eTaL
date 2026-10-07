@@ -3,5 +3,3 @@
 (1,)
 == ERROR
 error[empty-tuple-part]: a tuple part is missing after the comma at 2..3
-== STATUS
-pending

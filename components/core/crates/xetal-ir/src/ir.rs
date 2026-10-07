@@ -44,6 +44,8 @@ pub enum Kind {
     Unit,
     /// A strand: an array of the element values.
     Array(Vec<Expr>),
+    /// A tuple of two or more parts (TU1, TU10); not an array.
+    Tuple(Vec<Expr>),
     /// A local or top-level variable (lexical).
     Var(String),
     /// A namespace-qualified name (`u:s_quare`, `m:pi`).
