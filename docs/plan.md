@@ -1083,7 +1083,7 @@ the user's word, ahead of the asks below.
 | 2 | private-names-namespace | `h:` private to its file, reserved as an alias, out of every interface (`xetal type`, `xetal doc`), shown by the renderers, the Emacs mode and the REPL |
 | 3 | private-names-empty-library | PN4: a library that exports nothing is an error |
 | 4 | private-names-migrate | PN2's warning, PN3's message, `xetal migrate FILE` (compiler-based), lib/, userlibs/ and the Rosetta stone migrated, the gate strict |
-| 5 | private-names-docs | the tour, the reference and the literate documents write helpers as `h:`; the siblings told how to migrate (about 70 names); PN2 an error after one release |
+| 5 | private-names-docs | the tour, the reference and the literate documents write helpers as `h:`; the README and the syntax poster explain `u:`, `l:` and `h:` side by side (the user, 2026-10-07); the siblings told how to migrate (about 70 names); PN2 an error after one release |
 
 Then, from the asks audit of 2026-10-07 (82 asks of seven sibling
 repositories, verified against main): the ledger refreshed (38 asks

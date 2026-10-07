@@ -1,0 +1,8 @@
+# PN1, MC8 row 5 (widened): h: is reserved, so it cannot be a library's
+# alias, as u: and l: cannot.
+== SOURCE
+"h:" u_se< "Stats"
+== ERROR
+error[reserved-alias]: u:, l: and h: cannot be aliases (u: is the program, l: a library itself, h: a file's private names) at 0..4
+== STATUS
+pending

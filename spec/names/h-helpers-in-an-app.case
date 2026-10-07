@@ -1,0 +1,14 @@
+# PN1: h: names a file-private definition, legal at the top level of an
+# app: an h: helper runs exactly as a u: function would, and h: works
+# for variables too (PN5).
+== SOURCE
+h:h_alf := { _r / 2 }
+h:limit := 8
+h:h_alf h:limit
+u:t_wice := { 2 * h:h_alf _r }
+u:t_wice 10
+== RESULT
+4.0
+10.0
+== STATUS
+pending
