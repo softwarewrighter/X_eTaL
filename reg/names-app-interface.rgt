@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type reg/fixtures/names/app.xtl"
+exit_code = 0
+desc = "PN7: xetal type lists an app's u: names and bare variables, never its h: helpers"

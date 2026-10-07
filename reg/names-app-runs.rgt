@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run reg/fixtures/names/app.xtl"
+exit_code = 0
+desc = "PN1: an app's h: helpers run as u: functions do"

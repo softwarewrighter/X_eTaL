@@ -173,7 +173,7 @@ impl Lower {
                     if v.mutable { "!" } else { "" }
                 ))
             }
-            Target::Var(v) if hidden(&v.ns) && top => {
+            Target::Var(v) if (hidden(&v.ns) || v.ns.as_deref() == Some("h")) && top => {
                 Ok(format!("{}:{}", v.ns.as_deref().unwrap_or(""), v.name))
             }
             Target::Var(_) => Err(err(
@@ -184,9 +184,12 @@ impl Lower {
             Target::Func(f) if hidden(&f.ns) && top => {
                 Ok(format!("{}:{}", f.ns.as_deref().unwrap_or(""), f.spelled()))
             }
-            Target::Func(f) if f.ns.as_deref() == Some("u") && top => {
-                Ok(format!("u:{}", f.spelled()))
-            }
+            // A program's own functions (u:) and its helpers (h:, PN1).
+            Target::Func(f) if matches!(f.ns.as_deref(), Some("u" | "h")) && top => Ok(format!(
+                "{}:{}",
+                f.ns.as_deref().unwrap_or("u"),
+                f.spelled()
+            )),
             Target::Func(f)
                 if (f.ns.is_none() || !crate::train::fresh(&f.ns).is_empty()) && !top =>
             {
@@ -200,7 +203,7 @@ impl Lower {
             Target::Func(_) => Err(err(
                 "bad-binding",
                 span,
-                "only u: functions can be defined here (other namespaces are imported and read-only)",
+                "only u: and h: functions can be defined here (other namespaces are imported and read-only)",
             )),
         }
     }

@@ -1252,12 +1252,12 @@ A library of your own lives in ~userlibs/~, on the search path:
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-"h:" u̲se< "Hello"       ⍝ a library of your own, found in userlibs/
-ʰh̲ello @               ⍝ niladic: called with Unit
+"hi:" u̲se< "Hello"       ⍝ a library of your own, found in userlibs/
+ʰⁱh̲ello @               ⍝ niladic: called with Unit
 #+end_example
 #+begin_src xetal
-"h:" u_se< "Hello"       # a library of your own, found in userlibs/
-h:h_ello @               # niladic: called with Unit
+"hi:" u_se< "Hello"       # a library of your own, found in userlibs/
+hi:h_ello @               # niladic: called with Unit
 #+end_src
 
 #+RESULTS:

@@ -19,25 +19,20 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 125 | 0 | 0 |
-| Language decisions | 133 | 0 | 10 |
+| Language decisions | 136 | 0 | 7 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 386 | 0 | 3 |
+| Spec cases | 388 | 0 | 1 |
 
 ## Planned (decided, not yet implemented)
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
 - **S11** (planned): Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents.
 - **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
-- **PN1** (planned): `h:` is a namespace for file-private definitions, functions and variables: `h:j_oin := { b -> ... }`, (...).
 - **PN2** (planned): A bare top-level function in a library is deprecated: it still works and is private, with a warning (...).
 - **PN3** (planned): A bare top-level function in an app stays an error; its message names both choices: "write `u:h_alf` (the (...).
 - **PN4** (planned): Importing an `.xtl` file that defines no `l:` name, function or variable, is an error (a new MC8 row): (...).
-- **PN5** (planned): A bare top-level variable in a library stays private, with no warning: built-ins are functions or quad (...).
 - **PN6** (planned): Unchanged: local functions inside a lambda are bare and scoped to it (`c_ap := { ... }`), and one named (...).
-- **PN7** (planned): What a file offers, its interface, is its exports for a library (`l:` names) and its `u:` names and bare (...).
-- spec case `names/h-helpers-in-an-app.case` (pending)
 - spec case `names/reject-bare-function-in-app.case` (pending)
-- spec case `names/reject-h-alias.case` (pending)
 
 ## Built-in functions
 
@@ -386,13 +381,13 @@ conventions (naming, layout) work without a spec case citing them.
 | MC29 | `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...) | planned | 0 |
 | MC30 | Macros are hygienic, automatically (as Scheme's): after a macro gives its text, the macro phase finds each (...) | works | 5 |
 | MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
-| PN1 | `h:` is a namespace for file-private definitions, functions and variables: `h:j_oin := { b -> ... }`, (...) | planned | 2 |
+| PN1 | `h:` is a namespace for file-private definitions, functions and variables: `h:j_oin := { b -> ... }`, (...) | works | 2 |
 | PN2 | A bare top-level function in a library is deprecated: it still works and is private, with a warning (...) | planned | 0 |
 | PN3 | A bare top-level function in an app stays an error; its message names both choices: "write `u:h_alf` (the (...) | planned | 1 |
 | PN4 | Importing an `.xtl` file that defines no `l:` name, function or variable, is an error (a new MC8 row): (...) | planned | 0 |
-| PN5 | A bare top-level variable in a library stays private, with no warning: built-ins are functions or quad (...) | planned | 1 |
+| PN5 | A bare top-level variable in a library stays private, with no warning: built-ins are functions or quad (...) | works | 1 |
 | PN6 | Unchanged: local functions inside a lambda are bare and scoped to it (`c_ap := { ... }`), and one named (...) | planned | 0 |
-| PN7 | What a file offers, its interface, is its exports for a library (`l:` names) and its `u:` names and bare (...) | planned | 0 |
+| PN7 | What a file offers, its interface, is its exports for a library (`l:` names) and its `u:` names and bare (...) | works | 0 |
 | CB1 | The standard library `Combinators` holds every bird Raymond Smullyan names in *To Mock a Mockingbird* that (...) | works | 1 |
 | CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works (...) | works | 0 |
 | CB3 | A second standard library, `Maybe`, Church-encoded (`n_othing`, `j_ust`, `b_ind` and helpers), shows a (...) | works | 2 |

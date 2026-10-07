@@ -35,16 +35,16 @@ many there are.
 * Using it
 
 A program imports the library under a prefix of its choosing. ~"h:"~
-makes the library's ~l:h_ello~ this program's ~h:h_ello~:
+makes the library's ~l:h_ello~ this program's ~hi:h_ello~:
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-"h:" u̲se< "Hello"
-ʰh̲ello @
+"hi:" u̲se< "Hello"
+ʰⁱh̲ello @
 #+end_example
 #+begin_src xetal
-"h:" u_se< "Hello"
-h:h_ello @
+"hi:" u_se< "Hello"
+hi:h_ello @
 #+end_src
 
 #+RESULTS:
@@ -60,7 +60,7 @@ in ~userlibs/~ (libraries of your own, in the directory xetal runs in:
 the repository's root), then in each directory of ~XETAL_PATH~
 (separated by ~:~), then among the standard libraries built into
 ~xetal~ (~Stats~, ~Maybe~, ~Combinators~, ~TTTML~, whose source is in
-~lib/~). A path finds one file exactly: ~"h:" u_se< "userlibs/Hello.xtl"~.
+~lib/~). A path finds one file exactly: ~"hi:" u_se< "userlibs/Hello.xtl"~.
 Libraries are not programs: they are not executable, and ~xetal run~ (or
 ~just show~) on one lists its exports instead of running it. This
 document's blocks run from its own directory, with ~XETAL_PATH~ set to
@@ -82,16 +82,16 @@ Only what the library exports can be used, and the error says what it
 does export:
 
 #+begin_example
-"h:" u_se< "Hello"
-h:g_oodbye @
-error[not-exported]: h:g_oodbye is not defined by that library; it defines h_ello
+"hi:" u_se< "Hello"
+hi:g_oodbye @
+error[not-exported]: hi:g_oodbye is not defined by that library; it defines h_ello
 #+end_example
 
 And the types are checked across the import:
 
 #+begin_example
-"h:" u_se< "Hello"
-h:h_ello 42
+"hi:" u_se< "Hello"
+hi:h_ello 42
 error[type-mismatch]: expected Unit, found a number
 #+end_example
 
@@ -125,4 +125,4 @@ g:g_reet "welcome to"
 
 but not the private name: ~g:n_ame @~ is an error, ~not-exported~,
 listing ~g_reet~. ~demos/hello-library.xtl~ uses both, the niladic
-~h:h_ello @~ and the monadic ~g:g_reet "hi"~.
+~hi:h_ello @~ and the monadic ~g:g_reet "hi"~.

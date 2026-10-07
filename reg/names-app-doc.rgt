@@ -1,0 +1,3 @@
+command = "./target/debug/xetal doc --json reg/fixtures/names/app.xtl"
+exit_code = 0
+desc = "PN7: xetal doc marks an app's h: helpers as not public (shown for readers, not part of what the app offers)"

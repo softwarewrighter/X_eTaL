@@ -155,8 +155,8 @@ p_rint! "printed, then returned"  # `p_rint!` prints and returns its argument
 s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias
 s:s_d 2 4 4 4 5 5 7 9    # the standard deviation
 s:r_ange 3 1 4 1 5       # largest minus smallest
-"h:" u_se< "Hello"       # a library of your own, found in userlibs/
-h:h_ello @               # niladic: called with Unit
+"hi:" u_se< "Hello"       # a library of your own, found in userlibs/
+hi:h_ello @               # niladic: called with Unit
 
 # -- Combinators and power -----------------------------------------------
 "c:" u_se< "Combinators" # Smullyan's birds, a standard library

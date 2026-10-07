@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-07
 
+- 13:46 `feat` The `h:` namespace (Saga 38 step 2, D120): file-private definitions in apps and libraries, reserved as an alias, hidden with a library's internals so no importer can name them, left out of `xetal type` and marked not public by `xetal doc` (PN7); the tour and the hello document import Hello as `hi:` now.
+
 - 12:31 `design` Private names decided (Saga 38 step 1): PN1-PN7 in lang-choices section 14 (`h:` file-private, never part of a file's interface; bare library functions deprecated; empty libraries an error), MC8 rows widened and added, three spec cases pending.
 
 - 11:41 `plan` Saga 38, private names (the `h:` namespace, docs/private-names.md), first in the queue at the user's word; then from the asks audit of seven sibling repositories (82 asks): the ledger refresh, the small fixes it found, and the CLI as a library (E3).

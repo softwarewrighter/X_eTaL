@@ -1,0 +1,8 @@
+#!/usr/bin/env xetal
+# An app with a helper (h:) and its own function (u:): the helper runs
+# as any function does, and is not part of what the app offers (PN7).
+h:h_alf := { _r / 2 }
+h:limit := 8
+u:t_wice := { 2 * h:h_alf _r }
+h:h_alf h:limit
+u:t_wice 10

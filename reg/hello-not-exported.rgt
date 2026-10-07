@@ -1,3 +1,3 @@
-command = """./target/debug/xetal eval -e '"h:" u_se< "Hello"; h:g_oodbye @'"""
+command = """./target/debug/xetal eval -e '"hi:" u_se< "Hello"; hi:g_oodbye @'"""
 exit_code = 1
 desc = "a name the library does not export is an error naming what it does"

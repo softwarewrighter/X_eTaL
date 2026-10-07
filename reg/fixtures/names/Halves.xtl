@@ -1,0 +1,4 @@
+# A library with a private helper (h:) and an export (l:): an importer
+# sees l:h_alf only (PN1).
+h:d_iv := { a b -> a / b }
+l:h_alf := { _r h:d_iv 2 }

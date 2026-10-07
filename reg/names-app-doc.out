@@ -1,0 +1,53 @@
+{
+  "files": [
+    {
+      "name": "reg/fixtures/names/app.xtl",
+      "kind": "program",
+      "doc": null,
+      "imports": [],
+      "expansions": [],
+      "items": [
+        {
+          "name": "h:h_alf",
+          "kind": "function",
+          "public": false,
+          "type": "Num a => a -> Float",
+          "line": 4,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "binds": [],
+          "source": "h:h_alf := { _r / 2 }",
+          "uses": []
+        },
+        {
+          "name": "h:limit",
+          "kind": "value",
+          "public": false,
+          "type": "Int",
+          "line": 5,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "binds": [],
+          "source": "h:limit := 8",
+          "uses": []
+        },
+        {
+          "name": "u:t_wice",
+          "kind": "function",
+          "public": true,
+          "type": "Num a => a -> Float",
+          "line": 6,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "binds": [],
+          "source": "u:t_wice := { 2 * h:h_alf _r }",
+          "uses": [{"written": "h:h_alf", "file": "reg/fixtures/names/app.xtl", "item": "h:h_alf"}]
+        }
+      ]
+    }
+  ]
+}
+

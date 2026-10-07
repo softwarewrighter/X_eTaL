@@ -81,16 +81,16 @@ many there are.
 <div class="outline-text-2" id="text-org25b97ff">
 <p>
 A program imports the library under a prefix of its choosing. <code>"h:"</code>
-makes the library's <code>l:h_ello</code> this program's <code>h:h_ello</code>:
+makes the library's <code>l:h_ello</code> this program's <code>hi:h_ello</code>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal"><span class="c-libfunc">ʰ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Hello&quot;</span>
-<span class="c-libfunc">ʰh̲ello</span> @
+<pre class="src src-xetal"><span class="c-libfunc">ʰⁱ⁼</span><span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Hello&quot;</span>
+<span class="c-libfunc">ʰⁱh̲ello</span> @
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   "h:" u_se&lt; "Hello"</span>
-<span class="c-comment typed">⍝   h:h_ello @</span></pre>
+<span class="c-comment typed">⍝   "hi:" u_se&lt; "Hello"</span>
+<span class="c-comment typed">⍝   hi:h_ello @</span></pre>
 </div>
 
 <pre class="example">
@@ -113,7 +113,7 @@ in <code>userlibs/</code> (libraries of your own, in the directory xetal runs in
 the repository's root), then in each directory of <code>XETAL_PATH</code>
 (separated by <code>:</code>), then among the standard libraries built into
 <code>xetal</code> (<code>Stats</code>, <code>Maybe</code>, <code>Combinators</code>, <code>TTTML</code>, whose source is in
-<code>lib/</code>). A path finds one file exactly: <code>"h:" u_se&lt; "userlibs/Hello.xtl"</code>.
+<code>lib/</code>). A path finds one file exactly: <code>"hi:" u_se&lt; "userlibs/Hello.xtl"</code>.
 Libraries are not programs: they are not executable, and <code>xetal run</code> (or
 <code>just show</code>) on one lists its exports instead of running it. This
 document's blocks run from its own directory, with <code>XETAL_PATH</code> set to
@@ -144,9 +144,9 @@ does export:
 </p>
 
 <pre class="example" id="orga25d7ec">
-"h:" u_se&lt; "Hello"
-h:g_oodbye @
-error[not-exported]: h:g_oodbye is not defined by that library; it defines h_ello
+"hi:" u_se&lt; "Hello"
+hi:g_oodbye @
+error[not-exported]: hi:g_oodbye is not defined by that library; it defines h_ello
 </pre>
 
 <p>
@@ -154,8 +154,8 @@ And the types are checked across the import:
 </p>
 
 <pre class="example" id="orgd184299">
-"h:" u_se&lt; "Hello"
-h:h_ello 42
+"hi:" u_se&lt; "Hello"
+hi:h_ello 42
 error[type-mismatch]: expected Unit, found a number
 </pre>
 </div>
@@ -208,7 +208,7 @@ welcome to X̲ᵉTᵃL
 <p>
 but not the private name: <code>g:n_ame @</code> is an error, <code>not-exported</code>,
 listing <code>g_reet</code>. <code>demos/hello-library.xtl</code> uses both, the niladic
-<code>h:h_ello @</code> and the monadic <code>g:g_reet "hi"</code>.
+<code>hi:h_ello @</code> and the monadic <code>g:g_reet "hi"</code>.
 </p>
 </div>
 </div>

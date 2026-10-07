@@ -46,7 +46,9 @@ pub(crate) fn files_of(loaded: &mut Loaded) -> Result<Vec<DocFile>, Diagnostic> 
             .collect::<std::collections::BTreeSet<Use>>()
             .into_iter()
             .collect();
-        let public = d.written.contains(':') || files[d.file].kind == "program";
+        // h: names are never part of what a file offers (PN7).
+        let helper = d.written.starts_with("h:");
+        let public = !helper && (d.written.contains(':') || files[d.file].kind == "program");
         files[d.file].items.push(item(s, d, public, uses));
     }
     for f in files.iter_mut().filter(|f| f.kind == "system macros") {

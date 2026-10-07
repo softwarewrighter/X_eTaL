@@ -1,1 +1,1 @@
-error[not-exported]: h:g_oodbye is not defined by that library; it defines h_ello at 20..30
+error[not-exported]: hi:g_oodbye is not defined by that library; it defines h_ello at 21..32

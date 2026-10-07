@@ -6,12 +6,12 @@
 # libraries; the string on its left is the prefix the library's l:
 # names get here.
 
-"h:" u_se< "Hello"
+"hi:" u_se< "Hello"
 "g:" u_se< "Greetings"
 
 # h_ello is niladic: it takes Unit (@), the value that stands for
 # nothing, and gives the greeting.
-h:h_ello @
+hi:h_ello @
 
 # g_reet is monadic: this program supplies the greeting.
 g:g_reet "hi"

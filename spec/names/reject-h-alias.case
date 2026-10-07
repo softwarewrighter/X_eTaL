@@ -4,5 +4,3 @@
 "h:" u_se< "Stats"
 == ERROR
 error[reserved-alias]: u:, l: and h: cannot be aliases (u: is the program, l: a library itself, h: a file's private names) at 0..4
-== STATUS
-pending

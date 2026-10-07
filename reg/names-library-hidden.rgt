@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run reg/fixtures/names/use-hidden.xtl"
+exit_code = 1
+desc = "PN1, MC8 row 21: an importer cannot name a library's h: helper"

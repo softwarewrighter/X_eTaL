@@ -121,7 +121,7 @@ fn an_error_in_a_library_is_reported_in_that_library() {
     let err = expand("main.xtl", "\"a:\" u_se< \"A\"\n", &l).unwrap_err();
     assert_eq!(
         err.describe(),
-        "error[reserved-alias]: u: and l: cannot be aliases (u: is the program, l: a library itself) at A.xtl:2:1"
+        "error[reserved-alias]: u:, l: and h: cannot be aliases (u: is the program, l: a library itself, h: a file's private names) at A.xtl:2:1"
     );
 }
 
