@@ -34,7 +34,7 @@ build already does what the ask wants.
 | D4 | Float literals with an exponent (`1.5e-7`) | landed | 54fea87 (decision S8) | passes |
 | D5 | complex numbers (Mandelbrot, Julia) | planned | Saga 31, complex numbers, on Saga 29's types | - |
 | D6 | nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix) | partly landed | cf834e1 (`m_ap` boxes each result); mix to decide with the user (plan.md, the sibling asks that need decisions) | passes |
-| D7 | a state of several arrays for `p_ower` (a tuple or record) | planned | Saga 29, algebraic data (tuples and records); mixed-type records on the wish list | - |
+| D7 | a state of several arrays for `p_ower` (a tuple or record) | planned | Saga 39, tuples with patterns (docs/tuples.md, lanes/tuples; with X_eTaL-ML ask M13); records in Saga 29 on its types | - |
 | D8 | a per-operation evaluation trace through `xetal-play` | planned | a step of Saga 17, trace and explain | - |
 | D9 | transpose | landed | 3ad1f8e (`o_\`, `t_ranspose`, decision B17) | passes |
 | D10 | a vendored build reports the outer repo's commit as its own | landed | 4a31ba9 (`XETAL_BUILD_SHA` overrides the build's commit) | - |

@@ -901,7 +901,7 @@ values. The design is decided with the user first.
 | Step | Slug | Content |
 | ---- | ---- | ------- |
 | 1 | adt-decisions | With the user: how a type is declared (in a program, in a library and exported), constructors (their decoration and class: a constructor is a function, a nullary one a value), tuples (anonymous products) and records (named fields), sum types (enums are the simplest), pattern matching (an extension of guards, or a match form; exhaustiveness), printing, typing (nominal types in the HM checker, polymorphic types such as Maybe a), arrays of ADT values (rank-erased element types), and how `Color` and `Key` become ordinary declarations. |
-| 2 | tuples | Typed tuples: construction, taking apart in parameters (`{ (n grid) -> ... }`), types `(Int, Float)`, printing; spec cases and rejections. |
+| 2 | tuples | Moved to Saga 39 (tuples, lanes/tuples, 2026-10-07); records, sums and matching build on its types. |
 | 3 | records | Named fields: declaration, construction, access, functional update; the X_eTaL-demos game states (D7) as the test case. |
 | 4 | sums | Sum types and enums with constructors and exhaustive matching; `Maybe a` and `Result a e` as library types. |
 | 5 | adt-builtins | `Color` and `Key` re-expressed as ordinary enums in the Terminal library (their constructor functions retired); the Combinators library's Church-encoded maybe (CB3) beside a real one. |
@@ -1091,6 +1091,29 @@ added, four corrected, the declines recorded with their reasons), the
 small fixes it found (D16, E7, D17, `p_ower` with a Bool count, the
 quotes lost by `r_ecover<`, two documentation rules), and the CLI as a
 library (E3).
+
+## Saga 39 -- tuples (asks M13 and D7; the first part of Saga 29)
+
+Asked for by the user (2026-10-07) after X_eTaL-ML's train-live had to
+pack a network's weights and Adam's two running averages into one
+vector of 298 numbers (ask M13: `p_ower` iterates one value, and there
+is no product type), the same workaround X_eTaL-demos filed as D7.
+Tuples with patterns remove it; records, sums and matching stay in
+Saga 29 and build on these types. `docs/tuples.md` is the plan: the
+questions TU1-TU12 with a recommendation each, decided with the user at
+step 1. Run as lanes/tuples (`agentrail --saga lanes/tuples next`), one
+PR per step from the latest main, so it can go on beside the main saga.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | tuples-decisions | With the user: TU1-TU12 (literal, type, patterns, wildcard, mismatches, printing, equality, tuples in arrays, higher-order built-ins, Core, macros, room for records) recorded in lang-choices and the register; every rule's spec case, pending |
+| 2 | tuples-values | the comma token, the parenthesized tuple, the Core node, evaluation, printing, the formatter; rejections; `m_atch` on tuples |
+| 3 | tuples-types | product types in the checker; `xetal type` prints them; `p_ower` with a tuple state (the M13 repro) |
+| 4 | tuples-destructure | patterns in bindings and lambda parameters, nested; mismatches as type errors; hygiene; normalization tests |
+| 5 | tuples-in-arrays | boxed tuples (`e_nclose`, `m_ap` returning tuples, DISPLAY), as TU8 decides |
+| 6 | tuples-tools | the renderers, the live demo, the Emacs mode, the syntax poster, the reference, `xetal doc` |
+| 7 | tuples-retrofit | packed states rewritten (the Rosetta stone's Comparison first); the siblings told how (M13, D7) |
+| 8 | tuples-release | the README tour, a literate document (train-live's step before and after), the register, CHANGES, pages; Saga 29 replanned on these types; the lane archived |
 
 ## Saga 32 -- xetal doc (a cross-reference, before the launch)
 

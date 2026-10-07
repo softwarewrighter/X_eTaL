@@ -62,7 +62,7 @@ id = "D7"
 repo = "X_eTaL-demos"
 ask = "a state of several arrays for `p_ower` (a tuple or record)"
 state = "planned"
-here = "Saga 29, algebraic data (tuples and records); mixed-type records on the wish list"
+here = "Saga 39, tuples with patterns (docs/tuples.md, lanes/tuples; with X_eTaL-ML ask M13); records in Saga 29 on its types"
 
 [[ask]]
 id = "D8"
