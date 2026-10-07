@@ -1,0 +1,8 @@
+number = 84
+slug = "private-names-docs"
+status = "pending"
+description = "Saga 38 (private names, the h: namespace; decided with the user 2026-10-07; d..."
+role = "production"
+context_files = []
+created_at = "2026-10-07T11:41:02"
+commits = []

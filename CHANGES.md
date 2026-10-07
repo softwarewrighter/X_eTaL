@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-07
 
+- 11:41 `plan` Saga 38, private names (the `h:` namespace, docs/private-names.md), first in the queue at the user's word; then from the asks audit of seven sibling repositories (82 asks): the ledger refresh, the small fixes it found, and the CLI as a library (E3).
+
 - 11:40 `docs` Merged PR #105: docs/private-names.md, the plan for `h:` (file-private names, PN1-PN7), linked from the README.
 
 ## 2026-10-06

@@ -1,0 +1,1 @@
+X_eTaL-extensions' ask E3, moved up by the asks audit: the CLI as a library (a lib target in xetal-cli exposing main with a store and the subcommands), so xetal-x stops compiling the CLI's files by #[path]; a test that an outside crate can call it.

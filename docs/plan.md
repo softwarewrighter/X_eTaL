@@ -1066,6 +1066,32 @@ something, a short note keeps both (as `docs/literate/duck.org` does).
 From then on, every saga that adds a feature ends with a retrofit step
 for that feature (cross-cutting, below).
 
+## Saga 38 -- private names (the h: namespace, before the others)
+
+Decided with the user (2026-10-07); `docs/private-names.md` is the plan
+and the source of the rules PN1-PN7: `h:` for file-private definitions
+in apps and libraries, never part of what a file offers (PN7: a file's
+interface is its `l:` exports or, for an app, its `u:` names and bare
+variables); bare top-level functions in a library deprecated (a warning
+the gate treats as an error, an MC8 error after one release); importing
+an `.xtl` that exports nothing an error. Placed first in the queue at
+the user's word, ahead of the asks below.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | private-names-decisions | PN1-PN7 and the MC8 rows in lang-choices and the register; every rule's spec case, pending |
+| 2 | private-names-namespace | `h:` private to its file, reserved as an alias, out of every interface (`xetal type`, `xetal doc`), shown by the renderers, the Emacs mode and the REPL |
+| 3 | private-names-empty-library | PN4: a library that exports nothing is an error |
+| 4 | private-names-migrate | PN2's warning, PN3's message, `xetal migrate FILE` (compiler-based), lib/, userlibs/ and the Rosetta stone migrated, the gate strict |
+| 5 | private-names-docs | the tour, the reference and the literate documents write helpers as `h:`; the siblings told how to migrate (about 70 names); PN2 an error after one release |
+
+Then, from the asks audit of 2026-10-07 (82 asks of seven sibling
+repositories, verified against main): the ledger refreshed (38 asks
+added, four corrected, the declines recorded with their reasons), the
+small fixes it found (D16, E7, D17, `p_ower` with a Bool count, the
+quotes lost by `r_ecover<`, two documentation rules), and the CLI as a
+library (E3).
+
 ## Saga 32 -- xetal doc (a cross-reference, before the launch)
 
 The user's idea (2026-10-04): a generator, like rustdoc or JavaDoc,
