@@ -10,7 +10,10 @@ the plan.
 
 - `h:` ("hidden", "helper") is a new namespace for file-private
   definitions. It is legal at the top level of apps and libraries
-  alike, and it is never exported.
+  alike, and it is never part of what a file offers: a library never
+  exports it, and an app's interface (what `xetal type` lists and
+  `xetal doc` documents) leaves it out. An app's `u:` names are its
+  interface.
 - A bare (unprefixed) top-level function in a library is deprecated:
   a warning now, an error after one release. Its replacement is the
   same name under `h:`.
@@ -58,7 +61,7 @@ with the binary on 2026-10-07:
 
 ## The rules
 
-Identifiers for `docs/lang-choices.md`: PN1 to PN6 ("private names").
+Identifiers for `docs/lang-choices.md`: PN1 to PN7 ("private names").
 
 | #   | Rule |
 | --- | ---- |
@@ -68,15 +71,24 @@ Identifiers for `docs/lang-choices.md`: PN1 to PN6 ("private names").
 | PN4 | Importing an `.xtl` file that defines no `l:` name, function or variable, is an error (a new MC8 row): "library Name exports nothing; mark its exports with `l:`". A library's own imports do not count; they are private to it (MC6). |
 | PN5 | A bare top-level variable in a library stays private, with no warning: built-ins are functions or quad names, so a variable cannot collide with one. `h:` is allowed for variables too, and recommended where it makes a library's private state easier to see. |
 | PN6 | Unchanged: local functions inside a lambda are bare and scoped to it (`c_ap := { ... }`), and one named like a built-in shadows it with the L7 warning. |
+| PN7 | What a file offers, its interface, is its exports for a library (`l:` names) and its `u:` names and bare variables for an app; `h:` names are never part of it. The interface is what `xetal type FILE` lists, what `xetal doc` documents, and what anything that later loads a program (a notebook, a REPL session started from the file) exposes. Inside the file, `u:`, `l:` and `h:` names are all visible alike. So in an app `h:` has a testable effect today: an `h:` helper runs exactly as a `u:` function would, and does not appear in `xetal type app.xtl`. An app with no `u:` names (only `h:` helpers, or only expressions) is legitimate: a script with no interface. |
 
 With PN2 at its error stage, a bare function name at the top level of
 any file can only mean a built-in. "New built-ins never break existing
 programs" (L7) then holds without depending on a warning being read.
 
-Under PN1 an app's `u:` and `h:` mean the same thing today, since
-nothing imports an app. The distinction is kept for the reader ("the
-program's" against "a helper") and for the day apps or notebooks can
-be imported.
+In an app, `u:` and `h:` differ by PN7 only: both are visible
+throughout the file and nothing imports an app, but only the `u:`
+names are the app's interface. That gives the two prefixes one meaning
+in both kinds of file (`h:` is never part of what a file offers) and
+makes the difference something a test can pin: today `xetal type
+app.xtl` lists every `u:` function, every top-level variable and the
+type of the last expression; under PN7 it omits the `h:` names. The
+alternatives were to accept `u:` and `h:` as synonyms in apps (two
+spellings of one thing, a convention the gate cannot check) or to
+allow `h:` in libraries only (one way per kind of file, but app
+helpers stay indistinguishable from the app's own functions); the
+user chose PN7 (2026-10-07).
 
 ## Errors and warnings
 
@@ -98,9 +110,10 @@ whether to warn.
 - The macro phase's hidden renaming of library instances (MC6): an
   `h:` name is renamed with the library's other internals, as private
   names are today, and macro hygiene (MC30) treats it the same way.
-- `xetal type FILE` on a library (CB4) and `xetal doc` (the library
-  documentation site) list `l:` exports only; `h:` names are not part
-  of a library's interface.
+- `xetal type FILE` and `xetal doc` (PN7): on a library (CB4) they
+  list `l:` exports only; on an app they list `u:` names and bare
+  variables and omit `h:` names. Today they already omit a library's
+  bare private names, and list everything at the top of an app.
 - The renderers (decorated, canonical, expanded), the Emacs mode
   (`docs/emacs/`), the syntax poster and the language reference show
   `h:` as they show the other prefixes.
@@ -145,14 +158,16 @@ vendor X_eTaL and can run the same command.
 
 Each step is its own PR from main, test-first, with the gate.
 
-1. **Decisions.** PN1 to PN6 in `docs/lang-choices.md` section 14, the
+1. **Decisions.** PN1 to PN7 in `docs/lang-choices.md` section 14, the
    new and widened MC8 rows, the decisions register in
    `docs/design.md`; spec cases for each rule written as `STATUS
    pending`.
 2. **The namespace.** `h:` definitions at the top level of apps and
    libraries; private to the file; reserved as an alias; renamed with
-   the library instance; listed by no interface; shown by the
-   renderers and the Emacs mode. The PN1 spec cases flip to active.
+   the library instance; left out of every interface (PN7: `xetal
+   type` and `xetal doc` on apps and libraries); shown by the
+   renderers and the Emacs mode. The PN1 and PN7 spec cases and
+   goldens flip to active.
 3. **Empty libraries.** PN4's error, with a golden for its message.
 4. **Deprecation and migration.** PN2's warning and PN3's new message;
    the migrate subcommand with goldens (a file with a lambda-local of
@@ -164,7 +179,10 @@ Each step is its own PR from main, test-first, with the gate.
    sibling repositories with the migrate command.
 6. **Later, after one release.** PN2's warning becomes an MC8 error.
 
-Tests to have by the end: an app with `h:` helpers runs; a library's
+Tests to have by the end: an app with `h:` helpers runs, and
+`xetal type` on it lists its `u:` names and not its `h:` names (a
+golden), as `xetal doc --json` does; an app with only `h:` helpers
+runs and has an empty interface; a library's
 `h:` names are unreachable from an importer (row 11); `"h:" u_se<`
 is rejected; a file with only `h:` names runs as an app and fails as
 an import (PN4); a library's bare top-level function warns (and the
