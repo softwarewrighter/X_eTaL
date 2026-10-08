@@ -1,8 +1,9 @@
 number = 85
 slug = "asks-ledger-refresh"
-status = "in-progress"
+status = "completed"
 description = "The asks audit of 2026-10-07 (all seven sibling repositories, 82 asks, verifi..."
 role = "production"
 context_files = []
 created_at = "2026-10-07T11:41:02"
-commits = []
+completed_at = "2026-10-07T21:04:34"
+commits = ["c53677b17835b86592b77a278d792d434713f59d"]
