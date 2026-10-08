@@ -14,23 +14,6 @@
 <a class="home" href="index.html">X_eTaL doc</a>
 <input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
 <h2>Files</h2>
-<h3>lib/</h3>
-<ul>
-<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
-<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
-<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
-<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
-<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
-<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
-<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
-<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
-<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
-<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
-</ul>
-<h3>std/</h3>
-<ul>
-<li><a href="std-System.xtlm.html">System.xtlm</a></li>
-</ul>
 <h3>demos/</h3>
 <ul>
 <li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
@@ -54,18 +37,35 @@
 <li><a href="demos-unit.xtl.html">unit.xtl</a></li>
 <li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
 </ul>
-<h3>userlibs/</h3>
-<ul>
-<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
-<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
-<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
-</ul>
 <h3>demos/rosetta/</h3>
 <ul>
 <li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
 <li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
 <li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
 <li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+</ul>
+<h3>lib/</h3>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>userlibs/</h3>
+<ul>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
 </ul>
 <ul>
 <li><a href="builtins.html">built-ins</a></li>
@@ -263,7 +263,19 @@ gives a new state; none has an effect. Events (RS1) come in as
 []E_VENT gives them; cm:u_pdate takes one.</li>
 <li>program <a href="demos-rosetta-cube.xtl.html">demos/rosetta/cube.xtl</a></li>
 <li>program <a href="demos-rosetta-rosetta.xtl.html">demos/rosetta/rosetta.xtl</a></li>
-<li>library <a href="demos-rosetta-Stone.xtl.html">demos/rosetta/Stone.xtl</a></li>
+<li>library <a href="demos-rosetta-Stone.xtl.html">demos/rosetta/Stone.xtl</a>: Stone: the Rosetta stone's geometry and faces (docs/rosetta.md), a
+library beside the demo (&quot;st:&quot; u_se&lt; &quot;Stone&quot;). The stone is three
+carousels sharing one place: the whole stone rolling about the x
+axis through the idioms (roll it up or down for the previous or next
+idiom), and its two halves, closed boxes, each turning about the y
+axis through the languages, one for the top half of the facing
+idiom, one for the bottom. Each is a square prism, so the geometry
+never changes: the facing side shows the current item and the sides
+at right angles show its neighbors, found by index; the lid of the
+top half and the floor of the bottom name the idioms before and
+after. The halves turn independently, which is the impossible part:
+no solid turns like this, and none needs to.
+Points are Geometry3D's (3 rows), pictures Svg's.</li>
 </ul>
 <h2>Items</h2>
 <table class="items">

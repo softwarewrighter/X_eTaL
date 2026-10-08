@@ -586,6 +586,14 @@ state = "new"
 here = "a question: by T1 a comparison's result is any `Truthy` type so it converts in arithmetic (`(Num c, Truthy c) => a -> b -> c`); whether to default it is not yet decided"
 
 [[ask]]
+id = "X18"
+repo = "X_eTaL-libraries"
+ask = "a library that does not lex or parse is reported as exporting nothing (`library-exports-nothing`), hiding the real error"
+state = "landed"
+here = "step 089 (D130): the renamer reports a lexing error in the library's own file; parse errors already did"
+golden = "names-library-does-not-lex"
+
+[[ask]]
 id = "E1"
 repo = "X_eTaL-extensions"
 ask = "a native hook: X_eTaL code calling a function in a native library (`[]S_VO`)"

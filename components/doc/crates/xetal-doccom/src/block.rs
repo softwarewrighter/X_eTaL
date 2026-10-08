@@ -1,6 +1,6 @@
-//! Which `##` block documents what: the block directly above a
-//! definition, the file's first block when a blank line follows it, and
-//! the `###` section a line falls under.
+//! Which `##` block documents what: the file's first block (its header,
+//! whatever follows it), the block directly above a definition (unless
+//! that is the header), and the `###` section a line falls under.
 
 use crate::Doc;
 
@@ -16,7 +16,7 @@ fn doc_line(line: &str) -> Option<&str> {
 }
 
 /// The doc of the definition starting on `line` (from 1): the block of
-/// `##` lines directly above it.
+/// `##` lines directly above it, unless that block is the file's header.
 pub fn doc_above(text: &str, line: usize) -> Option<Doc> {
     let lines: Vec<&str> = text.lines().collect();
     let end = line.checked_sub(1)?.min(lines.len());
@@ -24,18 +24,43 @@ pub fn doc_above(text: &str, line: usize) -> Option<Doc> {
         .rev()
         .take_while(|&i| doc_line(lines[i]).is_some())
         .last()?;
-    let block: Vec<&str> = lines[start..end]
-        .iter()
-        .filter_map(|l| doc_line(l))
-        .collect();
-    Some(Doc::from_lines(&block))
+    if header(&lines).is_some_and(|(top, _)| top == start) {
+        return None;
+    }
+    Some(block(&lines[start..end]))
 }
 
-/// The file's own doc: a `##` block at the top of the file (after any
-/// `#!` line and blank lines), when a blank line (or the end of the
-/// file) follows it rather than a definition.
+/// The file's own doc: its header, the `##` block at the top of the file
+/// (after any `#!` line and blank lines), whatever follows it.
 pub fn file_doc(text: &str) -> Option<Doc> {
     let lines: Vec<&str> = text.lines().collect();
+    let (start, len) = header(&lines)?;
+    Some(block(&lines[start..start + len]))
+}
+
+/// The first lines (from 1) of the `##` blocks that document nothing:
+/// neither the header nor directly above one of `items` (the lines,
+/// from 1, where definitions and macro calls start).
+pub fn stray_blocks(text: &str, items: &[usize]) -> Vec<usize> {
+    let lines: Vec<&str> = text.lines().collect();
+    let top = header(&lines).map(|(start, _)| start);
+    let mut strays = Vec::new();
+    let mut i = 0;
+    while i < lines.len() {
+        let len = lines[i..]
+            .iter()
+            .take_while(|l| doc_line(l).is_some())
+            .count();
+        if len > 0 && Some(i) != top && !items.contains(&(i + len + 1)) {
+            strays.push(i + 1);
+        }
+        i += len.max(1);
+    }
+    strays
+}
+
+/// Where the header is: its first line and its length.
+fn header(lines: &[&str]) -> Option<(usize, usize)> {
     let start = lines
         .iter()
         .position(|l| !(l.trim().is_empty() || l.starts_with("#!")))?;
@@ -44,12 +69,13 @@ pub fn file_doc(text: &str) -> Option<Doc> {
         .iter()
         .take_while(|l| doc_line(l).is_some())
         .count();
-    let after = lines.get(start + len).map_or("", |l| l.trim());
-    let block: Vec<&str> = lines[start..start + len]
-        .iter()
-        .filter_map(|l| doc_line(l))
-        .collect();
-    after.is_empty().then(|| Doc::from_lines(&block))
+    Some((start, len))
+}
+
+/// The doc of a run of `##` lines.
+fn block(lines: &[&str]) -> Doc {
+    let text: Vec<&str> = lines.iter().filter_map(|l| doc_line(l)).collect();
+    Doc::from_lines(&text)
 }
 
 /// The title of the `### Title` section line `line` (from 1) falls

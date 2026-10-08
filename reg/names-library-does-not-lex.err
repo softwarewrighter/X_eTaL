@@ -1,0 +1,1 @@
+error[bad-string]: unterminated string (strings are single-line; use \n) at reg/fixtures/names/broken/Broken.xtl:1:13

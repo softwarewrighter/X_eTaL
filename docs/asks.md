@@ -16,11 +16,11 @@ build already does what the ask wants.
 | X_eTaL-demos | 11 | 3 | 3 | 2 | 2 |
 | X_eTaL-ML | 7 | 1 | 1 | 3 | 2 |
 | X_eTaL-games | 6 | 4 | 4 | 1 | 3 |
-| X_eTaL-libraries | 8 | 3 | 2 | 3 | 1 |
+| X_eTaL-libraries | 9 | 3 | 2 | 3 | 1 |
 | X_eTaL-extensions | 3 | 1 | 3 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 35 | 12 | 20 | 11 | 18 |
+| All | 36 | 12 | 20 | 11 | 18 |
 
 ## Notice: write a library's helpers with h:
 
@@ -131,6 +131,7 @@ warning becomes an error. See `docs/private-names.md`.
 | X15 | an error a macro reports with `[]R_EJECT` is located by byte range only | planned | Saga 27, readable type errors (step errors-located: every diagnostic with its file, line and column) | - |
 | X16 | `[]U_CHAR` beyond ASCII: it takes codes 0 to 127 | planned | deferred: Unicode text (lang-choices section 15, plan.md Deferred), each deferred item a saga when scheduled | fails |
 | X17 | a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix | new | a question: by T1 a comparison's result is any `Truthy` type so it converts in arithmetic (`(Num c, Truthy c) => a -> b -> c`); whether to default it is not yet decided | - |
+| X18 | a library that does not lex or parse is reported as exporting nothing (`library-exports-nothing`), hiding the real error | landed | step 089 (D130): the renamer reports a lexing error in the library's own file; parse errors already did | golden `names-library-does-not-lex` |
 
 ## X_eTaL-extensions
 

@@ -10,7 +10,8 @@ use xetal_docsite::site;
 
 fn two_plays() -> Vec<DocFile> {
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../fixtures/games");
-    ["chess", "go"]
+    // Given out of order: the side bar sorts them.
+    ["go", "chess"]
         .iter()
         .flat_map(|game| {
             let path = root.join(game).join("play.xtl");
@@ -31,7 +32,7 @@ fn the_side_bar_groups_files_under_their_directories() {
     let html = index(&two_plays());
     let chess = html.find("<h3>chess/</h3>").expect("a chess heading");
     let go = html.find("<h3>go/</h3>").expect("a go heading");
-    assert!(chess < go, "directories in the order the files came");
+    assert!(chess < go, "directories in alphabetical order");
     let play = html[chess..go].find(">play.xtl</a>");
     assert!(play.is_some(), "chess's play.xtl listed under chess/");
     assert!(

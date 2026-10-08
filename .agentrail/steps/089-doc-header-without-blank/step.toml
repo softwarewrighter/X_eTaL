@@ -1,6 +1,6 @@
 number = 89
 slug = "doc-header-without-blank"
-status = "pending"
+status = "in-progress"
 description = "Reported by X_eTaL-libraries (2026-10-08; 25 demo and 12 library files had to..."
 role = "production"
 context_files = []

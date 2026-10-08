@@ -1,0 +1,7 @@
+## Stats helpers: the header, with no blank line after it.
+"s:" u_se< "Stats"
+## Lost: this block is above an expression.
+s:m_ean 1 2 3
+
+## Twice.
+u:t_wice := { 2 * _r }

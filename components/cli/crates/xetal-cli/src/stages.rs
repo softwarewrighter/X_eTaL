@@ -81,9 +81,13 @@ fn doc(args: &crate::args::DocArgs, name: &str, source: &str) -> Result<String, 
     for more in &args.more {
         inputs.push((more.clone(), read_input(None, Some(more))?));
     }
+    let files = xetal_doc::models(&inputs)?;
+    for w in xetal_doc::warnings(&files) {
+        eprintln!("{w}");
+    }
     match &args.out {
         Some(dir) => xetal_docsearch::document(&inputs, std::path::Path::new(dir)),
-        None => Ok(xetal_doc::to_json(&xetal_doc::models(&inputs)?)),
+        None => Ok(xetal_doc::to_json(&files)),
     }
 }
 

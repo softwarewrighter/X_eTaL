@@ -1,5 +1,6 @@
 //! The model: files, the items defined in them, and what each uses.
 
+use xetal_base::Diagnostic;
 use xetal_doccom::{Doc, Example};
 use xetal_docexpand::Expansion;
 use xetal_macro::{FsLibraries, Libraries};
@@ -84,4 +85,23 @@ pub(crate) fn kind_of(written: &str) -> &'static str {
         (false, true) => "function",
         _ => "value",
     }
+}
+
+/// The `##` blocks that document nothing, one warning each: a block
+/// that is neither the file's header nor directly above a definition
+/// (above an import, an expression or a `###` heading) would otherwise
+/// be dropped silently.
+pub fn warnings(files: &[DocFile]) -> Vec<Diagnostic> {
+    let mut out = Vec::new();
+    for f in files {
+        let lines: Vec<usize> = f.items.iter().map(|i| i.line).collect();
+        for line in xetal_doccom::stray_blocks(&f.text, &lines) {
+            let message = format!(
+                "this ## block documents nothing: put it directly above a definition, or at the top of the file for the file at {}:{line}",
+                f.name
+            );
+            out.push(Diagnostic::warning("doc-unattached", message));
+        }
+    }
+    out
 }

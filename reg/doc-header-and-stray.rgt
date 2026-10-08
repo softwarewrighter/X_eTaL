@@ -1,0 +1,3 @@
+command = "./target/debug/xetal doc --json reg/fixtures/doc/header-and-stray.xtl | grep -o '\"doc\": \"[^\"]*\"' | head -2"
+exit_code = 0
+desc = "a file's header with no blank line after it is the file's doc (reported by X_eTaL-libraries); a ## block above an expression warns doc-unattached"

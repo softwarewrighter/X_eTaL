@@ -19,7 +19,7 @@ l:s_q := { _r * _r }
 
 #[test]
 fn an_example_passes_when_it_prints_what_is_shown() {
-    let text = "## Twice.\n## >> 2 * 21\n## 42\nl:t_wice := { 2 * _r }\n";
+    let text = "## Doubling.\n\n## Twice.\n## >> 2 * 21\n## 42\nl:t_wice := { 2 * _r }\n";
     let all = outcomes(text);
     assert_eq!(all.len(), 1);
     assert!(all[0].passed, "{all:?}");

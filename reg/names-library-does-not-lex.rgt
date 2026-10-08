@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run reg/fixtures/names/broken/use-broken.xtl"
+exit_code = 1
+desc = "ask X18: a library that does not lex reports its own error, in its own file, not library-exports-nothing"

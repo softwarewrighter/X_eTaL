@@ -31,9 +31,9 @@ pub type Edit = (Range<usize>, String);
 
 /// The edits for `text`, and the names it exports.
 pub fn rewrite(text: &str, cx: &Context) -> Result<(Vec<Edit>, Vec<String>), Diagnostic> {
-    let Ok(tokens) = lex(text) else {
-        return Ok((Vec::new(), Vec::new()));
-    };
+    // A file that does not lex reports that here, in its own file: an
+    // imported library would otherwise seem to export nothing (ask X18).
+    let tokens = lex(text)?;
     let defs = top_level(&tokens, cx)?;
     let mut edits = Vec::new();
     for (t, bound) in tokens.iter().zip(locals(&tokens)) {

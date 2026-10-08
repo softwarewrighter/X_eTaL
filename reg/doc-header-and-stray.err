@@ -1,0 +1,1 @@
+warning[doc-unattached]: this ## block documents nothing: put it directly above a definition, or at the top of the file for the file at reg/fixtures/doc/header-and-stray.xtl:3

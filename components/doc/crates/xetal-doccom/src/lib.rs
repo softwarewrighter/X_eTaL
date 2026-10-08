@@ -6,5 +6,5 @@
 mod block;
 mod doc;
 
-pub use block::{doc_above, file_doc, section_at};
+pub use block::{doc_above, file_doc, section_at, stray_blocks};
 pub use doc::{Doc, Example};

@@ -56,9 +56,9 @@ fn sidebar(cx: &Ctx, toc: &str) -> String {
 }
 
 /// The files grouped by their directory relative to the site's root
-/// (with its `/`; empty for files in the root), in the order of each
-/// directory's first file: same-named files in different directories
-/// (eleven play.xtl) stay apart.
+/// (with its `/`; empty for files in the root, listed first), the
+/// directories and the files in each in alphabetical order, case aside: same-named
+/// files in different directories (eleven play.xtl) stay apart.
 fn by_directory<'a>(cx: &Ctx<'a>) -> Vec<(String, Vec<&'a DocFile>)> {
     let mut groups: Vec<(String, Vec<&DocFile>)> = Vec::new();
     for f in cx.files {
@@ -70,6 +70,12 @@ fn by_directory<'a>(cx: &Ctx<'a>) -> Vec<(String, Vec<&'a DocFile>)> {
             Some((_, list)) => list.push(f),
             None => groups.push((dir, vec![f])),
         }
+    }
+    // Alphabetical as a reader expects: case aside, then as written.
+    let key = |s: &str| (s.to_lowercase(), s.to_string());
+    groups.sort_by_key(|(dir, _)| key(dir));
+    for (_, list) in &mut groups {
+        list.sort_by_key(|f| key(short(&f.name)));
     }
     groups
 }

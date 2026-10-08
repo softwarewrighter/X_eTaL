@@ -1,6 +1,6 @@
 //! Doc comments (lang-choices S9): which `##` block documents what.
 
-use xetal_doccom::{Doc, Example, doc_above, file_doc, section_at};
+use xetal_doccom::{Example, doc_above, file_doc, section_at};
 
 const LIB: &str = "\
 ## A small library of greetings.
@@ -105,17 +105,13 @@ fn a_plain_comment_is_never_a_doc() {
 }
 
 #[test]
-fn a_first_block_attached_to_a_definition_documents_it_not_the_file() {
+fn a_first_block_is_the_files_even_directly_above_a_definition() {
     let text = "## Only for x.\nx := 1\n";
-    assert_eq!(file_doc(text), None);
     assert_eq!(
-        doc_above(text, 2),
-        Some(Doc {
-            text: "Only for x.".into(),
-            examples: vec![],
-            binds: vec![]
-        })
+        file_doc(text).map(|d| d.text).as_deref(),
+        Some("Only for x.")
     );
+    assert_eq!(doc_above(text, 2), None);
 }
 
 #[test]
@@ -136,16 +132,15 @@ fn the_file_doc_is_at_the_top_after_any_shebang() {
 
 #[test]
 fn an_expected_error_is_shown_as_the_output() {
-    let text = "## >> l:h_ello 1\n## error[type-mismatch]\nl:h_ello := { n -> n }\n";
-    let doc = doc_above(text, 3).expect("doc");
+    let text = "## Hello.\n\n## >> l:h_ello 1\n## error[type-mismatch]\nl:h_ello := { n -> n }\n";
+    let doc = doc_above(text, 5).expect("doc");
     assert_eq!(doc.examples[0].output, "error[type-mismatch]");
 }
 
 #[test]
 fn a_binds_line_is_a_field_not_prose() {
-    let text =
-        "## Binds it for the body.\n## binds: it that\n## More prose.\nm:a_nd< := { a b -> a }\n";
-    let doc = doc_above(text, 4).expect("doc");
+    let text = "## And.\n\n## Binds it for the body.\n## binds: it that\n## More prose.\nm:a_nd< := { a b -> a }\n";
+    let doc = doc_above(text, 6).expect("doc");
     assert_eq!(doc.binds, ["it", "that"]);
     assert_eq!(doc.text, "Binds it for the body.\nMore prose.");
 }
