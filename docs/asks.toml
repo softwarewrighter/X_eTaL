@@ -439,6 +439,13 @@ state = "landed"
 here = "Saga 30: 16b710d, 8456e45"
 
 [[ask]]
+id = "G18"
+repo = "X_eTaL-games"
+ask = "`xetal doc --out` over several programs lists files by name alone, so eleven `play.xtl` look the same in the sidebar"
+state = "landed"
+here = "step 088 (D129): the sidebar groups files under their directory relative to the documented files' common root, and the search index and the used-at links name a file by that relative path"
+
+[[ask]]
 id = "X1"
 repo = "X_eTaL-libraries"
 ask = "`.xtlm` macro libraries: user-defined macros imported with `u_se<`"

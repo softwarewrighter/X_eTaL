@@ -12,13 +12,22 @@ pub(crate) struct Ctx<'a> {
     pub r: Resolver<'a>,
     /// Per item, the (file, line) places it is used.
     pub uses: BTreeMap<Target, Vec<(usize, usize)>>,
+    /// The directory all the files are in: names are shown relative to it.
+    pub root: String,
 }
 
 impl<'a> Ctx<'a> {
     pub(crate) fn new(files: &'a [DocFile]) -> Self {
         let r = Resolver::new(files);
         let uses = uses(&r);
-        Ctx { files, r, uses }
+        let names: Vec<&str> = files.iter().map(|f| f.name.as_str()).collect();
+        let root = xetal_dochtml::root(&names);
+        Ctx {
+            files,
+            r,
+            uses,
+            root,
+        }
     }
 
     /// The URL of `target`, from any page (the site is flat).

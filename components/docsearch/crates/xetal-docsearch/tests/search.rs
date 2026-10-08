@@ -50,3 +50,22 @@ fn the_site_is_written_with_its_search() {
     assert!(dir.join("search.js").is_file());
     std::fs::remove_dir_all(&dir).expect("cleaned");
 }
+
+#[test]
+fn a_file_is_named_by_its_path_relative_to_the_common_root() {
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../../doc/fixtures/games");
+    let files: Vec<_> = ["chess", "go"]
+        .iter()
+        .flat_map(|game| {
+            let path = root.join(game).join("play.xtl");
+            let text = std::fs::read_to_string(&path).expect("fixture");
+            model(&path.to_string_lossy(), &text).expect("model")
+        })
+        .collect();
+    let files_named: Vec<String> = entries(&files)
+        .into_iter()
+        .map(|e| e.file)
+        .filter(|f| !f.is_empty())
+        .collect();
+    assert_eq!(files_named, ["chess/play.xtl", "go/play.xtl"]);
+}

@@ -14,6 +14,7 @@
 <a class="home" href="index.html">X_eTaL doc</a>
 <input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
 <h2>Files</h2>
+<h3>lib/</h3>
 <ul>
 <li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
 <li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
@@ -25,13 +26,17 @@
 <li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
 <li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
 <li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
 <li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>demos/</h3>
+<ul>
 <li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
 <li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
 <li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
 <li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
-<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
-<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
 <li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
 <li><a href="demos-keys.xtl.html">keys.xtl</a></li>
 <li><a href="demos-life.xtl.html">life.xtl</a></li>
@@ -48,11 +53,21 @@
 <li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
 <li><a href="demos-unit.xtl.html">unit.xtl</a></li>
 <li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+</ul>
+<h3>userlibs/</h3>
+<ul>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
 <li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+</ul>
+<h3>demos/rosetta/</h3>
+<ul>
 <li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
 <li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
 <li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
 <li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+</ul>
+<ul>
 <li><a href="builtins.html">built-ins</a></li>
 </ul>
 <h2>On this page</h2>
@@ -113,7 +128,7 @@ right to left; read each line with its trailing comment.</p>
 <p>A small Int, squared and reused below.</p>
 </div>
 <pre class="code">x ← <span class="c-number">3</span>                    <span class="c-comment">⍝</span><span class="c-comment"> </span><span class="c-comment"></span>←<span class="c-comment"></span><span class="c-comment"> binds; </span><span class="c-comment"></span><span class="c-symbol">=</span><span class="c-comment"></span><span class="c-comment"> is always equality</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L21">tour.xtl:21</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L21">demos/tour.xtl:21</a></div>
 </div>
 <h2 class="section" id="section-2">Mutation</h2>
 <div class="item" id="count-21">
@@ -123,7 +138,7 @@ right to left; read each line with its trailing comment.</p>
 <p>A counter: the one kind of name that may be bound again.</p>
 </div>
 <pre class="code">count! ← <span class="c-number">0</span>               <span class="c-comment">⍝</span><span class="c-comment"> only names ending in ! (like </span><span class="c-comment"></span>count!<span class="c-comment"></span><span class="c-comment">) may be reassigned</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L36">tour.xtl:36</a>, <a href="demos-tour.xtl.src.html#L37">tour.xtl:37</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L36">demos/tour.xtl:36</a>, <a href="demos-tour.xtl.src.html#L37">demos/tour.xtl:37</a></div>
 </div>
 <h2 class="section" id="section-3">Arrays</h2>
 <div class="item" id="m">
@@ -133,7 +148,7 @@ right to left; read each line with its trailing comment.</p>
 <p>A 2 by 3 matrix of 1 to 6, used by the sections below.</p>
 </div>
 <pre class="code">m ← <span class="c-number">2</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">6</span>          <span class="c-comment">⍝</span><span class="c-comment"> 1-origin: </span><span class="c-comment"></span><span class="c-builtin">r̲ange</span> <span class="c-number">6</span><span class="c-comment"></span><span class="c-comment"> is 1 2 3 4 5 6</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L48">tour.xtl:48</a>, <a href="demos-tour.xtl.src.html#L49">tour.xtl:49</a>, <a href="demos-tour.xtl.src.html#L50">tour.xtl:50</a>, <a href="demos-tour.xtl.src.html#L51">tour.xtl:51</a>, <a href="demos-tour.xtl.src.html#L52">tour.xtl:52</a>, <a href="demos-tour.xtl.src.html#L53">tour.xtl:53</a>, <a href="demos-tour.xtl.src.html#L54">tour.xtl:54</a>, <a href="demos-tour.xtl.src.html#L58">tour.xtl:58</a>, <a href="demos-tour.xtl.src.html#L95">tour.xtl:95</a>, <a href="demos-tour.xtl.src.html#L99">tour.xtl:99</a>, <a href="demos-tour.xtl.src.html#L122">tour.xtl:122</a>, <a href="demos-tour.xtl.src.html#L123">tour.xtl:123</a>, <a href="demos-tour.xtl.src.html#L124">tour.xtl:124</a>, <a href="demos-tour.xtl.src.html#L125">tour.xtl:125</a>, <a href="demos-tour.xtl.src.html#L126">tour.xtl:126</a>, <a href="demos-tour.xtl.src.html#L127">tour.xtl:127</a>, <a href="demos-tour.xtl.src.html#L128">tour.xtl:128</a>, <a href="demos-tour.xtl.src.html#L129">tour.xtl:129</a>, <a href="demos-tour.xtl.src.html#L130">tour.xtl:130</a>, <a href="demos-tour.xtl.src.html#L132">tour.xtl:132</a>, <a href="demos-tour.xtl.src.html#L133">tour.xtl:133</a>, <a href="demos-tour.xtl.src.html#L159">tour.xtl:159</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L48">demos/tour.xtl:48</a>, <a href="demos-tour.xtl.src.html#L49">demos/tour.xtl:49</a>, <a href="demos-tour.xtl.src.html#L50">demos/tour.xtl:50</a>, <a href="demos-tour.xtl.src.html#L51">demos/tour.xtl:51</a>, <a href="demos-tour.xtl.src.html#L52">demos/tour.xtl:52</a>, <a href="demos-tour.xtl.src.html#L53">demos/tour.xtl:53</a>, <a href="demos-tour.xtl.src.html#L54">demos/tour.xtl:54</a>, <a href="demos-tour.xtl.src.html#L58">demos/tour.xtl:58</a>, <a href="demos-tour.xtl.src.html#L95">demos/tour.xtl:95</a>, <a href="demos-tour.xtl.src.html#L99">demos/tour.xtl:99</a>, <a href="demos-tour.xtl.src.html#L122">demos/tour.xtl:122</a>, <a href="demos-tour.xtl.src.html#L123">demos/tour.xtl:123</a>, <a href="demos-tour.xtl.src.html#L124">demos/tour.xtl:124</a>, <a href="demos-tour.xtl.src.html#L125">demos/tour.xtl:125</a>, <a href="demos-tour.xtl.src.html#L126">demos/tour.xtl:126</a>, <a href="demos-tour.xtl.src.html#L127">demos/tour.xtl:127</a>, <a href="demos-tour.xtl.src.html#L128">demos/tour.xtl:128</a>, <a href="demos-tour.xtl.src.html#L129">demos/tour.xtl:129</a>, <a href="demos-tour.xtl.src.html#L130">demos/tour.xtl:130</a>, <a href="demos-tour.xtl.src.html#L132">demos/tour.xtl:132</a>, <a href="demos-tour.xtl.src.html#L133">demos/tour.xtl:133</a>, <a href="demos-tour.xtl.src.html#L159">demos/tour.xtl:159</a></div>
 </div>
 <h2 class="section" id="section-4">Functions</h2>
 <div class="item" id="u.s_quare">
@@ -143,7 +158,7 @@ right to left; read each line with its trailing comment.</p>
 <p>u:s_quare x: x times x, item by item.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍵</span> }              <span class="c-comment">⍝</span><span class="c-comment"> </span><span class="c-comment"></span><span class="c-lambdaarg">⍵</span><span class="c-comment"></span><span class="c-comment"> is the right argument</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L64">tour.xtl:64</a>, <a href="demos-tour.xtl.src.html#L89">tour.xtl:89</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L64">demos/tour.xtl:64</a>, <a href="demos-tour.xtl.src.html#L89">demos/tour.xtl:89</a></div>
 </div>
 <div class="item" id="u.s_ub">
 <h3><a href="#u.s_ub"><span class="c-userfunc">ᵘs̲ub</span></a> <span class="type">: Num a =&gt; a -&gt; a -&gt; a</span></h3>
@@ -152,7 +167,7 @@ right to left; read each line with its trailing comment.</p>
 <p>a u:s_ub b: a minus b.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘs̲ub</span> ← { <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-lambdaarg">⍵</span> }                 <span class="c-comment">⍝</span><span class="c-comment"> </span><span class="c-comment"></span><span class="c-lambdaarg">⍺</span><span class="c-comment"></span><span class="c-comment"> is the left argument</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L67">tour.xtl:67</a>, <a href="demos-tour.xtl.src.html#L85">tour.xtl:85</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L67">demos/tour.xtl:67</a>, <a href="demos-tour.xtl.src.html#L85">demos/tour.xtl:85</a></div>
 </div>
 <div class="item" id="u.h_yp">
 <h3><a href="#u.h_yp"><span class="c-userfunc">ᵘh̲yp</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
@@ -161,7 +176,7 @@ right to left; read each line with its trailing comment.</p>
 <p>a u:h_yp b: the hypotenuse of a right triangle with legs a and b.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘh̲yp</span> ← { a b → ((a <a href="builtins.html#-2a" class="c-symbol">×</a> a) <a href="builtins.html#-2b" class="c-symbol">+</a> b <a href="builtins.html#-2a" class="c-symbol">×</a> b) <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">0.5</span> }       <span class="c-comment">⍝</span><span class="c-comment"> named parameters before </span><span class="c-comment"></span>→<span class="c-comment"></span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L70">tour.xtl:70</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L70">demos/tour.xtl:70</a></div>
 </div>
 <div class="item" id="u.s_ign">
 <h3><a href="#u.s_ign"><span class="c-userfunc">ᵘs̲ign</span></a> <span class="type">: (Num a, Num b) =&gt; a -&gt; b</span></h3>
@@ -170,7 +185,7 @@ right to left; read each line with its trailing comment.</p>
 <p>u:s_ign x: -1, 0 or 1 as x is negative, zero or positive.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘs̲ign</span> ← { x → x <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">0</span> ? <span class="c-number">-1</span>◆ x <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? <span class="c-number">0</span>◆ <span class="c-number">1</span> }      <span class="c-comment">⍝</span><span class="c-comment"> guards: condition </span><span class="c-comment"></span>?<span class="c-comment"></span><span class="c-comment"> result</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L96">tour.xtl:96</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L96">demos/tour.xtl:96</a></div>
 </div>
 <div class="item" id="u.f_act">
 <h3><a href="#u.f_act"><span class="c-userfunc">ᵘf̲act</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
@@ -182,7 +197,7 @@ right to left; read each line with its trailing comment.</p>
   n <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? <span class="c-number">1</span>
   n <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="demos-tour.xtl.html#u.f_act" class="c-userfunc">ᵘf̲act</a> n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>
 }</pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.html#u.f_act"><span class="c-userfunc">ᵘf̲act</span></a>, <a href="demos-tour.xtl.src.html#L78">tour.xtl:78</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.html#u.f_act"><span class="c-userfunc">ᵘf̲act</span></a>, <a href="demos-tour.xtl.src.html#L78">demos/tour.xtl:78</a></div>
 </div>
 <div class="item" id="u.t_wo">
 <h3><a href="#u.t_wo"><span class="c-userfunc">ᵘt̲wo</span></a> <span class="type">: Num a =&gt; Unit -&gt; a</span></h3>
@@ -191,7 +206,7 @@ right to left; read each line with its trailing comment.</p>
 <p>u:t_wo @: 2; it takes only Unit.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘt̲wo</span> ← { @ → <span class="c-number">2</span> }                 <span class="c-comment">⍝</span><span class="c-comment"> a niladic function takes </span><span class="c-comment"></span>@<span class="c-comment"></span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L81">tour.xtl:81</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L81">demos/tour.xtl:81</a></div>
 </div>
 <div class="item" id="u.k_eep">
 <h3><a href="#u.k_eep"><span class="c-userfunc">ᵘk̲eep</span></a> <span class="type">: (Any a, Any b) =&gt; a -&gt; b -&gt; a</span></h3>
@@ -200,7 +215,7 @@ right to left; read each line with its trailing comment.</p>
 <p>a u:k_eep b: a; b is lazy, so it is never evaluated.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘk̲eep</span> ← { a ~b → a }             <span class="c-comment">⍝</span><span class="c-comment"> </span><span class="c-comment"></span>~b<span class="c-comment"></span><span class="c-comment"> is a lazy parameter: evaluated</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L84">tour.xtl:84</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L84">demos/tour.xtl:84</a></div>
 </div>
 <div class="item" id="u.t_wice">
 <h3><a href="#u.t_wice"><span class="c-userfunc">ᵘt̲wice</span></a> <span class="type">: Any a =&gt; (a -&gt; a) -&gt; a -&gt; a</span></h3>
@@ -209,7 +224,7 @@ right to left; read each line with its trailing comment.</p>
 <p>'f u:t_wice x: f applied to x two times.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘt̲wice</span> ← { <span class="c-builtin">f̲</span> x → <span class="c-builtin">f̲</span> <span class="c-builtin">f̲</span> x }         <span class="c-comment">⍝</span><span class="c-comment"> apply a function parameter two times</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L88">tour.xtl:88</a>, <a href="demos-tour.xtl.src.html#L89">tour.xtl:89</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L88">demos/tour.xtl:88</a>, <a href="demos-tour.xtl.src.html#L89">demos/tour.xtl:89</a></div>
 </div>
 <h2 class="section" id="section-5">Trains and tacks</h2>
 <div class="item" id="u.a_vg">
@@ -219,7 +234,7 @@ right to left; read each line with its trailing comment.</p>
 <p>u:a_vg x: the mean of x, as a fork of sum, divide and tally.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘa̲vg</span> ← [<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <a href="builtins.html#-2f" class="c-symbol">÷</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a>]           <span class="c-comment">⍝</span><span class="c-comment"> fork: </span><span class="c-comment"></span>(<span class="c-symbol">'</span><span class="c-symbol">+</span> <span class="c-builtin">r̲/</span> x) <span class="c-symbol">÷</span> <span class="c-builtin">t̲ally</span> x<span class="c-comment"></span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L107">tour.xtl:107</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L107">demos/tour.xtl:107</a></div>
 </div>
 <h2 class="section" id="section-6">Rotate, reverse and axes</h2>
 <div class="item" id="a">
@@ -229,7 +244,7 @@ right to left; read each line with its trailing comment.</p>
 <p>A 2 by 3 by 4 array of 1 to 24, for the axis examples.</p>
 </div>
 <pre class="code">a ← <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">24</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L136">tour.xtl:136</a>, <a href="demos-tour.xtl.src.html#L137">tour.xtl:137</a>, <a href="demos-tour.xtl.src.html#L138">tour.xtl:138</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L136">demos/tour.xtl:136</a>, <a href="demos-tour.xtl.src.html#L137">demos/tour.xtl:137</a>, <a href="demos-tour.xtl.src.html#L138">demos/tour.xtl:138</a></div>
 </div>
 <h2 class="section" id="section-7">Search and order</h2>
 <div class="item" id="v">
@@ -239,7 +254,7 @@ right to left; read each line with its trailing comment.</p>
 <p>The vector the search and order examples use.</p>
 </div>
 <pre class="code">v ← <span class="c-number">3</span> <span class="c-number">1</span> <span class="c-number">4</span> <span class="c-number">1</span> <span class="c-number">5</span> <span class="c-number">9</span> <span class="c-number">2</span> <span class="c-number">6</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L143">tour.xtl:143</a>, <a href="demos-tour.xtl.src.html#L144">tour.xtl:144</a>, <a href="demos-tour.xtl.src.html#L145">tour.xtl:145</a>, <a href="demos-tour.xtl.src.html#L146">tour.xtl:146</a>, <a href="demos-tour.xtl.src.html#L147">tour.xtl:147</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L143">demos/tour.xtl:143</a>, <a href="demos-tour.xtl.src.html#L144">demos/tour.xtl:144</a>, <a href="demos-tour.xtl.src.html#L145">demos/tour.xtl:145</a>, <a href="demos-tour.xtl.src.html#L146">demos/tour.xtl:146</a>, <a href="demos-tour.xtl.src.html#L147">demos/tour.xtl:147</a></div>
 </div>
 <h2 class="section" id="section-8">Nested arrays and display</h2>
 <div class="item" id="n">
@@ -249,7 +264,7 @@ right to left; read each line with its trailing comment.</p>
 <p>A vector of two boxed strings.</p>
 </div>
 <pre class="code">n ← <span class="c-string">&quot;ab&quot;</span> <span class="c-string">&quot;cde&quot;</span>           <span class="c-comment">⍝</span><span class="c-comment"> a strand of strings: a vector of 2 boxes</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L152">tour.xtl:152</a>, <a href="demos-tour.xtl.src.html#L153">tour.xtl:153</a>, <a href="demos-tour.xtl.src.html#L154">tour.xtl:154</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L152">demos/tour.xtl:152</a>, <a href="demos-tour.xtl.src.html#L153">demos/tour.xtl:153</a>, <a href="demos-tour.xtl.src.html#L154">demos/tour.xtl:154</a></div>
 </div>
 <div class="item" id="s">
 <h3><a href="#s">s</a> <span class="type">: Char</span></h3>
@@ -258,7 +273,7 @@ right to left; read each line with its trailing comment.</p>
 <p>A sentence to cut into words.</p>
 </div>
 <pre class="code">s ← <span class="c-string">&quot;to be or not&quot;</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L157">tour.xtl:157</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L157">demos/tour.xtl:157</a></div>
 </div>
 <h2 class="section" id="section-9">Combinators and power</h2>
 <div class="item" id="u.t_riangle">
@@ -269,7 +284,7 @@ right to left; read each line with its trailing comment.</p>
 itself (lazy, so u:t_riangle is given to c:Y_ to recurse).</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘt̲riangle</span> ← { ~<span class="c-builtin">s̲elf</span> n → n <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? <span class="c-number">1</span>◆ n <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-builtin">s̲elf</span> n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> }</pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L191">tour.xtl:191</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L191">demos/tour.xtl:191</a></div>
 </div>
 <h2 class="section" id="section-10">Life in one line</h2>
 <div class="item" id="u.l_ife">
@@ -281,7 +296,7 @@ dead, 1 alive), the board wrapping at its edges: a cell lives when
 its 3 by 3 neighborhood total is 3, or 4 and it is alive.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘl̲ife</span> ← { (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/₁₂</a> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-₁₂</a> <span class="c-lambdaarg">⍵</span>) { (<span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">3</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">4</span> } <span class="c-lambdaarg">⍵</span> }</pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L199">tour.xtl:199</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L199">demos/tour.xtl:199</a></div>
 </div>
 </main>
 </body>

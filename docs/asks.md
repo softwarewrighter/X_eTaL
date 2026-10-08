@@ -15,12 +15,12 @@ build already does what the ask wants.
 | ---------- | ------ | ------------- | ------- | -------- | --- |
 | X_eTaL-demos | 11 | 3 | 3 | 2 | 2 |
 | X_eTaL-ML | 7 | 1 | 1 | 3 | 2 |
-| X_eTaL-games | 5 | 4 | 4 | 1 | 3 |
+| X_eTaL-games | 6 | 4 | 4 | 1 | 3 |
 | X_eTaL-libraries | 8 | 3 | 2 | 3 | 1 |
 | X_eTaL-extensions | 3 | 1 | 3 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 34 | 12 | 20 | 11 | 18 |
+| All | 35 | 12 | 20 | 11 | 18 |
 
 ## Notice: write a library's helpers with h:
 
@@ -108,6 +108,7 @@ warning becomes an error. See `docs/private-names.md`.
 | G15 | fast paths for array idioms: raze, hashed membership, mix, linear number parsing, a matrix-product kernel | partly landed | linear number parsing landed (`n_umbers`, ask G9); mix to decide (asks-decisions, asks-mix); the matrix-product kernel in Saga 22 (G8); raze and hashed membership (G10) not yet planned | - |
 | G16 | a library that fails to parse is reported at the import as `not-exported` with an empty list | landed | checked 2026-10-07 at 8f006d6: the import reports the library's own error, located in it (`error[bad-quote]: ... at ./L.xtl:1:18`) | - |
 | G17 | `t_able` and `i_nner` slower since the higher-order built-ins became kernels (the regression D11) | landed | Saga 30: 16b710d, 8456e45 | - |
+| G18 | `xetal doc --out` over several programs lists files by name alone, so eleven `play.xtl` look the same in the sidebar | landed | step 088 (D129): the sidebar groups files under their directory relative to the documented files' common root, and the search index and the used-at links name a file by that relative path | - |
 
 ## X_eTaL-libraries
 

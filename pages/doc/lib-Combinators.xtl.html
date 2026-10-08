@@ -14,6 +14,7 @@
 <a class="home" href="index.html">X_eTaL doc</a>
 <input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
 <h2>Files</h2>
+<h3>lib/</h3>
 <ul>
 <li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
 <li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
@@ -25,13 +26,17 @@
 <li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
 <li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
 <li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
 <li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>demos/</h3>
+<ul>
 <li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
 <li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
 <li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
 <li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
-<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
-<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
 <li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
 <li><a href="demos-keys.xtl.html">keys.xtl</a></li>
 <li><a href="demos-life.xtl.html">life.xtl</a></li>
@@ -48,11 +53,21 @@
 <li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
 <li><a href="demos-unit.xtl.html">unit.xtl</a></li>
 <li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+</ul>
+<h3>userlibs/</h3>
+<ul>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
 <li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+</ul>
+<h3>demos/rosetta/</h3>
+<ul>
 <li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
 <li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
 <li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
 <li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+</ul>
+<ul>
 <li><a href="builtins.html">built-ins</a></li>
 </ul>
 <h2>On this page</h2>
@@ -147,7 +162,7 @@ first argument: <code><span class="c-builtin">'</span><a href="builtins.html#n_e
 1</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡK̲</span> ← { x y → x }                                    <span class="c-comment">⍝</span><span class="c-comment"> Kestrel</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L25">combinators.xtl:25</a>, <a href="demos-keys.xtl.src.html#L183">keys.xtl:183</a>, <a href="demos-tour.xtl.src.html#L184">tour.xtl:184</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L25">demos/combinators.xtl:25</a>, <a href="demos-keys.xtl.src.html#L183">demos/keys.xtl:183</a>, <a href="demos-tour.xtl.src.html#L184">demos/tour.xtl:184</a></div>
 </div>
 <div class="item" id="l.T_">
 <h3><a href="#l.T_"><span class="c-libfunc">ˡT̲</span></a> <span class="type">: (Any a, Any b) =&gt; a -&gt; (a -&gt; b) -&gt; b</span></h3>
@@ -159,7 +174,7 @@ first argument: <code><span class="c-builtin">'</span><a href="builtins.html#n_e
 -3</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡT̲</span> ← { x <span class="c-builtin">y̲</span> → <span class="c-builtin">y̲</span> x }                                  <span class="c-comment">⍝</span><span class="c-comment"> Thrush</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L41">combinators.xtl:41</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L41">demos/combinators.xtl:41</a></div>
 </div>
 <div class="item" id="l.W_">
 <h3><a href="#l.W_"><span class="c-libfunc">ˡW̲</span></a> <span class="type">: (Any a, Any b) =&gt; (a -&gt; a -&gt; b) -&gt; a -&gt; b</span></h3>
@@ -171,7 +186,7 @@ first argument: <code><span class="c-builtin">'</span><a href="builtins.html#n_e
 16</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡW̲</span> ← { <span class="c-builtin">x̲</span> y → y <span class="c-builtin">x̲</span> y }                                <span class="c-comment">⍝</span><span class="c-comment"> Warbler</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L35">combinators.xtl:35</a>, <a href="demos-tour.xtl.src.html#L187">tour.xtl:187</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L35">demos/combinators.xtl:35</a>, <a href="demos-tour.xtl.src.html#L187">demos/tour.xtl:187</a></div>
 </div>
 <div class="item" id="l.W_1">
 <h3><a href="#l.W_1"><span class="c-libfunc">ˡW̲1</span></a> <span class="type">: (Any a, Any b) =&gt; a -&gt; (a -&gt; a -&gt; b) -&gt; b</span></h3>
@@ -196,7 +211,7 @@ the other way round.</p>
 5</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡB̲</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z → <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z }                              <span class="c-comment">⍝</span><span class="c-comment"> Bluebird: compose</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L32">combinators.xtl:32</a>, <a href="demos-tour.xtl.src.html#L186">tour.xtl:186</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L32">demos/combinators.xtl:32</a>, <a href="demos-tour.xtl.src.html#L186">demos/tour.xtl:186</a></div>
 </div>
 <div class="item" id="l.B_1">
 <h3><a href="#l.B_1"><span class="c-libfunc">ˡB̲1</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; (a -&gt; b) -&gt; (c -&gt; d -&gt; a) -&gt; c -&gt; d -&gt; b</span></h3>
@@ -233,7 +248,7 @@ swapped.</p>
 -7</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡC̲</span> ← { <span class="c-builtin">x̲</span> y z → z <span class="c-builtin">x̲</span> y }                              <span class="c-comment">⍝</span><span class="c-comment"> Cardinal: swap</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L29">combinators.xtl:29</a>, <a href="demos-tour.xtl.src.html#L185">tour.xtl:185</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L29">demos/combinators.xtl:29</a>, <a href="demos-tour.xtl.src.html#L185">demos/tour.xtl:185</a></div>
 </div>
 <div class="item" id="l.D_">
 <h3><a href="#l.D_"><span class="c-libfunc">ˡD̲</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c) -&gt; a -&gt; (d -&gt; b) -&gt; d -&gt; c</span></h3>
@@ -386,7 +401,7 @@ from B.</p>
 6</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡS̲</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z → z <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z }                            <span class="c-comment">⍝</span><span class="c-comment"> Starling</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L38">combinators.xtl:38</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L38">demos/combinators.xtl:38</a></div>
 </div>
 <div class="item" id="l.V_">
 <h3><a href="#l.V_"><span class="c-libfunc">ˡV̲</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; a -&gt; b -&gt; (a -&gt; b -&gt; c) -&gt; c</span></h3>
@@ -399,7 +414,7 @@ z is given them.</p>
 -1</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡV̲</span> ← { x y <span class="c-builtin">z̲</span> → x <span class="c-builtin">z̲</span> y }                              <span class="c-comment">⍝</span><span class="c-comment"> Vireo: a pair</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L44">combinators.xtl:44</a>, <a href="demos-combinators.xtl.src.html#L45">combinators.xtl:45</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L44">demos/combinators.xtl:44</a>, <a href="demos-combinators.xtl.src.html#L45">demos/combinators.xtl:45</a></div>
 </div>
 <h2 class="section" id="section-4">Once removed</h2>
 <div class="item" id="l.C_s">
@@ -497,7 +512,7 @@ takes itself (as ~s_elf) and its argument.</p>
 120</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡY̲</span> ← { <span class="c-builtin">f̲</span> → <span class="c-builtin">f̲</span> <a href="lib-Combinators.xtl.html#l.Y_" class="c-libfunc">ˡY̲</a> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</pre>
-<div class="uses">Used in: <a href="lib-Combinators.xtl.html#l.Y_"><span class="c-libfunc">ˡY̲</span></a>, <a href="demos-combinators.xtl.src.html#L53">combinators.xtl:53</a>, <a href="demos-tour.xtl.src.html#L191">tour.xtl:191</a></div>
+<div class="uses">Used in: <a href="lib-Combinators.xtl.html#l.Y_"><span class="c-libfunc">ˡY̲</span></a>, <a href="demos-combinators.xtl.src.html#L53">demos/combinators.xtl:53</a>, <a href="demos-tour.xtl.src.html#L191">demos/tour.xtl:191</a></div>
 </div>
 </main>
 </body>

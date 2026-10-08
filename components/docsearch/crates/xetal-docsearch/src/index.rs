@@ -20,13 +20,16 @@ pub struct Entry {
 
 /// Every item of `files`, then every built-in of the catalog.
 pub fn entries(files: &[DocFile]) -> Vec<Entry> {
+    let names: Vec<&str> = files.iter().map(|f| f.name.as_str()).collect();
+    let root = xetal_dochtml::root(&names);
+    let root = root.as_str();
     let items = files.iter().flat_map(|f| {
         f.items.iter().map(move |i| Entry {
             name: i.name.clone(),
             kind: i.kind.to_string(),
             norm: normalize(&i.ty),
             ty: i.ty.clone(),
-            file: f.name.rsplit('/').next().unwrap_or(&f.name).to_string(),
+            file: xetal_dochtml::relative(root, &f.name).to_string(),
             href: format!("{}.html#{}", page(&f.name), anchor(&i.name)),
             about: i.doc.as_ref().map_or(String::new(), |d| first(&d.text)),
         })

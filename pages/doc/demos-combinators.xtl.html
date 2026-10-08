@@ -14,6 +14,7 @@
 <a class="home" href="index.html">X_eTaL doc</a>
 <input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
 <h2>Files</h2>
+<h3>lib/</h3>
 <ul>
 <li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
 <li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
@@ -25,13 +26,17 @@
 <li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
 <li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
 <li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
 <li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>demos/</h3>
+<ul>
 <li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
 <li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
 <li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
 <li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
-<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
-<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
 <li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
 <li><a href="demos-keys.xtl.html">keys.xtl</a></li>
 <li><a href="demos-life.xtl.html">life.xtl</a></li>
@@ -48,11 +53,21 @@
 <li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
 <li><a href="demos-unit.xtl.html">unit.xtl</a></li>
 <li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+</ul>
+<h3>userlibs/</h3>
+<ul>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
 <li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+</ul>
+<h3>demos/rosetta/</h3>
+<ul>
 <li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
 <li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
 <li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
 <li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+</ul>
+<ul>
 <li><a href="builtins.html">built-ins</a></li>
 </ul>
 <h2>On this page</h2>
@@ -85,7 +100,7 @@ Y and 1024 from a function power. docs/birds.md lists every bird.</p>
 <p>u:i_nc x: x plus one.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘi̲nc</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span> }</pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L32">combinators.xtl:32</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L32">demos/combinators.xtl:32</a></div>
 </div>
 <div class="item" id="u.d_ouble">
 <h3><a href="#u.d_ouble"><span class="c-userfunc">ᵘd̲ouble</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
@@ -94,7 +109,7 @@ Y and 1024 from a function power. docs/birds.md lists every bird.</p>
 <p>u:d_ouble x: x times two.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘd̲ouble</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span> }</pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L32">combinators.xtl:32</a>, <a href="demos-combinators.xtl.src.html#L38">combinators.xtl:38</a>, <a href="demos-combinators.xtl.src.html#L41">combinators.xtl:41</a>, <a href="demos-combinators.xtl.src.html#L56">combinators.xtl:56</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L32">demos/combinators.xtl:32</a>, <a href="demos-combinators.xtl.src.html#L38">demos/combinators.xtl:38</a>, <a href="demos-combinators.xtl.src.html#L41">demos/combinators.xtl:41</a>, <a href="demos-combinators.xtl.src.html#L56">demos/combinators.xtl:56</a></div>
 </div>
 <h2 class="section" id="section-2">Recursion from Y, and function power</h2>
 <div class="item" id="u.f_act">
@@ -106,7 +121,7 @@ function it is handed (lazy, ~), rather than by its own name. Y, the
 Sage Bird, hands it itself: <code><span class="c-userfunc">'</span><a href="demos-combinators.xtl.html#u.f_act" class="c-userfunc">ᵘf̲act</a> <a href="lib-Combinators.xtl.html#l.Y_" class="c-libfunc">ᶜY̲</a> <span class="c-number">10</span></code> is 10 factorial.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘf̲act</span> ← { ~<span class="c-builtin">s̲elf</span> n → n <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? <span class="c-number">1</span>◆ n <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-builtin">s̲elf</span> n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> }</pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L53">combinators.xtl:53</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L53">demos/combinators.xtl:53</a></div>
 </div>
 </main>
 </body>

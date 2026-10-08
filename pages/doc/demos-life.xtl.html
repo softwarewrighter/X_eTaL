@@ -14,6 +14,7 @@
 <a class="home" href="index.html">X_eTaL doc</a>
 <input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
 <h2>Files</h2>
+<h3>lib/</h3>
 <ul>
 <li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
 <li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
@@ -25,13 +26,17 @@
 <li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
 <li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
 <li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
 <li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>demos/</h3>
+<ul>
 <li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
 <li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
 <li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
 <li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
-<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
-<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
 <li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
 <li><a href="demos-keys.xtl.html">keys.xtl</a></li>
 <li><a href="demos-life.xtl.html">life.xtl</a></li>
@@ -48,11 +53,21 @@
 <li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
 <li><a href="demos-unit.xtl.html">unit.xtl</a></li>
 <li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+</ul>
+<h3>userlibs/</h3>
+<ul>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
 <li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+</ul>
+<h3>demos/rosetta/</h3>
+<ul>
 <li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
 <li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
 <li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
 <li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+</ul>
+<ul>
 <li><a href="builtins.html">built-ins</a></li>
 </ul>
 <h2>On this page</h2>
@@ -91,7 +106,7 @@ S, each cell plus its neighbors; a cell lives next when S is 3, or
 when it is alive and S is 4.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘl̲ife</span> ← { (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/₁₂</a> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-₁₂</a> <span class="c-lambdaarg">⍵</span>) { (<span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">3</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">4</span> } <span class="c-lambdaarg">⍵</span> }</pre>
-<div class="uses">Used in: <a href="demos-life.xtl.src.html#L33">life.xtl:33</a>, <a href="demos-life.xtl.src.html#L34">life.xtl:34</a>, <a href="demos-life.xtl.src.html#L35">life.xtl:35</a>, <a href="demos-life.xtl.html#last">last</a></div>
+<div class="uses">Used in: <a href="demos-life.xtl.src.html#L33">demos/life.xtl:33</a>, <a href="demos-life.xtl.src.html#L34">demos/life.xtl:34</a>, <a href="demos-life.xtl.src.html#L35">demos/life.xtl:35</a>, <a href="demos-life.xtl.html#last">last</a></div>
 </div>
 <div class="item" id="u.s_teps">
 <h3><a href="#u.s_teps"><span class="c-userfunc">ᵘs̲teps</span></a> <span class="type">: (Any a, Num b) =&gt; (a -&gt; a) -&gt; b -&gt; a -&gt; a</span></h3>
@@ -119,7 +134,7 @@ period 2: one step turns it, two steps restore it. A superscript on a
 function repeats it (function power): <code><a href="demos-life.xtl.html#u.l_ife" class="c-userfunc">ᵘl̲ife</a><span class="c-userfunc">²</span></code>.</p>
 </div>
 <pre class="code">blinker ← <span class="c-number">5</span> <span class="c-number">5</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></pre>
-<div class="uses">Used in: <a href="demos-life.xtl.src.html#L33">life.xtl:33</a>, <a href="demos-life.xtl.src.html#L34">life.xtl:34</a>, <a href="demos-life.xtl.src.html#L35">life.xtl:35</a></div>
+<div class="uses">Used in: <a href="demos-life.xtl.src.html#L33">demos/life.xtl:33</a>, <a href="demos-life.xtl.src.html#L34">demos/life.xtl:34</a>, <a href="demos-life.xtl.src.html#L35">demos/life.xtl:35</a></div>
 </div>
 <h2 class="section" id="section-3">A glider</h2>
 <div class="item" id="glider">

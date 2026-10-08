@@ -34,3 +34,33 @@ pub fn page(name: &str) -> String {
         .collect();
     parts.join("-")
 }
+
+/// The directory every one of `names` is in, with its trailing `/`
+/// (empty when they share none): what file names are shown relative to.
+pub fn root(names: &[&str]) -> String {
+    let dirs: Vec<&str> = names
+        .iter()
+        .map(|n| n.rsplit_once('/').map_or("", |(d, _)| d))
+        .collect();
+    let mut common: Vec<&str> = dirs.first().map_or(Vec::new(), |d| d.split('/').collect());
+    for d in &dirs[1.min(dirs.len())..] {
+        let parts: Vec<&str> = d.split('/').collect();
+        let same = common
+            .iter()
+            .zip(&parts)
+            .take_while(|(a, b)| a == b)
+            .count();
+        common.truncate(same);
+    }
+    let joined = common.join("/");
+    if joined.is_empty() {
+        joined
+    } else {
+        format!("{joined}/")
+    }
+}
+
+/// `name` relative to `root` (from [`root`]).
+pub fn relative<'n>(root: &str, name: &'n str) -> &'n str {
+    name.strip_prefix(root).unwrap_or(name)
+}

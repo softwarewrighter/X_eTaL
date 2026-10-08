@@ -1,0 +1,4 @@
+## Go: place a stone.
+
+## The stone.
+u:s_tone := { _r * 2 }

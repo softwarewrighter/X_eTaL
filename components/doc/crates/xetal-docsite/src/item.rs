@@ -8,7 +8,6 @@ use xetal_doclink::Target;
 
 use crate::context::Ctx;
 use crate::expansion::on_lines;
-use crate::layout::short;
 
 /// Item `index` of file `file`.
 pub(crate) fn item(cx: &Ctx, file: usize, index: usize) -> String {
@@ -99,7 +98,7 @@ fn place(cx: &Ctx, file: usize, line: usize) -> String {
         }
         None => {
             let (name, src) = (&cx.files[file].name, page(&cx.files[file].name));
-            let at = escape(short(name));
+            let at = escape(xetal_dochtml::relative(&cx.root, name));
             format!("<a href=\"{src}.src.html#L{line}\">{at}:{line}</a>")
         }
     }

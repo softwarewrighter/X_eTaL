@@ -2,7 +2,8 @@
 //! on this page), the theme switch.
 
 use xetal_base::LANG_NAME;
-use xetal_dochtml::{escape, page};
+use xetal_doc::DocFile;
+use xetal_dochtml::{escape, page, relative};
 
 use crate::context::Ctx;
 
@@ -32,22 +33,48 @@ const SEARCH: &str = "<input id=\"search\" type=\"search\" autocomplete=\"off\" 
 fn sidebar(cx: &Ctx, toc: &str) -> String {
     let mut out = format!("<a class=\"home\" href=\"index.html\">{LANG_NAME} doc</a>\n");
     out.push_str(SEARCH);
-    out.push_str("<h2>Files</h2>\n<ul>\n");
-    for f in cx.files {
-        let name = escape(short(&f.name));
-        out.push_str(&format!(
-            "<li><a href=\"{}.html\">{name}</a></li>\n",
-            page(&f.name)
-        ));
+    out.push_str("<h2>Files</h2>\n");
+    for (dir, files) in by_directory(cx) {
+        if !dir.is_empty() {
+            out.push_str(&format!("<h3>{}</h3>\n", escape(&dir)));
+        }
+        out.push_str("<ul>\n");
+        for f in files {
+            let name = escape(short(&f.name));
+            out.push_str(&format!(
+                "<li><a href=\"{}.html\">{name}</a></li>\n",
+                page(&f.name)
+            ));
+        }
+        out.push_str("</ul>\n");
     }
-    out.push_str("<li><a href=\"builtins.html\">built-ins</a></li>\n</ul>\n");
+    out.push_str("<ul>\n<li><a href=\"builtins.html\">built-ins</a></li>\n</ul>\n");
     if !toc.is_empty() {
         out.push_str(&format!("<h2>On this page</h2>\n<ul>\n{toc}</ul>\n"));
     }
     out
 }
 
+/// The files grouped by their directory relative to the site's root
+/// (with its `/`; empty for files in the root), in the order of each
+/// directory's first file: same-named files in different directories
+/// (eleven play.xtl) stay apart.
+fn by_directory<'a>(cx: &Ctx<'a>) -> Vec<(String, Vec<&'a DocFile>)> {
+    let mut groups: Vec<(String, Vec<&DocFile>)> = Vec::new();
+    for f in cx.files {
+        let rel = relative(&cx.root, &f.name);
+        let dir = rel
+            .rsplit_once('/')
+            .map_or(String::new(), |(d, _)| format!("{d}/"));
+        match groups.iter_mut().find(|(d, _)| *d == dir) {
+            Some((_, list)) => list.push(f),
+            None => groups.push((dir, vec![f])),
+        }
+    }
+    groups
+}
+
 /// A file's name without its directories.
-pub(crate) fn short(name: &str) -> &str {
+fn short(name: &str) -> &str {
     name.rsplit('/').next().unwrap_or(name)
 }

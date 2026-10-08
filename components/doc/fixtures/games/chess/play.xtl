@@ -1,0 +1,4 @@
+## Chess: play a move.
+
+## The move.
+u:m_ove := { _r + 1 }

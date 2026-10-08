@@ -11,7 +11,7 @@ mod prose;
 
 pub use builtins::described;
 pub use code::{Href, code, lined};
-pub use escape::{anchor, escape, page};
+pub use escape::{anchor, escape, page, relative, root};
 pub use prose::{Draw, example, prose};
 
 /// The stylesheet (`style.css`): light and dark.

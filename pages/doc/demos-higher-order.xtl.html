@@ -14,6 +14,7 @@
 <a class="home" href="index.html">X_eTaL doc</a>
 <input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
 <h2>Files</h2>
+<h3>lib/</h3>
 <ul>
 <li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
 <li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
@@ -25,13 +26,17 @@
 <li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
 <li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
 <li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
 <li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>demos/</h3>
+<ul>
 <li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
 <li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
 <li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
 <li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
-<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
-<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
 <li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
 <li><a href="demos-keys.xtl.html">keys.xtl</a></li>
 <li><a href="demos-life.xtl.html">life.xtl</a></li>
@@ -48,11 +53,21 @@
 <li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
 <li><a href="demos-unit.xtl.html">unit.xtl</a></li>
 <li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+</ul>
+<h3>userlibs/</h3>
+<ul>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
 <li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+</ul>
+<h3>demos/rosetta/</h3>
+<ul>
 <li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
 <li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
 <li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
 <li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+</ul>
+<ul>
 <li><a href="builtins.html">built-ins</a></li>
 </ul>
 <h2>On this page</h2>
@@ -86,7 +101,7 @@ order built-ins s_ort, g_rade, u_nique, i_ndexOf and w_here.</p>
 <p>v: the vector the reductions, scan and search built-ins work on.</p>
 </div>
 <pre class="code">v ← <span class="c-number">3</span> <span class="c-number">1</span> <span class="c-number">4</span> <span class="c-number">1</span> <span class="c-number">5</span></pre>
-<div class="uses">Used in: <a href="demos-higher-order.xtl.src.html#L13">higher-order.xtl:13</a>, <a href="demos-higher-order.xtl.src.html#L15">higher-order.xtl:15</a>, <a href="demos-higher-order.xtl.src.html#L36">higher-order.xtl:36</a>, <a href="demos-higher-order.xtl.src.html#L37">higher-order.xtl:37</a>, <a href="demos-higher-order.xtl.src.html#L38">higher-order.xtl:38</a>, <a href="demos-higher-order.xtl.src.html#L39">higher-order.xtl:39</a>, <a href="demos-higher-order.xtl.src.html#L40">higher-order.xtl:40</a></div>
+<div class="uses">Used in: <a href="demos-higher-order.xtl.src.html#L13">demos/higher-order.xtl:13</a>, <a href="demos-higher-order.xtl.src.html#L15">demos/higher-order.xtl:15</a>, <a href="demos-higher-order.xtl.src.html#L36">demos/higher-order.xtl:36</a>, <a href="demos-higher-order.xtl.src.html#L37">demos/higher-order.xtl:37</a>, <a href="demos-higher-order.xtl.src.html#L38">demos/higher-order.xtl:38</a>, <a href="demos-higher-order.xtl.src.html#L39">demos/higher-order.xtl:39</a>, <a href="demos-higher-order.xtl.src.html#L40">demos/higher-order.xtl:40</a></div>
 </div>
 <h2 class="section" id="section-2">Matrices: reduce, outer and inner products</h2>
 <div class="item" id="m">
@@ -96,7 +111,7 @@ order built-ins s_ort, g_rade, u_nique, i_ndexOf and w_here.</p>
 <p>m: a 2 by 3 matrix holding 1 to 6, row by row.</p>
 </div>
 <pre class="code">m ← <span class="c-number">2</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">6</span></pre>
-<div class="uses">Used in: <a href="demos-higher-order.xtl.src.html#L21">higher-order.xtl:21</a>, <a href="demos-higher-order.xtl.src.html#L23">higher-order.xtl:23</a></div>
+<div class="uses">Used in: <a href="demos-higher-order.xtl.src.html#L21">demos/higher-order.xtl:21</a>, <a href="demos-higher-order.xtl.src.html#L23">demos/higher-order.xtl:23</a></div>
 </div>
 <h2 class="section" id="section-3">Functions as operands</h2>
 <div class="item" id="u.s_ign">
@@ -106,7 +121,7 @@ order built-ins s_ort, g_rade, u_nique, i_ndexOf and w_here.</p>
 <p>u:s_ign x: -1 when x is negative, 0 when it is zero, 1 otherwise.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘs̲ign</span> ← { x → x <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">0</span> ? <span class="c-number">-1</span>◆ x <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? <span class="c-number">0</span>◆ <span class="c-number">1</span> }</pre>
-<div class="uses">Used in: <a href="demos-higher-order.xtl.src.html#L29">higher-order.xtl:29</a></div>
+<div class="uses">Used in: <a href="demos-higher-order.xtl.src.html#L29">demos/higher-order.xtl:29</a></div>
 </div>
 </main>
 </body>
