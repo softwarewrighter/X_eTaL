@@ -164,9 +164,10 @@ error[type-mismatch]: expected Unit, found a number
 <h2 id="orgbd9089d">A second greeting</h2>
 <div class="outline-text-2" id="text-orgbd9089d">
 <p>
-A library can keep names to itself: a name without <code>l:</code> is private.
+A library can keep names to itself: a helper written with <code>h:</code> is
+private to its file.
 <code>userlibs/Greetings.xtl</code> exports <code>g_reet</code>, which is monadic: it takes the
-greeting from the program and adds the name, kept in a private <code>n_ame</code>:
+greeting from the program and adds the name, kept in a helper <code>h:n_ame</code>:
 </p>
 
 <div class="org-src-container">
@@ -183,7 +184,7 @@ greeting from the program and adds the name, kept in a private <code>n_ame</code
 </div>
 
 <p>
-X_eTaL reads right to left, so <code>g c_at " " c_at n_ame @</code> is <code>g</code> joined
+X_eTaL reads right to left, so <code>g c_at " " c_at h:n_ame @</code> is <code>g</code> joined
 to a space joined to the name. A program can import both libraries,
 each under its own prefix:
 </p>
@@ -206,7 +207,7 @@ welcome to X̲ᵉTᵃL
 
 
 <p>
-but not the private name: <code>g:n_ame @</code> is an error, <code>not-exported</code>,
+but not the helper: <code>g:n_ame @</code> is an error, <code>not-exported</code>,
 listing <code>g_reet</code>. <code>demos/hello-library.xtl</code> uses both, the niladic
 <code>hi:h_ello @</code> and the monadic <code>g:g_reet "hi"</code>.
 </p>

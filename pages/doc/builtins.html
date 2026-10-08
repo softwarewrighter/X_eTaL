@@ -26,8 +26,33 @@
 <li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
 <li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
 <li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
 <li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
 <li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
 <li><a href="builtins.html">built-ins</a></li>
 </ul>
 </nav>
@@ -97,15 +122,15 @@
 </td></tr>
 <tr id="n_ot"><td><code><span class="c-builtin">n̲ot</span></code></td><td><code>(Truthy a, Truthy b) =&gt; a -&gt; b</code></td><td><p>Not.</p>
 </td></tr>
-<tr id="p_rint-21"><td><code><span class="c-builtin">p̲rint!</span></code></td><td><code>a -&gt; a</code></td><td><p>Print a value and give it back (the ! marks an effect).</p>
+<tr id="p_rint-21"><td><code><span class="c-builtin">p̲rint!</span></code></td><td><code>Any a =&gt; a -&gt; a</code></td><td><p>Print a value and give it back (the ! marks an effect).</p>
 </td></tr>
 <tr id="r_oll-21"><td><code><span class="c-builtin">r̲oll!</span></code></td><td><code>Int -&gt; Int</code></td><td><p>A random whole number from 1 to n for every n (seeded here, so the example repeats).</p>
 </td></tr>
-<tr id="i_d"><td><code><span class="c-builtin">i̲d</span></code></td><td><code>a -&gt; a</code></td><td><p>The value itself. As the left function of a fork it gives the argument unchanged: <code>[<span class="c-builtin">i̲d</span> F G] x</code> is <code>(<span class="c-builtin">i̲d</span> x) F (G x)</code>, that is <code>x F (G x)</code> (a hook); <code>[<span class="c-builtin">i̲d</span> <span class="c-symbol">−</span> <span class="c-builtin">n̲eg</span>] <span class="c-number">5</span></code> is <code><span class="c-number">5</span> <span class="c-symbol">−</span> (<span class="c-builtin">n̲eg</span> <span class="c-number">5</span>)</code>.</p>
+<tr id="i_d"><td><code><span class="c-builtin">i̲d</span></code></td><td><code>Any a =&gt; a -&gt; a</code></td><td><p>The value itself. As the left function of a fork it gives the argument unchanged: <code>[<span class="c-builtin">i̲d</span> F G] x</code> is <code>(<span class="c-builtin">i̲d</span> x) F (G x)</code>, that is <code>x F (G x)</code> (a hook); <code>[<span class="c-builtin">i̲d</span> <span class="c-symbol">−</span> <span class="c-builtin">n̲eg</span>] <span class="c-number">5</span></code> is <code><span class="c-number">5</span> <span class="c-symbol">−</span> (<span class="c-builtin">n̲eg</span> <span class="c-number">5</span>)</code>.</p>
 </td></tr>
-<tr id="l_eft"><td><code><span class="c-builtin">l̲eft</span></code></td><td><code>a -&gt; b -&gt; a</code></td><td><p>The left argument. In a dyadic train, <code>x [<span class="c-builtin">l̲eft</span> F <span class="c-builtin">r̲ight</span>] y</code> is <code>x F y</code>, so the tacks pick an argument for each side of a fork.</p>
+<tr id="l_eft"><td><code><span class="c-builtin">l̲eft</span></code></td><td><code>(Any a, Any b) =&gt; a -&gt; b -&gt; a</code></td><td><p>The left argument. In a dyadic train, <code>x [<span class="c-builtin">l̲eft</span> F <span class="c-builtin">r̲ight</span>] y</code> is <code>x F y</code>, so the tacks pick an argument for each side of a fork.</p>
 </td></tr>
-<tr id="r_ight"><td><code><span class="c-builtin">r̲ight</span></code></td><td><code>a -&gt; b -&gt; b</code></td><td><p>The right argument.</p>
+<tr id="r_ight"><td><code><span class="c-builtin">r̲ight</span></code></td><td><code>(Any a, Any b) =&gt; a -&gt; b -&gt; b</code></td><td><p>The right argument.</p>
 </td></tr>
 <tr id="-5b-5dA"><td><code><span class="c-builtin">⎕A</span></code></td><td><code>Char</code></td><td><p>The alphabet, the uppercase letters: a system value, written without an underline and read where it is used.</p>
 </td></tr>
@@ -131,23 +156,23 @@
 </td></tr>
 <tr id="-5b-5dE_RR"><td><code><span class="c-builtin">⎕E̲RR</span></code></td><td><code>Char -&gt; Char</code></td><td><p>Write a line to standard error (red in the live demo), and give the text back.</p>
 </td></tr>
-<tr id="-5b-5dP_ANIC"><td><code><span class="c-builtin">⎕P̲ANIC</span></code></td><td><code>Char -&gt; a</code></td><td><p>Stop the program with error[panic] and the text as its message (what <code>@ <span class="c-macro">p̲anic&lt;</span> <span class="c-string">&quot;...&quot;</span></code> writes). Its result has any type, so it stands where any value may.</p>
+<tr id="-5b-5dP_ANIC"><td><code><span class="c-builtin">⎕P̲ANIC</span></code></td><td><code>Any a =&gt; Char -&gt; a</code></td><td><p>Stop the program with error[panic] and the text as its message (what <code>@ <span class="c-macro">p̲anic&lt;</span> <span class="c-string">&quot;...&quot;</span></code> writes). Its result has any type, so it stands where any value may.</p>
 </td></tr>
-<tr id="-5b-5dS_IGNAL"><td><code><span class="c-builtin">⎕S̲IGNAL</span></code></td><td><code>Char -&gt; Char -&gt; a</code></td><td><p>Stop with an error of your own: the code on the left names the error class, as xetal's own codes do (lowercase letters, digits and hyphens), and the text on the right is its message. Uncaught, it ends the program with exit status 1, like any error. Its result has any type.</p>
+<tr id="-5b-5dS_IGNAL"><td><code><span class="c-builtin">⎕S̲IGNAL</span></code></td><td><code>Any a =&gt; Char -&gt; Char -&gt; a</code></td><td><p>Stop with an error of your own: the code on the left names the error class, as xetal's own codes do (lowercase letters, digits and hyphens), and the text on the right is its message. Uncaught, it ends the program with exit status 1, like any error. Its result has any type.</p>
 </td></tr>
-<tr id="-5b-5dW_ARN"><td><code><span class="c-builtin">⎕W̲ARN</span></code></td><td><code>a -&gt; Box Char -&gt; a</code></td><td><p>An error the program can go on from (a warning): the left argument is the value to go on with, of the type of the place the warning stands in, and the right is the code and the message, a strand of two strings. Uncaught, a warning is an error like a signal. A handler that answers <code><span class="c-builtin">⎕C̲ONTINUE</span></code> makes the program go on from the warning with that value; the other answers unwind as they do for any error.</p>
+<tr id="-5b-5dW_ARN"><td><code><span class="c-builtin">⎕W̲ARN</span></code></td><td><code>Any a =&gt; a -&gt; Box Char -&gt; a</code></td><td><p>An error the program can go on from (a warning): the left argument is the value to go on with, of the type of the place the warning stands in, and the right is the code and the message, a strand of two strings. Uncaught, a warning is an error like a signal. A handler that answers <code><span class="c-builtin">⎕C̲ONTINUE</span></code> makes the program go on from the warning with that value; the other answers unwind as they do for any error.</p>
 </td></tr>
-<tr id="-5b-5dT_RAP"><td><code><span class="c-builtin">⎕T̲RAP</span></code></td><td><code>(Unit -&gt; a) -&gt; (Error -&gt; Outcome a) -&gt; a</code></td><td><p>Run the body; on any error, call the handler with it. The trap's value is the body's, or what the handler recovers with.</p>
+<tr id="-5b-5dT_RAP"><td><code><span class="c-builtin">⎕T̲RAP</span></code></td><td><code>Any a =&gt; (Unit -&gt; a) -&gt; (Error -&gt; Outcome a) -&gt; a</code></td><td><p>Run the body; on any error, call the handler with it. The trap's value is the body's, or what the handler recovers with.</p>
 </td></tr>
-<tr id="-5b-5dE_NSURE"><td><code><span class="c-builtin">⎕E̲NSURE</span></code></td><td><code>(Unit -&gt; a) -&gt; (Unit -&gt; b) -&gt; a</code></td><td><p>Run the body, then the cleanup (a function of <code>@</code>), whether the body gave a value or stopped with an error; the body's value, or its error going on. The <code><span class="c-macro">f̲inally&lt;</span></code> macro writes it.</p>
+<tr id="-5b-5dE_NSURE"><td><code><span class="c-builtin">⎕E̲NSURE</span></code></td><td><code>(Any a, Any b) =&gt; (Unit -&gt; a) -&gt; (Unit -&gt; b) -&gt; a</code></td><td><p>Run the body, then the cleanup (a function of <code>@</code>), whether the body gave a value or stopped with an error; the body's value, or its error going on. The <code><span class="c-macro">f̲inally&lt;</span></code> macro writes it.</p>
 </td></tr>
-<tr id="-5b-5dR_ECOVER"><td><code><span class="c-builtin">⎕R̲ECOVER</span></code></td><td><code>a -&gt; Outcome a</code></td><td><p>The handler's answer: the trap's value is this one, of the body's type.</p>
+<tr id="-5b-5dR_ECOVER"><td><code><span class="c-builtin">⎕R̲ECOVER</span></code></td><td><code>Any a =&gt; a -&gt; Outcome a</code></td><td><p>The handler's answer: the trap's value is this one, of the body's type.</p>
 </td></tr>
-<tr id="-5b-5dR_ETRY"><td><code><span class="c-builtin">⎕R̲ETRY</span></code></td><td><code>Error -&gt; Outcome a</code></td><td><p>The handler's answer: run the body again. After 1000 runs the trap gives up with error[retry-limit].</p>
+<tr id="-5b-5dR_ETRY"><td><code><span class="c-builtin">⎕R̲ETRY</span></code></td><td><code>Any a =&gt; Error -&gt; Outcome a</code></td><td><p>The handler's answer: run the body again. After 1000 runs the trap gives up with error[retry-limit].</p>
 </td></tr>
-<tr id="-5b-5dH_ALT"><td><code><span class="c-builtin">⎕H̲ALT</span></code></td><td><code>Error -&gt; Outcome a</code></td><td><p>The handler's answer: the error goes on as it was, from where it was raised. A handler for one kind of error halts on the others.</p>
+<tr id="-5b-5dH_ALT"><td><code><span class="c-builtin">⎕H̲ALT</span></code></td><td><code>Any a =&gt; Error -&gt; Outcome a</code></td><td><p>The handler's answer: the error goes on as it was, from where it was raised. A handler for one kind of error halts on the others.</p>
 </td></tr>
-<tr id="-5b-5dC_ONTINUE"><td><code><span class="c-builtin">⎕C̲ONTINUE</span></code></td><td><code>Error -&gt; Outcome a</code></td><td><p>The handler's answer to a warning: go on from it, with its value. The handler runs where the warning was raised, before any cleanup between it and the trap, so nothing has been undone. Halting a warning passes it outward still a warning; continuing an error raised by <code><span class="c-builtin">⎕S̲IGNAL</span></code> is error[not-resumable], since it has no value to go on with.</p>
+<tr id="-5b-5dC_ONTINUE"><td><code><span class="c-builtin">⎕C̲ONTINUE</span></code></td><td><code>Any a =&gt; Error -&gt; Outcome a</code></td><td><p>The handler's answer to a warning: go on from it, with its value. The handler runs where the warning was raised, before any cleanup between it and the trap, so nothing has been undone. Halting a warning passes it outward still a warning; continuing an error raised by <code><span class="c-builtin">⎕S̲IGNAL</span></code> is error[not-resumable], since it has no value to go on with.</p>
 </td></tr>
 <tr id="-5b-5dE_CODE"><td><code><span class="c-builtin">⎕E̲CODE</span></code></td><td><code>Error -&gt; Char</code></td><td><p>The code of a caught error (<code>mine</code> of error[mine]).</p>
 </td></tr>
@@ -247,11 +272,11 @@
 </td></tr>
 <tr id="i_nner"><td><code><span class="c-builtin">i̲nner</span></code></td><td><code>(a -&gt; b -&gt; c) -&gt; (c -&gt; c -&gt; c) -&gt; a -&gt; b -&gt; c</code></td><td><p>Inner product: <code>A <span class="c-symbol">'</span><span class="c-symbol">+</span> <span class="c-symbol">'</span><span class="c-symbol">×</span> <span class="c-builtin">i̲nner</span> B</code> is matrix multiplication (the last axis of A with the first of B).</p>
 </td></tr>
-<tr id="c_ompose"><td><code><span class="c-builtin">c̲ompose</span></code></td><td><code>(a -&gt; b) -&gt; (b -&gt; c) -&gt; a -&gt; c</code></td><td><p><code><span class="c-quote">'</span>f <span class="c-quote">'</span>g <span class="c-builtin">c̲ompose</span> x</code> is f applied to g applied to x; the atop train <code>[f g] x</code> is the same.</p>
+<tr id="c_ompose"><td><code><span class="c-builtin">c̲ompose</span></code></td><td><code>(Any a, Any b, Any c) =&gt; (a -&gt; b) -&gt; (b -&gt; c) -&gt; a -&gt; c</code></td><td><p><code><span class="c-quote">'</span>f <span class="c-quote">'</span>g <span class="c-builtin">c̲ompose</span> x</code> is f applied to g applied to x; the atop train <code>[f g] x</code> is the same.</p>
 </td></tr>
-<tr id="s_wap"><td><code><span class="c-builtin">s̲wap</span></code></td><td><code>(a -&gt; b -&gt; c) -&gt; b -&gt; a -&gt; c</code></td><td><p><code>x <span class="c-quote">'</span>f <span class="c-builtin">s̲wap</span> y</code> is <code>y f x</code>: the arguments swapped.</p>
+<tr id="s_wap"><td><code><span class="c-builtin">s̲wap</span></code></td><td><code>(Any a, Any b, Any c) =&gt; (a -&gt; b -&gt; c) -&gt; b -&gt; a -&gt; c</code></td><td><p><code>x <span class="c-quote">'</span>f <span class="c-builtin">s̲wap</span> y</code> is <code>y f x</code>: the arguments swapped.</p>
 </td></tr>
-<tr id="p_ower"><td><code><span class="c-builtin">p̲ower</span></code></td><td><code>(a -&gt; a) -&gt; Int -&gt; a -&gt; a</code></td><td><p><code>n <span class="c-quote">'</span>f <span class="c-builtin">p̲ower</span> x</code> applies f to x n times; <code><span class="c-builtin">f̲</span><span class="c-error">^</span><span class="c-error">n</span></code> is the same with a literal count.</p>
+<tr id="p_ower"><td><code><span class="c-builtin">p̲ower</span></code></td><td><code>Any a =&gt; (a -&gt; a) -&gt; Int -&gt; a -&gt; a</code></td><td><p><code>n <span class="c-quote">'</span>f <span class="c-builtin">p̲ower</span> x</code> applies f to x n times; <code><span class="c-builtin">f̲</span><span class="c-error">^</span><span class="c-error">n</span></code> is the same with a literal count.</p>
 </td></tr>
 <tr id="i_ndexOf"><td><code><span class="c-builtin">i̲ndexOf</span></code></td><td><code>Eq a =&gt; a -&gt; a -&gt; Int</code></td><td><p>Where each item of the right argument is first found among the items of the left, from 1; one past the end when it is not there.</p>
 </td></tr>

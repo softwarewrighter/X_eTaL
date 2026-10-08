@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>demos/hello-library.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">source</span><a href="demos-hello-library.xtl.html">demos/hello-library.xtl</a></h1>
+<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment">!/usr/bin/env xetal</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> demos/hello-library.xtl: a program using two libraries of its own,</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"> userlibs/Hello.xtl and userlibs/Greetings.xtl. u_se&lt; finds &quot;Hello&quot; as</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"> Hello.xtl beside this file, then in userlibs/ (run from the</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"> repository's root), then on XETAL_PATH, then among the standard</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"> libraries; the string on its left is the prefix the library's l:</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"> names get here.</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-libfunc">ʰⁱ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="userlibs-Hello.xtl.html" class="c-string">&quot;Hello&quot;</a></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-libfunc">ᵍ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="userlibs-Greetings.xtl.html" class="c-string">&quot;Greetings&quot;</a></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"> h_ello is niladic: it takes Unit (@), the value that stands for</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-comment">⍝</span><span class="c-comment"> nothing, and gives the greeting.</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a><a href="userlibs-Hello.xtl.html#l.h_ello" class="c-libfunc">ʰⁱh̲ello</a> @</span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-comment">⍝</span><span class="c-comment"> g_reet is monadic: this program supplies the greeting.</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><a href="userlibs-Greetings.xtl.html#l.g_reet" class="c-libfunc">ᵍg̲reet</a> <span class="c-string">&quot;hi&quot;</span></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a><a href="userlibs-Greetings.xtl.html#l.g_reet" class="c-libfunc">ᵍg̲reet</a> <span class="c-string">&quot;welcome to&quot;</span></span>
+</div>
+</main>
+</body>
+</html>

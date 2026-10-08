@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>demos/rosetta/Comparison.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#l.dwell">ˡdwell</a></li>
+<li class="item"><a href="#l.idleBefore">ˡidleBefore</a></li>
+<li class="item"><a href="#l.s_tart"><span class="c-libfunc">ˡs̲tart</span></a></li>
+<li class="item"><a href="#l.IDIOM">ˡIDIOM</a></li>
+<li class="item"><a href="#l.TOP">ˡTOP</a></li>
+<li class="item"><a href="#l.BOTTOM">ˡBOTTOM</a></li>
+<li class="item"><a href="#l.POINTER">ˡPOINTER</a></li>
+<li class="item"><a href="#l.ATTRACT">ˡATTRACT</a></li>
+<li class="item"><a href="#l.IDLE">ˡIDLE</a></li>
+<li class="item"><a href="#l.SINCE">ˡSINCE</a></li>
+<li class="item"><a href="#l.BOTTOMS">ˡBOTTOMS</a></li>
+<li class="item"><a href="#l.IDIOMS">ˡIDIOMS</a></li>
+<li class="item"><a href="#l.COUNT">ˡCOUNT</a></li>
+<li class="item"><a href="#l.STEPS">ˡSTEPS</a></li>
+<li class="item"><a href="#l.ANGLE">ˡANGLE</a></li>
+<li class="item"><a href="#l.PLAYING">ˡPLAYING</a></li>
+<li class="item"><a href="#l.DRAGGING">ˡDRAGGING</a></li>
+<li class="item"><a href="#l.X">ˡX</a></li>
+<li class="item"><a href="#l.Y">ˡY</a></li>
+<li class="item"><a href="#l.MOVED">ˡMOVED</a></li>
+<li class="item"><a href="#l.LAST">ˡLAST</a></li>
+<li class="item"><a href="#l.middle">ˡmiddle</a></li>
+<li class="item"><a href="#l.perPixel">ˡperPixel</a></li>
+<li class="item"><a href="#l.a_t"><span class="c-libfunc">ˡa̲t</span></a></li>
+<li class="item"><a href="#l.p_ut"><span class="c-libfunc">ˡp̲ut</span></a></li>
+<li class="item"><a href="#rows">rows</a></li>
+<li class="item"><a href="#cols">cols</a></li>
+<li class="item"><a href="#l.w_rap"><span class="c-libfunc">ˡw̲rap</span></a></li>
+<li class="item"><a href="#l.c_urrent"><span class="c-libfunc">ˡc̲urrent</span></a></li>
+<li class="item"><a href="#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a></li>
+<li class="item"><a href="#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a></li>
+<li class="item"><a href="#l.e_ase"><span class="c-libfunc">ˡe̲ase</span></a></li>
+<li class="item"><a href="#l.s_ettle"><span class="c-libfunc">ˡs̲ettle</span></a></li>
+<li class="item"><a href="#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a></li>
+<li class="item"><a href="#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a></li>
+<li class="item"><a href="#l.p_lay"><span class="c-libfunc">ˡp̲lay</span></a></li>
+<li class="item"><a href="#l.t_ouched"><span class="c-libfunc">ˡt̲ouched</span></a></li>
+<li class="item"><a href="#l.r_esume"><span class="c-libfunc">ˡr̲esume</span></a></li>
+<li class="item"><a href="#l.t_oggleTour"><span class="c-libfunc">ˡt̲oggleTour</span></a></li>
+<li class="item"><a href="#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a></li>
+<li class="item"><a href="#l.t_oggle"><span class="c-libfunc">ˡt̲oggle</span></a></li>
+<li class="item"><a href="#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a></li>
+<li class="item"><a href="#l.h_alf"><span class="c-libfunc">ˡh̲alf</span></a></li>
+<li class="item"><a href="#l.d_own"><span class="c-libfunc">ˡd̲own</span></a></li>
+<li class="item"><a href="#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a></li>
+<li class="item"><a href="#l.u_p"><span class="c-libfunc">ˡu̲p</span></a></li>
+<li class="item"><a href="#l.c_lick"><span class="c-libfunc">ˡc̲lick</span></a></li>
+<li class="item"><a href="#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">library</span>demos/rosetta/Comparison.xtl</h1>
+<div class="doc">
+<p>Comparison: the Rosetta stone's state machine (docs/rosetta.md), a
+library beside the demo (&quot;cm:&quot; u_se&lt; &quot;Comparison&quot;). The state is one
+4 x 5 matrix of numbers. The first three rows are the axes (the
+idiom drum, the top ring, the bottom ring), four columns each: how
+many items the axis has, how many steps it has taken (an integer; the
+item facing is 1 + steps, wrapped, and this is the truth), its angle
+in degrees (90 per step; the presentation, easing toward 90 * steps)
+and whether it plays on its own. The fourth row is the pointer: the
+axis being dragged (0 none, 0.5 pressed and not yet moved, else the
+axis), where it last was (x, y), how far it has moved in all, and the
+last turn it gave in degrees (for a flick). The fifth row is the
+attract mode's clock: seconds since the last interaction, seconds
+since its last step, and its two counters (how far the bottom ring
+is through its sweep of the other languages, how far the drum is
+through its sweep of the idioms). Nothing
+is ever inferred from an angle except what to draw. Every function
+gives a new state; none has an effect. Events (RS1) come in as
+[]E_VENT gives them; cm:u_pdate takes one.</p>
+</div>
+<p class="meta"><a href="demos-rosetta-Comparison.xtl.src.html">source</a></p>
+<div class="item" id="l.dwell">
+<h3><a href="#l.dwell">ˡdwell</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L34">line 34</a></div>
+<div class="doc">
+<p>The attract mode's pace, in seconds: how long a comparison holds
+still before the next (long enough to read two faces of code), and
+how long after an interaction the stone waits before moving on its
+own again (long enough to look round a comparison by hand). The
+traversal is the nested loop <code>for top, for idiom, for bottom</code>: the
+bottom ring steps at each dwell; when it has swept every other
+language the drum rolls to the next idiom in the same instant, the
+bottom going on round; and only when every idiom has been shown
+does the top ring advance to the next language. So the language
+compared from stays put through the whole table, and no comparison
+comes round again within minutes (the user, 2026-10-06; before,
+the top stepped after each sweep of the bottom and the drum after
+each sweep of the top: two minutes per idiom and the same pairs
+again and again).</p>
+</div>
+<pre class="code">ˡdwell ← <span class="c-number">5.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a></div>
+</div>
+<div class="item" id="l.idleBefore">
+<h3><a href="#l.idleBefore">ˡidleBefore</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L35">line 35</a></div>
+<pre class="code">ˡidleBefore ← <span class="c-number">20.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.s_tart"><span class="c-libfunc">ˡs̲tart</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="l.s_tart">
+<h3><a href="#l.s_tart"><span class="c-libfunc">ˡs̲tart</span></a> <span class="type">: (Num a, Num b) =&gt; a -&gt; b -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L47">line 47</a></div>
+<div class="doc">
+<p>The state for i idioms and l languages, <code>i <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> l</code>: nothing
+turned, all playing, no pointer, the attract mode ready (idle long
+enough already).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+31.0 0.0 0.0 1.0 0.0
+ 7.0 0.0 0.0 1.0 0.0
+ 7.0 0.0 0.0 1.0 0.0
+ 0.0 0.0 0.0 0.0 0.0
+20.0 0.0 0.0 0.0 0.0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲tart</span> ← { i l → <span class="c-number">5</span> <span class="c-number">5</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> i) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">1.0</span> <span class="c-number">0.0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> l) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">1.0</span> <span class="c-number">0.0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> l) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">1.0</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.idleBefore">ˡidleBefore</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span> }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#start">start</a></div>
+</div>
+<div class="item" id="l.IDIOM">
+<h3><a href="#l.IDIOM">ˡIDIOM</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L50">line 50</a></div>
+<div class="doc">
+<p>The rows and columns, by name.</p>
+</div>
+<pre class="code">ˡIDIOM ← <span class="c-number">1.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.s_ettle"><span class="c-libfunc">ˡs̲ettle</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.r_esume"><span class="c-libfunc">ˡr̲esume</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour"><span class="c-libfunc">ˡt̲oggleTour</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.w_here"><span class="c-userfunc">ᵘw̲here</span></a></div>
+</div>
+<div class="item" id="l.TOP">
+<h3><a href="#l.TOP">ˡTOP</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L51">line 51</a></div>
+<pre class="code">ˡTOP ← <span class="c-number">2.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.s_ettle"><span class="c-libfunc">ˡs̲ettle</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.r_esume"><span class="c-libfunc">ˡr̲esume</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour"><span class="c-libfunc">ˡt̲oggleTour</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.h_alf"><span class="c-libfunc">ˡh̲alf</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.w_here"><span class="c-userfunc">ᵘw̲here</span></a></div>
+</div>
+<div class="item" id="l.BOTTOM">
+<h3><a href="#l.BOTTOM">ˡBOTTOM</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L52">line 52</a></div>
+<pre class="code">ˡBOTTOM ← <span class="c-number">3.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.s_ettle"><span class="c-libfunc">ˡs̲ettle</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.r_esume"><span class="c-libfunc">ˡr̲esume</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour"><span class="c-libfunc">ˡt̲oggleTour</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.h_alf"><span class="c-libfunc">ˡh̲alf</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.w_here"><span class="c-userfunc">ᵘw̲here</span></a>, <a href="demos-rosetta-rosetta.xtl.html#start">start</a></div>
+</div>
+<div class="item" id="l.POINTER">
+<h3><a href="#l.POINTER">ˡPOINTER</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L53">line 53</a></div>
+<pre class="code">ˡPOINTER ← <span class="c-number">4.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.d_own"><span class="c-libfunc">ˡd̲own</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.u_p"><span class="c-libfunc">ˡu̲p</span></a></div>
+</div>
+<div class="item" id="l.ATTRACT">
+<h3><a href="#l.ATTRACT">ˡATTRACT</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L54">line 54</a></div>
+<pre class="code">ˡATTRACT ← <span class="c-number">5.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_ouched"><span class="c-libfunc">ˡt̲ouched</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="l.IDLE">
+<h3><a href="#l.IDLE">ˡIDLE</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L55">line 55</a></div>
+<pre class="code">ˡIDLE ← <span class="c-number">1.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_ouched"><span class="c-libfunc">ˡt̲ouched</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="l.SINCE">
+<h3><a href="#l.SINCE">ˡSINCE</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L56">line 56</a></div>
+<pre class="code">ˡSINCE ← <span class="c-number">2.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_ouched"><span class="c-libfunc">ˡt̲ouched</span></a></div>
+</div>
+<div class="item" id="l.BOTTOMS">
+<h3><a href="#l.BOTTOMS">ˡBOTTOMS</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L57">line 57</a></div>
+<pre class="code">ˡBOTTOMS ← <span class="c-number">3.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a></div>
+</div>
+<div class="item" id="l.IDIOMS">
+<h3><a href="#l.IDIOMS">ˡIDIOMS</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L58">line 58</a></div>
+<pre class="code">ˡIDIOMS ← <span class="c-number">4.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a></div>
+</div>
+<div class="item" id="l.COUNT">
+<h3><a href="#l.COUNT">ˡCOUNT</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L59">line 59</a></div>
+<pre class="code">ˡCOUNT ← <span class="c-number">1.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent"><span class="c-libfunc">ˡc̲urrent</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.i_tem"><span class="c-userfunc">ᵘi̲tem</span></a></div>
+</div>
+<div class="item" id="l.STEPS">
+<h3><a href="#l.STEPS">ˡSTEPS</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L60">line 60</a></div>
+<pre class="code">ˡSTEPS ← <span class="c-number">2.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent"><span class="c-libfunc">ˡc̲urrent</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.e_ase"><span class="c-libfunc">ˡe̲ase</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.u_p"><span class="c-libfunc">ˡu̲p</span></a></div>
+</div>
+<div class="item" id="l.ANGLE">
+<h3><a href="#l.ANGLE">ˡANGLE</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L61">line 61</a></div>
+<pre class="code">ˡANGLE ← <span class="c-number">3.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.e_ase"><span class="c-libfunc">ˡe̲ase</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.u_p"><span class="c-libfunc">ˡu̲p</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.i_tem"><span class="c-userfunc">ᵘi̲tem</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></div>
+</div>
+<div class="item" id="l.PLAYING">
+<h3><a href="#l.PLAYING">ˡPLAYING</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L62">line 62</a></div>
+<pre class="code">ˡPLAYING ← <span class="c-number">4.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.p_lay"><span class="c-libfunc">ˡp̲lay</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.r_esume"><span class="c-libfunc">ˡr̲esume</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour"><span class="c-libfunc">ˡt̲oggleTour</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_oggle"><span class="c-libfunc">ˡt̲oggle</span></a></div>
+</div>
+<div class="item" id="l.DRAGGING">
+<h3><a href="#l.DRAGGING">ˡDRAGGING</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L63">line 63</a></div>
+<pre class="code">ˡDRAGGING ← <span class="c-number">1.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.d_own"><span class="c-libfunc">ˡd̲own</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.u_p"><span class="c-libfunc">ˡu̲p</span></a></div>
+</div>
+<div class="item" id="l.X">
+<h3><a href="#l.X">ˡX</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L64">line 64</a></div>
+<pre class="code">ˡX ← <span class="c-number">2.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.d_own"><span class="c-libfunc">ˡd̲own</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a></div>
+</div>
+<div class="item" id="l.Y">
+<h3><a href="#l.Y">ˡY</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L65">line 65</a></div>
+<pre class="code">ˡY ← <span class="c-number">3.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.d_own"><span class="c-libfunc">ˡd̲own</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a></div>
+</div>
+<div class="item" id="l.MOVED">
+<h3><a href="#l.MOVED">ˡMOVED</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L66">line 66</a></div>
+<pre class="code">ˡMOVED ← <span class="c-number">4.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.d_own"><span class="c-libfunc">ˡd̲own</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a></div>
+</div>
+<div class="item" id="l.LAST">
+<h3><a href="#l.LAST">ˡLAST</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L67">line 67</a></div>
+<pre class="code">ˡLAST ← <span class="c-number">5.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.d_own"><span class="c-libfunc">ˡd̲own</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.u_p"><span class="c-libfunc">ˡu̲p</span></a></div>
+</div>
+<div class="item" id="l.middle">
+<h3><a href="#l.middle">ˡmiddle</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L72">line 72</a></div>
+<div class="doc">
+<p>The picture's middle, in its own pixels (Stone's size is 420): the
+top half above it, the bottom half below; and how many degrees a
+pixel of drag turns an axis (a quarter turn across half the picture).</p>
+</div>
+<pre class="code">ˡmiddle ← <span class="c-number">210.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.h_alf"><span class="c-libfunc">ˡh̲alf</span></a></div>
+</div>
+<div class="item" id="l.perPixel">
+<h3><a href="#l.perPixel">ˡperPixel</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L73">line 73</a></div>
+<pre class="code">ˡperPixel ← <span class="c-number">90.0</span> <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">210.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a></div>
+</div>
+<div class="item" id="l.a_t">
+<h3><a href="#l.a_t"><span class="c-libfunc">ˡa̲t</span></a> <span class="type">: Num a =&gt; a -&gt; b -&gt; b</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L76">line 76</a></div>
+<div class="doc">
+<p>A cell of the state: <code>(row <a href="builtins.html#c_at" class="c-builtin">c̲at</a> col) <span class="c-libfunc">ᶜᵐa̲t</span> state</code>.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡa̲t</span> ← { rc state → (<a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> rc) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> (<a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> rc) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> state }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent"><span class="c-libfunc">ˡc̲urrent</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.e_ase"><span class="c-libfunc">ˡe̲ase</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.p_lay"><span class="c-libfunc">ˡp̲lay</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour"><span class="c-libfunc">ˡt̲oggleTour</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_oggle"><span class="c-libfunc">ˡt̲oggle</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.u_p"><span class="c-libfunc">ˡu̲p</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.i_tem"><span class="c-userfunc">ᵘi̲tem</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></div>
+</div>
+<div class="item" id="l.p_ut">
+<h3><a href="#l.p_ut"><span class="c-libfunc">ˡp̲ut</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L80">line 80</a></div>
+<div class="doc">
+<p>The state with one cell replaced: <code>(row <a href="builtins.html#c_at" class="c-builtin">c̲at</a> col <a href="builtins.html#c_at" class="c-builtin">c̲at</a> v) <span class="c-libfunc">ᶜᵐp̲ut</span> state</code> (a
+mask over the matrix, so no cell is ever addressed by hand).</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡp̲ut</span> ← { rcv state →
+  mask ← <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> (<a href="demos-rosetta-Comparison.xtl.html#rows">rows</a> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> rcv) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="demos-rosetta-Comparison.xtl.html#cols">cols</a> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> rcv
+  (state <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1.0</span> <a href="builtins.html#-2d" class="c-symbol">−</a> mask) <a href="builtins.html#-2b" class="c-symbol">+</a> mask <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">3</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> rcv
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.e_ase"><span class="c-libfunc">ˡe̲ase</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_ouched"><span class="c-libfunc">ˡt̲ouched</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.r_esume"><span class="c-libfunc">ˡr̲esume</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour"><span class="c-libfunc">ˡt̲oggleTour</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_oggle"><span class="c-libfunc">ˡt̲oggle</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.d_own"><span class="c-libfunc">ˡd̲own</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.u_p"><span class="c-libfunc">ˡu̲p</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="rows">
+<h3><a href="#rows">rows</a> <span class="type">: Float</span></h3>
+<div class="meta">value <span class="private">(private)</span> &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L84">line 84</a></div>
+<pre class="code">rows ← <span class="c-number">5</span> <span class="c-number">5</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">5</span> <a href="builtins.html#r_eplicate" class="c-builtin">r̲eplicate</a> <span class="c-number">1.0</span> <span class="c-number">2.0</span> <span class="c-number">3.0</span> <span class="c-number">4.0</span> <span class="c-number">5.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.p_ut"><span class="c-libfunc">ˡp̲ut</span></a></div>
+</div>
+<div class="item" id="cols">
+<h3><a href="#cols">cols</a> <span class="type">: Float</span></h3>
+<div class="meta">value <span class="private">(private)</span> &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L85">line 85</a></div>
+<pre class="code">cols ← <span class="c-number">5</span> <span class="c-number">5</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">1.0</span> <span class="c-number">2.0</span> <span class="c-number">3.0</span> <span class="c-number">4.0</span> <span class="c-number">5.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.p_ut"><span class="c-libfunc">ˡp̲ut</span></a></div>
+</div>
+<div class="item" id="l.w_rap">
+<h3><a href="#l.w_rap"><span class="c-libfunc">ˡw̲rap</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L88">line 88</a></div>
+<div class="doc">
+<p>An item of an axis of n, wrapped around: item k of n for any integer k.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡw̲rap</span> ← { n k → <span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (k <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> n }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent"><span class="c-libfunc">ˡc̲urrent</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.i_tem"><span class="c-userfunc">ᵘi̲tem</span></a></div>
+</div>
+<div class="item" id="l.c_urrent">
+<h3><a href="#l.c_urrent"><span class="c-libfunc">ˡc̲urrent</span></a> <span class="type">: Float -&gt; Float -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L94">line 94</a></div>
+<div class="doc">
+<p>The item facing on an axis: 1 + its steps, wrapped.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ᶜᵐc̲urrent</a> (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ᶜᵐs̲tep</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+2</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡc̲urrent</span> ← { axis state → (<a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">0.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.COUNT">ˡCOUNT</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state) <a href="demos-rosetta-Comparison.xtl.html#l.w_rap" class="c-libfunc">ˡw̲rap</a> <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">1.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.STEPS">ˡSTEPS</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a></div>
+</div>
+<div class="item" id="l.s_tep">
+<h3><a href="#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L105">line 105</a></div>
+<div class="doc">
+<p>An axis stepped by d items (1 forward, -1 back): its steps change,
+its angle will follow at each tick. A ring never stops on the other
+ring's language (the two halves always compare two languages): it
+steps once more the same way. <code>(axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> d) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ᶜᵐs̲tep</a> state</code>.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ᶜᵐIDIOM</a> <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ᶜᵐc̲urrent</a> (<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ᶜᵐIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">-1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ᶜᵐs̲tep</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+31</pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ᶜᵐBOTTOM</a> <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ᶜᵐc̲urrent</a> (<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ᶜᵐBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ᶜᵐs̲tep</a> (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">2.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose" class="c-libfunc">ᶜᵐc̲hoose</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+3</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲tep</span> ← { ad state →
+  axis ← <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ad
+  d ← <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ad
+  moved ← (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.STEPS">ˡSTEPS</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> d <a href="builtins.html#-2b" class="c-symbol">+</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.STEPS">ˡSTEPS</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> state
+  axis <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> ? moved
+  other ← <span class="c-number">5.0</span> <a href="builtins.html#-2d" class="c-symbol">−</a> axis
+  clash ← (axis <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ˡc̲urrent</a> moved) <a href="builtins.html#-3d" class="c-symbol">=</a> other <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ˡc̲urrent</a> moved
+  <span class="c-string">&quot;clash&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;(axis c_at d) l:s_tep moved; moved&quot;</span>
+}</pre>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">{ @ → (clash) ? (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> d) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> moved◆ moved } @</pre></details>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.p_lay"><span class="c-libfunc">ˡp̲lay</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="l.c_hoose">
+<h3><a href="#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L124">line 124</a></div>
+<div class="doc">
+<p>An axis turned to item k the short way round, and paused: choosing
+is navigating, turning is exploring. A ring is not turned to the
+other ring's language (the choice is offered disabled); the state is
+unchanged. <code>(axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> k) <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose" class="c-libfunc">ᶜᵐc̲hoose</a> state</code>.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ᶜᵐc̲urrent</a> (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">7.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose" class="c-libfunc">ᶜᵐc̲hoose</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+7</pre>
+<pre class="example"><span class="prompt">      </span>(<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.STEPS">ᶜᵐSTEPS</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">7.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose" class="c-libfunc">ᶜᵐc̲hoose</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+-1.0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡc̲hoose</span> ← { ak state →
+  axis ← <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ak
+  n ← <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">0.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.COUNT">ˡCOUNT</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  d ← ((<a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ak) <a href="builtins.html#-2d" class="c-symbol">−</a> axis <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ˡc̲urrent</a> state) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> n
+  short ← <span class="c-string">&quot;(2 * d) &gt; n&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;d - n; d&quot;</span>
+  chosen ← (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> short) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> state
+  axis <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> ? chosen
+  (<a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ak) <a href="builtins.html#-3d" class="c-symbol">=</a> (<span class="c-number">5.0</span> <a href="builtins.html#-2d" class="c-symbol">−</a> axis) <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ˡc̲urrent</a> state ? state
+  chosen
+}</pre>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → ((<span class="c-number">2</span> <a href="builtins.html#-2a" class="c-symbol">×</a> d) <a href="builtins.html#-3e" class="c-symbol">&gt;</a> n) ? d <a href="builtins.html#-2d" class="c-symbol">−</a> n◆ d } @)</pre></details>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a>, <a href="demos-rosetta-rosetta.xtl.html#start">start</a></div>
+</div>
+<div class="item" id="l.e_ase">
+<h3><a href="#l.e_ase"><span class="c-libfunc">ˡe̲ase</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L141">line 141</a></div>
+<div class="doc">
+<p>An axis's angle eased toward 90 times its steps over dt seconds: it
+covers the gap in about half a second, and lands exactly when near.
+<code>(axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> dt) <a href="demos-rosetta-Comparison.xtl.html#l.e_ase" class="c-libfunc">ᶜᵐe̲ase</a> state</code>.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ᶜᵐANGLE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.25</span>) <a href="demos-rosetta-Comparison.xtl.html#l.e_ase" class="c-libfunc">ᶜᵐe̲ase</a> (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ᶜᵐs̲tep</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+45.0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡe̲ase</span> ← { adt state →
+  axis ← <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> adt
+  angle ← (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ˡANGLE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  target ← <span class="c-number">90.0</span> <a href="builtins.html#-2a" class="c-symbol">×</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.STEPS">ˡSTEPS</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  gap ← target <a href="builtins.html#-2d" class="c-symbol">−</a> angle
+  moved ← angle <a href="builtins.html#-2b" class="c-symbol">+</a> gap <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1.0</span> <a href="builtins.html#m_in" class="c-builtin">m̲in</a> <span class="c-number">2.0</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> adt
+  near ← <span class="c-string">&quot;0.5 &gt; a_bs target - moved&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;target; moved&quot;</span>
+  (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ˡANGLE</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> near) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> state
+}</pre>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → (<span class="c-number">0.5</span> <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> target <a href="builtins.html#-2d" class="c-symbol">−</a> moved) ? target◆ moved } @)</pre></details>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.s_ettle"><span class="c-libfunc">ˡs̲ettle</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a></div>
+</div>
+<div class="item" id="l.s_ettle">
+<h3><a href="#l.s_ettle"><span class="c-libfunc">ˡs̲ettle</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L160">line 160</a></div>
+<div class="doc">
+<p>Every axis at rest where its steps put it (angles 90 times steps),
+for a state built by choosing before the first tick.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Comparison.xtl.html#l.s_ettle" class="c-libfunc">ᶜᵐs̲ettle</a> (<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ᶜᵐIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">3.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose" class="c-libfunc">ᶜᵐc̲hoose</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+31.0 2.0 180.0 0.0 0.0
+ 7.0 0.0   0.0 1.0 0.0
+ 7.0 0.0   0.0 1.0 0.0
+ 0.0 0.0   0.0 0.0 0.0
+20.0 0.0   0.0 0.0 0.0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲ettle</span> ← { state → (<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">9.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.e_ase" class="c-libfunc">ˡe̲ase</a> (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">9.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.e_ase" class="c-libfunc">ˡe̲ase</a> (<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">9.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.e_ase" class="c-libfunc">ˡe̲ase</a> state }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#start">start</a></div>
+</div>
+<div class="item" id="l.t_ick">
+<h3><a href="#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L171">line 171</a></div>
+<div class="doc">
+<p>Every axis eased over dt seconds (a tick), and the attract mode's
+clock advanced: when the stone has been left alone long enough and
+the last comparison has held still for a dwell, the attract mode
+steps (cm:a_ttract).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ᶜᵐBOTTOM</a> <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ᶜᵐc̲urrent</a> <a href="demos-rosetta-Comparison.xtl.html#l.dwell">ᶜᵐdwell</a> <a href="demos-rosetta-Comparison.xtl.html#l.t_ick" class="c-libfunc">ᶜᵐt̲ick</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+2</pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ᶜᵐBOTTOM</a> <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ᶜᵐc̲urrent</a> (<a href="demos-rosetta-Comparison.xtl.html#l.dwell">ᶜᵐdwell</a> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">0.1</span>) <a href="demos-rosetta-Comparison.xtl.html#l.t_ick" class="c-libfunc">ᶜᵐt̲ick</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+1</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡt̲ick</span> ← { dt state →
+  eased ← (<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> dt) <a href="demos-rosetta-Comparison.xtl.html#l.e_ase" class="c-libfunc">ˡe̲ase</a> (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> dt) <a href="demos-rosetta-Comparison.xtl.html#l.e_ase" class="c-libfunc">ˡe̲ase</a> (<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> dt) <a href="demos-rosetta-Comparison.xtl.html#l.e_ase" class="c-libfunc">ˡe̲ase</a> state
+  idle ← dt <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.IDLE">ˡIDLE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  since ← dt <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.SINCE">ˡSINCE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  timed ← (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.SINCE">ˡSINCE</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> since) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.IDLE">ˡIDLE</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> idle) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> eased
+  (idle <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <a href="demos-rosetta-Comparison.xtl.html#l.idleBefore">ˡidleBefore</a>) <a href="builtins.html#-7c" class="c-symbol">∨</a> since <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <a href="demos-rosetta-Comparison.xtl.html#l.dwell">ˡdwell</a> ? timed
+  <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract" class="c-libfunc">ˡa̲ttract</a> (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.SINCE">ˡSINCE</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> timed
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a></div>
+</div>
+<div class="item" id="l.a_ttract">
+<h3><a href="#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L196">line 196</a></div>
+<div class="doc">
+<p>One step of the attract mode: the bottom ring steps (if it plays);
+when it has swept every other language (its count reaches one less
+than the languages), the drum rolls to the next idiom too and the
+bottom's count starts over; when the drum has rolled through every
+idiom, the top ring steps too and the drum's count starts over. A
+paused axis is counted but not turned, so the sweeps keep their
+rhythm. With 3 idioms and 4 languages: the drum rolls at every
+third step, the top steps at the ninth.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>s ← <span class="c-number">3</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">4</span></pre>
+<pre class="example"><span class="prompt">      </span>(<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ᶜᵐIDIOM</a> <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ᶜᵐc̲urrent</a> <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract" class="c-libfunc">ᶜᵐa̲ttract</a><span class="c-libfunc">²</span> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ᶜᵐIDIOM</a> <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ᶜᵐc̲urrent</a> <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract" class="c-libfunc">ᶜᵐa̲ttract</a><span class="c-libfunc">³</span> s
+1 2</pre>
+<pre class="example"><span class="prompt">      </span>(<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ᶜᵐc̲urrent</a> <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract" class="c-libfunc">ᶜᵐa̲ttract</a><span class="c-libfunc">⁸</span> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ᶜᵐc̲urrent</a> <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract" class="c-libfunc">ᶜᵐa̲ttract</a><span class="c-libfunc">⁹</span> s
+1 2</pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ᶜᵐIDIOM</a> <a href="demos-rosetta-Comparison.xtl.html#l.c_urrent" class="c-libfunc">ᶜᵐc̲urrent</a> <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract" class="c-libfunc">ᶜᵐa̲ttract</a><span class="c-libfunc">⁹</span> s
+1</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡa̲ttract</span> ← { state →
+  n ← (<a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">0.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.COUNT">ˡCOUNT</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>
+  m ← <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">0.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.COUNT">ˡCOUNT</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  bottoms ← <span class="c-number">1.0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.BOTTOMS">ˡBOTTOMS</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  idioms ← <span class="c-number">1.0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.IDIOMS">ˡIDIOMS</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  moved ← <a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a> <a href="demos-rosetta-Comparison.xtl.html#l.p_lay" class="c-libfunc">ˡp̲lay</a> state
+  bottoms <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> n ? (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.BOTTOMS">ˡBOTTOMS</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> bottoms) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> moved
+  rolled ← <a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> <a href="demos-rosetta-Comparison.xtl.html#l.p_lay" class="c-libfunc">ˡp̲lay</a> (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.BOTTOMS">ˡBOTTOMS</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> moved
+  idioms <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> m ? (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.IDIOMS">ˡIDIOMS</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> idioms) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> rolled
+  <a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a> <a href="demos-rosetta-Comparison.xtl.html#l.p_lay" class="c-libfunc">ˡp̲lay</a> (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.IDIOMS">ˡIDIOMS</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> rolled
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a></div>
+</div>
+<div class="item" id="l.p_lay">
+<h3><a href="#l.p_lay"><span class="c-libfunc">ˡp̲lay</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L209">line 209</a></div>
+<div class="doc">
+<p>An axis stepped forward if it plays, else left as it is.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡp̲lay</span> ← { axis state → <span class="c-string">&quot;1.0 = (axis c_at l:PLAYING) l:a_t state&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;(axis c_at 1.0) l:s_tep state; state&quot;</span> }</pre>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">{ @ → (<span class="c-number">1.0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state) ? (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> state◆ state } @</pre></details>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a></div>
+</div>
+<div class="item" id="l.t_ouched">
+<h3><a href="#l.t_ouched"><span class="c-libfunc">ˡt̲ouched</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L212">line 212</a></div>
+<div class="doc">
+<p>The stone touched: the attract mode waits again from now.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡt̲ouched</span> ← { state → (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.SINCE">ˡSINCE</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.IDLE">ˡIDLE</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> state }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a></div>
+</div>
+<div class="item" id="l.r_esume">
+<h3><a href="#l.r_esume"><span class="c-libfunc">ˡr̲esume</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L215">line 215</a></div>
+<div class="doc">
+<p>Every axis playing again (a start chosen with cm:c_hoose is paused).</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲esume</span> ← { state → (<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> state }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour"><span class="c-libfunc">ˡt̲oggleTour</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a>, <a href="demos-rosetta-rosetta.xtl.html#start">start</a></div>
+</div>
+<div class="item" id="l.t_oggleTour">
+<h3><a href="#l.t_oggleTour"><span class="c-libfunc">ˡt̲oggleTour</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L226">line 226</a></div>
+<div class="doc">
+<p>The tour paused when any axis plays, else every axis resumed (the
+space bar: one key stops everything, and starts it again).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ᶜᵐPLAYING</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour" class="c-libfunc">ᶜᵐt̲oggleTour</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+0.0</pre>
+<pre class="example"><span class="prompt">      </span>(<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ᶜᵐBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ᶜᵐPLAYING</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour" class="c-libfunc">ᶜᵐt̲oggleTour</a> <a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="demos-rosetta-Comparison.xtl.html#l.t_oggle" class="c-libfunc">ᶜᵐt̲oggle</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+0.0</pre>
+<pre class="example"><span class="prompt">      </span>(<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ᶜᵐPLAYING</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour" class="c-libfunc">ᶜᵐt̲oggleTour</a> <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour" class="c-libfunc">ᶜᵐt̲oggleTour</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+1.0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡt̲oggleTour</span> ← { state →
+  playing ← ((<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state) <a href="builtins.html#-2b" class="c-symbol">+</a> ((<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state) <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  <span class="c-number">0.0</span> <a href="builtins.html#-3c" class="c-symbol">&lt;</a> playing ? (<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> state
+  <a href="demos-rosetta-Comparison.xtl.html#l.r_esume" class="c-libfunc">ˡr̲esume</a> state
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="l.m_ode">
+<h3><a href="#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a> <span class="type">: Float -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L244">line 244</a></div>
+<div class="doc">
+<p>The tour's mode, for the host to show: &quot;paused&quot; when every axis is
+paused, &quot;paused: top, bottom&quot; naming the axes paused when some are,
+&quot;holding&quot; while the stone waits after a touch, else &quot;touring&quot;.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Comparison.xtl.html#l.m_ode" class="c-libfunc">ᶜᵐm̲ode</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+touring</pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Comparison.xtl.html#l.m_ode" class="c-libfunc">ᶜᵐm̲ode</a> <a href="demos-rosetta-Comparison.xtl.html#l.t_ouched" class="c-libfunc">ᶜᵐt̲ouched</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+holding</pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Comparison.xtl.html#l.m_ode" class="c-libfunc">ᶜᵐm̲ode</a> <a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="demos-rosetta-Comparison.xtl.html#l.t_oggle" class="c-libfunc">ᶜᵐt̲oggle</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+paused: top</pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Comparison.xtl.html#l.m_ode" class="c-libfunc">ᶜᵐm̲ode</a> <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour" class="c-libfunc">ᶜᵐt̲oggleTour</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+paused</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡm̲ode</span> ← { state →
+  <span class="c-builtin">p̲aused</span> ← { axis → <span class="c-number">0.0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state }
+  paused ← (<span class="c-builtin">p̲aused</span> <a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-builtin">p̲aused</span> <a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-builtin">p̲aused</span> <a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a>
+  <span class="c-number">3</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> paused ? <span class="c-string">&quot;paused&quot;</span>
+  names ← paused <a href="builtins.html#r_eplicate" class="c-builtin">r̲eplicate</a> (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot;roll&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot;top&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot;bottom&quot;</span>
+  <span class="c-number">0</span> <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> paused ? <span class="c-string">&quot;paused: &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ x y → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> x) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;, &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> y } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> names
+  <a href="demos-rosetta-Comparison.xtl.html#l.idleBefore">ˡidleBefore</a> <a href="builtins.html#-3e" class="c-symbol">&gt;</a> (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.IDLE">ˡIDLE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state ? <span class="c-string">&quot;holding&quot;</span>
+  <span class="c-string">&quot;touring&quot;</span>
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.l_oop"><span class="c-userfunc">ᵘl̲oop</span></a>, <a href="demos-rosetta-rosetta.xtl.html#mode">mode</a></div>
+</div>
+<div class="item" id="l.t_oggle">
+<h3><a href="#l.t_oggle"><span class="c-libfunc">ˡt̲oggle</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L255">line 255</a></div>
+<div class="doc">
+<p>An axis paused or resumed.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡt̲oggle</span> ← { axis state → (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1.0</span> <a href="builtins.html#-2d" class="c-symbol">−</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> state }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.c_lick"><span class="c-libfunc">ˡc̲lick</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="l.u_pdate">
+<h3><a href="#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a> <span class="type">: Float -&gt; Event -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L267">line 267</a></div>
+<div class="doc">
+<p>The state after an event: a tick eases every axis; the arrow keys
+step the drum (Up, Down) and the top ring (Left, Right), a and d the
+bottom ring, space pauses or resumes the whole tour (cm:t_oggleTour),
+r resumes it at once, the idle wait over (cm:r_esume; the host
+sends it after its opening choices, since a choice pauses its
+axis), s the bottom ring and w
+the drum on their own; the pointer drags and
+clicks (cm:d_own, cm:m_ove, cm:u_p,
+cm:c_lick); a choice from the host's controls, <code>choose AXIS ITEM</code>,
+turns that axis to the item (cm:c_hoose).</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡu̲pdate</span> ← { state e →
+  kind ← <a href="builtins.html#-5b-5dE_KIND" class="c-builtin">⎕E̲KIND</a> e
+  kind <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;tick&quot;</span> ? (<a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <a href="builtins.html#-5b-5dE_AT" class="c-builtin">⎕E̲AT</a> e) <a href="demos-rosetta-Comparison.xtl.html#l.t_ick" class="c-libfunc">ˡt̲ick</a> state
+  touched ← <a href="demos-rosetta-Comparison.xtl.html#l.t_ouched" class="c-libfunc">ˡt̲ouched</a> state
+  kind <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;key&quot;</span> ? (<a href="builtins.html#-5b-5dE_KEY" class="c-builtin">⎕E̲KEY</a> e) <a href="demos-rosetta-Comparison.xtl.html#l.k_ey" class="c-libfunc">ˡk̲ey</a> touched
+  kind <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;down&quot;</span> ? (<a href="builtins.html#-5b-5dE_AT" class="c-builtin">⎕E̲AT</a> e) <a href="demos-rosetta-Comparison.xtl.html#l.d_own" class="c-libfunc">ˡd̲own</a> touched
+  kind <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;move&quot;</span> ? (<a href="builtins.html#-5b-5dE_AT" class="c-builtin">⎕E̲AT</a> e) <a href="demos-rosetta-Comparison.xtl.html#l.m_ove" class="c-libfunc">ˡm̲ove</a> touched
+  kind <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;up&quot;</span> ? (<a href="builtins.html#-5b-5dE_AT" class="c-builtin">⎕E̲AT</a> e) <a href="demos-rosetta-Comparison.xtl.html#l.u_p" class="c-libfunc">ˡu̲p</a> touched
+  kind <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;click&quot;</span> ? (<a href="builtins.html#-5b-5dE_AT" class="c-builtin">⎕E̲AT</a> e) <a href="demos-rosetta-Comparison.xtl.html#l.c_lick" class="c-libfunc">ˡc̲lick</a> touched
+  kind <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;choose&quot;</span> ? (<a href="builtins.html#-5b-5dE_AT" class="c-builtin">⎕E̲AT</a> e) <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose" class="c-libfunc">ˡc̲hoose</a> touched
+  state
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.l_oop"><span class="c-userfunc">ᵘl̲oop</span></a></div>
+</div>
+<div class="item" id="l.h_alf">
+<h3><a href="#l.h_alf"><span class="c-libfunc">ˡh̲alf</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L282">line 282</a></div>
+<div class="doc">
+<p>The half under a point: the top ring above the middle, the bottom
+ring below.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡh̲alf</span> ← { xy → <span class="c-string">&quot;(2 s_elect xy) &lt; l:middle&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;l:TOP; l:BOTTOM&quot;</span> }</pre>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">{ @ → ((<span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> xy) <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <a href="demos-rosetta-Comparison.xtl.html#l.middle">ˡmiddle</a>) ? <a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a>◆ <a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a> } @</pre></details>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.c_lick"><span class="c-libfunc">ˡc̲lick</span></a></div>
+</div>
+<div class="item" id="l.d_own">
+<h3><a href="#l.d_own"><span class="c-libfunc">ˡd̲own</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L289">line 289</a></div>
+<div class="doc">
+<p>The pointer pressed at a point: remembered, nothing turned yet.
+<code>xy <a href="demos-rosetta-Comparison.xtl.html#l.d_own" class="c-libfunc">ᶜᵐd̲own</a> state</code>.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">4</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <span class="c-number">100.0</span> <span class="c-number">50.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.d_own" class="c-libfunc">ᶜᵐd̲own</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+0.5 100.0 50.0 0.0 0.0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡd̲own</span> ← { xy state → (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.LAST">ˡLAST</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.MOVED">ˡMOVED</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.Y">ˡY</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> xy) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.X">ˡX</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> xy) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.DRAGGING">ˡDRAGGING</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.5</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> state }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a></div>
+</div>
+<div class="item" id="l.m_ove">
+<h3><a href="#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L303">line 303</a></div>
+<div class="doc">
+<p>The pointer moved to a point: nothing unless it is pressed; the
+first move of more than a few pixels decides which axis it drags (a
+sideways move the half it is over, an up or down move the drum);
+then each move turns that axis by its distance, a drag right or down
+turning toward the previous item. A drag does not pause the axis for
+good: the stone waits cm:idleBefore seconds after any touch before
+moving on its own again. <code>xy <a href="demos-rosetta-Comparison.xtl.html#l.m_ove" class="c-libfunc">ᶜᵐm̲ove</a> state</code>.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ᶜᵐANGLE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> <span class="c-number">142.0</span> <span class="c-number">50.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.m_ove" class="c-libfunc">ᶜᵐm̲ove</a> <span class="c-number">100.0</span> <span class="c-number">50.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.d_own" class="c-libfunc">ᶜᵐd̲own</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+-18.0</pre>
+<pre class="example"><span class="prompt">      </span>(<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ᶜᵐBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ᶜᵐANGLE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> <span class="c-number">142.0</span> <span class="c-number">50.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.m_ove" class="c-libfunc">ᶜᵐm̲ove</a> <span class="c-number">100.0</span> <span class="c-number">50.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.d_own" class="c-libfunc">ᶜᵐd̲own</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+0.0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡm̲ove</span> ← { xy state →
+  held ← (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.DRAGGING">ˡDRAGGING</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  held <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0.0</span> ? state
+  dx ← (<span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> xy) <a href="builtins.html#-2d" class="c-symbol">−</a> (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.X">ˡX</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  dy ← (<span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> xy) <a href="builtins.html#-2d" class="c-symbol">−</a> (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.Y">ˡY</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  moved ← (<a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> dx) <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> dy) <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.MOVED">ˡMOVED</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  placed ← (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.MOVED">ˡMOVED</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> moved) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.Y">ˡY</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> xy) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.X">ˡX</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> xy) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> state
+  (held <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0.5</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> moved <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">4.0</span> ? placed
+  axis ← <span class="c-string">&quot;held = 0.5&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;\&quot;(a_bs dx) &gt;= a_bs dy\&quot; i_f&lt; \&quot;l:h_alf xy; l:IDIOM\&quot;; held&quot;</span>
+  along ← <span class="c-string">&quot;axis = l:IDIOM&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;dy; dx&quot;</span>
+  turn ← <a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> along <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="demos-rosetta-Comparison.xtl.html#l.perPixel">ˡperPixel</a>
+  angle ← turn <a href="builtins.html#-2b" class="c-symbol">+</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ˡANGLE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> placed
+  (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.LAST">ˡLAST</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> turn) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.DRAGGING">ˡDRAGGING</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> axis) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ˡANGLE</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> angle) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> placed
+}</pre>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → (held <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0.5</span>) ? <span class="c-string">&quot;(a_bs dx) &gt;= a_bs dy&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;l:h_alf xy; l:IDIOM&quot;</span>◆ held } @)</pre><details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → ((<a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> dx) <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> dy) ? <a href="demos-rosetta-Comparison.xtl.html#l.h_alf" class="c-libfunc">ˡh̲alf</a> xy◆ <a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> } @)</pre></details>
+</details>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → (axis <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a>) ? dy◆ dx } @)</pre></details>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a></div>
+</div>
+<div class="item" id="l.u_p">
+<h3><a href="#l.u_p"><span class="c-libfunc">ˡu̲p</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L327">line 327</a></div>
+<div class="doc">
+<p>The pointer released: a drag settles on the nearest item, one
+further along when the last move was a flick (more than 6 degrees),
+its steps becoming that item so the angle eases the rest of the way;
+a press that never moved is a click. <code>xy <a href="demos-rosetta-Comparison.xtl.html#l.u_p" class="c-libfunc">ᶜᵐu̲p</a> state</code>.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.STEPS">ᶜᵐSTEPS</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> <span class="c-number">142.0</span> <span class="c-number">50.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.u_p" class="c-libfunc">ᶜᵐu̲p</a> <span class="c-number">142.0</span> <span class="c-number">50.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.m_ove" class="c-libfunc">ᶜᵐm̲ove</a> <span class="c-number">100.0</span> <span class="c-number">50.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.d_own" class="c-libfunc">ᶜᵐd̲own</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+-1.0</pre>
+<pre class="example"><span class="prompt">      </span>(<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.STEPS">ᶜᵐSTEPS</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> <span class="c-number">125.0</span> <span class="c-number">50.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.u_p" class="c-libfunc">ᶜᵐu̲p</a> <span class="c-number">125.0</span> <span class="c-number">50.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.m_ove" class="c-libfunc">ᶜᵐm̲ove</a> <span class="c-number">120.0</span> <span class="c-number">50.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.m_ove" class="c-libfunc">ᶜᵐm̲ove</a> <span class="c-number">100.0</span> <span class="c-number">50.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.d_own" class="c-libfunc">ᶜᵐd̲own</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+0.0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡu̲p</span> ← { xy state →
+  held ← (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.DRAGGING">ˡDRAGGING</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  held <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0.0</span> ? state
+  released ← (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.DRAGGING">ˡDRAGGING</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> state
+  held <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0.5</span> ? xy <a href="demos-rosetta-Comparison.xtl.html#l.c_lick" class="c-libfunc">ˡc̲lick</a> released
+  last ← (<a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.LAST">ˡLAST</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  flick ← <span class="c-string">&quot;6.0 &lt; a_bs last&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;45.0 * last / a_bs last; 0.0&quot;</span>
+  angle ← (held <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ˡANGLE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ˡa̲t</a> state
+  (held <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.STEPS">ˡSTEPS</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">0.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (angle <a href="builtins.html#-2b" class="c-symbol">+</a> flick) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">90.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> released
+}</pre>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → (<span class="c-number">6.0</span> <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> last) ? <span class="c-number">45.0</span> <a href="builtins.html#-2a" class="c-symbol">×</a> last <a href="builtins.html#-2f" class="c-symbol">÷</a> <a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> last◆ <span class="c-number">0.0</span> } @)</pre></details>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a></div>
+</div>
+<div class="item" id="l.c_lick">
+<h3><a href="#l.c_lick"><span class="c-libfunc">ˡc̲lick</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L342">line 342</a></div>
+<div class="doc">
+<p>A click on a half pauses or resumes it. <code>xy <a href="demos-rosetta-Comparison.xtl.html#l.c_lick" class="c-libfunc">ᶜᵐc̲lick</a> state</code>.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Comparison.xtl.html" class="c-string">&quot;Comparison&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ᶜᵐBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ᶜᵐPLAYING</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> <span class="c-number">100.0</span> <span class="c-number">300.0</span> <a href="demos-rosetta-Comparison.xtl.html#l.c_lick" class="c-libfunc">ᶜᵐc̲lick</a> <span class="c-number">31</span> <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <span class="c-number">7</span>
+0.0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡc̲lick</span> ← { xy state → (<a href="demos-rosetta-Comparison.xtl.html#l.h_alf" class="c-libfunc">ˡh̲alf</a> xy) <a href="demos-rosetta-Comparison.xtl.html#l.t_oggle" class="c-libfunc">ˡt̲oggle</a> state }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.u_p"><span class="c-libfunc">ˡu̲p</span></a></div>
+</div>
+<div class="item" id="l.k_ey">
+<h3><a href="#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a> <span class="type">: Key -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Comparison.xtl.src.html#L346">line 346</a></div>
+<div class="doc">
+<p>A key's effect: see cm:u_pdate. Named keys compare with []K_NAMED
+(1 Up, 2 Down, 3 Left, 4 Right); printing keys by their character.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡk̲ey</span> ← { k state →
+  k <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">1</span> ? (<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">-1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> state
+  k <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">2</span> ? (<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> state
+  k <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">3</span> ? (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">-1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> state
+  k <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">4</span> ? (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> state
+  c ← <a href="builtins.html#-5b-5dK_CHAR" class="c-builtin">⎕K̲CHAR</a> k
+  c <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;a&quot;</span> ? (<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">-1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> state
+  c <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;d&quot;</span> ? (<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> state
+  c <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot; &quot;</span> ? <a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour" class="c-libfunc">ˡt̲oggleTour</a> state
+  c <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;r&quot;</span> ? (<a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.IDLE">ˡIDLE</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.idleBefore">ˡidleBefore</a>) <a href="demos-rosetta-Comparison.xtl.html#l.p_ut" class="c-libfunc">ˡp̲ut</a> <a href="demos-rosetta-Comparison.xtl.html#l.r_esume" class="c-libfunc">ˡr̲esume</a> state
+  c <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;s&quot;</span> ? <a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a> <a href="demos-rosetta-Comparison.xtl.html#l.t_oggle" class="c-libfunc">ˡt̲oggle</a> state
+  c <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;w&quot;</span> ? <a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a> <a href="demos-rosetta-Comparison.xtl.html#l.t_oggle" class="c-libfunc">ˡt̲oggle</a> state
+  state
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Comparison.xtl.html#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a></div>
+</div>
+</main>
+</body>
+</html>

@@ -6,7 +6,7 @@
 #   rosetta   the Rosetta stone's page: its programs, libraries and data
 #   literate  the literate documents' HTML: the documents, their style,
 #             and the libraries and demos they include
-#   doc       the documentation site: the libraries and two programs
+#   doc       the documentation site: the libraries, demos and userlibs
 #   poster    the syntax poster: its template
 #   latex     the LaTeX gallery: every line of code shipped or documented
 # pages/INPUTS holds one line per part, the part's name and a hash of
@@ -28,7 +28,7 @@ files() {
         web) find demos lib userlibs -type f \( -name '*.xtl' -o -name '*.xtlm' -o -name '*.toml' \) ;;
         rosetta) find demos/rosetta lib -type f; echo components/rosetta/crates/xetal-rosetta/index.html ;;
         literate) find docs/literate lib userlibs demos -type f \( -name '*.org' -o -name '*.css' -o -name '*.xtl' -o -name '*.xtlm' \) ;;
-        doc) find lib -type f; echo demos/life.xtl; echo demos/tttml-play.xtl; echo scripts/doc-site.sh ;;
+        doc) find lib demos userlibs -type f \( -name '*.xtl' -o -name '*.xtlm' \); echo scripts/doc-site.sh ;;
         poster) find scripts/poster -type f -name '*.html' ;;
         # The gallery reads the session lines (six spaces in) of the markdown:
         # only the files that have any count.

@@ -97,13 +97,14 @@ error[type-mismatch]: expected Unit, found a number
 
 * A second greeting
 
-A library can keep names to itself: a name without ~l:~ is private.
+A library can keep names to itself: a helper written with ~h:~ is
+private to its file.
 ~userlibs/Greetings.xtl~ exports ~g_reet~, which is monadic: it takes the
-greeting from the program and adds the name, kept in a private ~n_ame~:
+greeting from the program and adds the name, kept in a helper ~h:n_ame~:
 
 #+INCLUDE: "../../userlibs/Greetings.xtl" src xetal
 
-X_eTaL reads right to left, so ~g c_at " " c_at n_ame @~ is ~g~ joined
+X_eTaL reads right to left, so ~g c_at " " c_at h:n_ame @~ is ~g~ joined
 to a space joined to the name. A program can import both libraries,
 each under its own prefix:
 
@@ -123,6 +124,6 @@ g:g_reet "welcome to"
 : hi X̲ᵉTᵃL
 : welcome to X̲ᵉTᵃL
 
-but not the private name: ~g:n_ame @~ is an error, ~not-exported~,
+but not the helper: ~g:n_ame @~ is an error, ~not-exported~,
 listing ~g_reet~. ~demos/hello-library.xtl~ uses both, the niladic
 ~hi:h_ello @~ and the monadic ~g:g_reet "hi"~.

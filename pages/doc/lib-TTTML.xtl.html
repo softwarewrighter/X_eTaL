@@ -26,8 +26,33 @@
 <li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
 <li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
 <li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
 <li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
 <li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
 <li><a href="builtins.html">built-ins</a></li>
 </ul>
 <h2>On this page</h2>
@@ -74,7 +99,7 @@
 <h3><a href="#l.s_how"><span class="c-libfunc">ˡs̲how</span></a> <span class="type">: Int -&gt; Char</span></h3>
 <div class="meta">function &middot; <a href="lib-TTTML.xtl.src.html#L13">line 13</a></div>
 <pre class="code"><span class="c-libfunc">ˡs̲how</span> ← { s → <span class="c-number">3</span> <span class="c-number">6</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (s <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">2</span>) <span class="c-symbol">'</span><a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <span class="c-number">0</span> <span class="c-number">1</span>) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <span class="c-string">&quot; O.X&quot;</span> }</pre>
-<div class="uses">Used in: <a href="demos-tttml-play.xtl.html#u.y_ou"><span class="c-userfunc">ᵘy̲ou</span></a>, <a href="demos-tttml-play.xtl.html#u.m_e"><span class="c-userfunc">ᵘm̲e</span></a></div>
+<div class="uses">Used in: <a href="demos-tttml-play.xtl.html#u.y_ou"><span class="c-userfunc">ᵘy̲ou</span></a>, <a href="demos-tttml-play.xtl.html#u.m_e"><span class="c-userfunc">ᵘm̲e</span></a>, <a href="demos-tttml.xtl.src.html#L9">tttml.xtl:9</a></div>
 </div>
 <div class="item" id="l.lines">
 <h3><a href="#l.lines">ˡlines</a> <span class="type">: Int</span></h3>
@@ -89,7 +114,7 @@
   l ← <a href="lib-TTTML.xtl.html#l.lines">ˡlines</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-symbol">'</span><a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#i_nner" class="c-builtin">i̲nner</a> s
   <span class="c-number">3</span> <a href="builtins.html#m_ember-3f" class="c-builtin">m̲ember?</a> l ? <span class="c-number">1</span>◆ <span class="c-number">-3</span> <a href="builtins.html#m_ember-3f" class="c-builtin">m̲ember?</a> l ? <span class="c-number">-1</span>◆ <span class="c-number">0</span> <a href="builtins.html#m_ember-3f" class="c-builtin">m̲ember?</a> s ? <span class="c-number">0</span>◆ <span class="c-number">2</span>
 }</pre>
-<div class="uses">Used in: <a href="lib-TTTML.xtl.html#h.p_lay-21"><span class="c-libfunc">ʰp̲lay!</span></a>, <a href="lib-TTTML.xtl.html#h.r_esult"><span class="c-libfunc">ʰr̲esult</span></a>, <a href="lib-TTTML.xtl.html#h.v_ersus-21"><span class="c-libfunc">ʰv̲ersus!</span></a>, <a href="lib-TTTML.xtl.html#h.g_reedy"><span class="c-libfunc">ʰg̲reedy</span></a>, <a href="lib-TTTML.xtl.html#h.f_inal"><span class="c-libfunc">ʰf̲inal</span></a>, <a href="demos-tttml-play.xtl.html#u.y_ou"><span class="c-userfunc">ᵘy̲ou</span></a>, <a href="demos-tttml-play.xtl.html#u.m_e"><span class="c-userfunc">ᵘm̲e</span></a>, <a href="demos-tttml-play.xtl.src.html#L37">tttml-play.xtl:37</a></div>
+<div class="uses">Used in: <a href="lib-TTTML.xtl.html#h.p_lay-21"><span class="c-libfunc">ʰp̲lay!</span></a>, <a href="lib-TTTML.xtl.html#h.r_esult"><span class="c-libfunc">ʰr̲esult</span></a>, <a href="lib-TTTML.xtl.html#h.v_ersus-21"><span class="c-libfunc">ʰv̲ersus!</span></a>, <a href="lib-TTTML.xtl.html#h.g_reedy"><span class="c-libfunc">ʰg̲reedy</span></a>, <a href="lib-TTTML.xtl.html#h.f_inal"><span class="c-libfunc">ʰf̲inal</span></a>, <a href="demos-tttml-play.xtl.html#u.y_ou"><span class="c-userfunc">ᵘy̲ou</span></a>, <a href="demos-tttml-play.xtl.html#u.m_e"><span class="c-userfunc">ᵘm̲e</span></a>, <a href="demos-tttml-play.xtl.src.html#L37">tttml-play.xtl:37</a>, <a href="demos-tttml.xtl.src.html#L12">tttml.xtl:12</a>, <a href="demos-tttml.xtl.src.html#L13">tttml.xtl:13</a></div>
 </div>
 <div class="item" id="l.symmetries">
 <h3><a href="#l.symmetries">ˡsymmetries</a> <span class="type">: Int</span></h3>
@@ -101,12 +126,13 @@
 <h3><a href="#l.c_ode"><span class="c-libfunc">ˡc̲ode</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
 <div class="meta">function &middot; <a href="lib-TTTML.xtl.src.html#L30">line 30</a></div>
 <pre class="code"><span class="c-libfunc">ˡc̲ode</span> ← { s → <span class="c-builtin">'</span><a href="builtins.html#m_in" class="c-builtin">m̲in</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <span class="c-number">3</span> <a href="builtins.html#d_ecode" class="c-builtin">d̲ecode</a> <a href="builtins.html#o_-5c" class="c-builtin">o̲\</a> <span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="lib-TTTML.xtl.html#l.symmetries">ˡsymmetries</a> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s }</pre>
-<div class="uses">Used in: <a href="lib-TTTML.xtl.html#l.v_alue"><span class="c-libfunc">ˡv̲alue</span></a>, <a href="lib-TTTML.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a>, <a href="lib-TTTML.xtl.html#h.b_ack"><span class="c-libfunc">ʰb̲ack</span></a>, <a href="lib-TTTML.xtl.html#h.m_eet"><span class="c-libfunc">ʰm̲eet</span></a></div>
+<div class="uses">Used in: <a href="lib-TTTML.xtl.html#l.v_alue"><span class="c-libfunc">ˡv̲alue</span></a>, <a href="lib-TTTML.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a>, <a href="lib-TTTML.xtl.html#h.b_ack"><span class="c-libfunc">ʰb̲ack</span></a>, <a href="lib-TTTML.xtl.html#h.m_eet"><span class="c-libfunc">ʰm̲eet</span></a>, <a href="demos-tttml.xtl.src.html#L16">tttml.xtl:16</a>, <a href="demos-tttml.xtl.src.html#L17">tttml.xtl:17</a></div>
 </div>
 <div class="item" id="l.empty">
 <h3><a href="#l.empty">ˡempty</a> <span class="type">: Float</span></h3>
 <div class="meta">value &middot; <a href="lib-TTTML.xtl.src.html#L33">line 33</a></div>
 <pre class="code">ˡempty ← <span class="c-number">2</span> <span class="c-number">0</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0.5</span></pre>
+<div class="uses">Used in: <a href="demos-tttml-train.xtl.html#m">m</a>, <a href="demos-tttml.xtl.html#m">m</a></div>
 </div>
 <div class="item" id="l.v_alues">
 <h3><a href="#l.v_alues"><span class="c-libfunc">ˡv̲alues</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
@@ -231,6 +257,7 @@
   shown ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;games to go, positions known:&quot;</span>
   n <a href="lib-TTTML.xtl.html#h.l_oop-21" class="c-libfunc">ʰl̲oop!</a> m
 }</pre>
+<div class="uses">Used in: <a href="demos-tttml-train.xtl.html#m">m</a>, <a href="demos-tttml.xtl.html#m">m</a></div>
 </div>
 <div class="item" id="h.t_urn-21">
 <h3><a href="#h.t_urn-21"><span class="c-libfunc">ʰt̲urn!</span></a> <span class="type">: (Num a, Truthy a) =&gt; Float -&gt; a -&gt; a -&gt; Int</span></h3>
@@ -264,6 +291,7 @@
 <h3><a href="#l.t_rial-21"><span class="c-libfunc">ˡt̲rial!</span></a> <span class="type">: (Num a, Truthy a) =&gt; Int -&gt; Float -&gt; a</span></h3>
 <div class="meta">function &middot; <a href="lib-TTTML.xtl.src.html#L130">line 130</a></div>
 <pre class="code"><span class="c-libfunc">ˡt̲rial!</span> ← { n m → <span class="c-number">2</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> ((m <a href="lib-TTTML.xtl.html#h.c_ount-21" class="c-libfunc">ʰc̲ount!</a> <span class="c-number">1</span>)_ n) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (m <a href="lib-TTTML.xtl.html#h.c_ount-21" class="c-libfunc">ʰc̲ount!</a> <span class="c-number">-1</span>)_ n }</pre>
+<div class="uses">Used in: <a href="demos-tttml-train.xtl.src.html#L11">tttml-train.xtl:11</a>, <a href="demos-tttml.xtl.src.html#L26">tttml.xtl:26</a></div>
 </div>
 <div class="item" id="h.g_reedy">
 <h3><a href="#h.g_reedy"><span class="c-libfunc">ʰg̲reedy</span></a> <span class="type">: Float -&gt; Int -&gt; Int</span></h3>
@@ -279,6 +307,7 @@
 <h3><a href="#l.b_est"><span class="c-libfunc">ˡb̲est</span></a> <span class="type">: Float -&gt; Int</span></h3>
 <div class="meta">function &middot; <a href="lib-TTTML.xtl.src.html#L139">line 139</a></div>
 <pre class="code"><span class="c-libfunc">ˡb̲est</span> ← { m → m <a href="lib-TTTML.xtl.html#h.g_reedy" class="c-libfunc">ʰg̲reedy</a> <span class="c-number">1</span> <span class="c-number">9</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> }</pre>
+<div class="uses">Used in: <a href="demos-tttml.xtl.src.html#L33">tttml.xtl:33</a></div>
 </div>
 <div class="item" id="l.b_oards">
 <h3><a href="#l.b_oards"><span class="c-libfunc">ˡb̲oards</span></a> <span class="type">: Int -&gt; Char</span></h3>
@@ -290,6 +319,7 @@
   squares ← at <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> (<a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> g) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">3</span>
   (<span class="c-number">3</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">8</span> <a href="builtins.html#-2a" class="c-symbol">×</a> k) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (squares <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">2</span>) <span class="c-symbol">'</span><a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <span class="c-number">0</span> <span class="c-number">1</span>) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <span class="c-string">&quot; O.X  &quot;</span>
 }</pre>
+<div class="uses">Used in: <a href="demos-tttml.xtl.src.html#L33">tttml.xtl:33</a></div>
 </div>
 <div class="item" id="h.o_pening-21">
 <h3><a href="#h.o_pening-21"><span class="c-libfunc">ʰo̲pening!</span></a> <span class="type">: (Num a, Truthy a) =&gt; Unit -&gt; a</span></h3>
@@ -310,6 +340,7 @@
   w ← <span class="c-quote">'</span>{ i → <a href="lib-TTTML.xtl.html#h.f_inal" class="c-libfunc">ʰf̲inal</a> m <a href="lib-TTTML.xtl.html#h.g_reedy" class="c-libfunc">ʰg̲reedy</a> <a href="lib-TTTML.xtl.html#h.o_pening-21" class="c-libfunc">ʰo̲pening!</a> @ } <a href="builtins.html#e_ach" class="c-builtin">e̲ach</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> n
   <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> w <span class="c-symbol">'</span><a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">2</span>
 }</pre>
+<div class="uses">Used in: <a href="demos-tttml.xtl.src.html#L30">tttml.xtl:30</a></div>
 </div>
 </main>
 </body>

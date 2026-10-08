@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>demos/magmas.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#u.r_ps"><span class="c-userfunc">ᵘr̲ps</span></a></li>
+<li class="item"><a href="#names">names</a></li>
+<li class="item"><a href="#t">t</a></li>
+<li class="item"><a href="#u.c_ommutative"><span class="c-userfunc">ᵘc̲ommutative</span></a></li>
+<li class="item"><a href="#u.i_dempotent"><span class="c-userfunc">ᵘi̲dempotent</span></a></li>
+<li class="item"><a href="#u.a_ssociative"><span class="c-userfunc">ᵘa̲ssociative</span></a></li>
+<li class="item"><a href="#u.i_dentity"><span class="c-userfunc">ᵘi̲dentity</span></a></li>
+<li class="item"><a href="#u.a_dd"><span class="c-userfunc">ᵘa̲dd</span></a></li>
+<li class="item"><a href="#u.s_ub"><span class="c-userfunc">ᵘs̲ub</span></a></li>
+<li class="item"><a href="#u.r_psls"><span class="c-userfunc">ᵘr̲psls</span></a></li>
+<li class="item"><a href="#moves">moves</a></li>
+<li class="item"><a href="#w">w</a></li>
+<li class="item"><a href="#beats">beats</a></li>
+<li class="item"><a href="#shown">shown</a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">program</span>demos/magmas.xtl</h1>
+<p class="meta"><a href="demos-magmas.xtl.src.html">source</a></p>
+<div class="item" id="u.r_ps">
+<h3><a href="#u.r_ps"><span class="c-userfunc">ᵘr̲ps</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="demos-magmas.xtl.src.html#L6">line 6</a></div>
+<pre class="code"><span class="c-userfunc">ᵘr̲ps</span> ← { x y → d ← (x <a href="builtins.html#-2d" class="c-symbol">−</a> y) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">3</span>◆ y <a href="builtins.html#-2b" class="c-symbol">+</a> (x <a href="builtins.html#-2d" class="c-symbol">−</a> y) <a href="builtins.html#-2a" class="c-symbol">×</a> d <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> }</pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.html#t">t</a>, <a href="demos-magmas.xtl.src.html#L28">magmas.xtl:28</a>, <a href="demos-magmas.xtl.src.html#L29">magmas.xtl:29</a>, <a href="demos-magmas.xtl.src.html#L30">magmas.xtl:30</a>, <a href="demos-magmas.xtl.src.html#L31">magmas.xtl:31</a>, <a href="demos-magmas.xtl.src.html#L35">magmas.xtl:35</a>, <a href="demos-magmas.xtl.src.html#L36">magmas.xtl:36</a></div>
+</div>
+<div class="item" id="names">
+<h3><a href="#names">names</a> <span class="type">: Box Char</span></h3>
+<div class="meta">value &middot; <a href="demos-magmas.xtl.src.html#L7">line 7</a></div>
+<pre class="code">names ← <span class="c-string">&quot;rock&quot;</span> <span class="c-string">&quot;paper&quot;</span> <span class="c-string">&quot;scissors&quot;</span></pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.src.html#L10">magmas.xtl:10</a></div>
+</div>
+<div class="item" id="t">
+<h3><a href="#t">t</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-magmas.xtl.src.html#L8">line 8</a></div>
+<pre class="code">t ← (<a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">3</span>) <span class="c-userfunc">'</span><a href="demos-magmas.xtl.html#u.r_ps" class="c-userfunc">ᵘr̲ps</a> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">3</span></pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.src.html#L9">magmas.xtl:9</a>, <a href="demos-magmas.xtl.src.html#L10">magmas.xtl:10</a></div>
+</div>
+<div class="item" id="u.c_ommutative">
+<h3><a href="#u.c_ommutative"><span class="c-userfunc">ᵘc̲ommutative</span></a> <span class="type">: Truthy b =&gt; (Int -&gt; Int -&gt; a) -&gt; Int -&gt; b</span></h3>
+<div class="meta">function &middot; <a href="demos-magmas.xtl.src.html#L14">line 14</a></div>
+<pre class="code"><span class="c-userfunc">ᵘc̲ommutative</span> ← { <span class="c-builtin">f̲</span> n → ((<a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> n) <span class="c-builtin">'</span><span class="c-builtin">f̲</span> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> n) <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> (<a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> n) <span class="c-quote">'</span>{ <span class="c-lambdaarg">⍵</span> <span class="c-builtin">f̲</span> <span class="c-lambdaarg">⍺</span> } <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> n }</pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.src.html#L28">magmas.xtl:28</a>, <a href="demos-magmas.xtl.src.html#L42">magmas.xtl:42</a>, <a href="demos-magmas.xtl.src.html#L45">magmas.xtl:45</a>, <a href="demos-magmas.xtl.src.html#L59">magmas.xtl:59</a></div>
+</div>
+<div class="item" id="u.i_dempotent">
+<h3><a href="#u.i_dempotent"><span class="c-userfunc">ᵘi̲dempotent</span></a> <span class="type">: Truthy a =&gt; (Int -&gt; Int -&gt; Int) -&gt; Int -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="demos-magmas.xtl.src.html#L15">line 15</a></div>
+<pre class="code"><span class="c-userfunc">ᵘi̲dempotent</span> ← { <span class="c-builtin">f̲</span> n → (<a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> n) <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-quote">'</span>{ <span class="c-lambdaarg">⍵</span> <span class="c-builtin">f̲</span> <span class="c-lambdaarg">⍵</span> } <a href="builtins.html#e_ach" class="c-builtin">e̲ach</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> n }</pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.src.html#L29">magmas.xtl:29</a>, <a href="demos-magmas.xtl.src.html#L60">magmas.xtl:60</a></div>
+</div>
+<div class="item" id="u.a_ssociative">
+<h3><a href="#u.a_ssociative"><span class="c-userfunc">ᵘa̲ssociative</span></a> <span class="type">: Truthy a =&gt; (Int -&gt; Int -&gt; Int) -&gt; Int -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="demos-magmas.xtl.src.html#L16">line 16</a></div>
+<pre class="code"><span class="c-userfunc">ᵘa̲ssociative</span> ← { <span class="c-builtin">f̲</span> n →
+  t ← <span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (<span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> n) <a href="builtins.html#e_ncode" class="c-builtin">e̲ncode</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> n <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">3</span>
+  x ← <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> t
+  y ← <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> t
+  z ← <span class="c-number">3</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> t
+  <span class="c-symbol">'</span><a href="builtins.html#-26" class="c-symbol">∧</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> ((x <span class="c-builtin">f̲</span> y) <span class="c-builtin">f̲</span> z) <a href="builtins.html#-3d" class="c-symbol">=</a> x <span class="c-builtin">f̲</span> y <span class="c-builtin">f̲</span> z
+}</pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.src.html#L30">magmas.xtl:30</a>, <a href="demos-magmas.xtl.src.html#L43">magmas.xtl:43</a>, <a href="demos-magmas.xtl.src.html#L46">magmas.xtl:46</a>, <a href="demos-magmas.xtl.src.html#L61">magmas.xtl:61</a></div>
+</div>
+<div class="item" id="u.i_dentity">
+<h3><a href="#u.i_dentity"><span class="c-userfunc">ᵘi̲dentity</span></a> <span class="type">: (Int -&gt; Int -&gt; Int) -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="demos-magmas.xtl.src.html#L23">line 23</a></div>
+<pre class="code"><span class="c-userfunc">ᵘi̲dentity</span> ← { <span class="c-builtin">f̲</span> n →                     <span class="c-comment">⍝</span><span class="c-comment"> the identity element, or 0 for none</span>
+  r ← <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> n
+  e ← <a href="builtins.html#w_here" class="c-builtin">w̲here</a> <span class="c-quote">'</span>{ (r <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-lambdaarg">⍵</span> <span class="c-builtin">f̲</span> r) <a href="builtins.html#-26" class="c-symbol">∧</a> r <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> r <span class="c-builtin">f̲</span> <span class="c-lambdaarg">⍵</span> } <a href="builtins.html#e_ach" class="c-builtin">e̲ach</a> r
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> e ? <span class="c-number">0</span>◆ <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> e
+}</pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.src.html#L31">magmas.xtl:31</a>, <a href="demos-magmas.xtl.src.html#L44">magmas.xtl:44</a></div>
+</div>
+<div class="item" id="u.a_dd">
+<h3><a href="#u.a_dd"><span class="c-userfunc">ᵘa̲dd</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="demos-magmas.xtl.src.html#L40">line 40</a></div>
+<pre class="code"><span class="c-userfunc">ᵘa̲dd</span> ← { x y → <span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (x <a href="builtins.html#-2b" class="c-symbol">+</a> y <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">2</span>) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">3</span> }</pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.src.html#L42">magmas.xtl:42</a>, <a href="demos-magmas.xtl.src.html#L43">magmas.xtl:43</a>, <a href="demos-magmas.xtl.src.html#L44">magmas.xtl:44</a></div>
+</div>
+<div class="item" id="u.s_ub">
+<h3><a href="#u.s_ub"><span class="c-userfunc">ᵘs̲ub</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="demos-magmas.xtl.src.html#L41">line 41</a></div>
+<pre class="code"><span class="c-userfunc">ᵘs̲ub</span> ← { x y → <span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (x <a href="builtins.html#-2d" class="c-symbol">−</a> y) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">3</span> }</pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.src.html#L45">magmas.xtl:45</a>, <a href="demos-magmas.xtl.src.html#L46">magmas.xtl:46</a></div>
+</div>
+<div class="item" id="u.r_psls">
+<h3><a href="#u.r_psls"><span class="c-userfunc">ᵘr̲psls</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="demos-magmas.xtl.src.html#L51">line 51</a></div>
+<pre class="code"><span class="c-userfunc">ᵘr̲psls</span> ← { x y → d ← (x <a href="builtins.html#-2d" class="c-symbol">−</a> y) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">5</span>◆ y <a href="builtins.html#-2b" class="c-symbol">+</a> (x <a href="builtins.html#-2d" class="c-symbol">−</a> y) <a href="builtins.html#-2a" class="c-symbol">×</a> d <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">2</span> }</pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.html#w">w</a>, <a href="demos-magmas.xtl.html#beats">beats</a>, <a href="demos-magmas.xtl.src.html#L59">magmas.xtl:59</a>, <a href="demos-magmas.xtl.src.html#L60">magmas.xtl:60</a>, <a href="demos-magmas.xtl.src.html#L61">magmas.xtl:61</a></div>
+</div>
+<div class="item" id="moves">
+<h3><a href="#moves">moves</a> <span class="type">: Box Char</span></h3>
+<div class="meta">value &middot; <a href="demos-magmas.xtl.src.html#L52">line 52</a></div>
+<pre class="code">moves ← <span class="c-string">&quot;rock&quot;</span> <span class="c-string">&quot;Spock&quot;</span> <span class="c-string">&quot;paper&quot;</span> <span class="c-string">&quot;lizard&quot;</span> <span class="c-string">&quot;scissors&quot;</span></pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.src.html#L54">magmas.xtl:54</a></div>
+</div>
+<div class="item" id="w">
+<h3><a href="#w">w</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-magmas.xtl.src.html#L53">line 53</a></div>
+<pre class="code">w ← (<a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">5</span>) <span class="c-userfunc">'</span><a href="demos-magmas.xtl.html#u.r_psls" class="c-userfunc">ᵘr̲psls</a> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">5</span></pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.src.html#L54">magmas.xtl:54</a>, <a href="demos-magmas.xtl.html#shown">shown</a></div>
+</div>
+<div class="item" id="beats">
+<h3><a href="#beats">beats</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-magmas.xtl.src.html#L55">line 55</a></div>
+<pre class="code">beats ← <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">5</span>) <span class="c-quote">'</span>{ (<span class="c-lambdaarg">⍺</span> <a href="builtins.html#-21-3d" class="c-symbol">≠</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-lambdaarg">⍺</span> <a href="demos-magmas.xtl.html#u.r_psls" class="c-userfunc">ᵘr̲psls</a> <span class="c-lambdaarg">⍵</span> } <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">5</span></pre>
+<div class="uses">Used in: <a href="demos-magmas.xtl.src.html#L56">magmas.xtl:56</a>, <a href="demos-magmas.xtl.src.html#L57">magmas.xtl:57</a>, <a href="demos-magmas.xtl.src.html#L58">magmas.xtl:58</a></div>
+</div>
+<div class="item" id="shown">
+<h3><a href="#shown">shown</a> <span class="type">: Char</span></h3>
+<div class="meta">value &middot; <a href="demos-magmas.xtl.src.html#L62">line 62</a></div>
+<pre class="code">shown ← <a href="builtins.html#-5b-5dS_HOW" class="c-builtin">⎕S̲HOW</a> <a href="builtins.html#-5b-5dG_RID" class="c-builtin">⎕G̲RID</a> <a href="demos-magmas.xtl.html#w">w</a>               <span class="c-comment">⍝</span><span class="c-comment"> the winner table, colored by move</span></pre>
+</div>
+</main>
+</body>
+</html>

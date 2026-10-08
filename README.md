@@ -317,8 +317,11 @@ Other fonts, checked against the font files:
   ![The Rosetta stone at rest, with its top half turning, and mid-tumble](images/rosetta-three.png)
 - [The library documentation](https://softwarewrighter.github.io/X_eTaL/doc/)
   -- every standard library and macro library (`System.xtlm` among
-  them), the built-ins, and two programs to read from the top down
-  (Life and the TTTML game): each item with its type, doc comment,
+  them), the built-ins, and every bundled demo and example library
+  (Life, the TTTML game, the tour, the Rosetta stone's `Stone`,
+  `userlibs/Greetings`), each name drawn with whose it is (`l:` a
+  library's export, `h:` a helper, private to its file, `u:` a
+  program's own): each item with its type, doc comment,
   examples, source drawn decorated and where it is used, every macro
   call with its expansion, every name linked, and a search by name or
   by type (`Num a => a -> a -> a` finds `+` and `m_ax`). Made by

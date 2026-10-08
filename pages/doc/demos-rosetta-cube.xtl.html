@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>demos/rosetta/cube.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#size">size</a></li>
+<li class="item"><a href="#eye">eye</a></li>
+<li class="item"><a href="#zoom">zoom</a></li>
+<li class="item"><a href="#light">light</a></li>
+<li class="item"><a href="#cube">cube</a></li>
+<li class="item"><a href="#faces">faces</a></li>
+<li class="item"><a href="#u.s_creen"><span class="c-userfunc">ᵘs̲creen</span></a></li>
+<li class="item"><a href="#u.n_ormal"><span class="c-userfunc">ᵘn̲ormal</span></a></li>
+<li class="item"><a href="#u.l_it"><span class="c-userfunc">ᵘl̲it</span></a></li>
+<li class="item"><a href="#u.p_olygon"><span class="c-userfunc">ᵘp̲olygon</span></a></li>
+<li class="item"><a href="#u.s_cene"><span class="c-userfunc">ᵘs̲cene</span></a></li>
+<li class="item"><a href="#u.f_rame"><span class="c-userfunc">ᵘf̲rame</span></a></li>
+<li class="item"><a href="#angles">angles</a></li>
+<li class="item"><a href="#shown">shown</a></li>
+<li class="item"><a href="#shown">shown</a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">program</span>demos/rosetta/cube.xtl</h1>
+<p class="meta"><a href="demos-rosetta-cube.xtl.src.html">source</a> &middot; imports <code><span class="c-error">g:</span></code> <a href="lib-Geometry3D.xtl.html">lib/Geometry3D.xtl</a>; <code><span class="c-error">v:</span></code> <a href="lib-Svg.xtl.html">lib/Svg.xtl</a></p>
+<div class="item" id="size">
+<h3><a href="#size">size</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-cube.xtl.src.html#L13">line 13</a></div>
+<pre class="code">size ← <span class="c-number">300.0</span>                 <span class="c-comment">⍝</span><span class="c-comment"> the picture is size by size</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.s_creen"><span class="c-userfunc">ᵘs̲creen</span></a>, <a href="demos-rosetta-cube.xtl.html#u.s_cene"><span class="c-userfunc">ᵘs̲cene</span></a></div>
+</div>
+<div class="item" id="eye">
+<h3><a href="#eye">eye</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-cube.xtl.src.html#L14">line 14</a></div>
+<pre class="code">eye ← <span class="c-number">6.0</span>                    <span class="c-comment">⍝</span><span class="c-comment"> the viewer's distance along z</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.s_creen"><span class="c-userfunc">ᵘs̲creen</span></a></div>
+</div>
+<div class="item" id="zoom">
+<h3><a href="#zoom">zoom</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-cube.xtl.src.html#L15">line 15</a></div>
+<pre class="code">zoom ← <span class="c-number">70.0</span>                  <span class="c-comment">⍝</span><span class="c-comment"> pixels per unit</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.s_creen"><span class="c-userfunc">ᵘs̲creen</span></a></div>
+</div>
+<div class="item" id="light">
+<h3><a href="#light">light</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-cube.xtl.src.html#L16">line 16</a></div>
+<pre class="code">light ← <span class="c-number">0.3</span> <span class="c-number">0.5</span> <span class="c-number">0.8</span>          <span class="c-comment">⍝</span><span class="c-comment"> from the viewer's side, upper right</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.l_it"><span class="c-userfunc">ᵘl̲it</span></a></div>
+</div>
+<div class="item" id="cube">
+<h3><a href="#cube">cube</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-cube.xtl.src.html#L18">line 18</a></div>
+<pre class="code">cube ← <a href="lib-Geometry3D.xtl.html#l.c_ube" class="c-libfunc">ᵍc̲ube</a> <span class="c-number">2</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.s_cene"><span class="c-userfunc">ᵘs̲cene</span></a></div>
+</div>
+<div class="item" id="faces">
+<h3><a href="#faces">faces</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-cube.xtl.src.html#L19">line 19</a></div>
+<pre class="code">faces ← <a href="lib-Geometry3D.xtl.html#l.c_ubeFaces" class="c-libfunc">ᵍc̲ubeFaces</a> @</pre>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.s_cene"><span class="c-userfunc">ᵘs̲cene</span></a></div>
+</div>
+<div class="item" id="u.s_creen">
+<h3><a href="#u.s_creen"><span class="c-userfunc">ᵘs̲creen</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-cube.xtl.src.html#L22">line 22</a></div>
+<pre class="code"><span class="c-userfunc">ᵘs̲creen</span> ← { f →
+  p ← <a href="demos-rosetta-cube.xtl.html#eye">eye</a> <a href="lib-Geometry3D.xtl.html#l.p_roject" class="c-libfunc">ᵍp̲roject</a> f
+  xs ← (<a href="demos-rosetta-cube.xtl.html#size">size</a> <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">2</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="demos-rosetta-cube.xtl.html#zoom">zoom</a> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> p
+  ys ← (<a href="demos-rosetta-cube.xtl.html#size">size</a> <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">2</span>) <a href="builtins.html#-2d" class="c-symbol">−</a> <a href="demos-rosetta-cube.xtl.html#zoom">zoom</a> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> p
+  (<span class="c-number">2</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> xs) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> xs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ys
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.p_olygon"><span class="c-userfunc">ᵘp̲olygon</span></a></div>
+</div>
+<div class="item" id="u.n_ormal">
+<h3><a href="#u.n_ormal"><span class="c-userfunc">ᵘn̲ormal</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-cube.xtl.src.html#L30">line 30</a></div>
+<pre class="code"><span class="c-userfunc">ᵘn̲ormal</span> ← { f →
+  u ← (<span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> f) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> f
+  w ← (<span class="c-number">4</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> f) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> f
+  ((<span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-</a> u) <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-</a> w) <a href="builtins.html#-2d" class="c-symbol">−</a> (<span class="c-number">2</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-</a> u) <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-</a> w
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.l_it"><span class="c-userfunc">ᵘl̲it</span></a></div>
+</div>
+<div class="item" id="u.l_it">
+<h3><a href="#u.l_it"><span class="c-userfunc">ᵘl̲it</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-cube.xtl.src.html#L39">line 39</a></div>
+<pre class="code"><span class="c-userfunc">ᵘl̲it</span> ← { f →
+  n ← <a href="demos-rosetta-cube.xtl.html#u.n_ormal" class="c-userfunc">ᵘn̲ormal</a> f
+  center ← (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <a href="builtins.html#o_-5c" class="c-builtin">o̲\</a> f) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">4.0</span>
+  outward ← n <a href="builtins.html#-2a" class="c-symbol">×</a> (<span class="c-number">2.0</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-number">0</span> <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> n <a href="builtins.html#-2a" class="c-symbol">×</a> center) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1.0</span>
+  <span class="c-number">0</span> <a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> outward <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="demos-rosetta-cube.xtl.html#light">light</a>) <a href="builtins.html#-2f" class="c-symbol">÷</a> (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> n <a href="builtins.html#-2a" class="c-symbol">×</a> n) <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">0.5</span>
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.p_olygon"><span class="c-userfunc">ᵘp̲olygon</span></a></div>
+</div>
+<div class="item" id="u.p_olygon">
+<h3><a href="#u.p_olygon"><span class="c-userfunc">ᵘp̲olygon</span></a> <span class="type">: Truthy a =&gt; a -&gt; Float -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-cube.xtl.src.html#L47">line 47</a></div>
+<pre class="code"><span class="c-userfunc">ᵘp̲olygon</span> ← { shaded f →
+  fill ← <a href="lib-Svg.xtl.html#l.f_ill" class="c-libfunc">ᵛf̲ill</a> <span class="c-string">&quot;shaded&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;v:r_gb 3 r_eshape 40 + 200 * u:l_it f; \&quot;none\&quot;&quot;</span>
+  (fill <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;#222&quot;</span> <a href="lib-Svg.xtl.html#l.s_troke" class="c-libfunc">ᵛs̲troke</a> <span class="c-number">1.5</span>) <a href="lib-Svg.xtl.html#l.p_olygon" class="c-libfunc">ᵛp̲olygon</a> <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">0.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="demos-rosetta-cube.xtl.html#u.s_creen" class="c-userfunc">ᵘs̲creen</a> f
+}</pre>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → (shaded) ? <a href="lib-Svg.xtl.html#l.r_gb" class="c-libfunc">ᵛr̲gb</a> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">40</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">200</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="demos-rosetta-cube.xtl.html#u.l_it" class="c-userfunc">ᵘl̲it</a> f◆ <span class="c-string">&quot;none&quot;</span> } @)</pre></details>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.s_cene"><span class="c-userfunc">ᵘs̲cene</span></a></div>
+</div>
+<div class="item" id="u.s_cene">
+<h3><a href="#u.s_cene"><span class="c-userfunc">ᵘs̲cene</span></a> <span class="type">: Truthy a =&gt; a -&gt; Float -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-cube.xtl.src.html#L54">line 54</a></div>
+<pre class="code"><span class="c-userfunc">ᵘs̲cene</span> ← { shaded a →
+  turned ← ((<a href="lib-Geometry3D.xtl.html#l.r_otY" class="c-libfunc">ᵍr̲otY</a> <span class="c-number">1.3</span> <a href="builtins.html#-2a" class="c-symbol">×</a> a) <a href="lib-Geometry3D.xtl.html#l.t_urn" class="c-libfunc">ᵍt̲urn</a> <a href="lib-Geometry3D.xtl.html#l.r_otX" class="c-libfunc">ᵍr̲otX</a> a) <a href="lib-Geometry3D.xtl.html#l.t_urn" class="c-libfunc">ᵍt̲urn</a> <a href="demos-rosetta-cube.xtl.html#cube">cube</a>
+  solid ← <a href="demos-rosetta-cube.xtl.html#faces">faces</a> <a href="lib-Geometry3D.xtl.html#l.s_olid" class="c-libfunc">ᵍs̲olid</a> turned
+  polygons ← <span class="c-quote">'</span>{ i → shaded <a href="demos-rosetta-cube.xtl.html#u.p_olygon" class="c-userfunc">ᵘp̲olygon</a> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> solid } <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> <a href="lib-Geometry3D.xtl.html#l.o_rder" class="c-libfunc">ᵍo̲rder</a> solid
+  (<a href="demos-rosetta-cube.xtl.html#size">size</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-cube.xtl.html#size">size</a>) <a href="lib-Svg.xtl.html#l.p_icture" class="c-libfunc">ᵛp̲icture</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ x y → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> x) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> y } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> polygons
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.f_rame"><span class="c-userfunc">ᵘf̲rame</span></a></div>
+</div>
+<div class="item" id="u.f_rame">
+<h3><a href="#u.f_rame"><span class="c-userfunc">ᵘf̲rame</span></a> <span class="type">: Truthy a =&gt; a -&gt; Float -&gt; Unit</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-cube.xtl.src.html#L61">line 61</a></div>
+<pre class="code"><span class="c-userfunc">ᵘf̲rame</span> ← { shaded a → <a href="builtins.html#-5b-5dS_HOW" class="c-builtin">⎕S̲HOW</a> shaded <a href="demos-rosetta-cube.xtl.html#u.s_cene" class="c-userfunc">ᵘs̲cene</a> a◆ <a href="builtins.html#-5b-5dD_L" class="c-builtin">⎕D̲L</a> <span class="c-number">0.04</span>◆ @ }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#shown">shown</a></div>
+</div>
+<div class="item" id="angles">
+<h3><a href="#angles">angles</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-cube.xtl.src.html#L63">line 63</a></div>
+<pre class="code">angles ← <span class="c-number">30.0</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">12</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#shown">shown</a></div>
+</div>
+<div class="item" id="shown">
+<h3><a href="#shown">shown</a> <span class="type">: Unit</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-cube.xtl.src.html#L64">line 64</a></div>
+<pre class="code">shown ← <span class="c-quote">'</span>{ a → <span class="c-number">0</span> <a href="demos-rosetta-cube.xtl.html#u.f_rame" class="c-userfunc">ᵘf̲rame</a> a } <a href="builtins.html#e_ach" class="c-builtin">e̲ach</a> <a href="demos-rosetta-cube.xtl.html#angles">angles</a></pre>
+</div>
+<div class="item" id="shown">
+<h3><a href="#shown">shown</a> <span class="type">: Unit</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-cube.xtl.src.html#L65">line 65</a></div>
+<pre class="code">shown ← <span class="c-quote">'</span>{ a → <span class="c-number">1</span> <a href="demos-rosetta-cube.xtl.html#u.f_rame" class="c-userfunc">ᵘf̲rame</a> a } <a href="builtins.html#e_ach" class="c-builtin">e̲ach</a> <a href="demos-rosetta-cube.xtl.html#angles">angles</a></pre>
+</div>
+</main>
+</body>
+</html>

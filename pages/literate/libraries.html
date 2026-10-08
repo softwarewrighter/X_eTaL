@@ -31,7 +31,7 @@
 </div>
 <p>
 A library is an ordinary X_eTaL file whose exported names are written
-with <code>l:</code>; its other names are private to it. A program imports a
+with <code>l:</code>; its helpers, written with <code>h:</code>, are private to it. A program imports a
 library with the <code>u_se&lt;</code> macro, choosing the prefix its names get:
 <code>"s:" u_se&lt; "Stats"</code> makes the library's <code>l:m_ean</code> the program's
 <code>s:m_ean</code>. The prefix is required, so every name says where it comes
@@ -92,8 +92,8 @@ A small statistics library. Its whole source:
 </div>
 
 <p>
-<code>s_quare</code> and <code>d_eviations</code> have no <code>l:</code>, so a program cannot see
-them; the rest it imports:
+<code>h:s_quare</code> and <code>h:d_eviations</code> are helpers, written with <code>h:</code>, so a
+program cannot see them; the rest it imports:
 </p>
 
 <div class="org-src-container">

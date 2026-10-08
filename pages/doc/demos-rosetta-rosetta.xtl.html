@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>demos/rosetta/rosetta.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#data">data</a></li>
+<li class="item"><a href="#idioms">idioms</a></li>
+<li class="item"><a href="#idiomNames">idiomNames</a></li>
+<li class="item"><a href="#languages">languages</a></li>
+<li class="item"><a href="#languageNames">languageNames</a></li>
+<li class="item"><a href="#u.t_able"><span class="c-userfunc">ᵘt̲able</span></a></li>
+<li class="item"><a href="#source">source</a></li>
+<li class="item"><a href="#output">output</a></li>
+<li class="item"><a href="#notes">notes</a></li>
+<li class="item"><a href="#spans">spans</a></li>
+<li class="item"><a href="#u.c_olor"><span class="c-userfunc">ᵘc̲olor</span></a></li>
+<li class="item"><a href="#u.r_uns"><span class="c-userfunc">ᵘr̲uns</span></a></li>
+<li class="item"><a href="#u.g_uess"><span class="c-userfunc">ᵘg̲uess</span></a></li>
+<li class="item"><a href="#u.s_pans"><span class="c-userfunc">ᵘs̲pans</span></a></li>
+<li class="item"><a href="#u.c_olored"><span class="c-userfunc">ᵘc̲olored</span></a></li>
+<li class="item"><a href="#fits">fits</a></li>
+<li class="item"><a href="#smallest">smallest</a></li>
+<li class="item"><a href="#u.f_itted"><span class="c-userfunc">ᵘf̲itted</span></a></li>
+<li class="item"><a href="#u.s_plit"><span class="c-userfunc">ᵘs̲plit</span></a></li>
+<li class="item"><a href="#u.l_ines"><span class="c-userfunc">ᵘl̲ines</span></a></li>
+<li class="item"><a href="#u.w_rap"><span class="c-userfunc">ᵘw̲rap</span></a></li>
+<li class="item"><a href="#u.o_neLine"><span class="c-userfunc">ᵘo̲neLine</span></a></li>
+<li class="item"><a href="#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a></li>
+<li class="item"><a href="#u.i_tem"><span class="c-userfunc">ᵘi̲tem</span></a></li>
+<li class="item"><a href="#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></li>
+<li class="item"><a href="#u.j_oin"><span class="c-userfunc">ᵘj̲oin</span></a></li>
+<li class="item"><a href="#u.w_here"><span class="c-userfunc">ᵘw̲here</span></a></li>
+<li class="item"><a href="#u.l_oop"><span class="c-userfunc">ᵘl̲oop</span></a></li>
+<li class="item"><a href="#start">start</a></li>
+<li class="item"><a href="#shown">shown</a></li>
+<li class="item"><a href="#mode">mode</a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">program</span>demos/rosetta/rosetta.xtl</h1>
+<p class="meta"><a href="demos-rosetta-rosetta.xtl.src.html">source</a> &middot; imports <code><span class="c-error">cm:</span></code> <a href="demos-rosetta-Comparison.xtl.html">demos/rosetta/Comparison.xtl</a>; <code><span class="c-error">st:</span></code> <a href="demos-rosetta-Stone.xtl.html">demos/rosetta/Stone.xtl</a>; <code><span class="c-error">v:</span></code> <a href="lib-Svg.xtl.html">lib/Svg.xtl</a></p>
+<div class="item" id="data">
+<h3><a href="#data">data</a> <span class="type">: Char</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L16">line 16</a></div>
+<pre class="code">data ← <span class="c-string">&quot;demos/rosetta/data.toml&quot;</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#idioms">idioms</a>, <a href="demos-rosetta-rosetta.xtl.html#idiomNames">idiomNames</a>, <a href="demos-rosetta-rosetta.xtl.html#languages">languages</a>, <a href="demos-rosetta-rosetta.xtl.html#languageNames">languageNames</a>, <a href="demos-rosetta-rosetta.xtl.html#u.t_able"><span class="c-userfunc">ᵘt̲able</span></a></div>
+</div>
+<div class="item" id="idioms">
+<h3><a href="#idioms">idioms</a> <span class="type">: Box Char</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L17">line 17</a></div>
+<pre class="code">idioms ← <a href="demos-rosetta-rosetta.xtl.html#data">data</a> <a href="builtins.html#-5b-5dL_IST" class="c-builtin">⎕L̲IST</a> <span class="c-string">&quot;idioms&quot;</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.w_here"><span class="c-userfunc">ᵘw̲here</span></a>, <a href="demos-rosetta-rosetta.xtl.html#start">start</a></div>
+</div>
+<div class="item" id="idiomNames">
+<h3><a href="#idiomNames">idiomNames</a> <span class="type">: Box Char</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L18">line 18</a></div>
+<pre class="code">idiomNames ← <a href="demos-rosetta-rosetta.xtl.html#data">data</a> <a href="builtins.html#-5b-5dL_IST" class="c-builtin">⎕L̲IST</a> <span class="c-string">&quot;idiom_names&quot;</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></div>
+</div>
+<div class="item" id="languages">
+<h3><a href="#languages">languages</a> <span class="type">: Box Char</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L19">line 19</a></div>
+<pre class="code">languages ← <a href="demos-rosetta-rosetta.xtl.html#data">data</a> <a href="builtins.html#-5b-5dL_IST" class="c-builtin">⎕L̲IST</a> <span class="c-string">&quot;languages&quot;</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.c_olored"><span class="c-userfunc">ᵘc̲olored</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.w_here"><span class="c-userfunc">ᵘw̲here</span></a>, <a href="demos-rosetta-rosetta.xtl.html#start">start</a></div>
+</div>
+<div class="item" id="languageNames">
+<h3><a href="#languageNames">languageNames</a> <span class="type">: Box Char</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L20">line 20</a></div>
+<pre class="code">languageNames ← <a href="demos-rosetta-rosetta.xtl.html#data">data</a> <a href="builtins.html#-5b-5dL_IST" class="c-builtin">⎕L̲IST</a> <span class="c-string">&quot;language_names&quot;</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a></div>
+</div>
+<div class="item" id="u.t_able">
+<h3><a href="#u.t_able"><span class="c-userfunc">ᵘt̲able</span></a> <span class="type">: Char -&gt; Box Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L21">line 21</a></div>
+<pre class="code"><span class="c-userfunc">ᵘt̲able</span> ← { name → ((<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <a href="demos-rosetta-rosetta.xtl.html#data">data</a>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> name) <a href="builtins.html#-5b-5dT_ABLE" class="c-builtin">⎕T̲ABLE</a> <span class="c-string">&quot;idioms&quot;</span> <span class="c-string">&quot;languages&quot;</span> }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#source">source</a>, <a href="demos-rosetta-rosetta.xtl.html#output">output</a>, <a href="demos-rosetta-rosetta.xtl.html#notes">notes</a>, <a href="demos-rosetta-rosetta.xtl.html#spans">spans</a></div>
+</div>
+<div class="item" id="source">
+<h3><a href="#source">source</a> <span class="type">: Box Char</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L22">line 22</a></div>
+<pre class="code">source ← <a href="demos-rosetta-rosetta.xtl.html#u.t_able" class="c-userfunc">ᵘt̲able</a> <span class="c-string">&quot;source&quot;</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a></div>
+</div>
+<div class="item" id="output">
+<h3><a href="#output">output</a> <span class="type">: Box Char</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L23">line 23</a></div>
+<pre class="code">output ← <a href="demos-rosetta-rosetta.xtl.html#u.t_able" class="c-userfunc">ᵘt̲able</a> <span class="c-string">&quot;output&quot;</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a></div>
+</div>
+<div class="item" id="notes">
+<h3><a href="#notes">notes</a> <span class="type">: Box Char</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L24">line 24</a></div>
+<pre class="code">notes ← <a href="demos-rosetta-rosetta.xtl.html#u.t_able" class="c-userfunc">ᵘt̲able</a> <span class="c-string">&quot;notes&quot;</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a></div>
+</div>
+<div class="item" id="spans">
+<h3><a href="#spans">spans</a> <span class="type">: Box Char</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L25">line 25</a></div>
+<pre class="code">spans ← <a href="demos-rosetta-rosetta.xtl.html#u.t_able" class="c-userfunc">ᵘt̲able</a> <span class="c-string">&quot;spans&quot;</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.c_olored"><span class="c-userfunc">ᵘc̲olored</span></a></div>
+</div>
+<div class="item" id="u.c_olor">
+<h3><a href="#u.c_olor"><span class="c-userfunc">ᵘc̲olor</span></a> <span class="type">: Char -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L30">line 30</a></div>
+<pre class="code"><span class="c-userfunc">ᵘc̲olor</span> ← { class →
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;builtin&quot;</span> ? <span class="c-string">&quot;#1d4ed8&quot;</span>
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;userfunc&quot;</span> ? <span class="c-string">&quot;#7c3aed&quot;</span>
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;libfunc&quot;</span> ? <span class="c-string">&quot;#7c3aed&quot;</span>
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;macro&quot;</span> ? <span class="c-string">&quot;#7c3aed&quot;</span>
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;number&quot;</span> ? <span class="c-string">&quot;#b45309&quot;</span>
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;string&quot;</span> ? <span class="c-string">&quot;#15803d&quot;</span>
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;symbol&quot;</span> ? <span class="c-string">&quot;#111827&quot;</span>
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;comment&quot;</span> ? <span class="c-string">&quot;#6b7280&quot;</span>
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;lambdaarg&quot;</span> ? <span class="c-string">&quot;#0f766e&quot;</span>
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;keyword&quot;</span> ? <span class="c-string">&quot;#1d4ed8&quot;</span>
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;function&quot;</span> ? <span class="c-string">&quot;#1d4ed8&quot;</span>
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;operator&quot;</span> ? <span class="c-string">&quot;#111827&quot;</span>
+  class <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;name&quot;</span> ? <span class="c-string">&quot;#000000&quot;</span>
+  <span class="c-string">&quot;#000000&quot;</span>
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.r_uns"><span class="c-userfunc">ᵘr̲uns</span></a></div>
+</div>
+<div class="item" id="u.r_uns">
+<h3><a href="#u.r_uns"><span class="c-userfunc">ᵘr̲uns</span></a> <span class="type">: Box Char -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L49">line 49</a></div>
+<pre class="code"><span class="c-userfunc">ᵘr̲uns</span> ← { m → <a href="demos-rosetta-rosetta.xtl.html#u.j_oin" class="c-userfunc">ᵘj̲oin</a> <span class="c-quote">'</span>{ k → (<a href="demos-rosetta-rosetta.xtl.html#u.c_olor" class="c-userfunc">ᵘc̲olor</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> k <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> m) <a href="lib-Svg.xtl.html#l.s_pan" class="c-libfunc">ᵛs̲pan</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> k <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> m } <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="builtins.html#s_hape" class="c-builtin">s̲hape</a> m }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.c_olored"><span class="c-userfunc">ᵘc̲olored</span></a></div>
+</div>
+<div class="item" id="u.g_uess">
+<h3><a href="#u.g_uess"><span class="c-userfunc">ᵘg̲uess</span></a> <span class="type">: Char -&gt; Box Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L57">line 57</a></div>
+<pre class="code"><span class="c-userfunc">ᵘg̲uess</span> ← { src →
+  cls ← (src <a href="builtins.html#m_ember-3f" class="c-builtin">m̲ember?</a> <span class="c-string">&quot;0123456789&quot;</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> (<span class="c-number">2</span> <a href="builtins.html#-2a" class="c-symbol">×</a> src <a href="builtins.html#m_ember-3f" class="c-builtin">m̲ember?</a> <span class="c-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_&quot;</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">3</span> <a href="builtins.html#-2a" class="c-symbol">×</a> src <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot; &quot;</span>
+  starts ← <span class="c-number">1</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> cls) <a href="builtins.html#-21-3d" class="c-symbol">≠</a> <span class="c-number">-1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> cls
+  runs ← (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> starts) <a href="builtins.html#p_artition" class="c-builtin">p̲artition</a> src
+  kinds ← (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot;builtin&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot;number&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot;name&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot;plain&quot;</span>
+  classes ← (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="builtins.html#w_here" class="c-builtin">w̲here</a> starts) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> cls) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> kinds
+  <a href="builtins.html#o_-5c" class="c-builtin">o̲\</a> (<span class="c-number">2</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> runs) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> runs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> classes
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.s_pans"><span class="c-userfunc">ᵘs̲pans</span></a></div>
+</div>
+<div class="item" id="u.s_pans">
+<h3><a href="#u.s_pans"><span class="c-userfunc">ᵘs̲pans</span></a> <span class="type">: Char -&gt; Char -&gt; Box Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L68">line 68</a></div>
+<pre class="code"><span class="c-userfunc">ᵘs̲pans</span> ← { src spans →
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> spans ? <a href="demos-rosetta-rosetta.xtl.html#u.g_uess" class="c-userfunc">ᵘg̲uess</a> src
+  pieces ← (<a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> spans <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;|&quot;</span>) <a href="builtins.html#p_artition" class="c-builtin">p̲artition</a> spans
+  <span class="c-builtin">o̲ne</span> ← { p → t ← <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> p◆ cut ← t <a href="builtins.html#i_ndexOf" class="c-builtin">i̲ndexOf</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot; &quot;</span>◆ (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> cut <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> t) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (cut <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> t }
+  ((<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> pieces) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">2</span>) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ x y → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> x) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> y } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <span class="c-builtin">'</span><span class="c-builtin">o̲ne</span> <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> pieces
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.c_olored"><span class="c-userfunc">ᵘc̲olored</span></a></div>
+</div>
+<div class="item" id="u.c_olored">
+<h3><a href="#u.c_olored"><span class="c-userfunc">ᵘc̲olored</span></a> <span class="type">: Int -&gt; Char -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L78">line 78</a></div>
+<pre class="code"><span class="c-userfunc">ᵘc̲olored</span> ← { il src →
+  i ← <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> il
+  l ← <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> il
+  (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> l <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-rosetta.xtl.html#languages">languages</a>) <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;xetal&quot;</span> ? <a href="demos-rosetta-rosetta.xtl.html#u.r_uns" class="c-userfunc">ᵘr̲uns</a> <a href="builtins.html#-5b-5dV_IEW" class="c-builtin">⎕V̲IEW</a> src
+  <a href="demos-rosetta-rosetta.xtl.html#u.r_uns" class="c-userfunc">ᵘr̲uns</a> src <a href="demos-rosetta-rosetta.xtl.html#u.s_pans" class="c-userfunc">ᵘs̲pans</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> l <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-rosetta.xtl.html#spans">spans</a>
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a></div>
+</div>
+<div class="item" id="fits">
+<h3><a href="#fits">fits</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L88">line 88</a></div>
+<pre class="code">fits ← <span class="c-number">15</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.f_itted"><span class="c-userfunc">ᵘf̲itted</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.s_plit"><span class="c-userfunc">ᵘs̲plit</span></a></div>
+</div>
+<div class="item" id="smallest">
+<h3><a href="#smallest">smallest</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L89">line 89</a></div>
+<pre class="code">smallest ← <span class="c-number">0.05</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.f_itted"><span class="c-userfunc">ᵘf̲itted</span></a></div>
+</div>
+<div class="item" id="u.f_itted">
+<h3><a href="#u.f_itted"><span class="c-userfunc">ᵘf̲itted</span></a> <span class="type">: Int -&gt; Char -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L93">line 93</a></div>
+<pre class="code"><span class="c-userfunc">ᵘf̲itted</span> ← { n markup →
+  n <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <a href="demos-rosetta-rosetta.xtl.html#fits">fits</a> ? markup
+  size ← <span class="c-number">0.1</span> <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="demos-rosetta-rosetta.xtl.html#fits">fits</a>) <a href="builtins.html#-2f" class="c-symbol">÷</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> n
+  (size <a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <a href="demos-rosetta-rosetta.xtl.html#smallest">smallest</a>) <a href="lib-Svg.xtl.html#l.s_ized" class="c-libfunc">ᵛs̲ized</a> markup
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a></div>
+</div>
+<div class="item" id="u.s_plit">
+<h3><a href="#u.s_plit"><span class="c-userfunc">ᵘs̲plit</span></a> <span class="type">: Char -&gt; Box Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L102">line 102</a></div>
+<pre class="code"><span class="c-userfunc">ᵘs̲plit</span> ← { src →
+  n ← <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> src
+  n <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <a href="demos-rosetta-rosetta.xtl.html#fits">fits</a> ? <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> src
+  spaces ← <a href="builtins.html#w_here" class="c-builtin">w̲here</a> src <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot; &quot;</span>
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> spaces ? <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> src
+  away ← <a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> (<span class="c-number">2</span> <a href="builtins.html#-2a" class="c-symbol">×</a> spaces) <a href="builtins.html#-2d" class="c-symbol">−</a> n
+  cut ← (away <a href="builtins.html#i_ndexOf" class="c-builtin">i̲ndexOf</a> <span class="c-builtin">'</span><a href="builtins.html#m_in" class="c-builtin">m̲in</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> away) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> spaces
+  (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (cut <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> src) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> cut <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> src
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a></div>
+</div>
+<div class="item" id="u.l_ines">
+<h3><a href="#u.l_ines"><span class="c-userfunc">ᵘl̲ines</span></a> <span class="type">: Int -&gt; Box Char -&gt; Box Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L114">line 114</a></div>
+<pre class="code"><span class="c-userfunc">ᵘl̲ines</span> ← { width ws →
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> ws ? ws
+  lens ← <span class="c-quote">'</span>{ b → <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> b } <a href="builtins.html#e_ach" class="c-builtin">e̲ach</a> ws
+  room ← width <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> ((<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> lens) <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> ws) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>
+  k ← <span class="c-number">1</span> <a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> room
+  line ← <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ x y → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> x) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> y } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> k <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> ws
+  (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> line) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> width <a href="demos-rosetta-rosetta.xtl.html#u.l_ines" class="c-userfunc">ᵘl̲ines</a> k <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> ws
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.l_ines"><span class="c-userfunc">ᵘl̲ines</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.w_rap"><span class="c-userfunc">ᵘw̲rap</span></a></div>
+</div>
+<div class="item" id="u.w_rap">
+<h3><a href="#u.w_rap"><span class="c-userfunc">ᵘw̲rap</span></a> <span class="type">: Int -&gt; Char -&gt; Box Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L124">line 124</a></div>
+<pre class="code"><span class="c-userfunc">ᵘw̲rap</span> ← { width t → width <a href="demos-rosetta-rosetta.xtl.html#u.l_ines" class="c-userfunc">ᵘl̲ines</a> (<a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> t <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot; &quot;</span>) <a href="builtins.html#p_artition" class="c-builtin">p̲artition</a> t }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a></div>
+</div>
+<div class="item" id="u.o_neLine">
+<h3><a href="#u.o_neLine"><span class="c-userfunc">ᵘo̲neLine</span></a> <span class="type">: Char -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L128">line 128</a></div>
+<pre class="code"><span class="c-userfunc">ᵘo̲neLine</span> ← { out → <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ x y → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> x) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; / &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> y } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> (<a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> out <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;\n&quot;</span>) <a href="builtins.html#p_artition" class="c-builtin">p̲artition</a> out }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a></div>
+</div>
+<div class="item" id="u.f_ace">
+<h3><a href="#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a> <span class="type">: Int -&gt; Int -&gt; Box Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L134">line 134</a></div>
+<pre class="code"><span class="c-userfunc">ᵘf̲ace</span> ← { i l →
+  name ← <a href="lib-Svg.xtl.html#l.e_scape" class="c-libfunc">ᵛe̲scape</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> l <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-rosetta.xtl.html#languageNames">languageNames</a>
+  src ← <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> l <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-rosetta.xtl.html#source">source</a>
+  out ← <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> l <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-rosetta.xtl.html#output">output</a>
+  note ← <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> l <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-rosetta.xtl.html#notes">notes</a>
+  missing ← <span class="c-string">&quot;0 = t_ally note&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;\&quot;(no concise idiom)\&quot;; note&quot;</span>
+  result ← <span class="c-string">&quot;0 = t_ally out&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;\&quot;\&quot;; \&quot;-&gt; \&quot; c_at u:o_neLine out&quot;</span>
+  <span class="c-builtin">n̲oteLine</span> ← { b → <span class="c-number">0.07</span> <a href="lib-Svg.xtl.html#l.s_ized" class="c-libfunc">ᵛs̲ized</a> <span class="c-string">&quot;#4b5563&quot;</span> <a href="lib-Svg.xtl.html#l.s_pan" class="c-libfunc">ᵛs̲pan</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> b }
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> src ? (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> name) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-builtin">'</span><span class="c-builtin">n̲oteLine</span> <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> <span class="c-number">18</span> <a href="demos-rosetta-rosetta.xtl.html#u.w_rap" class="c-userfunc">ᵘw̲rap</a> missing
+  <span class="c-builtin">c̲odeLine</span> ← { b → (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> b) <a href="demos-rosetta-rosetta.xtl.html#u.f_itted" class="c-userfunc">ᵘf̲itted</a> (i <a href="builtins.html#c_at" class="c-builtin">c̲at</a> l) <a href="demos-rosetta-rosetta.xtl.html#u.c_olored" class="c-userfunc">ᵘc̲olored</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> b }
+  code ← <span class="c-builtin">'</span><span class="c-builtin">c̲odeLine</span> <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> <a href="demos-rosetta-rosetta.xtl.html#u.s_plit" class="c-userfunc">ᵘs̲plit</a> src
+  (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> name) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> code <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> result) <a href="demos-rosetta-rosetta.xtl.html#u.f_itted" class="c-userfunc">ᵘf̲itted</a> <span class="c-string">&quot;#4b5563&quot;</span> <a href="lib-Svg.xtl.html#l.s_pan" class="c-libfunc">ᵛs̲pan</a> result
+}</pre>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → (<span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> note) ? <span class="c-string">&quot;(no concise idiom)&quot;</span>◆ note } @)</pre></details>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → (<span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> out) ? <span class="c-string">&quot;&quot;</span>◆ <span class="c-string">&quot;-&gt; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-rosetta.xtl.html#u.o_neLine" class="c-userfunc">ᵘo̲neLine</a> out } @)</pre></details>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></div>
+</div>
+<div class="item" id="u.i_tem">
+<h3><a href="#u.i_tem"><span class="c-userfunc">ᵘi̲tem</span></a> <span class="type">: Float -&gt; Float -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L150">line 150</a></div>
+<pre class="code"><span class="c-userfunc">ᵘi̲tem</span> ← { ao state →
+  axis ← <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ao
+  n ← <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">0.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.COUNT">ᶜᵐCOUNT</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> state
+  n <a href="demos-rosetta-Comparison.xtl.html#l.w_rap" class="c-libfunc">ᶜᵐw̲rap</a> <span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ao) <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="demos-rosetta-Stone.xtl.html#l.b_ase" class="c-libfunc">ˢᵗb̲ase</a> (axis <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ᶜᵐANGLE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> state
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.w_here"><span class="c-userfunc">ᵘw̲here</span></a></div>
+</div>
+<div class="item" id="u.s_tone">
+<h3><a href="#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a> <span class="type">: Float -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L162">line 162</a></div>
+<pre class="code"><span class="c-userfunc">ᵘs̲tone</span> ← { state →
+  i ← (<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ᶜᵐIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-rosetta.xtl.html#u.i_tem" class="c-userfunc">ᵘi̲tem</a> state
+  roll ← (<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ᶜᵐIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ᶜᵐANGLE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> state
+  top ← <span class="c-number">1</span> <a href="demos-rosetta-Stone.xtl.html#l.r_ing" class="c-libfunc">ˢᵗr̲ing</a> ((<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ᶜᵐANGLE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> state) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> roll
+  bottom ← <span class="c-number">-1</span> <a href="demos-rosetta-Stone.xtl.html#l.r_ing" class="c-libfunc">ˢᵗr̲ing</a> ((<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ᶜᵐBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ᶜᵐANGLE</a>) <a href="demos-rosetta-Comparison.xtl.html#l.a_t" class="c-libfunc">ᶜᵐa̲t</a> state) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> roll
+  all ← top <a href="builtins.html#c_at" class="c-builtin">c̲at</a> bottom
+  <span class="c-builtin">c̲apName</span> ← { k → <a href="lib-Svg.xtl.html#l.e_scape" class="c-libfunc">ᵛe̲scape</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> ((<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ᶜᵐIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> k <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-Stone.xtl.html#l.capOffsets">ˢᵗcapOffsets</a>) <a href="demos-rosetta-rosetta.xtl.html#u.i_tem" class="c-userfunc">ᵘi̲tem</a> state) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-rosetta.xtl.html#idiomNames">idiomNames</a> }
+  <span class="c-builtin">c̲apText</span> ← { k →
+    k <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">5</span> ? <span class="c-builtin">c̲apName</span> <span class="c-number">1</span>
+    k <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">12</span> ? <span class="c-builtin">c̲apName</span> <span class="c-number">2</span>
+    <span class="c-string">&quot;&quot;</span>
+  }
+  <span class="c-builtin">c̲ap</span> ← { k → (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot;#e9e4db&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot;&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-builtin">c̲apText</span> k }
+  <span class="c-builtin">t̲opPanel</span> ← { k → (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot;#fdfcfa&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> i <a href="demos-rosetta-rosetta.xtl.html#u.f_ace" class="c-userfunc">ᵘf̲ace</a> (<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> k <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-Stone.xtl.html#l.ringOffsets">ˢᵗringOffsets</a>) <a href="demos-rosetta-rosetta.xtl.html#u.i_tem" class="c-userfunc">ᵘi̲tem</a> state }
+  <span class="c-builtin">b̲ottomPanel</span> ← { k → (<a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot;#f4f1ec&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> i <a href="demos-rosetta-rosetta.xtl.html#u.f_ace" class="c-userfunc">ᵘf̲ace</a> (<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ᶜᵐBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> k <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-Stone.xtl.html#l.ringOffsets">ˢᵗringOffsets</a>) <a href="demos-rosetta-rosetta.xtl.html#u.i_tem" class="c-userfunc">ᵘi̲tem</a> state }
+  <span class="c-builtin">l̲ines</span> ← { k →
+    k <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">4</span> ? <span class="c-builtin">t̲opPanel</span> k
+    k <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">6</span> ? <span class="c-builtin">c̲ap</span> k
+    k <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">10</span> ? <span class="c-builtin">b̲ottomPanel</span> k <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">6</span>
+    <span class="c-builtin">c̲ap</span> k
+  }
+  <span class="c-builtin">p̲anel</span> ← { k → (<span class="c-builtin">l̲ines</span> k) <a href="demos-rosetta-Stone.xtl.html#l.p_anel" class="c-libfunc">ˢᵗp̲anel</a> k <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> all }
+  painted ← <a href="demos-rosetta-rosetta.xtl.html#u.j_oin" class="c-userfunc">ᵘj̲oin</a> <span class="c-builtin">'</span><span class="c-builtin">p̲anel</span> <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> <a href="demos-rosetta-Stone.xtl.html#l.p_ainting" class="c-libfunc">ˢᵗp̲ainting</a> all
+  caption ← ((<a href="lib-Svg.xtl.html#l.a_t" class="c-libfunc">ᵛa̲t</a> (<a href="demos-rosetta-Stone.xtl.html#l.size">ˢᵗsize</a> <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">2</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">28</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-string">&quot;font-size&quot;</span> <a href="lib-Svg.xtl.html#l.a_ttr" class="c-libfunc">ᵛa̲ttr</a> <span class="c-string">&quot;18&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-string">&quot;text-anchor&quot;</span> <a href="lib-Svg.xtl.html#l.a_ttr" class="c-libfunc">ᵛa̲ttr</a> <span class="c-string">&quot;middle&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="lib-Svg.xtl.html#l.f_ill" class="c-libfunc">ᵛf̲ill</a> <span class="c-string">&quot;#374151&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;font-family&quot;</span> <a href="lib-Svg.xtl.html#l.a_ttr" class="c-libfunc">ᵛa̲ttr</a> <span class="c-string">&quot;ui-sans-serif, system-ui, sans-serif&quot;</span>) <a href="lib-Svg.xtl.html#l.t_ext" class="c-libfunc">ᵛt̲ext</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-rosetta.xtl.html#idiomNames">idiomNames</a>
+  (<a href="demos-rosetta-Stone.xtl.html#l.size">ˢᵗsize</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Stone.xtl.html#l.size">ˢᵗsize</a>) <a href="lib-Svg.xtl.html#l.p_icture" class="c-libfunc">ᵛp̲icture</a> caption <a href="builtins.html#c_at" class="c-builtin">c̲at</a> painted
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.l_oop"><span class="c-userfunc">ᵘl̲oop</span></a></div>
+</div>
+<div class="item" id="u.j_oin">
+<h3><a href="#u.j_oin"><span class="c-userfunc">ᵘj̲oin</span></a> <span class="type">: Box Char -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L189">line 189</a></div>
+<pre class="code"><span class="c-userfunc">ᵘj̲oin</span> ← { b → <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ x y → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> x) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> y } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> b }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.r_uns"><span class="c-userfunc">ᵘr̲uns</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></div>
+</div>
+<div class="item" id="u.w_here">
+<h3><a href="#u.w_here"><span class="c-userfunc">ᵘw̲here</span></a> <span class="type">: Float -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L196">line 196</a></div>
+<pre class="code"><span class="c-userfunc">ᵘw̲here</span> ← { s →
+  i ← <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> ((<a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ᶜᵐIDIOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-rosetta.xtl.html#u.i_tem" class="c-userfunc">ᵘi̲tem</a> s) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-rosetta.xtl.html#idioms">idioms</a>
+  t ← <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> ((<a href="demos-rosetta-Comparison.xtl.html#l.TOP">ᶜᵐTOP</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-rosetta.xtl.html#u.i_tem" class="c-userfunc">ᵘi̲tem</a> s) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-rosetta.xtl.html#languages">languages</a>
+  b ← <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> ((<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ᶜᵐBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>) <a href="demos-rosetta-rosetta.xtl.html#u.i_tem" class="c-userfunc">ᵘi̲tem</a> s) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-rosetta-rosetta.xtl.html#languages">languages</a>
+  <span class="c-string">&quot;at &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> i <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> b
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.l_oop"><span class="c-userfunc">ᵘl̲oop</span></a>, <a href="demos-rosetta-rosetta.xtl.html#shown">shown</a></div>
+</div>
+<div class="item" id="u.l_oop">
+<h3><a href="#u.l_oop"><span class="c-userfunc">ᵘl̲oop</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L207">line 207</a></div>
+<pre class="code"><span class="c-userfunc">ᵘl̲oop</span> ← { state →
+  e ← <a href="builtins.html#-5b-5dE_VENT" class="c-builtin">⎕E̲VENT</a> @
+  kind ← <a href="builtins.html#-5b-5dE_KIND" class="c-builtin">⎕E̲KIND</a> e
+  kind <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;end&quot;</span> ? state
+  next ← state <a href="demos-rosetta-Comparison.xtl.html#l.u_pdate" class="c-libfunc">ᶜᵐu̲pdate</a> e
+  <span class="c-string">&quot;(u:w_here state) m_atch u:w_here next&quot;</span> <a href="std-System.xtlm.html#s.u_nless-3c" class="c-macro">u̲nless&lt;</a> <span class="c-string">&quot;p_rint! u:w_here next&quot;</span>
+  <span class="c-string">&quot;(cm:m_ode state) m_atch cm:m_ode next&quot;</span> <a href="std-System.xtlm.html#s.u_nless-3c" class="c-macro">u̲nless&lt;</a> <span class="c-string">&quot;p_rint! \&quot;mode \&quot; c_at cm:m_ode next&quot;</span>
+  <span class="c-string">&quot;n_ot kind m_atch \&quot;tick\&quot;&quot;</span> <a href="std-System.xtlm.html#s.u_nless-3c" class="c-macro">u̲nless&lt;</a> <span class="c-string">&quot;[]S_HOW u:s_tone next&quot;</span>
+  <a href="demos-rosetta-rosetta.xtl.html#u.l_oop" class="c-userfunc">ᵘl̲oop</a> next
+}</pre>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.u_nless-3c" class="c-macro">u̲nless&lt;</a></code> expands to</summary><pre class="code">{ @ → ((<a href="demos-rosetta-rosetta.xtl.html#u.w_here" class="c-userfunc">ᵘw̲here</a> state) <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <a href="demos-rosetta-rosetta.xtl.html#u.w_here" class="c-userfunc">ᵘw̲here</a> next) ? @◆ <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <a href="demos-rosetta-rosetta.xtl.html#u.w_here" class="c-userfunc">ᵘw̲here</a> next◆ @ } @</pre></details>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.u_nless-3c" class="c-macro">u̲nless&lt;</a></code> expands to</summary><pre class="code">{ @ → ((<a href="demos-rosetta-Comparison.xtl.html#l.m_ode" class="c-libfunc">ᶜᵐm̲ode</a> state) <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <a href="demos-rosetta-Comparison.xtl.html#l.m_ode" class="c-libfunc">ᶜᵐm̲ode</a> next) ? @◆ <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;mode &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.m_ode" class="c-libfunc">ᶜᵐm̲ode</a> next◆ @ } @</pre></details>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.u_nless-3c" class="c-macro">u̲nless&lt;</a></code> expands to</summary><pre class="code">{ @ → (<a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> kind <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <span class="c-string">&quot;tick&quot;</span>) ? @◆ <a href="builtins.html#-5b-5dS_HOW" class="c-builtin">⎕S̲HOW</a> <a href="demos-rosetta-rosetta.xtl.html#u.s_tone" class="c-userfunc">ᵘs̲tone</a> next◆ @ } @</pre></details>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.l_oop"><span class="c-userfunc">ᵘl̲oop</span></a>, <a href="demos-rosetta-rosetta.xtl.src.html#L224">rosetta.xtl:224</a></div>
+</div>
+<div class="item" id="start">
+<h3><a href="#start">start</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L221">line 221</a></div>
+<pre class="code">start ← <a href="demos-rosetta-Comparison.xtl.html#l.r_esume" class="c-libfunc">ᶜᵐr̲esume</a> <a href="demos-rosetta-Comparison.xtl.html#l.s_ettle" class="c-libfunc">ᶜᵐs̲ettle</a> (<a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ᶜᵐBOTTOM</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">2.0</span>) <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose" class="c-libfunc">ᶜᵐc̲hoose</a> (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> <a href="demos-rosetta-rosetta.xtl.html#idioms">idioms</a>) <a href="demos-rosetta-Comparison.xtl.html#l.s_tart" class="c-libfunc">ᶜᵐs̲tart</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> <a href="demos-rosetta-rosetta.xtl.html#languages">languages</a></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#shown">shown</a>, <a href="demos-rosetta-rosetta.xtl.html#mode">mode</a>, <a href="demos-rosetta-rosetta.xtl.src.html#L224">rosetta.xtl:224</a></div>
+</div>
+<div class="item" id="shown">
+<h3><a href="#shown">shown</a> <span class="type">: Char</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L222">line 222</a></div>
+<pre class="code">shown ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <a href="demos-rosetta-rosetta.xtl.html#u.w_here" class="c-userfunc">ᵘw̲here</a> <a href="demos-rosetta-rosetta.xtl.html#start">start</a></pre>
+</div>
+<div class="item" id="mode">
+<h3><a href="#mode">mode</a> <span class="type">: Char</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-rosetta.xtl.src.html#L223">line 223</a></div>
+<pre class="code">mode ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;mode &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Comparison.xtl.html#l.m_ode" class="c-libfunc">ᶜᵐm̲ode</a> <a href="demos-rosetta-rosetta.xtl.html#start">start</a></pre>
+</div>
+</main>
+</body>
+</html>

@@ -20,6 +20,26 @@ build already does what the ask wants.
 | X_eTaL-extensions | 3 | 0 | 3 | 0 | 0 |
 | All | 21 | 8 | 13 | 3 | 0 |
 
+## Notice: write a library's helpers with h:
+
+A library's top-level function written without a prefix is
+deprecated: it still works and stays private, but every run warns
+`deprecated-private` ("write h:j_oin; bare top-level functions in a
+library are deprecated"). Write such helpers with `h:` (`h:j_oin :=
+...`, and `h:j_oin` where they are used): an `h:` name is visible in
+its own file only, in an app or a library alike, and is never part of
+what the file offers (`xetal type`, `xetal doc`). Bare variables are
+unchanged, and so are a lambda's local functions.
+
+`xetal migrate FILE` prints the library with each bare top-level
+function and its uses written `h:`, comments and layout kept; a
+lambda's own local of the same name stays bare. To migrate in place:
+`bin/xetal migrate lib/Foo.xtl > tmp && mv tmp lib/Foo.xtl`. At the
+time of writing that is X_eTaL-games (about 32 functions in 4
+libraries), X_eTaL-extensions (6 in 2), X_eTaL-demos (4 in 1),
+X_eTaL-ML (2 in 1) and X_eTaL-gpu (1 in 1). After one release the
+warning becomes an error. See `docs/private-names.md`.
+
 ## To look at
 
 - X5: planned, but its repro passes (landed?)

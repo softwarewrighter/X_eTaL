@@ -26,8 +26,33 @@
 <li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
 <li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
 <li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
 <li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
 <li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
 <li><a href="builtins.html">built-ins</a></li>
 </ul>
 <h2>On this page</h2>
@@ -112,7 +137,7 @@ signature here and no definition.</p>
 2.0</pre>
 </div>
 <pre class="code"><span class="c-macro">ˢu̲se&lt;</span> <span class="c-error">:</span><span class="c-error">:</span> Char → Char → Unit</pre>
-<div class="uses">Used in: <a href="demos-tttml-play.xtl.src.html#L6">tttml-play.xtl:6</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L5">combinators.xtl:5</a>, <a href="demos-hello-library.xtl.src.html#L9">hello-library.xtl:9</a>, <a href="demos-hello-library.xtl.src.html#L10">hello-library.xtl:10</a>, <a href="demos-keys.xtl.src.html#L176">keys.xtl:176</a>, <a href="demos-macros.xtl.src.html#L34">macros.xtl:34</a>, <a href="demos-monads.xtl.src.html#L5">monads.xtl:5</a>, <a href="demos-stats.xtl.src.html#L5">stats.xtl:5</a>, <a href="demos-tour.xtl.src.html#L154">tour.xtl:154</a>, <a href="demos-tour.xtl.src.html#L158">tour.xtl:158</a>, <a href="demos-tour.xtl.src.html#L162">tour.xtl:162</a>, <a href="demos-tttml-play.xtl.src.html#L6">tttml-play.xtl:6</a>, <a href="demos-tttml-train.xtl.src.html#L6">tttml-train.xtl:6</a>, <a href="demos-tttml.xtl.src.html#L6">tttml.xtl:6</a>, <a href="demos-user-macros.xtl.src.html#L7">user-macros.xtl:7</a>, <a href="demos-rosetta-cube.xtl.src.html#L10">cube.xtl:10</a>, <a href="demos-rosetta-cube.xtl.src.html#L11">cube.xtl:11</a>, <a href="demos-rosetta-rosetta.xtl.src.html#L12">rosetta.xtl:12</a>, <a href="demos-rosetta-rosetta.xtl.src.html#L13">rosetta.xtl:13</a>, <a href="demos-rosetta-rosetta.xtl.src.html#L14">rosetta.xtl:14</a>, <a href="demos-rosetta-Stone.xtl.src.html#L14">Stone.xtl:14</a>, <a href="demos-rosetta-Stone.xtl.src.html#L15">Stone.xtl:15</a></div>
 </div>
 <h2 class="section" id="section-2">Choosing and repeating</h2>
 <div class="item" id="s.i_f-3c">
@@ -134,6 +159,7 @@ the program runs, and only the expression chosen is evaluated
   (<span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> a) <a href="builtins.html#-7c" class="c-symbol">∨</a> <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> b ? <span class="c-string">&quot;bad-macro-argument right&quot;</span> <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> <a href="std-System.xtlm.html#ifArgs">ifArgs</a>
   <span class="c-string">&quot;{ @ -&gt; (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="std-System.xtlm.html#t_rim" class="c-builtin">t̲rim</a> cond) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) ? &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> a <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> b <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; } @&quot;</span>
 }</pre>
+<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L11">macros.xtl:11</a>, <a href="demos-macros.xtl.src.html#L12">macros.xtl:12</a>, <a href="demos-macros.xtl.src.html#L13">macros.xtl:13</a>, <a href="demos-rosetta-Comparison.xtl.html#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.e_ase"><span class="c-libfunc">ˡe̲ase</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.p_lay"><span class="c-libfunc">ˡp̲lay</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.h_alf"><span class="c-libfunc">ˡh̲alf</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a>, <a href="demos-rosetta-Comparison.xtl.html#l.u_p"><span class="c-libfunc">ˡu̲p</span></a>, <a href="demos-rosetta-cube.xtl.html#u.p_olygon"><span class="c-userfunc">ᵘp̲olygon</span></a>, <a href="demos-rosetta-rosetta.xtl.html#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a>, <a href="demos-rosetta-Stone.xtl.html#l.l_ine"><span class="c-libfunc">ˡl̲ine</span></a></div>
 </div>
 <div class="item" id="s.u_nless-3c">
 <h3><a href="#s.u_nless-3c"><span class="c-macro">ˢu̲nless&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
@@ -148,6 +174,7 @@ holds; the value is @ either way (MC15).</p>
 <pre class="code"><span class="c-macro">ˢu̲nless&lt;</span> ← { cond body →
   <span class="c-string">&quot;{ @ -&gt; (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="std-System.xtlm.html#t_rim" class="c-builtin">t̲rim</a> cond) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) ? @; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="std-System.xtlm.html#t_rim" class="c-builtin">t̲rim</a> body) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;; @ } @&quot;</span>
 }</pre>
+<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L16">macros.xtl:16</a>, <a href="demos-rosetta-rosetta.xtl.html#u.l_oop"><span class="c-userfunc">ᵘl̲oop</span></a></div>
 </div>
 <div class="item" id="s.e_ach-3c">
 <h3><a href="#s.e_ach-3c"><span class="c-macro">ˢe̲ach&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
@@ -167,6 +194,7 @@ its own (MC16).</p>
   <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="std-System.xtlm.html#h_oles" class="c-builtin">h̲oles</a> template ? <span class="c-string">&quot;bad-macro-argument right&quot;</span> <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> <a href="std-System.xtlm.html#eachHole">eachHole</a>
   <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ a b → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> a) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\n&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> b } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <span class="c-quote">'</span>{ w → template <a href="std-System.xtlm.html#c_opy" class="c-builtin">c̲opy</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> w } <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> ws
 }</pre>
+<div class="uses">Used in: <a href="demos-macros.xtl.html#u.m_ax-2f"><span class="c-userfunc">ᵘm̲ax/</span></a></div>
 </div>
 <h2 class="section" id="section-3">What the compiler knows</h2>
 <div class="item" id="s.l_ine-3c">
@@ -212,6 +240,7 @@ in the browser) or a flag set with xetal --cfg NAME.</p>
 1</pre>
 </div>
 <pre class="code"><span class="c-macro">ˢc̲fg&lt;</span> ← { @ name → <a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#-5b-5dC_FG" class="c-builtin">⎕C̲FG</a> <a href="std-System.xtlm.html#t_rim" class="c-builtin">t̲rim</a> name }</pre>
+<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L29">macros.xtl:29</a></div>
 </div>
 <div class="item" id="s.e_rror-3c">
 <h3><a href="#s.e_rror-3c"><span class="c-macro">ˢe̲rror&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
@@ -258,6 +287,7 @@ stops the program (p_anic&lt; does).</p>
   line ← <span class="c-string">&quot;assertion failed: &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> c <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="std-System.xtlm.html#w_hy" class="c-builtin">w̲hy</a> <a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> note) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; [&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#-5b-5dF_ILE" class="c-builtin">⎕F̲ILE</a> @) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;:&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> <a href="builtins.html#-5b-5dL_INE" class="c-builtin">⎕L̲INE</a> @) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;]&quot;</span>
   <span class="c-string">&quot;{ @ -&gt; (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> c <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) ? @; []E_RR &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="std-System.xtlm.html#q_uote" class="c-builtin">q̲uote</a> line) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;; @ } @&quot;</span>
 }</pre>
+<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L28">macros.xtl:28</a></div>
 </div>
 <h2 class="section" id="section-5">Text</h2>
 <div class="item" id="s.f_ormat-3c">
@@ -272,6 +302,7 @@ unclosed {, an empty {} or a lone } fails before the program runs
 two and two: 4 {four}</pre>
 </div>
 <pre class="code"><span class="c-macro">ˢf̲ormat&lt;</span> ← { @ t → <a href="std-System.xtlm.html#o_rEmpty" class="c-builtin">o̲rEmpty</a> <a href="std-System.xtlm.html#p_ieces" class="c-builtin">p̲ieces</a> t }</pre>
+<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L27">macros.xtl:27</a></div>
 </div>
 <div class="item" id="s.p_anic-3c">
 <h3><a href="#s.p_anic-3c"><span class="c-macro">ˢp̲anic&lt;</span></a> <span class="type">: Unit -&gt; Char -&gt; Char</span></h3>

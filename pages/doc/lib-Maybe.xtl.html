@@ -26,8 +26,33 @@
 <li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
 <li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
 <li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
 <li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
 <li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
 <li><a href="builtins.html">built-ins</a></li>
 </ul>
 <h2>On this page</h2>
@@ -59,7 +84,7 @@ chain reads right to left: 'g b_ind 'f b_ind m is f, then g.</p>
 <p class="meta"><a href="lib-Maybe.xtl.src.html">source</a></p>
 <h2 class="section" id="section-1">Making a maybe</h2>
 <div class="item" id="l.n_othing">
-<h3><a href="#l.n_othing"><span class="c-libfunc">ˡn̲othing</span></a> <span class="type">: a -&gt; b -&gt; a</span></h3>
+<h3><a href="#l.n_othing"><span class="c-libfunc">ˡn̲othing</span></a> <span class="type">: (Any a, Any b) =&gt; a -&gt; b -&gt; a</span></h3>
 <div class="meta">function &middot; <a href="lib-Maybe.xtl.src.html#L18">line 18</a></div>
 <div class="doc">
 <p>The empty maybe.</p>
@@ -68,10 +93,10 @@ chain reads right to left: 'g b_ind 'f b_ind m is f, then g.</p>
 0</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡn̲othing</span> ← { n j → n }</pre>
-<div class="uses">Used in: <a href="lib-Maybe.xtl.html#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a>, <a href="lib-Maybe.xtl.html#l.b_ind"><span class="c-libfunc">ˡb̲ind</span></a></div>
+<div class="uses">Used in: <a href="lib-Maybe.xtl.html#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a>, <a href="lib-Maybe.xtl.html#l.b_ind"><span class="c-libfunc">ˡb̲ind</span></a>, <a href="demos-monads.xtl.html#u.d_iv"><span class="c-userfunc">ᵘd̲iv</span></a></div>
 </div>
 <div class="item" id="l.j_ust">
-<h3><a href="#l.j_ust"><span class="c-libfunc">ˡj̲ust</span></a> <span class="type">: a -&gt; b -&gt; (a -&gt; c) -&gt; c</span></h3>
+<h3><a href="#l.j_ust"><span class="c-libfunc">ˡj̲ust</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; a -&gt; b -&gt; (a -&gt; c) -&gt; c</span></h3>
 <div class="meta">function &middot; <a href="lib-Maybe.xtl.src.html#L24">line 24</a></div>
 <div class="doc">
 <p>A maybe holding x.</p>
@@ -80,41 +105,45 @@ chain reads right to left: 'g b_ind 'f b_ind m is f, then g.</p>
 7</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡj̲ust</span> ← { x n <span class="c-builtin">j̲</span> → <span class="c-builtin">j̲</span> x }</pre>
-<div class="uses">Used in: <a href="lib-Maybe.xtl.html#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a></div>
+<div class="uses">Used in: <a href="lib-Maybe.xtl.html#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a>, <a href="demos-monads.xtl.html#u.d_iv"><span class="c-userfunc">ᵘd̲iv</span></a></div>
 </div>
 <h2 class="section" id="section-2">Using a maybe</h2>
 <div class="item" id="l.m_aybe">
-<h3><a href="#l.m_aybe"><span class="c-libfunc">ˡm̲aybe</span></a> <span class="type">: a -&gt; b -&gt; (b -&gt; a -&gt; c) -&gt; c</span></h3>
+<h3><a href="#l.m_aybe"><span class="c-libfunc">ˡm̲aybe</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; a -&gt; b -&gt; (b -&gt; a -&gt; c) -&gt; c</span></h3>
 <div class="meta">function &middot; <a href="lib-Maybe.xtl.src.html#L29">line 29</a></div>
 <div class="doc">
 <p>d 'f m_aybe m: f applied to m's value, or d when m is empty.</p>
 </div>
 <pre class="code"><span class="c-libfunc">ˡm̲aybe</span> ← { <span class="c-builtin">f̲</span> d <span class="c-builtin">m̲</span> → d <span class="c-builtin">m̲</span> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</pre>
+<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L31">monads.xtl:31</a>, <a href="demos-monads.xtl.src.html#L32">monads.xtl:32</a></div>
 </div>
 <div class="item" id="l.o_r">
-<h3><a href="#l.o_r"><span class="c-libfunc">ˡo̲r</span></a> <span class="type">: a -&gt; (a -&gt; (b -&gt; b) -&gt; c) -&gt; c</span></h3>
+<h3><a href="#l.o_r"><span class="c-libfunc">ˡo̲r</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; a -&gt; (a -&gt; (b -&gt; b) -&gt; c) -&gt; c</span></h3>
 <div class="meta">function &middot; <a href="lib-Maybe.xtl.src.html#L32">line 32</a></div>
 <div class="doc">
 <p>d o_r m: m's value, or d when m is empty.</p>
 </div>
 <pre class="code"><span class="c-libfunc">ˡo̲r</span> ← { d <span class="c-builtin">m̲</span> → d <span class="c-builtin">m̲</span> <span class="c-quote">'</span>{ x → x } }</pre>
+<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L13">monads.xtl:13</a>, <a href="demos-monads.xtl.src.html#L14">monads.xtl:14</a>, <a href="demos-monads.xtl.src.html#L20">monads.xtl:20</a>, <a href="demos-monads.xtl.src.html#L25">monads.xtl:25</a>, <a href="demos-monads.xtl.src.html#L28">monads.xtl:28</a></div>
 </div>
 <div class="item" id="l.m_ap">
-<h3><a href="#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a> <span class="type">: (a -&gt; b) -&gt; ((c -&gt; d -&gt; c) -&gt; (a -&gt; e -&gt; (b -&gt; f) -&gt; f) -&gt; g) -&gt; g</span></h3>
+<h3><a href="#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e, Any f, Any g) =&gt; (a -&gt; b) -&gt; ((c -&gt; d -&gt; c) -&gt; (a -&gt; e -&gt; (b -&gt; f) -&gt; f) -&gt; g) -&gt; g</span></h3>
 <div class="meta">function &middot; <a href="lib-Maybe.xtl.src.html#L35">line 35</a></div>
 <div class="doc">
 <p>'f m_ap m: f applied inside the maybe; empty stays empty.</p>
 </div>
 <pre class="code"><span class="c-libfunc">ˡm̲ap</span> ← { <span class="c-builtin">f̲</span> <span class="c-builtin">m̲</span> → <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ˡn̲othing</a> <span class="c-builtin">m̲</span> <span class="c-quote">'</span>{ x → <a href="lib-Maybe.xtl.html#l.j_ust" class="c-libfunc">ˡj̲ust</a> <span class="c-builtin">f̲</span> x } }</pre>
+<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L28">monads.xtl:28</a></div>
 </div>
 <div class="item" id="l.b_ind">
-<h3><a href="#l.b_ind"><span class="c-libfunc">ˡb̲ind</span></a> <span class="type">: a -&gt; ((b -&gt; c -&gt; b) -&gt; a -&gt; d) -&gt; d</span></h3>
+<h3><a href="#l.b_ind"><span class="c-libfunc">ˡb̲ind</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; a -&gt; ((b -&gt; c -&gt; b) -&gt; a -&gt; d) -&gt; d</span></h3>
 <div class="meta">function &middot; <a href="lib-Maybe.xtl.src.html#L39">line 39</a></div>
 <div class="doc">
 <p>'f b_ind m: f (which gives a maybe) applied to m's value; empty
 stays empty, so a chain of steps stops at the first that fails.</p>
 </div>
 <pre class="code"><span class="c-libfunc">ˡb̲ind</span> ← { <span class="c-builtin">f̲</span> <span class="c-builtin">m̲</span> → <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ˡn̲othing</a> <span class="c-builtin">m̲</span> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</pre>
+<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L20">monads.xtl:20</a>, <a href="demos-monads.xtl.src.html#L25">monads.xtl:25</a></div>
 </div>
 </main>
 </body>

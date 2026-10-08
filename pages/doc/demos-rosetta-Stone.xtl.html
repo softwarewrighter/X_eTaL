@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>demos/rosetta/Stone.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#l.width">ˡwidth</a></li>
+<li class="item"><a href="#l.height">ˡheight</a></li>
+<li class="item"><a href="#l.depth">ˡdepth</a></li>
+<li class="item"><a href="#l.eye">ˡeye</a></li>
+<li class="item"><a href="#l.size">ˡsize</a></li>
+<li class="item"><a href="#zoom">zoom</a></li>
+<li class="item"><a href="#l.b_ox"><span class="c-libfunc">ˡb̲ox</span></a></li>
+<li class="item"><a href="#l.v_iew"><span class="c-libfunc">ˡv̲iew</span></a></li>
+<li class="item"><a href="#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a></li>
+<li class="item"><a href="#l.b_ase"><span class="c-libfunc">ˡb̲ase</span></a></li>
+<li class="item"><a href="#l.p_art"><span class="c-libfunc">ˡp̲art</span></a></li>
+<li class="item"><a href="#l.r_ing"><span class="c-libfunc">ˡr̲ing</span></a></li>
+<li class="item"><a href="#l.ringOffsets">ˡringOffsets</a></li>
+<li class="item"><a href="#l.capOffsets">ˡcapOffsets</a></li>
+<li class="item"><a href="#l.p_anel"><span class="c-libfunc">ˡp̲anel</span></a></li>
+<li class="item"><a href="#l.r_ounded"><span class="c-libfunc">ˡr̲ounded</span></a></li>
+<li class="item"><a href="#l.a_ffine"><span class="c-libfunc">ˡa̲ffine</span></a></li>
+<li class="item"><a href="#l.f_acing"><span class="c-libfunc">ˡf̲acing</span></a></li>
+<li class="item"><a href="#l.l_ine"><span class="c-libfunc">ˡl̲ine</span></a></li>
+<li class="item"><a href="#l.p_ainting"><span class="c-libfunc">ˡp̲ainting</span></a></li>
+<li class="item"><a href="#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">library</span>demos/rosetta/Stone.xtl</h1>
+<p class="meta"><a href="demos-rosetta-Stone.xtl.src.html">source</a> &middot; imports <code><span class="c-error">g:</span></code> <a href="lib-Geometry3D.xtl.html">lib/Geometry3D.xtl</a>; <code><span class="c-error">v:</span></code> <a href="lib-Svg.xtl.html">lib/Svg.xtl</a></p>
+<div class="item" id="l.width">
+<h3><a href="#l.width">ˡwidth</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Stone.xtl.src.html#L20">line 20</a></div>
+<div class="doc">
+<p>The stone's size: width, height (the halves are each half of it) and
+depth, in scene units; the viewer's distance; the picture's size in
+pixels and its scale.</p>
+</div>
+<pre class="code">ˡwidth ← <span class="c-number">2.4</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.r_ing"><span class="c-libfunc">ˡr̲ing</span></a></div>
+</div>
+<div class="item" id="l.height">
+<h3><a href="#l.height">ˡheight</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Stone.xtl.src.html#L21">line 21</a></div>
+<pre class="code">ˡheight ← <span class="c-number">2.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.r_ing"><span class="c-libfunc">ˡr̲ing</span></a></div>
+</div>
+<div class="item" id="l.depth">
+<h3><a href="#l.depth">ˡdepth</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Stone.xtl.src.html#L22">line 22</a></div>
+<pre class="code">ˡdepth ← <span class="c-number">2.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.r_ing"><span class="c-libfunc">ˡr̲ing</span></a></div>
+</div>
+<div class="item" id="l.eye">
+<h3><a href="#l.eye">ˡeye</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Stone.xtl.src.html#L23">line 23</a></div>
+<pre class="code">ˡeye ← <span class="c-number">7.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a></div>
+</div>
+<div class="item" id="l.size">
+<h3><a href="#l.size">ˡsize</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Stone.xtl.src.html#L24">line 24</a></div>
+<pre class="code">ˡsize ← <span class="c-number">420.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a>, <a href="demos-rosetta-Stone.xtl.html#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a></div>
+</div>
+<div class="item" id="zoom">
+<h3><a href="#zoom">zoom</a> <span class="type">: Float</span></h3>
+<div class="meta">value <span class="private">(private)</span> &middot; <a href="demos-rosetta-Stone.xtl.src.html#L25">line 25</a></div>
+<pre class="code">zoom ← <span class="c-number">112.0</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a></div>
+</div>
+<div class="item" id="l.b_ox">
+<h3><a href="#l.b_ox"><span class="c-libfunc">ˡb̲ox</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Stone.xtl.src.html#L30">line 30</a></div>
+<div class="doc">
+<p>The corners of a box centered on the origin: <code>w h d</code> in a 3-vector,
+3 x 8 (near face then far face, each from the top left anticlockwise,
+as g:c_ube orders them).</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡb̲ox</span> ← { whd → (<span class="c-number">3</span> <span class="c-number">8</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">8</span> <a href="builtins.html#r_eplicate" class="c-builtin">r̲eplicate</a> <span class="c-number">0.5</span> <a href="builtins.html#-2a" class="c-symbol">×</a> whd) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="lib-Geometry3D.xtl.html#l.c_ube" class="c-libfunc">ᵍc̲ube</a> <span class="c-number">2</span> }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.r_ing"><span class="c-libfunc">ˡr̲ing</span></a></div>
+</div>
+<div class="item" id="l.v_iew">
+<h3><a href="#l.v_iew"><span class="c-libfunc">ˡv̲iew</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Stone.xtl.src.html#L34">line 34</a></div>
+<div class="doc">
+<p>The view: the stone turned a little about x and y so three sides
+show; every solid below is given in the view's frame.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡv̲iew</span> ← { points → ((<a href="lib-Geometry3D.xtl.html#l.r_otX" class="c-libfunc">ᵍr̲otX</a> <span class="c-number">22.0</span>) <a href="lib-Geometry3D.xtl.html#l.t_urn" class="c-libfunc">ᵍt̲urn</a> <a href="lib-Geometry3D.xtl.html#l.r_otY" class="c-libfunc">ᵍr̲otY</a> <span class="c-number">-28.0</span>) <a href="lib-Geometry3D.xtl.html#l.t_urn" class="c-libfunc">ᵍt̲urn</a> points }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.r_ing"><span class="c-libfunc">ˡr̲ing</span></a></div>
+</div>
+<div class="item" id="l.s_creen">
+<h3><a href="#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Stone.xtl.src.html#L38">line 38</a></div>
+<div class="doc">
+<p>Points in the view's frame projected and placed in the picture, y
+up: a 3 x n matrix of points to a 2 x n matrix of pixels.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲creen</span> ← { points →
+  p ← <a href="demos-rosetta-Stone.xtl.html#l.eye">ˡeye</a> <a href="lib-Geometry3D.xtl.html#l.p_roject" class="c-libfunc">ᵍp̲roject</a> points
+  xs ← (<a href="demos-rosetta-Stone.xtl.html#l.size">ˡsize</a> <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">2</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="demos-rosetta-Stone.xtl.html#zoom">zoom</a> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> p
+  ys ← (<a href="demos-rosetta-Stone.xtl.html#l.size">ˡsize</a> <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">2</span>) <a href="builtins.html#-2d" class="c-symbol">−</a> <a href="demos-rosetta-Stone.xtl.html#zoom">zoom</a> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> p
+  (<span class="c-number">2</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> xs) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> xs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ys
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.p_anel"><span class="c-libfunc">ˡp̲anel</span></a></div>
+</div>
+<div class="item" id="l.b_ase">
+<h3><a href="#l.b_ase"><span class="c-libfunc">ˡb̲ase</span></a> <span class="type">: Float -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Stone.xtl.src.html#L52">line 52</a></div>
+<div class="doc">
+<p>How the prisms turn: an axis advanced by a degrees (90 per item) is
+drawn turned by only the part of a quarter turn under way, <code>a <a href="builtins.html#m_od" class="c-builtin">m̲od</a>
+<span class="c-number">90</span></code>, and its sides show the items counted from the one the turn
+started at, <code><a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> a <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">90</span></code> steps from the first. So a turn ends
+with the same picture it would have begun from, the sides relabel
+only at that instant, and the halves always stand upright where
+they can turn.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡb̲ase</span> ← { a → <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> a <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">90.0</span> }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.i_tem"><span class="c-userfunc">ᵘi̲tem</span></a>, <a href="demos-rosetta-Stone.xtl.html#l.p_art"><span class="c-libfunc">ˡp̲art</span></a></div>
+</div>
+<div class="item" id="l.p_art">
+<h3><a href="#l.p_art"><span class="c-libfunc">ˡp̲art</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Stone.xtl.src.html#L53">line 53</a></div>
+<pre class="code"><span class="c-libfunc">ˡp̲art</span> ← { a → a <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">90.0</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="demos-rosetta-Stone.xtl.html#l.b_ase" class="c-libfunc">ˡb̲ase</a> a }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.r_ing"><span class="c-libfunc">ˡr̲ing</span></a></div>
+</div>
+<div class="item" id="l.r_ing">
+<h3><a href="#l.r_ing"><span class="c-libfunc">ˡr̲ing</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Stone.xtl.src.html#L75">line 75</a></div>
+<div class="doc">
+<p>The six sides of a language half advanced by a degrees: the closed
+box of one half (<code><span class="c-number">1</span></code> the top half, <code><span class="c-number">-1</span></code> the bottom), its front,
+right, back and left sides, then its lid and its floor, as a
+6 x 3 x 4 array, rolled with the whole stone by d degrees about x.
+The next language comes round from the right, so the half turns by
+-a about y. <code><a href="demos-rosetta-Stone.xtl.html#l.ringOffsets">ˢᵗringOffsets</a></code> says which language each side shows,
+counted from st:b_ase: 0, 1, 2, -1. The lid and the floor are
+ordered so that text reads upright as they roll round to the front:
+the next idiom comes up from below, so the stone rolls by -d about
+x; <code><a href="demos-rosetta-Stone.xtl.html#l.capOffsets">ˢᵗcapOffsets</a></code> says which idiom each shows, counted from
+st:b_ase: -1 on the lid, 1 on the floor (so the top half's lid and
+the bottom half's floor name the stone's neighbors; the two caps
+between the halves are hidden until a half turns). A half is a
+closed box so that nothing shows through it while it turns.
+<code>half (a d) <a href="demos-rosetta-Stone.xtl.html#l.r_ing" class="c-libfunc">ˢᵗr̲ing</a> @</code>.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˢᵗ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Stone.xtl.html" class="c-string">&quot;Stone&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="builtins.html#s_hape" class="c-builtin">s̲hape</a> <span class="c-number">1</span> <a href="demos-rosetta-Stone.xtl.html#l.r_ing" class="c-libfunc">ˢᵗr̲ing</a> <span class="c-number">0.0</span> <span class="c-number">0.0</span>
+6 3 4</pre>
+<pre class="example"><span class="prompt">      </span><a href="builtins.html#s_hape" class="c-builtin">s̲hape</a> <span class="c-number">-1</span> <a href="demos-rosetta-Stone.xtl.html#l.r_ing" class="c-libfunc">ˢᵗr̲ing</a> <span class="c-number">45.0</span> <span class="c-number">30.0</span>
+6 3 4</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲ing</span> ← { half ad →
+  box ← <a href="demos-rosetta-Stone.xtl.html#l.b_ox" class="c-libfunc">ˡb̲ox</a> <a href="demos-rosetta-Stone.xtl.html#l.width">ˡwidth</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="demos-rosetta-Stone.xtl.html#l.height">ˡheight</a> <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">2</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-Stone.xtl.html#l.depth">ˡdepth</a>
+  lifted ← box <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">3</span> <span class="c-number">8</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">8</span> <a href="builtins.html#r_eplicate" class="c-builtin">r̲eplicate</a> <span class="c-number">0.0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (half <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="demos-rosetta-Stone.xtl.html#l.height">ˡheight</a> <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">4</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>
+  sides ← <span class="c-number">6</span> <span class="c-number">4</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span> <span class="c-number">2</span> <span class="c-number">6</span> <span class="c-number">7</span> <span class="c-number">3</span> <span class="c-number">6</span> <span class="c-number">5</span> <span class="c-number">8</span> <span class="c-number">7</span> <span class="c-number">5</span> <span class="c-number">1</span> <span class="c-number">4</span> <span class="c-number">8</span> <span class="c-number">5</span> <span class="c-number">6</span> <span class="c-number">2</span> <span class="c-number">1</span> <span class="c-number">4</span> <span class="c-number">3</span> <span class="c-number">7</span> <span class="c-number">8</span>
+  turned ← (<a href="lib-Geometry3D.xtl.html#l.r_otY" class="c-libfunc">ᵍr̲otY</a> <a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <a href="demos-rosetta-Stone.xtl.html#l.p_art" class="c-libfunc">ˡp̲art</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ad) <a href="lib-Geometry3D.xtl.html#l.t_urn" class="c-libfunc">ᵍt̲urn</a> lifted
+  sides <a href="lib-Geometry3D.xtl.html#l.s_olid" class="c-libfunc">ᵍs̲olid</a> <a href="demos-rosetta-Stone.xtl.html#l.v_iew" class="c-libfunc">ˡv̲iew</a> (<a href="lib-Geometry3D.xtl.html#l.r_otX" class="c-libfunc">ᵍr̲otX</a> <a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <a href="demos-rosetta-Stone.xtl.html#l.p_art" class="c-libfunc">ˡp̲art</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ad) <a href="lib-Geometry3D.xtl.html#l.t_urn" class="c-libfunc">ᵍt̲urn</a> turned
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></div>
+</div>
+<div class="item" id="l.ringOffsets">
+<h3><a href="#l.ringOffsets">ˡringOffsets</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Stone.xtl.src.html#L82">line 82</a></div>
+<pre class="code">ˡringOffsets ← <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">-1</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></div>
+</div>
+<div class="item" id="l.capOffsets">
+<h3><a href="#l.capOffsets">ˡcapOffsets</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-rosetta-Stone.xtl.src.html#L83">line 83</a></div>
+<pre class="code">ˡcapOffsets ← <span class="c-number">-1</span> <span class="c-number">1</span></pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></div>
+</div>
+<div class="item" id="l.p_anel">
+<h3><a href="#l.p_anel"><span class="c-libfunc">ˡp̲anel</span></a> <span class="type">: Box Char -&gt; Float -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Stone.xtl.src.html#L93">line 93</a></div>
+<div class="doc">
+<p>A face as a panel in the picture: its corners (top left, top right,
+bottom right, bottom left; 3 x 4) turned by the view, filled, with
+the given lines drawn on it in face coordinates (0 to 1 across and
+down), each line a boxed text of markup (runs from v:s_pan, or text
+through v:e_scape), the first line small (a title), the rest in the
+code size. A face turned away from the viewer gets its fill only:
+nearer faces cover it, but text laid on a face seen nearly edge-on
+could poke out past it. <code>(fill <a href="builtins.html#c_at" class="c-builtin">c̲at</a> lines) <span class="c-libfunc">ˢᵗp̲anel</span> face</code>.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡp̲anel</span> ← { style f →
+  s ← <a href="demos-rosetta-Stone.xtl.html#l.s_creen" class="c-libfunc">ˡs̲creen</a> f
+  fill ← <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> style
+  lines ← <span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> style
+  shape ← ((<a href="lib-Svg.xtl.html#l.f_ill" class="c-libfunc">ᵛf̲ill</a> fill) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;#30363d&quot;</span> <a href="lib-Svg.xtl.html#l.s_troke" class="c-libfunc">ᵛs̲troke</a> <span class="c-number">1.2</span>) <a href="lib-Svg.xtl.html#l.p_olygon" class="c-libfunc">ᵛp̲olygon</a> <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">0.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> s
+  <a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> <a href="demos-rosetta-Stone.xtl.html#l.f_acing" class="c-libfunc">ˡf̲acing</a> s ? shape
+  on ← <a href="demos-rosetta-Stone.xtl.html#l.a_ffine" class="c-libfunc">ˡa̲ffine</a> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">4</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> s
+  texts ← <a href="demos-rosetta-Stone.xtl.html#h.j_oin" class="c-libfunc">ʰj̲oin</a> <span class="c-quote">'</span>{ k → k <a href="demos-rosetta-Stone.xtl.html#l.l_ine" class="c-libfunc">ˡl̲ine</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> k <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> lines } <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> lines
+  shape <a href="builtins.html#c_at" class="c-builtin">c̲at</a> on <a href="lib-Svg.xtl.html#l.g_roup" class="c-libfunc">ᵛg̲roup</a> texts
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></div>
+</div>
+<div class="item" id="l.r_ounded">
+<h3><a href="#l.r_ounded"><span class="c-libfunc">ˡr̲ounded</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Stone.xtl.src.html#L110">line 110</a></div>
+<div class="doc">
+<p>Picture coordinates to a thousandth of a pixel: the last digits of a
+projected coordinate differ between machines (their sine and cosine
+differ in the last place), and the pictures are pinned as text.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˢᵗ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Stone.xtl.html" class="c-string">&quot;Stone&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Stone.xtl.html#l.r_ounded" class="c-libfunc">ˢᵗr̲ounded</a> <span class="c-number">1.23456789</span> <span class="c-number">100.0004</span>
+1.235 100.0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲ounded</span> ← { xs → (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">0.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1000.0</span> <a href="builtins.html#-2a" class="c-symbol">×</a> xs) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">1000.0</span> }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.a_ffine"><span class="c-libfunc">ˡa̲ffine</span></a></div>
+</div>
+<div class="item" id="l.a_ffine">
+<h3><a href="#l.a_ffine"><span class="c-libfunc">ˡa̲ffine</span></a> <span class="type">: Float -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Stone.xtl.src.html#L119">line 119</a></div>
+<div class="doc">
+<p>The transform attribute mapping the unit square onto a face from its
+top left, top right and bottom left corners (2 x 3, picture
+coordinates), as v:m_atrix does, the six numbers rounded after the
+differences are taken (rounding before them leaves float noise).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˢᵗ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Stone.xtl.html" class="c-string">&quot;Stone&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Stone.xtl.html#l.a_ffine" class="c-libfunc">ˢᵗa̲ffine</a> <span class="c-number">2</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">10.0</span> <span class="c-number">30.0</span> <span class="c-number">10.0</span> <span class="c-number">20.0</span> <span class="c-number">20.0</span> <span class="c-number">40.0</span>
+ transform=&quot;matrix(20.0 0.0 0.0 20.0 10.0 20.0)&quot;</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡa̲ffine</span> ← { c →
+  tl ← <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> c
+  tr ← (<span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> c) <a href="builtins.html#-2d" class="c-symbol">−</a> tl
+  bl ← (<span class="c-number">3</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> c) <a href="builtins.html#-2d" class="c-symbol">−</a> tl
+  <span class="c-string">&quot;transform&quot;</span> <a href="lib-Svg.xtl.html#l.a_ttr" class="c-libfunc">ᵛa̲ttr</a> <span class="c-string">&quot;matrix(&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> <a href="demos-rosetta-Stone.xtl.html#l.r_ounded" class="c-libfunc">ˡr̲ounded</a> tr) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> <a href="demos-rosetta-Stone.xtl.html#l.r_ounded" class="c-libfunc">ˡr̲ounded</a> bl) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> <a href="demos-rosetta-Stone.xtl.html#l.r_ounded" class="c-libfunc">ˡr̲ounded</a> tl) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;)&quot;</span>
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.p_anel"><span class="c-libfunc">ˡp̲anel</span></a></div>
+</div>
+<div class="item" id="l.f_acing">
+<h3><a href="#l.f_acing"><span class="c-libfunc">ˡf̲acing</span></a> <span class="type">: Truthy a =&gt; Float -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Stone.xtl.src.html#L135">line 135</a></div>
+<div class="doc">
+<p>Whether a face's corners (2 x 4 in the picture, y down) go round
+clockwise on the screen, which is how a face toward the viewer
+reads (its signed area is positive); a face turned away goes round
+the other way.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˢᵗ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="demos-rosetta-Stone.xtl.html" class="c-string">&quot;Stone&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Stone.xtl.html#l.f_acing" class="c-libfunc">ˢᵗf̲acing</a> <span class="c-number">2</span> <span class="c-number">4</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">1</span>
+1</pre>
+<pre class="example"><span class="prompt">      </span><a href="demos-rosetta-Stone.xtl.html#l.f_acing" class="c-libfunc">ˢᵗf̲acing</a> <span class="c-number">2</span> <span class="c-number">4</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">0</span>
+0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡf̲acing</span> ← { s →
+  xs ← <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s
+  ys ← <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s
+  <span class="c-number">0</span> <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> (xs <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-</a> ys) <a href="builtins.html#-2d" class="c-symbol">−</a> ys <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-</a> xs
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.p_anel"><span class="c-libfunc">ˡp̲anel</span></a></div>
+</div>
+<div class="item" id="l.l_ine">
+<h3><a href="#l.l_ine"><span class="c-libfunc">ˡl̲ine</span></a> <span class="type">: Int -&gt; Char -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Stone.xtl.src.html#L145">line 145</a></div>
+<div class="doc">
+<p>One line of markup on a face: line k from the top; the first line
+is the title, small and gray, the others code, bold and black in a
+monospace face a tenth of the face high (the faces are small on a
+phone, so the code is the boldest thing on them).</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡl̲ine</span> ← { k t →
+  size ← <span class="c-string">&quot;k = 1&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;\&quot;0.06\&quot;; \&quot;0.1\&quot;&quot;</span>
+  y ← <span class="c-string">&quot;k = 1&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;0.13; 0.14 + 0.16 * f_loat k&quot;</span>
+  color ← <span class="c-string">&quot;k = 1&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;\&quot;#4b5563\&quot;; \&quot;#000000\&quot;&quot;</span>
+  weight ← <span class="c-string">&quot;k = 1&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;\&quot;500\&quot;; \&quot;700\&quot;&quot;</span>
+  ((<a href="lib-Svg.xtl.html#l.a_t" class="c-libfunc">ᵛa̲t</a> <span class="c-number">0.06</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> y) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-string">&quot;font-size&quot;</span> <a href="lib-Svg.xtl.html#l.a_ttr" class="c-libfunc">ᵛa̲ttr</a> size) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-string">&quot;font-weight&quot;</span> <a href="lib-Svg.xtl.html#l.a_ttr" class="c-libfunc">ᵛa̲ttr</a> weight) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="lib-Svg.xtl.html#l.f_ill" class="c-libfunc">ᵛf̲ill</a> color) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;font-family&quot;</span> <a href="lib-Svg.xtl.html#l.a_ttr" class="c-libfunc">ᵛa̲ttr</a> <span class="c-string">&quot;ui-monospace, monospace&quot;</span>) <a href="lib-Svg.xtl.html#l.m_arkup" class="c-libfunc">ᵛm̲arkup</a> t
+}</pre>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → (k <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span>) ? <span class="c-string">&quot;0.06&quot;</span>◆ <span class="c-string">&quot;0.1&quot;</span> } @)</pre></details>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → (k <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span>) ? <span class="c-number">0.13</span>◆ <span class="c-number">0.14</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">0.16</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> k } @)</pre></details>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → (k <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span>) ? <span class="c-string">&quot;#4b5563&quot;</span>◆ <span class="c-string">&quot;#000000&quot;</span> } @)</pre></details>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → (k <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span>) ? <span class="c-string">&quot;500&quot;</span>◆ <span class="c-string">&quot;700&quot;</span> } @)</pre></details>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.p_anel"><span class="c-libfunc">ˡp̲anel</span></a></div>
+</div>
+<div class="item" id="l.p_ainting">
+<h3><a href="#l.p_ainting"><span class="c-libfunc">ˡp̲ainting</span></a> <span class="type">: Num a =&gt; a -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="demos-rosetta-Stone.xtl.src.html#L155">line 155</a></div>
+<div class="doc">
+<p>The faces of a solid (F x 3 x 4, in the view's frame) in the order
+to paint them: far to near, so nearer faces cover farther ones.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ˡp̲ainting</span> ← { solid → <a href="lib-Geometry3D.xtl.html#l.o_rder" class="c-libfunc">ᵍo̲rder</a> solid }</pre>
+<div class="uses">Used in: <a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></div>
+</div>
+<div class="item" id="h.j_oin">
+<h3><a href="#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a> <span class="type">: Box Char -&gt; Char</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="demos-rosetta-Stone.xtl.src.html#L158">line 158</a></div>
+<pre class="code"><span class="c-libfunc">ʰj̲oin</span> ← { b →
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> b ? <span class="c-string">&quot;&quot;</span>
+  <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ x y → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> x) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> y } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> b
+}</pre>
+<div class="uses">Used in: <a href="demos-rosetta-Stone.xtl.html#l.p_anel"><span class="c-libfunc">ˡp̲anel</span></a></div>
+</div>
+</main>
+</body>
+</html>

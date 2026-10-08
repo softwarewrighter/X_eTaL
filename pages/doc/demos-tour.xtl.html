@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>demos/tour.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#x">x</a></li>
+<li class="item"><a href="#count-21">count!</a></li>
+<li class="item"><a href="#m">m</a></li>
+<li class="item"><a href="#u.s_quare"><span class="c-userfunc">ᵘs̲quare</span></a></li>
+<li class="item"><a href="#u.s_ub"><span class="c-userfunc">ᵘs̲ub</span></a></li>
+<li class="item"><a href="#u.h_yp"><span class="c-userfunc">ᵘh̲yp</span></a></li>
+<li class="item"><a href="#u.s_ign"><span class="c-userfunc">ᵘs̲ign</span></a></li>
+<li class="item"><a href="#u.f_act"><span class="c-userfunc">ᵘf̲act</span></a></li>
+<li class="item"><a href="#u.t_wo"><span class="c-userfunc">ᵘt̲wo</span></a></li>
+<li class="item"><a href="#u.k_eep"><span class="c-userfunc">ᵘk̲eep</span></a></li>
+<li class="item"><a href="#u.t_wice"><span class="c-userfunc">ᵘt̲wice</span></a></li>
+<li class="item"><a href="#u.a_vg"><span class="c-userfunc">ᵘa̲vg</span></a></li>
+<li class="item"><a href="#a">a</a></li>
+<li class="item"><a href="#v">v</a></li>
+<li class="item"><a href="#n">n</a></li>
+<li class="item"><a href="#s">s</a></li>
+<li class="item"><a href="#u.t_riangle"><span class="c-userfunc">ᵘt̲riangle</span></a></li>
+<li class="item"><a href="#u.l_ife"><span class="c-userfunc">ᵘl̲ife</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">program</span>demos/tour.xtl</h1>
+<p class="meta"><a href="demos-tour.xtl.src.html">source</a> &middot; imports <code><span class="c-error">s:</span></code> <a href="lib-Stats.xtl.html">lib/Stats.xtl</a>; <code><span class="c-error">hi:</span></code> <a href="userlibs-Hello.xtl.html">userlibs/Hello.xtl</a>; <code><span class="c-error">c:</span></code> <a href="lib-Combinators.xtl.html">lib/Combinators.xtl</a> <a href="lib-Combinators.xtlm.html">lib/Combinators.xtlm</a></p>
+<div class="item" id="x">
+<h3><a href="#x">x</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-tour.xtl.src.html#L14">line 14</a></div>
+<pre class="code">x ← <span class="c-number">3</span>                    <span class="c-comment">⍝</span><span class="c-comment"> </span><span class="c-comment"></span>←<span class="c-comment"></span><span class="c-comment"> binds; </span><span class="c-comment"></span><span class="c-symbol">=</span><span class="c-comment"></span><span class="c-comment"> is always equality</span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L15">tour.xtl:15</a></div>
+</div>
+<div class="item" id="count-21">
+<h3><a href="#count-21">count!</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-tour.xtl.src.html#L28">line 28</a></div>
+<pre class="code">count! ← <span class="c-number">0</span>               <span class="c-comment">⍝</span><span class="c-comment"> only names ending in ! (like </span><span class="c-comment"></span>count!<span class="c-comment"></span><span class="c-comment">) may be reassigned</span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L29">tour.xtl:29</a>, <a href="demos-tour.xtl.src.html#L30">tour.xtl:30</a></div>
+</div>
+<div class="item" id="m">
+<h3><a href="#m">m</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-tour.xtl.src.html#L39">line 39</a></div>
+<pre class="code">m ← <span class="c-number">2</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">6</span>          <span class="c-comment">⍝</span><span class="c-comment"> 1-origin: </span><span class="c-comment"></span><span class="c-builtin">r̲ange</span> <span class="c-number">6</span><span class="c-comment"></span><span class="c-comment"> is 1 2 3 4 5 6</span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L40">tour.xtl:40</a>, <a href="demos-tour.xtl.src.html#L41">tour.xtl:41</a>, <a href="demos-tour.xtl.src.html#L42">tour.xtl:42</a>, <a href="demos-tour.xtl.src.html#L43">tour.xtl:43</a>, <a href="demos-tour.xtl.src.html#L44">tour.xtl:44</a>, <a href="demos-tour.xtl.src.html#L45">tour.xtl:45</a>, <a href="demos-tour.xtl.src.html#L46">tour.xtl:46</a>, <a href="demos-tour.xtl.src.html#L50">tour.xtl:50</a>, <a href="demos-tour.xtl.src.html#L79">tour.xtl:79</a>, <a href="demos-tour.xtl.src.html#L83">tour.xtl:83</a>, <a href="demos-tour.xtl.src.html#L105">tour.xtl:105</a>, <a href="demos-tour.xtl.src.html#L106">tour.xtl:106</a>, <a href="demos-tour.xtl.src.html#L107">tour.xtl:107</a>, <a href="demos-tour.xtl.src.html#L108">tour.xtl:108</a>, <a href="demos-tour.xtl.src.html#L109">tour.xtl:109</a>, <a href="demos-tour.xtl.src.html#L110">tour.xtl:110</a>, <a href="demos-tour.xtl.src.html#L111">tour.xtl:111</a>, <a href="demos-tour.xtl.src.html#L112">tour.xtl:112</a>, <a href="demos-tour.xtl.src.html#L113">tour.xtl:113</a>, <a href="demos-tour.xtl.src.html#L115">tour.xtl:115</a>, <a href="demos-tour.xtl.src.html#L116">tour.xtl:116</a>, <a href="demos-tour.xtl.src.html#L138">tour.xtl:138</a></div>
+</div>
+<div class="item" id="u.s_quare">
+<h3><a href="#u.s_quare"><span class="c-userfunc">ᵘs̲quare</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L54">line 54</a></div>
+<pre class="code"><span class="c-userfunc">ᵘs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍵</span> }              <span class="c-comment">⍝</span><span class="c-comment"> </span><span class="c-comment"></span><span class="c-lambdaarg">⍵</span><span class="c-comment"></span><span class="c-comment"> is the right argument</span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L55">tour.xtl:55</a>, <a href="demos-tour.xtl.src.html#L73">tour.xtl:73</a></div>
+</div>
+<div class="item" id="u.s_ub">
+<h3><a href="#u.s_ub"><span class="c-userfunc">ᵘs̲ub</span></a> <span class="type">: Num a =&gt; a -&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L56">line 56</a></div>
+<pre class="code"><span class="c-userfunc">ᵘs̲ub</span> ← { <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-lambdaarg">⍵</span> }                 <span class="c-comment">⍝</span><span class="c-comment"> </span><span class="c-comment"></span><span class="c-lambdaarg">⍺</span><span class="c-comment"></span><span class="c-comment"> is the left argument</span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L57">tour.xtl:57</a>, <a href="demos-tour.xtl.src.html#L70">tour.xtl:70</a></div>
+</div>
+<div class="item" id="u.h_yp">
+<h3><a href="#u.h_yp"><span class="c-userfunc">ᵘh̲yp</span></a> <span class="type">: Float -&gt; Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L58">line 58</a></div>
+<pre class="code"><span class="c-userfunc">ᵘh̲yp</span> ← { a b → ((a <a href="builtins.html#-2a" class="c-symbol">×</a> a) <a href="builtins.html#-2b" class="c-symbol">+</a> b <a href="builtins.html#-2a" class="c-symbol">×</a> b) <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">0.5</span> }       <span class="c-comment">⍝</span><span class="c-comment"> named parameters before </span><span class="c-comment"></span>→<span class="c-comment"></span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L59">tour.xtl:59</a></div>
+</div>
+<div class="item" id="u.s_ign">
+<h3><a href="#u.s_ign"><span class="c-userfunc">ᵘs̲ign</span></a> <span class="type">: (Num a, Num b) =&gt; a -&gt; b</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L60">line 60</a></div>
+<pre class="code"><span class="c-userfunc">ᵘs̲ign</span> ← { x → x <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">0</span> ? <span class="c-number">-1</span>◆ x <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? <span class="c-number">0</span>◆ <span class="c-number">1</span> }      <span class="c-comment">⍝</span><span class="c-comment"> guards: condition </span><span class="c-comment"></span>?<span class="c-comment"></span><span class="c-comment"> result</span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L80">tour.xtl:80</a></div>
+</div>
+<div class="item" id="u.f_act">
+<h3><a href="#u.f_act"><span class="c-userfunc">ᵘf̲act</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L61">line 61</a></div>
+<pre class="code"><span class="c-userfunc">ᵘf̲act</span> ← { n →
+  n <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? <span class="c-number">1</span>
+  n <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="demos-tour.xtl.html#u.f_act" class="c-userfunc">ᵘf̲act</a> n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>
+}</pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.html#u.f_act"><span class="c-userfunc">ᵘf̲act</span></a>, <a href="demos-tour.xtl.src.html#L65">tour.xtl:65</a></div>
+</div>
+<div class="item" id="u.t_wo">
+<h3><a href="#u.t_wo"><span class="c-userfunc">ᵘt̲wo</span></a> <span class="type">: Num a =&gt; Unit -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L66">line 66</a></div>
+<pre class="code"><span class="c-userfunc">ᵘt̲wo</span> ← { @ → <span class="c-number">2</span> }                 <span class="c-comment">⍝</span><span class="c-comment"> a niladic function takes </span><span class="c-comment"></span>@<span class="c-comment"></span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L67">tour.xtl:67</a></div>
+</div>
+<div class="item" id="u.k_eep">
+<h3><a href="#u.k_eep"><span class="c-userfunc">ᵘk̲eep</span></a> <span class="type">: (Any a, Any b) =&gt; a -&gt; b -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L68">line 68</a></div>
+<pre class="code"><span class="c-userfunc">ᵘk̲eep</span> ← { a ~b → a }             <span class="c-comment">⍝</span><span class="c-comment"> </span><span class="c-comment"></span>~b<span class="c-comment"></span><span class="c-comment"> is a lazy parameter: evaluated</span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L69">tour.xtl:69</a></div>
+</div>
+<div class="item" id="u.t_wice">
+<h3><a href="#u.t_wice"><span class="c-userfunc">ᵘt̲wice</span></a> <span class="type">: Any a =&gt; (a -&gt; a) -&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L71">line 71</a></div>
+<pre class="code"><span class="c-userfunc">ᵘt̲wice</span> ← { <span class="c-builtin">f̲</span> x → <span class="c-builtin">f̲</span> <span class="c-builtin">f̲</span> x }         <span class="c-comment">⍝</span><span class="c-comment"> apply a function parameter two times</span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L72">tour.xtl:72</a>, <a href="demos-tour.xtl.src.html#L73">tour.xtl:73</a></div>
+</div>
+<div class="item" id="u.a_vg">
+<h3><a href="#u.a_vg"><span class="c-userfunc">ᵘa̲vg</span></a> <span class="type">: Int -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L89">line 89</a></div>
+<pre class="code"><span class="c-userfunc">ᵘa̲vg</span> ← [<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <a href="builtins.html#-2f" class="c-symbol">÷</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a>]           <span class="c-comment">⍝</span><span class="c-comment"> fork: </span><span class="c-comment"></span>(<span class="c-symbol">'</span><span class="c-symbol">+</span> <span class="c-builtin">r̲/</span> x) <span class="c-symbol">÷</span> <span class="c-builtin">t̲ally</span> x<span class="c-comment"></span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L90">tour.xtl:90</a></div>
+</div>
+<div class="item" id="a">
+<h3><a href="#a">a</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-tour.xtl.src.html#L117">line 117</a></div>
+<pre class="code">a ← <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">24</span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L118">tour.xtl:118</a>, <a href="demos-tour.xtl.src.html#L119">tour.xtl:119</a>, <a href="demos-tour.xtl.src.html#L120">tour.xtl:120</a></div>
+</div>
+<div class="item" id="v">
+<h3><a href="#v">v</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-tour.xtl.src.html#L123">line 123</a></div>
+<pre class="code">v ← <span class="c-number">3</span> <span class="c-number">1</span> <span class="c-number">4</span> <span class="c-number">1</span> <span class="c-number">5</span> <span class="c-number">9</span> <span class="c-number">2</span> <span class="c-number">6</span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L124">tour.xtl:124</a>, <a href="demos-tour.xtl.src.html#L125">tour.xtl:125</a>, <a href="demos-tour.xtl.src.html#L126">tour.xtl:126</a>, <a href="demos-tour.xtl.src.html#L127">tour.xtl:127</a>, <a href="demos-tour.xtl.src.html#L128">tour.xtl:128</a></div>
+</div>
+<div class="item" id="n">
+<h3><a href="#n">n</a> <span class="type">: Box Char</span></h3>
+<div class="meta">value &middot; <a href="demos-tour.xtl.src.html#L131">line 131</a></div>
+<pre class="code">n ← <span class="c-string">&quot;ab&quot;</span> <span class="c-string">&quot;cde&quot;</span>           <span class="c-comment">⍝</span><span class="c-comment"> a strand of strings: a vector of 2 boxes</span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L132">tour.xtl:132</a>, <a href="demos-tour.xtl.src.html#L133">tour.xtl:133</a>, <a href="demos-tour.xtl.src.html#L134">tour.xtl:134</a></div>
+</div>
+<div class="item" id="s">
+<h3><a href="#s">s</a> <span class="type">: Char</span></h3>
+<div class="meta">value &middot; <a href="demos-tour.xtl.src.html#L135">line 135</a></div>
+<pre class="code">s ← <span class="c-string">&quot;to be or not&quot;</span></pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L136">tour.xtl:136</a></div>
+</div>
+<div class="item" id="u.t_riangle">
+<h3><a href="#u.t_riangle"><span class="c-userfunc">ᵘt̲riangle</span></a> <span class="type">: Num a =&gt; (a -&gt; a) -&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L167">line 167</a></div>
+<pre class="code"><span class="c-userfunc">ᵘt̲riangle</span> ← { ~<span class="c-builtin">s̲elf</span> n → n <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? <span class="c-number">1</span>◆ n <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-builtin">s̲elf</span> n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> }</pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L168">tour.xtl:168</a></div>
+</div>
+<div class="item" id="u.l_ife">
+<h3><a href="#u.l_ife"><span class="c-userfunc">ᵘl̲ife</span></a> <span class="type">: (Num a, Truthy a) =&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L172">line 172</a></div>
+<pre class="code"><span class="c-userfunc">ᵘl̲ife</span> ← { (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/₁₂</a> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-₁₂</a> <span class="c-lambdaarg">⍵</span>) { (<span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">3</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">4</span> } <span class="c-lambdaarg">⍵</span> }</pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L173">tour.xtl:173</a></div>
+</div>
+</main>
+</body>
+</html>

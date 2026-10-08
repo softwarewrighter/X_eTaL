@@ -20,22 +20,8 @@ impl Infer {
             Kind::Lit(Number::Float(_)) => Type::Float,
             Kind::Str(_) => Type::Char,
             Kind::Unit => Type::Unit,
-            Kind::Array(items) => {
-                let elem = self
-                    .u
-                    .fresh_in(xetal_ty::Classes::named("Arr").unwrap_or_default());
-                for item in items {
-                    let t = self.expr(item)?;
-                    self.u.unify(&elem, &t, item.span)?;
-                }
-                elem
-            }
-            Kind::Tuple(parts) => Type::Tuple(
-                parts
-                    .iter()
-                    .map(|p| self.expr(p))
-                    .collect::<Result<_, _>>()?,
-            ),
+            Kind::Array(items) => self.array(items)?,
+            Kind::Tuple(parts) => self.tuple(parts)?,
             Kind::Var(name) => self.variable(name, e)?,
             Kind::Global(name) => self.global(name, e),
             Kind::Prim(name) => self.builtin(name, e)?,

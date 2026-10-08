@@ -31,6 +31,12 @@ def asks():
     return tomllib.loads(DATA.read_text())["ask"]
 
 
+def notices():
+    """Changes here every sibling repository should act on, each a
+    [[notice]] with a title and its text (paragraphs split by blank lines)."""
+    return tomllib.loads(DATA.read_text()).get("notice", [])
+
+
 def outcome(ask):
     """What this build says about the ask: "passes", "fails", a golden,
     or "-" when it has no repro (a speed or build-time ask)."""
@@ -76,6 +82,8 @@ def render(rows):
         "",
         *summary(rows),
     ]
+    for n in notices():
+        out += [f"## Notice: {n['title']}", "", n["text"].strip(), ""]
     raised = [f for _, _, f in rows if f]
     if raised:
         out += ["## To look at", ""] + [f"- {f}" for f in raised] + [""]

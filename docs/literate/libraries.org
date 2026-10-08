@@ -5,7 +5,7 @@
 #+PROPERTY: header-args:xetal :session libraries :seed 1 :results output :exports both
 
 A library is an ordinary X_eTaL file whose exported names are written
-with ~l:~; its other names are private to it. A program imports a
+with ~l:~; its helpers, written with ~h:~, are private to it. A program imports a
 library with the ~u_se<~ macro, choosing the prefix its names get:
 ~"s:" u_se< "Stats"~ makes the library's ~l:m_ean~ the program's
 ~s:m_ean~. The prefix is required, so every name says where it comes
@@ -20,8 +20,8 @@ A small statistics library. Its whole source:
 
 #+INCLUDE: "../../lib/Stats.xtl" src xetal
 
-~s_quare~ and ~d_eviations~ have no ~l:~, so a program cannot see
-them; the rest it imports:
+~h:s_quare~ and ~h:d_eviations~ are helpers, written with ~h:~, so a
+program cannot see them; the rest it imports:
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example

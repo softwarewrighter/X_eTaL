@@ -1092,6 +1092,11 @@ small fixes it found (D16, E7, D17, `p_ower` with a Bool count, the
 quotes lost by `r_ecover<`, two documentation rules), and the CLI as a
 library (E3).
 
+Later, after the next release: PN2's warning becomes an error (MC8 row
+23, `deprecated-private` an error at the definition, the sibling
+repositories migrated by then through the asks ledger's notice), a step
+of its own when that release is tagged.
+
 ## Saga 39 -- tuples (asks M13 and D7; the first part of Saga 29)
 
 Asked for by the user (2026-10-07) after X_eTaL-ML's train-live had to

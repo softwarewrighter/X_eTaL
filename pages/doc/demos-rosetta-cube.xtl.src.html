@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>demos/rosetta/cube.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#L13">size</a></li>
+<li class="item"><a href="#L14">eye</a></li>
+<li class="item"><a href="#L15">zoom</a></li>
+<li class="item"><a href="#L16">light</a></li>
+<li class="item"><a href="#L18">cube</a></li>
+<li class="item"><a href="#L19">faces</a></li>
+<li class="item"><a href="#L22"><span class="c-userfunc">ᵘs̲creen</span></a></li>
+<li class="item"><a href="#L30"><span class="c-userfunc">ᵘn̲ormal</span></a></li>
+<li class="item"><a href="#L39"><span class="c-userfunc">ᵘl̲it</span></a></li>
+<li class="item"><a href="#L47"><span class="c-userfunc">ᵘp̲olygon</span></a></li>
+<li class="item"><a href="#L54"><span class="c-userfunc">ᵘs̲cene</span></a></li>
+<li class="item"><a href="#L61"><span class="c-userfunc">ᵘf̲rame</span></a></li>
+<li class="item"><a href="#L63">angles</a></li>
+<li class="item"><a href="#L64">shown</a></li>
+<li class="item"><a href="#L65">shown</a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">source</span><a href="demos-rosetta-cube.xtl.html">demos/rosetta/cube.xtl</a></h1>
+<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment">!/usr/bin/env xetal</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> A cube turning in space, drawn by the Geometry3D and Svg libraries:</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"> twelve frames as a wireframe, then twelve shaded, each shown with</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"> []S_HOW (the browser's pane shows them in turn; the command line</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"> writes cube-1.svg, cube-2.svg, ... under --draw). Every number here</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"> is computed by arrays: the eight corners are one matrix, a turn is</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"> one inner product, the faces are ordered far to near by their mean</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"> depth, and a face's shade is the angle between its normal and the</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"> light. The Rosetta stone's rehearsal (docs/rosetta.md).</span></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-libfunc">ᵍ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Geometry3D.xtl.html" class="c-string">&quot;Geometry3D&quot;</a></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-libfunc">ᵛ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Svg.xtl.html" class="c-string">&quot;Svg&quot;</a></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a>size ← <span class="c-number">300.0</span>                 <span class="c-comment">⍝</span><span class="c-comment"> the picture is size by size</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a>eye ← <span class="c-number">6.0</span>                    <span class="c-comment">⍝</span><span class="c-comment"> the viewer's distance along z</span></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a>zoom ← <span class="c-number">70.0</span>                  <span class="c-comment">⍝</span><span class="c-comment"> pixels per unit</span></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a>light ← <span class="c-number">0.3</span> <span class="c-number">0.5</span> <span class="c-number">0.8</span>          <span class="c-comment">⍝</span><span class="c-comment"> from the viewer's side, upper right</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a>cube ← <a href="lib-Geometry3D.xtl.html#l.c_ube" class="c-libfunc">ᵍc̲ube</a> <span class="c-number">2</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a>faces ← <a href="lib-Geometry3D.xtl.html#l.c_ubeFaces" class="c-libfunc">ᵍc̲ubeFaces</a> @</span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-comment">⍝</span><span class="c-comment"> The screen points of a face: projected, zoomed, centered, y up.</span></span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a><span class="c-userfunc">ᵘs̲creen</span> ← { f →</span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a>  p ← <a href="demos-rosetta-cube.xtl.html#eye">eye</a> <a href="lib-Geometry3D.xtl.html#l.p_roject" class="c-libfunc">ᵍp̲roject</a> f</span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a>  xs ← (<a href="demos-rosetta-cube.xtl.html#size">size</a> <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">2</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="demos-rosetta-cube.xtl.html#zoom">zoom</a> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> p</span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a>  ys ← (<a href="demos-rosetta-cube.xtl.html#size">size</a> <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">2</span>) <a href="builtins.html#-2d" class="c-symbol">−</a> <a href="demos-rosetta-cube.xtl.html#zoom">zoom</a> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> p</span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a>  (<span class="c-number">2</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> xs) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> xs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ys</span>
+<span class="line" id="L27"><a class="ln" href="#L27">27</a>}</span>
+<span class="line" id="L28"><a class="ln" href="#L28">28</a></span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-comment">⍝</span><span class="c-comment"> The normal of a face: the cross product of two of its edges.</span></span>
+<span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-userfunc">ᵘn̲ormal</span> ← { f →</span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a>  u ← (<span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> f) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> f</span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a>  w ← (<span class="c-number">4</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> f) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> f</span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a>  ((<span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-</a> u) <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-</a> w) <a href="builtins.html#-2d" class="c-symbol">−</a> (<span class="c-number">2</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-</a> u) <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-</a> w</span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a>}</span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-comment">⍝</span><span class="c-comment"> How lit a face is, 0 to 1: the cosine of the angle between its</span></span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a><span class="c-comment">⍝</span><span class="c-comment"> outward normal and the light, and 0 when it faces away. The normal</span></span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-comment">⍝</span><span class="c-comment"> is turned outward by the side of the cube's center it is on.</span></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-userfunc">ᵘl̲it</span> ← { f →</span>
+<span class="line" id="L40"><a class="ln" href="#L40">40</a>  n ← <a href="demos-rosetta-cube.xtl.html#u.n_ormal" class="c-userfunc">ᵘn̲ormal</a> f</span>
+<span class="line" id="L41"><a class="ln" href="#L41">41</a>  center ← (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <a href="builtins.html#o_-5c" class="c-builtin">o̲\</a> f) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">4.0</span></span>
+<span class="line" id="L42"><a class="ln" href="#L42">42</a>  outward ← n <a href="builtins.html#-2a" class="c-symbol">×</a> (<span class="c-number">2.0</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-number">0</span> <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> n <a href="builtins.html#-2a" class="c-symbol">×</a> center) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1.0</span></span>
+<span class="line" id="L43"><a class="ln" href="#L43">43</a>  <span class="c-number">0</span> <a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> outward <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="demos-rosetta-cube.xtl.html#light">light</a>) <a href="builtins.html#-2f" class="c-symbol">÷</a> (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> n <a href="builtins.html#-2a" class="c-symbol">×</a> n) <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">0.5</span></span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a>}</span>
+<span class="line" id="L45"><a class="ln" href="#L45">45</a></span>
+<span class="line" id="L46"><a class="ln" href="#L46">46</a><span class="c-comment">⍝</span><span class="c-comment"> A face as a polygon, shaded (or, with fill &quot;none&quot;, as a wireframe).</span></span>
+<span class="line" id="L47"><a class="ln" href="#L47">47</a><span class="c-userfunc">ᵘp̲olygon</span> ← { shaded f →</span>
+<span class="line" id="L48"><a class="ln" href="#L48">48</a>  fill ← <a href="lib-Svg.xtl.html#l.f_ill" class="c-libfunc">ᵛf̲ill</a> <span class="c-string">&quot;shaded&quot;</span> <a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a> <span class="c-string">&quot;v:r_gb 3 r_eshape 40 + 200 * u:l_it f; \&quot;none\&quot;&quot;</span></span>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_f-3c" class="c-macro">i̲f&lt;</a></code> expands to</summary><pre class="code">({ @ → (shaded) ? <a href="lib-Svg.xtl.html#l.r_gb" class="c-libfunc">ᵛr̲gb</a> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">40</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">200</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="demos-rosetta-cube.xtl.html#u.l_it" class="c-userfunc">ᵘl̲it</a> f◆ <span class="c-string">&quot;none&quot;</span> } @)</pre></details>
+<span class="line" id="L49"><a class="ln" href="#L49">49</a>  (fill <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;#222&quot;</span> <a href="lib-Svg.xtl.html#l.s_troke" class="c-libfunc">ᵛs̲troke</a> <span class="c-number">1.5</span>) <a href="lib-Svg.xtl.html#l.p_olygon" class="c-libfunc">ᵛp̲olygon</a> <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">0.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="demos-rosetta-cube.xtl.html#u.s_creen" class="c-userfunc">ᵘs̲creen</a> f</span>
+<span class="line" id="L50"><a class="ln" href="#L50">50</a>}</span>
+<span class="line" id="L51"><a class="ln" href="#L51">51</a></span>
+<span class="line" id="L52"><a class="ln" href="#L52">52</a><span class="c-comment">⍝</span><span class="c-comment"> The cube turned by a degrees about x and 1.3 a about y, as a picture:</span></span>
+<span class="line" id="L53"><a class="ln" href="#L53">53</a><span class="c-comment">⍝</span><span class="c-comment"> its faces drawn far to near, so nearer faces cover farther ones.</span></span>
+<span class="line" id="L54"><a class="ln" href="#L54">54</a><span class="c-userfunc">ᵘs̲cene</span> ← { shaded a →</span>
+<span class="line" id="L55"><a class="ln" href="#L55">55</a>  turned ← ((<a href="lib-Geometry3D.xtl.html#l.r_otY" class="c-libfunc">ᵍr̲otY</a> <span class="c-number">1.3</span> <a href="builtins.html#-2a" class="c-symbol">×</a> a) <a href="lib-Geometry3D.xtl.html#l.t_urn" class="c-libfunc">ᵍt̲urn</a> <a href="lib-Geometry3D.xtl.html#l.r_otX" class="c-libfunc">ᵍr̲otX</a> a) <a href="lib-Geometry3D.xtl.html#l.t_urn" class="c-libfunc">ᵍt̲urn</a> <a href="demos-rosetta-cube.xtl.html#cube">cube</a></span>
+<span class="line" id="L56"><a class="ln" href="#L56">56</a>  solid ← <a href="demos-rosetta-cube.xtl.html#faces">faces</a> <a href="lib-Geometry3D.xtl.html#l.s_olid" class="c-libfunc">ᵍs̲olid</a> turned</span>
+<span class="line" id="L57"><a class="ln" href="#L57">57</a>  polygons ← <span class="c-quote">'</span>{ i → shaded <a href="demos-rosetta-cube.xtl.html#u.p_olygon" class="c-userfunc">ᵘp̲olygon</a> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> solid } <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> <a href="lib-Geometry3D.xtl.html#l.o_rder" class="c-libfunc">ᵍo̲rder</a> solid</span>
+<span class="line" id="L58"><a class="ln" href="#L58">58</a>  (<a href="demos-rosetta-cube.xtl.html#size">size</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="demos-rosetta-cube.xtl.html#size">size</a>) <a href="lib-Svg.xtl.html#l.p_icture" class="c-libfunc">ᵛp̲icture</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ x y → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> x) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> y } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> polygons</span>
+<span class="line" id="L59"><a class="ln" href="#L59">59</a>}</span>
+<span class="line" id="L60"><a class="ln" href="#L60">60</a></span>
+<span class="line" id="L61"><a class="ln" href="#L61">61</a><span class="c-userfunc">ᵘf̲rame</span> ← { shaded a → <a href="builtins.html#-5b-5dS_HOW" class="c-builtin">⎕S̲HOW</a> shaded <a href="demos-rosetta-cube.xtl.html#u.s_cene" class="c-userfunc">ᵘs̲cene</a> a◆ <a href="builtins.html#-5b-5dD_L" class="c-builtin">⎕D̲L</a> <span class="c-number">0.04</span>◆ @ }</span>
+<span class="line" id="L62"><a class="ln" href="#L62">62</a></span>
+<span class="line" id="L63"><a class="ln" href="#L63">63</a>angles ← <span class="c-number">30.0</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">12</span></span>
+<span class="line" id="L64"><a class="ln" href="#L64">64</a>shown ← <span class="c-quote">'</span>{ a → <span class="c-number">0</span> <a href="demos-rosetta-cube.xtl.html#u.f_rame" class="c-userfunc">ᵘf̲rame</a> a } <a href="builtins.html#e_ach" class="c-builtin">e̲ach</a> <a href="demos-rosetta-cube.xtl.html#angles">angles</a></span>
+<span class="line" id="L65"><a class="ln" href="#L65">65</a>shown ← <span class="c-quote">'</span>{ a → <span class="c-number">1</span> <a href="demos-rosetta-cube.xtl.html#u.f_rame" class="c-userfunc">ᵘf̲rame</a> a } <a href="builtins.html#e_ach" class="c-builtin">e̲ach</a> <a href="demos-rosetta-cube.xtl.html#angles">angles</a></span>
+<span class="line" id="L66"><a class="ln" href="#L66">66</a><span class="c-string">&quot;24 frames shown&quot;</span></span>
+</div>
+</main>
+</body>
+</html>

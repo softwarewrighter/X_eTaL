@@ -26,8 +26,33 @@
 <li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
 <li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
 <li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
 <li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
 <li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
 <li><a href="builtins.html">built-ins</a></li>
 </ul>
 <h2>On this page</h2>
@@ -63,7 +88,7 @@ Names with l: are exported; names with h: are private to this file.</p>
 5.0</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡm̲ean</span> ← [[<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a>] <a href="builtins.html#-2f" class="c-symbol">÷</a> [<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a>]]</pre>
-<div class="uses">Used in: <a href="lib-Stats.xtl.html#h.d_eviations"><span class="c-libfunc">ʰd̲eviations</span></a>, <a href="lib-Stats.xtl.html#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a></div>
+<div class="uses">Used in: <a href="lib-Stats.xtl.html#h.d_eviations"><span class="c-libfunc">ʰd̲eviations</span></a>, <a href="lib-Stats.xtl.html#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a>, <a href="demos-stats.xtl.src.html#L8">stats.xtl:8</a>, <a href="demos-stats.xtl.src.html#L12">stats.xtl:12</a>, <a href="demos-tour.xtl.src.html#L155">tour.xtl:155</a></div>
 </div>
 <div class="item" id="h.s_quare">
 <h3><a href="#h.s_quare"><span class="c-libfunc">ʰs̲quare</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
@@ -87,7 +112,7 @@ Names with l: are exported; names with h: are private to this file.</p>
 4.0</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡv̲ariance</span> ← [<a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˡm̲ean</a> [<a href="lib-Stats.xtl.html#h.s_quare" class="c-libfunc">ʰs̲quare</a> <a href="lib-Stats.xtl.html#h.d_eviations" class="c-libfunc">ʰd̲eviations</a>]]</pre>
-<div class="uses">Used in: <a href="lib-Stats.xtl.html#l.s_d"><span class="c-libfunc">ˡs̲d</span></a></div>
+<div class="uses">Used in: <a href="lib-Stats.xtl.html#l.s_d"><span class="c-libfunc">ˡs̲d</span></a>, <a href="demos-stats.xtl.src.html#L9">stats.xtl:9</a></div>
 </div>
 <div class="item" id="l.s_d">
 <h3><a href="#l.s_d"><span class="c-libfunc">ˡs̲d</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
@@ -99,6 +124,7 @@ Names with l: are exported; names with h: are private to this file.</p>
 2.0</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡs̲d</span> ← { (<a href="lib-Stats.xtl.html#l.v_ariance" class="c-libfunc">ˡv̲ariance</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">0.5</span> }</pre>
+<div class="uses">Used in: <a href="demos-stats.xtl.src.html#L10">stats.xtl:10</a>, <a href="demos-tour.xtl.src.html#L156">tour.xtl:156</a></div>
 </div>
 <div class="item" id="l.r_ange">
 <h3><a href="#l.r_ange"><span class="c-libfunc">ˡr̲ange</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
@@ -110,6 +136,7 @@ Names with l: are exported; names with h: are private to this file.</p>
 7</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡr̲ange</span> ← [<span class="c-builtin">'</span><a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-builtin">'</span><a href="builtins.html#m_in" class="c-builtin">m̲in</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a>]</pre>
+<div class="uses">Used in: <a href="demos-stats.xtl.src.html#L11">stats.xtl:11</a>, <a href="demos-tour.xtl.src.html#L157">tour.xtl:157</a></div>
 </div>
 </main>
 </body>

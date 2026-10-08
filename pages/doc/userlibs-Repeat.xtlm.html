@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>userlibs/Repeat.xtlm - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li><a href="#section-1">Repeating statements</a></li>
+<li class="item"><a href="#m.t_imes-3c"><span class="c-macro">ᵐt̲imes&lt;</span></a></li>
+<li class="item"><a href="#c_opies"><span class="c-builtin">c̲opies</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">macro library</span>userlibs/Repeat.xtlm</h1>
+<div class="doc">
+<p>A macro library of your own (userlibs/, found as libraries of your
+own are): statements written as many times as you ask, when the
+program is expanded, a loop unrolled at compile time.</p>
+</div>
+<p class="meta"><a href="userlibs-Repeat.xtlm.src.html">source</a></p>
+<h2 class="section" id="section-1">Repeating statements</h2>
+<div class="item" id="m.t_imes-3c">
+<h3><a href="#m.t_imes-3c"><span class="c-macro">ᵐt̲imes&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
+<div class="meta">macro &middot; <a href="userlibs-Repeat.xtlm.src.html#L15">line 15</a></div>
+<div class="doc">
+<p>The statements on the right, written the number of times on the
+left, one copy per line; it stands as a statement of its own. A
+count below 1 is refused when the program is expanded.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="userlibs-Repeat.xtlm.html" class="c-string">&quot;Repeat&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-string">&quot;3&quot;</span> <a href="userlibs-Repeat.xtlm.html#m.t_imes-3c" class="c-macro">ʳt̲imes&lt;</a> <span class="c-string">&quot;\&quot;hip hip\&quot;&quot;</span>
+hip hip
+hip hip
+hip hip</pre>
+</div>
+<pre class="code"><span class="c-macro">ᵐt̲imes&lt;</span> ← { count body →
+  <a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> <a href="builtins.html#-5b-5dS_TATEMENT" class="c-builtin">⎕S̲TATEMENT</a> @ ? <span class="c-string">&quot;misplaced-macro call&quot;</span> <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> <span class="c-string">&quot;r:t_imes&lt; writes statements: it stands as a statement of its own&quot;</span>
+  k ← <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> (<a href="builtins.html#n_umbers" class="c-builtin">n̲umbers</a> count) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>
+  k <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">1</span> ? <span class="c-string">&quot;bad-macro-argument left&quot;</span> <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> <span class="c-string">&quot;r:t_imes&lt; writes its statements 1 or more times&quot;</span>
+  k <a href="userlibs-Repeat.xtlm.html#c_opies" class="c-builtin">c̲opies</a> body
+}</pre>
+<div class="uses">Used in: <a href="demos-user-macros.xtl.src.html#L8">user-macros.xtl:8</a>, <a href="demos-user-macros.xtl.html#x">x</a></div>
+</div>
+<div class="item" id="c_opies">
+<h3><a href="#c_opies"><span class="c-builtin">c̲opies</span></a> <span class="type">: Int -&gt; Char -&gt; Char</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="userlibs-Repeat.xtlm.src.html#L23">line 23</a></div>
+<pre class="code"><span class="c-builtin">c̲opies</span> ← { k t → k <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? t◆ t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\n&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (k <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="userlibs-Repeat.xtlm.html#c_opies" class="c-builtin">c̲opies</a> t }</pre>
+<div class="uses">Used in: <a href="userlibs-Repeat.xtlm.html#m.t_imes-3c"><span class="c-macro">ᵐt̲imes&lt;</span></a>, <a href="userlibs-Repeat.xtlm.html#c_opies"><span class="c-builtin">c̲opies</span></a></div>
+</div>
+</main>
+</body>
+</html>
