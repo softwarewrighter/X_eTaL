@@ -1,0 +1,1 @@
+Small fixes: p_ower Bool count, run --context reads stdin once (input replay), library detection after expansion, xetal-play add_library/expanded, reference docs (Float printing, encode negatives, EOF idiom), r_ecover< string example; asks landed; new steps queued
