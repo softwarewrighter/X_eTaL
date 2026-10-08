@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-07
 
+- 17:40 `docs` The prefixes explained (Saga 38 step 5, in progress): the README's notation table gains `l:m_ean` and `h:j_oin`, with a paragraph on `u:` (the program's), `l:` (a library's export), `h:` (a helper, its file only), `m:` (a macro library's export) and an import's alias; the syntax poster's Definitions panel shows the four side by side.
 - 17:10 `feat` Bare library functions deprecated, and `xetal migrate` (PN2, PN3, PN6, Saga 38 step 4, D124): a library's bare top-level function warns `deprecated-private` (helpers written `h:` and bare variables do not); `xetal migrate FILE` prints a library with its bare functions and their uses written `h:`, a lambda's own local of the same name left bare; a bare function in an app names both choices (`u:` or `h:`); lib/ (Geometry3D, Stats, Svg, TTTML, Turtle), userlibs/Greetings and rosetta's Stone migrated, and a test fails the gate on any library here that still warns.
 - 16:45 `build` The LaTeX gallery skips a pending spec case whose source does not lex yet (as it does an error case), so the tuple cases still pending do not fail it; gallery rebuilt after merging PR #108.
 - 16:35 `chore` Merged PR #108 (tuple values, Saga 39 step 2, with the decisions of step 1); PR #107 closed as superseded by it.

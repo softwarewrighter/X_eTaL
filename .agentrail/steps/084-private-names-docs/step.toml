@@ -1,6 +1,6 @@
 number = 84
 slug = "private-names-docs"
-status = "pending"
+status = "in-progress"
 description = "Saga 38 (private names, the h: namespace; decided with the user 2026-10-07; d..."
 role = "production"
 context_files = []

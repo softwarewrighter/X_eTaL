@@ -61,6 +61,8 @@ a value is an exponent. The language decisions are recorded in
 | `o_-_2`       | o-, o underlined, subscript 2         | rotate along axis 2                  |
 | `'+ r_/ A`    | quote +, then r/ with r underlined    | reduce A by plus (APL `+/A`)         |
 | `u:s_quare`   | superscript u, square, s underlined   | a user-defined function              |
+| `l:m_ean`     | superscript l, mean, m underlined     | a library's export, in its own file  |
+| `h:j_oin`     | superscript h, join, j underlined     | a helper, private to its file        |
 | `c:K_`        | superscript c, K underlined           | K from the combinator library        |
 | `x^2`         | x squared                             | exponent on a value                  |
 | `x^0.5`       | x, raised 0.5 (a middle dot as point) | a decimal exponent: the square root  |
@@ -69,6 +71,21 @@ a value is an exponent. The language decisions are recorded in
 | `@`           | @                                     | the Unit value                       |
 | `[f_ g_ h_]`  | in square brackets                    | a train: `(f_ x) g_ (h_ x)`          |
 | `"ab" "cde"`  | two strings side by side              | a nested vector of two strings       |
+
+The reserved prefixes say whose a top-level name is. `u:` is the
+program's own: a function an app defines and offers (`u:s_quare`).
+`l:` is a library's export, written so inside the library
+(`l:m_ean` in `lib/Stats.xtl`); a program that imports the library
+names it with its own alias instead (`s:m_ean`). `h:` is a helper,
+visible only in the file that defines it, in an app or a library
+alike (`h:j_oin`); it is never part of what the file offers, so
+`xetal type` and `xetal doc` leave it out. `m:` is a macro
+library's export (`m:w_hen<` in `lib/Macros.xtlm`). Any other prefix
+is an import's alias (`c:K_`), read-only. A variable needs no prefix
+(`limit := 8`). `u:`, `l:` and `h:` cannot be aliases. A
+library's function written without `h:` still works but warns;
+`xetal migrate FILE` rewrites it. See
+[`docs/private-names.md`](docs/private-names.md).
 
 Built-in names are words (`r_eshape`, `t_ally`) so code stays
 recognizable; a punctuation mark appears only where it carries APL
