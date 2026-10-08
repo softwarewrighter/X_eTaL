@@ -33,8 +33,8 @@
 <h2>On this page</h2>
 <ul>
 <li class="item"><a href="#l.m_ean"><span class="c-libfunc">ˡm̲ean</span></a></li>
-<li class="item"><a href="#s_quare"><span class="c-builtin">s̲quare</span></a></li>
-<li class="item"><a href="#d_eviations"><span class="c-builtin">d̲eviations</span></a></li>
+<li class="item"><a href="#h.s_quare"><span class="c-libfunc">ʰs̲quare</span></a></li>
+<li class="item"><a href="#h.d_eviations"><span class="c-libfunc">ʰd̲eviations</span></a></li>
 <li class="item"><a href="#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a></li>
 <li class="item"><a href="#l.s_d"><span class="c-libfunc">ˡs̲d</span></a></li>
 <li class="item"><a href="#l.r_ange"><span class="c-libfunc">ˡr̲ange</span></a></li>
@@ -50,7 +50,7 @@ xetal). Import it with an alias of your choice: &quot;s:&quot; u_se&lt; &quot;St
 It is a demo library, loaded only by that import: a small subset of
 X_eTaL-libraries' Statistics, which has much more (a program may use
 either).
-Names with l: are exported; the others are private to this file.</p>
+Names with l: are exported; names with h: are private to this file.</p>
 </div>
 <p class="meta"><a href="lib-Stats.xtl.src.html">source</a></p>
 <div class="item" id="l.m_ean">
@@ -63,18 +63,18 @@ Names with l: are exported; the others are private to this file.</p>
 5.0</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡm̲ean</span> ← [[<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a>] <a href="builtins.html#-2f" class="c-symbol">÷</a> [<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a>]]</pre>
-<div class="uses">Used in: <a href="lib-Stats.xtl.html#d_eviations"><span class="c-builtin">d̲eviations</span></a>, <a href="lib-Stats.xtl.html#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a></div>
+<div class="uses">Used in: <a href="lib-Stats.xtl.html#h.d_eviations"><span class="c-libfunc">ʰd̲eviations</span></a>, <a href="lib-Stats.xtl.html#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a></div>
 </div>
-<div class="item" id="s_quare">
-<h3><a href="#s_quare"><span class="c-builtin">s̲quare</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
+<div class="item" id="h.s_quare">
+<h3><a href="#h.s_quare"><span class="c-libfunc">ʰs̲quare</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
 <div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Stats.xtl.src.html#L14">line 14</a></div>
-<pre class="code"><span class="c-builtin">s̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍵</span> }                      <span class="c-comment">⍝</span><span class="c-comment"> private: not visible outside</span></pre>
+<pre class="code"><span class="c-libfunc">ʰs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍵</span> }                       <span class="c-comment">⍝</span><span class="c-comment"> private: not visible outside</span></pre>
 <div class="uses">Used in: <a href="lib-Stats.xtl.html#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a></div>
 </div>
-<div class="item" id="d_eviations">
-<h3><a href="#d_eviations"><span class="c-builtin">d̲eviations</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
+<div class="item" id="h.d_eviations">
+<h3><a href="#h.d_eviations"><span class="c-libfunc">ʰd̲eviations</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
 <div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Stats.xtl.src.html#L15">line 15</a></div>
-<pre class="code"><span class="c-builtin">d̲eviations</span> ← [<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#-2d" class="c-symbol">−</a> <a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˡm̲ean</a>]</pre>
+<pre class="code"><span class="c-libfunc">ʰd̲eviations</span> ← [<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#-2d" class="c-symbol">−</a> <a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˡm̲ean</a>]</pre>
 <div class="uses">Used in: <a href="lib-Stats.xtl.html#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a></div>
 </div>
 <div class="item" id="l.v_ariance">
@@ -86,7 +86,7 @@ Names with l: are exported; the others are private to this file.</p>
 <pre class="example"><span class="prompt">      </span><a href="lib-Stats.xtl.html#l.v_ariance" class="c-libfunc">ˢv̲ariance</a> <span class="c-number">2</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">5</span> <span class="c-number">7</span> <span class="c-number">9</span>
 4.0</pre>
 </div>
-<pre class="code"><span class="c-libfunc">ˡv̲ariance</span> ← [<a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˡm̲ean</a> [<a href="lib-Stats.xtl.html#s_quare" class="c-builtin">s̲quare</a> <a href="lib-Stats.xtl.html#d_eviations" class="c-builtin">d̲eviations</a>]]</pre>
+<pre class="code"><span class="c-libfunc">ˡv̲ariance</span> ← [<a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˡm̲ean</a> [<a href="lib-Stats.xtl.html#h.s_quare" class="c-libfunc">ʰs̲quare</a> <a href="lib-Stats.xtl.html#h.d_eviations" class="c-libfunc">ʰd̲eviations</a>]]</pre>
 <div class="uses">Used in: <a href="lib-Stats.xtl.html#l.s_d"><span class="c-libfunc">ˡs̲d</span></a></div>
 </div>
 <div class="item" id="l.s_d">

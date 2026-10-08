@@ -4,5 +4,3 @@
 h_alf := { _r / 2 }
 == ERROR
 error[bad-binding]: a top-level function is the program's or a helper: write u:h_alf (the program's) or h:h_alf (a helper) at 0..19
-== STATUS
-pending

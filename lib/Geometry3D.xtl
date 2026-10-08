@@ -5,9 +5,9 @@
 ## points is one inner product. A face is a 3 x 4 matrix of corners,
 ## and a solid is faces stacked along a new first axis (F x 3 x 4), so
 ## one expression orders them far to near for painting.
-## Names with l: are exported; the others are private to this file.
+## Names with l: are exported; names with h: are private to this file.
 
-r_adians := { (f_loat _r) * (p_i @) / 180 }   # private
+h:r_adians := { (f_loat _r) * (p_i @) / 180 }   # private
 
 ## The rotation of d degrees about the x axis (y toward z), 3 x 3.
 ## >> "g:" u_se< "Geometry3D"
@@ -16,8 +16,8 @@ r_adians := { (f_loat _r) * (p_i @) / 180 }   # private
 ## 0 0 -1
 ## 0 1  0
 l:r_otX := { d ->
-  c := c_os r_adians d
-  s := s_in r_adians d
+  c := c_os h:r_adians d
+  s := s_in h:r_adians d
   3 3 r_eshape 1.0 0.0 0.0 0.0 c_at c c_at (n_eg s) c_at 0.0 c_at s c_at c
 }
 
@@ -28,8 +28,8 @@ l:r_otX := { d ->
 ##  0 1 0
 ## -1 0 0
 l:r_otY := { d ->
-  c := c_os r_adians d
-  s := s_in r_adians d
+  c := c_os h:r_adians d
+  s := s_in h:r_adians d
   3 3 r_eshape c c_at 0.0 c_at s c_at 0.0 1.0 0.0 c_at (n_eg s) c_at 0.0 c_at c
 }
 
@@ -40,8 +40,8 @@ l:r_otY := { d ->
 ## 1  0 0
 ## 0  0 1
 l:r_otZ := { d ->
-  c := c_os r_adians d
-  s := s_in r_adians d
+  c := c_os h:r_adians d
+  s := s_in h:r_adians d
   3 3 r_eshape c c_at (n_eg s) c_at 0.0 c_at s c_at c c_at 0.0 0.0 0.0 1.0
 }
 

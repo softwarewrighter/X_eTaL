@@ -30,6 +30,7 @@ xetal-view = { path = "../view/crates/xetal-view" }
 xetal-edit = { path = "../tui/crates/xetal-edit" }
 xetal-line = { path = "../line/crates/xetal-line" }
 xetal-program = { path = "../macro/crates/xetal-program" }
+xetal-names = { path = "../macro/crates/xetal-names" }
 xetal-doc = { path = "../doc/crates/xetal-doc" }
 xetal-docsearch = { path = "../docsearch/crates/xetal-docsearch" }
 xetal-doctest = { path = "../doc/crates/xetal-doctest" }

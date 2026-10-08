@@ -1,0 +1,1 @@
+warning[deprecated-private]: write h:d_ouble; bare top-level functions in a library are deprecated (xetal migrate FILE rewrites them) at reg/fixtures/names/Bare.xtl:3:12

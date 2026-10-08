@@ -18,3 +18,4 @@ xetal-eval.workspace = true
 xetal-system.workspace = true
 
 [dev-dependencies]
+xetal-lint.workspace = true

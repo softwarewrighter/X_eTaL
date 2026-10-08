@@ -6,7 +6,7 @@
 ## v:p_roject give them; y grows downward, as SVG's does. Attributes
 ## are text made by v:a_ttr, v:f_ill, v:s_troke and the transforms, so
 ## no program writes a quote mark or an angle bracket of its own.
-## Names with l: are exported; the others are private to this file.
+## Names with l: are exported; names with h: are private to this file.
 
 ## An attribute: `"id" v:a_ttr "top"` is ` id="top"` (with its leading
 ## space, so attributes join by c_at). The value is escaped.
@@ -28,7 +28,7 @@ l:a_ttr := { name value -> " " c_at name c_at "=\"" c_at (l:e_scape value) c_at 
 ## 0
 l:e_scape := { t ->
   0 = '+ r_/ t m_ember? "&<>\"" ? t
-  j_oin 'e_sc m_ap t
+  h:j_oin 'h:e_sc m_ap t
 }
 
 ## The fill attribute: a color (`"#1f2937"`, `"none"`, a name).
@@ -58,13 +58,13 @@ l:s_troke := { color width -> ("stroke" l:a_ttr color) c_at ("stroke-width" l:a_
 ## >> "v:" u_se< "Svg"
 ## >> (v:f_ill "#ccc") v:p_olygon 2 3 r_eshape 0 10 20 0 10 0
 ## <polygon points="0,0 10,10 20,0" fill="#ccc"/>
-l:p_olygon := { attrs points -> "<polygon points=\"" c_at (p_airs points) c_at "\"" c_at attrs c_at "/>" }
+l:p_olygon := { attrs points -> "<polygon points=\"" c_at (h:p_airs points) c_at "\"" c_at attrs c_at "/>" }
 
 ## A polyline through the points, open: `attrs v:p_olyline points`.
 ## >> "v:" u_se< "Svg"
 ## >> ((v:f_ill "none") c_at "#000" v:s_troke 1) v:p_olyline 2 2 r_eshape 0 10 0 10
 ## <polyline points="0,0 10,10" fill="none" stroke="#000" stroke-width="1" stroke-linejoin="round"/>
-l:p_olyline := { attrs points -> "<polyline points=\"" c_at (p_airs points) c_at "\"" c_at attrs c_at "/>" }
+l:p_olyline := { attrs points -> "<polyline points=\"" c_at (h:p_airs points) c_at "\"" c_at attrs c_at "/>" }
 
 ## The position attributes of text: `v:a_t 12 30` is ` x="12" y="30"`.
 ## >> "v:" u_se< "Svg"
@@ -189,16 +189,16 @@ l:p_ictureWith := { wh parts -> wh l:p_icture "<defs>" c_at (d_isclose 1 s_elect
 ### Private helpers
 
 # One character escaped for SVG text and attributes.
-e_sc := { c -> c = f_irst "&" ? "&amp;"; c = f_irst "<" ? "&lt;"; c = f_irst ">" ? "&gt;"; c = f_irst "\"" ? "&quot;"; c }
+h:e_sc := { c -> c = f_irst "&" ? "&amp;"; c = f_irst "<" ? "&lt;"; c = f_irst ">" ? "&gt;"; c = f_irst "\"" ? "&quot;"; c }
 
 # Boxed texts joined into one (none is the empty text).
-j_oin := { b ->
+h:j_oin := { b ->
   0 = t_ally b ? ""
   d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b
 }
 
 # The columns of a 2-row matrix as "x,y x,y ...".
-p_airs := { points ->
+h:p_airs := { points ->
   xs := 'f_ormat m_ap 1 s_elect points
   ys := 'f_ormat m_ap 2 s_elect points
   ps := xs '{ x y -> e_nclose (d_isclose x) c_at "," c_at d_isclose y } e_ach ys

@@ -3,7 +3,7 @@
     {
       "name": "lib/Stats.xtl",
       "kind": "library",
-      "doc": "Stats: a small statistics library (a standard library, built into\nxetal). Import it with an alias of your choice: \"s:\" u_se< \"Stats\".\nIt is a demo library, loaded only by that import: a small subset of\nX_eTaL-libraries' Statistics, which has much more (a program may use\neither).\nNames with l: are exported; the others are private to this file.",
+      "doc": "Stats: a small statistics library (a standard library, built into\nxetal). Import it with an alias of your choice: \"s:\" u_se< \"Stats\".\nIt is a demo library, loaded only by that import: a small subset of\nX_eTaL-libraries' Statistics, which has much more (a program may use\neither).\nNames with l: are exported; names with h: are private to this file.",
       "imports": [],
       "expansions": [],
       "items": [
@@ -21,7 +21,7 @@
           "uses": []
         },
         {
-          "name": "s_quare",
+          "name": "h:s_quare",
           "kind": "function",
           "public": false,
           "type": "Num a => a -> a",
@@ -30,11 +30,11 @@
           "doc": null,
           "examples": [],
           "binds": [],
-          "source": "s_quare := { _r * _r }                  # private: not visible outside",
+          "source": "h:s_quare := { _r * _r }                  # private: not visible outside",
           "uses": []
         },
         {
-          "name": "d_eviations",
+          "name": "h:d_eviations",
           "kind": "function",
           "public": false,
           "type": "Num a => a -> Float",
@@ -43,7 +43,7 @@
           "doc": null,
           "examples": [],
           "binds": [],
-          "source": "d_eviations := [f_loat - l:m_ean]",
+          "source": "h:d_eviations := [f_loat - l:m_ean]",
           "uses": [{"written": "l:m_ean", "file": "lib/Stats.xtl", "item": "l:m_ean"}]
         },
         {
@@ -56,8 +56,8 @@
           "doc": "The variance: the mean squared deviation from the mean.",
           "examples": [{"code": "\"s:\" u_se< \"Stats\"", "output": ""}, {"code": "s:v_ariance 2 4 4 4 5 5 7 9", "output": "4.0"}],
           "binds": [],
-          "source": "l:v_ariance := [l:m_ean [s_quare d_eviations]]",
-          "uses": [{"written": "d_eviations", "file": "lib/Stats.xtl", "item": "d_eviations"}, {"written": "l:m_ean", "file": "lib/Stats.xtl", "item": "l:m_ean"}, {"written": "s_quare", "file": "lib/Stats.xtl", "item": "s_quare"}]
+          "source": "l:v_ariance := [l:m_ean [h:s_quare h:d_eviations]]",
+          "uses": [{"written": "h:d_eviations", "file": "lib/Stats.xtl", "item": "h:d_eviations"}, {"written": "h:s_quare", "file": "lib/Stats.xtl", "item": "h:s_quare"}, {"written": "l:m_ean", "file": "lib/Stats.xtl", "item": "l:m_ean"}]
         },
         {
           "name": "l:s_d",

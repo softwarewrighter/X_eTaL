@@ -3,7 +3,7 @@
 ## It is a demo library, loaded only by that import: a small subset of
 ## X_eTaL-libraries' Statistics, which has much more (a program may use
 ## either).
-## Names with l: are exported; the others are private to this file.
+## Names with l: are exported; names with h: are private to this file.
 
 ## The arithmetic mean, of Int or Float numbers.
 ## >> "s:" u_se< "Stats"
@@ -11,14 +11,14 @@
 ## 5.0
 l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]
 
-s_quare := { _r * _r }                  # private: not visible outside
-d_eviations := [f_loat - l:m_ean]
+h:s_quare := { _r * _r }                  # private: not visible outside
+h:d_eviations := [f_loat - l:m_ean]
 
 ## The variance: the mean squared deviation from the mean.
 ## >> "s:" u_se< "Stats"
 ## >> s:v_ariance 2 4 4 4 5 5 7 9
 ## 4.0
-l:v_ariance := [l:m_ean [s_quare d_eviations]]
+l:v_ariance := [l:m_ean [h:s_quare h:d_eviations]]
 
 ## The standard deviation: the square root of the variance.
 ## >> "s:" u_se< "Stats"

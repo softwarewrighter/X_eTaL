@@ -1,6 +1,6 @@
-# Greetings: a library with a private name. n_ame has no l:, so it is
+# Greetings: a library with a private name. h:n_ame is file-private, so it is
 # used here but cannot be imported; g_reet is exported, and takes the
 # greeting from the program that calls it.
 
-n_ame := { @ -> "X̲ᵉTᵃL" }                  # private
-l:g_reet := { g -> g c_at " " c_at n_ame @ } # monadic: the greeting
+h:n_ame := { @ -> "X̲ᵉTᵃL" }                  # private
+l:g_reet := { g -> g c_at " " c_at h:n_ame @ } # monadic: the greeting

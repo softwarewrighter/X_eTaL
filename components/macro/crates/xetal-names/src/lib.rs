@@ -6,8 +6,10 @@
 mod defs;
 mod errors;
 mod imports;
+mod migrate;
 mod names;
 mod rename;
 
 pub use imports::{Import, imports};
+pub use migrate::migrate;
 pub use names::{Context, Edit, rewrite};

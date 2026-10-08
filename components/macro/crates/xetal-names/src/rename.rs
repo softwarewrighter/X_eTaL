@@ -34,9 +34,10 @@ pub(crate) fn rename(
     let hidden = match (ns.as_deref(), cx.library) {
         (None, Some((_, private))) if privates.contains(&key) && !bound => private.to_string(),
         (None, _) | (Some("u" | "h"), None) | (Some(xetal_lex::SYSTEM), _) => return Ok(None),
-        // A library's h: names are private to it (PN1): hidden with its
-        // other internals, so no importer can name them.
-        (Some("h"), Some((_, private))) => private.to_string(),
+        // A library's h: names are private to it (PN1): hidden beside its
+        // bare privates (`PA` -> `HA`), so no importer can name them and
+        // the lint can tell a helper from a deprecated bare function.
+        (Some("h"), Some((_, private))) => format!("H{}", &private[1..]),
         (Some(ns), _) if xetal_lex::is_fresh(ns) => return Ok(None),
         (Some("u"), Some(_)) => return Err(fail("user-name-in-library", t.span, U_IN_LIBRARY)),
         (Some(ns), Some((own, _))) if ns == cx.own => own.to_string(),

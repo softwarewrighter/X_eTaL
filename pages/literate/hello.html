@@ -170,16 +170,16 @@ greeting from the program and adds the name, kept in a private <code>n_ame</code
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal"><span class="c-comment">⍝ Greetings: a library with a private name. n_ame has no l:, so it is</span>
+<pre class="src src-xetal"><span class="c-comment">⍝ Greetings: a library with a private name. h:n_ame is file-private, so it is</span>
 <span class="c-comment">⍝ used here but cannot be imported; g_reet is exported, and takes the</span>
 <span class="c-comment">⍝ greeting from the program that calls it.</span>
 
-<span class="c-builtin">n̲ame</span> ← { @ → <span class="c-string">&quot;X̲ᵉTᵃL&quot;</span> }                      <span class="c-comment">⍝ private</span>
-<span class="c-libfunc">ˡg̲reet</span> ← { g → g <span class="c-builtin">c̲at</span> <span class="c-string">&quot; &quot;</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">n̲ame</span> @ }        <span class="c-comment">⍝ monadic: the greeting</span>
+<span class="c-libfunc">ʰn̲ame</span> ← { @ → <span class="c-string">&quot;X̲ᵉTᵃL&quot;</span> }                       <span class="c-comment">⍝ private</span>
+<span class="c-libfunc">ˡg̲reet</span> ← { g → g <span class="c-builtin">c̲at</span> <span class="c-string">&quot; &quot;</span> <span class="c-builtin">c̲at</span> <span class="c-libfunc">ʰn̲ame</span> @ }         <span class="c-comment">⍝ monadic: the greeting</span>
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   n_ame := { @ -&gt; "X̲ᵉTᵃL" }                  # private</span>
-<span class="c-comment typed">⍝   l:g_reet := { g -&gt; g c_at " " c_at n_ame @ } # monadic: the greeting</span></pre>
+<span class="c-comment typed">⍝   h:n_ame := { @ -&gt; "X̲ᵉTᵃL" }                  # private</span>
+<span class="c-comment typed">⍝   l:g_reet := { g -&gt; g c_at " " c_at h:n_ame @ } # monadic: the greeting</span></pre>
 </div>
 
 <p>

@@ -36,13 +36,27 @@ pub fn rewrite(text: &str, cx: &Context) -> Result<(Vec<Edit>, Vec<String>), Dia
     };
     let defs = top_level(&tokens, cx)?;
     let mut edits = Vec::new();
-    let mut scopes: Vec<HashSet<String>> = vec![HashSet::new()];
-    for (i, t) in tokens.iter().enumerate() {
-        scope(&tokens, i, &mut scopes);
-        let bound = name(t).is_some_and(|(_, k)| scopes[1..].iter().any(|s| s.contains(&k)));
+    for (t, bound) in tokens.iter().zip(locals(&tokens)) {
         edits.extend(rename(text, t, cx, &defs.privates, bound)?);
     }
     Ok((edits, defs.exports))
+}
+
+/// Per token, whether its name is a lambda's own (a parameter or local
+/// binding in scope there, or a local binding's own name before its :=)
+/// rather than the file's top-level name of that spelling.
+pub(crate) fn locals(tokens: &[Token]) -> Vec<bool> {
+    let mut scopes: Vec<HashSet<String>> = vec![HashSet::new()];
+    let mut out = Vec::with_capacity(tokens.len());
+    for (i, t) in tokens.iter().enumerate() {
+        scope(tokens, i, &mut scopes);
+        let defining = scopes.len() > 1
+            && matches!(tokens.get(i + 1).map(|t| &t.kind), Some(TokenKind::Assign));
+        out.push(
+            defining || name(t).is_some_and(|(_, k)| scopes[1..].iter().any(|s| s.contains(&k))),
+        );
+    }
+    out
 }
 
 /// Enter a lambda (its parameters), leave one, or note a local binding.

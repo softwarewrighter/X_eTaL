@@ -32,7 +32,7 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L9"><span class="c-builtin">r̲adians</span></a></li>
+<li class="item"><a href="#L9"><span class="c-libfunc">ʰr̲adians</span></a></li>
 <li class="item"><a href="#L14"><span class="c-libfunc">ˡw̲alk</span></a></li>
 <li class="item"><a href="#L22"><span class="c-libfunc">ˡp̲oints</span></a></li>
 <li class="item"><a href="#L26"><span class="c-libfunc">ˡt̲urn</span></a></li>
@@ -51,13 +51,13 @@
 <span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"> the turns, the steps are their cosines and sines, and the positions</span></span>
 <span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"> are running sums of the steps. Draw the points with []P_ATH.</span></span>
 <span class="line" id="L8"><a class="ln" href="#L8">8</a></span>
-<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-builtin">r̲adians</span> ← { (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#p_i" class="c-builtin">p̲i</a> @) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">180</span> }        <span class="c-comment">⍝</span><span class="c-comment"> private</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-libfunc">ʰr̲adians</span> ← { (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#p_i" class="c-builtin">p̲i</a> @) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">180</span> }         <span class="c-comment">⍝</span><span class="c-comment"> private</span></span>
 <span class="line" id="L10"><a class="ln" href="#L10">10</a></span>
 <span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"> The points of a walk with steps of the given lengths, 2 rows (x over</span></span>
 <span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"> y), starting at the origin: </span><span class="c-comment"></span>lengths <span class="c-libfunc">ˡw̲alk</span> turns<span class="c-comment"></span><span class="c-comment">; a single length</span></span>
 <span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-comment">⍝</span><span class="c-comment"> serves every step.</span></span>
 <span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-libfunc">ˡw̲alk</span> ← { lengths turns →</span>
-<span class="line" id="L15"><a class="ln" href="#L15">15</a>  h ← <a href="lib-Turtle.xtl.html#r_adians" class="c-builtin">r̲adians</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> turns</span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a>  h ← <a href="lib-Turtle.xtl.html#h.r_adians" class="c-libfunc">ʰr̲adians</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> turns</span>
 <span class="line" id="L16"><a class="ln" href="#L16">16</a>  xs ← <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> lengths) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#c_os" class="c-builtin">c̲os</a> h</span>
 <span class="line" id="L17"><a class="ln" href="#L17">17</a>  ys ← <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> lengths) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#s_in" class="c-builtin">s̲in</a> h</span>
 <span class="line" id="L18"><a class="ln" href="#L18">18</a>  (<span class="c-number">2</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> xs) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> xs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ys</span>

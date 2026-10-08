@@ -1,0 +1,3 @@
+command = "./target/debug/xetal migrate reg/fixtures/names/Bare.xtl"
+exit_code = 0
+desc = "PN2: xetal migrate writes a library's bare top-level functions as h:, their uses too, a same-named lambda local and bare variables left alone"

@@ -45,7 +45,7 @@ Points are a 3-row matrix, x over y over z, one column per point, as
 points is one inner product. A face is a 3 x 4 matrix of corners,
 and a solid is faces stacked along a new first axis (F x 3 x 4), so
 one expression orders them far to near for painting.
-Names with l: are exported; the others are private to this file.</li>
+Names with l: are exported; names with h: are private to this file.</li>
 <li>library <a href="lib-Maybe.xtl.html">lib/Maybe.xtl</a>: Maybe: a value that may be missing, and the monad that chains
 computations which can fail (a standard library, built into xetal).
 Import it with an alias of your choice: &quot;m:&quot; u_se&lt; &quot;Maybe&quot;.</li>
@@ -54,7 +54,7 @@ xetal). Import it with an alias of your choice: &quot;s:&quot; u_se&lt; &quot;St
 It is a demo library, loaded only by that import: a small subset of
 X_eTaL-libraries' Statistics, which has much more (a program may use
 either).
-Names with l: are exported; the others are private to this file.</li>
+Names with l: are exported; names with h: are private to this file.</li>
 <li>library <a href="lib-Svg.xtl.html">lib/Svg.xtl</a>: Svg: pictures as SVG text, written for you (a standard library, built
 into xetal). Import it with an alias of your choice: &quot;v:&quot; u_se&lt; &quot;Svg&quot;.
 An element is its SVG text; a picture is elements joined with c_at
@@ -63,7 +63,7 @@ Points are a 2-row matrix, x over y, as []P_ATH and Geometry3D's
 v:p_roject give them; y grows downward, as SVG's does. Attributes
 are text made by v:a_ttr, v:f_ill, v:s_troke and the transforms, so
 no program writes a quote mark or an angle bracket of its own.
-Names with l: are exported; the others are private to this file.</li>
+Names with l: are exported; names with h: are private to this file.</li>
 <li>library <a href="lib-Terminal.xtl.html">lib/Terminal.xtl</a></li>
 <li>library <a href="lib-TTTML.xtl.html">lib/TTTML.xtl</a></li>
 <li>library <a href="lib-Turtle.xtl.html">lib/Turtle.xtl</a></li>
@@ -127,7 +127,7 @@ knows comes from hooks (MC20), usable only in a macro body.</li>
 <tr><td><a href="lib-Combinators.xtl.html#l.V_ss"><span class="c-libfunc">ˡV̲ss</span></a></td><td>function</td><td><code>(a -&gt; b -&gt; c -&gt; d -&gt; e) -&gt; a -&gt; c -&gt; d -&gt; b -&gt; e</code></td></tr>
 <tr><td><a href="lib-Combinators.xtl.html#l.W_ss"><span class="c-libfunc">ˡW̲ss</span></a></td><td>function</td><td><code>(a -&gt; b -&gt; c -&gt; c -&gt; d) -&gt; a -&gt; b -&gt; c -&gt; d</code></td></tr>
 <tr><td><a href="lib-Combinators.xtl.html#l.Y_"><span class="c-libfunc">ˡY̲</span></a></td><td>function</td><td><code>(a -&gt; a) -&gt; a</code></td></tr>
-<tr><td><a href="lib-Geometry3D.xtl.html#r_adians"><span class="c-builtin">r̲adians</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#h.r_adians"><span class="c-libfunc">ʰr̲adians</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Geometry3D.xtl.html#l.r_otX"><span class="c-libfunc">ˡr̲otX</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Geometry3D.xtl.html#l.r_otY"><span class="c-libfunc">ˡr̲otY</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Geometry3D.xtl.html#l.r_otZ"><span class="c-libfunc">ˡr̲otZ</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
@@ -146,8 +146,8 @@ knows comes from hooks (MC20), usable only in a macro body.</li>
 <tr><td><a href="lib-Maybe.xtl.html#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a></td><td>function</td><td><code>(a -&gt; b) -&gt; ((c -&gt; d -&gt; c) -&gt; (a -&gt; e -&gt; (b -&gt; f) -&gt; f) -&gt; g) -&gt; g</code></td></tr>
 <tr><td><a href="lib-Maybe.xtl.html#l.b_ind"><span class="c-libfunc">ˡb̲ind</span></a></td><td>function</td><td><code>a -&gt; ((b -&gt; c -&gt; b) -&gt; a -&gt; d) -&gt; d</code></td></tr>
 <tr><td><a href="lib-Stats.xtl.html#l.m_ean"><span class="c-libfunc">ˡm̲ean</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
-<tr><td><a href="lib-Stats.xtl.html#s_quare"><span class="c-builtin">s̲quare</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
-<tr><td><a href="lib-Stats.xtl.html#d_eviations"><span class="c-builtin">d̲eviations</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Stats.xtl.html#h.s_quare"><span class="c-libfunc">ʰs̲quare</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-Stats.xtl.html#h.d_eviations"><span class="c-libfunc">ʰd̲eviations</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Stats.xtl.html#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Stats.xtl.html#l.s_d"><span class="c-libfunc">ˡs̲d</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Stats.xtl.html#l.r_ange"><span class="c-libfunc">ˡr̲ange</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
@@ -173,9 +173,9 @@ knows comes from hooks (MC20), usable only in a macro body.</li>
 <tr><td><a href="lib-Svg.xtl.html#l.g_radient"><span class="c-libfunc">ˡg̲radient</span></a></td><td>function</td><td><code>Char -&gt; Box Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Svg.xtl.html#l.p_icture"><span class="c-libfunc">ˡp̲icture</span></a></td><td>function</td><td><code>a -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Svg.xtl.html#l.p_ictureWith"><span class="c-libfunc">ˡp̲ictureWith</span></a></td><td>function</td><td><code>a -&gt; Box Char -&gt; Char</code></td></tr>
-<tr><td><a href="lib-Svg.xtl.html#e_sc"><span class="c-builtin">e̲sc</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
-<tr><td><a href="lib-Svg.xtl.html#j_oin"><span class="c-builtin">j̲oin</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
-<tr><td><a href="lib-Svg.xtl.html#p_airs"><span class="c-builtin">p̲airs</span></a></td><td>function</td><td><code>a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#h.e_sc"><span class="c-libfunc">ʰe̲sc</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#h.p_airs"><span class="c-libfunc">ʰp̲airs</span></a></td><td>function</td><td><code>a -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Terminal.xtl.html#l.BLACK">ˡBLACK</a></td><td>value</td><td><code>Color</code></td></tr>
 <tr><td><a href="lib-Terminal.xtl.html#l.RED">ˡRED</a></td><td>value</td><td><code>Color</code></td></tr>
 <tr><td><a href="lib-Terminal.xtl.html#l.GREEN">ˡGREEN</a></td><td>value</td><td><code>Color</code></td></tr>
@@ -205,28 +205,28 @@ knows comes from hooks (MC20), usable only in a macro body.</li>
 <tr><td><a href="lib-TTTML.xtl.html#l.v_alue"><span class="c-libfunc">ˡv̲alue</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-TTTML.xtl.html#l.a_fter"><span class="c-libfunc">ˡa̲fter</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; a -&gt; Int -&gt; a</code></td></tr>
 <tr><td><a href="lib-TTTML.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Float -&gt; a -&gt; Int</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#p_ick-21"><span class="c-builtin">p̲ick!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Float -&gt; a -&gt; Int</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#p_lay-21"><span class="c-builtin">p̲lay!</span></a></td><td>function</td><td><code>Float -&gt; Int -&gt; Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.p_ick-21"><span class="c-libfunc">ʰp̲ick!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Float -&gt; a -&gt; Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.p_lay-21"><span class="c-libfunc">ʰp̲lay!</span></a></td><td>function</td><td><code>Float -&gt; Int -&gt; Int</code></td></tr>
 <tr><td><a href="lib-TTTML.xtl.html#l.g_ame-21"><span class="c-libfunc">ˡg̲ame!</span></a></td><td>function</td><td><code>Float -&gt; Int</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#r_esult"><span class="c-builtin">r̲esult</span></a></td><td>function</td><td><code>Int -&gt; Int -&gt; Float</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#t_arget"><span class="c-builtin">t̲arget</span></a></td><td>function</td><td><code>Int -&gt; Float -&gt; Int -&gt; Float</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#b_ack"><span class="c-builtin">b̲ack</span></a></td><td>function</td><td><code>Int -&gt; Float -&gt; Int -&gt; Float</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#m_eet"><span class="c-builtin">m̲eet</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.r_esult"><span class="c-libfunc">ʰr̲esult</span></a></td><td>function</td><td><code>Int -&gt; Int -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.t_arget"><span class="c-libfunc">ʰt̲arget</span></a></td><td>function</td><td><code>Int -&gt; Float -&gt; Int -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.b_ack"><span class="c-libfunc">ʰb̲ack</span></a></td><td>function</td><td><code>Int -&gt; Float -&gt; Int -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.m_eet"><span class="c-libfunc">ʰm̲eet</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-TTTML.xtl.html#l.l_earn"><span class="c-libfunc">ˡl̲earn</span></a></td><td>function</td><td><code>Float -&gt; Int -&gt; Float</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#r_ound-21"><span class="c-builtin">r̲ound!</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#l_oop-21"><span class="c-builtin">l̲oop!</span></a></td><td>function</td><td><code>Int -&gt; Float -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.r_ound-21"><span class="c-libfunc">ʰr̲ound!</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.l_oop-21"><span class="c-libfunc">ʰl̲oop!</span></a></td><td>function</td><td><code>Int -&gt; Float -&gt; Float</code></td></tr>
 <tr><td><a href="lib-TTTML.xtl.html#l.t_rain-21"><span class="c-libfunc">ˡt̲rain!</span></a></td><td>function</td><td><code>Int -&gt; Float -&gt; Float</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#t_urn-21"><span class="c-builtin">t̲urn!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Float -&gt; a -&gt; a -&gt; Int</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#v_ersus-21"><span class="c-builtin">v̲ersus!</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; Int -&gt; Int -&gt; a</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#c_ount-21"><span class="c-builtin">c̲ount!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Float -&gt; Int -&gt; Int -&gt; a</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.t_urn-21"><span class="c-libfunc">ʰt̲urn!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Float -&gt; a -&gt; a -&gt; Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.v_ersus-21"><span class="c-libfunc">ʰv̲ersus!</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; Int -&gt; Int -&gt; a</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.c_ount-21"><span class="c-libfunc">ʰc̲ount!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Float -&gt; Int -&gt; Int -&gt; a</code></td></tr>
 <tr><td><a href="lib-TTTML.xtl.html#l.t_rial-21"><span class="c-libfunc">ˡt̲rial!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Int -&gt; Float -&gt; a</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#g_reedy"><span class="c-builtin">g̲reedy</span></a></td><td>function</td><td><code>Float -&gt; Int -&gt; Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.g_reedy"><span class="c-libfunc">ʰg̲reedy</span></a></td><td>function</td><td><code>Float -&gt; Int -&gt; Int</code></td></tr>
 <tr><td><a href="lib-TTTML.xtl.html#l.b_est"><span class="c-libfunc">ˡb̲est</span></a></td><td>function</td><td><code>Float -&gt; Int</code></td></tr>
 <tr><td><a href="lib-TTTML.xtl.html#l.b_oards"><span class="c-libfunc">ˡb̲oards</span></a></td><td>function</td><td><code>Int -&gt; Char</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#o_pening-21"><span class="c-builtin">o̲pening!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Unit -&gt; a</code></td></tr>
-<tr><td><a href="lib-TTTML.xtl.html#f_inal"><span class="c-builtin">f̲inal</span></a></td><td>function</td><td><code>Num a =&gt; Int -&gt; a</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.o_pening-21"><span class="c-libfunc">ʰo̲pening!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Unit -&gt; a</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.f_inal"><span class="c-libfunc">ʰf̲inal</span></a></td><td>function</td><td><code>Num a =&gt; Int -&gt; a</code></td></tr>
 <tr><td><a href="lib-TTTML.xtl.html#l.s_elfTrial-21"><span class="c-libfunc">ˡs̲elfTrial!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Int -&gt; Float -&gt; a</code></td></tr>
-<tr><td><a href="lib-Turtle.xtl.html#r_adians"><span class="c-builtin">r̲adians</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Turtle.xtl.html#h.r_adians"><span class="c-libfunc">ʰr̲adians</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Turtle.xtl.html#l.w_alk"><span class="c-libfunc">ˡw̲alk</span></a></td><td>function</td><td><code>(Num a, Num b) =&gt; a -&gt; b -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Turtle.xtl.html#l.p_oints"><span class="c-libfunc">ˡp̲oints</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Turtle.xtl.html#l.t_urn"><span class="c-libfunc">ˡt̲urn</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a -&gt; a</code></td></tr>

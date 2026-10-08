@@ -97,7 +97,7 @@ l:p_anel := { style f ->
   shape := ((v:f_ill fill) c_at "#30363d" v:s_troke 1.2) v:p_olygon f_loor 0.5 + s
   n_ot l:f_acing s ? shape
   on := l:a_ffine 1 2 4 s_elect_2 s
-  texts := j_oin '{ k -> k l:l_ine d_isclose k s_elect lines } m_ap r_ange t_ally lines
+  texts := h:j_oin '{ k -> k l:l_ine d_isclose k s_elect lines } m_ap r_ange t_ally lines
   shape c_at on v:g_roup texts
 }
 
@@ -155,7 +155,7 @@ l:l_ine := { k t ->
 l:p_ainting := { solid -> g:o_rder solid }
 
 # Boxed texts joined into one (none is the empty text).
-j_oin := { b ->
+h:j_oin := { b ->
   0 = t_ally b ? ""
   d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b
 }

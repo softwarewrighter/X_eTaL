@@ -198,7 +198,10 @@ impl Lower {
             Target::Func(f) if f.ns.is_none() => Err(err(
                 "bad-binding",
                 span,
-                format!("user functions are named with u: (write u:{})", f.spelled()),
+                format!(
+                    "a top-level function is the program's or a helper: write u:{0} (the program's) or h:{0} (a helper)",
+                    f.spelled()
+                ),
             )),
             Target::Func(_) => Err(err(
                 "bad-binding",

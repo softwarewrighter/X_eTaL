@@ -126,6 +126,8 @@ impl Loader<'_> {
         if let Some((own, private)) = &own {
             self.sources.written_as(index, own, letter);
             self.sources.written_as(index, private, "");
+            self.sources
+                .written_as(index, &format!("H{}", &private[1..]), "h");
             self.loaded.insert(file.key.clone(), (own.clone(), exports));
         }
         emit(&mut self.sources, index, text, &found, edits);

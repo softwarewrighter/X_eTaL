@@ -32,7 +32,7 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#r_adians"><span class="c-builtin">r̲adians</span></a></li>
+<li class="item"><a href="#h.r_adians"><span class="c-libfunc">ʰr̲adians</span></a></li>
 <li class="item"><a href="#l.r_otX"><span class="c-libfunc">ˡr̲otX</span></a></li>
 <li class="item"><a href="#l.r_otY"><span class="c-libfunc">ˡr̲otY</span></a></li>
 <li class="item"><a href="#l.r_otZ"><span class="c-libfunc">ˡr̲otZ</span></a></li>
@@ -58,13 +58,13 @@ Points are a 3-row matrix, x over y over z, one column per point, as
 points is one inner product. A face is a 3 x 4 matrix of corners,
 and a solid is faces stacked along a new first axis (F x 3 x 4), so
 one expression orders them far to near for painting.
-Names with l: are exported; the others are private to this file.</p>
+Names with l: are exported; names with h: are private to this file.</p>
 </div>
 <p class="meta"><a href="lib-Geometry3D.xtl.src.html">source</a></p>
-<div class="item" id="r_adians">
-<h3><a href="#r_adians"><span class="c-builtin">r̲adians</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
+<div class="item" id="h.r_adians">
+<h3><a href="#h.r_adians"><span class="c-libfunc">ʰr̲adians</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
 <div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Geometry3D.xtl.src.html#L10">line 10</a></div>
-<pre class="code"><span class="c-builtin">r̲adians</span> ← { (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#p_i" class="c-builtin">p̲i</a> @) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">180</span> }        <span class="c-comment">⍝</span><span class="c-comment"> private</span></pre>
+<pre class="code"><span class="c-libfunc">ʰr̲adians</span> ← { (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#p_i" class="c-builtin">p̲i</a> @) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">180</span> }         <span class="c-comment">⍝</span><span class="c-comment"> private</span></pre>
 <div class="uses">Used in: <a href="lib-Geometry3D.xtl.html#l.r_otX"><span class="c-libfunc">ˡr̲otX</span></a>, <a href="lib-Geometry3D.xtl.html#l.r_otY"><span class="c-libfunc">ˡr̲otY</span></a>, <a href="lib-Geometry3D.xtl.html#l.r_otZ"><span class="c-libfunc">ˡr̲otZ</span></a></div>
 </div>
 <div class="item" id="l.r_otX">
@@ -79,8 +79,8 @@ Names with l: are exported; the others are private to this file.</p>
 0 1  0</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡr̲otX</span> ← { d →
-  c ← <a href="builtins.html#c_os" class="c-builtin">c̲os</a> <a href="lib-Geometry3D.xtl.html#r_adians" class="c-builtin">r̲adians</a> d
-  s ← <a href="builtins.html#s_in" class="c-builtin">s̲in</a> <a href="lib-Geometry3D.xtl.html#r_adians" class="c-builtin">r̲adians</a> d
+  c ← <a href="builtins.html#c_os" class="c-builtin">c̲os</a> <a href="lib-Geometry3D.xtl.html#h.r_adians" class="c-libfunc">ʰr̲adians</a> d
+  s ← <a href="builtins.html#s_in" class="c-builtin">s̲in</a> <a href="lib-Geometry3D.xtl.html#h.r_adians" class="c-libfunc">ʰr̲adians</a> d
   <span class="c-number">3</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">1.0</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> c <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> s <a href="builtins.html#c_at" class="c-builtin">c̲at</a> c
 }</pre>
 </div>
@@ -96,8 +96,8 @@ Names with l: are exported; the others are private to this file.</p>
 -1 0 0</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡr̲otY</span> ← { d →
-  c ← <a href="builtins.html#c_os" class="c-builtin">c̲os</a> <a href="lib-Geometry3D.xtl.html#r_adians" class="c-builtin">r̲adians</a> d
-  s ← <a href="builtins.html#s_in" class="c-builtin">s̲in</a> <a href="lib-Geometry3D.xtl.html#r_adians" class="c-builtin">r̲adians</a> d
+  c ← <a href="builtins.html#c_os" class="c-builtin">c̲os</a> <a href="lib-Geometry3D.xtl.html#h.r_adians" class="c-libfunc">ʰr̲adians</a> d
+  s ← <a href="builtins.html#s_in" class="c-builtin">s̲in</a> <a href="lib-Geometry3D.xtl.html#h.r_adians" class="c-libfunc">ʰr̲adians</a> d
   <span class="c-number">3</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> c <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> s <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span> <span class="c-number">1.0</span> <span class="c-number">0.0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> c
 }</pre>
 </div>
@@ -113,8 +113,8 @@ Names with l: are exported; the others are private to this file.</p>
 0  0 1</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡr̲otZ</span> ← { d →
-  c ← <a href="builtins.html#c_os" class="c-builtin">c̲os</a> <a href="lib-Geometry3D.xtl.html#r_adians" class="c-builtin">r̲adians</a> d
-  s ← <a href="builtins.html#s_in" class="c-builtin">s̲in</a> <a href="lib-Geometry3D.xtl.html#r_adians" class="c-builtin">r̲adians</a> d
+  c ← <a href="builtins.html#c_os" class="c-builtin">c̲os</a> <a href="lib-Geometry3D.xtl.html#h.r_adians" class="c-libfunc">ʰr̲adians</a> d
+  s ← <a href="builtins.html#s_in" class="c-builtin">s̲in</a> <a href="lib-Geometry3D.xtl.html#h.r_adians" class="c-libfunc">ʰr̲adians</a> d
   <span class="c-number">3</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> c <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> s <a href="builtins.html#c_at" class="c-builtin">c̲at</a> c <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">1.0</span>
 }</pre>
 </div>

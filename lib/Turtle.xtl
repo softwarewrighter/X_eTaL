@@ -6,13 +6,13 @@
 # the turns, the steps are their cosines and sines, and the positions
 # are running sums of the steps. Draw the points with []P_ATH.
 
-r_adians := { (f_loat _r) * (p_i @) / 180 }   # private
+h:r_adians := { (f_loat _r) * (p_i @) / 180 }   # private
 
 # The points of a walk with steps of the given lengths, 2 rows (x over
 # y), starting at the origin: `lengths l:w_alk turns`; a single length
 # serves every step.
 l:w_alk := { lengths turns ->
-  h := r_adians '+ s_\ turns
+  h := h:r_adians '+ s_\ turns
   xs := 0 c_at '+ s_\ (f_loat lengths) * c_os h
   ys := 0 c_at '+ s_\ (f_loat lengths) * s_in h
   (2 c_at t_ally xs) r_eshape xs c_at ys

@@ -32,7 +32,7 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#r_adians"><span class="c-builtin">r̲adians</span></a></li>
+<li class="item"><a href="#h.r_adians"><span class="c-libfunc">ʰr̲adians</span></a></li>
 <li class="item"><a href="#l.w_alk"><span class="c-libfunc">ˡw̲alk</span></a></li>
 <li class="item"><a href="#l.p_oints"><span class="c-libfunc">ˡp̲oints</span></a></li>
 <li class="item"><a href="#l.t_urn"><span class="c-libfunc">ˡt̲urn</span></a></li>
@@ -44,17 +44,17 @@
 <section id="results"></section>
 <h1><span class="kind">library</span>lib/Turtle.xtl</h1>
 <p class="meta"><a href="lib-Turtle.xtl.src.html">source</a></p>
-<div class="item" id="r_adians">
-<h3><a href="#r_adians"><span class="c-builtin">r̲adians</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
+<div class="item" id="h.r_adians">
+<h3><a href="#h.r_adians"><span class="c-libfunc">ʰr̲adians</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
 <div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Turtle.xtl.src.html#L9">line 9</a></div>
-<pre class="code"><span class="c-builtin">r̲adians</span> ← { (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#p_i" class="c-builtin">p̲i</a> @) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">180</span> }        <span class="c-comment">⍝</span><span class="c-comment"> private</span></pre>
+<pre class="code"><span class="c-libfunc">ʰr̲adians</span> ← { (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#p_i" class="c-builtin">p̲i</a> @) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">180</span> }         <span class="c-comment">⍝</span><span class="c-comment"> private</span></pre>
 <div class="uses">Used in: <a href="lib-Turtle.xtl.html#l.w_alk"><span class="c-libfunc">ˡw̲alk</span></a></div>
 </div>
 <div class="item" id="l.w_alk">
 <h3><a href="#l.w_alk"><span class="c-libfunc">ˡw̲alk</span></a> <span class="type">: (Num a, Num b) =&gt; a -&gt; b -&gt; Float</span></h3>
 <div class="meta">function &middot; <a href="lib-Turtle.xtl.src.html#L14">line 14</a></div>
 <pre class="code"><span class="c-libfunc">ˡw̲alk</span> ← { lengths turns →
-  h ← <a href="lib-Turtle.xtl.html#r_adians" class="c-builtin">r̲adians</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> turns
+  h ← <a href="lib-Turtle.xtl.html#h.r_adians" class="c-libfunc">ʰr̲adians</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> turns
   xs ← <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> lengths) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#c_os" class="c-builtin">c̲os</a> h
   ys ← <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> lengths) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#s_in" class="c-builtin">s̲in</a> h
   (<span class="c-number">2</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> xs) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> xs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ys

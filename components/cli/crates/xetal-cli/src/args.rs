@@ -169,6 +169,8 @@ pub(crate) enum Command {
     Parse(Input),
     /// Print the canonical form.
     Fmt(Input),
+    /// Print a library with its bare top-level functions written h:.
+    Migrate(Input),
     /// Print the Core IR.
     Core(Input),
     /// Print the inferred type of each top-level item.
@@ -215,6 +217,7 @@ impl Command {
             Command::Doc(_) => "doc",
             Command::Parse(_) => "parse",
             Command::Fmt(_) => "fmt",
+            Command::Migrate(_) => "migrate",
             Command::Core(_) => "core",
             Command::Type(_) => "type",
             Command::Eval(_) => "eval",
@@ -231,6 +234,7 @@ impl Command {
             | Command::Expand(i)
             | Command::Parse(i)
             | Command::Fmt(i)
+            | Command::Migrate(i)
             | Command::Core(i)
             | Command::Type(i)
             | Command::Diagram(i)

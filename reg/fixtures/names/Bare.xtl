@@ -1,0 +1,7 @@
+# A library with bare private functions (deprecated, PN2): xetal migrate
+# writes them as h:, and a lambda's own d_ouble stays as it is.
+d_ouble := { 2 * _r }
+limit := 8
+l:q_uad := { d_ouble d_ouble _r }
+l:l_ocal := { x -> d_ouble := { 3 * _r }; d_ouble x }
+l:c_apped := { limit m_in d_ouble _r }

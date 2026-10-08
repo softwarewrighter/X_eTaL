@@ -27,5 +27,6 @@ xetal-program = { path = "crates/xetal-program" }
 proptest = "1"
 xetal-core = { path = "../core/crates/xetal-core" }
 xetal-types = { path = "../types/crates/xetal-types" }
+xetal-lint = { path = "../core/crates/xetal-lint" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
 xetal-system = { path = "../system/crates/xetal-system" }

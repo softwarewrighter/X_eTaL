@@ -55,9 +55,9 @@
 <li class="item"><a href="#l.p_icture"><span class="c-libfunc">ˡp̲icture</span></a></li>
 <li class="item"><a href="#l.p_ictureWith"><span class="c-libfunc">ˡp̲ictureWith</span></a></li>
 <li><a href="#section-1">Private helpers</a></li>
-<li class="item"><a href="#e_sc"><span class="c-builtin">e̲sc</span></a></li>
-<li class="item"><a href="#j_oin"><span class="c-builtin">j̲oin</span></a></li>
-<li class="item"><a href="#p_airs"><span class="c-builtin">p̲airs</span></a></li>
+<li class="item"><a href="#h.e_sc"><span class="c-libfunc">ʰe̲sc</span></a></li>
+<li class="item"><a href="#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a></li>
+<li class="item"><a href="#h.p_airs"><span class="c-libfunc">ʰp̲airs</span></a></li>
 </ul>
 </nav>
 <main>
@@ -73,7 +73,7 @@ Points are a 2-row matrix, x over y, as []P_ATH and Geometry3D's
 v:p_roject give them; y grows downward, as SVG's does. Attributes
 are text made by v:a_ttr, v:f_ill, v:s_troke and the transforms, so
 no program writes a quote mark or an angle bracket of its own.
-Names with l: are exported; the others are private to this file.</p>
+Names with l: are exported; names with h: are private to this file.</p>
 </div>
 <p class="meta"><a href="lib-Svg.xtl.src.html">source</a></p>
 <div class="item" id="l.a_ttr">
@@ -107,7 +107,7 @@ ui-monospace, monospace</pre>
 </div>
 <pre class="code"><span class="c-libfunc">ˡe̲scape</span> ← { t →
   <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> t <a href="builtins.html#m_ember-3f" class="c-builtin">m̲ember?</a> <span class="c-string">&quot;&amp;&lt;&gt;\&quot;&quot;</span> ? t
-  <a href="lib-Svg.xtl.html#j_oin" class="c-builtin">j̲oin</a> <span class="c-builtin">'</span><a href="lib-Svg.xtl.html#e_sc" class="c-builtin">e̲sc</a> <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> t
+  <a href="lib-Svg.xtl.html#h.j_oin" class="c-libfunc">ʰj̲oin</a> <span class="c-libfunc">'</span><a href="lib-Svg.xtl.html#h.e_sc" class="c-libfunc">ʰe̲sc</a> <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> t
 }</pre>
 <div class="uses">Used in: <a href="lib-Svg.xtl.html#l.a_ttr"><span class="c-libfunc">ˡa̲ttr</span></a>, <a href="lib-Svg.xtl.html#l.t_ext"><span class="c-libfunc">ˡt̲ext</span></a>, <a href="lib-Svg.xtl.html#l.s_pan"><span class="c-libfunc">ˡs̲pan</span></a></div>
 </div>
@@ -128,7 +128,7 @@ ui-monospace, monospace</pre>
 <div class="meta">function &middot; <a href="lib-Svg.xtl.src.html#L45">line 45</a></div>
 <div class="doc">
 <p>A color from red, green and blue levels 0 to 255: <code><a href="lib-Svg.xtl.html#l.r_gb" class="c-libfunc">ᵛr̲gb</a> <span class="c-number">40</span> <span class="c-number">80</span> <span class="c-number">120</span></code>
-is <code>rgb(<span class="c-number">40</span><span class="c-error">,</span><span class="c-number">80</span><span class="c-error">,</span><span class="c-number">120</span>)</code>; a level is rounded and kept in range.</p>
+is <code>rgb(<span class="c-number">40</span>,<span class="c-number">80</span>,<span class="c-number">120</span>)</code>; a level is rounded and kept in range.</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵛ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Svg.xtl.html" class="c-string">&quot;Svg&quot;</a></pre>
 <pre class="example"><span class="prompt">      </span><a href="lib-Svg.xtl.html#l.r_gb" class="c-libfunc">ᵛr̲gb</a> <span class="c-number">40</span> <span class="c-number">80.4</span> <span class="c-number">300</span>
 rgb(40,80,255)</pre>
@@ -159,7 +159,7 @@ given attributes: <code>attrs <a href="lib-Svg.xtl.html#l.p_olygon" class="c-lib
 <pre class="example"><span class="prompt">      </span>(<a href="lib-Svg.xtl.html#l.f_ill" class="c-libfunc">ᵛf̲ill</a> <span class="c-string">&quot;#ccc&quot;</span>) <a href="lib-Svg.xtl.html#l.p_olygon" class="c-libfunc">ᵛp̲olygon</a> <span class="c-number">2</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> <span class="c-number">10</span> <span class="c-number">20</span> <span class="c-number">0</span> <span class="c-number">10</span> <span class="c-number">0</span>
 &lt;polygon points=&quot;0,0 10,10 20,0&quot; fill=&quot;#ccc&quot;/&gt;</pre>
 </div>
-<pre class="code"><span class="c-libfunc">ˡp̲olygon</span> ← { attrs points → <span class="c-string">&quot;&lt;polygon points=\&quot;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="lib-Svg.xtl.html#p_airs" class="c-builtin">p̲airs</a> points) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\&quot;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> attrs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;/&gt;&quot;</span> }</pre>
+<pre class="code"><span class="c-libfunc">ˡp̲olygon</span> ← { attrs points → <span class="c-string">&quot;&lt;polygon points=\&quot;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="lib-Svg.xtl.html#h.p_airs" class="c-libfunc">ʰp̲airs</a> points) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\&quot;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> attrs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;/&gt;&quot;</span> }</pre>
 <div class="uses">Used in: <a href="lib-Svg.xtl.html#l.c_lip"><span class="c-libfunc">ˡc̲lip</span></a></div>
 </div>
 <div class="item" id="l.p_olyline">
@@ -171,7 +171,7 @@ given attributes: <code>attrs <a href="lib-Svg.xtl.html#l.p_olygon" class="c-lib
 <pre class="example"><span class="prompt">      </span>((<a href="lib-Svg.xtl.html#l.f_ill" class="c-libfunc">ᵛf̲ill</a> <span class="c-string">&quot;none&quot;</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;#000&quot;</span> <a href="lib-Svg.xtl.html#l.s_troke" class="c-libfunc">ᵛs̲troke</a> <span class="c-number">1</span>) <a href="lib-Svg.xtl.html#l.p_olyline" class="c-libfunc">ᵛp̲olyline</a> <span class="c-number">2</span> <span class="c-number">2</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> <span class="c-number">10</span> <span class="c-number">0</span> <span class="c-number">10</span>
 &lt;polyline points=&quot;0,0 10,10&quot; fill=&quot;none&quot; stroke=&quot;#000&quot; stroke-width=&quot;1&quot; stroke-linejoin=&quot;round&quot;/&gt;</pre>
 </div>
-<pre class="code"><span class="c-libfunc">ˡp̲olyline</span> ← { attrs points → <span class="c-string">&quot;&lt;polyline points=\&quot;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="lib-Svg.xtl.html#p_airs" class="c-builtin">p̲airs</a> points) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\&quot;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> attrs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;/&gt;&quot;</span> }</pre>
+<pre class="code"><span class="c-libfunc">ˡp̲olyline</span> ← { attrs points → <span class="c-string">&quot;&lt;polyline points=\&quot;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="lib-Svg.xtl.html#h.p_airs" class="c-libfunc">ʰp̲airs</a> points) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\&quot;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> attrs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;/&gt;&quot;</span> }</pre>
 </div>
 <div class="item" id="l.a_t">
 <h3><a href="#l.a_t"><span class="c-libfunc">ˡa̲t</span></a> <span class="type">: a -&gt; Char</span></h3>
@@ -371,25 +371,25 @@ elements</code>.</p>
 <pre class="code"><span class="c-libfunc">ˡp̲ictureWith</span> ← { wh parts → wh <a href="lib-Svg.xtl.html#l.p_icture" class="c-libfunc">ˡp̲icture</a> <span class="c-string">&quot;&lt;defs&gt;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> parts) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;&lt;/defs&gt;&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> parts }</pre>
 </div>
 <h2 class="section" id="section-1">Private helpers</h2>
-<div class="item" id="e_sc">
-<h3><a href="#e_sc"><span class="c-builtin">e̲sc</span></a> <span class="type">: Char -&gt; Char</span></h3>
+<div class="item" id="h.e_sc">
+<h3><a href="#h.e_sc"><span class="c-libfunc">ʰe̲sc</span></a> <span class="type">: Char -&gt; Char</span></h3>
 <div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Svg.xtl.src.html#L192">line 192</a></div>
-<pre class="code"><span class="c-builtin">e̲sc</span> ← { c → c <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;&amp;&quot;</span> ? <span class="c-string">&quot;&amp;amp;&quot;</span>◆ c <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;&lt;&quot;</span> ? <span class="c-string">&quot;&amp;lt;&quot;</span>◆ c <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;&gt;&quot;</span> ? <span class="c-string">&quot;&amp;gt;&quot;</span>◆ c <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;\&quot;&quot;</span> ? <span class="c-string">&quot;&amp;quot;&quot;</span>◆ c }</pre>
+<pre class="code"><span class="c-libfunc">ʰe̲sc</span> ← { c → c <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;&amp;&quot;</span> ? <span class="c-string">&quot;&amp;amp;&quot;</span>◆ c <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;&lt;&quot;</span> ? <span class="c-string">&quot;&amp;lt;&quot;</span>◆ c <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;&gt;&quot;</span> ? <span class="c-string">&quot;&amp;gt;&quot;</span>◆ c <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;\&quot;&quot;</span> ? <span class="c-string">&quot;&amp;quot;&quot;</span>◆ c }</pre>
 <div class="uses">Used in: <a href="lib-Svg.xtl.html#l.e_scape"><span class="c-libfunc">ˡe̲scape</span></a></div>
 </div>
-<div class="item" id="j_oin">
-<h3><a href="#j_oin"><span class="c-builtin">j̲oin</span></a> <span class="type">: Box Char -&gt; Char</span></h3>
+<div class="item" id="h.j_oin">
+<h3><a href="#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a> <span class="type">: Box Char -&gt; Char</span></h3>
 <div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Svg.xtl.src.html#L195">line 195</a></div>
-<pre class="code"><span class="c-builtin">j̲oin</span> ← { b →
+<pre class="code"><span class="c-libfunc">ʰj̲oin</span> ← { b →
   <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> b ? <span class="c-string">&quot;&quot;</span>
   <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ x y → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> x) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> y } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> b
 }</pre>
 <div class="uses">Used in: <a href="lib-Svg.xtl.html#l.e_scape"><span class="c-libfunc">ˡe̲scape</span></a></div>
 </div>
-<div class="item" id="p_airs">
-<h3><a href="#p_airs"><span class="c-builtin">p̲airs</span></a> <span class="type">: a -&gt; Char</span></h3>
+<div class="item" id="h.p_airs">
+<h3><a href="#h.p_airs"><span class="c-libfunc">ʰp̲airs</span></a> <span class="type">: a -&gt; Char</span></h3>
 <div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Svg.xtl.src.html#L201">line 201</a></div>
-<pre class="code"><span class="c-builtin">p̲airs</span> ← { points →
+<pre class="code"><span class="c-libfunc">ʰp̲airs</span> ← { points →
   xs ← <span class="c-builtin">'</span><a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> points
   ys ← <span class="c-builtin">'</span><a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> points
   ps ← xs <span class="c-quote">'</span>{ x y → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> x) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;,&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> y } <a href="builtins.html#e_ach" class="c-builtin">e̲ach</a> ys

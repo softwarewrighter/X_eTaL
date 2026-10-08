@@ -53,7 +53,7 @@ A small statistics library. Its whole source:
 <span class="c-comment">⍝# It is a demo library, loaded only by that import: a small subset of</span>
 <span class="c-comment">⍝# X_eTaL-libraries' Statistics, which has much more (a program may use</span>
 <span class="c-comment">⍝# either).</span>
-<span class="c-comment">⍝# Names with l: are exported; the others are private to this file.</span>
+<span class="c-comment">⍝# Names with l: are exported; names with h: are private to this file.</span>
 
 <span class="c-comment">⍝# The arithmetic mean, of Int or Float numbers.</span>
 <span class="c-comment">⍝# &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
@@ -61,14 +61,14 @@ A small statistics library. Its whole source:
 <span class="c-comment">⍝# 5.0</span>
 <span class="c-libfunc">ˡm̲ean</span> ← [[<span class="c-builtin">f̲loat</span> <span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span>] <span class="c-symbol">÷</span> [<span class="c-builtin">f̲loat</span> <span class="c-builtin">t̲ally</span>]]
 
-<span class="c-builtin">s̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍵</span> }                      <span class="c-comment">⍝ private: not visible outside</span>
-<span class="c-builtin">d̲eviations</span> ← [<span class="c-builtin">f̲loat</span> <span class="c-symbol">−</span> <span class="c-libfunc">ˡm̲ean</span>]
+<span class="c-libfunc">ʰs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍵</span> }                       <span class="c-comment">⍝ private: not visible outside</span>
+<span class="c-libfunc">ʰd̲eviations</span> ← [<span class="c-builtin">f̲loat</span> <span class="c-symbol">−</span> <span class="c-libfunc">ˡm̲ean</span>]
 
 <span class="c-comment">⍝# The variance: the mean squared deviation from the mean.</span>
 <span class="c-comment">⍝# &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
 <span class="c-comment">⍝# &gt;&gt; s:v_ariance 2 4 4 4 5 5 7 9</span>
 <span class="c-comment">⍝# 4.0</span>
-<span class="c-libfunc">ˡv̲ariance</span> ← [<span class="c-libfunc">ˡm̲ean</span> [<span class="c-builtin">s̲quare</span> <span class="c-builtin">d̲eviations</span>]]
+<span class="c-libfunc">ˡv̲ariance</span> ← [<span class="c-libfunc">ˡm̲ean</span> [<span class="c-libfunc">ʰs̲quare</span> <span class="c-libfunc">ʰd̲eviations</span>]]
 
 <span class="c-comment">⍝# The standard deviation: the square root of the variance.</span>
 <span class="c-comment">⍝# &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
@@ -84,9 +84,9 @@ A small statistics library. Its whole source:
 
 <span class="c-comment typed">⍝ typed:</span>
 <span class="c-comment typed">⍝   l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]</span>
-<span class="c-comment typed">⍝   s_quare := { _r * _r }                  # private: not visible outside</span>
-<span class="c-comment typed">⍝   d_eviations := [f_loat - l:m_ean]</span>
-<span class="c-comment typed">⍝   l:v_ariance := [l:m_ean [s_quare d_eviations]]</span>
+<span class="c-comment typed">⍝   h:s_quare := { _r * _r }                  # private: not visible outside</span>
+<span class="c-comment typed">⍝   h:d_eviations := [f_loat - l:m_ean]</span>
+<span class="c-comment typed">⍝   l:v_ariance := [l:m_ean [h:s_quare h:d_eviations]]</span>
 <span class="c-comment typed">⍝   l:s_d := { (l:v_ariance _r) ^ 0.5 }</span>
 <span class="c-comment typed">⍝   l:r_ange := ['m_ax r_/ - 'm_in r_/]</span></pre>
 </div>
@@ -238,13 +238,13 @@ two rows (x over y) that <code>[]P_ATH</code> draws. Its whole source:
 <span class="c-comment">⍝ the turns, the steps are their cosines and sines, and the positions</span>
 <span class="c-comment">⍝ are running sums of the steps. Draw the points with []P_ATH.</span>
 
-<span class="c-builtin">r̲adians</span> ← { (<span class="c-builtin">f̲loat</span> <span class="c-lambdaarg">⍵</span>) <span class="c-symbol">×</span> (<span class="c-builtin">p̲i</span> @) <span class="c-symbol">÷</span> <span class="c-number">180</span> }        <span class="c-comment">⍝ private</span>
+<span class="c-libfunc">ʰr̲adians</span> ← { (<span class="c-builtin">f̲loat</span> <span class="c-lambdaarg">⍵</span>) <span class="c-symbol">×</span> (<span class="c-builtin">p̲i</span> @) <span class="c-symbol">÷</span> <span class="c-number">180</span> }         <span class="c-comment">⍝ private</span>
 
 <span class="c-comment">⍝ The points of a walk with steps of the given lengths, 2 rows (x over</span>
 <span class="c-comment">⍝ y), starting at the origin: </span>lengths <span class="c-libfunc">ˡw̲alk</span> turns<span class="c-comment">; a single length</span>
 <span class="c-comment">⍝ serves every step.</span>
 <span class="c-libfunc">ˡw̲alk</span> ← { lengths turns →
-  h ← <span class="c-builtin">r̲adians</span> <span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> turns
+  h ← <span class="c-libfunc">ʰr̲adians</span> <span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> turns
   xs ← <span class="c-number">0</span> <span class="c-builtin">c̲at</span> <span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> (<span class="c-builtin">f̲loat</span> lengths) <span class="c-symbol">×</span> <span class="c-builtin">c̲os</span> h
   ys ← <span class="c-number">0</span> <span class="c-builtin">c̲at</span> <span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> (<span class="c-builtin">f̲loat</span> lengths) <span class="c-symbol">×</span> <span class="c-builtin">s̲in</span> h
   (<span class="c-number">2</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">t̲ally</span> xs) <span class="c-builtin">r̲eshape</span> xs <span class="c-builtin">c̲at</span> ys
@@ -261,9 +261,9 @@ two rows (x over y) that <code>[]P_ATH</code> draws. Its whole source:
 <span class="c-libfunc">ˡp̲olygon</span> ← { n → n <span class="c-builtin">r̲eshape</span> <span class="c-number">360</span> <span class="c-symbol">÷</span> n }
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   r_adians := { (f_loat _r) * (p_i @) / 180 }   # private</span>
+<span class="c-comment typed">⍝   h:r_adians := { (f_loat _r) * (p_i @) / 180 }   # private</span>
 <span class="c-comment typed">⍝   l:w_alk := { lengths turns -&gt;</span>
-<span class="c-comment typed">⍝     h := r_adians '+ s_\ turns</span>
+<span class="c-comment typed">⍝     h := h:r_adians '+ s_\ turns</span>
 <span class="c-comment typed">⍝     xs := 0 c_at '+ s_\ (f_loat lengths) * c_os h</span>
 <span class="c-comment typed">⍝     ys := 0 c_at '+ s_\ (f_loat lengths) * s_in h</span>
 <span class="c-comment typed">⍝     (2 c_at t_ally xs) r_eshape xs c_at ys</span>
