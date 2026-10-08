@@ -35,7 +35,15 @@ fn values() {
 fn tuples_print_as_written_and_reparse() {
     assert_eq!(fmt("( 1 ,2.5 )"), "(1, 2.5)");
     assert_eq!(fmt("(1 2 3, a + b, (4, 5))"), "(1 2 3, (a + b), (4, 5))");
-    for src in ["(1, 2.5)", "(1 2 3, a + b, (4, 5))", "{ (_r, _r * 2) } 3"] {
+    assert_eq!(fmt("( a,( b,_ ) ) := s"), "(a, (b, _)) := s");
+    assert_eq!(fmt("{ (a,b) k -> a }"), "{ (a, b) k -> a }");
+    for src in [
+        "(1, 2.5)",
+        "(1 2 3, a + b, (4, 5))",
+        "{ (_r, _r * 2) } 3",
+        "(a, (b, _)) := s",
+        "u:f_ := { (a, b) k -> a * k }",
+    ] {
         let formatted = fmt(src);
         assert_eq!(fmt(&formatted), formatted, "{src}");
     }

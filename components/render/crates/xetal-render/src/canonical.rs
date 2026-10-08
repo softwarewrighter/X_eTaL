@@ -4,7 +4,7 @@
 
 use xetal_base::Diagnostic;
 use xetal_lex::{FuncName, Number, Side, Var};
-use xetal_syntax::{Expr, ExprKind, Fun, FunKind, Lambda, Params, Stmt, Target, parse};
+use xetal_syntax::{Expr, ExprKind, Fun, FunKind, Lambda, Params, Stmt, parse};
 
 /// Format lexable, parsable source canonically.
 pub fn canonical(src: &str) -> Result<String, Diagnostic> {
@@ -16,11 +16,11 @@ pub fn canonical(src: &str) -> Result<String, Diagnostic> {
 fn stmt(s: &Stmt) -> String {
     match s {
         Stmt::Bind { target, value, .. } => {
-            let name = match target {
-                Target::Var(v) => var_text(v),
-                Target::Func(f) => func_text(f),
-            };
-            format!("{name} := {}", expr(value, true))
+            format!(
+                "{} := {}",
+                crate::lambda::target_text(target),
+                expr(value, true)
+            )
         }
         Stmt::Guard { cond, result, .. } => {
             format!("{} ? {}", expr(cond, true), expr(result, true))
@@ -100,11 +100,10 @@ fn lambda(l: &Lambda) -> String {
             let names: Vec<String> = ps
                 .iter()
                 .map(|p| {
-                    let name = match &p.name {
-                        None => "@".to_string(),
-                        Some(Target::Var(v)) => var_text(v),
-                        Some(Target::Func(f)) => func_text(f),
-                    };
+                    let name = p
+                        .name
+                        .as_ref()
+                        .map_or("@".to_string(), crate::lambda::target_text);
                     format!("{}{name}", if p.lazy { "~" } else { "" })
                 })
                 .collect();
@@ -115,7 +114,7 @@ fn lambda(l: &Lambda) -> String {
     format!("{{ {params}{} }}", body.join("; "))
 }
 
-fn func_text(n: &FuncName) -> String {
+pub(crate) fn func_text(n: &FuncName) -> String {
     let ns = xetal_lex::ns_text(&n.ns);
     let axes: String = n.axes.iter().map(u8::to_string).collect();
     let sub = if axes.is_empty() {
@@ -126,7 +125,7 @@ fn func_text(n: &FuncName) -> String {
     format!("{ns}{}{sub}", n.spelled())
 }
 
-fn var_text(v: &Var) -> String {
+pub(crate) fn var_text(v: &Var) -> String {
     let ns = xetal_lex::ns_text(&v.ns);
     format!("{ns}{}{}", v.name, if v.mutable { "!" } else { "" })
 }

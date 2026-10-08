@@ -21,7 +21,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Built-in functions | 125 | 0 | 0 |
 | Language decisions | 152 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 409 | 0 | 8 |
+| Spec cases | 426 | 0 | 1 |
 
 ## Planned (decided, not yet implemented)
 
@@ -29,13 +29,6 @@ conventions (naming, layout) work without a spec case citing them.
 - **S11** (planned): Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents.
 - **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
 - spec case `tuples/boxed.case` (pending)
-- spec case `tuples/pattern-binding.case` (pending)
-- spec case `tuples/pattern-dyadic.case` (pending)
-- spec case `tuples/pattern-nested.case` (pending)
-- spec case `tuples/pattern-parameter.case` (pending)
-- spec case `tuples/pattern-wildcard.case` (pending)
-- spec case `tuples/power-state.case` (pending)
-- spec case `tuples/reject-pattern-size.case` (pending)
 
 ## Built-in functions
 
@@ -43,9 +36,9 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 80 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 82 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 46 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 47 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
@@ -325,15 +318,15 @@ conventions (naming, layout) work without a spec case citing them.
 | RS4 | The Rosetta stone is an X_eTaL program whose host is Rust: the state machine, projection and SVG scene are (...) | works | 0 |
 | TU1 | A tuple is written in parentheses with commas: `(w, m, v, k)` | works | 5 |
 | TU2 | A tuple's type is written and printed as the literal is: `(Float, Float, Float, Int)` | works | 3 |
-| TU3 | A tuple is taken apart by a pattern only: in a binding at the top level or in a lambda, `(w, m, v, k) := (...) | works | 4 |
-| TU4 | In a pattern, `_` binds nothing and may repeat: `(w, _, _, k) := s` | works | 2 |
-| TU5 | A tuple used where an array is expected, an array where a tuple is expected, or a pattern of the wrong (...) | works | 4 |
+| TU3 | A tuple is taken apart by a pattern only: in a binding at the top level or in a lambda, `(w, m, v, k) := (...) | works | 9 |
+| TU4 | In a pattern, `_` binds nothing and may repeat: `(w, _, _, k) := s` | works | 3 |
+| TU5 | A tuple used where an array is expected, an array where a tuple is expected, or a pattern of the wrong (...) | works | 5 |
 | TU6 | A tuple prints on one line, `(1 2 3, 4.5, 7)`, when every part prints on one line; when a part prints on (...) | works | 4 |
 | TU7 | `m_atch` compares two tuples part by part and answers one truth | works | 4 |
 | TU8 | A tuple is not an array item in v1, but it can be boxed: `e_nclose (1, 2.5)` is a `Box (Int, Float)`, (...) | works | 2 |
 | TU9 | The higher-order built-ins are unchanged: their types are polymorphic, so `p_ower` repeats a step on a (...) | works | 5 |
-| TU10 | A tuple is a Core form of its own, and a pattern desugars to bindings of projections in Core, so the (...) | works | 0 |
-| TU11 | Every name a pattern binds is a binder for macro hygiene (MC30) and for the shadowing warning (L7) | works | 0 |
+| TU10 | A tuple is a Core form of its own, and a pattern desugars to bindings of projections in Core, so the (...) | works | 2 |
+| TU11 | Every name a pattern binds is a binder for macro hygiene (MC30) and for the shadowing warning (L7) | works | 1 |
 | TU12 | The record field syntax of Saga 29 is kept free: a name followed by `:` and a space inside parentheses (...) | works | 1 |
 | I1 | Source is ASCII, except inside string literals and comments, which may hold any Unicode (revised with the (...) | works | 2 |
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example (...) | works | 2 |

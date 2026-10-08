@@ -36,6 +36,9 @@ pub enum TokenKind {
     /// `,`: separates the parts of a tuple, directly inside parentheses
     /// (TU1).
     Comma,
+    /// `_` standing alone: the wildcard of a tuple pattern (TU4), an
+    /// error anywhere else.
+    Wild,
     Newline,
     LParen,
     RParen,
@@ -190,6 +193,7 @@ impl fmt::Display for TokenKind {
             TokenKind::Unit => "Unit",
             TokenKind::Semi => "Semi",
             TokenKind::Comma => "Comma",
+            TokenKind::Wild => "Wild",
             TokenKind::Newline => "Newline",
             TokenKind::LParen => "LParen",
             TokenKind::RParen => "RParen",

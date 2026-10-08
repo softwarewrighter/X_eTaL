@@ -84,6 +84,12 @@ impl Parser {
             } => FunKind::Arg(side),
             TokenKind::LBrace => return self.lambda(token.span),
             TokenKind::LBracket => return self.train(token.span),
+            // `_` alone means something only in a tuple pattern (TU4).
+            TokenKind::Wild => {
+                let message =
+                    "lambda arguments are `_l` and `_r` (and `_l_` / `_r_` to apply them)";
+                return Err(err("bad-lambda-arg", token.span, message));
+            }
             other => {
                 let message = match other {
                     TokenKind::Assign => {

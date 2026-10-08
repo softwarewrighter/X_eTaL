@@ -46,6 +46,13 @@ pub enum Kind {
     Array(Vec<Expr>),
     /// A tuple of two or more parts (TU1, TU10); not an array.
     Tuple(Vec<Expr>),
+    /// Part `index` (from 0) of a tuple of `size` parts: what a tuple
+    /// pattern desugars to (TU3, TU10).
+    Proj {
+        index: usize,
+        size: usize,
+        tuple: Box<Expr>,
+    },
     /// A local or top-level variable (lexical).
     Var(String),
     /// A namespace-qualified name (`u:s_quare`, `m:pi`).

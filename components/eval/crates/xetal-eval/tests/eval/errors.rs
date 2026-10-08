@@ -61,6 +61,15 @@ fn shadowing_a_builtin_warns() {
         ["shadows-builtin"]
     );
     assert!(warnings("u:f_ := { f_ x -> f_ x }; 1").is_empty());
+    // A name a tuple pattern binds is a binder like any other (TU11).
+    assert_eq!(
+        warnings("u:f_ := { (r_ev, x) -> r_ev x }; 1"),
+        ["shadows-builtin"]
+    );
+    assert_eq!(
+        warnings("u:g_ := { s -> (r_ev, x) := s; r_ev x }; 1"),
+        ["shadows-builtin"]
+    );
 }
 
 #[test]

@@ -57,7 +57,7 @@ fn scoped(
 fn children(e: &Expr) -> Vec<&Expr> {
     match &e.kind {
         Kind::Array(items) | Kind::Tuple(items) => items.iter().collect(),
-        Kind::Axes { f, .. } => vec![f],
+        Kind::Axes { f, .. } | Kind::Proj { tuple: f, .. } => vec![f],
         Kind::App(f, x) => vec![f, x],
         Kind::App2 { f, left, right } => vec![f, left, right],
         Kind::Set { value, body, .. } => vec![value, body],

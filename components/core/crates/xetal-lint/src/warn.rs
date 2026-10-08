@@ -65,7 +65,7 @@ fn walk(e: &Expr, out: &mut Vec<Diagnostic>) {
             walk(body, out);
         }
         Kind::Array(items) | Kind::Tuple(items) => items.iter().for_each(|x| walk(x, out)),
-        Kind::Axes { f, .. } => walk(f, out),
+        Kind::Axes { f, .. } | Kind::Proj { tuple: f, .. } => walk(f, out),
         Kind::App(f, x) => {
             walk(f, out);
             walk(x, out);

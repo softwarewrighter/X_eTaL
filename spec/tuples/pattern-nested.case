@@ -4,5 +4,3 @@
 a + b + c
 == RESULT
 6
-== STATUS
-pending

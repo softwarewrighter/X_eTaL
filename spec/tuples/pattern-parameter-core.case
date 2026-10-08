@@ -1,0 +1,6 @@
+# TU10, rule 8: a pattern parameter is a fresh parameter whose parts
+# the body binds first.
+== SOURCE
+u:f_ := { (a, b) k -> a + k }
+== CORE
+(def u:f_ (lam %p10 (lam k (let %1 %p10 (let a (part 0 2 %1) (let b (part 1 2 %1) (app2 #+ a k)))))))

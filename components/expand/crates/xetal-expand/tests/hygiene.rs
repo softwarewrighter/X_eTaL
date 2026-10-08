@@ -16,6 +16,8 @@ impl Macros for Binding {
         Ok(match call.name {
             "t_wice<" => format!("{{ @ -> t := 2; t * ({r}) }} @"),
             "w_ith<" => format!("{{ @ -> it := 7; {r} }} @"),
+            "p_air<" => format!("{{ @ -> (a, _) := (2, 3); a * ({r}) }} @"),
+            "s_plit<" => format!("{{ (a, b) -> a + b + ({r}) }} (1, 2)"),
             _ => format!("{{ v -> v }} ({r})"),
         })
     }
@@ -37,6 +39,19 @@ fn a_binder_around_the_calls_text_is_renamed_in_order() {
     assert_eq!(
         text("@ x:t_wice< \"t + 1\"\n@ x:t_wice< \"t - 1\""),
         "{ @ -> g1:t := 2; g1:t * (t + 1) } @\n{ @ -> g2:t := 2; g2:t * (t - 1) } @"
+    );
+}
+
+#[test]
+fn a_tuple_patterns_names_are_binders_too() {
+    // TU11: a pattern in a local binding and in a parameter list.
+    assert_eq!(
+        text("@ x:p_air< \"a + 1\""),
+        "{ @ -> (g1:a, _) := (2, 3); g1:a * (a + 1) } @"
+    );
+    assert_eq!(
+        text("@ x:s_plit< \"a * b\""),
+        "{ (g1:a, g2:b) -> g1:a + g2:b + (a * b) } (1, 2)"
     );
 }
 

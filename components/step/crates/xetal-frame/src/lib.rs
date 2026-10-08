@@ -58,6 +58,8 @@ pub enum Kont<'a> {
         done: Vec<Value<'a>>,
         env: Env<'a>,
     },
+    /// A tuple's value, for its part `index` (a pattern, TU10).
+    Part { index: usize, span: Span },
     /// The function under an axis subscript.
     Axes {
         axes: &'a [u8],

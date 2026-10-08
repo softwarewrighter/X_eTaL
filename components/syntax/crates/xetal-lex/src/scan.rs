@@ -84,9 +84,16 @@ fn punct(byte: u8) -> Option<TokenKind> {
 fn lambda_arg(cur: &mut Cursor, after_paren: bool) -> Result<TokenKind, LexError> {
     let start = cur.pos;
     let next = cur.peek_at(1);
-    if after_paren && !next.is_some_and(|b| b.is_ascii_alphanumeric() || b == b'_' || b == b'@') {
+    let alone = !next.is_some_and(|b| b.is_ascii_alphanumeric() || b == b'_' || b == b'@');
+    if after_paren && alone {
         cur.pos += 1;
         return Ok(TokenKind::Apply);
+    }
+    // A lone `_`: the wildcard of a tuple pattern (TU4); the parser
+    // rejects it anywhere else.
+    if alone {
+        cur.pos += 1;
+        return Ok(TokenKind::Wild);
     }
     let side = if cur.peek_at(1) == Some(b'l') {
         Side::Left

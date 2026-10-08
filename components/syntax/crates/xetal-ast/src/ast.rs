@@ -28,6 +28,11 @@ pub enum Stmt {
 pub enum Target {
     Var(Var),
     Func(FuncName),
+    /// A tuple pattern (TU3): two or more parts, each a name, `_` or a
+    /// pattern, binding the parts of a tuple.
+    Tuple(Vec<Target>),
+    /// `_` in a tuple pattern: binds nothing (TU4).
+    Wild,
 }
 
 #[derive(Debug, Clone, PartialEq)]

@@ -9,7 +9,7 @@ use crate::lower::{Lower, err};
 use xetal_ir::{Expr, Item, Kind, Program};
 
 /// A lowered statement, before the sequence is folded into Core.
-enum Piece {
+pub(crate) enum Piece {
     Let {
         name: String,
         rec: bool,
@@ -31,8 +31,8 @@ impl Lower {
         program: &xetal_syntax::Program,
     ) -> Result<Program, Diagnostic> {
         let mut items = Vec::new();
-        for stmt in &program.stmts {
-            items.push(match self.statement(stmt)? {
+        for piece in self.pieces(&program.stmts)? {
+            items.push(match piece {
                 Piece::Let { name, value, .. } if name.contains(':') => Item::Def { name, value },
                 Piece::Let {
                     name,
@@ -61,15 +61,108 @@ impl Lower {
 
     /// A lambda body: statements folded into one Core expression.
     pub(crate) fn body(&mut self, stmts: &[Stmt], span: Span) -> Result<Expr, Diagnostic> {
-        let mut pieces = Vec::new();
-        for stmt in stmts {
-            pieces.push(self.statement(stmt)?);
-        }
+        let pieces = self.pieces(stmts)?;
         let mut rest: Option<Expr> = None;
         for piece in pieces.into_iter().rev() {
             rest = Some(self.fold(piece, rest));
         }
         rest.ok_or_else(|| err("bad-lambda", span, "a lambda body needs a statement"))
+    }
+
+    /// A lambda's body, with its pattern parameters (TU3) taken apart
+    /// first: each pattern binds the parts of its parameter's fresh name.
+    pub(crate) fn patterned(
+        &mut self,
+        l: &xetal_syntax::Lambda,
+        span: Span,
+    ) -> Result<Expr, Diagnostic> {
+        let mut pieces = Vec::new();
+        if let xetal_syntax::Params::Named(ps) = &l.params {
+            for p in ps
+                .iter()
+                .filter(|p| matches!(p.name, Some(Target::Tuple(_))))
+            {
+                let value = self.node(p.span, Kind::Var(format!("%p{}", p.span.start)));
+                pieces.extend(self.pattern(p.name.as_ref().expect("filtered"), value, p.span)?);
+            }
+        }
+        let mut body = self.body(&l.body, span)?;
+        for piece in pieces.into_iter().rev() {
+            body = self.fold(piece, Some(body));
+        }
+        Ok(body)
+    }
+
+    /// The pieces of statements: one each, several for a pattern.
+    fn pieces(&mut self, stmts: &[Stmt]) -> Result<Vec<Piece>, Diagnostic> {
+        let mut pieces = Vec::new();
+        for stmt in stmts {
+            match stmt {
+                Stmt::Bind {
+                    target: target @ Target::Tuple(_),
+                    value,
+                    span,
+                } => {
+                    let value = self.expr(value)?;
+                    pieces.extend(self.pattern(target, value, *span)?);
+                }
+                stmt => pieces.push(self.statement(stmt)?),
+            }
+        }
+        Ok(pieces)
+    }
+
+    /// A tuple pattern bound to `value` (TU3, TU10): the value under a
+    /// fresh name, then each named part a binding of its projection,
+    /// nested patterns in turn; `_` binds nothing (TU4).
+    pub(crate) fn pattern(
+        &mut self,
+        target: &Target,
+        value: Expr,
+        span: Span,
+    ) -> Result<Vec<Piece>, Diagnostic> {
+        let Target::Tuple(parts) = target else {
+            return Ok(Vec::new());
+        };
+        let tmp = self.fresh_name();
+        self.bind(&tmp);
+        let mut pieces = vec![Piece::Let {
+            name: tmp.clone(),
+            rec: false,
+            set: false,
+            value,
+            span,
+        }];
+        for (index, part) in parts.iter().enumerate() {
+            let tuple = Box::new(self.node(span, Kind::Var(tmp.clone())));
+            let proj = self.node(
+                span,
+                Kind::Proj {
+                    index,
+                    size: parts.len(),
+                    tuple,
+                },
+            );
+            match part {
+                Target::Wild => {}
+                Target::Tuple(_) => pieces.extend(self.pattern(part, proj, span)?),
+                name => {
+                    let name = self.binding_name(name, span)?;
+                    let set = name.ends_with('!') && self.is_bound(&name);
+                    if !name.contains(':') {
+                        self.bind(&name);
+                    }
+                    pieces.push(Piece::Let {
+                        name,
+                        rec: false,
+                        set,
+                        value: proj,
+                        span,
+                    });
+                }
+            }
+        }
+        Ok(pieces)
     }
 
     fn fold(&mut self, piece: Piece, rest: Option<Expr>) -> Expr {
@@ -203,7 +296,7 @@ impl Lower {
                     f.spelled()
                 ),
             )),
-            Target::Func(_) => Err(err(
+            Target::Func(_) | Target::Tuple(_) | Target::Wild => Err(err(
                 "bad-binding",
                 span,
                 "only u: and h: functions can be defined here (other namespaces are imported and read-only)",

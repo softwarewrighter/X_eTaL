@@ -3,6 +3,4 @@
 == SOURCE
 (a, b) := (1, 2, 3)
 == ERROR
-error[type-mismatch]: a pair where a 3-tuple is expected at 0..6
-== STATUS
-pending
+error[type-mismatch]: expected a tuple of 2, found a tuple of 3 at 0..19

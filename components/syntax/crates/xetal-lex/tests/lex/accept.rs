@@ -203,6 +203,18 @@ fn the_comma_separates_tuple_parts() {
 }
 
 #[test]
+fn a_lone_underscore_is_the_wildcard() {
+    // TU4: the parser accepts it only inside a tuple pattern.
+    assert_eq!(
+        kinds("(w, _) := s"),
+        [
+            "LParen", "Var(w)", "Comma", "Wild", "RParen", "Assign", "Var(s)"
+        ]
+    );
+    assert_eq!(kinds("x _ y"), ["Var(x)", "Wild", "Var(y)"]);
+}
+
+#[test]
 fn symbols_and_brackets_abut_names() {
     assert_eq!(kinds("1+2"), ["Num(1)", "Sym(+)", "Num(2)"]);
     assert_eq!(kinds("x+y"), ["Var(x)", "Sym(+)", "Var(y)"]);

@@ -1,0 +1,1 @@
+Tuple patterns (D126): bindings, lambda parameters, nested, _; Core Proj with fresh names; size mismatch errors; hygiene and shadowing see pattern names; formatter round-trips. M13 and D7 landed. Gate green but cli-too-deep (sandbox-only); wasm not run here.

@@ -1,0 +1,6 @@
+# TU3, rule 9: a pattern is names, `_` and parentheses; it does not
+# match values.
+== SOURCE
+(a, 1) := (1, 2)
+== ERROR
+error[bad-pattern]: a tuple pattern is names, `_` and parentheses, separated by commas at 4..5

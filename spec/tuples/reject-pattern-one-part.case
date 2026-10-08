@@ -1,0 +1,6 @@
+# TU3, rule 9: a tuple pattern has two or more parts; a name in
+# parentheses is no pattern.
+== SOURCE
+(a) := 1
+== ERROR
+error[bad-pattern]: a tuple pattern has two or more parts: (a, b) at 0..1

@@ -13,14 +13,14 @@ build already does what the ask wants.
 
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
-| X_eTaL-demos | 8 | 4 | 5 | 2 | 2 |
-| X_eTaL-ML | 6 | 2 | 1 | 3 | 2 |
+| X_eTaL-demos | 9 | 3 | 5 | 2 | 2 |
+| X_eTaL-ML | 7 | 1 | 1 | 3 | 2 |
 | X_eTaL-games | 4 | 4 | 5 | 1 | 3 |
 | X_eTaL-libraries | 8 | 3 | 2 | 3 | 1 |
 | X_eTaL-extensions | 2 | 1 | 4 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 28 | 14 | 24 | 11 | 18 |
+| All | 30 | 12 | 24 | 11 | 18 |
 
 ## Notice: write a library's helpers with h:
 
@@ -52,7 +52,7 @@ warning becomes an error. See `docs/private-names.md`.
 | D4 | Float literals with an exponent (`1.5e-7`) | landed | 54fea87 (decision S8) | passes |
 | D5 | complex numbers (Mandelbrot, Julia) | planned | Saga 31, complex numbers, on Saga 29's types | - |
 | D6 | nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix) | partly landed | cf834e1 (`m_ap` boxes each result); mix to decide with the user, then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-mix) | passes |
-| D7 | a state of several arrays for `p_ower` (a tuple or record) | partly landed | Saga 39, tuples with patterns (docs/tuples.md, lanes/tuples; with X_eTaL-ML ask M13): tuple states through `p_ower` work, patterns come next; records in Saga 29 on its types | - |
+| D7 | a state of several arrays for `p_ower` (a tuple or record) | landed | Saga 39, tuples with patterns (docs/tuples.md, lanes/tuples; with X_eTaL-ML ask M13): a game state `(board, score, rng)` through `p_ower`, taken apart by a pattern in the step; records in Saga 29 on its types | - |
 | D8 | a per-operation evaluation trace through `xetal-play` | planned | a step of Saga 17, trace and explain | - |
 | D9 | transpose | landed | 3ad1f8e (`o_\`, `t_ranspose`, decision B17) | passes |
 | D10 | a vendored build reports the outer repo's commit as its own | landed | 4a31ba9 (`XETAL_BUILD_SHA` overrides the build's commit) | - |
@@ -81,7 +81,7 @@ warning becomes an error. See `docs/private-names.md`.
 | M7 | long Int literal strands read in quadratic time (the same as D1) | landed | 6010d70 | - |
 | M8 | Float literals with an exponent (the same as D4) | landed | 54fea87 (decision S8) | passes |
 | M9 | a Bool bound to a name cannot be used in arithmetic (the same as D14) | landed | ffd5526 | passes |
-| M13 | a state of several arrays for `p_ower`: train-live packs 99 weights and Adam's two averages into one vector of 298 numbers | partly landed | Saga 39, tuples (lanes/tuples): `p_ower` repeats a step on a tuple state such as `(Float, Float, Float, Int)` (TU9); taking the state apart in the step needs patterns, step 4 | passes |
+| M13 | a state of several arrays for `p_ower`: train-live packs 99 weights and Adam's two averages into one vector of 298 numbers | landed | Saga 39, tuples (lanes/tuples): a tuple state such as `(w, m, v, k)` goes through `p_ower` (TU9) and the step takes it apart with a pattern parameter, `{ (w, k) -> ... }` (TU3) | passes |
 | M10 | `e_ach` returning an array per item | declined | B14: `e_ach` stays scalar-only; `m_ap` applies a function returning arrays and boxes each result, and mix (turning the boxes back into an array) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-mix) | fails |
 | M11 | a macro's text cannot name a library by the importer's alias (the same as X14's remaining half) | new | not yet decided: MC5 rewrites a library's `l:` to the importer's alias, but nothing names that alias in a macro's expansion, and an expansion may not import (MC23 row 20) | - |
 | M12 | shapes in types: a matrix's type is `Float`, so code can be well-typed and shape-wrong | declined | T7: array types are rank-erased, a type names only the element type, shapes are checked at run time; T4: no annotations in v0 (`::` signatures later); D-10: one Int type, overflow an error | - |
