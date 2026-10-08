@@ -4,6 +4,6 @@
 == SOURCE
 '{ @ -> p_rint! 3; "x" []S_IGNAL "y" } []E_NSURE '{ @ -> p_rint! "cleaned" }
 == TYPE
-a
+Any a => a
 == ERROR
 error[x]: y at 19..36

@@ -8,4 +8,4 @@
 == CORE
 (eval (lam x (app (lam _r _r) x)))
 == TYPE
-a -> a
+Any a => a -> a

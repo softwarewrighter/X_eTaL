@@ -119,7 +119,7 @@ impl Unifier {
                         .with_span(span),
                 );
             }
-            Type::Box(inner) => self.constrain(inner, classes, span)?,
+            Type::Box(inner) => self.constrain(inner, classes.held(), span)?,
             Type::Tuple(parts) => parts
                 .iter()
                 .try_for_each(|p| self.constrain(p, classes, span))?,

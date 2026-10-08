@@ -1,0 +1,12 @@
+# TU9: a variable that may be a tuple prints with the class Any; one
+# that must be an array prints bare, as before (T7).
+== SOURCE
+u:k_eep := { s -> s }
+u:r_evd := { x -> r_ev x }
+u:p_air := { x -> (x, r_ev x) }
+u:a_pply := { f_ x -> f_ x }
+== TYPE
+u:k_eep : Any a => a -> a
+u:r_evd : a -> a
+u:p_air : a -> (a, a)
+u:a_pply : (Any a, Any b) => (a -> b) -> a -> b

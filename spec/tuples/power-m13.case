@@ -1,0 +1,12 @@
+# TU9, ask M13 (X_eTaL-ML): p_ower repeats a step on a tuple state of
+# weights and Adam's two averages and a count, (Float, Float, Float,
+# Int); the step here starts over, taking the state apart is step 4.
+# Its count is any number until p_ower meets the Int 7 (T5).
+== SOURCE
+u:r_estart := { s -> (0.5 0.5, 0.0 0.0, 0.0 0.0, 0) }
+3 'u:r_estart p_ower (1.0 2.0, 0.1 0.2, 0.3 0.4, 7)
+== TYPE
+u:r_estart : (Any a, Num b) => a -> (Float, Float, Float, b)
+(Float, Float, Float, Int)
+== RESULT
+(0.5 0.5, 0.0 0.0, 0.0 0.0, 0)

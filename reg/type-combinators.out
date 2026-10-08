@@ -1,39 +1,39 @@
-l:I_ : a -> a
-l:K_ : a -> b -> a
-l:T_ : a -> (a -> b) -> b
-l:W_ : (a -> a -> b) -> a -> b
-l:W_1 : a -> (a -> a -> b) -> b
-l:B_ : (a -> b) -> (c -> a) -> c -> b
-l:B_1 : (a -> b) -> (c -> d -> a) -> c -> d -> b
-l:B_2 : (a -> b) -> (c -> d -> e -> a) -> c -> d -> e -> b
-l:B_3 : (a -> b) -> (c -> a) -> (d -> c) -> d -> b
-l:C_ : (a -> b -> c) -> b -> a -> c
-l:D_ : (a -> b -> c) -> a -> (d -> b) -> d -> c
-l:D_1 : (a -> b -> c -> d) -> a -> b -> (e -> c) -> e -> d
-l:D_2 : (a -> b -> c) -> (d -> a) -> d -> (e -> b) -> e -> c
-l:E_ : (a -> b -> c) -> a -> (d -> e -> b) -> d -> e -> c
-l:E_h : (a -> b -> c) -> (d -> e -> a) -> d -> e -> (f -> g -> b) -> f -> g -> c
-l:F_ : a -> b -> (b -> a -> c) -> c
-l:G_ : (a -> b -> c) -> (d -> b) -> d -> a -> c
-l:H_ : (a -> b -> a -> c) -> a -> b -> c
-l:J_ : (a -> b -> b) -> a -> b -> a -> b
-l:O_ : ((a -> b) -> a) -> (a -> b) -> b
-l:Q_ : (a -> b) -> (b -> c) -> a -> c
-l:Q_1 : (a -> b) -> c -> (c -> a) -> b
-l:Q_2 : a -> (b -> c) -> (a -> b) -> c
-l:Q_3 : (a -> b) -> a -> (b -> c) -> c
-l:Q_4 : a -> (a -> b) -> (b -> c) -> c
-l:R_ : a -> (b -> a -> c) -> b -> c
-l:S_ : (a -> b -> c) -> (a -> b) -> a -> c
-l:V_ : a -> b -> (a -> b -> c) -> c
-l:C_s : (a -> b -> c -> d) -> a -> c -> b -> d
-l:R_s : (a -> b -> c -> d) -> c -> a -> b -> d
-l:F_s : (a -> b -> c -> d) -> c -> b -> a -> d
-l:V_s : (a -> b -> c -> d) -> b -> c -> a -> d
-l:W_s : (a -> b -> b -> c) -> a -> b -> c
-l:C_ss : (a -> b -> c -> d -> e) -> a -> b -> d -> c -> e
-l:R_ss : (a -> b -> c -> d -> e) -> a -> d -> b -> c -> e
-l:F_ss : (a -> b -> c -> d -> e) -> a -> d -> c -> b -> e
-l:V_ss : (a -> b -> c -> d -> e) -> a -> c -> d -> b -> e
-l:W_ss : (a -> b -> c -> c -> d) -> a -> b -> c -> d
-l:Y_ : (a -> a) -> a
+l:I_ : Any a => a -> a
+l:K_ : (Any a, Any b) => a -> b -> a
+l:T_ : (Any a, Any b) => a -> (a -> b) -> b
+l:W_ : (Any a, Any b) => (a -> a -> b) -> a -> b
+l:W_1 : (Any a, Any b) => a -> (a -> a -> b) -> b
+l:B_ : (Any a, Any b, Any c) => (a -> b) -> (c -> a) -> c -> b
+l:B_1 : (Any a, Any b, Any c, Any d) => (a -> b) -> (c -> d -> a) -> c -> d -> b
+l:B_2 : (Any a, Any b, Any c, Any d, Any e) => (a -> b) -> (c -> d -> e -> a) -> c -> d -> e -> b
+l:B_3 : (Any a, Any b, Any c, Any d) => (a -> b) -> (c -> a) -> (d -> c) -> d -> b
+l:C_ : (Any a, Any b, Any c) => (a -> b -> c) -> b -> a -> c
+l:D_ : (Any a, Any b, Any c, Any d) => (a -> b -> c) -> a -> (d -> b) -> d -> c
+l:D_1 : (Any a, Any b, Any c, Any d, Any e) => (a -> b -> c -> d) -> a -> b -> (e -> c) -> e -> d
+l:D_2 : (Any a, Any b, Any c, Any d, Any e) => (a -> b -> c) -> (d -> a) -> d -> (e -> b) -> e -> c
+l:E_ : (Any a, Any b, Any c, Any d, Any e) => (a -> b -> c) -> a -> (d -> e -> b) -> d -> e -> c
+l:E_h : (Any a, Any b, Any c, Any d, Any e, Any f, Any g) => (a -> b -> c) -> (d -> e -> a) -> d -> e -> (f -> g -> b) -> f -> g -> c
+l:F_ : (Any a, Any b, Any c) => a -> b -> (b -> a -> c) -> c
+l:G_ : (Any a, Any b, Any c, Any d) => (a -> b -> c) -> (d -> b) -> d -> a -> c
+l:H_ : (Any a, Any b, Any c) => (a -> b -> a -> c) -> a -> b -> c
+l:J_ : (Any a, Any b) => (a -> b -> b) -> a -> b -> a -> b
+l:O_ : (Any a, Any b) => ((a -> b) -> a) -> (a -> b) -> b
+l:Q_ : (Any a, Any b, Any c) => (a -> b) -> (b -> c) -> a -> c
+l:Q_1 : (Any a, Any b, Any c) => (a -> b) -> c -> (c -> a) -> b
+l:Q_2 : (Any a, Any b, Any c) => a -> (b -> c) -> (a -> b) -> c
+l:Q_3 : (Any a, Any b, Any c) => (a -> b) -> a -> (b -> c) -> c
+l:Q_4 : (Any a, Any b, Any c) => a -> (a -> b) -> (b -> c) -> c
+l:R_ : (Any a, Any b, Any c) => a -> (b -> a -> c) -> b -> c
+l:S_ : (Any a, Any b, Any c) => (a -> b -> c) -> (a -> b) -> a -> c
+l:V_ : (Any a, Any b, Any c) => a -> b -> (a -> b -> c) -> c
+l:C_s : (Any a, Any b, Any c, Any d) => (a -> b -> c -> d) -> a -> c -> b -> d
+l:R_s : (Any a, Any b, Any c, Any d) => (a -> b -> c -> d) -> c -> a -> b -> d
+l:F_s : (Any a, Any b, Any c, Any d) => (a -> b -> c -> d) -> c -> b -> a -> d
+l:V_s : (Any a, Any b, Any c, Any d) => (a -> b -> c -> d) -> b -> c -> a -> d
+l:W_s : (Any a, Any b, Any c) => (a -> b -> b -> c) -> a -> b -> c
+l:C_ss : (Any a, Any b, Any c, Any d, Any e) => (a -> b -> c -> d -> e) -> a -> b -> d -> c -> e
+l:R_ss : (Any a, Any b, Any c, Any d, Any e) => (a -> b -> c -> d -> e) -> a -> d -> b -> c -> e
+l:F_ss : (Any a, Any b, Any c, Any d, Any e) => (a -> b -> c -> d -> e) -> a -> d -> c -> b -> e
+l:V_ss : (Any a, Any b, Any c, Any d, Any e) => (a -> b -> c -> d -> e) -> a -> c -> d -> b -> e
+l:W_ss : (Any a, Any b, Any c, Any d) => (a -> b -> c -> c -> d) -> a -> b -> c -> d
+l:Y_ : Any a => (a -> a) -> a

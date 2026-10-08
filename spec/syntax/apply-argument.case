@@ -8,4 +8,4 @@
 == CORE
 (eval (lam f_ (lam x (app2 f_ x x))))
 == TYPE
-(a -> a -> b) -> a -> b
+(Any a, Any b) => (a -> a -> b) -> a -> b

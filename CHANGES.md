@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-07
 
+- 17:45 `feat` Arrays and `Any` (Saga 39 step 3, D124): a type variable still means an array of any rank, so `r_ev (1, 2)` and `(1, 2) c_at 3` are type errors; a variable that may be a tuple prints `Any a` (`i_d`, `p_ower`, `c_ompose`, `s_wap`, the error quads, and lambdas that pass a value on); ask M13's tuple state runs through `p_ower`, and M13 joins docs/asks.toml.
 - 16:45 `build` The LaTeX gallery skips a pending spec case whose source does not lex yet (as it does an error case), so the tuple cases still pending do not fail it; gallery rebuilt after merging PR #108.
 - 16:35 `chore` Merged PR #108 (tuple values, Saga 39 step 2, with the decisions of step 1); PR #107 closed as superseded by it.
 - 16:30 `feat` Tuple values (Saga 39 step 2, D123): `(1, 2.5)` is a tuple of type `(Int, Float)`, its parts evaluated right to left; printed on one line, or one block per part when a part is tall; `m_atch` compares tuples part by part (a class `Match` for it), `=` and arithmetic on a tuple are type errors; errors for a comma outside parentheses, an empty part and a record field `(w: 1)`.

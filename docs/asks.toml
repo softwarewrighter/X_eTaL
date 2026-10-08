@@ -61,8 +61,8 @@ works = "1 2 3"
 id = "D7"
 repo = "X_eTaL-demos"
 ask = "a state of several arrays for `p_ower` (a tuple or record)"
-state = "planned"
-here = "Saga 39, tuples with patterns (docs/tuples.md, lanes/tuples; with X_eTaL-ML ask M13); records in Saga 29 on its types"
+state = "partly landed"
+here = "Saga 39, tuples with patterns (docs/tuples.md, lanes/tuples; with X_eTaL-ML ask M13): tuple states through `p_ower` work, patterns come next; records in Saga 29 on its types"
 
 [[ask]]
 id = "D8"
@@ -190,6 +190,15 @@ state = "landed"
 here = "ffd5526"
 repro = "m := 1 2 3 > 1\nf_loat m"
 works = "0.0 1.0 1.0"
+
+[[ask]]
+id = "M13"
+repo = "X_eTaL-ML"
+ask = "a state of several arrays for `p_ower`: train-live packs 99 weights and Adam's two averages into one vector of 298 numbers"
+state = "partly landed"
+here = "Saga 39, tuples (lanes/tuples): `p_ower` repeats a step on a tuple state such as `(Float, Float, Float, Int)` (TU9); taking the state apart in the step needs patterns, step 4"
+repro = "u:r_estart := { s -> (0.5 0.5, 0.0 0.0, 0.0 0.0, 0) }\n3 'u:r_estart p_ower (1.0 2.0, 0.1 0.2, 0.3 0.4, 7)"
+works = "(0.5 0.5, 0.0 0.0, 0.0 0.0, 0)"
 
 [[ask]]
 id = "G1"

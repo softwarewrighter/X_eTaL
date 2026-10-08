@@ -21,7 +21,9 @@ impl Infer {
             Kind::Str(_) => Type::Char,
             Kind::Unit => Type::Unit,
             Kind::Array(items) => {
-                let elem = self.u.fresh();
+                let elem = self
+                    .u
+                    .fresh_in(xetal_ty::Classes::named("Arr").unwrap_or_default());
                 for item in items {
                     let t = self.expr(item)?;
                     self.u.unify(&elem, &t, item.span)?;

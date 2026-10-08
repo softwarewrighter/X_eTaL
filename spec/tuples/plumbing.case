@@ -1,0 +1,13 @@
+# TU9: the higher-order and plumbing built-ins take tuples unchanged.
+== SOURCE
+u:p_air := { x -> (x, x) }
+'u:p_air 'i_d c_ompose 3
+(1, 2) 'l_eft s_wap 5
+i_d (1, "a")
+p_rint! (2, 3)
+== RESULT
+(3, 3)
+5
+(1, a)
+(2, 3)
+(2, 3)

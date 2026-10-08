@@ -86,7 +86,8 @@ fn generalize_and_instantiate() {
     let a = u.fresh();
     let identity = fun(a.clone(), a);
     let scheme = u.generalize(&identity, &[]);
-    assert_eq!(scheme.to_string(), "a -> a");
+    // A variable with no class may be anything, a tuple too (TU9).
+    assert_eq!(scheme.to_string(), "Any a => a -> a");
     let (one, _) = u.instantiate(&scheme);
     let (two, _) = u.instantiate(&scheme);
     u.unify(&one, &fun(Type::Int, Type::Int), span()).unwrap();
@@ -108,10 +109,16 @@ fn display() {
     let mut u = Unifier::default();
     let (a, b) = (u.fresh(), u.fresh());
     let k = fun(a.clone(), fun(b, a));
-    assert_eq!(u.generalize(&k, &[]).to_string(), "a -> b -> a");
+    assert_eq!(
+        u.generalize(&k, &[]).to_string(),
+        "(Any a, Any b) => a -> b -> a"
+    );
     let (f, x) = (u.fresh(), u.fresh());
     let apply = fun(fun(x.clone(), f.clone()), fun(x, f));
-    assert_eq!(u.generalize(&apply, &[]).to_string(), "(a -> b) -> a -> b");
+    assert_eq!(
+        u.generalize(&apply, &[]).to_string(),
+        "(Any a, Any b) => (a -> b) -> a -> b"
+    );
     let n = u.fresh_num();
     let add = fun(n.clone(), fun(n.clone(), n));
     assert_eq!(u.generalize(&add, &[]).to_string(), "Num a => a -> a -> a");

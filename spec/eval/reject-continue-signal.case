@@ -3,6 +3,6 @@
 == SOURCE
 '{ @ -> "a" []S_IGNAL "b" } []T_RAP '{ e -> []C_ONTINUE e }
 == TYPE
-a
+Any a => a
 == ERROR
 error[not-resumable]: error[a] was raised by []S_IGNAL, not []W_ARN, so it has no value to go on with at 8..25

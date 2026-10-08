@@ -9,7 +9,7 @@ struct Class {
     phrase: &'static str,
 }
 
-const TABLE: [Class; 5] = [
+const TABLE: [Class; 6] = [
     Class {
         name: "Num",
         admits: |t| matches!(t, Type::Int | Type::Float),
@@ -53,7 +53,19 @@ const TABLE: [Class; 5] = [
         },
         phrase: "Int, Float, Bool, Char or a tuple of them",
     },
+    // An array of any rank (T7): anything but a tuple (TU5). Every
+    // variable of a built-in's signature is one unless written `Any a`
+    // (TU9); never printed, since a bare variable means an array.
+    Class {
+        name: "Arr",
+        admits: |t| !matches!(t, Type::Tuple(_)),
+        phrase: "an array",
+    },
 ];
+
+/// The class spelled in signatures for a variable that may be any
+/// value, tuples included: no class at all.
+pub const ANY: &str = "Any";
 
 /// The base types a class may admit.
 const BASE: [Type; 4] = [Type::Int, Type::Float, Type::Bool, Type::Char];
@@ -75,6 +87,9 @@ pub struct Classes(u8);
 impl Classes {
     /// The class spelled `name` (`Num`, `Truthy`, `Eq`, `Ord`, `Match`).
     pub fn named(name: &str) -> Option<Classes> {
+        if name == ANY {
+            return Some(Classes::default());
+        }
         TABLE
             .iter()
             .position(|c| c.name == name)
@@ -96,12 +111,22 @@ impl Classes {
     /// The names of its classes, in table order, leaving out a class
     /// another one implies (every number is ordered: `Num a` implies
     /// `Ord a` and `Eq a`).
+    /// `Arr` is never named, and a variable with no class is `Any`.
     pub fn names(self) -> impl Iterator<Item = &'static str> {
         let implied = move |c: &Class| {
             self.rows()
                 .any(|d| d.name != c.name && PROBES.iter().all(|t| !(d.admits)(t) || (c.admits)(t)))
         };
-        self.rows().filter(move |c| !implied(c)).map(|c| c.name)
+        let any = (self == Classes::default()).then_some(ANY);
+        let named = self.rows().filter(move |c| !implied(c) && c.name != "Arr");
+        any.into_iter().chain(named.map(|c| c.name))
+    }
+
+    /// What a box passes on to its item: the classes but `Arr`, since a
+    /// box may hold a tuple (TU8).
+    pub fn held(self) -> Classes {
+        let arr = Classes::named("Arr").unwrap_or_default();
+        Classes(self.0 & !arr.0)
     }
 
     pub fn admits(self, t: &Type) -> bool {
