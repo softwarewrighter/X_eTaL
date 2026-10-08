@@ -1,0 +1,1 @@
+warning[deprecated-private]: write h:w_rap; bare top-level functions in a library are deprecated (xetal migrate FILE rewrites them) at reg/fixtures/names/BareMacros.xtlm:3:1

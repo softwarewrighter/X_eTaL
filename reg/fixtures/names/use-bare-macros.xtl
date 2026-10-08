@@ -1,0 +1,3 @@
+# PN2 for a macro library: its bare helper still works, with a warning.
+"x:" u_se< "BareMacros"
+@ x:d_ouble< "3 + 1"

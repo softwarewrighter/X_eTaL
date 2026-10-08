@@ -1,0 +1,6 @@
+## A macro library with a bare top-level helper (deprecated, PN2) and
+## an h: one (fine).
+w_rap := { t -> "(" c_at t c_at ")" }
+h:t_wice := { t -> t c_at " * 2" }
+## Doubles its text.
+m:d_ouble< := { @ e -> h:t_wice w_rap e }
