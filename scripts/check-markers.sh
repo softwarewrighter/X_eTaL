@@ -8,8 +8,15 @@
 set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
+# Both what is staged and the tracked files as they are now: a file in
+# the middle of a merge holds its markers in the working tree only.
 markers() {
-    git -C "$1" grep -nI --cached -E '^(<<<<<<< |>>>>>>> )' -- . ':!*.rgt' ':!*.out' ':!*.err'
+    local found=1
+    for where in --cached ""; do
+        # shellcheck disable=SC2086
+        git -C "$1" grep -nI $where -E '^(<<<<<<< |>>>>>>> )' -- . ':!*.rgt' ':!*.out' ':!*.err' && found=0
+    done
+    return $found
 }
 
 if [ "${1:-}" = --self-test ]; then
@@ -21,7 +28,12 @@ if [ "${1:-}" = --self-test ]; then
     if markers "$t" > /dev/null; then echo "check-markers: self-test: a clean file was flagged"; exit 1; fi
     printf '<<<<<<< HEAD\nours\n=======\ntheirs\n>>>>>>> other\n' > "$t/a.md"
     git -C "$t" add a.md
-    if ! markers "$t" > /dev/null; then echo "check-markers: self-test: a marker was missed"; exit 1; fi
+    if ! markers "$t" > /dev/null; then echo "check-markers: self-test: a staged marker was missed"; exit 1; fi
+    git -C "$t" commit -qm clean --allow-empty
+    printf 'clean\n' > "$t/a.md"
+    git -C "$t" add a.md
+    printf '<<<<<<< HEAD\nours\n=======\ntheirs\n>>>>>>> other\n' > "$t/a.md"
+    if ! markers "$t" > /dev/null; then echo "check-markers: self-test: a working-tree marker was missed"; exit 1; fi
     echo "check-markers: self-test ok"
     exit 0
 fi
