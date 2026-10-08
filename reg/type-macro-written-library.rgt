@@ -1,0 +1,3 @@
+command = "./target/debug/xetal type reg/fixtures/macrolib/Lib.xtl"
+exit_code = 0
+desc = "ask E7: a library whose only export a macro writes is a library to xetal type (decided after expansion)"

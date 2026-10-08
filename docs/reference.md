@@ -227,11 +227,17 @@ Natural logarithm.
 
 `Num a => a -> Float`, one argument.
 
-An Int as a Float.
+An Int as a Float. A Float prints in the shortest form that reads back
+exactly, always with a `.`, so a whole Float shows `.0` and a sum
+shows every digit it holds.
 
 ```
       f_loat 3
 3.0
+      1 / 3
+0.3333333333333333
+      0.1 + 0.2
+0.30000000000000004
 ```
 
 ## Trigonometry
@@ -605,7 +611,9 @@ Encode: the digits of a number in the radix on the left, most
 significant first (APL's encode). Radixes may differ from digit to
 digit (hours, minutes, seconds), a radix of 0 takes all that is left,
 and digits beyond the radix are dropped. A vector gives one column of
-digits per item.
+digits per item. A negative number takes floored remainders, as in
+APL: each digit is 0 or more and below its radix, so in base 2 the
+digits are its two's complement, and a leading 0 radix keeps the sign.
 
 ```
       2 2 2 2 e_ncode 11
@@ -618,6 +626,10 @@ digits per item.
 0 0 0 0
 0 0 1 1
 0 1 0 1
+      2 2 2 e_ncode -1
+1 1 1
+      0 10 e_ncode -123
+-13 7
       2 2 e_ncode M
 error[rank]: e_ncode needs a scalar or a vector, got shape 2 3
 ```
@@ -1356,7 +1368,10 @@ hello
 
 `Unit -> Char`, one argument.
 
-A line typed at the keyboard (here, the line "a typed line").
+A line typed at the keyboard (here, the line "a typed line"). At the
+end of input it is an error, `io`; to read until the input ends, trap
+it: `'{ @ -> []R_EAD @ } []T_RAP '{ e -> []R_ECOVER "<end>" }` gives
+each line in turn, then `<end>`.
 
 ```
       []R_EAD @

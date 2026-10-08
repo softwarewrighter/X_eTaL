@@ -94,6 +94,7 @@ impl Session {
     /// path, or `-e` for the working directory) and whose rolls come
     /// from `seed`.
     pub fn new(origin: &str, seed: u64) -> Self {
+        xetal_store::forget_lines();
         Session {
             accepted: String::new(),
             pending: String::new(),

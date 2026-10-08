@@ -1,0 +1,5 @@
+## Read standard input to its end: []R_EAD at the end of input is an
+## error, and []T_RAP turns it into a value the program can test.
+u:n_ext := { @ -> '{ @ -> []R_EAD @ } []T_RAP '{ e -> []R_ECOVER "<end>" } }
+u:n_ext @
+u:n_ext @

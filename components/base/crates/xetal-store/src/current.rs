@@ -28,9 +28,10 @@ pub fn write(path: &str, text: &str) -> Result<(), String> {
     current().put(path, text)
 }
 
-/// A line typed at the keyboard, from the store in use.
+/// A line typed at the keyboard, from the store in use; a replayed run
+/// gets the lines its source read before (see `replay`).
 pub fn read_line() -> Result<String, String> {
-    current().line()
+    crate::replay::line(|| current().line())
 }
 
 /// Show a picture with the store in use (`[]S_HOW`), unless a replay

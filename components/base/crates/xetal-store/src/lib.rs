@@ -14,5 +14,5 @@ mod stores;
 pub use current::{install, read, read_line, show, take_shown, write};
 pub use drawing::Drawing;
 pub use memory::Memory;
-pub use replay::{muted, replay, shown};
+pub use replay::{forget_lines, muted, replay, shown};
 pub use stores::{Disk, Store};

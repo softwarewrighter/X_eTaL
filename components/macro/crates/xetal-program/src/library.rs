@@ -26,6 +26,14 @@ pub fn is_library(text: &str) -> bool {
         })
 }
 
+/// Whether the file `name` holds a library once its macros expand: a
+/// library's exports may all be written by macro calls (ask E7), so a
+/// text naming no `l:` is a library when its expansion names one.
+pub fn is_library_named(name: &str, text: &str) -> bool {
+    is_library(text)
+        || !text.starts_with("#!") && crate::expanded(name, text).is_ok_and(|e| is_library(&e))
+}
+
 /// The name a text with no file name is checked under, by what it
 /// defines (the live demo's editor): `System.xtlm` for the system
 /// macros (`s:` definitions), `main.xtlm` for a macro library (`m:`

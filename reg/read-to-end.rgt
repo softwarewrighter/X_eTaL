@@ -1,0 +1,3 @@
+command = "printf 'one\\n' | ./target/debug/xetal run reg/fixtures/read-to-end.xtl"
+exit_code = 0
+desc = "the end-of-input idiom (ask D18): []R_EAD under []T_RAP gives each line, then <end> instead of an error"

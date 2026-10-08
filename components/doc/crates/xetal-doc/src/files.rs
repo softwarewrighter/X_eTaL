@@ -5,7 +5,7 @@
 
 use xetal_base::Diagnostic;
 use xetal_macro::{FsLibraries, Libraries};
-use xetal_program::{is_library, load, load_library};
+use xetal_program::{is_library_named, load, load_library};
 
 use crate::items::files_of;
 use crate::model::DocFile;
@@ -17,7 +17,7 @@ const SYSTEM: &str = "std/System.xtlm";
 /// `name`): its own load first, then its macro libraries, then the
 /// system macros if any file calls one.
 pub fn model(name: &str, text: &str) -> Result<Vec<DocFile>, Diagnostic> {
-    let mut loaded = match is_library(text) {
+    let mut loaded = match is_library_named(name, text) {
         true => load_library(name, text)?,
         false => load(name, text)?,
     };

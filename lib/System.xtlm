@@ -182,9 +182,14 @@ s:f_inally< := { body cleanup ->
 }
 
 ## In a handler: recover with the value on the right, of the body's
-## type; the try's value is this one ([]R_ECOVER).
+## type; the try's value is this one ([]R_ECOVER). The right side is
+## code, like every macro argument: to recover with a string, write a
+## string literal there, its quotes escaped once more inside t_ry<.
 ## >> "1 d_iv 0" t_ry< "@ r_ecover< \"2 + 2\""
 ## 4
+##
+## >> "\"io\" []S_IGNAL \"gone\"" t_ry< "@ r_ecover< \"\\\"none\\\"\""
+## none
 s:r_ecover< := { @ value -> "[]R_ECOVER (" c_at (h:t_rim value) c_at ")" }
 
 ## In a handler: run the body again (at most 1000 times; []R_ETRY).

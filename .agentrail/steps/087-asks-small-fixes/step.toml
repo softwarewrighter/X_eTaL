@@ -1,6 +1,6 @@
 number = 87
 slug = "asks-small-fixes"
-status = "pending"
+status = "in-progress"
 description = "The small fixes the asks audit found, each test-first: D16 (xetal_play::add_l..."
 role = "production"
 context_files = []

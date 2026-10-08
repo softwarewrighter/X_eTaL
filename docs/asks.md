@@ -13,14 +13,14 @@ build already does what the ask wants.
 
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
-| X_eTaL-demos | 9 | 3 | 5 | 2 | 2 |
+| X_eTaL-demos | 11 | 3 | 3 | 2 | 2 |
 | X_eTaL-ML | 7 | 1 | 1 | 3 | 2 |
-| X_eTaL-games | 4 | 4 | 5 | 1 | 3 |
+| X_eTaL-games | 5 | 4 | 4 | 1 | 3 |
 | X_eTaL-libraries | 8 | 3 | 2 | 3 | 1 |
-| X_eTaL-extensions | 2 | 1 | 4 | 0 | 1 |
+| X_eTaL-extensions | 3 | 1 | 3 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 30 | 12 | 24 | 11 | 18 |
+| All | 34 | 12 | 20 | 11 | 18 |
 
 ## Notice: write a library's helpers with h:
 
@@ -61,8 +61,8 @@ warning becomes an error. See `docs/private-names.md`.
 | D13 | grade along an axis per row (`g_rade_2 M`), for top-k per row | declined | as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade (a rank form) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-row-grade) | fails |
 | D14 | a condition bound to a name cannot be used in arithmetic | landed | ffd5526 (a bound condition stays Bool, and a Bool converts to Int in arithmetic) | passes |
 | D15 | a scan with a built-in operand is quadratic in the axis length (Int now linear, Float still quadratic) | partly landed | an Int scan is linear (a 64 by 4096 `'+ s_\_2` in 0.02 s); a Float `+` or `*` scan stays quadratic (64 by 1024 in 0.8 s, 2026-10-07), since a one-pass Float scan is not identical to the definition (plan.md, Saga 5's lessons); a primitive operand of scan as a vector kernel in Saga 22 | - |
-| D16 | `xetal-play`: a run with a page's own macro library, and the program after expansion | planned | the asks audit's small fixes step (`xetal_play::add_library` and `expanded`; plan.md, after Saga 38) | - |
-| D17 | `xetal run --context CTX FILE` reads standard input twice | planned | the asks audit's small fixes step (plan.md, after Saga 38) | - |
+| D16 | `xetal-play`: a run with a page's own macro library, and the program after expansion | landed | step 087 (D128): `xetal_play::add_library` puts a page's `.xtl` or `.xtlm` into the store a run reads, and `xetal_play::expanded` gives the program after expansion; `Memory` and `install` re-exported (test page_library) | - |
+| D17 | `xetal run --context CTX FILE` reads standard input twice | landed | step 087 (D128): a session replays the lines its accepted source read, so a block after a context reads standard input once | golden `run-context-reads-once` |
 | D18 | end of input: `[]R_EAD @` at the end of standard input fails, and nothing can test for it or recover | landed | `[]T_RAP` recovers from it (ER2, D89): `'{ @ -> []R_EAD @ } []T_RAP '{ e -> []R_ECOVER "<end>" }` gives `<end>` at the end of input (checked 2026-10-07); the idiom is written in `docs/reference.md` by the asks audit's small fixes step | - |
 | D19 | program arguments: `xetal run FILE` takes nothing after the file, and a program cannot read its arguments | new | not yet decided or planned: needs a name for the arguments (a quad) and the CLI's rule for what follows FILE | - |
 | D20 | `s_ort` (and `g_rade`) of a list of boxed strings | declined | for now (B16): boxes compare by what they hold but are not ordered (not `Ord`), so `s_ort` of boxes is a type error; pad into a Char matrix and grade its rows | fails |
@@ -97,7 +97,7 @@ warning becomes an error. See `docs/private-names.md`.
 | G4 | local functions: a function defined inside a lambda and applied there | landed | a lambda's local function names (`g_ := { ... }` inside a body) work today | passes |
 | G5 | an executable program that defines `l:` names is taken for a library | landed | ffd5526 (a #! file is a program, and `l:` names in it are MC8 row 9) | passes |
 | G6 | named dyadic trains: `u:s_ign := [> - <]` is monadic only | declined | TR4: a train bound to a name or quoted is monadic; a named dyadic train is written as a lambda, `{ a b -> (a F b) G (a H b) }` | fails |
-| G7 | `p_ower` with a Bool count (a 0/1 condition) | planned | the asks audit's small fixes step (the evaluator converts a Bool count as T1 does; plan.md, after Saga 38) | fails |
+| G7 | `p_ower` with a Bool count (a 0/1 condition) | landed | step 087 (D128): a condition as a `p_ower` count counts 0 or 1 times (spec eval/power-bool-count) | passes |
 | G8 | `i_nner` on numeric matrices costs about 100 ns per multiply-add | planned | Saga 22 (vector kernels: a primitive operand of inner product as a kernel); about 94 ns per multiply-add on 2026-10-07 | - |
 | G9 | reading numbers out of long text is slow: `n_umbers` on 3000 lines, `@ i_nclude<` of a 228 KB file | partly landed | `n_umbers` on 3000 lines (47 KB) now takes under 0.01 s; `@ i_nclude<` of a 218 KB file still takes about 3.5 minutes (2026-10-07), not yet planned | - |
 | G10 | `m_ember?` of a long vector against a long vector (207360 against 20000: 13 s) | new | still about 10 s (2026-10-07); hashed membership is not yet planned (Saga 22 covers arithmetic kernels) | - |
@@ -141,7 +141,7 @@ warning becomes an error. See `docs/private-names.md`.
 | E4 | the time: a quad for the current time and a monotonic or CPU clock | partly landed | `[]TS` (the local time stamp) and `[]D_L` (a delay), through the host's clock (D84, quads lane step 2); no monotonic or CPU clock (APL's quad AI) yet, not planned | passes |
 | E5 | an error in a library function also names the program line that called it | planned | Saga 27, readable type errors | - |
 | E6 | `xetal --draw DIR run FILE` failed: options before the subcommand | landed | 5f00608 (options before the subcommand) | golden `cli-draw-before` |
-| E7 | `xetal type FILE` calls a library whose `l:` names all come from macro calls a program: it decides before expanding | planned | the asks audit's small fixes step (`is_library` decides after expansion; plan.md, after Saga 38) | - |
+| E7 | `xetal type FILE` calls a library whose `l:` names all come from macro calls a program: it decides before expanding | landed | step 087 (D128): `xetal type`, `run` and `doc` decide a file is a library after its macros expand (`is_library_named`) | golden `type-macro-written-library` |
 | E8 | a program `quakes.xtl` importing `Quakes` on a case-insensitive file system reports `import-cycle` on itself | new | a name finds a file only when its directory entry matches exactly (design.md), but when the program's own entry is `Quakes.xtl` it still finds itself: `import cycle: ./Quakes.xtl -> ./Quakes.xtl` (2026-10-07); not yet planned | - |
 
 ## X_eTaL-gpu

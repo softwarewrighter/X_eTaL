@@ -1,0 +1,3 @@
+command = "printf 'hello\\nworld\\n' | ./target/debug/xetal run --context reg/fixtures/context/ctx.xtl reg/fixtures/context/read.xtl"
+exit_code = 0
+desc = "ask D17: a block run after a context reads standard input once: l is the first line"

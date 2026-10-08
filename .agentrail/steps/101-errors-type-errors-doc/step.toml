@@ -1,0 +1,8 @@
+number = 101
+slug = "errors-type-errors-doc"
+status = "pending"
+description = "Saga 27 (readable type errors, docs/plan.md), step 4 of 5, asked for by the u..."
+role = "production"
+context_files = []
+created_at = "2026-10-03T07:50:22"
+commits = []

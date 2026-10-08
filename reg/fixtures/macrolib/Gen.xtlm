@@ -1,0 +1,3 @@
+## Gen: a macro library whose d_ef< writes a library's export.
+## "name" g:d_ef< "body" defines l:name as a lambda with that body.
+m:d_ef< := { name body -> "l:" c_at name c_at " := { " c_at body c_at " }" }

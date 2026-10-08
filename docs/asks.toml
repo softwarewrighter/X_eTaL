@@ -159,15 +159,16 @@ here = "an Int scan is linear (a 64 by 4096 `'+ s_\\_2` in 0.02 s); a Float `+` 
 id = "D16"
 repo = "X_eTaL-demos"
 ask = "`xetal-play`: a run with a page's own macro library, and the program after expansion"
-state = "planned"
-here = "the asks audit's small fixes step (`xetal_play::add_library` and `expanded`; plan.md, after Saga 38)"
+state = "landed"
+here = "step 087 (D128): `xetal_play::add_library` puts a page's `.xtl` or `.xtlm` into the store a run reads, and `xetal_play::expanded` gives the program after expansion; `Memory` and `install` re-exported (test page_library)"
 
 [[ask]]
 id = "D17"
 repo = "X_eTaL-demos"
 ask = "`xetal run --context CTX FILE` reads standard input twice"
-state = "planned"
-here = "the asks audit's small fixes step (plan.md, after Saga 38)"
+state = "landed"
+here = "step 087 (D128): a session replays the lines its accepted source read, so a block after a context reads standard input once"
+golden = "run-context-reads-once"
 
 [[ask]]
 id = "D18"
@@ -362,8 +363,8 @@ works = "1"
 id = "G7"
 repo = "X_eTaL-games"
 ask = "`p_ower` with a Bool count (a 0/1 condition)"
-state = "planned"
-here = "the asks audit's small fixes step (the evaluator converts a Bool count as T1 does; plan.md, after Saga 38)"
+state = "landed"
+here = "step 087 (D128): a condition as a `p_ower` count counts 0 or 1 times (spec eval/power-bool-count)"
 repro = "(1 > 0) '{ _r + 1 } p_ower 5"
 works = "6"
 
@@ -628,8 +629,9 @@ golden = "cli-draw-before"
 id = "E7"
 repo = "X_eTaL-extensions"
 ask = "`xetal type FILE` calls a library whose `l:` names all come from macro calls a program: it decides before expanding"
-state = "planned"
-here = "the asks audit's small fixes step (`is_library` decides after expansion; plan.md, after Saga 38)"
+state = "landed"
+here = "step 087 (D128): `xetal type`, `run` and `doc` decide a file is a library after its macros expand (`is_library_named`)"
+golden = "type-macro-written-library"
 
 [[ask]]
 id = "E8"

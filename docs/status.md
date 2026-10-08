@@ -21,7 +21,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Built-in functions | 125 | 0 | 0 |
 | Language decisions | 152 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 426 | 0 | 1 |
+| Spec cases | 427 | 0 | 1 |
 
 ## Planned (decided, not yet implemented)
 
@@ -36,7 +36,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 82 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 83 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 47 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
@@ -51,7 +51,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `c_eiling` | `Num a => a -> Int` | works | 0 | 1 |
 | `e_xp` | `Num a => a -> Float` | works | 0 | 1 |
 | `l_og` | `Num a => a -> Float` | works | 0 | 1 |
-| `f_loat` | `Num a => a -> Float` | works | 5 | 1 |
+| `f_loat` | `Num a => a -> Float` | works | 5 | 3 |
 
 ### B13: trigonometry (radians)
 
@@ -69,7 +69,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 37 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
 | `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
-| `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
+| `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 14 | 1 |
 | `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 12 | 1 |
 | `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 5 | 1 |
 | `e_q~` | `(Num a, Truthy b) => a -> a -> b` | works | 2 | 1 |
@@ -198,7 +198,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `i_nner` | `(a -> b -> c) -> (c -> c -> c) -> a -> b -> c` | works | 6 | 1 |
 | `c_ompose` | `(Any a, Any b, Any c) => (a -> b) -> (b -> c) -> a -> c` | works | 4 | 2 |
 | `s_wap` | `(Any a, Any b, Any c) => (a -> b -> c) -> b -> a -> c` | works | 5 | 1 |
-| `p_ower` | `Any a => (a -> a) -> Int -> a -> a` | works | 4 | 2 |
+| `p_ower` | `Any a => (a -> a) -> Int -> a -> a` | works | 5 | 2 |
 
 ### B7: search and order (over major cells)
 
@@ -225,7 +225,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `e_ncode` | `Int -> Int -> Int` | works | 4 | 5 |
+| `e_ncode` | `Int -> Int -> Int` | works | 4 | 7 |
 | `d_ecode` | `Num a => a -> a -> a` | works | 5 | 7 |
 
 ### A2-A4: rotate and reverse (leading axis)
@@ -292,7 +292,7 @@ conventions (naming, layout) work without a spec case citing them.
 | S9 | Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...) | planned | 0 |
 | S10 | Doc examples are run (Saga 32 step doc-test), as rustdoc runs doc tests: `xetal doc --test FILE` runs the (...) | works | 0 |
 | S11 | Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents | planned | 0 |
-| T1 | A real `Bool` type; `=` and the comparisons return Bool | works | 4 |
+| T1 | A real `Bool` type; `=` and the comparisons return Bool | works | 5 |
 | T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and (...) | works | 3 |
 | T3 | `=` is exact (IEEE) equality and transitive; `(0.1 + 0.2) = 0.3` is 0 | works | 2 |
 | T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 8 |

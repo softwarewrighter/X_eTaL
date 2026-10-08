@@ -5,7 +5,8 @@ use xetal_base::Diagnostic;
 use xetal_kernel::{Kernel, apply, fold};
 use xetal_value::Value;
 
-/// f applied `n` times to `x`; `n` is a whole number, 0 or more.
+/// f applied `n` times to `x`; `n` is a whole number, 0 or more, or a
+/// condition (once when it holds).
 pub fn power<'a>(
     f: &Value<'a>,
     n: &Value<'a>,
@@ -13,6 +14,8 @@ pub fn power<'a>(
 ) -> Result<Kernel<'a, Value<'a>>, Diagnostic> {
     let times = match n {
         Value::Int(k) if *k >= 0 => *k,
+        // A condition counts 0 or 1 times, as T1 makes it an Int.
+        Value::Bool(b) => i64::from(*b),
         _ => {
             return Err(Diagnostic::new(
                 "domain",

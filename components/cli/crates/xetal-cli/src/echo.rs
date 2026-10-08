@@ -58,7 +58,9 @@ fn pause(delay: Option<u64>, source: &str) {
 /// exports' types); other commands are not evaluations.
 pub(crate) fn evaluation(command: &Command, source: &str) -> Option<Result<String, Diagnostic>> {
     // A library is not run: running one lists its exports, as `type`.
-    if matches!(command, Command::Run { .. }) && xetal_program::is_library(source) {
+    if matches!(command, Command::Run { .. })
+        && xetal_program::is_library_named(&origin(command), source)
+    {
         return Some(typed(source, &origin(command)));
     }
     Some(match command {
@@ -106,7 +108,7 @@ fn origin(command: &Command) -> String {
 /// `xetal type`: the type of each top-level item of a program, or of
 /// each export of a library (a file naming `l:`).
 fn typed(source: &str, name: &str) -> Result<String, Diagnostic> {
-    let library = xetal_program::is_library(source);
+    let library = xetal_program::is_library_named(name, source);
     let mut loaded = match library {
         true => xetal_program::load_library(name, source)?,
         false => xetal_program::load(name, source)?,

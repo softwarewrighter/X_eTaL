@@ -1,0 +1,9 @@
+# A condition as a power count is 0 or 1 (T1, ask G7): `c 'f_ p_ower x`
+# applies f once when c holds and not at all otherwise, inline or bound.
+== SOURCE
+(1 > 0) '{ _r + 1 } p_ower 5
+c := 2 > 3
+c '{ _r + 1 } p_ower 5
+== RESULT
+6
+5
