@@ -39,6 +39,11 @@ impl Parser {
     }
 
     fn statement(&mut self, in_lambda: bool) -> Result<Stmt, Diagnostic> {
+        if self.peek().is_some_and(|t| t.kind == TokenKind::LParen)
+            && let Some(binding) = self.pattern_binding()?
+        {
+            return Ok(binding);
+        }
         let is_binding = self
             .tokens
             .get(self.pos + 1)

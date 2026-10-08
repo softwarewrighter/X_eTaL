@@ -1,0 +1,6 @@
+# TU4, rule 9: `_` ignores a part of a tuple pattern; as a whole
+# parameter it is an error (a name says what is passed).
+== SOURCE
+u:f_ := { _ x -> x }
+== ERROR
+error[bad-pattern]: `_` ignores a part of a tuple pattern: write a name here at 10..11

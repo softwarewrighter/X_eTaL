@@ -105,7 +105,7 @@ impl Walker<'_> {
                 *arity = self.dicts.axes.get(&e.id).copied().or(*arity);
                 vec![x]
             }
-            Kind::Lam { body: x, .. } => vec![x],
+            Kind::Lam { body: x, .. } | Kind::Proj { tuple: x, .. } => vec![x],
             Kind::App(f, x) => vec![f, x],
             Kind::App2 { f, left, right } => vec![f, left, right],
             Kind::Set { value, body, .. } => vec![value, body],

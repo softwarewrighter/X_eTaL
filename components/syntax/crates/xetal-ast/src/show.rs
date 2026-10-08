@@ -31,6 +31,11 @@ fn target(t: &Target) -> String {
             format!("{ns}{}{}", v.name, if v.mutable { "!" } else { "" })
         }
         Target::Func(f) => func_name(f),
+        Target::Tuple(parts) => {
+            let parts: Vec<String> = parts.iter().map(target).collect();
+            format!("(pattern {})", parts.join(" "))
+        }
+        Target::Wild => "_".into(),
     }
 }
 

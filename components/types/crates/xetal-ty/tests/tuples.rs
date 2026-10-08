@@ -26,7 +26,7 @@ fn tuples_unify_part_by_part_and_only_at_one_size() {
     assert_eq!(u.resolve(&a), Type::Char);
     let triple = Type::Tuple(vec![Type::Int, Type::Int, Type::Int]);
     let e = u.unify(&pair, &triple, span()).unwrap_err();
-    assert_eq!(e.message, "expected (Char, Int), found (Int, Int, Int)");
+    assert_eq!(e.message, "expected a tuple of 2, found a tuple of 3");
 }
 
 #[test]

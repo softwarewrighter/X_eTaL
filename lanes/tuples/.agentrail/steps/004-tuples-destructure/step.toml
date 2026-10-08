@@ -1,6 +1,6 @@
 number = 4
 slug = "tuples-destructure"
-status = "pending"
+status = "in-progress"
 description = "Tuples lane (lanes/tuples/.agentrail/plan.md, docs/tuples.md, docs/plan.md Sa..."
 role = "production"
 context_files = []

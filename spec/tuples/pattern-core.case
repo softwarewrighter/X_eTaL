@@ -1,0 +1,13 @@
+# TU10, rule 8: a pattern binding desugars to the value under a fresh
+# name and a binding of each named part's projection; `_` binds
+# nothing, a nested pattern repeats the same inside.
+== SOURCE
+s := (1, (2, 3), 4)
+(a, (b, _), c) := s
+== CORE
+(let s (tuple 1 (tuple 2 3) 4))
+(let %1 s)
+(let a (part 0 3 %1))
+(let %2 (part 1 3 %1))
+(let b (part 0 2 %2))
+(let c (part 2 3 %1))

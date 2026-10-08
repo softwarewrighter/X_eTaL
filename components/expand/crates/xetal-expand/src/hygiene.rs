@@ -72,10 +72,20 @@ fn binders(inner: &[Token]) -> Vec<&Token> {
         _ => false,
     };
     let arrow = inner.iter().position(|t| t.kind == TokenKind::Arrow);
+    // Parameters are names, `@`, `~` and tuple patterns (TU11).
     let params = arrow.filter(|&a| {
-        inner[..a]
-            .iter()
-            .all(|t| plain(t) || matches!(t.kind, TokenKind::Unit | TokenKind::Lazy))
+        inner[..a].iter().all(|t| {
+            plain(t)
+                || matches!(
+                    t.kind,
+                    TokenKind::Unit
+                        | TokenKind::Lazy
+                        | TokenKind::LParen
+                        | TokenKind::RParen
+                        | TokenKind::Comma
+                        | TokenKind::Wild
+                )
+        })
     });
     let mut out: Vec<&Token> = params.map_or(Vec::new(), |a| {
         inner[..a].iter().filter(|t| plain(t)).collect()
@@ -91,6 +101,9 @@ fn binders(inner: &[Token]) -> Vec<&Token> {
         if depth == 0 && start && plain(t) && next == Some(&TokenKind::Assign) {
             out.push(t);
         }
+        if depth == 1 && start && t.kind == TokenKind::LParen {
+            out.extend(pattern_names(inner, k).into_iter().filter(|t| plain(t)));
+        }
         start = depth == 0
             && matches!(
                 t.kind,
@@ -98,6 +111,16 @@ fn binders(inner: &[Token]) -> Vec<&Token> {
             );
     }
     out
+}
+
+/// The names of a tuple pattern binding (`(a, (b, _)) := ...`, TU11)
+/// whose `(` is `inner[open]`; none when no `:=` follows its `)`.
+fn pattern_names(inner: &[Token], open: usize) -> Vec<&Token> {
+    let close = open + closing(&inner[open..], 0);
+    match inner.get(close + 1).map(|t| &t.kind) {
+        Some(TokenKind::Assign) => inner[open..close].iter().collect(),
+        _ => Vec::new(),
+    }
 }
 
 /// `m` with the tokens given a new spelling replaced (each mapped to

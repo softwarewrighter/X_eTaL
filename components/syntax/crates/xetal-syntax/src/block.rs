@@ -5,7 +5,6 @@ use xetal_lex::{Token, TokenKind};
 
 use crate::expr::{Item, bind_operands};
 use crate::parser::{Parser, err};
-use crate::stmt::target;
 use xetal_ast::{Fun, FunKind, Lambda, Param, Params, stmt_args};
 
 impl Parser {
@@ -76,6 +75,10 @@ impl Parser {
                     | TokenKind::Func(_)
                     | TokenKind::Unit
                     | TokenKind::Num(_)
+                    | TokenKind::LParen
+                    | TokenKind::RParen
+                    | TokenKind::Comma
+                    | TokenKind::Wild
             )
         }) {
             i += 1;
@@ -142,32 +145,40 @@ fn group(mut funs: Vec<Fun>, span: Span) -> Fun {
     Fun::new(FunKind::Train(funs), span)
 }
 
-/// The parameters `tokens` name: names (a `~` before one makes it lazy)
-/// and `@` (a parameter that takes only Unit, L6).
+/// The parameters `tokens` name: names and tuple patterns (TU3; a `~`
+/// before one makes it lazy) and `@` (a parameter that takes only
+/// Unit, L6).
 fn named(tokens: Vec<Token>) -> Result<Vec<Param>, Diagnostic> {
     let mut params: Vec<Param> = Vec::new();
+    let mut seen = Vec::new();
     let mut lazy = None;
-    for t in tokens {
-        match (&t.kind, target(&t)) {
-            (TokenKind::Lazy, _) if lazy.is_none() => lazy = Some(t.span),
-            (_, Some(name)) => {
-                if params.iter().any(|p| p.name.as_ref() == Some(&name)) {
-                    return Err(err("bad-lambda", t.span, "a parameter name appears twice"));
-                }
-                let span = lazy.map_or(t.span, |l| l.join(t.span));
+    let mut i = 0;
+    while let Some(t) = tokens.get(i) {
+        match &t.kind {
+            TokenKind::Lazy if lazy.is_none() => lazy = Some(t.span),
+            TokenKind::Unit if lazy.is_none() => params.push(Param {
+                name: None,
+                lazy: false,
+                span: t.span,
+            }),
+            TokenKind::LParen | TokenKind::Var(_) | TokenKind::Func(_) | TokenKind::Wild => {
+                let start = t.span;
+                let name = crate::tuple::pattern(&tokens, &mut i, false, start)?;
+                let span = lazy
+                    .map_or(start, |l| l.join(start))
+                    .join(tokens[i - 1].span);
+                crate::tuple::distinct(&name, &mut seen)
+                    .map_err(|_| err("bad-lambda", span, "a parameter name appears twice"))?;
                 params.push(Param {
                     name: Some(name),
                     lazy: lazy.take().is_some(),
                     span,
                 });
+                continue;
             }
-            (TokenKind::Unit, _) if lazy.is_none() => params.push(Param {
-                name: None,
-                lazy: false,
-                span: t.span,
-            }),
             _ => return Err(err("bad-lambda", t.span, "a parameter must be a name")),
         }
+        i += 1;
     }
     Ok(params)
 }

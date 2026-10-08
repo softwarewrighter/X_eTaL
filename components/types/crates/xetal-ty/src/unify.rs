@@ -80,6 +80,14 @@ impl Unifier {
                 .iter()
                 .zip(qs)
                 .try_for_each(|(p, q)| self.unify(p, q, span)),
+            (Type::Tuple(ps), found) => {
+                let found = match found {
+                    Type::Tuple(qs) => format!("a tuple of {}", qs.len()),
+                    other => other.to_string(),
+                };
+                let message = format!("expected a tuple of {}, found {found}", ps.len());
+                Err(Diagnostic::new("type-mismatch", message).with_span(span))
+            }
             _ => Err(
                 Diagnostic::new("type-mismatch", format!("expected {a}, found {b}"))
                     .with_span(span),

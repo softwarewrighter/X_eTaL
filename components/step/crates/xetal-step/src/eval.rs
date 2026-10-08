@@ -30,6 +30,13 @@ impl<'a> Machine<'a, '_> {
             }
             Kind::Array(items) if !items.is_empty() => self.array_start(items, false, env),
             Kind::Tuple(parts) => self.array_start(parts, true, env),
+            Kind::Proj { index, tuple, .. } => {
+                self.stack.push(Kont::Part {
+                    index: *index,
+                    span: e.span,
+                });
+                Control::Eval(tuple, env.clone())
+            }
             _ => Control::Return(self.leaf(e, env)?),
         })
     }

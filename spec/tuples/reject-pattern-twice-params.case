@@ -1,0 +1,6 @@
+# TU3, rule 9: the names of a lambda's parameters and patterns are
+# distinct.
+== SOURCE
+u:f_ := { (a, b) a -> a }
+== ERROR
+error[bad-lambda]: a parameter name appears twice at 17..18

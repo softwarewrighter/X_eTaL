@@ -37,6 +37,8 @@ impl Lower {
                             if v.mutable { "!" } else { "" }
                         ),
                         Some(Target::Func(f)) => format!("{}{}", fresh(&f.ns), f.spelled()),
+                        // A tuple pattern: a fresh name, taken apart in the body.
+                        Some(Target::Tuple(_) | Target::Wild) => format!("%p{}", p.span.start),
                     };
                     (Param::Name(name), p.lazy)
                 })
@@ -49,7 +51,7 @@ impl Lower {
                 self.bind(name);
             }
         }
-        let body = self.body(&l.body, span);
+        let body = self.patterned(l, span);
         self.lambdas -= 1;
         self.scopes.pop();
         let mut body = body?;

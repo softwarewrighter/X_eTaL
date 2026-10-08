@@ -22,6 +22,7 @@ impl Infer {
             Kind::Unit => Type::Unit,
             Kind::Array(items) => self.array(items)?,
             Kind::Tuple(parts) => self.tuple(parts)?,
+            Kind::Proj { index, size, tuple } => self.part(*index, *size, tuple)?,
             Kind::Var(name) => self.variable(name, e)?,
             Kind::Global(name) => self.global(name, e),
             Kind::Prim(name) => self.builtin(name, e)?,
@@ -55,6 +56,14 @@ impl Infer {
             Kind::If { cond, then, other } => self.guard(cond, then, other)?,
             Kind::NoMatch => self.u.fresh(),
         })
+    }
+
+    /// Part `index` of a tuple that must have `size` parts (TU3, TU5).
+    fn part(&mut self, index: usize, size: usize, tuple: &Expr) -> Result<Type, Diagnostic> {
+        let t = self.expr(tuple)?;
+        let parts: Vec<Type> = (0..size).map(|_| self.u.fresh()).collect();
+        self.u.unify(&Type::Tuple(parts.clone()), &t, tuple.span)?;
+        Ok(parts[index].clone())
     }
 
     fn lambda(&mut self, param: &Param, body: &Expr) -> Result<Type, Diagnostic> {

@@ -1,0 +1,7 @@
+# TU3: a pattern binding inside a lambda, before the statements that
+# use its names; patterns of a hygienic macro behave the same (TU11).
+== SOURCE
+u:n_orm := { s -> (x, y) := s; (x * x) + y * y }
+u:n_orm (3, 4)
+== RESULT
+25

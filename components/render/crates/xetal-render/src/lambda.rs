@@ -27,3 +27,17 @@ pub fn lambda_arg(side: char, applied: bool, raw: &str) -> String {
         None => raw.into(),
     }
 }
+
+/// A bound name or tuple pattern as written: `x`, `f_`, `(a, (b, _))`.
+pub(crate) fn target_text(t: &xetal_syntax::Target) -> String {
+    use xetal_syntax::Target;
+    match t {
+        Target::Var(v) => crate::canonical::var_text(v),
+        Target::Func(f) => crate::canonical::func_text(f),
+        Target::Tuple(parts) => {
+            let parts: Vec<String> = parts.iter().map(target_text).collect();
+            format!("({})", parts.join(", "))
+        }
+        Target::Wild => "_".into(),
+    }
+}

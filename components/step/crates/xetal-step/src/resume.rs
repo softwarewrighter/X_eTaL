@@ -32,7 +32,8 @@ impl<'a> Machine<'a, '_> {
             k @ (Kont::Bind { .. }
             | Kont::Assign { .. }
             | Kont::Choose { .. }
-            | Kont::Array { .. }) => self.resume_local(k, v)?,
+            | Kont::Array { .. }
+            | Kont::Part { .. }) => self.resume_local(k, v)?,
             Kont::Axes { axes, arity, span } => Control::Return(self.axes(axes, arity, v, span)?),
             k @ (Kont::Trap { .. }
             | Kont::Handling { .. }
@@ -82,6 +83,15 @@ impl<'a> Machine<'a, '_> {
                 done,
                 env,
             } => self.array((items, tuple), left, done, env, v),
+            Kont::Part { index, span } => match v {
+                Value::Tuple(parts) if index < parts.len() => Control::Return(parts[index].clone()),
+                _ => {
+                    return Err(
+                        Diagnostic::new("internal", "a pattern's value is not a tuple")
+                            .with_span(span),
+                    );
+                }
+            },
             _ => return Err(Diagnostic::new("internal", "a frame out of place")),
         })
     }

@@ -1,0 +1,5 @@
+# TU5: a tuple pattern takes a tuple apart; an array is not one.
+== SOURCE
+(a, b) := 1 2
+== ERROR
+error[type-mismatch]: expected a tuple of 2, found Int at 0..13
