@@ -1,5 +1,5 @@
-//! Programs and statements: bindings (S1), guards (G1), separators
-//! (S2, S3).
+//! Programs and statements: bindings (S1), pattern bindings (TU3),
+//! guards (G1), separators (S2, S3).
 
 use xetal_base::Diagnostic;
 use xetal_lex::{Token, TokenKind};
@@ -83,6 +83,59 @@ impl Parser {
             return Ok(Stmt::Guard { cond, result, span });
         }
         Ok(Stmt::Expr(cond))
+    }
+
+    /// `(a, b) := value` at the start of a statement: a pattern binding
+    /// (TU3), recognized by `:=` right after the closing parenthesis.
+    pub(crate) fn pattern_binding(&mut self) -> Result<Option<Stmt>, Diagnostic> {
+        let mut depth = 0usize;
+        let mut close = None;
+        for (k, t) in self.tokens.iter().enumerate().skip(self.pos) {
+            match t.kind {
+                TokenKind::LParen => depth += 1,
+                TokenKind::RParen if depth == 1 => {
+                    close = Some(k);
+                    break;
+                }
+                TokenKind::RParen => depth = depth.saturating_sub(1),
+                _ if depth == 0 => break,
+                _ => {}
+            }
+        }
+        let Some(close) = close else { return Ok(None) };
+        if self
+            .tokens
+            .get(close + 1)
+            .is_none_or(|t| t.kind != TokenKind::Assign)
+        {
+            return Ok(None);
+        }
+        let start = self.tokens[self.pos].span;
+        // Inside parentheses a newline is whitespace (S2).
+        let tokens: Vec<Token> = self.tokens[self.pos..=close]
+            .iter()
+            .filter(|t| t.kind != TokenKind::Newline)
+            .cloned()
+            .collect();
+        let target = crate::tuple::pattern(&tokens, &mut 0, false, start)?;
+        let whole = start.join(self.tokens[close].span);
+        crate::tuple::distinct(&target, &mut Vec::new()).map_err(|d| d.with_span(whole))?;
+        let assign = self.tokens[close + 1].span;
+        self.pos = close + 2;
+        if self.expr_is_empty() {
+            return Err(err(
+                "missing-value",
+                assign,
+                "a binding needs a value after `:=`",
+            ));
+        }
+        let value = self.expr()?;
+        let span = start.join(value.span);
+        Ok(Some(Stmt::Bind {
+            target,
+            value,
+            span,
+        }))
     }
 }
 

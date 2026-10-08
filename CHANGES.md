@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-08
+
+- 00:30 `fix` After merging PR #111 (tuple patterns): the LaTeX renderer escapes the wildcard `_` (`\_`; KaTeX rejected `{_}`, so the gallery failed), and three sw-checklist failures fixed: xetal-types' `part` moved beside `tuple` (subscript.rs), xetal-core's binding rules and tuple-pattern lowering moved into a new `bind.rs`, xetal-syntax's `pattern` split (`parts`) and `pattern_binding` moved into stmt.rs.
+- 00:10 `chore` Merged PR #111 (tuple patterns, Saga 39 step 4).
 ## 2026-10-07
 
 - 23:30 `feat` Tuple patterns (Saga 39 step 4, D126): `(w, m, v, k) := s` at the top level and in lambdas, pattern parameters `{ (w, k) -> ... }` and `{ (a, b) k -> ... }`, nested patterns and `_`; patterns desugar to projections in Core; size mismatches are type errors; macro hygiene and the shadowing warning see pattern names. Asks M13 (X_eTaL-ML) and D7 (X_eTaL-demos) landed: a step on a tuple state through `p_ower` takes the state apart.

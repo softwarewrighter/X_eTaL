@@ -1,6 +1,7 @@
 //! Desugaring of the surface AST into Core (docs/design.md section 4).
 //! Sugar forms lower to identical Core (normalization-equivalence tests).
 
+mod bind;
 mod body;
 mod expr;
 mod lower;

@@ -58,14 +58,6 @@ impl Infer {
         })
     }
 
-    /// Part `index` of a tuple that must have `size` parts (TU3, TU5).
-    fn part(&mut self, index: usize, size: usize, tuple: &Expr) -> Result<Type, Diagnostic> {
-        let t = self.expr(tuple)?;
-        let parts: Vec<Type> = (0..size).map(|_| self.u.fresh()).collect();
-        self.u.unify(&Type::Tuple(parts.clone()), &t, tuple.span)?;
-        Ok(parts[index].clone())
-    }
-
     fn lambda(&mut self, param: &Param, body: &Expr) -> Result<Type, Diagnostic> {
         let arg = match param {
             Param::Name(name) => {

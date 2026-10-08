@@ -88,3 +88,9 @@ fn strings_are_escaped_text() {
         "{\\text{\"hi \\underline{X}\u{1d49}T\"}}"
     );
 }
+
+#[test]
+fn a_wildcard_is_an_escaped_underscore() {
+    assert_eq!(tex("(a, _) := (1, 2)").matches(r"{\_}").count(), 1);
+    assert!(!tex("(a, _) := (1, 2)").contains("{_}"));
+}

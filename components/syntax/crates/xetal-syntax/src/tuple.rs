@@ -7,7 +7,7 @@ use xetal_lex::{Token, TokenKind};
 
 use crate::parser::{Parser, err};
 use crate::stmt::target;
-use xetal_ast::{Expr, ExprKind, Stmt, Target};
+use xetal_ast::{Expr, ExprKind, Target};
 
 impl Parser {
     /// The parts after the first, while a comma follows: each comma must
@@ -42,59 +42,6 @@ impl Parser {
         }
         err("unexpected-token", span, message)
     }
-
-    /// `(a, b) := value` at the start of a statement: a pattern binding
-    /// (TU3), recognized by `:=` right after the closing parenthesis.
-    pub(crate) fn pattern_binding(&mut self) -> Result<Option<Stmt>, Diagnostic> {
-        let mut depth = 0usize;
-        let mut close = None;
-        for (k, t) in self.tokens.iter().enumerate().skip(self.pos) {
-            match t.kind {
-                TokenKind::LParen => depth += 1,
-                TokenKind::RParen if depth == 1 => {
-                    close = Some(k);
-                    break;
-                }
-                TokenKind::RParen => depth = depth.saturating_sub(1),
-                _ if depth == 0 => break,
-                _ => {}
-            }
-        }
-        let Some(close) = close else { return Ok(None) };
-        if self
-            .tokens
-            .get(close + 1)
-            .is_none_or(|t| t.kind != TokenKind::Assign)
-        {
-            return Ok(None);
-        }
-        let start = self.tokens[self.pos].span;
-        // Inside parentheses a newline is whitespace (S2).
-        let tokens: Vec<Token> = self.tokens[self.pos..=close]
-            .iter()
-            .filter(|t| t.kind != TokenKind::Newline)
-            .cloned()
-            .collect();
-        let target = pattern(&tokens, &mut 0, false, start)?;
-        let whole = start.join(self.tokens[close].span);
-        distinct(&target, &mut Vec::new()).map_err(|d| d.with_span(whole))?;
-        let assign = self.tokens[close + 1].span;
-        self.pos = close + 2;
-        if self.expr_is_empty() {
-            return Err(err(
-                "missing-value",
-                assign,
-                "a binding needs a value after `:=`",
-            ));
-        }
-        let value = self.expr()?;
-        let span = start.join(value.span);
-        Ok(Some(Stmt::Bind {
-            target,
-            value,
-            span,
-        }))
-    }
 }
 
 /// The pattern at `tokens[*i..]`: a name, `_` (only inside a tuple
@@ -121,36 +68,7 @@ pub(crate) fn pattern(
             t.span,
             "`_` ignores a part of a tuple pattern: write a name here",
         )),
-        TokenKind::LParen => {
-            let mut parts = vec![pattern(tokens, i, true, t.span)?];
-            loop {
-                match tokens.get(*i).map(|t| &t.kind) {
-                    Some(TokenKind::Comma) => {
-                        *i += 1;
-                        parts.push(pattern(tokens, i, true, t.span)?);
-                    }
-                    Some(TokenKind::RParen) if parts.len() > 1 => {
-                        *i += 1;
-                        return Ok(Target::Tuple(parts));
-                    }
-                    Some(TokenKind::RParen) => {
-                        return Err(err(
-                            "bad-pattern",
-                            t.span,
-                            "a tuple pattern has two or more parts: (a, b)",
-                        ));
-                    }
-                    _ => {
-                        let span = tokens.get(*i).map_or(at, |t| t.span);
-                        return Err(err(
-                            "bad-pattern",
-                            span,
-                            "a tuple pattern is names, `_` and parentheses, separated by commas",
-                        ));
-                    }
-                }
-            }
-        }
+        TokenKind::LParen => parts(tokens, i, t.span, at),
         _ => target(t).ok_or_else(|| {
             err(
                 "bad-pattern",
@@ -158,6 +76,39 @@ pub(crate) fn pattern(
                 "a tuple pattern is names, `_` and parentheses, separated by commas",
             )
         }),
+    }
+}
+
+/// The parts of a parenthesized pattern, after its `(` at `open`: two
+/// or more patterns separated by commas, then `)`.
+fn parts(tokens: &[Token], i: &mut usize, open: Span, at: Span) -> Result<Target, Diagnostic> {
+    let mut parts = vec![pattern(tokens, i, true, open)?];
+    loop {
+        match tokens.get(*i).map(|t| &t.kind) {
+            Some(TokenKind::Comma) => {
+                *i += 1;
+                parts.push(pattern(tokens, i, true, open)?);
+            }
+            Some(TokenKind::RParen) if parts.len() > 1 => {
+                *i += 1;
+                return Ok(Target::Tuple(parts));
+            }
+            Some(TokenKind::RParen) => {
+                return Err(err(
+                    "bad-pattern",
+                    open,
+                    "a tuple pattern has two or more parts: (a, b)",
+                ));
+            }
+            _ => {
+                let span = tokens.get(*i).map_or(at, |t| t.span);
+                return Err(err(
+                    "bad-pattern",
+                    span,
+                    "a tuple pattern is names, `_` and parentheses, separated by commas",
+                ));
+            }
+        }
     }
 }
 
