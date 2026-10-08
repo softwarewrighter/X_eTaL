@@ -1,5 +1,11 @@
       [2m⍝!/usr/bin/env xetal[0m
-      [2m⍝ M1: recursion with guards, one statement per line.[0m
+      [2m⍝# Factorial: recursion with guards, one statement per line. Run it with[0m
+      [2m⍝# "xetal run demos/factorial.xtl" (or "./demos/factorial.xtl"); it[0m
+      [2m⍝# prints 3628800, the factorial of 10. Read u:f_act for how a guard[0m
+      [2m⍝# ([0mc ? r[2m) ends a function early and how a function calls itself.[0m
+
+      [2m⍝# n u:f_act: the factorial of n, 1 when n is at most 1, otherwise n[0m
+      [2m⍝# times the factorial of n - 1.[0m
       [32mᵘf̲act[0m ← { n →
         n [94m≤[0m [33m1[0m ? [33m1[0m
         n [94m×[0m [32mᵘf̲act[0m n [94m−[0m [33m1[0m

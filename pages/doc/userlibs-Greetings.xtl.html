@@ -65,18 +65,35 @@
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">library</span>userlibs/Greetings.xtl</h1>
+<div class="doc">
+<p>Greetings: a library with a private name. h:n_ame is file-private, so it is
+used here but cannot be imported; g_reet is exported, and takes the
+greeting from the program that calls it. Import it with an alias of
+your choice: &quot;g:&quot; u_se&lt; &quot;Greetings&quot; (it is found in userlibs/).</p>
+</div>
 <p class="meta"><a href="userlibs-Greetings.xtl.src.html">source</a></p>
 <div class="item" id="h.n_ame">
 <h3><a href="#h.n_ame"><span class="c-libfunc">ʰn̲ame</span></a> <span class="type">: Unit -&gt; Char</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="userlibs-Greetings.xtl.src.html#L5">line 5</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="userlibs-Greetings.xtl.src.html#L8">line 8</a></div>
+<div class="doc">
+<p>The name a greeting is addressed to, the logo drawn (niladic: call
+it with @).</p>
+</div>
 <pre class="code"><span class="c-libfunc">ʰn̲ame</span> ← { @ → <span class="c-string">&quot;X̲ᵉTᵃL&quot;</span> }                       <span class="c-comment">⍝</span><span class="c-comment"> private</span></pre>
 <div class="uses">Used in: <a href="userlibs-Greetings.xtl.html#l.g_reet"><span class="c-libfunc">ˡg̲reet</span></a></div>
 </div>
 <div class="item" id="l.g_reet">
 <h3><a href="#l.g_reet"><span class="c-libfunc">ˡg̲reet</span></a> <span class="type">: Char -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="userlibs-Greetings.xtl.src.html#L6">line 6</a></div>
+<div class="meta">function &middot; <a href="userlibs-Greetings.xtl.src.html#L15">line 15</a></div>
+<div class="doc">
+<p>The greeting g, given by the caller, followed by the name: monadic,
+<code><a href="userlibs-Greetings.xtl.html#l.g_reet" class="c-libfunc">ᵍg̲reet</a> <span class="c-string">&quot;hi&quot;</span></code>.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵍ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="userlibs-Greetings.xtl.html" class="c-string">&quot;Greetings&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="userlibs-Greetings.xtl.html#l.g_reet" class="c-libfunc">ᵍg̲reet</a> <span class="c-string">&quot;hi&quot;</span>
+hi X̲ᵉTᵃL</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡg̲reet</span> ← { g → g <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="userlibs-Greetings.xtl.html#h.n_ame" class="c-libfunc">ʰn̲ame</a> @ }         <span class="c-comment">⍝</span><span class="c-comment"> monadic: the greeting</span></pre>
-<div class="uses">Used in: <a href="demos-hello-library.xtl.src.html#L17">hello-library.xtl:17</a>, <a href="demos-hello-library.xtl.src.html#L18">hello-library.xtl:18</a></div>
+<div class="uses">Used in: <a href="demos-hello-library.xtl.src.html#L23">hello-library.xtl:23</a>, <a href="demos-hello-library.xtl.src.html#L24">hello-library.xtl:24</a></div>
 </div>
 </main>
 </body>

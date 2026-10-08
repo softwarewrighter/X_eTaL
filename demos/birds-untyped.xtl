@@ -1,27 +1,43 @@
 #!/usr/bin/env -S xetal run --untyped
-# The birds that apply an argument to itself have no finite type, so
-# this file runs with --untyped (just show applies its #! flags).
-# docs/birds.md lists every bird; the typed ones are the Combinators
-# library.
+## Untyped birds: the birds that apply an argument to itself have no
+## finite type, so this file runs with --untyped:
+## "xetal run --untyped demos/birds-untyped.xtl" (or
+## "./demos/birds-untyped.xtl"; just show applies its #! flags). It
+## prints 42, then 120, 720 and 24, factorials from three fixed-point
+## combinators. docs/birds.md lists every bird; the typed ones are the
+## Combinators library.
 
+### Self-applying birds
+
+## u:M_ x: the Mockingbird, M x = x x.
 u:M_ := { x_ -> x_ 'x_ }                  # Mockingbird: M x = x x
+## x u:L_ y: the Lark, L x y = x (y y).
 u:L_ := { x_ y_ -> x_ y_ 'y_ }            # Lark: L x y = x (y y)
+## x u:M_2 y: the Double Mockingbird, M2 x y = x y (x y).
 u:M_2 := { x_ y -> y x_ (x_ y) }         # Double Mockingbird: M2 x y = x y (x y)
+## x u:U_ y: the Turing bird, U x y = y (x x y).
 u:U_ := { x_ y_ -> y_ ('x_ x_ 'y_) }      # Turing bird: U x y = y (x x y)
 
-# M applied to the identity gives the identity back.
+### The identity
+
+## u:I_ x: the identity, x itself. M applied to it gives it back.
 u:I_ := { x -> x }
 ('u:I_ u:M_)_ 42
 
-# The textbook Sage Bird, from self-application: Y f = f (Y f). The
-# factorial's self parameter is lazy (~), so the unfolding stops.
+### Fixed points
+
+## u:Y_ f: the textbook Sage Bird, from self-application: Y f = f (Y f).
 u:Y_ := { f_ -> { x_ -> f_ x_ 'x_ } '{ x_ -> f_ x_ 'x_ } }
+## 's_elf u:F_ n: the factorial of n through s_elf; the self parameter
+## is lazy (~), so Y's unfolding stops.
 u:F_ := { ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }
 (u:Y_ 'u:F_)_ 5
 
-# Z, the Sage Bird for strict languages: the self-application is
-# wrapped in a lambda, so it waits until the argument arrives.
+## u:Z_ f: Z, the Sage Bird for strict languages: the self-application
+## is wrapped in a lambda, so it waits until the argument arrives.
 u:Z_ := { f_ -> { x_ -> f_ '{ v -> 'x_ x_ v } } '{ x_ -> f_ '{ v -> 'x_ x_ v } } }
+## 's_elf u:G_ n: the factorial of n through s_elf, a strict parameter,
+## for Z.
 u:G_ := { s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }
 (u:Z_ 'u:G_)_ 6
 

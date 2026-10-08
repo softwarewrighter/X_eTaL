@@ -1,13 +1,19 @@
 #!/usr/bin/env xetal
-# demos/hello-library.xtl: a program using two libraries of its own,
-# userlibs/Hello.xtl and userlibs/Greetings.xtl. u_se< finds "Hello" as
-# Hello.xtl beside this file, then in userlibs/ (run from the
-# repository's root), then on XETAL_PATH, then among the standard
-# libraries; the string on its left is the prefix the library's l:
-# names get here.
+## Hello library: a program using two libraries of its own,
+## userlibs/Hello.xtl and userlibs/Greetings.xtl. Run it from the
+## repository's root with "xetal run demos/hello-library.xtl" (or
+## "./demos/hello-library.xtl"); it prints a greeting and two personal
+## greetings. Read the imports for how u_se< finds a library: "Hello" is
+## Hello.xtl beside this file, then in userlibs/, then on XETAL_PATH,
+## then among the standard libraries; the string on its left is the
+## prefix the library's l: names get here.
+
+### The imports
 
 "hi:" u_se< "Hello"
 "g:" u_se< "Greetings"
+
+### Calling the libraries
 
 # h_ello is niladic: it takes Unit (@), the value that stands for
 # nothing, and gives the greeting.

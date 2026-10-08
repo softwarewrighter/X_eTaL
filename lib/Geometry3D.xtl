@@ -7,7 +7,10 @@
 ## one expression orders them far to near for painting.
 ## Names with l: are exported; names with h: are private to this file.
 
+## Degrees as radians, a Float.
 h:r_adians := { (f_loat _r) * (p_i @) / 180 }   # private
+
+### Rotations
 
 ## The rotation of d degrees about the x axis (y toward z), 3 x 3.
 ## >> "g:" u_se< "Geometry3D"
@@ -55,6 +58,8 @@ l:r_otZ := { d ->
 ## 0
 l:t_urn := { m points -> m '+ '* i_nner points }
 
+### Viewing
+
 ## The points as seen by a viewer at distance d up the z axis, looking
 ## at the origin, as 2 rows (x over y) for []P_ATH: a nearer point (a
 ## larger z) is drawn farther from the center. `d g:p_roject points`.
@@ -80,6 +85,8 @@ l:f_ar := { faces -> (f_loat '+ r_/ o_\ 3 s_elect_2 faces) / f_loat 1 s_elect r_
 ## >> g:o_rder 2 3 1 r_eshape 0 0 2 0 0 -3
 ## 2 1
 l:o_rder := { faces -> g_rade l:f_ar faces }
+
+### Solids
 
 ## The 8 corners of a cube of side s centered on the origin, 3 x 8, in
 ## the order near face (z = s/2, toward the viewer) then far face, each

@@ -57,7 +57,7 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L21">m</a></li>
+<li class="item"><a href="#L30">m</a></li>
 </ul>
 </nav>
 <main>
@@ -65,38 +65,48 @@
 <section id="results"></section>
 <h1><span class="kind">source</span><a href="demos-tttml.xtl.html">demos/tttml.xtl</a></h1>
 <div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment">!/usr/bin/env xetal</span></span>
-<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> TTTML: a machine that learns tic-tac-toe by playing itself, from the</span></span>
-<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"> TTTML library (lib/TTTML.xtl, ported from sw-apl's TTTML workspace;</span></span>
-<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"> docs/literate/tttml.org explains it). Run as a notebook with</span></span>
-<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"> &quot;just tttml&quot; (the optimized build: training takes seconds).</span></span>
-<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-libfunc">ᵗ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-TTTML.xtl.html" class="c-string">&quot;TTTML&quot;</a></span>
-<span class="line" id="L7"><a class="ln" href="#L7">7</a></span>
-<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"> A board: 1 for X, -1 for O, 0 for an empty square.</span></span>
-<span class="line" id="L9"><a class="ln" href="#L9">9</a><a href="lib-TTTML.xtl.html#l.s_how" class="c-libfunc">ᵗs̲how</a> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">-1</span></span>
-<span class="line" id="L10"><a class="ln" href="#L10">10</a></span>
-<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"> Who has won: 1 X, -1 O, 2 a draw, 0 not over.</span></span>
-<span class="line" id="L12"><a class="ln" href="#L12">12</a><a href="lib-TTTML.xtl.html#l.o_utcome" class="c-libfunc">ᵗo̲utcome</a> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></span>
-<span class="line" id="L13"><a class="ln" href="#L13">13</a><a href="lib-TTTML.xtl.html#l.o_utcome" class="c-libfunc">ᵗo̲utcome</a> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">-1</span> <span class="c-number">-1</span> <span class="c-number">1</span> <span class="c-number">1</span></span>
-<span class="line" id="L14"><a class="ln" href="#L14">14</a></span>
-<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-comment">⍝</span><span class="c-comment"> A position's code is the same for the board turned or reflected.</span></span>
-<span class="line" id="L16"><a class="ln" href="#L16">16</a><a href="lib-TTTML.xtl.html#l.c_ode" class="c-libfunc">ᵗc̲ode</a> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></span>
-<span class="line" id="L17"><a class="ln" href="#L17">17</a><a href="lib-TTTML.xtl.html#l.c_ode" class="c-libfunc">ᵗc̲ode</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># TTTML: a machine that learns tic-tac-toe by playing itself, from the</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># TTTML library (lib/TTTML.xtl, ported from sw-apl's TTTML workspace;</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"># docs/literate/tttml.org explains it). Run it with</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"># &quot;xetal run demos/tttml.xtl&quot;, or as a notebook with &quot;just tttml&quot; (the</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"># optimized build: training takes seconds).</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment">#</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"># It shows a board and its outcome, the codes that make turned and</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"># reflected boards one position, then trains a model on 2000 games</span></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment"># against itself and measures it against a random player and itself.</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-libfunc">ᵗ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-TTTML.xtl.html" class="c-string">&quot;TTTML&quot;</a></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-comment">⍝</span><span class="c-comment">## Boards and positions</span></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-comment">⍝</span><span class="c-comment"> A board: 1 for X, -1 for O, 0 for an empty square.</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><a href="lib-TTTML.xtl.html#l.s_how" class="c-libfunc">ᵗs̲how</a> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">-1</span></span>
 <span class="line" id="L18"><a class="ln" href="#L18">18</a></span>
-<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-comment">⍝</span><span class="c-comment"> Learning from 2000 games against itself: how many positions it</span></span>
-<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-comment">⍝</span><span class="c-comment"> met.</span></span>
-<span class="line" id="L21"><a class="ln" href="#L21">21</a>m ← <span class="c-number">2000</span> <a href="lib-TTTML.xtl.html#l.t_rain-21" class="c-libfunc">ᵗt̲rain!</a> <a href="lib-TTTML.xtl.html#l.empty">ᵗempty</a></span>
-<span class="line" id="L22"><a class="ln" href="#L22">22</a><a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-tttml.xtl.html#m">m</a></span>
-<span class="line" id="L23"><a class="ln" href="#L23">23</a></span>
-<span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-comment">⍝</span><span class="c-comment"> 50 games against a random player as X, then 50 as O: won, lost,</span></span>
-<span class="line" id="L25"><a class="ln" href="#L25">25</a><span class="c-comment">⍝</span><span class="c-comment"> drawn.</span></span>
-<span class="line" id="L26"><a class="ln" href="#L26">26</a><span class="c-number">50</span> <a href="lib-TTTML.xtl.html#l.t_rial-21" class="c-libfunc">ᵗt̲rial!</a> <a href="demos-tttml.xtl.html#m">m</a></span>
-<span class="line" id="L27"><a class="ln" href="#L27">27</a></span>
-<span class="line" id="L28"><a class="ln" href="#L28">28</a><span class="c-comment">⍝</span><span class="c-comment"> 50 games against itself, its best move on both sides from a random</span></span>
-<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-comment">⍝</span><span class="c-comment"> first move: X won, O won, drawn. Played well, all are draws.</span></span>
-<span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-number">50</span> <a href="lib-TTTML.xtl.html#l.s_elfTrial-21" class="c-libfunc">ᵗs̲elfTrial!</a> <a href="demos-tttml.xtl.html#m">m</a></span>
-<span class="line" id="L31"><a class="ln" href="#L31">31</a></span>
-<span class="line" id="L32"><a class="ln" href="#L32">32</a><span class="c-comment">⍝</span><span class="c-comment"> The game it plays against itself, move by move.</span></span>
-<span class="line" id="L33"><a class="ln" href="#L33">33</a><a href="lib-TTTML.xtl.html#l.b_oards" class="c-libfunc">ᵗb̲oards</a> <a href="lib-TTTML.xtl.html#l.b_est" class="c-libfunc">ᵗb̲est</a> <a href="demos-tttml.xtl.html#m">m</a></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-comment">⍝</span><span class="c-comment"> Who has won: 1 X, -1 O, 2 a draw, 0 not over.</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a><a href="lib-TTTML.xtl.html#l.o_utcome" class="c-libfunc">ᵗo̲utcome</a> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><a href="lib-TTTML.xtl.html#l.o_utcome" class="c-libfunc">ᵗo̲utcome</a> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">-1</span> <span class="c-number">-1</span> <span class="c-number">1</span> <span class="c-number">1</span></span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a></span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-comment">⍝</span><span class="c-comment"> A position's code is the same for the board turned or reflected.</span></span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a><a href="lib-TTTML.xtl.html#l.c_ode" class="c-libfunc">ᵗc̲ode</a> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a><a href="lib-TTTML.xtl.html#l.c_ode" class="c-libfunc">ᵗc̲ode</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a></span>
+<span class="line" id="L27"><a class="ln" href="#L27">27</a><span class="c-comment">⍝</span><span class="c-comment">## Training and measuring</span></span>
+<span class="line" id="L28"><a class="ln" href="#L28">28</a></span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-comment">⍝</span><span class="c-comment"># The model learned from 2000 games against itself.</span></span>
+<span class="line" id="L30"><a class="ln" href="#L30">30</a>m ← <span class="c-number">2000</span> <a href="lib-TTTML.xtl.html#l.t_rain-21" class="c-libfunc">ᵗt̲rain!</a> <a href="lib-TTTML.xtl.html#l.empty">ᵗempty</a></span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-comment">⍝</span><span class="c-comment"> How many positions it met.</span></span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a><a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="demos-tttml.xtl.html#m">m</a></span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a></span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a><span class="c-comment">⍝</span><span class="c-comment"> 50 games against a random player as X, then 50 as O: won, lost,</span></span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a><span class="c-comment">⍝</span><span class="c-comment"> drawn.</span></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-number">50</span> <a href="lib-TTTML.xtl.html#l.t_rial-21" class="c-libfunc">ᵗt̲rial!</a> <a href="demos-tttml.xtl.html#m">m</a></span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a></span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-comment">⍝</span><span class="c-comment"> 50 games against itself, its best move on both sides from a random</span></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-comment">⍝</span><span class="c-comment"> first move: X won, O won, drawn. Played well, all are draws.</span></span>
+<span class="line" id="L40"><a class="ln" href="#L40">40</a><span class="c-number">50</span> <a href="lib-TTTML.xtl.html#l.s_elfTrial-21" class="c-libfunc">ᵗs̲elfTrial!</a> <a href="demos-tttml.xtl.html#m">m</a></span>
+<span class="line" id="L41"><a class="ln" href="#L41">41</a></span>
+<span class="line" id="L42"><a class="ln" href="#L42">42</a><span class="c-comment">⍝</span><span class="c-comment"> The game it plays against itself, move by move.</span></span>
+<span class="line" id="L43"><a class="ln" href="#L43">43</a><a href="lib-TTTML.xtl.html#l.b_oards" class="c-libfunc">ᵗb̲oards</a> <a href="lib-TTTML.xtl.html#l.b_est" class="c-libfunc">ᵗb̲est</a> <a href="demos-tttml.xtl.html#m">m</a></span>
 </div>
 </main>
 </body>

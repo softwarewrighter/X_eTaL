@@ -115,7 +115,7 @@ chain reads right to left: 'g b_ind 'f b_ind m is f, then g.</p>
 <p>d 'f m_aybe m: f applied to m's value, or d when m is empty.</p>
 </div>
 <pre class="code"><span class="c-libfunc">ˡm̲aybe</span> ← { <span class="c-builtin">f̲</span> d <span class="c-builtin">m̲</span> → d <span class="c-builtin">m̲</span> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</pre>
-<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L31">monads.xtl:31</a>, <a href="demos-monads.xtl.src.html#L32">monads.xtl:32</a></div>
+<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L45">monads.xtl:45</a>, <a href="demos-monads.xtl.src.html#L46">monads.xtl:46</a></div>
 </div>
 <div class="item" id="l.o_r">
 <h3><a href="#l.o_r"><span class="c-libfunc">ˡo̲r</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; a -&gt; (a -&gt; (b -&gt; b) -&gt; c) -&gt; c</span></h3>
@@ -124,7 +124,7 @@ chain reads right to left: 'g b_ind 'f b_ind m is f, then g.</p>
 <p>d o_r m: m's value, or d when m is empty.</p>
 </div>
 <pre class="code"><span class="c-libfunc">ˡo̲r</span> ← { d <span class="c-builtin">m̲</span> → d <span class="c-builtin">m̲</span> <span class="c-quote">'</span>{ x → x } }</pre>
-<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L13">monads.xtl:13</a>, <a href="demos-monads.xtl.src.html#L14">monads.xtl:14</a>, <a href="demos-monads.xtl.src.html#L20">monads.xtl:20</a>, <a href="demos-monads.xtl.src.html#L25">monads.xtl:25</a>, <a href="demos-monads.xtl.src.html#L28">monads.xtl:28</a></div>
+<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L20">monads.xtl:20</a>, <a href="demos-monads.xtl.src.html#L21">monads.xtl:21</a>, <a href="demos-monads.xtl.src.html#L31">monads.xtl:31</a>, <a href="demos-monads.xtl.src.html#L37">monads.xtl:37</a>, <a href="demos-monads.xtl.src.html#L42">monads.xtl:42</a></div>
 </div>
 <div class="item" id="l.m_ap">
 <h3><a href="#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e, Any f, Any g) =&gt; (a -&gt; b) -&gt; ((c -&gt; d -&gt; c) -&gt; (a -&gt; e -&gt; (b -&gt; f) -&gt; f) -&gt; g) -&gt; g</span></h3>
@@ -133,7 +133,7 @@ chain reads right to left: 'g b_ind 'f b_ind m is f, then g.</p>
 <p>'f m_ap m: f applied inside the maybe; empty stays empty.</p>
 </div>
 <pre class="code"><span class="c-libfunc">ˡm̲ap</span> ← { <span class="c-builtin">f̲</span> <span class="c-builtin">m̲</span> → <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ˡn̲othing</a> <span class="c-builtin">m̲</span> <span class="c-quote">'</span>{ x → <a href="lib-Maybe.xtl.html#l.j_ust" class="c-libfunc">ˡj̲ust</a> <span class="c-builtin">f̲</span> x } }</pre>
-<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L28">monads.xtl:28</a></div>
+<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L42">monads.xtl:42</a></div>
 </div>
 <div class="item" id="l.b_ind">
 <h3><a href="#l.b_ind"><span class="c-libfunc">ˡb̲ind</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; a -&gt; ((b -&gt; c -&gt; b) -&gt; a -&gt; d) -&gt; d</span></h3>
@@ -143,7 +143,7 @@ chain reads right to left: 'g b_ind 'f b_ind m is f, then g.</p>
 stays empty, so a chain of steps stops at the first that fails.</p>
 </div>
 <pre class="code"><span class="c-libfunc">ˡb̲ind</span> ← { <span class="c-builtin">f̲</span> <span class="c-builtin">m̲</span> → <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ˡn̲othing</a> <span class="c-builtin">m̲</span> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</pre>
-<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L20">monads.xtl:20</a>, <a href="demos-monads.xtl.src.html#L25">monads.xtl:25</a></div>
+<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L31">monads.xtl:31</a>, <a href="demos-monads.xtl.src.html#L37">monads.xtl:37</a></div>
 </div>
 </main>
 </body>

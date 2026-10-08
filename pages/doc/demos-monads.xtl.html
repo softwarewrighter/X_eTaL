@@ -57,7 +57,9 @@
 </ul>
 <h2>On this page</h2>
 <ul>
+<li><a href="#section-1">Division that can fail</a></li>
 <li class="item"><a href="#u.d_iv"><span class="c-userfunc">ᵘd̲iv</span></a></li>
+<li><a href="#section-2">Chains</a></li>
 <li class="item"><a href="#u.h_alf"><span class="c-userfunc">ᵘh̲alf</span></a></li>
 <li class="item"><a href="#u.f_ifth"><span class="c-userfunc">ᵘf̲ifth</span></a></li>
 <li class="item"><a href="#u.b_yZero"><span class="c-userfunc">ᵘb̲yZero</span></a></li>
@@ -67,30 +69,53 @@
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">program</span>demos/monads.xtl</h1>
+<div class="doc">
+<p>The Maybe monad from the Maybe library: computations that can fail,
+chained so that the first failure stops the chain.</p>
+<p>Run it with ./demos/monads.xtl or &quot;xetal run demos/monads.xtl&quot;, or as
+a notebook with &quot;just show demos/monads.xtl&quot;. Each line prints a
+result, or the default (-1, or 0 for m_aybe) where a division by zero
+emptied the maybe. Read how b_ind chains steps right to left.</p>
+</div>
 <p class="meta"><a href="demos-monads.xtl.src.html">source</a> &middot; imports <code><span class="c-error">m:</span></code> <a href="lib-Maybe.xtl.html">lib/Maybe.xtl</a></p>
+<h2 class="section" id="section-1">Division that can fail</h2>
 <div class="item" id="u.d_iv">
 <h3><a href="#u.d_iv"><span class="c-userfunc">ᵘd̲iv</span></a> <span class="type">: (Num a, Any b) =&gt; a -&gt; a -&gt; b -&gt; (Float -&gt; b) -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="demos-monads.xtl.src.html#L9">line 9</a></div>
-<pre class="code"><span class="c-userfunc">ᵘd̲iv</span> ← { a b → b <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ᵐn̲othing</a>◆ <a href="lib-Maybe.xtl.html#l.j_ust" class="c-libfunc">ᵐj̲ust</a> a <a href="builtins.html#-2f" class="c-symbol">÷</a> b }</pre>
-<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L13">monads.xtl:13</a>, <a href="demos-monads.xtl.src.html#L14">monads.xtl:14</a>, <a href="demos-monads.xtl.html#u.h_alf"><span class="c-userfunc">ᵘh̲alf</span></a>, <a href="demos-monads.xtl.html#u.f_ifth"><span class="c-userfunc">ᵘf̲ifth</span></a>, <a href="demos-monads.xtl.src.html#L20">monads.xtl:20</a>, <a href="demos-monads.xtl.html#u.b_yZero"><span class="c-userfunc">ᵘb̲yZero</span></a>, <a href="demos-monads.xtl.src.html#L25">monads.xtl:25</a>, <a href="demos-monads.xtl.src.html#L28">monads.xtl:28</a>, <a href="demos-monads.xtl.src.html#L31">monads.xtl:31</a>, <a href="demos-monads.xtl.src.html#L32">monads.xtl:32</a></div>
+<div class="meta">function &middot; <a href="demos-monads.xtl.src.html#L16">line 16</a></div>
+<div class="doc">
+<p>a u:d_iv b: a / b in a maybe, or the empty maybe when b is 0,
+instead of stopping the program.</p>
 </div>
+<pre class="code"><span class="c-userfunc">ᵘd̲iv</span> ← { a b → b <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ᵐn̲othing</a>◆ <a href="lib-Maybe.xtl.html#l.j_ust" class="c-libfunc">ᵐj̲ust</a> a <a href="builtins.html#-2f" class="c-symbol">÷</a> b }</pre>
+<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L20">monads.xtl:20</a>, <a href="demos-monads.xtl.src.html#L21">monads.xtl:21</a>, <a href="demos-monads.xtl.html#u.h_alf"><span class="c-userfunc">ᵘh̲alf</span></a>, <a href="demos-monads.xtl.html#u.f_ifth"><span class="c-userfunc">ᵘf̲ifth</span></a>, <a href="demos-monads.xtl.src.html#L31">monads.xtl:31</a>, <a href="demos-monads.xtl.html#u.b_yZero"><span class="c-userfunc">ᵘb̲yZero</span></a>, <a href="demos-monads.xtl.src.html#L37">monads.xtl:37</a>, <a href="demos-monads.xtl.src.html#L42">monads.xtl:42</a>, <a href="demos-monads.xtl.src.html#L45">monads.xtl:45</a>, <a href="demos-monads.xtl.src.html#L46">monads.xtl:46</a></div>
+</div>
+<h2 class="section" id="section-2">Chains</h2>
 <div class="item" id="u.h_alf">
 <h3><a href="#u.h_alf"><span class="c-userfunc">ᵘh̲alf</span></a> <span class="type">: (Num a, Any b) =&gt; a -&gt; b -&gt; (Float -&gt; b) -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="demos-monads.xtl.src.html#L18">line 18</a></div>
+<div class="meta">function &middot; <a href="demos-monads.xtl.src.html#L28">line 28</a></div>
+<div class="doc">
+<p>x halved, as a maybe.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘh̲alf</span> ← { x → x <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">2</span> }</pre>
-<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L20">monads.xtl:20</a>, <a href="demos-monads.xtl.src.html#L25">monads.xtl:25</a></div>
+<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L31">monads.xtl:31</a>, <a href="demos-monads.xtl.src.html#L37">monads.xtl:37</a></div>
 </div>
 <div class="item" id="u.f_ifth">
 <h3><a href="#u.f_ifth"><span class="c-userfunc">ᵘf̲ifth</span></a> <span class="type">: (Num a, Any b) =&gt; a -&gt; b -&gt; (Float -&gt; b) -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="demos-monads.xtl.src.html#L19">line 19</a></div>
+<div class="meta">function &middot; <a href="demos-monads.xtl.src.html#L30">line 30</a></div>
+<div class="doc">
+<p>x divided by 5, as a maybe.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘf̲ifth</span> ← { x → x <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">5</span> }</pre>
-<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L20">monads.xtl:20</a></div>
+<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L31">monads.xtl:31</a></div>
 </div>
 <div class="item" id="u.b_yZero">
 <h3><a href="#u.b_yZero"><span class="c-userfunc">ᵘb̲yZero</span></a> <span class="type">: (Num a, Any b) =&gt; a -&gt; b -&gt; (Float -&gt; b) -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="demos-monads.xtl.src.html#L24">line 24</a></div>
+<div class="meta">function &middot; <a href="demos-monads.xtl.src.html#L36">line 36</a></div>
+<div class="doc">
+<p>x divided by 0: always the empty maybe.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘb̲yZero</span> ← { x → x <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">0</span> }</pre>
-<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L25">monads.xtl:25</a></div>
+<div class="uses">Used in: <a href="demos-monads.xtl.src.html#L37">monads.xtl:37</a></div>
 </div>
 </main>
 </body>

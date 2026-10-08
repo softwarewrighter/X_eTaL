@@ -57,10 +57,10 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L9"><span class="c-userfunc">ᵘd̲iv</span></a></li>
-<li class="item"><a href="#L18"><span class="c-userfunc">ᵘh̲alf</span></a></li>
-<li class="item"><a href="#L19"><span class="c-userfunc">ᵘf̲ifth</span></a></li>
-<li class="item"><a href="#L24"><span class="c-userfunc">ᵘb̲yZero</span></a></li>
+<li class="item"><a href="#L16"><span class="c-userfunc">ᵘd̲iv</span></a></li>
+<li class="item"><a href="#L28"><span class="c-userfunc">ᵘh̲alf</span></a></li>
+<li class="item"><a href="#L30"><span class="c-userfunc">ᵘf̲ifth</span></a></li>
+<li class="item"><a href="#L36"><span class="c-userfunc">ᵘb̲yZero</span></a></li>
 </ul>
 </nav>
 <main>
@@ -68,37 +68,51 @@
 <section id="results"></section>
 <h1><span class="kind">source</span><a href="demos-monads.xtl.html">demos/monads.xtl</a></h1>
 <div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment">!/usr/bin/env xetal</span></span>
-<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> The Maybe monad from the Maybe library: computations that can fail,</span></span>
-<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"> chained so that the first failure stops the chain. Run as a notebook</span></span>
-<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"> with &quot;just show demos/monads.xtl&quot;.</span></span>
-<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-libfunc">ᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Maybe.xtl.html" class="c-string">&quot;Maybe&quot;</a></span>
-<span class="line" id="L6"><a class="ln" href="#L6">6</a></span>
-<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"> Division that fails on a zero divisor instead of stopping the</span></span>
-<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"> program: the result is a maybe.</span></span>
-<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-userfunc">ᵘd̲iv</span> ← { a b → b <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ᵐn̲othing</a>◆ <a href="lib-Maybe.xtl.html#l.j_ust" class="c-libfunc">ᵐj̲ust</a> a <a href="builtins.html#-2f" class="c-symbol">÷</a> b }</span>
-<span class="line" id="L10"><a class="ln" href="#L10">10</a></span>
-<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"> o_r takes a maybe's value, or a default (on the left) when it is</span></span>
-<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"> empty.</span></span>
-<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-number">-1</span> <a href="lib-Maybe.xtl.html#l.o_r" class="c-libfunc">ᵐo̲r</a> <span class="c-number">100</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">4</span></span>
-<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-number">-1</span> <a href="lib-Maybe.xtl.html#l.o_r" class="c-libfunc">ᵐo̲r</a> <span class="c-number">100</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">0</span></span>
-<span class="line" id="L15"><a class="ln" href="#L15">15</a></span>
-<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-comment">⍝</span><span class="c-comment"> b_ind chains steps that can fail, right to left like APL: 100 / 4,</span></span>
-<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-comment">⍝</span><span class="c-comment"> then / 5, then / 2.</span></span>
-<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-userfunc">ᵘh̲alf</span> ← { x → x <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">2</span> }</span>
-<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-userfunc">ᵘf̲ifth</span> ← { x → x <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">5</span> }</span>
-<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-number">-1</span> <a href="lib-Maybe.xtl.html#l.o_r" class="c-libfunc">ᵐo̲r</a> <span class="c-userfunc">'</span><a href="demos-monads.xtl.html#u.h_alf" class="c-userfunc">ᵘh̲alf</a> <a href="lib-Maybe.xtl.html#l.b_ind" class="c-libfunc">ᵐb̲ind</a> <span class="c-userfunc">'</span><a href="demos-monads.xtl.html#u.f_ifth" class="c-userfunc">ᵘf̲ifth</a> <a href="lib-Maybe.xtl.html#l.b_ind" class="c-libfunc">ᵐb̲ind</a> <span class="c-number">100</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">4</span></span>
-<span class="line" id="L21"><a class="ln" href="#L21">21</a></span>
-<span class="line" id="L22"><a class="ln" href="#L22">22</a><span class="c-comment">⍝</span><span class="c-comment"> A zero anywhere in the chain gives the default: nothing after it</span></span>
-<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-comment">⍝</span><span class="c-comment"> runs.</span></span>
-<span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-userfunc">ᵘb̲yZero</span> ← { x → x <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">0</span> }</span>
-<span class="line" id="L25"><a class="ln" href="#L25">25</a><span class="c-number">-1</span> <a href="lib-Maybe.xtl.html#l.o_r" class="c-libfunc">ᵐo̲r</a> <span class="c-userfunc">'</span><a href="demos-monads.xtl.html#u.h_alf" class="c-userfunc">ᵘh̲alf</a> <a href="lib-Maybe.xtl.html#l.b_ind" class="c-libfunc">ᵐb̲ind</a> <span class="c-userfunc">'</span><a href="demos-monads.xtl.html#u.b_yZero" class="c-userfunc">ᵘb̲yZero</a> <a href="lib-Maybe.xtl.html#l.b_ind" class="c-libfunc">ᵐb̲ind</a> <span class="c-number">100</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">4</span></span>
-<span class="line" id="L26"><a class="ln" href="#L26">26</a></span>
-<span class="line" id="L27"><a class="ln" href="#L27">27</a><span class="c-comment">⍝</span><span class="c-comment"> m_ap applies an ordinary function inside the maybe.</span></span>
-<span class="line" id="L28"><a class="ln" href="#L28">28</a><span class="c-number">-1</span> <a href="lib-Maybe.xtl.html#l.o_r" class="c-libfunc">ᵐo̲r</a> <span class="c-quote">'</span>{ <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">10</span> } <a href="lib-Maybe.xtl.html#l.m_ap" class="c-libfunc">ᵐm̲ap</a> <span class="c-number">9</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">3</span></span>
-<span class="line" id="L29"><a class="ln" href="#L29">29</a></span>
-<span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-comment">⍝</span><span class="c-comment"> m_aybe takes both cases at once: a function and a default.</span></span>
-<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-number">0</span> <span class="c-quote">'</span>{ <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span> } <a href="lib-Maybe.xtl.html#l.m_aybe" class="c-libfunc">ᵐm̲aybe</a> <span class="c-number">9</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">3</span></span>
-<span class="line" id="L32"><a class="ln" href="#L32">32</a><span class="c-number">0</span> <span class="c-quote">'</span>{ <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span> } <a href="lib-Maybe.xtl.html#l.m_aybe" class="c-libfunc">ᵐm̲aybe</a> <span class="c-number">9</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">0</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># The Maybe monad from the Maybe library: computations that can fail,</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># chained so that the first failure stops the chain.</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment">#</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"># Run it with ./demos/monads.xtl or &quot;xetal run demos/monads.xtl&quot;, or as</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"># a notebook with &quot;just show demos/monads.xtl&quot;. Each line prints a</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"># result, or the default (-1, or 0 for m_aybe) where a division by zero</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"># emptied the maybe. Read how b_ind chains steps right to left.</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-libfunc">ᵐ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Maybe.xtl.html" class="c-string">&quot;Maybe&quot;</a></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment">## Division that can fail</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-comment">⍝</span><span class="c-comment"># a u:d_iv b: a / b in a maybe, or the empty maybe when b is 0,</span></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-comment">⍝</span><span class="c-comment"># instead of stopping the program.</span></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-userfunc">ᵘd̲iv</span> ← { a b → b <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ᵐn̲othing</a>◆ <a href="lib-Maybe.xtl.html#l.j_ust" class="c-libfunc">ᵐj̲ust</a> a <a href="builtins.html#-2f" class="c-symbol">÷</a> b }</span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-comment">⍝</span><span class="c-comment"> o_r takes a maybe's value, or a default (on the left) when it is</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-comment">⍝</span><span class="c-comment"> empty.</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-number">-1</span> <a href="lib-Maybe.xtl.html#l.o_r" class="c-libfunc">ᵐo̲r</a> <span class="c-number">100</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">4</span></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-number">-1</span> <a href="lib-Maybe.xtl.html#l.o_r" class="c-libfunc">ᵐo̲r</a> <span class="c-number">100</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">0</span></span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a></span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-comment">⍝</span><span class="c-comment">## Chains</span></span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a></span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a><span class="c-comment">⍝</span><span class="c-comment"> b_ind chains steps that can fail, right to left like APL: 100 / 4,</span></span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a><span class="c-comment">⍝</span><span class="c-comment"> then / 5, then / 2.</span></span>
+<span class="line" id="L27"><a class="ln" href="#L27">27</a><span class="c-comment">⍝</span><span class="c-comment"># x halved, as a maybe.</span></span>
+<span class="line" id="L28"><a class="ln" href="#L28">28</a><span class="c-userfunc">ᵘh̲alf</span> ← { x → x <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">2</span> }</span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-comment">⍝</span><span class="c-comment"># x divided by 5, as a maybe.</span></span>
+<span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-userfunc">ᵘf̲ifth</span> ← { x → x <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">5</span> }</span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-number">-1</span> <a href="lib-Maybe.xtl.html#l.o_r" class="c-libfunc">ᵐo̲r</a> <span class="c-userfunc">'</span><a href="demos-monads.xtl.html#u.h_alf" class="c-userfunc">ᵘh̲alf</a> <a href="lib-Maybe.xtl.html#l.b_ind" class="c-libfunc">ᵐb̲ind</a> <span class="c-userfunc">'</span><a href="demos-monads.xtl.html#u.f_ifth" class="c-userfunc">ᵘf̲ifth</a> <a href="lib-Maybe.xtl.html#l.b_ind" class="c-libfunc">ᵐb̲ind</a> <span class="c-number">100</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">4</span></span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a></span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-comment">⍝</span><span class="c-comment"> A zero anywhere in the chain gives the default: nothing after it</span></span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a><span class="c-comment">⍝</span><span class="c-comment"> runs.</span></span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a><span class="c-comment">⍝</span><span class="c-comment"># x divided by 0: always the empty maybe.</span></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-userfunc">ᵘb̲yZero</span> ← { x → x <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">0</span> }</span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a><span class="c-number">-1</span> <a href="lib-Maybe.xtl.html#l.o_r" class="c-libfunc">ᵐo̲r</a> <span class="c-userfunc">'</span><a href="demos-monads.xtl.html#u.h_alf" class="c-userfunc">ᵘh̲alf</a> <a href="lib-Maybe.xtl.html#l.b_ind" class="c-libfunc">ᵐb̲ind</a> <span class="c-userfunc">'</span><a href="demos-monads.xtl.html#u.b_yZero" class="c-userfunc">ᵘb̲yZero</a> <a href="lib-Maybe.xtl.html#l.b_ind" class="c-libfunc">ᵐb̲ind</a> <span class="c-number">100</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">4</span></span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-comment">⍝</span><span class="c-comment">## Mapping and both cases</span></span>
+<span class="line" id="L40"><a class="ln" href="#L40">40</a></span>
+<span class="line" id="L41"><a class="ln" href="#L41">41</a><span class="c-comment">⍝</span><span class="c-comment"> m_ap applies an ordinary function inside the maybe.</span></span>
+<span class="line" id="L42"><a class="ln" href="#L42">42</a><span class="c-number">-1</span> <a href="lib-Maybe.xtl.html#l.o_r" class="c-libfunc">ᵐo̲r</a> <span class="c-quote">'</span>{ <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">10</span> } <a href="lib-Maybe.xtl.html#l.m_ap" class="c-libfunc">ᵐm̲ap</a> <span class="c-number">9</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">3</span></span>
+<span class="line" id="L43"><a class="ln" href="#L43">43</a></span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a><span class="c-comment">⍝</span><span class="c-comment"> m_aybe takes both cases at once: a function and a default.</span></span>
+<span class="line" id="L45"><a class="ln" href="#L45">45</a><span class="c-number">0</span> <span class="c-quote">'</span>{ <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span> } <a href="lib-Maybe.xtl.html#l.m_aybe" class="c-libfunc">ᵐm̲aybe</a> <span class="c-number">9</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">3</span></span>
+<span class="line" id="L46"><a class="ln" href="#L46">46</a><span class="c-number">0</span> <span class="c-quote">'</span>{ <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span> } <a href="lib-Maybe.xtl.html#l.m_aybe" class="c-libfunc">ᵐm̲aybe</a> <span class="c-number">9</span> <a href="demos-monads.xtl.html#u.d_iv" class="c-userfunc">ᵘd̲iv</a> <span class="c-number">0</span></span>
 </div>
 </main>
 </body>

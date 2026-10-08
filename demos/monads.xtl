@@ -1,11 +1,18 @@
 #!/usr/bin/env xetal
-# The Maybe monad from the Maybe library: computations that can fail,
-# chained so that the first failure stops the chain. Run as a notebook
-# with "just show demos/monads.xtl".
+## The Maybe monad from the Maybe library: computations that can fail,
+## chained so that the first failure stops the chain.
+##
+## Run it with ./demos/monads.xtl or "xetal run demos/monads.xtl", or as
+## a notebook with "just show demos/monads.xtl". Each line prints a
+## result, or the default (-1, or 0 for m_aybe) where a division by zero
+## emptied the maybe. Read how b_ind chains steps right to left.
+
 "m:" u_se< "Maybe"
 
-# Division that fails on a zero divisor instead of stopping the
-# program: the result is a maybe.
+### Division that can fail
+
+## a u:d_iv b: a / b in a maybe, or the empty maybe when b is 0,
+## instead of stopping the program.
 u:d_iv := { a b -> b = 0 ? 'm:n_othing; m:j_ust a / b }
 
 # o_r takes a maybe's value, or a default (on the left) when it is
@@ -13,16 +20,23 @@ u:d_iv := { a b -> b = 0 ? 'm:n_othing; m:j_ust a / b }
 -1 m:o_r 100 u:d_iv 4
 -1 m:o_r 100 u:d_iv 0
 
+### Chains
+
 # b_ind chains steps that can fail, right to left like APL: 100 / 4,
 # then / 5, then / 2.
+## x halved, as a maybe.
 u:h_alf := { x -> x u:d_iv 2 }
+## x divided by 5, as a maybe.
 u:f_ifth := { x -> x u:d_iv 5 }
 -1 m:o_r 'u:h_alf m:b_ind 'u:f_ifth m:b_ind 100 u:d_iv 4
 
 # A zero anywhere in the chain gives the default: nothing after it
 # runs.
+## x divided by 0: always the empty maybe.
 u:b_yZero := { x -> x u:d_iv 0 }
 -1 m:o_r 'u:h_alf m:b_ind 'u:b_yZero m:b_ind 100 u:d_iv 4
+
+### Mapping and both cases
 
 # m_ap applies an ordinary function inside the maybe.
 -1 m:o_r '{ _r * 10 } m:m_ap 9 u:d_iv 3

@@ -1,12 +1,22 @@
 #!/usr/bin/env xetal
-# Conway's Life in one line: the board `_r` rotated by every offset in
-# `-1 0 1` along both axes and summed gives S, each cell plus its
-# neighbors; a cell lives next when S is 3, or when it is alive and S
-# is 4.
+## Life: Conway's Game of Life in one line, u:l_ife, then a blinker and
+## a glider run through it. Run it with "xetal run demos/life.xtl" (or
+## "./demos/life.xtl"); it prints a blinker after one and two steps, 1s
+## showing that two steps restore it, then a glider's five generations
+## a blank line apart. Read u:l_ife for reduce and rotate along both
+## axes at once (the `_12` subscripts).
+
+### The rules
+
+## u:l_ife board: the next generation of a 0/1 board. The board `_r`
+## rotated by every offset in `-1 0 1` along both axes and summed gives
+## S, each cell plus its neighbors; a cell lives next when S is 3, or
+## when it is alive and S is 4.
 u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 
-# Every generation on the way, a blank line apart: `n 'f_ u:s_teps x`
-# applies f n times, printing as it goes.
+## n 'f_ u:s_teps x: applies f to x n times and gives the last result,
+## printing x and then a blank line at every generation on the way, the
+## first and the last included.
 u:s_teps := { f_ n x ->
   shown := p_rint! x
   gap := p_rint! ""
@@ -14,13 +24,21 @@ u:s_teps := { f_ n x ->
   (n - 1) 'f_ u:s_teps f_ x
 }
 
-# A blinker has period 2: one step turns it, two steps restore it. A
-# superscript on a function repeats it (function power): `u:l_ife^2`.
+### A blinker
+
+## blinker: a vertical bar of three live cells in a 5 by 5 board. It has
+## period 2: one step turns it, two steps restore it. A superscript on a
+## function repeats it (function power): `u:l_ife^2`.
 blinker := 5 5 r_eshape 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0
 u:l_ife blinker
 u:l_ife^2 blinker
 (u:l_ife^2 blinker) = blinker
 
-# A glider moves one cell diagonally every 4 generations.
+### A glider
+
+## glider: a glider in a 6 by 6 board; it moves one cell diagonally
+## every 4 generations.
 glider := 6 6 r_eshape 0 1 0 0 0 0 0 0 1 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+## last: the glider after 4 generations, each printed on the way.
 last := 4 'u:l_ife u:s_teps glider

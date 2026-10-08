@@ -57,46 +57,67 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L9"><span class="c-libfunc">ʰr̲adians</span></a></li>
-<li class="item"><a href="#L14"><span class="c-libfunc">ˡw̲alk</span></a></li>
-<li class="item"><a href="#L22"><span class="c-libfunc">ˡp̲oints</span></a></li>
-<li class="item"><a href="#L26"><span class="c-libfunc">ˡt̲urn</span></a></li>
-<li class="item"><a href="#L29"><span class="c-libfunc">ˡp̲olygon</span></a></li>
+<li class="item"><a href="#L11"><span class="c-libfunc">ʰr̲adians</span></a></li>
+<li class="item"><a href="#L22"><span class="c-libfunc">ˡw̲alk</span></a></li>
+<li class="item"><a href="#L34"><span class="c-libfunc">ˡp̲oints</span></a></li>
+<li class="item"><a href="#L43"><span class="c-libfunc">ˡt̲urn</span></a></li>
+<li class="item"><a href="#L50"><span class="c-libfunc">ˡp̲olygon</span></a></li>
 </ul>
 </nav>
 <main>
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">source</span><a href="lib-Turtle.xtl.html">lib/Turtle.xtl</a></h1>
-<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment"> Turtle: turtle graphics as arrays (a standard library, built into</span></span>
-<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> xetal). Import it with an alias of your choice: &quot;t:&quot; u_se&lt; &quot;Turtle&quot;.</span></span>
-<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"> A walk is a vector of turns in degrees, one before each step forward;</span></span>
-<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"> the turtle starts at the origin facing east (0 degrees, counting</span></span>
-<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"> anticlockwise). No turtle moves: the headings are a running sum of</span></span>
-<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"> the turns, the steps are their cosines and sines, and the positions</span></span>
-<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"> are running sums of the steps. Draw the points with []P_ATH.</span></span>
-<span class="line" id="L8"><a class="ln" href="#L8">8</a></span>
-<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-libfunc">ʰr̲adians</span> ← { (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#p_i" class="c-builtin">p̲i</a> @) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">180</span> }         <span class="c-comment">⍝</span><span class="c-comment"> private</span></span>
-<span class="line" id="L10"><a class="ln" href="#L10">10</a></span>
-<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"> The points of a walk with steps of the given lengths, 2 rows (x over</span></span>
-<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"> y), starting at the origin: </span><span class="c-comment"></span>lengths <span class="c-libfunc">ˡw̲alk</span> turns<span class="c-comment"></span><span class="c-comment">; a single length</span></span>
-<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-comment">⍝</span><span class="c-comment"> serves every step.</span></span>
-<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-libfunc">ˡw̲alk</span> ← { lengths turns →</span>
-<span class="line" id="L15"><a class="ln" href="#L15">15</a>  h ← <a href="lib-Turtle.xtl.html#h.r_adians" class="c-libfunc">ʰr̲adians</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> turns</span>
-<span class="line" id="L16"><a class="ln" href="#L16">16</a>  xs ← <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> lengths) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#c_os" class="c-builtin">c̲os</a> h</span>
-<span class="line" id="L17"><a class="ln" href="#L17">17</a>  ys ← <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> lengths) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#s_in" class="c-builtin">s̲in</a> h</span>
-<span class="line" id="L18"><a class="ln" href="#L18">18</a>  (<span class="c-number">2</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> xs) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> xs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ys</span>
-<span class="line" id="L19"><a class="ln" href="#L19">19</a>}</span>
-<span class="line" id="L20"><a class="ln" href="#L20">20</a></span>
-<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-comment">⍝</span><span class="c-comment"> The points of a walk of unit steps.</span></span>
-<span class="line" id="L22"><a class="ln" href="#L22">22</a><span class="c-libfunc">ˡp̲oints</span> ← { turns → <span class="c-number">1</span> <a href="lib-Turtle.xtl.html#l.w_alk" class="c-libfunc">ˡw̲alk</a> turns }</span>
-<span class="line" id="L23"><a class="ln" href="#L23">23</a></span>
-<span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-comment">⍝</span><span class="c-comment"> The walk with t degrees more turned before its first step: how pieces</span></span>
-<span class="line" id="L25"><a class="ln" href="#L25">25</a><span class="c-comment">⍝</span><span class="c-comment"> of a curve are joined (</span><span class="c-comment"></span><span class="c-number">60</span> <span class="c-libfunc">ˡt̲urn</span> w<span class="c-comment"></span><span class="c-comment">).</span></span>
-<span class="line" id="L26"><a class="ln" href="#L26">26</a><span class="c-libfunc">ˡt̲urn</span> ← { t w → (t <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> w) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> w }</span>
-<span class="line" id="L27"><a class="ln" href="#L27">27</a></span>
-<span class="line" id="L28"><a class="ln" href="#L28">28</a><span class="c-comment">⍝</span><span class="c-comment"> A regular polygon of n sides, as a walk.</span></span>
-<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-libfunc">ˡp̲olygon</span> ← { n → n <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">360</span> <a href="builtins.html#-2f" class="c-symbol">÷</a> n }</span>
+<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment"># Turtle: turtle graphics as arrays (a standard library, built into</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># xetal). Import it with an alias of your choice: &quot;t:&quot; u_se&lt; &quot;Turtle&quot;.</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># A walk is a vector of turns in degrees, one before each step forward;</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"># the turtle starts at the origin facing east (0 degrees, counting</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"># anticlockwise). No turtle moves: the headings are a running sum of</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"># the turns, the steps are their cosines and sines, and the positions</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"># are running sums of the steps. Draw the points with []P_ATH.</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"># Names with l: are exported; names with h: are private to this file.</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment"># Degrees as radians, a Float.</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-libfunc">ʰr̲adians</span> ← { (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#p_i" class="c-builtin">p̲i</a> @) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">180</span> }         <span class="c-comment">⍝</span><span class="c-comment"> private</span></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-comment">⍝</span><span class="c-comment">## Points of a walk</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-comment">⍝</span><span class="c-comment"># The points of a walk with steps of the given lengths, 2 rows (x over</span></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-comment">⍝</span><span class="c-comment"># y), starting at the origin: </span><span class="c-comment"></span>lengths <span class="c-libfunc">ᵗw̲alk</span> turns<span class="c-comment"></span><span class="c-comment">; a single length</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-comment">⍝</span><span class="c-comment"># serves every step. A walk of n turns gives n + 1 points.</span></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;t:&quot; u_se&lt; &quot;Turtle&quot;</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; f_loor 0.5 + 2 t:w_alk 0 90 90</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-comment">⍝</span><span class="c-comment"># 0 2 2 0</span></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-comment">⍝</span><span class="c-comment"># 0 0 2 2</span></span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a><span class="c-libfunc">ˡw̲alk</span> ← { lengths turns →</span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a>  h ← <a href="lib-Turtle.xtl.html#h.r_adians" class="c-libfunc">ʰr̲adians</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> turns</span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a>  xs ← <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> lengths) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#c_os" class="c-builtin">c̲os</a> h</span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a>  ys ← <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> lengths) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#s_in" class="c-builtin">s̲in</a> h</span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a>  (<span class="c-number">2</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> xs) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> xs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ys</span>
+<span class="line" id="L27"><a class="ln" href="#L27">27</a>}</span>
+<span class="line" id="L28"><a class="ln" href="#L28">28</a></span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-comment">⍝</span><span class="c-comment"># The points of a walk of unit steps: </span><span class="c-comment"></span><span class="c-libfunc">ᵗp̲oints</span> turns<span class="c-comment"></span><span class="c-comment">.</span></span>
+<span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;t:&quot; u_se&lt; &quot;Turtle&quot;</span></span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; f_loor 0.5 + t:p_oints t:p_olygon 4</span></span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a><span class="c-comment">⍝</span><span class="c-comment"># 0 0 -1 -1 0</span></span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-comment">⍝</span><span class="c-comment"># 0 1  1  0 0</span></span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a><span class="c-libfunc">ˡp̲oints</span> ← { turns → <span class="c-number">1</span> <a href="lib-Turtle.xtl.html#l.w_alk" class="c-libfunc">ˡw̲alk</a> turns }</span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-comment">⍝</span><span class="c-comment">## Building walks</span></span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a></span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-comment">⍝</span><span class="c-comment"># The walk w with t degrees more turned before its first step: how</span></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-comment">⍝</span><span class="c-comment"># pieces of a curve are joined (</span><span class="c-comment"></span><span class="c-number">60</span> <span class="c-libfunc">ᵗt̲urn</span> w<span class="c-comment"></span><span class="c-comment">).</span></span>
+<span class="line" id="L40"><a class="ln" href="#L40">40</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;t:&quot; u_se&lt; &quot;Turtle&quot;</span></span>
+<span class="line" id="L41"><a class="ln" href="#L41">41</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 60 t:t_urn 0 120 120</span></span>
+<span class="line" id="L42"><a class="ln" href="#L42">42</a><span class="c-comment">⍝</span><span class="c-comment"># 60 120 120</span></span>
+<span class="line" id="L43"><a class="ln" href="#L43">43</a><span class="c-libfunc">ˡt̲urn</span> ← { t w → (t <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> w) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> w }</span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a></span>
+<span class="line" id="L45"><a class="ln" href="#L45">45</a><span class="c-comment">⍝</span><span class="c-comment"># A regular polygon of n sides, as a walk: n turns of 360 / n degrees,</span></span>
+<span class="line" id="L46"><a class="ln" href="#L46">46</a><span class="c-comment">⍝</span><span class="c-comment"># so it closes where it began.</span></span>
+<span class="line" id="L47"><a class="ln" href="#L47">47</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;t:&quot; u_se&lt; &quot;Turtle&quot;</span></span>
+<span class="line" id="L48"><a class="ln" href="#L48">48</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; t:p_olygon 4</span></span>
+<span class="line" id="L49"><a class="ln" href="#L49">49</a><span class="c-comment">⍝</span><span class="c-comment"># 90.0 90.0 90.0 90.0</span></span>
+<span class="line" id="L50"><a class="ln" href="#L50">50</a><span class="c-libfunc">ˡp̲olygon</span> ← { n → n <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">360</span> <a href="builtins.html#-2f" class="c-symbol">÷</a> n }</span>
 </div>
 </main>
 </body>

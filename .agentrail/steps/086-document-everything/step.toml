@@ -1,6 +1,6 @@
 number = 86
 slug = "document-everything"
-status = "pending"
+status = "in-progress"
 description = "At the user's word (2026-10-07): every bundled demo app and library fully doc..."
 role = "production"
 context_files = []

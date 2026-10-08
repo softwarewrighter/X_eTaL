@@ -1,18 +1,38 @@
 #!/usr/bin/env xetal
-# Magmas: a set with a binary operation that stays in the set, and
-# nothing more is promised. Rock-paper-scissors is one: x played against
-# y gives the winner (x on a tie). With its table we can ask which laws
-# hold, for every case at once.
+## Magmas: a set with a binary operation that stays in the set, and
+## nothing more is promised. Rock-paper-scissors is one: x played against
+## y gives the winner (x on a tie). With its table we can ask which laws
+## hold, for every case at once.
+##
+## Run it with ./demos/magmas.xtl or "xetal run demos/magmas.xtl". It
+## prints the Cayley tables of rock-paper-scissors and of its five-move
+## extension, a 1 or 0 for each law checked, and draws the five-move
+## table as an SVG file. Read the law checks: each is one comparison
+## over a whole table, with no loop.
+
+### Rock-paper-scissors
+
+## The winner of x played against y, moves numbered 1 rock, 2 paper,
+## 3 scissors; on a tie, x.
 u:r_ps := { x y -> d := (x - y) m_od 3; y + (x - y) * d <= 1 }
+## The move names, in the order of their numbers.
 names := "rock" "paper" "scissors"
+## The Cayley table of u:r_ps: row x, column y holds x against y.
 t := (r_ange 3) 'u:r_ps t_able r_ange 3
 t                                   # the Cayley table: 1 rock, 2 paper, 3 scissors
 t s_elect names                     # the same, by name
 
+### Laws
+
 # The laws, as checks over the whole table. Associativity needs every
 # triple x y z: the digits of 0 to n^3 - 1 in base n, by e_ncode.
+## 'f u:c_ommutative n: 1 when f, on 1 to n, gives the same table with
+## its arguments swapped, else 0.
 u:c_ommutative := { f_ n -> ((r_ange n) 'f_ t_able r_ange n) m_atch (r_ange n) '{ _r f_ _l } t_able r_ange n }
+## 'f u:i_dempotent n: 1 when x f x is x for every x in 1 to n, else 0.
 u:i_dempotent := { f_ n -> (r_ange n) m_atch '{ _r f_ _r } e_ach r_ange n }
+## 'f u:a_ssociative n: 1 when (x f y) f z equals x f (y f z) for every
+## triple from 1 to n, else 0.
 u:a_ssociative := { f_ n ->
   t := 1 + (3 r_eshape n) e_ncode o_ffsets n ^ 3
   x := 1 s_elect t
@@ -20,6 +40,8 @@ u:a_ssociative := { f_ n ->
   z := 3 s_elect t
   '& r_/ ((x f_ y) f_ z) = x f_ y f_ z
 }
+## 'f u:i_dentity n: the element e of 1 to n with e f x and x f e both
+## x for every x, or 0 when there is none.
 u:i_dentity := { f_ n ->                # the identity element, or 0 for none
   r := r_ange n
   e := w_here '{ (r m_atch _r f_ r) & r m_atch r f_ _r } e_ach r
@@ -35,9 +57,13 @@ u:i_dentity := { f_ n ->                # the identity element, or 0 for none
 'u:r_ps r_/ 1 2 3                   # rock vs (paper vs scissors): rock
 (1 u:r_ps 2) u:r_ps 3               # (rock vs paper) vs scissors: scissors
 
+### Other magmas
+
 # Two more magmas on 1 2 3, to compare: addition modulo 3 (a group:
 # associative, with an identity) and subtraction modulo 3 (neither).
+## Addition modulo 3 on 1 2 3, where 1 stands for 0.
 u:a_dd := { x y -> 1 + (x + y - 2) m_od 3 }
+## Subtraction modulo 3 on 1 2 3, where 1 stands for 0.
 u:s_ub := { x y -> 1 + (x - y) m_od 3 }
 'u:a_dd u:c_ommutative 3
 'u:a_dd u:a_ssociative 3
@@ -45,13 +71,20 @@ u:s_ub := { x y -> 1 + (x - y) m_od 3 }
 'u:s_ub u:c_ommutative 3
 'u:s_ub u:a_ssociative 3
 
-# Rock-paper-scissors-lizard-Spock: five moves, each beating two. In
-# the order below, x beats y when (x - y) mod 5 is 1 or 2, so the rule
-# is the same as before with 5 for 3 and 2 for 1.
+### Rock-paper-scissors-lizard-Spock
+
+# Five moves, each beating two. In the order below, x beats y when
+# (x - y) mod 5 is 1 or 2, so the rule is the same as before with 5 for
+# 3 and 2 for 1.
+## The winner of x played against y, moves numbered as in `moves`; on
+## a tie, x.
 u:r_psls := { x y -> d := (x - y) m_od 5; y + (x - y) * d <= 2 }
+## The five move names, in the order of their numbers.
 moves := "rock" "Spock" "paper" "lizard" "scissors"
+## The Cayley table of u:r_psls.
 w := (r_ange 5) 'u:r_psls t_able r_ange 5
 w s_elect moves
+## A 0/1 table: row x has a 1 in column y when x beats y.
 beats := 0 + (r_ange 5) '{ (_l != _r) & _l = _l u:r_psls _r } t_able r_ange 5
 beats                               # row x: the moves x beats
 '+ r_/_2 beats                      # each beats two
@@ -59,4 +92,5 @@ beats                               # row x: the moves x beats
 'u:r_psls u:c_ommutative 5
 'u:r_psls u:i_dempotent 5
 'u:r_psls u:a_ssociative 5
+## The winner table drawn as a grid, written to an SVG file.
 shown := []S_HOW []G_RID w          # the winner table, colored by move

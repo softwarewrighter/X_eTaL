@@ -1,7 +1,14 @@
       [2m⍝!/usr/bin/env -S xetal run --untyped[0m
-      [2m⍝ The Y combinator works because the self parameter is lazy (~). Its[0m
-      [2m⍝ self-applied argument has no finite type, so run it with --untyped.[0m
+      [2m⍝# The Y combinator works because the self parameter is lazy (~). Its[0m
+      [2m⍝# self-applied argument has no finite type, so run it with --untyped:[0m
+      [2m⍝# ./demos/fixed-point.xtl or "xetal run --untyped demos/fixed-point.xtl".[0m
+      [2m⍝# It prints 120, the factorial of 5, recursion made by u:Y_ alone.[0m
+
+      [2m⍝# u:Y_ 'f: the fixed point of f, built from self-application: f[0m
+      [2m⍝# called with itself (lazily) as its first argument.[0m
       [32mᵘY̲[0m ← { [34mf̲[0m → { [34mx̲[0m → [34mf̲[0m [34mx̲[0m [34m'x̲[0m } [1m'[0m{ [34mx̲[0m → [34mf̲[0m [34mx̲[0m [34m'x̲[0m } }[0m
+      [2m⍝# Factorial written open: s_elf stands for the function itself, so[0m
+      [2m⍝# u:Y_ 'u:F_ is the factorial.[0m
       [32mᵘF̲[0m ← { ~[34ms̲elf[0m n → n [94m≤[0m [33m1[0m ? [33m1[0m◆ n [94m×[0m [34ms̲elf[0m n [94m−[0m [33m1[0m }[0m
       ([32mᵘY̲[0m [32m'ᵘF̲[0m)_ [33m5[0m
 120

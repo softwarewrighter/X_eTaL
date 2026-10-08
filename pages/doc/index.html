@@ -62,7 +62,11 @@
 <h1>X_eTaL documentation</h1>
 <h2>Files</h2>
 <ul>
-<li>library <a href="lib-Combinators.xtl.html">lib/Combinators.xtl</a></li>
+<li>library <a href="lib-Combinators.xtl.html">lib/Combinators.xtl</a>: Combinators: the birds Raymond Smullyan names in &quot;To Mock a
+Mockingbird&quot; that type-check (a standard library, built into xetal).
+Import it with an alias of your choice: &quot;c:&quot; u_se&lt; &quot;Combinators&quot;.
+docs/birds.md lists them all; the self-applying birds (L, M, M2, U)
+have no finite type and are in demos/birds-untyped.xtl.</li>
 <li>library <a href="lib-Geometry3D.xtl.html">lib/Geometry3D.xtl</a>: Geometry3D: points in space as arrays (a standard library, built into
 xetal). Import it with an alias of your choice: &quot;g:&quot; u_se&lt; &quot;Geometry3D&quot;.
 Points are a 3-row matrix, x over y over z, one column per point, as
@@ -85,13 +89,26 @@ into xetal). Import it with an alias of your choice: &quot;v:&quot; u_se&lt; &qu
 An element is its SVG text; a picture is elements joined with c_at
 inside v:p_icture, which []S_HOW shows and the command line writes.
 Points are a 2-row matrix, x over y, as []P_ATH and Geometry3D's
-v:p_roject give them; y grows downward, as SVG's does. Attributes
+g:p_roject give them; y grows downward, as SVG's does. Attributes
 are text made by v:a_ttr, v:f_ill, v:s_troke and the transforms, so
 no program writes a quote mark or an angle bracket of its own.
 Names with l: are exported; names with h: are private to this file.</li>
-<li>library <a href="lib-Terminal.xtl.html">lib/Terminal.xtl</a></li>
-<li>library <a href="lib-TTTML.xtl.html">lib/TTTML.xtl</a></li>
-<li>library <a href="lib-Turtle.xtl.html">lib/Turtle.xtl</a></li>
+<li>library <a href="lib-Terminal.xtl.html">lib/Terminal.xtl</a>: Terminal: the names of the colors and keys a program draws and reads
+with, a standard library built into xetal. Import it with an alias
+of your choice: &quot;t:&quot; u_se&lt; &quot;Terminal&quot;.</li>
+<li>library <a href="lib-TTTML.xtl.html">lib/TTTML.xtl</a>: TTTML: a machine that learns tic-tac-toe by playing itself (a
+standard library, built into xetal), ported from the TTTML workspace
+of sw-apl's library 1. Import it with an alias of your choice:
+&quot;t:&quot; u_se&lt; &quot;TTTML&quot;. docs/literate/tttml.org explains it; the demos
+demos/tttml.xtl, demos/tttml-train.xtl and demos/tttml-play.xtl use it.</li>
+<li>library <a href="lib-Turtle.xtl.html">lib/Turtle.xtl</a>: Turtle: turtle graphics as arrays (a standard library, built into
+xetal). Import it with an alias of your choice: &quot;t:&quot; u_se&lt; &quot;Turtle&quot;.
+A walk is a vector of turns in degrees, one before each step forward;
+the turtle starts at the origin facing east (0 degrees, counting
+anticlockwise). No turtle moves: the headings are a running sum of
+the turns, the steps are their cosines and sines, and the positions
+are running sums of the steps. Draw the points with []P_ATH.
+Names with l: are exported; names with h: are private to this file.</li>
 <li>macro library <a href="lib-Combinators.xtlm.html">lib/Combinators.xtlm</a>: Combinators as macros: the birds of the Combinators library written
 in at compile time instead of applied when the program runs. Import
 both under one alias: &quot;c:&quot; u_se&lt; &quot;Combinators&quot; finds Combinators.xtl
@@ -107,31 +124,110 @@ as &quot;c&quot; i_f&lt; &quot;a; b&quot;. A macro is a function of the source t
 side of its call; the text it gives replaces the call. @ on a side
 means the macro takes nothing there (MC22). What only the compiler
 knows comes from hooks (MC20), usable only in a macro body.</li>
-<li>program <a href="demos-arrays.xtl.html">demos/arrays.xtl</a></li>
-<li>program <a href="demos-combinators.xtl.html">demos/combinators.xtl</a></li>
-<li>program <a href="demos-factorial.xtl.html">demos/factorial.xtl</a></li>
-<li>program <a href="demos-hello-library.xtl.html">demos/hello-library.xtl</a></li>
-<li>library <a href="userlibs-Hello.xtl.html">userlibs/Hello.xtl</a></li>
-<li>library <a href="userlibs-Greetings.xtl.html">userlibs/Greetings.xtl</a></li>
-<li>program <a href="demos-higher-order.xtl.html">demos/higher-order.xtl</a></li>
-<li>program <a href="demos-keys.xtl.html">demos/keys.xtl</a></li>
-<li>program <a href="demos-life.xtl.html">demos/life.xtl</a></li>
-<li>program <a href="demos-macros.xtl.html">demos/macros.xtl</a></li>
-<li>program <a href="demos-magmas.xtl.html">demos/magmas.xtl</a></li>
-<li>program <a href="demos-monads.xtl.html">demos/monads.xtl</a></li>
-<li>program <a href="demos-rotate.xtl.html">demos/rotate.xtl</a></li>
-<li>program <a href="demos-square.xtl.html">demos/square.xtl</a></li>
-<li>program <a href="demos-stats.xtl.html">demos/stats.xtl</a></li>
-<li>program <a href="demos-sub.xtl.html">demos/sub.xtl</a></li>
-<li>program <a href="demos-tour.xtl.html">demos/tour.xtl</a></li>
-<li>program <a href="demos-tttml-play.xtl.html">demos/tttml-play.xtl</a></li>
-<li>program <a href="demos-tttml-train.xtl.html">demos/tttml-train.xtl</a></li>
-<li>program <a href="demos-tttml.xtl.html">demos/tttml.xtl</a></li>
-<li>program <a href="demos-unit.xtl.html">demos/unit.xtl</a></li>
-<li>program <a href="demos-user-macros.xtl.html">demos/user-macros.xtl</a></li>
+<li>program <a href="demos-arrays.xtl.html">demos/arrays.xtl</a>: Arrays: dense arrays, 1-origin indexing, the structural built-ins and
+scalar extension. Run it with &quot;xetal run demos/arrays.xtl&quot; (or
+&quot;./demos/arrays.xtl&quot;); it prints the result of each line after the
+definition of m: the matrix, its shape, a row, the last row, the
+matrix times ten, a row joined to more items and powers of ten.
+Read it for how r_eshape, s_elect, t_ake and c_at treat a matrix.</li>
+<li>program <a href="demos-combinators.xtl.html">demos/combinators.xtl</a>: Combinators: the Combinators library, Smullyan's birds, each a
+function that only rearranges, repeats or drops its arguments. Run it
+with &quot;xetal run demos/combinators.xtl&quot; (or &quot;./demos/combinators.xtl&quot;),
+or as a notebook with &quot;just show demos/combinators.xtl&quot;; it prints
+what each bird makes of small numbers, ending with 10 factorial from
+Y and 1024 from a function power. docs/birds.md lists every bird.</li>
+<li>program <a href="demos-factorial.xtl.html">demos/factorial.xtl</a>: Factorial: recursion with guards, one statement per line. Run it with
+&quot;xetal run demos/factorial.xtl&quot; (or &quot;./demos/factorial.xtl&quot;); it
+prints 3628800, the factorial of 10. Read u:f_act for how a guard
+(`c ? r`) ends a function early and how a function calls itself.</li>
+<li>program <a href="demos-hello-library.xtl.html">demos/hello-library.xtl</a>: Hello library: a program using two libraries of its own,
+userlibs/Hello.xtl and userlibs/Greetings.xtl. Run it from the
+repository's root with &quot;xetal run demos/hello-library.xtl&quot; (or
+&quot;./demos/hello-library.xtl&quot;); it prints a greeting and two personal
+greetings. Read the imports for how u_se&lt; finds a library: &quot;Hello&quot; is
+Hello.xtl beside this file, then in userlibs/, then on XETAL_PATH,
+then among the standard libraries; the string on its left is the
+prefix the library's l: names get here.</li>
+<li>library <a href="userlibs-Hello.xtl.html">userlibs/Hello.xtl</a>: Hello: the smallest library, one greeting. A library is an ordinary
+file whose exported names start with l:; libraries of your own live
+in userlibs/, on the search path. demos/hello-library.xtl imports it
+(&quot;hi:&quot; u_se&lt; &quot;Hello&quot;), and docs/literate/hello.org walks through
+both. The name in the string is the logo: typed X_ e:T a:L, drawn,
+spaces removed (a string may hold any Unicode).</li>
+<li>library <a href="userlibs-Greetings.xtl.html">userlibs/Greetings.xtl</a>: Greetings: a library with a private name. h:n_ame is file-private, so it is
+used here but cannot be imported; g_reet is exported, and takes the
+greeting from the program that calls it. Import it with an alias of
+your choice: &quot;g:&quot; u_se&lt; &quot;Greetings&quot; (it is found in userlibs/).</li>
+<li>program <a href="demos-higher-order.xtl.html">demos/higher-order.xtl</a>: Higher-order built-ins: they take quoted functions as operands, as
+`'+ r_/ v` reduces v with plus. Run it with
+&quot;xetal run demos/higher-order.xtl&quot; (or &quot;./demos/higher-order.xtl&quot;);
+it prints the result of each line: reductions, a scan, an outer and
+an inner product, e_ach, c_ompose and s_wap, then the search and
+order built-ins s_ort, g_rade, u_nique, i_ndexOf and w_here.</li>
+<li>program <a href="demos-keys.xtl.html">demos/keys.xtl</a>: Keys: every way X_eTaL is typed. Each line of code appears twice:
+drawn decorated, as &quot;just pp demos/keys.xtl&quot; shows it, and at the end
+of the line, after &quot;typed:&quot;, exactly the keys you type (a comment is
+drawn as written, so that text stays plain ASCII). Run it with
+&quot;xetal run demos/keys.xtl&quot; (or &quot;./demos/keys.xtl&quot;) to print each
+line's result, or &quot;just show demos/keys.xtl&quot; to see each line next to
+its result. docs/input.md explains each form.</li>
+<li>program <a href="demos-life.xtl.html">demos/life.xtl</a>: Life: Conway's Game of Life in one line, u:l_ife, then a blinker and
+a glider run through it. Run it with &quot;xetal run demos/life.xtl&quot; (or
+&quot;./demos/life.xtl&quot;); it prints a blinker after one and two steps, 1s
+showing that two steps restore it, then a glider's five generations
+a blank line apart. Read u:l_ife for reduce and rotate along both
+axes at once (the `_12` subscripts).</li>
+<li>program <a href="demos-macros.xtl.html">demos/macros.xtl</a>: Macros write source for you: a call &quot;left&quot; n_ame&lt; &quot;right&quot; is replaced,
+before the program is checked, by the source the macro writes from the
+two texts. Run it with ./demos/macros.xtl (or xetal run): it prints what
+the system macros give, then a macro library's checks; a failed a_ssert&lt;
+goes to standard error. Read each call beside its expansion, which
+&quot;xetal expand demos/macros.xtl&quot; shows.</li>
+<li>program <a href="demos-magmas.xtl.html">demos/magmas.xtl</a>: Magmas: a set with a binary operation that stays in the set, and
+nothing more is promised. Rock-paper-scissors is one: x played against
+y gives the winner (x on a tie). With its table we can ask which laws
+hold, for every case at once.</li>
+<li>program <a href="demos-monads.xtl.html">demos/monads.xtl</a>: The Maybe monad from the Maybe library: computations that can fail,
+chained so that the first failure stops the chain.</li>
+<li>program <a href="demos-rotate.xtl.html">demos/rotate.xtl</a>: Rotate along both axes: every frame moves the arrow one row down and
+one column right, wrapping around the edges of the board.</li>
+<li>program <a href="demos-square.xtl.html">demos/square.xtl</a>: A user function with the shorthand right argument `_r`. Run it with
+./demos/square.xtl or &quot;xetal run demos/square.xtl&quot;; it prints 49.</li>
+<li>program <a href="demos-stats.xtl.html">demos/stats.xtl</a>: Using a library: Stats is a standard library, built into xetal
+(lib/Stats.xtl). The alias &quot;s:&quot; is this file's name for it: its
+exported names are used as s:m_ean and so on.</li>
+<li>program <a href="demos-sub.xtl.html">demos/sub.xtl</a>: A dyadic user function; every function is curried. Run it with
+./demos/sub.xtl or &quot;xetal run demos/sub.xtl&quot;; it prints 7 twice, from
+`10 u:s_ub 3` and from the partial application u:t_enMinus.</li>
+<li>program <a href="demos-tour.xtl.html">demos/tour.xtl</a>: A tour of X_eTaL: one commented file touching every implemented
+feature, a section per topic, from numbers to Life in one line.</li>
+<li>program <a href="demos-tttml-play.xtl.html">demos/tttml-play.xtl</a>: TTTML, part 2: play the machine that demos/tttml-train.xtl trained
+(run that first), with &quot;xetal run demos/tttml-play.xtl&quot;. You are X and
+move first: type a square, 1 to 9, numbered row by row. Something
+that is not an empty square is asked for again. Uses the TTTML
+library (lib/TTTML.xtl).</li>
+<li>program <a href="demos-tttml-train.xtl.html">demos/tttml-train.xtl</a>: TTTML, part 1: learn tic-tac-toe by playing itself, then save what
+it learned to work/tttml.model, a text file of numbers (the codes of
+the positions it met, then their values). Run it with
+&quot;xetal run demos/tttml-train.xtl&quot;; part 2, demos/tttml-play.xtl, loads
+the model and plays you. Uses the TTTML library (lib/TTTML.xtl).</li>
+<li>program <a href="demos-tttml.xtl.html">demos/tttml.xtl</a>: TTTML: a machine that learns tic-tac-toe by playing itself, from the
+TTTML library (lib/TTTML.xtl, ported from sw-apl's TTTML workspace;
+docs/literate/tttml.org explains it). Run it with
+&quot;xetal run demos/tttml.xtl&quot;, or as a notebook with &quot;just tttml&quot; (the
+optimized build: training takes seconds).</li>
+<li>program <a href="demos-unit.xtl.html">demos/unit.xtl</a>: A niladic function takes Unit, written @; `u:a_nswer 42` is a type
+error. Run it with ./demos/unit.xtl or &quot;xetal run demos/unit.xtl&quot;; it
+prints 42.</li>
+<li>program <a href="demos-user-macros.xtl.html">demos/user-macros.xtl</a>: A macro library of your own: userlibs/Repeat.xtlm (in the live demo,
+Repeat.xtlm among your files). It is found as a library of your own
+is, and its macro r:t_imes&lt; writes statements as many times as you
+ask, when the program is expanded: a loop unrolled before it runs.</li>
 <li>macro library <a href="userlibs-Repeat.xtlm.html">userlibs/Repeat.xtlm</a>: A macro library of your own (userlibs/, found as libraries of your
 own are): statements written as many times as you ask, when the
-program is expanded, a loop unrolled at compile time.</li>
+program is expanded, a loop unrolled at compile time. Import it with
+an alias of your choice, &quot;r:&quot; u_se&lt; &quot;Repeat&quot;, and see what a program
+becomes with xetal expand FILE.</li>
 <li>library <a href="demos-rosetta-Comparison.xtl.html">demos/rosetta/Comparison.xtl</a>: Comparison: the Rosetta stone's state machine (docs/rosetta.md), a
 library beside the demo (&quot;cm:&quot; u_se&lt; &quot;Comparison&quot;). The state is one
 4 x 5 matrix of numbers. The first three rows are the axes (the
@@ -307,7 +403,7 @@ gives a new state; none has an effect. Events (RS1) come in as
 <tr><td><a href="lib-Combinators.xtlm.html#w_ords"><span class="c-builtin">w̲ords</span></a></td><td>function</td><td><code>Char -&gt; Box Char</code></td></tr>
 <tr><td><a href="lib-Combinators.xtlm.html#j_oin"><span class="c-builtin">j̲oin</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Combinators.xtlm.html#s_trip"><span class="c-builtin">s̲trip</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
-<tr><td><a href="lib-Combinators.xtlm.html#s_tarts"><span class="c-builtin">s̲tarts</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Char -&gt; Char -&gt; a</code></td></tr>
+<tr><td><a href="lib-Combinators.xtlm.html#s_tarts"><span class="c-builtin">s̲tarts</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Int</code></td></tr>
 <tr><td><a href="lib-Combinators.xtlm.html#nameChars">nameChars</a></td><td>value</td><td><code>Char</code></td></tr>
 <tr><td><a href="lib-Combinators.xtlm.html#w_ord"><span class="c-builtin">w̲ord</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Macros.xtlm.html#m.w_hen-3c"><span class="c-macro">ᵐw̲hen&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
@@ -383,7 +479,7 @@ gives a new state; none has an effect. Events (RS1) come in as
 <tr><td><a href="demos-magmas.xtl.html#u.r_ps"><span class="c-userfunc">ᵘr̲ps</span></a></td><td>function</td><td><code>Int -&gt; Int -&gt; Int</code></td></tr>
 <tr><td><a href="demos-magmas.xtl.html#names">names</a></td><td>value</td><td><code>Box Char</code></td></tr>
 <tr><td><a href="demos-magmas.xtl.html#t">t</a></td><td>value</td><td><code>Int</code></td></tr>
-<tr><td><a href="demos-magmas.xtl.html#u.c_ommutative"><span class="c-userfunc">ᵘc̲ommutative</span></a></td><td>function</td><td><code>Truthy b =&gt; (Int -&gt; Int -&gt; a) -&gt; Int -&gt; b</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#u.c_ommutative"><span class="c-userfunc">ᵘc̲ommutative</span></a></td><td>function</td><td><code>(Match a, Truthy b) =&gt; (Int -&gt; Int -&gt; a) -&gt; Int -&gt; b</code></td></tr>
 <tr><td><a href="demos-magmas.xtl.html#u.i_dempotent"><span class="c-userfunc">ᵘi̲dempotent</span></a></td><td>function</td><td><code>Truthy a =&gt; (Int -&gt; Int -&gt; Int) -&gt; Int -&gt; a</code></td></tr>
 <tr><td><a href="demos-magmas.xtl.html#u.a_ssociative"><span class="c-userfunc">ᵘa̲ssociative</span></a></td><td>function</td><td><code>Truthy a =&gt; (Int -&gt; Int -&gt; Int) -&gt; Int -&gt; a</code></td></tr>
 <tr><td><a href="demos-magmas.xtl.html#u.i_dentity"><span class="c-userfunc">ᵘi̲dentity</span></a></td><td>function</td><td><code>(Int -&gt; Int -&gt; Int) -&gt; Int -&gt; Int</code></td></tr>

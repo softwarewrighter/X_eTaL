@@ -1,144 +1,221 @@
-# TTTML: a machine that learns tic-tac-toe by playing itself (a
-# standard library, built into xetal), ported from the TTTML workspace
-# of sw-apl's library 1. Import it with an alias of your choice:
-# "t:" u_se< "TTTML". docs/literate/tttml.org explains it.
-#
-# A board is 9 numbers, the squares row by row: 1 for X, -1 for O, 0
-# for an empty square. X moves first, so the board says whose turn it
-# is: X's when it sums to 0. What the machine learns is a model: two
-# rows, the codes of the positions met and their values. Only the
-# functions that roll dice end in !.
+## TTTML: a machine that learns tic-tac-toe by playing itself (a
+## standard library, built into xetal), ported from the TTTML workspace
+## of sw-apl's library 1. Import it with an alias of your choice:
+## "t:" u_se< "TTTML". docs/literate/tttml.org explains it; the demos
+## demos/tttml.xtl, demos/tttml-train.xtl and demos/tttml-play.xtl use it.
+##
+## A board is 9 numbers, the squares row by row: 1 for X, -1 for O, 0
+## for an empty square. X moves first, so the board says whose turn it
+## is: X's when it sums to 0. What the machine learns is a model: two
+## rows, the codes of the positions met and their values. Only the
+## functions that roll dice end in !.
 
-# The board drawn: X, O and a dot for an empty square.
+### Boards
+
+## t:s_how s: board s drawn as 3 rows of text: X, O and a dot for an
+## empty square.
+## >> "t:" u_se< "TTTML"
+## >> t:s_how 1 -1 0 0 1 0 0 0 -1
+##  X O .
+##  . X .
+##  . . O
 l:s_how := { s -> 3 6 r_eshape (1 + (s + 2) '* t_able 0 1) s_elect " O.X" }
 
-# The 8 lines (3 rows, 3 columns, 2 diagonals) as rows of 0s and 1s:
-# one inner product sums a board along every line.
+## The 8 lines (3 rows, 3 columns, 2 diagonals) as rows of 0s and 1s:
+## one inner product sums a board along every line.
 l:lines := 8 9 r_eshape 1 1 1 0 0 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 1 1 1 1 0 0 1 0 0 1 0 0 0 1 0 0 1 0 0 1 0 0 0 1 0 0 1 0 0 1 1 0 0 0 1 0 0 0 1 0 0 1 0 1 0 1 0 0
 
-# 1 X has won (a line sums to 3), -1 O has (-3), 2 a draw (a full
-# board), 0 the game goes on.
+## t:o_utcome s: the state of board s: 1 X has won (a line sums to 3),
+## -1 O has (-3), 2 a draw (a full board), 0 the game goes on.
+## >> "t:" u_se< "TTTML"
+## >> t:o_utcome 1 1 1 -1 -1 0 0 0 0
+## 1
+## >> t:o_utcome 1 -1 1 1 -1 -1 -1 1 1
+## 2
+## >> t:o_utcome 0 0 0 0 0 0 0 0 0
+## 0
 l:o_utcome := { s ->
   l := l:lines '+ '* i_nner s
   3 m_ember? l ? 1; -3 m_ember? l ? -1; 0 m_ember? s ? 0; 2
 }
 
-# The 8 symmetries of the square as rearrangements of the squares. A
-# board read as a base-3 number names it; the least of its 8 names is
-# the position's code, the same for a board turned or reflected.
+### Positions and the model
+
+## The 8 symmetries of the square, each a row rearranging the 9
+## squares (turns and reflections).
 l:symmetries := 8 9 r_eshape 1 2 3 4 5 6 7 8 9 7 4 1 8 5 2 9 6 3 9 8 7 6 5 4 3 2 1 3 6 9 2 5 8 1 4 7 3 2 1 6 5 4 9 8 7 7 8 9 4 5 6 1 2 3 1 4 7 2 5 8 3 6 9 9 6 3 8 5 2 7 4 1
+## t:c_ode s: the code of board s. A board read as a base-3 number
+## names it; the least of its 8 names (one per symmetry) is the code,
+## the same for a board turned or reflected.
+## >> "t:" u_se< "TTTML"
+## >> t:c_ode 1 0 0 0 0 0 0 0 0
+## 9842
+## >> t:c_ode 0 0 1 0 0 0 0 0 0
+## 9842
 l:c_ode := { s -> 'm_in r_/ 3 d_ecode o_\ 1 + l:symmetries s_elect s }
 
-# The model knows nothing yet: no positions.
+## The model that knows nothing yet: two rows (codes, values) of no
+## positions. Training starts from it.
+## >> "t:" u_se< "TTTML"
+## >> t_ally 1 s_elect t:empty
+## 0
 l:empty := 2 0 r_eshape 0.5
 
-# m v_alues c: what the positions with codes c, each just after a
-# move, are worth to the player who made it: towards 1 a win, towards
-# 0 a loss, 0.5 a draw. A code not met yet is found one past the end,
-# where a 0.5 is added, so it is worth 0.5 too.
+# A code not met is found one past the end, where a 0.5 is added.
+
+## m t:v_alues c: what the positions with codes c, each just after a
+## move, are worth in model m to the player who made it: towards 1 a
+## win, towards 0 a loss, 0.5 a draw. A code not met yet is worth 0.5.
 l:v_alues := { m c -> ((1 s_elect m) i_ndexOf c) s_elect (2 s_elect m) c_at 0.5 }
+## m t:v_alue s: what board s is worth in model m to the player who
+## just moved (t:v_alues of its code).
+## >> "t:" u_se< "TTTML"
+## >> t:empty t:v_alue 1 0 0 0 0 0 0 0 0
+## 0.5
 l:v_alue := { m s -> m l:v_alues f_loat l:c_ode s }
 
-# s a_fter a: the board once the player to move takes square a.
+## s t:a_fter a: the board once the player to move (X when s sums to
+## 0, else O) takes square a, 1 to 9.
+## >> "t:" u_se< "TTTML"
+## >> (0 0 0 0 1 0 0 0 0) t:a_fter 1
+## -1 0 0 0 1 0 0 0 0
 l:a_fter := { s a -> s + (1 - 2 * '+ r_/ s) * (r_ange 9) = a }
 
-# m c_hoose s: the square whose board is worth most to the mover.
+### Playing
+
+## m t:c_hoose s: the best move in model m for the player to move on
+## board s: the empty square (1 to 9) whose board is worth most.
 l:c_hoose := { m s ->
   p := w_here s = 0
   v := m l:v_alues '{ a -> f_loat l:c_ode s l:a_fter a } e_ach p
   (v i_ndexOf 'm_ax r_/ v) s_elect p
 }
 
-# A game against itself, as its boards from the empty one on: the
-# best move, but one time in ten a random one, so that it keeps trying
-# moves it now thinks are bad.
+## m h:p_ick! s: the move on board s, the best in model m but one
+## time in ten a random empty square, so that it keeps trying moves it
+## now thinks are bad.
 h:p_ick! := { m s ->
   p := w_here s = 0
   (r_oll! 10) = 1 ? (r_oll! t_ally p) s_elect p; m l:c_hoose s
 }
+## m h:p_lay! g: game g (its boards so far, a board per row) played on
+## to the end by model m against itself, moves from h:p_ick!.
 h:p_lay! := { m g ->
   s := (t_ally g) s_elect g
   g := g c_at 1 9 r_eshape s l:a_fter m h:p_ick! s
   0 = l:o_utcome (t_ally g) s_elect g ? m h:p_lay! g; g
 }
+## t:g_ame! m: a game model m plays against itself, as its boards from
+## the empty one on (a board per row); one move in ten is random.
 l:g_ame! := { m -> m h:p_lay! 1 9 r_eshape 0 }
 
-# Learning from game g, from the last move back to the first: each
-# board's value moves a fifth of the way to a target. For the last two
-# moves the target is the result as its mover sees it (1 won, 0 lost,
-# 0.5 drawn); before that, the mover's next board, two moves on, taken
-# at 0.9 so that a sooner win is worth more.
+### Learning
+
+## g h:r_esult j: the result of game g as the mover of its board j + 1
+## sees it: 1 won, 0 lost, 0.5 drawn.
 h:r_esult := { g j ->
   w := l:o_utcome (t_ally g) s_elect g
   x := '+ r_/ (j + 1) s_elect g
   (0.5 * f_loat w = 2) + f_loat w = (2 * x) - 1
 }
+## g h:t_arget m j: the value board j + 1 of game g moves towards: the
+## result for the last two moves, else 0.9 times model m's value of
+## the mover's next board.
 h:t_arget := { g m j ->
   j >= (t_ally g) - 2 ? g h:r_esult j; 0.9 * m l:v_alue (j + 3) s_elect g
 }
+## g h:b_ack m j: model m after moving the values of boards j + 1 down
+## to 2 of game g a fifth of the way to their targets.
 h:b_ack := { g m j ->
   k := (1 s_elect m) i_ndexOf f_loat l:c_ode (j + 1) s_elect g
   d := 0.2 * ((g h:t_arget m)_ j) - m l:v_alue (j + 1) s_elect g
   m := m + (0.0 c_at d) '* t_able f_loat (r_ange t_ally 1 s_elect m) = k
   j = 1 ? m; (g h:b_ack m)_ j - 1
 }
-# Boards not met before join the model at 0.5 first.
+## m h:m_eet g: model m with the boards of game g not met before
+## added, each at 0.5.
 h:m_eet := { m g ->
   c := u_nique '{ j -> f_loat l:c_ode j s_elect g } e_ach 1 d_rop r_ange t_ally g
   n := (w_here 0 = c m_ember? 1 s_elect m) s_elect c
   k := (t_ally 1 s_elect m) + t_ally n
   (2 c_at k) r_eshape ((1 s_elect m) c_at n) c_at (2 s_elect m) c_at 0.5 + 0.0 * n
 }
+## m t:l_earn g: model m after learning from game g (a board per row,
+## as t:g_ame! gives), from the last move back to the first: each
+## board's value moves a fifth of the way to a target. For the last two
+## moves the target is the result as its mover sees it (1 won, 0 lost,
+## 0.5 drawn); before that, the mover's next board, two moves on, taken
+## at 0.9 so that a sooner win is worth more.
 l:l_earn := { m g -> (g h:b_ack m h:m_eet g)_ (t_ally g) - 1 }
 
-# n t_rain! m: model m after learning from n games against itself.
-# It plays in rounds of 250 games, and after each prints how many games
-# are still to go and how many positions it knows, so a long training
-# shows its progress. A round repeats one game with p_ower, which does
-# not nest calls: the recursion is one level per round, not per game
-# (a browser's stack holds a few hundred levels, not thousands).
+### Training
+
+# It plays in rounds of 250 games. A round repeats one game with
+# p_ower, which does not nest calls: the recursion is one level per
+# round, not per game (a browser's stack holds a few hundred levels,
+# not thousands).
+
+## h:r_ound! m: model m after one game against itself and learning
+## from it.
 h:r_ound! := { m -> m l:l_earn l:g_ame! m }
+## n h:l_oop! m: model m after n more games, in rounds of 250, printing
+## the games still to go and the positions known after each round.
 h:l_oop! := { n m ->
   k := 250 m_in n
   m := k 'h:r_ound! p_ower m
   shown := p_rint! (n - k) c_at t_ally 1 s_elect m
   n = k ? m; (n - k) h:l_oop! m
 }
+## n t:t_rain! m: model m after learning from n games against itself.
+## After each round of 250 games it prints how many games are still to
+## go and how many positions it knows, so a long training shows its
+## progress. Start from t:empty.
 l:t_rain! := { n m ->
   shown := p_rint! "games to go, positions known:"
   n h:l_oop! m
 }
 
-# Against a random player: the machine plays side (1 as X, -1 as O)
-# with its best move, the other side at random. A game's result for
-# the machine: 1 won, -1 lost, 2 drawn.
+### Measuring
+
+## m h:t_urn! side s: the move on board s, model m playing side (1 as
+## X, -1 as O) against a random player: its best move when side is to
+## move, else a random empty square.
 h:t_urn! := { m side s ->
   p := w_here s = 0
   (1 - 2 * '+ r_/ s) = side ? m l:c_hoose s; (r_oll! t_ally p) s_elect p
 }
+## m h:v_ersus! side s: the outcome of the game from board s, model m
+## playing side against a random player: 1 X won, -1 O won, 2 drawn.
 h:v_ersus! := { m side s ->
   s := s l:a_fter ((m h:t_urn! side)_ s)
   w := l:o_utcome s
   w = 0 ? ((m h:v_ersus! side)_ s); w
 }
+## m h:c_ount! side n: n games as side against a random player; how
+## many the machine won, lost and drew.
 h:c_ount! := { m side n ->
   w := '{ i -> ((m h:v_ersus! side)_ 9 r_eshape 0) } e_ach r_ange n
   '+ r_/ w '= t_able side c_at (0 - side) c_at 2
 }
-# n t_rial! m: n games as X, then n as O; a row each of games won,
-# lost and drawn.
+## n t:t_rial! m: n games of model m against a random player as X,
+## then n as O; a row each of games won, lost and drawn.
 l:t_rial! := { n m -> 2 3 r_eshape ((m h:c_ount! 1)_ n) c_at (m h:c_ount! -1)_ n }
 
-# The game the model plays against itself, its best move on both
-# sides, as its boards from the empty one on.
+### Its own games
+
+## m h:g_reedy g: game g (a board per row) played on to the end by
+## model m against itself, its best move on both sides.
 h:g_reedy := { m g ->
   s := (t_ally g) s_elect g
   g := g c_at 1 9 r_eshape s l:a_fter m l:c_hoose s
   0 = l:o_utcome (t_ally g) s_elect g ? m h:g_reedy g; g
 }
+## t:b_est m: the game model m plays against itself, its best move on
+## both sides, as its boards from the empty one on (a board per row).
 l:b_est := { m -> m h:g_reedy 1 9 r_eshape 0 }
 
-# The boards of a game (a board per row) drawn left to right.
+## t:b_oards g: the boards of game g (a board per row) drawn side by
+## side, left to right, as 3 rows of text.
 l:b_oards := { g ->
   k := t_ally g
   rows := (3 * (r_ange 3) - 1) '+ t_able 9 * (r_ange k) - 1
@@ -147,12 +224,16 @@ l:b_oards := { g ->
   (3 c_at 8 * k) r_eshape (1 + (squares + 2) '* t_able 0 1) s_elect " O.X  "
 }
 
-# n s_elfTrial m: n games against itself, its best move on both sides
-# but the first move at random (from the empty board its best move is
-# always the same, so every game would be one game): games X won, O
-# won, drawn. Played well from any opening, every game is a draw.
+## h:o_pening! @: a random first move: the empty board and the board
+## after X takes a random square, a board per row.
 h:o_pening! := { @ -> 2 9 r_eshape (9 r_eshape 0) c_at 1 * (r_ange 9) = r_oll! 9 }
+## h:f_inal g: the outcome of game g's last board.
 h:f_inal := { g -> l:o_utcome (t_ally g) s_elect g }
+## n t:s_elfTrial! m: n games of model m against itself, its best move
+## on both sides but the first move at random (from the empty board its
+## best move is always the same, so every game would be one game);
+## games X won, O won, drawn. Played well from any opening, every game
+## is a draw.
 l:s_elfTrial! := { n m ->
   w := '{ i -> h:f_inal m h:g_reedy h:o_pening! @ } e_ach r_ange n
   '+ r_/ w '= t_able 1 -1 2

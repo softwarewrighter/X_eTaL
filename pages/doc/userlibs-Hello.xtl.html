@@ -64,12 +64,26 @@
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">library</span>userlibs/Hello.xtl</h1>
+<div class="doc">
+<p>Hello: the smallest library, one greeting. A library is an ordinary
+file whose exported names start with l:; libraries of your own live
+in userlibs/, on the search path. demos/hello-library.xtl imports it
+(&quot;hi:&quot; u_se&lt; &quot;Hello&quot;), and docs/literate/hello.org walks through
+both. The name in the string is the logo: typed X_ e:T a:L, drawn,
+spaces removed (a string may hold any Unicode).</p>
+</div>
 <p class="meta"><a href="userlibs-Hello.xtl.src.html">source</a></p>
 <div class="item" id="l.h_ello">
 <h3><a href="#l.h_ello"><span class="c-libfunc">ˡh̲ello</span></a> <span class="type">: Unit -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="userlibs-Hello.xtl.src.html#L7">line 7</a></div>
+<div class="meta">function &middot; <a href="userlibs-Hello.xtl.src.html#L12">line 12</a></div>
+<div class="doc">
+<p>The greeting, as text (niladic: call it with @).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰⁱ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="userlibs-Hello.xtl.html" class="c-string">&quot;Hello&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="userlibs-Hello.xtl.html#l.h_ello" class="c-libfunc">ʰⁱh̲ello</a> @
+hello X̲ᵉTᵃL</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡh̲ello</span> ← { @ → <span class="c-string">&quot;hello X̲ᵉTᵃL&quot;</span> }             <span class="c-comment">⍝</span><span class="c-comment"> niladic: call it with @</span></pre>
-<div class="uses">Used in: <a href="demos-hello-library.xtl.src.html#L14">hello-library.xtl:14</a>, <a href="demos-tour.xtl.src.html#L159">tour.xtl:159</a></div>
+<div class="uses">Used in: <a href="demos-hello-library.xtl.src.html#L20">hello-library.xtl:20</a>, <a href="demos-tour.xtl.src.html#L180">tour.xtl:180</a></div>
 </div>
 </main>
 </body>

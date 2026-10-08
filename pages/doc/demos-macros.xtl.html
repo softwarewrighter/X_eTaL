@@ -57,9 +57,11 @@
 </ul>
 <h2>On this page</h2>
 <ul>
+<li><a href="#section-1">System macros</a></li>
 <li class="item"><a href="#x">x</a></li>
 <li class="item"><a href="#u.m_ax-2f"><span class="c-userfunc">ᵘm̲ax/</span></a></li>
 <li class="item"><a href="#u.m_in-2f"><span class="c-userfunc">ᵘm̲in/</span></a></li>
+<li><a href="#section-2">Macros of your own</a></li>
 <li class="item"><a href="#u.s_quare"><span class="c-userfunc">ᵘs̲quare</span></a></li>
 </ul>
 </nav>
@@ -67,35 +69,59 @@
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">program</span>demos/macros.xtl</h1>
+<div class="doc">
+<p>Macros write source for you: a call &quot;left&quot; n_ame&lt; &quot;right&quot; is replaced,
+before the program is checked, by the source the macro writes from the
+two texts. Run it with ./demos/macros.xtl (or xetal run): it prints what
+the system macros give, then a macro library's checks; a failed a_ssert&lt;
+goes to standard error. Read each call beside its expansion, which
+&quot;xetal expand demos/macros.xtl&quot; shows.</p>
+</div>
 <p class="meta"><a href="demos-macros.xtl.src.html">source</a> &middot; imports <code><span class="c-error">m:</span></code> <a href="lib-Macros.xtlm.html">lib/Macros.xtlm</a></p>
+<h2 class="section" id="section-1">System macros</h2>
 <div class="item" id="x">
 <h3><a href="#x">x</a> <span class="type">: Int</span></h3>
-<div class="meta">value &middot; <a href="demos-macros.xtl.src.html#L10">line 10</a></div>
+<div class="meta">value &middot; <a href="demos-macros.xtl.src.html#L13">line 13</a></div>
+<div class="doc">
+<p>The number the conditions below test: negative, so <code><a href="demos-macros.xtl.html#x">x</a> <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <span class="c-number">0</span></code> is false.</p>
+</div>
 <pre class="code">x ← <span class="c-number">-3</span></pre>
-<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L11">macros.xtl:11</a>, <a href="demos-macros.xtl.src.html#L12">macros.xtl:12</a>, <a href="demos-macros.xtl.src.html#L13">macros.xtl:13</a>, <a href="demos-macros.xtl.src.html#L16">macros.xtl:16</a>, <a href="demos-macros.xtl.src.html#L27">macros.xtl:27</a>, <a href="demos-macros.xtl.src.html#L28">macros.xtl:28</a></div>
+<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L14">macros.xtl:14</a>, <a href="demos-macros.xtl.src.html#L15">macros.xtl:15</a>, <a href="demos-macros.xtl.src.html#L16">macros.xtl:16</a>, <a href="demos-macros.xtl.src.html#L18">macros.xtl:18</a>, <a href="demos-macros.xtl.src.html#L27">macros.xtl:27</a>, <a href="demos-macros.xtl.src.html#L28">macros.xtl:28</a></div>
 </div>
 <div class="item" id="u.m_ax-2f">
 <h3><a href="#u.m_ax-2f"><span class="c-userfunc">ᵘm̲ax/</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="demos-macros.xtl.src.html#L20">line 20</a></div>
+<div class="meta">function &middot; <a href="demos-macros.xtl.src.html#L22">line 22</a></div>
+<div class="doc">
+<p>u:m_ax/ v, u:m_in/ v: the largest and smallest item of v, written by
+e_ach&lt;, one statement per word with $w replaced by the word.</p>
+</div>
 <pre class="code"><span class="c-string">&quot;m_ax m_in&quot;</span> <a href="std-System.xtlm.html#s.e_ach-3c" class="c-macro">e̲ach&lt;</a> <span class="c-string">&quot;u:$w/ := { '$w r_/ _r }&quot;</span></pre>
 <details class="expansion"><summary><code><a href="std-System.xtlm.html#s.e_ach-3c" class="c-macro">e̲ach&lt;</a></code> expands to</summary><pre class="code"><span class="c-userfunc">ᵘm̲ax/</span> ← { <span class="c-builtin">'</span><a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <span class="c-lambdaarg">⍵</span> }
 <span class="c-userfunc">ᵘm̲in/</span> ← { <span class="c-builtin">'</span><a href="builtins.html#m_in" class="c-builtin">m̲in</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <span class="c-lambdaarg">⍵</span> }</pre></details>
-<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L21">macros.xtl:21</a></div>
+<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L23">macros.xtl:23</a></div>
 </div>
 <div class="item" id="u.m_in-2f">
 <h3><a href="#u.m_in-2f"><span class="c-userfunc">ᵘm̲in/</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="demos-macros.xtl.src.html#L20">line 20</a></div>
+<div class="meta">function &middot; <a href="demos-macros.xtl.src.html#L22">line 22</a></div>
+<div class="doc">
+<p>u:m_ax/ v, u:m_in/ v: the largest and smallest item of v, written by
+e_ach&lt;, one statement per word with $w replaced by the word.</p>
+</div>
 <pre class="code"><span class="c-string">&quot;m_ax m_in&quot;</span> <a href="std-System.xtlm.html#s.e_ach-3c" class="c-macro">e̲ach&lt;</a> <span class="c-string">&quot;u:$w/ := { '$w r_/ _r }&quot;</span></pre>
 <details class="expansion"><summary><code><a href="std-System.xtlm.html#s.e_ach-3c" class="c-macro">e̲ach&lt;</a></code> expands to</summary><pre class="code"><span class="c-userfunc">ᵘm̲ax/</span> ← { <span class="c-builtin">'</span><a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <span class="c-lambdaarg">⍵</span> }
 <span class="c-userfunc">ᵘm̲in/</span> ← { <span class="c-builtin">'</span><a href="builtins.html#m_in" class="c-builtin">m̲in</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <span class="c-lambdaarg">⍵</span> }</pre></details>
-<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L22">macros.xtl:22</a></div>
+<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L24">macros.xtl:24</a></div>
 </div>
+<h2 class="section" id="section-2">Macros of your own</h2>
 <div class="item" id="u.s_quare">
 <h3><a href="#u.s_quare"><span class="c-userfunc">ᵘs̲quare</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="demos-macros.xtl.src.html#L35">line 35</a></div>
+<div class="meta">function &middot; <a href="demos-macros.xtl.src.html#L38">line 38</a></div>
+<div class="doc">
+<p>u:s_quare x: x times x, defined by the m:d_ef&lt; macro.</p>
+</div>
 <pre class="code"><span class="c-string">&quot;s_quare&quot;</span> <a href="lib-Macros.xtlm.html#m.d_ef-3c" class="c-macro">ᵐd̲ef&lt;</a> <span class="c-string">&quot;_r * _r&quot;</span></pre>
 <details class="expansion"><summary><code><a href="lib-Macros.xtlm.html#m.d_ef-3c" class="c-macro">ᵐd̲ef&lt;</a></code> expands to</summary><pre class="code"><span class="c-userfunc">ᵘs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍵</span> }</pre></details>
-<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L36">macros.xtl:36</a></div>
+<div class="uses">Used in: <a href="demos-macros.xtl.src.html#L39">macros.xtl:39</a></div>
 </div>
 </main>
 </body>

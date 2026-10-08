@@ -1,10 +1,13 @@
 #!/usr/bin/env xetal
-# TTTML, part 1: learn tic-tac-toe by playing itself, then save what
-# it learned to work/tttml.model, a text file of numbers (the codes of
-# the positions it met, then their values). Part 2,
-# demos/tttml-play.xtl, loads it and plays you.
+## TTTML, part 1: learn tic-tac-toe by playing itself, then save what
+## it learned to work/tttml.model, a text file of numbers (the codes of
+## the positions it met, then their values). Run it with
+## "xetal run demos/tttml-train.xtl"; part 2, demos/tttml-play.xtl, loads
+## the model and plays you. Uses the TTTML library (lib/TTTML.xtl).
+
 "t:" u_se< "TTTML"
 
+## The model learned from 2000 games against itself.
 m := 2000 t:t_rain! t:empty
 
 # Against a random player, as X and as O: won, lost, drawn.

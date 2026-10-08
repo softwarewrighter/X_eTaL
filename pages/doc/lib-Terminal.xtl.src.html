@@ -57,60 +57,102 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L10">ˡBLACK</a></li>
-<li class="item"><a href="#L11">ˡRED</a></li>
-<li class="item"><a href="#L12">ˡGREEN</a></li>
-<li class="item"><a href="#L13">ˡYELLOW</a></li>
-<li class="item"><a href="#L14">ˡBLUE</a></li>
-<li class="item"><a href="#L15">ˡMAGENTA</a></li>
-<li class="item"><a href="#L16">ˡCYAN</a></li>
-<li class="item"><a href="#L17">ˡWHITE</a></li>
-<li class="item"><a href="#L19">ˡUP</a></li>
-<li class="item"><a href="#L20">ˡDOWN</a></li>
-<li class="item"><a href="#L21">ˡLEFT</a></li>
-<li class="item"><a href="#L22">ˡRIGHT</a></li>
-<li class="item"><a href="#L23">ˡENTER</a></li>
-<li class="item"><a href="#L24">ˡESCAPE</a></li>
-<li class="item"><a href="#L25">ˡBACKSPACE</a></li>
-<li class="item"><a href="#L26">ˡTAB</a></li>
-<li class="item"><a href="#L27">ˡDELETE</a></li>
-<li class="item"><a href="#L28">ˡHOME</a></li>
-<li class="item"><a href="#L29">ˡEND</a></li>
+<li class="item"><a href="#L13">ˡBLACK</a></li>
+<li class="item"><a href="#L16">ˡRED</a></li>
+<li class="item"><a href="#L19">ˡGREEN</a></li>
+<li class="item"><a href="#L22">ˡYELLOW</a></li>
+<li class="item"><a href="#L25">ˡBLUE</a></li>
+<li class="item"><a href="#L28">ˡMAGENTA</a></li>
+<li class="item"><a href="#L31">ˡCYAN</a></li>
+<li class="item"><a href="#L34">ˡWHITE</a></li>
+<li class="item"><a href="#L39">ˡUP</a></li>
+<li class="item"><a href="#L42">ˡDOWN</a></li>
+<li class="item"><a href="#L45">ˡLEFT</a></li>
+<li class="item"><a href="#L48">ˡRIGHT</a></li>
+<li class="item"><a href="#L51">ˡENTER</a></li>
+<li class="item"><a href="#L54">ˡESCAPE</a></li>
+<li class="item"><a href="#L57">ˡBACKSPACE</a></li>
+<li class="item"><a href="#L60">ˡTAB</a></li>
+<li class="item"><a href="#L63">ˡDELETE</a></li>
+<li class="item"><a href="#L66">ˡHOME</a></li>
+<li class="item"><a href="#L69">ˡEND</a></li>
 </ul>
 </nav>
 <main>
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">source</span><a href="lib-Terminal.xtl.html">lib/Terminal.xtl</a></h1>
-<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment"> Terminal: the names of the colors and keys a program draws and reads</span></span>
-<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> with (QD6), a standard library built into xetal. Import it with an</span></span>
-<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"> alias of your choice: &quot;t:&quot; u_se&lt; &quot;Terminal&quot;.</span></span>
-<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span></span>
-<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"> Colors are values of type Color (for []F_G and []B_G); keys are values</span></span>
-<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"> of type Key, what []K_EY @ gives (a printing key carries its</span></span>
-<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"> character: []K_CHAR). A misspelled name is an undefined name, and a</span></span>
-<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"> Key where a Color is wanted a type error, when the program is checked.</span></span>
+<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment"># Terminal: the names of the colors and keys a program draws and reads</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># with, a standard library built into xetal. Import it with an alias</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># of your choice: &quot;t:&quot; u_se&lt; &quot;Terminal&quot;.</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment">#</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"># Colors are values of type Color (for []F_G and []B_G); keys are values</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"># of type Key, what []K_EY @ gives (a printing key carries its</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"># character: []K_CHAR). A misspelled name is an undefined name, and a</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"># Key where a Color is wanted a type error, when the program is checked.</span></span>
 <span class="line" id="L9"><a class="ln" href="#L9">9</a></span>
-<span class="line" id="L10"><a class="ln" href="#L10">10</a>ˡBLACK ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">1</span></span>
-<span class="line" id="L11"><a class="ln" href="#L11">11</a>ˡRED ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">2</span></span>
-<span class="line" id="L12"><a class="ln" href="#L12">12</a>ˡGREEN ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">3</span></span>
-<span class="line" id="L13"><a class="ln" href="#L13">13</a>ˡYELLOW ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">4</span></span>
-<span class="line" id="L14"><a class="ln" href="#L14">14</a>ˡBLUE ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">5</span></span>
-<span class="line" id="L15"><a class="ln" href="#L15">15</a>ˡMAGENTA ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">6</span></span>
-<span class="line" id="L16"><a class="ln" href="#L16">16</a>ˡCYAN ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">7</span></span>
-<span class="line" id="L17"><a class="ln" href="#L17">17</a>ˡWHITE ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">8</span></span>
-<span class="line" id="L18"><a class="ln" href="#L18">18</a></span>
-<span class="line" id="L19"><a class="ln" href="#L19">19</a>ˡUP ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">1</span></span>
-<span class="line" id="L20"><a class="ln" href="#L20">20</a>ˡDOWN ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">2</span></span>
-<span class="line" id="L21"><a class="ln" href="#L21">21</a>ˡLEFT ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">3</span></span>
-<span class="line" id="L22"><a class="ln" href="#L22">22</a>ˡRIGHT ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">4</span></span>
-<span class="line" id="L23"><a class="ln" href="#L23">23</a>ˡENTER ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">5</span></span>
-<span class="line" id="L24"><a class="ln" href="#L24">24</a>ˡESCAPE ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">6</span></span>
-<span class="line" id="L25"><a class="ln" href="#L25">25</a>ˡBACKSPACE ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">7</span></span>
-<span class="line" id="L26"><a class="ln" href="#L26">26</a>ˡTAB ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">8</span></span>
-<span class="line" id="L27"><a class="ln" href="#L27">27</a>ˡDELETE ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">9</span></span>
-<span class="line" id="L28"><a class="ln" href="#L28">28</a>ˡHOME ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">10</span></span>
-<span class="line" id="L29"><a class="ln" href="#L29">29</a>ˡEND ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">11</span></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment">## Colors</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"># The color black, for []F_G (text) and []B_G (background).</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a>ˡBLACK ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">1</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-comment">⍝</span><span class="c-comment"># The color red, for []F_G (text) and []B_G (background).</span></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a>ˡRED ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">2</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-comment">⍝</span><span class="c-comment"># The color green, for []F_G (text) and []B_G (background).</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a>ˡGREEN ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">3</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-comment">⍝</span><span class="c-comment"># The color yellow, for []F_G (text) and []B_G (background).</span></span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a>ˡYELLOW ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">4</span></span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a></span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-comment">⍝</span><span class="c-comment"># The color blue, for []F_G (text) and []B_G (background).</span></span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a>ˡBLUE ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">5</span></span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a></span>
+<span class="line" id="L27"><a class="ln" href="#L27">27</a><span class="c-comment">⍝</span><span class="c-comment"># The color magenta, for []F_G (text) and []B_G (background).</span></span>
+<span class="line" id="L28"><a class="ln" href="#L28">28</a>ˡMAGENTA ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">6</span></span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a></span>
+<span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-comment">⍝</span><span class="c-comment"># The color cyan, for []F_G (text) and []B_G (background).</span></span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a>ˡCYAN ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">7</span></span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a></span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-comment">⍝</span><span class="c-comment"># The color white, for []F_G (text) and []B_G (background).</span></span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a>ˡWHITE ← <a href="builtins.html#-5b-5dC_OLOR" class="c-builtin">⎕C̲OLOR</a> <span class="c-number">8</span></span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-comment">⍝</span><span class="c-comment">## Keys</span></span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a></span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-comment">⍝</span><span class="c-comment"># The up arrow key. A Key, compared with what []K_EY @ gives.</span></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a>ˡUP ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">1</span></span>
+<span class="line" id="L40"><a class="ln" href="#L40">40</a></span>
+<span class="line" id="L41"><a class="ln" href="#L41">41</a><span class="c-comment">⍝</span><span class="c-comment"># The down arrow key. A Key, compared with what []K_EY @ gives.</span></span>
+<span class="line" id="L42"><a class="ln" href="#L42">42</a>ˡDOWN ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">2</span></span>
+<span class="line" id="L43"><a class="ln" href="#L43">43</a></span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a><span class="c-comment">⍝</span><span class="c-comment"># The left arrow key. A Key, compared with what []K_EY @ gives.</span></span>
+<span class="line" id="L45"><a class="ln" href="#L45">45</a>ˡLEFT ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">3</span></span>
+<span class="line" id="L46"><a class="ln" href="#L46">46</a></span>
+<span class="line" id="L47"><a class="ln" href="#L47">47</a><span class="c-comment">⍝</span><span class="c-comment"># The right arrow key. A Key, compared with what []K_EY @ gives.</span></span>
+<span class="line" id="L48"><a class="ln" href="#L48">48</a>ˡRIGHT ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">4</span></span>
+<span class="line" id="L49"><a class="ln" href="#L49">49</a></span>
+<span class="line" id="L50"><a class="ln" href="#L50">50</a><span class="c-comment">⍝</span><span class="c-comment"># The Enter (Return) key. A Key, compared with what []K_EY @ gives.</span></span>
+<span class="line" id="L51"><a class="ln" href="#L51">51</a>ˡENTER ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">5</span></span>
+<span class="line" id="L52"><a class="ln" href="#L52">52</a></span>
+<span class="line" id="L53"><a class="ln" href="#L53">53</a><span class="c-comment">⍝</span><span class="c-comment"># The Escape key. A Key, compared with what []K_EY @ gives.</span></span>
+<span class="line" id="L54"><a class="ln" href="#L54">54</a>ˡESCAPE ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">6</span></span>
+<span class="line" id="L55"><a class="ln" href="#L55">55</a></span>
+<span class="line" id="L56"><a class="ln" href="#L56">56</a><span class="c-comment">⍝</span><span class="c-comment"># The Backspace key. A Key, compared with what []K_EY @ gives.</span></span>
+<span class="line" id="L57"><a class="ln" href="#L57">57</a>ˡBACKSPACE ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">7</span></span>
+<span class="line" id="L58"><a class="ln" href="#L58">58</a></span>
+<span class="line" id="L59"><a class="ln" href="#L59">59</a><span class="c-comment">⍝</span><span class="c-comment"># The Tab key. A Key, compared with what []K_EY @ gives.</span></span>
+<span class="line" id="L60"><a class="ln" href="#L60">60</a>ˡTAB ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">8</span></span>
+<span class="line" id="L61"><a class="ln" href="#L61">61</a></span>
+<span class="line" id="L62"><a class="ln" href="#L62">62</a><span class="c-comment">⍝</span><span class="c-comment"># The Delete key. A Key, compared with what []K_EY @ gives.</span></span>
+<span class="line" id="L63"><a class="ln" href="#L63">63</a>ˡDELETE ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">9</span></span>
+<span class="line" id="L64"><a class="ln" href="#L64">64</a></span>
+<span class="line" id="L65"><a class="ln" href="#L65">65</a><span class="c-comment">⍝</span><span class="c-comment"># The Home key. A Key, compared with what []K_EY @ gives.</span></span>
+<span class="line" id="L66"><a class="ln" href="#L66">66</a>ˡHOME ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">10</span></span>
+<span class="line" id="L67"><a class="ln" href="#L67">67</a></span>
+<span class="line" id="L68"><a class="ln" href="#L68">68</a><span class="c-comment">⍝</span><span class="c-comment"># The End key. A Key, compared with what []K_EY @ gives.</span></span>
+<span class="line" id="L69"><a class="ln" href="#L69">69</a>ˡEND ← <a href="builtins.html#-5b-5dK_NAMED" class="c-builtin">⎕K̲NAMED</a> <span class="c-number">11</span></span>
+<span class="line" id="L70"><a class="ln" href="#L70">70</a></span>
+<span class="line" id="L71"><a class="ln" href="#L71">71</a><span class="c-comment">⍝</span><span class="c-comment">## Keys</span></span>
 </div>
 </main>
 </body>

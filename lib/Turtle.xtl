@@ -1,16 +1,24 @@
-# Turtle: turtle graphics as arrays (a standard library, built into
-# xetal). Import it with an alias of your choice: "t:" u_se< "Turtle".
-# A walk is a vector of turns in degrees, one before each step forward;
-# the turtle starts at the origin facing east (0 degrees, counting
-# anticlockwise). No turtle moves: the headings are a running sum of
-# the turns, the steps are their cosines and sines, and the positions
-# are running sums of the steps. Draw the points with []P_ATH.
+## Turtle: turtle graphics as arrays (a standard library, built into
+## xetal). Import it with an alias of your choice: "t:" u_se< "Turtle".
+## A walk is a vector of turns in degrees, one before each step forward;
+## the turtle starts at the origin facing east (0 degrees, counting
+## anticlockwise). No turtle moves: the headings are a running sum of
+## the turns, the steps are their cosines and sines, and the positions
+## are running sums of the steps. Draw the points with []P_ATH.
+## Names with l: are exported; names with h: are private to this file.
 
+## Degrees as radians, a Float.
 h:r_adians := { (f_loat _r) * (p_i @) / 180 }   # private
 
-# The points of a walk with steps of the given lengths, 2 rows (x over
-# y), starting at the origin: `lengths l:w_alk turns`; a single length
-# serves every step.
+### Points of a walk
+
+## The points of a walk with steps of the given lengths, 2 rows (x over
+## y), starting at the origin: `lengths t:w_alk turns`; a single length
+## serves every step. A walk of n turns gives n + 1 points.
+## >> "t:" u_se< "Turtle"
+## >> f_loor 0.5 + 2 t:w_alk 0 90 90
+## 0 2 2 0
+## 0 0 2 2
 l:w_alk := { lengths turns ->
   h := h:r_adians '+ s_\ turns
   xs := 0 c_at '+ s_\ (f_loat lengths) * c_os h
@@ -18,12 +26,25 @@ l:w_alk := { lengths turns ->
   (2 c_at t_ally xs) r_eshape xs c_at ys
 }
 
-# The points of a walk of unit steps.
+## The points of a walk of unit steps: `t:p_oints turns`.
+## >> "t:" u_se< "Turtle"
+## >> f_loor 0.5 + t:p_oints t:p_olygon 4
+## 0 0 -1 -1 0
+## 0 1  1  0 0
 l:p_oints := { turns -> 1 l:w_alk turns }
 
-# The walk with t degrees more turned before its first step: how pieces
-# of a curve are joined (`60 l:t_urn w`).
+### Building walks
+
+## The walk w with t degrees more turned before its first step: how
+## pieces of a curve are joined (`60 t:t_urn w`).
+## >> "t:" u_se< "Turtle"
+## >> 60 t:t_urn 0 120 120
+## 60 120 120
 l:t_urn := { t w -> (t + 1 t_ake w) c_at 1 d_rop w }
 
-# A regular polygon of n sides, as a walk.
+## A regular polygon of n sides, as a walk: n turns of 360 / n degrees,
+## so it closes where it began.
+## >> "t:" u_se< "Turtle"
+## >> t:p_olygon 4
+## 90.0 90.0 90.0 90.0
 l:p_olygon := { n -> n r_eshape 360 / n }

@@ -57,9 +57,12 @@
 </ul>
 <h2>On this page</h2>
 <ul>
+<li><a href="#section-1">The rules</a></li>
 <li class="item"><a href="#u.l_ife"><span class="c-userfunc">ᵘl̲ife</span></a></li>
 <li class="item"><a href="#u.s_teps"><span class="c-userfunc">ᵘs̲teps</span></a></li>
+<li><a href="#section-2">A blinker</a></li>
 <li class="item"><a href="#blinker">blinker</a></li>
+<li><a href="#section-3">A glider</a></li>
 <li class="item"><a href="#glider">glider</a></li>
 <li class="item"><a href="#last">last</a></li>
 </ul>
@@ -68,16 +71,36 @@
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">program</span>demos/life.xtl</h1>
+<div class="doc">
+<p>Life: Conway's Game of Life in one line, u:l_ife, then a blinker and
+a glider run through it. Run it with &quot;xetal run demos/life.xtl&quot; (or
+&quot;./demos/life.xtl&quot;); it prints a blinker after one and two steps, 1s
+showing that two steps restore it, then a glider's five generations
+a blank line apart. Read u:l_ife for reduce and rotate along both
+axes at once (the <code><span class="c-error">_12</span></code> subscripts).</p>
+</div>
 <p class="meta"><a href="demos-life.xtl.src.html">source</a></p>
+<h2 class="section" id="section-1">The rules</h2>
 <div class="item" id="u.l_ife">
 <h3><a href="#u.l_ife"><span class="c-userfunc">ᵘl̲ife</span></a> <span class="type">: (Num a, Truthy a) =&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="demos-life.xtl.src.html#L6">line 6</a></div>
+<div class="meta">function &middot; <a href="demos-life.xtl.src.html#L15">line 15</a></div>
+<div class="doc">
+<p>u:l_ife board: the next generation of a 0/1 board. The board <code><span class="c-lambdaarg">⍵</span></code>
+rotated by every offset in <code><span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span></code> along both axes and summed gives
+S, each cell plus its neighbors; a cell lives next when S is 3, or
+when it is alive and S is 4.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘl̲ife</span> ← { (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/₁₂</a> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-₁₂</a> <span class="c-lambdaarg">⍵</span>) { (<span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">3</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">4</span> } <span class="c-lambdaarg">⍵</span> }</pre>
-<div class="uses">Used in: <a href="demos-life.xtl.src.html#L20">life.xtl:20</a>, <a href="demos-life.xtl.src.html#L21">life.xtl:21</a>, <a href="demos-life.xtl.src.html#L22">life.xtl:22</a>, <a href="demos-life.xtl.html#last">last</a></div>
+<div class="uses">Used in: <a href="demos-life.xtl.src.html#L33">life.xtl:33</a>, <a href="demos-life.xtl.src.html#L34">life.xtl:34</a>, <a href="demos-life.xtl.src.html#L35">life.xtl:35</a>, <a href="demos-life.xtl.html#last">last</a></div>
 </div>
 <div class="item" id="u.s_teps">
 <h3><a href="#u.s_teps"><span class="c-userfunc">ᵘs̲teps</span></a> <span class="type">: (Any a, Num b) =&gt; (a -&gt; a) -&gt; b -&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="demos-life.xtl.src.html#L10">line 10</a></div>
+<div class="meta">function &middot; <a href="demos-life.xtl.src.html#L20">line 20</a></div>
+<div class="doc">
+<p>n 'f_ u:s_teps x: applies f to x n times and gives the last result,
+printing x and then a blank line at every generation on the way, the
+first and the last included.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘs̲teps</span> ← { <span class="c-builtin">f̲</span> n x →
   shown ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> x
   gap ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span>
@@ -86,21 +109,35 @@
 }</pre>
 <div class="uses">Used in: <a href="demos-life.xtl.html#u.s_teps"><span class="c-userfunc">ᵘs̲teps</span></a>, <a href="demos-life.xtl.html#last">last</a></div>
 </div>
+<h2 class="section" id="section-2">A blinker</h2>
 <div class="item" id="blinker">
 <h3><a href="#blinker">blinker</a> <span class="type">: Int</span></h3>
-<div class="meta">value &middot; <a href="demos-life.xtl.src.html#L19">line 19</a></div>
-<pre class="code">blinker ← <span class="c-number">5</span> <span class="c-number">5</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></pre>
-<div class="uses">Used in: <a href="demos-life.xtl.src.html#L20">life.xtl:20</a>, <a href="demos-life.xtl.src.html#L21">life.xtl:21</a>, <a href="demos-life.xtl.src.html#L22">life.xtl:22</a></div>
+<div class="meta">value &middot; <a href="demos-life.xtl.src.html#L32">line 32</a></div>
+<div class="doc">
+<p>blinker: a vertical bar of three live cells in a 5 by 5 board. It has
+period 2: one step turns it, two steps restore it. A superscript on a
+function repeats it (function power): <code><a href="demos-life.xtl.html#u.l_ife" class="c-userfunc">ᵘl̲ife</a><span class="c-userfunc">²</span></code>.</p>
 </div>
+<pre class="code">blinker ← <span class="c-number">5</span> <span class="c-number">5</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></pre>
+<div class="uses">Used in: <a href="demos-life.xtl.src.html#L33">life.xtl:33</a>, <a href="demos-life.xtl.src.html#L34">life.xtl:34</a>, <a href="demos-life.xtl.src.html#L35">life.xtl:35</a></div>
+</div>
+<h2 class="section" id="section-3">A glider</h2>
 <div class="item" id="glider">
 <h3><a href="#glider">glider</a> <span class="type">: Int</span></h3>
-<div class="meta">value &middot; <a href="demos-life.xtl.src.html#L25">line 25</a></div>
+<div class="meta">value &middot; <a href="demos-life.xtl.src.html#L41">line 41</a></div>
+<div class="doc">
+<p>glider: a glider in a 6 by 6 board; it moves one cell diagonally
+every 4 generations.</p>
+</div>
 <pre class="code">glider ← <span class="c-number">6</span> <span class="c-number">6</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></pre>
 <div class="uses">Used in: <a href="demos-life.xtl.html#last">last</a></div>
 </div>
 <div class="item" id="last">
 <h3><a href="#last">last</a> <span class="type">: Int</span></h3>
-<div class="meta">value &middot; <a href="demos-life.xtl.src.html#L26">line 26</a></div>
+<div class="meta">value &middot; <a href="demos-life.xtl.src.html#L44">line 44</a></div>
+<div class="doc">
+<p>last: the glider after 4 generations, each printed on the way.</p>
+</div>
 <pre class="code">last ← <span class="c-number">4</span> <span class="c-userfunc">'</span><a href="demos-life.xtl.html#u.l_ife" class="c-userfunc">ᵘl̲ife</a> <a href="demos-life.xtl.html#u.s_teps" class="c-userfunc">ᵘs̲teps</a> <a href="demos-life.xtl.html#glider">glider</a></pre>
 </div>
 </main>

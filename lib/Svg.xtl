@@ -3,10 +3,12 @@
 ## An element is its SVG text; a picture is elements joined with c_at
 ## inside v:p_icture, which []S_HOW shows and the command line writes.
 ## Points are a 2-row matrix, x over y, as []P_ATH and Geometry3D's
-## v:p_roject give them; y grows downward, as SVG's does. Attributes
+## g:p_roject give them; y grows downward, as SVG's does. Attributes
 ## are text made by v:a_ttr, v:f_ill, v:s_troke and the transforms, so
 ## no program writes a quote mark or an angle bracket of its own.
 ## Names with l: are exported; names with h: are private to this file.
+
+### Attributes
 
 ## An attribute: `"id" v:a_ttr "top"` is ` id="top"` (with its leading
 ## space, so attributes join by c_at). The value is escaped.
@@ -52,6 +54,8 @@ l:r_gb := { c ->
 ## >> "#333" v:s_troke 1.5
 ##  stroke="#333" stroke-width="1.5" stroke-linejoin="round"
 l:s_troke := { color width -> ("stroke" l:a_ttr color) c_at ("stroke-width" l:a_ttr f_ormat width) c_at " stroke-linejoin=\"round\"" }
+
+### Shapes and text
 
 ## A polygon through the points (2 rows, x over y), closed, with the
 ## given attributes: `attrs v:p_olygon points`.
@@ -100,6 +104,8 @@ l:s_ized := { size inner -> "<tspan" c_at ("font-size" l:a_ttr f_ormat size) c_a
 ## <text x="1" y="2"><tspan fill="red">a</tspan><tspan fill="blue">b</tspan></text>
 l:m_arkup := { attrs inner -> "<text" c_at attrs c_at ">" c_at inner c_at "</text>" }
 
+### Groups and transforms
+
 ## A group of elements with attributes (a transform, a clip, a fill
 ## for all): `attrs v:g_roup elements`.
 ## >> "v:" u_se< "Svg"
@@ -141,6 +147,8 @@ l:m_atrix := { c ->
 ##  transform="scale(2)"
 l:s_cale := { k -> "transform" l:a_ttr "scale(" c_at (f_ormat k) c_at ")" }
 
+### Clips and gradients
+
 ## A clip region named id, a polygon through the points, to put among
 ## the picture's definitions; `id v:c_lipped elements` then shows only
 ## what falls inside it.
@@ -166,6 +174,8 @@ l:g_radient := { id colors ->
   "<linearGradient" c_at ("id" l:a_ttr id) c_at " x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\"" c_at ("stop-color" l:a_ttr top) c_at "/><stop offset=\"1\"" c_at ("stop-color" l:a_ttr bottom) c_at "/></linearGradient>"
 }
 
+### Pictures
+
 ## The picture: `w h v:p_icture elements`, with the definitions (clips,
 ## gradients) first among the elements if any. The view is w by h with
 ## the origin at the top left, and the picture scales to its place.
@@ -188,16 +198,16 @@ l:p_ictureWith := { wh parts -> wh l:p_icture "<defs>" c_at (d_isclose 1 s_elect
 
 ### Private helpers
 
-# One character escaped for SVG text and attributes.
+## One character escaped for SVG text and attributes.
 h:e_sc := { c -> c = f_irst "&" ? "&amp;"; c = f_irst "<" ? "&lt;"; c = f_irst ">" ? "&gt;"; c = f_irst "\"" ? "&quot;"; c }
 
-# Boxed texts joined into one (none is the empty text).
+## Boxed texts joined into one (none is the empty text).
 h:j_oin := { b ->
   0 = t_ally b ? ""
   d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b
 }
 
-# The columns of a 2-row matrix as "x,y x,y ...".
+## The columns of a 2-row matrix as "x,y x,y ...".
 h:p_airs := { points ->
   xs := 'f_ormat m_ap 1 s_elect points
   ys := 'f_ormat m_ap 2 s_elect points

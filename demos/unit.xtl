@@ -1,5 +1,8 @@
 #!/usr/bin/env xetal
-# M2: a niladic function takes Unit, written @; `u:a_nswer 42` is a
-# type error.
+## A niladic function takes Unit, written @; `u:a_nswer 42` is a type
+## error. Run it with ./demos/unit.xtl or "xetal run demos/unit.xtl"; it
+## prints 42.
+
+## u:a_nswer @: 42, always; it takes only Unit.
 u:a_nswer := { @ -> 42 }
 u:a_nswer @

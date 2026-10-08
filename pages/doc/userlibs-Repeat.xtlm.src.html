@@ -57,8 +57,8 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L15"><span class="c-macro">ᵐt̲imes&lt;</span></a></li>
-<li class="item"><a href="#L23"><span class="c-builtin">c̲opies</span></a></li>
+<li class="item"><a href="#L17"><span class="c-macro">ᵐt̲imes&lt;</span></a></li>
+<li class="item"><a href="#L26"><span class="c-builtin">c̲opies</span></a></li>
 </ul>
 </nav>
 <main>
@@ -67,27 +67,30 @@
 <h1><span class="kind">source</span><a href="userlibs-Repeat.xtlm.html">userlibs/Repeat.xtlm</a></h1>
 <div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment"># A macro library of your own (userlibs/, found as libraries of your</span></span>
 <span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># own are): statements written as many times as you ask, when the</span></span>
-<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># program is expanded, a loop unrolled at compile time.</span></span>
-<span class="line" id="L4"><a class="ln" href="#L4">4</a></span>
-<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment">## Repeating statements</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># program is expanded, a loop unrolled at compile time. Import it with</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"># an alias of your choice, &quot;r:&quot; u_se&lt; &quot;Repeat&quot;, and see what a program</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"># becomes with xetal expand FILE.</span></span>
 <span class="line" id="L6"><a class="ln" href="#L6">6</a></span>
-<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"># The statements on the right, written the number of times on the</span></span>
-<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"># left, one copy per line; it stands as a statement of its own. A</span></span>
-<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"># count below 1 is refused when the program is expanded.</span></span>
-<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;r:&quot; u_se&lt; &quot;Repeat&quot;</span></span>
-<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;3&quot; r:t_imes&lt; &quot;\&quot;hip hip\&quot;&quot;</span></span>
-<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"># hip hip</span></span>
-<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-comment">⍝</span><span class="c-comment"># hip hip</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment">## Repeating statements</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"># The statements on the right, written the number of times on the</span></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment"># left, one copy per line; it stands as a statement of its own. A</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"># count below 1 is refused when the program is expanded.</span></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;r:&quot; u_se&lt; &quot;Repeat&quot;</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;3&quot; r:t_imes&lt; &quot;\&quot;hip hip\&quot;&quot;</span></span>
 <span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-comment">⍝</span><span class="c-comment"># hip hip</span></span>
-<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-macro">ᵐt̲imes&lt;</span> ← { count body →</span>
-<span class="line" id="L16"><a class="ln" href="#L16">16</a>  <a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> <a href="builtins.html#-5b-5dS_TATEMENT" class="c-builtin">⎕S̲TATEMENT</a> @ ? <span class="c-string">&quot;misplaced-macro call&quot;</span> <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> <span class="c-string">&quot;r:t_imes&lt; writes statements: it stands as a statement of its own&quot;</span></span>
-<span class="line" id="L17"><a class="ln" href="#L17">17</a>  k ← <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> (<a href="builtins.html#n_umbers" class="c-builtin">n̲umbers</a> count) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span></span>
-<span class="line" id="L18"><a class="ln" href="#L18">18</a>  k <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">1</span> ? <span class="c-string">&quot;bad-macro-argument left&quot;</span> <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> <span class="c-string">&quot;r:t_imes&lt; writes its statements 1 or more times&quot;</span></span>
-<span class="line" id="L19"><a class="ln" href="#L19">19</a>  k <a href="userlibs-Repeat.xtlm.html#c_opies" class="c-builtin">c̲opies</a> body</span>
-<span class="line" id="L20"><a class="ln" href="#L20">20</a>}</span>
-<span class="line" id="L21"><a class="ln" href="#L21">21</a></span>
-<span class="line" id="L22"><a class="ln" href="#L22">22</a><span class="c-comment">⍝</span><span class="c-comment"> k copies of t, one per line.</span></span>
-<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-builtin">c̲opies</span> ← { k t → k <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? t◆ t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\n&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (k <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="userlibs-Repeat.xtlm.html#c_opies" class="c-builtin">c̲opies</a> t }</span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-comment">⍝</span><span class="c-comment"># hip hip</span></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-comment">⍝</span><span class="c-comment"># hip hip</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-macro">ᵐt̲imes&lt;</span> ← { count body →</span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a>  <a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> <a href="builtins.html#-5b-5dS_TATEMENT" class="c-builtin">⎕S̲TATEMENT</a> @ ? <span class="c-string">&quot;misplaced-macro call&quot;</span> <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> <span class="c-string">&quot;r:t_imes&lt; writes statements: it stands as a statement of its own&quot;</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a>  k ← <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> (<a href="builtins.html#n_umbers" class="c-builtin">n̲umbers</a> count) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a>  k <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">1</span> ? <span class="c-string">&quot;bad-macro-argument left&quot;</span> <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> <span class="c-string">&quot;r:t_imes&lt; writes its statements 1 or more times&quot;</span></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a>  k <a href="userlibs-Repeat.xtlm.html#c_opies" class="c-builtin">c̲opies</a> body</span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a>}</span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a></span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-comment">⍝</span><span class="c-comment"># The text t written k times, one copy per line (once when k is 1 or</span></span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a><span class="c-comment">⍝</span><span class="c-comment"># less).</span></span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a><span class="c-builtin">c̲opies</span> ← { k t → k <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? t◆ t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\n&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (k <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="userlibs-Repeat.xtlm.html#c_opies" class="c-builtin">c̲opies</a> t }</span>
 </div>
 </main>
 </body>

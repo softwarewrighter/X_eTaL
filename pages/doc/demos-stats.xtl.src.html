@@ -57,7 +57,7 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L7">v</a></li>
+<li class="item"><a href="#L13">v</a></li>
 </ul>
 </nav>
 <main>
@@ -65,17 +65,23 @@
 <section id="results"></section>
 <h1><span class="kind">source</span><a href="demos-stats.xtl.html">demos/stats.xtl</a></h1>
 <div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment">!/usr/bin/env xetal</span></span>
-<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> Using a library: Stats is a standard library, built into xetal</span></span>
-<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"> (lib/Stats.xtl). The alias &quot;s:&quot; is this file's name for it: its</span></span>
-<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"> exported names are used as s:m_ean and so on.</span></span>
-<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-libfunc">ˢ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Stats.xtl.html" class="c-string">&quot;Stats&quot;</a></span>
-<span class="line" id="L6"><a class="ln" href="#L6">6</a></span>
-<span class="line" id="L7"><a class="ln" href="#L7">7</a>v ← <span class="c-number">2</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">5</span> <span class="c-number">7</span> <span class="c-number">9</span></span>
-<span class="line" id="L8"><a class="ln" href="#L8">8</a><a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˢm̲ean</a> <a href="demos-stats.xtl.html#v">v</a>                  <span class="c-comment">⍝</span><span class="c-comment"> 5.0</span></span>
-<span class="line" id="L9"><a class="ln" href="#L9">9</a><a href="lib-Stats.xtl.html#l.v_ariance" class="c-libfunc">ˢv̲ariance</a> <a href="demos-stats.xtl.html#v">v</a>              <span class="c-comment">⍝</span><span class="c-comment"> the mean squared deviation: 4.0</span></span>
-<span class="line" id="L10"><a class="ln" href="#L10">10</a><a href="lib-Stats.xtl.html#l.s_d" class="c-libfunc">ˢs̲d</a> <a href="demos-stats.xtl.html#v">v</a>                    <span class="c-comment">⍝</span><span class="c-comment"> the standard deviation: 2.0</span></span>
-<span class="line" id="L11"><a class="ln" href="#L11">11</a><a href="lib-Stats.xtl.html#l.r_ange" class="c-libfunc">ˢr̲ange</a> <a href="demos-stats.xtl.html#v">v</a>                 <span class="c-comment">⍝</span><span class="c-comment"> largest minus smallest: 7</span></span>
-<span class="line" id="L12"><a class="ln" href="#L12">12</a><a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˢm̲ean</a> <span class="c-number">1.5</span> <span class="c-number">2.5</span>            <span class="c-comment">⍝</span><span class="c-comment"> the same functions work on Floats</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># Using a library: Stats is a standard library, built into xetal</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># (lib/Stats.xtl). The alias &quot;s:&quot; is this file's name for it: its</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"># exported names are used as s:m_ean and so on.</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment">#</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"># Run it with ./demos/stats.xtl or &quot;xetal run demos/stats.xtl&quot;. It</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"># prints the mean, variance, standard deviation and range of v, then</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"># a mean of Floats; the expected values are in the comments.</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-libfunc">ˢ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Stats.xtl.html" class="c-string">&quot;Stats&quot;</a></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"># The sample: eight Ints with mean 5 and standard deviation 2.</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a>v ← <span class="c-number">2</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">5</span> <span class="c-number">7</span> <span class="c-number">9</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a><a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˢm̲ean</a> <a href="demos-stats.xtl.html#v">v</a>                  <span class="c-comment">⍝</span><span class="c-comment"> 5.0</span></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a><a href="lib-Stats.xtl.html#l.v_ariance" class="c-libfunc">ˢv̲ariance</a> <a href="demos-stats.xtl.html#v">v</a>              <span class="c-comment">⍝</span><span class="c-comment"> the mean squared deviation: 4.0</span></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a><a href="lib-Stats.xtl.html#l.s_d" class="c-libfunc">ˢs̲d</a> <a href="demos-stats.xtl.html#v">v</a>                    <span class="c-comment">⍝</span><span class="c-comment"> the standard deviation: 2.0</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><a href="lib-Stats.xtl.html#l.r_ange" class="c-libfunc">ˢr̲ange</a> <a href="demos-stats.xtl.html#v">v</a>                 <span class="c-comment">⍝</span><span class="c-comment"> largest minus smallest: 7</span></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a><a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˢm̲ean</a> <span class="c-number">1.5</span> <span class="c-number">2.5</span>            <span class="c-comment">⍝</span><span class="c-comment"> the same functions work on Floats</span></span>
 </div>
 </main>
 </body>

@@ -57,8 +57,8 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L3"><span class="c-userfunc">ᵘs̲ub</span></a></li>
-<li class="item"><a href="#L5"><span class="c-userfunc">ᵘt̲enMinus</span></a></li>
+<li class="item"><a href="#L7"><span class="c-userfunc">ᵘs̲ub</span></a></li>
+<li class="item"><a href="#L10"><span class="c-userfunc">ᵘt̲enMinus</span></a></li>
 </ul>
 </nav>
 <main>
@@ -66,11 +66,16 @@
 <section id="results"></section>
 <h1><span class="kind">source</span><a href="demos-sub.xtl.html">demos/sub.xtl</a></h1>
 <div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment">!/usr/bin/env xetal</span></span>
-<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> M1: a dyadic user function; every function is curried.</span></span>
-<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-userfunc">ᵘs̲ub</span> ← { <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-lambdaarg">⍵</span> }</span>
-<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-number">10</span> <a href="demos-sub.xtl.html#u.s_ub" class="c-userfunc">ᵘs̲ub</a> <span class="c-number">3</span></span>
-<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-userfunc">ᵘt̲enMinus</span> ← <a href="demos-sub.xtl.html#u.s_ub" class="c-userfunc">ᵘs̲ub</a> <span class="c-number">10</span>         <span class="c-comment">⍝</span><span class="c-comment"> partial application fixes the left argument</span></span>
-<span class="line" id="L6"><a class="ln" href="#L6">6</a><a href="demos-sub.xtl.html#u.t_enMinus" class="c-userfunc">ᵘt̲enMinus</a> <span class="c-number">3</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># A dyadic user function; every function is curried. Run it with</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># ./demos/sub.xtl or &quot;xetal run demos/sub.xtl&quot;; it prints 7 twice, from</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"># </span><span class="c-comment"></span><span class="c-number">10</span> <span class="c-userfunc">ᵘs̲ub</span> <span class="c-number">3</span><span class="c-comment"></span><span class="c-comment"> and from the partial application u:t_enMinus.</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"># a u:s_ub b: a minus b.</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-userfunc">ᵘs̲ub</span> ← { <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-lambdaarg">⍵</span> }</span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-number">10</span> <a href="demos-sub.xtl.html#u.s_ub" class="c-userfunc">ᵘs̲ub</a> <span class="c-number">3</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"># u:t_enMinus x: 10 minus x, u:s_ub with its left argument fixed at 10.</span></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-userfunc">ᵘt̲enMinus</span> ← <a href="demos-sub.xtl.html#u.s_ub" class="c-userfunc">ᵘs̲ub</a> <span class="c-number">10</span>         <span class="c-comment">⍝</span><span class="c-comment"> partial application fixes the left argument</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><a href="demos-sub.xtl.html#u.t_enMinus" class="c-userfunc">ᵘt̲enMinus</a> <span class="c-number">3</span></span>
 </div>
 </main>
 </body>

@@ -1,29 +1,71 @@
-# Terminal: the names of the colors and keys a program draws and reads
-# with (QD6), a standard library built into xetal. Import it with an
-# alias of your choice: "t:" u_se< "Terminal".
-#
-# Colors are values of type Color (for []F_G and []B_G); keys are values
-# of type Key, what []K_EY @ gives (a printing key carries its
-# character: []K_CHAR). A misspelled name is an undefined name, and a
-# Key where a Color is wanted a type error, when the program is checked.
+## Terminal: the names of the colors and keys a program draws and reads
+## with, a standard library built into xetal. Import it with an alias
+## of your choice: "t:" u_se< "Terminal".
+##
+## Colors are values of type Color (for []F_G and []B_G); keys are values
+## of type Key, what []K_EY @ gives (a printing key carries its
+## character: []K_CHAR). A misspelled name is an undefined name, and a
+## Key where a Color is wanted a type error, when the program is checked.
 
+### Colors
+
+## The color black, for []F_G (text) and []B_G (background).
 l:BLACK := []C_OLOR 1
+
+## The color red, for []F_G (text) and []B_G (background).
 l:RED := []C_OLOR 2
+
+## The color green, for []F_G (text) and []B_G (background).
 l:GREEN := []C_OLOR 3
+
+## The color yellow, for []F_G (text) and []B_G (background).
 l:YELLOW := []C_OLOR 4
+
+## The color blue, for []F_G (text) and []B_G (background).
 l:BLUE := []C_OLOR 5
+
+## The color magenta, for []F_G (text) and []B_G (background).
 l:MAGENTA := []C_OLOR 6
+
+## The color cyan, for []F_G (text) and []B_G (background).
 l:CYAN := []C_OLOR 7
+
+## The color white, for []F_G (text) and []B_G (background).
 l:WHITE := []C_OLOR 8
 
+### Keys
+
+## The up arrow key. A Key, compared with what []K_EY @ gives.
 l:UP := []K_NAMED 1
+
+## The down arrow key. A Key, compared with what []K_EY @ gives.
 l:DOWN := []K_NAMED 2
+
+## The left arrow key. A Key, compared with what []K_EY @ gives.
 l:LEFT := []K_NAMED 3
+
+## The right arrow key. A Key, compared with what []K_EY @ gives.
 l:RIGHT := []K_NAMED 4
+
+## The Enter (Return) key. A Key, compared with what []K_EY @ gives.
 l:ENTER := []K_NAMED 5
+
+## The Escape key. A Key, compared with what []K_EY @ gives.
 l:ESCAPE := []K_NAMED 6
+
+## The Backspace key. A Key, compared with what []K_EY @ gives.
 l:BACKSPACE := []K_NAMED 7
+
+## The Tab key. A Key, compared with what []K_EY @ gives.
 l:TAB := []K_NAMED 8
+
+## The Delete key. A Key, compared with what []K_EY @ gives.
 l:DELETE := []K_NAMED 9
+
+## The Home key. A Key, compared with what []K_EY @ gives.
 l:HOME := []K_NAMED 10
+
+## The End key. A Key, compared with what []K_EY @ gives.
 l:END := []K_NAMED 11
+
+### Keys

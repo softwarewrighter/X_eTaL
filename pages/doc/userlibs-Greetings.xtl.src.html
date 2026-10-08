@@ -57,20 +57,29 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L5"><span class="c-libfunc">ʰn̲ame</span></a></li>
-<li class="item"><a href="#L6"><span class="c-libfunc">ˡg̲reet</span></a></li>
+<li class="item"><a href="#L8"><span class="c-libfunc">ʰn̲ame</span></a></li>
+<li class="item"><a href="#L15"><span class="c-libfunc">ˡg̲reet</span></a></li>
 </ul>
 </nav>
 <main>
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">source</span><a href="userlibs-Greetings.xtl.html">userlibs/Greetings.xtl</a></h1>
-<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment"> Greetings: a library with a private name. h:n_ame is file-private, so it is</span></span>
-<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> used here but cannot be imported; g_reet is exported, and takes the</span></span>
-<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"> greeting from the program that calls it.</span></span>
-<span class="line" id="L4"><a class="ln" href="#L4">4</a></span>
-<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-libfunc">ʰn̲ame</span> ← { @ → <span class="c-string">&quot;X̲ᵉTᵃL&quot;</span> }                       <span class="c-comment">⍝</span><span class="c-comment"> private</span></span>
-<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-libfunc">ˡg̲reet</span> ← { g → g <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="userlibs-Greetings.xtl.html#h.n_ame" class="c-libfunc">ʰn̲ame</a> @ }         <span class="c-comment">⍝</span><span class="c-comment"> monadic: the greeting</span></span>
+<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment"># Greetings: a library with a private name. h:n_ame is file-private, so it is</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># used here but cannot be imported; g_reet is exported, and takes the</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># greeting from the program that calls it. Import it with an alias of</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"># your choice: &quot;g:&quot; u_se&lt; &quot;Greetings&quot; (it is found in userlibs/).</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"># The name a greeting is addressed to, the logo drawn (niladic: call</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"># it with @).</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-libfunc">ʰn̲ame</span> ← { @ → <span class="c-string">&quot;X̲ᵉTᵃL&quot;</span> }                       <span class="c-comment">⍝</span><span class="c-comment"> private</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment"># The greeting g, given by the caller, followed by the name: monadic,</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"># </span><span class="c-comment"></span><span class="c-libfunc">ᵍg̲reet</span> <span class="c-string">&quot;hi&quot;</span><span class="c-comment"></span><span class="c-comment">.</span></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;g:&quot; u_se&lt; &quot;Greetings&quot;</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; g:g_reet &quot;hi&quot;</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-comment">⍝</span><span class="c-comment"># hi X̲ᵉTᵃL</span></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-libfunc">ˡg̲reet</span> ← { g → g <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="userlibs-Greetings.xtl.html#h.n_ame" class="c-libfunc">ʰn̲ame</a> @ }         <span class="c-comment">⍝</span><span class="c-comment"> monadic: the greeting</span></span>
 </div>
 </main>
 </body>

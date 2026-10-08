@@ -57,10 +57,13 @@
 </ul>
 <h2>On this page</h2>
 <ul>
+<li><a href="#section-1">Names and bindings</a></li>
 <li class="item"><a href="#x">x</a></li>
 <li class="item"><a href="#count-21">count!</a></li>
 <li class="item"><a href="#u.s_quare"><span class="c-userfunc">ᵘs̲quare</span></a></li>
+<li><a href="#section-2">Reduce, scan, rotate and reverse, and their axes</a></li>
 <li class="item"><a href="#M">M</a></li>
+<li><a href="#section-3">Functions of your own</a></li>
 <li class="item"><a href="#u.a_dd"><span class="c-userfunc">ᵘa̲dd</span></a></li>
 <li class="item"><a href="#u.s_ign"><span class="c-userfunc">ᵘs̲ign</span></a></li>
 <li class="item"><a href="#u.m_ean"><span class="c-userfunc">ᵘm̲ean</span></a></li>
@@ -70,48 +73,89 @@
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">program</span>demos/keys.xtl</h1>
+<div class="doc">
+<p>Keys: every way X_eTaL is typed. Each line of code appears twice:
+drawn decorated, as &quot;just pp demos/keys.xtl&quot; shows it, and at the end
+of the line, after &quot;typed:&quot;, exactly the keys you type (a comment is
+drawn as written, so that text stays plain ASCII). Run it with
+&quot;xetal run demos/keys.xtl&quot; (or &quot;./demos/keys.xtl&quot;) to print each
+line's result, or &quot;just show demos/keys.xtl&quot; to see each line next to
+its result. docs/input.md explains each form.</p>
+</div>
 <p class="meta"><a href="demos-keys.xtl.src.html">source</a> &middot; imports <code><span class="c-error">c:</span></code> <a href="lib-Combinators.xtl.html">lib/Combinators.xtl</a> <a href="lib-Combinators.xtlm.html">lib/Combinators.xtlm</a></p>
+<h2 class="section" id="section-1">Names and bindings</h2>
 <div class="item" id="x">
 <h3><a href="#x">x</a> <span class="type">: Int</span></h3>
-<div class="meta">value &middot; <a href="demos-keys.xtl.src.html#L12">line 12</a></div>
+<div class="meta">value &middot; <a href="demos-keys.xtl.src.html#L13">line 13</a></div>
+<div class="doc">
+<p>x: a plain variable. := binds it; it is drawn as a left arrow.</p>
+</div>
 <pre class="code">x ← <span class="c-number">5</span>                                   <span class="c-comment">⍝</span><span class="c-comment"> typed: x := 5</span></pre>
-<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L91">keys.xtl:91</a>, <a href="demos-keys.xtl.src.html#L98">keys.xtl:98</a>, <a href="demos-keys.xtl.src.html#L117">keys.xtl:117</a>, <a href="demos-keys.xtl.src.html#L125">keys.xtl:125</a>, <a href="demos-keys.xtl.src.html#L128">keys.xtl:128</a>, <a href="demos-keys.xtl.src.html#L132">keys.xtl:132</a>, <a href="demos-keys.xtl.src.html#L133">keys.xtl:133</a></div>
+<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L93">keys.xtl:93</a>, <a href="demos-keys.xtl.src.html#L100">keys.xtl:100</a>, <a href="demos-keys.xtl.src.html#L119">keys.xtl:119</a>, <a href="demos-keys.xtl.src.html#L127">keys.xtl:127</a>, <a href="demos-keys.xtl.src.html#L130">keys.xtl:130</a>, <a href="demos-keys.xtl.src.html#L134">keys.xtl:134</a>, <a href="demos-keys.xtl.src.html#L135">keys.xtl:135</a></div>
 </div>
 <div class="item" id="count-21">
 <h3><a href="#count-21">count!</a> <span class="type">: Int</span></h3>
-<div class="meta">value &middot; <a href="demos-keys.xtl.src.html#L16">line 16</a></div>
+<div class="meta">value &middot; <a href="demos-keys.xtl.src.html#L17">line 17</a></div>
+<div class="doc">
+<p>count!: a variable whose name ends in ! may be bound again
+(mutation); the ! is part of the name wherever it is used.</p>
+</div>
 <pre class="code">count! ← <span class="c-number">0</span>                              <span class="c-comment">⍝</span><span class="c-comment"> typed: count! := 0</span></pre>
-<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L17">keys.xtl:17</a></div>
+<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L18">keys.xtl:18</a></div>
 </div>
 <div class="item" id="u.s_quare">
 <h3><a href="#u.s_quare"><span class="c-userfunc">ᵘs̲quare</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="demos-keys.xtl.src.html#L25">line 25</a></div>
-<pre class="code"><span class="c-userfunc">ᵘs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍵</span> }                     <span class="c-comment">⍝</span><span class="c-comment"> typed: u:s_quare := { _r * _r }</span></pre>
-<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L26">keys.xtl:26</a></div>
+<div class="meta">function &middot; <a href="demos-keys.xtl.src.html#L27">line 27</a></div>
+<div class="doc">
+<p>u:s_quare x: x times x. u: puts a name in your program's own
+namespace (drawn as a raised u). Inside { }, _r is the right argument
+(drawn as APL's omega).</p>
 </div>
+<pre class="code"><span class="c-userfunc">ᵘs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍵</span> }                     <span class="c-comment">⍝</span><span class="c-comment"> typed: u:s_quare := { _r * _r }</span></pre>
+<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L28">keys.xtl:28</a></div>
+</div>
+<h2 class="section" id="section-2">Reduce, scan, rotate and reverse, and their axes</h2>
 <div class="item" id="M">
 <h3><a href="#M">M</a> <span class="type">: Int</span></h3>
-<div class="meta">value &middot; <a href="demos-keys.xtl.src.html#L32">line 32</a></div>
-<pre class="code">M ← <span class="c-number">2</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">6</span>                 <span class="c-comment">⍝</span><span class="c-comment"> typed: M := 2 3 r_eshape r_ange 6</span></pre>
-<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L37">keys.xtl:37</a>, <a href="demos-keys.xtl.src.html#L41">keys.xtl:41</a>, <a href="demos-keys.xtl.src.html#L44">keys.xtl:44</a>, <a href="demos-keys.xtl.src.html#L48">keys.xtl:48</a>, <a href="demos-keys.xtl.src.html#L51">keys.xtl:51</a>, <a href="demos-keys.xtl.src.html#L55">keys.xtl:55</a>, <a href="demos-keys.xtl.src.html#L58">keys.xtl:58</a>, <a href="demos-keys.xtl.src.html#L61">keys.xtl:61</a>, <a href="demos-keys.xtl.src.html#L65">keys.xtl:65</a>, <a href="demos-keys.xtl.src.html#L68">keys.xtl:68</a>, <a href="demos-keys.xtl.src.html#L71">keys.xtl:71</a>, <a href="demos-keys.xtl.src.html#L80">keys.xtl:80</a>, <a href="demos-keys.xtl.src.html#L83">keys.xtl:83</a>, <a href="demos-keys.xtl.src.html#L86">keys.xtl:86</a></div>
+<div class="meta">value &middot; <a href="demos-keys.xtl.src.html#L34">line 34</a></div>
+<div class="doc">
+<p>M: a matrix of 2 rows and 3 columns, 1 2 3 above 4 5 6. Axis 1
+runs down the rows (its length is 2), axis 2 along a row (length 3).</p>
 </div>
+<pre class="code">M ← <span class="c-number">2</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">6</span>                 <span class="c-comment">⍝</span><span class="c-comment"> typed: M := 2 3 r_eshape r_ange 6</span></pre>
+<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L39">keys.xtl:39</a>, <a href="demos-keys.xtl.src.html#L43">keys.xtl:43</a>, <a href="demos-keys.xtl.src.html#L46">keys.xtl:46</a>, <a href="demos-keys.xtl.src.html#L50">keys.xtl:50</a>, <a href="demos-keys.xtl.src.html#L53">keys.xtl:53</a>, <a href="demos-keys.xtl.src.html#L57">keys.xtl:57</a>, <a href="demos-keys.xtl.src.html#L60">keys.xtl:60</a>, <a href="demos-keys.xtl.src.html#L63">keys.xtl:63</a>, <a href="demos-keys.xtl.src.html#L67">keys.xtl:67</a>, <a href="demos-keys.xtl.src.html#L70">keys.xtl:70</a>, <a href="demos-keys.xtl.src.html#L73">keys.xtl:73</a>, <a href="demos-keys.xtl.src.html#L82">keys.xtl:82</a>, <a href="demos-keys.xtl.src.html#L85">keys.xtl:85</a>, <a href="demos-keys.xtl.src.html#L88">keys.xtl:88</a></div>
+</div>
+<h2 class="section" id="section-3">Functions of your own</h2>
 <div class="item" id="u.a_dd">
 <h3><a href="#u.a_dd"><span class="c-userfunc">ᵘa̲dd</span></a> <span class="type">: Num a =&gt; a -&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="demos-keys.xtl.src.html#L139">line 139</a></div>
+<div class="meta">function &middot; <a href="demos-keys.xtl.src.html#L141">line 141</a></div>
+<div class="doc">
+<p>x u:a_dd y: x plus y. Inside { }, _l is the left argument (drawn as
+APL's alpha) and _r the right: this function takes two arguments.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘa̲dd</span> ← { <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-lambdaarg">⍵</span> }                        <span class="c-comment">⍝</span><span class="c-comment"> typed: u:a_dd := { _l + _r }</span></pre>
-<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L142">keys.xtl:142</a></div>
+<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L144">keys.xtl:144</a></div>
 </div>
 <div class="item" id="u.s_ign">
 <h3><a href="#u.s_ign"><span class="c-userfunc">ᵘs̲ign</span></a> <span class="type">: (Num a, Num b) =&gt; a -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="demos-keys.xtl.src.html#L146">line 146</a></div>
+<div class="meta">function &middot; <a href="demos-keys.xtl.src.html#L149">line 149</a></div>
+<div class="doc">
+<p>u:s_ign n: -1, 0 or 1 as n is negative, zero or positive. n -&gt; names
+the argument n. &quot;c ? r&quot; is a guard: when c holds, the result is r;
+statements are separated by ; (drawn as a diamond).</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘs̲ign</span> ← { n → n <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">0</span> ? <span class="c-number">-1</span>◆ n <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? <span class="c-number">0</span>◆ <span class="c-number">1</span> }</pre>
-<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L148">keys.xtl:148</a></div>
+<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L151">keys.xtl:151</a></div>
 </div>
 <div class="item" id="u.m_ean">
 <h3><a href="#u.m_ean"><span class="c-userfunc">ᵘm̲ean</span></a> <span class="type">: Int -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="demos-keys.xtl.src.html#L156">line 156</a></div>
+<div class="meta">function &middot; <a href="demos-keys.xtl.src.html#L159">line 159</a></div>
+<div class="doc">
+<p>u:m_ean v: the mean of v. Three functions in square brackets are a
+train (a fork): the sum divided by the count, which is the mean.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘm̲ean</span> ← [<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <a href="builtins.html#-2f" class="c-symbol">÷</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a>]                 <span class="c-comment">⍝</span><span class="c-comment"> typed: u:m_ean := ['+ r_/ / t_ally]</span></pre>
-<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L157">keys.xtl:157</a></div>
+<div class="uses">Used in: <a href="demos-keys.xtl.src.html#L160">keys.xtl:160</a></div>
 </div>
 </main>
 </body>

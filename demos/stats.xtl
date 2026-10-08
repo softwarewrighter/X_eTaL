@@ -1,9 +1,15 @@
 #!/usr/bin/env xetal
-# Using a library: Stats is a standard library, built into xetal
-# (lib/Stats.xtl). The alias "s:" is this file's name for it: its
-# exported names are used as s:m_ean and so on.
+## Using a library: Stats is a standard library, built into xetal
+## (lib/Stats.xtl). The alias "s:" is this file's name for it: its
+## exported names are used as s:m_ean and so on.
+##
+## Run it with ./demos/stats.xtl or "xetal run demos/stats.xtl". It
+## prints the mean, variance, standard deviation and range of v, then
+## a mean of Floats; the expected values are in the comments.
+
 "s:" u_se< "Stats"
 
+## The sample: eight Ints with mean 5 and standard deviation 2.
 v := 2 4 4 4 5 5 7 9
 s:m_ean v                # 5.0
 s:v_ariance v            # the mean squared deviation: 4.0

@@ -58,13 +58,16 @@
 <h2>On this page</h2>
 <ul>
 <li class="item"><a href="#h.r_adians"><span class="c-libfunc">ʰr̲adians</span></a></li>
+<li><a href="#section-1">Rotations</a></li>
 <li class="item"><a href="#l.r_otX"><span class="c-libfunc">ˡr̲otX</span></a></li>
 <li class="item"><a href="#l.r_otY"><span class="c-libfunc">ˡr̲otY</span></a></li>
 <li class="item"><a href="#l.r_otZ"><span class="c-libfunc">ˡr̲otZ</span></a></li>
 <li class="item"><a href="#l.t_urn"><span class="c-libfunc">ˡt̲urn</span></a></li>
+<li><a href="#section-2">Viewing</a></li>
 <li class="item"><a href="#l.p_roject"><span class="c-libfunc">ˡp̲roject</span></a></li>
 <li class="item"><a href="#l.f_ar"><span class="c-libfunc">ˡf̲ar</span></a></li>
 <li class="item"><a href="#l.o_rder"><span class="c-libfunc">ˡo̲rder</span></a></li>
+<li><a href="#section-3">Solids</a></li>
 <li class="item"><a href="#l.c_ube"><span class="c-libfunc">ˡc̲ube</span></a></li>
 <li class="item"><a href="#l.c_ubeFaces"><span class="c-libfunc">ˡc̲ubeFaces</span></a></li>
 <li class="item"><a href="#l.f_ace"><span class="c-libfunc">ˡf̲ace</span></a></li>
@@ -88,13 +91,17 @@ Names with l: are exported; names with h: are private to this file.</p>
 <p class="meta"><a href="lib-Geometry3D.xtl.src.html">source</a></p>
 <div class="item" id="h.r_adians">
 <h3><a href="#h.r_adians"><span class="c-libfunc">ʰr̲adians</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Geometry3D.xtl.src.html#L10">line 10</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Geometry3D.xtl.src.html#L11">line 11</a></div>
+<div class="doc">
+<p>Degrees as radians, a Float.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ʰr̲adians</span> ← { (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#p_i" class="c-builtin">p̲i</a> @) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">180</span> }         <span class="c-comment">⍝</span><span class="c-comment"> private</span></pre>
 <div class="uses">Used in: <a href="lib-Geometry3D.xtl.html#l.r_otX"><span class="c-libfunc">ˡr̲otX</span></a>, <a href="lib-Geometry3D.xtl.html#l.r_otY"><span class="c-libfunc">ˡr̲otY</span></a>, <a href="lib-Geometry3D.xtl.html#l.r_otZ"><span class="c-libfunc">ˡr̲otZ</span></a></div>
 </div>
+<h2 class="section" id="section-1">Rotations</h2>
 <div class="item" id="l.r_otX">
 <h3><a href="#l.r_otX"><span class="c-libfunc">ˡr̲otX</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L18">line 18</a></div>
+<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L21">line 21</a></div>
 <div class="doc">
 <p>The rotation of d degrees about the x axis (y toward z), 3 x 3.</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵍ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Geometry3D.xtl.html" class="c-string">&quot;Geometry3D&quot;</a></pre>
@@ -112,7 +119,7 @@ Names with l: are exported; names with h: are private to this file.</p>
 </div>
 <div class="item" id="l.r_otY">
 <h3><a href="#l.r_otY"><span class="c-libfunc">ˡr̲otY</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L30">line 30</a></div>
+<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L33">line 33</a></div>
 <div class="doc">
 <p>The rotation of d degrees about the y axis (z toward x), 3 x 3.</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵍ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Geometry3D.xtl.html" class="c-string">&quot;Geometry3D&quot;</a></pre>
@@ -130,7 +137,7 @@ Names with l: are exported; names with h: are private to this file.</p>
 </div>
 <div class="item" id="l.r_otZ">
 <h3><a href="#l.r_otZ"><span class="c-libfunc">ˡr̲otZ</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L42">line 42</a></div>
+<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L45">line 45</a></div>
 <div class="doc">
 <p>The rotation of d degrees about the z axis (x toward y), 3 x 3.</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵍ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Geometry3D.xtl.html" class="c-string">&quot;Geometry3D&quot;</a></pre>
@@ -147,7 +154,7 @@ Names with l: are exported; names with h: are private to this file.</p>
 </div>
 <div class="item" id="l.t_urn">
 <h3><a href="#l.t_urn"><span class="c-libfunc">ˡt̲urn</span></a> <span class="type">: Num a =&gt; a -&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L56">line 56</a></div>
+<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L59">line 59</a></div>
 <div class="doc">
 <p>The points turned by a rotation (or moved by any 3 x 3 matrix):
 <code>m <a href="lib-Geometry3D.xtl.html#l.t_urn" class="c-libfunc">ᵍt̲urn</a> points</code>. Rotations compose by g:t_urn too, the rightmost
@@ -161,9 +168,10 @@ applied first: <code>(<a href="lib-Geometry3D.xtl.html#l.r_otX" class="c-libfunc
 <pre class="code"><span class="c-libfunc">ˡt̲urn</span> ← { m points → m <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-symbol">'</span><a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#i_nner" class="c-builtin">i̲nner</a> points }</pre>
 <div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.s_cene"><span class="c-userfunc">ᵘs̲cene</span></a>, <a href="demos-rosetta-Stone.xtl.html#l.v_iew"><span class="c-libfunc">ˡv̲iew</span></a>, <a href="demos-rosetta-Stone.xtl.html#l.r_ing"><span class="c-libfunc">ˡr̲ing</span></a></div>
 </div>
+<h2 class="section" id="section-2">Viewing</h2>
 <div class="item" id="l.p_roject">
 <h3><a href="#l.p_roject"><span class="c-libfunc">ˡp̲roject</span></a> <span class="type">: Num a =&gt; a -&gt; Float -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L65">line 65</a></div>
+<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L70">line 70</a></div>
 <div class="doc">
 <p>The points as seen by a viewer at distance d up the z axis, looking
 at the origin, as 2 rows (x over y) for []P_ATH: a nearer point (a
@@ -181,7 +189,7 @@ larger z) is drawn farther from the center. <code>d <a href="lib-Geometry3D.xtl.
 </div>
 <div class="item" id="l.f_ar">
 <h3><a href="#l.f_ar"><span class="c-libfunc">ˡf̲ar</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L75">line 75</a></div>
+<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L80">line 80</a></div>
 <div class="doc">
 <p>How near each face of a solid is to the viewer: the mean z of its
 corners, one number per face (F x 3 x 4 to F); larger is nearer.</p>
@@ -194,7 +202,7 @@ corners, one number per face (F x 3 x 4 to F); larger is nearer.</p>
 </div>
 <div class="item" id="l.o_rder">
 <h3><a href="#l.o_rder"><span class="c-libfunc">ˡo̲rder</span></a> <span class="type">: Num a =&gt; a -&gt; Int</span></h3>
-<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L82">line 82</a></div>
+<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L87">line 87</a></div>
 <div class="doc">
 <p>The faces of a solid from the farthest to the nearest, as positions
 (the order to draw them in, so nearer faces cover farther ones).</p>
@@ -205,9 +213,10 @@ corners, one number per face (F x 3 x 4 to F); larger is nearer.</p>
 <pre class="code"><span class="c-libfunc">ˡo̲rder</span> ← { faces → <a href="builtins.html#g_rade" class="c-builtin">g̲rade</a> <a href="lib-Geometry3D.xtl.html#l.f_ar" class="c-libfunc">ˡf̲ar</a> faces }</pre>
 <div class="uses">Used in: <a href="demos-rosetta-cube.xtl.html#u.s_cene"><span class="c-userfunc">ᵘs̲cene</span></a>, <a href="demos-rosetta-Stone.xtl.html#l.p_ainting"><span class="c-libfunc">ˡp̲ainting</span></a></div>
 </div>
+<h2 class="section" id="section-3">Solids</h2>
 <div class="item" id="l.c_ube">
 <h3><a href="#l.c_ube"><span class="c-libfunc">ˡc̲ube</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L90">line 90</a></div>
+<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L97">line 97</a></div>
 <div class="doc">
 <p>The 8 corners of a cube of side s centered on the origin, 3 x 8, in
 the order near face (z = s/2, toward the viewer) then far face, each
@@ -224,7 +233,7 @@ anticlockwise from the top left.</p>
 </div>
 <div class="item" id="l.c_ubeFaces">
 <h3><a href="#l.c_ubeFaces"><span class="c-libfunc">ˡc̲ubeFaces</span></a> <span class="type">: Num a =&gt; Unit -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L100">line 100</a></div>
+<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L107">line 107</a></div>
 <div class="doc">
 <p>The six faces of the cube corners g:c_ube gives, as corner positions,
 6 x 4: front, back, top, bottom, left, right.</p>
@@ -237,7 +246,7 @@ anticlockwise from the top left.</p>
 </div>
 <div class="item" id="l.f_ace">
 <h3><a href="#l.f_ace"><span class="c-libfunc">ˡf̲ace</span></a> <span class="type">: Int -&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L109">line 109</a></div>
+<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L116">line 116</a></div>
 <div class="doc">
 <p>One face of a solid's points: the corners at the given positions,
 as a 3 x n matrix. <code>positions <a href="lib-Geometry3D.xtl.html#l.f_ace" class="c-libfunc">ᵍf̲ace</a> points</code>.</p>
@@ -251,7 +260,7 @@ as a 3 x n matrix. <code>positions <a href="lib-Geometry3D.xtl.html#l.f_ace" cla
 </div>
 <div class="item" id="l.s_olid">
 <h3><a href="#l.s_olid"><span class="c-libfunc">ˡs̲olid</span></a> <span class="type">: Int -&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L116">line 116</a></div>
+<div class="meta">function &middot; <a href="lib-Geometry3D.xtl.src.html#L123">line 123</a></div>
 <div class="doc">
 <p>Every face of a solid as corners: F x 3 x n from the points and the
 F x n positions of g:c_ubeFaces. <code>faces <a href="lib-Geometry3D.xtl.html#l.s_olid" class="c-libfunc">ᵍs̲olid</a> points</code>.</p>

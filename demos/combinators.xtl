@@ -1,13 +1,25 @@
 #!/usr/bin/env xetal
-# The Combinators library: Smullyan's birds, each a function that only
-# rearranges, repeats or drops its arguments. Run as a notebook with
-# "just show demos/combinators.xtl"; docs/birds.md lists every bird.
+## Combinators: the Combinators library, Smullyan's birds, each a
+## function that only rearranges, repeats or drops its arguments. Run it
+## with "xetal run demos/combinators.xtl" (or "./demos/combinators.xtl"),
+## or as a notebook with "just show demos/combinators.xtl"; it prints
+## what each bird makes of small numbers, ending with 10 factorial from
+## Y and 1024 from a function power. docs/birds.md lists every bird.
+
+### The library and two helpers
+
 "c:" u_se< "Combinators"
 
 # A quoted function before a bird is its first argument; a value on
 # the left comes next, then the one on the right.
+
+## u:i_nc x: x plus one.
 u:i_nc := { _r + 1 }
+
+## u:d_ouble x: x times two.
 u:d_ouble := { _r * 2 }
+
+### The birds
 
 # K keeps its first argument and drops the second.
 1 c:K_ 2
@@ -32,8 +44,11 @@ u:d_ouble := { _r * 2 }
 (3 c:V_ 4)_ '+
 (3 c:V_ 4)_ '*
 
-# Y, the Sage Bird: a function that calls itself, from one that is
-# handed itself. The factorial gets its own recursion from Y.
+### Recursion from Y, and function power
+
+## 's_elf u:f_act n: the factorial of n, recursing through s_elf, the
+## function it is handed (lazy, ~), rather than by its own name. Y, the
+## Sage Bird, hands it itself: `'u:f_act c:Y_ 10` is 10 factorial.
 u:f_act := { ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }
 'u:f_act c:Y_ 10
 

@@ -43,12 +43,17 @@ greeting, and uses it. Every block below is run by <code>xetal</code> through
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal"><span class="c-comment">⍝ Hello: the smallest library, one greeting. A library is an ordinary</span>
-<span class="c-comment">⍝ file whose exported names start with l:; libraries of your own live</span>
-<span class="c-comment">⍝ in userlibs/, on the search path. demos/hello-library.xtl imports it, and docs/literate/hello.org walks through both. The name</span>
-<span class="c-comment">⍝ in the string is the logo: typed X_ e:T a:L, drawn, spaces removed (a</span>
-<span class="c-comment">⍝ string may hold any Unicode).</span>
+<pre class="src src-xetal"><span class="c-comment">⍝# Hello: the smallest library, one greeting. A library is an ordinary</span>
+<span class="c-comment">⍝# file whose exported names start with l:; libraries of your own live</span>
+<span class="c-comment">⍝# in userlibs/, on the search path. demos/hello-library.xtl imports it</span>
+<span class="c-comment">⍝# (&quot;hi:&quot; u_se&lt; &quot;Hello&quot;), and docs/literate/hello.org walks through</span>
+<span class="c-comment">⍝# both. The name in the string is the logo: typed X_ e:T a:L, drawn,</span>
+<span class="c-comment">⍝# spaces removed (a string may hold any Unicode).</span>
 
+<span class="c-comment">⍝# The greeting, as text (niladic: call it with @).</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;hi:&quot; u_se&lt; &quot;Hello&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; hi:h_ello @</span>
+<span class="c-comment">⍝# hello X̲ᵉTᵃL</span>
 <span class="c-libfunc">ˡh̲ello</span> ← { @ → <span class="c-string">&quot;hello X̲ᵉTᵃL&quot;</span> }             <span class="c-comment">⍝ niladic: call it with @</span>
 
 <span class="c-comment typed">⍝ typed:</span>
@@ -171,11 +176,20 @@ greeting from the program and adds the name, kept in a helper <code>h:n_ame</cod
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal"><span class="c-comment">⍝ Greetings: a library with a private name. h:n_ame is file-private, so it is</span>
-<span class="c-comment">⍝ used here but cannot be imported; g_reet is exported, and takes the</span>
-<span class="c-comment">⍝ greeting from the program that calls it.</span>
+<pre class="src src-xetal"><span class="c-comment">⍝# Greetings: a library with a private name. h:n_ame is file-private, so it is</span>
+<span class="c-comment">⍝# used here but cannot be imported; g_reet is exported, and takes the</span>
+<span class="c-comment">⍝# greeting from the program that calls it. Import it with an alias of</span>
+<span class="c-comment">⍝# your choice: &quot;g:&quot; u_se&lt; &quot;Greetings&quot; (it is found in userlibs/).</span>
 
+<span class="c-comment">⍝# The name a greeting is addressed to, the logo drawn (niladic: call</span>
+<span class="c-comment">⍝# it with @).</span>
 <span class="c-libfunc">ʰn̲ame</span> ← { @ → <span class="c-string">&quot;X̲ᵉTᵃL&quot;</span> }                       <span class="c-comment">⍝ private</span>
+
+<span class="c-comment">⍝# The greeting g, given by the caller, followed by the name: monadic,</span>
+<span class="c-comment">⍝# </span><span class="c-libfunc">ᵍg̲reet</span> <span class="c-string">&quot;hi&quot;</span><span class="c-comment">.</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;g:&quot; u_se&lt; &quot;Greetings&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; g:g_reet &quot;hi&quot;</span>
+<span class="c-comment">⍝# hi X̲ᵉTᵃL</span>
 <span class="c-libfunc">ˡg̲reet</span> ← { g → g <span class="c-builtin">c̲at</span> <span class="c-string">&quot; &quot;</span> <span class="c-builtin">c̲at</span> <span class="c-libfunc">ʰn̲ame</span> @ }         <span class="c-comment">⍝ monadic: the greeting</span>
 
 <span class="c-comment typed">⍝ typed:</span>

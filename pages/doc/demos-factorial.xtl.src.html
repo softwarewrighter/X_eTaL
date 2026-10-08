@@ -57,7 +57,7 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L3"><span class="c-userfunc">ᵘf̲act</span></a></li>
+<li class="item"><a href="#L9"><span class="c-userfunc">ᵘf̲act</span></a></li>
 </ul>
 </nav>
 <main>
@@ -65,12 +65,18 @@
 <section id="results"></section>
 <h1><span class="kind">source</span><a href="demos-factorial.xtl.html">demos/factorial.xtl</a></h1>
 <div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment">!/usr/bin/env xetal</span></span>
-<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> M1: recursion with guards, one statement per line.</span></span>
-<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-userfunc">ᵘf̲act</span> ← { n →</span>
-<span class="line" id="L4"><a class="ln" href="#L4">4</a>  n <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? <span class="c-number">1</span></span>
-<span class="line" id="L5"><a class="ln" href="#L5">5</a>  n <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="demos-factorial.xtl.html#u.f_act" class="c-userfunc">ᵘf̲act</a> n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span></span>
-<span class="line" id="L6"><a class="ln" href="#L6">6</a>}</span>
-<span class="line" id="L7"><a class="ln" href="#L7">7</a><a href="demos-factorial.xtl.html#u.f_act" class="c-userfunc">ᵘf̲act</a> <span class="c-number">10</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># Factorial: recursion with guards, one statement per line. Run it with</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># &quot;xetal run demos/factorial.xtl&quot; (or &quot;./demos/factorial.xtl&quot;); it</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"># prints 3628800, the factorial of 10. Read u:f_act for how a guard</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"># (</span><span class="c-comment"></span>c ? r<span class="c-comment"></span><span class="c-comment">) ends a function early and how a function calls itself.</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"># n u:f_act: the factorial of n, 1 when n is at most 1, otherwise n</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"># times the factorial of n - 1.</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-userfunc">ᵘf̲act</span> ← { n →</span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a>  n <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? <span class="c-number">1</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a>  n <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="demos-factorial.xtl.html#u.f_act" class="c-userfunc">ᵘf̲act</a> n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a>}</span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><a href="demos-factorial.xtl.html#u.f_act" class="c-userfunc">ᵘf̲act</a> <span class="c-number">10</span></span>
 </div>
 </main>
 </body>

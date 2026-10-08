@@ -1,18 +1,19 @@
 #!/usr/bin/env xetal
-# demos/keys.xtl: every way X_eTaL is typed. Each line of code appears
-# twice: drawn decorated, as "just pp demos/keys.xtl" shows it, and at
-# the end of the line, after "typed:", exactly the keys you type (a
-# comment is drawn as written, so that text stays plain ASCII).
-# "just show demos/keys.xtl" runs every line and shows its result.
-# docs/input.md explains each form.
+## Keys: every way X_eTaL is typed. Each line of code appears twice:
+## drawn decorated, as "just pp demos/keys.xtl" shows it, and at the end
+## of the line, after "typed:", exactly the keys you type (a comment is
+## drawn as written, so that text stays plain ASCII). Run it with
+## "xetal run demos/keys.xtl" (or "./demos/keys.xtl") to print each
+## line's result, or "just show demos/keys.xtl" to see each line next to
+## its result. docs/input.md explains each form.
 
-# == Names and bindings ================================================
+### Names and bindings
 
-# A variable is a plain name. := binds it; it is drawn as a left arrow.
+## x: a plain variable. := binds it; it is drawn as a left arrow.
 x := 5                                  # typed: x := 5
 
-# A variable whose name ends in ! may be bound again (mutation); the !
-# is part of the name wherever it is used.
+## count!: a variable whose name ends in ! may be bound again
+## (mutation); the ! is part of the name wherever it is used.
 count! := 0                             # typed: count! := 0
 count! := count! + 1                    # typed: count! := count! + 1
 
@@ -20,15 +21,16 @@ count! := count! + 1                    # typed: count! := count! + 1
 # letter: r_ev is the function "rev" with its r underlined (reverse).
 r_ev 1 2 3                              # typed: r_ev 1 2 3
 
-# u: puts a name in your program's own namespace (drawn as a raised
-# u). Inside { }, _r is the right argument (drawn as APL's omega).
+## u:s_quare x: x times x. u: puts a name in your program's own
+## namespace (drawn as a raised u). Inside { }, _r is the right argument
+## (drawn as APL's omega).
 u:s_quare := { _r * _r }                # typed: u:s_quare := { _r * _r }
 u:s_quare 7                             # typed: u:s_quare 7
 
-# == Reduce, scan, rotate and reverse, and their axes ==================
+### Reduce, scan, rotate and reverse, and their axes
 
-# M is a matrix of 2 rows and 3 columns: 1 2 3 above 4 5 6. Axis 1
-# runs down the rows (its length is 2), axis 2 along a row (length 3).
+## M: a matrix of 2 rows and 3 columns, 1 2 3 above 4 5 6. Axis 1
+## runs down the rows (its length is 2), axis 2 along a row (length 3).
 M := 2 3 r_eshape r_ange 6              # typed: M := 2 3 r_eshape r_ange 6
 
 # Reduce, r_/ (APL's /), combines items with a function given to it
@@ -85,7 +87,7 @@ r_ev_1 M                                # typed: r_ev_1 M
 # ... and with axis 2, each row reversed.
 r_ev_2 M                                # typed: r_ev_2 M
 
-# == Powers ============================================================
+### Powers
 
 # ^ touching a value, then a number, is an exponent (a superscript).
 x^2                                     # typed: x^2
@@ -101,7 +103,7 @@ x ^ 3                                   # typed: x ^ 3
 # function that many times: n_eg (negate) three times.
 n_eg^3 5                                # typed: n_eg^3 5
 
-# == Numbers and minus =================================================
+### Numbers and minus
 
 # A minus touching a number makes it negative: three numbers.
 -1 0 1                                  # typed: -1 0 1
@@ -119,7 +121,7 @@ x - -3                                  # typed: x - -3
 # A decimal number, and *, drawn as the times sign.
 2.5 * 2                                 # typed: 2.5 * 2
 
-# == Comparisons and logic =============================================
+### Comparisons and logic
 
 # != is "not equal", drawn as the not-equal sign.
 x != 3                                  # typed: x != 3
@@ -132,17 +134,18 @@ x <= 5                                  # typed: x <= 5
 (x > 1) & x < 9                         # typed: (x > 1) & x < 9
 (x < 1) | x > 9                         # typed: (x < 1) | x > 9
 
-# == Functions of your own =============================================
+### Functions of your own
 
-# Inside { }, _l is the left argument (drawn as APL's alpha) and _r
-# the right: this function takes two arguments.
+## x u:a_dd y: x plus y. Inside { }, _l is the left argument (drawn as
+## APL's alpha) and _r the right: this function takes two arguments.
 u:a_dd := { _l + _r }                   # typed: u:a_dd := { _l + _r }
 
 # A function of two arguments is written between them.
 2 u:a_dd 3                              # typed: 2 u:a_dd 3
 
-# n -> names the argument n. "c ? r" is a guard: when c holds, the
-# result is r; statements are separated by ; (drawn as a diamond).
+## u:s_ign n: -1, 0 or 1 as n is negative, zero or positive. n -> names
+## the argument n. "c ? r" is a guard: when c holds, the result is r;
+## statements are separated by ; (drawn as a diamond).
 u:s_ign := { n -> n < 0 ? -1; n = 0 ? 0; 1 }
 # typed: u:s_ign := { n -> n < 0 ? -1; n = 0 ? 0; 1 }
 u:s_ign -4                              # typed: u:s_ign -4
@@ -151,12 +154,12 @@ u:s_ign -4                              # typed: u:s_ign -4
 # every item.
 '{ _r * 10 } e_ach 1 2                  # typed: '{ _r * 10 } e_ach 1 2
 
-# Three functions in square brackets are a train (a fork): the sum
-# divided by the count, which is the mean.
+## u:m_ean v: the mean of v. Three functions in square brackets are a
+## train (a fork): the sum divided by the count, which is the mean.
 u:m_ean := ['+ r_/ / t_ally]            # typed: u:m_ean := ['+ r_/ / t_ally]
 u:m_ean 1 2 3 4                         # typed: u:m_ean 1 2 3 4
 
-# == Strings, Unit and statements ======================================
+### Strings, Unit and statements
 
 # Text in double quotes is a string, a vector of characters; c_at
 # joins two.
@@ -168,7 +171,7 @@ t_ally @                                # typed: t_ally @
 # ; separates two statements on one line (drawn as a diamond).
 1 + 1; 2 + 2                            # typed: 1 + 1; 2 + 2
 
-# == Libraries and system names ========================================
+### Libraries and system names
 
 # A library is imported with u_se< (a macro, drawn bold): the left
 # string is the prefix its names get here, the right one its name. The

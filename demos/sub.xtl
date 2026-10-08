@@ -1,6 +1,11 @@
 #!/usr/bin/env xetal
-# M1: a dyadic user function; every function is curried.
+## A dyadic user function; every function is curried. Run it with
+## ./demos/sub.xtl or "xetal run demos/sub.xtl"; it prints 7 twice, from
+## `10 u:s_ub 3` and from the partial application u:t_enMinus.
+
+## a u:s_ub b: a minus b.
 u:s_ub := { _l - _r }
 10 u:s_ub 3
+## u:t_enMinus x: 10 minus x, u:s_ub with its left argument fixed at 10.
 u:t_enMinus := u:s_ub 10    # partial application fixes the left argument
 u:t_enMinus 3

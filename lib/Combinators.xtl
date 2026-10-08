@@ -1,57 +1,193 @@
-# Combinators: the birds Raymond Smullyan names in "To Mock a
-# Mockingbird" that type-check (a standard library, built into xetal).
-# Import it with an alias of your choice: "c:" u_se< "Combinators".
-# docs/birds.md lists them all; the self-applying birds (L, M, M2, U)
-# have no finite type and are in demos/birds-untyped.xtl.
-#
-# How the definitions read: `a x_ b` is x applied to a and then b (every
-# function is curried); `(e)_ v` applies the function e computes; a
-# function passed along as a value is quoted, `'y_`.
+## Combinators: the birds Raymond Smullyan names in "To Mock a
+## Mockingbird" that type-check (a standard library, built into xetal).
+## Import it with an alias of your choice: "c:" u_se< "Combinators".
+## docs/birds.md lists them all; the self-applying birds (L, M, M2, U)
+## have no finite type and are in demos/birds-untyped.xtl.
+##
+## Each bird only rearranges, repeats, drops or groups its curried
+## arguments; its rule is given in Smullyan's notation, where
+## B x y z = x (y z) means B applied to x, y and z gives x applied to
+## (y applied to z).
+##
+## How the definitions read: `a x_ b` is x applied to a and then b (every
+## function is curried); `(e)_ v` applies the function e computes; a
+## function passed along as a value is quoted, `'y_`. In a call, quoted
+## function arguments come first, the nearest operand being the bird's
+## first argument: `'n_eg 'a_bs c:B_ -5` is a_bs (n_eg -5).
 
+### Identity, constants and duplication
+
+## The Idiot Bird (identity): I x = x.
+## >> "c:" u_se< "Combinators"
+## >> c:I_ 7
+## 7
 l:I_ := { x -> x }                                  # Idiot Bird (identity)
+
+## The Kestrel: K x y = x, the first argument kept, the second dropped.
+## >> "c:" u_se< "Combinators"
+## >> 1 c:K_ 2
+## 1
 l:K_ := { x y -> x }                                # Kestrel
+
+## The Thrush: T x y = y x, the value x given to the function y.
+## >> "c:" u_se< "Combinators"
+## >> 3 c:T_ 'n_eg
+## -3
 l:T_ := { x y_ -> y_ x }                            # Thrush
+
+## The Warbler: W x y = x y y, the dyadic function x given y twice.
+## >> "c:" u_se< "Combinators"
+## >> '* c:W_ 4
+## 16
 l:W_ := { x_ y -> y x_ y }                          # Warbler
+
+## The Converse Warbler: W1 x y = y x x, the Warbler with its arguments
+## the other way round.
+## >> "c:" u_se< "Combinators"
+## >> 3 c:W_1 '+
+## 6
 l:W_1 := { x y_ -> x y_ x }                         # Converse Warbler
 
+### Composition
+
+## The Bluebird: B x y z = x (y z), x composed with y.
+## >> "c:" u_se< "Combinators"
+## >> 'n_eg 'a_bs c:B_ -5
+## 5
 l:B_ := { x_ y_ z -> x_ y_ z }                      # Bluebird: compose
+
+## The Blackbird: B1 x y z w = x (y z w), x after the dyadic y.
 l:B_1 := { x_ y_ z w -> x_ z y_ w }                 # Blackbird
+
+## The Bunting: B2 x y z w v = x (y z w v), x after the triadic y.
 l:B_2 := { x_ y_ z w v -> x_ (z y_ w)_ v }          # Bunting
+
+## The Becard: B3 x y z w = x (y (z w)), three functions composed.
 l:B_3 := { x_ y_ z_ w -> x_ y_ z_ w }               # Becard
+
+## The Cardinal: C x y z = x z y, the dyadic x with its arguments
+## swapped.
+## >> "c:" u_se< "Combinators"
+## >> 10 '- c:C_ 3
+## -7
 l:C_ := { x_ y z -> z x_ y }                        # Cardinal: swap
+
+## The Dove: D x y z w = x y (z w), z applied to w before x takes it.
 l:D_ := { x_ y z_ w -> y x_ z_ w }                  # Dove
+
+## The Dickcissel: D1 x y z w v = x y z (w v).
 l:D_1 := { x_ y z w_ v -> (y x_ z)_ w_ v }          # Dickcissel
+
+## The Dovekie: D2 x y z w v = x (y z) (w v), both arguments of x
+## computed first.
 l:D_2 := { x_ y_ z w_ v -> (y_ z) x_ w_ v }         # Dovekie
+
+## The Eagle: E x y z w v = x y (z w v).
 l:E_ := { x_ y z_ w v -> y x_ w z_ v }              # Eagle
+
+## The Bald Eagle: Eh x y1 y2 y3 z1 z2 z3 = x (y1 y2 y3) (z1 z2 z3).
 l:E_h := { x_ a_ b c d_ e f -> (b a_ c) x_ e d_ f } # Bald Eagle
+
+### Permutations
+
+## The Finch: F x y z = z y x, the function last and the values
+## reversed.
+## >> "c:" u_se< "Combinators"
+## >> (1 c:F_ 2)_ '-
+## 1
 l:F_ := { x y z_ -> y z_ x }                        # Finch
+
+## The Goldfinch: G x y z w = x w (y z).
 l:G_ := { x_ y_ z w -> w x_ y_ z }                  # Goldfinch
+
+## The Hummingbird: H x y z = x y z y, y used twice.
 l:H_ := { x_ y z -> (y x_ z)_ y }                   # Hummingbird
+
+## The Jay: J x y z w = x y (x w z).
 l:J_ := { x_ y z w -> y x_ w x_ z }                 # Jay
+
+## The Owl: O x y = y (x y).
 l:O_ := { x_ y_ -> y_ x_ 'y_ }                      # Owl
+
+## The Queer Bird: Q x y z = y (x z), composition the other way round
+## from B.
+## >> "c:" u_se< "Combinators"
+## >> 'n_eg 'a_bs c:Q_ -5
+## -5
 l:Q_ := { x_ y_ z -> y_ x_ z }                      # Queer Bird
+
+## The Quixotic Bird: Q1 x y z = x (z y).
 l:Q_1 := { x_ y z_ -> x_ z_ y }                     # Quixotic Bird
+
+## The Quizzical Bird: Q2 x y z = y (z x).
 l:Q_2 := { x y_ z_ -> y_ z_ x }                     # Quizzical Bird
+
+## The Quirky Bird: Q3 x y z = z (x y).
 l:Q_3 := { x_ y z_ -> z_ x_ y }                     # Quirky Bird
+
+## The Quacky Bird: Q4 x y z = z (y x).
 l:Q_4 := { x y_ z_ -> z_ y_ x }                     # Quacky Bird
+
+## The Robin: R x y z = y z x, the function moved to the front.
+## >> "c:" u_se< "Combinators"
+## >> (1 c:R_ '-)_ 2
+## 1
 l:R_ := { x y_ z -> z y_ x }                        # Robin
+
+## The Starling: S x y z = x z (y z), z used twice (J's hook).
+## >> "c:" u_se< "Combinators"
+## >> 'n_eg '- c:S_ 3
+## 6
 l:S_ := { x_ y_ z -> z x_ y_ z }                    # Starling
+
+## The Vireo: V x y z = z x y, a pair: x and y held until a function
+## z is given them.
+## >> "c:" u_se< "Combinators"
+## >> (1 c:V_ 2)_ '-
+## -1
 l:V_ := { x y z_ -> x z_ y }                        # Vireo: a pair
 
-# Once removed: the first argument passes through, then the bird.
+### Once removed
+
+## C once removed: C* x y z w = x y w z.
 l:C_s := { x_ y z w -> (y x_ w)_ z }
+
+## R once removed: R* x y z w = x z w y.
 l:R_s := { x_ y z w -> (z x_ w)_ y }
+
+## F once removed: F* x y z w = x w z y.
 l:F_s := { x_ y z w -> (w x_ z)_ y }
+
+## V once removed: V* x y z w = x w y z.
 l:V_s := { x_ y z w -> (w x_ y)_ z }
+
+## W once removed: W* x y z = x y z z.
 l:W_s := { x_ y z -> (y x_ z)_ z }
 
-# Twice removed: the first two pass through.
+### Twice removed
+
+## C twice removed: C** x y z w v = x y z v w.
 l:C_ss := { x_ y z w v -> ((y x_ z)_ v)_ w }
+
+## R twice removed: R** x y z w v = x y w v z.
 l:R_ss := { x_ y z w v -> ((y x_ w)_ v)_ z }
+
+## F twice removed: F** x y z w v = x y v w z.
 l:F_ss := { x_ y z w v -> ((y x_ v)_ w)_ z }
+
+## V twice removed: V** x y z w v = x y v z w.
 l:V_ss := { x_ y z w v -> ((y x_ v)_ z)_ w }
+
+## W twice removed: W** x y z w = x y z w w.
 l:W_ss := { x_ y z w -> ((y x_ z)_ w)_ w }
 
-# The Sage Bird by recursion: Y f is f (Y f). It works because a
-# function's parameter is evaluated only when used.
+### Recursion
+
+## The Sage Bird by recursion: Y f is f (Y f), a fixed point of f. It
+## works because a function's parameter is evaluated only when used; f
+## takes itself (as ~s_elf) and its argument.
+## >> "c:" u_se< "Combinators"
+## >> u:f_act := { ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }
+## >> 'u:f_act c:Y_ 5
+## 120
 l:Y_ := { f_ -> f_ l:Y_ 'f_ }

@@ -57,11 +57,13 @@
 </ul>
 <h2>On this page</h2>
 <ul>
+<li><a href="#section-1">Identity, constants and duplication</a></li>
 <li class="item"><a href="#l.I_"><span class="c-libfunc">ˡI̲</span></a></li>
 <li class="item"><a href="#l.K_"><span class="c-libfunc">ˡK̲</span></a></li>
 <li class="item"><a href="#l.T_"><span class="c-libfunc">ˡT̲</span></a></li>
 <li class="item"><a href="#l.W_"><span class="c-libfunc">ˡW̲</span></a></li>
 <li class="item"><a href="#l.W_1"><span class="c-libfunc">ˡW̲1</span></a></li>
+<li><a href="#section-2">Composition</a></li>
 <li class="item"><a href="#l.B_"><span class="c-libfunc">ˡB̲</span></a></li>
 <li class="item"><a href="#l.B_1"><span class="c-libfunc">ˡB̲1</span></a></li>
 <li class="item"><a href="#l.B_2"><span class="c-libfunc">ˡB̲2</span></a></li>
@@ -72,6 +74,7 @@
 <li class="item"><a href="#l.D_2"><span class="c-libfunc">ˡD̲2</span></a></li>
 <li class="item"><a href="#l.E_"><span class="c-libfunc">ˡE̲</span></a></li>
 <li class="item"><a href="#l.E_h"><span class="c-libfunc">ˡE̲h</span></a></li>
+<li><a href="#section-3">Permutations</a></li>
 <li class="item"><a href="#l.F_"><span class="c-libfunc">ˡF̲</span></a></li>
 <li class="item"><a href="#l.G_"><span class="c-libfunc">ˡG̲</span></a></li>
 <li class="item"><a href="#l.H_"><span class="c-libfunc">ˡH̲</span></a></li>
@@ -85,16 +88,19 @@
 <li class="item"><a href="#l.R_"><span class="c-libfunc">ˡR̲</span></a></li>
 <li class="item"><a href="#l.S_"><span class="c-libfunc">ˡS̲</span></a></li>
 <li class="item"><a href="#l.V_"><span class="c-libfunc">ˡV̲</span></a></li>
+<li><a href="#section-4">Once removed</a></li>
 <li class="item"><a href="#l.C_s"><span class="c-libfunc">ˡC̲s</span></a></li>
 <li class="item"><a href="#l.R_s"><span class="c-libfunc">ˡR̲s</span></a></li>
 <li class="item"><a href="#l.F_s"><span class="c-libfunc">ˡF̲s</span></a></li>
 <li class="item"><a href="#l.V_s"><span class="c-libfunc">ˡV̲s</span></a></li>
 <li class="item"><a href="#l.W_s"><span class="c-libfunc">ˡW̲s</span></a></li>
+<li><a href="#section-5">Twice removed</a></li>
 <li class="item"><a href="#l.C_ss"><span class="c-libfunc">ˡC̲ss</span></a></li>
 <li class="item"><a href="#l.R_ss"><span class="c-libfunc">ˡR̲ss</span></a></li>
 <li class="item"><a href="#l.F_ss"><span class="c-libfunc">ˡF̲ss</span></a></li>
 <li class="item"><a href="#l.V_ss"><span class="c-libfunc">ˡV̲ss</span></a></li>
 <li class="item"><a href="#l.W_ss"><span class="c-libfunc">ˡW̲ss</span></a></li>
+<li><a href="#section-6">Recursion</a></li>
 <li class="item"><a href="#l.Y_"><span class="c-libfunc">ˡY̲</span></a></li>
 </ul>
 </nav>
@@ -102,209 +108,396 @@
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">library</span>lib/Combinators.xtl</h1>
+<div class="doc">
+<p>Combinators: the birds Raymond Smullyan names in &quot;To Mock a
+Mockingbird&quot; that type-check (a standard library, built into xetal).
+Import it with an alias of your choice: &quot;c:&quot; u_se&lt; &quot;Combinators&quot;.
+docs/birds.md lists them all; the self-applying birds (L, M, M2, U)
+have no finite type and are in demos/birds-untyped.xtl.</p>
+<p>Each bird only rearranges, repeats, drops or groups its curried
+arguments; its rule is given in Smullyan's notation, where
+B x y z = x (y z) means B applied to x, y and z gives x applied to
+(y applied to z).</p>
+<p>How the definitions read: <code>a <span class="c-builtin">x̲</span> b</code> is x applied to a and then b (every
+function is curried); <code>(e)_ v</code> applies the function e computes; a
+function passed along as a value is quoted, <code><span class="c-builtin">'</span><span class="c-builtin">y̲</span></code>. In a call, quoted
+function arguments come first, the nearest operand being the bird's
+first argument: <code><span class="c-builtin">'</span><a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <span class="c-builtin">'</span><a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> <span class="c-libfunc">ᶜB̲</span> <span class="c-number">-5</span></code> is a_bs (n_eg -5).</p>
+</div>
 <p class="meta"><a href="lib-Combinators.xtl.src.html">source</a></p>
+<h2 class="section" id="section-1">Identity, constants and duplication</h2>
 <div class="item" id="l.I_">
 <h3><a href="#l.I_"><span class="c-libfunc">ˡI̲</span></a> <span class="type">: Any a =&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L11">line 11</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L24">line 24</a></div>
+<div class="doc">
+<p>The Idiot Bird (identity): I x = x.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="lib-Combinators.xtl.html#l.I_" class="c-libfunc">ᶜI̲</a> <span class="c-number">7</span>
+7</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡI̲</span> ← { x → x }                                      <span class="c-comment">⍝</span><span class="c-comment"> Idiot Bird (identity)</span></pre>
 </div>
 <div class="item" id="l.K_">
 <h3><a href="#l.K_"><span class="c-libfunc">ˡK̲</span></a> <span class="type">: (Any a, Any b) =&gt; a -&gt; b -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L12">line 12</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L30">line 30</a></div>
+<div class="doc">
+<p>The Kestrel: K x y = x, the first argument kept, the second dropped.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">1</span> <a href="lib-Combinators.xtl.html#l.K_" class="c-libfunc">ᶜK̲</a> <span class="c-number">2</span>
+1</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡK̲</span> ← { x y → x }                                    <span class="c-comment">⍝</span><span class="c-comment"> Kestrel</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L13">combinators.xtl:13</a>, <a href="demos-keys.xtl.src.html#L180">keys.xtl:180</a>, <a href="demos-tour.xtl.src.html#L163">tour.xtl:163</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L25">combinators.xtl:25</a>, <a href="demos-keys.xtl.src.html#L183">keys.xtl:183</a>, <a href="demos-tour.xtl.src.html#L184">tour.xtl:184</a></div>
 </div>
 <div class="item" id="l.T_">
 <h3><a href="#l.T_"><span class="c-libfunc">ˡT̲</span></a> <span class="type">: (Any a, Any b) =&gt; a -&gt; (a -&gt; b) -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L13">line 13</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L36">line 36</a></div>
+<div class="doc">
+<p>The Thrush: T x y = y x, the value x given to the function y.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">3</span> <a href="lib-Combinators.xtl.html#l.T_" class="c-libfunc">ᶜT̲</a> <span class="c-builtin">'</span><a href="builtins.html#n_eg" class="c-builtin">n̲eg</a>
+-3</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡT̲</span> ← { x <span class="c-builtin">y̲</span> → <span class="c-builtin">y̲</span> x }                                  <span class="c-comment">⍝</span><span class="c-comment"> Thrush</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L29">combinators.xtl:29</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L41">combinators.xtl:41</a></div>
 </div>
 <div class="item" id="l.W_">
 <h3><a href="#l.W_"><span class="c-libfunc">ˡW̲</span></a> <span class="type">: (Any a, Any b) =&gt; (a -&gt; a -&gt; b) -&gt; a -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L14">line 14</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L42">line 42</a></div>
+<div class="doc">
+<p>The Warbler: W x y = x y y, the dyadic function x given y twice.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-symbol">'</span><a href="builtins.html#-2a" class="c-symbol">×</a> <a href="lib-Combinators.xtl.html#l.W_" class="c-libfunc">ᶜW̲</a> <span class="c-number">4</span>
+16</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡW̲</span> ← { <span class="c-builtin">x̲</span> y → y <span class="c-builtin">x̲</span> y }                                <span class="c-comment">⍝</span><span class="c-comment"> Warbler</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L23">combinators.xtl:23</a>, <a href="demos-tour.xtl.src.html#L166">tour.xtl:166</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L35">combinators.xtl:35</a>, <a href="demos-tour.xtl.src.html#L187">tour.xtl:187</a></div>
 </div>
 <div class="item" id="l.W_1">
 <h3><a href="#l.W_1"><span class="c-libfunc">ˡW̲1</span></a> <span class="type">: (Any a, Any b) =&gt; a -&gt; (a -&gt; a -&gt; b) -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L15">line 15</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L49">line 49</a></div>
+<div class="doc">
+<p>The Converse Warbler: W1 x y = y x x, the Warbler with its arguments
+the other way round.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">3</span> <a href="lib-Combinators.xtl.html#l.W_1" class="c-libfunc">ᶜW̲1</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a>
+6</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡW̲1</span> ← { x <span class="c-builtin">y̲</span> → x <span class="c-builtin">y̲</span> x }                               <span class="c-comment">⍝</span><span class="c-comment"> Converse Warbler</span></pre>
 </div>
+<h2 class="section" id="section-2">Composition</h2>
 <div class="item" id="l.B_">
 <h3><a href="#l.B_"><span class="c-libfunc">ˡB̲</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; (a -&gt; b) -&gt; (c -&gt; a) -&gt; c -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L17">line 17</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L57">line 57</a></div>
+<div class="doc">
+<p>The Bluebird: B x y z = x (y z), x composed with y.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-builtin">'</span><a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <span class="c-builtin">'</span><a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> <a href="lib-Combinators.xtl.html#l.B_" class="c-libfunc">ᶜB̲</a> <span class="c-number">-5</span>
+5</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡB̲</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z → <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z }                              <span class="c-comment">⍝</span><span class="c-comment"> Bluebird: compose</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L20">combinators.xtl:20</a>, <a href="demos-tour.xtl.src.html#L165">tour.xtl:165</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L32">combinators.xtl:32</a>, <a href="demos-tour.xtl.src.html#L186">tour.xtl:186</a></div>
 </div>
 <div class="item" id="l.B_1">
 <h3><a href="#l.B_1"><span class="c-libfunc">ˡB̲1</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; (a -&gt; b) -&gt; (c -&gt; d -&gt; a) -&gt; c -&gt; d -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L18">line 18</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L60">line 60</a></div>
+<div class="doc">
+<p>The Blackbird: B1 x y z w = x (y z w), x after the dyadic y.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡB̲1</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z w → <span class="c-builtin">x̲</span> z <span class="c-builtin">y̲</span> w }                         <span class="c-comment">⍝</span><span class="c-comment"> Blackbird</span></pre>
 </div>
 <div class="item" id="l.B_2">
 <h3><a href="#l.B_2"><span class="c-libfunc">ˡB̲2</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b) -&gt; (c -&gt; d -&gt; e -&gt; a) -&gt; c -&gt; d -&gt; e -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L19">line 19</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L63">line 63</a></div>
+<div class="doc">
+<p>The Bunting: B2 x y z w v = x (y z w v), x after the triadic y.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡB̲2</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z w v → <span class="c-builtin">x̲</span> (z <span class="c-builtin">y̲</span> w)_ v }                  <span class="c-comment">⍝</span><span class="c-comment"> Bunting</span></pre>
 </div>
 <div class="item" id="l.B_3">
 <h3><a href="#l.B_3"><span class="c-libfunc">ˡB̲3</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; (a -&gt; b) -&gt; (c -&gt; a) -&gt; (d -&gt; c) -&gt; d -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L20">line 20</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L66">line 66</a></div>
+<div class="doc">
+<p>The Becard: B3 x y z w = x (y (z w)), three functions composed.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡB̲3</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> <span class="c-builtin">z̲</span> w → <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> <span class="c-builtin">z̲</span> w }                         <span class="c-comment">⍝</span><span class="c-comment"> Becard</span></pre>
 </div>
 <div class="item" id="l.C_">
 <h3><a href="#l.C_"><span class="c-libfunc">ˡC̲</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; (a -&gt; b -&gt; c) -&gt; b -&gt; a -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L21">line 21</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L73">line 73</a></div>
+<div class="doc">
+<p>The Cardinal: C x y z = x z y, the dyadic x with its arguments
+swapped.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">10</span> <span class="c-symbol">'</span><a href="builtins.html#-2d" class="c-symbol">−</a> <a href="lib-Combinators.xtl.html#l.C_" class="c-libfunc">ᶜC̲</a> <span class="c-number">3</span>
+-7</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡC̲</span> ← { <span class="c-builtin">x̲</span> y z → z <span class="c-builtin">x̲</span> y }                              <span class="c-comment">⍝</span><span class="c-comment"> Cardinal: swap</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L17">combinators.xtl:17</a>, <a href="demos-tour.xtl.src.html#L164">tour.xtl:164</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L29">combinators.xtl:29</a>, <a href="demos-tour.xtl.src.html#L185">tour.xtl:185</a></div>
 </div>
 <div class="item" id="l.D_">
 <h3><a href="#l.D_"><span class="c-libfunc">ˡD̲</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c) -&gt; a -&gt; (d -&gt; b) -&gt; d -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L22">line 22</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L76">line 76</a></div>
+<div class="doc">
+<p>The Dove: D x y z w = x y (z w), z applied to w before x takes it.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡD̲</span> ← { <span class="c-builtin">x̲</span> y <span class="c-builtin">z̲</span> w → y <span class="c-builtin">x̲</span> <span class="c-builtin">z̲</span> w }                          <span class="c-comment">⍝</span><span class="c-comment"> Dove</span></pre>
 </div>
 <div class="item" id="l.D_1">
 <h3><a href="#l.D_1"><span class="c-libfunc">ˡD̲1</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c -&gt; d) -&gt; a -&gt; b -&gt; (e -&gt; c) -&gt; e -&gt; d</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L23">line 23</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L79">line 79</a></div>
+<div class="doc">
+<p>The Dickcissel: D1 x y z w v = x y z (w v).</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡD̲1</span> ← { <span class="c-builtin">x̲</span> y z <span class="c-builtin">w̲</span> v → (y <span class="c-builtin">x̲</span> z)_ <span class="c-builtin">w̲</span> v }                  <span class="c-comment">⍝</span><span class="c-comment"> Dickcissel</span></pre>
 </div>
 <div class="item" id="l.D_2">
 <h3><a href="#l.D_2"><span class="c-libfunc">ˡD̲2</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c) -&gt; (d -&gt; a) -&gt; d -&gt; (e -&gt; b) -&gt; e -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L24">line 24</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L83">line 83</a></div>
+<div class="doc">
+<p>The Dovekie: D2 x y z w v = x (y z) (w v), both arguments of x
+computed first.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡD̲2</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z <span class="c-builtin">w̲</span> v → (<span class="c-builtin">y̲</span> z) <span class="c-builtin">x̲</span> <span class="c-builtin">w̲</span> v }                   <span class="c-comment">⍝</span><span class="c-comment"> Dovekie</span></pre>
 </div>
 <div class="item" id="l.E_">
 <h3><a href="#l.E_"><span class="c-libfunc">ˡE̲</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c) -&gt; a -&gt; (d -&gt; e -&gt; b) -&gt; d -&gt; e -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L25">line 25</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L86">line 86</a></div>
+<div class="doc">
+<p>The Eagle: E x y z w v = x y (z w v).</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡE̲</span> ← { <span class="c-builtin">x̲</span> y <span class="c-builtin">z̲</span> w v → y <span class="c-builtin">x̲</span> w <span class="c-builtin">z̲</span> v }                      <span class="c-comment">⍝</span><span class="c-comment"> Eagle</span></pre>
 </div>
 <div class="item" id="l.E_h">
 <h3><a href="#l.E_h"><span class="c-libfunc">ˡE̲h</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e, Any f, Any g) =&gt; (a -&gt; b -&gt; c) -&gt; (d -&gt; e -&gt; a) -&gt; d -&gt; e -&gt; (f -&gt; g -&gt; b) -&gt; f -&gt; g -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L26">line 26</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L89">line 89</a></div>
+<div class="doc">
+<p>The Bald Eagle: Eh x y1 y2 y3 z1 z2 z3 = x (y1 y2 y3) (z1 z2 z3).</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡE̲h</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">a̲</span> b c <span class="c-builtin">d̲</span> e f → (b <span class="c-builtin">a̲</span> c) <span class="c-builtin">x̲</span> e <span class="c-builtin">d̲</span> f }           <span class="c-comment">⍝</span><span class="c-comment"> Bald Eagle</span></pre>
 </div>
+<h2 class="section" id="section-3">Permutations</h2>
 <div class="item" id="l.F_">
 <h3><a href="#l.F_"><span class="c-libfunc">ˡF̲</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; a -&gt; b -&gt; (b -&gt; a -&gt; c) -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L27">line 27</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L98">line 98</a></div>
+<div class="doc">
+<p>The Finch: F x y z = z y x, the function last and the values
+reversed.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<span class="c-number">1</span> <a href="lib-Combinators.xtl.html#l.F_" class="c-libfunc">ᶜF̲</a> <span class="c-number">2</span>)_ <span class="c-symbol">'</span><a href="builtins.html#-2d" class="c-symbol">−</a>
+1</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡF̲</span> ← { x y <span class="c-builtin">z̲</span> → y <span class="c-builtin">z̲</span> x }                              <span class="c-comment">⍝</span><span class="c-comment"> Finch</span></pre>
 </div>
 <div class="item" id="l.G_">
 <h3><a href="#l.G_"><span class="c-libfunc">ˡG̲</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c) -&gt; (d -&gt; b) -&gt; d -&gt; a -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L28">line 28</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L101">line 101</a></div>
+<div class="doc">
+<p>The Goldfinch: G x y z w = x w (y z).</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡG̲</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z w → w <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z }                          <span class="c-comment">⍝</span><span class="c-comment"> Goldfinch</span></pre>
 </div>
 <div class="item" id="l.H_">
 <h3><a href="#l.H_"><span class="c-libfunc">ˡH̲</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; (a -&gt; b -&gt; a -&gt; c) -&gt; a -&gt; b -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L29">line 29</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L104">line 104</a></div>
+<div class="doc">
+<p>The Hummingbird: H x y z = x y z y, y used twice.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡH̲</span> ← { <span class="c-builtin">x̲</span> y z → (y <span class="c-builtin">x̲</span> z)_ y }                         <span class="c-comment">⍝</span><span class="c-comment"> Hummingbird</span></pre>
 </div>
 <div class="item" id="l.J_">
 <h3><a href="#l.J_"><span class="c-libfunc">ˡJ̲</span></a> <span class="type">: (Any a, Any b) =&gt; (a -&gt; b -&gt; b) -&gt; a -&gt; b -&gt; a -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L30">line 30</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L107">line 107</a></div>
+<div class="doc">
+<p>The Jay: J x y z w = x y (x w z).</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡJ̲</span> ← { <span class="c-builtin">x̲</span> y z w → y <span class="c-builtin">x̲</span> w <span class="c-builtin">x̲</span> z }                        <span class="c-comment">⍝</span><span class="c-comment"> Jay</span></pre>
 </div>
 <div class="item" id="l.O_">
 <h3><a href="#l.O_"><span class="c-libfunc">ˡO̲</span></a> <span class="type">: (Any a, Any b) =&gt; ((a -&gt; b) -&gt; a) -&gt; (a -&gt; b) -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L31">line 31</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L110">line 110</a></div>
+<div class="doc">
+<p>The Owl: O x y = y (x y).</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡO̲</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> → <span class="c-builtin">y̲</span> <span class="c-builtin">x̲</span> <span class="c-builtin">'</span><span class="c-builtin">y̲</span> }                               <span class="c-comment">⍝</span><span class="c-comment"> Owl</span></pre>
 </div>
 <div class="item" id="l.Q_">
 <h3><a href="#l.Q_"><span class="c-libfunc">ˡQ̲</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; (a -&gt; b) -&gt; (b -&gt; c) -&gt; a -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L32">line 32</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L117">line 117</a></div>
+<div class="doc">
+<p>The Queer Bird: Q x y z = y (x z), composition the other way round
+from B.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-builtin">'</span><a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <span class="c-builtin">'</span><a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> <a href="lib-Combinators.xtl.html#l.Q_" class="c-libfunc">ᶜQ̲</a> <span class="c-number">-5</span>
+-5</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡQ̲</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z → <span class="c-builtin">y̲</span> <span class="c-builtin">x̲</span> z }                              <span class="c-comment">⍝</span><span class="c-comment"> Queer Bird</span></pre>
 </div>
 <div class="item" id="l.Q_1">
 <h3><a href="#l.Q_1"><span class="c-libfunc">ˡQ̲1</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; (a -&gt; b) -&gt; c -&gt; (c -&gt; a) -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L33">line 33</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L120">line 120</a></div>
+<div class="doc">
+<p>The Quixotic Bird: Q1 x y z = x (z y).</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡQ̲1</span> ← { <span class="c-builtin">x̲</span> y <span class="c-builtin">z̲</span> → <span class="c-builtin">x̲</span> <span class="c-builtin">z̲</span> y }                             <span class="c-comment">⍝</span><span class="c-comment"> Quixotic Bird</span></pre>
 </div>
 <div class="item" id="l.Q_2">
 <h3><a href="#l.Q_2"><span class="c-libfunc">ˡQ̲2</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; a -&gt; (b -&gt; c) -&gt; (a -&gt; b) -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L34">line 34</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L123">line 123</a></div>
+<div class="doc">
+<p>The Quizzical Bird: Q2 x y z = y (z x).</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡQ̲2</span> ← { x <span class="c-builtin">y̲</span> <span class="c-builtin">z̲</span> → <span class="c-builtin">y̲</span> <span class="c-builtin">z̲</span> x }                             <span class="c-comment">⍝</span><span class="c-comment"> Quizzical Bird</span></pre>
 </div>
 <div class="item" id="l.Q_3">
 <h3><a href="#l.Q_3"><span class="c-libfunc">ˡQ̲3</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; (a -&gt; b) -&gt; a -&gt; (b -&gt; c) -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L35">line 35</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L126">line 126</a></div>
+<div class="doc">
+<p>The Quirky Bird: Q3 x y z = z (x y).</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡQ̲3</span> ← { <span class="c-builtin">x̲</span> y <span class="c-builtin">z̲</span> → <span class="c-builtin">z̲</span> <span class="c-builtin">x̲</span> y }                             <span class="c-comment">⍝</span><span class="c-comment"> Quirky Bird</span></pre>
 </div>
 <div class="item" id="l.Q_4">
 <h3><a href="#l.Q_4"><span class="c-libfunc">ˡQ̲4</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; a -&gt; (a -&gt; b) -&gt; (b -&gt; c) -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L36">line 36</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L129">line 129</a></div>
+<div class="doc">
+<p>The Quacky Bird: Q4 x y z = z (y x).</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡQ̲4</span> ← { x <span class="c-builtin">y̲</span> <span class="c-builtin">z̲</span> → <span class="c-builtin">z̲</span> <span class="c-builtin">y̲</span> x }                             <span class="c-comment">⍝</span><span class="c-comment"> Quacky Bird</span></pre>
 </div>
 <div class="item" id="l.R_">
 <h3><a href="#l.R_"><span class="c-libfunc">ˡR̲</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; a -&gt; (b -&gt; a -&gt; c) -&gt; b -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L37">line 37</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L135">line 135</a></div>
+<div class="doc">
+<p>The Robin: R x y z = y z x, the function moved to the front.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<span class="c-number">1</span> <a href="lib-Combinators.xtl.html#l.R_" class="c-libfunc">ᶜR̲</a> <span class="c-symbol">'</span><a href="builtins.html#-2d" class="c-symbol">−</a>)_ <span class="c-number">2</span>
+1</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡR̲</span> ← { x <span class="c-builtin">y̲</span> z → z <span class="c-builtin">y̲</span> x }                              <span class="c-comment">⍝</span><span class="c-comment"> Robin</span></pre>
 </div>
 <div class="item" id="l.S_">
 <h3><a href="#l.S_"><span class="c-libfunc">ˡS̲</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; (a -&gt; b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L38">line 38</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L141">line 141</a></div>
+<div class="doc">
+<p>The Starling: S x y z = x z (y z), z used twice (J's hook).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-builtin">'</span><a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <span class="c-symbol">'</span><a href="builtins.html#-2d" class="c-symbol">−</a> <a href="lib-Combinators.xtl.html#l.S_" class="c-libfunc">ᶜS̲</a> <span class="c-number">3</span>
+6</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡS̲</span> ← { <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z → z <span class="c-builtin">x̲</span> <span class="c-builtin">y̲</span> z }                            <span class="c-comment">⍝</span><span class="c-comment"> Starling</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L26">combinators.xtl:26</a></div>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L38">combinators.xtl:38</a></div>
 </div>
 <div class="item" id="l.V_">
 <h3><a href="#l.V_"><span class="c-libfunc">ˡV̲</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; a -&gt; b -&gt; (a -&gt; b -&gt; c) -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L39">line 39</a></div>
-<pre class="code"><span class="c-libfunc">ˡV̲</span> ← { x y <span class="c-builtin">z̲</span> → x <span class="c-builtin">z̲</span> y }                              <span class="c-comment">⍝</span><span class="c-comment"> Vireo: a pair</span></pre>
-<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L32">combinators.xtl:32</a>, <a href="demos-combinators.xtl.src.html#L33">combinators.xtl:33</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L148">line 148</a></div>
+<div class="doc">
+<p>The Vireo: V x y z = z x y, a pair: x and y held until a function
+z is given them.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<span class="c-number">1</span> <a href="lib-Combinators.xtl.html#l.V_" class="c-libfunc">ᶜV̲</a> <span class="c-number">2</span>)_ <span class="c-symbol">'</span><a href="builtins.html#-2d" class="c-symbol">−</a>
+-1</pre>
 </div>
+<pre class="code"><span class="c-libfunc">ˡV̲</span> ← { x y <span class="c-builtin">z̲</span> → x <span class="c-builtin">z̲</span> y }                              <span class="c-comment">⍝</span><span class="c-comment"> Vireo: a pair</span></pre>
+<div class="uses">Used in: <a href="demos-combinators.xtl.src.html#L44">combinators.xtl:44</a>, <a href="demos-combinators.xtl.src.html#L45">combinators.xtl:45</a></div>
+</div>
+<h2 class="section" id="section-4">Once removed</h2>
 <div class="item" id="l.C_s">
 <h3><a href="#l.C_s"><span class="c-libfunc">ˡC̲s</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c -&gt; d) -&gt; a -&gt; c -&gt; b -&gt; d</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L42">line 42</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L153">line 153</a></div>
+<div class="doc">
+<p>C once removed: C* x y z w = x y w z.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡC̲s</span> ← { <span class="c-builtin">x̲</span> y z w → (y <span class="c-builtin">x̲</span> w)_ z }</pre>
 </div>
 <div class="item" id="l.R_s">
 <h3><a href="#l.R_s"><span class="c-libfunc">ˡR̲s</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c -&gt; d) -&gt; c -&gt; a -&gt; b -&gt; d</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L43">line 43</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L156">line 156</a></div>
+<div class="doc">
+<p>R once removed: R* x y z w = x z w y.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡR̲s</span> ← { <span class="c-builtin">x̲</span> y z w → (z <span class="c-builtin">x̲</span> w)_ y }</pre>
 </div>
 <div class="item" id="l.F_s">
 <h3><a href="#l.F_s"><span class="c-libfunc">ˡF̲s</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c -&gt; d) -&gt; c -&gt; b -&gt; a -&gt; d</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L44">line 44</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L159">line 159</a></div>
+<div class="doc">
+<p>F once removed: F* x y z w = x w z y.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡF̲s</span> ← { <span class="c-builtin">x̲</span> y z w → (w <span class="c-builtin">x̲</span> z)_ y }</pre>
 </div>
 <div class="item" id="l.V_s">
 <h3><a href="#l.V_s"><span class="c-libfunc">ˡV̲s</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c -&gt; d) -&gt; b -&gt; c -&gt; a -&gt; d</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L45">line 45</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L162">line 162</a></div>
+<div class="doc">
+<p>V once removed: V* x y z w = x w y z.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡV̲s</span> ← { <span class="c-builtin">x̲</span> y z w → (w <span class="c-builtin">x̲</span> y)_ z }</pre>
 </div>
 <div class="item" id="l.W_s">
 <h3><a href="#l.W_s"><span class="c-libfunc">ˡW̲s</span></a> <span class="type">: (Any a, Any b, Any c) =&gt; (a -&gt; b -&gt; b -&gt; c) -&gt; a -&gt; b -&gt; c</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L46">line 46</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L165">line 165</a></div>
+<div class="doc">
+<p>W once removed: W* x y z = x y z z.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡW̲s</span> ← { <span class="c-builtin">x̲</span> y z → (y <span class="c-builtin">x̲</span> z)_ z }</pre>
 </div>
+<h2 class="section" id="section-5">Twice removed</h2>
 <div class="item" id="l.C_ss">
 <h3><a href="#l.C_ss"><span class="c-libfunc">ˡC̲ss</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c -&gt; d -&gt; e) -&gt; a -&gt; b -&gt; d -&gt; c -&gt; e</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L49">line 49</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L170">line 170</a></div>
+<div class="doc">
+<p>C twice removed: C** x y z w v = x y z v w.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡC̲ss</span> ← { <span class="c-builtin">x̲</span> y z w v → ((y <span class="c-builtin">x̲</span> z)_ v)_ w }</pre>
 </div>
 <div class="item" id="l.R_ss">
 <h3><a href="#l.R_ss"><span class="c-libfunc">ˡR̲ss</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c -&gt; d -&gt; e) -&gt; a -&gt; d -&gt; b -&gt; c -&gt; e</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L50">line 50</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L173">line 173</a></div>
+<div class="doc">
+<p>R twice removed: R** x y z w v = x y w v z.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡR̲ss</span> ← { <span class="c-builtin">x̲</span> y z w v → ((y <span class="c-builtin">x̲</span> w)_ v)_ z }</pre>
 </div>
 <div class="item" id="l.F_ss">
 <h3><a href="#l.F_ss"><span class="c-libfunc">ˡF̲ss</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c -&gt; d -&gt; e) -&gt; a -&gt; d -&gt; c -&gt; b -&gt; e</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L51">line 51</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L176">line 176</a></div>
+<div class="doc">
+<p>F twice removed: F** x y z w v = x y v w z.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡF̲ss</span> ← { <span class="c-builtin">x̲</span> y z w v → ((y <span class="c-builtin">x̲</span> v)_ w)_ z }</pre>
 </div>
 <div class="item" id="l.V_ss">
 <h3><a href="#l.V_ss"><span class="c-libfunc">ˡV̲ss</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c -&gt; d -&gt; e) -&gt; a -&gt; c -&gt; d -&gt; b -&gt; e</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L52">line 52</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L179">line 179</a></div>
+<div class="doc">
+<p>V twice removed: V** x y z w v = x y v z w.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡV̲ss</span> ← { <span class="c-builtin">x̲</span> y z w v → ((y <span class="c-builtin">x̲</span> v)_ z)_ w }</pre>
 </div>
 <div class="item" id="l.W_ss">
 <h3><a href="#l.W_ss"><span class="c-libfunc">ˡW̲ss</span></a> <span class="type">: (Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c -&gt; c -&gt; d) -&gt; a -&gt; b -&gt; c -&gt; d</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L53">line 53</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L182">line 182</a></div>
+<div class="doc">
+<p>W twice removed: W** x y z w = x y z w w.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ˡW̲ss</span> ← { <span class="c-builtin">x̲</span> y z w → ((y <span class="c-builtin">x̲</span> z)_ w)_ w }</pre>
 </div>
+<h2 class="section" id="section-6">Recursion</h2>
 <div class="item" id="l.Y_">
 <h3><a href="#l.Y_"><span class="c-libfunc">ˡY̲</span></a> <span class="type">: Any a =&gt; (a -&gt; a) -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L57">line 57</a></div>
+<div class="meta">function &middot; <a href="lib-Combinators.xtl.src.html#L193">line 193</a></div>
+<div class="doc">
+<p>The Sage Bird by recursion: Y f is f (Y f), a fixed point of f. It
+works because a function's parameter is evaluated only when used; f
+takes itself (as ~s_elf) and its argument.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Combinators.xtl.html" class="c-string">&quot;Combinators&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘf̲act</span> ← { ~<span class="c-builtin">s̲elf</span> n → n <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? <span class="c-number">1</span>◆ n <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-builtin">s̲elf</span> n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> }</pre>
+<pre class="example"><span class="prompt">      </span><span class="c-userfunc">'</span><span class="c-userfunc">ᵘf̲act</span> <a href="lib-Combinators.xtl.html#l.Y_" class="c-libfunc">ᶜY̲</a> <span class="c-number">5</span>
+120</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡY̲</span> ← { <span class="c-builtin">f̲</span> → <span class="c-builtin">f̲</span> <a href="lib-Combinators.xtl.html#l.Y_" class="c-libfunc">ˡY̲</a> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</pre>
-<div class="uses">Used in: <a href="lib-Combinators.xtl.html#l.Y_"><span class="c-libfunc">ˡY̲</span></a>, <a href="demos-combinators.xtl.src.html#L38">combinators.xtl:38</a>, <a href="demos-tour.xtl.src.html#L168">tour.xtl:168</a></div>
+<div class="uses">Used in: <a href="lib-Combinators.xtl.html#l.Y_"><span class="c-libfunc">ˡY̲</span></a>, <a href="demos-combinators.xtl.src.html#L53">combinators.xtl:53</a>, <a href="demos-tour.xtl.src.html#L191">tour.xtl:191</a></div>
 </div>
 </main>
 </body>

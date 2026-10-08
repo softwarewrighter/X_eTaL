@@ -69,13 +69,15 @@
 <div class="doc">
 <p>A macro library of your own (userlibs/, found as libraries of your
 own are): statements written as many times as you ask, when the
-program is expanded, a loop unrolled at compile time.</p>
+program is expanded, a loop unrolled at compile time. Import it with
+an alias of your choice, &quot;r:&quot; u_se&lt; &quot;Repeat&quot;, and see what a program
+becomes with xetal expand FILE.</p>
 </div>
 <p class="meta"><a href="userlibs-Repeat.xtlm.src.html">source</a></p>
 <h2 class="section" id="section-1">Repeating statements</h2>
 <div class="item" id="m.t_imes-3c">
 <h3><a href="#m.t_imes-3c"><span class="c-macro">ᵐt̲imes&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="userlibs-Repeat.xtlm.src.html#L15">line 15</a></div>
+<div class="meta">macro &middot; <a href="userlibs-Repeat.xtlm.src.html#L17">line 17</a></div>
 <div class="doc">
 <p>The statements on the right, written the number of times on the
 left, one copy per line; it stands as a statement of its own. A
@@ -92,11 +94,15 @@ hip hip</pre>
   k <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">1</span> ? <span class="c-string">&quot;bad-macro-argument left&quot;</span> <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> <span class="c-string">&quot;r:t_imes&lt; writes its statements 1 or more times&quot;</span>
   k <a href="userlibs-Repeat.xtlm.html#c_opies" class="c-builtin">c̲opies</a> body
 }</pre>
-<div class="uses">Used in: <a href="demos-user-macros.xtl.src.html#L8">user-macros.xtl:8</a>, <a href="demos-user-macros.xtl.html#x">x</a></div>
+<div class="uses">Used in: <a href="demos-user-macros.xtl.src.html#L12">user-macros.xtl:12</a>, <a href="demos-user-macros.xtl.html#x">x</a></div>
 </div>
 <div class="item" id="c_opies">
 <h3><a href="#c_opies"><span class="c-builtin">c̲opies</span></a> <span class="type">: Int -&gt; Char -&gt; Char</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="userlibs-Repeat.xtlm.src.html#L23">line 23</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="userlibs-Repeat.xtlm.src.html#L26">line 26</a></div>
+<div class="doc">
+<p>The text t written k times, one copy per line (once when k is 1 or
+less).</p>
+</div>
 <pre class="code"><span class="c-builtin">c̲opies</span> ← { k t → k <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? t◆ t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\n&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (k <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="userlibs-Repeat.xtlm.html#c_opies" class="c-builtin">c̲opies</a> t }</pre>
 <div class="uses">Used in: <a href="userlibs-Repeat.xtlm.html#m.t_imes-3c"><span class="c-macro">ᵐt̲imes&lt;</span></a>, <a href="userlibs-Repeat.xtlm.html#c_opies"><span class="c-builtin">c̲opies</span></a></div>
 </div>

@@ -57,8 +57,10 @@
 </ul>
 <h2>On this page</h2>
 <ul>
+<li><a href="#section-1">The model</a></li>
 <li class="item"><a href="#v">v</a></li>
 <li class="item"><a href="#m">m</a></li>
+<li><a href="#section-2">The game</a></li>
 <li class="item"><a href="#u.a_sk"><span class="c-userfunc">ᵘa̲sk</span></a></li>
 <li class="item"><a href="#u.y_ou"><span class="c-userfunc">ᵘy̲ou</span></a></li>
 <li class="item"><a href="#u.m_e"><span class="c-userfunc">ᵘm̲e</span></a></li>
@@ -69,22 +71,42 @@
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">program</span>demos/tttml-play.xtl</h1>
+<div class="doc">
+<p>TTTML, part 2: play the machine that demos/tttml-train.xtl trained
+(run that first), with &quot;xetal run demos/tttml-play.xtl&quot;. You are X and
+move first: type a square, 1 to 9, numbered row by row. Something
+that is not an empty square is asked for again. Uses the TTTML
+library (lib/TTTML.xtl).</p>
+</div>
 <p class="meta"><a href="demos-tttml-play.xtl.src.html">source</a> &middot; imports <code><span class="c-error">t:</span></code> <a href="lib-TTTML.xtl.html">lib/TTTML.xtl</a></p>
+<h2 class="section" id="section-1">The model</h2>
 <div class="item" id="v">
 <h3><a href="#v">v</a> <span class="type">: Float</span></h3>
-<div class="meta">value &middot; <a href="demos-tttml-play.xtl.src.html#L10">line 10</a></div>
+<div class="meta">value &middot; <a href="demos-tttml-play.xtl.src.html#L16">line 16</a></div>
+<div class="doc">
+<p>The numbers of work/tttml.model: the codes, then the values.</p>
+</div>
 <pre class="code">v ← <a href="builtins.html#n_umbers" class="c-builtin">n̲umbers</a> <a href="builtins.html#-5b-5dN_GET" class="c-builtin">⎕N̲GET</a> <span class="c-string">&quot;work/tttml.model&quot;</span></pre>
 <div class="uses">Used in: <a href="demos-tttml-play.xtl.html#m">m</a></div>
 </div>
 <div class="item" id="m">
 <h3><a href="#m">m</a> <span class="type">: Float</span></h3>
-<div class="meta">value &middot; <a href="demos-tttml-play.xtl.src.html#L11">line 11</a></div>
-<pre class="code">m ← (<span class="c-number">2</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> <a href="demos-tttml-play.xtl.html#v">v</a>) <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">2</span>) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="demos-tttml-play.xtl.html#v">v</a></pre>
-<div class="uses">Used in: <a href="demos-tttml-play.xtl.src.html#L12">tttml-play.xtl:12</a>, <a href="demos-tttml-play.xtl.html#u.m_e"><span class="c-userfunc">ᵘm̲e</span></a></div>
+<div class="meta">value &middot; <a href="demos-tttml-play.xtl.src.html#L19">line 19</a></div>
+<div class="doc">
+<p>The model: two rows, the codes of the positions met and their
+values.</p>
 </div>
+<pre class="code">m ← (<span class="c-number">2</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> <a href="demos-tttml-play.xtl.html#v">v</a>) <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">2</span>) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="demos-tttml-play.xtl.html#v">v</a></pre>
+<div class="uses">Used in: <a href="demos-tttml-play.xtl.src.html#L20">tttml-play.xtl:20</a>, <a href="demos-tttml-play.xtl.html#u.m_e"><span class="c-userfunc">ᵘm̲e</span></a></div>
+</div>
+<h2 class="section" id="section-2">The game</h2>
 <div class="item" id="u.a_sk">
 <h3><a href="#u.a_sk"><span class="c-userfunc">ᵘa̲sk</span></a> <span class="type">: Num a =&gt; a -&gt; Int</span></h3>
-<div class="meta">function &middot; <a href="demos-tttml-play.xtl.src.html#L15">line 15</a></div>
+<div class="meta">function &middot; <a href="demos-tttml-play.xtl.src.html#L26">line 26</a></div>
+<div class="doc">
+<p>u:a_sk s: your move on board s, read from the keyboard: the square
+typed, 1 to 9; anything but an empty square asks again.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘa̲sk</span> ← { s →
   shown ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;your move (1 to 9):&quot;</span>
   t ← <a href="builtins.html#-5b-5dR_EAD" class="c-builtin">⎕R̲EAD</a> @
@@ -95,18 +117,26 @@
 </div>
 <div class="item" id="u.y_ou">
 <h3><a href="#u.y_ou"><span class="c-userfunc">ᵘy̲ou</span></a> <span class="type">: Int -&gt; Int</span></h3>
-<div class="meta">function &middot; <a href="demos-tttml-play.xtl.src.html#L23">line 23</a></div>
+<div class="meta">function &middot; <a href="demos-tttml-play.xtl.src.html#L35">line 35</a></div>
+<div class="doc">
+<p>u:y_ou s: you move on board s, then it replies, until the game is
+over; the final board. Each board is printed as it is played.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘy̲ou</span> ← { s →
   s ← s <a href="lib-TTTML.xtl.html#l.a_fter" class="c-libfunc">ᵗa̲fter</a> <a href="demos-tttml-play.xtl.html#u.a_sk" class="c-userfunc">ᵘa̲sk</a> s
   shown ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <a href="lib-TTTML.xtl.html#l.s_how" class="c-libfunc">ᵗs̲how</a> s
   gap ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span>
   <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="lib-TTTML.xtl.html#l.o_utcome" class="c-libfunc">ᵗo̲utcome</a> s ? <a href="demos-tttml-play.xtl.html#u.m_e" class="c-userfunc">ᵘm̲e</a> s◆ s
 }</pre>
-<div class="uses">Used in: <a href="demos-tttml-play.xtl.html#u.m_e"><span class="c-userfunc">ᵘm̲e</span></a>, <a href="demos-tttml-play.xtl.src.html#L37">tttml-play.xtl:37</a></div>
+<div class="uses">Used in: <a href="demos-tttml-play.xtl.html#u.m_e"><span class="c-userfunc">ᵘm̲e</span></a>, <a href="demos-tttml-play.xtl.src.html#L53">tttml-play.xtl:53</a></div>
 </div>
 <div class="item" id="u.m_e">
 <h3><a href="#u.m_e"><span class="c-userfunc">ᵘm̲e</span></a> <span class="type">: Int -&gt; Int</span></h3>
-<div class="meta">function &middot; <a href="demos-tttml-play.xtl.src.html#L29">line 29</a></div>
+<div class="meta">function &middot; <a href="demos-tttml-play.xtl.src.html#L43">line 43</a></div>
+<div class="doc">
+<p>u:m_e s: the machine moves on board s (its best move from model
+m), then you, until the game is over; the final board.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘm̲e</span> ← { s →
   s ← s <a href="lib-TTTML.xtl.html#l.a_fter" class="c-libfunc">ᵗa̲fter</a> <a href="demos-tttml-play.xtl.html#m">m</a> <a href="lib-TTTML.xtl.html#l.c_hoose" class="c-libfunc">ᵗc̲hoose</a> s
   shown ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <a href="lib-TTTML.xtl.html#l.s_how" class="c-libfunc">ᵗs̲how</a> s
@@ -117,9 +147,13 @@
 </div>
 <div class="item" id="u.v_erdict">
 <h3><a href="#u.v_erdict"><span class="c-userfunc">ᵘv̲erdict</span></a> <span class="type">: Num a =&gt; a -&gt; Char</span></h3>
-<div class="meta">function &middot; <a href="demos-tttml-play.xtl.src.html#L35">line 35</a></div>
+<div class="meta">function &middot; <a href="demos-tttml-play.xtl.src.html#L51">line 51</a></div>
+<div class="doc">
+<p>u:v_erdict w: an outcome said from your side: 1 &quot;you win&quot;, -1 &quot;it
+wins&quot;, anything else &quot;a draw&quot;.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘv̲erdict</span> ← { w → w <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span> ? <span class="c-string">&quot;you win&quot;</span>◆ w <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">-1</span> ? <span class="c-string">&quot;it wins&quot;</span>◆ <span class="c-string">&quot;a draw&quot;</span> }</pre>
-<div class="uses">Used in: <a href="demos-tttml-play.xtl.src.html#L37">tttml-play.xtl:37</a></div>
+<div class="uses">Used in: <a href="demos-tttml-play.xtl.src.html#L53">tttml-play.xtl:53</a></div>
 </div>
 </main>
 </body>

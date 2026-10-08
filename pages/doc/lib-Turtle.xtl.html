@@ -58,8 +58,10 @@
 <h2>On this page</h2>
 <ul>
 <li class="item"><a href="#h.r_adians"><span class="c-libfunc">ʰr̲adians</span></a></li>
+<li><a href="#section-1">Points of a walk</a></li>
 <li class="item"><a href="#l.w_alk"><span class="c-libfunc">ˡw̲alk</span></a></li>
 <li class="item"><a href="#l.p_oints"><span class="c-libfunc">ˡp̲oints</span></a></li>
+<li><a href="#section-2">Building walks</a></li>
 <li class="item"><a href="#l.t_urn"><span class="c-libfunc">ˡt̲urn</span></a></li>
 <li class="item"><a href="#l.p_olygon"><span class="c-libfunc">ˡp̲olygon</span></a></li>
 </ul>
@@ -68,16 +70,39 @@
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">library</span>lib/Turtle.xtl</h1>
+<div class="doc">
+<p>Turtle: turtle graphics as arrays (a standard library, built into
+xetal). Import it with an alias of your choice: &quot;t:&quot; u_se&lt; &quot;Turtle&quot;.
+A walk is a vector of turns in degrees, one before each step forward;
+the turtle starts at the origin facing east (0 degrees, counting
+anticlockwise). No turtle moves: the headings are a running sum of
+the turns, the steps are their cosines and sines, and the positions
+are running sums of the steps. Draw the points with []P_ATH.
+Names with l: are exported; names with h: are private to this file.</p>
+</div>
 <p class="meta"><a href="lib-Turtle.xtl.src.html">source</a></p>
 <div class="item" id="h.r_adians">
 <h3><a href="#h.r_adians"><span class="c-libfunc">ʰr̲adians</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Turtle.xtl.src.html#L9">line 9</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Turtle.xtl.src.html#L11">line 11</a></div>
+<div class="doc">
+<p>Degrees as radians, a Float.</p>
+</div>
 <pre class="code"><span class="c-libfunc">ʰr̲adians</span> ← { (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#p_i" class="c-builtin">p̲i</a> @) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">180</span> }         <span class="c-comment">⍝</span><span class="c-comment"> private</span></pre>
 <div class="uses">Used in: <a href="lib-Turtle.xtl.html#l.w_alk"><span class="c-libfunc">ˡw̲alk</span></a></div>
 </div>
+<h2 class="section" id="section-1">Points of a walk</h2>
 <div class="item" id="l.w_alk">
 <h3><a href="#l.w_alk"><span class="c-libfunc">ˡw̲alk</span></a> <span class="type">: (Num a, Num b) =&gt; a -&gt; b -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="lib-Turtle.xtl.src.html#L14">line 14</a></div>
+<div class="meta">function &middot; <a href="lib-Turtle.xtl.src.html#L22">line 22</a></div>
+<div class="doc">
+<p>The points of a walk with steps of the given lengths, 2 rows (x over
+y), starting at the origin: <code>lengths <a href="lib-Turtle.xtl.html#l.w_alk" class="c-libfunc">ᵗw̲alk</a> turns</code>; a single length
+serves every step. A walk of n turns gives n + 1 points.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵗ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Turtle.xtl.html" class="c-string">&quot;Turtle&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">0.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">2</span> <a href="lib-Turtle.xtl.html#l.w_alk" class="c-libfunc">ᵗw̲alk</a> <span class="c-number">0</span> <span class="c-number">90</span> <span class="c-number">90</span>
+0 2 2 0
+0 0 2 2</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡw̲alk</span> ← { lengths turns →
   h ← <a href="lib-Turtle.xtl.html#h.r_adians" class="c-libfunc">ʰr̲adians</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> turns
   xs ← <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> (<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> lengths) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#c_os" class="c-builtin">c̲os</a> h
@@ -88,17 +113,39 @@
 </div>
 <div class="item" id="l.p_oints">
 <h3><a href="#l.p_oints"><span class="c-libfunc">ˡp̲oints</span></a> <span class="type">: Num a =&gt; a -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="lib-Turtle.xtl.src.html#L22">line 22</a></div>
+<div class="meta">function &middot; <a href="lib-Turtle.xtl.src.html#L34">line 34</a></div>
+<div class="doc">
+<p>The points of a walk of unit steps: <code><a href="lib-Turtle.xtl.html#l.p_oints" class="c-libfunc">ᵗp̲oints</a> turns</code>.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵗ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Turtle.xtl.html" class="c-string">&quot;Turtle&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">0.5</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="lib-Turtle.xtl.html#l.p_oints" class="c-libfunc">ᵗp̲oints</a> <a href="lib-Turtle.xtl.html#l.p_olygon" class="c-libfunc">ᵗp̲olygon</a> <span class="c-number">4</span>
+0 0 -1 -1 0
+0 1  1  0 0</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡp̲oints</span> ← { turns → <span class="c-number">1</span> <a href="lib-Turtle.xtl.html#l.w_alk" class="c-libfunc">ˡw̲alk</a> turns }</pre>
 </div>
+<h2 class="section" id="section-2">Building walks</h2>
 <div class="item" id="l.t_urn">
 <h3><a href="#l.t_urn"><span class="c-libfunc">ˡt̲urn</span></a> <span class="type">: Num a =&gt; a -&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="lib-Turtle.xtl.src.html#L26">line 26</a></div>
+<div class="meta">function &middot; <a href="lib-Turtle.xtl.src.html#L43">line 43</a></div>
+<div class="doc">
+<p>The walk w with t degrees more turned before its first step: how
+pieces of a curve are joined (<code><span class="c-number">60</span> <a href="lib-Turtle.xtl.html#l.t_urn" class="c-libfunc">ᵗt̲urn</a> w</code>).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵗ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Turtle.xtl.html" class="c-string">&quot;Turtle&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">60</span> <a href="lib-Turtle.xtl.html#l.t_urn" class="c-libfunc">ᵗt̲urn</a> <span class="c-number">0</span> <span class="c-number">120</span> <span class="c-number">120</span>
+60 120 120</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡt̲urn</span> ← { t w → (t <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> w) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> w }</pre>
 </div>
 <div class="item" id="l.p_olygon">
 <h3><a href="#l.p_olygon"><span class="c-libfunc">ˡp̲olygon</span></a> <span class="type">: Int -&gt; Float</span></h3>
-<div class="meta">function &middot; <a href="lib-Turtle.xtl.src.html#L29">line 29</a></div>
+<div class="meta">function &middot; <a href="lib-Turtle.xtl.src.html#L50">line 50</a></div>
+<div class="doc">
+<p>A regular polygon of n sides, as a walk: n turns of 360 / n degrees,
+so it closes where it began.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵗ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Turtle.xtl.html" class="c-string">&quot;Turtle&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="lib-Turtle.xtl.html#l.p_olygon" class="c-libfunc">ᵗp̲olygon</a> <span class="c-number">4</span>
+90.0 90.0 90.0 90.0</pre>
+</div>
 <pre class="code"><span class="c-libfunc">ˡp̲olygon</span> ← { n → n <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">360</span> <a href="builtins.html#-2f" class="c-symbol">÷</a> n }</pre>
 </div>
 </main>

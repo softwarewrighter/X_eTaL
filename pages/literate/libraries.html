@@ -55,14 +55,20 @@ A small statistics library. Its whole source:
 <span class="c-comment">⍝# either).</span>
 <span class="c-comment">⍝# Names with l: are exported; names with h: are private to this file.</span>
 
+<span class="c-comment">⍝## Center</span>
+
 <span class="c-comment">⍝# The arithmetic mean, of Int or Float numbers.</span>
 <span class="c-comment">⍝# &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
 <span class="c-comment">⍝# &gt;&gt; s:m_ean 2 4 4 4 5 5 7 9</span>
 <span class="c-comment">⍝# 5.0</span>
 <span class="c-libfunc">ˡm̲ean</span> ← [[<span class="c-builtin">f̲loat</span> <span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span>] <span class="c-symbol">÷</span> [<span class="c-builtin">f̲loat</span> <span class="c-builtin">t̲ally</span>]]
 
+<span class="c-comment">⍝# Each number times itself.</span>
 <span class="c-libfunc">ʰs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍵</span> }                       <span class="c-comment">⍝ private: not visible outside</span>
+<span class="c-comment">⍝# How far each number is from the mean, as Floats.</span>
 <span class="c-libfunc">ʰd̲eviations</span> ← [<span class="c-builtin">f̲loat</span> <span class="c-symbol">−</span> <span class="c-libfunc">ˡm̲ean</span>]
+
+<span class="c-comment">⍝## Spread</span>
 
 <span class="c-comment">⍝# The variance: the mean squared deviation from the mean.</span>
 <span class="c-comment">⍝# &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
@@ -230,19 +236,27 @@ two rows (x over y) that <code>[]P_ATH</code> draws. Its whole source:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal"><span class="c-comment">⍝ Turtle: turtle graphics as arrays (a standard library, built into</span>
-<span class="c-comment">⍝ xetal). Import it with an alias of your choice: &quot;t:&quot; u_se&lt; &quot;Turtle&quot;.</span>
-<span class="c-comment">⍝ A walk is a vector of turns in degrees, one before each step forward;</span>
-<span class="c-comment">⍝ the turtle starts at the origin facing east (0 degrees, counting</span>
-<span class="c-comment">⍝ anticlockwise). No turtle moves: the headings are a running sum of</span>
-<span class="c-comment">⍝ the turns, the steps are their cosines and sines, and the positions</span>
-<span class="c-comment">⍝ are running sums of the steps. Draw the points with []P_ATH.</span>
+<pre class="src src-xetal"><span class="c-comment">⍝# Turtle: turtle graphics as arrays (a standard library, built into</span>
+<span class="c-comment">⍝# xetal). Import it with an alias of your choice: &quot;t:&quot; u_se&lt; &quot;Turtle&quot;.</span>
+<span class="c-comment">⍝# A walk is a vector of turns in degrees, one before each step forward;</span>
+<span class="c-comment">⍝# the turtle starts at the origin facing east (0 degrees, counting</span>
+<span class="c-comment">⍝# anticlockwise). No turtle moves: the headings are a running sum of</span>
+<span class="c-comment">⍝# the turns, the steps are their cosines and sines, and the positions</span>
+<span class="c-comment">⍝# are running sums of the steps. Draw the points with []P_ATH.</span>
+<span class="c-comment">⍝# Names with l: are exported; names with h: are private to this file.</span>
 
+<span class="c-comment">⍝# Degrees as radians, a Float.</span>
 <span class="c-libfunc">ʰr̲adians</span> ← { (<span class="c-builtin">f̲loat</span> <span class="c-lambdaarg">⍵</span>) <span class="c-symbol">×</span> (<span class="c-builtin">p̲i</span> @) <span class="c-symbol">÷</span> <span class="c-number">180</span> }         <span class="c-comment">⍝ private</span>
 
-<span class="c-comment">⍝ The points of a walk with steps of the given lengths, 2 rows (x over</span>
-<span class="c-comment">⍝ y), starting at the origin: </span>lengths <span class="c-libfunc">ˡw̲alk</span> turns<span class="c-comment">; a single length</span>
-<span class="c-comment">⍝ serves every step.</span>
+<span class="c-comment">⍝## Points of a walk</span>
+
+<span class="c-comment">⍝# The points of a walk with steps of the given lengths, 2 rows (x over</span>
+<span class="c-comment">⍝# y), starting at the origin: </span>lengths <span class="c-libfunc">ᵗw̲alk</span> turns<span class="c-comment">; a single length</span>
+<span class="c-comment">⍝# serves every step. A walk of n turns gives n + 1 points.</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;t:&quot; u_se&lt; &quot;Turtle&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; f_loor 0.5 + 2 t:w_alk 0 90 90</span>
+<span class="c-comment">⍝# 0 2 2 0</span>
+<span class="c-comment">⍝# 0 0 2 2</span>
 <span class="c-libfunc">ˡw̲alk</span> ← { lengths turns →
   h ← <span class="c-libfunc">ʰr̲adians</span> <span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> turns
   xs ← <span class="c-number">0</span> <span class="c-builtin">c̲at</span> <span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> (<span class="c-builtin">f̲loat</span> lengths) <span class="c-symbol">×</span> <span class="c-builtin">c̲os</span> h
@@ -250,14 +264,27 @@ two rows (x over y) that <code>[]P_ATH</code> draws. Its whole source:
   (<span class="c-number">2</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">t̲ally</span> xs) <span class="c-builtin">r̲eshape</span> xs <span class="c-builtin">c̲at</span> ys
 }
 
-<span class="c-comment">⍝ The points of a walk of unit steps.</span>
+<span class="c-comment">⍝# The points of a walk of unit steps: </span><span class="c-libfunc">ᵗp̲oints</span> turns<span class="c-comment">.</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;t:&quot; u_se&lt; &quot;Turtle&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; f_loor 0.5 + t:p_oints t:p_olygon 4</span>
+<span class="c-comment">⍝# 0 0 -1 -1 0</span>
+<span class="c-comment">⍝# 0 1  1  0 0</span>
 <span class="c-libfunc">ˡp̲oints</span> ← { turns → <span class="c-number">1</span> <span class="c-libfunc">ˡw̲alk</span> turns }
 
-<span class="c-comment">⍝ The walk with t degrees more turned before its first step: how pieces</span>
-<span class="c-comment">⍝ of a curve are joined (</span><span class="c-number">60</span> <span class="c-libfunc">ˡt̲urn</span> w<span class="c-comment">).</span>
+<span class="c-comment">⍝## Building walks</span>
+
+<span class="c-comment">⍝# The walk w with t degrees more turned before its first step: how</span>
+<span class="c-comment">⍝# pieces of a curve are joined (</span><span class="c-number">60</span> <span class="c-libfunc">ᵗt̲urn</span> w<span class="c-comment">).</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;t:&quot; u_se&lt; &quot;Turtle&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; 60 t:t_urn 0 120 120</span>
+<span class="c-comment">⍝# 60 120 120</span>
 <span class="c-libfunc">ˡt̲urn</span> ← { t w → (t <span class="c-symbol">+</span> <span class="c-number">1</span> <span class="c-builtin">t̲ake</span> w) <span class="c-builtin">c̲at</span> <span class="c-number">1</span> <span class="c-builtin">d̲rop</span> w }
 
-<span class="c-comment">⍝ A regular polygon of n sides, as a walk.</span>
+<span class="c-comment">⍝# A regular polygon of n sides, as a walk: n turns of 360 / n degrees,</span>
+<span class="c-comment">⍝# so it closes where it began.</span>
+<span class="c-comment">⍝# &gt;&gt; &quot;t:&quot; u_se&lt; &quot;Turtle&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; t:p_olygon 4</span>
+<span class="c-comment">⍝# 90.0 90.0 90.0 90.0</span>
 <span class="c-libfunc">ˡp̲olygon</span> ← { n → n <span class="c-builtin">r̲eshape</span> <span class="c-number">360</span> <span class="c-symbol">÷</span> n }
 
 <span class="c-comment typed">⍝ typed:</span>

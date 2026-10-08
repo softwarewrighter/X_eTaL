@@ -1,6 +1,8 @@
 ## A macro library of your own (userlibs/, found as libraries of your
 ## own are): statements written as many times as you ask, when the
-## program is expanded, a loop unrolled at compile time.
+## program is expanded, a loop unrolled at compile time. Import it with
+## an alias of your choice, "r:" u_se< "Repeat", and see what a program
+## becomes with xetal expand FILE.
 
 ### Repeating statements
 
@@ -19,5 +21,6 @@ m:t_imes< := { count body ->
   k c_opies body
 }
 
-# k copies of t, one per line.
+## The text t written k times, one copy per line (once when k is 1 or
+## less).
 c_opies := { k t -> k <= 1 ? t; t c_at "\n" c_at (k - 1) c_opies t }

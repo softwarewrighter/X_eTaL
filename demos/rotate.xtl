@@ -1,12 +1,20 @@
 #!/usr/bin/env xetal
-# Rotate along both axes: every frame moves the arrow one row down and
-# one column right, wrapping around the edges of the board. Frames are
-# separated by a blank line ("just animate" plays them).
+## Rotate along both axes: every frame moves the arrow one row down and
+## one column right, wrapping around the edges of the board.
+##
+## Run it with ./demos/rotate.xtl or "xetal run demos/rotate.xtl". It
+## prints eight frames separated by a blank line ("just animate" plays
+## them). Read `-1 o_-_12 b`: one rotation along axes 1 and 2 together.
+
+## n u:f_rames b: prints board b and a blank line, then the next n - 1
+## frames, each b rotated one row down and one column right; gives 0.
 u:f_rames := { n b ->
   n = 0 ? n
   s := p_rint! b
   gap := p_rint! ""
   (n - 1) u:f_rames -1 o_-_12 b
 }
+## The first frame: a 6 by 8 board of . with an arrow of # at its top left.
 arrow := 6 8 r_eshape ".#.......##.....###.....##......#......................."
+## The result of drawing eight frames, bound so it is not printed.
 shown := 8 u:f_rames arrow

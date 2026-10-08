@@ -1,6 +1,13 @@
 #!/usr/bin/env -S xetal run --untyped
-# The Y combinator works because the self parameter is lazy (~). Its
-# self-applied argument has no finite type, so run it with --untyped.
+## The Y combinator works because the self parameter is lazy (~). Its
+## self-applied argument has no finite type, so run it with --untyped:
+## ./demos/fixed-point.xtl or "xetal run --untyped demos/fixed-point.xtl".
+## It prints 120, the factorial of 5, recursion made by u:Y_ alone.
+
+## u:Y_ 'f: the fixed point of f, built from self-application: f
+## called with itself (lazily) as its first argument.
 u:Y_ := { f_ -> { x_ -> f_ x_ 'x_ } '{ x_ -> f_ x_ 'x_ } }
+## Factorial written open: s_elf stands for the function itself, so
+## u:Y_ 'u:F_ is the factorial.
 u:F_ := { ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }
 (u:Y_ 'u:F_)_ 5

@@ -65,18 +65,29 @@
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">program</span>demos/sub.xtl</h1>
+<div class="doc">
+<p>A dyadic user function; every function is curried. Run it with
+./demos/sub.xtl or &quot;xetal run demos/sub.xtl&quot;; it prints 7 twice, from
+<code><span class="c-number">10</span> <a href="demos-sub.xtl.html#u.s_ub" class="c-userfunc">ᵘs̲ub</a> <span class="c-number">3</span></code> and from the partial application u:t_enMinus.</p>
+</div>
 <p class="meta"><a href="demos-sub.xtl.src.html">source</a></p>
 <div class="item" id="u.s_ub">
 <h3><a href="#u.s_ub"><span class="c-userfunc">ᵘs̲ub</span></a> <span class="type">: Num a =&gt; a -&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="demos-sub.xtl.src.html#L3">line 3</a></div>
+<div class="meta">function &middot; <a href="demos-sub.xtl.src.html#L7">line 7</a></div>
+<div class="doc">
+<p>a u:s_ub b: a minus b.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘs̲ub</span> ← { <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-lambdaarg">⍵</span> }</pre>
-<div class="uses">Used in: <a href="demos-sub.xtl.src.html#L4">sub.xtl:4</a>, <a href="demos-sub.xtl.html#u.t_enMinus"><span class="c-userfunc">ᵘt̲enMinus</span></a></div>
+<div class="uses">Used in: <a href="demos-sub.xtl.src.html#L8">sub.xtl:8</a>, <a href="demos-sub.xtl.html#u.t_enMinus"><span class="c-userfunc">ᵘt̲enMinus</span></a></div>
 </div>
 <div class="item" id="u.t_enMinus">
 <h3><a href="#u.t_enMinus"><span class="c-userfunc">ᵘt̲enMinus</span></a> <span class="type">: Int -&gt; Int</span></h3>
-<div class="meta">function &middot; <a href="demos-sub.xtl.src.html#L5">line 5</a></div>
+<div class="meta">function &middot; <a href="demos-sub.xtl.src.html#L10">line 10</a></div>
+<div class="doc">
+<p>u:t_enMinus x: 10 minus x, u:s_ub with its left argument fixed at 10.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘt̲enMinus</span> ← <a href="demos-sub.xtl.html#u.s_ub" class="c-userfunc">ᵘs̲ub</a> <span class="c-number">10</span>         <span class="c-comment">⍝</span><span class="c-comment"> partial application fixes the left argument</span></pre>
-<div class="uses">Used in: <a href="demos-sub.xtl.src.html#L6">sub.xtl:6</a></div>
+<div class="uses">Used in: <a href="demos-sub.xtl.src.html#L11">sub.xtl:11</a></div>
 </div>
 </main>
 </body>

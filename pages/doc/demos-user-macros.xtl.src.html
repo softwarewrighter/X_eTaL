@@ -57,12 +57,12 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L13">x</a></li>
-<li class="item"><a href="#L14">x</a></li>
-<li class="item"><a href="#L14">x</a></li>
-<li class="item"><a href="#L14">x</a></li>
-<li class="item"><a href="#L14">x</a></li>
-<li class="item"><a href="#L14">x</a></li>
+<li class="item"><a href="#L18">x</a></li>
+<li class="item"><a href="#L20">x</a></li>
+<li class="item"><a href="#L20">x</a></li>
+<li class="item"><a href="#L20">x</a></li>
+<li class="item"><a href="#L20">x</a></li>
+<li class="item"><a href="#L20">x</a></li>
 </ul>
 </nav>
 <main>
@@ -70,28 +70,34 @@
 <section id="results"></section>
 <h1><span class="kind">source</span><a href="demos-user-macros.xtl.html">demos/user-macros.xtl</a></h1>
 <div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment">!/usr/bin/env xetal</span></span>
-<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> A macro library of your own: userlibs/Repeat.xtlm (in the live demo,</span></span>
-<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"> Repeat.xtlm among your files). It is found as a library of your own</span></span>
-<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"> is, and its macro r:t_imes&lt; writes statements as many times as you</span></span>
-<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"> ask, when the program is expanded: a loop unrolled before it runs.</span></span>
-<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"> </span><span class="c-comment"></span>xetal expand demos<span class="c-symbol">÷</span>user<span class="c-symbol">−</span>macros<span class="c-error">.</span>xtl<span class="c-comment"></span><span class="c-comment"> shows the three copies.</span></span>
-<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-libfunc">ʳ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="userlibs-Repeat.xtlm.html" class="c-string">&quot;Repeat&quot;</a></span>
-<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-string">&quot;3&quot;</span> <a href="userlibs-Repeat.xtlm.html#m.t_imes-3c" class="c-macro">ʳt̲imes&lt;</a> <span class="c-string">&quot;\&quot;hip hip\&quot;&quot;</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># A macro library of your own: userlibs/Repeat.xtlm (in the live demo,</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># Repeat.xtlm among your files). It is found as a library of your own</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"># is, and its macro r:t_imes&lt; writes statements as many times as you</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"># ask, when the program is expanded: a loop unrolled before it runs.</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment">#</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"># Run it with ./demos/user-macros.xtl or &quot;xetal run</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"># demos/user-macros.xtl&quot;. It prints hip hip three times, hooray, then</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"># 32. &quot;xetal expand demos/user-macros.xtl&quot; shows the copies.</span></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-libfunc">ʳ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="userlibs-Repeat.xtlm.html" class="c-string">&quot;Repeat&quot;</a></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-string">&quot;3&quot;</span> <a href="userlibs-Repeat.xtlm.html#m.t_imes-3c" class="c-macro">ʳt̲imes&lt;</a> <span class="c-string">&quot;\&quot;hip hip\&quot;&quot;</span></span>
 <details class="expansion"><summary><code><a href="userlibs-Repeat.xtlm.html#m.t_imes-3c" class="c-macro">ʳt̲imes&lt;</a></code> expands to</summary><pre class="code"><span class="c-string">&quot;hip hip&quot;</span>
 <span class="c-string">&quot;hip hip&quot;</span>
 <span class="c-string">&quot;hip hip&quot;</span></pre></details>
-<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-string">&quot;hooray&quot;</span></span>
-<span class="line" id="L10"><a class="ln" href="#L10">10</a></span>
-<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"> The copies are ordinary statements, so they can rebind a variable:</span></span>
-<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"> five doublings, unrolled.</span></span>
-<span class="line" id="L13"><a class="ln" href="#L13">13</a>x ← <span class="c-number">1</span></span>
-<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-string">&quot;5&quot;</span> <a href="userlibs-Repeat.xtlm.html#m.t_imes-3c" class="c-macro">ʳt̲imes&lt;</a> <span class="c-string">&quot;x := x * 2&quot;</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-string">&quot;hooray&quot;</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-comment">⍝</span><span class="c-comment"> The copies are ordinary statements, so they can rebind a variable:</span></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-comment">⍝</span><span class="c-comment"> five doublings, unrolled.</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-comment">⍝</span><span class="c-comment"># The number the five unrolled statements double, from 1 to 32.</span></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a>x ← <span class="c-number">1</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-comment">⍝</span><span class="c-comment"># Five copies of x := x * 2, written by r:t_imes&lt;.</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-string">&quot;5&quot;</span> <a href="userlibs-Repeat.xtlm.html#m.t_imes-3c" class="c-macro">ʳt̲imes&lt;</a> <span class="c-string">&quot;x := x * 2&quot;</span></span>
 <details class="expansion"><summary><code><a href="userlibs-Repeat.xtlm.html#m.t_imes-3c" class="c-macro">ʳt̲imes&lt;</a></code> expands to</summary><pre class="code">x ← <a href="demos-user-macros.xtl.html#x">x</a> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span>
 x ← <a href="demos-user-macros.xtl.html#x">x</a> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span>
 x ← <a href="demos-user-macros.xtl.html#x">x</a> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span>
 x ← <a href="demos-user-macros.xtl.html#x">x</a> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span>
 x ← <a href="demos-user-macros.xtl.html#x">x</a> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span></pre></details>
-<span class="line" id="L15"><a class="ln" href="#L15">15</a><a href="demos-user-macros.xtl.html#x">x</a></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><a href="demos-user-macros.xtl.html#x">x</a></span>
 </div>
 </main>
 </body>

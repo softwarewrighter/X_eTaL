@@ -1,6 +1,18 @@
 #!/usr/bin/env xetal
-# M3: dense arrays, 1-origin, structural built-ins and scalar extension.
+## Arrays: dense arrays, 1-origin indexing, the structural built-ins and
+## scalar extension. Run it with "xetal run demos/arrays.xtl" (or
+## "./demos/arrays.xtl"); it prints the result of each line after the
+## definition of m: the matrix, its shape, a row, the last row, the
+## matrix times ten, a row joined to more items and powers of ten.
+## Read it for how r_eshape, s_elect, t_ake and c_at treat a matrix.
+
+### The matrix
+
+## m: a 2 by 3 matrix holding 1 to 6, row by row.
 m := 2 3 r_eshape r_ange 6
+
+### Structural built-ins and scalar extension
+
 m
 s_hape m
 2 s_elect m

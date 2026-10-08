@@ -57,8 +57,11 @@
 </ul>
 <h2>On this page</h2>
 <ul>
+<li><a href="#section-1">Reduce and scan</a></li>
 <li class="item"><a href="#v">v</a></li>
+<li><a href="#section-2">Matrices: reduce, outer and inner products</a></li>
 <li class="item"><a href="#m">m</a></li>
+<li><a href="#section-3">Functions as operands</a></li>
 <li class="item"><a href="#u.s_ign"><span class="c-userfunc">ᵘs̲ign</span></a></li>
 </ul>
 </nav>
@@ -66,24 +69,44 @@
 <button class="theme" title="Light or dark">theme</button>
 <section id="results"></section>
 <h1><span class="kind">program</span>demos/higher-order.xtl</h1>
+<div class="doc">
+<p>Higher-order built-ins: they take quoted functions as operands, as
+<code><span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <a href="demos-higher-order.xtl.html#v">v</a></code> reduces v with plus. Run it with
+&quot;xetal run demos/higher-order.xtl&quot; (or &quot;./demos/higher-order.xtl&quot;);
+it prints the result of each line: reductions, a scan, an outer and
+an inner product, e_ach, c_ompose and s_wap, then the search and
+order built-ins s_ort, g_rade, u_nique, i_ndexOf and w_here.</p>
+</div>
 <p class="meta"><a href="demos-higher-order.xtl.src.html">source</a></p>
+<h2 class="section" id="section-1">Reduce and scan</h2>
 <div class="item" id="v">
 <h3><a href="#v">v</a> <span class="type">: Int</span></h3>
-<div class="meta">value &middot; <a href="demos-higher-order.xtl.src.html#L3">line 3</a></div>
-<pre class="code">v ← <span class="c-number">3</span> <span class="c-number">1</span> <span class="c-number">4</span> <span class="c-number">1</span> <span class="c-number">5</span></pre>
-<div class="uses">Used in: <a href="demos-higher-order.xtl.src.html#L4">higher-order.xtl:4</a>, <a href="demos-higher-order.xtl.src.html#L6">higher-order.xtl:6</a>, <a href="demos-higher-order.xtl.src.html#L16">higher-order.xtl:16</a>, <a href="demos-higher-order.xtl.src.html#L17">higher-order.xtl:17</a>, <a href="demos-higher-order.xtl.src.html#L18">higher-order.xtl:18</a>, <a href="demos-higher-order.xtl.src.html#L19">higher-order.xtl:19</a>, <a href="demos-higher-order.xtl.src.html#L20">higher-order.xtl:20</a></div>
+<div class="meta">value &middot; <a href="demos-higher-order.xtl.src.html#L12">line 12</a></div>
+<div class="doc">
+<p>v: the vector the reductions, scan and search built-ins work on.</p>
 </div>
+<pre class="code">v ← <span class="c-number">3</span> <span class="c-number">1</span> <span class="c-number">4</span> <span class="c-number">1</span> <span class="c-number">5</span></pre>
+<div class="uses">Used in: <a href="demos-higher-order.xtl.src.html#L13">higher-order.xtl:13</a>, <a href="demos-higher-order.xtl.src.html#L15">higher-order.xtl:15</a>, <a href="demos-higher-order.xtl.src.html#L36">higher-order.xtl:36</a>, <a href="demos-higher-order.xtl.src.html#L37">higher-order.xtl:37</a>, <a href="demos-higher-order.xtl.src.html#L38">higher-order.xtl:38</a>, <a href="demos-higher-order.xtl.src.html#L39">higher-order.xtl:39</a>, <a href="demos-higher-order.xtl.src.html#L40">higher-order.xtl:40</a></div>
+</div>
+<h2 class="section" id="section-2">Matrices: reduce, outer and inner products</h2>
 <div class="item" id="m">
 <h3><a href="#m">m</a> <span class="type">: Int</span></h3>
-<div class="meta">value &middot; <a href="demos-higher-order.xtl.src.html#L7">line 7</a></div>
-<pre class="code">m ← <span class="c-number">2</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">6</span></pre>
-<div class="uses">Used in: <a href="demos-higher-order.xtl.src.html#L8">higher-order.xtl:8</a>, <a href="demos-higher-order.xtl.src.html#L10">higher-order.xtl:10</a></div>
+<div class="meta">value &middot; <a href="demos-higher-order.xtl.src.html#L20">line 20</a></div>
+<div class="doc">
+<p>m: a 2 by 3 matrix holding 1 to 6, row by row.</p>
 </div>
+<pre class="code">m ← <span class="c-number">2</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">6</span></pre>
+<div class="uses">Used in: <a href="demos-higher-order.xtl.src.html#L21">higher-order.xtl:21</a>, <a href="demos-higher-order.xtl.src.html#L23">higher-order.xtl:23</a></div>
+</div>
+<h2 class="section" id="section-3">Functions as operands</h2>
 <div class="item" id="u.s_ign">
 <h3><a href="#u.s_ign"><span class="c-userfunc">ᵘs̲ign</span></a> <span class="type">: (Num a, Num b) =&gt; a -&gt; b</span></h3>
-<div class="meta">function &middot; <a href="demos-higher-order.xtl.src.html#L11">line 11</a></div>
+<div class="meta">function &middot; <a href="demos-higher-order.xtl.src.html#L28">line 28</a></div>
+<div class="doc">
+<p>u:s_ign x: -1 when x is negative, 0 when it is zero, 1 otherwise.</p>
+</div>
 <pre class="code"><span class="c-userfunc">ᵘs̲ign</span> ← { x → x <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">0</span> ? <span class="c-number">-1</span>◆ x <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? <span class="c-number">0</span>◆ <span class="c-number">1</span> }</pre>
-<div class="uses">Used in: <a href="demos-higher-order.xtl.src.html#L12">higher-order.xtl:12</a></div>
+<div class="uses">Used in: <a href="demos-higher-order.xtl.src.html#L29">higher-order.xtl:29</a></div>
 </div>
 </main>
 </body>

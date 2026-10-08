@@ -57,12 +57,12 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L12"><span class="c-libfunc">ˡm̲ean</span></a></li>
-<li class="item"><a href="#L14"><span class="c-libfunc">ʰs̲quare</span></a></li>
-<li class="item"><a href="#L15"><span class="c-libfunc">ʰd̲eviations</span></a></li>
-<li class="item"><a href="#L21"><span class="c-libfunc">ˡv̲ariance</span></a></li>
-<li class="item"><a href="#L27"><span class="c-libfunc">ˡs̲d</span></a></li>
-<li class="item"><a href="#L33"><span class="c-libfunc">ˡr̲ange</span></a></li>
+<li class="item"><a href="#L14"><span class="c-libfunc">ˡm̲ean</span></a></li>
+<li class="item"><a href="#L17"><span class="c-libfunc">ʰs̲quare</span></a></li>
+<li class="item"><a href="#L19"><span class="c-libfunc">ʰd̲eviations</span></a></li>
+<li class="item"><a href="#L27"><span class="c-libfunc">ˡv̲ariance</span></a></li>
+<li class="item"><a href="#L33"><span class="c-libfunc">ˡs̲d</span></a></li>
+<li class="item"><a href="#L39"><span class="c-libfunc">ˡr̲ange</span></a></li>
 </ul>
 </nav>
 <main>
@@ -76,32 +76,38 @@
 <span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"># either).</span></span>
 <span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"># Names with l: are exported; names with h: are private to this file.</span></span>
 <span class="line" id="L7"><a class="ln" href="#L7">7</a></span>
-<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"># The arithmetic mean, of Int or Float numbers.</span></span>
-<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span></span>
-<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; s:m_ean 2 4 4 4 5 5 7 9</span></span>
-<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"># 5.0</span></span>
-<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-libfunc">ˡm̲ean</span> ← [[<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a>] <a href="builtins.html#-2f" class="c-symbol">÷</a> [<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a>]]</span>
-<span class="line" id="L13"><a class="ln" href="#L13">13</a></span>
-<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-libfunc">ʰs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍵</span> }                       <span class="c-comment">⍝</span><span class="c-comment"> private: not visible outside</span></span>
-<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-libfunc">ʰd̲eviations</span> ← [<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#-2d" class="c-symbol">−</a> <a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˡm̲ean</a>]</span>
-<span class="line" id="L16"><a class="ln" href="#L16">16</a></span>
-<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-comment">⍝</span><span class="c-comment"># The variance: the mean squared deviation from the mean.</span></span>
-<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span></span>
-<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; s:v_ariance 2 4 4 4 5 5 7 9</span></span>
-<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-comment">⍝</span><span class="c-comment"># 4.0</span></span>
-<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-libfunc">ˡv̲ariance</span> ← [<a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˡm̲ean</a> [<a href="lib-Stats.xtl.html#h.s_quare" class="c-libfunc">ʰs̲quare</a> <a href="lib-Stats.xtl.html#h.d_eviations" class="c-libfunc">ʰd̲eviations</a>]]</span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment">## Center</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment"># The arithmetic mean, of Int or Float numbers.</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; s:m_ean 2 4 4 4 5 5 7 9</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-comment">⍝</span><span class="c-comment"># 5.0</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-libfunc">ˡm̲ean</span> ← [[<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a>] <a href="builtins.html#-2f" class="c-symbol">÷</a> [<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a>]]</span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-comment">⍝</span><span class="c-comment"># Each number times itself.</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-libfunc">ʰs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍵</span> }                       <span class="c-comment">⍝</span><span class="c-comment"> private: not visible outside</span></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-comment">⍝</span><span class="c-comment"># How far each number is from the mean, as Floats.</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-libfunc">ʰd̲eviations</span> ← [<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#-2d" class="c-symbol">−</a> <a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˡm̲ean</a>]</span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-comment">⍝</span><span class="c-comment">## Spread</span></span>
 <span class="line" id="L22"><a class="ln" href="#L22">22</a></span>
-<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-comment">⍝</span><span class="c-comment"># The standard deviation: the square root of the variance.</span></span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-comment">⍝</span><span class="c-comment"># The variance: the mean squared deviation from the mean.</span></span>
 <span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span></span>
-<span class="line" id="L25"><a class="ln" href="#L25">25</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; s:s_d 2 4 4 4 5 5 7 9</span></span>
-<span class="line" id="L26"><a class="ln" href="#L26">26</a><span class="c-comment">⍝</span><span class="c-comment"># 2.0</span></span>
-<span class="line" id="L27"><a class="ln" href="#L27">27</a><span class="c-libfunc">ˡs̲d</span> ← { (<a href="lib-Stats.xtl.html#l.v_ariance" class="c-libfunc">ˡv̲ariance</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">0.5</span> }</span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; s:v_ariance 2 4 4 4 5 5 7 9</span></span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a><span class="c-comment">⍝</span><span class="c-comment"># 4.0</span></span>
+<span class="line" id="L27"><a class="ln" href="#L27">27</a><span class="c-libfunc">ˡv̲ariance</span> ← [<a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˡm̲ean</a> [<a href="lib-Stats.xtl.html#h.s_quare" class="c-libfunc">ʰs̲quare</a> <a href="lib-Stats.xtl.html#h.d_eviations" class="c-libfunc">ʰd̲eviations</a>]]</span>
 <span class="line" id="L28"><a class="ln" href="#L28">28</a></span>
-<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-comment">⍝</span><span class="c-comment"># The range: the largest minus the smallest.</span></span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-comment">⍝</span><span class="c-comment"># The standard deviation: the square root of the variance.</span></span>
 <span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span></span>
-<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; s:r_ange 2 4 4 4 5 5 7 9</span></span>
-<span class="line" id="L32"><a class="ln" href="#L32">32</a><span class="c-comment">⍝</span><span class="c-comment"># 7</span></span>
-<span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-libfunc">ˡr̲ange</span> ← [<span class="c-builtin">'</span><a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-builtin">'</span><a href="builtins.html#m_in" class="c-builtin">m̲in</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a>]</span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; s:s_d 2 4 4 4 5 5 7 9</span></span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a><span class="c-comment">⍝</span><span class="c-comment"># 2.0</span></span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-libfunc">ˡs̲d</span> ← { (<a href="lib-Stats.xtl.html#l.v_ariance" class="c-libfunc">ˡv̲ariance</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">0.5</span> }</span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a></span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a><span class="c-comment">⍝</span><span class="c-comment"># The range: the largest minus the smallest.</span></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span></span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; s:r_ange 2 4 4 4 5 5 7 9</span></span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-comment">⍝</span><span class="c-comment"># 7</span></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-libfunc">ˡr̲ange</span> ← [<span class="c-builtin">'</span><a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-builtin">'</span><a href="builtins.html#m_in" class="c-builtin">m̲in</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a>]</span>
 </div>
 </main>
 </body>

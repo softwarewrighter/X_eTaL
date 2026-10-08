@@ -1,18 +1,24 @@
       [2m⍝!/usr/bin/env xetal[0m
-      [2m⍝ A tour of X_eTaL: one commented file touching every implemented[0m
-      [2m⍝ feature. just tour shows each line decorated with its output; just pp[0m
-      [2m⍝ demos/tour.xtl prints it decorated; just edit demos/tour.xtl opens the[0m
-      [2m⍝ ASCII and the decorated form side by side.[0m
-      [2m⍝ Source is plain ASCII; the display draws the decorations (code in[0m
-      [2m⍝ backquotes inside comments is drawn too: [0mx[33m²[0m [34mr̲ev[0m [35m⍵[0m ←[2m). The table[0m
-      [2m⍝ of what to type for each glyph is docs/input.md. Expressions read[0m
-      [2m⍝ right to left; each top-level expression prints its value.[0m
+      [2m⍝# A tour of X_eTaL: one commented file touching every implemented[0m
+      [2m⍝# feature, a section per topic, from numbers to Life in one line.[0m
+      [2m⍝#[0m
+      [2m⍝# Run it with ./demos/tour.xtl or "xetal run demos/tour.xtl": each[0m
+      [2m⍝# top-level expression prints its value (the dice rolls differ on every[0m
+      [2m⍝# run). just tour shows each line decorated with its output; just pp[0m
+      [2m⍝# demos/tour.xtl prints it decorated; just edit demos/tour.xtl opens the[0m
+      [2m⍝# ASCII and the decorated form side by side.[0m
+      [2m⍝#[0m
+      [2m⍝# Source is plain ASCII; the display draws the decorations (code in[0m
+      [2m⍝# backquotes inside comments is drawn too: [0mx[33m²[0m [34mr̲ev[0m [35m⍵[0m ←[2m). The table[0m
+      [2m⍝# of what to type for each glyph is docs/input.md. Expressions read[0m
+      [2m⍝# right to left; read each line with its trailing comment.[0m
 
-      [2m⍝ -- Numbers ------------------------------------------------------------[0m
+      [2m⍝## Numbers[0m
       [33m42[0m                       [2m⍝ an Int[0m
 42
       [33m-3[0m [33m2.5[0m                   [2m⍝ a negative literal; a strand has one type (Float)[0m
 -3.0 2.5
+      [2m⍝# A small Int, squared and reused below.[0m
       x ← [33m3[0m                    [2m⍝ [0m←[2m binds; [0m[94m=[0m[2m is always equality[0m
       x[33m²[0m                       [2m⍝ a literal exponent touches its value: superscript[0m
 9
@@ -38,13 +44,14 @@
       [34ma̲tan[0m [33m1[0m                   [2m⍝ and c_os[0m
 0.7853981633974483
 
-      [2m⍝ -- Mutation -------------------------------------------------------------[0m
+      [2m⍝## Mutation[0m
+      [2m⍝# A counter: the one kind of name that may be bound again.[0m
       count! ← [33m0[0m               [2m⍝ only names ending in ! (like [0mcount![2m) may be reassigned[0m
       count! ← count! [94m+[0m [33m1[0m
       count![0m
 1
 
-      [2m⍝ -- Strings: vectors of characters ---------------------------------------[0m
+      [2m⍝## Strings: vectors of characters[0m
       [93m"hello"[0m
 hello
       [93m"abc"[0m [94m=[0m [93m"abd"[0m            [2m⍝ item by item[0m
@@ -54,7 +61,8 @@ hel
       [93m"hello X̲ᵉTᵃL"[0m             [2m⍝ strings and comments may hold any Unicode (code may not)[0m
 hello X̲ᵉTᵃL
 
-      [2m⍝ -- Arrays ---------------------------------------------------------------[0m
+      [2m⍝## Arrays[0m
+      [2m⍝# A 2 by 3 matrix of 1 to 6, used by the sections below.[0m
       m ← [33m2[0m [33m3[0m [34mr̲eshape[0m [34mr̲ange[0m [33m6[0m          [2m⍝ 1-origin: [0m[34mr̲ange[0m [33m6[0m[2m is 1 2 3 4 5 6[0m
       m[0m
 1 2 3
@@ -86,38 +94,46 @@ hello X̲ᵉTᵃL
       [33m10[0m [94m^[0m [34mr̲ev[0m [34mo̲ffsets[0m [33m3[0m       [2m⍝ [0m[34mo̲ffsets[0m[2m counts from 0: place values 100 10 1[0m
 100 10 1
 
-      [2m⍝ -- Functions ------------------------------------------------------------[0m
+      [2m⍝## Functions[0m
+      [2m⍝# u:s_quare x: x times x, item by item.[0m
       [32mᵘs̲quare[0m ← { [35m⍵[0m [94m×[0m [35m⍵[0m }              [2m⍝ [0m[35m⍵[0m[2m is the right argument[0m
       [32mᵘs̲quare[0m [33m1[0m [33m2[0m [33m3[0m                    [2m⍝ scalar functions work on arrays unchanged[0m
 1 4 9
+      [2m⍝# a u:s_ub b: a minus b.[0m
       [32mᵘs̲ub[0m ← { [35m⍺[0m [94m−[0m [35m⍵[0m }                 [2m⍝ [0m[35m⍺[0m[2m is the left argument[0m
       [33m10[0m [32mᵘs̲ub[0m [33m3[0m                        [2m⍝ dyadic use is currying: [0m([32mᵘs̲ub[0m [33m10[0m) [33m3[0m
 7
+      [2m⍝# a u:h_yp b: the hypotenuse of a right triangle with legs a and b.[0m
       [32mᵘh̲yp[0m ← { a b → ((a [94m×[0m a) [94m+[0m b [94m×[0m b) [94m^[0m [33m0.5[0m }       [2m⍝ named parameters before [0m→[0m
       [33m3[0m [32mᵘh̲yp[0m [33m4[0m
 5.0
+      [2m⍝# u:s_ign x: -1, 0 or 1 as x is negative, zero or positive.[0m
       [32mᵘs̲ign[0m ← { x → x [94m<[0m [33m0[0m ? [33m-1[0m◆ x [94m=[0m [33m0[0m ? [33m0[0m◆ [33m1[0m }      [2m⍝ guards: condition [0m?[2m result[0m
+      [2m⍝# u:f_act n: the factorial of n, by recursion (1 for n <= 1).[0m
       [32mᵘf̲act[0m ← { n →
         n [94m≤[0m [33m1[0m ? [33m1[0m
         n [94m×[0m [32mᵘf̲act[0m n [94m−[0m [33m1[0m
       }[0m
       [32mᵘf̲act[0m [33m10[0m                         [2m⍝ recursion[0m
 3628800
+      [2m⍝# u:t_wo @: 2; it takes only Unit.[0m
       [32mᵘt̲wo[0m ← { @ → [33m2[0m }                 [2m⍝ a niladic function takes [0m@[0m
       [32mᵘt̲wo[0m @[0m
 2
+      [2m⍝# a u:k_eep b: a; b is lazy, so it is never evaluated.[0m
       [32mᵘk̲eep[0m ← { a ~b → a }             [2m⍝ [0m~b[2m is a lazy parameter: evaluated[0m
       [33m7[0m [32mᵘk̲eep[0m [33m1[0m [94m÷[0m [33m0[0m                    [2m⍝ only if used, so no division by zero[0m
 7
       ([32mᵘs̲ub[0m [33m100[0m)_ [33m1[0m                    [2m⍝ [0m(expr)_[2m applies a function value[0m
 99
+      [2m⍝# 'f u:t_wice x: f applied to x two times.[0m
       [32mᵘt̲wice[0m ← { [34mf̲[0m x → [34mf̲[0m [34mf̲[0m x }         [2m⍝ apply a function parameter two times[0m
       [1m'[0m{ [35m⍵[0m [94m+[0m [33m10[0m } [32mᵘt̲wice[0m [33m3[0m             [2m⍝ 3 + 10 + 10[0m
 23
       [32m'ᵘs̲quare[0m [32mᵘt̲wice[0m [33m3[0m                [2m⍝ square (square 3) = 9 squared[0m
 81
 
-      [2m⍝ -- Quotes and operands --------------------------------------------------[0m
+      [2m⍝## Quotes and operands[0m
       [94m'+[0m [34mr̲/[0m [33m1[0m [33m2[0m [33m3[0m [33m4[0m            [2m⍝ a quoted function is the operand of [0m[34mr̲/[0m[2m (reduce)[0m
 10
       [94m'−[0m [34mr̲/[0m [33m1[0m [33m2[0m [33m3[0m              [2m⍝ reduce folds from the right: 1 - (2 - 3)[0m
@@ -143,7 +159,8 @@ hello X̲ᵉTᵃL
       [1m'[0m{ [35m⍺[0m [94m+[0m [35m⍵[0m } [34mr̲/[0m [33m1[0m [33m2[0m [33m3[0m      [2m⍝ a quoted lambda is an operand too[0m
 6
 
-      [2m⍝ -- Trains and tacks -----------------------------------------------------[0m
+      [2m⍝## Trains and tacks[0m
+      [2m⍝# u:a_vg x: the mean of x, as a fork of sum, divide and tally.[0m
       [32mᵘa̲vg[0m ← [[94m'+[0m [34mr̲/[0m [94m÷[0m [34mt̲ally[0m]           [2m⍝ fork: [0m([94m'+[0m [34mr̲/[0m x) [94m÷[0m [34mt̲ally[0m x[0m
       [32mᵘa̲vg[0m [33m1[0m [33m2[0m [33m3[0m [33m4[0m
 2.5
@@ -162,7 +179,7 @@ hello X̲ᵉTᵃL
       [1m'[0m[[34mt̲ally[0m [34md̲isclose[0m] [34me̲ach[0m [93m"ab"[0m [93m"cde"[0m [93m"f"[0m       [2m⍝ each item i: [0m[34mt̲ally[0m [34md̲isclose[0m i[0m
 2 3 1
 
-      [2m⍝ -- Rotate, reverse and axes ---------------------------------------------[0m
+      [2m⍝## Rotate, reverse and axes[0m
       [33m1[0m [34mo̲-[0m [33m1[0m [33m2[0m [33m3[0m [33m4[0m             [2m⍝ rotate toward the front[0m
 2 3 4 1
       [34mr̲ev[0m [93m"stressed"[0m
@@ -203,6 +220,7 @@ desserts
 1 4
 2 5
 3 6
+      [2m⍝# A 2 by 3 by 4 array of 1 to 24, for the axis examples.[0m
       a ← [33m2[0m [33m3[0m [33m4[0m [34mr̲eshape[0m [34mr̲ange[0m [33m24[0m
       [34ms̲hape[0m [34mo̲\[0m a              [2m⍝ every axis reversed: 4 3 2[0m
 4 3 2
@@ -211,7 +229,8 @@ desserts
       [34ms̲hape[0m [33m3[0m [33m1[0m [33m2[0m [34mt̲ranspose[0m a     [2m⍝ axis 1 to 3, 2 to 1, 3 to 2: 3 4 2[0m
 3 4 2
 
-      [2m⍝ -- Search and order -----------------------------------------------------[0m
+      [2m⍝## Search and order[0m
+      [2m⍝# The vector the search and order examples use.[0m
       v ← [33m3[0m [33m1[0m [33m4[0m [33m1[0m [33m5[0m [33m9[0m [33m2[0m [33m6[0m
       [34ms̲ort[0m v◆ [34mg̲rade[0m v          [2m⍝ sort, and the indices that sort[0m
 1 1 2 3 4 5 6 9
@@ -225,7 +244,8 @@ desserts
       [34mw̲here[0m v [94m>[0m [33m4[0m              [2m⍝ indices of the 1s[0m
 5 6 8
 
-      [2m⍝ -- Nested arrays and display --------------------------------------------[0m
+      [2m⍝## Nested arrays and display[0m
+      [2m⍝# A vector of two boxed strings.[0m
       n ← [93m"ab"[0m [93m"cde"[0m           [2m⍝ a strand of strings: a vector of 2 boxes[0m
       n                        [2m⍝ nested values print framed (APL2's DISPLAY)[0m
 ┌→───────────┐
@@ -237,6 +257,7 @@ desserts
 2
       [34md̲isclose[0m [33m2[0m [34ms̲elect[0m n      [2m⍝ open the 2nd box[0m
 cde
+      [2m⍝# A sentence to cut into words.[0m
       s ← [93m"to be or not"[0m
       (s [94m≠[0m [34mf̲irst[0m [93m" "[0m) [34mp̲artition[0m s      [2m⍝ cut where the mask is 0: the words, boxed[0m
 ┌→─────────────────────┐
@@ -256,7 +277,7 @@ cde
 │4 5 6│
 └~────┘
 
-      [2m⍝ -- Effects --------------------------------------------------------------[0m
+      [2m⍝## Effects[0m
       [34mr̲oll![0m [33m6[0m [33m6[0m [33m6[0m              [2m⍝ three dice: random 1..6 each, so every run differs[0m
 6 2 1
       [34mr̲oll![0m [33m6[0m [33m6[0m [33m6[0m              [2m⍝ (and each line rolls again)[0m
@@ -267,7 +288,7 @@ cde
 printed, then returned
 printed, then returned
 
-      [2m⍝ -- Pictures -------------------------------------------------------------[0m
+      [2m⍝## Pictures[0m
       [2m⍝ [0m[34m⎕G̲RID[0m[2m draws an array as a grid of cells and [0m[34m⎕P̲ATH[0m[2m points as a[0m
       [2m⍝ line, each giving SVG text; [0m[34m⎕S̲HOW[0m[2m shows it (a file NAME-1.svg on[0m
       [2m⍝ the command line, [0mjust draw FILE[2m opens it; the live demo draws it[0m
@@ -275,7 +296,7 @@ printed, then returned
       [33m15[0m [34mt̲ake[0m [34m⎕G̲RID[0m [33m2[0m [33m2[0m [34mr̲eshape[0m [33m1[0m [33m0[0m [33m0[0m [33m1[0m
 <svg xmlns="htt
 
-      [2m⍝ -- Libraries ----------------------------------------------------------[0m
+      [2m⍝## Libraries[0m
       [36mˢ⁼[0m[1;33mu̲se<[0m [93m"Stats"[0m           [2m⍝ import a library under an alias of your choosing[0m
       [36mˢm̲ean[0m [33m2[0m [33m4[0m [33m4[0m [33m4[0m [33m5[0m [33m5[0m [33m7[0m [33m9[0m    [2m⍝ its exported names, used through the alias[0m
 5.0
@@ -287,7 +308,7 @@ printed, then returned
       [36mʰⁱh̲ello[0m @                 [2m⍝ niladic: called with Unit[0m
 hello X̲ᵉTᵃL
 
-      [2m⍝ -- Combinators and power -----------------------------------------------[0m
+      [2m⍝## Combinators and power[0m
       [36mᶜ⁼[0m[1;33mu̲se<[0m [93m"Combinators"[0m     [2m⍝ Smullyan's birds, a standard library[0m
       [33m1[0m [36mᶜK̲[0m [33m2[0m                   [2m⍝ K keeps its first argument[0m
 1
@@ -297,13 +318,18 @@ hello X̲ᵉTᵃL
 5
       [94m'×[0m [36mᶜW̲[0m [33m4[0m                  [2m⍝ W uses its argument twice: 4 * 4[0m
 16
+      [2m⍝# u:t_riangle n: 1 + 2 + ... + n, with s_elf standing for the function[0m
+      [2m⍝# itself (lazy, so u:t_riangle is given to c:Y_ to recurse).[0m
       [32mᵘt̲riangle[0m ← { ~[34ms̲elf[0m n → n [94m≤[0m [33m1[0m ? [33m1[0m◆ n [94m+[0m [34ms̲elf[0m n [94m−[0m [33m1[0m }[0m
       [32m'ᵘt̲riangle[0m [36mᶜY̲[0m [33m5[0m          [2m⍝ Y: recursion, from a function handed itself: 1+2+3+4+5[0m
 15
       [34mn̲eg³[0m [33m5[0m                   [2m⍝ a superscript repeats a function: n_eg three times[0m
 -5
 
-      [2m⍝ -- Life in one line -----------------------------------------------------[0m
+      [2m⍝## Life in one line[0m
+      [2m⍝# u:l_ife b: the next generation of the Game of Life on board b (0[0m
+      [2m⍝# dead, 1 alive), the board wrapping at its edges: a cell lives when[0m
+      [2m⍝# its 3 by 3 neighborhood total is 3, or 4 and it is alive.[0m
       [32mᵘl̲ife[0m ← { ([94m'+[0m [34mr̲/₁₂[0m [33m-1[0m [33m0[0m [33m1[0m [34mo̲-₁₂[0m [35m⍵[0m) { ([35m⍺[0m [94m=[0m [33m3[0m) [94m+[0m [35m⍵[0m [94m×[0m [35m⍺[0m [94m=[0m [33m4[0m } [35m⍵[0m }[0m
       [32mᵘl̲ife[0m [33m5[0m [33m5[0m [34mr̲eshape[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m1[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m1[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m1[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m [33m0[0m
 0 0 0 0 0

@@ -1,18 +1,38 @@
 #!/usr/bin/env xetal
-# M4: higher-order built-ins take quoted functions as operands.
+## Higher-order built-ins: they take quoted functions as operands, as
+## `'+ r_/ v` reduces v with plus. Run it with
+## "xetal run demos/higher-order.xtl" (or "./demos/higher-order.xtl");
+## it prints the result of each line: reductions, a scan, an outer and
+## an inner product, e_ach, c_ompose and s_wap, then the search and
+## order built-ins s_ort, g_rade, u_nique, i_ndexOf and w_here.
+
+### Reduce and scan
+
+## v: the vector the reductions, scan and search built-ins work on.
 v := 3 1 4 1 5
 '+ r_/ v
 '- r_/ 1 2 3
 '+ s_\ v
+
+### Matrices: reduce, outer and inner products
+
+## m: a 2 by 3 matrix holding 1 to 6, row by row.
 m := 2 3 r_eshape r_ange 6
 '+ r_/ m
 1 2 3 '* t_able 1 2 3
 m '+ '* i_nner 1 1 1
+
+### Functions as operands
+
+## u:s_ign x: -1 when x is negative, 0 when it is zero, 1 otherwise.
 u:s_ign := { x -> x < 0 ? -1; x = 0 ? 0; 1 }
 'u:s_ign e_ach -2 0 7
 1 2 3 '= e_ach 1 5 3
 'n_eg 'a_bs c_ompose -3 4
 2 '/ s_wap 1
+
+### Search and order
+
 s_ort v
 g_rade v
 u_nique v

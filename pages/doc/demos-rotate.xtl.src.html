@@ -57,9 +57,9 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L5"><span class="c-userfunc">ᵘf̲rames</span></a></li>
-<li class="item"><a href="#L11">arrow</a></li>
-<li class="item"><a href="#L12">shown</a></li>
+<li class="item"><a href="#L11"><span class="c-userfunc">ᵘf̲rames</span></a></li>
+<li class="item"><a href="#L18">arrow</a></li>
+<li class="item"><a href="#L20">shown</a></li>
 </ul>
 </nav>
 <main>
@@ -67,17 +67,25 @@
 <section id="results"></section>
 <h1><span class="kind">source</span><a href="demos-rotate.xtl.html">demos/rotate.xtl</a></h1>
 <div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment">!/usr/bin/env xetal</span></span>
-<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"> Rotate along both axes: every frame moves the arrow one row down and</span></span>
-<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"> one column right, wrapping around the edges of the board. Frames are</span></span>
-<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"> separated by a blank line (&quot;just animate&quot; plays them).</span></span>
-<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-userfunc">ᵘf̲rames</span> ← { n b →</span>
-<span class="line" id="L6"><a class="ln" href="#L6">6</a>  n <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? n</span>
-<span class="line" id="L7"><a class="ln" href="#L7">7</a>  s ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> b</span>
-<span class="line" id="L8"><a class="ln" href="#L8">8</a>  gap ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span></span>
-<span class="line" id="L9"><a class="ln" href="#L9">9</a>  (n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="demos-rotate.xtl.html#u.f_rames" class="c-userfunc">ᵘf̲rames</a> <span class="c-number">-1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-₁₂</a> b</span>
-<span class="line" id="L10"><a class="ln" href="#L10">10</a>}</span>
-<span class="line" id="L11"><a class="ln" href="#L11">11</a>arrow ← <span class="c-number">6</span> <span class="c-number">8</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-string">&quot;.#.......##.....###.....##......#.......................&quot;</span></span>
-<span class="line" id="L12"><a class="ln" href="#L12">12</a>shown ← <span class="c-number">8</span> <a href="demos-rotate.xtl.html#u.f_rames" class="c-userfunc">ᵘf̲rames</a> <a href="demos-rotate.xtl.html#arrow">arrow</a></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># Rotate along both axes: every frame moves the arrow one row down and</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># one column right, wrapping around the edges of the board.</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment">#</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment"># Run it with ./demos/rotate.xtl or &quot;xetal run demos/rotate.xtl&quot;. It</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"># prints eight frames separated by a blank line (&quot;just animate&quot; plays</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"># them). Read </span><span class="c-comment"></span><span class="c-number">-1</span> <span class="c-builtin">o̲-₁₂</span> b<span class="c-comment"></span><span class="c-comment">: one rotation along axes 1 and 2 together.</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"># n u:f_rames b: prints board b and a blank line, then the next n - 1</span></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment"># frames, each b rotated one row down and one column right; gives 0.</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-userfunc">ᵘf̲rames</span> ← { n b →</span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a>  n <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? n</span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a>  s ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> b</span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a>  gap ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a>  (n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="demos-rotate.xtl.html#u.f_rames" class="c-userfunc">ᵘf̲rames</a> <span class="c-number">-1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-₁₂</a> b</span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a>}</span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-comment">⍝</span><span class="c-comment"># The first frame: a 6 by 8 board of . with an arrow of # at its top left.</span></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a>arrow ← <span class="c-number">6</span> <span class="c-number">8</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-string">&quot;.#.......##.....###.....##......#.......................&quot;</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-comment">⍝</span><span class="c-comment"># The result of drawing eight frames, bound so it is not printed.</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a>shown ← <span class="c-number">8</span> <a href="demos-rotate.xtl.html#u.f_rames" class="c-userfunc">ᵘf̲rames</a> <a href="demos-rotate.xtl.html#arrow">arrow</a></span>
 </div>
 </main>
 </body>

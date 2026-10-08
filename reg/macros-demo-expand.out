@@ -1,38 +1,41 @@
 #!/usr/bin/env xetal
-# Macros write source for you. A macro is a name with the macro mark <
-# at its end (u_se< is one); a call "left" n_ame< "right" is replaced,
-# before the program is checked, by the source the macro writes from
-# the two texts. `xetal expand demos/macros.xtl` shows the program
-# after the macros have been replaced.
+## Macros write source for you: a call "left" n_ame< "right" is replaced,
+## before the program is checked, by the source the macro writes from the
+## two texts. Run it with ./demos/macros.xtl (or xetal run): it prints what
+## the system macros give, then a macro library's checks; a failed a_ssert<
+## goes to standard error. Read each call beside its expansion, which
+## "xetal expand demos/macros.xtl" shows.
 
-# The system macros are built in. i_f< chooses between two expressions
-# when the program runs; only the one chosen is evaluated.
+### System macros
+# i_f< chooses between two expressions when the program runs; only the
+# one chosen is evaluated.
+## The number the conditions below test: negative, so `x > 0` is false.
 x := -3
 { @ -> (x > 0) ? 1; -1 } @
 10 * ({ @ -> (x > 0) ? 1; -1 } @)
 { @ -> (x < 0) ? 0; 1 / 0 } @
-
 # u_nless< runs statements unless a condition holds; its value is @.
 { @ -> (x = 0) ? @; p_rint! 100 / x; @ } @
 
-# e_ach< writes one statement per word, $w replaced by the word: here a
-# family of definitions, a reduction for each of two functions.
+## u:m_ax/ v, u:m_in/ v: the largest and smallest item of v, written by
+## e_ach<, one statement per word with $w replaced by the word.
 u:m_ax/ := { 'm_ax r_/ _r }
 u:m_in/ := { 'm_in r_/ _r }
 u:m_ax/ 3 1 4 1 5
 u:m_in/ 3 1 4 1 5
-
-# f_ormat< puts values into text, a_ssert< reports a condition that does
-# not hold (on standard error) and goes on, and c_fg< says where the
-# program runs: 1 for cli at the command line, 0 in the live demo.
+# f_ormat< puts values into text, a_ssert< reports a failed condition on
+# standard error and goes on, c_fg< says where it runs (1 cli, 0 live demo).
 "x is " c_at (f_ormat (x)) c_at ", and its square is " c_at (f_ormat (x * x))
 { @ -> (x > 0) ? @; []E_RR "assertion failed: x > 0 (x is positive) [demos/macros.xtl:28]"; @ } @
 1
+
+### Macros of your own
 
 # Macros of your own live in macro libraries (.xtlm files): each is a
 # function from the two texts to the source that replaces the call.
 # Macros (lib/Macros.xtlm) is a small example, imported like a library.
 "m:" u_se< "Macros"
+## u:s_quare x: x times x, defined by the m:d_ef< macro.
 u:s_quare := { _r * _r }
 u:s_quare 7
 { @ -> (4 = 2 + 2) ? "ok: addition"; "FAIL: addition (4 = 2 + 2)" } @
