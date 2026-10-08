@@ -1,0 +1,1 @@
+Private names documented: literate docs use h:, asks ledger notices (migration notice for siblings), plan schedules PN2 error after next release, doc site covers all bundled demos/userlibs/rosetta (l:/h:/u: visible), README and poster explain u:/l:/h:/m:; fixed sw-checklist failure from the tuples lane
