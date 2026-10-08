@@ -1,8 +1,0 @@
-number = 95
-slug = "errors-library-calls"
-status = "pending"
-description = "X_eTaL-extensions' ask E5: an error raised inside a library also names the pr..."
-role = "production"
-context_files = []
-created_at = "2026-10-03T11:59:51"
-commits = []
