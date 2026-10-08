@@ -69,3 +69,11 @@ fn a_box_may_hold_a_tuple_where_its_variable_is_an_array() {
     let boxed = Type::Box(Box::new(Type::Tuple(vec![Type::Int, Type::Float])));
     assert!(u.unify(&a, &boxed, span()).is_ok());
 }
+
+#[test]
+fn the_array_class_never_hides_eq() {
+    let both = Classes::named("Eq")
+        .unwrap()
+        .union(Classes::named("Arr").unwrap());
+    assert_eq!(both.names().collect::<Vec<_>>(), ["Eq"]);
+}

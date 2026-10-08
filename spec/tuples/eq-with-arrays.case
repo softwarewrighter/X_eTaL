@@ -1,0 +1,8 @@
+# TU9, D124: the hidden array class never hides another class when a
+# compared value also goes through an array built-in.
+== SOURCE
+u:f_ind := { x y -> (r_ev x) i_ndexOf y }
+u:o_rd := { x -> s_ort r_ev x }
+== TYPE
+u:f_ind : Eq a => a -> a -> Int
+u:o_rd : Ord a => a -> a

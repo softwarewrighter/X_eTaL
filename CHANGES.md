@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-07
 
+- 20:05 `fix` A compared value that also goes through an array built-in kept its `Eq a` when printed (`{ x y -> (r_ev x) i_ndexOf y } : Eq a => a -> a -> Int`): the hidden `Arr` class admits what `Eq` does and was counted as implying it (D124; found by X_eTaL-libraries' Strings types golden).
 - 17:55 `chore` Merged PR #109 (arrays and `Any`; tuples through `p_ower`, Saga 39 step 3); the private-names register entry renumbered D124 to D125, status.md regenerated.
 - 17:45 `feat` Arrays and `Any` (Saga 39 step 3, D124): a type variable still means an array of any rank, so `r_ev (1, 2)` and `(1, 2) c_at 3` are type errors; a variable that may be a tuple prints `Any a` (`i_d`, `p_ower`, `c_ompose`, `s_wap`, the error quads, and lambdas that pass a value on); ask M13's tuple state runs through `p_ower`, and M13 joins docs/asks.toml.
 - 17:40 `docs` The prefixes explained (Saga 38 step 5, in progress): the README's notation table gains `l:m_ean` and `h:j_oin`, with a paragraph on `u:` (the program's), `l:` (a library's export), `h:` (a helper, its file only), `m:` (a macro library's export) and an import's alias; the syntax poster's Definitions panel shows the four side by side.

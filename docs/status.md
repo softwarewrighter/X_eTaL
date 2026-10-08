@@ -21,7 +21,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Built-in functions | 125 | 0 | 0 |
 | Language decisions | 152 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 408 | 0 | 8 |
+| Spec cases | 409 | 0 | 8 |
 
 ## Planned (decided, not yet implemented)
 
@@ -211,11 +211,11 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `i_ndexOf` | `Eq a => a -> a -> Int` | works | 5 | 2 |
+| `i_ndexOf` | `Eq a => a -> a -> Int` | works | 6 | 2 |
 | `m_ember?` | `(Eq a, Truthy b) => a -> a -> b` | works | 2 | 1 |
 | `m_atch` | `(Match a, Truthy b) => a -> a -> b` | works | 10 | 5 |
 | `u_nique` | `Eq a => a -> a` | works | 3 | 1 |
-| `s_ort` | `Ord a => a -> a` | works | 4 | 3 |
+| `s_ort` | `Ord a => a -> a` | works | 5 | 3 |
 | `g_rade` | `Ord a => a -> Int` | works | 1 | 2 |
 | `w_here` | `Truthy a => a -> Int` | works | 5 | 2 |
 
@@ -239,7 +239,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `r_ev` | `a -> a` | works | 14 | 4 |
+| `r_ev` | `a -> a` | works | 15 | 4 |
 | `o_-` | `Int -> a -> a` | works | 5 | 6 |
 
 ### B17: transpose
@@ -331,7 +331,7 @@ conventions (naming, layout) work without a spec case citing them.
 | TU6 | A tuple prints on one line, `(1 2 3, 4.5, 7)`, when every part prints on one line; when a part prints on (...) | works | 4 |
 | TU7 | `m_atch` compares two tuples part by part and answers one truth | works | 4 |
 | TU8 | A tuple is not an array item in v1, but it can be boxed: `e_nclose (1, 2.5)` is a `Box (Int, Float)`, (...) | works | 2 |
-| TU9 | The higher-order built-ins are unchanged: their types are polymorphic, so `p_ower` repeats a step on a (...) | works | 4 |
+| TU9 | The higher-order built-ins are unchanged: their types are polymorphic, so `p_ower` repeats a step on a (...) | works | 5 |
 | TU10 | A tuple is a Core form of its own, and a pattern desugars to bindings of projections in Core, so the (...) | works | 0 |
 | TU11 | Every name a pattern binds is a binder for macro hygiene (MC30) and for the shadowing warning (L7) | works | 0 |
 | TU12 | The record field syntax of Saga 29 is kept free: a name followed by `:` and a space inside parentheses (...) | works | 1 |

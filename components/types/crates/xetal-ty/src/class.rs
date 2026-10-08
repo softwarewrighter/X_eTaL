@@ -111,11 +111,15 @@ impl Classes {
     /// The names of its classes, in table order, leaving out a class
     /// another one implies (every number is ordered: `Num a` implies
     /// `Ord a` and `Eq a`).
-    /// `Arr` is never named, and a variable with no class is `Any`.
+    /// `Arr` is never named and implies nothing (it admits what Eq
+    /// does), and a variable with no class is `Any`.
     pub fn names(self) -> impl Iterator<Item = &'static str> {
         let implied = move |c: &Class| {
-            self.rows()
-                .any(|d| d.name != c.name && PROBES.iter().all(|t| !(d.admits)(t) || (c.admits)(t)))
+            self.rows().any(|d| {
+                d.name != c.name
+                    && d.name != "Arr"
+                    && PROBES.iter().all(|t| !(d.admits)(t) || (c.admits)(t))
+            })
         };
         let any = (self == Classes::default()).then_some(ANY);
         let named = self.rows().filter(move |c| !implied(c) && c.name != "Arr");
