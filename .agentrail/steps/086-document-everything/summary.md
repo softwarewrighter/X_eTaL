@@ -1,0 +1,1 @@
+Every bundled demo and library documented (## headers, ### sections, ## on every definition, ## >> examples in libraries); goldens printing sources rebased; pages rebuilt; rosetta's cube.xtl/rosetta.xtl left to the rosetta lane

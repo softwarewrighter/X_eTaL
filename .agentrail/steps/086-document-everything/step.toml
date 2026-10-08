@@ -1,8 +1,9 @@
 number = 86
 slug = "document-everything"
-status = "in-progress"
+status = "completed"
 description = "At the user's word (2026-10-07): every bundled demo app and library fully doc..."
 role = "production"
 context_files = []
 created_at = "2026-10-07T20:32:41"
-commits = []
+completed_at = "2026-10-07T21:04:52"
+commits = ["7357a2f4efa70b18fde9f91bbe15d094bdbad166"]
