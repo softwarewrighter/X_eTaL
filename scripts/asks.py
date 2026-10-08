@@ -7,6 +7,8 @@ this build (target/release/xetal).
     scripts/asks.py --check         # fail if docs/asks.md is stale, or
                                     # a landed ask's repro fails
     scripts/asks.py --siblings DIR  # compare with DIR/X_eTaL-*/docs/xetal-asks.md
+                                    # (or DIR/../*/X_eTaL-*, as X_eTaL-fpga
+                                    # lives under hardwarewrighter)
 
 A landed ask's repro must pass. A planned, declined or new ask whose
 repro passes is flagged in the ledger: it may have landed.
@@ -23,7 +25,8 @@ DATA = ROOT / "docs/asks.toml"
 OUT = ROOT / "docs/asks.md"
 XETAL = ROOT / "target/release/xetal"
 WORK = ROOT / "work/asks"
-REPOS = ["X_eTaL-demos", "X_eTaL-ML", "X_eTaL-games", "X_eTaL-libraries", "X_eTaL-extensions"]
+REPOS = ["X_eTaL-demos", "X_eTaL-ML", "X_eTaL-games", "X_eTaL-libraries", "X_eTaL-extensions",
+         "X_eTaL-gpu", "X_eTaL-fpga"]
 STATES = ["landed", "partly landed", "planned", "declined", "new"]
 
 
@@ -113,14 +116,25 @@ def siblings(top):
     against the ledger's, to catch asks filed since."""
     ledger = asks()
     for repo in REPOS:
-        path = Path(top) / repo / "docs/xetal-asks.md"
-        if not path.exists():
-            print(f"{repo}: no docs/xetal-asks.md under {top}")
+        path = asks_file(top, repo)
+        if path is None:
+            print(f"{repo}: no docs/xetal-asks.md under {top} or beside it")
             continue
         rows = first_table(path.read_text())
         here = sum(a["repo"] == repo for a in ledger)
         mark = "" if rows == here else "   <- differs: update docs/asks.toml"
         print(f"{repo}: {rows} filed, {here} in the ledger{mark}")
+
+
+def asks_file(top, repo):
+    """REPO's docs/xetal-asks.md under TOP, or under a directory beside
+    TOP (X_eTaL-fpga lives in hardwarewrighter, not softwarewrighter)."""
+    top = Path(top).resolve()
+    for base in [top] + sorted(d for d in top.parent.iterdir() if d.is_dir()):
+        path = base / repo / "docs/xetal-asks.md"
+        if path.exists():
+            return path
+    return None
 
 
 def first_table(text):

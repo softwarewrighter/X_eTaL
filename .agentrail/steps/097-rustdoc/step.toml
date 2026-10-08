@@ -1,8 +1,0 @@
-number = 97
-slug = "rustdoc"
-status = "pending"
-description = "The implementation's cross-reference (the user, 2026-10-04): just rustdoc bui..."
-role = "production"
-context_files = []
-created_at = "2026-10-04T20:54:53"
-commits = []

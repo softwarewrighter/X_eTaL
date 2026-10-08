@@ -1086,8 +1086,9 @@ the user's word, ahead of the asks below.
 | 5 | private-names-docs | the tour, the reference and the literate documents write helpers as `h:`; the README and the syntax poster explain `u:`, `l:` and `h:` side by side (the user, 2026-10-07); the siblings told how to migrate (about 70 names); PN2 an error after one release |
 
 Then, from the asks audit of 2026-10-07 (82 asks of seven sibling
-repositories, verified against main): the ledger refreshed (38 asks
-added, four corrected, the declines recorded with their reasons), the
+repositories, verified against main; 95 by the time the ledger was
+refreshed): the ledger refreshed (50 asks added, X_eTaL-gpu and
+X_eTaL-fpga given sections, four corrected, the declines recorded with their reasons), the
 small fixes it found (D16, E7, D17, `p_ower` with a Bool count, the
 quotes lost by `r_ecover<`, two documentation rules), and the CLI as a
 library (E3).

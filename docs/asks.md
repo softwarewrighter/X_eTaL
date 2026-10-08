@@ -13,12 +13,14 @@ build already does what the ask wants.
 
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
-| X_eTaL-demos | 6 | 3 | 5 | 0 | 0 |
-| X_eTaL-ML | 6 | 2 | 2 | 0 | 0 |
-| X_eTaL-games | 2 | 1 | 2 | 0 | 0 |
-| X_eTaL-libraries | 4 | 2 | 1 | 3 | 0 |
-| X_eTaL-extensions | 3 | 0 | 3 | 0 | 0 |
-| All | 21 | 8 | 13 | 3 | 0 |
+| X_eTaL-demos | 8 | 4 | 5 | 2 | 2 |
+| X_eTaL-ML | 6 | 2 | 1 | 3 | 2 |
+| X_eTaL-games | 4 | 4 | 5 | 1 | 3 |
+| X_eTaL-libraries | 8 | 3 | 2 | 3 | 1 |
+| X_eTaL-extensions | 2 | 1 | 4 | 0 | 1 |
+| X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
+| X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
+| All | 28 | 14 | 24 | 11 | 18 |
 
 ## Notice: write a library's helpers with h:
 
@@ -40,10 +42,6 @@ libraries), X_eTaL-extensions (6 in 2), X_eTaL-demos (4 in 1),
 X_eTaL-ML (2 in 1) and X_eTaL-gpu (1 in 1). After one release the
 warning becomes an error. See `docs/private-names.md`.
 
-## To look at
-
-- X5: planned, but its repro passes (landed?)
-
 ## X_eTaL-demos
 
 | # | Ask | State | Here | Repro |
@@ -53,15 +51,22 @@ warning becomes an error. See `docs/private-names.md`.
 | D3 | `xetal-play`: arrays in and out without text, or a session between runs | planned | Saga 23, host bindings and native packages | - |
 | D4 | Float literals with an exponent (`1.5e-7`) | landed | 54fea87 (decision S8) | passes |
 | D5 | complex numbers (Mandelbrot, Julia) | planned | Saga 31, complex numbers, on Saga 29's types | - |
-| D6 | nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix) | partly landed | cf834e1 (`m_ap` boxes each result); mix to decide with the user (plan.md, the sibling asks that need decisions) | passes |
+| D6 | nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix) | partly landed | cf834e1 (`m_ap` boxes each result); mix to decide with the user, then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-mix) | passes |
 | D7 | a state of several arrays for `p_ower` (a tuple or record) | partly landed | Saga 39, tuples with patterns (docs/tuples.md, lanes/tuples; with X_eTaL-ML ask M13): tuple states through `p_ower` work, patterns come next; records in Saga 29 on its types | - |
 | D8 | a per-operation evaluation trace through `xetal-play` | planned | a step of Saga 17, trace and explain | - |
 | D9 | transpose | landed | 3ad1f8e (`o_\`, `t_ranspose`, decision B17) | passes |
 | D10 | a vendored build reports the outer repo's commit as its own | landed | 4a31ba9 (`XETAL_BUILD_SHA` overrides the build's commit) | - |
 | D11 | `t_able` about 2.7x and `i_nner` about 1.5x slower since abb8274 (a regression) | landed | 16b710d (a built-in operand is called at once) and 8456e45 (lean kernels); X_eTaL-demos measured `t_able` 82% and `i_nner` 86% faster than before the regression (docs/speed.md) | - |
-| D12 | `i_nner` costs about 370 ns per multiply-add, slower than broadcast-and-reduce | planned | Saga 30, then Saga 22 (vector kernels) | - |
-| D13 | grade along an axis per row (`g_rade_2 M`), for top-k per row | planned | to decide with the user (plan.md, the sibling asks that need decisions) | fails |
+| D12 | `i_nner` costs about 370 ns per multiply-add, slower than broadcast-and-reduce | landed | Saga 30 (16b710d, 8456e45): about 94 ns per multiply-add, measured 2026-10-07 (a 27 by 81 by 9 product in 1.85 ms); a vector kernel for it in Saga 22 (ask G8) | - |
+| D13 | grade along an axis per row (`g_rade_2 M`), for top-k per row | declined | as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade (a rank form) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-row-grade) | fails |
 | D14 | a condition bound to a name cannot be used in arithmetic | landed | ffd5526 (a bound condition stays Bool, and a Bool converts to Int in arithmetic) | passes |
+| D15 | a scan with a built-in operand is quadratic in the axis length (Int now linear, Float still quadratic) | partly landed | an Int scan is linear (a 64 by 4096 `'+ s_\_2` in 0.02 s); a Float `+` or `*` scan stays quadratic (64 by 1024 in 0.8 s, 2026-10-07), since a one-pass Float scan is not identical to the definition (plan.md, Saga 5's lessons); a primitive operand of scan as a vector kernel in Saga 22 | - |
+| D16 | `xetal-play`: a run with a page's own macro library, and the program after expansion | planned | the asks audit's small fixes step (`xetal_play::add_library` and `expanded`; plan.md, after Saga 38) | - |
+| D17 | `xetal run --context CTX FILE` reads standard input twice | planned | the asks audit's small fixes step (plan.md, after Saga 38) | - |
+| D18 | end of input: `[]R_EAD @` at the end of standard input fails, and nothing can test for it or recover | landed | `[]T_RAP` recovers from it (ER2, D89): `'{ @ -> []R_EAD @ } []T_RAP '{ e -> []R_ECOVER "<end>" }` gives `<end>` at the end of input (checked 2026-10-07); the idiom is written in `docs/reference.md` by the asks audit's small fixes step | - |
+| D19 | program arguments: `xetal run FILE` takes nothing after the file, and a program cannot read its arguments | new | not yet decided or planned: needs a name for the arguments (a quad) and the CLI's rule for what follows FILE | - |
+| D20 | `s_ort` (and `g_rade`) of a list of boxed strings | declined | for now (B16): boxes compare by what they hold but are not ordered (not `Ord`), so `s_ort` of boxes is a type error; pad into a Char matrix and grade its rows | fails |
+| D21 | the `deprecated-private` lint (PN2) warns on a bare function in an `.xtl` library, not in a macro library (`.xtlm`) | new | filed after the asks audit; confirmed 2026-10-07 (a bare helper in an imported `.xtlm` warns nothing) | - |
 
 ## X_eTaL-ML
 
@@ -70,23 +75,39 @@ warning becomes an error. See `docs/private-names.md`.
 | M1 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | passes |
 | M2 | `xetal expand FILE`: the source after macro expansion (the same as X2) | landed | `xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61) | golden `macros-user-expand` |
 | M3 | `'+ '* i_nner`: about 700 ns per multiply-add at abb8274 (the regression D11) | landed | 16b710d: `i_nner` with built-in operands is computed at once, 0 transitions and 0.25 allocations per multiply-add (docs/speed.md) | - |
-| M4 | grade per row, top-k along an axis (the same as D13) | planned | to decide with the user (plan.md, the sibling asks that need decisions) | fails |
+| M4 | grade per row, top-k along an axis (the same as D13) | declined | as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade (a rank form) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-row-grade) | fails |
 | M5 | `xetal-play`: arrays in and out without text, or a session (the same as D3) | planned | Saga 23, host bindings and native packages | - |
 | M6 | whole-array arithmetic: vector kernels (the same as D2) | partly landed | elementwise about 8x faster since abb8274; vector kernels in Saga 22 | - |
 | M7 | long Int literal strands read in quadratic time (the same as D1) | landed | 6010d70 | - |
 | M8 | Float literals with an exponent (the same as D4) | landed | 54fea87 (decision S8) | passes |
 | M9 | a Bool bound to a name cannot be used in arithmetic (the same as D14) | landed | ffd5526 | passes |
 | M13 | a state of several arrays for `p_ower`: train-live packs 99 weights and Adam's two averages into one vector of 298 numbers | partly landed | Saga 39, tuples (lanes/tuples): `p_ower` repeats a step on a tuple state such as `(Float, Float, Float, Int)` (TU9); taking the state apart in the step needs patterns, step 4 | passes |
+| M10 | `e_ach` returning an array per item | declined | B14: `e_ach` stays scalar-only; `m_ap` applies a function returning arrays and boxes each result, and mix (turning the boxes back into an array) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-mix) | fails |
+| M11 | a macro's text cannot name a library by the importer's alias (the same as X14's remaining half) | new | not yet decided: MC5 rewrites a library's `l:` to the importer's alias, but nothing names that alias in a macro's expansion, and an expansion may not import (MC23 row 20) | - |
+| M12 | shapes in types: a matrix's type is `Float`, so code can be well-typed and shape-wrong | declined | T7: array types are rank-erased, a type names only the element type, shapes are checked at run time; T4: no annotations in v0 (`::` signatures later); D-10: one Int type, overflow an error | - |
+| M14 | `xetal_play::run` collects `[]S_HOW` pictures in state shared across threads, so two runs at once take each other's | new | filed after the asks audit; `xetal_store::take_shown` takes from the one installed store | - |
 
 ## X_eTaL-games
 
 | # | Ask | State | Here | Repro |
 | - | --- | ----- | ---- | ----- |
 | G1 | a terminal for interactive programs, in the browser too | partly landed | Saga 25: a run waits for typed lines and resumes (D50), the terminal pane in the live demo (6683d8e), typed screen control (2d65a76); its retrofit and release remain | - |
-| G2 | `[]G_RID` of numbers: the numbers drawn in the cells, a color scale the program chooses | planned | to decide with the user (plan.md, the sibling asks that need decisions) | - |
-| G3 | a functional update (amend, APL's at): items replaced at given positions | planned | to decide with the user (plan.md, the sibling asks that need decisions) | - |
+| G2 | `[]G_RID` of numbers: the numbers drawn in the cells, a color scale the program chooses | planned | to decide with the user (a typed color scale), then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-grid-numbers) | - |
+| G3 | a functional update (amend, APL's at): items replaced at given positions | planned | to decide with the user, then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-amend) | - |
 | G4 | local functions: a function defined inside a lambda and applied there | landed | a lambda's local function names (`g_ := { ... }` inside a body) work today | passes |
 | G5 | an executable program that defines `l:` names is taken for a library | landed | ffd5526 (a #! file is a program, and `l:` names in it are MC8 row 9) | passes |
+| G6 | named dyadic trains: `u:s_ign := [> - <]` is monadic only | declined | TR4: a train bound to a name or quoted is monadic; a named dyadic train is written as a lambda, `{ a b -> (a F b) G (a H b) }` | fails |
+| G7 | `p_ower` with a Bool count (a 0/1 condition) | planned | the asks audit's small fixes step (the evaluator converts a Bool count as T1 does; plan.md, after Saga 38) | fails |
+| G8 | `i_nner` on numeric matrices costs about 100 ns per multiply-add | planned | Saga 22 (vector kernels: a primitive operand of inner product as a kernel); about 94 ns per multiply-add on 2026-10-07 | - |
+| G9 | reading numbers out of long text is slow: `n_umbers` on 3000 lines, `@ i_nclude<` of a 228 KB file | partly landed | `n_umbers` on 3000 lines (47 KB) now takes under 0.01 s; `@ i_nclude<` of a 218 KB file still takes about 3.5 minutes (2026-10-07), not yet planned | - |
+| G10 | `m_ember?` of a long vector against a long vector (207360 against 20000: 13 s) | new | still about 10 s (2026-10-07); hashed membership is not yet planned (Saga 22 covers arithmetic kernels) | - |
+| G11 | Star Trek's scripted game went from 15 ms to 42 ms since f823212 | new | not yet measured here (under the games' bench allowance); Saga 30's performance gates do not cover it | - |
+| G12 | numbers in data files: `[]L_IST` and `[]T_ABLE` give strings only | planned | Saga 37, xtln (step xtln-table: `[]T_ABLE` and a general reader over `.xtln`) | - |
+| G13 | `[]T_ABLE` and `[]L_IST` read a path relative to the working directory, `i_nclude<` relative to the file | new | confirmed 2026-10-07; not yet decided or planned | - |
+| G14 | a clearer message for a half-written library: also say "or define an `l:` name to make this file a library" | partly landed | PN3, PN4 (D121): run on its own the file says `write u:h_elp (the program's) or h:h_elp (a helper)`; imported, `library Half exports nothing; mark its exports with l:` | - |
+| G15 | fast paths for array idioms: raze, hashed membership, mix, linear number parsing, a matrix-product kernel | partly landed | linear number parsing landed (`n_umbers`, ask G9); mix to decide (asks-decisions, asks-mix); the matrix-product kernel in Saga 22 (G8); raze and hashed membership (G10) not yet planned | - |
+| G16 | a library that fails to parse is reported at the import as `not-exported` with an empty list | landed | checked 2026-10-07 at 8f006d6: the import reports the library's own error, located in it (`error[bad-quote]: ... at ./L.xtl:1:18`) | - |
+| G17 | `t_able` and `i_nner` slower since the higher-order built-ins became kernels (the regression D11) | landed | Saga 30: 16b710d, 8456e45 | - |
 
 ## X_eTaL-libraries
 
@@ -96,12 +117,19 @@ warning becomes an error. See `docs/private-names.md`.
 | X2 | seeing the source after macro expansion, with a bounded expansion depth | landed | `xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61) | golden `macros-user-expand` |
 | X3 | errors of one's own: assert, raise and catch | partly landed | raise: `[]S_IGNAL` (ER1, D85); catch: `[]T_RAP` with `[]R_ECOVER`, `[]R_ETRY`, `[]H_ALT`, and `[]E_NSURE` (ER2, D89); go on: `default []W_ARN "code" "message"` and `[]C_ONTINUE` (ER3, D90); the macros `t_ry<`, `c_atch<`, `f_inally<`, `r_ecover<`, `r_etry<`, `h_alt<`, `c_ontinue<` (ER4, D91); assert is Saga 33 | passes |
 | X4 | character codes `[]U_CS`, and the quad values `[]A`, `[]D`, `[]TS` | landed | `[]U_CS` (and its inverse `[]U_CHAR`, QD7), `[]A`, `[]D`, `[]AV`, `[]IO` (D75), `[]TS` local time (D84): the quads lane | passes |
-| X5 | an empty Char vector is drawn with the numbers mark | planned | Saga 20, array kinds (decision T9) | passes |
+| X5 | an empty Char vector is drawn with the numbers mark | landed | d0210f0, dac19f1 (Saga 20 steps 1-2, T9, D103, D107): an empty array keeps its kind, and DISPLAY draws an empty Char vector with the characters mark | passes |
 | X6 | big whole numbers or exact rationals | declined | for now: on the wish list, after the launch (Floats where a polymorphic function allows) | - |
 | X7 | matrix divide (APL's domino); transpose, the other half, landed | declined | for now: not planned (Matrix solves by Gauss-Jordan in X_eTaL); transpose landed in 3ad1f8e | - |
 | X8 | number formatting with width and precision (APL's dyadic format) | declined | for now: on the wish list, after the launch (Format builds the text from the digits) | - |
 | X9 | `d_ecode` and `e_ncode` on Floats (Horner's rule for any numbers) | partly landed | decode landed: B18, D73 (`Num a => a -> a -> a`, Horner's rule on Floats); encode on Floats declined for now (fractional radix, floating residues) | passes |
 | X10 | a comparison bound to a top-level name cannot be used in arithmetic (the same as D14) | landed | ffd5526 | passes |
+| X11 | what a macro may know while it expands (the platform, flags) and an include macro | landed | the macros lane's system macros: `@ c_fg< "cli"`, `@ i_nclude< "file"`, `--cfg NAME` (MC14-MC17, D76; in v0.1.0) | passes |
+| X12 | a macro call with nothing on the left: `@ d_bg< "x"` | landed | the macros lane (MC14-MC17, D76): `@` stands for the empty side | passes |
+| X13 | a macro reporting its own compile error at the call, with its own message | landed | `[]R_EJECT` (MC20, D76) and the system macro `e_rror<` | passes |
+| X14 | a `.xtlm` calling its own library's functions, or naming the importer's alias in its expansion | partly landed | MC23: a `.xtlm` imports its own `.xtl` by path; naming the importer's alias in an expansion is not yet decided (ask M11) | - |
+| X15 | an error a macro reports with `[]R_EJECT` is located by byte range only | planned | Saga 27, readable type errors (step errors-located: every diagnostic with its file, line and column) | - |
+| X16 | `[]U_CHAR` beyond ASCII: it takes codes 0 to 127 | planned | deferred: Unicode text (lang-choices section 15, plan.md Deferred), each deferred item a saga when scheduled | fails |
+| X17 | a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix | new | a question: by T1 a comparison's result is any `Truthy` type so it converts in arithmetic (`(Num c, Truthy c) => a -> b -> c`); whether to default it is not yet decided | - |
 
 ## X_eTaL-extensions
 
@@ -109,7 +137,37 @@ warning becomes an error. See `docs/private-names.md`.
 | - | --- | ----- | ---- | ----- |
 | E1 | a native hook: X_eTaL code calling a function in a native library (`[]S_VO`) | planned | Saga 23, host bindings and native packages (may start from this repo's ABI V1) | - |
 | E2 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | passes |
-| E3 | the CLI as a library: a host entry point so a host can be `xetal` with its own store | planned | after Saga 21 (plan.md, the sibling asks first) | - |
-| E4 | the time: a quad for the current time and a clock | landed | `[]TS` (the local time stamp) and `[]D_L` (a delay), through the host's clock (D84, quads lane step 2) | passes |
+| E3 | the CLI as a library: a host entry point so a host can be `xetal` with its own store | planned | the step cli-as-library, after the asks audit's small fixes (plan.md, after Saga 38) | - |
+| E4 | the time: a quad for the current time and a monotonic or CPU clock | partly landed | `[]TS` (the local time stamp) and `[]D_L` (a delay), through the host's clock (D84, quads lane step 2); no monotonic or CPU clock (APL's quad AI) yet, not planned | passes |
 | E5 | an error in a library function also names the program line that called it | planned | Saga 27, readable type errors | - |
 | E6 | `xetal --draw DIR run FILE` failed: options before the subcommand | landed | 5f00608 (options before the subcommand) | golden `cli-draw-before` |
+| E7 | `xetal type FILE` calls a library whose `l:` names all come from macro calls a program: it decides before expanding | planned | the asks audit's small fixes step (`is_library` decides after expansion; plan.md, after Saga 38) | - |
+| E8 | a program `quakes.xtl` importing `Quakes` on a case-insensitive file system reports `import-cycle` on itself | new | a name finds a file only when its directory entry matches exactly (design.md), but when the program's own entry is `Quakes.xtl` it still finds itself: `import cycle: ./Quakes.xtl -> ./Quakes.xtl` (2026-10-07); not yet planned | - |
+
+## X_eTaL-gpu
+
+| # | Ask | State | Here | Repro |
+| - | --- | ----- | ---- | ----- |
+| GPU1 | an accelerator IR in X_eTaL: a typed dataflow DAG with static shapes and a round-tripping text form | new | not yet planned (research7; the wish list's parallel and GPU kernels) | - |
+| GPU2 | Core to accelerator IR lowering, or a reason a region is not acceleratable | new | not yet planned; needs GPU1 and static shapes (GPU3, declined) | - |
+| GPU3 | shapes known statically (with X_eTaL-ML's M12) | declined | T7: array types are rank-erased, shapes are checked at run time; T4: no annotations in v0; D-10: one Int type (as M12) | - |
+| GPU4 | a stable Core IR dump: `xetal core FILE` documented and versioned | new | not yet planned: `xetal core` is a debugging view today | - |
+| GPU5 | bind arrays into a program and read results back without text (the same as D3, M5) | planned | Saga 23, host bindings and native packages | - |
+| GPU6 | device selection at the command line (`xetal run --target opencl FILE`), a backend registered downstream | new | not yet planned; needs GPU2 | - |
+| GPU7 | fold orders and Float printing specified in `docs/reference.md` | planned | the Float printing rule (10a) in the asks audit's small fixes step (plan.md, after Saga 38); the fold orders not yet planned | - |
+| GPU8 | the native hook, with arrays passed in binary (the same as E1) | planned | Saga 23, host bindings and native packages | - |
+
+## X_eTaL-fpga
+
+| # | Ask | State | Here | Repro |
+| - | --- | ----- | ---- | ----- |
+| F1 | an accelerator IR in X_eTaL (GPU1), with bit widths and registers, memories and state machines | new | not yet planned (research7) | - |
+| F2 | Core to accelerator IR lowering (GPU2), a step function folded over inputs recognized as registers | new | not yet planned; needs F1 and static widths and shapes (F3, declined) | - |
+| F3 | sized integer types and static shapes (`i8[16]`) | declined | T7: array types are rank-erased; T4: no annotations in v0; D-10: one 64-bit Int type, overflow an error (as M12) | - |
+| F4 | a stable Core IR dump (GPU4) | new | not yet planned: `xetal core` is a debugging view today | - |
+| F5 | a seeded left fold, and a left scan of the states (a state machine's run) | planned | Saga 18, transducers (step 2: the seeded left fold, after the research step); the left scan of the states not yet planned | - |
+| F6 | typed, shaped data files in and out | planned | Saga 37, xtln (a reader, a writer with `read (write x)` is `x`) | - |
+| F7 | target selection at the command line (`xetal build --target verilog FILE`), a backend registered downstream | new | not yet planned; needs F2 | - |
+| F8 | `e_ncode` of a negative number is unspecified in `docs/reference.md` | planned | the asks audit's small fixes step (documented as it is: the two's complement residue; plan.md, after Saga 38) | - |
+| F9 | a function of three arguments cannot be applied in one line | new | filed after the asks audit; operand binding (`(1 u:f_ 2)_ 3`, F8/F9) works but a new form needs a language decision | - |
+| F10 | a Rust API for evaluating X_eTaL in process: a plain value type and a session (with M5, GPU5) | planned | Saga 23, host bindings and native packages (a session object reusing the REPL's, binding typed host values) | - |

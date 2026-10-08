@@ -1,6 +1,6 @@
 number = 85
 slug = "asks-ledger-refresh"
-status = "pending"
+status = "in-progress"
 description = "The asks audit of 2026-10-07 (all seven sibling repositories, 82 asks, verifi..."
 role = "production"
 context_files = []

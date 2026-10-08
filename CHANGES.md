@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-07
 
+- 21:10 `docs` The asks ledger refreshed (Saga 38 follow-up, the asks audit): 95 asks of seven sibling repositories, 50 added (X_eTaL-gpu as GPU1-GPU8 and X_eTaL-fpga as F1-F10 get sections; scripts/asks.py finds a sibling beside the given directory too), X5, D12 and G16 landed, E4 partly, the declines recorded with their reasons (TR4, B14, B16, T7/T4/D-10, A6), each planned ask naming its saga or step; 18 still new, needing a decision.
 - 20:05 `fix` A compared value that also goes through an array built-in kept its `Eq a` when printed (`{ x y -> (r_ev x) i_ndexOf y } : Eq a => a -> a -> Int`): the hidden `Arr` class admits what `Eq` does and was counted as implying it (D124; found by X_eTaL-libraries' Strings types golden).
 - 19:05 `build` sw-checklist runs in every gate, the sample gate too (it takes a fraction of a second), so a merged lane cannot leave a function or module over its limit; the README's notation table gains `m:w_hen<`, a macro library's export.
 - 18:45 `docs` The documentation site covers every bundled demo, the Rosetta stone's files and userlibs/ (82 pages, was lib/, Life and TTTML), so each name shows whose it is (l: an export, h: a helper, u: a program's own); demos run --untyped are left out. `refactor`: xetal-types' `expr` split (the array and tuple arms into subscript.rs) to meet sw-checklist's 50 lines, after merging PR #109.

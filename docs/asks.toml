@@ -7,7 +7,11 @@
 # or declined one whose repro starts passing is flagged to mark landed.
 # `golden` names a reg-rs golden that pins the ask instead of a repro.
 # The X_eTaL-demos and X_eTaL-games asks carry no numbers there; the D
-# numbers follow this repository's plan.md, the G numbers are given here.
+# numbers follow this repository's plan.md, the G numbers are given here
+# (each new row of theirs takes the next number, in the order of their
+# table). X_eTaL-gpu numbers its own asks G1, G2, ...; since G is taken by
+# X_eTaL-games here, they are GPU1, GPU2, ... in this ledger (GPU7 is its
+# G7). X_eTaL-fpga's F numbers and the others' are their own.
 #
 # state: landed, partly landed, planned, declined, new (not yet triaged)
 #
@@ -78,7 +82,7 @@ id = "D6"
 repo = "X_eTaL-demos"
 ask = "nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix)"
 state = "partly landed"
-here = "cf834e1 (`m_ap` boxes each result); mix to decide with the user (plan.md, the sibling asks that need decisions)"
+here = "cf834e1 (`m_ap` boxes each result); mix to decide with the user, then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-mix)"
 repro = "d_isclose 2 s_elect '{ r_ange _r } m_ap 2 3"
 works = "1 2 3"
 
@@ -123,15 +127,15 @@ here = "16b710d (a built-in operand is called at once) and 8456e45 (lean kernels
 id = "D12"
 repo = "X_eTaL-demos"
 ask = "`i_nner` costs about 370 ns per multiply-add, slower than broadcast-and-reduce"
-state = "planned"
-here = "Saga 30, then Saga 22 (vector kernels)"
+state = "landed"
+here = "Saga 30 (16b710d, 8456e45): about 94 ns per multiply-add, measured 2026-10-07 (a 27 by 81 by 9 product in 1.85 ms); a vector kernel for it in Saga 22 (ask G8)"
 
 [[ask]]
 id = "D13"
 repo = "X_eTaL-demos"
 ask = "grade along an axis per row (`g_rade_2 M`), for top-k per row"
-state = "planned"
-here = "to decide with the user (plan.md, the sibling asks that need decisions)"
+state = "declined"
+here = "as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade (a rank form) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-row-grade)"
 repro = "g_rade_2 2 3 r_eshape 3 1 2 6 5 4"
 works = "3 2 1"
 
@@ -143,6 +147,57 @@ state = "landed"
 here = "ffd5526 (a bound condition stays Bool, and a Bool converts to Int in arithmetic)"
 repro = "a := 1 2 > 0\n1 * a"
 works = "1 1"
+
+[[ask]]
+id = "D15"
+repo = "X_eTaL-demos"
+ask = "a scan with a built-in operand is quadratic in the axis length (Int now linear, Float still quadratic)"
+state = "partly landed"
+here = "an Int scan is linear (a 64 by 4096 `'+ s_\\_2` in 0.02 s); a Float `+` or `*` scan stays quadratic (64 by 1024 in 0.8 s, 2026-10-07), since a one-pass Float scan is not identical to the definition (plan.md, Saga 5's lessons); a primitive operand of scan as a vector kernel in Saga 22"
+
+[[ask]]
+id = "D16"
+repo = "X_eTaL-demos"
+ask = "`xetal-play`: a run with a page's own macro library, and the program after expansion"
+state = "planned"
+here = "the asks audit's small fixes step (`xetal_play::add_library` and `expanded`; plan.md, after Saga 38)"
+
+[[ask]]
+id = "D17"
+repo = "X_eTaL-demos"
+ask = "`xetal run --context CTX FILE` reads standard input twice"
+state = "planned"
+here = "the asks audit's small fixes step (plan.md, after Saga 38)"
+
+[[ask]]
+id = "D18"
+repo = "X_eTaL-demos"
+ask = "end of input: `[]R_EAD @` at the end of standard input fails, and nothing can test for it or recover"
+state = "landed"
+here = "`[]T_RAP` recovers from it (ER2, D89): `'{ @ -> []R_EAD @ } []T_RAP '{ e -> []R_ECOVER \"<end>\" }` gives `<end>` at the end of input (checked 2026-10-07); the idiom is written in `docs/reference.md` by the asks audit's small fixes step"
+
+[[ask]]
+id = "D19"
+repo = "X_eTaL-demos"
+ask = "program arguments: `xetal run FILE` takes nothing after the file, and a program cannot read its arguments"
+state = "new"
+here = "not yet decided or planned: needs a name for the arguments (a quad) and the CLI's rule for what follows FILE"
+
+[[ask]]
+id = "D20"
+repo = "X_eTaL-demos"
+ask = "`s_ort` (and `g_rade`) of a list of boxed strings"
+state = "declined"
+here = "for now (B16): boxes compare by what they hold but are not ordered (not `Ord`), so `s_ort` of boxes is a type error; pad into a Char matrix and grade its rows"
+repro = "s_ort \"b\" \"a\""
+works = ""
+
+[[ask]]
+id = "D21"
+repo = "X_eTaL-demos"
+ask = "the `deprecated-private` lint (PN2) warns on a bare function in an `.xtl` library, not in a macro library (`.xtlm`)"
+state = "new"
+here = "filed after the asks audit; confirmed 2026-10-07 (a bare helper in an imported `.xtlm` warns nothing)"
 
 [[ask]]
 id = "M1"
@@ -172,8 +227,8 @@ here = "16b710d: `i_nner` with built-in operands is computed at once, 0 transiti
 id = "M4"
 repo = "X_eTaL-ML"
 ask = "grade per row, top-k along an axis (the same as D13)"
-state = "planned"
-here = "to decide with the user (plan.md, the sibling asks that need decisions)"
+state = "declined"
+here = "as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade (a rank form) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-row-grade)"
 repro = "g_rade_2 2 3 r_eshape 3 1 2 6 5 4"
 works = "3 2 1"
 
@@ -226,6 +281,36 @@ repro = "u:r_estart := { s -> (0.5 0.5, 0.0 0.0, 0.0 0.0, 0) }\n3 'u:r_estart p_
 works = "(0.5 0.5, 0.0 0.0, 0.0 0.0, 0)"
 
 [[ask]]
+id = "M10"
+repo = "X_eTaL-ML"
+ask = "`e_ach` returning an array per item"
+state = "declined"
+here = "B14: `e_ach` stays scalar-only; `m_ap` applies a function returning arrays and boxes each result, and mix (turning the boxes back into an array) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-mix)"
+repro = "'{ i -> i * 1 2 3 } e_ach 1 2"
+works = ""
+
+[[ask]]
+id = "M11"
+repo = "X_eTaL-ML"
+ask = "a macro's text cannot name a library by the importer's alias (the same as X14's remaining half)"
+state = "new"
+here = "not yet decided: MC5 rewrites a library's `l:` to the importer's alias, but nothing names that alias in a macro's expansion, and an expansion may not import (MC23 row 20)"
+
+[[ask]]
+id = "M12"
+repo = "X_eTaL-ML"
+ask = "shapes in types: a matrix's type is `Float`, so code can be well-typed and shape-wrong"
+state = "declined"
+here = "T7: array types are rank-erased, a type names only the element type, shapes are checked at run time; T4: no annotations in v0 (`::` signatures later); D-10: one Int type, overflow an error"
+
+[[ask]]
+id = "M14"
+repo = "X_eTaL-ML"
+ask = "`xetal_play::run` collects `[]S_HOW` pictures in state shared across threads, so two runs at once take each other's"
+state = "new"
+here = "filed after the asks audit; `xetal_store::take_shown` takes from the one installed store"
+
+[[ask]]
 id = "G1"
 repo = "X_eTaL-games"
 ask = "a terminal for interactive programs, in the browser too"
@@ -237,14 +322,14 @@ id = "G2"
 repo = "X_eTaL-games"
 ask = "`[]G_RID` of numbers: the numbers drawn in the cells, a color scale the program chooses"
 state = "planned"
-here = "to decide with the user (plan.md, the sibling asks that need decisions)"
+here = "to decide with the user (a typed color scale), then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-grid-numbers)"
 
 [[ask]]
 id = "G3"
 repo = "X_eTaL-games"
 ask = "a functional update (amend, APL's at): items replaced at given positions"
 state = "planned"
-here = "to decide with the user (plan.md, the sibling asks that need decisions)"
+here = "to decide with the user, then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-amend)"
 
 [[ask]]
 id = "G4"
@@ -263,6 +348,94 @@ state = "landed"
 here = "ffd5526 (a #! file is a program, and `l:` names in it are MC8 row 9)"
 repro = "#!/usr/bin/env xetal\nl:f_ := { _r }\nl:f_ 3"
 works = "error[library-name-in-program]"
+
+[[ask]]
+id = "G6"
+repo = "X_eTaL-games"
+ask = "named dyadic trains: `u:s_ign := [> - <]` is monadic only"
+state = "declined"
+here = "TR4: a train bound to a name or quoted is monadic; a named dyadic train is written as a lambda, `{ a b -> (a F b) G (a H b) }`"
+repro = "u:s_ign := [> - <]\n3 u:s_ign 2"
+works = "1"
+
+[[ask]]
+id = "G7"
+repo = "X_eTaL-games"
+ask = "`p_ower` with a Bool count (a 0/1 condition)"
+state = "planned"
+here = "the asks audit's small fixes step (the evaluator converts a Bool count as T1 does; plan.md, after Saga 38)"
+repro = "(1 > 0) '{ _r + 1 } p_ower 5"
+works = "6"
+
+[[ask]]
+id = "G8"
+repo = "X_eTaL-games"
+ask = "`i_nner` on numeric matrices costs about 100 ns per multiply-add"
+state = "planned"
+here = "Saga 22 (vector kernels: a primitive operand of inner product as a kernel); about 94 ns per multiply-add on 2026-10-07"
+
+[[ask]]
+id = "G9"
+repo = "X_eTaL-games"
+ask = "reading numbers out of long text is slow: `n_umbers` on 3000 lines, `@ i_nclude<` of a 228 KB file"
+state = "partly landed"
+here = "`n_umbers` on 3000 lines (47 KB) now takes under 0.01 s; `@ i_nclude<` of a 218 KB file still takes about 3.5 minutes (2026-10-07), not yet planned"
+
+[[ask]]
+id = "G10"
+repo = "X_eTaL-games"
+ask = "`m_ember?` of a long vector against a long vector (207360 against 20000: 13 s)"
+state = "new"
+here = "still about 10 s (2026-10-07); hashed membership is not yet planned (Saga 22 covers arithmetic kernels)"
+
+[[ask]]
+id = "G11"
+repo = "X_eTaL-games"
+ask = "Star Trek's scripted game went from 15 ms to 42 ms since f823212"
+state = "new"
+here = "not yet measured here (under the games' bench allowance); Saga 30's performance gates do not cover it"
+
+[[ask]]
+id = "G12"
+repo = "X_eTaL-games"
+ask = "numbers in data files: `[]L_IST` and `[]T_ABLE` give strings only"
+state = "planned"
+here = "Saga 37, xtln (step xtln-table: `[]T_ABLE` and a general reader over `.xtln`)"
+
+[[ask]]
+id = "G13"
+repo = "X_eTaL-games"
+ask = "`[]T_ABLE` and `[]L_IST` read a path relative to the working directory, `i_nclude<` relative to the file"
+state = "new"
+here = "confirmed 2026-10-07; not yet decided or planned"
+
+[[ask]]
+id = "G14"
+repo = "X_eTaL-games"
+ask = "a clearer message for a half-written library: also say \"or define an `l:` name to make this file a library\""
+state = "partly landed"
+here = "PN3, PN4 (D121): run on its own the file says `write u:h_elp (the program's) or h:h_elp (a helper)`; imported, `library Half exports nothing; mark its exports with l:`"
+
+[[ask]]
+id = "G15"
+repo = "X_eTaL-games"
+ask = "fast paths for array idioms: raze, hashed membership, mix, linear number parsing, a matrix-product kernel"
+state = "partly landed"
+here = "linear number parsing landed (`n_umbers`, ask G9); mix to decide (asks-decisions, asks-mix); the matrix-product kernel in Saga 22 (G8); raze and hashed membership (G10) not yet planned"
+
+[[ask]]
+id = "G16"
+repo = "X_eTaL-games"
+ask = "a library that fails to parse is reported at the import as `not-exported` with an empty list"
+state = "landed"
+here = "checked 2026-10-07 at 8f006d6: the import reports the library's own error, located in it (`error[bad-quote]: ... at ./L.xtl:1:18`)"
+
+[[ask]]
+id = "G17"
+repo = "X_eTaL-games"
+ask = "`t_able` and `i_nner` slower since the higher-order built-ins became kernels (the regression D11)"
+state = "landed"
+here = "Saga 30: 16b710d, 8456e45"
 
 [[ask]]
 id = "X1"
@@ -303,8 +476,8 @@ works = "97"
 id = "X5"
 repo = "X_eTaL-libraries"
 ask = "an empty Char vector is drawn with the numbers mark"
-state = "planned"
-here = "Saga 20, array kinds (decision T9)"
+state = "landed"
+here = "d0210f0, dac19f1 (Saga 20 steps 1-2, T9, D103, D107): an empty array keeps its kind, and DISPLAY draws an empty Char vector with the characters mark"
 repro = "d_isplay \"\""
 works = "└─┘"
 
@@ -348,6 +521,63 @@ repro = "up := 1 -2 3 > 0\nup * 10"
 works = "10 0 10"
 
 [[ask]]
+id = "X11"
+repo = "X_eTaL-libraries"
+ask = "what a macro may know while it expands (the platform, flags) and an include macro"
+state = "landed"
+here = "the macros lane's system macros: `@ c_fg< \"cli\"`, `@ i_nclude< \"file\"`, `--cfg NAME` (MC14-MC17, D76; in v0.1.0)"
+repro = "@ c_fg< \"cli\""
+works = "1"
+
+[[ask]]
+id = "X12"
+repo = "X_eTaL-libraries"
+ask = "a macro call with nothing on the left: `@ d_bg< \"x\"`"
+state = "landed"
+here = "the macros lane (MC14-MC17, D76): `@` stands for the empty side"
+repro = "@ d_bg< \"1 + 2\""
+works = "3"
+
+[[ask]]
+id = "X13"
+repo = "X_eTaL-libraries"
+ask = "a macro reporting its own compile error at the call, with its own message"
+state = "landed"
+here = "`[]R_EJECT` (MC20, D76) and the system macro `e_rror<`"
+repro = "\"too-big\" e_rror< \"the grid must be at most 9 wide\""
+works = "error[too-big]"
+
+[[ask]]
+id = "X14"
+repo = "X_eTaL-libraries"
+ask = "a `.xtlm` calling its own library's functions, or naming the importer's alias in its expansion"
+state = "partly landed"
+here = "MC23: a `.xtlm` imports its own `.xtl` by path; naming the importer's alias in an expansion is not yet decided (ask M11)"
+
+[[ask]]
+id = "X15"
+repo = "X_eTaL-libraries"
+ask = "an error a macro reports with `[]R_EJECT` is located by byte range only"
+state = "planned"
+here = "Saga 27, readable type errors (step errors-located: every diagnostic with its file, line and column)"
+
+[[ask]]
+id = "X16"
+repo = "X_eTaL-libraries"
+ask = "`[]U_CHAR` beyond ASCII: it takes codes 0 to 127"
+state = "planned"
+here = "deferred: Unicode text (lang-choices section 15, plan.md Deferred), each deferred item a saga when scheduled"
+repro = "[]U_CHAR 200"
+works = ""
+
+[[ask]]
+id = "X17"
+repo = "X_eTaL-libraries"
+ask = "a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix"
+state = "new"
+here = "a question: by T1 a comparison's result is any `Truthy` type so it converts in arithmetic (`(Num c, Truthy c) => a -> b -> c`); whether to default it is not yet decided"
+
+[[ask]]
 id = "E1"
 repo = "X_eTaL-extensions"
 ask = "a native hook: X_eTaL code calling a function in a native library (`[]S_VO`)"
@@ -368,14 +598,14 @@ id = "E3"
 repo = "X_eTaL-extensions"
 ask = "the CLI as a library: a host entry point so a host can be `xetal` with its own store"
 state = "planned"
-here = "after Saga 21 (plan.md, the sibling asks first)"
+here = "the step cli-as-library, after the asks audit's small fixes (plan.md, after Saga 38)"
 
 [[ask]]
 id = "E4"
 repo = "X_eTaL-extensions"
-ask = "the time: a quad for the current time and a clock"
-state = "landed"
-here = "`[]TS` (the local time stamp) and `[]D_L` (a delay), through the host's clock (D84, quads lane step 2)"
+ask = "the time: a quad for the current time and a monotonic or CPU clock"
+state = "partly landed"
+here = "`[]TS` (the local time stamp) and `[]D_L` (a delay), through the host's clock (D84, quads lane step 2); no monotonic or CPU clock (APL's quad AI) yet, not planned"
 repro = "s_hape []TS"
 works = "7"
 
@@ -393,3 +623,143 @@ ask = "`xetal --draw DIR run FILE` failed: options before the subcommand"
 state = "landed"
 here = "5f00608 (options before the subcommand)"
 golden = "cli-draw-before"
+
+[[ask]]
+id = "E7"
+repo = "X_eTaL-extensions"
+ask = "`xetal type FILE` calls a library whose `l:` names all come from macro calls a program: it decides before expanding"
+state = "planned"
+here = "the asks audit's small fixes step (`is_library` decides after expansion; plan.md, after Saga 38)"
+
+[[ask]]
+id = "E8"
+repo = "X_eTaL-extensions"
+ask = "a program `quakes.xtl` importing `Quakes` on a case-insensitive file system reports `import-cycle` on itself"
+state = "new"
+here = "a name finds a file only when its directory entry matches exactly (design.md), but when the program's own entry is `Quakes.xtl` it still finds itself: `import cycle: ./Quakes.xtl -> ./Quakes.xtl` (2026-10-07); not yet planned"
+
+[[ask]]
+id = "GPU1"
+repo = "X_eTaL-gpu"
+ask = "an accelerator IR in X_eTaL: a typed dataflow DAG with static shapes and a round-tripping text form"
+state = "new"
+here = "not yet planned (research7; the wish list's parallel and GPU kernels)"
+
+[[ask]]
+id = "GPU2"
+repo = "X_eTaL-gpu"
+ask = "Core to accelerator IR lowering, or a reason a region is not acceleratable"
+state = "new"
+here = "not yet planned; needs GPU1 and static shapes (GPU3, declined)"
+
+[[ask]]
+id = "GPU3"
+repo = "X_eTaL-gpu"
+ask = "shapes known statically (with X_eTaL-ML's M12)"
+state = "declined"
+here = "T7: array types are rank-erased, shapes are checked at run time; T4: no annotations in v0; D-10: one Int type (as M12)"
+
+[[ask]]
+id = "GPU4"
+repo = "X_eTaL-gpu"
+ask = "a stable Core IR dump: `xetal core FILE` documented and versioned"
+state = "new"
+here = "not yet planned: `xetal core` is a debugging view today"
+
+[[ask]]
+id = "GPU5"
+repo = "X_eTaL-gpu"
+ask = "bind arrays into a program and read results back without text (the same as D3, M5)"
+state = "planned"
+here = "Saga 23, host bindings and native packages"
+
+[[ask]]
+id = "GPU6"
+repo = "X_eTaL-gpu"
+ask = "device selection at the command line (`xetal run --target opencl FILE`), a backend registered downstream"
+state = "new"
+here = "not yet planned; needs GPU2"
+
+[[ask]]
+id = "GPU7"
+repo = "X_eTaL-gpu"
+ask = "fold orders and Float printing specified in `docs/reference.md`"
+state = "planned"
+here = "the Float printing rule (10a) in the asks audit's small fixes step (plan.md, after Saga 38); the fold orders not yet planned"
+
+[[ask]]
+id = "GPU8"
+repo = "X_eTaL-gpu"
+ask = "the native hook, with arrays passed in binary (the same as E1)"
+state = "planned"
+here = "Saga 23, host bindings and native packages"
+
+[[ask]]
+id = "F1"
+repo = "X_eTaL-fpga"
+ask = "an accelerator IR in X_eTaL (GPU1), with bit widths and registers, memories and state machines"
+state = "new"
+here = "not yet planned (research7)"
+
+[[ask]]
+id = "F2"
+repo = "X_eTaL-fpga"
+ask = "Core to accelerator IR lowering (GPU2), a step function folded over inputs recognized as registers"
+state = "new"
+here = "not yet planned; needs F1 and static widths and shapes (F3, declined)"
+
+[[ask]]
+id = "F3"
+repo = "X_eTaL-fpga"
+ask = "sized integer types and static shapes (`i8[16]`)"
+state = "declined"
+here = "T7: array types are rank-erased; T4: no annotations in v0; D-10: one 64-bit Int type, overflow an error (as M12)"
+
+[[ask]]
+id = "F4"
+repo = "X_eTaL-fpga"
+ask = "a stable Core IR dump (GPU4)"
+state = "new"
+here = "not yet planned: `xetal core` is a debugging view today"
+
+[[ask]]
+id = "F5"
+repo = "X_eTaL-fpga"
+ask = "a seeded left fold, and a left scan of the states (a state machine's run)"
+state = "planned"
+here = "Saga 18, transducers (step 2: the seeded left fold, after the research step); the left scan of the states not yet planned"
+
+[[ask]]
+id = "F6"
+repo = "X_eTaL-fpga"
+ask = "typed, shaped data files in and out"
+state = "planned"
+here = "Saga 37, xtln (a reader, a writer with `read (write x)` is `x`)"
+
+[[ask]]
+id = "F7"
+repo = "X_eTaL-fpga"
+ask = "target selection at the command line (`xetal build --target verilog FILE`), a backend registered downstream"
+state = "new"
+here = "not yet planned; needs F2"
+
+[[ask]]
+id = "F8"
+repo = "X_eTaL-fpga"
+ask = "`e_ncode` of a negative number is unspecified in `docs/reference.md`"
+state = "planned"
+here = "the asks audit's small fixes step (documented as it is: the two's complement residue; plan.md, after Saga 38)"
+
+[[ask]]
+id = "F9"
+repo = "X_eTaL-fpga"
+ask = "a function of three arguments cannot be applied in one line"
+state = "new"
+here = "filed after the asks audit; operand binding (`(1 u:f_ 2)_ 3`, F8/F9) works but a new form needs a language decision"
+
+[[ask]]
+id = "F10"
+repo = "X_eTaL-fpga"
+ask = "a Rust API for evaluating X_eTaL in process: a plain value type and a session (with M5, GPU5)"
+state = "planned"
+here = "Saga 23, host bindings and native packages (a session object reusing the REPL's, binding typed host values)"
