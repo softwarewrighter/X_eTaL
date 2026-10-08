@@ -51,6 +51,9 @@ does() { case "$mode" in full) true ;; sample) false ;; *) grep -qx "$1" <<< "$p
 
 step "nothing else is building here"
 scripts/check-busy.sh
+step "no conflict markers"
+scripts/check-markers.sh --self-test
+scripts/check-markers.sh
 step "Cargo.lock consistency"
 scripts/check-locks.sh
 scripts/check-modes.sh

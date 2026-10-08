@@ -59,7 +59,7 @@
 <ul>
 <li><a href="#section-1">Repeating statements</a></li>
 <li class="item"><a href="#m.t_imes-3c"><span class="c-macro">ᵐt̲imes&lt;</span></a></li>
-<li class="item"><a href="#c_opies"><span class="c-builtin">c̲opies</span></a></li>
+<li class="item"><a href="#h.c_opies"><span class="c-libfunc">ʰc̲opies</span></a></li>
 </ul>
 </nav>
 <main>
@@ -92,19 +92,19 @@ hip hip</pre>
   <a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> <a href="builtins.html#-5b-5dS_TATEMENT" class="c-builtin">⎕S̲TATEMENT</a> @ ? <span class="c-string">&quot;misplaced-macro call&quot;</span> <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> <span class="c-string">&quot;r:t_imes&lt; writes statements: it stands as a statement of its own&quot;</span>
   k ← <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> (<a href="builtins.html#n_umbers" class="c-builtin">n̲umbers</a> count) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.0</span>
   k <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">1</span> ? <span class="c-string">&quot;bad-macro-argument left&quot;</span> <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> <span class="c-string">&quot;r:t_imes&lt; writes its statements 1 or more times&quot;</span>
-  k <a href="userlibs-Repeat.xtlm.html#c_opies" class="c-builtin">c̲opies</a> body
+  k <a href="userlibs-Repeat.xtlm.html#h.c_opies" class="c-libfunc">ʰc̲opies</a> body
 }</pre>
 <div class="uses">Used in: <a href="demos-user-macros.xtl.src.html#L12">user-macros.xtl:12</a>, <a href="demos-user-macros.xtl.html#x">x</a></div>
 </div>
-<div class="item" id="c_opies">
-<h3><a href="#c_opies"><span class="c-builtin">c̲opies</span></a> <span class="type">: Int -&gt; Char -&gt; Char</span></h3>
+<div class="item" id="h.c_opies">
+<h3><a href="#h.c_opies"><span class="c-libfunc">ʰc̲opies</span></a> <span class="type">: Int -&gt; Char -&gt; Char</span></h3>
 <div class="meta">function <span class="private">(private)</span> &middot; <a href="userlibs-Repeat.xtlm.src.html#L26">line 26</a></div>
 <div class="doc">
 <p>The text t written k times, one copy per line (once when k is 1 or
 less).</p>
 </div>
-<pre class="code"><span class="c-builtin">c̲opies</span> ← { k t → k <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? t◆ t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\n&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (k <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="userlibs-Repeat.xtlm.html#c_opies" class="c-builtin">c̲opies</a> t }</pre>
-<div class="uses">Used in: <a href="userlibs-Repeat.xtlm.html#m.t_imes-3c"><span class="c-macro">ᵐt̲imes&lt;</span></a>, <a href="userlibs-Repeat.xtlm.html#c_opies"><span class="c-builtin">c̲opies</span></a></div>
+<pre class="code"><span class="c-libfunc">ʰc̲opies</span> ← { k t → k <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? t◆ t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;\n&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (k <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="userlibs-Repeat.xtlm.html#h.c_opies" class="c-libfunc">ʰc̲opies</a> t }</pre>
+<div class="uses">Used in: <a href="userlibs-Repeat.xtlm.html#m.t_imes-3c"><span class="c-macro">ᵐt̲imes&lt;</span></a>, <a href="userlibs-Repeat.xtlm.html#h.c_opies"><span class="c-libfunc">ʰc̲opies</span></a></div>
 </div>
 </main>
 </body>

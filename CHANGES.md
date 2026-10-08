@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-08
 
+- 01:10 `build` Merged PR #112 (a macro library's bare helpers warn `deprecated-private`, D127); its CHANGES and design.md conflicts with #111 (D126) resolved by keeping both. A local merge commit had kept the conflict markers (the merge helper was missing and the script went on); it was amended before any push. Now every gate runs `scripts/check-markers.sh` first, which fails on a conflict marker in any tracked or staged file and proves itself with `--self-test`. Pages rebuilt (System.xtlm changed: web, rosetta, literate, doc, latex).
 - 00:30 `fix` After merging PR #111 (tuple patterns): the LaTeX renderer escapes the wildcard `_` (`\_`; KaTeX rejected `{_}`, so the gallery failed), and three sw-checklist failures fixed: xetal-types' `part` moved beside `tuple` (subscript.rs), xetal-core's binding rules and tuple-pattern lowering moved into a new `bind.rs`, xetal-syntax's `pattern` split (`parts`) and `pattern_binding` moved into stmt.rs.
 - 00:10 `chore` Merged PR #111 (tuple patterns, Saga 39 step 4).
 ## 2026-10-07
