@@ -1,0 +1,1 @@
+File header needs no blank line; doc-unattached warning for stray ## blocks; alphabetical sidebar (case-insensitive); X18 lexing error shown instead of exports-nothing
