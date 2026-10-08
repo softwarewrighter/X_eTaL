@@ -3,7 +3,7 @@
 u:w_hen := { c ~a ~b -> c ? a; b }
 ((u:w_hen 1 = 1)_ 42)_ 1 / 0
 == TYPE
-u:w_hen : Truthy a => a -> b -> b -> b
+u:w_hen : (Truthy a, Any b) => a -> b -> b -> b
 Float
 == RESULT
 42.0

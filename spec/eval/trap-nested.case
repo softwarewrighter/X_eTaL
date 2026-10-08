@@ -11,6 +11,6 @@
 Char
 Int
 Int
-a
+Any a => a
 == ERROR
 error[handler-broke]: while handling at 319..361

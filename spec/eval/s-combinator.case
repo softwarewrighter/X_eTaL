@@ -5,7 +5,7 @@ u:S_ := { f_ g_ x -> x f_ g_ x }
 'n_eg '- u:S_ 5
 == TYPE
 Int
-u:S_ : (a -> b -> c) -> (a -> b) -> a -> c
+u:S_ : (Any a, Any b, Any c) => (a -> b -> c) -> (a -> b) -> a -> c
 Int
 == RESULT
 10

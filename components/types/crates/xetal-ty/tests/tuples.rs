@@ -46,3 +46,26 @@ fn match_admits_tuples_and_eq_does_not() {
             .is_err()
     );
 }
+
+#[test]
+fn an_array_variable_rejects_a_tuple_and_prints_bare() {
+    let arr = Classes::named("Arr").unwrap();
+    let mut u = Unifier::default();
+    let a = u.fresh_in(arr);
+    let e = u
+        .unify(&a, &Type::Tuple(vec![Type::Int, Type::Int]), span())
+        .unwrap_err();
+    assert_eq!(e.message, "expected an array, found a tuple");
+    // Arr is never named; no class at all is `Any` (TU9).
+    assert_eq!(arr.names().collect::<Vec<_>>(), Vec::<&str>::new());
+    assert_eq!(Classes::default().names().collect::<Vec<_>>(), ["Any"]);
+    assert_eq!(Classes::named("Any"), Some(Classes::default()));
+}
+
+#[test]
+fn a_box_may_hold_a_tuple_where_its_variable_is_an_array() {
+    let mut u = Unifier::default();
+    let a = u.fresh_in(Classes::named("Arr").unwrap());
+    let boxed = Type::Box(Box::new(Type::Tuple(vec![Type::Int, Type::Float])));
+    assert!(u.unify(&a, &boxed, span()).is_ok());
+}

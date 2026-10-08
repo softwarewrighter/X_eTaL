@@ -1,0 +1,6 @@
+# TU5: a built-in on arrays (its type variable an array of any rank,
+# T7) does not take a tuple.
+== SOURCE
+r_ev (1, 2)
+== ERROR
+error[type-mismatch]: expected an array, found a tuple at 0..11

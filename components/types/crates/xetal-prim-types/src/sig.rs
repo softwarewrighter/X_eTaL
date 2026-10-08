@@ -63,9 +63,10 @@ fn atom(tokens: &mut Vec<&str>, vars: &mut Vars, u: &mut Unifier) -> Result<Type
                 .then_some(t)
                 .ok_or_else(|| bad("(unclosed)"))?
         }
+        // A variable with no class is an array (T7); `Any a` is not.
         name => vars
             .entry(name.to_string())
-            .or_insert_with(|| u.fresh())
+            .or_insert_with(|| u.fresh_in(Classes::named("Arr").unwrap_or_default()))
             .clone(),
     })
 }

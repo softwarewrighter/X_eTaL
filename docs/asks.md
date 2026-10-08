@@ -13,12 +13,12 @@ build already does what the ask wants.
 
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
-| X_eTaL-demos | 6 | 2 | 6 | 0 | 0 |
-| X_eTaL-ML | 6 | 1 | 2 | 0 | 0 |
+| X_eTaL-demos | 6 | 3 | 5 | 0 | 0 |
+| X_eTaL-ML | 6 | 2 | 2 | 0 | 0 |
 | X_eTaL-games | 2 | 1 | 2 | 0 | 0 |
 | X_eTaL-libraries | 4 | 2 | 1 | 3 | 0 |
 | X_eTaL-extensions | 3 | 0 | 3 | 0 | 0 |
-| All | 21 | 6 | 14 | 3 | 0 |
+| All | 21 | 8 | 13 | 3 | 0 |
 
 ## To look at
 
@@ -34,7 +34,7 @@ build already does what the ask wants.
 | D4 | Float literals with an exponent (`1.5e-7`) | landed | 54fea87 (decision S8) | passes |
 | D5 | complex numbers (Mandelbrot, Julia) | planned | Saga 31, complex numbers, on Saga 29's types | - |
 | D6 | nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix) | partly landed | cf834e1 (`m_ap` boxes each result); mix to decide with the user (plan.md, the sibling asks that need decisions) | passes |
-| D7 | a state of several arrays for `p_ower` (a tuple or record) | planned | Saga 39, tuples with patterns (docs/tuples.md, lanes/tuples; with X_eTaL-ML ask M13); records in Saga 29 on its types | - |
+| D7 | a state of several arrays for `p_ower` (a tuple or record) | partly landed | Saga 39, tuples with patterns (docs/tuples.md, lanes/tuples; with X_eTaL-ML ask M13): tuple states through `p_ower` work, patterns come next; records in Saga 29 on its types | - |
 | D8 | a per-operation evaluation trace through `xetal-play` | planned | a step of Saga 17, trace and explain | - |
 | D9 | transpose | landed | 3ad1f8e (`o_\`, `t_ranspose`, decision B17) | passes |
 | D10 | a vendored build reports the outer repo's commit as its own | landed | 4a31ba9 (`XETAL_BUILD_SHA` overrides the build's commit) | - |
@@ -56,6 +56,7 @@ build already does what the ask wants.
 | M7 | long Int literal strands read in quadratic time (the same as D1) | landed | 6010d70 | - |
 | M8 | Float literals with an exponent (the same as D4) | landed | 54fea87 (decision S8) | passes |
 | M9 | a Bool bound to a name cannot be used in arithmetic (the same as D14) | landed | ffd5526 | passes |
+| M13 | a state of several arrays for `p_ower`: train-live packs 99 weights and Adam's two averages into one vector of 298 numbers | partly landed | Saga 39, tuples (lanes/tuples): `p_ower` repeats a step on a tuple state such as `(Float, Float, Float, Int)` (TU9); taking the state apart in the step needs patterns, step 4 | passes |
 
 ## X_eTaL-games
 

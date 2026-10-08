@@ -53,11 +53,11 @@ entries = [
 [[group]]
 rule = "B7, B9: effects, identity and the tacks"
 entries = [
-  ["p_rint!", 1, "a -> a"],
+  ["p_rint!", 1, "Any a => a -> a"],
   ["r_oll!", 1, "Int -> Int"],
-  ["i_d", 1, "a -> a"],
-  ["l_eft", 2, "a -> b -> a"],
-  ["r_ight", 2, "a -> b -> b"],
+  ["i_d", 1, "Any a => a -> a"],
+  ["l_eft", 2, "(Any a, Any b) => a -> b -> a"],
+  ["r_ight", 2, "(Any a, Any b) => a -> b -> b"],
 ]
 
 [[group]]
@@ -80,15 +80,15 @@ entries = [
   ["[]N_GET", 1, "Char -> Char"],
   ["[]R_EAD", 1, "Unit -> Char"],
   ["[]E_RR", 1, "Char -> Char"],
-  ["[]P_ANIC", 1, "Char -> a"],
-  ["[]S_IGNAL", 2, "Char -> Char -> a"],
-  ["[]W_ARN", 2, "a -> Box Char -> a"],
-  ["[]T_RAP", 2, "(Unit -> a) -> (Error -> Outcome a) -> a"],
-  ["[]E_NSURE", 2, "(Unit -> a) -> (Unit -> b) -> a"],
-  ["[]R_ECOVER", 1, "a -> Outcome a"],
-  ["[]R_ETRY", 1, "Error -> Outcome a"],
-  ["[]H_ALT", 1, "Error -> Outcome a"],
-  ["[]C_ONTINUE", 1, "Error -> Outcome a"],
+  ["[]P_ANIC", 1, "Any a => Char -> a"],
+  ["[]S_IGNAL", 2, "Any a => Char -> Char -> a"],
+  ["[]W_ARN", 2, "Any a => a -> Box Char -> a"],
+  ["[]T_RAP", 2, "Any a => (Unit -> a) -> (Error -> Outcome a) -> a"],
+  ["[]E_NSURE", 2, "(Any a, Any b) => (Unit -> a) -> (Unit -> b) -> a"],
+  ["[]R_ECOVER", 1, "Any a => a -> Outcome a"],
+  ["[]R_ETRY", 1, "Any a => Error -> Outcome a"],
+  ["[]H_ALT", 1, "Any a => Error -> Outcome a"],
+  ["[]C_ONTINUE", 1, "Any a => Error -> Outcome a"],
   ["[]E_CODE", 1, "Error -> Char"],
   ["[]E_MESSAGE", 1, "Error -> Char"],
   ["[]E_WHERE", 1, "Error -> Char"],
@@ -168,9 +168,9 @@ entries = [
 rule = "B6: inner product and combinators (operands nearest-first, F9)"
 entries = [
   ["i_nner", 4, "(a -> b -> c) -> (c -> c -> c) -> a -> b -> c"],
-  ["c_ompose", 3, "(a -> b) -> (b -> c) -> a -> c"],
-  ["s_wap", 3, "(a -> b -> c) -> b -> a -> c"],
-  ["p_ower", 3, "(a -> a) -> Int -> a -> a"],
+  ["c_ompose", 3, "(Any a, Any b, Any c) => (a -> b) -> (b -> c) -> a -> c"],
+  ["s_wap", 3, "(Any a, Any b, Any c) => (a -> b -> c) -> b -> a -> c"],
+  ["p_ower", 3, "Any a => (a -> a) -> Int -> a -> a"],
 ]
 
 [[group]]

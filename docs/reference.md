@@ -890,7 +890,7 @@ axis of A with the first of B).
 
 ### `c_ompose`
 
-`(a -> b) -> (b -> c) -> a -> c`, three arguments.
+`(Any a, Any b, Any c) => (a -> b) -> (b -> c) -> a -> c`, three arguments.
 
 `'f 'g c_ompose x` is f applied to g applied to x; the atop train
 `[f g] x` is the same.
@@ -904,7 +904,7 @@ axis of A with the first of B).
 
 ### `s_wap`
 
-`(a -> b -> c) -> b -> a -> c`, three arguments.
+`(Any a, Any b, Any c) => (a -> b -> c) -> b -> a -> c`, three arguments.
 
 `x 'f s_wap y` is `y f x`: the arguments swapped.
 
@@ -915,7 +915,7 @@ axis of A with the first of B).
 
 ### `p_ower`
 
-`(a -> a) -> Int -> a -> a`, three arguments.
+`Any a => (a -> a) -> Int -> a -> a`, three arguments.
 
 `n 'f p_ower x` applies f to x n times; `f_^n` is the same with a
 literal count.
@@ -1241,7 +1241,7 @@ error[domain]: a delay is a finite number of seconds, 0 or more, not -1
 
 ### `p_rint!`
 
-`a -> a`, one argument.
+`Any a => a -> a`, one argument.
 
 Print a value and give it back (the ! marks an effect).
 
@@ -1265,7 +1265,7 @@ example repeats).
 
 ### `i_d`
 
-`a -> a`, one argument.
+`Any a => a -> a`, one argument.
 
 The value itself. As the left function of a fork it gives the
 argument unchanged: `[i_d F G] x` is `(i_d x) F (G x)`, that is
@@ -1280,7 +1280,7 @@ argument unchanged: `[i_d F G] x` is `(i_d x) F (G x)`, that is
 
 ### `l_eft`
 
-`a -> b -> a`, two arguments.
+`(Any a, Any b) => a -> b -> a`, two arguments.
 
 The left argument. In a dyadic train, `x [l_eft F r_ight] y` is
 `x F y`, so the tacks pick an argument for each side of a fork.
@@ -1294,7 +1294,7 @@ The left argument. In a dyadic train, `x [l_eft F r_ight] y` is
 
 ### `r_ight`
 
-`a -> b -> b`, two arguments.
+`(Any a, Any b) => a -> b -> b`, two arguments.
 
 The right argument.
 
@@ -1633,7 +1633,7 @@ text back.
 
 ### `[]P_ANIC`
 
-`Char -> a`, one argument.
+`Any a => Char -> a`, one argument.
 
 Stop the program with error[panic] and the text as its message (what
 `@ p_anic< "..."` writes). Its result has any type, so it stands where
@@ -1646,7 +1646,7 @@ error[panic]: stop here
 
 ### `[]S_IGNAL`
 
-`Char -> Char -> a`, two arguments.
+`Any a => Char -> Char -> a`, two arguments.
 
 Stop with an error of your own: the code on the left names the error
 class, as xetal's own codes do (lowercase letters, digits and hyphens),
@@ -1674,7 +1674,7 @@ lib/System.xtlm` shows each with an example that runs.
 
 ### `[]T_RAP`
 
-`(Unit -> a) -> (Error -> Outcome a) -> a`, two arguments.
+`Any a => (Unit -> a) -> (Error -> Outcome a) -> a`, two arguments.
 
 Run the body; on any error, call the handler with it. The trap's value
 is the body's, or what the handler recovers with.
@@ -1690,7 +1690,7 @@ mine
 
 ### `[]R_ECOVER`
 
-`a -> Outcome a`, one argument.
+`Any a => a -> Outcome a`, one argument.
 
 The handler's answer: the trap's value is this one, of the body's type.
 
@@ -1701,7 +1701,7 @@ The handler's answer: the trap's value is this one, of the body's type.
 
 ### `[]H_ALT`
 
-`Error -> Outcome a`, one argument.
+`Any a => Error -> Outcome a`, one argument.
 
 The handler's answer: the error goes on as it was, from where it was
 raised. A handler for one kind of error halts on the others.
@@ -1713,7 +1713,7 @@ error[a]: b
 
 ### `[]R_ETRY`
 
-`Error -> Outcome a`, one argument.
+`Any a => Error -> Outcome a`, one argument.
 
 The handler's answer: run the body again. After 1000 runs the trap
 gives up with error[retry-limit].
@@ -1761,7 +1761,7 @@ source text, `start..end`.
 
 ### `[]W_ARN`
 
-`a -> Box Char -> a`, two arguments.
+`Any a => a -> Box Char -> a`, two arguments.
 
 An error the program can go on from (a warning): the left argument is
 the value to go on with, of the type of the place the warning stands
@@ -1781,7 +1781,7 @@ error[empty]: nothing to add
 
 ### `[]C_ONTINUE`
 
-`Error -> Outcome a`, one argument.
+`Any a => Error -> Outcome a`, one argument.
 
 The handler's answer to a warning: go on from it, with its value. The
 handler runs where the warning was raised, before any cleanup between
@@ -1798,7 +1798,7 @@ error[not-resumable]: error[a] was raised by []S_IGNAL, not []W_ARN, so it has n
 
 ### `[]E_NSURE`
 
-`(Unit -> a) -> (Unit -> b) -> a`, two arguments.
+`(Any a, Any b) => (Unit -> a) -> (Unit -> b) -> a`, two arguments.
 
 Run the body, then the cleanup (a function of `@`), whether the body
 gave a value or stopped with an error; the body's value, or its error

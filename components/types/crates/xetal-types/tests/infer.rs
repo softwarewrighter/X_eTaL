@@ -47,7 +47,7 @@ fn user_functions() {
         types("u:h_yp := { a b -> (a^2 + b^2)^0.5 }"),
         "u:h_yp : Float -> Float -> Float"
     );
-    assert_eq!(types("{ x -> x }"), "a -> a");
+    assert_eq!(types("{ x -> x }"), "Any a => a -> a");
     assert_eq!(
         types("u:e_q := { _l = _r }"),
         "u:e_q : (Eq a, Truthy b) => a -> a -> b"
@@ -58,7 +58,7 @@ fn user_functions() {
 fn let_polymorphism() {
     assert_eq!(
         types("u:I_ := { x -> x }; u:I_ 3; u:I_ 1 = 1"),
-        "u:I_ : a -> a\nInt\nBool"
+        "u:I_ : Any a => a -> a\nInt\nBool"
     );
     assert_eq!(types("x := 3; x ^ 2"), "x : Int\nInt");
 }
@@ -92,33 +92,39 @@ fn guards_recursion_and_mutation() {
     assert_eq!(types("c! := 0; c! := c! + 1"), "c! : Int\nc! : Int");
     assert_eq!(
         types("u:w_hen := { c ~a ~b -> c ? a; b }"),
-        "u:w_hen : Truthy a => a -> b -> b -> b"
+        "u:w_hen : (Truthy a, Any b) => a -> b -> b -> b"
     );
 }
 
 #[test]
 fn the_birds() {
     let birds = [
-        ("u:I_ := { x -> x }", "a -> a"),
-        ("u:K_ := { x y -> x }", "a -> b -> a"),
+        ("u:I_ := { x -> x }", "Any a => a -> a"),
+        ("u:K_ := { x y -> x }", "(Any a, Any b) => a -> b -> a"),
         (
             "u:S_ := { f_ g_ x -> x f_ g_ x }",
-            "(a -> b -> c) -> (a -> b) -> a -> c",
+            "(Any a, Any b, Any c) => (a -> b -> c) -> (a -> b) -> a -> c",
         ),
         (
             "u:B_ := { f_ g_ x -> f_ g_ x }",
-            "(a -> b) -> (c -> a) -> c -> b",
+            "(Any a, Any b, Any c) => (a -> b) -> (c -> a) -> c -> b",
         ),
         (
             "u:C_ := { f_ x y -> y f_ x }",
-            "(a -> b -> c) -> b -> a -> c",
+            "(Any a, Any b, Any c) => (a -> b -> c) -> b -> a -> c",
         ),
-        ("u:W_ := { f_ x -> x f_ x }", "(a -> a -> b) -> a -> b"),
+        (
+            "u:W_ := { f_ x -> x f_ x }",
+            "(Any a, Any b) => (a -> a -> b) -> a -> b",
+        ),
         (
             "u:V_ := { x y f_ -> x f_ y }",
-            "a -> b -> (a -> b -> c) -> c",
+            "(Any a, Any b, Any c) => a -> b -> (a -> b -> c) -> c",
         ),
-        ("u:T_ := { x f_ -> f_ x }", "a -> (a -> b) -> b"),
+        (
+            "u:T_ := { x f_ -> f_ x }",
+            "(Any a, Any b) => a -> (a -> b) -> b",
+        ),
     ];
     for (src, ty) in birds {
         let name = src.split(' ').next().unwrap();
@@ -212,9 +218,9 @@ fn arrays_are_rank_erased() {
 #[test]
 fn identity_and_tacks() {
     // B9: i_d is monadic, the tacks dyadic; none of them is numeric.
-    assert_eq!(types("'i_d"), "a -> a");
-    assert_eq!(types("'l_eft"), "a -> b -> a");
-    assert_eq!(types("'r_ight"), "a -> b -> b");
+    assert_eq!(types("'i_d"), "Any a => a -> a");
+    assert_eq!(types("'l_eft"), "(Any a, Any b) => a -> b -> a");
+    assert_eq!(types("'r_ight"), "(Any a, Any b) => a -> b -> b");
     assert_eq!(types("\"ab\" l_eft 1"), "Char");
     assert_eq!(type_error("1 i_d 2").0, "type-mismatch");
 }

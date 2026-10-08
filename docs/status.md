@@ -19,15 +19,19 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 125 | 0 | 0 |
-| Language decisions | 152 | 0 | 3 |
+| Language decisions | 149 | 0 | 6 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 403 | 0 | 8 |
+| Spec cases | 407 | 0 | 9 |
 
 ## Planned (decided, not yet implemented)
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
 - **S11** (planned): Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents.
 - **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
+- **PN2** (planned): A bare top-level function in a library is deprecated: it still works and is private, with a warning (...).
+- **PN3** (planned): A bare top-level function in an app stays an error; its message names both choices: "write `u:h_alf` (the (...).
+- **PN6** (planned): Unchanged: local functions inside a lambda are bare and scoped to it (`c_ap := { ... }`), and one named (...).
+- spec case `names/reject-bare-function-in-app.case` (pending)
 - spec case `tuples/boxed.case` (pending)
 - spec case `tuples/pattern-binding.case` (pending)
 - spec case `tuples/pattern-dyadic.case` (pending)
@@ -88,11 +92,11 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `p_rint!` | `a -> a` | works | 19 | 1 |
+| `p_rint!` | `Any a => a -> a` | works | 20 | 1 |
 | `r_oll!` | `Int -> Int` | works | 3 | 1 |
-| `i_d` | `a -> a` | works | 2 | 2 |
-| `l_eft` | `a -> b -> a` | works | 2 | 2 |
-| `r_ight` | `a -> b -> b` | works | 2 | 2 |
+| `i_d` | `Any a => a -> a` | works | 3 | 2 |
+| `l_eft` | `(Any a, Any b) => a -> b -> a` | works | 3 | 2 |
+| `r_ight` | `(Any a, Any b) => a -> b -> b` | works | 2 | 2 |
 
 ### QD2, QD3, QD7: system values, character codes and the clock
 
@@ -115,15 +119,15 @@ conventions (naming, layout) work without a spec case citing them.
 | `[]N_GET` | `Char -> Char` | works | 1 | 1 |
 | `[]R_EAD` | `Unit -> Char` | works | 0 | 1 |
 | `[]E_RR` | `Char -> Char` | works | 0 | 1 |
-| `[]P_ANIC` | `Char -> a` | works | 0 | 1 |
-| `[]S_IGNAL` | `Char -> Char -> a` | works | 12 | 2 |
-| `[]W_ARN` | `a -> Box Char -> a` | works | 8 | 3 |
-| `[]T_RAP` | `(Unit -> a) -> (Error -> Outcome a) -> a` | works | 11 | 3 |
-| `[]E_NSURE` | `(Unit -> a) -> (Unit -> b) -> a` | works | 4 | 2 |
-| `[]R_ECOVER` | `a -> Outcome a` | works | 6 | 1 |
-| `[]R_ETRY` | `Error -> Outcome a` | works | 1 | 2 |
-| `[]H_ALT` | `Error -> Outcome a` | works | 3 | 1 |
-| `[]C_ONTINUE` | `Error -> Outcome a` | works | 4 | 2 |
+| `[]P_ANIC` | `Any a => Char -> a` | works | 0 | 1 |
+| `[]S_IGNAL` | `Any a => Char -> Char -> a` | works | 12 | 2 |
+| `[]W_ARN` | `Any a => a -> Box Char -> a` | works | 8 | 3 |
+| `[]T_RAP` | `Any a => (Unit -> a) -> (Error -> Outcome a) -> a` | works | 11 | 3 |
+| `[]E_NSURE` | `(Any a, Any b) => (Unit -> a) -> (Unit -> b) -> a` | works | 4 | 2 |
+| `[]R_ECOVER` | `Any a => a -> Outcome a` | works | 6 | 1 |
+| `[]R_ETRY` | `Any a => Error -> Outcome a` | works | 1 | 2 |
+| `[]H_ALT` | `Any a => Error -> Outcome a` | works | 3 | 1 |
+| `[]C_ONTINUE` | `Any a => Error -> Outcome a` | works | 4 | 2 |
 | `[]E_CODE` | `Error -> Char` | works | 4 | 1 |
 | `[]E_MESSAGE` | `Error -> Char` | works | 1 | 1 |
 | `[]E_WHERE` | `Error -> Char` | works | 0 | 1 |
@@ -181,7 +185,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `d_rop` | `Int -> a -> a` | works | 3 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 15 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 6 | 6 |
-| `c_at` | `a -> a -> a` | works | 16 | 5 |
+| `c_at` | `a -> a -> a` | works | 17 | 5 |
 
 ### B6: reduce and scan (leading axis; reduce is a right fold)
 
@@ -203,9 +207,9 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `i_nner` | `(a -> b -> c) -> (c -> c -> c) -> a -> b -> c` | works | 6 | 1 |
-| `c_ompose` | `(a -> b) -> (b -> c) -> a -> c` | works | 3 | 2 |
-| `s_wap` | `(a -> b -> c) -> b -> a -> c` | works | 4 | 1 |
-| `p_ower` | `(a -> a) -> Int -> a -> a` | works | 3 | 2 |
+| `c_ompose` | `(Any a, Any b, Any c) => (a -> b) -> (b -> c) -> a -> c` | works | 4 | 2 |
+| `s_wap` | `(Any a, Any b, Any c) => (a -> b -> c) -> b -> a -> c` | works | 5 | 1 |
+| `p_ower` | `Any a => (a -> a) -> Int -> a -> a` | works | 4 | 2 |
 
 ### B7: search and order (over major cells)
 
@@ -239,7 +243,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `r_ev` | `a -> a` | works | 12 | 4 |
+| `r_ev` | `a -> a` | works | 14 | 4 |
 | `o_-` | `Int -> a -> a` | works | 5 | 6 |
 
 ### B17: transpose
@@ -302,9 +306,9 @@ conventions (naming, layout) work without a spec case citing them.
 | T1 | A real `Bool` type; `=` and the comparisons return Bool | works | 4 |
 | T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and (...) | works | 3 |
 | T3 | `=` is exact (IEEE) equality and transitive; `(0.1 + 0.2) = 0.3` is 0 | works | 2 |
-| T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 7 |
+| T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 8 |
 | T6 | Programs are type-checked before they run: `xetal eval` and `xetal run` refuse an ill-typed program with a (...) | works | 5 |
-| T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 8 |
+| T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 10 |
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
 | T9 | An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...) | works | 4 |
 | T4 | Type annotations: none in v0 (types are inferred) | works | 1 |
@@ -327,11 +331,11 @@ conventions (naming, layout) work without a spec case citing them.
 | TU2 | A tuple's type is written and printed as the literal is: `(Float, Float, Float, Int)` | works | 3 |
 | TU3 | A tuple is taken apart by a pattern only: in a binding at the top level or in a lambda, `(w, m, v, k) := (...) | works | 4 |
 | TU4 | In a pattern, `_` binds nothing and may repeat: `(w, _, _, k) := s` | works | 2 |
-| TU5 | A tuple used where an array is expected, an array where a tuple is expected, or a pattern of the wrong (...) | works | 2 |
+| TU5 | A tuple used where an array is expected, an array where a tuple is expected, or a pattern of the wrong (...) | works | 4 |
 | TU6 | A tuple prints on one line, `(1 2 3, 4.5, 7)`, when every part prints on one line; when a part prints on (...) | works | 4 |
 | TU7 | `m_atch` compares two tuples part by part and answers one truth | works | 4 |
-| TU8 | A tuple is not an array item in v1, but it can be boxed: `e_nclose (1, 2.5)` is a `Box (Int, Float)`, (...) | works | 1 |
-| TU9 | The higher-order built-ins are unchanged: their types are polymorphic, so `p_ower` repeats a step on a (...) | works | 1 |
+| TU8 | A tuple is not an array item in v1, but it can be boxed: `e_nclose (1, 2.5)` is a `Box (Int, Float)`, (...) | works | 2 |
+| TU9 | The higher-order built-ins are unchanged: their types are polymorphic, so `p_ower` repeats a step on a (...) | works | 4 |
 | TU10 | A tuple is a Core form of its own, and a pattern desugars to bindings of projections in Core, so the (...) | works | 0 |
 | TU11 | Every name a pattern binds is a binder for macro hygiene (MC30) and for the shadowing warning (L7) | works | 0 |
 | TU12 | The record field syntax of Saga 29 is kept free: a name followed by `:` and a space inside parentheses (...) | works | 1 |
@@ -397,11 +401,11 @@ conventions (naming, layout) work without a spec case citing them.
 | MC30 | Macros are hygienic, automatically (as Scheme's): after a macro gives its text, the macro phase finds each (...) | works | 5 |
 | MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | PN1 | `h:` is a namespace for file-private definitions, functions and variables: `h:j_oin := { b -> ... }`, (...) | works | 2 |
-| PN2 | A bare top-level function in a library is deprecated: it still works and is private, with a warning (...) | works | 0 |
-| PN3 | A bare top-level function in an app stays an error; its message names both choices: "write `u:h_alf` (the (...) | works | 1 |
+| PN2 | A bare top-level function in a library is deprecated: it still works and is private, with a warning (...) | planned | 0 |
+| PN3 | A bare top-level function in an app stays an error; its message names both choices: "write `u:h_alf` (the (...) | planned | 1 |
 | PN4 | Importing an `.xtl` file that defines no `l:` name, function or variable, is an error (a new MC8 row): (...) | works | 0 |
 | PN5 | A bare top-level variable in a library stays private, with no warning: built-ins are functions or quad (...) | works | 1 |
-| PN6 | Unchanged: local functions inside a lambda are bare and scoped to it (`c_ap := { ... }`), and one named (...) | works | 0 |
+| PN6 | Unchanged: local functions inside a lambda are bare and scoped to it (`c_ap := { ... }`), and one named (...) | planned | 0 |
 | PN7 | What a file offers, its interface, is its exports for a library (`l:` names) and its `u:` names and bare (...) | works | 0 |
 | CB1 | The standard library `Combinators` holds every bird Raymond Smullyan names in *To Mock a Mockingbird* that (...) | works | 1 |
 | CB2 | Y is in the library by recursion, `l:Y_ := { f_ -> f_ l:Y_ 'f_ }`, typed `(a -> a) -> a`, which works (...) | works | 0 |

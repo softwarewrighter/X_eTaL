@@ -1,0 +1,6 @@
+# TU5, TU8: an array's items are not tuples (boxed tuples come with
+# m_ap), so joining a tuple to an array is a type error.
+== SOURCE
+(1, 2) c_at 3
+== ERROR
+error[type-mismatch]: expected an array, found a tuple at 0..13

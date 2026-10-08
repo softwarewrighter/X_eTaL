@@ -4,7 +4,7 @@
 u:s_wapped := { (a, b) -> (b, a) }
 u:s_wapped (1, "x")
 == TYPE
-u:s_wapped : (a, b) -> (b, a)
+u:s_wapped : (Any a, Any b) => (a, b) -> (b, a)
 (Char, Int)
 == RESULT
 (x, 1)
