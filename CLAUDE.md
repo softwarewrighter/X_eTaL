@@ -413,13 +413,15 @@ fails until the case is flipped to active in a deliberate commit.
 
 - `just gate` (sample, about 30 seconds): the end-to-end checks only,
   in parallel: goldens, spec cases, doc tests, reference, status, data
-  tables, spelling, markdown. Before every commit, merge and push.
+  tables, spelling, markdown; and sw-checklist (a fraction of a
+  second), so a merged lane cannot leave code over its limits. Before
+  every commit, merge and push.
   A merge of a lane's PR is: merge, `just gate`, `just pages` (only
   the stale parts rebuild), push.
 - `just gate --affected`: the sample plus the components the change
   touches (`scripts/affected.py` plans it: changed ones checked,
   dependents compiled), the browser build and the document checks
-  whose inputs changed, sw-checklist. Before `agentrail complete` of a
+  whose inputs changed. Before `agentrail complete` of a
   step that changed code.
 - `just gate --full`: everything. Nightly (`scripts/nightly.sh`, a
   launchd job in `scripts/nightly.plist`; its log in `work/nightly/`,

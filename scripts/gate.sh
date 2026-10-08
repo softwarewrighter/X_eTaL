@@ -55,6 +55,15 @@ step "Cargo.lock consistency"
 scripts/check-locks.sh
 scripts/check-modes.sh
 scripts/check-pages.sh
+# Structure in every gate (it takes a fraction of a second), so a merged
+# lane cannot leave a function or module over its limit.
+step "sw-checklist (structure)"
+checklist="$(sw-checklist . 2>&1)" || { echo "$checklist"; exit 1; }
+echo "$checklist" | tail -1
+if ! echo "$checklist" | grep -q ' 0 failed'; then
+    sw-checklist -v . 2>&1 | grep FAIL
+    exit 1
+fi
 skipped=0
 for c in "${COMPONENTS[@]}"; do
     if does "check $c"; then
@@ -135,15 +144,6 @@ if does "flag literate"; then
     if [ "$mode" = fast ]; then docs="$(python3 scripts/affected.py --literate)"; fi
     # shellcheck disable=SC2086
     scripts/literate.sh --check $docs
-fi
-if [ "$mode" != sample ]; then
-step "sw-checklist (structure; the affected and full gates)"
-checklist="$(sw-checklist . 2>&1)" || { echo "$checklist"; exit 1; }
-echo "$checklist" | tail -1
-if ! echo "$checklist" | grep -q ' 0 failed'; then
-    sw-checklist -v . 2>&1 | grep FAIL
-    exit 1
-fi
 fi
 # README.md stays ASCII (images for any glyph). Other docs may hold
 # Unicode (APL glyphs render on GitHub; HTML character references in

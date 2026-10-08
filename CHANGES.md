@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-07
 
+- 19:05 `build` sw-checklist runs in every gate, the sample gate too (it takes a fraction of a second), so a merged lane cannot leave a function or module over its limit; the README's notation table gains `m:w_hen<`, a macro library's export.
 - 18:45 `docs` The documentation site covers every bundled demo, the Rosetta stone's files and userlibs/ (82 pages, was lib/, Life and TTTML), so each name shows whose it is (l: an export, h: a helper, u: a program's own); demos run --untyped are left out. `refactor`: xetal-types' `expr` split (the array and tuple arms into subscript.rs) to meet sw-checklist's 50 lines, after merging PR #109.
 - 18:15 `docs` Private names documented (Saga 38 step 5): libraries.org and hello.org write helpers as `h:`; the asks ledger gains notices (`[[notice]]` in docs/asks.toml, printed after the summary by scripts/asks.py), the first telling the sibling repositories to migrate their bare library functions with `xetal migrate` (about 45 in five repositories); plan.md schedules PN2's error for after the next release.
 - 17:55 `chore` Merged PR #109 (arrays and `Any`; tuples through `p_ower`, Saga 39 step 3); the private-names register entry renumbered D124 to D125, status.md regenerated.
