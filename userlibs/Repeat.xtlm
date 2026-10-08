@@ -18,9 +18,9 @@ m:t_imes< := { count body ->
   n_ot []S_TATEMENT @ ? "misplaced-macro call" []R_EJECT "r:t_imes< writes statements: it stands as a statement of its own"
   k := f_loor f_irst (n_umbers count) c_at 0.0
   k < 1 ? "bad-macro-argument left" []R_EJECT "r:t_imes< writes its statements 1 or more times"
-  k c_opies body
+  k h:c_opies body
 }
 
 ## The text t written k times, one copy per line (once when k is 1 or
 ## less).
-c_opies := { k t -> k <= 1 ? t; t c_at "\n" c_at (k - 1) c_opies t }
+h:c_opies := { k t -> k <= 1 ? t; t c_at "\n" c_at (k - 1) h:c_opies t }

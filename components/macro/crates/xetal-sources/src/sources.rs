@@ -32,6 +32,8 @@ pub struct Sources {
     pub(crate) files: Vec<File>,
     pub(crate) pieces: Vec<Piece>,
     combined: String,
+    /// Warnings found while loading (a macro library's bare helpers).
+    pub(crate) warnings: Vec<xetal_base::Diagnostic>,
 }
 
 impl Sources {

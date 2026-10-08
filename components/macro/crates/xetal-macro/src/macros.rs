@@ -50,6 +50,12 @@ impl Loader<'_> {
             system: self.system.clone(),
         };
         inner.load(found, false)?;
+        for d in bare_helpers(found)
+            .into_iter()
+            .chain(inner.sources.warnings().iter().cloned())
+        {
+            self.sources.warn(d);
+        }
         let (own, exports) = inner.loaded.remove(&found.key).unwrap_or_default();
         let lib = Rc::new(MacroLib {
             sources: inner.sources,
@@ -122,4 +128,30 @@ fn not_found(import: &Import, file: &Found) -> Diagnostic {
         ),
     };
     Diagnostic::new("library-not-found", message).with_span(import.span)
+}
+
+/// A macro library's bare top-level functions (PN2: deprecated, `h:`),
+/// as warnings placed `FILE:LINE:COLUMN`: a line at brace depth 0 that
+/// starts with an unprefixed function name and `:=`.
+fn bare_helpers(found: &Found) -> Vec<Diagnostic> {
+    let mut depth = 0i32;
+    let mut out = Vec::new();
+    for (row, line) in found.text.lines().enumerate() {
+        let code = line.split('"').step_by(2).collect::<String>();
+        let code = code.split('#').next().unwrap_or("");
+        let name = line.split(" :=").next().unwrap_or("");
+        let function = name.contains('_')
+            && !name.contains(':')
+            && name.starts_with(|c: char| c.is_ascii_lowercase());
+        if depth == 0 && line.contains(" :=") && function && !name.contains(' ') {
+            let message = format!(
+                "write h:{name}; bare top-level functions in a library are deprecated (xetal migrate FILE rewrites them) at {}:{}:1",
+                found.name,
+                row + 1
+            );
+            out.push(Diagnostic::warning("deprecated-private", message));
+        }
+        depth += code.matches('{').count() as i32 - code.matches('}').count() as i32;
+    }
+    out
 }

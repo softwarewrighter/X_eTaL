@@ -31,12 +31,12 @@ s:u_se< :: Char -> Char -> Unit
 ## >> "2 > 0" i_f< "1; -1"
 ## 1
 s:i_f< := { cond both ->
-  p := w_here s_eps both
+  p := w_here h:s_eps both
   1 != t_ally p ? "bad-macro-argument right" []R_EJECT ifArgs
-  a := t_rim ((f_irst p) - 1) t_ake both
-  b := t_rim (f_irst p) d_rop both
+  a := h:t_rim ((f_irst p) - 1) t_ake both
+  b := h:t_rim (f_irst p) d_rop both
   (0 = t_ally a) | 0 = t_ally b ? "bad-macro-argument right" []R_EJECT ifArgs
-  "{ @ -> (" c_at (t_rim cond) c_at ") ? " c_at a c_at "; " c_at b c_at " } @"
+  "{ @ -> (" c_at (h:t_rim cond) c_at ") ? " c_at a c_at "; " c_at b c_at " } @"
 }
 
 ## Run the statements on the right unless the condition on the left
@@ -45,7 +45,7 @@ s:i_f< := { cond both ->
 ## 7
 ## @
 s:u_nless< := { cond body ->
-  "{ @ -> (" c_at (t_rim cond) c_at ") ? @; " c_at (t_rim body) c_at "; @ } @"
+  "{ @ -> (" c_at (h:t_rim cond) c_at ") ? @; " c_at (h:t_rim body) c_at "; @ } @"
 }
 
 ## One statement per word on the left, each a copy of the template on
@@ -56,10 +56,10 @@ s:u_nless< := { cond body ->
 ## 4
 s:e_ach< := { words template ->
   n_ot []S_TATEMENT @ ? "misplaced-macro call" []R_EJECT eachAlone
-  ws := w_ords words
+  ws := h:w_ords words
   0 = t_ally ws ? "bad-macro-argument left" []R_EJECT "e_ach< needs words on its left"
-  0 = '+ r_/ 0 + h_oles template ? "bad-macro-argument right" []R_EJECT eachHole
-  d_isclose '{ a b -> e_nclose (d_isclose a) c_at "\n" c_at d_isclose b } r_/ '{ w -> template c_opy d_isclose w } m_ap ws
+  0 = '+ r_/ 0 + h:h_oles template ? "bad-macro-argument right" []R_EJECT eachHole
+  d_isclose '{ a b -> e_nclose (d_isclose a) c_at "\n" c_at d_isclose b } r_/ '{ w -> template h:c_opy d_isclose w } m_ap ws
 }
 
 ### What the compiler knows
@@ -74,26 +74,26 @@ s:l_ine< := { @ @ -> f_ormat []L_INE @ }
 ## the command line).
 ## >> @ f_ile< @
 ## -e
-s:f_ile< := { @ @ -> q_uote []F_ILE @ }
+s:f_ile< := { @ @ -> h:q_uote []F_ILE @ }
 
 ## The text of a file, as a string, by a path relative to the file the
 ## call is written in; from the disk at the command line, from the
 ## store in the browser (Rust's include_str!). For example,
 ## t := @ i_nclude< "data.txt" binds the text of data.txt.
-s:i_nclude< := { @ path -> q_uote []I_NCLUDE t_rim path }
+s:i_nclude< := { @ path -> h:q_uote []I_NCLUDE h:t_rim path }
 
 ## 1 when a configuration fact holds, else 0: the platform (cli, or web
 ## in the browser) or a flag set with xetal --cfg NAME.
 ## >> @ c_fg< "cli"
 ## 1
-s:c_fg< := { @ name -> f_ormat 0 + []C_FG t_rim name }
+s:c_fg< := { @ name -> f_ormat 0 + []C_FG h:t_rim name }
 
 ## Stop with a compile error at the call, with the code on the left and
 ## the message on the right (Rust's compile_error!); a macro writes it
 ## into its text to refuse a call.
 ## >> "too-big" e_rror< "the grid must be at most 9 wide"
 ## error[too-big]
-s:e_rror< := { code message -> ((t_rim code) c_at " call") []R_EJECT message }
+s:e_rror< := { code message -> ((h:t_rim code) c_at " call") []R_EJECT message }
 
 ### Debugging and checking
 
@@ -102,9 +102,9 @@ s:e_rror< := { code message -> ((t_rim code) c_at " call") []R_EJECT message }
 ## >> 1 + @ d_bg< "2 * 3"
 ## 7
 s:d_bg< := { @ expr ->
-  e := t_rim expr
+  e := h:t_rim expr
   shown := "[" c_at ([]F_ILE @) c_at ":" c_at (f_ormat []L_INE @) c_at "] " c_at e c_at " = "
-  "{ v -> []E_RR " c_at (q_uote shown) c_at " c_at f_ormat v; v } (" c_at e c_at ")"
+  "{ v -> []E_RR " c_at (h:q_uote shown) c_at " c_at f_ormat v; v } (" c_at e c_at ")"
 }
 
 ## When the condition on the left does not hold, write
@@ -115,9 +115,9 @@ s:d_bg< := { @ expr ->
 ## >> "1 > 2" a_ssert< "one is not more than two"
 ## @
 s:a_ssert< := { cond note ->
-  c := t_rim cond
-  line := "assertion failed: " c_at c c_at (w_hy f_ormat note) c_at " [" c_at ([]F_ILE @) c_at ":" c_at (f_ormat []L_INE @) c_at "]"
-  "{ @ -> (" c_at c c_at ") ? @; []E_RR " c_at (q_uote line) c_at "; @ } @"
+  c := h:t_rim cond
+  line := "assertion failed: " c_at c c_at (h:w_hy f_ormat note) c_at " [" c_at ([]F_ILE @) c_at ":" c_at (f_ormat []L_INE @) c_at "]"
+  "{ @ -> (" c_at c c_at ") ? @; []E_RR " c_at (h:q_uote line) c_at "; @ } @"
 }
 
 ### Text
@@ -128,14 +128,14 @@ s:a_ssert< := { cond note ->
 ## (Rust's format!).
 ## >> @ f_ormat< "two and two: {2 + 2} {{four}}"
 ## two and two: 4 {four}
-s:f_ormat< := { @ t -> o_rEmpty p_ieces t }
+s:f_ormat< := { @ t -> h:o_rEmpty h:p_ieces t }
 
 ## Stop the program with error[panic] and the message on the right,
 ## formatted as f_ormat< does, at the call; it stands where any value
 ## may (Rust's panic!).
 ## >> 1 + @ p_anic< "no {1 + 1}"
 ## error[panic]
-s:p_anic< := { @ t -> "[]P_ANIC (" c_at (o_rEmpty p_ieces t) c_at ")" }
+s:p_anic< := { @ t -> "[]P_ANIC (" c_at (h:o_rEmpty h:p_ieces t) c_at ")" }
 
 ## Stop the program with error[panic] and the message
 ## "not yet implemented: " followed by the text on the right (formatted
@@ -143,7 +143,7 @@ s:p_anic< := { @ t -> "[]P_ANIC (" c_at (o_rEmpty p_ieces t) c_at ")" }
 ## where any value may (Rust's todo!).
 ## >> 1 + @ t_odo< "the size check"
 ## error[panic]
-s:t_odo< := { @ t -> "@ p_anic< " c_at q_uote "not yet implemented: " c_at t }
+s:t_odo< := { @ t -> "@ p_anic< " c_at h:q_uote "not yet implemented: " c_at t }
 
 ### Errors
 
@@ -156,7 +156,7 @@ s:t_odo< := { @ t -> "@ p_anic< " c_at q_uote "not yet implemented: " c_at t }
 ## >> "1 d_iv 0" t_ry< "@ r_ecover< \"-1\""
 ## -1
 s:t_ry< := { body handler ->
-  "'{ @ -> " c_at (t_rim body) c_at " } []T_RAP '{ e -> " c_at (t_rim handler) c_at " }"
+  "'{ @ -> " c_at (h:t_rim body) c_at " } []T_RAP '{ e -> " c_at (h:t_rim handler) c_at " }"
 }
 
 ## In a handler: the outcome on the right for an error whose code is
@@ -164,10 +164,10 @@ s:t_ry< := { body handler ->
 ## >> "\"io\" []S_IGNAL \"gone\"" t_ry< "\"io empty\" c_atch< \"@ r_ecover< \\\"0\\\"\""
 ## 0
 s:c_atch< := { codes outcome ->
-  ws := w_ords codes
+  ws := h:w_ords codes
   0 = t_ally ws ? "bad-macro-argument left" []R_EJECT catchCodes
-  tests := j_oin '{ w -> m_atchCode d_isclose w } m_ap ws
-  "(" c_at (((t_ally tests) - 3) t_ake tests) c_at ") ? " c_at (t_rim outcome) c_at "; []H_ALT e"
+  tests := h:j_oin '{ w -> h:m_atchCode d_isclose w } m_ap ws
+  "(" c_at (((t_ally tests) - 3) t_ake tests) c_at ") ? " c_at (h:t_rim outcome) c_at "; []H_ALT e"
 }
 
 ## Run the statements on the left, then the cleanup on the right,
@@ -178,14 +178,14 @@ s:c_atch< := { codes outcome ->
 ## cleaned
 ## 2
 s:f_inally< := { body cleanup ->
-  "'{ @ -> " c_at (t_rim body) c_at " } []E_NSURE '{ @ -> " c_at (t_rim cleanup) c_at " }"
+  "'{ @ -> " c_at (h:t_rim body) c_at " } []E_NSURE '{ @ -> " c_at (h:t_rim cleanup) c_at " }"
 }
 
 ## In a handler: recover with the value on the right, of the body's
 ## type; the try's value is this one ([]R_ECOVER).
 ## >> "1 d_iv 0" t_ry< "@ r_ecover< \"2 + 2\""
 ## 4
-s:r_ecover< := { @ value -> "[]R_ECOVER (" c_at (t_rim value) c_at ")" }
+s:r_ecover< := { @ value -> "[]R_ECOVER (" c_at (h:t_rim value) c_at ")" }
 
 ## In a handler: run the body again (at most 1000 times; []R_ETRY).
 ## >> n! := 0
@@ -210,7 +210,7 @@ catchCodes := "c_atch< needs error codes on its left: \"io\" c_atch< \"@ r_ecove
 
 # One test of the error's code against the word w, with the | that
 # joins it to the next.
-m_atchCode := { w -> "(([]E_CODE e) m_atch " c_at (q_uote w) c_at ") | " }
+h:m_atchCode := { w -> "(([]E_CODE e) m_atch " c_at (h:q_uote w) c_at ") | " }
 
 
 ifArgs := "i_f< takes two expressions on its right, separated by ;: \"c\" i_f< \"a; b\""
@@ -218,7 +218,7 @@ eachAlone := "e_ach< writes statements: it stands as a statement of its own"
 eachHole := "an e_ach< template names the word as $w: \"a b\" e_ach< \"u:$w := 1\""
 
 # The text t without white space at its ends.
-t_rim := { t ->
+h:t_rim := { t ->
   m := n_ot t m_ember? " \n\t"
   0 = '+ r_/ 0 + m ? ""
   i := w_here m
@@ -226,66 +226,66 @@ t_rim := { t ->
 }
 
 # The words of t: runs of characters other than white space, boxed.
-w_ords := { t -> (n_ot t m_ember? " \n\t") p_artition t }
+h:w_ords := { t -> (n_ot t m_ember? " \n\t") p_artition t }
 
 # Where t separates statements: a ; or a newline outside brackets and
 # strings.
-s_eps := { t ->
+h:s_eps := { t ->
   q := ('+ s_\ 0 + t = f_irst "\"") m_od 2
   d := '+ s_\ (0 + t m_ember? "([{") - 0 + t m_ember? ")]}"
   (t m_ember? ";\n") & (0 = d) & 0 = q
 }
 
 # Where $w starts in t.
-h_oles := { t -> (t = f_irst "$") & (1 d_rop t = f_irst "w") c_at 0 }
+h:h_oles := { t -> (t = f_irst "$") & (1 d_rop t = f_irst "w") c_at 0 }
 
 # The boxed texts b joined into one text.
-j_oin := { b -> d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b }
+h:j_oin := { b -> d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b }
 
 # t as a string literal: in quotes, with the characters a literal
 # escapes (quote, backslash, newline, tab) escaped.
-q_uote := { t ->
+h:q_uote := { t ->
   0 = t_ally t ? "\"\""
   e_ := { c -> c = f_irst "\"" ? "\\\""; c = f_irst "\\" ? "\\\\"; c = f_irst "\n" ? "\\n"; c = f_irst "\t" ? "\\t"; c }
-  "\"" c_at (j_oin 'e_ m_ap t) c_at "\""
+  "\"" c_at (h:j_oin 'e_ m_ap t) c_at "\""
 }
 
 # The template t with each $w replaced by the word w.
-c_opy := { t w ->
-  h := h_oles t
+h:c_opy := { t w ->
+  h := h:h_oles t
   g := 0 c_at -1 d_rop h
   p_ := { i -> (i s_elect h) ? w; (i s_elect g) ? ""; i s_elect t }
-  j_oin 'p_ m_ap r_ange t_ally t
+  h:j_oin 'p_ m_ap r_ange t_ally t
 }
 
 # An assertion's message in parentheses; none for @ (as f_ormat writes
 # it).
-w_hy := { m -> "@" m_atch m ? ""; " (" c_at m c_at ")" }
+h:w_hy := { m -> "@" m_atch m ? ""; " (" c_at m c_at ")" }
 
 # Source p, or an empty string literal when there is none.
-o_rEmpty := { p -> 0 = t_ally p ? "\"\""; p }
+h:o_rEmpty := { p -> 0 = t_ally p ? "\"\""; p }
 
 # t as a string literal, or nothing when it is empty.
-l_it := { t -> 0 = t_ally t ? ""; q_uote t }
+h:l_it := { t -> 0 = t_ally t ? ""; h:q_uote t }
 
 # Two pieces of source joined by c_at (either may be missing).
-c_j := { a b -> 0 = t_ally a ? b; 0 = t_ally b ? a; a c_at " c_at " c_at b }
+h:c_j := { a b -> 0 = t_ally a ? b; 0 = t_ally b ? a; a c_at " c_at " c_at b }
 
 # The format text t as source: its literal text quoted, each {expr} as
 # (f_ormat (expr)), joined by c_at; {{ and }} are braces.
-p_ieces := { t ->
+h:p_ieces := { t ->
   b := t m_ember? "{}"
-  0 = '+ r_/ 0 + b ? l_it t
+  0 = '+ r_/ 0 + b ? h:l_it t
   k := f_irst w_here b
   pre := (k - 1) t_ake t
   c := k s_elect t
   rest := k d_rop t
   n := (k + 1) s_elect t c_at " "
-  c = n ? (l_it pre c_at c) c_j p_ieces 1 d_rop rest
+  c = n ? (h:l_it pre c_at c) h:c_j h:p_ieces 1 d_rop rest
   c = f_irst "}" ? "bad-format right" []R_EJECT "a } in a format text is written }}"
   e := w_here rest = f_irst "}"
   0 = t_ally e ? "bad-format right" []R_EJECT "an unclosed { in a format text"
-  x := t_rim ((f_irst e) - 1) t_ake rest
+  x := h:t_rim ((f_irst e) - 1) t_ake rest
   0 = t_ally x ? "bad-format right" []R_EJECT "an empty {} in a format text: write {expr}, or {{ for a brace"
-  (l_it pre) c_j ("(f_ormat (" c_at x c_at "))") c_j p_ieces (f_irst e) d_rop rest
+  (h:l_it pre) h:c_j ("(f_ormat (" c_at x c_at "))") h:c_j h:p_ieces (f_irst e) d_rop rest
 }

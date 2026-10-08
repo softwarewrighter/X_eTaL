@@ -130,6 +130,9 @@ pub(crate) fn evaluate(
         mut program,
     } = xetal_program::load(name, source)?;
     let at = |d| xetal_program::located(&sources, d);
+    for warning in sources.warnings() {
+        eprintln!("{warning}");
+    }
     if !untyped {
         xetal_types::check_program(&mut program).map_err(at)?;
     }

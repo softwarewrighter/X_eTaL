@@ -5,6 +5,17 @@ use xetal_base::{Diagnostic, Severity};
 use crate::Sources;
 
 impl Sources {
+    /// Keep a warning found while loading, to be reported with the
+    /// program's own (PN2 for a macro library's bare helpers).
+    pub fn warn(&mut self, d: Diagnostic) {
+        self.warnings.push(d);
+    }
+
+    /// The warnings found while loading.
+    pub fn warnings(&self) -> &[Diagnostic] {
+        &self.warnings
+    }
+
     /// `text` with hidden namespaces written as file `file` writes them.
     pub fn as_written(&self, file: usize, text: &str) -> String {
         let mut names = self
