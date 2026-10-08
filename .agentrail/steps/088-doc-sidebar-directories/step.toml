@@ -1,8 +1,9 @@
 number = 88
 slug = "doc-sidebar-directories"
-status = "in-progress"
+status = "completed"
 description = "Asked by X_eTaL-games (2026-10-08; their docs/xetal-asks.md): the doc site's ..."
 role = "production"
 context_files = []
 created_at = "2026-10-08T10:08:47"
-commits = []
+completed_at = "2026-10-08T12:34:49"
+commits = ["18d9aaee683a0df80c163922881e800c21c18cac"]

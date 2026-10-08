@@ -1,0 +1,1 @@
+Doc site groups files by directory (sidebar headings relative to common root; search index and used-at links use relative paths); doc part staleness covers the doc tool's sources; ask G18 landed
