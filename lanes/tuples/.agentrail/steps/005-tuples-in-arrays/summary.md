@@ -1,0 +1,1 @@
+Boxed tuples (D132): e_nclose/d_isclose/m_ap take any value; boxed tuples print in boxes (tall on lines, nested mark), compare with m_atch; unboxed arrays of tuples stay errors with tests. Step 7 narrowed in docs/plan.md (siblings already use tuples; TTTML is step 091's). Gate green but cli-too-deep and wasm (sandbox-only).

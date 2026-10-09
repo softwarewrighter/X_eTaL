@@ -1,8 +1,9 @@
 number = 5
 slug = "tuples-in-arrays"
-status = "in-progress"
+status = "completed"
 description = "Tuples lane (lanes/tuples/.agentrail/plan.md, docs/tuples.md, docs/plan.md Sa..."
 role = "production"
 context_files = []
 created_at = "2026-10-07T13:42:49"
-commits = []
+completed_at = "2026-10-08T21:36:24"
+commits = ["07e28b092bc4301212f8dd5b9b83cd1c7a4199e6"]
