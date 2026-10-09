@@ -1,0 +1,1 @@
+Tuples in the tools (D133): doc's hidden-value bug fixed (views skip %), goldens for type/doc/render/raw/latex, live-demo native test, Emacs ERT test, poster sample, reference examples. Stacked on #113. Pages doc/latex left stale for local just pages; wasm and cli-too-deep not runnable here.
