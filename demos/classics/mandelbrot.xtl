@@ -22,24 +22,25 @@ u:i_m := { size view ->
 u:p_lane := { m -> (1 c_at s_hape m) r_eshape m }
 
 # `size u:c_ounts view`: for each point, how many of the steps z stays
-# within 2. The state is three planes: z's real part, its imaginary
-# part, and the count. A point that has escaped keeps its z (keep is
-# 0), so nothing grows without bound. Points still inside after all
-# the steps count as 0, so the set itself is drawn dark.
+# within 2. The state is a tuple: z's real part, its imaginary part
+# (two Float planes) and the count (an Int plane). A point that has
+# escaped keeps its z (keep is 0), so nothing grows without bound.
+# Points still inside after all the steps count as 0, so the set itself
+# is drawn dark.
 u:c_ounts := { size view ->
   n := 3 s_elect size
   cr := (o_ffsets 1 s_elect size) 'r_ight t_able size u:r_e view
   ci := (size u:i_m view) 'l_eft t_able o_ffsets 2 s_elect size
-  s_tep := { s ->
-    zr := 1 s_elect s
-    zi := 2 s_elect s
-    keep := f_loat 4 >= (zr * zr) + zi * zi
+  s_tep := { (zr, zi, count) ->
+    inside := 4 >= (zr * zr) + zi * zi
+    keep := f_loat inside
     a := (keep * cr + (zr * zr) - zi * zi) + (1 - keep) * zr
     b := (keep * ci + 2 * zr * zi) + (1 - keep) * zi
-    (u:p_lane a) c_at (u:p_lane b) c_at u:p_lane keep + 3 s_elect s
+    (a, b, count + inside)
   }
-  c := 3 s_elect n 's_tep p_ower (3 c_at 2 t_ake size) r_eshape 0.0
-  c * f_loat c < f_loat n
+  plane := (2 t_ake size) r_eshape 0.0
+  (_, _, c) := n 's_tep p_ower (plane, plane, (2 t_ake size) r_eshape 0)
+  c * c < n
 }
 
 # -- The whole set ------------------------------------------------------------
