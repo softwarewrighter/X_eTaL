@@ -10,6 +10,9 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-09
+
+- 09:30 `feat` Tuples in the tools (Saga 39 step 6, D133): `xetal doc` lists a pattern's names with the right types (its hidden value was listed and the types shifted); `xetal type`, the renderers and their round trip, the live demo, the Emacs mode, the syntax poster and the reference show tuples and patterns, each pinned by a golden, test or doc example.
 ## 2026-10-08
 
 - 21:50 `feat` Boxed tuples (Saga 39 step 5, D132): `e_nclose (1, 2.5)` is a `Box (Int, Float)`, `m_ap` of a function giving a tuple boxes each result, and `d_isclose` opens one; boxed tuples print in their boxes (tall ones on their lines) and compare with `m_atch`; unboxed arrays of tuples stay errors, each with a test.

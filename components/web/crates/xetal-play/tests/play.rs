@@ -36,6 +36,20 @@ fn a_program_runs_and_its_output_is_kept() {
 }
 
 #[test]
+fn tuples_and_patterns_run_in_the_live_demo() {
+    // TU1, TU3, TU6, TU8: the output pane shows tuples as `xetal run`
+    // does, boxed ones in their frames, and check gives tuple types.
+    store();
+    let src = "u:s_tep := { (w, k) -> (w * 0.5, k + 1) }\n3 'u:s_tep p_ower (8.0 4.0, 0)\ne_nclose (1, 2.5)";
+    let r = run(src, 1);
+    assert_eq!(r.err, "");
+    assert!(r.out.starts_with("(1.0 0.5, 3)\n"), "{}", r.out);
+    assert!(r.out.contains("(1, 2.5)"), "{}", r.out);
+    let types = check("(a, b) := (1, 2.5)\na");
+    assert_eq!(types, ["a : Int", "b : Float", "Int"]);
+}
+
+#[test]
 fn a_library_comes_from_the_store_then_the_standard_ones() {
     store().put("Sq.xtl", "l:s_q := { _r * _r }\n").unwrap();
     let r = run("\"q:\" u_se< \"Sq\"\nq:s_q 4", 1);

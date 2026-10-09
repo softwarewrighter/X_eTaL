@@ -90,6 +90,8 @@ fn definitions<'p>(items: &'p [CoreItem], lines: &[String], s: &Sources) -> Vec<
         .iter()
         .zip(lines)
         .filter_map(|(item, line)| match item {
+            // A pattern's hidden value (%1) is no item of the file.
+            CoreItem::Let { name, .. } if name.starts_with('%') => None,
             CoreItem::Def { name, value } | CoreItem::Let { name, value, .. } => {
                 let file = s.locate(value.span.start).index;
                 let ty = line.split_once(" : ").map_or("", |(_, t)| t);

@@ -62,12 +62,7 @@ pub fn infer_program(program: &Program) -> Result<(Vec<String>, Dicts), Diagnost
             );
         }
     }
-    // A pattern's hidden value (`%1`) is no item of the program.
-    let shown = inf
-        .lines
-        .iter()
-        .filter(|(name, _)| !name.as_deref().is_some_and(|n| n.starts_with('%')));
-    let lines = shown.map(|(name, scheme)| {
+    let lines = inf.lines.iter().map(|(name, scheme)| {
         let scheme = Scheme {
             ty: inf.u.resolve(&scheme.ty),
             ..scheme.clone()

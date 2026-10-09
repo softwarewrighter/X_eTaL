@@ -1,0 +1,7 @@
+u:p_air : Num a => a -> (a, Float)
+u:s_wapped : (Any a, Any b) => (a, b) -> (b, a)
+s : (Int, Float)
+n : Int
+x : Float
+w : Float
+(Float, Int)

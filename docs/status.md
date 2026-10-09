@@ -190,7 +190,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `e_ach` | `(a -> b) -> a -> b` | works | 20 | 3 |
-| `m_ap` | `Any b => (a -> b) -> a -> Box b` | works | 6 | 3 |
+| `m_ap` | `Any b => (a -> b) -> a -> Box b` | works | 6 | 5 |
 | `t_able` | `(a -> b -> c) -> a -> b -> c` | works | 6 | 1 |
 
 ### B6: inner product and combinators (operands nearest-first, F9)
@@ -200,7 +200,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `i_nner` | `(a -> b -> c) -> (c -> c -> c) -> a -> b -> c` | works | 6 | 1 |
 | `c_ompose` | `(Any a, Any b, Any c) => (a -> b) -> (b -> c) -> a -> c` | works | 4 | 2 |
 | `s_wap` | `(Any a, Any b, Any c) => (a -> b -> c) -> b -> a -> c` | works | 5 | 1 |
-| `p_ower` | `Any a => (a -> a) -> Int -> a -> a` | works | 5 | 2 |
+| `p_ower` | `Any a => (a -> a) -> Int -> a -> a` | works | 5 | 3 |
 
 ### B7: search and order (over major cells)
 
@@ -208,7 +208,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `i_ndexOf` | `Eq a => a -> a -> Int` | works | 6 | 2 |
 | `m_ember?` | `(Eq a, Truthy b) => a -> a -> b` | works | 2 | 1 |
-| `m_atch` | `(Match a, Truthy b) => a -> a -> b` | works | 11 | 5 |
+| `m_atch` | `(Match a, Truthy b) => a -> a -> b` | works | 11 | 8 |
 | `u_nique` | `Eq a => a -> a` | works | 3 | 1 |
 | `s_ort` | `Ord a => a -> a` | works | 5 | 3 |
 | `g_rade` | `Ord a => a -> Int` | works | 1 | 2 |
@@ -218,8 +218,8 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `e_nclose` | `Any a => a -> Box a` | works | 6 | 4 |
-| `d_isclose` | `Any a => Box a -> a` | works | 7 | 3 |
+| `e_nclose` | `Any a => a -> Box a` | works | 6 | 5 |
+| `d_isclose` | `Any a => Box a -> a` | works | 7 | 4 |
 | `d_isplay` | `a -> Char` | works | 5 | 5 |
 | `p_artition` | `Truthy a => a -> b -> Box b` | works | 4 | 4 |
 

@@ -1,0 +1,14 @@
+⍝# Tuples and patterns through the tools: xetal type, xetal doc, the
+⍝# renderers (TU1-TU6).
+
+⍝# A count and its Float, as a pair.
+ᵘp̲air ← { k → (k, f̲loat k) }
+
+⍝# The parts of a pair, swapped.
+ᵘs̲wapped ← { (a, b) → (b, a) }
+
+s ← ᵘp̲air 3
+(n, x) ← s
+(w, _) ← ᵘs̲wapped s
+ᵘs̲wapped s
+

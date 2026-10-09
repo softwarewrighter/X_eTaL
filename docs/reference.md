@@ -671,6 +671,8 @@ prints in frames, as APL2's DISPLAY draws them (shown here as `xetal
 --ascii` draws them; a terminal gets box characters): an arrow along
 the top, a down arrow for each leading axis, and a mark at the bottom
 for what it holds (`~` numbers, `e` boxes).
+A tuple is no array item, but it can be boxed: `e_nclose (1, 2.5)` is
+a box of type `Box (Int, Float)`.
 
 ```
       e_nclose "abc"
@@ -693,6 +695,10 @@ for what it holds (`~` numbers, `e` boxes).
 'e--------------'
       t_ally "ab" "cde"
 2
+      e_nclose (1, 2.5)
+.--------.
+|(1, 2.5)|
+'e-------'
 ```
 
 ### `d_isclose`
@@ -708,6 +714,8 @@ abc
 cde
       d_isclose "ab" "cde"
 error[rank]: d_isclose opens one box, got shape 2
+      d_isclose e_nclose (1, 2.5)
+(1, 2.5)
 ```
 
 ### `d_isplay`
@@ -863,6 +871,8 @@ of two arrays.
 
 Map: the function on each item, every result boxed, so the function may
 give an array (e_ach wants one value per item).
+A function giving a tuple makes a vector of boxed tuples, the array of
+tuples (e_ach cannot hold them).
 
 ```
       t_ally 'r_ange m_ap 1 2 3
@@ -871,6 +881,14 @@ give an array (e_ach wants one value per item).
 1 2 3
       '[t_ally d_isclose] e_ach 'r_ange m_ap 1 2 3
 1 2 3
+      '{ k -> (k, f_loat k) } m_ap 1 2
+.>----------------------.
+| .--------. .--------. |
+| |(1, 1.0)| |(2, 2.0)| |
+| 'e-------' 'e-------' |
+'e----------------------'
+      '{ k -> (k, k) } e_ach 1 2
+error[type-mismatch]: expected an array, found a tuple
 ```
 
 ### `t_able`
@@ -931,12 +949,16 @@ axis of A with the first of B).
 
 `n 'f p_ower x` applies f to x n times; `f_^n` is the same with a
 literal count.
+The value may be a tuple, a state of several arrays that each step
+takes apart with a pattern.
 
 ```
       3 'n_eg p_ower 5
 -5
       n_eg^3 5
 -5
+      3 '{ (w, k) -> (w * 0.5, k + 1) } p_ower (8.0 4.0, 0)
+(1.0 0.5, 3)
 ```
 
 ## Search and order
@@ -975,6 +997,8 @@ Whether each item of the left is among the items of the right.
 Whether both sides have the same shape and equal items (APL's match):
 one result for the whole arrays, where `=` compares item by item. The
 same items in another shape do not match.
+Tuples match part by part, each part as a whole array (`=` does not
+reach into a tuple).
 
 ```
       1 2 3 m_atch 1 2 3
@@ -987,6 +1011,12 @@ same items in another shape do not match.
 0
       1 m_atch 1 s_elect 1 2 3
 1
+      (1 2, 3.5) m_atch (1 2, 3.5)
+1
+      (1 2, 3.5) m_atch (2 1 r_eshape 1 2, 3.5)
+0
+      (1, 2) = (1, 2)
+error[type-mismatch]: expected an array, found a tuple
 ```
 
 ### `u_nique`

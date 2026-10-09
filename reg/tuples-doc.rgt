@@ -1,0 +1,3 @@
+command = "./target/debug/xetal doc --json reg/fixtures/tuples/pairs.xtl"
+exit_code = 0
+desc = "xetal doc on tuples and patterns: each pattern name an item with its part's type, no hidden value (TU2, D126)"
