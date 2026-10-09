@@ -7,11 +7,10 @@ a
 b
 == TYPE
 ps : Box (Int, Float)
-(a, b) : (Int, Float)
+a : Int
+b : Float
 Int
 Float
 == RESULT
 2
 2.0
-== STATUS
-pending

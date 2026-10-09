@@ -1,0 +1,5 @@
+# TU5, TU8: an array function does not take an unboxed tuple.
+== SOURCE
+2 r_eshape (1, 2)
+== ERROR
+error[type-mismatch]: expected an array, found a tuple at 0..17

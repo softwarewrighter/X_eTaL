@@ -40,7 +40,8 @@ fn scalar_frame(x: &Value<'_>) -> Shown {
         other => item(other),
     };
     let body = match inner {
-        Shown::Atom(text) => Body::Text(vec![text]),
+        // A tall tuple prints on several lines (TU6).
+        Shown::Atom(text) => Body::Text(text.lines().map(String::from).collect()),
         frame => Body::Items(vec![frame]),
     };
     let mark = mark(std::slice::from_ref(x), Kind::Number);
@@ -85,7 +86,7 @@ fn mark(items: &[Value<'_>], kind: Kind) -> char {
         },
         _ if items
             .iter()
-            .any(|x| matches!(x, Value::Boxed(_) | Value::Array(_))) =>
+            .any(|x| matches!(x, Value::Boxed(_) | Value::Array(_) | Value::Tuple(_))) =>
         {
             '∊'
         }

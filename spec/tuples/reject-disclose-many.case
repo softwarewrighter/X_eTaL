@@ -1,0 +1,7 @@
+# TU8: d_isclose opens one box; opening a vector of boxed tuples would
+# make an unboxed array of tuples.
+== SOURCE
+ps := '{ k -> (k, f_loat k) } m_ap r_ange 3
+d_isclose ps
+== ERROR
+error[rank]: d_isclose opens one box, got shape 3 at 44..56

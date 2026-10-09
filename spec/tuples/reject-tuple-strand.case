@@ -1,0 +1,6 @@
+# TU1, TU8: tuples side by side are no strand (an array of tuples is
+# made with m_ap or by enclosing).
+== SOURCE
+(1, 2) (3, 4)
+== ERROR
+error[adjacent-values]: two values side by side (only literals of one kind form strands: numbers, or strings) at 0..6

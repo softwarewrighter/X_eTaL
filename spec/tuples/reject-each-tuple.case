@@ -1,0 +1,6 @@
+# TU8, TU9: e_ach makes an array of its results, and a tuple is no
+# array item; m_ap boxes each result instead.
+== SOURCE
+'{ x -> (x, x) } e_ach 1 2 3
+== ERROR
+error[type-mismatch]: expected an array, found a tuple at 0..22
