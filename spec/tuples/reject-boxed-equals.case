@@ -1,0 +1,5 @@
+# TU7, TU8: `=` does not reach into a boxed tuple either.
+== SOURCE
+(e_nclose (1, 2)) = e_nclose (1, 2)
+== ERROR
+error[type-mismatch]: expected an array, found a tuple at 1..35

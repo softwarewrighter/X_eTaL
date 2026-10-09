@@ -1,6 +1,6 @@
 number = 5
 slug = "tuples-in-arrays"
-status = "pending"
+status = "in-progress"
 description = "Tuples lane (lanes/tuples/.agentrail/plan.md, docs/tuples.md, docs/plan.md Sa..."
 role = "production"
 context_files = []

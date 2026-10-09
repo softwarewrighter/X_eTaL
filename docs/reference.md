@@ -663,7 +663,7 @@ error[length-mismatch]: 2 radix values for 3 digits
 
 ### `e_nclose`
 
-`a -> Box a`, one argument.
+`Any a => a -> Box a`, one argument.
 
 Enclose: the whole value as one item, a box, so arrays can be items of
 other arrays; a strand of strings encloses each string. A nested array
@@ -697,7 +697,7 @@ for what it holds (`~` numbers, `e` boxes).
 
 ### `d_isclose`
 
-`Box a -> a`, one argument.
+`Any a => Box a -> a`, one argument.
 
 Disclose: what a box holds. It opens one box (select one item first).
 
@@ -859,7 +859,7 @@ of two arrays.
 
 ### `m_ap`
 
-`(a -> b) -> a -> Box b`, two arguments.
+`Any b => (a -> b) -> a -> Box b`, two arguments.
 
 Map: the function on each item, every result boxed, so the function may
 give an array (e_ach wants one value per item).
