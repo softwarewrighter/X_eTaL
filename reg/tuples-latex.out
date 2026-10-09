@@ -1,0 +1,14 @@
+\\
+\\
+\\
+\\
+{{}^{\mathrm{u}}\mathrm{\underline{p}air}}\ {\leftarrow}\ {\{}\ {\mathrm{k}}\ {\to}\ {(}{\mathrm{k}}{,}\ {\mathrm{\underline{f}loat}}\ {\mathrm{k}}{)}\ {\}}\\
+\\
+\\
+{{}^{\mathrm{u}}\mathrm{\underline{s}wapped}}\ {\leftarrow}\ {\{}\ {(}{\mathrm{a}}{,}\ {\mathrm{b}}{)}\ {\to}\ {(}{\mathrm{b}}{,}\ {\mathrm{a}}{)}\ {\}}\\
+\\
+{\mathrm{s}}\ {\leftarrow}\ {{}^{\mathrm{u}}\mathrm{\underline{p}air}}\ {3}\\
+{(}{\mathrm{n}}{,}\ {\mathrm{x}}{)}\ {\leftarrow}\ {\mathrm{s}}\\
+{(}{\mathrm{w}}{,}\ {\_}{)}\ {\leftarrow}\ {{}^{\mathrm{u}}\mathrm{\underline{s}wapped}}\ {\mathrm{s}}\\
+{{}^{\mathrm{u}}\mathrm{\underline{s}wapped}}\ {\mathrm{s}}\\
+

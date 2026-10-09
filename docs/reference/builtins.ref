@@ -285,12 +285,16 @@ for what it holds (`~` numbers, `e` boxes).
 > "ab" "cde"
 > (e_nclose v) c_at e_nclose 1 2
 > t_ally "ab" "cde"
+A tuple is no array item, but it can be boxed: `e_nclose (1, 2.5)` is
+a box of type `Box (Int, Float)`.
+> e_nclose (1, 2.5)
 
 == d_isclose
 Disclose: what a box holds. It opens one box (select one item first).
 > d_isclose e_nclose "abc"
 > d_isclose 2 s_elect "ab" "cde"
 !> d_isclose "ab" "cde"
+> d_isclose e_nclose (1, 2.5)
 
 
 == d_isplay
@@ -363,6 +367,10 @@ give an array (e_ach wants one value per item).
 > t_ally 'r_ange m_ap 1 2 3
 > d_isclose 3 s_elect 'r_ange m_ap 1 2 3
 > '[t_ally d_isclose] e_ach 'r_ange m_ap 1 2 3
+A function giving a tuple makes a vector of boxed tuples, the array of
+tuples (e_ach cannot hold them).
+> '{ k -> (k, f_loat k) } m_ap 1 2
+!> '{ k -> (k, k) } e_ach 1 2
 
 == t_able
 Every pairing of an item on the left with one on the right (APL's
@@ -389,6 +397,9 @@ axis of A with the first of B).
 literal count.
 > 3 'n_eg p_ower 5
 > n_eg^3 5
+The value may be a tuple, a state of several arrays that each step
+takes apart with a pattern.
+> 3 '{ (w, k) -> (w * 0.5, k + 1) } p_ower (8.0 4.0, 0)
 
 == SECTION Search and order
 These work on the items along the first axis (the rows of a matrix).
@@ -412,6 +423,11 @@ same items in another shape do not match.
 > M m_atch M
 > M m_atch 1 2 3 4 5 6
 > 1 m_atch 1 s_elect 1 2 3
+Tuples match part by part, each part as a whole array (`=` does not
+reach into a tuple).
+> (1 2, 3.5) m_atch (1 2, 3.5)
+> (1 2, 3.5) m_atch (2 1 r_eshape 1 2, 3.5)
+!> (1, 2) = (1, 2)
 
 == u_nique
 The items without repeats, in first-seen order.

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal render --raw reg/fixtures/tuples/pairs.dec"
+exit_code = 0
+desc = "decorated back to raw: tuples, patterns and the wildcard round-trip (TU11, rule 10)"

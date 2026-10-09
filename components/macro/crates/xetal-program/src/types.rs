@@ -10,7 +10,8 @@ pub fn program_types(lines: Vec<String>) -> Vec<String> {
     let not_offered = |line: &String| {
         let name = line.split_once(" : ").map_or("", |(name, _)| name);
         let ns = name.split_once(':').map_or("", |(ns, _)| ns);
-        ns == "h" || ns.starts_with(|c: char| c.is_ascii_uppercase())
+        // h: helpers, a library's hidden names, a pattern's value (%1).
+        ns == "h" || ns.starts_with(|c: char| c.is_ascii_uppercase()) || name.starts_with('%')
     };
     lines.into_iter().filter(|l| !not_offered(l)).collect()
 }

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal render reg/fixtures/tuples/pairs.xtl"
+exit_code = 0
+desc = "the decorated form of tuples, patterns and the wildcard (TU1, TU4)"

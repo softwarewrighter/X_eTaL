@@ -1,0 +1,92 @@
+{
+  "files": [
+    {
+      "name": "reg/fixtures/tuples/pairs.xtl",
+      "kind": "program",
+      "doc": "Tuples and patterns through the tools: xetal type, xetal doc, the\nrenderers (TU1-TU6).",
+      "imports": [],
+      "expansions": [],
+      "items": [
+        {
+          "name": "u:p_air",
+          "kind": "function",
+          "public": true,
+          "type": "Num a => a -> (a, Float)",
+          "line": 5,
+          "section": null,
+          "doc": "A count and its Float, as a pair.",
+          "examples": [],
+          "binds": [],
+          "source": "u:p_air := { k -> (k, f_loat k) }",
+          "uses": []
+        },
+        {
+          "name": "u:s_wapped",
+          "kind": "function",
+          "public": true,
+          "type": "(Any a, Any b) => (a, b) -> (b, a)",
+          "line": 8,
+          "section": null,
+          "doc": "The parts of a pair, swapped.",
+          "examples": [],
+          "binds": [],
+          "source": "u:s_wapped := { (a, b) -> (b, a) }",
+          "uses": []
+        },
+        {
+          "name": "s",
+          "kind": "value",
+          "public": true,
+          "type": "(Int, Float)",
+          "line": 10,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "binds": [],
+          "source": "s := u:p_air 3",
+          "uses": [{"written": "u:p_air", "file": "reg/fixtures/tuples/pairs.xtl", "item": "u:p_air"}]
+        },
+        {
+          "name": "n",
+          "kind": "value",
+          "public": true,
+          "type": "Int",
+          "line": 11,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "binds": [],
+          "source": "(n, x) := s",
+          "uses": []
+        },
+        {
+          "name": "x",
+          "kind": "value",
+          "public": true,
+          "type": "Float",
+          "line": 11,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "binds": [],
+          "source": "(n, x) := s",
+          "uses": []
+        },
+        {
+          "name": "w",
+          "kind": "value",
+          "public": true,
+          "type": "Float",
+          "line": 12,
+          "section": null,
+          "doc": null,
+          "examples": [],
+          "binds": [],
+          "source": "(w, _) := u:s_wapped s",
+          "uses": []
+        }
+      ]
+    }
+  ]
+}
+

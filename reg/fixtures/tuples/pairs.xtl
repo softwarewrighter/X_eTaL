@@ -1,0 +1,13 @@
+## Tuples and patterns through the tools: xetal type, xetal doc, the
+## renderers (TU1-TU6).
+
+## A count and its Float, as a pair.
+u:p_air := { k -> (k, f_loat k) }
+
+## The parts of a pair, swapped.
+u:s_wapped := { (a, b) -> (b, a) }
+
+s := u:p_air 3
+(n, x) := s
+(w, _) := u:s_wapped s
+u:s_wapped s

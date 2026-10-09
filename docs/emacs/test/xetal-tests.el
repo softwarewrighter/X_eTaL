@@ -37,6 +37,14 @@
     (let ((face (get-text-property (match-beginning 0) 'face)))
       (if (consp face) (car face) face))))
 
+(ert-deftest xetal-mode-tuples-and-patterns ()
+  ;; TU1, TU4: the comma and the wildcard are plain text, never a name.
+  (let ((line "(w, _) := (u:s_tep s, 1 2)"))
+    (should (eq (xetal-tests--face-at line "u:s_tep") 'xetal-user-face))
+    (should (null (xetal-tests--face-at line ",")))
+    (should (null (xetal-tests--face-at line "_)")))
+    (should (eq (xetal-tests--face-at line "1") 'xetal-number-face))))
+
 (ert-deftest xetal-mode-colors-each-kind ()
   (let ((line "u:s_q := { _r * _r } '+ r_/ c:K_ 3 \"s:\" u_se< \"Stats\" # note"))
     (should (eq (xetal-tests--face-at line "u:s_q") 'xetal-user-face))
