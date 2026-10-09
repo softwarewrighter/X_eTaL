@@ -19,7 +19,7 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 125 | 0 | 0 |
-| Language decisions | 152 | 0 | 3 |
+| Language decisions | 151 | 0 | 6 |
 | Standard libraries | 8 | 0 | 0 |
 | Spec cases | 427 | 0 | 1 |
 
@@ -27,6 +27,9 @@ conventions (naming, layout) work without a spec case citing them.
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
 - **S11** (planned): Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents.
+- **M1** (planned): Values are immutable.
+- **M3** (planned): Discard: `_ := expr` evaluates `expr` for its effect and binds nothing, so it prints nothing at the top (...).
+- **M4** (planned): In an interactive session (the REPL, the browser REPL, notebook and org-babel sessions), `[]E_X "a"` (...).
 - **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
 - spec case `tuples/boxed.case` (pending)
 
@@ -301,8 +304,10 @@ conventions (naming, layout) work without a spec case citing them.
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
 | T9 | An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...) | works | 4 |
 | T4 | Type annotations: none in v0 (types are inferred) | works | 1 |
-| M1 | Values are immutable | works | 7 |
+| M1 | Values are immutable | planned | 7 |
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (...) | works | 2 |
+| M3 | Discard: `_ := expr` evaluates `expr` for its effect and binds nothing, so it prints nothing at the top (...) | planned | 0 |
+| M4 | In an interactive session (the REPL, the browser REPL, notebook and org-babel sessions), `[]E_X "a"` (...) | planned | 0 |
 | E1 | Evaluation is strict by default | works | 3 |
 | E2 | A function is evaluated before its argument, so the evaluator knows whether the parameter is lazy | works | 0 |
 | E4 | Evaluation order is the function first, then its arguments right to left (APL order): in `x f y`, `f`, (...) | works | 2 |

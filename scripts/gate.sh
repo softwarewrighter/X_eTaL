@@ -67,6 +67,10 @@ if ! echo "$checklist" | grep -q ' 0 failed'; then
     sw-checklist -v . 2>&1 | grep FAIL
     exit 1
 fi
+# Rust doc-tests (rustdoc compiles each crate's examples, about 40 s a
+# component, for a handful of examples) run in the full gate only.
+tests=(--lib --bins --tests)
+if [ "$mode" = full ]; then tests=(); fi
 skipped=0
 for c in "${COMPONENTS[@]}"; do
     if does "check $c"; then
@@ -75,11 +79,11 @@ for c in "${COMPONENTS[@]}"; do
             cd "components/$c"
             cargo fmt --all -- --check
             cargo clippy -q --all-targets --all-features -- -D warnings
-            cargo test -q --workspace
+            cargo test -q --workspace "${tests[@]}"
         )
     elif does "test $c"; then
         step "components/$c: test (files it builds in or tests against changed)"
-        (cd "components/$c" && cargo test -q --workspace)
+        (cd "components/$c" && cargo test -q --workspace "${tests[@]}")
     elif does "build $c"; then
         step "components/$c: compiles (it depends on what changed)"
         (cd "components/$c" && cargo check -q --workspace)

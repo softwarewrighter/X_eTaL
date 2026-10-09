@@ -1,6 +1,6 @@
 number = 90
 slug = "gate-test-binaries"
-status = "pending"
+status = "in-progress"
 description = "The affected gate took 66 minutes for step 087 (2026-10-08): the per-componen..."
 role = "production"
 context_files = []

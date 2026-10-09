@@ -39,7 +39,9 @@ FLAGS = {
     "literate": ("docs/literate/", "lib/", "demos/", "userlibs/", "docs/emacs/"),
     "emacs": ("docs/emacs/",),
     "diagrams": ("docs/diagrams/", "demos/", "components/render/"),
-    "smoke": ("justfile", "scripts/", "demos/"),
+    # Every just recipe (about 13 minutes): only when the justfile
+    # changed; the full gate (nightly) runs it whatever changed.
+    "smoke": ("justfile",),
     "asks": ("docs/asks.toml", "docs/asks.md", "scripts/asks.py"),
 }
 
@@ -124,6 +126,7 @@ def self_test():
     assert plan(["spec/eval/a.case"], names, deps) == ["test cli"]
     assert plan(["components/eval/Cargo.lock"], names, deps) == ["test eval", "build cli", "build web"]
     assert "flag wasm" in plan(["demos/x.xtl"], names, deps)
+    assert "flag smoke" not in plan(["demos/x.xtl", "scripts/x.sh"], names, deps)
     assert plan(["components/eval/Cargo.lock", "components/eval/crates/x/a.rs"], names, deps)[0] == "check eval"
     assert plan(["docs/emacs/xetal-mode.el"], names, deps) == ["flag literate", "flag emacs"]
     assert plan(["scripts/components.sh"], names, deps)[0] == "check base"
