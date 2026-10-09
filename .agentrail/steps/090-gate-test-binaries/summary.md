@@ -1,0 +1,1 @@
+Gate slowness diagnosed: macOS scan of new binaries (35 s each) fixed by running under a Developer Tools-exempted app (Terminal.app); doc-tests only in full gate; smoke only on justfile changes; affected gate 674 s with every check (from 66-73 min), about 2-3 min without smoke; test-binary merge not needed
