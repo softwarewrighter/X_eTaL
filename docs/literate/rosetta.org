@@ -193,14 +193,15 @@ angles := 0.0 30.0 89.0 90.0 135.0 180.0 -45.0
 
 * 4. The state machine
 
-~Comparison~ keeps the whole stone as one 5 x 5 matrix of numbers.
-The first three rows are the axes (the idiom roll, the top half, the
-bottom half): how many items the axis has, how many steps it has taken
-(an integer; the item facing is 1 + steps, wrapped, and this is the
-truth), its angle in degrees (the presentation, easing toward 90 times
-the steps), and whether it plays on its own. The fourth row is the
-pointer, the fifth the attract mode's clock. Nothing is ever inferred
-from an angle except what to draw.
+~Comparison~ keeps the whole stone as one tuple of three parts, each
+typed: the axes, the pointer and the attract mode's clock. The axes
+(the idiom roll, the top half, the bottom half) are four vectors of
+three, one per field: how many items each axis has, how many steps it
+has taken (an integer; the item facing is 1 + steps, wrapped, and this
+is the truth), its angle in degrees (the presentation, easing toward
+90 times the steps), and whether it plays on its own. Patterns take
+the parts apart by name. Nothing is ever inferred from an angle except
+what to draw.
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
@@ -215,11 +216,7 @@ s0
 #+end_src
 
 #+RESULTS:
-: 31.0 0.0 0.0 1.0 0.0
-:  7.0 0.0 0.0 1.0 0.0
-:  7.0 0.0 0.0 1.0 0.0
-:  0.0 0.0 0.0 0.0 0.0
-: 20.0 0.0 0.0 0.0 0.0
+: ((31 7 7, 0 0 0, 0.0 0.0 0.0, 1 1 1), (0, 0.0 0.0, 0.0, 0.0), (20.0, 0.0, 0, 0))
 
 Choosing an item turns its axis the short way round and pauses it;
 the steps change at once, the angle follows over the next ticks. A
@@ -228,27 +225,27 @@ angle toward its target, landing exactly when near.
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-chosen ← (ᶜᵐTOP c̲at 7.0) ᶜᵐc̲hoose s0
+chosen ← (ᶜᵐTOP, 7) ᶜᵐc̲hoose s0
 ᶜᵐTOP ᶜᵐc̲urrent chosen
-(ᶜᵐTOP c̲at ᶜᵐSTEPS) ᶜᵐa̲t chosen
-(ᶜᵐTOP c̲at ᶜᵐANGLE) ᶜᵐa̲t chosen
-(ᶜᵐTOP c̲at ᶜᵐANGLE) ᶜᵐa̲t 0.1 ᶜᵐt̲ick chosen
-(ᶜᵐTOP c̲at ᶜᵐANGLE) ᶜᵐa̲t 0.1 ᶜᵐt̲ick 0.1 ᶜᵐt̲ick chosen
-(ᶜᵐTOP c̲at ᶜᵐANGLE) ᶜᵐa̲t ᶜᵐs̲ettle chosen
+ᶜᵐTOP ᶜᵐs̲teps chosen
+ᶜᵐTOP ᶜᵐa̲ngle chosen
+ᶜᵐTOP ᶜᵐa̲ngle 0.1 ᶜᵐt̲ick chosen
+ᶜᵐTOP ᶜᵐa̲ngle 0.1 ᶜᵐt̲ick 0.1 ᶜᵐt̲ick chosen
+ᶜᵐTOP ᶜᵐa̲ngle ᶜᵐs̲ettle chosen
 #+end_example
 #+begin_src xetal
-chosen := (cm:TOP c_at 7.0) cm:c_hoose s0
+chosen := (cm:TOP, 7) cm:c_hoose s0
 cm:TOP cm:c_urrent chosen
-(cm:TOP c_at cm:STEPS) cm:a_t chosen
-(cm:TOP c_at cm:ANGLE) cm:a_t chosen
-(cm:TOP c_at cm:ANGLE) cm:a_t 0.1 cm:t_ick chosen
-(cm:TOP c_at cm:ANGLE) cm:a_t 0.1 cm:t_ick 0.1 cm:t_ick chosen
-(cm:TOP c_at cm:ANGLE) cm:a_t cm:s_ettle chosen
+cm:TOP cm:s_teps chosen
+cm:TOP cm:a_ngle chosen
+cm:TOP cm:a_ngle 0.1 cm:t_ick chosen
+cm:TOP cm:a_ngle 0.1 cm:t_ick 0.1 cm:t_ick chosen
+cm:TOP cm:a_ngle cm:s_ettle chosen
 #+end_src
 
 #+RESULTS:
 : 7
-: -1.0
+: -1
 : 0.0
 : -18.0
 : -32.4
@@ -266,14 +263,14 @@ offers it disabled).
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-stepped ← (ᶜᵐBOTTOM c̲at 1.0) ᶜᵐs̲tep (ᶜᵐTOP c̲at 2.0) ᶜᵐc̲hoose s0
+stepped ← (ᶜᵐBOTTOM, 1) ᶜᵐs̲tep (ᶜᵐTOP, 2) ᶜᵐc̲hoose s0
 ᶜᵐBOTTOM ᶜᵐc̲urrent stepped
-ᶜᵐBOTTOM ᶜᵐc̲urrent (ᶜᵐBOTTOM c̲at 2.0) ᶜᵐc̲hoose stepped
+ᶜᵐBOTTOM ᶜᵐc̲urrent (ᶜᵐBOTTOM, 2) ᶜᵐc̲hoose stepped
 #+end_example
 #+begin_src xetal
-stepped := (cm:BOTTOM c_at 1.0) cm:s_tep (cm:TOP c_at 2.0) cm:c_hoose s0
+stepped := (cm:BOTTOM, 1) cm:s_tep (cm:TOP, 2) cm:c_hoose s0
 cm:BOTTOM cm:c_urrent stepped
-cm:BOTTOM cm:c_urrent (cm:BOTTOM c_at 2.0) cm:c_hoose stepped
+cm:BOTTOM cm:c_urrent (cm:BOTTOM, 2) cm:c_hoose stepped
 #+end_src
 
 #+RESULTS:
