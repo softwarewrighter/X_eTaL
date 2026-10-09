@@ -26,8 +26,10 @@ PARTS="web rosetta literate doc poster latex"
 # The files a part is built from, one per line.
 files() {
     case "$1" in
-        web) find demos lib userlibs -type f \( -name '*.xtl' -o -name '*.xtlm' -o -name '*.toml' \) ;;
-        rosetta) find demos/rosetta lib -type f; echo components/rosetta/crates/xetal-rosetta/index.html ;;
+        # The live demo and the Rosetta page compile the language in: any
+        # Rust source can change what they show.
+        web) find demos lib userlibs -type f \( -name '*.xtl' -o -name '*.xtlm' -o -name '*.toml' \); find components -path '*/target' -prune -o -path '*/src/*' -type f \( -name '*.rs' -o -name '*.css' -o -name '*.html' -o -name '*.js' -o -name '*.toml' \) -print ;;
+        rosetta) find demos/rosetta lib -type f; echo components/rosetta/crates/xetal-rosetta/index.html; find components -path '*/target' -prune -o -path '*/src/*' -type f -name '*.rs' -print ;;
         literate) find docs/literate lib userlibs demos -type f \( -name '*.org' -o -name '*.css' -o -name '*.xtl' -o -name '*.xtlm' \) ;;
         doc) find lib demos userlibs -type f \( -name '*.xtl' -o -name '*.xtlm' \); find components/doc components/docsearch -path '*/target' -prune -o -type f \( -name '*.rs' -o -name '*.css' -o -name '*.js' \) -print; echo scripts/doc-site.sh ;;
         poster) find scripts/poster -type f -name '*.html' ;;

@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-09
 
+- 12:30 `chore` Merged PRs #113 (boxed tuples, Saga 39 step 5) and #114 (tuples in the tools, step 6). The live demo's and the Rosetta page's pages parts now track the Rust sources they compile (check-pages), so a language change rebuilds them; pages rebuilt (web, rosetta, doc, latex).
 - 09:30 `feat` Tuples in the tools (Saga 39 step 6, D133): `xetal doc` lists a pattern's names with the right types (its hidden value was listed and the types shifted); `xetal type`, the renderers and their round trip, the live demo, the Emacs mode, the syntax poster and the reference show tuples and patterns, each pinned by a golden, test or doc example.
 ## 2026-10-08
 
