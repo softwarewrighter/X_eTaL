@@ -1,0 +1,1 @@
+Packed states became tuples (D134): Rosetta Comparison is (axes, pointer, clock) with Int counts, pair-argument calls, field accessors; Mandelbrot state (zr, zi, count). All 43 claims, 43 doc examples, pictures and positions unchanged; six Rosetta goldens print the tuple state (rebased). Siblings already moved. Pages left for local just pages.
