@@ -1,7 +1,8 @@
-//! The editor's toolbar: the logo, Open, the file's name, Save, Save
+//! The editor's toolbar: the yellow logo and the name, Open, the file's name, Save, Save
 //! as, Clear, the run buttons (Run or Stop, Notebook, Step, Reset), Zoom
 //! and Help.
 
+use xetal_base::LANG_NAME;
 use yew::prelude::*;
 
 use crate::menu::OpenMenu;
@@ -33,7 +34,8 @@ pub fn toolbar(bar: Bar) -> Html {
     });
     html! {
         <nav class="toolbar">
-            <img class="logo" src="modern-xetal-logo.jpg" alt="X_eTaL"/>
+            <img class="logo" src="xetal-logo-yellow.png" alt={LANG_NAME}/>
+            <span class="brand">{ LANG_NAME }</span>
             <OpenMenu options={bar.options.clone()} {pick}/>
             <span class="name" title="The file being edited">{ &bar.name }</span>
             <button onclick={bar.save.reform(|_| false)} title="Save in this browser">{ "Save" }</button>

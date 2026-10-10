@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-09
 
+- 18:00 `docs` The yellow logo (step 092): the live demo's toolbar starts with it (15 columns wide, about three rows tall, its aspect kept) and the name in yellow, then Open and the buttons; the README's heading shows it at the same size.
 - 15:30 `feat` A name is bound once (step 091, D134; M1 changed, M3, M4): binding a variable without `!` again in the same scope is `error[rebind]`; `_ := expr` discards a value; `[]E_X "a"` unbinds a name in the REPL and notebooks only. This repository migrated (TTTML, tttml-play, duck, cube, user-macros, three literate documents, two spec cases); the asks ledger tells the siblings how. The README says how names bind.
 - 14:05 `docs` The logo in twelve colors, one per kind of repository (from the color-variations sheet): images/xetal-logo-yellow.png (base/core), green (games), violet (demos), red (extensions), blue (libraries), orange (GPU), aqua (FPGA), pink (tools), indigo (ML), mint (research), brown (examples), gray (documentation).
 - 12:30 `chore` Merged PRs #113 (boxed tuples, Saga 39 step 5) and #114 (tuples in the tools, step 6). The live demo's and the Rosetta page's pages parts now track the Rust sources they compile (check-pages), so a language change rebuilds them; pages rebuilt (web, rosetta, doc, latex).

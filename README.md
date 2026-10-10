@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/modern-xetal-logo.jpg" alt="X_eTaL: X underlined, a raised e, T, a raised a, L" width="360">
+  <img src="images/xetal-logo-yellow.png" alt="X_eTaL: X underlined, a raised e, T, a raised a, L" width="122">
 </p>
 
 <p align="center">

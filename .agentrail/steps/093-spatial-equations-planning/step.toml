@@ -1,0 +1,8 @@
+number = 93
+slug = "spatial-equations-planning"
+status = "pending"
+description = "Planning saga for spatial equations (asked by the user, 2026-10-09). Read doc..."
+role = "production"
+context_files = []
+created_at = "2026-10-09T10:17:59"
+commits = []
