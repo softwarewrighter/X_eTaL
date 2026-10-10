@@ -1,0 +1,7 @@
+LINT                 GROUP        LEVEL  SUMMARY
+shadows-builtin      suspicious   warn   a parameter or local binding shadows a built-in
+deprecated-private   deprecated   warn   a library's bare top-level function (write it h:)
+unknown-lint         suspicious   warn   a `# lint:` directive names no lint, group or level
+function-name-case   style        warn   a function named UpperCamel (functions are lowerCamel)
+mutable-constant     style        warn   a mutable variable named like a constant (UpperCamel)
+upper-case-name      pedantic     allow  a variable named in all capitals

@@ -1,0 +1,10 @@
+mutable-constant (style, warn by default)
+
+What it does: warns on a mutable variable (`!`) whose name starts with a capital.
+
+Why: UpperCamel names a constant (`MaxSize`); a variable that changes is lowerCamel.
+
+Example:
+    Count! := 0
+Instead:
+    count! := 0

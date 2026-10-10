@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint -A styel reg/fixtures/lint/style.xtl"
+exit_code = 1
+desc = "xetal lint: an unknown lint or group on the command line is an error, never ignored"

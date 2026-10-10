@@ -1,0 +1,22 @@
+# X_eTaL component `lint`: one Cargo workspace (see docs/architecture.md).
+# The `xetal lint` driver: levels from the command line and `# lint:`
+# comments applied to the lints xetal-lint finds (docs/lint.md).
+
+[workspace]
+resolver = "3"
+members = ["crates/xetal-linter"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+authors = ["Michael A Wright"]
+repository = "https://github.com/softwarewrighter/X_eTaL"
+
+[workspace.dependencies]
+xetal-base = { path = "../base/crates/xetal-base" }
+xetal-lint = { path = "../core/crates/xetal-lint" }
+xetal-ir = { path = "../core/crates/xetal-ir" }
+xetal-program = { path = "../macro/crates/xetal-program" }
+xetal-sources = { path = "../macro/crates/xetal-sources" }
+xetal-linter = { path = "crates/xetal-linter" }

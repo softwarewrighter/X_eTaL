@@ -1128,6 +1128,33 @@ PR per step from the latest main, so it can go on beside the main saga.
 | 7 | tuples-retrofit | packed states rewritten (the Rosetta stone's Comparison first); the siblings told how (M13, D7). Narrowed 2026-10-08: the siblings already moved to tuples on their own (X_eTaL-ML training state, X_eTaL-demos boards, X_eTaL-extensions scenes, X_eTaL-libraries docs/tuples.md), and lib/TTTML.xtl with demos/tttml-play.xtl belong to step 091 (rebind-once), so this step does this repository's other packed states only. Done: Comparison and the Mandelbrot demo (D134) |
 | 8 | tuples-release | the README tour, a literate document (train-live's step before and after), the register, CHANGES, pages; Saga 29 replanned on these types; the lane archived |
 
+
+## Saga 40 -- lint (a clippy-style linter, docs/lint.md)
+
+Asked by the user, 2026-10-10: a linter inspired by Rust's clippy.
+Decided with the user: design and a first version now; levels set in
+the source by comment directives (S12); the first new lints check the
+style guide's names (lang-choices section 16).
+
+1. lint-mvp [DONE] (D136): the catalog in xetal-lint (groups, levels,
+   explanations), the `lint` component (xetal-linter: `-A`/`-W`/`-D`,
+   `# lint:` and `# lint-file:` comments, resolution, placed findings),
+   `xetal lint FILE`, `--list`, `--explain`; lints
+   `function-name-case`, `mutable-constant`, `upper-case-name`,
+   `unknown-lint` beside `shadows-builtin` and `deprecated-private`.
+   Goldens lint-*. Branch claude/peaceful-hamilton-g1hdp3; see
+   lanes/lint/HANDOFF.md for what its sandbox could not run.
+2. lint-run-directives: `xetal run`, the REPL, the notebook and the
+   live demo honor `# lint: allow` for the warnings they print.
+3. lint-unused: `unused-binding` (a parameter or local never used);
+   agree with the user how to mark one unused on purpose.
+4. lint-effects: `missing-bang` (a function calling a `!` function
+   without `!` itself) and its converse.
+5. lint-redundant: `redundant-lambda` (`{ x -> f_ x }` is `'f_`,
+   `{ x -> x }` is `I_`), group complexity.
+6. lint-typed: lints after type checking (`?` must return Bool).
+7. lint-fix: machine-applicable suggestions, `xetal lint --fix`, and
+   `--format json` for the Emacs mode and the live demo's editor.
 ## Saga 32 -- xetal doc (a cross-reference, before the launch)
 
 The user's idea (2026-10-04): a generator, like rustdoc or JavaDoc,

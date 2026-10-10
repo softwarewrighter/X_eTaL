@@ -19,7 +19,7 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 125 | 0 | 0 |
-| Language decisions | 154 | 0 | 3 |
+| Language decisions | 155 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
 | Spec cases | 446 | 0 | 0 |
 
@@ -291,6 +291,7 @@ conventions (naming, layout) work without a spec case citing them.
 | S9 | Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...) | planned | 0 |
 | S10 | Doc examples are run (Saga 32 step doc-test), as rustdoc runs doc tests: `xetal doc --test FILE` runs the (...) | works | 0 |
 | S11 | Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents | planned | 0 |
+| S12 | Lint directives are ordinary comments: `# lint: LEVEL NAME...` (LEVEL allow, warn or deny; a NAME is a (...) | works | 0 |
 | T1 | A real `Bool` type; `=` and the comparisons return Bool | works | 5 |
 | T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and (...) | works | 3 |
 | T3 | `=` is exact (IEEE) equality and transitive; `(0.1 + 0.2) = 0.3` is 0 | works | 2 |

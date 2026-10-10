@@ -23,6 +23,9 @@ pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
         xetal_repl::stdio().map_err(|e| Diagnostic::new("io", e.to_string()))?;
         return Ok(String::new());
     }
+    if let Command::Lint(args) = command {
+        return xetal_linter::command(&args.request()?, &mut std::io::stderr());
+    }
     if let Command::Edit { file } = command {
         use std::io::IsTerminal;
         if !(std::io::stdin().is_terminal() && std::io::stdout().is_terminal()) {

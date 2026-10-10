@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint -D style -A function-name-case reg/fixtures/lint/style.xtl"
+exit_code = 1
+desc = "xetal lint: a lint named on the command line beats its group, whatever the order"

@@ -19,6 +19,11 @@ STAGES:
     fmt     canonical, fully parenthesized form
     migrate a library with its bare top-level functions written
             h: (file-private), with their uses; locals untouched
+    lint    check a program against the lints (xetal lint --list):
+            findings on stderr, as warnings or, when denied, errors
+            that fail the command; -A/-W/-D LINT (a lint, a group
+            such as style, or all) and # lint: comments set levels;
+            --explain LINT says what one checks
     core    Core IR after desugaring (built-ins marked #)
     type    inferred type of each top-level item
     eval    type-check, then evaluate; prints each top-level

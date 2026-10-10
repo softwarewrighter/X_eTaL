@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint reg/fixtures/lint/style.xtl"
+exit_code = 0
+desc = "xetal lint: style-guide names and a shadowed built-in warn, each lint's first finding with a note; the pedantic upper-case-name is off by default; a combinator K_ passes; exit 0"

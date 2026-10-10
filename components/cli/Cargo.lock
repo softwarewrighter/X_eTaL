@@ -2131,6 +2131,7 @@ dependencies = [
  "xetal-lex",
  "xetal-line",
  "xetal-lint",
+ "xetal-linter",
  "xetal-names",
  "xetal-program",
  "xetal-render",
@@ -2417,6 +2418,17 @@ dependencies = [
  "xetal-base",
  "xetal-catalog",
  "xetal-ir",
+]
+
+[[package]]
+name = "xetal-linter"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-ir",
+ "xetal-lint",
+ "xetal-program",
+ "xetal-sources",
 ]
 
 [[package]]
