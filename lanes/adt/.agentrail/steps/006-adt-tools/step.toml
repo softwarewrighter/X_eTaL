@@ -1,0 +1,8 @@
+number = 6
+slug = "adt-tools"
+status = "pending"
+description = "ADT lane (lanes/adt/.agentrail/plan.md, docs/adt.md, docs/plan.md Saga 29). O..."
+role = "production"
+context_files = []
+created_at = "2026-10-10T15:33:13"
+commits = []
