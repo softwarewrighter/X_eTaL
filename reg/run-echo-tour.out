@@ -326,6 +326,29 @@ hello X̲ᵉTᵃL
       [34mn̲eg³[0m [33m5[0m                   [2m⍝ a superscript repeats a function: n_eg three times[0m
 -5
 
+      [2m⍝## Tuples and patterns[0m
+      ([33m1[0m [33m2[0m [33m3[0m, [33m4.5[0m, [93m"abc"[0m)      [2m⍝ a tuple: several values of their own types side by side[0m
+(1 2 3, 4.5, abc)
+      [2m⍝# u:s_wapped p: the parts of a pair, swapped; a pattern takes them apart.[0m
+      [32mᵘs̲wapped[0m ← { (a, b) → (b, a) }[0m
+      [32mᵘs̲wapped[0m ([33m1[0m, [93m"x"[0m)[0m
+(x, 1)
+      (n, (x, _)) ← ([33m3[0m, ([33m2.5[0m, [93m"unused"[0m))    [2m⍝ a pattern binds names; _ ignores a part[0m
+      x [94m×[0m [34mf̲loat[0m n[0m
+7.5
+      [2m⍝# u:s_tep s: one step of a state of several arrays, for p_ower.[0m
+      [32mᵘs̲tep[0m ← { (w, k) → (w [94m×[0m [33m0.5[0m, k [94m+[0m [33m1[0m) }[0m
+      [33m3[0m [32m'ᵘs̲tep[0m [34mp̲ower[0m ([33m8.0[0m [33m4.0[0m, [33m0[0m)[0m
+(1.0 0.5, 3)
+      ([33m1[0m, [33m2.5[0m) [34mm̲atch[0m ([33m1[0m, [33m2.5[0m)   [2m⍝ m_atch compares tuples part by part[0m
+1
+      [1m'[0m{ k → (k, [34mf̲loat[0m k) } [34mm̲ap[0m [33m1[0m [33m2[0m      [2m⍝ boxed tuples: an array of tuples[0m
+┌→──────────────────────┐
+│ ┌────────┐ ┌────────┐ │
+│ │(1, 1.0)│ │(2, 2.0)│ │
+│ └∊───────┘ └∊───────┘ │
+└∊──────────────────────┘
+
       [2m⍝## Life in one line[0m
       [2m⍝# u:l_ife b: the next generation of the Game of Life on board b (0[0m
       [2m⍝# dead, 1 alive), the board wrapping at its edges: a cell lives when[0m

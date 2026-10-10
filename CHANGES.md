@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-10
 
+- 14:45 `docs` Tuples released (Saga 39 step 8, D136): the language tour's section on tuples and patterns, the literate document docs/literate/tuples.org (an optimizer's state packed, then as a tuple; the Rosetta state before and after), Saga 29 replanned on these types (records as named tuples, then sums); the tuples lane archived.
 - 09:00 `chore` Merged PR #115 (packed states become tuples, Saga 39 step 7); the names-bound-once register entry renumbered D134 to D135 (the lane took D134). Pages rebuilt.
 ## 2026-10-09
 

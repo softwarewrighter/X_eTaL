@@ -888,6 +888,13 @@ as APL2's prototype does.
 
 ## Saga 29 -- algebraic data (tuples, records, enums, matching)
 
+Replanned on Saga 39's types (2026-10-10): tuples landed there
+(TU1-TU12, D121-D134): a product type `(a, b)` in the checker, a Core
+`Tuple` form with `Proj`, patterns in bindings and parameters, boxed
+tuples as array items, `Any a` for variables that may be tuples. This
+saga now builds records and sums on those types; the rest of this
+introduction is its original motivation.
+
 Asked for by the user (2026-10-03): X_eTaL has no typed tuples,
 records or sum types. Every array, nested ones too, has one element
 type (`Box a`, B14), so a pair of an Int and a text, or a game state
@@ -900,12 +907,12 @@ values. The design is decided with the user first.
 
 | Step | Slug | Content |
 | ---- | ---- | ------- |
-| 1 | adt-decisions | With the user: how a type is declared (in a program, in a library and exported), constructors (their decoration and class: a constructor is a function, a nullary one a value), tuples (anonymous products) and records (named fields), sum types (enums are the simplest), pattern matching (an extension of guards, or a match form; exhaustiveness), printing, typing (nominal types in the HM checker, polymorphic types such as Maybe a), arrays of ADT values (rank-erased element types), and how `Color` and `Key` become ordinary declarations. |
-| 2 | tuples | Moved to Saga 39 (tuples, lanes/tuples, 2026-10-07); records, sums and matching build on its types. |
-| 3 | records | Named fields: declaration, construction, access, functional update; the X_eTaL-demos game states (D7) as the test case. |
-| 4 | sums | Sum types and enums with constructors and exhaustive matching; `Maybe a` and `Result a e` as library types. |
+| 1 | adt-decisions | With the user, on Saga 39's tuples: records as named tuples (TU12 kept `(w: 1, k: 0)` free: a record literal is a tuple whose parts are named, its type `(w: Float, k: Int)`, the record-field error then retired); field access (a pattern by name, `(w: w, k: _) := r`, and/or a projection by name lowered to `Proj`); functional update; whether a record type is declared (nominal) or structural like tuples; sum types (constructors, their decoration and class: a constructor is a function, a nullary one a value; enums the simplest), matching (guards extended with patterns, exhaustiveness checked from the declaration), printing, polymorphic sums (`Maybe a`, `Result a e`), sums as boxed array items as TU8 does for tuples, and how `Color` and `Key` become ordinary declarations. |
+| 2 | tuples | Done in Saga 39 (lanes/tuples, PRs #106-#115). |
+| 3 | records | Named tuples: the literal, the type, access by name (pattern and projection, both desugared to Saga 39's `Proj`), functional update; X_eTaL-demos' game states (D7) and the Rosetta stone's `(axes, pointer, clock)` (D134) as the test cases, their parts then named. |
+| 4 | sums | Sum types and enums: declarations, constructors, matching as patterns in guards with exhaustiveness; `Maybe a` and `Result a e` as library types; a sum's payload may be a tuple or record. |
 | 5 | adt-builtins | `Color` and `Key` re-expressed as ordinary enums in the Terminal library (their constructor functions retired); the Combinators library's Church-encoded maybe (CB3) beside a real one. |
-| 6 | adt-retrofit | Programs that packed mixed state or chose by strings rewritten; goldens rebased on purpose. |
+| 6 | adt-retrofit | Programs that choose by strings rewritten (cm:m_ode's "touring"/"holding"/"paused" first), tuple states whose parts read better named moved to records; goldens rebased on purpose. |
 | 7 | adt-release | README tour, reference, design register, CHANGES, pages. |
 
 ## Saga 21 -- errors of one's own (raise, catch, retry, continue)
@@ -1098,7 +1105,7 @@ Later, after the next release: PN2's warning becomes an error (MC8 row
 repositories migrated by then through the asks ledger's notice), a step
 of its own when that release is tagged.
 
-## Saga 39 -- tuples (asks M13 and D7; the first part of Saga 29)
+## Saga 39 -- tuples (asks M13 and D7; the first part of Saga 29) (done, archived)
 
 Asked for by the user (2026-10-07) after X_eTaL-ML's train-live had to
 pack a network's weights and Adam's two running averages into one

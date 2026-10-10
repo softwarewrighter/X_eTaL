@@ -191,6 +191,19 @@ u:t_riangle := { ~s_elf n -> n <= 1 ? 1; n + s_elf n - 1 }
 'u:t_riangle c:Y_ 5      # Y: recursion, from a function handed itself: 1+2+3+4+5
 n_eg^3 5                 # a superscript repeats a function: n_eg three times
 
+### Tuples and patterns
+(1 2 3, 4.5, "abc")      # a tuple: several values of their own types side by side
+## u:s_wapped p: the parts of a pair, swapped; a pattern takes them apart.
+u:s_wapped := { (a, b) -> (b, a) }
+u:s_wapped (1, "x")
+(n, (x, _)) := (3, (2.5, "unused"))   # a pattern binds names; _ ignores a part
+x * f_loat n
+## u:s_tep s: one step of a state of several arrays, for p_ower.
+u:s_tep := { (w, k) -> (w * 0.5, k + 1) }
+3 'u:s_tep p_ower (8.0 4.0, 0)
+(1, 2.5) m_atch (1, 2.5)  # m_atch compares tuples part by part
+'{ k -> (k, f_loat k) } m_ap 1 2   # boxed tuples: an array of tuples
+
 ### Life in one line
 ## u:l_ife b: the next generation of the Game of Life on board b (0
 ## dead, 1 alive), the board wrapping at its edges: a cell lives when

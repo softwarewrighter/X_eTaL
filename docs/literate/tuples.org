@@ -1,0 +1,280 @@
+#+TITLE: Tuples
+#+SUBTITLE: a state of several arrays as one value: packed by position, then a tuple taken apart by name
+#+AUTHOR: Michael A Wright
+#+OPTIONS: toc:2 num:nil ^:{}
+#+PROPERTY: header-args:xetal :session tuples :seed 1 :results output :exports both
+
+An array holds items of one type in a shape. Some values are several
+arrays of different shapes and types that travel together: a
+network's weights with the running averages its optimizer keeps and a
+count of steps; a game's board with its score; a stone's three axes
+with the pointer dragging one of them. Before tuples such a state was
+packed into one array, and every function took it apart by position.
+A tuple keeps the parts side by side, each with its own type, and a
+pattern takes them apart by name.
+
+* A tuple and a pattern
+
+A tuple is written with commas inside parentheses. Its type is written
+as the literal is, and its parts keep their own types and shapes: an
+Int vector, a Float and a text here.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(1 2 3, 4.5, "abc")
+#+end_example
+#+begin_src xetal
+(1 2 3, 4.5, "abc")
+#+end_src
+
+#+RESULTS:
+: (1 2 3, 4.5, abc)
+
+A pattern, in a binding or in a lambda's parameters, gives each part a
+name; ~_~ ignores a part and patterns nest. A pattern of the wrong size
+is a type error, found before the program runs.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(n, (x, _)) ← (3, (2.5, "unused"))
+x × f̲loat n
+ᵘs̲wapped ← { (a, b) → (b, a) }
+ᵘs̲wapped (1, "x")
+#+end_example
+#+begin_src xetal
+(n, (x, _)) := (3, (2.5, "unused"))
+x * f_loat n
+u:s_wapped := { (a, b) -> (b, a) }
+u:s_wapped (1, "x")
+#+end_src
+
+#+RESULTS:
+: 7.5
+: (x, 1)
+
+* An optimizer's state, packed
+
+Adam keeps, for every weight array, two running averages: of the
+gradients and of their squares. A step of Adam reads the weights, the
+averages and the step count, and gives all of them back, so ~p_ower~ can
+repeat it. Two weight arrays here (a vector and a matrix) learn to
+equal two targets; the gradient of the squared distance is twice the
+difference.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+target1 ← 1.0 2.0 3.0
+target2 ← 2 2 r̲eshape 0.5 -0.5 0.25 -0.25
+ᵘg̲rad ← { W1 W2 → (e̲nclose 2.0 × W1 − target1) c̲at e̲nclose 2.0 × W2 − target2 }
+lr ← 0.1
+ᵘr̲ound ← { a → (f̲loat f̲loor 0.5 + 1000.0 × a) ÷ 1000.0 }
+#+end_example
+#+begin_src xetal
+target1 := 1.0 2.0 3.0
+target2 := 2 2 r_eshape 0.5 -0.5 0.25 -0.25
+u:g_rad := { W1 W2 -> (e_nclose 2.0 * W1 - target1) c_at e_nclose 2.0 * W2 - target2 }
+lr := 0.1
+u:r_ound := { a -> (f_loat f_loor 0.5 + 1000.0 * a) / 1000.0 }
+#+end_src
+
+#+RESULTS:
+
+Without tuples the seven parts (two weight arrays, four averages and
+the count) are boxed into one vector, and every part is reached by its
+position: ~d_isclose 3 s_elect s~ is the first average because the
+author remembers that it is third. The count is a Float, since a
+vector of boxes holds one item type.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘm̲oveBy ← { mv k → ((d̲isclose 1 s̲elect mv) ÷ 1.0 − 0.9 ^ k) ÷ 0.00000001 + ((d̲isclose 2 s̲elect mv) ÷ 1.0 − 0.999 ^ k) ^ 0.5 }
+ᵘp̲acked ← { s →
+  W1 ← d̲isclose 1 s̲elect s
+  W2 ← d̲isclose 2 s̲elect s
+  k ← 1.0 + d̲isclose 7 s̲elect s
+  g ← W1 ᵘg̲rad W2
+  G1 ← d̲isclose 1 s̲elect g
+  G2 ← d̲isclose 2 s̲elect g
+  M1 ← (0.9 × d̲isclose 3 s̲elect s) + 0.1 × G1
+  M2 ← (0.9 × d̲isclose 4 s̲elect s) + 0.1 × G2
+  V1 ← (0.999 × d̲isclose 5 s̲elect s) + 0.001 × G1 × G1
+  V2 ← (0.999 × d̲isclose 6 s̲elect s) + 0.001 × G2 × G2
+  N1 ← W1 − lr × ((e̲nclose M1) c̲at e̲nclose V1) ᵘm̲oveBy k
+  N2 ← W2 − lr × ((e̲nclose M2) c̲at e̲nclose V2) ᵘm̲oveBy k
+  (e̲nclose N1) c̲at (e̲nclose N2) c̲at (e̲nclose M1) c̲at (e̲nclose M2) c̲at (e̲nclose V1) c̲at (e̲nclose V2) c̲at e̲nclose k
+}
+z1 ← 0.0 0.0 0.0
+z2 ← 2 2 r̲eshape 0.0
+p0 ← (e̲nclose z1) c̲at (e̲nclose z2) c̲at (e̲nclose z1) c̲at (e̲nclose z2) c̲at (e̲nclose z1) c̲at (e̲nclose z2) c̲at e̲nclose 0.0
+p ← 200 'ᵘp̲acked p̲ower p0
+ᵘr̲ound d̲isclose 1 s̲elect p
+#+end_example
+#+begin_src xetal
+u:m_oveBy := { mv k -> ((d_isclose 1 s_elect mv) / 1.0 - 0.9 ^ k) / 0.00000001 + ((d_isclose 2 s_elect mv) / 1.0 - 0.999 ^ k) ^ 0.5 }
+u:p_acked := { s ->
+  W1 := d_isclose 1 s_elect s
+  W2 := d_isclose 2 s_elect s
+  k := 1.0 + d_isclose 7 s_elect s
+  g := W1 u:g_rad W2
+  G1 := d_isclose 1 s_elect g
+  G2 := d_isclose 2 s_elect g
+  M1 := (0.9 * d_isclose 3 s_elect s) + 0.1 * G1
+  M2 := (0.9 * d_isclose 4 s_elect s) + 0.1 * G2
+  V1 := (0.999 * d_isclose 5 s_elect s) + 0.001 * G1 * G1
+  V2 := (0.999 * d_isclose 6 s_elect s) + 0.001 * G2 * G2
+  N1 := W1 - lr * ((e_nclose M1) c_at e_nclose V1) u:m_oveBy k
+  N2 := W2 - lr * ((e_nclose M2) c_at e_nclose V2) u:m_oveBy k
+  (e_nclose N1) c_at (e_nclose N2) c_at (e_nclose M1) c_at (e_nclose M2) c_at (e_nclose V1) c_at (e_nclose V2) c_at e_nclose k
+}
+z1 := 0.0 0.0 0.0
+z2 := 2 2 r_eshape 0.0
+p0 := (e_nclose z1) c_at (e_nclose z2) c_at (e_nclose z1) c_at (e_nclose z2) c_at (e_nclose z1) c_at (e_nclose z2) c_at e_nclose 0.0
+p := 200 'u:p_acked p_ower p0
+u:r_ound d_isclose 1 s_elect p
+#+end_src
+
+#+RESULTS:
+: 1.0 2.0 3.0
+
+* The same state as a tuple
+
+With a tuple the state is ~(W1, W2, M1, M2, V1, V2, k)~: the step
+names its parts once, in its parameter, and gives a tuple back. The
+count is an Int. Nothing is boxed, nothing is selected by number, and
+a step that gave back six parts instead of seven would not type-check.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+ᵘm̲ove ← { (m, v) k → (m ÷ 1.0 − 0.9 ^ k) ÷ 0.00000001 + (v ÷ 1.0 − 0.999 ^ k) ^ 0.5 }
+ᵘa̲dam ← { (W1, W2, M1, M2, V1, V2, k) →
+  t ← 1 + k
+  g ← W1 ᵘg̲rad W2
+  (G1, G2) ← (d̲isclose 1 s̲elect g, d̲isclose 2 s̲elect g)
+  m1 ← (0.9 × M1) + 0.1 × G1
+  m2 ← (0.9 × M2) + 0.1 × G2
+  v1 ← (0.999 × V1) + 0.001 × G1 × G1
+  v2 ← (0.999 × V2) + 0.001 × G2 × G2
+  (W1 − lr × (m1, v1) ᵘm̲ove f̲loat t, W2 − lr × (m2, v2) ᵘm̲ove f̲loat t, m1, m2, v1, v2, t)
+}
+s0 ← (z1, z2, z1, z2, z1, z2, 0)
+(w1, w2, _, _, _, _, steps) ← 200 'ᵘa̲dam p̲ower s0
+ᵘr̲ound w1
+steps
+#+end_example
+#+begin_src xetal
+u:m_ove := { (m, v) k -> (m / 1.0 - 0.9 ^ k) / 0.00000001 + (v / 1.0 - 0.999 ^ k) ^ 0.5 }
+u:a_dam := { (W1, W2, M1, M2, V1, V2, k) ->
+  t := 1 + k
+  g := W1 u:g_rad W2
+  (G1, G2) := (d_isclose 1 s_elect g, d_isclose 2 s_elect g)
+  m1 := (0.9 * M1) + 0.1 * G1
+  m2 := (0.9 * M2) + 0.1 * G2
+  v1 := (0.999 * V1) + 0.001 * G1 * G1
+  v2 := (0.999 * V2) + 0.001 * G2 * G2
+  (W1 - lr * (m1, v1) u:m_ove f_loat t, W2 - lr * (m2, v2) u:m_ove f_loat t, m1, m2, v1, v2, t)
+}
+s0 := (z1, z2, z1, z2, z1, z2, 0)
+(w1, w2, _, _, _, _, steps) := 200 'u:a_dam p_ower s0
+u:r_ound w1
+steps
+#+end_src
+
+#+RESULTS:
+: 1.0 2.0 3.0
+: 200
+
+Both reach the same weights. The tuple version is the one X_eTaL-ML's
+training demo uses (its ask M13): its state was 99 weights and two
+averages packed into one vector of 298 numbers, taken apart by
+~t_ake~ and ~d_rop~ at fixed offsets.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(ᵘr̲ound w1) m̲atch ᵘr̲ound d̲isclose 1 s̲elect p
+(ᵘr̲ound w2) m̲atch ᵘr̲ound d̲isclose 2 s̲elect p
+#+end_example
+#+begin_src xetal
+(u:r_ound w1) m_atch u:r_ound d_isclose 1 s_elect p
+(u:r_ound w2) m_atch u:r_ound d_isclose 2 s_elect p
+#+end_src
+
+#+RESULTS:
+: 1
+: 1
+
+* The Rosetta stone's state, before and after
+
+The Rosetta stone (~demos/rosetta/Comparison.xtl~) kept its whole state
+in one 5 x 5 Float matrix: three rows for the axes (count, steps,
+angle, playing), one for the pointer, one for the attract mode's
+clock. A cell was read by its row and column number and written
+through a mask, and the counts were Floats because a matrix has one
+element type. Before:
+
+#+begin_example
+31 cm:s_tart 7
+31.0 0.0 0.0 1.0 0.0
+ 7.0 0.0 0.0 1.0 0.0
+ 7.0 0.0 0.0 1.0 0.0
+ 0.0 0.0 0.0 0.0 0.0
+20.0 0.0 0.0 0.0 0.0
+(cm:TOP c_at cm:STEPS) cm:a_t (cm:TOP c_at 7.0) cm:c_hoose 31 cm:s_tart 7
+-1.0
+#+end_example
+
+After, the state is ~(axes, pointer, clock)~. The axes are four
+vectors of three, one per field (a struct of arrays, so an axis number
+still selects an axis); counts and steps are Ints. A call names the
+axis and its argument as a pair, and a field is read by name.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+"cm:" u̲se< "Comparison"
+s ← 31 ᶜᵐs̲tart 7
+s
+ᶜᵐTOP ᶜᵐs̲teps (ᶜᵐTOP, 7) ᶜᵐc̲hoose s
+ᶜᵐTOP ᶜᵐa̲ngle 0.1 ᶜᵐt̲ick (ᶜᵐTOP, 7) ᶜᵐc̲hoose s
+#+end_example
+#+begin_src xetal
+"cm:" u_se< "Comparison"
+s := 31 cm:s_tart 7
+s
+cm:TOP cm:s_teps (cm:TOP, 7) cm:c_hoose s
+cm:TOP cm:a_ngle 0.1 cm:t_ick (cm:TOP, 7) cm:c_hoose s
+#+end_src
+
+#+RESULTS:
+: ((31 7 7, 0 0 0, 0.0 0.0 0.0, 1 1 1), (0, 0.0 0.0, 0.0, 0.0), (20.0, 0.0, 0, 0))
+: -1
+: -18.0
+
+Inside the library, a function takes the state apart with a pattern
+and builds the new one from its parts, ~cm:t_ouched~ for one:
+
+#+begin_example
+l:t_ouched := { state -> (axes, q, (_, _, b, i)) := state; (axes, q, (0.0, 0.0, b, i)) }
+#+end_example
+
+* When to use a tuple
+
+A tuple groups parts of different types or shapes that travel
+together and are taken apart by name. A fixed count of same-typed
+numbers that are added, scaled or joined like any vector stays an
+array: a tuple has no arithmetic (~=~ and ~+~ do not reach into it, only
+~m_atch~ compares) and no shape. A tuple can be an item of an array only
+in a box: ~m_ap~ of a function giving a tuple boxes each result.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+'{ k → (k, f̲loat k) } m̲ap 1 2
+#+end_example
+#+begin_src xetal
+'{ k -> (k, f_loat k) } m_ap 1 2
+#+end_src
+
+#+RESULTS:
+: ┌→──────────────────────┐
+: │ ┌────────┐ ┌────────┐ │
+: │ │(1, 1.0)│ │(2, 2.0)│ │
+: │ └∊───────┘ └∊───────┘ │
+: └∊──────────────────────┘
