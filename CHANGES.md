@@ -12,9 +12,11 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-10
 
-- 12:00 `feat` A clippy-style linter (Saga 40 step 1, D136, S12): `xetal lint FILE` checks a program or library against a catalog of named lints in groups (correctness, suspicious, complexity, style, pedantic, deprecated), each with a default level and an `--explain` text; `-A`/`-W`/`-D` and `# lint:` / `# lint-file:` comments set levels, the narrowest scope and most specific name winning; denied findings fail the command. New lints `function-name-case`, `mutable-constant`, `upper-case-name` (pedantic) and `unknown-lint`, beside `shadows-builtin` and `deprecated-private`, which `xetal run` still prints unchanged. New component `lint` (xetal-linter); docs/lint.md; goldens lint-*.
+- 15:30 `chore` Merged PRs #116 (tuples released, Saga 39 step 8) and #117 (xetal lint, Saga 40 step 1); the linter's register entry renumbered D136 to D137.
 - 14:45 `docs` Tuples released (Saga 39 step 8, D136): the language tour's section on tuples and patterns, the literate document docs/literate/tuples.org (an optimizer's state packed, then as a tuple; the Rosetta state before and after), Saga 29 replanned on these types (records as named tuples, then sums); the tuples lane archived.
+- 12:00 `feat` A clippy-style linter (Saga 40 step 1, D137, S12): `xetal lint FILE` checks a program or library against a catalog of named lints in groups (correctness, suspicious, complexity, style, pedantic, deprecated), each with a default level and an `--explain` text; `-A`/`-W`/`-D` and `# lint:` / `# lint-file:` comments set levels, the narrowest scope and most specific name winning; denied findings fail the command. New lints `function-name-case`, `mutable-constant`, `upper-case-name` (pedantic) and `unknown-lint`, beside `shadows-builtin` and `deprecated-private`, which `xetal run` still prints unchanged. New component `lint` (xetal-linter); docs/lint.md; goldens lint-*.
 - 09:00 `chore` Merged PR #115 (packed states become tuples, Saga 39 step 7); the names-bound-once register entry renumbered D134 to D135 (the lane took D134). Pages rebuilt.
+
 ## 2026-10-09
 
 - 14:30 `refactor` Packed states become tuples (Saga 39 step 7, D134): the Rosetta stone's state machine is `(axes, pointer, clock)` with Int counts and steps instead of a 5 x 5 Float matrix (calls such as `(cm:TOP, 7) cm:c_hoose s`), and the Mandelbrot demo's state `(zr, zi, count)`; every claim, picture and position unchanged, six Rosetta goldens print the final state as a tuple.

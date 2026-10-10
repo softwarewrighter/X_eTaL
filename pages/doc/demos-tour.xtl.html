@@ -98,7 +98,12 @@
 <li class="item"><a href="#s">s</a></li>
 <li><a href="#section-9">Combinators and power</a></li>
 <li class="item"><a href="#u.t_riangle"><span class="c-userfunc">ᵘt̲riangle</span></a></li>
-<li><a href="#section-10">Life in one line</a></li>
+<li><a href="#section-10">Tuples and patterns</a></li>
+<li class="item"><a href="#u.s_wapped"><span class="c-userfunc">ᵘs̲wapped</span></a></li>
+<li class="item"><a href="#n">n</a></li>
+<li class="item"><a href="#x">x</a></li>
+<li class="item"><a href="#u.s_tep"><span class="c-userfunc">ᵘs̲tep</span></a></li>
+<li><a href="#section-11">Life in one line</a></li>
 <li class="item"><a href="#u.l_ife"><span class="c-userfunc">ᵘl̲ife</span></a></li>
 </ul>
 </nav>
@@ -128,7 +133,7 @@ right to left; read each line with its trailing comment.</p>
 <p>A small Int, squared and reused below.</p>
 </div>
 <pre class="code">x ← <span class="c-number">3</span>                    <span class="c-comment">⍝</span><span class="c-comment"> </span><span class="c-comment"></span>←<span class="c-comment"></span><span class="c-comment"> binds; </span><span class="c-comment"></span><span class="c-symbol">=</span><span class="c-comment"></span><span class="c-comment"> is always equality</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L21">demos/tour.xtl:21</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L21">demos/tour.xtl:21</a>, <a href="demos-tour.xtl.html#n">n</a>, <a href="demos-tour.xtl.src.html#L200">demos/tour.xtl:200</a></div>
 </div>
 <h2 class="section" id="section-2">Mutation</h2>
 <div class="item" id="count-21">
@@ -244,7 +249,7 @@ right to left; read each line with its trailing comment.</p>
 <p>A 2 by 3 by 4 array of 1 to 24, for the axis examples.</p>
 </div>
 <pre class="code">a ← <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">24</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L136">demos/tour.xtl:136</a>, <a href="demos-tour.xtl.src.html#L137">demos/tour.xtl:137</a>, <a href="demos-tour.xtl.src.html#L138">demos/tour.xtl:138</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L136">demos/tour.xtl:136</a>, <a href="demos-tour.xtl.src.html#L137">demos/tour.xtl:137</a>, <a href="demos-tour.xtl.src.html#L138">demos/tour.xtl:138</a>, <a href="demos-tour.xtl.html#u.s_wapped"><span class="c-userfunc">ᵘs̲wapped</span></a></div>
 </div>
 <h2 class="section" id="section-7">Search and order</h2>
 <div class="item" id="v">
@@ -264,7 +269,7 @@ right to left; read each line with its trailing comment.</p>
 <p>A vector of two boxed strings.</p>
 </div>
 <pre class="code">n ← <span class="c-string">&quot;ab&quot;</span> <span class="c-string">&quot;cde&quot;</span>           <span class="c-comment">⍝</span><span class="c-comment"> a strand of strings: a vector of 2 boxes</span></pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L152">demos/tour.xtl:152</a>, <a href="demos-tour.xtl.src.html#L153">demos/tour.xtl:153</a>, <a href="demos-tour.xtl.src.html#L154">demos/tour.xtl:154</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L152">demos/tour.xtl:152</a>, <a href="demos-tour.xtl.src.html#L153">demos/tour.xtl:153</a>, <a href="demos-tour.xtl.src.html#L154">demos/tour.xtl:154</a>, <a href="demos-tour.xtl.html#n">n</a>, <a href="demos-tour.xtl.src.html#L200">demos/tour.xtl:200</a></div>
 </div>
 <div class="item" id="s">
 <h3><a href="#s">s</a> <span class="type">: Char</span></h3>
@@ -286,17 +291,46 @@ itself (lazy, so u:t_riangle is given to c:Y_ to recurse).</p>
 <pre class="code"><span class="c-userfunc">ᵘt̲riangle</span> ← { ~<span class="c-builtin">s̲elf</span> n → n <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> ? <span class="c-number">1</span>◆ n <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-builtin">s̲elf</span> n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> }</pre>
 <div class="uses">Used in: <a href="demos-tour.xtl.src.html#L191">demos/tour.xtl:191</a></div>
 </div>
-<h2 class="section" id="section-10">Life in one line</h2>
+<h2 class="section" id="section-10">Tuples and patterns</h2>
+<div class="item" id="u.s_wapped">
+<h3><a href="#u.s_wapped"><span class="c-userfunc">ᵘs̲wapped</span></a> <span class="type">: (Any a, Any b) =&gt; (a, b) -&gt; (b, a)</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L197">line 197</a></div>
+<div class="doc">
+<p>u:s_wapped p: the parts of a pair, swapped; a pattern takes them apart.</p>
+</div>
+<pre class="code"><span class="c-userfunc">ᵘs̲wapped</span> ← { (<a href="demos-tour.xtl.html#a">a</a>, b) → (b, <a href="demos-tour.xtl.html#a">a</a>) }</pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L198">demos/tour.xtl:198</a></div>
+</div>
+<div class="item" id="n">
+<h3><a href="#n">n</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="demos-tour.xtl.src.html#L199">line 199</a></div>
+<pre class="code">(<a href="demos-tour.xtl.html#n">n</a>, (<a href="demos-tour.xtl.html#x">x</a>, _)) ← (<span class="c-number">3</span>, (<span class="c-number">2.5</span>, <span class="c-string">&quot;unused&quot;</span>))    <span class="c-comment">⍝</span><span class="c-comment"> a pattern binds names; _ ignores a part</span></pre>
+</div>
+<div class="item" id="x">
+<h3><a href="#x">x</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="demos-tour.xtl.src.html#L199">line 199</a></div>
+<pre class="code">(<a href="demos-tour.xtl.html#n">n</a>, (<a href="demos-tour.xtl.html#x">x</a>, _)) ← (<span class="c-number">3</span>, (<span class="c-number">2.5</span>, <span class="c-string">&quot;unused&quot;</span>))    <span class="c-comment">⍝</span><span class="c-comment"> a pattern binds names; _ ignores a part</span></pre>
+</div>
+<div class="item" id="u.s_tep">
+<h3><a href="#u.s_tep"><span class="c-userfunc">ᵘs̲tep</span></a> <span class="type">: Num a =&gt; (Float, a) -&gt; (Float, a)</span></h3>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L202">line 202</a></div>
+<div class="doc">
+<p>u:s_tep s: one step of a state of several arrays, for p_ower.</p>
+</div>
+<pre class="code"><span class="c-userfunc">ᵘs̲tep</span> ← { (w, k) → (w <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">0.5</span>, k <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>) }</pre>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L203">demos/tour.xtl:203</a></div>
+</div>
+<h2 class="section" id="section-11">Life in one line</h2>
 <div class="item" id="u.l_ife">
 <h3><a href="#u.l_ife"><span class="c-userfunc">ᵘl̲ife</span></a> <span class="type">: (Num a, Truthy a) =&gt; a -&gt; a</span></h3>
-<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L198">line 198</a></div>
+<div class="meta">function &middot; <a href="demos-tour.xtl.src.html#L211">line 211</a></div>
 <div class="doc">
 <p>u:l_ife b: the next generation of the Game of Life on board b (0
 dead, 1 alive), the board wrapping at its edges: a cell lives when
 its 3 by 3 neighborhood total is 3, or 4 and it is alive.</p>
 </div>
 <pre class="code"><span class="c-userfunc">ᵘl̲ife</span> ← { (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/₁₂</a> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-₁₂</a> <span class="c-lambdaarg">⍵</span>) { (<span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">3</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">4</span> } <span class="c-lambdaarg">⍵</span> }</pre>
-<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L199">demos/tour.xtl:199</a></div>
+<div class="uses">Used in: <a href="demos-tour.xtl.src.html#L212">demos/tour.xtl:212</a></div>
 </div>
 </main>
 </body>

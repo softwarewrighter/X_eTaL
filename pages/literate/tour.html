@@ -34,8 +34,9 @@
 <li><a href="#orgaf45d62">Pictures</a></li>
 <li><a href="#org4309032">Libraries</a></li>
 <li><a href="#orga0537af">Combinators and power</a></li>
-<li><a href="#org6a5a390">Life in one line</a></li>
-<li><a href="#org3db45d9">Not shown here</a></li>
+<li><a href="#org6a5a390">Tuples and patterns</a></li>
+<li><a href="#org3db45d9">Life in one line</a></li>
+<li><a href="#org7b98741">Not shown here</a></li>
 </ul>
 </div>
 </div>
@@ -1537,8 +1538,109 @@ power); <code>n 'f_ p_ower x</code> does the same with a computed count:
 </div>
 </div>
 <div id="outline-container-org6a5a390" class="outline-2">
-<h2 id="org6a5a390">Life in one line</h2>
+<h2 id="org6a5a390">Tuples and patterns</h2>
 <div class="outline-text-2" id="text-org6a5a390">
+<p>
+A tuple holds several values side by side, each of its own type and
+shape: here an Int vector, a Float and a text. It is not an array: it
+has no shape and no items, and its type is written as the literal is,
+<code>(Int, Float, Char)</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(<span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>, <span class="c-number">4.5</span>, <span class="c-string">&quot;abc&quot;</span>)      <span class="c-comment">⍝ a tuple: several values of their own types side by side</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (1 2 3, 4.5, "abc")      # a tuple: several values of their own types side by side</span></pre>
+</div>
+
+<pre class="example">
+(1 2 3, 4.5, abc)
+</pre>
+
+
+<p>
+A pattern takes a tuple apart by name, in a lambda's parameters or in
+a binding; <code>_</code> ignores a part, and patterns nest.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-comment">⍝# u:s_wapped p: the parts of a pair, swapped; a pattern takes them apart.</span>
+<span class="c-userfunc">ᵘs̲wapped</span> ← { (a, b) → (b, a) }
+<span class="c-userfunc">ᵘs̲wapped</span> (<span class="c-number">1</span>, <span class="c-string">&quot;x&quot;</span>)
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:s_wapped := { (a, b) -&gt; (b, a) }</span>
+<span class="c-comment typed">⍝   u:s_wapped (1, "x")</span></pre>
+</div>
+
+<pre class="example">
+(x, 1)
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-xetal">(n, (x, _)) ← (<span class="c-number">3</span>, (<span class="c-number">2.5</span>, <span class="c-string">&quot;unused&quot;</span>))    <span class="c-comment">⍝ a pattern binds names; _ ignores a part</span>
+x <span class="c-symbol">×</span> <span class="c-builtin">f̲loat</span> n
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (n, (x, _)) := (3, (2.5, "unused"))   # a pattern binds names; _ ignores a part</span>
+<span class="c-comment typed">⍝   x * f_loat n</span></pre>
+</div>
+
+<pre class="example">
+7.5
+</pre>
+
+
+<p>
+A state of several arrays is one value, so <code>p_ower</code> repeats a step on
+it and the step takes it apart: the weights and a count of steps here.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-comment">⍝# u:s_tep s: one step of a state of several arrays, for p_ower.</span>
+<span class="c-userfunc">ᵘs̲tep</span> ← { (w, k) → (w <span class="c-symbol">×</span> <span class="c-number">0.5</span>, k <span class="c-symbol">+</span> <span class="c-number">1</span>) }
+<span class="c-number">3</span> <span class="c-userfunc">'ᵘs̲tep</span> <span class="c-builtin">p̲ower</span> (<span class="c-number">8.0</span> <span class="c-number">4.0</span>, <span class="c-number">0</span>)
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:s_tep := { (w, k) -&gt; (w * 0.5, k + 1) }</span>
+<span class="c-comment typed">⍝   3 'u:s_tep p_ower (8.0 4.0, 0)</span></pre>
+</div>
+
+<pre class="example">
+(1.0 0.5, 3)
+</pre>
+
+
+<p>
+<code>m_atch</code> compares two tuples part by part (<code>=</code> and arithmetic do not
+reach into a tuple), and a vector of boxed tuples is the array of
+tuples, as <code>m_ap</code> makes it.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(<span class="c-number">1</span>, <span class="c-number">2.5</span>) <span class="c-builtin">m̲atch</span> (<span class="c-number">1</span>, <span class="c-number">2.5</span>)   <span class="c-comment">⍝ m_atch compares tuples part by part</span>
+<span class="c-quote">'</span>{ k → (k, <span class="c-builtin">f̲loat</span> k) } <span class="c-builtin">m̲ap</span> <span class="c-number">1</span> <span class="c-number">2</span>      <span class="c-comment">⍝ boxed tuples: an array of tuples</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (1, 2.5) m_atch (1, 2.5)  # m_atch compares tuples part by part</span>
+<span class="c-comment typed">⍝   '{ k -&gt; (k, f_loat k) } m_ap 1 2   # boxed tuples: an array of tuples</span></pre>
+</div>
+
+<pre class="example">
+1
+┌→──────────────────────┐
+│ ┌────────┐ ┌────────┐ │
+│ │(1, 1.0)│ │(2, 2.0)│ │
+│ └∊───────┘ └∊───────┘ │
+└∊──────────────────────┘
+</pre>
+</div>
+</div>
+<div id="outline-container-org3db45d9" class="outline-2">
+<h2 id="org3db45d9">Life in one line</h2>
+<div class="outline-text-2" id="text-org3db45d9">
 <p>
 Everything above comes together in Conway's Life: rotate the board by
 every offset in -1 0 1 along both axes, sum the nine boards to count
@@ -1564,9 +1666,9 @@ language's acceptance test.
 </pre>
 </div>
 </div>
-<div id="outline-container-org3db45d9" class="outline-2">
-<h2 id="org3db45d9">Not shown here</h2>
-<div class="outline-text-2" id="text-org3db45d9">
+<div id="outline-container-org7b98741" class="outline-2">
+<h2 id="org7b98741">Not shown here</h2>
+<div class="outline-text-2" id="text-org7b98741">
 <p>
 The textbook Y combinator, built from self-application, needs
 <code>--untyped</code> (see <code>demos/fixed-point.xtl</code> and <code>demos/birds-untyped.xtl</code>);
