@@ -1,21 +1,25 @@
 ## Comparison: the Rosetta stone's state machine (docs/rosetta.md), a
-## library beside the demo ("cm:" u_se< "Comparison"). The state is one
-## 4 x 5 matrix of numbers. The first three rows are the axes (the
-## idiom drum, the top ring, the bottom ring), four columns each: how
-## many items the axis has, how many steps it has taken (an integer; the
-## item facing is 1 + steps, wrapped, and this is the truth), its angle
-## in degrees (90 per step; the presentation, easing toward 90 * steps)
-## and whether it plays on its own. The fourth row is the pointer: the
-## axis being dragged (0 none, 0.5 pressed and not yet moved, else the
-## axis), where it last was (x, y), how far it has moved in all, and the
-## last turn it gave in degrees (for a flick). The fifth row is the
-## attract mode's clock: seconds since the last interaction, seconds
-## since its last step, and its two counters (how far the bottom ring
-## is through its sweep of the other languages, how far the drum is
-## through its sweep of the idioms). Nothing
-## is ever inferred from an angle except what to draw. Every function
-## gives a new state; none has an effect. Events (RS1) come in as
-## []E_VENT gives them; cm:u_pdate takes one.
+## library beside the demo ("cm:" u_se< "Comparison"). The state is a
+## tuple of three tuples, (axes, pointer, clock), each part typed:
+## - the axes (the idiom drum, the top ring, the bottom ring), a vector
+##   of three per field: (counts, steps, angles, playing). counts: how
+##   many items the axis has (Int); steps: how many steps it has taken
+##   (Int; the item facing is 1 + steps, wrapped, and this is the
+##   truth); angles: degrees (Float, 90 per step; the presentation,
+##   easing toward 90 * steps); playing: whether it plays on its own
+##   (1 or 0);
+## - the pointer, (dragging, at, moved, last): the axis being dragged
+##   (0 none, -1 pressed and not yet moved, else the axis), where it
+##   last was (x y), how far it has moved in all, and the last turn it
+##   gave in degrees (for a flick);
+## - the attract mode's clock, (idle, since, bottoms, idioms): seconds
+##   since the last interaction, seconds since its last step, and its
+##   two counters (how far the bottom ring is through its sweep of the
+##   other languages, how far the drum is through its sweep of the
+##   idioms).
+## Nothing is ever inferred from an angle except what to draw. Every
+## function gives a new state; none has an effect. Events (RS1) come in
+## as []E_VENT gives them; cm:u_pdate takes one.
 
 ## The attract mode's pace, in seconds: how long a comparison holds
 ## still before the next (long enough to read two faces of code), and
@@ -39,32 +43,13 @@ l:idleBefore := 20.0
 ## enough already).
 ## >> "cm:" u_se< "Comparison"
 ## >> 31 cm:s_tart 7
-## 31.0 0.0 0.0 1.0 0.0
-##  7.0 0.0 0.0 1.0 0.0
-##  7.0 0.0 0.0 1.0 0.0
-##  0.0 0.0 0.0 0.0 0.0
-## 20.0 0.0 0.0 0.0 0.0
-l:s_tart := { i l -> 5 5 r_eshape (f_loat i) c_at 0.0 0.0 1.0 0.0 c_at (f_loat l) c_at 0.0 0.0 1.0 0.0 c_at (f_loat l) c_at 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 c_at l:idleBefore c_at 0.0 0.0 0.0 0.0 }
+## ((31 7 7, 0 0 0, 0.0 0.0 0.0, 1 1 1), (0, 0.0 0.0, 0.0, 0.0), (20.0, 0.0, 0, 0))
+l:s_tart := { i l -> ((i c_at l c_at l, 0 0 0, 0.0 0.0 0.0, 1 1 1), (0, 0.0 0.0, 0.0, 0.0), (l:idleBefore, 0.0, 0, 0)) }
 
-## The rows and columns, by name.
-l:IDIOM := 1.0
-l:TOP := 2.0
-l:BOTTOM := 3.0
-l:POINTER := 4.0
-l:ATTRACT := 5.0
-l:IDLE := 1.0
-l:SINCE := 2.0
-l:BOTTOMS := 3.0
-l:IDIOMS := 4.0
-l:COUNT := 1.0
-l:STEPS := 2.0
-l:ANGLE := 3.0
-l:PLAYING := 4.0
-l:DRAGGING := 1.0
-l:X := 2.0
-l:Y := 3.0
-l:MOVED := 4.0
-l:LAST := 5.0
+## The axes, by number.
+l:IDIOM := 1
+l:TOP := 2
+l:BOTTOM := 3
 
 ## The picture's middle, in its own pixels (Stone's size is 420): the
 ## top half above it, the bottom half below; and how many degrees a
@@ -72,92 +57,96 @@ l:LAST := 5.0
 l:middle := 210.0
 l:perPixel := 90.0 / 210.0
 
-## A cell of the state: `(row c_at col) cm:a_t state`.
-l:a_t := { rc state -> (f_loor 2 s_elect rc) s_elect (f_loor 1 s_elect rc) s_elect state }
+## An axis's fields: `axis cm:c_ount state` and so on.
+## >> "cm:" u_se< "Comparison"
+## >> (cm:TOP cm:c_ount 31 cm:s_tart 7) c_at cm:IDIOM cm:c_ount 31 cm:s_tart 7
+## 7 31
+l:c_ount := { axis state -> ((c, _, _, _), _, _) := state; axis s_elect c }
+l:s_teps := { axis state -> ((_, s, _, _), _, _) := state; axis s_elect s }
+l:a_ngle := { axis state -> ((_, _, a, _), _, _) := state; axis s_elect a }
+l:p_laying := { axis state -> ((_, _, _, p), _, _) := state; axis s_elect p }
 
-## The state with one cell replaced: `(row c_at col c_at v) cm:p_ut state` (a
-## mask over the matrix, so no cell is ever addressed by hand).
-l:p_ut := { rcv state ->
-  mask := f_loat (rows = 1 s_elect rcv) * cols = 2 s_elect rcv
-  (state * 1.0 - mask) + mask * 3 s_elect rcv
-}
-rows := 5 5 r_eshape 5 r_eplicate 1.0 2.0 3.0 4.0 5.0
-cols := 5 5 r_eshape 1.0 2.0 3.0 4.0 5.0
+## The pointer and the clock: `cm:p_ointer state`, `cm:c_lock state`.
+l:p_ointer := { state -> (_, q, _) := state; q }
+l:c_lock := { state -> (_, _, k) := state; k }
+
+## Item k of vector v replaced by x: `(k, x) h:s_et v`.
+h:s_et := { (k, x) v -> ((k - 1) t_ake v) c_at x c_at k d_rop v }
+
+## The state with one axis's steps, angle or playing replaced.
+h:s_tepsTo := { (axis, n) state -> ((c, s, a, p), q, k) := state; ((c, (axis, n) h:s_et s, a, p), q, k) }
+h:a_ngleTo := { (axis, x) state -> ((c, s, a, p), q, k) := state; ((c, s, (axis, x) h:s_et a, p), q, k) }
+h:p_layingTo := { (axis, b) state -> ((c, s, a, p), q, k) := state; ((c, s, a, (axis, b) h:s_et p), q, k) }
+
+## The state with the clock's idle seconds replaced.
+h:i_dleTo := { t state -> (axes, q, (_, since, b, i)) := state; (axes, q, (t, since, b, i)) }
 
 ## An item of an axis of n, wrapped around: item k of n for any integer k.
 l:w_rap := { n k -> 1 + (k - 1) m_od n }
 
 ## The item facing on an axis: 1 + its steps, wrapped.
 ## >> "cm:" u_se< "Comparison"
-## >> cm:TOP cm:c_urrent (cm:TOP c_at 1.0) cm:s_tep 31 cm:s_tart 7
+## >> cm:TOP cm:c_urrent (cm:TOP, 1) cm:s_tep 31 cm:s_tart 7
 ## 2
-l:c_urrent := { axis state -> (f_loor 0.5 + (axis c_at l:COUNT) l:a_t state) l:w_rap f_loor 1.5 + (axis c_at l:STEPS) l:a_t state }
+l:c_urrent := { axis state -> (axis l:c_ount state) l:w_rap 1 + axis l:s_teps state }
 
 ## An axis stepped by d items (1 forward, -1 back): its steps change,
 ## its angle will follow at each tick. A ring never stops on the other
 ## ring's language (the two halves always compare two languages): it
-## steps once more the same way. `(axis c_at d) cm:s_tep state`.
+## steps once more the same way. `(axis, d) cm:s_tep state`.
 ## >> "cm:" u_se< "Comparison"
-## >> cm:IDIOM cm:c_urrent (cm:IDIOM c_at -1.0) cm:s_tep 31 cm:s_tart 7
+## >> cm:IDIOM cm:c_urrent (cm:IDIOM, -1) cm:s_tep 31 cm:s_tart 7
 ## 31
-## >> cm:BOTTOM cm:c_urrent (cm:BOTTOM c_at 1.0) cm:s_tep (cm:TOP c_at 2.0) cm:c_hoose 31 cm:s_tart 7
+## >> cm:BOTTOM cm:c_urrent (cm:BOTTOM, 1) cm:s_tep (cm:TOP, 2) cm:c_hoose 31 cm:s_tart 7
 ## 3
-l:s_tep := { ad state ->
-  axis := 1 s_elect ad
-  d := 2 s_elect ad
-  moved := (axis c_at l:STEPS c_at d + (axis c_at l:STEPS) l:a_t state) l:p_ut state
+l:s_tep := { (axis, d) state ->
+  moved := (axis, d + axis l:s_teps state) h:s_tepsTo state
   axis = l:IDIOM ? moved
-  other := 5.0 - axis
+  other := 5 - axis
   clash := (axis l:c_urrent moved) = other l:c_urrent moved
-  "clash" i_f< "(axis c_at d) l:s_tep moved; moved"
+  "clash" i_f< "(axis, d) l:s_tep moved; moved"
 }
 
 ## An axis turned to item k the short way round, and paused: choosing
 ## is navigating, turning is exploring. A ring is not turned to the
 ## other ring's language (the choice is offered disabled); the state is
-## unchanged. `(axis c_at k) cm:c_hoose state`.
+## unchanged. `(axis, k) cm:c_hoose state`.
 ## >> "cm:" u_se< "Comparison"
-## >> cm:TOP cm:c_urrent (cm:TOP c_at 7.0) cm:c_hoose 31 cm:s_tart 7
+## >> cm:TOP cm:c_urrent (cm:TOP, 7) cm:c_hoose 31 cm:s_tart 7
 ## 7
-## >> (cm:TOP c_at cm:STEPS) cm:a_t (cm:TOP c_at 7.0) cm:c_hoose 31 cm:s_tart 7
-## -1.0
-l:c_hoose := { ak state ->
-  axis := 1 s_elect ak
-  n := f_loor 0.5 + (axis c_at l:COUNT) l:a_t state
-  d := ((f_loor 2 s_elect ak) - axis l:c_urrent state) m_od n
+## >> cm:TOP cm:s_teps (cm:TOP, 7) cm:c_hoose 31 cm:s_tart 7
+## -1
+l:c_hoose := { (axis, k) state ->
+  n := axis l:c_ount state
+  d := (k - axis l:c_urrent state) m_od n
   short := "(2 * d) > n" i_f< "d - n; d"
-  chosen := (axis c_at l:PLAYING c_at 0.0) l:p_ut (axis c_at f_loat short) l:s_tep state
+  chosen := (axis, 0) h:p_layingTo (axis, short) l:s_tep state
   axis = l:IDIOM ? chosen
-  (f_loor 2 s_elect ak) = (5.0 - axis) l:c_urrent state ? state
+  k = (5 - axis) l:c_urrent state ? state
   chosen
 }
 
 ## An axis's angle eased toward 90 times its steps over dt seconds: it
 ## covers the gap in about half a second, and lands exactly when near.
-## `(axis c_at dt) cm:e_ase state`.
+## `(axis, dt) cm:e_ase state`.
 ## >> "cm:" u_se< "Comparison"
-## >> (cm:TOP c_at cm:ANGLE) cm:a_t (cm:TOP c_at 0.25) cm:e_ase (cm:TOP c_at 1.0) cm:s_tep 31 cm:s_tart 7
+## >> cm:TOP cm:a_ngle (cm:TOP, 0.25) cm:e_ase (cm:TOP, 1) cm:s_tep 31 cm:s_tart 7
 ## 45.0
-l:e_ase := { adt state ->
-  axis := 1 s_elect adt
-  angle := (axis c_at l:ANGLE) l:a_t state
-  target := 90.0 * (axis c_at l:STEPS) l:a_t state
+l:e_ase := { (axis, dt) state ->
+  angle := axis l:a_ngle state
+  target := 90.0 * f_loat axis l:s_teps state
   gap := target - angle
-  moved := angle + gap * 1.0 m_in 2.0 * 2 s_elect adt
+  moved := angle + gap * 1.0 m_in 2.0 * dt
   near := "0.5 > a_bs target - moved" i_f< "target; moved"
-  (axis c_at l:ANGLE c_at near) l:p_ut state
+  (axis, near) h:a_ngleTo state
 }
 
 ## Every axis at rest where its steps put it (angles 90 times steps),
 ## for a state built by choosing before the first tick.
 ## >> "cm:" u_se< "Comparison"
-## >> cm:s_ettle (cm:IDIOM c_at 3.0) cm:c_hoose 31 cm:s_tart 7
-## 31.0 2.0 180.0 0.0 0.0
-##  7.0 0.0   0.0 1.0 0.0
-##  7.0 0.0   0.0 1.0 0.0
-##  0.0 0.0   0.0 0.0 0.0
-## 20.0 0.0   0.0 0.0 0.0
-l:s_ettle := { state -> (l:BOTTOM c_at 9.0) l:e_ase (l:TOP c_at 9.0) l:e_ase (l:IDIOM c_at 9.0) l:e_ase state }
+## >> cm:s_ettle (cm:IDIOM, 3) cm:c_hoose 31 cm:s_tart 7
+## ((31 7 7, 2 0 0, 180.0 0.0 0.0, 0 1 1), (0, 0.0 0.0, 0.0, 0.0), (20.0, 0.0, 0, 0))
+l:s_ettle := { state -> (l:BOTTOM, 9.0) l:e_ase (l:TOP, 9.0) l:e_ase (l:IDIOM, 9.0) l:e_ase state }
 
 ## Every axis eased over dt seconds (a tick), and the attract mode's
 ## clock advanced: when the stone has been left alone long enough and
@@ -169,12 +158,12 @@ l:s_ettle := { state -> (l:BOTTOM c_at 9.0) l:e_ase (l:TOP c_at 9.0) l:e_ase (l:
 ## >> cm:BOTTOM cm:c_urrent (cm:dwell - 0.1) cm:t_ick 31 cm:s_tart 7
 ## 1
 l:t_ick := { dt state ->
-  eased := (l:BOTTOM c_at dt) l:e_ase (l:TOP c_at dt) l:e_ase (l:IDIOM c_at dt) l:e_ase state
-  idle := dt + (l:ATTRACT c_at l:IDLE) l:a_t state
-  since := dt + (l:ATTRACT c_at l:SINCE) l:a_t state
-  timed := (l:ATTRACT c_at l:SINCE c_at since) l:p_ut (l:ATTRACT c_at l:IDLE c_at idle) l:p_ut eased
-  (idle < l:idleBefore) | since < l:dwell ? timed
-  l:a_ttract (l:ATTRACT c_at l:SINCE c_at 0.0) l:p_ut timed
+  eased := (l:BOTTOM, dt) l:e_ase (l:TOP, dt) l:e_ase (l:IDIOM, dt) l:e_ase state
+  (axes, q, (idle0, since0, b, i)) := eased
+  idle := dt + idle0
+  since := dt + since0
+  (idle < l:idleBefore) | since < l:dwell ? (axes, q, (idle, since, b, i))
+  l:a_ttract (axes, q, (idle, 0.0, b, i))
 }
 
 ## One step of the attract mode: the bottom ring steps (if it plays);
@@ -194,38 +183,37 @@ l:t_ick := { dt state ->
 ## >> cm:IDIOM cm:c_urrent cm:a_ttract^9 s
 ## 1
 l:a_ttract := { state ->
-  n := (f_loor 0.5 + (l:TOP c_at l:COUNT) l:a_t state) - 1
-  m := f_loor 0.5 + (l:IDIOM c_at l:COUNT) l:a_t state
-  bottoms := 1.0 + (l:ATTRACT c_at l:BOTTOMS) l:a_t state
-  idioms := 1.0 + (l:ATTRACT c_at l:IDIOMS) l:a_t state
-  moved := l:BOTTOM l:p_lay state
-  bottoms < f_loat n ? (l:ATTRACT c_at l:BOTTOMS c_at bottoms) l:p_ut moved
-  rolled := l:IDIOM l:p_lay (l:ATTRACT c_at l:BOTTOMS c_at 0.0) l:p_ut moved
-  idioms < f_loat m ? (l:ATTRACT c_at l:IDIOMS c_at idioms) l:p_ut rolled
-  l:TOP l:p_lay (l:ATTRACT c_at l:IDIOMS c_at 0.0) l:p_ut rolled
+  n := (l:TOP l:c_ount state) - 1
+  m := l:IDIOM l:c_ount state
+  (_, _, (idle, since, b0, i0)) := state
+  (axes1, q1, _) := l:BOTTOM l:p_lay state
+  (1 + b0) < n ? (axes1, q1, (idle, since, 1 + b0, i0))
+  (axes2, q2, _) := l:IDIOM l:p_lay (axes1, q1, (idle, since, 0, i0))
+  (1 + i0) < m ? (axes2, q2, (idle, since, 0, 1 + i0))
+  l:TOP l:p_lay (axes2, q2, (idle, since, 0, 0))
 }
 
 ## An axis stepped forward if it plays, else left as it is.
-l:p_lay := { axis state -> "1.0 = (axis c_at l:PLAYING) l:a_t state" i_f< "(axis c_at 1.0) l:s_tep state; state" }
+l:p_lay := { axis state -> "1 = axis l:p_laying state" i_f< "(axis, 1) l:s_tep state; state" }
 
 ## The stone touched: the attract mode waits again from now.
-l:t_ouched := { state -> (l:ATTRACT c_at l:SINCE c_at 0.0) l:p_ut (l:ATTRACT c_at l:IDLE c_at 0.0) l:p_ut state }
+l:t_ouched := { state -> (axes, q, (_, _, b, i)) := state; (axes, q, (0.0, 0.0, b, i)) }
 
 ## Every axis playing again (a start chosen with cm:c_hoose is paused).
-l:r_esume := { state -> (l:BOTTOM c_at l:PLAYING c_at 1.0) l:p_ut (l:TOP c_at l:PLAYING c_at 1.0) l:p_ut (l:IDIOM c_at l:PLAYING c_at 1.0) l:p_ut state }
+l:r_esume := { state -> ((c, s, a, _), q, k) := state; ((c, s, a, 1 1 1), q, k) }
 
 ## The tour paused when any axis plays, else every axis resumed (the
 ## space bar: one key stops everything, and starts it again).
 ## >> "cm:" u_se< "Comparison"
-## >> (cm:TOP c_at cm:PLAYING) cm:a_t cm:t_oggleTour 31 cm:s_tart 7
-## 0.0
-## >> (cm:BOTTOM c_at cm:PLAYING) cm:a_t cm:t_oggleTour cm:TOP cm:t_oggle 31 cm:s_tart 7
-## 0.0
-## >> (cm:TOP c_at cm:PLAYING) cm:a_t cm:t_oggleTour cm:t_oggleTour 31 cm:s_tart 7
-## 1.0
+## >> cm:TOP cm:p_laying cm:t_oggleTour 31 cm:s_tart 7
+## 0
+## >> cm:BOTTOM cm:p_laying cm:t_oggleTour cm:TOP cm:t_oggle 31 cm:s_tart 7
+## 0
+## >> cm:TOP cm:p_laying cm:t_oggleTour cm:t_oggleTour 31 cm:s_tart 7
+## 1
 l:t_oggleTour := { state ->
-  playing := ((l:IDIOM c_at l:PLAYING) l:a_t state) + ((l:TOP c_at l:PLAYING) l:a_t state) + (l:BOTTOM c_at l:PLAYING) l:a_t state
-  0.0 < playing ? (l:BOTTOM c_at l:PLAYING c_at 0.0) l:p_ut (l:TOP c_at l:PLAYING c_at 0.0) l:p_ut (l:IDIOM c_at l:PLAYING c_at 0.0) l:p_ut state
+  ((c, s, a, p), q, k) := state
+  0 < '+ r_/ p ? ((c, s, a, 0 0 0), q, k)
   l:r_esume state
 }
 
@@ -242,17 +230,17 @@ l:t_oggleTour := { state ->
 ## >> cm:m_ode cm:t_oggleTour 31 cm:s_tart 7
 ## paused
 l:m_ode := { state ->
-  p_aused := { axis -> 0.0 = (axis c_at l:PLAYING) l:a_t state }
-  paused := (p_aused l:IDIOM) c_at (p_aused l:TOP) c_at p_aused l:BOTTOM
+  ((_, _, _, p), _, (idle, _, _, _)) := state
+  paused := 1 - p
   3 = '+ r_/ paused ? "paused"
-  names := paused r_eplicate (e_nclose "roll") c_at (e_nclose "top") c_at e_nclose "bottom"
+  names := paused r_eplicate "roll" "top" "bottom"
   0 < '+ r_/ paused ? "paused: " c_at d_isclose '{ x y -> e_nclose (d_isclose x) c_at ", " c_at d_isclose y } r_/ names
-  l:idleBefore > (l:ATTRACT c_at l:IDLE) l:a_t state ? "holding"
+  l:idleBefore > idle ? "holding"
   "touring"
 }
 
 ## An axis paused or resumed.
-l:t_oggle := { axis state -> (axis c_at l:PLAYING c_at 1.0 - (axis c_at l:PLAYING) l:a_t state) l:p_ut state }
+l:t_oggle := { axis state -> (axis, 1 - axis l:p_laying state) h:p_layingTo state }
 
 ## The state after an event: a tick eases every axis; the arrow keys
 ## step the drum (Up, Down) and the top ring (Left, Right), a and d the
@@ -268,12 +256,13 @@ l:u_pdate := { state e ->
   kind := []E_KIND e
   kind m_atch "tick" ? (f_irst []E_AT e) l:t_ick state
   touched := l:t_ouched state
+  at := []E_AT e
   kind m_atch "key" ? ([]E_KEY e) l:k_ey touched
-  kind m_atch "down" ? ([]E_AT e) l:d_own touched
-  kind m_atch "move" ? ([]E_AT e) l:m_ove touched
-  kind m_atch "up" ? ([]E_AT e) l:u_p touched
-  kind m_atch "click" ? ([]E_AT e) l:c_lick touched
-  kind m_atch "choose" ? ([]E_AT e) l:c_hoose touched
+  kind m_atch "down" ? at l:d_own touched
+  kind m_atch "move" ? at l:m_ove touched
+  kind m_atch "up" ? at l:u_p touched
+  kind m_atch "click" ? at l:c_lick touched
+  kind m_atch "choose" ? (f_loor 1 s_elect at, f_loor 2 s_elect at) l:c_hoose touched
   state
 }
 
@@ -284,9 +273,9 @@ l:h_alf := { xy -> "(2 s_elect xy) < l:middle" i_f< "l:TOP; l:BOTTOM" }
 ## The pointer pressed at a point: remembered, nothing turned yet.
 ## `xy cm:d_own state`.
 ## >> "cm:" u_se< "Comparison"
-## >> 4 s_elect 100.0 50.0 cm:d_own 31 cm:s_tart 7
-## 0.5 100.0 50.0 0.0 0.0
-l:d_own := { xy state -> (l:POINTER c_at l:LAST c_at 0.0) l:p_ut (l:POINTER c_at l:MOVED c_at 0.0) l:p_ut (l:POINTER c_at l:Y c_at 2 s_elect xy) l:p_ut (l:POINTER c_at l:X c_at 1 s_elect xy) l:p_ut (l:POINTER c_at l:DRAGGING c_at 0.5) l:p_ut state }
+## >> cm:p_ointer 100.0 50.0 cm:d_own 31 cm:s_tart 7
+## (-1, 100.0 50.0, 0.0, 0.0)
+l:d_own := { xy state -> (axes, _, k) := state; (axes, (-1, xy, 0.0, 0.0), k) }
 
 ## The pointer moved to a point: nothing unless it is pressed; the
 ## first move of more than a few pixels decides which axis it drags (a
@@ -296,23 +285,23 @@ l:d_own := { xy state -> (l:POINTER c_at l:LAST c_at 0.0) l:p_ut (l:POINTER c_at
 ## good: the stone waits cm:idleBefore seconds after any touch before
 ## moving on its own again. `xy cm:m_ove state`.
 ## >> "cm:" u_se< "Comparison"
-## >> (cm:TOP c_at cm:ANGLE) cm:a_t 142.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
+## >> cm:TOP cm:a_ngle 142.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
 ## -18.0
-## >> (cm:BOTTOM c_at cm:ANGLE) cm:a_t 142.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
+## >> cm:BOTTOM cm:a_ngle 142.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
 ## 0.0
 l:m_ove := { xy state ->
-  held := (l:POINTER c_at l:DRAGGING) l:a_t state
-  held = 0.0 ? state
-  dx := (1 s_elect xy) - (l:POINTER c_at l:X) l:a_t state
-  dy := (2 s_elect xy) - (l:POINTER c_at l:Y) l:a_t state
-  moved := (a_bs dx) + (a_bs dy) + (l:POINTER c_at l:MOVED) l:a_t state
-  placed := (l:POINTER c_at l:MOVED c_at moved) l:p_ut (l:POINTER c_at l:Y c_at 2 s_elect xy) l:p_ut (l:POINTER c_at l:X c_at 1 s_elect xy) l:p_ut state
-  (held = 0.5) & moved <= 4.0 ? placed
-  axis := "held = 0.5" i_f< "\"(a_bs dx) >= a_bs dy\" i_f< \"l:h_alf xy; l:IDIOM\"; held"
+  (axes, (held, was, moved0, last), k) := state
+  held = 0 ? state
+  dx := (1 s_elect xy) - 1 s_elect was
+  dy := (2 s_elect xy) - 2 s_elect was
+  moved := (a_bs dx) + (a_bs dy) + moved0
+  placed := (axes, (held, xy, moved, last), k)
+  (held = -1) & moved <= 4.0 ? placed
+  axis := "held = -1" i_f< "\"(a_bs dx) >= a_bs dy\" i_f< \"l:h_alf xy; l:IDIOM\"; held"
   along := "axis = l:IDIOM" i_f< "dy; dx"
   turn := n_eg along * l:perPixel
-  angle := turn + (axis c_at l:ANGLE) l:a_t placed
-  (l:POINTER c_at l:LAST c_at turn) l:p_ut (l:POINTER c_at l:DRAGGING c_at axis) l:p_ut (axis c_at l:ANGLE c_at angle) l:p_ut placed
+  (turned, _, _) := (axis, turn + axis l:a_ngle placed) h:a_ngleTo placed
+  (turned, (axis, xy, moved, turn), k)
 }
 
 ## The pointer released: a drag settles on the nearest item, one
@@ -320,39 +309,38 @@ l:m_ove := { xy state ->
 ## its steps becoming that item so the angle eases the rest of the way;
 ## a press that never moved is a click. `xy cm:u_p state`.
 ## >> "cm:" u_se< "Comparison"
-## >> (cm:TOP c_at cm:STEPS) cm:a_t 142.0 50.0 cm:u_p 142.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
-## -1.0
-## >> (cm:TOP c_at cm:STEPS) cm:a_t 125.0 50.0 cm:u_p 125.0 50.0 cm:m_ove 120.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
-## 0.0
+## >> cm:TOP cm:s_teps 142.0 50.0 cm:u_p 142.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
+## -1
+## >> cm:TOP cm:s_teps 125.0 50.0 cm:u_p 125.0 50.0 cm:m_ove 120.0 50.0 cm:m_ove 100.0 50.0 cm:d_own 31 cm:s_tart 7
+## 0
 l:u_p := { xy state ->
-  held := (l:POINTER c_at l:DRAGGING) l:a_t state
-  held = 0.0 ? state
-  released := (l:POINTER c_at l:DRAGGING c_at 0.0) l:p_ut state
-  held = 0.5 ? xy l:c_lick released
-  last := (l:POINTER c_at l:LAST) l:a_t state
+  (axes, (held, was, moved, last), k) := state
+  held = 0 ? state
+  released := (axes, (0, was, moved, last), k)
+  held = -1 ? xy l:c_lick released
   flick := "6.0 < a_bs last" i_f< "45.0 * last / a_bs last; 0.0"
-  angle := (held c_at l:ANGLE) l:a_t state
-  (held c_at l:STEPS c_at f_loat f_loor 0.5 + (angle + flick) / 90.0) l:p_ut released
+  angle := held l:a_ngle state
+  (held, f_loor 0.5 + (angle + flick) / 90.0) h:s_tepsTo released
 }
 
 ## A click on a half pauses or resumes it. `xy cm:c_lick state`.
 ## >> "cm:" u_se< "Comparison"
-## >> (cm:BOTTOM c_at cm:PLAYING) cm:a_t 100.0 300.0 cm:c_lick 31 cm:s_tart 7
-## 0.0
+## >> cm:BOTTOM cm:p_laying 100.0 300.0 cm:c_lick 31 cm:s_tart 7
+## 0
 l:c_lick := { xy state -> (l:h_alf xy) l:t_oggle state }
 
 ## A key's effect: see cm:u_pdate. Named keys compare with []K_NAMED
 ## (1 Up, 2 Down, 3 Left, 4 Right); printing keys by their character.
 l:k_ey := { k state ->
-  k = []K_NAMED 1 ? (l:IDIOM c_at -1.0) l:s_tep state
-  k = []K_NAMED 2 ? (l:IDIOM c_at 1.0) l:s_tep state
-  k = []K_NAMED 3 ? (l:TOP c_at -1.0) l:s_tep state
-  k = []K_NAMED 4 ? (l:TOP c_at 1.0) l:s_tep state
+  k = []K_NAMED 1 ? (l:IDIOM, -1) l:s_tep state
+  k = []K_NAMED 2 ? (l:IDIOM, 1) l:s_tep state
+  k = []K_NAMED 3 ? (l:TOP, -1) l:s_tep state
+  k = []K_NAMED 4 ? (l:TOP, 1) l:s_tep state
   c := []K_CHAR k
-  c m_atch "a" ? (l:BOTTOM c_at -1.0) l:s_tep state
-  c m_atch "d" ? (l:BOTTOM c_at 1.0) l:s_tep state
+  c m_atch "a" ? (l:BOTTOM, -1) l:s_tep state
+  c m_atch "d" ? (l:BOTTOM, 1) l:s_tep state
   c m_atch " " ? l:t_oggleTour state
-  c m_atch "r" ? (l:ATTRACT c_at l:IDLE c_at l:idleBefore) l:p_ut l:r_esume state
+  c m_atch "r" ? l:idleBefore h:i_dleTo l:r_esume state
   c m_atch "s" ? l:BOTTOM l:t_oggle state
   c m_atch "w" ? l:IDIOM l:t_oggle state
   state

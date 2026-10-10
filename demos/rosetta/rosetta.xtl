@@ -146,12 +146,8 @@ u:f_ace := { i l ->
 }
 
 # The item an axis's side shows: the one its turn started from plus
-# the side's offset, wrapped. `(axis offset) u:i_tem state`.
-u:i_tem := { ao state ->
-  axis := 1 s_elect ao
-  n := f_loor 0.5 + (axis c_at cm:COUNT) cm:a_t state
-  n cm:w_rap 1 + (f_loor 2 s_elect ao) + st:b_ase (axis c_at cm:ANGLE) cm:a_t state
-}
+# the side's offset, wrapped. `(axis, offset) u:i_tem state`.
+u:i_tem := { (axis, offset) state -> (axis cm:c_ount state) cm:w_rap 1 + offset + st:b_ase axis cm:a_ngle state }
 
 # The stone as a picture of a state: the two halves' sides show the
 # languages for the idiom the stone stands on, the top half's lid and
@@ -160,20 +156,20 @@ u:i_tem := { ao state ->
 # Faces 1 to 6 are the top half's (front, right, back, left, lid,
 # floor), 7 to 12 the bottom half's.
 u:s_tone := { state ->
-  i := (cm:IDIOM c_at 0.0) u:i_tem state
-  roll := (cm:IDIOM c_at cm:ANGLE) cm:a_t state
-  top := 1 st:r_ing ((cm:TOP c_at cm:ANGLE) cm:a_t state) c_at roll
-  bottom := -1 st:r_ing ((cm:BOTTOM c_at cm:ANGLE) cm:a_t state) c_at roll
+  i := (cm:IDIOM, 0) u:i_tem state
+  roll := cm:IDIOM cm:a_ngle state
+  top := 1 st:r_ing (cm:TOP cm:a_ngle state) c_at roll
+  bottom := -1 st:r_ing (cm:BOTTOM cm:a_ngle state) c_at roll
   all := top c_at bottom
-  c_apName := { k -> v:e_scape d_isclose ((cm:IDIOM c_at f_loat k s_elect st:capOffsets) u:i_tem state) s_elect idiomNames }
+  c_apName := { k -> v:e_scape d_isclose ((cm:IDIOM, k s_elect st:capOffsets) u:i_tem state) s_elect idiomNames }
   c_apText := { k ->
     k = 5 ? c_apName 1
     k = 12 ? c_apName 2
     ""
   }
   c_ap := { k -> (e_nclose "#e9e4db") c_at (e_nclose "") c_at e_nclose c_apText k }
-  t_opPanel := { k -> (e_nclose "#fdfcfa") c_at i u:f_ace (cm:TOP c_at f_loat k s_elect st:ringOffsets) u:i_tem state }
-  b_ottomPanel := { k -> (e_nclose "#f4f1ec") c_at i u:f_ace (cm:BOTTOM c_at f_loat k s_elect st:ringOffsets) u:i_tem state }
+  t_opPanel := { k -> (e_nclose "#fdfcfa") c_at i u:f_ace (cm:TOP, k s_elect st:ringOffsets) u:i_tem state }
+  b_ottomPanel := { k -> (e_nclose "#f4f1ec") c_at i u:f_ace (cm:BOTTOM, k s_elect st:ringOffsets) u:i_tem state }
   l_ines := { k ->
     k <= 4 ? t_opPanel k
     k <= 6 ? c_ap k
@@ -194,9 +190,9 @@ u:j_oin := { b -> d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } 
 # when a turn lands, not what an axis is turning toward (its steps),
 # so the page's lists never run ahead of the picture.
 u:w_here := { s ->
-  i := d_isclose ((cm:IDIOM c_at 0.0) u:i_tem s) s_elect idioms
-  t := d_isclose ((cm:TOP c_at 0.0) u:i_tem s) s_elect languages
-  b := d_isclose ((cm:BOTTOM c_at 0.0) u:i_tem s) s_elect languages
+  i := d_isclose ((cm:IDIOM, 0) u:i_tem s) s_elect idioms
+  t := d_isclose ((cm:TOP, 0) u:i_tem s) s_elect languages
+  b := d_isclose ((cm:BOTTOM, 0) u:i_tem s) s_elect languages
   "at " c_at i c_at " " c_at t c_at " " c_at b
 }
 
@@ -218,7 +214,7 @@ u:l_oop := { state ->
 # Start at the beginning of the tour: the first idiom, the first
 # language on top and the second below, at rest, every axis playing
 # (the attract mode begins after the first dwell).
-start := cm:r_esume cm:s_ettle (cm:BOTTOM c_at 2.0) cm:c_hoose (t_ally idioms) cm:s_tart t_ally languages
+start := cm:r_esume cm:s_ettle (cm:BOTTOM, 2) cm:c_hoose (t_ally idioms) cm:s_tart t_ally languages
 shown := p_rint! u:w_here start
 mode := p_rint! "mode " c_at cm:m_ode start
 u:l_oop start

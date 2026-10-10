@@ -37,7 +37,7 @@ repositories write around it:
   is a 5 by 5 Float matrix whose rows are the three axes, the pointer
   and the attract clock, read and written through masks by row and
   column numbers; the Int counts in it are Floats because a matrix has
-  one element type.
+  one element type. (Now a tuple of three typed parts: D134.)
 
 Boxes help with shapes, not types: a vector of boxed arrays can carry
 W1, W2 and Adam's averages, each in its own box, but every box holds the

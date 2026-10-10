@@ -1118,7 +1118,7 @@ PR per step from the latest main, so it can go on beside the main saga.
 | 4 | tuples-destructure | patterns in bindings and lambda parameters, nested; mismatches as type errors; hygiene; normalization tests |
 | 5 | tuples-in-arrays | boxed tuples (`e_nclose`, `m_ap` returning tuples, DISPLAY), as TU8 decides |
 | 6 | tuples-tools | the renderers, the live demo, the Emacs mode, the syntax poster, the reference, `xetal doc` |
-| 7 | tuples-retrofit | packed states rewritten (the Rosetta stone's Comparison first); the siblings told how (M13, D7). Narrowed 2026-10-08: the siblings already moved to tuples on their own (X_eTaL-ML training state, X_eTaL-demos boards, X_eTaL-extensions scenes, X_eTaL-libraries docs/tuples.md), and lib/TTTML.xtl with demos/tttml-play.xtl belong to step 091 (rebind-once), so this step does this repository's other packed states only |
+| 7 | tuples-retrofit | packed states rewritten (the Rosetta stone's Comparison first); the siblings told how (M13, D7). Narrowed 2026-10-08: the siblings already moved to tuples on their own (X_eTaL-ML training state, X_eTaL-demos boards, X_eTaL-extensions scenes, X_eTaL-libraries docs/tuples.md), and lib/TTTML.xtl with demos/tttml-play.xtl belong to step 091 (rebind-once), so this step does this repository's other packed states only. Done: Comparison and the Mandelbrot demo (D134) |
 | 8 | tuples-release | the README tour, a literate document (train-live's step before and after), the register, CHANGES, pages; Saga 29 replanned on these types; the lane archived |
 
 ## Saga 32 -- xetal doc (a cross-reference, before the launch)

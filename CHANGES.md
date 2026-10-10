@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-09
 
+- 14:30 `refactor` Packed states become tuples (Saga 39 step 7, D134): the Rosetta stone's state machine is `(axes, pointer, clock)` with Int counts and steps instead of a 5 x 5 Float matrix (calls such as `(cm:TOP, 7) cm:c_hoose s`), and the Mandelbrot demo's state `(zr, zi, count)`; every claim, picture and position unchanged, six Rosetta goldens print the final state as a tuple.
 - 18:40 `fix` The live demo turns Notebook and Step off, with a tooltip saying to use Run, for a program that reads the keyboard (`[]R_EAD`, `[]K_EY`, ...; decided from its tokens by `xetal_play::reads_input`): Mastermind and the TTTML game failed under Notebook at their first read. An interim fix asked for by the user; step 093 makes Notebook read input.
 - 18:00 `docs` The yellow logo (step 092): the live demo's toolbar starts with it (15 columns wide, about three rows tall, its aspect kept) and the name in yellow, then Open and the buttons; the README's heading shows it at the same size.
 - 15:30 `feat` A name is bound once (step 091, D134; M1 changed, M3, M4): binding a variable without `!` again in the same scope is `error[rebind]`; `_ := expr` discards a value; `[]E_X "a"` unbinds a name in the REPL and notebooks only. This repository migrated (TTTML, tttml-play, duck, cube, user-macros, three literate documents, two spec cases); the asks ledger tells the siblings how. The README says how names bind.
