@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint reg/fixtures/lint/directives.xtl"
+exit_code = 0
+desc = "# lint: comments: own line covers the whole statement below, trailing covers its line, lint-file: the file; a misspelled name warns unknown-lint and silences nothing"

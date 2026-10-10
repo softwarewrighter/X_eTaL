@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint --explain mutable-constant"
+exit_code = 0
+desc = "xetal lint --explain: what a lint checks, why, and an example"

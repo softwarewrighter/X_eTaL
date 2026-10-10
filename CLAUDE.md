@@ -459,6 +459,7 @@ hof: higher-order built-ins; operands applied through eval's Caller
 search: search and order built-ins over major cells
 radix: encode and decode in a mixed radix
 axes: rotate, reverse and axis subscripts (move-to-front, A6)
+lint: the xetal lint driver (levels, # lint: comments) over xetal-lint
 ```
 
 - Components: each `components/<name>/` is its own Cargo workspace of

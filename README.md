@@ -426,6 +426,23 @@ Other fonts, checked against the font files:
   on an impossible rotating object, a demo written in X_eTaL (planned)
 - `docs/research.txt` to `docs/research5.txt` -- archival design research
 
+## Checking style and suspicious code: xetal lint
+
+`xetal lint` checks a program or library against named lints, as
+`cargo clippy` checks a crate (docs/lint.md). Each lint is in a group
+(`style`, `suspicious`, `pedantic`, ...) and has a level: `allow`,
+`warn` or `deny`; a denied finding makes the command fail.
+
+- `xetal lint FILE` prints each finding on stderr with its place,
+  `warning[mutable-constant]: ... at FILE:4:11`.
+- `xetal lint -D style FILE` makes the style findings errors;
+  `-A`, `-W` and `-D` take a lint, a group or `all`.
+- `xetal lint --list` lists the lints; `xetal lint --explain LINT`
+  says what one checks, why, and shows an example.
+- In the source, `# lint: allow mutable-constant` on its own line
+  silences the statement below it, at the end of a line that line, and
+  `# lint-file: deny style` sets a level for the whole file.
+
 ## Documenting your own code: xetal doc
 
 `xetal doc` reads a program or a library the way rustdoc reads a

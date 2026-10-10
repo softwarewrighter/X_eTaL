@@ -1,0 +1,7 @@
+#!/usr/bin/env xetal
+# Breaks the style guide (lang-choices section 16) and shadows a built-in.
+u:N_extGen := { _r + 1 }
+Count! := 0
+MAXSIZE := 9
+u:a_pply := { r_ev -> r_ev 1 2 3 }
+u:K_ := { x y -> x }

@@ -78,7 +78,8 @@ components/
                            (surface AST, printer), xetal-syntax (parser)
   core/                    xetal-ir (Core IR, printer), xetal-core
                            (desugaring), xetal-explain (notes for
-                           errors in trains), xetal-lint (warnings)
+                           errors in trains), xetal-lint (the lint
+                           catalog and its passes over Core)
   render/                  xetal-render: decorated, LaTeX, canonical
   view/                    xetal-view: the front-end-agnostic view
                            model (styled segments, classes, raw <->
@@ -177,6 +178,9 @@ components/
                            the index of every item and built-in, by
                            name and by type, Hoogle-like, searched by a
                            plain script)
+  lint/                    xetal-linter (`xetal lint`, the driver:
+                           levels from -A/-W/-D and # lint: comments,
+                           findings placed in the file; docs/lint.md)
   web/                     xetal-play: the live demo's engine
                            (decorate, check, run; libraries and files
                            from the installed store, then the standard

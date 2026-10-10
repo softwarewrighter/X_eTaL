@@ -1,6 +1,6 @@
 [package]
 name = "xetal-lint"
-description = "Warnings over Core (L7 shadowing)"
+description = "Lints over Core: the catalog (groups, levels, explanations) and its passes"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -11,3 +11,6 @@ repository.workspace = true
 xetal-base.workspace = true
 xetal-catalog.workspace = true
 xetal-ir.workspace = true
+
+[dev-dependencies]
+xetal-core.workspace = true

@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-10
 
+- 12:00 `feat` A clippy-style linter (Saga 40 step 1, D136, S12): `xetal lint FILE` checks a program or library against a catalog of named lints in groups (correctness, suspicious, complexity, style, pedantic, deprecated), each with a default level and an `--explain` text; `-A`/`-W`/`-D` and `# lint:` / `# lint-file:` comments set levels, the narrowest scope and most specific name winning; denied findings fail the command. New lints `function-name-case`, `mutable-constant`, `upper-case-name` (pedantic) and `unknown-lint`, beside `shadows-builtin` and `deprecated-private`, which `xetal run` still prints unchanged. New component `lint` (xetal-linter); docs/lint.md; goldens lint-*.
 - 09:00 `chore` Merged PR #115 (packed states become tuples, Saga 39 step 7); the names-bound-once register entry renumbered D134 to D135 (the lane took D134). Pages rebuilt.
 ## 2026-10-09
 

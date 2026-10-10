@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint reg/fixtures/names/Bare.xtl"
+exit_code = 0
+desc = "xetal lint on a library: loaded as when imported, so its bare top-level function warns deprecated-private"

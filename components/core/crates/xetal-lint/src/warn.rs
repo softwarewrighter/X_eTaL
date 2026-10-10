@@ -5,7 +5,19 @@ use xetal_base::Diagnostic;
 use xetal_catalog::find;
 use xetal_ir::{Expr, Item, Kind, Param, Program};
 
-/// The warnings for a lowered program.
+use crate::naming::naming;
+use crate::walk::children;
+
+/// Every lint's findings for a lowered program, at the lint's own code:
+/// the [`warnings`] `xetal run` prints, then the style lints that only
+/// `xetal lint` reports. Levels are not applied here (the driver does).
+pub fn lints(program: &Program) -> Vec<Diagnostic> {
+    let mut out = warnings(program);
+    out.extend(naming(program));
+    out
+}
+
+/// The warnings `xetal run` prints for a lowered program.
 pub fn warnings(program: &Program) -> Vec<Diagnostic> {
     let mut out = Vec::new();
     for item in &program.items {
@@ -44,35 +56,17 @@ fn deprecated(name: &str, value: &Expr, out: &mut Vec<Diagnostic>) {
 }
 
 fn walk(e: &Expr, out: &mut Vec<Diagnostic>) {
-    let shadow = |name: &str, out: &mut Vec<Diagnostic>| {
-        if find(name).is_some() {
-            let message = format!("`{name}` here shadows the built-in {name}");
-            out.push(Diagnostic::warning("shadows-builtin", message).with_span(e.span));
+    let bound = match &e.kind {
+        Kind::Lam {
+            param: Param::Name(name),
+            ..
         }
+        | Kind::Let { name, .. } => Some(name),
+        _ => None,
     };
-    match &e.kind {
-        Kind::Lam { param, body, .. } => {
-            if let Param::Name(name) = param {
-                shadow(name, out);
-            }
-            walk(body, out);
-        }
-        Kind::Let {
-            name, value, body, ..
-        } => {
-            shadow(name, out);
-            walk(value, out);
-            walk(body, out);
-        }
-        Kind::Array(items) | Kind::Tuple(items) => items.iter().for_each(|x| walk(x, out)),
-        Kind::Axes { f, .. } | Kind::Proj { tuple: f, .. } => walk(f, out),
-        Kind::App(f, x) => {
-            walk(f, out);
-            walk(x, out);
-        }
-        Kind::App2 { f, left, right } => [f, left, right].iter().for_each(|x| walk(x, out)),
-        Kind::Set { value, body, .. } => [value, body].iter().for_each(|x| walk(x, out)),
-        Kind::If { cond, then, other } => [cond, then, other].iter().for_each(|x| walk(x, out)),
-        _ => {}
+    if let Some(name) = bound.filter(|name| find(name).is_some()) {
+        let message = format!("`{name}` here shadows the built-in {name}");
+        out.push(Diagnostic::warning("shadows-builtin", message).with_span(e.span));
     }
+    children(e).into_iter().for_each(|child| walk(child, out));
 }

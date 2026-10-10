@@ -1,0 +1,13 @@
+#!/usr/bin/env xetal
+# lint-file: warn pedantic
+# Each finding below is silenced by a directive but the last two.
+
+# lint: allow shadows-builtin
+u:a_pply := { r_ev ->
+  r_ev 1 2 3 }
+Count! := 0  # lint: allow mutable-constant
+# lint: allow style
+u:N_ext := { _r }
+# lint: allow shadow-builtin
+u:b_ad := { o_- -> o_- 1 }
+MAXSIZE := 9

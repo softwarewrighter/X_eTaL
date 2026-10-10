@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint reg/fixtures/Oops.xtl"
+exit_code = 1
+desc = "xetal lint: a program that does not load is reported as xetal run reports it"

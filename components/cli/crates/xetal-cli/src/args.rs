@@ -127,6 +127,50 @@ pub(crate) struct DocArgs {
     pub(crate) more: Vec<String>,
 }
 
+/// `lint` options: levels (lints, groups or `all`), or the catalog.
+#[derive(Args)]
+pub(crate) struct LintArgs {
+    #[command(flatten)]
+    pub(crate) input: Input,
+    /// Do not report these lints or groups (repeatable).
+    #[arg(short = 'A', long = "allow", value_name = "LINT")]
+    pub(crate) allow: Vec<String>,
+    /// Report these lints or groups as warnings (repeatable).
+    #[arg(short = 'W', long = "warn", value_name = "LINT")]
+    pub(crate) warn: Vec<String>,
+    /// Report these lints or groups as errors: the command fails
+    /// (repeatable).
+    #[arg(short = 'D', long = "deny", value_name = "LINT")]
+    pub(crate) deny: Vec<String>,
+    /// Print what a lint checks, why, and an example.
+    #[arg(long, value_name = "LINT", conflicts_with = "list")]
+    pub(crate) explain: Option<String>,
+    /// List every lint: group, default level and summary.
+    #[arg(long)]
+    pub(crate) list: bool,
+}
+
+impl LintArgs {
+    /// The driver's request; the program is read here (unless only the
+    /// catalog is asked for).
+    pub(crate) fn request(&self) -> Result<xetal_linter::Request, Diagnostic> {
+        let catalog = self.list || self.explain.is_some();
+        let (expr, file) = (self.input.expr.as_deref(), self.input.file.as_deref());
+        let input = match catalog {
+            true => None,
+            false => Some((file.unwrap_or("-e").to_string(), read_input(expr, file)?)),
+        };
+        Ok(xetal_linter::Request {
+            input,
+            allow: self.allow.clone(),
+            warn: self.warn.clone(),
+            deny: self.deny.clone(),
+            explain: self.explain.clone(),
+            list: self.list,
+        })
+    }
+}
+
 /// `render` options: decorated Unicode by default.
 #[derive(Args)]
 pub(crate) struct RenderArgs {
@@ -171,6 +215,9 @@ pub(crate) enum Command {
     Fmt(Input),
     /// Print a library with its bare top-level functions written h:.
     Migrate(Input),
+    /// Check a program against the lints (style, suspicious code, ...);
+    /// findings on stderr, failing if any is denied.
+    Lint(LintArgs),
     /// Print the Core IR.
     Core(Input),
     /// Print the inferred type of each top-level item.
@@ -218,6 +265,7 @@ impl Command {
             Command::Parse(_) => "parse",
             Command::Fmt(_) => "fmt",
             Command::Migrate(_) => "migrate",
+            Command::Lint(_) => "lint",
             Command::Core(_) => "core",
             Command::Type(_) => "type",
             Command::Eval(_) => "eval",
@@ -246,7 +294,7 @@ impl Command {
                 Some(read_input(i.expr.as_deref(), i.file.as_deref()))
             }
             Command::Run { file, .. } => Some(read_input(None, Some(file))),
-            Command::Repl | Command::Edit { .. } => None,
+            Command::Lint(_) | Command::Repl | Command::Edit { .. } => None,
         }
     }
 }
