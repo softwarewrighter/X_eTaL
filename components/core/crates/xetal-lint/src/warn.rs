@@ -6,6 +6,7 @@ use xetal_catalog::find;
 use xetal_ir::{Expr, Item, Kind, Param, Program};
 
 use crate::naming::naming;
+use crate::unused::unused;
 use crate::walk::children;
 
 /// Every lint's findings for a lowered program, at the lint's own code:
@@ -14,6 +15,7 @@ use crate::walk::children;
 pub fn lints(program: &Program) -> Vec<Diagnostic> {
     let mut out = warnings(program);
     out.extend(naming(program));
+    out.extend(unused(program));
     out
 }
 

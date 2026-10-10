@@ -1,0 +1,4 @@
+warning[unused-binding]: parameter `b` is never used at reg/fixtures/lint/unused.xtl:4:13
+  note: `unused-binding` is in group `suspicious`; xetal lint --explain unused-binding
+warning[unused-binding]: `shown` is bound but never used; write `_ := ...` to keep a value for its effect at reg/fixtures/lint/unused.xtl:6:3
+2 warning(s), 0 error(s)

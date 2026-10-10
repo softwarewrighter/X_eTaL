@@ -3,7 +3,7 @@
 `xetal lint` checks a program or library against a catalog of named
 lints, as `cargo clippy` checks a Rust crate. This document is the
 design: what it does, how it is built, why, and where it goes next.
-User-facing usage is in the README; decisions are D137 and D138 in
+User-facing usage is in the README; decisions are D137 to D140 in
 `docs/design.md` and S12 in `docs/lang-choices.md`.
 
 ## 1. What it does
@@ -50,11 +50,18 @@ dependencies.
 | `shadows-builtin` | suspicious | warn | a parameter or local binding shadows a built-in (L7; also printed by `xetal run`) |
 | `deprecated-private` | deprecated | warn | a library's bare top-level function (PN2; also printed by `xetal run`) |
 | `unknown-lint` | suspicious | warn | a `# lint:` comment with a bad level, no names, or an unknown name |
-| `function-name-case` | style | warn | a function named UpperCamel (`u:N_extGen`); a single capital is a combinator |
+| `unused-binding` | suspicious | warn | a lambda parameter or local `:=` nothing uses; `_ :=`, `_r`/`_l` and top-level names are exempt |
 | `mutable-constant` | style | warn | a mutable variable named like a constant (`Count!`) |
+| `function-name-case` | pedantic | allow | a function named UpperCamel (`u:N_extGen`); a capital start is for combinators |
 | `upper-case-name` | pedantic | allow | a variable of two or more letters, all capitals (`MAXSIZE`) |
 
-The naming lints check lang-choices section 16 (style guide). The
+The naming lints check lang-choices section 16 (style guide). Case
+carries no meaning to the language (decoration decides what a name is),
+so only the naming lint that misleads a reader, `mutable-constant`, is
+on by default; the case checks are `pedantic`, on request. A parameter
+that must be there but is not used (a combinator such as `K_`, an
+operand ignoring an argument) has no spelling of its own: silence it
+with `# lint: allow unused-binding` (decided with the user, D140). The
 catalog is data (`xetal-lint`'s `catalog.rs`): each entry has its
 name, group, default level, one-line summary and the text
 `--explain` prints (what it does, why, an example and the fix). A test
@@ -136,6 +143,7 @@ these rules testable one by one.
      catalog.rs   the lints as data, with their explanations
      warn.rs      warnings() for xetal run; lints() = all passes
      naming.rs    the style-guide naming lints
+     unused.rs    unused-binding (scope-aware uses of a name)
      walk.rs      Core children and binding sites
 ```
 
@@ -185,8 +193,7 @@ on a program that does not type-check yet. Lints that need types (a
 
 ## 7. Not yet (next steps, in docs/plan.md Saga 40)
 
-- More lints: unused parameters and locals (`unused-binding`, with an
-  opt-out spelling to agree), the effect suffix (`missing-bang`: a
+- More lints: the effect suffix (`missing-bang`: a
   function calling a `!` function), redundant lambdas
   (`{ x -> f_ x }` is `'f_`, `{ x -> x }` is `I_`), typed lints (`?`
   must return Bool).
@@ -194,6 +201,8 @@ on a program that does not type-check yet. Lints that need types (a
 - `--format json` for editors (the Emacs mode, the live demo's editor),
   and a configuration file for project-wide levels.
 - Name spans in Core, to point at the name's column.
-- Whether the bird variants in lib/Combinators.xtl (`C_s` for C*,
-  `E_h`, the bald eagle) are combinators the style guide should name,
-  or the file should say `# lint-file: allow function-name-case`.
+- Cleaning the repository's own findings: eight values bound only for
+  their effect (`shown := p_rint! x` in demos, to become `_ :=`) and
+  seven parameters ignored on purpose (`K_`, `k_eep`, `n_othing`,
+  TTTML), to be marked `# lint: allow unused-binding`; then a gate
+  check that `xetal lint` is clean over lib/ and demos/.

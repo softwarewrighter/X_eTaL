@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint -W pedantic reg/fixtures/lint/style.xtl"
+exit_code = 0
+desc = "xetal lint -W pedantic: the naming conventions are checked on request (function-name-case, upper-case-name)"

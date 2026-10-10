@@ -1147,8 +1147,13 @@ style guide's names (lang-choices section 16).
 2. lint-run-directives [DONE] (D138): `xetal run`, the REPL, the
    notebook and the live demo honor `# lint: allow` for the warnings
    they print, each by the comments of its own file.
-3. lint-unused: `unused-binding` (a parameter or local never used);
-   agree with the user how to mark one unused on purpose.
+3. lint-unused [DONE] (D139, D140): `unused-binding` (suspicious,
+   warn; no opt-out spelling: `# lint: allow unused-binding`), and the
+   naming conventions relaxed: `function-name-case` is pedantic.
+3a. lint-clean-repo: the 15 unused-binding findings in lib/ and
+   demos/ (`_ :=` for effect-only locals, allow comments for
+   deliberate parameters), then a gate check that `xetal lint` is
+   clean over lib/ and demos/.
 4. lint-effects: `missing-bang` (a function calling a `!` function
    without `!` itself) and its converse.
 5. lint-redundant: `redundant-lambda` (`{ x -> f_ x }` is `'f_`,

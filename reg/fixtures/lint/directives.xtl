@@ -6,7 +6,7 @@
 u:a_pply := { r_ev ->
   r_ev 1 2 3 }
 Count! := 0  # lint: allow mutable-constant
-# lint: allow style
+# lint: allow pedantic
 u:N_ext := { _r }
 # lint: allow shadow-builtin
 u:b_ad := { o_- -> o_- 1 }

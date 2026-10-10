@@ -472,6 +472,14 @@ browser's local storage.
 
 ## 16. Style guide (conventions; `xetal lint` checks the names)
 
+These are conventions, not rules: decoration, never case, decides what
+a name is, so a name that breaks them still works. `xetal lint` checks
+by default only the one that misleads a reader, a mutable variable
+named like a constant (`Count!`, lint `mutable-constant`); the case of
+function and variable names is checked only on request
+(`xetal lint -W pedantic`: `function-name-case`, `upper-case-name`).
+Relaxed with the user, 2026-10-10.
+
 Only camelCase can express multi-word names: snake_case is impossible
 (variables have no `_`, a function name has exactly one) and
 kebab-case lexes as subtraction.
@@ -480,7 +488,7 @@ kebab-case lexes as subtraction.
 | ---- | ---------- | ------- |
 | variable | lowerCamel | `boardSize`, `n`, `x` |
 | function | lowerCamel, first letter underlined | `n_extGen`, `r_ev` |
-| combinator (bird) | single capital | `K_`, `S_`, `c:B_` |
+| combinator (bird) | capital, then any lowercase variant mark | `K_`, `S_`, `c:B_`, `C_s` (C*), `E_h` |
 | constant | UpperCamel | `MaxSize` |
 | type (future) | UpperCamel | `Board` |
 | library (file `Name.xtl`) | UpperCamel | `Stats`, `Combinators` |

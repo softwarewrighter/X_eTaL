@@ -7,6 +7,7 @@
 mod catalog;
 mod naming;
 mod registry;
+mod unused;
 mod walk;
 mod warn;
 
