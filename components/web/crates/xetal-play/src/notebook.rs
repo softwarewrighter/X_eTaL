@@ -79,3 +79,22 @@ pub fn notebook_to(
     }
     finish(&loaded, warnings, result)
 }
+
+/// Whether `src` reads the keyboard (`[]R_EAD`, `[]K_EY`, `[]K_CHAR`,
+/// `[]K_NAMED`), by its tokens, not its text (a comment naming one does
+/// not count): only Run waits for typed lines, so the page turns
+/// Notebook and Step off for such a program.
+pub fn reads_input(src: &str) -> bool {
+    let Ok(tokens) = xetal_lex::lex(src) else {
+        return false;
+    };
+    tokens.iter().any(|t| match &t.kind {
+        xetal_lex::TokenKind::Func(f) if f.ns.as_deref() == Some(xetal_lex::SYSTEM) => {
+            matches!(
+                f.spelled().as_str(),
+                "R_EAD" | "K_EY" | "K_CHAR" | "K_NAMED"
+            )
+        }
+        _ => false,
+    })
+}

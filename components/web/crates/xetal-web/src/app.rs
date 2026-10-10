@@ -170,6 +170,7 @@ fn run_buttons(
         toggle_boxed,
         library,
         running,
+        reads_input: xetal_play::reads_input(text),
         boxed,
         stepped,
         statements,

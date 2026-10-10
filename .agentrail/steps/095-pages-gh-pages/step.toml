@@ -1,0 +1,8 @@
+number = 95
+slug = "pages-gh-pages"
+status = "pending"
+description = "Approved by the user (2026-10-08): stop tracking the built site on main, as X..."
+role = "production"
+context_files = []
+created_at = "2026-10-08T11:05:33"
+commits = []
