@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run reg/fixtures/lint/run-allow.xtl"
+exit_code = 0
+desc = "S12: xetal run honors # lint: allow for the warnings it prints; a warning no comment allows is still printed"

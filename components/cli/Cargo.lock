@@ -2574,6 +2574,7 @@ dependencies = [
  "xetal-core",
  "xetal-eval",
  "xetal-line",
+ "xetal-linter",
  "xetal-program",
  "xetal-store",
  "xetal-types",

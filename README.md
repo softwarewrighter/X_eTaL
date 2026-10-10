@@ -446,6 +446,8 @@ Other fonts, checked against the font files:
 - In the source, `# lint: allow mutable-constant` on its own line
   silences the statement below it, at the end of a line that line, and
   `# lint-file: deny style` sets a level for the whole file.
+  `xetal run`, the REPL and the live demo honor these comments too: a
+  warning they allow is not printed (a run never fails on a lint).
 
 ## Documenting your own code: xetal doc
 

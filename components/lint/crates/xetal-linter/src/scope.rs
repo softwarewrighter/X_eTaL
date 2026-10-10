@@ -8,15 +8,16 @@ use xetal_sources::Sources;
 use crate::directive::Directive;
 use crate::rule::{Rule, Scope, known};
 
-/// The rules `directives` set, given the program they are in; those
-/// with an unknown level or name are left out (see [`unknown`]).
+/// The rules `directives` set, written in `text`, the program's file
+/// number `file`; those with an unknown level or name are left out
+/// (see [`unknown`]).
 pub fn rules(
     directives: &[Directive],
-    text: &str,
+    (text, file): (&str, usize),
     program: &Program,
     sources: &Sources,
 ) -> Vec<Rule> {
-    let statements = statements(program, sources);
+    let statements = statements(program, sources, file);
     let mut out = Vec::new();
     for (order, d) in directives.iter().enumerate() {
         let Some(level) = d.level() else { continue };
@@ -87,8 +88,8 @@ fn below(
 }
 
 /// The first and last lines of each top-level statement written in the
-/// program's own file (not its libraries).
-fn statements(program: &Program, sources: &Sources) -> Vec<(usize, usize)> {
+/// program's file number `file` (0: the program; then its libraries).
+fn statements(program: &Program, sources: &Sources, file: usize) -> Vec<(usize, usize)> {
     let mut out = Vec::new();
     for item in &program.items {
         let (Item::Def { value, .. }
@@ -100,7 +101,7 @@ fn statements(program: &Program, sources: &Sources) -> Vec<(usize, usize)> {
             sources.locate(span.start),
             sources.locate(span.end.max(span.start + 1) - 1),
         );
-        if start.index == 0 && end.index == 0 {
+        if start.index == file && end.index == file {
             out.push((start.line, end.line));
         }
     }

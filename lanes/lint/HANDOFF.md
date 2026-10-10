@@ -36,3 +36,17 @@ recorded there. Do it locally after merging.
    demos/classics/fibonacci.xtl's `u:F_ib`. Either the style guide
    names them (a capital and a lowercase modifier), or the files say
    `# lint-file: allow function-name-case` / are renamed.
+
+## Step 2 (lint-run-directives, D138)
+
+Branch `claude/peaceful-hamilton-g1hdp3`, restarted from main at cd8c726.
+The sandbox ran fmt, clippy and tests in lint, cli and web (native),
+`cargo check` in doc, rosetta and tui (which depend on the changed
+crates), the lock check (doc and rosetta locks regenerated), and every
+golden by the stand-in runner: all pass but the eight that fail on main
+too (cli-too-deep, roll-dice, roll-range, just-*). New goldens
+lint-run-allow, lint-run-library-allow, lint-run-echo-allow were
+written from reviewed runs. Not run: the wasm32 build of the live demo
+(xetal-play now depends on xetal-linter, plain Rust with no new crates
+from crates.io), reg-rs itself, sw-checklist, agentrail (record steps 1
+and 2), `just pages` (web and rosetta parts are stale again).

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run reg/fixtures/lint/quiet/use-quiet.xtl"
+exit_code = 0
+desc = "S12: a library's # lint-file: allow covers its own warnings where it is imported (compare names-deprecated-private)"

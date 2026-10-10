@@ -1,0 +1,4 @@
+# lint-file: allow deprecated-private
+# A library may allow its own warnings: they are not printed where it is imported.
+d_ouble := { _r * 2 }
+l:q_uad := { d_ouble d_ouble _r }

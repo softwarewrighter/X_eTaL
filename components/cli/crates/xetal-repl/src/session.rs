@@ -77,6 +77,8 @@ fn run(
     };
     xetal_store::replay(session.pictures);
     let (warnings, result) = xetal_eval::eval_program(&program, &mut out, Some(seed));
+    // Those a `# lint:` comment allows are not shown (S12).
+    let warnings = xetal_linter::honored(&sources, &program, warnings);
     (
         out.all,
         warnings.into_iter().map(here).collect(),

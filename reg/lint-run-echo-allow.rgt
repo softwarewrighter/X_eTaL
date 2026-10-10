@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run --echo reg/fixtures/lint/run-allow.xtl"
+exit_code = 0
+desc = "S12: the --echo notebook honors # lint: allow as xetal run does"

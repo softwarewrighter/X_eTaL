@@ -2235,6 +2235,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-linter"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-ir",
+ "xetal-lint",
+ "xetal-program",
+ "xetal-sources",
+]
+
+[[package]]
 name = "xetal-lookup"
 version = "0.1.0"
 dependencies = [
@@ -2368,6 +2379,7 @@ dependencies = [
  "xetal-core",
  "xetal-eval",
  "xetal-line",
+ "xetal-linter",
  "xetal-program",
  "xetal-store",
  "xetal-types",

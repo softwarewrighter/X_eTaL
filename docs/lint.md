@@ -3,7 +3,7 @@
 `xetal lint` checks a program or library against a catalog of named
 lints, as `cargo clippy` checks a Rust crate. This document is the
 design: what it does, how it is built, why, and where it goes next.
-User-facing usage is in the README; decisions are D136 in
+User-facing usage is in the README; decisions are D137 and D138 in
 `docs/design.md` and S12 in `docs/lang-choices.md`.
 
 ## 1. What it does
@@ -86,6 +86,19 @@ lines between an own-line directive and its statement are skipped; the
 statement's extent comes from its span in Core, so a definition over
 several lines is covered whole. A misspelled level or name is itself a
 finding (`unknown-lint`) and silences nothing.
+
+### What `xetal run` does with them
+
+The warnings `xetal run` prints (`shadows-builtin`, `deprecated-private`)
+honor the same comments, as do the REPL, the `--echo` notebook and the
+live demo: a warning a comment allows is not printed. Each warning is
+judged by the comments of the file it is in, so a library can write
+`# lint-file: allow deprecated-private` for its own warnings and they
+are not printed where it is imported. Run takes no command-line levels,
+and a warning stays a warning whatever its level: `deny` fails
+`xetal lint`, never a run (L7: warnings do not change the exit code).
+One function does this for every front end:
+`xetal_linter::honored(sources, program, warnings)`.
 
 ### Resolution
 
@@ -177,8 +190,6 @@ on a program that does not type-check yet. Lints that need types (a
   function calling a `!` function), redundant lambdas
   (`{ x -> f_ x }` is `'f_`, `{ x -> x }` is `I_`), typed lints (`?`
   must return Bool).
-- `xetal run` honoring `# lint:` directives for the two warnings it
-  prints (today only `xetal lint` reads them).
 - Machine-applicable suggestions and `xetal lint --fix`.
 - `--format json` for editors (the Emacs mode, the live demo's editor),
   and a configuration file for project-wide levels.

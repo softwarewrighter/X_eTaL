@@ -109,3 +109,16 @@ fn output_can_stream_to_a_sink_as_it_is_written() {
         "each line's new output once; a failing line adds none"
     );
 }
+
+#[test]
+fn a_lint_comment_allows_a_warning_in_a_session() {
+    // S12: a session honors `# lint:` as xetal run does.
+    let mut s = Session::default();
+    let (_, err) = say(&mut s, "{ r_ev -> r_ev 1 2 3 } '{ _r * 2 }");
+    assert!(err.contains("warning[shadows-builtin]"), "{err}");
+    let (out, err) = say(
+        &mut s,
+        "{ r_ev -> r_ev 1 2 3 } '{ _r * 3 }  # lint: allow shadows-builtin",
+    );
+    assert_eq!((out.as_str(), err.as_str()), ("3 6 9\n", ""));
+}

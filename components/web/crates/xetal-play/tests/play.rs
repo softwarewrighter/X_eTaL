@@ -190,3 +190,16 @@ fn a_step_runs_up_to_a_statement_and_no_further() {
         "a program that does not load has none"
     );
 }
+
+#[test]
+fn a_lint_comment_allows_a_warning_in_the_live_demo() {
+    // S12: the warnings pane honors `# lint:` as xetal run does.
+    store();
+    let shadow = "{ r_ev -> r_ev 1 2 3 } '{ _r * 2 }";
+    assert!(run(shadow, 1).err.contains("warning[shadows-builtin]"));
+    let allowed = run(&format!("# lint: allow shadows-builtin\n{shadow}"), 1);
+    assert_eq!(
+        (allowed.out.as_str(), allowed.err.as_str()),
+        ("2 4 6\n", "")
+    );
+}

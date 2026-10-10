@@ -1,0 +1,6 @@
+#!/usr/bin/env xetal
+# xetal run honors # lint: comments for the warnings it prints.
+# lint: allow shadows-builtin
+u:a_pply := { r_ev -> r_ev 1 2 3 }
+u:a_pply '{ _r * 2 }
+{ o_- -> o_- 4 } '{ _r + 1 }
