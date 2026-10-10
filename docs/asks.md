@@ -42,6 +42,27 @@ libraries), X_eTaL-extensions (6 in 2), X_eTaL-demos (4 in 1),
 X_eTaL-ML (2 in 1) and X_eTaL-gpu (1 in 1). After one release the
 warning becomes an error. See `docs/private-names.md`.
 
+## Notice: a name is bound once: write a! for one that changes, _ := for a value you discard
+
+A variable without `!` is bound once in its scope: `a := 42` then
+`a := 43` in the same scope (a file's top level, or a lambda's body
+with its parameters) is now `error[rebind]`. A lambda's parameter or
+local named like an outer variable still shadows it. To migrate:
+
+- a value kept only for its effect (`said := p_rint! ...`,
+  `ok := ...`, `shown := []S_HOW ...`): write `_ := ...`, which runs it
+  and keeps nothing; `_` may repeat;
+- a value that changes step by step (state threaded through a game, an
+  accumulator): write `s! := ...` (a `!` parameter works too:
+  `{ s! -> s! := s! + 1; s! }`), or a fresh name per step, or a tuple
+  pattern for state that travels together;
+- a temporary name reused for something else: rename it.
+
+In the REPL, `[]E_X "a"` unbinds `a` so it can be bound again; a
+program cannot use it. A survey on 2026-10-08 counted about 210 such
+bindings in the siblings: X_eTaL-extensions 93, X_eTaL-games 85,
+X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
+
 ## X_eTaL-demos
 
 | # | Ask | State | Here | Repro |

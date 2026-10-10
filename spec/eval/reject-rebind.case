@@ -1,0 +1,8 @@
+# A name without ! is bound once in its scope (M1): binding it again at
+# the top level is an error that suggests a ! name.
+== SOURCE
+a := 42
+a := 43
+a
+== ERROR
+error[rebind]: a is already bound in this scope: a name is bound once; write a! for a variable that changes at 8..15

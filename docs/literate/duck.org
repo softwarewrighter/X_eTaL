@@ -98,10 +98,10 @@ is the animation.
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-shown ← ⎕S̲HOW ⎕G̲RID frames
+_ ← ⎕S̲HOW ⎕G̲RID frames
 #+end_example
 #+begin_src xetal :results file :file ../../images/literate-duck-swim.svg
-shown := []S_HOW []G_RID frames
+_ := []S_HOW []G_RID frames
 #+end_src
 
 #+RESULTS:
@@ -206,10 +206,10 @@ swim m_atch slow
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-shown ← ⎕S̲HOW ⎕G̲RID swim
+_ ← ⎕S̲HOW ⎕G̲RID swim
 #+end_example
 #+begin_src xetal :results file :file ../../images/literate-duck-waves.svg
-shown := []S_HOW []G_RID swim
+_ := []S_HOW []G_RID swim
 #+end_src
 
 #+RESULTS:

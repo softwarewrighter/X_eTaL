@@ -1,0 +1,6 @@
+# A ! parameter may change in its body (M1, M2).
+== SOURCE
+u:f_ := { s! -> s! := s! + 1; s! }
+u:f_ 41
+== RESULT
+42

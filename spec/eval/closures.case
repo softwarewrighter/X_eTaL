@@ -1,10 +1,11 @@
-# A lambda keeps the value it captured (M1).
+# A lambda keeps the value it captured (M1): another function's
+# parameter named n does not change the n that u:f_ sees.
 == SOURCE
-n := 3; u:f_ := { x -> x + n }; n := 100; u:f_ 1
+n := 3; u:f_ := { x -> x + n }; u:g_ := { n -> u:f_ n }; u:g_ 100
 == TYPE
 n : Int
 u:f_ : Int -> Int
-n : Int
+u:g_ : Int -> Int
 Int
 == RESULT
-4
+103

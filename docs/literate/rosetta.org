@@ -112,10 +112,10 @@ t_ally u:p_icture rest
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-shown ← ⎕S̲HOW ᵘp̲icture rest
+_ ← ⎕S̲HOW ᵘp̲icture rest
 #+end_example
 #+begin_src xetal :results file :file ../../images/literate-rosetta-rest.svg
-shown := []S_HOW u:p_icture rest
+_ := []S_HOW u:p_icture rest
 #+end_src
 
 #+RESULTS:
@@ -137,11 +137,11 @@ part, two halves of one box turning separately.
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
 turned ← (1 ˢᵗr̲ing 45.0 0.0) c̲at -1 ˢᵗr̲ing 0.0 0.0
-shown ← ⎕S̲HOW ᵘp̲icture turned
+_ ← ⎕S̲HOW ᵘp̲icture turned
 #+end_example
 #+begin_src xetal :results file :file ../../images/literate-rosetta-turn.svg
 turned := (1 st:r_ing 45.0 0.0) c_at -1 st:r_ing 0.0 0.0
-shown := []S_HOW u:p_icture turned
+_ := []S_HOW u:p_icture turned
 #+end_src
 
 #+RESULTS:
@@ -154,11 +154,11 @@ comes up from below.
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
 rolled ← (1 ˢᵗr̲ing 0.0 45.0) c̲at -1 ˢᵗr̲ing 0.0 45.0
-shown ← ⎕S̲HOW ᵘp̲icture rolled
+_ ← ⎕S̲HOW ᵘp̲icture rolled
 #+end_example
 #+begin_src xetal :results file :file ../../images/literate-rosetta-roll.svg
 rolled := (1 st:r_ing 0.0 45.0) c_at -1 st:r_ing 0.0 45.0
-shown := []S_HOW u:p_icture rolled
+_ := []S_HOW u:p_icture rolled
 #+end_src
 
 #+RESULTS:

@@ -13,7 +13,7 @@ pond := 32 t_ake_2 family          # a wider pond, padded with blanks
 frames := (n_eg o_ffsets 32) o_-_2 pond
 s_hape frames
 1 13 25 s_elect frames
-shown := []S_HOW []G_RID frames
+_ := []S_HOW []G_RID frames
 
 # Waves going the other way: every rotation of the water at once,
 # one row per frame, joined under the ducks along axis 2 (c_at_2 moves
@@ -23,4 +23,4 @@ waves := (o_ffsets 32) o_- water
 swim := frames c_at_2 waves
 s_hape swim
 7 s_elect swim
-shown := []S_HOW []G_RID swim
+_ := []S_HOW []G_RID swim

@@ -1,0 +1,6 @@
+# _ is never a name to read (M3, TU4).
+== SOURCE
+_ := 5
+_ + 1
+== ERROR
+error[bad-lambda-arg]: `_` is never read: it discards a value (`_ := expr`) or skips a part of a tuple pattern; lambda arguments are `_l` and `_r` at 7..8

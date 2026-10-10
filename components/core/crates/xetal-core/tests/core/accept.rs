@@ -83,8 +83,8 @@ fn top_level_bindings() {
         "(def u:s_quare (lam _r (app2 #* _r _r)))\n(eval (app u:s_quare 7))"
     );
     assert_eq!(
-        core("x := 3; x := x + 1"),
-        "(let x 3)\n(let x (app2 #+ x 1))"
+        core("x := 3; y := x + 1"),
+        "(let x 3)\n(let y (app2 #+ x 1))"
     );
     assert_eq!(
         core("count! := 0; count! := count! + 1"),

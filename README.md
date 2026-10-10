@@ -88,6 +88,14 @@ library's function written without `h:` still works but warns;
 `xetal migrate FILE` rewrites it. See
 [`docs/private-names.md`](docs/private-names.md).
 
+A variable is bound once in its scope (a file's top level, or a
+lambda's body with its parameters): `a := 42` then `a := 43` is an
+error. A name ending in `!` is one that changes: `count! := count! + 1`.
+`_ := expr` runs `expr` and keeps nothing, so it prints nothing. In the
+REPL, `[]E_X "a"` unbinds `a` so it can be bound again; a program
+cannot use it. A lambda's parameter named like an outer variable
+shadows it.
+
 Built-in names are words (`r_eshape`, `t_ally`) so code stays
 recognizable; a punctuation mark appears only where it carries APL
 meaning (`r_/` reduce, `s_\` scan, `o_-` rotate).

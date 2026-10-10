@@ -84,10 +84,9 @@ impl Parser {
             } => FunKind::Arg(side),
             TokenKind::LBrace => return self.lambda(token.span),
             TokenKind::LBracket => return self.train(token.span),
-            // `_` alone means something only in a tuple pattern (TU4).
+            // `_` is never read: it discards (M3) or skips a pattern's part (TU4).
             TokenKind::Wild => {
-                let message =
-                    "lambda arguments are `_l` and `_r` (and `_l_` / `_r_` to apply them)";
+                let message = "`_` is never read: it discards a value (`_ := expr`) or skips a part of a tuple pattern; lambda arguments are `_l` and `_r`";
                 return Err(err("bad-lambda-arg", token.span, message));
             }
             other => {

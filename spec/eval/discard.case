@@ -1,0 +1,13 @@
+# _ := expr evaluates expr for its effect and binds nothing, so it
+# prints nothing itself and may repeat (M3).
+== SOURCE
+_ := p_rint! 1
+_ := p_rint! 2
+u:f_ := { x -> _ := p_rint! x; _ := p_rint! x + 1; x + 2 }
+u:f_ 10
+== RESULT
+1
+2
+10
+11
+12

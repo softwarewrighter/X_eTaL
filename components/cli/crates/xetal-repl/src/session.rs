@@ -53,7 +53,11 @@ fn run(
     sink: &mut (dyn std::io::Write + Send),
 ) -> (Vec<u8>, Vec<Diagnostic>, Result<(), Diagnostic>) {
     let (origin, seed, untyped) = (&session.origin, session.seed, session.untyped);
-    let loaded = match xetal_program::load(origin, source) {
+    // A session may unbind a name with []E_X (M4); a file never can.
+    xetal_core::interactive(true);
+    let loaded = xetal_program::load(origin, source);
+    xetal_core::interactive(false);
+    let loaded = match loaded {
         Ok(l) => l,
         Err(e) => return (Vec::new(), Vec::new(), Err(e)),
     };

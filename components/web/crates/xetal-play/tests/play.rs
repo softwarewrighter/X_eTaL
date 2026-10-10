@@ -121,7 +121,7 @@ fn output_is_handed_over_a_line_at_a_time() {
     let seen = lines.clone();
     let mut out = xetal_play::Lines::new(move |line: &str| seen.lock().unwrap().push(line.into()));
     let _turn = turn();
-    let r = xetal_play::run_to("p := p_rint! 1\np := p_rint! \"two\"\n3", 1, &mut out);
+    let r = xetal_play::run_to("_ := p_rint! 1\n_ := p_rint! \"two\"\n3", 1, &mut out);
     assert_eq!(r.err, "");
     assert_eq!(*lines.lock().unwrap(), ["1", "two", "3"]);
 }

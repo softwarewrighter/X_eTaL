@@ -102,8 +102,8 @@ h:p_ick! := { m s ->
 ## to the end by model m against itself, moves from h:p_ick!.
 h:p_lay! := { m g ->
   s := (t_ally g) s_elect g
-  g := g c_at 1 9 r_eshape s l:a_fter m h:p_ick! s
-  0 = l:o_utcome (t_ally g) s_elect g ? m h:p_lay! g; g
+  played := g c_at 1 9 r_eshape s l:a_fter m h:p_ick! s
+  0 = l:o_utcome (t_ally played) s_elect played ? m h:p_lay! played; played
 }
 ## t:g_ame! m: a game model m plays against itself, as its boards from
 ## the empty one on (a board per row); one move in ten is random.
@@ -129,8 +129,8 @@ h:t_arget := { g m j ->
 h:b_ack := { g m j ->
   k := (1 s_elect m) i_ndexOf f_loat l:c_ode (j + 1) s_elect g
   d := 0.2 * ((g h:t_arget m)_ j) - m l:v_alue (j + 1) s_elect g
-  m := m + (0.0 c_at d) '* t_able f_loat (r_ange t_ally 1 s_elect m) = k
-  j = 1 ? m; (g h:b_ack m)_ j - 1
+  learned := m + (0.0 c_at d) '* t_able f_loat (r_ange t_ally 1 s_elect m) = k
+  j = 1 ? learned; (g h:b_ack learned)_ j - 1
 }
 ## m h:m_eet g: model m with the boards of game g not met before
 ## added, each at 0.5.
@@ -162,16 +162,16 @@ h:r_ound! := { m -> m l:l_earn l:g_ame! m }
 ## the games still to go and the positions known after each round.
 h:l_oop! := { n m ->
   k := 250 m_in n
-  m := k 'h:r_ound! p_ower m
-  shown := p_rint! (n - k) c_at t_ally 1 s_elect m
-  n = k ? m; (n - k) h:l_oop! m
+  trained := k 'h:r_ound! p_ower m
+  _ := p_rint! (n - k) c_at t_ally 1 s_elect trained
+  n = k ? trained; (n - k) h:l_oop! trained
 }
 ## n t:t_rain! m: model m after learning from n games against itself.
 ## After each round of 250 games it prints how many games are still to
 ## go and how many positions it knows, so a long training shows its
 ## progress. Start from t:empty.
 l:t_rain! := { n m ->
-  shown := p_rint! "games to go, positions known:"
+  _ := p_rint! "games to go, positions known:"
   n h:l_oop! m
 }
 
@@ -187,9 +187,9 @@ h:t_urn! := { m side s ->
 ## m h:v_ersus! side s: the outcome of the game from board s, model m
 ## playing side against a random player: 1 X won, -1 O won, 2 drawn.
 h:v_ersus! := { m side s ->
-  s := s l:a_fter ((m h:t_urn! side)_ s)
-  w := l:o_utcome s
-  w = 0 ? ((m h:v_ersus! side)_ s); w
+  played := s l:a_fter ((m h:t_urn! side)_ s)
+  w := l:o_utcome played
+  w = 0 ? ((m h:v_ersus! side)_ played); w
 }
 ## m h:c_ount! side n: n games as side against a random player; how
 ## many the machine won, lost and drew.
@@ -207,8 +207,8 @@ l:t_rial! := { n m -> 2 3 r_eshape ((m h:c_ount! 1)_ n) c_at (m h:c_ount! -1)_ n
 ## model m against itself, its best move on both sides.
 h:g_reedy := { m g ->
   s := (t_ally g) s_elect g
-  g := g c_at 1 9 r_eshape s l:a_fter m l:c_hoose s
-  0 = l:o_utcome (t_ally g) s_elect g ? m h:g_reedy g; g
+  played := g c_at 1 9 r_eshape s l:a_fter m l:c_hoose s
+  0 = l:o_utcome (t_ally played) s_elect played ? m h:g_reedy played; played
 }
 ## t:b_est m: the game model m plays against itself, its best move on
 ## both sides, as its boards from the empty one on (a board per row).

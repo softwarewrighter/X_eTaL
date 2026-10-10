@@ -48,11 +48,15 @@ impl Parser {
             .tokens
             .get(self.pos + 1)
             .is_some_and(|t| t.kind == TokenKind::Assign)
-            && self.tokens.get(self.pos).and_then(target).is_some();
+            && self
+                .tokens
+                .get(self.pos)
+                .is_some_and(|t| t.kind == TokenKind::Wild || target(t).is_some());
         if is_binding {
             let name = self.next().expect("checked");
             let assign = self.next().expect("checked");
-            let target = target(&name).expect("checked");
+            // `_ := expr` discards the value (M3).
+            let target = target(&name).unwrap_or(Target::Wild);
             if self.expr_is_empty() {
                 return Err(err(
                     "missing-value",

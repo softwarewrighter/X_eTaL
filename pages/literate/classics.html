@@ -386,10 +386,10 @@ once from the bits of the move number):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">watched ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> (<span class="c-number">4</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘp̲lay</span> <span class="c-number">4</span> <span class="c-userfunc">ᵘh̲anoi</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">2</span>
+<pre class="src src-xetal">_ ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> (<span class="c-number">4</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘp̲lay</span> <span class="c-number">4</span> <span class="c-userfunc">ᵘh̲anoi</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">2</span>
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   watched := []S_HOW []G_RID (4 r_eshape 1) u:p_lay 4 u:h_anoi 1 3 2</span></pre>
+<span class="c-comment typed">⍝   _ := []S_HOW []G_RID (4 r_eshape 1) u:p_lay 4 u:h_anoi 1 3 2</span></pre>
 </div>
 
 
@@ -411,22 +411,22 @@ reach, the transitive closure.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">a ← <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+<pre class="src src-xetal">edges ← <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span>  <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
 <span class="c-userfunc">ᵘc̲losure</span> ← { r →
   next ← r <span class="c-symbol">∨</span> r <span class="c-symbol">'∨</span> <span class="c-symbol">'∧</span> <span class="c-builtin">i̲nner</span> r
   (next <span class="c-builtin">m̲atch</span> r) ? r
   <span class="c-userfunc">ᵘc̲losure</span> next
 }
-<span class="c-userfunc">ᵘc̲losure</span> a
+<span class="c-userfunc">ᵘc̲losure</span> edges
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   a := 4 4 r_eshape 0 1 0 0  0 0 1 0  0 0 0 1  0 0 0 0</span>
+<span class="c-comment typed">⍝   edges := 4 4 r_eshape 0 1 0 0  0 0 1 0  0 0 0 1  0 0 0 0</span>
 <span class="c-comment typed">⍝   u:c_losure := { r -&gt;</span>
 <span class="c-comment typed">⍝     next := r | r '| '&amp; i_nner r</span>
 <span class="c-comment typed">⍝     (next m_atch r) ? r</span>
 <span class="c-comment typed">⍝     u:c_losure next</span>
 <span class="c-comment typed">⍝   }</span>
-<span class="c-comment typed">⍝   u:c_losure a</span></pre>
+<span class="c-comment typed">⍝   u:c_losure edges</span></pre>
 </div>
 
 <pre class="example">
@@ -464,10 +464,10 @@ g ← <span class="c-number">8</span> <span class="c-number">8</span> <span clas
 </div>
 
 <div class="org-src-container">
-<pre class="src src-xetal">watched ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> g <span class="c-userfunc">ᵘw̲arshallSteps</span> <span class="c-number">1</span>
+<pre class="src src-xetal">_ ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> g <span class="c-userfunc">ᵘw̲arshallSteps</span> <span class="c-number">1</span>
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   watched := []S_HOW []G_RID g u:w_arshallSteps 1</span></pre>
+<span class="c-comment typed">⍝   _ := []S_HOW []G_RID g u:w_arshallSteps 1</span></pre>
 </div>
 
 
@@ -618,11 +618,11 @@ n
 
 <div class="org-src-container">
 <pre class="src src-xetal">tall ← (<span class="c-builtin">r̲ev</span> <span class="c-builtin">r̲ange</span> <span class="c-builtin">'m̲ax</span> <span class="c-builtin">r̲/</span> n) <span class="c-symbol">'≤</span> <span class="c-builtin">t̲able</span> n
-shown ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> tall
+_ ← <span class="c-builtin">⎕S̲HOW</span> <span class="c-builtin">⎕G̲RID</span> tall
 
 <span class="c-comment typed">⍝ typed:</span>
 <span class="c-comment typed">⍝   tall := (r_ev r_ange 'm_ax r_/ n) '&lt;= t_able n</span>
-<span class="c-comment typed">⍝   shown := []S_HOW []G_RID tall</span></pre>
+<span class="c-comment typed">⍝   _ := []S_HOW []G_RID tall</span></pre>
 </div>
 
 
@@ -864,13 +864,13 @@ k/24 of its points, so the picture draws itself.
   outer <span class="c-builtin">c̲at</span> ((<span class="c-number">60</span> <span class="c-symbol">×</span> s) <span class="c-libfunc">ᵗt̲urn</span> (n <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-userfunc">ᵘa̲rrow</span> s) <span class="c-builtin">c̲at</span> (<span class="c-number">60</span> <span class="c-symbol">×</span> s) <span class="c-libfunc">ᵗt̲urn</span> outer
 }
 arrowhead ← <span class="c-libfunc">ᵗp̲oints</span> <span class="c-number">5</span> <span class="c-userfunc">ᵘa̲rrow</span> <span class="c-number">1</span>
-n ← <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> <span class="c-number">1</span> <span class="c-builtin">d̲rop</span> <span class="c-builtin">s̲hape</span> arrowhead
-<span class="c-userfunc">ᵘu̲pTo</span> ← { k → ((<span class="c-builtin">f̲loor</span> k <span class="c-symbol">×</span> n <span class="c-symbol">÷</span> <span class="c-number">24</span>) <span class="c-builtin">m̲in</span> <span class="c-builtin">r̲ange</span> n) <span class="c-builtin">s̲elect₂</span> arrowhead }
+size ← <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> <span class="c-number">1</span> <span class="c-builtin">d̲rop</span> <span class="c-builtin">s̲hape</span> arrowhead
+<span class="c-userfunc">ᵘu̲pTo</span> ← { k → ((<span class="c-builtin">f̲loor</span> k <span class="c-symbol">×</span> size <span class="c-symbol">÷</span> <span class="c-number">24</span>) <span class="c-builtin">m̲in</span> <span class="c-builtin">r̲ange</span> size) <span class="c-builtin">s̲elect₂</span> arrowhead }
 <span class="c-userfunc">ᵘd̲rawing</span> ← { k →
   k <span class="c-symbol">=</span> <span class="c-number">1</span> ? (<span class="c-number">1</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">s̲hape</span> <span class="c-userfunc">ᵘu̲pTo</span> <span class="c-number">1</span>) <span class="c-builtin">r̲eshape</span> <span class="c-userfunc">ᵘu̲pTo</span> <span class="c-number">1</span>
   (<span class="c-userfunc">ᵘd̲rawing</span> k <span class="c-symbol">−</span> <span class="c-number">1</span>) <span class="c-builtin">c̲at</span> <span class="c-userfunc">ᵘu̲pTo</span> k
 }
-n
+size
 
 <span class="c-comment typed">⍝ typed:</span>
 <span class="c-comment typed">⍝   u:a_rrow := { n s -&gt;</span>
@@ -879,13 +879,13 @@ n
 <span class="c-comment typed">⍝     outer c_at ((60 * s) t:t_urn (n - 1) u:a_rrow s) c_at (60 * s) t:t_urn outer</span>
 <span class="c-comment typed">⍝   }</span>
 <span class="c-comment typed">⍝   arrowhead := t:p_oints 5 u:a_rrow 1</span>
-<span class="c-comment typed">⍝   n := 1 s_elect 1 d_rop s_hape arrowhead</span>
-<span class="c-comment typed">⍝   u:u_pTo := { k -&gt; ((f_loor k * n / 24) m_in r_ange n) s_elect_2 arrowhead }</span>
+<span class="c-comment typed">⍝   size := 1 s_elect 1 d_rop s_hape arrowhead</span>
+<span class="c-comment typed">⍝   u:u_pTo := { k -&gt; ((f_loor k * size / 24) m_in r_ange size) s_elect_2 arrowhead }</span>
 <span class="c-comment typed">⍝   u:d_rawing := { k -&gt;</span>
 <span class="c-comment typed">⍝     k = 1 ? (1 c_at s_hape u:u_pTo 1) r_eshape u:u_pTo 1</span>
 <span class="c-comment typed">⍝     (u:d_rawing k - 1) c_at u:u_pTo k</span>
 <span class="c-comment typed">⍝   }</span>
-<span class="c-comment typed">⍝   n</span></pre>
+<span class="c-comment typed">⍝   size</span></pre>
 </div>
 
 <pre class="example">

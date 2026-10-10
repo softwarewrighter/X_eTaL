@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-09
 
+- 15:30 `feat` A name is bound once (step 091, D134; M1 changed, M3, M4): binding a variable without `!` again in the same scope is `error[rebind]`; `_ := expr` discards a value; `[]E_X "a"` unbinds a name in the REPL and notebooks only. This repository migrated (TTTML, tttml-play, duck, cube, user-macros, three literate documents, two spec cases); the asks ledger tells the siblings how. The README says how names bind.
+- 14:05 `docs` The logo in twelve colors, one per kind of repository (from the color-variations sheet): images/xetal-logo-yellow.png (base/core), green (games), violet (demos), red (extensions), blue (libraries), orange (GPU), aqua (FPGA), pink (tools), indigo (ML), mint (research), brown (examples), gray (documentation).
 - 12:30 `chore` Merged PRs #113 (boxed tuples, Saga 39 step 5) and #114 (tuples in the tools, step 6). The live demo's and the Rosetta page's pages parts now track the Rust sources they compile (check-pages), so a language change rebuilds them; pages rebuilt (web, rosetta, doc, latex).
 - 09:30 `feat` Tuples in the tools (Saga 39 step 6, D133): `xetal doc` lists a pattern's names with the right types (its hidden value was listed and the types shifted); `xetal type`, the renderers and their round trip, the live demo, the Emacs mode, the syntax poster and the reference show tuples and patterns, each pinned by a golden, test or doc example.
 ## 2026-10-08

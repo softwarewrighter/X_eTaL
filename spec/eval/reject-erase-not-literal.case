@@ -1,0 +1,6 @@
+# []E_X takes its names as a literal string (M4).
+== SOURCE
+n := "a"
+[]E_X n
+== ERROR
+error[erase-not-literal]: []E_X takes the names to unbind as a literal string: []E_X "a" at 9..16

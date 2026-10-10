@@ -21,6 +21,11 @@ impl Lower {
                     Some(xetal_lex::SYSTEM) => Kind::Prim(format!("{}{name}", xetal_lex::SYSTEM)),
                     Some(ns) if xetal_lex::is_fresh(ns) => Kind::Var(format!("{ns}:{name}")),
                     Some(ns) => Kind::Global(format!("{ns}:{name}")),
+                    None if self.erased.contains(&name) => {
+                        let message =
+                            format!("{name} was unbound by []E_X: bind it again before reading it");
+                        return Err(err("erased", e.span, message));
+                    }
                     None => Kind::Var(name),
                 }
             }

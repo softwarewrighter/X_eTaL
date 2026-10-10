@@ -33,18 +33,18 @@ u:a_sk := { s ->
 ## u:y_ou s: you move on board s, then it replies, until the game is
 ## over; the final board. Each board is printed as it is played.
 u:y_ou := { s ->
-  s := s t:a_fter u:a_sk s
-  shown := p_rint! t:s_how s
-  gap := p_rint! ""
-  0 = t:o_utcome s ? u:m_e s; s
+  played := s t:a_fter u:a_sk s
+  _ := p_rint! t:s_how played
+  _ := p_rint! ""
+  0 = t:o_utcome played ? u:m_e played; played
 }
 ## u:m_e s: the machine moves on board s (its best move from model
 ## m), then you, until the game is over; the final board.
 u:m_e := { s ->
-  s := s t:a_fter m t:c_hoose s
-  shown := p_rint! t:s_how s
-  gap := p_rint! ""
-  0 = t:o_utcome s ? u:y_ou s; s
+  played := s t:a_fter m t:c_hoose s
+  _ := p_rint! t:s_how played
+  _ := p_rint! ""
+  0 = t:o_utcome played ? u:y_ou played; played
 }
 ## u:v_erdict w: an outcome said from your side: 1 "you win", -1 "it
 ## wins", anything else "a draw".

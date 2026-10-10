@@ -2,4 +2,4 @@
 == SOURCE
 _ + 1
 == ERROR
-error[bad-lambda-arg]: lambda arguments are `_l` and `_r` (and `_l_` / `_r_` to apply them) at 0..1
+error[bad-lambda-arg]: `_` is never read: it discards a value (`_ := expr`) or skips a part of a tuple pattern; lambda arguments are `_l` and `_r` at 0..1

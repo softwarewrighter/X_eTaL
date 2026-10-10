@@ -138,7 +138,10 @@ impl Lower {
 
     fn statement(&mut self, stmt: &Stmt) -> Result<Piece, Diagnostic> {
         match stmt {
-            Stmt::Expr(e) => Ok(Piece::Expr(self.expr(e)?)),
+            Stmt::Expr(e) => match self.erase(e)? {
+                Some(piece) => Ok(piece),
+                None => Ok(Piece::Expr(self.expr(e)?)),
+            },
             Stmt::Guard { cond, result, span } => {
                 let cond = self.expr(cond)?;
                 let then = self.expr(result)?;
@@ -153,7 +156,11 @@ impl Lower {
                 value,
                 span,
             } => {
+                if matches!(target, Target::Wild) {
+                    return self.discard(value, *span);
+                }
                 let name = self.binding_name(target, *span)?;
+                self.once(target, &name, *span)?;
                 let rec = is_function_literal(value);
                 let set = name.ends_with('!') && self.is_bound(&name);
                 if rec && !name.contains(':') {
@@ -172,6 +179,22 @@ impl Lower {
                 })
             }
         }
+    }
+}
+
+impl Lower {
+    /// `_ := expr` discards: it binds the name a body's expression
+    /// statements already bind, never read, so it prints nothing (M3).
+    fn discard(&mut self, value: &Surface, span: Span) -> Result<Piece, Diagnostic> {
+        let value = self.expr(value)?;
+        let (name, rec, set) = ("_".to_string(), false, false);
+        Ok(Piece::Let {
+            name,
+            rec,
+            set,
+            value,
+            span,
+        })
     }
 }
 

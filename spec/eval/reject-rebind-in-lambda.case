@@ -1,0 +1,5 @@
+# Inside a lambda body too (M1).
+== SOURCE
+u:f_ := { x -> y := x; y := y + 1; y }
+== ERROR
+error[rebind]: y is already bound in this scope: a name is bound once; write y! for a variable that changes at 23..33

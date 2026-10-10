@@ -1,0 +1,8 @@
+# []E_X unbinds a name in an interactive session only (M4): a program
+# cannot use it to get around binding once (M1).
+== SOURCE
+a := 42
+[]E_X "a"
+a := 43
+== ERROR
+error[erase-outside-session]: []E_X unbinds a name in an interactive session only, as a statement of its own; in a program, bind a new name, or write a! for a value that changes at 8..17

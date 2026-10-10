@@ -1,8 +1,0 @@
-number = 110
-slug = "front-door"
-status = "pending"
-description = "Launch reprioritization (the user, 2026-10-03, docs/research4.txt: stabilize,..."
-role = "production"
-context_files = []
-created_at = "2026-10-03T13:46:01"
-commits = []

@@ -119,18 +119,18 @@
 <span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-comment">⍝</span><span class="c-comment"># u:y_ou s: you move on board s, then it replies, until the game is</span></span>
 <span class="line" id="L34"><a class="ln" href="#L34">34</a><span class="c-comment">⍝</span><span class="c-comment"># over; the final board. Each board is printed as it is played.</span></span>
 <span class="line" id="L35"><a class="ln" href="#L35">35</a><span class="c-userfunc">ᵘy̲ou</span> ← { s →</span>
-<span class="line" id="L36"><a class="ln" href="#L36">36</a>  s ← s <a href="lib-TTTML.xtl.html#l.a_fter" class="c-libfunc">ᵗa̲fter</a> <a href="demos-tttml-play.xtl.html#u.a_sk" class="c-userfunc">ᵘa̲sk</a> s</span>
-<span class="line" id="L37"><a class="ln" href="#L37">37</a>  shown ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <a href="lib-TTTML.xtl.html#l.s_how" class="c-libfunc">ᵗs̲how</a> s</span>
-<span class="line" id="L38"><a class="ln" href="#L38">38</a>  gap ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span></span>
-<span class="line" id="L39"><a class="ln" href="#L39">39</a>  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="lib-TTTML.xtl.html#l.o_utcome" class="c-libfunc">ᵗo̲utcome</a> s ? <a href="demos-tttml-play.xtl.html#u.m_e" class="c-userfunc">ᵘm̲e</a> s◆ s</span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a>  played ← s <a href="lib-TTTML.xtl.html#l.a_fter" class="c-libfunc">ᵗa̲fter</a> <a href="demos-tttml-play.xtl.html#u.a_sk" class="c-userfunc">ᵘa̲sk</a> s</span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a>  _ ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <a href="lib-TTTML.xtl.html#l.s_how" class="c-libfunc">ᵗs̲how</a> played</span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a>  _ ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a>  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="lib-TTTML.xtl.html#l.o_utcome" class="c-libfunc">ᵗo̲utcome</a> played ? <a href="demos-tttml-play.xtl.html#u.m_e" class="c-userfunc">ᵘm̲e</a> played◆ played</span>
 <span class="line" id="L40"><a class="ln" href="#L40">40</a>}</span>
 <span class="line" id="L41"><a class="ln" href="#L41">41</a><span class="c-comment">⍝</span><span class="c-comment"># u:m_e s: the machine moves on board s (its best move from model</span></span>
 <span class="line" id="L42"><a class="ln" href="#L42">42</a><span class="c-comment">⍝</span><span class="c-comment"># m), then you, until the game is over; the final board.</span></span>
 <span class="line" id="L43"><a class="ln" href="#L43">43</a><span class="c-userfunc">ᵘm̲e</span> ← { s →</span>
-<span class="line" id="L44"><a class="ln" href="#L44">44</a>  s ← s <a href="lib-TTTML.xtl.html#l.a_fter" class="c-libfunc">ᵗa̲fter</a> <a href="demos-tttml-play.xtl.html#m">m</a> <a href="lib-TTTML.xtl.html#l.c_hoose" class="c-libfunc">ᵗc̲hoose</a> s</span>
-<span class="line" id="L45"><a class="ln" href="#L45">45</a>  shown ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <a href="lib-TTTML.xtl.html#l.s_how" class="c-libfunc">ᵗs̲how</a> s</span>
-<span class="line" id="L46"><a class="ln" href="#L46">46</a>  gap ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span></span>
-<span class="line" id="L47"><a class="ln" href="#L47">47</a>  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="lib-TTTML.xtl.html#l.o_utcome" class="c-libfunc">ᵗo̲utcome</a> s ? <a href="demos-tttml-play.xtl.html#u.y_ou" class="c-userfunc">ᵘy̲ou</a> s◆ s</span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a>  played ← s <a href="lib-TTTML.xtl.html#l.a_fter" class="c-libfunc">ᵗa̲fter</a> <a href="demos-tttml-play.xtl.html#m">m</a> <a href="lib-TTTML.xtl.html#l.c_hoose" class="c-libfunc">ᵗc̲hoose</a> s</span>
+<span class="line" id="L45"><a class="ln" href="#L45">45</a>  _ ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <a href="lib-TTTML.xtl.html#l.s_how" class="c-libfunc">ᵗs̲how</a> played</span>
+<span class="line" id="L46"><a class="ln" href="#L46">46</a>  _ ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span></span>
+<span class="line" id="L47"><a class="ln" href="#L47">47</a>  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="lib-TTTML.xtl.html#l.o_utcome" class="c-libfunc">ᵗo̲utcome</a> played ? <a href="demos-tttml-play.xtl.html#u.y_ou" class="c-userfunc">ᵘy̲ou</a> played◆ played</span>
 <span class="line" id="L48"><a class="ln" href="#L48">48</a>}</span>
 <span class="line" id="L49"><a class="ln" href="#L49">49</a><span class="c-comment">⍝</span><span class="c-comment"># u:v_erdict w: an outcome said from your side: 1 &quot;you win&quot;, -1 &quot;it</span></span>
 <span class="line" id="L50"><a class="ln" href="#L50">50</a><span class="c-comment">⍝</span><span class="c-comment"># wins&quot;, anything else &quot;a draw&quot;.</span></span>

@@ -1,9 +1,12 @@
 //! What a statement binds: a name, under the binding rules (N6, R3,
 //! PN1-PN3: which namespaces a definition may name, at the top level or
-//! in a body), or a tuple pattern (TU3-TU5), whose parts bind in turn.
+//! in a body), or a tuple pattern (TU3-TU5), whose parts bind in turn;
+//! and, in a session only, what `[]E_X "a"` unbinds (M4).
+
+use std::cell::Cell;
 
 use xetal_base::{Diagnostic, Span};
-use xetal_syntax::Target;
+use xetal_syntax::{Expr as Surface, ExprKind, FunKind, Target};
 
 use crate::body::Piece;
 use crate::lower::{Lower, err};
@@ -146,4 +149,62 @@ impl Lower {
 fn hidden(ns: &Option<String>) -> bool {
     ns.as_deref()
         .is_some_and(|n| n.starts_with(|c: char| c.is_ascii_uppercase()))
+}
+
+thread_local! {
+    /// Whether this thread is lowering for an interactive session.
+    static INTERACTIVE: Cell<bool> = const { Cell::new(false) };
+}
+
+/// Mark the lowering on this thread as a session's (the REPL, the
+/// browser REPL, notebooks): only there may `[]E_X "a"` unbind a name.
+pub fn interactive(on: bool) {
+    INTERACTIVE.with(|i| i.set(on));
+}
+
+pub(crate) fn is_interactive() -> bool {
+    INTERACTIVE.with(Cell::get)
+}
+
+impl Lower {
+    /// `[]E_X "a b"` standing as a top-level statement of a session:
+    /// the names are unbound (M4) and the statement is nothing. Anywhere
+    /// else, or with a name that is not a literal, it is an error, so a
+    /// program cannot use it to get around binding once (M1).
+    pub(crate) fn erase(&mut self, e: &Surface) -> Result<Option<Piece>, Diagnostic> {
+        let ExprKind::Monadic { f, arg } = &e.kind else {
+            return Ok(None);
+        };
+        let FunKind::Name(n) = &f.kind else {
+            return Ok(None);
+        };
+        if n.ns.as_deref() != Some(xetal_lex::SYSTEM) || n.spelled() != "E_X" {
+            return Ok(None);
+        }
+        let ExprKind::Str(names) = &arg.kind else {
+            return Err(err(
+                "erase-not-literal",
+                e.span,
+                "[]E_X takes the names to unbind as a literal string: []E_X \"a\"",
+            ));
+        };
+        if !self.interactive || self.scopes.len() > 1 {
+            let message = "[]E_X unbinds a name in an interactive session only, as a statement of its own; in a program, bind a new name, or write a! for a value that changes";
+            return Err(err("erase-outside-session", e.span, message));
+        }
+        for name in names.split_whitespace() {
+            self.scopes[0].remove(name);
+            self.scopes[0].remove(&format!("={name}"));
+            self.erased.insert(name.to_string());
+        }
+        let value = self.node(e.span, Kind::Unit);
+        let (name, rec, set) = ("_".to_string(), false, false);
+        Ok(Some(Piece::Let {
+            name,
+            rec,
+            set,
+            value,
+            span: e.span,
+        }))
+    }
 }

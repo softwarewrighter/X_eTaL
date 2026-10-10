@@ -1,6 +1,6 @@
 number = 91
 slug = "rebind-once"
-status = "pending"
+status = "in-progress"
 description = "Decided with the user (2026-10-08), lang-choices M1 (changed), M3, M4: (1) a ..."
 role = "production"
 context_files = []

@@ -3,13 +3,13 @@
 == SOURCE
 n := 4
 "n = 0" u_nless< "p_rint! 100 / n"
-n := 0
-"n = 0" u_nless< "p_rint! 100 / n"
+z := 0
+"z = 0" u_nless< "p_rint! 100 / z"
 == EXPAND
 n := 4
 { @ -> (n = 0) ? @; p_rint! 100 / n; @ } @
-n := 0
-{ @ -> (n = 0) ? @; p_rint! 100 / n; @ } @
+z := 0
+{ @ -> (z = 0) ? @; p_rint! 100 / z; @ } @
 == RESULT
 25.0
 @

@@ -22,12 +22,12 @@ hooray
 # The copies are ordinary statements, so they can rebind a variable:
 # five doublings, unrolled.
 ## The number the five unrolled statements double, from 1 to 32.
-x := 1
-## Five copies of x := x * 2, written by r:t_imes<.
-x := x * 2
-x := x * 2
-x := x * 2
-x := x * 2
-x := x * 2
-x
+x! := 1
+## Five copies of x! := x! * 2, written by r:t_imes<: x! changes, so it is a ! name.
+x! := x! * 2
+x! := x! * 2
+x! := x! * 2
+x! := x! * 2
+x! := x! * 2
+x!
 

@@ -1,0 +1,9 @@
+# A lambda's parameter or local named like an outer binding shadows it:
+# a nested scope is not the same scope (M1).
+== SOURCE
+x := 1
+u:f_ := { x -> y := x + 1; y }
+u:g_ := { z -> x := z * 10; x }
+(u:f_ 5) + (u:g_ 2) + x
+== RESULT
+27

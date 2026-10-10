@@ -8,5 +8,6 @@ mod lower;
 mod strand;
 mod train;
 
+pub use bind::interactive;
 pub use lower::lower;
 pub use xetal_ir::{Expr, Item, Kind, Param, Program};

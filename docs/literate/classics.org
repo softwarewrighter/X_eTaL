@@ -317,10 +317,10 @@ once from the bits of the move number):
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-watched ← ⎕S̲HOW ⎕G̲RID (4 r̲eshape 1) ᵘp̲lay 4 ᵘh̲anoi 1 3 2
+_ ← ⎕S̲HOW ⎕G̲RID (4 r̲eshape 1) ᵘp̲lay 4 ᵘh̲anoi 1 3 2
 #+end_example
 #+begin_src xetal :results file :file ../../images/literate-hanoi.svg
-watched := []S_HOW []G_RID (4 r_eshape 1) u:p_lay 4 u:h_anoi 1 3 2
+_ := []S_HOW []G_RID (4 r_eshape 1) u:p_lay 4 u:h_anoi 1 3 2
 #+end_src
 
 #+RESULTS:
@@ -336,22 +336,22 @@ reach, the transitive closure.
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-a ← 4 4 r̲eshape 0 1 0 0  0 0 1 0  0 0 0 1  0 0 0 0
+edges ← 4 4 r̲eshape 0 1 0 0  0 0 1 0  0 0 0 1  0 0 0 0
 ᵘc̲losure ← { r →
   next ← r ∨ r '∨ '∧ i̲nner r
   (next m̲atch r) ? r
   ᵘc̲losure next
 }
-ᵘc̲losure a
+ᵘc̲losure edges
 #+end_example
 #+begin_src xetal
-a := 4 4 r_eshape 0 1 0 0  0 0 1 0  0 0 0 1  0 0 0 0
+edges := 4 4 r_eshape 0 1 0 0  0 0 1 0  0 0 0 1  0 0 0 0
 u:c_losure := { r ->
   next := r | r '| '& i_nner r
   (next m_atch r) ? r
   u:c_losure next
 }
-u:c_losure a
+u:c_losure edges
 #+end_src
 
 #+RESULTS:
@@ -389,10 +389,10 @@ g := 8 8 r_eshape 0 1 0 0 0 0 0 0  0 0 1 0 0 0 0 0  1 0 0 1 0 0 0 0  0 0 0 0 1 0
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-watched ← ⎕S̲HOW ⎕G̲RID g ᵘw̲arshallSteps 1
+_ ← ⎕S̲HOW ⎕G̲RID g ᵘw̲arshallSteps 1
 #+end_example
 #+begin_src xetal :results file :file ../../images/literate-warshall.svg
-watched := []S_HOW []G_RID g u:w_arshallSteps 1
+_ := []S_HOW []G_RID g u:w_arshallSteps 1
 #+end_src
 
 #+RESULTS:
@@ -524,11 +524,11 @@ n
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
 tall ← (r̲ev r̲ange 'm̲ax r̲/ n) '≤ t̲able n
-shown ← ⎕S̲HOW ⎕G̲RID tall
+_ ← ⎕S̲HOW ⎕G̲RID tall
 #+end_example
 #+begin_src xetal :results file :file ../../images/literate-histogram.svg
 tall := (r_ev r_ange 'm_ax r_/ n) '<= t_able n
-shown := []S_HOW []G_RID tall
+_ := []S_HOW []G_RID tall
 #+end_src
 
 #+RESULTS:
@@ -740,13 +740,13 @@ k/24 of its points, so the picture draws itself.
   outer c̲at ((60 × s) ᵗt̲urn (n − 1) ᵘa̲rrow s) c̲at (60 × s) ᵗt̲urn outer
 }
 arrowhead ← ᵗp̲oints 5 ᵘa̲rrow 1
-n ← 1 s̲elect 1 d̲rop s̲hape arrowhead
-ᵘu̲pTo ← { k → ((f̲loor k × n ÷ 24) m̲in r̲ange n) s̲elect₂ arrowhead }
+size ← 1 s̲elect 1 d̲rop s̲hape arrowhead
+ᵘu̲pTo ← { k → ((f̲loor k × size ÷ 24) m̲in r̲ange size) s̲elect₂ arrowhead }
 ᵘd̲rawing ← { k →
   k = 1 ? (1 c̲at s̲hape ᵘu̲pTo 1) r̲eshape ᵘu̲pTo 1
   (ᵘd̲rawing k − 1) c̲at ᵘu̲pTo k
 }
-n
+size
 #+end_example
 #+begin_src xetal
 u:a_rrow := { n s ->
@@ -755,13 +755,13 @@ u:a_rrow := { n s ->
   outer c_at ((60 * s) t:t_urn (n - 1) u:a_rrow s) c_at (60 * s) t:t_urn outer
 }
 arrowhead := t:p_oints 5 u:a_rrow 1
-n := 1 s_elect 1 d_rop s_hape arrowhead
-u:u_pTo := { k -> ((f_loor k * n / 24) m_in r_ange n) s_elect_2 arrowhead }
+size := 1 s_elect 1 d_rop s_hape arrowhead
+u:u_pTo := { k -> ((f_loor k * size / 24) m_in r_ange size) s_elect_2 arrowhead }
 u:d_rawing := { k ->
   k = 1 ? (1 c_at s_hape u:u_pTo 1) r_eshape u:u_pTo 1
   (u:d_rawing k - 1) c_at u:u_pTo k
 }
-n
+size
 #+end_src
 
 #+RESULTS:

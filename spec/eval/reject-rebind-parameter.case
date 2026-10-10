@@ -1,0 +1,6 @@
+# A lambda's parameters are in its body's scope (M1): rebinding one is
+# an error; write the parameter s! to change it.
+== SOURCE
+u:f_ := { s -> s := s + 1; s }
+== ERROR
+error[rebind]: s is already bound in this scope: a name is bound once; write s! for a variable that changes at 15..25

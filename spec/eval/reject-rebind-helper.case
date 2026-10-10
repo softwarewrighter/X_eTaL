@@ -1,0 +1,7 @@
+# An h: variable is bound once too (M1).
+== SOURCE
+h:limit := 8
+h:limit := 9
+h:limit
+== ERROR
+error[rebind]: h:limit is already bound in this scope: a name is bound once; write h:limit! for a variable that changes at 13..25

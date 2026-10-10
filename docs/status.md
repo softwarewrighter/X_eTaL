@@ -19,17 +19,14 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 125 | 0 | 0 |
-| Language decisions | 151 | 0 | 6 |
+| Language decisions | 154 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 436 | 0 | 0 |
+| Spec cases | 446 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
 - **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
 - **S11** (planned): Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents.
-- **M1** (planned): Values are immutable.
-- **M3** (planned): Discard: `_ := expr` evaluates `expr` for its effect and binds nothing, so it prints nothing at the top (...).
-- **M4** (planned): In an interactive session (the REPL, the browser REPL, notebook and org-babel sessions), `[]E_X "a"` (...).
 - **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
 
 ## Built-in functions
@@ -38,9 +35,9 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 83 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 89 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 47 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 48 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
@@ -83,7 +80,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `p_rint!` | `Any a => a -> a` | works | 20 | 1 |
+| `p_rint!` | `Any a => a -> a` | works | 21 | 1 |
 | `r_oll!` | `Int -> Int` | works | 3 | 1 |
 | `i_d` | `Any a => a -> a` | works | 3 | 2 |
 | `l_eft` | `(Any a, Any b) => a -> b -> a` | works | 3 | 2 |
@@ -303,10 +300,10 @@ conventions (naming, layout) work without a spec case citing them.
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
 | T9 | An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...) | works | 4 |
 | T4 | Type annotations: none in v0 (types are inferred) | works | 1 |
-| M1 | Values are immutable | planned | 7 |
-| M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (...) | works | 2 |
-| M3 | Discard: `_ := expr` evaluates `expr` for its effect and binds nothing, so it prints nothing at the top (...) | planned | 0 |
-| M4 | In an interactive session (the REPL, the browser REPL, notebook and org-babel sessions), `[]E_X "a"` (...) | planned | 0 |
+| M1 | Values are immutable | works | 14 |
+| M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (...) | works | 3 |
+| M3 | Discard: `_ := expr` evaluates `expr` for its effect and binds nothing, so it prints nothing at the top (...) | works | 2 |
+| M4 | In an interactive session (the REPL, the browser REPL, notebook and org-babel sessions), `[]E_X "a"` (...) | works | 2 |
 | E1 | Evaluation is strict by default | works | 3 |
 | E2 | A function is evaluated before its argument, so the evaluator knows whether the parameter is lazy | works | 0 |
 | E4 | Evaluation order is the function first, then its arguments right to left (APL order): in `x f y`, `f`, (...) | works | 2 |
@@ -323,7 +320,7 @@ conventions (naming, layout) work without a spec case citing them.
 | TU1 | A tuple is written in parentheses with commas: `(w, m, v, k)` | works | 6 |
 | TU2 | A tuple's type is written and printed as the literal is: `(Float, Float, Float, Int)` | works | 3 |
 | TU3 | A tuple is taken apart by a pattern only: in a binding at the top level or in a lambda, `(w, m, v, k) := (...) | works | 9 |
-| TU4 | In a pattern, `_` binds nothing and may repeat: `(w, _, _, k) := s` | works | 3 |
+| TU4 | In a pattern, `_` binds nothing and may repeat: `(w, _, _, k) := s` | works | 4 |
 | TU5 | A tuple used where an array is expected, an array where a tuple is expected, or a pattern of the wrong (...) | works | 6 |
 | TU6 | A tuple prints on one line, `(1 2 3, 4.5, 7)`, when every part prints on one line; when a part prints on (...) | works | 5 |
 | TU7 | `m_atch` compares two tuples part by part and answers one truth | works | 6 |

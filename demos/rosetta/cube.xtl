@@ -61,6 +61,6 @@ u:s_cene := { shaded a ->
 u:f_rame := { shaded a -> []S_HOW shaded u:s_cene a; []D_L 0.04; @ }
 
 angles := 30.0 * f_loat o_ffsets 12
-shown := '{ a -> 0 u:f_rame a } e_ach angles
-shown := '{ a -> 1 u:f_rame a } e_ach angles
+_ := '{ a -> 0 u:f_rame a } e_ach angles
+_ := '{ a -> 1 u:f_rame a } e_ach angles
 "24 frames shown"
