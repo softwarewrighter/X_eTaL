@@ -1348,6 +1348,95 @@ n_eg^3 5                 # a superscript repeats a function: n_eg three times
 #+RESULTS:
 : -5
 
+* Tuples and patterns
+
+A tuple holds several values side by side, each of its own type and
+shape: here an Int vector, a Float and a text. It is not an array: it
+has no shape and no items, and its type is written as the literal is,
+~(Int, Float, Char)~.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(1 2 3, 4.5, "abc")      ⍝ a tuple: several values of their own types side by side
+#+end_example
+#+begin_src xetal
+(1 2 3, 4.5, "abc")      # a tuple: several values of their own types side by side
+#+end_src
+
+#+RESULTS:
+: (1 2 3, 4.5, abc)
+
+A pattern takes a tuple apart by name, in a lambda's parameters or in
+a binding; ~_~ ignores a part, and patterns nest.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+⍝# u:s_wapped p: the parts of a pair, swapped; a pattern takes them apart.
+ᵘs̲wapped ← { (a, b) → (b, a) }
+ᵘs̲wapped (1, "x")
+#+end_example
+#+begin_src xetal
+## u:s_wapped p: the parts of a pair, swapped; a pattern takes them apart.
+u:s_wapped := { (a, b) -> (b, a) }
+u:s_wapped (1, "x")
+#+end_src
+
+#+RESULTS:
+: (x, 1)
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(n, (x, _)) ← (3, (2.5, "unused"))   ⍝ a pattern binds names; _ ignores a part
+x × f̲loat n
+#+end_example
+#+begin_src xetal
+(n, (x, _)) := (3, (2.5, "unused"))   # a pattern binds names; _ ignores a part
+x * f_loat n
+#+end_src
+
+#+RESULTS:
+: 7.5
+
+A state of several arrays is one value, so ~p_ower~ repeats a step on
+it and the step takes it apart: the weights and a count of steps here.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+⍝# u:s_tep s: one step of a state of several arrays, for p_ower.
+ᵘs̲tep ← { (w, k) → (w × 0.5, k + 1) }
+3 'ᵘs̲tep p̲ower (8.0 4.0, 0)
+#+end_example
+#+begin_src xetal
+## u:s_tep s: one step of a state of several arrays, for p_ower.
+u:s_tep := { (w, k) -> (w * 0.5, k + 1) }
+3 'u:s_tep p_ower (8.0 4.0, 0)
+#+end_src
+
+#+RESULTS:
+: (1.0 0.5, 3)
+
+~m_atch~ compares two tuples part by part (~=~ and arithmetic do not
+reach into a tuple), and a vector of boxed tuples is the array of
+tuples, as ~m_ap~ makes it.
+
+# drawn by xetal render (scripts/literate-draw.py); edit the block below
+#+begin_example
+(1, 2.5) m̲atch (1, 2.5)  ⍝ m_atch compares tuples part by part
+'{ k → (k, f̲loat k) } m̲ap 1 2   ⍝ boxed tuples: an array of tuples
+#+end_example
+#+begin_src xetal
+(1, 2.5) m_atch (1, 2.5)  # m_atch compares tuples part by part
+'{ k -> (k, f_loat k) } m_ap 1 2   # boxed tuples: an array of tuples
+#+end_src
+
+#+RESULTS:
+: 1
+: ┌→──────────────────────┐
+: │ ┌────────┐ ┌────────┐ │
+: │ │(1, 1.0)│ │(2, 2.0)│ │
+: │ └∊───────┘ └∊───────┘ │
+: └∊──────────────────────┘
+
 * Life in one line
 
 Everything above comes together in Conway's Life: rotate the board by

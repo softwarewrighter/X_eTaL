@@ -377,6 +377,10 @@ Other fonts, checked against the font files:
   the Combinators birds that do the same (Bluebird and atop, Starling and
   hook, Phoenix and fork), checked to agree, and how to read a train's
   errors
+- [`docs/literate/tuples.org`](docs/literate/tuples.org) -- tuples and
+  patterns: a state of several arrays as one value, an optimizer's
+  state packed by position and then as a tuple taken apart by name,
+  and the Rosetta stone's state before and after
 - [`docs/literate/duck.org`](docs/literate/duck.org) -- swimming ducks by
   rotate, and joining frames along axis 2 two ways: a recursion, and
   `c_at_2`

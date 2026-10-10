@@ -6,7 +6,8 @@ asks of X_eTaL-ML (M13) and X_eTaL-demos (D7), as the first part of
 Saga 29 (algebraic data). The questions below were settled with the
 user at Saga 39's first step (2026-10-07): every one as recommended.
 The rules are TU1-TU12 in `lang-choices.md` section 9d, which governs
-where this note and they differ.
+where this note and they differ. Saga 39 is done (2026-10-10, D121 to
+D136); `docs/literate/tuples.org` walks through tuples and patterns.
 
 ## Where X_eTaL is
 
