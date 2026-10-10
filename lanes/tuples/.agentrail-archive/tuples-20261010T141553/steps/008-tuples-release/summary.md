@@ -1,0 +1,1 @@
+Tuples released: tour section and literate tuples.org (Adam state packed vs as a tuple, Rosetta state before/after), README and literate index, docs/plan.md Saga 29 replanned on tuple types, D136, CHANGES. Gate passes here except cli-too-deep (sandbox); pages, wasm build and vhs tour images left for a local just pages / build.
