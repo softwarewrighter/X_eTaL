@@ -257,14 +257,15 @@ turn.
 <h2 id="org4038ff1">4. The state machine</h2>
 <div class="outline-text-2" id="text-org4038ff1">
 <p>
-<code>Comparison</code> keeps the whole stone as one 5 x 5 matrix of numbers.
-The first three rows are the axes (the idiom roll, the top half, the
-bottom half): how many items the axis has, how many steps it has taken
-(an integer; the item facing is 1 + steps, wrapped, and this is the
-truth), its angle in degrees (the presentation, easing toward 90 times
-the steps), and whether it plays on its own. The fourth row is the
-pointer, the fifth the attract mode's clock. Nothing is ever inferred
-from an angle except what to draw.
+<code>Comparison</code> keeps the whole stone as one tuple of three parts, each
+typed: the axes, the pointer and the attract mode's clock. The axes
+(the idiom roll, the top half, the bottom half) are four vectors of
+three, one per field: how many items each axis has, how many steps it
+has taken (an integer; the item facing is 1 + steps, wrapped, and this
+is the truth), its angle in degrees (the presentation, easing toward
+90 times the steps), and whether it plays on its own. Patterns take
+the parts apart by name. Nothing is ever inferred from an angle except
+what to draw.
 </p>
 
 <div class="org-src-container">
@@ -279,11 +280,7 @@ s0
 </div>
 
 <pre class="example">
-31.0 0.0 0.0 1.0 0.0
- 7.0 0.0 0.0 1.0 0.0
- 7.0 0.0 0.0 1.0 0.0
- 0.0 0.0 0.0 0.0 0.0
-20.0 0.0 0.0 0.0 0.0
+((31 7 7, 0 0 0, 0.0 0.0 0.0, 1 1 1), (0, 0.0 0.0, 0.0, 0.0), (20.0, 0.0, 0, 0))
 </pre>
 
 
@@ -295,27 +292,27 @@ angle toward its target, landing exactly when near.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">chosen ← (ᶜᵐTOP <span class="c-builtin">c̲at</span> <span class="c-number">7.0</span>) <span class="c-libfunc">ᶜᵐc̲hoose</span> s0
+<pre class="src src-xetal">chosen ← (ᶜᵐTOP, <span class="c-number">7</span>) <span class="c-libfunc">ᶜᵐc̲hoose</span> s0
 ᶜᵐTOP <span class="c-libfunc">ᶜᵐc̲urrent</span> chosen
-(ᶜᵐTOP <span class="c-builtin">c̲at</span> ᶜᵐSTEPS) <span class="c-libfunc">ᶜᵐa̲t</span> chosen
-(ᶜᵐTOP <span class="c-builtin">c̲at</span> ᶜᵐANGLE) <span class="c-libfunc">ᶜᵐa̲t</span> chosen
-(ᶜᵐTOP <span class="c-builtin">c̲at</span> ᶜᵐANGLE) <span class="c-libfunc">ᶜᵐa̲t</span> <span class="c-number">0.1</span> <span class="c-libfunc">ᶜᵐt̲ick</span> chosen
-(ᶜᵐTOP <span class="c-builtin">c̲at</span> ᶜᵐANGLE) <span class="c-libfunc">ᶜᵐa̲t</span> <span class="c-number">0.1</span> <span class="c-libfunc">ᶜᵐt̲ick</span> <span class="c-number">0.1</span> <span class="c-libfunc">ᶜᵐt̲ick</span> chosen
-(ᶜᵐTOP <span class="c-builtin">c̲at</span> ᶜᵐANGLE) <span class="c-libfunc">ᶜᵐa̲t</span> <span class="c-libfunc">ᶜᵐs̲ettle</span> chosen
+ᶜᵐTOP <span class="c-libfunc">ᶜᵐs̲teps</span> chosen
+ᶜᵐTOP <span class="c-libfunc">ᶜᵐa̲ngle</span> chosen
+ᶜᵐTOP <span class="c-libfunc">ᶜᵐa̲ngle</span> <span class="c-number">0.1</span> <span class="c-libfunc">ᶜᵐt̲ick</span> chosen
+ᶜᵐTOP <span class="c-libfunc">ᶜᵐa̲ngle</span> <span class="c-number">0.1</span> <span class="c-libfunc">ᶜᵐt̲ick</span> <span class="c-number">0.1</span> <span class="c-libfunc">ᶜᵐt̲ick</span> chosen
+ᶜᵐTOP <span class="c-libfunc">ᶜᵐa̲ngle</span> <span class="c-libfunc">ᶜᵐs̲ettle</span> chosen
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   chosen := (cm:TOP c_at 7.0) cm:c_hoose s0</span>
+<span class="c-comment typed">⍝   chosen := (cm:TOP, 7) cm:c_hoose s0</span>
 <span class="c-comment typed">⍝   cm:TOP cm:c_urrent chosen</span>
-<span class="c-comment typed">⍝   (cm:TOP c_at cm:STEPS) cm:a_t chosen</span>
-<span class="c-comment typed">⍝   (cm:TOP c_at cm:ANGLE) cm:a_t chosen</span>
-<span class="c-comment typed">⍝   (cm:TOP c_at cm:ANGLE) cm:a_t 0.1 cm:t_ick chosen</span>
-<span class="c-comment typed">⍝   (cm:TOP c_at cm:ANGLE) cm:a_t 0.1 cm:t_ick 0.1 cm:t_ick chosen</span>
-<span class="c-comment typed">⍝   (cm:TOP c_at cm:ANGLE) cm:a_t cm:s_ettle chosen</span></pre>
+<span class="c-comment typed">⍝   cm:TOP cm:s_teps chosen</span>
+<span class="c-comment typed">⍝   cm:TOP cm:a_ngle chosen</span>
+<span class="c-comment typed">⍝   cm:TOP cm:a_ngle 0.1 cm:t_ick chosen</span>
+<span class="c-comment typed">⍝   cm:TOP cm:a_ngle 0.1 cm:t_ick 0.1 cm:t_ick chosen</span>
+<span class="c-comment typed">⍝   cm:TOP cm:a_ngle cm:s_ettle chosen</span></pre>
 </div>
 
 <pre class="example">
 7
--1.0
+-1
 0.0
 -18.0
 -32.4
@@ -338,14 +335,14 @@ offers it disabled).
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xetal">stepped ← (ᶜᵐBOTTOM <span class="c-builtin">c̲at</span> <span class="c-number">1.0</span>) <span class="c-libfunc">ᶜᵐs̲tep</span> (ᶜᵐTOP <span class="c-builtin">c̲at</span> <span class="c-number">2.0</span>) <span class="c-libfunc">ᶜᵐc̲hoose</span> s0
+<pre class="src src-xetal">stepped ← (ᶜᵐBOTTOM, <span class="c-number">1</span>) <span class="c-libfunc">ᶜᵐs̲tep</span> (ᶜᵐTOP, <span class="c-number">2</span>) <span class="c-libfunc">ᶜᵐc̲hoose</span> s0
 ᶜᵐBOTTOM <span class="c-libfunc">ᶜᵐc̲urrent</span> stepped
-ᶜᵐBOTTOM <span class="c-libfunc">ᶜᵐc̲urrent</span> (ᶜᵐBOTTOM <span class="c-builtin">c̲at</span> <span class="c-number">2.0</span>) <span class="c-libfunc">ᶜᵐc̲hoose</span> stepped
+ᶜᵐBOTTOM <span class="c-libfunc">ᶜᵐc̲urrent</span> (ᶜᵐBOTTOM, <span class="c-number">2</span>) <span class="c-libfunc">ᶜᵐc̲hoose</span> stepped
 
 <span class="c-comment typed">⍝ typed:</span>
-<span class="c-comment typed">⍝   stepped := (cm:BOTTOM c_at 1.0) cm:s_tep (cm:TOP c_at 2.0) cm:c_hoose s0</span>
+<span class="c-comment typed">⍝   stepped := (cm:BOTTOM, 1) cm:s_tep (cm:TOP, 2) cm:c_hoose s0</span>
 <span class="c-comment typed">⍝   cm:BOTTOM cm:c_urrent stepped</span>
-<span class="c-comment typed">⍝   cm:BOTTOM cm:c_urrent (cm:BOTTOM c_at 2.0) cm:c_hoose stepped</span></pre>
+<span class="c-comment typed">⍝   cm:BOTTOM cm:c_urrent (cm:BOTTOM, 2) cm:c_hoose stepped</span></pre>
 </div>
 
 <pre class="example">

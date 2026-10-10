@@ -244,23 +244,27 @@ program is expanded, a loop unrolled at compile time. Import it with
 an alias of your choice, &quot;r:&quot; u_se&lt; &quot;Repeat&quot;, and see what a program
 becomes with xetal expand FILE.</li>
 <li>library <a href="demos-rosetta-Comparison.xtl.html">demos/rosetta/Comparison.xtl</a>: Comparison: the Rosetta stone's state machine (docs/rosetta.md), a
-library beside the demo (&quot;cm:&quot; u_se&lt; &quot;Comparison&quot;). The state is one
-4 x 5 matrix of numbers. The first three rows are the axes (the
-idiom drum, the top ring, the bottom ring), four columns each: how
-many items the axis has, how many steps it has taken (an integer; the
-item facing is 1 + steps, wrapped, and this is the truth), its angle
-in degrees (90 per step; the presentation, easing toward 90 * steps)
-and whether it plays on its own. The fourth row is the pointer: the
-axis being dragged (0 none, 0.5 pressed and not yet moved, else the
-axis), where it last was (x, y), how far it has moved in all, and the
-last turn it gave in degrees (for a flick). The fifth row is the
-attract mode's clock: seconds since the last interaction, seconds
-since its last step, and its two counters (how far the bottom ring
-is through its sweep of the other languages, how far the drum is
-through its sweep of the idioms). Nothing
-is ever inferred from an angle except what to draw. Every function
-gives a new state; none has an effect. Events (RS1) come in as
-[]E_VENT gives them; cm:u_pdate takes one.</li>
+library beside the demo (&quot;cm:&quot; u_se&lt; &quot;Comparison&quot;). The state is a
+tuple of three tuples, (axes, pointer, clock), each part typed:
+- the axes (the idiom drum, the top ring, the bottom ring), a vector
+  of three per field: (counts, steps, angles, playing). counts: how
+  many items the axis has (Int); steps: how many steps it has taken
+  (Int; the item facing is 1 + steps, wrapped, and this is the
+  truth); angles: degrees (Float, 90 per step; the presentation,
+  easing toward 90 * steps); playing: whether it plays on its own
+  (1 or 0);
+- the pointer, (dragging, at, moved, last): the axis being dragged
+  (0 none, -1 pressed and not yet moved, else the axis), where it
+  last was (x y), how far it has moved in all, and the last turn it
+  gave in degrees (for a flick);
+- the attract mode's clock, (idle, since, bottoms, idioms): seconds
+  since the last interaction, seconds since its last step, and its
+  two counters (how far the bottom ring is through its sweep of the
+  other languages, how far the drum is through its sweep of the
+  idioms).
+Nothing is ever inferred from an angle except what to draw. Every
+function gives a new state; none has an effect. Events (RS1) come in
+as []E_VENT gives them; cm:u_pdate takes one.</li>
 <li>program <a href="demos-rosetta-cube.xtl.html">demos/rosetta/cube.xtl</a></li>
 <li>program <a href="demos-rosetta-rosetta.xtl.html">demos/rosetta/rosetta.xtl</a></li>
 <li>library <a href="demos-rosetta-Stone.xtl.html">demos/rosetta/Stone.xtl</a>: Stone: the Rosetta stone's geometry and faces (docs/rosetta.md), a
@@ -430,7 +434,7 @@ Points are Geometry3D's (3 rows), pictures Svg's.</li>
 <tr><td><a href="lib-Combinators.xtlm.html#h.w_ords"><span class="c-libfunc">ʰw̲ords</span></a></td><td>function</td><td><code>Char -&gt; Box Char</code></td></tr>
 <tr><td><a href="lib-Combinators.xtlm.html#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Combinators.xtlm.html#h.s_trip"><span class="c-libfunc">ʰs̲trip</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
-<tr><td><a href="lib-Combinators.xtlm.html#h.s_tarts"><span class="c-libfunc">ʰs̲tarts</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Char -&gt; Char -&gt; a</code></td></tr>
+<tr><td><a href="lib-Combinators.xtlm.html#h.s_tarts"><span class="c-libfunc">ʰs̲tarts</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Int</code></td></tr>
 <tr><td><a href="lib-Combinators.xtlm.html#nameChars">nameChars</a></td><td>value</td><td><code>Char</code></td></tr>
 <tr><td><a href="lib-Combinators.xtlm.html#h.w_ord"><span class="c-libfunc">ʰw̲ord</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Macros.xtlm.html#m.w_hen-3c"><span class="c-macro">ᵐw̲hen&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
@@ -560,52 +564,44 @@ Points are Geometry3D's (3 rows), pictures Svg's.</li>
 <tr><td><a href="userlibs-Repeat.xtlm.html#h.c_opies"><span class="c-libfunc">ʰc̲opies</span></a></td><td>function</td><td><code>Int -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="demos-rosetta-Comparison.xtl.html#l.dwell">ˡdwell</a></td><td>value</td><td><code>Float</code></td></tr>
 <tr><td><a href="demos-rosetta-Comparison.xtl.html#l.idleBefore">ˡidleBefore</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.s_tart"><span class="c-libfunc">ˡs̲tart</span></a></td><td>function</td><td><code>(Num a, Num b) =&gt; a -&gt; b -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.POINTER">ˡPOINTER</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.ATTRACT">ˡATTRACT</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.IDLE">ˡIDLE</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.SINCE">ˡSINCE</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.BOTTOMS">ˡBOTTOMS</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.IDIOMS">ˡIDIOMS</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.COUNT">ˡCOUNT</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.STEPS">ˡSTEPS</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.ANGLE">ˡANGLE</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.PLAYING">ˡPLAYING</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.DRAGGING">ˡDRAGGING</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.X">ˡX</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.Y">ˡY</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.MOVED">ˡMOVED</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.LAST">ˡLAST</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.s_tart"><span class="c-libfunc">ˡs̲tart</span></a></td><td>function</td><td><code>(Num b, Num c, Num d, Num e, Num f) =&gt; a -&gt; a -&gt; ((a, b, Float, c), (d, Float, Float, Float), (Float, Float, e, f))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a></td><td>value</td><td><code>Int</code></td></tr>
 <tr><td><a href="demos-rosetta-Comparison.xtl.html#l.middle">ˡmiddle</a></td><td>value</td><td><code>Float</code></td></tr>
 <tr><td><a href="demos-rosetta-Comparison.xtl.html#l.perPixel">ˡperPixel</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.a_t"><span class="c-libfunc">ˡa̲t</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; b -&gt; b</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.p_ut"><span class="c-libfunc">ˡp̲ut</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#rows">rows</a></td><td>value</td><td><code>Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#cols">cols</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_ount"><span class="c-libfunc">ˡc̲ount</span></a></td><td>function</td><td><code>(Any b, Any c, Any d, Any e, Any f) =&gt; Int -&gt; ((a, b, c, d), e, f) -&gt; a</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.s_teps"><span class="c-libfunc">ˡs̲teps</span></a></td><td>function</td><td><code>(Any a, Any c, Any d, Any e, Any f) =&gt; Int -&gt; ((a, b, c, d), e, f) -&gt; b</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.a_ngle"><span class="c-libfunc">ˡa̲ngle</span></a></td><td>function</td><td><code>(Any a, Any b, Any d, Any e, Any f) =&gt; Int -&gt; ((a, b, c, d), e, f) -&gt; c</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.p_laying"><span class="c-libfunc">ˡp̲laying</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any e, Any f) =&gt; Int -&gt; ((a, b, c, d), e, f) -&gt; d</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.p_ointer"><span class="c-libfunc">ˡp̲ointer</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a, b, c) -&gt; b</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_lock"><span class="c-libfunc">ˡc̲lock</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a, b, c) -&gt; c</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#h.s_et"><span class="c-libfunc">ʰs̲et</span></a></td><td>function</td><td><code>(Int, a) -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#h.s_tepsTo"><span class="c-libfunc">ʰs̲tepsTo</span></a></td><td>function</td><td><code>(Any b, Any c, Any d, Any e, Any f) =&gt; (Int, a) -&gt; ((b, a, c, d), e, f) -&gt; ((b, a, c, d), e, f)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#h.a_ngleTo"><span class="c-libfunc">ʰa̲ngleTo</span></a></td><td>function</td><td><code>(Any b, Any c, Any d, Any e, Any f) =&gt; (Int, a) -&gt; ((b, c, a, d), e, f) -&gt; ((b, c, a, d), e, f)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#h.p_layingTo"><span class="c-libfunc">ʰp̲layingTo</span></a></td><td>function</td><td><code>(Any b, Any c, Any d, Any e, Any f) =&gt; (Int, a) -&gt; ((b, c, d, a), e, f) -&gt; ((b, c, d, a), e, f)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#h.i_dleTo"><span class="c-libfunc">ʰi̲dleTo</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e, Any f, Any g) =&gt; a -&gt; (b, c, (d, e, f, g)) -&gt; (b, c, (a, e, f, g))</code></td></tr>
 <tr><td><a href="demos-rosetta-Comparison.xtl.html#l.w_rap"><span class="c-libfunc">ˡw̲rap</span></a></td><td>function</td><td><code>Int -&gt; Int -&gt; Int</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_urrent"><span class="c-libfunc">ˡc̲urrent</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Int</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.e_ase"><span class="c-libfunc">ˡe̲ase</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.s_ettle"><span class="c-libfunc">ˡs̲ettle</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.p_lay"><span class="c-libfunc">ˡp̲lay</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.t_ouched"><span class="c-libfunc">ˡt̲ouched</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.r_esume"><span class="c-libfunc">ˡr̲esume</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour"><span class="c-libfunc">ˡt̲oggleTour</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a></td><td>function</td><td><code>Float -&gt; Char</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.t_oggle"><span class="c-libfunc">ˡt̲oggle</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a></td><td>function</td><td><code>Float -&gt; Event -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.h_alf"><span class="c-libfunc">ˡh̲alf</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.d_own"><span class="c-libfunc">ˡd̲own</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.u_p"><span class="c-libfunc">ˡu̲p</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_lick"><span class="c-libfunc">ˡc̲lick</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></td><td>function</td><td><code>Key -&gt; Float -&gt; Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_urrent"><span class="c-libfunc">ˡc̲urrent</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; Int -&gt; ((Int, Int, a, b), c, d) -&gt; Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (Int, Int) -&gt; ((Int, Int, a, b), c, d) -&gt; ((Int, Int, a, b), c, d)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a></td><td>function</td><td><code>(Any a, Num b, Any c, Any d) =&gt; (Int, Int) -&gt; ((Int, Int, a, b), c, d) -&gt; ((Int, Int, a, b), c, d)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.e_ase"><span class="c-libfunc">ˡe̲ase</span></a></td><td>function</td><td><code>(Any a, Num b, Any c, Any d, Any e) =&gt; (Int, Float) -&gt; ((a, b, Float, c), d, e) -&gt; ((a, b, Float, c), d, e)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.s_ettle"><span class="c-libfunc">ˡs̲ettle</span></a></td><td>function</td><td><code>(Any a, Num b, Any c, Any d, Any e) =&gt; ((a, b, Float, c), d, e) -&gt; ((a, b, Float, c), d, e)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a></td><td>function</td><td><code>(Num a, Any b) =&gt; Float -&gt; ((Int, Int, Float, a), b, (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), b, (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a></td><td>function</td><td><code>(Num a, Any b) =&gt; ((Int, Int, Float, a), b, (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), b, (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.p_lay"><span class="c-libfunc">ˡp̲lay</span></a></td><td>function</td><td><code>(Num a, Any b) =&gt; Int -&gt; ((Int, Int, Float, a), b, (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), b, (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.t_ouched"><span class="c-libfunc">ˡt̲ouched</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e, Any f) =&gt; (a, b, (c, d, e, f)) -&gt; (a, b, (Float, Float, e, f))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.r_esume"><span class="c-libfunc">ˡr̲esume</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e, Any f, Num g) =&gt; ((a, b, c, d), e, f) -&gt; ((a, b, c, g), e, f)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour"><span class="c-libfunc">ˡt̲oggleTour</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Num d, Any e, Any f, Num g) =&gt; ((a, b, c, d), e, f) -&gt; ((a, b, c, g), e, f)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Num d, Truthy d, Any e, Any f, Any g, Any h) =&gt; ((a, b, c, d), e, (Float, f, g, h)) -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.t_oggle"><span class="c-libfunc">ˡt̲oggle</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Num d, Any e, Any f) =&gt; Int -&gt; ((a, b, c, d), e, f) -&gt; ((a, b, c, d), e, f)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a></td><td>function</td><td><code>Num a =&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; Event -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.h_alf"><span class="c-libfunc">ˡh̲alf</span></a></td><td>function</td><td><code>Float -&gt; Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.d_own"><span class="c-libfunc">ˡd̲own</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.u_p"><span class="c-libfunc">ˡu̲p</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_lick"><span class="c-libfunc">ˡc̲lick</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></td><td>function</td><td><code>Num a =&gt; Key -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
 <tr><td><a href="demos-rosetta-cube.xtl.html#size">size</a></td><td>value</td><td><code>Float</code></td></tr>
 <tr><td><a href="demos-rosetta-cube.xtl.html#eye">eye</a></td><td>value</td><td><code>Float</code></td></tr>
 <tr><td><a href="demos-rosetta-cube.xtl.html#zoom">zoom</a></td><td>value</td><td><code>Float</code></td></tr>
@@ -644,12 +640,12 @@ Points are Geometry3D's (3 rows), pictures Svg's.</li>
 <tr><td><a href="demos-rosetta-rosetta.xtl.html#u.w_rap"><span class="c-userfunc">ᵘw̲rap</span></a></td><td>function</td><td><code>Int -&gt; Char -&gt; Box Char</code></td></tr>
 <tr><td><a href="demos-rosetta-rosetta.xtl.html#u.o_neLine"><span class="c-userfunc">ᵘo̲neLine</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
 <tr><td><a href="demos-rosetta-rosetta.xtl.html#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a></td><td>function</td><td><code>Int -&gt; Int -&gt; Box Char</code></td></tr>
-<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.i_tem"><span class="c-userfunc">ᵘi̲tem</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Int</code></td></tr>
-<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></td><td>function</td><td><code>Float -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.i_tem"><span class="c-userfunc">ᵘi̲tem</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (Int, Int) -&gt; ((Int, a, Float, b), c, d) -&gt; Int</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; ((Int, a, Float, b), c, d) -&gt; Char</code></td></tr>
 <tr><td><a href="demos-rosetta-rosetta.xtl.html#u.j_oin"><span class="c-userfunc">ᵘj̲oin</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
-<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.w_here"><span class="c-userfunc">ᵘw̲here</span></a></td><td>function</td><td><code>Float -&gt; Char</code></td></tr>
-<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.l_oop"><span class="c-userfunc">ᵘl̲oop</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
-<tr><td><a href="demos-rosetta-rosetta.xtl.html#start">start</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.w_here"><span class="c-userfunc">ᵘw̲here</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; ((Int, a, Float, b), c, d) -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.l_oop"><span class="c-userfunc">ᵘl̲oop</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#start">start</a></td><td>value</td><td><code>((Int, Int, Float, Int), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
 <tr><td><a href="demos-rosetta-rosetta.xtl.html#shown">shown</a></td><td>value</td><td><code>Char</code></td></tr>
 <tr><td><a href="demos-rosetta-rosetta.xtl.html#mode">mode</a></td><td>value</td><td><code>Char</code></td></tr>
 <tr><td><a href="demos-rosetta-Stone.xtl.html#l.width">ˡwidth</a></td><td>value</td><td><code>Float</code></td></tr>
