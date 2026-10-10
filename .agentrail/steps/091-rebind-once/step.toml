@@ -1,8 +1,9 @@
 number = 91
 slug = "rebind-once"
-status = "in-progress"
+status = "completed"
 description = "Decided with the user (2026-10-08), lang-choices M1 (changed), M3, M4: (1) a ..."
 role = "production"
 context_files = []
 created_at = "2026-10-08T15:56:03"
-commits = []
+completed_at = "2026-10-09T17:49:32"
+commits = ["1a77fe68488980fec55904b918f0274f52af0db8"]
