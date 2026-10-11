@@ -6,7 +6,7 @@
 use xetal_base::Diagnostic;
 use xetal_ir::{Expr, Item, Kind, Param, Program};
 
-use crate::walk::{binders, children};
+use crate::walk::binders;
 
 /// The unused-binding findings of every lambda and local in `program`.
 pub(crate) fn unused(program: &Program) -> Vec<Diagnostic> {
@@ -60,6 +60,6 @@ fn uses(e: &Expr, name: &str) -> bool {
             value,
             ..
         } if n == name => !rec && uses(value, name),
-        _ => children(e).into_iter().any(|c| uses(c, name)),
+        _ => e.children().into_iter().any(|c| uses(c, name)),
     }
 }

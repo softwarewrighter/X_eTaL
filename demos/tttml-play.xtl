@@ -21,33 +21,33 @@ t_ally 1 s_elect m
 
 ### The game
 
-## u:a_sk s: your move on board s, read from the keyboard: the square
+## u:a_sk! s: your move on board s, read from the keyboard: the square
 ## typed, 1 to 9; anything but an empty square asks again.
-u:a_sk := { s ->
+u:a_sk! := { s ->
   _ := p_rint! "your move (1 to 9):"
   t := []R_EAD @
   k := "123456789" i_ndexOf f_irst t c_at " "
-  (k <= 9) & 0 = k s_elect s c_at 1 ? k; u:a_sk s
+  (k <= 9) & 0 = k s_elect s c_at 1 ? k; u:a_sk! s
 }
 
-## u:y_ou s: you move on board s, then it replies, until the game is
+## u:y_ou! s: you move on board s, then it replies, until the game is
 ## over; the final board. Each board is printed as it is played.
-u:y_ou := { s ->
-  played := s t:a_fter u:a_sk s
+u:y_ou! := { s ->
+  played := s t:a_fter u:a_sk! s
   _ := p_rint! t:s_how played
   _ := p_rint! ""
-  0 = t:o_utcome played ? u:m_e played; played
+  0 = t:o_utcome played ? u:m_e! played; played
 }
-## u:m_e s: the machine moves on board s (its best move from model
+## u:m_e! s: the machine moves on board s (its best move from model
 ## m), then you, until the game is over; the final board.
-u:m_e := { s ->
+u:m_e! := { s ->
   played := s t:a_fter m t:c_hoose s
   _ := p_rint! t:s_how played
   _ := p_rint! ""
-  0 = t:o_utcome played ? u:y_ou played; played
+  0 = t:o_utcome played ? u:y_ou! played; played
 }
 ## u:v_erdict w: an outcome said from your side: 1 "you win", -1 "it
 ## wins", anything else "a draw".
 u:v_erdict := { w -> w = 1 ? "you win"; w = -1 ? "it wins"; "a draw" }
 
-u:v_erdict t:o_utcome u:y_ou 9 r_eshape 0
+u:v_erdict t:o_utcome u:y_ou! 9 r_eshape 0

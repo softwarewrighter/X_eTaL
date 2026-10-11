@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint reg/fixtures/lint/bang.xtl"
+exit_code = 0
+desc = "missing-bang: a function calling p_rint! or a user's ! function without ! in its name warns; one calling a ! function it was passed does not; needless-bang is off by default"

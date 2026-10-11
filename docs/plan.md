@@ -1154,8 +1154,8 @@ style guide's names (lang-choices section 16).
    demos/ (`_ :=` for effect-only locals, allow comments for
    deliberate parameters), then a gate check that `xetal lint` is
    clean over lib/ and demos/.
-4. lint-effects: `missing-bang` (a function calling a `!` function
-   without `!` itself) and its converse.
+4. lint-effects [DONE] (D142): `missing-bang` (direct calls only) and
+   its converse `needless-bang` (pedantic); demos renamed to match.
 5. lint-redundant: `redundant-lambda` (`{ x -> f_ x }` is `'f_`,
    `{ x -> x }` is `I_`), group complexity.
 6. lint-typed: lints after type checking (`?` must return Bool).

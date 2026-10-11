@@ -14,14 +14,14 @@
 ## when it is alive and S is 4.
 u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }
 
-## n 'f_ u:s_teps x: applies f to x n times and gives the last result,
+## n 'f_ u:s_teps! x: applies f to x n times and gives the last result,
 ## printing x and then a blank line at every generation on the way, the
 ## first and the last included.
-u:s_teps := { f_ n x ->
+u:s_teps! := { f_ n x ->
   _ := p_rint! x
   _ := p_rint! ""
   n = 0 ? x
-  (n - 1) 'f_ u:s_teps f_ x
+  (n - 1) 'f_ u:s_teps! f_ x
 }
 
 ### A blinker
@@ -41,4 +41,4 @@ u:l_ife^2 blinker
 glider := 6 6 r_eshape 0 1 0 0 0 0 0 0 1 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 ## last: the glider after 4 generations, each printed on the way.
-last := 4 'u:l_ife u:s_teps glider
+last := 4 'u:l_ife u:s_teps! glider

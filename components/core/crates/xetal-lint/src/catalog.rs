@@ -47,6 +47,31 @@ parameter a caller requires (an operand ignoring an argument) is silenced with a
 `# lint: allow unused-binding` comment.",
     },
     Lint {
+        name: "missing-bang",
+        group: Group::Style,
+        level: Level::Warn,
+        summary: "a function that calls an effect but has no `!` in its name",
+        explain: "What it does: warns on a top-level function that calls a `!` built-in \
+(`p_rint!`, `r_oll!`) or a `!` function of the program or a library, anywhere in \
+its body, but whose own name has no `!`.\n\nWhy: lang-choices section 16 ends the \
+name of a function with a side effect with `!`, so a reader sees where output, \
+time and randomness come from; an unmarked caller hides it.\n\nExample:\n    \
+u:s_ay := { v -> p_rint! v }\nInstead:\n    u:s_ay! := { v -> p_rint! v }\n\n\
+Not counted: a `!` function passed in as a parameter (the caller's effect), and \
+the system functions (`[]S_HOW`), which are named without `!` (QD3).",
+    },
+    Lint {
+        name: "needless-bang",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a `!` function that calls no effect",
+        explain: "What it does: warns on a top-level function named with `!` whose body \
+could not have an effect: no `!` function, `!` parameter or variable, mutation or \
+system function.\n\nWhy: `!` tells a reader to look for an effect; a pure function \
+named with one misleads.\n\nExample:\n    u:d_ouble! := { _r * 2 }\nInstead:\n    \
+u:d_ouble := { _r * 2 }\n\nOff by default: `xetal lint -W pedantic` turns it on.",
+    },
+    Lint {
         name: "function-name-case",
         group: Group::Pedantic,
         level: Level::Allow,

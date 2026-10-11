@@ -478,7 +478,11 @@ by default only the one that misleads a reader, a mutable variable
 named like a constant (`Count!`, lint `mutable-constant`); the case of
 function and variable names is checked only on request
 (`xetal lint -W pedantic`: `function-name-case`, `upper-case-name`).
-Relaxed with the user, 2026-10-10.
+Relaxed with the user, 2026-10-10. The `!` suffix is checked: a
+function that calls an effect (a `!` built-in or `!` function) itself
+is named with `!` (`missing-bang`, on by default; a `!` function it is
+passed is its caller's effect, decided with the user 2026-10-11), and
+a `!` function that could have none is `needless-bang` (pedantic).
 
 Only camelCase can express multi-word names: snake_case is impossible
 (variables have no `_`, a function name has exactly one) and

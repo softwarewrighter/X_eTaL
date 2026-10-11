@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-11
 
+- 01:30 `feat` The effect lints (Saga 40 step 4, D142): `missing-bang` warns on a function that calls `p_rint!`, `r_oll!` or another `!` function itself without `!` in its own name (one it is passed does not count); `needless-bang` (pedantic) on a `!` function that could have no effect. New crate xetal-bang; `Expr::children` in xetal-ir. Demo functions renamed to match (`u:a_sk!`, `u:s_teps!`, `u:l_oop!`, `u:f_rames!`, ...). Goldens lint-bang, lint-bang-pedantic.
 - 00:30 `refactor` The repository lints clean (Saga 40 step 3a, D141): effect-only locals in five demos are `_ := p_rint! ...`; the parameters ignored on purpose (`K_`, Maybe's `n_othing` and `j_ust`, the tour's `k_eep`, two TTTML lambdas) say so with `# lint: allow unused-binding`; a test lints every library and demo and fails on a new finding. Golden run-echo-tour rebased (it shows the new comment).
 
 ## 2026-10-10

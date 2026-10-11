@@ -71,3 +71,15 @@ not caused by this lane: `xetal doc --json demos/tour.xtl` gives
 and `(Num a, Truthy a) => Char -> Char -> a` in the others (same binary,
 same file): nondeterminism in typing a library item for the doc model,
 probably iteration over a hash map. Worth a ticket.
+
+## Step 4 (lint-effects, D142)
+
+New crate components/core/crates/xetal-bang; every component lock that
+pins xetal-lint gained it (check-locks --fix). `Expr::children` moved
+into xetal-ir (additive). Six demos renamed functions to end in `!`
+(mastermind-play, mini-apl, life, rosetta/rosetta.xtl, rotate,
+tttml-play): run goldens unchanged, but the live demo, the Rosetta
+page and the literate pages show these sources, so `just pages --all`.
+The sandbox built every component (scripts/build-all.sh) and ran fmt,
+clippy and tests in core, lint, cli, web and macro, and every golden.
+Not run: wasm32, reg-rs, sw-checklist, agentrail (steps 1 to 4).

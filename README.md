@@ -438,7 +438,8 @@ Other fonts, checked against the font files:
 `warn` or `deny`; a denied finding makes the command fail. On by
 default: a shadowed built-in, a parameter or local nothing uses (write
 `_ := expr` to keep a value for its effect), a mutable variable named
-like a constant; the case of names is checked with `-W pedantic`.
+like a constant, a function that calls an effect (`p_rint!`) without a
+`!` in its own name; the case of names is checked with `-W pedantic`.
 
 - `xetal lint FILE` prints each finding on stderr with its place,
   `warning[mutable-constant]: ... at FILE:4:11`.
