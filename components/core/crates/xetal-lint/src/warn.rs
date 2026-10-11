@@ -16,6 +16,7 @@ pub fn lints(program: &Program) -> Vec<Diagnostic> {
     out.extend(naming(program));
     out.extend(unused(program));
     out.extend(xetal_bang::bangs(program));
+    out.extend(xetal_complexity::redundant(program));
     out
 }
 

@@ -1165,8 +1165,9 @@ style guide's names (lang-choices section 16).
    clean over lib/ and demos/.
 4. lint-effects [DONE] (D142): `missing-bang` (direct calls only) and
    its converse `needless-bang` (pedantic); demos renamed to match.
-5. lint-redundant: `redundant-lambda` (`{ x -> f_ x }` is `'f_`,
-   `{ x -> x }` is `I_`), group complexity.
+5. lint-redundant [DONE] (D143): `redundant-lambda` (`{ x -> f_ x }`
+   is `'f_`, `{ x -> x }` is `'i_d`), group complexity, in a new crate
+   xetal-complexity.
 6. lint-typed: lints after type checking (`?` must return Bool).
 7. lint-fix: machine-applicable suggestions, `xetal lint --fix`, and
    `--format json` for the Emacs mode and the live demo's editor.

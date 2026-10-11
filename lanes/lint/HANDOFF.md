@@ -83,3 +83,19 @@ page and the literate pages show these sources, so `just pages --all`.
 The sandbox built every component (scripts/build-all.sh) and ran fmt,
 clippy and tests in core, lint, cli, web and macro, and every golden.
 Not run: wasm32, reg-rs, sw-checklist, agentrail (steps 1 to 4).
+
+## Step 5 (lint-redundant, D143)
+
+Branch `claude/project-thread-v9efz0`, from main at 8002548. New crate
+components/core/crates/xetal-complexity; every component lock that pins
+xetal-lint gained it (check-locks --fix, additions only). The sandbox
+ran fmt, clippy and tests in core, lint, cli, web and macro, the wasm32
+checks of web and rosetta (the gate's browser build: clean, which also
+covers the wasm32 build steps 2 to 4 could not run), every golden by a
+stand-in runner (all pass but the eight that fail on main too:
+cli-too-deep, roll-dice, roll-range, just-*), the doc tests of lib/,
+reference, status, idioms, rosetta-check and the spelling check.
+lib/Maybe.xtl, demos/tour.xtl and demos/classics/wordfreq.xtl changed,
+so `just pages --all` (literate, doc and latex parts too). Not run:
+reg-rs itself, sw-checklist, sw-markdown-checker, agentrail (record
+steps 1 to 5), `just pages`.

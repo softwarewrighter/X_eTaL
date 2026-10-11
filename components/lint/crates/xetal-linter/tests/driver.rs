@@ -14,7 +14,7 @@ fn found(text: &str) -> Vec<(String, usize, Level)> {
 
 #[test]
 fn findings_are_placed_by_line_in_order() {
-    let got = found("x := 1\nCount! := 0\n{ r_ev -> r_ev } 4\nu:N_ext := { _r }");
+    let got = found("x := 1\nCount! := 0\n{ r_ev -> r_ev 1 } 4\nu:N_ext := { _r }");
     let want = [
         ("mutable-constant", 2, Level::Warn),
         ("shadows-builtin", 3, Level::Warn),
@@ -24,8 +24,7 @@ fn findings_are_placed_by_line_in_order() {
 
 #[test]
 fn an_own_line_directive_covers_the_whole_statement_below() {
-    let text =
-        "# lint: allow shadows-builtin\nu:a_pply := { r_ev ->\n  r_ev 1 2 3 }\n{ r_ev -> r_ev } 4";
+    let text = "# lint: allow shadows-builtin\nu:a_pply := { r_ev ->\n  r_ev 1 2 3 }\n{ r_ev -> r_ev 1 } 4";
     assert_eq!(
         found(text),
         [("shadows-builtin".to_string(), 4, Level::Warn)]

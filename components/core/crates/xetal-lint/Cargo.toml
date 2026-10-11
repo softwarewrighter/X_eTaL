@@ -12,6 +12,7 @@ xetal-base.workspace = true
 xetal-catalog.workspace = true
 xetal-ir.workspace = true
 xetal-bang.workspace = true
+xetal-complexity.workspace = true
 
 [dev-dependencies]
 xetal-core.workspace = true

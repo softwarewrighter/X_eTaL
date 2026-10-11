@@ -16,7 +16,7 @@ top := g_rade n_eg n               # most frequent first, ties in order
 
 # The words with their counts, as a two-row table of boxes.
 k := t_ally u
-(2 c_at k) r_eshape (top s_elect u) c_at '{ f_ormat _r } m_ap top s_elect n
+(2 c_at k) r_eshape (top s_elect u) c_at 'f_ormat m_ap top s_elect n
 
 # Word lengths: e_ach for one value per word, after opening its box.
 '[t_ally d_isclose] e_ach words

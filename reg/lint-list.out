@@ -3,6 +3,7 @@ shadows-builtin      suspicious   warn   a parameter or local binding shadows a 
 deprecated-private   deprecated   warn   a library's bare top-level function (write it h:)
 unknown-lint         suspicious   warn   a `# lint:` directive names no lint, group or level
 unused-binding       suspicious   warn   a lambda parameter or local binding that is never used
+redundant-lambda     complexity   warn   a lambda that only passes its arguments to a named function
 missing-bang         style        warn   a function that calls an effect but has no `!` in its name
 needless-bang        pedantic     allow  a `!` function that calls no effect
 function-name-case   pedantic     allow  a function named UpperCamel (functions are lowerCamel)

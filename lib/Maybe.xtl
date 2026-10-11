@@ -31,7 +31,7 @@ l:j_ust := { x n j_ -> j_ x }
 l:m_aybe := { f_ d m_ -> d m_ 'f_ }
 
 ## d o_r m: m's value, or d when m is empty.
-l:o_r := { d m_ -> d m_ '{ x -> x } }
+l:o_r := { d m_ -> d m_ 'i_d }
 
 ## 'f m_ap m: f applied inside the maybe; empty stays empty.
 l:m_ap := { f_ m_ -> 'l:n_othing m_ '{ x -> l:j_ust f_ x } }

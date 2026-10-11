@@ -1401,6 +1401,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-complexity"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-ir",
+]
+
+[[package]]
 name = "xetal-core"
 version = "0.1.0"
 dependencies = [
@@ -1541,6 +1549,7 @@ dependencies = [
  "xetal-bang",
  "xetal-base",
  "xetal-catalog",
+ "xetal-complexity",
  "xetal-ir",
 ]
 

@@ -439,7 +439,9 @@ Other fonts, checked against the font files:
 default: a shadowed built-in, a parameter or local nothing uses (write
 `_ := expr` to keep a value for its effect), a mutable variable named
 like a constant, a function that calls an effect (`p_rint!`) without a
-`!` in its own name; the case of names is checked with `-W pedantic`.
+`!` in its own name, a lambda that only passes its arguments on to a
+named function (`'{ x -> n_eg x } e_ach v` is `'n_eg e_ach v`); the
+case of names is checked with `-W pedantic`.
 
 - `xetal lint FILE` prints each finding on stderr with its place,
   `warning[mutable-constant]: ... at FILE:4:11`.
