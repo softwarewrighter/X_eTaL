@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-core", "crates/xetal-explain", "crates/xetal-ir", "crates/xetal-lint", "crates/xetal-bang"]
+members = ["crates/xetal-core", "crates/xetal-explain", "crates/xetal-ir", "crates/xetal-lint", "crates/xetal-bang", "crates/xetal-complexity"]
 
 [workspace.package]
 version = "0.1.0"
@@ -18,6 +18,7 @@ xetal-explain = { path = "crates/xetal-explain" }
 xetal-ir = { path = "crates/xetal-ir" }
 xetal-lint = { path = "crates/xetal-lint" }
 xetal-bang = { path = "crates/xetal-bang" }
+xetal-complexity = { path = "crates/xetal-complexity" }
 xetal-base = { path = "../base/crates/xetal-base" }
 xetal-lex = { path = "../syntax/crates/xetal-lex" }
 xetal-syntax = { path = "../syntax/crates/xetal-syntax" }

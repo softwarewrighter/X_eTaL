@@ -47,6 +47,19 @@ parameter a caller requires (an operand ignoring an argument) is silenced with a
 `# lint: allow unused-binding` comment.",
     },
     Lint {
+        name: "redundant-lambda",
+        group: Group::Complexity,
+        level: Level::Warn,
+        summary: "a lambda that only passes its arguments to a named function",
+        explain: "What it does: warns on a lambda whose body only applies a built-in or a \
+named function to its parameters, in order (`{ x -> n_eg x }`, `{ a b -> a + b }`), \
+or returns its one parameter (`{ x -> x }`).\n\nWhy: the quoted name says the same \
+thing in fewer tokens, and a reader does not have to check what the lambda adds.\n\n\
+Example:\n    '{ x -> n_eg x } e_ach v\nInstead:\n    'n_eg e_ach v\n\n\
+`{ x -> x }` is `'i_d`. A lambda that is a definition's whole value \
+(`u:n_ot := { x -> n_eg x }`) is not reported: it names its parameters for a reader.",
+    },
+    Lint {
         name: "missing-bang",
         group: Group::Style,
         level: Level::Warn,

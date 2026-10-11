@@ -3,7 +3,7 @@
 `xetal lint` checks a program or library against a catalog of named
 lints, as `cargo clippy` checks a Rust crate. This document is the
 design: what it does, how it is built, why, and where it goes next.
-User-facing usage is in the README; decisions are D137 to D142 in
+User-facing usage is in the README; decisions are D137 to D143 in
 `docs/design.md` and S12 in `docs/lang-choices.md`.
 
 ## 1. What it does
@@ -51,6 +51,7 @@ dependencies.
 | `deprecated-private` | deprecated | warn | a library's bare top-level function (PN2; also printed by `xetal run`) |
 | `unknown-lint` | suspicious | warn | a `# lint:` comment with a bad level, no names, or an unknown name |
 | `unused-binding` | suspicious | warn | a lambda parameter or local `:=` nothing uses; `_ :=`, `_r`/`_l` and top-level names are exempt |
+| `redundant-lambda` | complexity | warn | a lambda that only passes its arguments to a named function (`'{ x -> n_eg x }` is `'n_eg`) or returns its argument (`'i_d`); a definition's whole value is exempt |
 | `mutable-constant` | style | warn | a mutable variable named like a constant (`Count!`) |
 | `missing-bang` | style | warn | a function calling an effect (`p_rint!`, a `!` function) directly, without `!` in its name |
 | `needless-bang` | pedantic | allow | a `!` function that could not have an effect |
@@ -148,6 +149,8 @@ these rules testable one by one.
      unused.rs    unused-binding (scope-aware uses of a name)
   components/core: xetal-bang  (missing-bang, needless-bang; a crate of
                    its own: xetal-lint is at seven modules)
+  components/core: xetal-complexity  (redundant-lambda; the home of
+                   the complexity group)
   components/core: xetal-ir    Expr::children(), the walk every pass uses
      walk.rs      Core children and binding sites
 ```
@@ -205,9 +208,8 @@ on a program that does not type-check yet. Lints that need types (a
   functions have an effect (`[]S_HOW` does, `[]P_ATH` does not), so
   `missing-bang` ignores them; an effect flag in builtins.toml would let
   it count them.
-- More lints: redundant lambdas
-  (`{ x -> f_ x }` is `'f_`, `{ x -> x }` is `I_`), typed lints (`?`
-  must return Bool).
+- More lints: typed lints (`?` must return Bool); more of the
+  complexity group (`'{ a b -> b f_ a }` is `'f_ s_wap`).
 - Machine-applicable suggestions and `xetal lint --fix`.
 - `--format json` for editors (the Emacs mode, the live demo's editor),
   and a configuration file for project-wide levels.

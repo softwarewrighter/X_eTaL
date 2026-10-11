@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint reg/fixtures/lint/redundant.xtl"
+exit_code = 0
+desc = "redundant-lambda: lambdas passing their arguments to n_eg, + and a user function, and one returning its argument, warn with the quoted name; a definition by a lambda and lambdas doing more pass"

@@ -1,0 +1,6 @@
+warning[redundant-lambda]: this lambda only passes its arguments to `n_eg`: write `'n_eg` at reg/fixtures/lint/redundant.xtl:6:2
+  note: `redundant-lambda` is in group `complexity`; xetal lint --explain redundant-lambda
+warning[redundant-lambda]: this lambda only passes its arguments to `+`: write `'+` at reg/fixtures/lint/redundant.xtl:7:2
+warning[redundant-lambda]: this lambda only passes its arguments to `u:s_q`: write `'u:s_q` at reg/fixtures/lint/redundant.xtl:8:2
+warning[redundant-lambda]: this lambda returns its argument unchanged: write `'i_d` at reg/fixtures/lint/redundant.xtl:9:2
+4 warning(s), 0 error(s)

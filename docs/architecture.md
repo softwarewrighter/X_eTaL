@@ -80,7 +80,8 @@ components/
                            (desugaring), xetal-explain (notes for
                            errors in trains), xetal-lint (the lint
                            catalog and its passes over Core),
-                           xetal-bang (the effect lints)
+                           xetal-bang (the effect lints),
+                           xetal-complexity (the complexity lints)
   render/                  xetal-render: decorated, LaTeX, canonical
   view/                    xetal-view: the front-end-agnostic view
                            model (styled segments, classes, raw <->
