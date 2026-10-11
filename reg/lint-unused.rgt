@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint reg/fixtures/lint/unused.xtl"
+exit_code = 0
+desc = "unused-binding: an unused parameter and a value bound only for its effect warn (with the _ := hint); _ :=, _r, top-level names and an allowed line pass"

@@ -31,7 +31,7 @@ fn check(name: &str, span: Span) -> Option<Diagnostic> {
         Some((head, tail)) if head.len() > 1 || tail.chars().any(|c| c.is_ascii_alphabetic()) => (
             "function-name-case",
             format!(
-                "function `{base}` is UpperCamel: write `{}{}` (a single capital such as `K_` is a combinator)",
+                "function `{base}` is UpperCamel: write `{}{}` (a capital start is for combinators)",
                 first.to_ascii_lowercase(),
                 &base[1..]
             ),

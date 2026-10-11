@@ -31,8 +31,55 @@ recorded there. Do it locally after merging.
    under components/ is one of their inputs).
 4. agentrail: record Saga 40 and its step 1 (complete, with this
    branch's commit); the plan is in docs/plan.md, Saga 40.
-5. Decide with the user: lib/Combinators.xtl's bird variants (`C_s`,
-   `E_h`, `C_ss`, ...) are `function-name-case` findings (11), as is
-   demos/classics/fibonacci.xtl's `u:F_ib`. Either the style guide
-   names them (a capital and a lowercase modifier), or the files say
-   `# lint-file: allow function-name-case` / are renamed.
+5. (Decided, D139: the naming lint is pedantic; the bird variants stay.)
+
+## Step 2 (lint-run-directives, D138)
+
+Branch `claude/peaceful-hamilton-g1hdp3`, restarted from main at cd8c726.
+The sandbox ran fmt, clippy and tests in lint, cli and web (native),
+`cargo check` in doc, rosetta and tui (which depend on the changed
+crates), the lock check (doc and rosetta locks regenerated), and every
+golden by the stand-in runner: all pass but the eight that fail on main
+too (cli-too-deep, roll-dice, roll-range, just-*). New goldens
+lint-run-allow, lint-run-library-allow, lint-run-echo-allow were
+written from reviewed runs. Not run: the wasm32 build of the live demo
+(xetal-play now depends on xetal-linter, plain Rust with no new crates
+from crates.io), reg-rs itself, sw-checklist, agentrail (record steps 1
+and 2), `just pages` (web and rosetta parts are stale again).
+
+## Step 3 (lint-unused, D139, D140)
+
+Same branch, on top of step 2 (not yet merged). The sandbox ran fmt,
+clippy and tests in core, lint, cli and web, the lock check and every
+golden by the stand-in runner (the same eight fail as on main). Five
+lint goldens were rebased on purpose (function-name-case is pedantic
+now; unused-binding appears in style.xtl); lint-unused,
+lint-explain-unused and lint-pedantic are new, from reviewed runs.
+xetal-lint now has seven modules (lib, catalog, naming, registry,
+unused, walk, warn): at the sw-checklist limit; the next pass goes in a
+new crate. Not run: wasm32, reg-rs, sw-checklist, agentrail (record
+steps 1 to 3), `just pages` (web and rosetta stale).
+
+## Step 3a (lint-clean-repo, D141)
+
+Demos and libraries edited (comments and `_ :=` only; every run golden
+passes but run-echo-tour, rebased for the new comment line), so `just
+pages` must rebuild the literate, doc and latex parts too, besides web
+and rosetta. Found while checking that the doc models were unchanged,
+not caused by this lane: `xetal doc --json demos/tour.xtl` gives
+`h:s_tarts` the type `Char -> Char -> Int` in about half of the runs
+and `(Num a, Truthy a) => Char -> Char -> a` in the others (same binary,
+same file): nondeterminism in typing a library item for the doc model,
+probably iteration over a hash map. Worth a ticket.
+
+## Step 4 (lint-effects, D142)
+
+New crate components/core/crates/xetal-bang; every component lock that
+pins xetal-lint gained it (check-locks --fix). `Expr::children` moved
+into xetal-ir (additive). Six demos renamed functions to end in `!`
+(mastermind-play, mini-apl, life, rosetta/rosetta.xtl, rotate,
+tttml-play): run goldens unchanged, but the live demo, the Rosetta
+page and the literate pages show these sources, so `just pages --all`.
+The sandbox built every component (scripts/build-all.sh) and ran fmt,
+clippy and tests in core, lint, cli, web and macro, and every golden.
+Not run: wasm32, reg-rs, sw-checklist, agentrail (steps 1 to 4).

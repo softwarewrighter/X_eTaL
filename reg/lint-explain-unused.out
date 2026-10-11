@@ -1,0 +1,14 @@
+unused-binding (suspicious, warn by default)
+
+What it does: warns on a lambda's parameter or a local `:=` that nothing in its scope uses.
+
+Why: an unused name is often a slip (the wrong name used below it) or code left behind.
+
+Example:
+    { v -> shown := p_rint! v
+    v }
+Instead:
+    { v -> _ := p_rint! v
+    v }
+
+Exempt: `_ := ...` (a value kept for its effect), the shorthand's `_r` and `_l`, and top-level bindings. A parameter a caller requires (an operand ignoring an argument) is silenced with a `# lint: allow unused-binding` comment.

@@ -4,6 +4,7 @@
 mod ir;
 mod notes;
 mod show;
+mod walk;
 
 pub use ir::{Expr, Item, Kind, Param, Program};
 pub use notes::SpanNote;

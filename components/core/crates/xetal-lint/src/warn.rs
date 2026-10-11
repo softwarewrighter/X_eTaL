@@ -6,7 +6,7 @@ use xetal_catalog::find;
 use xetal_ir::{Expr, Item, Kind, Param, Program};
 
 use crate::naming::naming;
-use crate::walk::children;
+use crate::unused::unused;
 
 /// Every lint's findings for a lowered program, at the lint's own code:
 /// the [`warnings`] `xetal run` prints, then the style lints that only
@@ -14,6 +14,8 @@ use crate::walk::children;
 pub fn lints(program: &Program) -> Vec<Diagnostic> {
     let mut out = warnings(program);
     out.extend(naming(program));
+    out.extend(unused(program));
+    out.extend(xetal_bang::bangs(program));
     out
 }
 
@@ -68,5 +70,5 @@ fn walk(e: &Expr, out: &mut Vec<Diagnostic>) {
         let message = format!("`{name}` here shadows the built-in {name}");
         out.push(Diagnostic::warning("shadows-builtin", message).with_span(e.span));
     }
-    children(e).into_iter().for_each(|child| walk(child, out));
+    e.children().into_iter().for_each(|child| walk(child, out));
 }

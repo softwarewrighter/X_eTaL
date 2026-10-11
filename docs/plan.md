@@ -1153,12 +1153,18 @@ style guide's names (lang-choices section 16).
    `unknown-lint` beside `shadows-builtin` and `deprecated-private`.
    Goldens lint-*. Branch claude/peaceful-hamilton-g1hdp3; see
    lanes/lint/HANDOFF.md for what its sandbox could not run.
-2. lint-run-directives: `xetal run`, the REPL, the notebook and the
-   live demo honor `# lint: allow` for the warnings they print.
-3. lint-unused: `unused-binding` (a parameter or local never used);
-   agree with the user how to mark one unused on purpose.
-4. lint-effects: `missing-bang` (a function calling a `!` function
-   without `!` itself) and its converse.
+2. lint-run-directives [DONE] (D138): `xetal run`, the REPL, the
+   notebook and the live demo honor `# lint: allow` for the warnings
+   they print, each by the comments of its own file.
+3. lint-unused [DONE] (D139, D140): `unused-binding` (suspicious,
+   warn; no opt-out spelling: `# lint: allow unused-binding`), and the
+   naming conventions relaxed: `function-name-case` is pedantic.
+3a. lint-clean-repo [DONE] (D141): the 15 unused-binding findings in lib/ and
+   demos/ (`_ :=` for effect-only locals, allow comments for
+   deliberate parameters), then a gate check that `xetal lint` is
+   clean over lib/ and demos/.
+4. lint-effects [DONE] (D142): `missing-bang` (direct calls only) and
+   its converse `needless-bang` (pedantic); demos renamed to match.
 5. lint-redundant: `redundant-lambda` (`{ x -> f_ x }` is `'f_`,
    `{ x -> x }` is `I_`), group complexity.
 6. lint-typed: lints after type checking (`?` must return Bool).

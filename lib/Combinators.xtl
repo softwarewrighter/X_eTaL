@@ -23,6 +23,7 @@
 ## 7
 l:I_ := { x -> x }                                  # Idiot Bird (identity)
 
+# lint: allow unused-binding
 ## The Kestrel: K x y = x, the first argument kept, the second dropped.
 ## >> "c:" u_se< "Combinators"
 ## >> 1 c:K_ 2

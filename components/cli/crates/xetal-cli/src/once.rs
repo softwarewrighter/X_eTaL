@@ -39,7 +39,8 @@ pub(crate) fn once(
     if !untyped && xetal_types::check_program(&mut loaded.program).is_err() {
         return None;
     }
-    if !xetal_lint::warnings(&loaded.program).is_empty() {
+    let warnings = xetal_lint::warnings(&loaded.program);
+    if !xetal_linter::honored(&loaded.sources, &loaded.program, warnings).is_empty() {
         return None;
     }
     let lines: Vec<&str> = source.lines().collect();

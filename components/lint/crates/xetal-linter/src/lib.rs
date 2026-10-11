@@ -12,5 +12,5 @@ mod scope;
 
 pub use command::{Request, command};
 pub use directive::{Directive, directives};
-pub use driver::{Finding, lint};
+pub use driver::{Finding, honored, lint};
 pub use rule::{Rule, Scope, command_line, known, resolve};

@@ -79,6 +79,7 @@ u:f_act 10                       # recursion
 ## u:t_wo @: 2; it takes only Unit.
 u:t_wo := { @ -> 2 }             # a niladic function takes `@`
 u:t_wo @
+# lint: allow unused-binding
 ## a u:k_eep b: a; b is lazy, so it is never evaluated.
 u:k_eep := { a ~b -> a }         # `~b` is a lazy parameter: evaluated
 7 u:k_eep 1 / 0                  # only if used, so no division by zero

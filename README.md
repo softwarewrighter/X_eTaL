@@ -435,7 +435,11 @@ Other fonts, checked against the font files:
 `xetal lint` checks a program or library against named lints, as
 `cargo clippy` checks a crate (docs/lint.md). Each lint is in a group
 (`style`, `suspicious`, `pedantic`, ...) and has a level: `allow`,
-`warn` or `deny`; a denied finding makes the command fail.
+`warn` or `deny`; a denied finding makes the command fail. On by
+default: a shadowed built-in, a parameter or local nothing uses (write
+`_ := expr` to keep a value for its effect), a mutable variable named
+like a constant, a function that calls an effect (`p_rint!`) without a
+`!` in its own name; the case of names is checked with `-W pedantic`.
 
 - `xetal lint FILE` prints each finding on stderr with its place,
   `warning[mutable-constant]: ... at FILE:4:11`.
@@ -446,6 +450,8 @@ Other fonts, checked against the font files:
 - In the source, `# lint: allow mutable-constant` on its own line
   silences the statement below it, at the end of a line that line, and
   `# lint-file: deny style` sets a level for the whole file.
+  `xetal run`, the REPL and the live demo honor these comments too: a
+  warning they allow is not printed (a run never fails on a lint).
 
 ## Documenting your own code: xetal doc
 

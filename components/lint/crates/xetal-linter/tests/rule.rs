@@ -23,8 +23,12 @@ fn rule(
 #[test]
 fn defaults_apply_without_rules() {
     assert_eq!(
-        resolve(lint("function-name-case").unwrap(), 1, &[]),
+        resolve(lint("mutable-constant").unwrap(), 1, &[]),
         Level::Warn
+    );
+    assert_eq!(
+        resolve(lint("function-name-case").unwrap(), 1, &[]),
+        Level::Allow
     );
     assert_eq!(
         resolve(lint("upper-case-name").unwrap(), 1, &[]),
@@ -35,13 +39,13 @@ fn defaults_apply_without_rules() {
 #[test]
 fn a_lint_beats_its_group_whatever_the_order() {
     let s = |v: &[&str]| v.iter().map(|x| x.to_string()).collect::<Vec<_>>();
-    let rules = command_line([&s(&["function-name-case"]), &[], &s(&["style"])]).unwrap();
+    let rules = command_line([&s(&["function-name-case"]), &[], &s(&["pedantic"])]).unwrap();
     assert_eq!(
         resolve(lint("function-name-case").unwrap(), 1, &rules),
         Level::Allow
     );
     assert_eq!(
-        resolve(lint("mutable-constant").unwrap(), 1, &rules),
+        resolve(lint("upper-case-name").unwrap(), 1, &rules),
         Level::Deny
     );
 }

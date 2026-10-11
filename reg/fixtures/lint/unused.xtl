@@ -1,0 +1,10 @@
+#!/usr/bin/env xetal
+# unused-binding: a parameter or local nothing uses; `_ :=`, `_r` and top-level names are exempt.
+x := 3
+u:f_irst := { a b -> a }
+u:s_how! := { v ->
+  shown := p_rint! v
+  _ := p_rint! ""
+  v }
+u:K_ := { a b -> a }  # lint: allow unused-binding
+u:i_nc := { _r + 1 }

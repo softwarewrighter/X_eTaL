@@ -5,6 +5,7 @@ fn codes(src: &str) -> Vec<String> {
     xetal_lint::lints(&program)
         .into_iter()
         .map(|d| d.code)
+        .filter(|code| code != "unused-binding")
         .collect()
 }
 

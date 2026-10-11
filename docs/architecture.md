@@ -76,10 +76,11 @@ components/
   syntax/                  xetal-token (tokens, lexer errors),
                            xetal-lex (lexer), xetal-ast
                            (surface AST, printer), xetal-syntax (parser)
-  core/                    xetal-ir (Core IR, printer), xetal-core
+  core/                    xetal-ir (Core IR, printer, walk), xetal-core
                            (desugaring), xetal-explain (notes for
                            errors in trains), xetal-lint (the lint
-                           catalog and its passes over Core)
+                           catalog and its passes over Core),
+                           xetal-bang (the effect lints)
   render/                  xetal-render: decorated, LaTeX, canonical
   view/                    xetal-view: the front-end-agnostic view
                            model (styled segments, classes, raw <->

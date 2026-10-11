@@ -14,10 +14,10 @@ fn found(text: &str) -> Vec<(String, usize, Level)> {
 
 #[test]
 fn findings_are_placed_by_line_in_order() {
-    let got = found("x := 1\nCount! := 0\nu:N_ext := { _r }");
+    let got = found("x := 1\nCount! := 0\n{ r_ev -> r_ev } 4\nu:N_ext := { _r }");
     let want = [
         ("mutable-constant", 2, Level::Warn),
-        ("function-name-case", 3, Level::Warn),
+        ("shadows-builtin", 3, Level::Warn),
     ];
     assert_eq!(got, want.map(|(c, l, v)| (c.to_string(), l, v)));
 }
@@ -48,7 +48,7 @@ fn a_trailing_directive_covers_its_line() {
 
 #[test]
 fn a_file_directive_covers_everything_and_can_deny() {
-    let got = found("# lint-file: deny style\nCount! := 0\nu:N_ext := { _r }");
+    let got = found("# lint-file: deny style, pedantic\nCount! := 0\nu:N_ext := { _r }");
     assert!(
         got.iter().all(|(_, _, level)| *level == Level::Deny),
         "{got:?}"

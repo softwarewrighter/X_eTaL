@@ -145,7 +145,7 @@ pub(crate) fn evaluate(
     }
     let mut stdout = std::io::stdout();
     let (warnings, result) = xetal_eval::eval_program(&program, &mut stdout, seed);
-    for warning in warnings {
+    for warning in xetal_linter::honored(&sources, &program, warnings) {
         eprintln!("{}", at(warning));
     }
     result.map(|()| String::new()).map_err(at)

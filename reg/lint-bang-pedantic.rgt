@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint -W needless-bang reg/fixtures/lint/bang.xtl"
+exit_code = 0
+desc = "needless-bang (pedantic): a ! function that calls no effect warns on request"

@@ -1980,6 +1980,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-bang"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-ir",
+]
+
+[[package]]
 name = "xetal-base"
 version = "0.1.0"
 
@@ -2229,9 +2237,21 @@ dependencies = [
 name = "xetal-lint"
 version = "0.1.0"
 dependencies = [
+ "xetal-bang",
  "xetal-base",
  "xetal-catalog",
  "xetal-ir",
+]
+
+[[package]]
+name = "xetal-linter"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-ir",
+ "xetal-lint",
+ "xetal-program",
+ "xetal-sources",
 ]
 
 [[package]]
@@ -2368,6 +2388,7 @@ dependencies = [
  "xetal-core",
  "xetal-eval",
  "xetal-line",
+ "xetal-linter",
  "xetal-program",
  "xetal-store",
  "xetal-types",

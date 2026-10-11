@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint --explain unused-binding"
+exit_code = 0
+desc = "xetal lint --explain unused-binding: what it checks, its exemptions and how to silence it"

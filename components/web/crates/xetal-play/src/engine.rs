@@ -91,6 +91,8 @@ pub(crate) fn finish(
     warnings: Vec<Diagnostic>,
     result: Result<(), Diagnostic>,
 ) -> Run {
+    // Those a `# lint:` comment allows are not shown (S12).
+    let warnings = xetal_linter::honored(&loaded.sources, &loaded.program, warnings);
     let mut err: Vec<String> = warnings.into_iter().map(|w| w.to_string()).collect();
     err.extend(
         result

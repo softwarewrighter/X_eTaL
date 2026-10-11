@@ -5,8 +5,10 @@
 use std::fmt;
 
 use xetal_base::Diagnostic;
+use xetal_ir::Program;
 use xetal_lint::{Level, Lint};
 use xetal_program::Loaded;
+use xetal_sources::Sources;
 
 use crate::directive::directives;
 use crate::rule::{Rule, resolve};
@@ -50,7 +52,7 @@ pub fn lint(name: &str, text: &str, cli: &[Rule]) -> Result<Vec<Finding>, Diagno
     };
     let written = directives(text);
     let mut all = cli.to_vec();
-    all.extend(rules(&written, text, &loaded.program, &loaded.sources));
+    all.extend(rules(&written, (text, 0), &loaded.program, &loaded.sources));
     let mut raw: Vec<Raw> = unknown(&written)
         .into_iter()
         .map(|(line, col, message)| ("unknown-lint", line, col, message))
@@ -93,4 +95,28 @@ fn leveled((code, line, col, message): Raw, name: &str, rules: &[Rule]) -> Optio
         col,
         message,
     })
+}
+
+/// The warnings `xetal run` prints (spans in the combined text), less
+/// those a `# lint:` comment in the file each is in allows (S12): a
+/// library can allow its own. A warning is never more than a warning
+/// there, whatever its level (L7); one without a span or a catalog
+/// entry is kept.
+pub fn honored(sources: &Sources, program: &Program, warnings: Vec<Diagnostic>) -> Vec<Diagnostic> {
+    let mut by_file: Vec<(usize, Vec<Rule>)> = Vec::new();
+    let mut allowed = |w: &Diagnostic| {
+        let (Some(span), Some(lint)) = (w.span, xetal_lint::lint(&w.code)) else {
+            return false;
+        };
+        let at = sources.locate(span.start);
+        let known = by_file.iter().position(|(f, _)| *f == at.index);
+        let i = known.unwrap_or_else(|| {
+            let text = sources.written_text(at.index);
+            let found = rules(&directives(text), (text, at.index), program, sources);
+            by_file.push((at.index, found));
+            by_file.len() - 1
+        });
+        resolve(lint, at.line, &by_file[i].1) == Level::Allow
+    };
+    warnings.into_iter().filter(|w| !allowed(w)).collect()
 }
