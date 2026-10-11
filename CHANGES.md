@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-11
+
+- 00:30 `refactor` The repository lints clean (Saga 40 step 3a, D141): effect-only locals in five demos are `_ := p_rint! ...`; the parameters ignored on purpose (`K_`, Maybe's `n_othing` and `j_ust`, the tour's `k_eep`, two TTTML lambdas) say so with `# lint: allow unused-binding`; a test lints every library and demo and fails on a new finding. Golden run-echo-tour rebased (it shows the new comment).
+
 ## 2026-10-10
 
 - 23:30 `feat` `unused-binding` and relaxed naming (Saga 40 step 3, D139, D140): `xetal lint` warns on a lambda parameter or local `:=` nothing uses (`_ :=`, `_r`/`_l` and top-level names exempt; a deliberate one takes `# lint: allow unused-binding`), and an effect-only local is told to write `_ :=`. The style guide's naming is advice (lang-choices 16, decided with the user): `function-name-case` is pedantic, off by default, and a combinator may carry a lowercase variant mark (`C_s`); `mutable-constant` stays on. Goldens lint-unused, lint-explain-unused, lint-pedantic new; five lint goldens rebased on purpose.

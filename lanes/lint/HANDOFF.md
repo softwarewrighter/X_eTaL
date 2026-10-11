@@ -59,3 +59,15 @@ xetal-lint now has seven modules (lib, catalog, naming, registry,
 unused, walk, warn): at the sw-checklist limit; the next pass goes in a
 new crate. Not run: wasm32, reg-rs, sw-checklist, agentrail (record
 steps 1 to 3), `just pages` (web and rosetta stale).
+
+## Step 3a (lint-clean-repo, D141)
+
+Demos and libraries edited (comments and `_ :=` only; every run golden
+passes but run-echo-tour, rebased for the new comment line), so `just
+pages` must rebuild the literate, doc and latex parts too, besides web
+and rosetta. Found while checking that the doc models were unchanged,
+not caused by this lane: `xetal doc --json demos/tour.xtl` gives
+`h:s_tarts` the type `Char -> Char -> Int` in about half of the runs
+and `(Num a, Truthy a) => Char -> Char -> a` in the others (same binary,
+same file): nondeterminism in typing a library item for the doc model,
+probably iteration over a hash map. Worth a ticket.

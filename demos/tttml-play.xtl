@@ -24,7 +24,7 @@ t_ally 1 s_elect m
 ## u:a_sk s: your move on board s, read from the keyboard: the square
 ## typed, 1 to 9; anything but an empty square asks again.
 u:a_sk := { s ->
-  shown := p_rint! "your move (1 to 9):"
+  _ := p_rint! "your move (1 to 9):"
   t := []R_EAD @
   k := "123456789" i_ndexOf f_irst t c_at " "
   (k <= 9) & 0 = k s_elect s c_at 1 ? k; u:a_sk s

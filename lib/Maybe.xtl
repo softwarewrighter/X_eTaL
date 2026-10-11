@@ -11,12 +11,14 @@
 
 ### Making a maybe
 
+# lint: allow unused-binding
 ## The empty maybe.
 ## >> "m:" u_se< "Maybe"
 ## >> 0 m:o_r 'm:n_othing
 ## 0
 l:n_othing := { n j -> n }
 
+# lint: allow unused-binding
 ## A maybe holding x.
 ## >> "m:" u_se< "Maybe"
 ## >> 0 m:o_r m:j_ust 7

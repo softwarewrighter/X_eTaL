@@ -3,7 +3,7 @@
 `xetal lint` checks a program or library against a catalog of named
 lints, as `cargo clippy` checks a Rust crate. This document is the
 design: what it does, how it is built, why, and where it goes next.
-User-facing usage is in the README; decisions are D137 to D140 in
+User-facing usage is in the README; decisions are D137 to D141 in
 `docs/design.md` and S12 in `docs/lang-choices.md`.
 
 ## 1. What it does
@@ -170,6 +170,9 @@ on a program that does not type-check yet. Lints that need types (a
 
 ## 6. Qualities
 
+- Dogfooding: every library and demo here lints clean at the default
+  levels, and a test (xetal-linter tests/repository.rs) fails on a new
+  finding, so the gate keeps it that way.
 - Reliability: no panics (rule 11); a program that does not load is
   reported as `xetal run` reports it, and `xetal lint` exits 1.
 - Determinism and traceability: findings sorted by line, column and
@@ -201,8 +204,4 @@ on a program that does not type-check yet. Lints that need types (a
 - `--format json` for editors (the Emacs mode, the live demo's editor),
   and a configuration file for project-wide levels.
 - Name spans in Core, to point at the name's column.
-- Cleaning the repository's own findings: eight values bound only for
-  their effect (`shown := p_rint! x` in demos, to become `_ :=`) and
-  seven parameters ignored on purpose (`K_`, `k_eep`, `n_othing`,
-  TTTML), to be marked `# lint: allow unused-binding`; then a gate
-  check that `xetal lint` is clean over lib/ and demos/.
+

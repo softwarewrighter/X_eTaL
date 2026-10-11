@@ -1150,7 +1150,7 @@ style guide's names (lang-choices section 16).
 3. lint-unused [DONE] (D139, D140): `unused-binding` (suspicious,
    warn; no opt-out spelling: `# lint: allow unused-binding`), and the
    naming conventions relaxed: `function-name-case` is pedantic.
-3a. lint-clean-repo: the 15 unused-binding findings in lib/ and
+3a. lint-clean-repo [DONE] (D141): the 15 unused-binding findings in lib/ and
    demos/ (`_ :=` for effect-only locals, allow comments for
    deliberate parameters), then a gate check that `xetal lint` is
    clean over lib/ and demos/.

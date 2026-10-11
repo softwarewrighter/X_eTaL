@@ -194,7 +194,7 @@ h:v_ersus! := { m side s ->
 ## m h:c_ount! side n: n games as side against a random player; how
 ## many the machine won, lost and drew.
 h:c_ount! := { m side n ->
-  w := '{ i -> ((m h:v_ersus! side)_ 9 r_eshape 0) } e_ach r_ange n
+  w := '{ i -> ((m h:v_ersus! side)_ 9 r_eshape 0) } e_ach r_ange n  # lint: allow unused-binding
   '+ r_/ w '= t_able side c_at (0 - side) c_at 2
 }
 ## n t:t_rial! m: n games of model m against a random player as X,
@@ -235,6 +235,6 @@ h:f_inal := { g -> l:o_utcome (t_ally g) s_elect g }
 ## games X won, O won, drawn. Played well from any opening, every game
 ## is a draw.
 l:s_elfTrial! := { n m ->
-  w := '{ i -> h:f_inal m h:g_reedy h:o_pening! @ } e_ach r_ange n
+  w := '{ i -> h:f_inal m h:g_reedy h:o_pening! @ } e_ach r_ange n  # lint: allow unused-binding
   '+ r_/ w '= t_able 1 -1 2
 }
