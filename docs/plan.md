@@ -888,6 +888,15 @@ as APL2's prototype does.
 
 ## Saga 29 -- algebraic data (tuples, records, enums, matching)
 
+Under review (2026-10-10, lanes/adt step 1): the user does not want
+records, sums and matching in the ML style. `docs/adt.md` proposes
+instead, array first and with as little new language as possible: an
+accessor macro over tuples, a style rule for when a tuple is justified
+(an array and named positions, a tuple and accessors, columns), and
+perhaps one small feature, a tag type, for type identity and
+enumerations. Its questions are open; the steps below stand until the
+user decides, then are replaced.
+
 Replanned on Saga 39's types (2026-10-10): tuples landed there
 (TU1-TU12, D121-D134): a product type `(a, b)` in the checker, a Core
 `Tuple` form with `Proj`, patterns in bindings and parameters, boxed
