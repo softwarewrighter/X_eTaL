@@ -2,7 +2,8 @@
 
 A proposal for review (2026-10-10), replacing Saga 29's plan of
 records, sum types and pattern matching in the ML style. Nothing here
-is decided; the questions at the end are for the user. Where this note
+is decided; the questions at the end are for the user. Position A
+below is built as a macro library to try (X_eTaL-libraries' Tags). Where this note
 and `lang-choices.md` differ, `lang-choices.md` governs.
 
 ## The aim
@@ -166,27 +167,160 @@ without it.
 
 ## How others do it
 
-| Language | Named parts | Distinct types | Choices |
-| -------- | ----------- | -------------- | ------- |
-| APL, J | inverted tables, named indices | none | integer codes |
-| k, q | dictionaries, tables of columns | none | symbols |
-| Futhark | records, arrays of them stored as columns | structural | sum types |
-| Haskell | records | `newtype`, phantom types | sum types |
-| TypeScript | object types | branded types (a tag field) | literal types |
+Four questions, across statically typed languages and array
+languages: how choices are written, how two values of one shape are
+kept apart, how parts are named, and how many records are stored.
 
-Option 3 is close to TypeScript's branded types and Haskell's phantom
-types: a name that exists for the checker, carried by a value that
-costs nothing.
+### Choices (enumerations)
+
+Three tiers:
+
+1. Named numbers, no type safety: C's `enum` (ints, converted
+   silently); APL, J, K and BQN use integer codes with named
+   constants, or text. Go sits between: `type Color int` with
+   `const (Red Color = iota ...)` keeps `Color` apart from `int`, but
+   the set of values is open (`Color(42)`) and nothing checks that
+   every case is handled.
+2. A distinct type with a closed list of values, stored as small
+   integers: Pascal and Ada (`type Color is (Red, Green, Blue)`, its
+   own ordered type, usable as an array's index type: `array (Color)
+   of RGB`, `for C in Color loop`); q's enumerations (`` `color$v ``,
+   integer indices into a domain list, the type recording which
+   domain: how q stores categorical columns and foreign keys); pandas'
+   categorical columns (codes and a list of categories); Julia's
+   `@enum Color red green blue`, a macro writing a distinct
+   integer-backed type; Dex, a typed array language, where an
+   enumeration is an index set and an array is typed by its index set
+   (`Color=>Float` is a table with one entry per color).
+3. Sum types, each case with data of its own, taken apart by
+   exhaustive matching: Rust, Haskell, OCaml, Swift, F#, Elm, Zig; and
+   Futhark, a typed array language (`#circle f32 | #rect f32 f32`, a
+   constructor marked by `#`, `match` checking every case). OCaml's
+   polymorphic variants (`` `Red ``) need no declaration.
+
+Every array-friendly design (q, pandas, Julia, Ada) stores a choice
+as a code and a list of names. The tag type of this note is tier 2;
+Pascal, Ada and Dex suggest indexing a table directly by a choice.
+
+### Distinct types for one shape (brands)
+
+| Language | Mechanism | Cost when it runs |
+| -------- | --------- | ----------------- |
+| Ada | derived types, `type Meters is new Float` | none |
+| Go | defined types, `type UserID int` | none |
+| Haskell | `newtype`; phantom type parameters | none |
+| Rust | newtype structs, `struct Meters(f64)` | none |
+| F# | units of measure, `float<m>`, checked through arithmetic | none (erased) |
+| TypeScript | branded types, `string & { __brand: "UserId" }`: a tag field that exists for the checker | none |
+| OCaml, ML | abstract types behind a module signature | none |
+
+TypeScript is closest to X_eTaL: its types are structural, like
+X_eTaL's tuples, so the way to keep two values of one shape apart is a
+tag field, which is what a tag as the first part does.
+
+### Named parts (records)
+
+- Nominal: C, Go, Rust, Swift and Haskell structs and records.
+  Haskell shows a cost: field names are ordinary functions in the
+  module's one name space, so two records cannot both have a field `w`
+  without an extension -- the clash generated accessors meet in
+  X_eTaL (hence `u:s_tateW`, not `u:w_`).
+- Structural: Elm, TypeScript, Futhark, Dex; in Futhark and Dex a tuple
+  is a record with numbered fields.
+- None: APL (namespaces such as Dyalog's `[]NS` as objects; inverted
+  tables for data), J (locales), K (dictionaries, `` `w`k!(1.0;0) ``),
+  BQN (namespaces, `ns.w`); no static types.
+- Accessors written from a declaration: Uiua's data definitions write
+  a constructor and a getter per field, and its variants are boxed
+  arrays whose first item is a tag (as far as is known here; to be
+  verified); Julia's StructArrays.jl and others by macro; Zig by
+  compile-time code.
+
+### A tag as the first element, by convention
+
+Erlang and Elixir: `{ok, Value}`, `{error, Reason}`, a tuple whose
+first part is an atom, the language's central idiom (Gleam, statically
+typed on the same machine, replaced it with declared custom types to
+check it). C: a struct of an enum tag and a union. TypeScript:
+discriminated unions, objects sharing a `kind` field of a literal
+type, narrowed by the checker on that field: the statically typed form
+of the idea.
+
+### Many records: rows or columns
+
+Columns: q (a table is a dictionary of columns), APL inverted tables,
+Futhark (an array of tuples or records stored as one array per field,
+automatically), Julia's StructArrays.jl, Zig's `MultiArrayList`,
+pandas. Rows: NumPy structured arrays, C arrays of structs, Rust's
+`Vec<Struct>`. Array-oriented systems choose columns, so operations
+stay on whole arrays.
+
+### Where X_eTaL could sit
+
+| Position | Precedents | New in X_eTaL | Checked before running |
+| -------- | ---------- | ------------- | ---------------------- |
+| A. Codes, constants, columns, macros | APL, J, K, BQN, C enums, Erlang | nothing | no |
+| B. One closed tag type, macros, columns | Ada and Pascal enumerations, q enumerations, Julia `@enum`, TypeScript brands and discriminated unions | `[]T_AG` | choices and tagged tuples |
+| C. Records and sums built in, with matching | Futhark, Dex, Elm, Rust, Haskell | record and sum syntax, declarations, constructors, matching, exhaustiveness | everything |
+
+Futhark and Dex, the typed array languages closest to X_eTaL, chose C:
+it works with arrays, at the most language. The classic array
+languages chose A and gave up checking for these cases. B is where
+Ada, q, Julia and TypeScript arrived separately: one nominal type with
+a closed list of values, stored as codes, the rest by convention or
+macro. What B cannot do is a case carrying data of its own kind (a
+circle's radius beside a rectangle's sides); in B those are columns, a
+vector of kinds and an array per kind of data, as q or APL would write
+them.
+
+## Built: position A, by macro (X_eTaL-libraries' Tags)
+
+Position A is built, with no change to X_eTaL, as the macro-only
+library Tags in X_eTaL-libraries (`libs/Tags`, its page
+`libs/Tags/docs/README.md`), so the idioms can be tried on real
+programs before a tag type is decided:
+
+```
+"tg:" u_se< "Tags"
+@ tg:e_num< "Heading: north east south west"
+@ tg:p_arts< "Turtle: at heading steps"
+```
+
+The first writes `NORTH := 1` ... `WEST := 4` and `HEADING := "north"
+"east" "south" "west"`; the second writes `TURTLE := "Turtle"`, the
+constructor `u:t_urtle (at, heading, steps)`, the test `u:t_urtle?`,
+a getter per part (`u:t_urtleAt`, `u:t_urtleHeading`, ...), a setter
+per part keeping its type (`x u:s_etTurtleAt s`), and `u:t_urtleRows`
+for a table of columns. Its turtle demo turns and moves by tables
+indexed by the heading:
+
+```
+RIGHT := EAST c_at SOUTH c_at WEST c_at NORTH        # the heading after a right turn, by heading
+MOVE := 4 2 r_eshape 0 1 1 0 0 -1 -1 0             # a step's x and y, by heading
+u:r_ight := { s -> ((u:t_urtleHeading s) s_elect RIGHT) u:s_etTurtleHeading s }
+start := u:t_urtle (0 0, NORTH, 0)
+```
+
+What it checks, and when: a tuple of another shape, and a setter given
+a value of another type, are type errors before the program runs;
+another kind of the same shape stops with `error[wrong-kind]` when it
+runs (the tag is text); a choice of one enumeration where another is
+expected is not caught (both are Int). Those last two are exactly what
+the tag type of position B would move to check time. Building it found
+an X_eTaL bug, X_eTaL-libraries' ask X19: hygiene (MC30) can rename a
+binder a macro wrote but not its reference when the macro took its
+argument apart; Tags works around it by naming the parameters of the
+functions it writes by position.
 
 ## Questions for the user
 
 1. The three idioms (array and named positions, tuple and accessors,
    columns) as the style guide's rule for when a tuple is justified
    (lang-choices section 16)?
-2. The accessor macro: where it lives (X_eTaL's `lib/`, beside
-   Combinators, or an X_eTaL-libraries library), its name, and the
-   names it writes (getter `u:w_`, setter `u:s_etW`, rows `u:r_ows`;
-   whether a setter keeps the part's type).
+2. The accessor macro, built as X_eTaL-libraries' Tags: keep it
+   there or move it to X_eTaL's `lib/`; its names (`e_num<`,
+   `p_arts<`) and the names it writes (getter `u:s_tateW`, setter
+   `u:s_etStateW`, rows `u:s_tateRows`, constants in capitals).
 3. Type identity: a run-time tag first (option 1), the tag type
    (option 3) now, or neither until a program needs it?
 4. Choices: the tag type as enumerations, with `Color` and `Key`
