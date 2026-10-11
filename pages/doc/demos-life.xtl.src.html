@@ -73,7 +73,7 @@
 <h2>On this page</h2>
 <ul>
 <li class="item"><a href="#L15"><span class="c-userfunc">ᵘl̲ife</span></a></li>
-<li class="item"><a href="#L20"><span class="c-userfunc">ᵘs̲teps</span></a></li>
+<li class="item"><a href="#L20"><span class="c-userfunc">ᵘs̲teps!</span></a></li>
 <li class="item"><a href="#L32">blinker</a></li>
 <li class="item"><a href="#L41">glider</a></li>
 <li class="item"><a href="#L44">last</a></li>
@@ -99,14 +99,14 @@
 <span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-comment">⍝</span><span class="c-comment"># when it is alive and S is 4.</span></span>
 <span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-userfunc">ᵘl̲ife</span> ← { (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/₁₂</a> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-₁₂</a> <span class="c-lambdaarg">⍵</span>) { (<span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">3</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">4</span> } <span class="c-lambdaarg">⍵</span> }</span>
 <span class="line" id="L16"><a class="ln" href="#L16">16</a></span>
-<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-comment">⍝</span><span class="c-comment"># n 'f_ u:s_teps x: applies f to x n times and gives the last result,</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-comment">⍝</span><span class="c-comment"># n 'f_ u:s_teps! x: applies f to x n times and gives the last result,</span></span>
 <span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-comment">⍝</span><span class="c-comment"># printing x and then a blank line at every generation on the way, the</span></span>
 <span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-comment">⍝</span><span class="c-comment"># first and the last included.</span></span>
-<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-userfunc">ᵘs̲teps</span> ← { <span class="c-builtin">f̲</span> n x →</span>
-<span class="line" id="L21"><a class="ln" href="#L21">21</a>  shown ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> x</span>
-<span class="line" id="L22"><a class="ln" href="#L22">22</a>  gap ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-userfunc">ᵘs̲teps!</span> ← { <span class="c-builtin">f̲</span> n x →</span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a>  _ ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> x</span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a>  _ ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span></span>
 <span class="line" id="L23"><a class="ln" href="#L23">23</a>  n <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? x</span>
-<span class="line" id="L24"><a class="ln" href="#L24">24</a>  (n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <span class="c-builtin">'</span><span class="c-builtin">f̲</span> <a href="demos-life.xtl.html#u.s_teps" class="c-userfunc">ᵘs̲teps</a> <span class="c-builtin">f̲</span> x</span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a>  (n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <span class="c-builtin">'</span><span class="c-builtin">f̲</span> <a href="demos-life.xtl.html#u.s_teps-21" class="c-userfunc">ᵘs̲teps!</a> <span class="c-builtin">f̲</span> x</span>
 <span class="line" id="L25"><a class="ln" href="#L25">25</a>}</span>
 <span class="line" id="L26"><a class="ln" href="#L26">26</a></span>
 <span class="line" id="L27"><a class="ln" href="#L27">27</a><span class="c-comment">⍝</span><span class="c-comment">## A blinker</span></span>
@@ -126,7 +126,7 @@
 <span class="line" id="L41"><a class="ln" href="#L41">41</a>glider ← <span class="c-number">6</span> <span class="c-number">6</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></span>
 <span class="line" id="L42"><a class="ln" href="#L42">42</a></span>
 <span class="line" id="L43"><a class="ln" href="#L43">43</a><span class="c-comment">⍝</span><span class="c-comment"># last: the glider after 4 generations, each printed on the way.</span></span>
-<span class="line" id="L44"><a class="ln" href="#L44">44</a>last ← <span class="c-number">4</span> <span class="c-userfunc">'</span><a href="demos-life.xtl.html#u.l_ife" class="c-userfunc">ᵘl̲ife</a> <a href="demos-life.xtl.html#u.s_teps" class="c-userfunc">ᵘs̲teps</a> <a href="demos-life.xtl.html#glider">glider</a></span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a>last ← <span class="c-number">4</span> <span class="c-userfunc">'</span><a href="demos-life.xtl.html#u.l_ife" class="c-userfunc">ᵘl̲ife</a> <a href="demos-life.xtl.html#u.s_teps-21" class="c-userfunc">ᵘs̲teps!</a> <a href="demos-life.xtl.html#glider">glider</a></span>
 </div>
 </main>
 </body>

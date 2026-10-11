@@ -72,7 +72,7 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#u.f_rames"><span class="c-userfunc">ᵘf̲rames</span></a></li>
+<li class="item"><a href="#u.f_rames-21"><span class="c-userfunc">ᵘf̲rames!</span></a></li>
 <li class="item"><a href="#arrow">arrow</a></li>
 <li class="item"><a href="#shown">shown</a></li>
 </ul>
@@ -89,20 +89,20 @@ prints eight frames separated by a blank line (&quot;just animate&quot; plays
 them). Read <code><span class="c-number">-1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-₁₂</a> b</code>: one rotation along axes 1 and 2 together.</p>
 </div>
 <p class="meta"><a href="demos-rotate.xtl.src.html">source</a></p>
-<div class="item" id="u.f_rames">
-<h3><a href="#u.f_rames"><span class="c-userfunc">ᵘf̲rames</span></a> <span class="type">: Num a =&gt; a -&gt; b -&gt; a</span></h3>
+<div class="item" id="u.f_rames-21">
+<h3><a href="#u.f_rames-21"><span class="c-userfunc">ᵘf̲rames!</span></a> <span class="type">: Num a =&gt; a -&gt; b -&gt; a</span></h3>
 <div class="meta">function &middot; <a href="demos-rotate.xtl.src.html#L11">line 11</a></div>
 <div class="doc">
-<p>n u:f_rames b: prints board b and a blank line, then the next n - 1
+<p>n u:f_rames! b: prints board b and a blank line, then the next n - 1
 frames, each b rotated one row down and one column right; gives 0.</p>
 </div>
-<pre class="code"><span class="c-userfunc">ᵘf̲rames</span> ← { n b →
+<pre class="code"><span class="c-userfunc">ᵘf̲rames!</span> ← { n b →
   n <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? n
-  s ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> b
-  gap ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span>
-  (n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="demos-rotate.xtl.html#u.f_rames" class="c-userfunc">ᵘf̲rames</a> <span class="c-number">-1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-₁₂</a> b
+  _ ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> b
+  _ ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span>
+  (n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="demos-rotate.xtl.html#u.f_rames-21" class="c-userfunc">ᵘf̲rames!</a> <span class="c-number">-1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-₁₂</a> b
 }</pre>
-<div class="uses">Used in: <a href="demos-rotate.xtl.html#u.f_rames"><span class="c-userfunc">ᵘf̲rames</span></a>, <a href="demos-rotate.xtl.html#shown">shown</a></div>
+<div class="uses">Used in: <a href="demos-rotate.xtl.html#u.f_rames-21"><span class="c-userfunc">ᵘf̲rames!</span></a>, <a href="demos-rotate.xtl.html#shown">shown</a></div>
 </div>
 <div class="item" id="arrow">
 <h3><a href="#arrow">arrow</a> <span class="type">: Char</span></h3>
@@ -119,7 +119,7 @@ frames, each b rotated one row down and one column right; gives 0.</p>
 <div class="doc">
 <p>The result of drawing eight frames, bound so it is not printed.</p>
 </div>
-<pre class="code">shown ← <span class="c-number">8</span> <a href="demos-rotate.xtl.html#u.f_rames" class="c-userfunc">ᵘf̲rames</a> <a href="demos-rotate.xtl.html#arrow">arrow</a></pre>
+<pre class="code">shown ← <span class="c-number">8</span> <a href="demos-rotate.xtl.html#u.f_rames-21" class="c-userfunc">ᵘf̲rames!</a> <a href="demos-rotate.xtl.html#arrow">arrow</a></pre>
 </div>
 </main>
 </body>

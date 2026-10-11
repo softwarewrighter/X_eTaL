@@ -72,12 +72,12 @@
 </ul>
 <h2>On this page</h2>
 <ul>
-<li class="item"><a href="#L18"><span class="c-libfunc">ˡn̲othing</span></a></li>
-<li class="item"><a href="#L24"><span class="c-libfunc">ˡj̲ust</span></a></li>
-<li class="item"><a href="#L29"><span class="c-libfunc">ˡm̲aybe</span></a></li>
-<li class="item"><a href="#L32"><span class="c-libfunc">ˡo̲r</span></a></li>
-<li class="item"><a href="#L35"><span class="c-libfunc">ˡm̲ap</span></a></li>
-<li class="item"><a href="#L39"><span class="c-libfunc">ˡb̲ind</span></a></li>
+<li class="item"><a href="#L19"><span class="c-libfunc">ˡn̲othing</span></a></li>
+<li class="item"><a href="#L26"><span class="c-libfunc">ˡj̲ust</span></a></li>
+<li class="item"><a href="#L31"><span class="c-libfunc">ˡm̲aybe</span></a></li>
+<li class="item"><a href="#L34"><span class="c-libfunc">ˡo̲r</span></a></li>
+<li class="item"><a href="#L37"><span class="c-libfunc">ˡm̲ap</span></a></li>
+<li class="item"><a href="#L41"><span class="c-libfunc">ˡb̲ind</span></a></li>
 </ul>
 </nav>
 <main>
@@ -97,32 +97,34 @@
 <span class="line" id="L11"><a class="ln" href="#L11">11</a></span>
 <span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment">## Making a maybe</span></span>
 <span class="line" id="L13"><a class="ln" href="#L13">13</a></span>
-<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-comment">⍝</span><span class="c-comment"># The empty maybe.</span></span>
-<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;m:&quot; u_se&lt; &quot;Maybe&quot;</span></span>
-<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 0 m:o_r 'm:n_othing</span></span>
-<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-comment">⍝</span><span class="c-comment"># 0</span></span>
-<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-libfunc">ˡn̲othing</span> ← { n j → n }</span>
-<span class="line" id="L19"><a class="ln" href="#L19">19</a></span>
-<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-comment">⍝</span><span class="c-comment"># A maybe holding x.</span></span>
-<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;m:&quot; u_se&lt; &quot;Maybe&quot;</span></span>
-<span class="line" id="L22"><a class="ln" href="#L22">22</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 0 m:o_r m:j_ust 7</span></span>
-<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-comment">⍝</span><span class="c-comment"># 7</span></span>
-<span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-libfunc">ˡj̲ust</span> ← { x n <span class="c-builtin">j̲</span> → <span class="c-builtin">j̲</span> x }</span>
-<span class="line" id="L25"><a class="ln" href="#L25">25</a></span>
-<span class="line" id="L26"><a class="ln" href="#L26">26</a><span class="c-comment">⍝</span><span class="c-comment">## Using a maybe</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-comment">⍝</span><span class="c-comment"> lint: allow unused-binding</span></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-comment">⍝</span><span class="c-comment"># The empty maybe.</span></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;m:&quot; u_se&lt; &quot;Maybe&quot;</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 0 m:o_r 'm:n_othing</span></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-comment">⍝</span><span class="c-comment"># 0</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-libfunc">ˡn̲othing</span> ← { n j → n }</span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-comment">⍝</span><span class="c-comment"> lint: allow unused-binding</span></span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a><span class="c-comment">⍝</span><span class="c-comment"># A maybe holding x.</span></span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;m:&quot; u_se&lt; &quot;Maybe&quot;</span></span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 0 m:o_r m:j_ust 7</span></span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a><span class="c-comment">⍝</span><span class="c-comment"># 7</span></span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a><span class="c-libfunc">ˡj̲ust</span> ← { x n <span class="c-builtin">j̲</span> → <span class="c-builtin">j̲</span> x }</span>
 <span class="line" id="L27"><a class="ln" href="#L27">27</a></span>
-<span class="line" id="L28"><a class="ln" href="#L28">28</a><span class="c-comment">⍝</span><span class="c-comment"># d 'f m_aybe m: f applied to m's value, or d when m is empty.</span></span>
-<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-libfunc">ˡm̲aybe</span> ← { <span class="c-builtin">f̲</span> d <span class="c-builtin">m̲</span> → d <span class="c-builtin">m̲</span> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</span>
-<span class="line" id="L30"><a class="ln" href="#L30">30</a></span>
-<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-comment">⍝</span><span class="c-comment"># d o_r m: m's value, or d when m is empty.</span></span>
-<span class="line" id="L32"><a class="ln" href="#L32">32</a><span class="c-libfunc">ˡo̲r</span> ← { d <span class="c-builtin">m̲</span> → d <span class="c-builtin">m̲</span> <span class="c-quote">'</span>{ x → x } }</span>
-<span class="line" id="L33"><a class="ln" href="#L33">33</a></span>
-<span class="line" id="L34"><a class="ln" href="#L34">34</a><span class="c-comment">⍝</span><span class="c-comment"># 'f m_ap m: f applied inside the maybe; empty stays empty.</span></span>
-<span class="line" id="L35"><a class="ln" href="#L35">35</a><span class="c-libfunc">ˡm̲ap</span> ← { <span class="c-builtin">f̲</span> <span class="c-builtin">m̲</span> → <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ˡn̲othing</a> <span class="c-builtin">m̲</span> <span class="c-quote">'</span>{ x → <a href="lib-Maybe.xtl.html#l.j_ust" class="c-libfunc">ˡj̲ust</a> <span class="c-builtin">f̲</span> x } }</span>
-<span class="line" id="L36"><a class="ln" href="#L36">36</a></span>
-<span class="line" id="L37"><a class="ln" href="#L37">37</a><span class="c-comment">⍝</span><span class="c-comment"># 'f b_ind m: f (which gives a maybe) applied to m's value; empty</span></span>
-<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-comment">⍝</span><span class="c-comment"># stays empty, so a chain of steps stops at the first that fails.</span></span>
-<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-libfunc">ˡb̲ind</span> ← { <span class="c-builtin">f̲</span> <span class="c-builtin">m̲</span> → <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ˡn̲othing</a> <span class="c-builtin">m̲</span> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</span>
+<span class="line" id="L28"><a class="ln" href="#L28">28</a><span class="c-comment">⍝</span><span class="c-comment">## Using a maybe</span></span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a></span>
+<span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-comment">⍝</span><span class="c-comment"># d 'f m_aybe m: f applied to m's value, or d when m is empty.</span></span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-libfunc">ˡm̲aybe</span> ← { <span class="c-builtin">f̲</span> d <span class="c-builtin">m̲</span> → d <span class="c-builtin">m̲</span> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a></span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-comment">⍝</span><span class="c-comment"># d o_r m: m's value, or d when m is empty.</span></span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a><span class="c-libfunc">ˡo̲r</span> ← { d <span class="c-builtin">m̲</span> → d <span class="c-builtin">m̲</span> <span class="c-quote">'</span>{ x → x } }</span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-comment">⍝</span><span class="c-comment"># 'f m_ap m: f applied inside the maybe; empty stays empty.</span></span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a><span class="c-libfunc">ˡm̲ap</span> ← { <span class="c-builtin">f̲</span> <span class="c-builtin">m̲</span> → <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ˡn̲othing</a> <span class="c-builtin">m̲</span> <span class="c-quote">'</span>{ x → <a href="lib-Maybe.xtl.html#l.j_ust" class="c-libfunc">ˡj̲ust</a> <span class="c-builtin">f̲</span> x } }</span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-comment">⍝</span><span class="c-comment"># 'f b_ind m: f (which gives a maybe) applied to m's value; empty</span></span>
+<span class="line" id="L40"><a class="ln" href="#L40">40</a><span class="c-comment">⍝</span><span class="c-comment"># stays empty, so a chain of steps stops at the first that fails.</span></span>
+<span class="line" id="L41"><a class="ln" href="#L41">41</a><span class="c-libfunc">ˡb̲ind</span> ← { <span class="c-builtin">f̲</span> <span class="c-builtin">m̲</span> → <span class="c-libfunc">'</span><a href="lib-Maybe.xtl.html#l.n_othing" class="c-libfunc">ˡn̲othing</a> <span class="c-builtin">m̲</span> <span class="c-builtin">'</span><span class="c-builtin">f̲</span> }</span>
 </div>
 </main>
 </body>

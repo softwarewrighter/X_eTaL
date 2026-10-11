@@ -74,7 +74,7 @@
 <ul>
 <li><a href="#section-1">The rules</a></li>
 <li class="item"><a href="#u.l_ife"><span class="c-userfunc">ᵘl̲ife</span></a></li>
-<li class="item"><a href="#u.s_teps"><span class="c-userfunc">ᵘs̲teps</span></a></li>
+<li class="item"><a href="#u.s_teps-21"><span class="c-userfunc">ᵘs̲teps!</span></a></li>
 <li><a href="#section-2">A blinker</a></li>
 <li class="item"><a href="#blinker">blinker</a></li>
 <li><a href="#section-3">A glider</a></li>
@@ -108,21 +108,21 @@ when it is alive and S is 4.</p>
 <pre class="code"><span class="c-userfunc">ᵘl̲ife</span> ← { (<span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/₁₂</a> <span class="c-number">-1</span> <span class="c-number">0</span> <span class="c-number">1</span> <a href="builtins.html#o_-2d" class="c-builtin">o̲-₁₂</a> <span class="c-lambdaarg">⍵</span>) { (<span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">3</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍺</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">4</span> } <span class="c-lambdaarg">⍵</span> }</pre>
 <div class="uses">Used in: <a href="demos-life.xtl.src.html#L33">demos/life.xtl:33</a>, <a href="demos-life.xtl.src.html#L34">demos/life.xtl:34</a>, <a href="demos-life.xtl.src.html#L35">demos/life.xtl:35</a>, <a href="demos-life.xtl.html#last">last</a></div>
 </div>
-<div class="item" id="u.s_teps">
-<h3><a href="#u.s_teps"><span class="c-userfunc">ᵘs̲teps</span></a> <span class="type">: (Any a, Num b) =&gt; (a -&gt; a) -&gt; b -&gt; a -&gt; a</span></h3>
+<div class="item" id="u.s_teps-21">
+<h3><a href="#u.s_teps-21"><span class="c-userfunc">ᵘs̲teps!</span></a> <span class="type">: (Any a, Num b) =&gt; (a -&gt; a) -&gt; b -&gt; a -&gt; a</span></h3>
 <div class="meta">function &middot; <a href="demos-life.xtl.src.html#L20">line 20</a></div>
 <div class="doc">
-<p>n 'f_ u:s_teps x: applies f to x n times and gives the last result,
+<p>n 'f_ u:s_teps! x: applies f to x n times and gives the last result,
 printing x and then a blank line at every generation on the way, the
 first and the last included.</p>
 </div>
-<pre class="code"><span class="c-userfunc">ᵘs̲teps</span> ← { <span class="c-builtin">f̲</span> n x →
-  shown ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> x
-  gap ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span>
+<pre class="code"><span class="c-userfunc">ᵘs̲teps!</span> ← { <span class="c-builtin">f̲</span> n x →
+  _ ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> x
+  _ ← <a href="builtins.html#p_rint-21" class="c-builtin">p̲rint!</a> <span class="c-string">&quot;&quot;</span>
   n <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? x
-  (n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <span class="c-builtin">'</span><span class="c-builtin">f̲</span> <a href="demos-life.xtl.html#u.s_teps" class="c-userfunc">ᵘs̲teps</a> <span class="c-builtin">f̲</span> x
+  (n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <span class="c-builtin">'</span><span class="c-builtin">f̲</span> <a href="demos-life.xtl.html#u.s_teps-21" class="c-userfunc">ᵘs̲teps!</a> <span class="c-builtin">f̲</span> x
 }</pre>
-<div class="uses">Used in: <a href="demos-life.xtl.html#u.s_teps"><span class="c-userfunc">ᵘs̲teps</span></a>, <a href="demos-life.xtl.html#last">last</a></div>
+<div class="uses">Used in: <a href="demos-life.xtl.html#u.s_teps-21"><span class="c-userfunc">ᵘs̲teps!</span></a>, <a href="demos-life.xtl.html#last">last</a></div>
 </div>
 <h2 class="section" id="section-2">A blinker</h2>
 <div class="item" id="blinker">
@@ -153,7 +153,7 @@ every 4 generations.</p>
 <div class="doc">
 <p>last: the glider after 4 generations, each printed on the way.</p>
 </div>
-<pre class="code">last ← <span class="c-number">4</span> <span class="c-userfunc">'</span><a href="demos-life.xtl.html#u.l_ife" class="c-userfunc">ᵘl̲ife</a> <a href="demos-life.xtl.html#u.s_teps" class="c-userfunc">ᵘs̲teps</a> <a href="demos-life.xtl.html#glider">glider</a></pre>
+<pre class="code">last ← <span class="c-number">4</span> <span class="c-userfunc">'</span><a href="demos-life.xtl.html#u.l_ife" class="c-userfunc">ᵘl̲ife</a> <a href="demos-life.xtl.html#u.s_teps-21" class="c-userfunc">ᵘs̲teps!</a> <a href="demos-life.xtl.html#glider">glider</a></pre>
 </div>
 </main>
 </body>
