@@ -1,6 +1,6 @@
 number = 94
 slug = "spatial-equations-planning"
-status = "pending"
+status = "in-progress"
 description = "Planning saga for spatial equations (asked by the user, 2026-10-09). Read doc..."
 role = "production"
 context_files = []

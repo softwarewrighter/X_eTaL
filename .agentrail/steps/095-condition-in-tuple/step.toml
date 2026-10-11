@@ -1,0 +1,8 @@
+number = 95
+slug = "condition-in-tuple"
+status = "pending"
+description = "Reported by X_eTaL-games (their docs/xetal-asks.md row 29, 2026-10-11): a com..."
+role = "production"
+context_files = []
+created_at = "2026-10-11T10:12:39"
+commits = []
