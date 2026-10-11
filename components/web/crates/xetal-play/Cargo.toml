@@ -10,7 +10,6 @@ repository.workspace = true
 [dependencies]
 xetal-linter.workspace = true
 xetal-base.workspace = true
-xetal-lex.workspace = true
 xetal-view.workspace = true
 xetal-grid.workspace = true
 xetal-program.workspace = true

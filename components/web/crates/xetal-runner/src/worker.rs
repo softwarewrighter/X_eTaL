@@ -50,9 +50,9 @@ impl Store for Snapshot {
     }
 }
 
-/// Run one request: plainly as a program stepped in slices (waiting at
-/// `[]R_EAD` for the page to send a typed line), or as a notebook
-/// posting each statement before it runs.
+/// Run one request, stepped in slices and waiting at `[]R_EAD` for the
+/// page to send a typed line: plainly, or as a notebook posting each
+/// statement before it runs.
 fn run(req: Request) {
     let files = req.files.into_iter().collect();
     xetal_store::install(Arc::new(Snapshot(Mutex::new(files), req.frames)));
@@ -65,14 +65,11 @@ fn run(req: Request) {
     };
     xetal_tty::install(Arc::new(tty));
     xetal_play::set_boxed(req.boxed);
-    if let Mode::Notebook(upto) = req.mode {
-        let mut out = xetal_play::Lines::new(|line: &str| post(Event::Out(line.into())));
-        let mut cell = |source: &str| post(Event::Source(source.into()));
-        let run = xetal_play::notebook_to(&req.src, req.seed, upto, &mut cell, &mut out);
-        drop(out);
-        return crate::stepping::finish(run);
-    }
-    crate::stepping::start(&req.src, req.seed);
+    let notebook = match req.mode {
+        Mode::Notebook(upto) => Some(upto),
+        _ => None,
+    };
+    crate::stepping::start(&req.src, req.seed, notebook);
 }
 
 /// The worker's entry: run each request the page sends.

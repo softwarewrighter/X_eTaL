@@ -4,6 +4,7 @@
 //! its files (`[]N_GET`, `[]N_PUT`) are in that store too. Everything
 //! here also runs natively, so it is tested without a browser.
 
+mod cells;
 mod engine;
 mod interactive;
 mod lines;
@@ -13,7 +14,7 @@ mod page;
 pub use engine::{Run, check, run, run_to};
 pub use interactive::{Interactive, Step};
 pub use lines::Lines;
-pub use notebook::{notebook_to, reads_input, statements};
+pub use notebook::{notebook_to, statements};
 pub use page::{add_library, expanded};
 pub use xetal_grid::set_boxed;
 pub use xetal_program::is_library;

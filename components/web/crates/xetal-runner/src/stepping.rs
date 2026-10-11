@@ -22,10 +22,22 @@ thread_local! {
     static CURRENT: RefCell<Option<Interactive>> = const { RefCell::new(None) };
 }
 
-/// Start `src` stepping, its output posted a line at a time.
-pub(crate) fn start(src: &str, seed: u64) {
-    let out = xetal_play::Lines::new(|line: &str| post(Event::Out(line.into())));
-    match Interactive::start(src, seed, Box::new(out)) {
+/// Start `src` stepping, its output posted a line at a time; as a
+/// notebook (up to statement `upto`) when `notebook` is given, each
+/// statement posted before it runs. Either way a typed line is awaited
+/// at `[]R_EAD`.
+pub(crate) fn start(src: &str, seed: u64, notebook: Option<Option<usize>>) {
+    let out = Box::new(xetal_play::Lines::new(|line: &str| {
+        post(Event::Out(line.into()))
+    }));
+    let started = match notebook {
+        Some(upto) => {
+            let cell = Box::new(|source: &str| post(Event::Source(source.into())));
+            Interactive::notebook(src, seed, upto, cell, out)
+        }
+        None => Interactive::start(src, seed, out),
+    };
+    match started {
         Ok(running) => {
             CURRENT.with(|c| *c.borrow_mut() = Some(running));
             tick();

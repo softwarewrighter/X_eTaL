@@ -1623,7 +1623,6 @@ dependencies = [
  "xetal-core",
  "xetal-eval",
  "xetal-grid",
- "xetal-lex",
  "xetal-libs",
  "xetal-lint",
  "xetal-linter",

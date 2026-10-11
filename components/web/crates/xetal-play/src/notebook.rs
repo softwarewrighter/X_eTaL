@@ -22,7 +22,7 @@ fn span(item: &Item) -> Span {
 
 /// The last line (from 0) of each statement written in the program's
 /// own file (not its libraries'), in order.
-fn last_lines(loaded: &Loaded, src: &str) -> Vec<usize> {
+pub(crate) fn last_lines(loaded: &Loaded, src: &str) -> Vec<usize> {
     let mut lines: Vec<usize> = Vec::new();
     for item in &loaded.program.items {
         let at = loaded.sources.locate(span(item).end.max(1) - 1);
@@ -48,14 +48,9 @@ pub fn notebook_to(
     cell: &mut (dyn FnMut(&str) + Send),
     out: &mut (dyn Write + Send),
 ) -> Run {
-    let loaded = match ready(src) {
-        Ok(l) => l,
+    let src = match crate::cells::reach(src, upto) {
+        Ok(s) => s,
         Err(run) => return run,
-    };
-    let ends = last_lines(&loaded, src);
-    let src: String = match upto.and_then(|k| ends.get(k.max(1) - 1)) {
-        Some(&last) => src.lines().take(last + 1).collect::<Vec<_>>().join("\n"),
-        None => src.to_string(),
     };
     let loaded = match ready(&src) {
         Ok(l) => l,
@@ -78,23 +73,4 @@ pub fn notebook_to(
         cell(rest.trim_end());
     }
     finish(&loaded, warnings, result)
-}
-
-/// Whether `src` reads the keyboard (`[]R_EAD`, `[]K_EY`, `[]K_CHAR`,
-/// `[]K_NAMED`), by its tokens, not its text (a comment naming one does
-/// not count): only Run waits for typed lines, so the page turns
-/// Notebook and Step off for such a program.
-pub fn reads_input(src: &str) -> bool {
-    let Ok(tokens) = xetal_lex::lex(src) else {
-        return false;
-    };
-    tokens.iter().any(|t| match &t.kind {
-        xetal_lex::TokenKind::Func(f) if f.ns.as_deref() == Some(xetal_lex::SYSTEM) => {
-            matches!(
-                f.spelled().as_str(),
-                "R_EAD" | "K_EY" | "K_CHAR" | "K_NAMED"
-            )
-        }
-        _ => false,
-    })
 }
