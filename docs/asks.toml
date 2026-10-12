@@ -483,6 +483,20 @@ state = "landed"
 here = "step 088 (D129): the sidebar groups files under their directory relative to the documented files' common root, and the search index and the used-at links name a file by that relative path"
 
 [[ask]]
+id = "G19"
+repo = "X_eTaL-games"
+ask = "a comparison's result inside a tuple a function returned is a Bool once bound: `0 +` it is a type error, while the same tuple written inline works"
+state = "landed"
+here = "step 095: a top-level value keeps the conditions inside it (tuple parts, boxes) open, so a later use makes each a number or a truth value (T1)"
+
+[[ask]]
+id = "G20"
+repo = "X_eTaL-games"
+ask = "type inference is not deterministic: the same library prints one of two types for a function, about half the runs each"
+state = "planned"
+here = "step 096: a group of mutually dependent top-level definitions was closed in hash-map order; reproduced with the games' pinned binary (4 and 8 of 12 runs)"
+
+[[ask]]
 id = "X1"
 repo = "X_eTaL-libraries"
 ask = "`.xtlm` macro libraries: user-defined macros imported with `u_se<`"

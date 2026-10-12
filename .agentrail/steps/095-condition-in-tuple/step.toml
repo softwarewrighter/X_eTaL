@@ -1,6 +1,6 @@
 number = 95
 slug = "condition-in-tuple"
-status = "pending"
+status = "in-progress"
 description = "Reported by X_eTaL-games (their docs/xetal-asks.md row 29, 2026-10-11): a com..."
 role = "production"
 context_files = []

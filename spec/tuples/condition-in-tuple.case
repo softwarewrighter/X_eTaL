@@ -1,0 +1,10 @@
+# A comparison's result inside a tuple stays a condition when the tuple
+# is bound at the top level (T1, ask G19): a later use decides whether
+# it is a number or a truth value, as for a bare condition.
+== SOURCE
+u:n_um := { (a, m) -> 0 + m }
+u:n_ew := { z -> (z, 0 < 1 2 3) }
+s := u:n_ew 5
+u:n_um s
+== RESULT
+1 1 1
