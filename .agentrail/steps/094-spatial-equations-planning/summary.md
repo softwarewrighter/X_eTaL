@@ -1,0 +1,1 @@
+Spatial equations reviewed (viable as a library, PoC matches an oracle, 21 corrections, 7 language-change candidates left open); Saga 41 proposed in plan.md and its 8 steps queued after 095

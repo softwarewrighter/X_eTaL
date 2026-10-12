@@ -1,8 +1,9 @@
 number = 94
 slug = "spatial-equations-planning"
-status = "in-progress"
+status = "completed"
 description = "Planning saga for spatial equations (asked by the user, 2026-10-09). Read doc..."
 role = "production"
 context_files = []
 created_at = "2026-10-09T10:17:59"
-commits = []
+completed_at = "2026-10-12T08:43:29"
+commits = ["4bb0e24eef1dadab1852c2afb4cec8a5a4825096"]
