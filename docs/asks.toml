@@ -335,6 +335,20 @@ state = "new"
 here = "filed after the asks audit; `xetal_store::take_shown` takes from the one installed store"
 
 [[ask]]
+id = "M15"
+repo = "X_eTaL-ML"
+ask = "`xetal doc --out` names every site after X_eTaL (page titles, the sidebar's heading): a sibling's site cannot say whose it is; asked: a `--title` option"
+state = "new"
+here = "filed 2026-10-11; not yet triaged (small: an option for the site's name)"
+
+[[ask]]
+id = "M16"
+repo = "X_eTaL-ML"
+ask = "the matrix product runs at about 85 ns a multiply-add (`'+ '* i_nner` on 8 by 9 and 9 by 33800, 2.4 million multiply-adds in about 0.2 s)"
+state = "new"
+here = "filed 2026-10-11; D12 landed at about 94 ns for its ask; vector kernels are Saga 22 (speed)"
+
+[[ask]]
 id = "G1"
 repo = "X_eTaL-games"
 ask = "a terminal for interactive programs, in the browser too"

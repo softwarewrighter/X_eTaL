@@ -14,13 +14,13 @@ build already does what the ask wants.
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
 | X_eTaL-demos | 11 | 3 | 3 | 2 | 2 |
-| X_eTaL-ML | 7 | 1 | 1 | 3 | 2 |
+| X_eTaL-ML | 7 | 1 | 1 | 3 | 4 |
 | X_eTaL-games | 6 | 4 | 4 | 1 | 3 |
 | X_eTaL-libraries | 9 | 3 | 2 | 3 | 1 |
 | X_eTaL-extensions | 3 | 1 | 3 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 36 | 12 | 20 | 11 | 18 |
+| All | 36 | 12 | 20 | 11 | 20 |
 
 ## Notice: write a library's helpers with h:
 
@@ -107,6 +107,8 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | M11 | a macro's text cannot name a library by the importer's alias (the same as X14's remaining half) | new | not yet decided: MC5 rewrites a library's `l:` to the importer's alias, but nothing names that alias in a macro's expansion, and an expansion may not import (MC23 row 20) | - |
 | M12 | shapes in types: a matrix's type is `Float`, so code can be well-typed and shape-wrong | declined | T7: array types are rank-erased, a type names only the element type, shapes are checked at run time; T4: no annotations in v0 (`::` signatures later); D-10: one Int type, overflow an error | - |
 | M14 | `xetal_play::run` collects `[]S_HOW` pictures in state shared across threads, so two runs at once take each other's | new | filed after the asks audit; `xetal_store::take_shown` takes from the one installed store | - |
+| M15 | `xetal doc --out` names every site after X_eTaL (page titles, the sidebar's heading): a sibling's site cannot say whose it is; asked: a `--title` option | new | filed 2026-10-11; not yet triaged (small: an option for the site's name) | - |
+| M16 | the matrix product runs at about 85 ns a multiply-add (`'+ '* i_nner` on 8 by 9 and 9 by 33800, 2.4 million multiply-adds in about 0.2 s) | new | filed 2026-10-11; D12 landed at about 94 ns for its ask; vector kernels are Saga 22 (speed) | - |
 
 ## X_eTaL-games
 
