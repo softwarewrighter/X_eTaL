@@ -1169,8 +1169,13 @@ style guide's names (lang-choices section 16).
    is `'f_`, `{ x -> x }` is `'i_d`), group complexity, in a new crate
    xetal-complexity.
 6. lint-typed: lints after type checking (`?` must return Bool).
-7. lint-fix: machine-applicable suggestions, `xetal lint --fix`, and
-   `--format json` for the Emacs mode and the live demo's editor.
+7. lint-fix [DONE] (D144): machine-applicable suggestions
+   (`Diagnostic::with_fix`; redundant-lambda gives one), `xetal lint
+   --fix`, and `--format json` (JSON lines) for the Emacs mode and the
+   live demo's editor.
+8. lint-fix-more (not started): fixes for the renames and `_ :=`
+   (name spans in Core first), `--fix` refusing uncommitted changes,
+   end positions in the JSON, the Emacs mode reading it.
 ## Saga 41 (proposed) -- spatial equations (paper math to array code, a library)
 
 Proposed after the review of `docs/research8.txt` and
