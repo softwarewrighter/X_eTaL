@@ -81,7 +81,7 @@ The live demo needs no JSON: it calls the same Rust functions.
 | `deprecated-private` | deprecated | warn | a library's bare top-level function (PN2; also printed by `xetal run`) |
 | `unknown-lint` | suspicious | warn | a `# lint:` comment with a bad level, no names, or an unknown name |
 | `unused-binding` | suspicious | warn | a lambda parameter or local `:=` nothing uses; `_ :=`, `_r`/`_l` and top-level names are exempt |
-| `redundant-lambda` | complexity | warn | a lambda that only passes its arguments to a named function (`'{ x -> n_eg x }` is `'n_eg`) or returns its argument (`'i_d`); a definition's whole value is exempt |
+| `redundant-lambda` | complexity | warn | a lambda that only passes its arguments to a named function (`'{ x -> n_eg x }` is `'n_eg`) or returns its argument (`'i_d`); a definition's whole value is exempt, and so is power (`{ a b -> a ^ b }`: `'^` is an exponent, so power has no quoted form) |
 | `mutable-constant` | style | warn | a mutable variable named like a constant (`Count!`) |
 | `missing-bang` | style | warn | a function calling an effect (`p_rint!`, a `!` function) directly, without `!` in its name |
 | `needless-bang` | pedantic | allow | a `!` function that could not have an effect |

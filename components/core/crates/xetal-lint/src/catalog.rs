@@ -57,7 +57,9 @@ or returns its one parameter (`{ x -> x }`).\n\nWhy: the quoted name says the sa
 thing in fewer tokens, and a reader does not have to check what the lambda adds.\n\n\
 Example:\n    '{ x -> n_eg x } e_ach v\nInstead:\n    'n_eg e_ach v\n\n\
 `{ x -> x }` is `'i_d`. A lambda that is a definition's whole value \
-(`u:n_ot := { x -> n_eg x }`) is not reported: it names its parameters for a reader.",
+(`u:n_ot := { x -> n_eg x }`) is not reported: it names its parameters for a reader. \
+Nor is a lambda passing its arguments to power (`{ a b -> a ^ b }`): power has no \
+quoted form, since `'^` is an exponent (D-6).",
     },
     Lint {
         name: "missing-bang",

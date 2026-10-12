@@ -41,8 +41,9 @@ fn walk(e: &Expr, defined: bool, out: &mut Vec<Diagnostic>) {
 
 /// The finding for lambda `at`, if it only passes its arguments on,
 /// with its fix: the name in place of the lambda (its quote stays).
+/// Power is never named: `'^` is an exponent (D-6), not a quote.
 fn finding(params: &[&str], body: &Expr, at: &Expr) -> Option<Diagnostic> {
-    let name = passed_to(params, body)?;
+    let name = passed_to(params, body).filter(|n| *n != "^")?;
     let message = if name == "i_d" {
         "this lambda returns its argument unchanged: write `'i_d`".to_string()
     } else {
