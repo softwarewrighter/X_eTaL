@@ -1562,6 +1562,7 @@ dependencies = [
  "xetal-lint",
  "xetal-program",
  "xetal-sources",
+ "xetal-typed",
 ]
 
 [[package]]
@@ -1880,6 +1881,15 @@ name = "xetal-ty"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+]
+
+[[package]]
+name = "xetal-typed"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-ir",
+ "xetal-types",
 ]
 
 [[package]]

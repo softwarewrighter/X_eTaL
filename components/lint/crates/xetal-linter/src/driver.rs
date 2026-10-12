@@ -76,7 +76,9 @@ type Raw = (&'static str, usize, usize, String, Option<Edit>);
 /// What the lint passes find in the program's own file, placed there.
 fn placed(loaded: &Loaded) -> Vec<Raw> {
     let mut out = Vec::new();
-    for d in xetal_lint::lints(&loaded.program) {
+    let mut found = xetal_lint::lints(&loaded.program);
+    found.extend(xetal_typed::typed(&loaded.program));
+    for d in found {
         let at = loaded.sources.locate(d.span.map_or(0, |s| s.start));
         if at.index == 0 {
             let fix = d.fix.as_ref().and_then(|f| edit(f, &loaded.sources));

@@ -93,6 +93,7 @@ impl Infer {
     fn guard(&mut self, cond: &Expr, then: &Expr, other: &Expr) -> Result<Type, Diagnostic> {
         let (tc, want) = (self.expr(cond)?, self.u.fresh_truthy());
         self.u.unify(&want, &tc, cond.span)?;
+        self.rec.guards.push((cond.span, tc));
         let (tt, to) = (self.expr(then)?, self.expr(other)?);
         self.u.unify(&tt, &to, other.span)?;
         Ok(tt)

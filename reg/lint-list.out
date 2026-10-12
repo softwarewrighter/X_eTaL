@@ -6,6 +6,7 @@ unused-binding       suspicious   warn   a lambda parameter or local binding tha
 redundant-lambda     complexity   warn   a lambda that only passes its arguments to a named function
 missing-bang         style        warn   a function that calls an effect but has no `!` in its name
 needless-bang        pedantic     allow  a `!` function that calls no effect
+int-condition        pedantic     allow  a guard whose condition is an Int (a count), not a truth
 function-name-case   pedantic     allow  a function named UpperCamel (functions are lowerCamel)
 mutable-constant     style        warn   a mutable variable named like a constant (UpperCamel)
 upper-case-name      pedantic     allow  a variable named in all capitals

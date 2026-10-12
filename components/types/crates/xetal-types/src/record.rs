@@ -5,7 +5,7 @@
 use std::collections::{HashMap, HashSet};
 
 use xetal_base::Diagnostic;
-use xetal_base::NodeId;
+use xetal_base::{NodeId, Span};
 use xetal_core::Expr;
 use xetal_elab::Dicts;
 use xetal_prim_types::{TYPED_IDENTITY, prim_type};
@@ -38,6 +38,8 @@ pub(crate) struct Record {
     globals: HashMap<String, NodeId>,
     /// Variables some scheme quantifies; top-level defaulting skips them.
     pub quantified: HashSet<TypeVar>,
+    /// Each guard's condition and its type, for the typed lints.
+    pub guards: Vec<(Span, Type)>,
 }
 
 impl Record {

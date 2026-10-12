@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint -W int-condition reg/fixtures/lint/condition.xtl"
+exit_code = 0
+desc = "int-condition (pedantic, asked for with -W): a guard whose condition is a count (t_ally v) warns; a comparison, and a count compared, do not"
