@@ -1168,7 +1168,9 @@ style guide's names (lang-choices section 16).
 5. lint-redundant [DONE] (D143): `redundant-lambda` (`{ x -> f_ x }`
    is `'f_`, `{ x -> x }` is `'i_d`), group complexity, in a new crate
    xetal-complexity.
-6. lint-typed: lints after type checking (`?` must return Bool).
+6. lint-typed [DONE] (D145): lints after type checking: `int-condition`
+   (suspicious, warn), a guard whose condition type-checks as an Int, in a new
+   crate xetal-typed over `xetal_types::guard_types`.
 7. lint-fix [DONE] (D144): machine-applicable suggestions
    (`Diagnostic::with_fix`; redundant-lambda gives one), `xetal lint
    --fix`, and `--format json` (JSON lines) for the Emacs mode and the

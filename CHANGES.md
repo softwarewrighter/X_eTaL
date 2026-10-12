@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-12
 
+- 14:00 `docs` docs/local-asks.md: what an agent on the user's machine runs after merging a cloud lane PR (the checks the sandbox cannot run, pages, and the agentrail record of Saga 40, with each step's commit). `int-condition` is now suspicious and on by default (the user's choice, D145); lint-list and lint-int-condition rebased.
+- 13:00 `feat` The first typed lint (Saga 40 step 6, D145): `int-condition` (suspicious, on by default) warns on a guard whose condition type-checks as an Int (`t_ally v ? ...`), which fails at run time unless it is 1 or 0. Inference records guard conditions for `xetal_types::guard_types`; the typed lints run in a new crate xetal-typed, only when the program type-checks. Golden lint-int-condition; lint-list rebased.
 - 14:00 `design` A `!` variable keeps the type of its first binding; a number's type is settled when its value must exist: at the top level at its line, in a function at each call; types are inferred and checked before the program runs, one body per function (lang-choices M5, decided with the user).
 - 13:30 `fix` A comparison's result inside a tuple (or a box) stays usable as a number after the tuple is bound at the top level (step 095, D145, X_eTaL-games' ask G19); the games' non-deterministic inference reproduced and planned as step 096 (ask G20).
 - 12:30 `chore` Merged PR #121 (xetal lint --fix and --format json, Saga 40 step 7); the lane's Saga 40 section in plan.md kept as the PR wrote it. Pages rebuilt.

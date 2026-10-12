@@ -44,6 +44,22 @@ pub(crate) struct Infer {
 /// bindings and definitions, the type for expressions) and the facts
 /// elaboration needs.
 pub fn infer_program(program: &Program) -> Result<(Vec<String>, Dicts), Diagnostic> {
+    let inf = inferred(program)?;
+    let lines = inf.lines.iter().map(|(name, scheme)| {
+        let scheme = Scheme {
+            ty: inf.u.resolve(&scheme.ty),
+            ..scheme.clone()
+        };
+        match name {
+            Some(name) => format!("{name} : {scheme}"),
+            None => scheme.to_string(),
+        }
+    });
+    Ok((lines.collect(), inf.dicts()))
+}
+
+/// Every item of `program` inferred, and no name left undefined.
+pub(crate) fn inferred(program: &Program) -> Result<Infer, Diagnostic> {
     let mut inf = Infer {
         u: Unifier::default(),
         globals: HashMap::new(),
@@ -62,17 +78,7 @@ pub fn infer_program(program: &Program) -> Result<(Vec<String>, Dicts), Diagnost
             );
         }
     }
-    let lines = inf.lines.iter().map(|(name, scheme)| {
-        let scheme = Scheme {
-            ty: inf.u.resolve(&scheme.ty),
-            ..scheme.clone()
-        };
-        match name {
-            Some(name) => format!("{name} : {scheme}"),
-            None => scheme.to_string(),
-        }
-    });
-    Ok((lines.collect(), inf.dicts()))
+    Ok(inf)
 }
 
 impl Infer {

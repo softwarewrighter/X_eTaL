@@ -1,0 +1,13 @@
+[package]
+name = "xetal-typed"
+description = "The typed lints: passes over Core that run after a successful type check"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-ir.workspace = true
+xetal-types.workspace = true

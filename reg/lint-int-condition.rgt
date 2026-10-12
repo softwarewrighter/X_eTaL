@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint reg/fixtures/lint/condition.xtl"
+exit_code = 0
+desc = "int-condition (suspicious, on by default): a guard whose condition is a count (t_ally v) warns; a comparison, and a count compared, do not"

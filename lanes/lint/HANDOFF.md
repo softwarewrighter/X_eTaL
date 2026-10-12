@@ -115,3 +115,17 @@ Not run: sw-checklist (counted by hand: command.rs at seven functions,
 fix.rs five, every function under 30 lines), sw-markdown-checker,
 agentrail (record steps 1 to 5 and 7), `just pages` (web and rosetta
 parts stale: Rust sources changed).
+
+## Step 6 (lint-typed, D145)
+
+Branch `claude/project-thread-v9efz0`, from main at 804b3f2 (after PR
+#121 merged). New crate components/lint/crates/xetal-typed; the lint
+component now depends on xetal-types, and every lock that pins
+xetal-linter gained xetal-typed (check-locks --fix, additions only).
+The sandbox ran fmt, clippy and tests in types, core, lint, cli, web
+and macro, the wasm32 check of web, scripts/build-all.sh, and every
+golden with reg-rs: 229 of 235 pass, failing only cli-too-deep and the
+five just-* goldens, as on main. `int-condition` is suspicious and on
+by default (the user chose warn); no library or demo trips it. Not run:
+sw-checklist (xetal-types is at seven modules, unchanged; its expr.rs
+and record.rs gained no functions), agentrail, `just pages`.

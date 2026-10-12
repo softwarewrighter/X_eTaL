@@ -1,0 +1,9 @@
+#!/usr/bin/env xetal
+# int-condition: a guard whose condition is an Int must be 1 or 0 at run time.
+u:a_ny := { v -> t_ally v ? 1
+  0 }
+u:s_ome := { v -> 0 < t_ally v ? 1
+  0 }
+u:p_ositive := { x -> x > 0 ? 1
+  0 }
+u:s_ome 1 2

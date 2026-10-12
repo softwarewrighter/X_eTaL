@@ -9,6 +9,6 @@ mod infer;
 mod record;
 mod subscript;
 
-pub use check::{check_program, check_source};
+pub use check::{check_program, check_source, guard_types};
 pub use infer::infer_program;
 pub use xetal_ty::{Scheme, Type, TypeVar, Unifier};

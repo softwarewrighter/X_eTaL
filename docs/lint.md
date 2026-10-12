@@ -3,7 +3,7 @@
 `xetal lint` checks a program or library against a catalog of named
 lints, as `cargo clippy` checks a Rust crate. This document is the
 design: what it does, how it is built, why, and where it goes next.
-User-facing usage is in the README; decisions are D137 to D144 in
+User-facing usage is in the README; decisions are D137 to D145 in
 `docs/design.md` and S12 in `docs/lang-choices.md`.
 
 ## 1. What it does
@@ -86,6 +86,7 @@ The live demo needs no JSON: it calls the same Rust functions.
 | `missing-bang` | style | warn | a function calling an effect (`p_rint!`, a `!` function) directly, without `!` in its name |
 | `needless-bang` | pedantic | allow | a `!` function that could not have an effect |
 | `function-name-case` | pedantic | allow | a function named UpperCamel (`u:N_extGen`); a capital start is for combinators |
+| `int-condition` | suspicious | warn | a guard whose condition type-checks as an Int (`t_ally v ? ...`), which fails at run time unless it is 1 or 0; runs after type checking |
 | `upper-case-name` | pedantic | allow | a variable of two or more letters, all capitals (`MAXSIZE`) |
 
 The naming lints check lang-choices section 16 (style guide). Case
@@ -182,6 +183,8 @@ these rules testable one by one.
                    its own: xetal-lint is at seven modules)
   components/core: xetal-complexity  (redundant-lambda; the home of
                    the complexity group)
+  components/lint: xetal-typed  (int-condition: lints after type
+                   checking, over xetal_types::guard_types)
   components/core: xetal-ir    Expr::children(), the walk every pass uses
      walk.rs      Core children and binding sites
 ```
@@ -202,10 +205,16 @@ The price is that Core names carry no spans of their own: a naming
 finding is placed at the binding's value or lambda, on the right line
 but not the name's column.
 
-Why no type check. The passes need only Core, so `xetal lint` works
-on a program that does not type-check yet. Lints that need types (a
-`?` predicate that does not return Bool) will run after
-`xetal_types::check_program` and only when it succeeds.
+Why the type check is apart. The Core passes need only Core, so
+`xetal lint` works on a program that does not type-check yet. The
+typed lints (`int-condition`) need what inference gives:
+`xetal_types::guard_types` infers the program (without elaborating
+it) and returns each guard condition's span and type. They run only
+when the program type-checks; otherwise they find nothing, and the
+type error is reported where the program is run. They live in their
+own crate, `xetal-typed` in the lint component, because the checker
+depends on Core and xetal-lint must not depend on the checker; their
+catalog entries are in xetal-lint with the rest.
 
 ## 6. Qualities
 
@@ -239,8 +248,9 @@ on a program that does not type-check yet. Lints that need types (a
   functions have an effect (`[]S_HOW` does, `[]P_ATH` does not), so
   `missing-bang` ignores them; an effect flag in builtins.toml would let
   it count them.
-- More lints: typed lints (`?` must return Bool); more of the
-  complexity group (`'{ a b -> b f_ a }` is `'f_ s_wap`).
+- More lints: more typed lints (an array where a scalar truth
+  belongs); more of the complexity group (`'{ a b -> b f_ a }` is
+  `'f_ s_wap`).
 - Fixes for more lints: the renames (`mutable-constant`,
   `missing-bang`) must rename every use, across files, and
   `unused-binding`'s `_ :=` needs the name's span; both wait for name

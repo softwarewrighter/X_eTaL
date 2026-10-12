@@ -85,6 +85,20 @@ named with one misleads.\n\nExample:\n    u:d_ouble! := { _r * 2 }\nInstead:\n  
 u:d_ouble := { _r * 2 }\n\nOff by default: `xetal lint -W pedantic` turns it on.",
     },
     Lint {
+        name: "int-condition",
+        group: Group::Suspicious,
+        level: Level::Warn,
+        summary: "a guard whose condition is an Int (a count), not a truth",
+        explain: "What it does: warns on a guard `cond ? then` whose condition type-checks \
+as an Int, such as a count (`t_ally v ? ...`). It runs after type checking, and only \
+when the program type-checks.\n\nWhy: a condition takes any truth (T5), so an Int \
+type-checks, but at run time it must be 1 or 0 (`error[not-a-bool]` otherwise): a \
+count where a truth belongs usually means a comparison was left out.\n\nExample:\n    u:a_ny := { v -> t_ally v ? 1\n    0 }\n\
+Instead (a function applies to all on its right):\n    u:a_ny := { v -> 0 < t_ally v ? 1\n    0 }\n\nA comparison is not \
+reported: it is a truth that becomes an Int only in arithmetic. On by default; a \
+guard meant to test an Int that is always 1 or 0 is silenced with `# lint: allow int-condition`.",
+    },
+    Lint {
         name: "function-name-case",
         group: Group::Pedantic,
         level: Level::Allow,
