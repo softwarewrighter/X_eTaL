@@ -1,13 +1,15 @@
-//! Hygiene (MC30), with stand-in macros: binders a macro writes around
-//! the call's text are renamed, in order; declared anaphora and binders
-//! around none of the call's text are not; a program cannot write the
-//! fresh namespace.
+//! Hygiene by choice (MC30), with stand-in macros: a name a macro writes
+//! stays as written, around the call's text or not; a macro asks for a
+//! fresh name (the counter `[]G_ENSYM` reads), numbered in the order
+//! calls are expanded; the call's text cannot bind a declared anaphor;
+//! a program cannot write the fresh namespace.
 
 use xetal_base::Diagnostic;
 use xetal_expand::{MacroCall, Macros, binds_of, expand_with};
 
-/// `t_wice<` binds t around its text; `w_ith<` binds it (declared);
-/// `s_hown<` binds v around none of its text.
+/// `t_wice<` binds t around its text; `f_resh<` binds a fresh name
+/// around it; `w_ith<` binds it (declared); `s_hown<` binds v around
+/// none of its text.
 struct Binding;
 
 impl Macros for Binding {
@@ -15,6 +17,11 @@ impl Macros for Binding {
         let r = call.right.unwrap_or("");
         Ok(match call.name {
             "t_wice<" => format!("{{ @ -> t := 2; t * ({r}) }} @"),
+            "f_resh<" => {
+                call.fresh.set(call.fresh.get() + 1);
+                let t = format!("g{}:t", call.fresh.get());
+                format!("{{ @ -> {t} := 2; {t} * ({r}) }} @")
+            }
             "w_ith<" => format!("{{ @ -> it := 7; {r} }} @"),
             "p_air<" => format!("{{ @ -> (a, _) := (2, 3); a * ({r}) }} @"),
             "s_plit<" => format!("{{ (a, b) -> a + b + ({r}) }} (1, 2)"),
@@ -35,23 +42,40 @@ fn text(src: &str) -> String {
 }
 
 #[test]
-fn a_binder_around_the_calls_text_is_renamed_in_order() {
+fn a_binder_around_the_calls_text_is_kept_as_written() {
+    // No automatic renaming: the macro's t is the one its text sees.
     assert_eq!(
-        text("@ x:t_wice< \"t + 1\"\n@ x:t_wice< \"t - 1\""),
+        text("@ x:t_wice< \"t + 1\""),
+        "{ @ -> t := 2; t * (t + 1) } @"
+    );
+    assert_eq!(
+        text("@ x:p_air< \"a + 1\""),
+        "{ @ -> (a, _) := (2, 3); a * (a + 1) } @"
+    );
+}
+
+#[test]
+fn fresh_names_are_numbered_in_the_order_calls_are_expanded() {
+    assert_eq!(
+        text("@ x:f_resh< \"t + 1\"\n@ x:f_resh< \"t - 1\""),
         "{ @ -> g1:t := 2; g1:t * (t + 1) } @\n{ @ -> g2:t := 2; g2:t * (t - 1) } @"
     );
 }
 
 #[test]
-fn a_tuple_patterns_names_are_binders_too() {
-    // TU11: a pattern in a local binding and in a parameter list.
+fn the_calls_text_cannot_bind_a_declared_anaphor() {
+    for src in [
+        "@ x:w_ith< \"'{ it -> it } e_ach 1 2\"",
+        "@ x:w_ith< \"it := 3; it\"",
+        "@ x:w_ith< \"'{ (it, b) -> b } e_ach 1\"",
+    ] {
+        let d = expand_with(src, &Binding).unwrap_err();
+        assert_eq!(d.code, "shadows-anaphor", "{src}");
+    }
+    // Another name, or it only read, is fine.
     assert_eq!(
-        text("@ x:p_air< \"a + 1\""),
-        "{ @ -> (g1:a, _) := (2, 3); g1:a * (a + 1) } @"
-    );
-    assert_eq!(
-        text("@ x:s_plit< \"a * b\""),
-        "{ (g1:a, g2:b) -> g1:a + g2:b + (a * b) } (1, 2)"
+        text("@ x:w_ith< \"'{ x -> x + it } e_ach 1\""),
+        "{ @ -> it := 7; '{ x -> x + it } e_ach 1 } @"
     );
 }
 

@@ -1,6 +1,6 @@
 number = 2
 slug = "xasks-hygiene"
-status = "pending"
+status = "in-progress"
 description = "xasks lane (lanes/xasks/.agentrail/plan.md). One PR per step from the latest ..."
 role = "production"
 context_files = []

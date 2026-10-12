@@ -57,6 +57,9 @@ pub struct MacroRun {
     /// The file the call was written in, and its line there (from 1).
     pub file: String,
     pub row: usize,
+    /// The fresh names given so far in the file (`[]G_ENSYM`, MC30);
+    /// the run leaves the count after its own.
+    pub fresh: std::cell::Cell<usize>,
 }
 
 /// What a library string names (MC4, MC11).
