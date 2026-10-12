@@ -1,10 +1,10 @@
-warning[mutable-constant]: `Count!` is mutable but named like a constant: write `count!` at reg/fixtures/lint/style.xtl:4:11
+warning[mutable-constant]: `Count!` is mutable but named like a constant: write `count!` at reg/fixtures/lint/style.xtl:4:1
   note: `mutable-constant` is in group `style`; xetal lint --explain mutable-constant
-error[upper-case-name]: `MAXSIZE` is all capitals: write a constant UpperCamel (`MaxSize`) or a variable lowerCamel (`maxSize`) at reg/fixtures/lint/style.xtl:5:12
+error[upper-case-name]: `MAXSIZE` is all capitals: write a constant UpperCamel (`MaxSize`) or a variable lowerCamel (`maxSize`) at reg/fixtures/lint/style.xtl:5:1
   note: `upper-case-name` is in group `pedantic`; xetal lint --explain upper-case-name
 warning[shadows-builtin]: `r_ev` here shadows the built-in r_ev at reg/fixtures/lint/style.xtl:6:13
   note: `shadows-builtin` is in group `suspicious`; xetal lint --explain shadows-builtin
-warning[unused-binding]: parameter `y` is never used at reg/fixtures/lint/style.xtl:7:9
+warning[unused-binding]: parameter `y` is never used at reg/fixtures/lint/style.xtl:7:13
   note: `unused-binding` is in group `suspicious`; xetal lint --explain unused-binding
 3 warning(s), 1 error(s)
 error[lint-denied]: 1 denied lint finding(s)

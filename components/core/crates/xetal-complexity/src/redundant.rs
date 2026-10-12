@@ -50,5 +50,5 @@ fn finding(params: &[&str], body: &Expr, at: &Expr) -> Option<Diagnostic> {
         format!("this lambda only passes its arguments to `{name}`: write `'{name}`")
     };
     let found = Diagnostic::warning("redundant-lambda", message).with_span(at.span);
-    Some(found.with_fix(at.span, name))
+    Some(found.with_fixes([(at.span, name.to_string())]))
 }

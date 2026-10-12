@@ -26,6 +26,8 @@ pub struct Request {
     pub list: bool,
     /// `--fix`: make the findings' sure edits in the file.
     pub fix: bool,
+    /// `--allow-dirty`: let `--fix` rewrite a file git cannot restore.
+    pub allow_dirty: bool,
     /// `--format json`: the findings as JSON lines on standard output.
     pub json: bool,
 }
@@ -52,7 +54,7 @@ pub fn command(
         ));
     };
     let findings = match req.fix {
-        true => fix_file(name, text, &rules, err)?,
+        true => fix_file(name, text, &rules, req.allow_dirty, err)?,
         false => lint(name, text, &rules)?,
     };
     match req.json {
@@ -123,22 +125,29 @@ fn report(findings: &[Finding], err: &mut dyn Write) -> Result<String, Diagnosti
 /// Emacs mode, the live demo); denied findings are still an error.
 fn json(findings: &[Finding], out: &mut dyn Write) -> Result<String, Diagnostic> {
     for f in findings {
-        let fix = f.fix.as_ref().map_or("null".to_string(), |e| {
-            let r = json_string(&e.replacement);
-            format!(
-                r#"{{"start":{},"end":{},"replacement":{r}}}"#,
-                e.start, e.end
-            )
-        });
+        let edits: Vec<String> = f
+            .fix
+            .iter()
+            .map(|e| {
+                let r = json_string(&e.replacement);
+                format!(
+                    r#"{{"start":{},"end":{},"replacement":{r}}}"#,
+                    e.start, e.end
+                )
+            })
+            .collect();
+        let fix = format!("[{}]", edits.join(","));
         let _ = writeln!(
             out,
-            r#"{{"lint":{},"group":{},"level":{},"file":{},"line":{},"col":{},"message":{},"fix":{fix}}}"#,
+            r#"{{"lint":{},"group":{},"level":{},"file":{},"line":{},"col":{},"end_line":{},"end_col":{},"message":{},"fix":{fix}}}"#,
             json_string(f.lint.name),
             json_string(f.lint.group.name()),
             json_string(f.level.name()),
             json_string(&f.file),
             f.line,
             f.col,
+            f.end_line,
+            f.end_col,
             json_string(&f.message),
         );
     }

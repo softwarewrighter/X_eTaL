@@ -6,7 +6,7 @@ use xetal_base::{Diagnostic, Span};
 use xetal_syntax::{Expr as Surface, ExprKind, FunKind, Stmt, Target};
 
 use crate::lower::{Lower, err};
-use xetal_ir::{Expr, Item, Kind, Program};
+use xetal_ir::{Expr, Item, Kind, NameSpan, Program, written_at};
 
 /// A lowered statement, before the sequence is folded into Core.
 pub(crate) enum Piece {
@@ -56,6 +56,7 @@ impl Lower {
         Ok(Program {
             items,
             notes: std::mem::take(&mut self.notes),
+            names: std::mem::take(&mut self.names),
         })
     }
 
@@ -170,6 +171,12 @@ impl Lower {
                 if !name.contains(':') {
                     self.bind(&name);
                 }
+                let (node, at) = (value.id, written_at(&self.src, *span, &name));
+                self.names.extend(at.map(|span| NameSpan {
+                    node,
+                    param: false,
+                    span,
+                }));
                 Ok(Piece::Let {
                     name,
                     rec,

@@ -16,6 +16,7 @@ xetal lint -W pedantic -A shadows-builtin FILE
 xetal lint --list                   # every lint: group, default level, summary
 xetal lint --explain mutable-constant
 xetal lint --fix FILE               # rewrite FILE with the sure fixes, report what is left
+xetal lint --fix --allow-dirty FILE # the same for a file with uncommitted changes
 xetal lint --format json FILE       # one JSON object a line on stdout, for editors
 ```
 
@@ -41,26 +42,44 @@ A lint may give a fix, as rustc gives a machine-applicable suggestion:
 a span and the text to write there (`Diagnostic::with_fix`). The driver
 makes it an edit to the file as written only when that is sure: the
 span lies wholly in the linted file, as written (not a macro's
-expansion, not an import), and holds what the fix expects (a whole
-`{ ... }` lambda). So far `redundant-lambda` gives one: the lambda
-becomes the name, its quote stays (`'{ x -> n_eg x }` is `'n_eg`).
+expansion, not an import), and holds there what the pass saw (the
+same text the lowered program was made from). `redundant-lambda` gives
+one: the lambda becomes the name, its quote stays (`'{ x -> n_eg x }` is
+`'n_eg`). `unused-binding` gives one for a local `:=`: its name
+becomes `_` (`shown := p_rint! v` is `_ := p_rint! v`, the value kept
+for its effect); an unused parameter has none, since a caller passes
+it. A rename is one fix of several edits, made together or not at
+all: `mutable-constant` renames the variable (`Count!` to `count!`),
+`missing-bang` and `needless-bang` the function (`u:s_ay` to
+`u:s_ay!`), at every binding and use in the file. There is none when
+the new name is already in use (it would be captured), when a binding
+or use is not written as the name (a macro made it), or for a
+library's exported function, whose callers are in other files (only
+`u:` and `h:` functions are renamed).
 
 `--fix` makes the edits of the reported findings (an allowed finding
-is not fixed), earliest first, leaving out one that overlaps an edit
-already kept, writes the file only when the result still loads, prints
+is not fixed), earliest first, leaving out a fix with an edit that
+overlaps one already kept, writes the file only when the result still loads, prints
 `fixed N finding(s) in FILE` on stderr, and reports what is left as
-usual. It needs a file: with `-e` it is `error[fix-needs-file]`.
+usual. It needs a file: with `-e` it is `error[fix-needs-file]`. It
+rewrites only a file git could give back as it was (tracked and
+committed as it is, as `cargo fix` asks): a file changed since its
+commit, untracked, ignored or outside a repository is
+`error[fix-dirty]` and left alone, unless `--allow-dirty` is given.
 
 `--format json` writes each finding as one JSON object a line on
 stdout (as cargo's `--message-format=json`), nothing on stderr, with
 the same exit status:
 
 ```
-{"lint":"redundant-lambda","group":"complexity","level":"warn","file":"t.xtl","line":1,"col":17,"message":"...","fix":{"start":16,"end":31,"replacement":"n_eg"}}
+{"lint":"redundant-lambda","group":"complexity","level":"warn","file":"t.xtl","line":1,"col":17,"end_line":1,"end_col":32,"message":"...","fix":[{"start":16,"end":31,"replacement":"n_eg"}]}
 ```
 
-`line` and `col` count from 1 (columns in characters); a fix's `start`
-and `end` are byte offsets in the file, `fix` is `null` without one.
+`line` and `col` count from 1 (columns in characters); `end_line` and
+`end_col` are just past the finding's last character (as an editor
+marks a range), its start when it ends outside the file as written;
+`fix` is the list of a fix's edits (empty without one), each with
+`start` and `end` as byte offsets in the file.
 The live demo needs no JSON: it calls the same Rust functions.
 
 ## 2. Vocabulary (borrowed from clippy and rustc)
@@ -201,9 +220,12 @@ merge" (CLAUDE.md).
 Why Core. Lints run on the lowered program (after macros and
 desugaring), as the existing warnings do: every surface form has one
 Core shape (rule 5), so a lint is written once, not once per sugar.
-The price is that Core names carry no spans of their own: a naming
-finding is placed at the binding's value or lambda, on the right line
-but not the name's column.
+Core nodes carry the span of a whole construct, so lowering also
+records where each binding's name is written (`Program::name_span` for
+a `:=`, `Program::param_span` for a lambda parameter): `unused-binding`
+and the naming and effect lints are placed at the name, and the
+renames are made there (`Program::renamed` finds every place a name
+is written).
 
 Why the type check is apart. The Core passes need only Core, so
 `xetal lint` works on a program that does not type-check yet. The
@@ -251,12 +273,9 @@ catalog entries are in xetal-lint with the rest.
 - More lints: more typed lints (an array where a scalar truth
   belongs); more of the complexity group (`'{ a b -> b f_ a }` is
   `'f_ s_wap`).
-- Fixes for more lints: the renames (`mutable-constant`,
-  `missing-bang`) must rename every use, across files, and
-  `unused-binding`'s `_ :=` needs the name's span; both wait for name
-  spans in Core.
-- `--fix` refusing a file with uncommitted changes (clippy's
-  `--allow-dirty`), end positions in the JSON, the Emacs mode reading
-  it, and a configuration file for project-wide levels.
-- Name spans in Core, to point at the name's column.
+- Renames across files (a library's exported function and its
+  callers), and a fix for `function-name-case` and `upper-case-name`
+  (off by default; a constant's new name needs a choice).
+- The Emacs mode reading the JSON, and a configuration file for
+  project-wide levels.
 

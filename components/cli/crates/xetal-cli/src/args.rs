@@ -152,6 +152,10 @@ pub(crate) struct LintArgs {
     /// what is left.
     #[arg(long, conflicts_with_all = ["list", "explain"])]
     pub(crate) fix: bool,
+    /// Let --fix rewrite a file that is not committed as it is (git could
+    /// not undo the fix).
+    #[arg(long, requires = "fix")]
+    pub(crate) allow_dirty: bool,
     /// How findings are written: text on stderr, or json (one object a
     /// line on stdout, for editors).
     #[arg(long, value_enum, default_value_t = LintFormat::Text)]
@@ -183,6 +187,7 @@ impl LintArgs {
             explain: self.explain.clone(),
             list: self.list,
             fix: self.fix,
+            allow_dirty: self.allow_dirty,
             json: self.format == LintFormat::Json,
         })
     }

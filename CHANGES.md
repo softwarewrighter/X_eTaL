@@ -12,6 +12,9 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-12
 
+- 16:30 `feat` Renames as fixes (Saga 40 step 8, D150): `xetal lint --fix` renames a mutable constant to lowerCamel and adds or drops a function's `!` at every binding and use in the file; a fix is now a list of edits made together, and the JSON's `fix` a list. Naming and effect findings sit at the name. Golden lint-fix-rename; eight lint goldens rebased for the new columns and the JSON.
+- 16:00 `feat` `xetal lint --fix` refuses a file git could not restore, `--allow-dirty` to override, and `--format json` gives each finding's end (`end_line`, `end_col`) (Saga 40 step 8, D149). Golden lint-fix-dirty; lint-json rebased; lint-fix and lint-fix-unused pass `--allow-dirty`.
+- 15:30 `feat` Name spans in Core (Saga 40 step 8, D148): lowering records where each binding's name is written (`Program::name_span`, `Program::param_span`); `unused-binding` points at the name and `xetal lint --fix` turns an unused local into `_ :=`. Golden lint-fix-unused; five lint goldens rebased for the new columns.
 - 15:00 `chore` Merged PRs #122 (int-condition, the first typed lint, Saga 40 step 6; docs/local-asks.md) and #123 (redundant-lambda exempts power, lanes/xasks step 1); the condition-in-tuple register entry renumbered D145 to D147.
 - 14:00 `docs` docs/local-asks.md: what an agent on the user's machine runs after merging a cloud lane PR (the checks the sandbox cannot run, pages, and the agentrail record of Saga 40, with each step's commit). `int-condition` is now suspicious and on by default (the user's choice, D145); lint-list and lint-int-condition rebased.
 - 14:00 `design` A `!` variable keeps the type of its first binding; a number's type is settled when its value must exist: at the top level at its line, in a function at each call; types are inferred and checked before the program runs, one body per function (lang-choices M5, decided with the user).

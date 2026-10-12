@@ -1,0 +1,3 @@
+command = "mkdir -p work && cp reg/fixtures/lint/bang.xtl work/lint-fix-rename.xtl && ./target/debug/xetal lint --fix --allow-dirty -W pedantic work/lint-fix-rename.xtl; cat work/lint-fix-rename.xtl"
+exit_code = 0
+desc = "--fix renames: a function calling an effect gains its ! (u:s_ay, u:l_ater), a pure one loses it (-W pedantic), each at its definition and every use (a redundant lambda is fixed too)"

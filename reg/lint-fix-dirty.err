@@ -1,0 +1,1 @@
+error[fix-dirty]: work/lint-fix-dirty.xtl is not committed as it is (changed, untracked, or outside a git repository), so --fix could not be undone: commit it first, or pass --allow-dirty

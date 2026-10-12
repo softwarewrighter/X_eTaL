@@ -21,7 +21,8 @@ pub struct Fix {
 }
 
 /// A user-facing error or warning: a stable code, a message, an optional
-/// primary span, any number of explanatory notes and an optional fix.
+/// primary span, any number of explanatory notes and a fix: the edits
+/// that are made together, or none.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Diagnostic {
     pub severity: Severity,
@@ -29,8 +30,9 @@ pub struct Diagnostic {
     pub message: String,
     pub span: Option<Span>,
     pub notes: Vec<String>,
-    /// Boxed: most diagnostics carry none, and `Diagnostic` stays small.
-    pub fix: Option<Box<Fix>>,
+    /// Empty for most; several for a rename (each place the name is
+    /// written). A boxed slice keeps `Diagnostic` small.
+    pub fix: Box<[Fix]>,
 }
 
 impl Diagnostic {
@@ -41,16 +43,17 @@ impl Diagnostic {
             message: message.into(),
             span: None,
             notes: Vec::new(),
-            fix: None,
+            fix: Box::default(),
         }
     }
 
-    /// With a fix: `replacement` written in place of `span`.
-    pub fn with_fix(mut self, span: Span, replacement: impl Into<String>) -> Self {
-        self.fix = Some(Box::new(Fix {
-            span,
-            replacement: replacement.into(),
-        }));
+    /// With a fix: each `(span, replacement)` written in place of its
+    /// span, all made together or none.
+    pub fn with_fixes(mut self, edits: impl IntoIterator<Item = (Span, String)>) -> Self {
+        let fix = edits
+            .into_iter()
+            .map(|(span, replacement)| Fix { span, replacement });
+        self.fix = self.fix.iter().cloned().chain(fix).collect();
         self
     }
 

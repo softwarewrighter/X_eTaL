@@ -16,20 +16,22 @@ pub(crate) fn unused(program: &Program) -> Vec<Diagnostic> {
         | Item::Let { value, .. }
         | Item::Set { value, .. }
         | Item::Eval(value)) = item;
-        binders(value, &mut |name, e| out.extend(check(name, e)));
+        binders(value, &mut |name, e| out.extend(check(program, name, e)));
     }
     out
 }
 
-/// The finding for `name`, bound by node `e`, if nothing uses it.
-fn check(name: &str, e: &Expr) -> Option<Diagnostic> {
+/// The finding for `name`, bound by node `e`, if nothing uses it: at
+/// the name where it is written (D148), and for a `:=` a fix to `_`.
+fn check(program: &Program, name: &str, e: &Expr) -> Option<Diagnostic> {
     if name.starts_with(['_', '%']) {
         return None;
     }
-    let (used, message) = match &e.kind {
+    let (used, message, at) = match &e.kind {
         Kind::Lam { body, .. } => (
             uses(body, name),
             format!("parameter `{name}` is never used"),
+            program.param_span(e.id),
         ),
         Kind::Let {
             rec, value, body, ..
@@ -38,10 +40,18 @@ fn check(name: &str, e: &Expr) -> Option<Diagnostic> {
             format!(
                 "`{name}` is bound but never used; write `_ := ...` to keep a value for its effect"
             ),
+            program.name_span(value.id),
         ),
         _ => return None,
     };
-    (!used).then(|| Diagnostic::warning("unused-binding", message).with_span(e.span))
+    if used {
+        return None;
+    }
+    let found = Diagnostic::warning("unused-binding", message).with_span(at.unwrap_or(e.span));
+    match (at, &e.kind) {
+        (Some(at), Kind::Let { .. }) => Some(found.with_fixes([(at, "_".into())])),
+        _ => Some(found),
+    }
 }
 
 /// Whether `e` refers to `name` (a variable read or set), not counting

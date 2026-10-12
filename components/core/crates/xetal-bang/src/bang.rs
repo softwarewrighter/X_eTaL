@@ -13,23 +13,35 @@ pub fn bangs(program: &Program) -> Vec<Diagnostic> {
             continue;
         };
         let marked = name.ends_with('!');
-        let finding = match (marked, direct(value)) {
-            (false, Some(effect)) => Some((
-                "missing-bang",
-                format!(
-                    "function `{name}` calls `{effect}`, an effect, but its name has no `!`: write `{name}!`"
-                ),
-            )),
-            (true, None) if !possible(value) => Some((
-                "needless-bang",
-                format!(
-                    "function `{name}` is named for an effect (`!`) but calls none: write `{}`",
-                    name.trim_end_matches('!')
-                ),
-            )),
-            _ => None,
+        let renamed = match marked {
+            true => name.trim_end_matches('!').to_string(),
+            false => format!("{name}!"),
         };
-        out.extend(finding.map(|(code, m)| Diagnostic::warning(code, m).with_span(value.span)));
+        let (code, effect) = match (marked, direct(value)) {
+            (false, Some(effect)) => ("missing-bang", effect),
+            (true, None) if !possible(value) => ("needless-bang", ""),
+            _ => continue,
+        };
+        let message = match code {
+            "missing-bang" => format!(
+                "function `{name}` calls `{effect}`, an effect, but its name has no `!`: write `{renamed}`"
+            ),
+            _ => format!(
+                "function `{name}` is named for an effect (`!`) but calls none: write `{renamed}`"
+            ),
+        };
+        let at = program.name_span(value.id).unwrap_or(value.span);
+        let found = Diagnostic::warning(code, message).with_span(at);
+        out.push(found.with_fixes(rename(program, name, &renamed)));
     }
     out
+}
+
+/// The edits renaming function `name` to `renamed` everywhere it is
+/// written; none for a library's exported function (its callers are in
+/// other files) or when the rename cannot be made surely.
+fn rename(program: &Program, name: &str, renamed: &str) -> Vec<(xetal_base::Span, String)> {
+    let local = name.starts_with("u:") || name.starts_with("h:");
+    let edits = local.then(|| program.renamed(name, renamed));
+    edits.flatten().unwrap_or_default()
 }

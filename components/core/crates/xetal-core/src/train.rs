@@ -4,7 +4,7 @@ use xetal_base::{Diagnostic, Span};
 use xetal_syntax::{Fun, FunKind, Lambda, Params, Target};
 
 use crate::lower::Lower;
-use xetal_ir::{Expr, Kind, Param};
+use xetal_ir::{Expr, Kind, NameSpan, Param, written_at};
 
 /// A fresh name's prefix (`g1:`, hygiene), else nothing.
 pub(crate) fn fresh(ns: &Option<String>) -> String {
@@ -18,35 +18,10 @@ impl Lower {
     /// Curried one-parameter lambdas; `_l` / `_r` are ordinary names
     /// that the innermost lambda rebinds (L2).
     pub(crate) fn lambda(&mut self, l: &Lambda, span: Span) -> Result<Expr, Diagnostic> {
-        let params: Vec<(Param, bool)> = match &l.params {
-            Params::Right => vec![(Param::Name("_r".into()), false)],
-            Params::LeftRight => vec![
-                (Param::Name("_l".into()), false),
-                (Param::Name("_r".into()), false),
-            ],
-            Params::Niladic => vec![(Param::Unit, false)],
-            Params::Named(ps) => ps
-                .iter()
-                .map(|p| {
-                    let name = match &p.name {
-                        None => return (Param::Unit, false),
-                        Some(Target::Var(v)) => format!(
-                            "{}{}{}",
-                            fresh(&v.ns),
-                            v.name,
-                            if v.mutable { "!" } else { "" }
-                        ),
-                        Some(Target::Func(f)) => format!("{}{}", fresh(&f.ns), f.spelled()),
-                        // A tuple pattern: a fresh name, taken apart in the body.
-                        Some(Target::Tuple(_) | Target::Wild) => format!("%p{}", p.span.start),
-                    };
-                    (Param::Name(name), p.lazy)
-                })
-                .collect(),
-        };
+        let params = params(l);
         self.scopes.push(Default::default());
         self.lambdas += 1;
-        for (param, _) in &params {
+        for (param, _, _) in &params {
             if let Param::Name(name) = param {
                 self.bind(name);
             }
@@ -55,15 +30,23 @@ impl Lower {
         self.lambdas -= 1;
         self.scopes.pop();
         let mut body = body?;
-        for (param, lazy) in params.into_iter().rev() {
-            body = self.node(
-                span,
-                Kind::Lam {
-                    param,
-                    lazy,
-                    body: Box::new(body),
-                },
-            );
+        for (param, lazy, at) in params.into_iter().rev() {
+            // Where the parameter's name is written (D148), if it is.
+            let named = match (&param, at) {
+                (Param::Name(name), Some(at)) => written_at(&self.src, at, name),
+                _ => None,
+            };
+            let body_ = Box::new(body);
+            let kind = Kind::Lam {
+                param,
+                lazy,
+                body: body_,
+            };
+            body = self.node(span, kind);
+            let node = body.id;
+            let param = true;
+            self.names
+                .extend(named.map(|span| NameSpan { node, param, span }));
         }
         Ok(body)
     }
@@ -176,4 +159,33 @@ fn at(mut e: Expr, f: &Fun) -> Expr {
         e.span = f.span;
     }
     e
+}
+
+/// A lambda's parameters, outermost first: each Core parameter, whether
+/// it is lazy, and the span of a named one as written (`~` included).
+fn params(l: &Lambda) -> Vec<(Param, bool, Option<Span>)> {
+    let named = |name: &str| (Param::Name(name.into()), false, None);
+    match &l.params {
+        Params::Right => vec![named("_r")],
+        Params::LeftRight => vec![named("_l"), named("_r")],
+        Params::Niladic => vec![(Param::Unit, false, None)],
+        Params::Named(ps) => ps
+            .iter()
+            .map(|p| {
+                let name = match &p.name {
+                    None => return (Param::Unit, false, None),
+                    Some(Target::Var(v)) => format!(
+                        "{}{}{}",
+                        fresh(&v.ns),
+                        v.name,
+                        if v.mutable { "!" } else { "" }
+                    ),
+                    Some(Target::Func(f)) => format!("{}{}", fresh(&f.ns), f.spelled()),
+                    // A tuple pattern: a fresh name, taken apart in the body.
+                    Some(Target::Tuple(_) | Target::Wild) => format!("%p{}", p.span.start),
+                };
+                (Param::Name(name), p.lazy, Some(p.span))
+            })
+            .collect(),
+    }
 }

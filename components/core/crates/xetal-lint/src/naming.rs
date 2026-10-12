@@ -5,49 +5,51 @@
 use xetal_base::{Diagnostic, Span};
 use xetal_ir::{Item, Program};
 
-use crate::walk::binders;
+use crate::walk::{binders, name_at};
 
-/// The naming lints of every binding in `program`.
+/// The naming lints of every binding in `program`, each at the name.
 pub(crate) fn naming(program: &Program) -> Vec<Diagnostic> {
     let mut out = Vec::new();
     for item in &program.items {
         let value = match item {
             Item::Def { name, value } | Item::Let { name, value, .. } => {
-                out.extend(check(name, value.span));
+                let at = program.name_span(value.id).unwrap_or(value.span);
+                out.extend(check(program, name, at));
                 value
             }
             Item::Set { value, .. } | Item::Eval(value) => value,
         };
-        binders(value, &mut |name, e| out.extend(check(name, e.span)));
+        binders(value, &mut |name, e| {
+            out.extend(check(program, name, name_at(program, e)))
+        });
     }
     out
 }
 
 /// The naming lint `name` breaks, if any; `span` is where it is bound.
-fn check(name: &str, span: Span) -> Option<Diagnostic> {
+/// A mutable variable's fix renames it everywhere it is written.
+fn check(program: &Program, name: &str, span: Span) -> Option<Diagnostic> {
     let base = name.rsplit_once(':').map_or(name, |(_, key)| key);
     let first = base.chars().next().filter(char::is_ascii_uppercase)?;
+    let lower = format!("{}{}", first.to_ascii_lowercase(), &base[1..]);
     let (code, message) = match base.split_once('_') {
         Some((head, tail)) if head.len() > 1 || tail.chars().any(|c| c.is_ascii_alphabetic()) => (
             "function-name-case",
             format!(
-                "function `{base}` is UpperCamel: write `{}{}` (a capital start is for combinators)",
-                first.to_ascii_lowercase(),
-                &base[1..]
+                "function `{base}` is UpperCamel: write `{lower}` (a capital start is for combinators)"
             ),
         ),
         Some(_) => return None,
         None if base.ends_with('!') => (
             "mutable-constant",
-            format!(
-                "`{base}` is mutable but named like a constant: write `{}{}`",
-                first.to_ascii_lowercase(),
-                &base[1..]
-            ),
+            format!("`{base}` is mutable but named like a constant: write `{lower}`"),
         ),
         None => upper(base)?,
     };
-    Some(Diagnostic::warning(code, message).with_span(span))
+    let found = Diagnostic::warning(code, message).with_span(span);
+    let renamed = format!("{}{lower}", &name[..name.len() - base.len()]);
+    let fix = (code == "mutable-constant").then(|| program.renamed(name, &renamed));
+    Some(found.with_fixes(fix.flatten().unwrap_or_default()))
 }
 
 /// `upper-case-name`: two or more letters, every one a capital.

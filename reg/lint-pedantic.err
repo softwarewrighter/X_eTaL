@@ -1,11 +1,11 @@
-warning[function-name-case]: function `N_extGen` is UpperCamel: write `n_extGen` (a capital start is for combinators) at reg/fixtures/lint/style.xtl:3:15
+warning[function-name-case]: function `N_extGen` is UpperCamel: write `n_extGen` (a capital start is for combinators) at reg/fixtures/lint/style.xtl:3:1
   note: `function-name-case` is in group `pedantic`; xetal lint --explain function-name-case
-warning[mutable-constant]: `Count!` is mutable but named like a constant: write `count!` at reg/fixtures/lint/style.xtl:4:11
+warning[mutable-constant]: `Count!` is mutable but named like a constant: write `count!` at reg/fixtures/lint/style.xtl:4:1
   note: `mutable-constant` is in group `style`; xetal lint --explain mutable-constant
-warning[upper-case-name]: `MAXSIZE` is all capitals: write a constant UpperCamel (`MaxSize`) or a variable lowerCamel (`maxSize`) at reg/fixtures/lint/style.xtl:5:12
+warning[upper-case-name]: `MAXSIZE` is all capitals: write a constant UpperCamel (`MaxSize`) or a variable lowerCamel (`maxSize`) at reg/fixtures/lint/style.xtl:5:1
   note: `upper-case-name` is in group `pedantic`; xetal lint --explain upper-case-name
 warning[shadows-builtin]: `r_ev` here shadows the built-in r_ev at reg/fixtures/lint/style.xtl:6:13
   note: `shadows-builtin` is in group `suspicious`; xetal lint --explain shadows-builtin
-warning[unused-binding]: parameter `y` is never used at reg/fixtures/lint/style.xtl:7:9
+warning[unused-binding]: parameter `y` is never used at reg/fixtures/lint/style.xtl:7:13
   note: `unused-binding` is in group `suspicious`; xetal lint --explain unused-binding
 5 warning(s), 0 error(s)
