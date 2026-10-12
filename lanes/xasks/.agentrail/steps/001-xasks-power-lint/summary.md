@@ -1,0 +1,1 @@
+X20 fixed: redundant-lambda exempts power (no quoted form; '^ is an exponent), so --fix cannot write code that does not lex. Test first (a_lambda_calling_power_passes), catalog explanation, docs/lint.md, D146, CHANGES. Gates pass except cli-too-deep (sandbox). Branch pr/xasks-power-lint pushed.
