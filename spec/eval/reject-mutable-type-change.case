@@ -1,0 +1,7 @@
+# A ! variable keeps the type of its first binding (M5): at the top
+# level 42 is settled as an Int at its line, so 3.2 is a type error.
+== SOURCE
+a! := 42
+a! := 3.2
+== ERROR
+error[type-mismatch]: expected Int, found Float at 15..18

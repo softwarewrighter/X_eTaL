@@ -1,0 +1,9 @@
+# In a function a number's type is settled by its uses (M5, T6): the
+# literal 1 becomes a Float when x is one.
+== SOURCE
+u:f_ := { x -> a! := 1; a! := a! + x; a! }
+u:f_ 0.5
+u:f_ 2
+== RESULT
+1.5
+3

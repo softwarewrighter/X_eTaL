@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-12
 
+- 14:00 `design` A `!` variable keeps the type of its first binding; a number's type is settled when its value must exist: at the top level at its line, in a function at each call; types are inferred and checked before the program runs, one body per function (lang-choices M5, decided with the user).
+- 13:30 `fix` A comparison's result inside a tuple (or a box) stays usable as a number after the tuple is bound at the top level (step 095, D145, X_eTaL-games' ask G19); the games' non-deterministic inference reproduced and planned as step 096 (ask G20).
 - 11:55 `fix` `redundant-lambda` no longer suggests quoting power: `'{ a b -> a ^ b }` was told "write `'^`" (and `--fix` wrote it), which is `error[bad-exponent]`, since a touching `^` is an exponent (D-6). Power has no quoted form, so the lambda stays (D146; X_eTaL-libraries ask X20). New lane lanes/xasks for asks from X_eTaL-libraries.
 - 12:30 `chore` Merged PR #121 (xetal lint --fix and --format json, Saga 40 step 7); the lane's Saga 40 section in plan.md kept as the PR wrote it. Pages rebuilt.
 - 11:00 `plan` Spatial equations reviewed and planned (step 094): docs/research8.txt and docs/xetal-spatial-equations-plan.md committed; docs/spatial-equations-review.md finds the idea viable as a library with no compiler change (a 142-line proof of concept, docs/spatial-poc/, computes a CNN cross-correlation and its LaTeX from one macro call and matches an independent oracle), lists 21 corrections to the plan's snippets (its expected Fixture B output among them), the gaps, and seven language-change candidates left open for the user. Saga 41 (proposed) in docs/plan.md, its eight steps queued after step 095.

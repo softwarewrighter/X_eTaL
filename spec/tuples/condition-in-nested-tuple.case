@@ -1,0 +1,7 @@
+# A condition nested two tuples deep stays a condition (T1).
+== SOURCE
+t := ((1, 2 > 1), 7)
+((a, c), b) := t
+a + c + b
+== RESULT
+9

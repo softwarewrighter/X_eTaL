@@ -1,0 +1,11 @@
+# The same part used as a number and as a guard's condition (T1).
+== SOURCE
+u:p_air := { z -> (z, 0 < 1) }
+s := u:p_air 5
+u:g_ := { (a, c) -> c ? a; 0 }
+u:n_ := { (a, c) -> a + c }
+u:g_ s
+u:n_ s
+== RESULT
+5
+6

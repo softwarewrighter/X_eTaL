@@ -37,6 +37,18 @@ impl Unifier {
         Ok(())
     }
 
+    /// The variables of `ty` that are conditions only (`Truthy`, not
+    /// `Num`): a top-level value keeps them open (T1).
+    pub fn conditions(&self, ty: &Type) -> Vec<TypeVar> {
+        let mut vars = Vec::new();
+        self.resolve(ty).vars(&mut vars);
+        vars.retain(|v| {
+            let c = self.classes.get(v).copied().unwrap_or_default();
+            c.names().eq(["Truthy"])
+        });
+        vars
+    }
+
     /// Resolve `ty` and default its constrained variables: a number (or
     /// a number used as a condition) is Int, a condition is Bool (T5).
     pub fn defaulted(&self, ty: &Type) -> Type {

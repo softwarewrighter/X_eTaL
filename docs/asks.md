@@ -15,12 +15,12 @@ build already does what the ask wants.
 | ---------- | ------ | ------------- | ------- | -------- | --- |
 | X_eTaL-demos | 11 | 3 | 3 | 2 | 2 |
 | X_eTaL-ML | 7 | 1 | 1 | 3 | 4 |
-| X_eTaL-games | 6 | 4 | 4 | 1 | 3 |
+| X_eTaL-games | 7 | 4 | 5 | 1 | 3 |
 | X_eTaL-libraries | 9 | 3 | 2 | 3 | 1 |
 | X_eTaL-extensions | 3 | 1 | 3 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 36 | 12 | 20 | 11 | 20 |
+| All | 37 | 12 | 21 | 11 | 20 |
 
 ## Notice: write a library's helpers with h:
 
@@ -132,6 +132,8 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | G16 | a library that fails to parse is reported at the import as `not-exported` with an empty list | landed | checked 2026-10-07 at 8f006d6: the import reports the library's own error, located in it (`error[bad-quote]: ... at ./L.xtl:1:18`) | - |
 | G17 | `t_able` and `i_nner` slower since the higher-order built-ins became kernels (the regression D11) | landed | Saga 30: 16b710d, 8456e45 | - |
 | G18 | `xetal doc --out` over several programs lists files by name alone, so eleven `play.xtl` look the same in the sidebar | landed | step 088 (D129): the sidebar groups files under their directory relative to the documented files' common root, and the search index and the used-at links name a file by that relative path | - |
+| G19 | a comparison's result inside a tuple a function returned is a Bool once bound: `0 +` it is a type error, while the same tuple written inline works | landed | step 095: a top-level value keeps the conditions inside it (tuple parts, boxes) open, so a later use makes each a number or a truth value (T1) | - |
+| G20 | type inference is not deterministic: the same library prints one of two types for a function, about half the runs each | planned | step 096: a group of mutually dependent top-level definitions was closed in hash-map order; reproduced with the games' pinned binary (4 and 8 of 12 runs) | - |
 
 ## X_eTaL-libraries
 

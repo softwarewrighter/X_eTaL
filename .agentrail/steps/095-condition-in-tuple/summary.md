@@ -1,0 +1,1 @@
+Conditions inside tuples/boxes stay conditions when bound at top level (ask G19); M5 recorded with spec cases; G20 reproduced and queued

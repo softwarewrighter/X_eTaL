@@ -19,9 +19,9 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 125 | 0 | 0 |
-| Language decisions | 155 | 0 | 3 |
+| Language decisions | 156 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 446 | 0 | 0 |
+| Spec cases | 452 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -35,7 +35,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 89 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 94 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 48 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
@@ -67,8 +67,8 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 38 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
-| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 13 | 1 |
-| `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 14 | 1 |
+| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 16 | 1 |
+| `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 15 | 1 |
 | `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 12 | 1 |
 | `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 5 | 1 |
 | `e_q~` | `(Num a, Truthy b) => a -> a -> b` | works | 2 | 1 |
@@ -215,8 +215,8 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `e_nclose` | `Any a => a -> Box a` | works | 6 | 5 |
-| `d_isclose` | `Any a => Box a -> a` | works | 7 | 4 |
+| `e_nclose` | `Any a => a -> Box a` | works | 7 | 5 |
+| `d_isclose` | `Any a => Box a -> a` | works | 8 | 4 |
 | `d_isplay` | `a -> Char` | works | 5 | 5 |
 | `p_artition` | `Truthy a => a -> b -> Box b` | works | 4 | 4 |
 
@@ -292,11 +292,11 @@ conventions (naming, layout) work without a spec case citing them.
 | S10 | Doc examples are run (Saga 32 step doc-test), as rustdoc runs doc tests: `xetal doc --test FILE` runs the (...) | works | 0 |
 | S11 | Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents | planned | 0 |
 | S12 | Lint directives are ordinary comments: `# lint: LEVEL NAME...` (LEVEL allow, warn or deny; a NAME is a (...) | works | 0 |
-| T1 | A real `Bool` type; `=` and the comparisons return Bool | works | 5 |
+| T1 | A real `Bool` type; `=` and the comparisons return Bool | works | 9 |
 | T2 | `/` is true division and always returns a Float (`7 / 2` is `3.5`, `6 / 2` is `3.0`); integer quotient and (...) | works | 3 |
 | T3 | `=` is exact (IEEE) equality and transitive; `(0.1 + 0.2) = 0.3` is 0 | works | 2 |
 | T5 | Numeric typing is Haskell-style: arithmetic is `Num a => a -> a -> a` (Num = Int, Float); number literals (...) | works | 8 |
-| T6 | Programs are type-checked before they run: `xetal eval` and `xetal run` refuse an ill-typed program with a (...) | works | 5 |
+| T6 | Programs are type-checked before they run: `xetal eval` and `xetal run` refuse an ill-typed program with a (...) | works | 6 |
 | T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 10 |
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
 | T9 | An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...) | works | 4 |
@@ -305,6 +305,7 @@ conventions (naming, layout) work without a spec case citing them.
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (...) | works | 3 |
 | M3 | Discard: `_ := expr` evaluates `expr` for its effect and binds nothing, so it prints nothing at the top (...) | works | 2 |
 | M4 | In an interactive session (the REPL, the browser REPL, notebook and org-babel sessions), `[]E_X "a"` (...) | works | 2 |
+| M5 | A `!` variable keeps the type its first binding gives it: `a! := 42` then `a! := 3.2` is a type error (...) | works | 2 |
 | E1 | Evaluation is strict by default | works | 3 |
 | E2 | A function is evaluated before its argument, so the evaluator knows whether the parameter is lazy | works | 0 |
 | E4 | Evaluation order is the function first, then its arguments right to left (APL order): in `x f y`, `f`, (...) | works | 2 |

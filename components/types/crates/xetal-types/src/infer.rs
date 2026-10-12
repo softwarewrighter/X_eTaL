@@ -82,8 +82,11 @@ impl Infer {
             Item::Def { name, value } => return self.def(name, value),
             Item::Let { name, rec, value } => {
                 let t = self.binding(name, *rec, value)?;
-                let (scheme, shown) = match self.condition(&t) {
-                    Some(scheme) => (scheme, mono(Type::Bool)),
+                let (scheme, shown) = match self.condition(&t, value)? {
+                    Some(scheme) => {
+                        let shown = mono(self.u.defaulted(&scheme.ty));
+                        (scheme, shown)
+                    }
                     None => {
                         let scheme = self.close(&t, value, true)?;
                         (scheme.clone(), scheme)
