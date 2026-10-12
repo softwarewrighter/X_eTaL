@@ -1171,6 +1171,57 @@ style guide's names (lang-choices section 16).
 6. lint-typed: lints after type checking (`?` must return Bool).
 7. lint-fix: machine-applicable suggestions, `xetal lint --fix`, and
    `--format json` for the Emacs mode and the live demo's editor.
+## Saga 41 (proposed) -- spatial equations (paper math to array code, a library)
+
+Proposed after the review of `docs/research8.txt` and
+`docs/xetal-spatial-equations-plan.md` (the review: docs/spatial-equations-review.md):
+an ML student writes a sum as it is printed in a paper, with its
+bounds above and its bindings below, and one macro call gives the
+array computation, its LaTeX and an inspectable expansion. The target
+is the 2-D CNN cross-correlation `Y[o,h,w] = sum_c sum_r sum_s
+X[c,h+r,w+s] W[o,c,r,s]`. A proof of concept made during the review
+(`docs/spatial-poc/Spatial.xtlm`, 142 lines) already runs it on main with no
+compiler change, so this saga is a library, a demo and a literate
+document: every step verifies that its diff leaves `components/`
+untouched (the one exception, listing the demo in
+`components/web/crates/xetal-web/src/demos.rs`, is a data line, not a
+compiler change). Language changes the work runs into are written up
+with a failing snippet and stopped at "decide with the user" (step 8);
+nothing in this saga implements one.
+
+Decisions needed (step 1, with the user; each an OPEN QUESTION until
+then):
+
+- Where it lives: `demos/spatial/` (proposed: `Spatial.xtlm` macros
+  and `Spatial.xtl` run-time helpers beside the demos), or
+  `lib/Spatial.xtl(m)` as a standard library, or X_eTaL-libraries /
+  X_eTaL-ML (other agents' repositories, through their asks ledgers).
+- The call: `"Y[o,h,w] | O Ho Wo" e:q_< "C - 1, Kh - 1, Kw - 1 | X[c,h+r,w+s] * W[o,c,r,s] | c:=0, r:=0, s:=0"`
+  (proposed), giving `(value, latex)`; with `e:s_um<` (value only)
+  and `e:t_ex<` (LaTeX only) beside it. Region separator (`|`, or
+  labels such as `u: ... c: ... l: ...`), the left argument (explicit
+  extents or inferred), the operator (in the macro name, `e:s_um<` /
+  `e:p_rod<`, proposed; or written in the center).
+- Index expressions: X_eTaL's right-to-left order (documented), or
+  math precedence (the macro parenthesizes).
+- Out-of-range indices: an error at run time (proposed:
+  `"index" []S_IGNAL "..."` naming the array and axis), never a
+  silent read.
+- Whether to take candidates L1 (macro expansion naming its own
+  library, ask M11) to a decision before the expansion goldens are
+  pinned (step 4), since the answer changes every expansion's text.
+
+| Step | Slug | Content |
+| ---- | ---- | ------- |
+| 1 | spatial-decisions | With the user: the decisions above, recorded in the decisions register (docs/design.md) and a plan, `docs/spatial.md` (the call, the regions, the lowering, what is not in scope); the review's corrections pinned as tests of the language as it is (spec cases: `e:q<` is not a macro name, `+/`, `X[1,2,3]`, `C-1`, `~(1, 2)`, a call as a macro argument; most exist, add the missing ones); the PoC's behavior as pending goldens under `reg/spatial-*` |
+| 2 | spatial-oracle | The independent oracle, `demos/spatial/oracle.xtl`: valid cross-correlation by rotations, `t_ranspose` and one `i_nner`; fixtures A (all ones: 8 everywhere), B (560 596 632 / 704 740 776 / 848 884 920, from a run, replacing the plan's wrong numbers) and C (2 output channels, 3 input channels, 2 by 3 kernel, 5 by 6 pictures, shape 2 4 4); goldens first, numbers checked against an independent script recorded in the step summary |
+| 3 | spatial-capture | `demos/spatial/Spatial.xtlm`: regions split outside brackets, upper and lower paired by position, names and extents read; `e:d_omains<` gives the descriptors as text for inspection; diagnostics by `[]R_EJECT` at the argument (counts differ, a binding without `:=`, an empty region, a free index without an extent, an index name used twice); `## >>` doc tests and goldens written before the code |
+| 4 | spatial-lowering | `e:s_um<`: coordinate grids (`t_able`, `r_eshape`, `o_ffsets`), gathers by Horner's rule with a bounds check per axis, one `'+ r_/_k` per sum (innermost first); one, two and three sums; hygiene (a user `grid`, `a_t`, `k` untouched); results equal the oracle on A, B and C; `xetal expand` goldens of the generated code |
+| 5 | spatial-latex | `e:t_ex<` and `e:q_<` (the pair) from the same parse; goldens of the LaTeX strings; KaTeX accepts them (tools/katex where node is present, skipped otherwise as the gallery is); the value and the LaTeX of one call agree with steps 4 and 2 |
+| 6 | spatial-report | An inspection report, `e:e_xplain<` (or `--cfg spatial-trace` writing `d_bg<` around each stage): the regions, the descriptors, the generated code, the grid shape and the summed axes, then the result, as text; goldens; the debugger stays Saga 17's |
+| 7 | spatial-docs | A literate document, `docs/literate/spatial.org` (the paper equation, the call, the descriptors, the expansion, shapes, the result, the LaTeX drawn), the demo in the live demo's list and with `#!/usr/bin/env xetal`, the reference or README section if step 1 made it a standard library; pages rebuilt (`just pages`); every example run by a golden or doc test |
+| 8 | spatial-limits | `docs/spatial.md` limitations: each blocker found (from the review: L1 alias in expansions, L2 short binders, L3 choose indexing, L4 raw strings, L5 punctuation, L6 typed macro arguments, L7 rendering the call) with its failing snippet as a pending spec case or golden, the smallest change, the alternatives and a recommendation; **decide with the user**, then stop: an approved change becomes a saga or ask of its own, not part of this one |
+
 ## Saga 32 -- xetal doc (a cross-reference, before the launch)
 
 The user's idea (2026-10-04): a generator, like rustdoc or JavaDoc,
@@ -1369,7 +1420,7 @@ system name, a quad function used as a value), types, the view
 model's colors and the Emacs mode. Scheduled before the remaining APL
 ports (Saga 14), which need them.
 
-Typed execute (asked for by the user, 2026-10-03): APL's execute (`⍎`,
+Typed execute (asked for by the user, 2026-10-03): APL's execute (the hydrant glyph,
 a primitive function running text as code) is hard in a statically
 typed language, since the text arrives only when the program runs.
 Planned as typed execute, one step of this saga, with `[]V_ALUE`

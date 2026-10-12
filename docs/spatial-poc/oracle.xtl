@@ -1,0 +1,17 @@
+#!/usr/bin/env xetal
+## A valid 2-D cross-correlation (no kernel flip, stride 1, no padding):
+## the windows by rotation, then one inner product with the filters.
+X := 2 4 4 r_eshape r_ange 32
+W := 1 2 2 2 r_eshape r_ange 8
+## Y[o;h;w] = sum over c r s of X[c;h+r;w+s] * W[o;c;r;s].
+u:c_orr := { X W ->
+  (C, H, Wd) := (1 s_elect s_hape X, 2 s_elect s_hape X, 3 s_elect s_hape X)
+  (O, Kh, Kw) := (1 s_elect s_hape W, 3 s_elect s_hape W, 4 s_elect s_hape W)
+  Ho := H - Kh - 1
+  Wo := Wd - Kw - 1
+  P := 2 3 1 4 5 t_ranspose Wo t_ake_5 Ho t_ake_4 (o_ffsets Kh) o_-_3 (o_ffsets Kw) o_-_3 X
+  (O c_at Ho c_at Wo) r_eshape ((O c_at C * Kh * Kw) r_eshape W) '+ '* i_nner ((C * Kh * Kw) c_at Ho * Wo) r_eshape P
+}
+X u:c_orr W
+s_hape X u:c_orr W
+(2 4 4 r_eshape 1) u:c_orr 1 2 2 2 r_eshape 1

@@ -1,0 +1,12 @@
+#!/usr/bin/env xetal
+"e:" u_se< "Spatial"
+## Two output channels, 3 input channels, a 2 by 3 kernel on 5 by 6 pictures.
+X := 3 5 6 r_eshape r_ange 90
+W := 2 3 2 3 r_eshape 1 -2 3 0 4 -1 2
+(C, H, Wd) := (1 s_elect s_hape X, 2 s_elect s_hape X, 3 s_elect s_hape X)
+(O, Kh, Kw) := (1 s_elect s_hape W, 3 s_elect s_hape W, 4 s_elect s_hape W)
+Ho := H - Kh - 1
+Wo := Wd - Kw - 1
+Y := "o h w | O Ho Wo" e:s_um< "C - 1, Kh - 1, Kw - 1 | X[c,h+r,w+s] * W[o,c,r,s] | c:=0, r:=0, s:=0"
+s_hape Y
+Y

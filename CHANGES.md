@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-12
 
+- 11:00 `plan` Spatial equations reviewed and planned (step 094): docs/research8.txt and docs/xetal-spatial-equations-plan.md committed; docs/spatial-equations-review.md finds the idea viable as a library with no compiler change (a 142-line proof of concept, docs/spatial-poc/, computes a CNN cross-correlation and its LaTeX from one macro call and matches an independent oracle), lists 21 corrections to the plan's snippets (its expected Fixture B output among them), the gaps, and seven language-change candidates left open for the user. Saga 41 (proposed) in docs/plan.md, its eight steps queued after step 095.
 - 10:00 `docs` The asks ledger gains X_eTaL-ML's M15 (a title for `xetal doc` sites) and M16 (matrix-product speed), both new.
 - 09:30 `build` Python only through uv (asked by the user): `.python-version` (3.14) and `scripts/py`, which runs the repository's `.venv` (made by `uv venv`); every `python3` call in the gate, the justfile and the scripts goes through it, and the Python scripts' `#!` lines run `uv run`. A Homebrew upgrade had dropped `/opt/homebrew/bin/python3`, so the scripts fell back to macOS's Python 3.9 (no `tomllib`) and the gate failed.
 - 09:00 `chore` Merged PR #120 (redundant-lambda, the first complexity lint, Saga 40 step 5). Pages rebuilt.

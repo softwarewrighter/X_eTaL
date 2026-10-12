@@ -1,0 +1,142 @@
+## A proof-of-concept spatial sum (scratch probe, not a repository file):
+## "o h w | O Ho Wo" e:s_um< "C - 1, Kh - 1, Kw - 1 | X[c,h+r,w+s] * W[o,c,r,s] | c:=0, r:=0, s:=0"
+## writes, with built-ins only, a coordinate grid per index (the summed
+## ones first, outermost first, then the free ones), a gather per
+## indexed array, and one '+ r_/ per sum.
+
+### The macros
+
+## The sum of the center over the domains paired from the upper and
+## lower regions, for every value of the free indices on the left.
+m:s_um< := { free body -> free h:s_um body }
+
+## The LaTeX of the sum: the left is the result as written (Y[o,h,w]),
+## the right the same three regions m:s_um< reads; a string literal.
+m:t_ex< := { lhs body -> lhs h:t_ex body }
+
+## Both, from one text: the pair (value, LaTeX). The left is the result
+## as written, then the free indices' extents: "Y[o,h,w] | O Ho Wo".
+m:q_< := { lhs body ->
+  l := "|" h:s_plit lhs
+  y := d_isclose f_irst l
+  k := f_irst w_here y m_ember? "["
+  names := '{ c -> (c m_ember? ",]") ? f_irst " "; c } e_ach k d_rop y
+  free := names c_at " | " c_at d_isclose f_irst 1 d_rop l
+  "(" c_at (free h:s_um body) c_at ", " c_at (y h:t_ex body) c_at ")"
+}
+
+### Building the texts
+
+## The sum of the center over the domains paired from the upper and
+## lower regions, for every value of the free indices on the left.
+h:s_um := { free body ->
+  f := "|" h:s_plit free
+  fn := h:w_ords d_isclose f_irst f
+  fe := h:w_ords d_isclose f_irst 1 d_rop f
+  (t_ally fn) != t_ally fe ? "bad-macro-argument left" []R_EJECT "each free index needs an extent: o h w | O Ho Wo"
+  p := "|" h:s_plit body
+  3 != t_ally p ? "bad-macro-argument right" []R_EJECT "three regions: upper | center | lower"
+  up := "," h:s_plit d_isclose f_irst p
+  ctr := d_isclose f_irst 1 d_rop p
+  lo := "," h:s_plit d_isclose f_irst 2 d_rop p
+  (t_ally up) != t_ally lo ? "bad-macro-argument right" []R_EJECT "as many upper bounds as lower bindings"
+  ln := '{ b -> h:t_rim d_isclose f_irst ":" h:s_plit d_isclose b } m_ap lo
+  ls := '{ b -> h:t_rim 1 d_rop d_isclose f_irst 1 d_rop ":" h:s_plit d_isclose b } m_ap lo
+  n := t_ally lo
+  ext := (up '{ u l -> e_nclose "(1 + (" c_at (d_isclose u) c_at ") - (" c_at (d_isclose l) c_at "))" } e_ach ls) c_at '{ e -> "(" c_at (d_isclose e) c_at ")" } m_ap fe
+  rd := (ls '{ l k -> e_nclose "((" c_at (d_isclose l) c_at ") + g_rid " c_at (f_ormat k) c_at ")" } e_ach r_ange n) c_at '{ k -> "(g_rid " c_at (f_ormat k) c_at ")" } m_ap n + r_ange t_ally fn
+  s := h:i_ndex ((ln c_at fn), rd) h:s_ubst ctr
+  sums := h:j_oin '{ k -> "'+ r_/_" c_at (f_ormat k) c_at " " } m_ap r_ange n
+  "{ @ -> grid := " c_at (6 d_rop h:j_oin '{ e -> " c_at " c_at d_isclose e } m_ap ext) c_at "; g_rid := { k -> grid r_eshape (o_ffsets k s_elect grid) 'l_eft t_able ('* r_/ k d_rop grid) r_eshape 0 }; a_t := { A i -> (1 + i) s_elect r_avel A }; " c_at sums c_at s c_at " } @"
+}
+
+### Text helpers
+
+# The text t without white space at its ends.
+h:t_rim := { t ->
+  m := n_ot t m_ember? " \n\t"
+  0 = '+ r_/ 0 + m ? ""
+  i := w_here m
+  (1 + (f_irst r_ev i) - f_irst i) t_ake ((f_irst i) - 1) d_rop t
+}
+
+# The words of t, boxed.
+h:w_ords := { t -> (n_ot t m_ember? " \n\t") p_artition t }
+
+# The boxed texts b joined into one text.
+h:j_oin := { b -> d_isclose '{ x y -> e_nclose (d_isclose x) c_at d_isclose y } r_/ b }
+
+# t cut at each character ch outside brackets, the pieces trimmed and boxed.
+h:s_plit := { ch t ->
+  d := '+ s_\ (0 + t m_ember? "([{") - 0 + t m_ember? ")]}"
+  cut := (t m_ember? ch) & d = 0
+  k := (1 + '+ s_\ 0 + cut) * n_ot cut
+  '{ p -> h:t_rim d_isclose p } m_ap k p_artition t
+}
+
+# Where the text w starts in t (1 at each such position).
+h:s_tarts := { w t -> '{ i -> w m_atch (t_ally w) t_ake (i - 1) d_rop t } e_ach r_ange t_ally t }
+
+# Characters that continue a name.
+nameChars := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_:"
+
+# t with each whole word w replaced by r.
+h:w_ord := { w r t ->
+  n := t_ally w
+  e := " " c_at t c_at " "
+  ok_ := { i -> (i + n - 1) > t_ally t ? 0; n_ot ((i s_elect e) m_ember? nameChars) | (i + n + 1) s_elect e m_ember? nameChars }
+  h := (w h:s_tarts t) & 'ok_ e_ach r_ange t_ally t
+  c := 0 < ('+ s_\ 0 + h) - '+ s_\ 0 + (n r_eshape 0) c_at (0 - n) d_rop 0 + h
+  p_ := { i -> (i s_elect h) ? r; (i s_elect c) ? ""; i s_elect t }
+  h:j_oin 'p_ m_ap r_ange t_ally t
+}
+
+# Each name of ns replaced in t by the text at the same place in rs.
+h:s_ubst := { (ns, rs) t ->
+  0 = t_ally ns ? t
+  ((1 d_rop ns), 1 d_rop rs) h:s_ubst ((d_isclose f_irst ns) h:w_ord d_isclose f_irst rs)_ t
+}
+
+# Each A[e1,...,en] in t written (A a_t index), the index by Horner's rule.
+h:i_ndex := { t ->
+  o := w_here t m_ember? "["
+  0 = t_ally o ? t
+  i := f_irst o
+  j := f_irst w_here t m_ember? "]"
+  pre := (i - 1) t_ake t
+  m := '+ r_/ '* s_\ 0 + r_ev pre m_ember? nameChars
+  name := (0 - m) t_ake pre
+  ix := "," h:s_plit ((j - i) - 1) t_ake i d_rop t
+  q := t_ally ix
+  hs := h:j_oin '{ k -> "(" c_at (d_isclose k s_elect ix) c_at ") + (" c_at (f_ormat k) c_at " s_elect s_hape " c_at name c_at ") * " } m_ap r_ev 1 d_rop r_ange q
+  ((0 - m) d_rop pre) c_at "(" c_at name c_at " a_t " c_at hs c_at "(" c_at (d_isclose f_irst ix) c_at "))" c_at h:i_ndex j d_rop t
+}
+
+### The same structure as LaTeX
+
+## The LaTeX of the sum: the left is the result as written (Y[o,h,w]),
+## the right the same three regions m:s_um< reads; a string literal.
+h:t_ex := { lhs body ->
+  p := "|" h:s_plit body
+  up := "," h:s_plit d_isclose f_irst p
+  ctr := d_isclose f_irst 1 d_rop p
+  lo := "," h:s_plit d_isclose f_irst 2 d_rop p
+  sg := h:j_oin up '{ u l -> e_nclose "\\\\sum_{" c_at (h:m_ath d_isclose l) c_at "}^{" c_at (h:m_ath d_isclose u) c_at "} " } e_ach lo
+  "\"" c_at (h:m_ath h:t_rim lhs) c_at " = " c_at sg c_at (h:m_ath ctr) c_at "\""
+}
+
+# Math text: A[i,j] as A_{i,j}, * as a space, := as =.
+h:m_ath := { t ->
+  a := '{ ch -> (ch m_ember? "[") ? e_nclose "_{"; (ch m_ember? "]") ? e_nclose "}"; (ch m_ember? "*") ? e_nclose "\\\\,"; e_nclose ch } e_ach t
+  b := h:j_oin '{ x -> d_isclose x } m_ap a
+  (":=", "=") h:r_eplace b
+}
+
+# Every occurrence of w in t replaced by r (not only whole words).
+h:r_eplace := { (w, r) t ->
+  hit := w h:s_tarts t
+  0 = '+ r_/ 0 + hit ? t
+  i := f_irst w_here hit
+  ((i - 1) t_ake t) c_at r c_at (w, r) h:r_eplace ((i - 1) + t_ally w) d_rop t
+}
+

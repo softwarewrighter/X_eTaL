@@ -1,0 +1,2 @@
+"e:" u_se< "Spatial"
+"Y[o,h,w]" e:t_ex< "C-1, Kh-1, Kw-1 | X[c,h+r,w+s] * W[o,c,r,s] | c:=0, r:=0, s:=0"
