@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --no-project python
 """What a change affects, for the fast gate (scripts/gate.sh).
 
 Reads the files changed since the last gated state (the merge base

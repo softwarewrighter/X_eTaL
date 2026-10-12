@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --no-project python
 """Generate docs/status.md, "what works today", from the sources that
 define the language, so the table cannot drift from them:
 

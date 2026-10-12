@@ -33,3 +33,6 @@ __pycache__/
 # interpreters built by scripts/install-array-langs.sh
 tools/bin/
 tools/src/
+
+# The uv environment scripts/py runs Python from (uv venv).
+/.venv/

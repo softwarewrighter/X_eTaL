@@ -47,7 +47,7 @@ for part in $parts; do
         rosetta) rosetta ;;
         literate) scripts/literate-html.sh ;;
         doc) scripts/doc-site.sh ;;
-        poster) python3 scripts/poster.py ;;
+        poster) scripts/py scripts/poster.py ;;
         latex) scripts/latex-gallery.sh --write ;;
         *) echo "build-pages: no part named $part (web rosetta literate doc poster latex)" >&2; exit 2 ;;
     esac

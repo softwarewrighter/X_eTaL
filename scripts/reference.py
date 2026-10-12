@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --no-project python
 """Build docs/reference.md, the built-in functions, from
 docs/reference/builtins.ref (descriptions and examples) and the catalog
 (components/base/crates/xetal-catalog/builtins.toml: names, argument

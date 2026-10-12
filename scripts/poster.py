@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --no-project python
 """Build the syntax poster: scripts/poster/xetal-syntax-poster/index.html
 with every sample (an element of class xetal-placeholder with a
 data-source attribute) filled with what `xetal render --html -e SOURCE`

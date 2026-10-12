@@ -143,7 +143,7 @@ bench-bless RUNS="5":
 
 # Regenerate docs/asks.md (the sibling repos' asks and their state here), running each repro
 asks: _quiet-build
-    python3 scripts/asks.py
+    scripts/py scripts/asks.py
 
 # Build the documentation site of lib/ and two programs (xetal doc) into pages/doc
 doc: _quiet-build
@@ -151,16 +151,16 @@ doc: _quiet-build
 
 # Regenerate docs/status.md (what works today) from the catalog, decisions, spec cases and libraries
 status:
-    python3 scripts/status.py
+    scripts/py scripts/status.py
 
 # Check the Rosetta stone's data: names, keys, and every X_eTaL cell runs
 rosetta-check: _quiet-build
-    python3 scripts/rosetta-check.py
-    python3 scripts/rosetta-run.py
+    scripts/py scripts/rosetta-check.py
+    scripts/py scripts/rosetta-run.py
 
 # Run the stone's BQN and Uiua cells in their own interpreters (tools/bin; `just install-array-langs` builds them); --bless records the outputs
 rosetta-run *ARGS:
-    python3 scripts/rosetta-run.py {{ARGS}}
+    scripts/py scripts/rosetta-run.py {{ARGS}}
 
 # Build CBQN and Uiua 0.19.1 under tools/bin for just rosetta-run (nothing installed outside the repository)
 install-array-langs:
@@ -168,15 +168,15 @@ install-array-langs:
 
 # Regenerate docs/idioms.md from docs/idioms.template.md and the stone's data
 idioms:
-    python3 scripts/idioms.py
+    scripts/py scripts/idioms.py
 
 # Are the live demos live? Fetch every github.io link in the six repositories' READMEs (network)
 check-live:
-    python3 scripts/check-live.py
+    scripts/py scripts/check-live.py
 
 # Regenerate docs/reference.md (every built-in, its examples run) from docs/reference/builtins.ref
 reference: _quiet-build
-    python3 scripts/reference.py
+    scripts/py scripts/reference.py
 
 # Regenerate the annotated diagrams (images/*-annotated.svg) from docs/diagrams/*.notes
 diagrams:

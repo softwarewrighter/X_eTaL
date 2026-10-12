@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --no-project python
 """Put the drawn form above every xetal block of a literate document.
 
 Before each `#+begin_src xetal` block, write what `xetal render` draws

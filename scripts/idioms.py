@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --no-project python
 """docs/idioms.md from demos/rosetta/data.toml: the prose lives in
 docs/idioms.template.md, the array-language table is generated from the
 Rosetta stone's data, so the document and the stone can never disagree.

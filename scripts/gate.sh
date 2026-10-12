@@ -42,8 +42,8 @@ source scripts/components.sh
 
 plan=""
 if [ "$mode" = affected ]; then
-    python3 scripts/affected.py --self-test
-    plan="$(python3 scripts/affected.py)"
+    scripts/py scripts/affected.py --self-test
+    plan="$(scripts/py scripts/affected.py)"
 fi
 # Whether the gate does this (a line of the plan): the full gate does
 # all, the sample gate none of the planned steps.
@@ -110,12 +110,12 @@ doctests() { for f in lib/*.xtl lib/*.xtlm; do target/debug/xetal doc --test "$f
 run goldens scripts/reg.sh run
 run spec bash -c 'cd components/cli && cargo test -q -p xetal-cli --test spec'
 run doctests doctests
-run reference python3 scripts/reference.py --check
-run status python3 scripts/status.py --check
-run rosetta bash -c 'python3 scripts/rosetta-check.py --self-test && python3 scripts/rosetta-check.py'
-run rosettarun python3 scripts/rosetta-run.py
-run idioms bash -c 'python3 scripts/idioms.py --self-test && python3 scripts/idioms.py --check'
-run spelling bash -c 'python3 scripts/check-spelling.py --self-test && python3 scripts/check-spelling.py'
+run reference scripts/py scripts/reference.py --check
+run status scripts/py scripts/status.py --check
+run rosetta bash -c 'scripts/py scripts/rosetta-check.py --self-test && scripts/py scripts/rosetta-check.py'
+run rosettarun scripts/py scripts/rosetta-run.py
+run idioms bash -c 'scripts/py scripts/idioms.py --self-test && scripts/py scripts/idioms.py --check'
+run spelling bash -c 'scripts/py scripts/check-spelling.py --self-test && scripts/py scripts/check-spelling.py'
 run markdown sw-markdown-checker -f README.md
 wait
 failed=0
@@ -138,7 +138,7 @@ if does "flag emacs"; then
 fi
 if does "flag asks"; then
     step "asks ledger (docs/asks.md, each repro run)"
-    python3 scripts/asks.py --check
+    scripts/py scripts/asks.py --check
 fi
 if does "flag diagrams"; then
     step "annotated diagrams (docs/diagrams)"
@@ -148,7 +148,7 @@ fi
 if does "flag literate"; then
     step "literate documents (docs/literate)"
     docs=""
-    if [ "$mode" = fast ]; then docs="$(python3 scripts/affected.py --literate)"; fi
+    if [ "$mode" = fast ]; then docs="$(scripts/py scripts/affected.py --literate)"; fi
     # shellcheck disable=SC2086
     scripts/literate.sh --check $docs
 fi

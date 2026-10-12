@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --no-project python
 """Run the Rosetta stone's cells in their own languages. For every
 idiom that has an input for the language (demos/rosetta/data.toml,
 `input.IDIOM.LANG`, the bindings the cell runs with), the input and

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --no-project python
 """Are the live demos live? Every github.io link in the READMEs of this
 repository and its siblings is fetched and must answer 200 with a real
 page, so a broken Pages deploy or a renamed demo is caught before a

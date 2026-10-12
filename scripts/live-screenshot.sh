@@ -11,8 +11,8 @@ site="$(mktemp -d)"
 ln -s "$root/pages" "$site/X_eTaL"
 # A free port each time, so a server left over from an earlier run is
 # never the one photographed.
-port="$(python3 -c 'import socket; s=socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1])')"
-(cd "$site" && python3 -m http.server "$port" --bind 127.0.0.1 > /dev/null 2>&1) &
+port="$("$root/scripts/py" -c 'import socket; s=socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1])')"
+(cd "$site" && "$root/scripts/py" -m http.server "$port" --bind 127.0.0.1 > /dev/null 2>&1) &
 server=$!
 trap 'kill $server 2>/dev/null; wait $server 2>/dev/null || true; rm -rf "$site"' EXIT
 sleep 1

@@ -3,4 +3,4 @@
 # found, images/xetal-syntax-poster.png): scripts/poster.py does it.
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/../.."
-exec python3 scripts/poster.py
+exec scripts/py scripts/poster.py

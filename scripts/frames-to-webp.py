@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --no-project python
 """Turn an animated picture (an SVG drawn by []G_RID or []P_ATH, its
 frames shown in turn) into an animated WebP, for places that do not
 play SVG animation: some markdown renderers, slides, chat.

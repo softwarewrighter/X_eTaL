@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-12
+
+- 09:30 `build` Python only through uv (asked by the user): `.python-version` (3.14) and `scripts/py`, which runs the repository's `.venv` (made by `uv venv`); every `python3` call in the gate, the justfile and the scripts goes through it, and the Python scripts' `#!` lines run `uv run`. A Homebrew upgrade had dropped `/opt/homebrew/bin/python3`, so the scripts fell back to macOS's Python 3.9 (no `tomllib`) and the gate failed.
+- 09:00 `chore` Merged PR #120 (redundant-lambda, the first complexity lint, Saga 40 step 5). Pages rebuilt.
 ## 2026-10-11
 
 - 11:00 `feat` `redundant-lambda` (Saga 40 step 5, D143): `xetal lint` warns on a lambda that only passes its arguments to a named function (`'{ x -> n_eg x }` is `'n_eg`, `'{ a b -> a + b }` is `'+`) or returns its argument (`'{ x -> x }` is `'i_d`); a definition by a lambda is not reported. New crate xetal-complexity. lib/Maybe's `o_r` and wordfreq use the names; the tour's quoted-lambda example is allowed. Golden lint-redundant; lint-list, lint-bang, lint-bang-pedantic and run-echo-tour rebased.

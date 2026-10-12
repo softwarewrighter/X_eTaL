@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --no-project python
 """Check the Rosetta stone's data (demos/rosetta/data.toml, RS3): the
 name lists match the axes, each axis is in alphabetical order of its
 display names (the page's lists show that order; case aside), every

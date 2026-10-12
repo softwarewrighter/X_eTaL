@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Run Python from the repository's uv environment: .venv, made once by
+# `uv venv` at the version in .python-version. Never the system python3.
+#   scripts/py scripts/status.py --check
+#   scripts/py - <<'EOF' ... EOF
+set -euo pipefail
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [ ! -x "$root/.venv/bin/python" ]; then
+    uv venv -q --python "$(cat "$root/.python-version")" "$root/.venv"
+fi
+exec "$root/.venv/bin/python" "$@"

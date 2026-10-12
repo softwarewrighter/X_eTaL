@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --no-project python
 """The asks ledger: docs/asks.md from docs/asks.toml, every ask the
 sibling repositories filed with its state here, each repro run against
 this build (target/release/xetal).
