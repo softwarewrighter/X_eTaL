@@ -125,7 +125,7 @@ xetal-linter gained xetal-typed (check-locks --fix, additions only).
 The sandbox ran fmt, clippy and tests in types, core, lint, cli, web
 and macro, the wasm32 check of web, scripts/build-all.sh, and every
 golden with reg-rs: 229 of 235 pass, failing only cli-too-deep and the
-five just-* goldens, as on main. `int-condition` is pedantic until the
-user picks its level (asked in the project thread). Not run:
+five just-* goldens, as on main. `int-condition` is suspicious and on
+by default (the user chose warn); no library or demo trips it. Not run:
 sw-checklist (xetal-types is at seven modules, unchanged; its expr.rs
 and record.rs gained no functions), agentrail, `just pages`.

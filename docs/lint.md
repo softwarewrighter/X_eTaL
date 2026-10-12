@@ -86,7 +86,7 @@ The live demo needs no JSON: it calls the same Rust functions.
 | `missing-bang` | style | warn | a function calling an effect (`p_rint!`, a `!` function) directly, without `!` in its name |
 | `needless-bang` | pedantic | allow | a `!` function that could not have an effect |
 | `function-name-case` | pedantic | allow | a function named UpperCamel (`u:N_extGen`); a capital start is for combinators |
-| `int-condition` | pedantic | allow | a guard whose condition type-checks as an Int (`t_ally v ? ...`), which fails at run time unless it is 1 or 0; runs after type checking |
+| `int-condition` | suspicious | warn | a guard whose condition type-checks as an Int (`t_ally v ? ...`), which fails at run time unless it is 1 or 0; runs after type checking |
 | `upper-case-name` | pedantic | allow | a variable of two or more letters, all capitals (`MAXSIZE`) |
 
 The naming lints check lang-choices section 16 (style guide). Case

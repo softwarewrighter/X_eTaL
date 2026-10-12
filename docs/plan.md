@@ -1169,7 +1169,7 @@ style guide's names (lang-choices section 16).
    is `'f_`, `{ x -> x }` is `'i_d`), group complexity, in a new crate
    xetal-complexity.
 6. lint-typed [DONE] (D145): lints after type checking: `int-condition`
-   (pedantic), a guard whose condition type-checks as an Int, in a new
+   (suspicious, warn), a guard whose condition type-checks as an Int, in a new
    crate xetal-typed over `xetal_types::guard_types`.
 7. lint-fix [DONE] (D144): machine-applicable suggestions
    (`Diagnostic::with_fix`; redundant-lambda gives one), `xetal lint

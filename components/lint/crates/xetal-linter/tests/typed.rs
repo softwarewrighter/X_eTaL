@@ -16,7 +16,7 @@ fn found(text: &str, warn: &[&str]) -> Vec<(String, usize, String)> {
 const COUNT: &str = "u:f_ := { x -> x > 2 ? 1\n0 }\nu:g_ := { x -> t_ally x ? 1\n0 }";
 
 #[test]
-fn an_int_condition_is_found_when_asked_for() {
+fn an_int_condition_is_found() {
     let got = found(COUNT, &["int-condition"]);
     assert_eq!(got.len(), 1, "{got:?}");
     assert_eq!((got[0].0.as_str(), got[0].1), ("int-condition", 3));
@@ -24,9 +24,15 @@ fn an_int_condition_is_found_when_asked_for() {
 }
 
 #[test]
-fn it_is_pedantic_and_off_by_default() {
-    assert!(found(COUNT, &[]).is_empty());
-    assert_eq!(found(COUNT, &["pedantic"]).len(), 1);
+fn it_is_suspicious_and_on_by_default() {
+    assert_eq!(found(COUNT, &[]).len(), 1);
+    assert_eq!(found(COUNT, &["suspicious"]).len(), 1);
+}
+
+#[test]
+fn a_lint_comment_silences_it() {
+    let text = "u:g_ := { x -> t_ally x ? 1  # lint: allow int-condition\n0 }";
+    assert!(found(text, &[]).is_empty(), "{:?}", found(text, &[]));
 }
 
 #[test]
