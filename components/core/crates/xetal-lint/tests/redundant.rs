@@ -59,3 +59,10 @@ fn a_definition_by_a_lambda_passes() {
     assert!(found("u:n_ot := { x -> n_eg x }\nu:I_ := { x -> x }").is_empty());
     assert!(found("u:f_ := { v -> g_ := { x -> n_eg x }\ng_ v }").is_empty());
 }
+
+#[test]
+fn a_lambda_calling_power_passes() {
+    // Power has no quoted form: `'^` is an exponent (D-6), so the
+    // lambda is the only way to pass power on (X_eTaL-libraries X20).
+    assert!(found("u:f_ := { v -> v '{ a b -> a ^ b } t_able v }").is_empty());
+}

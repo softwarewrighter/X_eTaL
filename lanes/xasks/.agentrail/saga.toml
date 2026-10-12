@@ -1,0 +1,6 @@
+name = "xasks"
+status = "active"
+current_step = 2
+created_at = "2026-10-12T11:41:53"
+plan_file = ".agentrail/plan.md"
+retroactive = false

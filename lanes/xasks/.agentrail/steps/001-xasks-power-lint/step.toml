@@ -1,0 +1,9 @@
+number = 1
+slug = "xasks-power-lint"
+status = "completed"
+description = "xasks lane (lanes/xasks/.agentrail/plan.md). One PR per step from the latest ..."
+role = "production"
+context_files = []
+created_at = "2026-10-12T11:41:53"
+completed_at = "2026-10-12T11:53:18"
+commits = ["6ee84d415e39e28f4897e0516d3bad488515e93a"]

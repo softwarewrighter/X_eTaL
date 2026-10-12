@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-12
 
+- 11:55 `fix` `redundant-lambda` no longer suggests quoting power: `'{ a b -> a ^ b }` was told "write `'^`" (and `--fix` wrote it), which is `error[bad-exponent]`, since a touching `^` is an exponent (D-6). Power has no quoted form, so the lambda stays (D146; X_eTaL-libraries ask X20). New lane lanes/xasks for asks from X_eTaL-libraries.
 - 14:00 `docs` docs/local-asks.md: what an agent on the user's machine runs after merging a cloud lane PR (the checks the sandbox cannot run, pages, and the agentrail record of Saga 40, with each step's commit). `int-condition` is now suspicious and on by default (the user's choice, D145); lint-list and lint-int-condition rebased.
 - 13:00 `feat` The first typed lint (Saga 40 step 6, D145): `int-condition` (suspicious, on by default) warns on a guard whose condition type-checks as an Int (`t_ally v ? ...`), which fails at run time unless it is 1 or 0. Inference records guard conditions for `xetal_types::guard_types`; the typed lints run in a new crate xetal-typed, only when the program type-checks. Golden lint-int-condition; lint-list rebased.
 - 14:00 `design` A `!` variable keeps the type of its first binding; a number's type is settled when its value must exist: at the top level at its line, in a function at each call; types are inferred and checked before the program runs, one body per function (lang-choices M5, decided with the user).
