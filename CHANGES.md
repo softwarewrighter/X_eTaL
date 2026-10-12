@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-12
 
+- 10:30 `feat` Fixes and JSON from `xetal lint` (Saga 40 step 7, D144): `xetal lint --fix FILE` rewrites the file with the fixes that can be made surely (a redundant lambda becomes its quoted name) and reports what is left; `--format json` writes each finding as one JSON object a line on stdout for editors. A lint pass attaches a fix with `Diagnostic::with_fix`; the driver checks it against the file as written. Goldens lint-json, lint-fix, lint-fix-expr.
 - 09:30 `build` Python only through uv (asked by the user): `.python-version` (3.14) and `scripts/py`, which runs the repository's `.venv` (made by `uv venv`); every `python3` call in the gate, the justfile and the scripts goes through it, and the Python scripts' `#!` lines run `uv run`. A Homebrew upgrade had dropped `/opt/homebrew/bin/python3`, so the scripts fell back to macOS's Python 3.9 (no `tomllib`) and the gate failed.
 - 09:00 `chore` Merged PR #120 (redundant-lambda, the first complexity lint, Saga 40 step 5). Pages rebuilt.
 ## 2026-10-11

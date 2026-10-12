@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint --format json reg/fixtures/lint/redundant.xtl"
+exit_code = 0
+desc = "--format json: each finding one JSON object a line on stdout, with its lint, group, level, place, message and fix (byte range and replacement), nothing on stderr"

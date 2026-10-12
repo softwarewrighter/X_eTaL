@@ -3,7 +3,7 @@
 `xetal lint` checks a program or library against a catalog of named
 lints, as `cargo clippy` checks a Rust crate. This document is the
 design: what it does, how it is built, why, and where it goes next.
-User-facing usage is in the README; decisions are D137 to D143 in
+User-facing usage is in the README; decisions are D137 to D144 in
 `docs/design.md` and S12 in `docs/lang-choices.md`.
 
 ## 1. What it does
@@ -15,6 +15,8 @@ xetal lint -D style FILE            # style findings are errors: exit 1
 xetal lint -W pedantic -A shadows-builtin FILE
 xetal lint --list                   # every lint: group, default level, summary
 xetal lint --explain mutable-constant
+xetal lint --fix FILE               # rewrite FILE with the sure fixes, report what is left
+xetal lint --format json FILE       # one JSON object a line on stdout, for editors
 ```
 
 A finding is printed as the rest of the toolchain prints diagnostics,
@@ -32,6 +34,34 @@ functions hidden in its private namespace), so the library-only lints
 fire when the library itself is linted. Findings in imported libraries
 are not reported: lint a library by naming it, as clippy does not lint
 dependencies.
+
+### Fixes and JSON
+
+A lint may give a fix, as rustc gives a machine-applicable suggestion:
+a span and the text to write there (`Diagnostic::with_fix`). The driver
+makes it an edit to the file as written only when that is sure: the
+span lies wholly in the linted file, as written (not a macro's
+expansion, not an import), and holds what the fix expects (a whole
+`{ ... }` lambda). So far `redundant-lambda` gives one: the lambda
+becomes the name, its quote stays (`'{ x -> n_eg x }` is `'n_eg`).
+
+`--fix` makes the edits of the reported findings (an allowed finding
+is not fixed), earliest first, leaving out one that overlaps an edit
+already kept, writes the file only when the result still loads, prints
+`fixed N finding(s) in FILE` on stderr, and reports what is left as
+usual. It needs a file: with `-e` it is `error[fix-needs-file]`.
+
+`--format json` writes each finding as one JSON object a line on
+stdout (as cargo's `--message-format=json`), nothing on stderr, with
+the same exit status:
+
+```
+{"lint":"redundant-lambda","group":"complexity","level":"warn","file":"t.xtl","line":1,"col":17,"message":"...","fix":{"start":16,"end":31,"replacement":"n_eg"}}
+```
+
+`line` and `col` count from 1 (columns in characters); a fix's `start`
+and `end` are byte offsets in the file, `fix` is `null` without one.
+The live demo needs no JSON: it calls the same Rust functions.
 
 ## 2. Vocabulary (borrowed from clippy and rustc)
 
@@ -134,8 +164,9 @@ these rules testable one by one.
                  |
                  v
   components/lint: xetal-linter  (the driver, as clippy-driver)
-     command.rs   --list, --explain, report and exit status
+     command.rs   --list, --explain, report (text or JSON lines), exit status
      driver.rs    load (program or library), run the passes, place, level
+     fix.rs       a pass's fix made an Edit to the file as written; --fix
      rule.rs      Rule, Scope, command_line(), resolve()
      directive.rs # lint: comments as written (no lexer needed)
      scope.rs     what each directive covers (statement extents from Core)
@@ -210,8 +241,12 @@ on a program that does not type-check yet. Lints that need types (a
   it count them.
 - More lints: typed lints (`?` must return Bool); more of the
   complexity group (`'{ a b -> b f_ a }` is `'f_ s_wap`).
-- Machine-applicable suggestions and `xetal lint --fix`.
-- `--format json` for editors (the Emacs mode, the live demo's editor),
-  and a configuration file for project-wide levels.
+- Fixes for more lints: the renames (`mutable-constant`,
+  `missing-bang`) must rename every use, across files, and
+  `unused-binding`'s `_ :=` needs the name's span; both wait for name
+  spans in Core.
+- `--fix` refusing a file with uncommitted changes (clippy's
+  `--allow-dirty`), end positions in the JSON, the Emacs mode reading
+  it, and a configuration file for project-wide levels.
 - Name spans in Core, to point at the name's column.
 

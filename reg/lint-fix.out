@@ -1,0 +1,11 @@
+#!/usr/bin/env xetal
+# redundant-lambda: a lambda that only passes its arguments on is the quoted name.
+u:s_q := { _r * _r }
+u:n_ot := { x -> n_eg x }
+v := 1 2 3
+'n_eg e_ach v
+'+ r_/ v
+'u:s_q e_ach v
+'i_d e_ach v
+'{ a b -> b - a } r_/ v
+'{ x -> x * 2 } e_ach v

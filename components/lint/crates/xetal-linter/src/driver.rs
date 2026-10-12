@@ -11,6 +11,7 @@ use xetal_program::Loaded;
 use xetal_sources::Sources;
 
 use crate::directive::directives;
+use crate::fix::{Edit, edit};
 use crate::rule::{Rule, resolve};
 use crate::scope::{rules, unknown};
 
@@ -23,6 +24,8 @@ pub struct Finding {
     pub line: usize,
     pub col: usize,
     pub message: String,
+    /// The edit that fixes it, when one can be made surely.
+    pub fix: Option<Edit>,
 }
 
 impl fmt::Display for Finding {
@@ -55,7 +58,7 @@ pub fn lint(name: &str, text: &str, cli: &[Rule]) -> Result<Vec<Finding>, Diagno
     all.extend(rules(&written, (text, 0), &loaded.program, &loaded.sources));
     let mut raw: Vec<Raw> = unknown(&written)
         .into_iter()
-        .map(|(line, col, message)| ("unknown-lint", line, col, message))
+        .map(|(line, col, message)| ("unknown-lint", line, col, message, None))
         .collect();
     raw.extend(placed(&loaded));
     let mut out: Vec<Finding> = raw
@@ -67,8 +70,8 @@ pub fn lint(name: &str, text: &str, cli: &[Rule]) -> Result<Vec<Finding>, Diagno
     Ok(out)
 }
 
-/// A finding before its level: lint name, line, column and message.
-type Raw = (&'static str, usize, usize, String);
+/// A finding before its level: lint name, line, column, message, edit.
+type Raw = (&'static str, usize, usize, String, Option<Edit>);
 
 /// What the lint passes find in the program's own file, placed there.
 fn placed(loaded: &Loaded) -> Vec<Raw> {
@@ -76,14 +79,16 @@ fn placed(loaded: &Loaded) -> Vec<Raw> {
     for d in xetal_lint::lints(&loaded.program) {
         let at = loaded.sources.locate(d.span.map_or(0, |s| s.start));
         if at.index == 0 {
-            out.extend(xetal_lint::lint(&d.code).map(|l| (l.name, at.line, at.col, d.message)));
+            let fix = d.fix.as_ref().and_then(|f| edit(f, &loaded.sources));
+            let lint = xetal_lint::lint(&d.code);
+            out.extend(lint.map(|l| (l.name, at.line, at.col, d.message, fix)));
         }
     }
     out
 }
 
 /// `raw` at the level its rules give it; `None` when allowed.
-fn leveled((code, line, col, message): Raw, name: &str, rules: &[Rule]) -> Option<Finding> {
+fn leveled((code, line, col, message, fix): Raw, name: &str, rules: &[Rule]) -> Option<Finding> {
     let lint = xetal_lint::lint(code)?;
     let level = resolve(lint, line, rules);
     let file = name.to_string();
@@ -94,6 +99,7 @@ fn leveled((code, line, col, message): Raw, name: &str, rules: &[Rule]) -> Optio
         line,
         col,
         message,
+        fix,
     })
 }
 

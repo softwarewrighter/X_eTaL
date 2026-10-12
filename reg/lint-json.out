@@ -1,0 +1,4 @@
+{"lint":"redundant-lambda","group":"complexity","level":"warn","file":"reg/fixtures/lint/redundant.xtl","line":6,"col":2,"message":"this lambda only passes its arguments to `n_eg`: write `'n_eg`","fix":{"start":163,"end":178,"replacement":"n_eg"}}
+{"lint":"redundant-lambda","group":"complexity","level":"warn","file":"reg/fixtures/lint/redundant.xtl","line":7,"col":2,"message":"this lambda only passes its arguments to `+`: write `'+`","fix":{"start":188,"end":204,"replacement":"+"}}
+{"lint":"redundant-lambda","group":"complexity","level":"warn","file":"reg/fixtures/lint/redundant.xtl","line":8,"col":2,"message":"this lambda only passes its arguments to `u:s_q`: write `'u:s_q`","fix":{"start":212,"end":228,"replacement":"u:s_q"}}
+{"lint":"redundant-lambda","group":"complexity","level":"warn","file":"reg/fixtures/lint/redundant.xtl","line":9,"col":2,"message":"this lambda returns its argument unchanged: write `'i_d`","fix":{"start":238,"end":248,"replacement":"i_d"}}

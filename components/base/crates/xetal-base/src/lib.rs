@@ -6,6 +6,6 @@ mod diagnostic;
 mod lang;
 mod span;
 
-pub use diagnostic::{Diagnostic, Severity};
+pub use diagnostic::{Diagnostic, Fix, Severity};
 pub use lang::LANG_NAME;
 pub use span::{NodeId, Span};

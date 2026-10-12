@@ -1,0 +1,3 @@
+command = "mkdir -p work && cp reg/fixtures/lint/redundant.xtl work/lint-fix.xtl && ./target/debug/xetal lint --fix work/lint-fix.xtl && cat work/lint-fix.xtl"
+exit_code = 0
+desc = "--fix: the redundant lambdas of a copy in work/ are rewritten to their quoted names (the definition and lambdas doing more stay), the count on stderr; the fixed program runs as before"
