@@ -39,7 +39,8 @@ fn walk(e: &Expr, defined: bool, out: &mut Vec<Diagnostic>) {
     }
 }
 
-/// The finding for lambda `at`, if it only passes its arguments on.
+/// The finding for lambda `at`, if it only passes its arguments on,
+/// with its fix: the name in place of the lambda (its quote stays).
 fn finding(params: &[&str], body: &Expr, at: &Expr) -> Option<Diagnostic> {
     let name = passed_to(params, body)?;
     let message = if name == "i_d" {
@@ -47,5 +48,6 @@ fn finding(params: &[&str], body: &Expr, at: &Expr) -> Option<Diagnostic> {
     } else {
         format!("this lambda only passes its arguments to `{name}`: write `'{name}`")
     };
-    Some(Diagnostic::warning("redundant-lambda", message).with_span(at.span))
+    let found = Diagnostic::warning("redundant-lambda", message).with_span(at.span);
+    Some(found.with_fix(at.span, name))
 }

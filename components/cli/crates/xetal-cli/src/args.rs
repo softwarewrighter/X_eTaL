@@ -148,6 +148,21 @@ pub(crate) struct LintArgs {
     /// List every lint: group, default level and summary.
     #[arg(long)]
     pub(crate) list: bool,
+    /// Rewrite FILE with the fixes that can be made surely, then report
+    /// what is left.
+    #[arg(long, conflicts_with_all = ["list", "explain"])]
+    pub(crate) fix: bool,
+    /// How findings are written: text on stderr, or json (one object a
+    /// line on stdout, for editors).
+    #[arg(long, value_enum, default_value_t = LintFormat::Text)]
+    pub(crate) format: LintFormat,
+}
+
+/// `xetal lint --format`.
+#[derive(Clone, Copy, PartialEq, Eq, clap::ValueEnum)]
+pub(crate) enum LintFormat {
+    Text,
+    Json,
 }
 
 impl LintArgs {
@@ -167,6 +182,8 @@ impl LintArgs {
             deny: self.deny.clone(),
             explain: self.explain.clone(),
             list: self.list,
+            fix: self.fix,
+            json: self.format == LintFormat::Json,
         })
     }
 }

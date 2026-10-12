@@ -1,0 +1,1 @@
+error[fix-needs-file]: --fix rewrites a file: give a FILE path, not -e

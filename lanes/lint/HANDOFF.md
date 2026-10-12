@@ -99,3 +99,19 @@ lib/Maybe.xtl, demos/tour.xtl and demos/classics/wordfreq.xtl changed,
 so `just pages --all` (literate, doc and latex parts too). Not run:
 reg-rs itself, sw-checklist, sw-markdown-checker, agentrail (record
 steps 1 to 5), `just pages`.
+
+## Step 7 (lint-fix, D144)
+
+Branch `claude/project-thread-v9efz0`, restarted from main at 7ce5fd4
+(after PR #120 merged). `xetal_base::Diagnostic` gained a boxed `fix`,
+so every component rebuilds; no new crates, no lock changes. The
+sandbox ran fmt, clippy and tests in base, core, lint, cli, web and
+macro, clippy in every other component, the wasm32 checks of web and
+rosetta, and every golden with reg-rs itself (built from
+sw-cli-tools/reg-rs): 228 of 234 pass, the six failing being
+cli-too-deep and the five just-* goldens (no `just` here), as on main.
+New goldens lint-json, lint-fix, lint-fix-expr, created with reg-rs.
+Not run: sw-checklist (counted by hand: command.rs at seven functions,
+fix.rs five, every function under 30 lines), sw-markdown-checker,
+agentrail (record steps 1 to 5 and 7), `just pages` (web and rosetta
+parts stale: Rust sources changed).

@@ -12,8 +12,16 @@ pub enum Severity {
     Warning,
 }
 
+/// A machine-applicable suggestion, as rustc gives one: write
+/// `replacement` in place of the source behind `span`.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Fix {
+    pub span: Span,
+    pub replacement: String,
+}
+
 /// A user-facing error or warning: a stable code, a message, an optional
-/// primary span and any number of explanatory notes.
+/// primary span, any number of explanatory notes and an optional fix.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Diagnostic {
     pub severity: Severity,
@@ -21,6 +29,8 @@ pub struct Diagnostic {
     pub message: String,
     pub span: Option<Span>,
     pub notes: Vec<String>,
+    /// Boxed: most diagnostics carry none, and `Diagnostic` stays small.
+    pub fix: Option<Box<Fix>>,
 }
 
 impl Diagnostic {
@@ -31,7 +41,17 @@ impl Diagnostic {
             message: message.into(),
             span: None,
             notes: Vec::new(),
+            fix: None,
         }
+    }
+
+    /// With a fix: `replacement` written in place of `span`.
+    pub fn with_fix(mut self, span: Span, replacement: impl Into<String>) -> Self {
+        self.fix = Some(Box::new(Fix {
+            span,
+            replacement: replacement.into(),
+        }));
+        self
     }
 
     pub fn with_span(mut self, span: Span) -> Self {

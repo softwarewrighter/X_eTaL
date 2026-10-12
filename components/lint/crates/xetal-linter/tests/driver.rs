@@ -73,7 +73,7 @@ fn denied_findings_fail_the_command_and_are_written_with_a_note() {
         ..Request::default()
     };
     let mut err = Vec::new();
-    let result = command(&req, &mut err);
+    let result = command(&req, &mut Vec::new(), &mut err);
     assert_eq!(result.unwrap_err().code, "lint-denied");
     let text = String::from_utf8(err).unwrap();
     assert!(text.starts_with("error[mutable-constant]: "), "{text}");
@@ -91,7 +91,7 @@ fn a_clean_program_writes_nothing() {
         ..Request::default()
     };
     let mut err = Vec::new();
-    assert_eq!(command(&req, &mut err).unwrap(), "");
+    assert_eq!(command(&req, &mut Vec::new(), &mut err).unwrap(), "");
     assert!(err.is_empty());
 }
 
@@ -102,7 +102,7 @@ fn list_and_explain_need_no_program() {
         ..Request::default()
     };
     assert!(
-        command(&list, &mut Vec::new())
+        command(&list, &mut Vec::new(), &mut Vec::new())
             .unwrap()
             .contains("function-name-case")
     );
@@ -111,7 +111,7 @@ fn list_and_explain_need_no_program() {
         ..Request::default()
     };
     assert!(
-        command(&explain, &mut Vec::new())
+        command(&explain, &mut Vec::new(), &mut Vec::new())
             .unwrap()
             .starts_with("mutable-constant (style, warn by default)")
     );
@@ -120,7 +120,9 @@ fn list_and_explain_need_no_program() {
         ..Request::default()
     };
     assert_eq!(
-        command(&unknown, &mut Vec::new()).unwrap_err().code,
+        command(&unknown, &mut Vec::new(), &mut Vec::new())
+            .unwrap_err()
+            .code,
         "unknown-lint"
     );
 }
