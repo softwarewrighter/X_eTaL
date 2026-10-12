@@ -1,8 +1,9 @@
 number = 95
 slug = "condition-in-tuple"
-status = "in-progress"
+status = "completed"
 description = "Reported by X_eTaL-games (their docs/xetal-asks.md row 29, 2026-10-11): a com..."
 role = "production"
 context_files = []
 created_at = "2026-10-11T10:12:39"
-commits = []
+completed_at = "2026-10-12T13:48:29"
+commits = ["12c905831d01b073f0ddc9149aae18830a5302b2"]
