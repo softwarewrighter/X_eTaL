@@ -122,6 +122,7 @@ entries = [
   ["[]L_INE", 1, "Unit -> Int"],
   ["[]I_NCLUDE", 1, "Char -> Char"],
   ["[]C_FG", 1, "Truthy a => Char -> a"],
+  ["[]G_ENSYM", 1, "Char -> Char"],
 ]
 
 [[group]]

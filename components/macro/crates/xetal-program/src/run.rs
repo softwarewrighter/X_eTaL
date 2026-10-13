@@ -29,8 +29,11 @@ impl Libraries for Running<'_> {
             statement: call.statement,
             file: call.file.clone(),
             row: call.row,
+            fresh: call.fresh.get(),
         };
-        xetal_system::expanding(now, || run(library, call)).map_err(|d| failed(d, call))
+        let (text, fresh) = xetal_system::expanding(now, || run(library, call));
+        call.fresh.set(fresh);
+        text.map_err(|d| failed(d, call))
     }
 }
 

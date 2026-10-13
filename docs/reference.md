@@ -1933,6 +1933,21 @@ set with `xetal --cfg NAME` (`@ c_fg< "web"`).
 error[hook-outside-macro]: []C_FG is a macro hook: it works only in a macro body, while a call is expanded
 ```
 
+### `[]G_ENSYM`
+
+`Char -> Char`, one argument.
+
+A fresh name for a macro's text: `[]G_ENSYM "t"` gives `g1:t`, then
+`g2:t`, numbered in the order calls are expanded in the file, so a
+macro can bind a name of its own around your text without capturing
+yours; names a macro writes otherwise stay as written. The argument is
+a plain name (`t`, `s_um`), else `bad-gensym`.
+
+```
+      []G_ENSYM "t"
+error[hook-outside-macro]: []G_ENSYM is a macro hook: it works only in a macro body, while a call is expanded
+```
+
 ## Graphics
 
 A program computes what to draw as an array. Drawing is pure: the

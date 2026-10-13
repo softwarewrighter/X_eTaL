@@ -35,18 +35,31 @@ m:c_heck< := { cond label -> "{ @ -> (" c_at cond c_at ") ? \"ok: " c_at label c
 
 ### Names a macro binds
 
-## Twice the expression on the right: the macro binds a local t (to 2)
-## around your expression, and hygiene renames it (to g1:t, say), so a
-## t of your own is still yours.
+## The expression on the right with x as 3: the macro binds x around
+## your expression and writes it as it is, so your x is its x. A name a
+## macro writes stays as written; that is how an anaphor works, and a
+## macro that wants a name of its own asks for one (t_wice< below).
+## >> "x:" u_se< "Macros"
+## >> x := 10
+## >> @ x:t_hree< "x + 1"
+## 4
+m:t_hree< := { @ e -> "{ @ -> x := 3; " c_at e c_at " } @" }
+
+## Twice the expression on the right: the macro binds a local of its
+## own around your expression, a fresh name from []G_ENSYM (g1:t, say),
+## so a t of your own is still yours.
 ## >> "x:" u_se< "Macros"
 ## >> t := 5
 ## >> @ x:t_wice< "t + 1"
 ## 12
-m:t_wice< := { @ e -> "{ @ -> t := 2; t * (" c_at e c_at ") } @" }
+m:t_wice< := { @ e ->
+  t := []G_ENSYM "t"
+  "{ @ -> " c_at t c_at " := 2; " c_at t c_at " * (" c_at e c_at ") } @"
+}
 
 ## The text on the right with it bound to the value of the expression
-## on the left (an anaphoric macro: it is meant for your text, so it is
-## declared below and hygiene leaves it as written).
+## on the left (an anaphoric macro: it is meant for your text, declared
+## below, so your text cannot bind an it of its own).
 ## binds: it
 ## >> "x:" u_se< "Macros"
 ## >> "3 + 4" x:w_ith< "it * it"

@@ -8,7 +8,7 @@ use xetal_mapped::Mapped;
 use std::cell::Cell;
 
 use crate::calls::{Call, calls};
-use crate::hygiene::{hygiene, unwritten};
+use crate::hygiene::{anaphora, unwritten};
 use crate::user::{Macros, NoMacros, user};
 
 /// How deeply expansions may hold further macro calls.
@@ -34,7 +34,7 @@ pub fn expand_with(text: &str, macros: &dyn Macros) -> Result<Mapped, Diagnostic
     expand_at(&Mapped::new(text), &cx, 0)
 }
 
-/// The macros, and the count of fresh names given so far (hygiene).
+/// The macros, and the count of fresh names given so far (`[]G_ENSYM`).
 struct Cx<'a> {
     macros: &'a dyn Macros,
     fresh: Cell<usize>,
@@ -73,8 +73,14 @@ fn expansion(src: &Mapped, call: &Call, cx: &Cx) -> Result<Mapped, Diagnostic> {
         side(call.texts.0, call.left),
         side(call.texts.1, call.right),
     );
-    let (text, binds) = user(call, (&left, &right), cx.macros, src.span(call.span))?;
-    Ok(hygiene(&text, &binds, &cx.fresh))
+    let (text, binds) = user(
+        call,
+        (&left, &right),
+        cx.macros,
+        (src.span(call.span), &cx.fresh),
+    )?;
+    anaphora(call, (&left, &right), &binds)?;
+    Ok(text)
 }
 
 /// The inside of the string literal at `span`, escapes replaced.

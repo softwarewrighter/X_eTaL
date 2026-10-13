@@ -1,0 +1,7 @@
+# A name a macro declares it binds for its call's text (## binds: it)
+# is the macro's: the call's text cannot bind it again (MC30).
+== SOURCE
+"x:" u_se< "Macros"
+"3 + 4" x:w_ith< "'{ it -> it * 2 } e_ach it"
+== ERROR
+error[shadows-anaphor]: it is bound by x:w_ith< for this text (## binds: it); the text cannot bind it again: use another name at 37..65

@@ -1,0 +1,6 @@
+# []G_ENSYM gives a macro a fresh name for its text (MC30); it is a
+# macro hook, so a program cannot call it (MC20).
+== SOURCE
+[]G_ENSYM "t"
+== ERROR
+error[hook-outside-macro]: []G_ENSYM is a macro hook: it works only in a macro body, while a call is expanded at 0..13

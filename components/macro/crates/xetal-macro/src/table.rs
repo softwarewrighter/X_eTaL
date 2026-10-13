@@ -33,8 +33,11 @@ impl Macros for Table<'_> {
                 .matches('\n')
                 .count()
                 + 1,
+            fresh: call.fresh.clone(),
         };
-        self.libs.run_macro(&lib.sources, &run)
+        let text = self.libs.run_macro(&lib.sources, &run);
+        call.fresh.set(run.fresh.get());
+        text
     }
 
     fn binds(&self, call: &MacroCall) -> Vec<String> {

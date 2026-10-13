@@ -4,6 +4,8 @@
 //! (as statements where the call is a statement of its own,
 //! parenthesized inside an expression) and is expanded in turn.
 
+use std::cell::Cell;
+
 use xetal_base::{Diagnostic, Span};
 use xetal_mapped::Mapped;
 
@@ -25,6 +27,9 @@ pub struct MacroCall<'a> {
     /// Where the call was written (a byte offset in its file; inside
     /// another macro's expansion, that macro's call).
     pub at: usize,
+    /// The fresh names given so far in this file (`g1:`, `g2:`, ...): a
+    /// macro asking for one (`[]G_ENSYM`, MC30) takes the next number.
+    pub fresh: &'a Cell<usize>,
 }
 
 /// What runs the macros a file can call.
@@ -34,7 +39,7 @@ pub trait Macros {
     fn run(&self, call: &MacroCall) -> Result<String, Diagnostic>;
 
     /// The names the macro of `call` declares it binds for the call's
-    /// text (`## binds:`, anaphora); hygiene keeps them as written.
+    /// text (`## binds:`, anaphora); the call's text cannot bind them.
     fn binds(&self, _call: &MacroCall) -> Vec<String> {
         Vec::new()
     }
@@ -62,7 +67,7 @@ pub(crate) fn user(
     call: &Call,
     (left, right): (&Mapped, &Mapped),
     macros: &dyn Macros,
-    whole: Span,
+    (whole, fresh): (Span, &Cell<usize>),
 ) -> Result<(Mapped, Vec<String>), Diagnostic> {
     let (ns, name) = match call.name.split_once(':') {
         Some((ns, name)) => (Some(ns), name),
@@ -75,6 +80,7 @@ pub(crate) fn user(
         right: call.texts.1.then_some(right.text()),
         statement: call.statement,
         at: whole.start,
+        fresh,
     };
     let text = macros.run(&request).map_err(|d| placed(d, call))?;
     let text = match call.statement {
