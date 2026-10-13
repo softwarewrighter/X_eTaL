@@ -1,0 +1,1 @@
+doc-unattached no longer fires inside definition bodies (ML's Net.xtlm/Sample.xtl false positives); top-level strays still warn
