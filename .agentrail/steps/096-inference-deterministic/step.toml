@@ -1,6 +1,6 @@
 number = 96
 slug = "inference-deterministic"
-status = "pending"
+status = "in-progress"
 description = "Reported by X_eTaL-games (their docs/xetal-asks.md row 30, 2026-10-12): type ..."
 role = "production"
 context_files = []

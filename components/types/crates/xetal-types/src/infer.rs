@@ -1,10 +1,10 @@
 //! Algorithm W over Core programs: top-level items, late-bound module
 //! definitions, top-level defaulting (T5).
 
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 use xetal_base::{Diagnostic, NodeId, Span};
-use xetal_core::{Expr, Item, Program};
+use xetal_core::{Expr, Item, Kind, Program};
 
 use xetal_elab::Dicts;
 use xetal_ty::Unifier;
@@ -28,7 +28,9 @@ pub(crate) enum Global {
 
 pub(crate) struct Infer {
     pub u: Unifier,
-    pub globals: HashMap<String, Global>,
+    /// Module definitions by name, in a map whose order is the same in
+    /// every run (a hash map's is not, and inference must not depend on it).
+    pub globals: BTreeMap<String, Global>,
     /// Lexical bindings, innermost last, with the value node of the
     /// binding (none for a lambda parameter).
     pub env: Vec<(String, Scheme, Option<NodeId>)>,
@@ -62,7 +64,7 @@ pub fn infer_program(program: &Program) -> Result<(Vec<String>, Dicts), Diagnost
 pub(crate) fn inferred(program: &Program) -> Result<Infer, Diagnostic> {
     let mut inf = Infer {
         u: Unifier::default(),
-        globals: HashMap::new(),
+        globals: BTreeMap::new(),
         env: Vec::new(),
         lines: Vec::new(),
         rec: Record::default(),
@@ -71,12 +73,15 @@ pub(crate) fn inferred(program: &Program) -> Result<Infer, Diagnostic> {
     for item in &program.items {
         inf.item(item).map_err(|d| program.annotate(d))?;
     }
-    for global in inf.globals.values() {
-        if let Global::Pending(_, span) = global {
-            return Err(
-                Diagnostic::new("undefined-name", "this name is never defined").with_span(*span),
-            );
-        }
+    // The first undefined name in the source, whatever the map's order.
+    let undefined = inf.globals.values().filter_map(|g| match g {
+        Global::Pending(_, span) => Some(*span),
+        _ => None,
+    });
+    if let Some(span) = undefined.min_by_key(|s| s.start) {
+        return Err(
+            Diagnostic::new("undefined-name", "this name is never defined").with_span(span),
+        );
     }
     Ok(inf)
 }
@@ -147,6 +152,16 @@ impl Infer {
         {
             return Ok(());
         }
+        self.close_group()
+    }
+
+    /// Close a completed group of mutually dependent definitions: its
+    /// functions first, then its values, each in source order. Closing a
+    /// value defaults its numbers (T5), so a function closed after it
+    /// would lose the generality they share (as Haskell generalizes a
+    /// binding group before defaulting); any other order would make the
+    /// result depend on the map's.
+    fn close_group(&mut self) -> Result<(), Diagnostic> {
         let names: Vec<String> = self.globals.keys().cloned().collect();
         let group: Vec<_> = names
             .into_iter()
@@ -159,6 +174,8 @@ impl Infer {
                 None => None,
             })
             .collect();
+        let mut group = group;
+        group.sort_by_key(|(_, _, value, line)| (!matches!(value.kind, Kind::Lam { .. }), *line));
         for (name, ty, value, line) in group {
             let scheme = self.close(&ty, &value, true)?;
             self.lines[line].1 = scheme.clone();

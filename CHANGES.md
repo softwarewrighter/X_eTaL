@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-12
 
+- 17:15 `fix` Type inference is deterministic (step 096, D148, X_eTaL-games' ask G20): a group of mutually dependent top-level definitions closes its functions first, then its values, in source order, instead of in hash-map order, so a program gets the same type every run; an undefined-name error names the earliest such name.
 - 15:00 `chore` Merged PRs #122 (int-condition, the first typed lint, Saga 40 step 6; docs/local-asks.md) and #123 (redundant-lambda exempts power, lanes/xasks step 1); the condition-in-tuple register entry renumbered D145 to D147.
 - 14:00 `docs` docs/local-asks.md: what an agent on the user's machine runs after merging a cloud lane PR (the checks the sandbox cannot run, pages, and the agentrail record of Saga 40, with each step's commit). `int-condition` is now suspicious and on by default (the user's choice, D145); lint-list and lint-int-condition rebased.
 - 14:00 `design` A `!` variable keeps the type of its first binding; a number's type is settled when its value must exist: at the top level at its line, in a function at each call; types are inferred and checked before the program runs, one body per function (lang-choices M5, decided with the user).

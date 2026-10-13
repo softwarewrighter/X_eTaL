@@ -493,8 +493,8 @@ here = "step 095: a top-level value keeps the conditions inside it (tuple parts,
 id = "G20"
 repo = "X_eTaL-games"
 ask = "type inference is not deterministic: the same library prints one of two types for a function, about half the runs each"
-state = "planned"
-here = "step 096: a group of mutually dependent top-level definitions was closed in hash-map order; reproduced with the games' pinned binary (4 and 8 of 12 runs)"
+state = "landed"
+here = "step 096: a group of mutually dependent top-level definitions closes its functions first, then its values, in source order, and the module map is ordered, so the same program gets the same type every run; checked on tower defense's Defense.xtl at the games' pin with the fix applied (12 of 12 runs alike, md a Num). The workaround (md := md m_od 2) can go; on current main it would also break the bound-once rule (M1)."
 
 [[ask]]
 id = "X1"
