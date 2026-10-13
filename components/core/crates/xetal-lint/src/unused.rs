@@ -22,7 +22,7 @@ pub(crate) fn unused(program: &Program) -> Vec<Diagnostic> {
 }
 
 /// The finding for `name`, bound by node `e`, if nothing uses it: at
-/// the name where it is written (D148), and for a `:=` a fix to `_`.
+/// the name where it is written (D152), and for a `:=` a fix to `_`.
 fn check(program: &Program, name: &str, e: &Expr) -> Option<Diagnostic> {
     if name.starts_with(['_', '%']) {
         return None;

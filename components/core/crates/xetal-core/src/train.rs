@@ -31,7 +31,7 @@ impl Lower {
         self.scopes.pop();
         let mut body = body?;
         for (param, lazy, at) in params.into_iter().rev() {
-            // Where the parameter's name is written (D148), if it is.
+            // Where the parameter's name is written (D152), if it is.
             let named = match (&param, at) {
                 (Param::Name(name), Some(at)) => written_at(&self.src, at, name),
                 _ => None,

@@ -130,7 +130,7 @@ by default (the user chose warn); no library or demo trips it. Not run:
 sw-checklist (xetal-types is at seven modules, unchanged; its expr.rs
 and record.rs gained no functions), agentrail, `just pages`.
 
-## Step 8 (lint-fix-more, D148, D149, D150)
+## Step 8 (lint-fix-more, D152, D149, D150)
 
 Name spans in Core (`Program::names`, a side table) and the `_ :=` fix
 for `unused-binding`, whose findings now sit at the name's column (five

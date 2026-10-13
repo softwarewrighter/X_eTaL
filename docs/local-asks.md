@@ -77,7 +77,7 @@ other lanes did (CLAUDE.md, "Parallel lanes"):
 | 5 | lint-redundant | D143 | e6e51fe | #120 |
 | 7 | lint-fix | D144 | 207f115 | #121 |
 | 6 | lint-typed | D145 | c68db43, 27ece1c | #122 |
-| 8 | lint-fix-more | D148, D149, D150 | the step 8 commit, once merged | the PR after #123 |
+| 8 | lint-fix-more | D152, D149, D150 | the step 8 commit, once merged | the PR after #123 |
 
 Steps 7 and 6 were done in that order (7 first); record them in the
 order done. D137 is the linter's register entry (cd8c726), not a step.

@@ -78,6 +78,7 @@
 <li><a href="#section-2">Checks</a></li>
 <li class="item"><a href="#m.c_heck-3c"><span class="c-macro">ᵐc̲heck&lt;</span></a></li>
 <li><a href="#section-3">Names a macro binds</a></li>
+<li class="item"><a href="#m.t_hree-3c"><span class="c-macro">ᵐt̲hree&lt;</span></a></li>
 <li class="item"><a href="#m.t_wice-3c"><span class="c-macro">ᵐt̲wice&lt;</span></a></li>
 <li class="item"><a href="#m.w_ith-3c"><span class="c-macro">ᵐw̲ith&lt;</span></a></li>
 </ul>
@@ -139,27 +140,45 @@ FAIL: doubling (5 = 2 * 2)</pre>
 <div class="uses">Used in: <a href="demos-macros.xtl.src.html#L40">demos/macros.xtl:40</a>, <a href="demos-macros.xtl.src.html#L41">demos/macros.xtl:41</a></div>
 </div>
 <h2 class="section" id="section-3">Names a macro binds</h2>
+<div class="item" id="m.t_hree-3c">
+<h3><a href="#m.t_hree-3c"><span class="c-macro">ᵐt̲hree&lt;</span></a> <span class="type">: Unit -&gt; Char -&gt; Char</span></h3>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L46">line 46</a></div>
+<div class="doc">
+<p>The expression on the right with x as 3: the macro binds x around
+your expression and writes it as it is, so your x is its x. A name a
+macro writes stays as written; that is how an anaphor works, and a
+macro that wants a name of its own asks for one (t_wice&lt; below).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>x ← <span class="c-number">10</span></pre>
+<pre class="example"><span class="prompt">      </span>@ <a href="lib-Macros.xtlm.html#m.t_hree-3c" class="c-macro">ˣt̲hree&lt;</a> <span class="c-string">&quot;x + 1&quot;</span>
+4</pre>
+</div>
+<pre class="code"><span class="c-macro">ᵐt̲hree&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; x := 3; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; } @&quot;</span> }</pre>
+</div>
 <div class="item" id="m.t_wice-3c">
 <h3><a href="#m.t_wice-3c"><span class="c-macro">ᵐt̲wice&lt;</span></a> <span class="type">: Unit -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L45">line 45</a></div>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L55">line 55</a></div>
 <div class="doc">
-<p>Twice the expression on the right: the macro binds a local t (to 2)
-around your expression, and hygiene renames it (to g1:t, say), so a
-t of your own is still yours.</p>
+<p>Twice the expression on the right: the macro binds a local of its
+own around your expression, a fresh name from []G_ENSYM (g1:t, say),
+so a t of your own is still yours.</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
 <pre class="example"><span class="prompt">      </span>t ← <span class="c-number">5</span></pre>
 <pre class="example"><span class="prompt">      </span>@ <a href="lib-Macros.xtlm.html#m.t_wice-3c" class="c-macro">ˣt̲wice&lt;</a> <span class="c-string">&quot;t + 1&quot;</span>
 12</pre>
 </div>
-<pre class="code"><span class="c-macro">ᵐt̲wice&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; t := 2; t * (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) } @&quot;</span> }</pre>
+<pre class="code"><span class="c-macro">ᵐt̲wice&lt;</span> ← { @ e →
+  t ← <a href="builtins.html#-5b-5dG_ENSYM" class="c-builtin">⎕G̲ENSYM</a> <span class="c-string">&quot;t&quot;</span>
+  <span class="c-string">&quot;{ @ -&gt; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; := 2; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; * (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) } @&quot;</span>
+}</pre>
 </div>
 <div class="item" id="m.w_ith-3c">
 <h3><a href="#m.w_ith-3c"><span class="c-macro">ᵐw̲ith&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L54">line 54</a> &middot; binds <code>it</code></div>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L67">line 67</a> &middot; binds <code>it</code></div>
 <div class="doc">
 <p>The text on the right with it bound to the value of the expression
-on the left (an anaphoric macro: it is meant for your text, so it is
-declared below and hygiene leaves it as written).</p>
+on the left (an anaphoric macro: it is meant for your text, declared
+below, so your text cannot bind an it of its own).</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
 <pre class="example"><span class="prompt">      </span><span class="c-string">&quot;3 + 4&quot;</span> <a href="lib-Macros.xtlm.html#m.w_ith-3c" class="c-macro">ˣw̲ith&lt;</a> <span class="c-string">&quot;it * it&quot;</span>
 49</pre>

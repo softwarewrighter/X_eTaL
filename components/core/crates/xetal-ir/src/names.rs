@@ -1,4 +1,4 @@
-//! Where each binding's name is written (D148): a lint that renames
+//! Where each binding's name is written (D152): a lint that renames
 //! needs the name's own span, which no Core node has (a binding's span
 //! covers the whole statement, a lambda's the whole lambda).
 

@@ -39,7 +39,7 @@ pub(crate) struct Lower {
     pub(crate) src: String,
     /// Notes for errors at particular spans (D47).
     pub(crate) notes: Vec<xetal_ir::SpanNote>,
-    /// Where binding names are written (D148).
+    /// Where binding names are written (D152).
     pub(crate) names: Vec<xetal_ir::NameSpan>,
     /// A session (REPL, notebook) is lowering: `[]E_X` is allowed (M4).
     pub(crate) interactive: bool,

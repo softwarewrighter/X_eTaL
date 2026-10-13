@@ -1175,7 +1175,7 @@ style guide's names (lang-choices section 16).
    (`Diagnostic::with_fix`; redundant-lambda gives one), `xetal lint
    --fix`, and `--format json` (JSON lines) for the Emacs mode and the
    live demo's editor.
-8. lint-fix-more [DONE] (D148, D149, D150): name spans in Core,
+8. lint-fix-more [DONE] (D152, D149, D150): name spans in Core,
    `unused-binding`'s `_ :=` fix, rename fixes (`mutable-constant`,
    `missing-bang`, `needless-bang`), findings at the name, `--fix`
    refusing a file git could not restore (`--allow-dirty`), ranges in
@@ -1231,15 +1231,6 @@ then):
 | 7 | spatial-docs | A literate document, `docs/literate/spatial.org` (the paper equation, the call, the descriptors, the expansion, shapes, the result, the LaTeX drawn), the demo in the live demo's list and with `#!/usr/bin/env xetal`, the reference or README section if step 1 made it a standard library; pages rebuilt (`just pages`); every example run by a golden or doc test |
 | 8 | spatial-limits | `docs/spatial.md` limitations: each blocker found (from the review: L1 alias in expansions, L2 short binders, L3 choose indexing, L4 raw strings, L5 punctuation, L6 typed macro arguments, L7 rendering the call) with its failing snippet as a pending spec case or golden, the smallest change, the alternatives and a recommendation; **decide with the user**, then stop: an approved change becomes a saga or ask of its own, not part of this one |
 
-7. lint-fix [DONE] (D144): machine-applicable suggestions
-   (`Diagnostic::with_fix`; redundant-lambda gives one), `xetal lint
-   --fix`, and `--format json` (JSON lines) for the Emacs mode and the
-   live demo's editor.
-8. lint-fix-more [DONE] (D148, D149, D150): name spans in Core,
-   `unused-binding`'s `_ :=` fix, rename fixes (`mutable-constant`,
-   `missing-bang`, `needless-bang`), findings at the name, `--fix`
-   refusing a file git could not restore (`--allow-dirty`), ranges in
-   the JSON. The Emacs mode reading the JSON is left for a later step.
 ## Saga 32 -- xetal doc (a cross-reference, before the launch)
 
 The user's idea (2026-10-04): a generator, like rustdoc or JavaDoc,

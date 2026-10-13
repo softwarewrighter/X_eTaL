@@ -75,8 +75,9 @@
 <li class="item"><a href="#L16"><span class="c-macro">ᵐw̲hen&lt;</span></a></li>
 <li class="item"><a href="#L24"><span class="c-macro">ᵐd̲ef&lt;</span></a></li>
 <li class="item"><a href="#L34"><span class="c-macro">ᵐc̲heck&lt;</span></a></li>
-<li class="item"><a href="#L45"><span class="c-macro">ᵐt̲wice&lt;</span></a></li>
-<li class="item"><a href="#L54"><span class="c-macro">ᵐw̲ith&lt;</span></a></li>
+<li class="item"><a href="#L46"><span class="c-macro">ᵐt̲hree&lt;</span></a></li>
+<li class="item"><a href="#L55"><span class="c-macro">ᵐt̲wice&lt;</span></a></li>
+<li class="item"><a href="#L67"><span class="c-macro">ᵐw̲ith&lt;</span></a></li>
 </ul>
 </nav>
 <main>
@@ -120,23 +121,36 @@
 <span class="line" id="L35"><a class="ln" href="#L35">35</a></span>
 <span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-comment">⍝</span><span class="c-comment">## Names a macro binds</span></span>
 <span class="line" id="L37"><a class="ln" href="#L37">37</a></span>
-<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-comment">⍝</span><span class="c-comment"># Twice the expression on the right: the macro binds a local t (to 2)</span></span>
-<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-comment">⍝</span><span class="c-comment"># around your expression, and hygiene renames it (to g1:t, say), so a</span></span>
-<span class="line" id="L40"><a class="ln" href="#L40">40</a><span class="c-comment">⍝</span><span class="c-comment"># t of your own is still yours.</span></span>
-<span class="line" id="L41"><a class="ln" href="#L41">41</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span></span>
-<span class="line" id="L42"><a class="ln" href="#L42">42</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; t := 5</span></span>
-<span class="line" id="L43"><a class="ln" href="#L43">43</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; @ x:t_wice&lt; &quot;t + 1&quot;</span></span>
-<span class="line" id="L44"><a class="ln" href="#L44">44</a><span class="c-comment">⍝</span><span class="c-comment"># 12</span></span>
-<span class="line" id="L45"><a class="ln" href="#L45">45</a><span class="c-macro">ᵐt̲wice&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; t := 2; t * (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) } @&quot;</span> }</span>
-<span class="line" id="L46"><a class="ln" href="#L46">46</a></span>
-<span class="line" id="L47"><a class="ln" href="#L47">47</a><span class="c-comment">⍝</span><span class="c-comment"># The text on the right with it bound to the value of the expression</span></span>
-<span class="line" id="L48"><a class="ln" href="#L48">48</a><span class="c-comment">⍝</span><span class="c-comment"># on the left (an anaphoric macro: it is meant for your text, so it is</span></span>
-<span class="line" id="L49"><a class="ln" href="#L49">49</a><span class="c-comment">⍝</span><span class="c-comment"># declared below and hygiene leaves it as written).</span></span>
-<span class="line" id="L50"><a class="ln" href="#L50">50</a><span class="c-comment">⍝</span><span class="c-comment"># binds: it</span></span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-comment">⍝</span><span class="c-comment"># The expression on the right with x as 3: the macro binds x around</span></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-comment">⍝</span><span class="c-comment"># your expression and writes it as it is, so your x is its x. A name a</span></span>
+<span class="line" id="L40"><a class="ln" href="#L40">40</a><span class="c-comment">⍝</span><span class="c-comment"># macro writes stays as written; that is how an anaphor works, and a</span></span>
+<span class="line" id="L41"><a class="ln" href="#L41">41</a><span class="c-comment">⍝</span><span class="c-comment"># macro that wants a name of its own asks for one (t_wice&lt; below).</span></span>
+<span class="line" id="L42"><a class="ln" href="#L42">42</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span></span>
+<span class="line" id="L43"><a class="ln" href="#L43">43</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; x := 10</span></span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; @ x:t_hree&lt; &quot;x + 1&quot;</span></span>
+<span class="line" id="L45"><a class="ln" href="#L45">45</a><span class="c-comment">⍝</span><span class="c-comment"># 4</span></span>
+<span class="line" id="L46"><a class="ln" href="#L46">46</a><span class="c-macro">ᵐt̲hree&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; x := 3; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; } @&quot;</span> }</span>
+<span class="line" id="L47"><a class="ln" href="#L47">47</a></span>
+<span class="line" id="L48"><a class="ln" href="#L48">48</a><span class="c-comment">⍝</span><span class="c-comment"># Twice the expression on the right: the macro binds a local of its</span></span>
+<span class="line" id="L49"><a class="ln" href="#L49">49</a><span class="c-comment">⍝</span><span class="c-comment"># own around your expression, a fresh name from []G_ENSYM (g1:t, say),</span></span>
+<span class="line" id="L50"><a class="ln" href="#L50">50</a><span class="c-comment">⍝</span><span class="c-comment"># so a t of your own is still yours.</span></span>
 <span class="line" id="L51"><a class="ln" href="#L51">51</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span></span>
-<span class="line" id="L52"><a class="ln" href="#L52">52</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;3 + 4&quot; x:w_ith&lt; &quot;it * it&quot;</span></span>
-<span class="line" id="L53"><a class="ln" href="#L53">53</a><span class="c-comment">⍝</span><span class="c-comment"># 49</span></span>
-<span class="line" id="L54"><a class="ln" href="#L54">54</a><span class="c-macro">ᵐw̲ith&lt;</span> ← { e body → <span class="c-string">&quot;{ @ -&gt; it := (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;); &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> body <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; } @&quot;</span> }</span>
+<span class="line" id="L52"><a class="ln" href="#L52">52</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; t := 5</span></span>
+<span class="line" id="L53"><a class="ln" href="#L53">53</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; @ x:t_wice&lt; &quot;t + 1&quot;</span></span>
+<span class="line" id="L54"><a class="ln" href="#L54">54</a><span class="c-comment">⍝</span><span class="c-comment"># 12</span></span>
+<span class="line" id="L55"><a class="ln" href="#L55">55</a><span class="c-macro">ᵐt̲wice&lt;</span> ← { @ e →</span>
+<span class="line" id="L56"><a class="ln" href="#L56">56</a>  t ← <a href="builtins.html#-5b-5dG_ENSYM" class="c-builtin">⎕G̲ENSYM</a> <span class="c-string">&quot;t&quot;</span></span>
+<span class="line" id="L57"><a class="ln" href="#L57">57</a>  <span class="c-string">&quot;{ @ -&gt; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; := 2; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; * (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) } @&quot;</span></span>
+<span class="line" id="L58"><a class="ln" href="#L58">58</a>}</span>
+<span class="line" id="L59"><a class="ln" href="#L59">59</a></span>
+<span class="line" id="L60"><a class="ln" href="#L60">60</a><span class="c-comment">⍝</span><span class="c-comment"># The text on the right with it bound to the value of the expression</span></span>
+<span class="line" id="L61"><a class="ln" href="#L61">61</a><span class="c-comment">⍝</span><span class="c-comment"># on the left (an anaphoric macro: it is meant for your text, declared</span></span>
+<span class="line" id="L62"><a class="ln" href="#L62">62</a><span class="c-comment">⍝</span><span class="c-comment"># below, so your text cannot bind an it of its own).</span></span>
+<span class="line" id="L63"><a class="ln" href="#L63">63</a><span class="c-comment">⍝</span><span class="c-comment"># binds: it</span></span>
+<span class="line" id="L64"><a class="ln" href="#L64">64</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span></span>
+<span class="line" id="L65"><a class="ln" href="#L65">65</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;3 + 4&quot; x:w_ith&lt; &quot;it * it&quot;</span></span>
+<span class="line" id="L66"><a class="ln" href="#L66">66</a><span class="c-comment">⍝</span><span class="c-comment"># 49</span></span>
+<span class="line" id="L67"><a class="ln" href="#L67">67</a><span class="c-macro">ᵐw̲ith&lt;</span> ← { e body → <span class="c-string">&quot;{ @ -&gt; it := (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;); &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> body <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; } @&quot;</span> }</span>
 </div>
 </main>
 </body>
