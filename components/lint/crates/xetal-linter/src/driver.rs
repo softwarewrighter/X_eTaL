@@ -23,9 +23,14 @@ pub struct Finding {
     pub file: String,
     pub line: usize,
     pub col: usize,
+    /// Where the finding's span ends, just past it (as an editor marks
+    /// a range); the start when it ends outside the file as written.
+    pub end_line: usize,
+    pub end_col: usize,
     pub message: String,
-    /// The edit that fixes it, when one can be made surely.
-    pub fix: Option<Edit>,
+    /// The edits that fix it, made together; empty when they cannot all
+    /// be made surely.
+    pub fix: Vec<Edit>,
 }
 
 impl fmt::Display for Finding {
@@ -58,7 +63,7 @@ pub fn lint(name: &str, text: &str, cli: &[Rule]) -> Result<Vec<Finding>, Diagno
     all.extend(rules(&written, (text, 0), &loaded.program, &loaded.sources));
     let mut raw: Vec<Raw> = unknown(&written)
         .into_iter()
-        .map(|(line, col, message)| ("unknown-lint", line, col, message, None))
+        .map(|(line, col, message)| ("unknown-lint", (line, col, line, col), message, Vec::new()))
         .collect();
     raw.extend(placed(&loaded));
     let mut out: Vec<Finding> = raw
@@ -70,8 +75,11 @@ pub fn lint(name: &str, text: &str, cli: &[Rule]) -> Result<Vec<Finding>, Diagno
     Ok(out)
 }
 
-/// A finding before its level: lint name, line, column, message, edit.
-type Raw = (&'static str, usize, usize, String, Option<Edit>);
+/// A finding before its level: lint name, place, message, edit.
+type Raw = (&'static str, Place, String, Vec<Edit>);
+
+/// Line and column of a finding's start, then of just past its end.
+type Place = (usize, usize, usize, usize);
 
 /// What the lint passes find in the program's own file, placed there.
 fn placed(loaded: &Loaded) -> Vec<Raw> {
@@ -81,16 +89,26 @@ fn placed(loaded: &Loaded) -> Vec<Raw> {
     for d in found {
         let at = loaded.sources.locate(d.span.map_or(0, |s| s.start));
         if at.index == 0 {
-            let fix = d.fix.as_ref().and_then(|f| edit(f, &loaded.sources));
+            let end = d
+                .span
+                .map_or((at.line, at.col), |s| ended(&loaded.sources, s));
+            let fix = d
+                .fix
+                .iter()
+                .map(|f| edit(f, &loaded.sources))
+                .collect::<Option<_>>();
+            let fix = fix.unwrap_or_default();
             let lint = xetal_lint::lint(&d.code);
-            out.extend(lint.map(|l| (l.name, at.line, at.col, d.message, fix)));
+            let place = (at.line, at.col, end.0, end.1);
+            out.extend(lint.map(|l| (l.name, place, d.message, fix)));
         }
     }
     out
 }
 
 /// `raw` at the level its rules give it; `None` when allowed.
-fn leveled((code, line, col, message, fix): Raw, name: &str, rules: &[Rule]) -> Option<Finding> {
+fn leveled((code, place, message, fix): Raw, name: &str, rules: &[Rule]) -> Option<Finding> {
+    let (line, col, end_line, end_col) = place;
     let lint = xetal_lint::lint(code)?;
     let level = resolve(lint, line, rules);
     let file = name.to_string();
@@ -100,9 +118,22 @@ fn leveled((code, line, col, message, fix): Raw, name: &str, rules: &[Rule]) -> 
         file,
         line,
         col,
+        end_line,
+        end_col,
         message,
         fix,
     })
+}
+
+/// Line and column just past the end of `span`, which starts in the
+/// program's file: its start when the end is not written there.
+fn ended(sources: &Sources, span: xetal_base::Span) -> (usize, usize) {
+    let (start, last) = (sources.locate(span.start), span.end.saturating_sub(1));
+    let last = sources.locate(last.max(span.start));
+    match last.index == 0 && last.offset >= start.offset {
+        true => (last.line, last.col + 1),
+        false => (start.line, start.col),
+    }
 }
 
 /// The warnings `xetal run` prints (spans in the combined text), less

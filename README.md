@@ -451,8 +451,10 @@ case of names is checked with `-W pedantic`.
   says what one checks, why, and shows an example.
 - `xetal lint --fix FILE` rewrites the file with the fixes that can be
   made surely (`'{ x -> n_eg x }` becomes `'n_eg`) and reports what is
-  left; `xetal lint --format json FILE` writes each finding as one
-  JSON object a line on stdout, for editors.
+  left, if the file is committed as it is (`--allow-dirty`
+  otherwise); `xetal lint --format json FILE` writes each finding as
+  one JSON object a line on stdout, for editors, its range from
+  `line`:`col` to just before `end_line`:`end_col`.
 - In the source, `# lint: allow mutable-constant` on its own line
   silences the statement below it, at the end of a line that line, and
   `# lint-file: deny style` sets a level for the whole file.

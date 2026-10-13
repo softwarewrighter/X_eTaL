@@ -11,6 +11,8 @@ pub struct Program {
     pub items: Vec<Item>,
     /// Notes for errors at particular spans (see [`Program::annotate`]).
     pub notes: Vec<crate::SpanNote>,
+    /// Where binding names are written (see [`Program::name_span`]).
+    pub names: Vec<crate::NameSpan>,
 }
 
 #[derive(Debug, Clone, PartialEq)]

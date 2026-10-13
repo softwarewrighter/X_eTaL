@@ -129,3 +129,31 @@ five just-* goldens, as on main. `int-condition` is suspicious and on
 by default (the user chose warn); no library or demo trips it. Not run:
 sw-checklist (xetal-types is at seven modules, unchanged; its expr.rs
 and record.rs gained no functions), agentrail, `just pages`.
+
+## Step 8 (lint-fix-more, D148, D149, D150)
+
+Name spans in Core (`Program::names`, a side table) and the `_ :=` fix
+for `unused-binding`, whose findings now sit at the name's column (five
+lint goldens rebased for that, intended). The sandbox ran fmt, clippy
+and tests in core, lint and cli, scripts/build-all.sh, and every golden
+with reg-rs (failing only cli-too-deep and the just-* goldens, as on
+main). Counted by hand for sw-checklist: xetal-ir gained a module
+(names.rs, six modules now, three functions); xetal-core's train.rs is
+at seven functions, body.rs and lower.rs unchanged in count. Not run:
+sw-checklist, agentrail, `just pages` (see docs/local-asks.md).
+
+Second part (D149): `--fix` refuses a file git could not restore
+(`--allow-dirty` overrides) and the JSON gains `end_line`/`end_col`.
+xetal-linter's fix.rs is at six functions, driver.rs at six. A test
+makes a scratch git repository in the temporary directory (git with
+`-c` identity and `commit.gpgsign=false`, so no local git config is
+needed).
+
+Third part (D150): rename fixes. `xetal_base::Diagnostic::fix` is now
+a boxed slice of edits (`with_fix` became `with_fixes`; clippy's
+`result_large_err` keeps it boxed), so every crate that builds a
+`Diagnostic` with a fix changed (xetal-complexity, xetal-lint). New:
+`Program::renamed` in xetal-ir's names.rs (six functions). The web
+component builds against it (scripts/build-all.sh and the wasm32
+check). Step 8 is done but for the Emacs mode reading the JSON,
+left for a later step.

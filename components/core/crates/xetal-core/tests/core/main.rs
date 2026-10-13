@@ -2,6 +2,7 @@
 
 mod accept;
 mod equiv;
+mod names;
 mod notes;
 mod reject;
 

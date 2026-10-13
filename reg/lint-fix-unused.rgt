@@ -1,0 +1,3 @@
+command = "mkdir -p work && cp reg/fixtures/lint/unused.xtl work/lint-fix-unused.xtl && ./target/debug/xetal lint --fix --allow-dirty work/lint-fix-unused.xtl; cat work/lint-fix-unused.xtl"
+exit_code = 0
+desc = "--fix --allow-dirty (the copy is not committed): an unused local becomes `_ :=` (kept for its effect), in a copy in work/; the unused parameter has no fix and is still reported"

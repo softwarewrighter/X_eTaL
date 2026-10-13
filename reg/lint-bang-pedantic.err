@@ -1,8 +1,8 @@
-warning[missing-bang]: function `u:s_ay` calls `p_rint!`, an effect, but its name has no `!`: write `u:s_ay!` at reg/fixtures/lint/bang.xtl:3:11
+warning[missing-bang]: function `u:s_ay` calls `p_rint!`, an effect, but its name has no `!`: write `u:s_ay!` at reg/fixtures/lint/bang.xtl:3:1
   note: `missing-bang` is in group `style`; xetal lint --explain missing-bang
 warning[redundant-lambda]: this lambda only passes its arguments to `p_rint!`: write `'p_rint!` at reg/fixtures/lint/bang.xtl:4:23
   note: `redundant-lambda` is in group `complexity`; xetal lint --explain redundant-lambda
-warning[missing-bang]: function `u:l_ater` calls `u:n_ow!`, an effect, but its name has no `!`: write `u:l_ater!` at reg/fixtures/lint/bang.xtl:6:13
-warning[needless-bang]: function `u:d_ouble!` is named for an effect (`!`) but calls none: write `u:d_ouble` at reg/fixtures/lint/bang.xtl:8:15
+warning[missing-bang]: function `u:l_ater` calls `u:n_ow!`, an effect, but its name has no `!`: write `u:l_ater!` at reg/fixtures/lint/bang.xtl:6:1
+warning[needless-bang]: function `u:d_ouble!` is named for an effect (`!`) but calls none: write `u:d_ouble` at reg/fixtures/lint/bang.xtl:8:1
   note: `needless-bang` is in group `pedantic`; xetal lint --explain needless-bang
 4 warning(s), 0 error(s)

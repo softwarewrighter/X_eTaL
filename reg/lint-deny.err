@@ -1,8 +1,8 @@
-error[mutable-constant]: `Count!` is mutable but named like a constant: write `count!` at reg/fixtures/lint/style.xtl:4:11
+error[mutable-constant]: `Count!` is mutable but named like a constant: write `count!` at reg/fixtures/lint/style.xtl:4:1
   note: `mutable-constant` is in group `style`; xetal lint --explain mutable-constant
 warning[shadows-builtin]: `r_ev` here shadows the built-in r_ev at reg/fixtures/lint/style.xtl:6:13
   note: `shadows-builtin` is in group `suspicious`; xetal lint --explain shadows-builtin
-warning[unused-binding]: parameter `y` is never used at reg/fixtures/lint/style.xtl:7:9
+warning[unused-binding]: parameter `y` is never used at reg/fixtures/lint/style.xtl:7:13
   note: `unused-binding` is in group `suspicious`; xetal lint --explain unused-binding
 2 warning(s), 1 error(s)
 error[lint-denied]: 1 denied lint finding(s)

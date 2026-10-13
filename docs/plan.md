@@ -1175,9 +1175,11 @@ style guide's names (lang-choices section 16).
    (`Diagnostic::with_fix`; redundant-lambda gives one), `xetal lint
    --fix`, and `--format json` (JSON lines) for the Emacs mode and the
    live demo's editor.
-8. lint-fix-more (not started): fixes for the renames and `_ :=`
-   (name spans in Core first), `--fix` refusing uncommitted changes,
-   end positions in the JSON, the Emacs mode reading it.
+8. lint-fix-more [DONE] (D148, D149, D150): name spans in Core,
+   `unused-binding`'s `_ :=` fix, rename fixes (`mutable-constant`,
+   `missing-bang`, `needless-bang`), findings at the name, `--fix`
+   refusing a file git could not restore (`--allow-dirty`), ranges in
+   the JSON. The Emacs mode reading the JSON is left for a later step.
 ## Saga 41 (proposed) -- spatial equations (paper math to array code, a library)
 
 Proposed after the review of `docs/research8.txt` and
@@ -1233,9 +1235,11 @@ then):
    (`Diagnostic::with_fix`; redundant-lambda gives one), `xetal lint
    --fix`, and `--format json` (JSON lines) for the Emacs mode and the
    live demo's editor.
-8. lint-fix-more (not started): fixes for the renames and `_ :=`
-   (name spans in Core first), `--fix` refusing uncommitted changes,
-   end positions in the JSON, the Emacs mode reading it.
+8. lint-fix-more [DONE] (D148, D149, D150): name spans in Core,
+   `unused-binding`'s `_ :=` fix, rename fixes (`mutable-constant`,
+   `missing-bang`, `needless-bang`), findings at the name, `--fix`
+   refusing a file git could not restore (`--allow-dirty`), ranges in
+   the JSON. The Emacs mode reading the JSON is left for a later step.
 ## Saga 32 -- xetal doc (a cross-reference, before the launch)
 
 The user's idea (2026-10-04): a generator, like rustdoc or JavaDoc,

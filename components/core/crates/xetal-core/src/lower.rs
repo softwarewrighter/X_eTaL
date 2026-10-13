@@ -17,6 +17,7 @@ pub fn lower(src: &str) -> Result<Program, Diagnostic> {
         lambdas: 0,
         src: src.to_string(),
         notes: Vec::new(),
+        names: Vec::new(),
         interactive: crate::bind::is_interactive(),
         erased: HashSet::new(),
     };
@@ -38,6 +39,8 @@ pub(crate) struct Lower {
     pub(crate) src: String,
     /// Notes for errors at particular spans (D47).
     pub(crate) notes: Vec<xetal_ir::SpanNote>,
+    /// Where binding names are written (D148).
+    pub(crate) names: Vec<xetal_ir::NameSpan>,
     /// A session (REPL, notebook) is lowering: `[]E_X` is allowed (M4).
     pub(crate) interactive: bool,
     /// Names `[]E_X` unbound and not yet bound again.

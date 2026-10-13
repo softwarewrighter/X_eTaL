@@ -1,0 +1,8 @@
+#!/usr/bin/env xetal
+# missing-bang: a function calling an effect directly is named with `!`.
+u:s_ay! := { v -> p_rint! v }
+u:s_ayAll! := { v -> 'p_rint! e_ach v }
+u:n_ow! := { @ -> r_oll! 6 }
+u:l_ater! := { @ -> u:n_ow! @ }
+u:t_wice := { f_! -> f_! @ }
+u:d_ouble := { _r * 2 }

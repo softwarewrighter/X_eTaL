@@ -2,6 +2,6 @@ warning[unknown-lint]: no lint or group named `shadow-builtin` (xetal lint --lis
   note: `unknown-lint` is in group `suspicious`; xetal lint --explain unknown-lint
 warning[shadows-builtin]: `o_-` here shadows the built-in o_- at reg/fixtures/lint/directives.xtl:12:11
   note: `shadows-builtin` is in group `suspicious`; xetal lint --explain shadows-builtin
-warning[upper-case-name]: `MAXSIZE` is all capitals: write a constant UpperCamel (`MaxSize`) or a variable lowerCamel (`maxSize`) at reg/fixtures/lint/directives.xtl:13:12
+warning[upper-case-name]: `MAXSIZE` is all capitals: write a constant UpperCamel (`MaxSize`) or a variable lowerCamel (`maxSize`) at reg/fixtures/lint/directives.xtl:13:1
   note: `upper-case-name` is in group `pedantic`; xetal lint --explain upper-case-name
 3 warning(s), 0 error(s)
