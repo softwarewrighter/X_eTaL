@@ -1,0 +1,1 @@
+Inference deterministic: binding groups closed functions-first in source order, BTreeMap globals, earliest undefined name; verified on games' file at their pin (12/12 alike)
