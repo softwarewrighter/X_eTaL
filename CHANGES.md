@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-13
 
+- 10:30 `fix` `xetal doc` no longer warns doc-unattached at a `##` block inside a function body, above a local binding (step 097, D153); X_eTaL-ML's Net.xtlm and Sample.xtl warnings came from this.
 - 09:30 `chore` Merged PRs #124 (hygiene by choice, []G_ENSYM, X19) and #125 (lint fixes for names and renames, Saga 40 step 8); their register entries renumbered D147 to D151 and D148 to D152 (steps 095 and 096 had them), the lint lane's plan section kept as it wrote it.
 
 ## 2026-10-12
