@@ -1,0 +1,1 @@
+Saga 41 decisions with the user (D154): demos/spatial/; per-sum call form e:q_< "sum c:=0..C - 1, ... | summand" with explicit extents; math precedence; run-time index errors; e:q_< / e:t_ex< / e:b_oth<; L1 deferred. docs/spatial.md, docs/eq-rationale.md, docs/type-check-macros.md (user asks); spec/spatial six cases; pipeline step 099 inserted. No components/ change. Gate passed.
