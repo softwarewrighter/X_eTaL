@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-15
+
+- 10:40 `design` Spatial equations decided with the user (Saga 41 step 1, D154): docs/spatial.md (the call `"Y[o,h,w] | O Ho Wo" e:q_< "sum c:=0..C - 1, ... | summand"`, explicit extents, math precedence in the strings, run-time index errors, `e:q_<` / `e:t_ex<` / `e:b_oth<`, expected outputs), docs/eq-rationale.md (seven ways to write the call compared), spec/spatial (six cases pinning the review's corrections), a pipeline step (099) planned for left-to-right ML data flow; docs/type-check-macros.md (what a macro's string arguments let slip to run time or to a wrong answer, seven ways to catch it earlier, a plan).
+
 ## 2026-10-13
 
 - 10:30 `fix` `xetal doc` no longer warns doc-unattached at a `##` block inside a function body, above a local binding (step 097, D153); X_eTaL-ML's Net.xtlm and Sample.xtl warnings came from this.

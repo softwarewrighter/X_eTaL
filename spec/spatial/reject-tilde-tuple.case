@@ -1,0 +1,5 @@
+# ~ marks a lazy parameter, not a quotation of a tuple (review C7).
+== SOURCE
+~(1, 2)
+== ERROR
+error[bad-lazy]: `~` marks a lazy parameter and must touch its name at 0..1

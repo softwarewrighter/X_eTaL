@@ -1,0 +1,7 @@
+# Brackets are not indexing (review C4): X[1,2,3] is no X_eTaL; the
+# spatial library's equation strings use brackets as their own notation.
+== SOURCE
+X := 2 3 r_eshape r_ange 6
+X[1,2,3]
+== ERROR
+error[unexpected-token]: expected `]` at 30..31

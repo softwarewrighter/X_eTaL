@@ -1,0 +1,8 @@
+# A macro name is function-shaped and ends in < (MC2): e:q< is the
+# variable e:q and a less-than; e:q_< is a macro name (review C1).
+== SOURCE
+e:q< "a"
+== TOKENS
+0..3 Var(e:q)
+3..4 Sym(<)
+5..8 Str("a")

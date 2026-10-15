@@ -1198,31 +1198,24 @@ compiler change). Language changes the work runs into are written up
 with a failing snippet and stopped at "decide with the user" (step 8);
 nothing in this saga implements one.
 
-Decisions needed (step 1, with the user; each an OPEN QUESTION until
-then):
-
-- Where it lives: `demos/spatial/` (proposed: `Spatial.xtlm` macros
-  and `Spatial.xtl` run-time helpers beside the demos), or
-  `lib/Spatial.xtl(m)` as a standard library, or X_eTaL-libraries /
-  X_eTaL-ML (other agents' repositories, through their asks ledgers).
-- The call: `"Y[o,h,w] | O Ho Wo" e:q_< "C - 1, Kh - 1, Kw - 1 | X[c,h+r,w+s] * W[o,c,r,s] | c:=0, r:=0, s:=0"`
-  (proposed), giving `(value, latex)`; with `e:s_um<` (value only)
-  and `e:t_ex<` (LaTeX only) beside it. Region separator (`|`, or
-  labels such as `u: ... c: ... l: ...`), the left argument (explicit
-  extents or inferred), the operator (in the macro name, `e:s_um<` /
-  `e:p_rod<`, proposed; or written in the center).
-- Index expressions: X_eTaL's right-to-left order (documented), or
-  math precedence (the macro parenthesizes).
-- Out-of-range indices: an error at run time (proposed:
-  `"index" []S_IGNAL "..."` naming the array and axis), never a
-  silent read.
-- Whether to take candidates L1 (macro expansion naming its own
-  library, ask M11) to a decision before the expansion goldens are
-  pinned (step 4), since the answer changes every expansion's text.
+Decided with the user (step 1; D154, docs/spatial.md, the reasons in
+docs/eq-rationale.md): it lives in `demos/spatial/`; the call is
+`"Y[o,h,w] | O Ho Wo" e:q_< "sum c:=0..C - 1, sum r:=0..Kh - 1, sum s:=0..Kw - 1 | X[c,h+r,w+s] * W[o,c,r,s]"`
+(explicit extents; per-sum bindings, each with its operator word and
+inclusive range, outermost first, then the summand); math precedence
+inside the strings; an out-of-range index is a run-time error;
+`e:q_<` gives the value, `e:t_ex<` the LaTeX, `e:b_oth<` both; L1
+deferred (helpers inline in each expansion). Equations read inside
+out, pipelines left to right, X_eTaL right to left: a companion
+pipeline macro for ML data flow (initial data, then each transform in
+turn) is designed with the user in step 1b, from the user's examples,
+before the capture step. Steps 3 to 5 below read `e:s_um<` as `e:q_<`
+and the three regions as the two of the per-sum form.
 
 | Step | Slug | Content |
 | ---- | ---- | ------- |
 | 1 | spatial-decisions | With the user: the decisions above, recorded in the decisions register (docs/design.md) and a plan, `docs/spatial.md` (the call, the regions, the lowering, what is not in scope); the review's corrections pinned as tests of the language as it is (spec cases: `e:q<` is not a macro name, `+/`, `X[1,2,3]`, `C-1`, `~(1, 2)`, a call as a macro argument; most exist, add the missing ones); the PoC's behavior as pending goldens under `reg/spatial-*` |
+| 1b | spatial-pipeline | With the user, from the user's examples (a forward pass, attention, a training step): a left-to-right pipeline notation for ML data flow, a companion macro to `e:q_<` (steps a function call or a per-sum equation; named intermediates; branches and joins; its LaTeX or diagram); recorded in docs/spatial.md and the register; examples pinned as pending outputs; no compiler change |
 | 2 | spatial-oracle | The independent oracle, `demos/spatial/oracle.xtl`: valid cross-correlation by rotations, `t_ranspose` and one `i_nner`; fixtures A (all ones: 8 everywhere), B (560 596 632 / 704 740 776 / 848 884 920, from a run, replacing the plan's wrong numbers) and C (2 output channels, 3 input channels, 2 by 3 kernel, 5 by 6 pictures, shape 2 4 4); goldens first, numbers checked against an independent script recorded in the step summary |
 | 3 | spatial-capture | `demos/spatial/Spatial.xtlm`: regions split outside brackets, upper and lower paired by position, names and extents read; `e:d_omains<` gives the descriptors as text for inspection; diagnostics by `[]R_EJECT` at the argument (counts differ, a binding without `:=`, an empty region, a free index without an extent, an index name used twice); `## >>` doc tests and goldens written before the code |
 | 4 | spatial-lowering | `e:s_um<`: coordinate grids (`t_able`, `r_eshape`, `o_ffsets`), gathers by Horner's rule with a bounds check per axis, one `'+ r_/_k` per sum (innermost first); one, two and three sums; hygiene (a user `grid`, `a_t`, `k` untouched); results equal the oracle on A, B and C; `xetal expand` goldens of the generated code |

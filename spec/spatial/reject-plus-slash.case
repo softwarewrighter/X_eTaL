@@ -1,0 +1,6 @@
+# Reduce is the function r_/ with a quoted operand (F7), not +/
+# (spatial-equations review C3): write '+ r_/ 1 2 3.
+== SOURCE
++/ 1 2 3
+== ERROR
+error[symbol-needs-left]: a symbol function needs a left argument (to negate use n_eg; for a partial application use a lambda) at 1..2

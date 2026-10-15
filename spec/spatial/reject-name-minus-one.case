@@ -1,0 +1,6 @@
+# C-1 is ambiguous (review C5): write C - 1 to subtract.
+== SOURCE
+C := 3
+C-1
+== ERROR
+error[ambiguous-minus]: `-` touching the previous token and a digit is ambiguous: write `3 - 1` to subtract or `3 -1` for a negative literal at 8..9

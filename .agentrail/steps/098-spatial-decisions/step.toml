@@ -1,6 +1,6 @@
 number = 98
 slug = "spatial-decisions"
-status = "pending"
+status = "in-progress"
 description = "Saga 41 step 1 (spatial equations; docs/plan.md, docs/spatial-equations-revie..."
 role = "production"
 context_files = []
