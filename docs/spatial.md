@@ -14,7 +14,7 @@ where they meet:
 - **Equations read inside out**, as the paper prints them: sums
   outermost first, the summand inside.
 - **Pipelines read left to right**: initial data, then each transform
-  in turn (a companion macro, designed separately).
+  in turn (`e:p_ipe<`, below).
 - **X_eTaL reads right to left**: both lower to ordinary X_eTaL, which
   `xetal expand` shows.
 
@@ -79,6 +79,70 @@ one call always describe the same equation.
 - Helpers are written into each expansion (inline), since an expansion
   cannot yet name its own library (candidate L1, deferred); fresh names
   come from `[]G_ENSYM`.
+
+## Pipelines
+
+A pipeline writes ML data flow left to right: the initial data, then
+each transform in turn. It lives beside the equations in
+`Spatial.xtlm`, and a stage may be an equation (`@ e:q_< "..."` is just
+a value).
+
+```
+Y := @ e:p_ipe< r"
+      X
+   |> W1 nn:d_ense it
+   |> nn:r_elu
+   |> W2 nn:d_ense it
+   |> nn:s_oftmax"
+```
+
+Until raw strings land, the same call fits on one line with an
+ordinary string: `@ e:p_ipe< "X |> W1 nn:d_ense it |> nn:r_elu |> ..."`.
+
+- **The call**: `@ e:p_ipe< "<data> |> <stage> |> ..."`; the left side
+  is `@`. The first stage is the data, any X_eTaL expression.
+- **Separator**: `|>`, split outside brackets, braces and strings (it
+  has no meaning in X_eTaL, so a stage never holds one).
+- **Stages** are X_eTaL expressions, type-checked like any code and
+  copied into the expansion as written (so an error in one is reported
+  inside the string). A stage is either a function (a name, a train,
+  a quoted lambda, `nn:r_elu`), applied to the previous value, or an
+  expression naming the previous value `it` (an anaphor, `## binds:
+  it`). Order is explicit for noncommutative stages: `it - m` or
+  `m - it`. A stage that is neither (a value without `it`) is rejected
+  at the argument; the first stage may not name `it`.
+- **Names**: ` : name` at a stage's end (spaces around the colon, so it
+  is never a namespace prefix) names its value; later stages use the
+  name directly, so fan-out and joins need nothing more
+  (`e / '+ r_/ e`). ` : (Q, K, V)` destructures a tuple. Names are
+  local to the pipeline and each stage is evaluated once; a name bound
+  twice is rejected.
+- **Shapes**: an optional ` [N O Ho Wo]` after a name, extents being the
+  caller's values, is a contract: a shape lint proves or refutes it
+  before the program runs where the extents are known symbolically, and
+  the macro emits a run-time check after the stage for what the lint
+  cannot decide:
+  `error[shape]: stage 3 (conv): shape 2 8 6 6, expected 2 8 4 4`.
+- **Value**: the last stage's value. A trace (each stage's name, shape
+  and a sample) and a drawing come with the report step.
+
+Examples, each with its hand-written equivalent in
+`docs/spatial-poc/pipes-oracle.xtl` (the pipeline must print exactly
+what the equivalent prints):
+
+| Example | Pipeline (one line) | Expected |
+| ------- | ------------------- | -------- |
+| Linear regression | `X \|> it '+ '* i_nner W : P \|> P + (s_hape P) r_eshape b` | `14 25` / `20 31` |
+| Stable softmax | `z \|> 'm_ax r_/ it : m \|> e_xp z - m : e \|> e / '+ r_/ e` | `0.0900... 0.2447... 0.6652...` |
+| Layer norm | `x \|> ('+ r_/ it) / f_loat t_ally it : mu \|> x - mu : c \|> ('+ r_/ c * c) / f_loat t_ally c : v \|> c / v ^ 0.5` | `-1.3416... -0.4472... 0.4472... 1.3416...` |
+| MLP | `X \|> it '+ '* i_nner W1 \|> 0 m_ax it \|> it '+ '* i_nner W2` | `2` / `2` |
+| Residual | `x : s \|> 2 * it \|> it + s` | `3.0 6.0 9.0 12.0` |
+
+The residual shows why the direction matters: written by hand as
+`2 * x + x` it is `2 * (x + x)` (right to left), not the residual.
+Linear regression shows a fact the design must keep visible: adding a
+bias vector to every row is explicit (`(s_hape P) r_eshape b`), as
+X_eTaL has no implicit broadcasting.
 
 ## Errors
 
@@ -147,8 +211,9 @@ strings these are the library's notation, not X_eTaL.
 ## Not in scope
 
 - Padding, strides and dilation (a later operator word or option).
-- Inferred extents, typed domains and static shape checks.
-- Multi-line calls (needs raw strings, L4), punctuation delimiters
+- Inferred extents and typed domains. Static shape checks come from
+  the planned shape lint (docs/type-check-macros.md), not the macros.
+- Punctuation delimiters
   (L5), typed macro arguments (L6), drawing the call itself as math in
   the renderers (L7), choose indexing (L3), an expansion naming its
   own library (L1). Each is reviewed with a failing snippet and decided

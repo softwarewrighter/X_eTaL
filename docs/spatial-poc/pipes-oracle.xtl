@@ -1,0 +1,28 @@
+#!/usr/bin/env xetal
+# Hand-written equivalents of the pipeline examples in docs/spatial.md:
+# each e:p_ipe< call must give exactly what its block here prints.
+# 1 linear regression: X |> it '+ '* i_nner W : P |> P + (s_hape P) r_eshape b
+X := 2 3 r_eshape 1 2 3 4 5 6
+W := 3 2 r_eshape 1 0 0 1 1 1
+b := 10 20
+P := X '+ '* i_nner W
+P + (s_hape P) r_eshape b
+# 2 stable softmax: z |> 'm_ax r_/ it : m |> e_xp z - m : e |> e / '+ r_/ e
+z := f_loat 1 2 3
+m := 'm_ax r_/ z
+e := e_xp z - m
+e / '+ r_/ e
+# 3 layer norm (one vector, population variance, epsilon 0):
+#   x |> ('+ r_/ it) / f_loat t_ally it : mu |> x - mu : c |> ('+ r_/ c * c) / f_loat t_ally c : v |> c / v ^ 0.5
+x := f_loat 1 2 3 4
+mu := ('+ r_/ x) / f_loat t_ally x
+c := x - mu
+v := ('+ r_/ c * c) / f_loat t_ally x
+c / v ^ 0.5
+# 4 MLP: X |> it '+ '* i_nner W1 |> 0 m_ax it |> it '+ '* i_nner W2
+W1 := 3 2 r_eshape 1 -1 0 1 -1 0
+W2 := 2 1 r_eshape 1 2
+(0 m_ax X '+ '* i_nner W1) '+ '* i_nner W2
+# 5 residual: x : s |> 2 * it |> it + s
+# (not 2 * x + x, which is 2 * (x + x) read right to left)
+x + 2 * x

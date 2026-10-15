@@ -330,10 +330,11 @@ number, `n_eg 3` to negate, `{ x -> x - 3 }` to subtract 3.
 | ST1 | A string is written `"..."`. Escapes: `\"`, `\\`, `\n`, `\t`; any other escape is an error. `#` inside a string is an ordinary character. |
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of characters, one per Unicode scalar value, so a combining mark counts as a character of its own (`t_ally` counts code points, as APL does). A name touching `"` is an error, reserving `r"..."` for later. |
 | ST3 | A string is a 1-D array of characters: `"abc"` is a 3-element Char vector and every array function applies (`r_ev "abc"` is `"cba"`). `"a"` is a 1-element vector (no APL length-1 scalar wart). There is no scalar character literal for now. |
+| ST4 | Raw strings, Rust's rules: `r"..."` holds its text verbatim (no escapes; a backslash is a backslash) and may span lines, newlines and indentation kept, ending at the first `"`; `r#"..."#`, with one or more `#`, ends only at a `"` followed by as many `#`, so it may hold `"` (`r#"X \|> "label: " c_at it"#`). A raw string is another spelling of the same Char vector as `"..."` (ST2, ST3), not a new string type: types, built-ins and the evaluator are unchanged, and it may stand anywhere a string literal may (an expression, a macro argument). Its text may hold any Unicode (I1); the code a macro parses from it stays ASCII by convention, drawn decorated by the renderers. The formatter keeps the form written, so `parse(fmt(parse(src))) == parse(src)` holds. Motivated by multi-line macro arguments (candidate L4): a pipeline written one stage per line (docs/spatial.md). Decided with the user, 2026-10-15; to be implemented test-first in its own step. |
 
 Planned enhancements (after the MVP milestones):
 
-- Rust-style raw strings `r"..."` that may span lines.
+- Rust-style raw strings `r"..."` that may span lines (decided: ST4).
 - Unicode text as a library-supplied type extension, once the
   language has a way for libraries to add types.
 

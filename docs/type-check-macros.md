@@ -170,6 +170,25 @@ expansion would inherit them.
 
 - Feasibility: easy to medium; no language change.
 
+### 8. A shape lint over the expansion (before running; a lint, no language change)
+
+Lints run on the expanded program, so a lint can carry shapes through
+it symbolically: `X` of shape `N C H Wd` (from an annotation or a
+literal `r_eshape`) and a kernel `O C Kh Kw` give a valid
+cross-correlation of shape `N O (H-Kh+1) (Wd-Kw+1)`; `+` needs equal
+shapes; `i_nner` needs the inner extents equal. Where it can prove a
+mismatch, it warns before the program runs; where a size depends on
+data read at run time, it says nothing and the run-time check
+(approach 2) stays the backstop. The pipeline's optional shape
+annotations (` : conv [N O Ho Wo]`, docs/spatial.md) are the facts it
+starts from, as declared types are in gradual typing.
+
+- Feasibility: medium. A table of shape rules per built-in (beside
+  their types in the catalog), symbolic extents with `+ - *` and
+  equality, a pass in `xetal lint`. Rank polymorphism is handled per
+  call, not in the type system, so it needs no language change; it is
+  sound only where it speaks (it never proves a program right).
+
 ## Feasibility in brief
 
 | Approach | Catches | When | Cost |
@@ -181,6 +200,7 @@ expansion would inherit them.
 | 5 Typed arguments | X_eTaL-code arguments only | compile time | medium, language |
 | 6 Ranks in types | rank and shape everywhere | compile time | hard, language |
 | 7 Lint and tests | macro bugs | before release | easy to medium |
+| 8 Shape lint | rank and shape mismatches it can prove | before running | medium, lint |
 
 ## Plan
 
@@ -197,7 +217,11 @@ expansion would inherit them.
    once.
 3. **Then, if a consumer needs it:** approach 4, the `[]T_YPE` hook,
    with the two-pass design worked out first.
-4. **Research, not scheduled:** approaches 5 and 6. Ranks in types
+4. **Planned with the pipelines (decided with the user):** approach 8,
+   the shape lint, starting from the pipeline's shape annotations, with
+   the run-time check after each annotated stage as the backstop:
+   preventable run-time errors should be prevented.
+5. **Research, not scheduled:** approaches 5 and 6. Ranks in types
    would close the biggest remaining hole (rank and shape errors are
    run-time errors in all X_eTaL, not only in macros) and deserves its
    own review before any decision.

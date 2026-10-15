@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-15
 
+- 12:25 `design` Pipelines decided with the user (Saga 41 step 1b, D155) from docs/xetal-ml-pipelines-design.md (the user's proposal, committed): `@ e:p_ipe< "X |> W1 nn:d_ense it |> nn:r_elu"`, X_eTaL stages with `it`, ` : name`, shape annotations checked by a planned shape lint and at run time; raw strings decided (ST4, docs/lang-choices.md) for one stage per line; docs/spatial.md, docs/eq-rationale.md, docs/type-check-macros.md (approach 8, the shape lint) updated; docs/spatial-poc/pipes-oracle.xtl gives five examples' expected outputs; steps raw-strings, spatial-pipeline-macro and shape-lint planned.
 - 10:50 `docs` The four probes behind docs/type-check-macros.md committed as docs/spatial-poc/probe-*.xtl (a text array, a rank-2 array, too few indices giving a silent wrong answer, an unknown index), each linked from its table row so the findings can be rerun.
 - 10:40 `design` Spatial equations decided with the user (Saga 41 step 1, D154): docs/spatial.md (the call `"Y[o,h,w] | O Ho Wo" e:q_< "sum c:=0..C - 1, ... | summand"`, explicit extents, math precedence in the strings, run-time index errors, `e:q_<` / `e:t_ex<` / `e:b_oth<`, expected outputs), docs/eq-rationale.md (seven ways to write the call compared), spec/spatial (six cases pinning the review's corrections), a pipeline step (099) planned for left-to-right ML data flow; docs/type-check-macros.md (what a macro's string arguments let slip to run time or to a wrong answer, seven ways to catch it earlier, a plan).
 

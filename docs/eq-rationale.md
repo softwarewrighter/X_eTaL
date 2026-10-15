@@ -162,3 +162,76 @@ limitations review, not prerequisites.
   library's notation, lowered to ordinary X_eTaL array code.
 - Errors are reported at the argument: an index bound twice, a summand
   index with no sum and no extent, an empty region, a malformed range.
+
+## Pipelines: the choices
+
+Equations read inside out; pipelines read left to right, initial data
+first (`e:p_ipe<`, docs/spatial.md). The input was the ML pipelines
+design proposal (`docs/xetal-ml-pipelines-design.md`); each choice
+below was made with the user.
+
+### What a stage is
+
+- **X_eTaL expressions (chosen)**: any function, built-in or library
+  (X_eTaL-ML's `nn:r_elu`, `nn:d_ense`); type-checked like all code,
+  copied into the expansion as written, so errors point inside the
+  string. One vocabulary.
+- An ML call vocabulary (`dense(W1,b1)`, `windows(Kh,Kw,stride=1)`):
+  familiar to ML readers, but a second language whose names, arity and
+  errors the macro must translate and keep in step with the libraries.
+- Both: the cost of the second with little gain.
+
+### Where the previous value goes
+
+- **`it`, or a bare function (chosen)**: a function stage is applied
+  to the previous value; any other stage names it `it`. Noncommutative
+  order is written (`it - m`, `m - it`), never guessed.
+- Appending it on the right: unsafe in X_eTaL, where juxtaposed values
+  are a strand (`W1 nn:d_ense b1` followed by `X` reads `b1 X`).
+- Always `it`: uniform but longer for the common `|> nn:r_elu`.
+- Always a function: dyadic stages become lambdas,
+  `{ x -> x - m }` instead of `it - m`.
+
+### The separator
+
+- **`|>` (chosen)**: F#'s and Elixir's pipe; meaningless in X_eTaL, so
+  a stage never contains one.
+- `->`: reads as flow, but is also the lambda arrow inside a stage.
+- `;`: reads as sequencing, not flow.
+
+### Naming intermediates
+
+- **` : name` (chosen)**: as in the design proposal; later stages use
+  the name directly, so the proposal's `from(name)` is unnecessary.
+  Spaces around the colon keep it apart from namespace prefixes.
+- `as name`: a reserved word inside the strings.
+- `name := stage`: X_eTaL's binding, but it reads right to left
+  inside a left-to-right pipeline.
+
+### The initial data
+
+- **The first stage, the left argument `@` (chosen)**: the whole flow
+  in one string, read top to bottom in a raw string.
+- The left argument: input and transforms in two places.
+- Either: two ways to write the same thing.
+
+### Layout: one stage per line
+
+A vertical column of `|>` needs a string that spans lines, which ST2
+forbids. Chosen: raw strings, `r"..."` and `r#"..."#` with Rust's
+rules (contents verbatim, newlines kept), anywhere a string may stand.
+A raw string is another spelling of the same Char vector, not a new
+string type, so types, built-ins and the evaluator are untouched.
+Rejected: display-only vertical layout (the source would still be one
+line); splitting a pipeline into named pieces per line (works today,
+kept as a fallback); escaped multi-line strings (LaTeX's backslashes
+would double).
+
+### Shapes
+
+- **Optional annotations as a contract (chosen)**: a shape lint proves
+  or refutes them before the program runs where extents are known
+  symbolically; a run-time check after the stage catches the rest.
+  Preventable run-time errors should be prevented.
+- Display only: annotations that can drift from the truth.
+- Lint only: data-dependent sizes would pass unchecked.

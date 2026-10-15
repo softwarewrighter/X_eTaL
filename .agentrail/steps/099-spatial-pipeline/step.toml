@@ -1,6 +1,6 @@
 number = 99
 slug = "spatial-pipeline"
-status = "pending"
+status = "in-progress"
 description = "Saga 41 step 1b (docs/plan.md, docs/spatial.md): with the user, from the user..."
 role = "production"
 context_files = []

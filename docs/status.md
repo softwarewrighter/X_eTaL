@@ -19,7 +19,7 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 126 | 0 | 0 |
-| Language decisions | 156 | 0 | 3 |
+| Language decisions | 157 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
 | Spec cases | 461 | 0 | 0 |
 
@@ -357,6 +357,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ST1 | A string is written `"..."` | works | 2 |
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 2 |
 | ST3 | A string is a 1-D array of characters: `"abc"` is a 3-element Char vector and every array function applies (...) | works | 2 |
+| ST4 | Raw strings, Rust's rules: `r"..."` holds its text verbatim (no escapes; a backslash is a backslash) and (...) | works | 0 |
 | QD1 | `[]` written touching a name is the system namespace, APL's quad: `[]A`, `[]D_L 0.5` | works | 2 |
 | QD2 | System values, read-only: `[]A` the alphabet `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"`, `[]D` the digits (...) | works | 2 |
 | QD3 | System functions live in the quad namespace and are named like any function: `[]D_L s` waits s seconds (...) | works | 3 |
