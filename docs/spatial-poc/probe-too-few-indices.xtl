@@ -1,0 +1,11 @@
+#!/usr/bin/env xetal
+"e:" u_se< "Spatial"
+X := 2 4 4 r_eshape r_ange 32
+W := 1 2 2 2 r_eshape r_ange 8
+(C, H, Wd) := (1 s_elect s_hape X, 2 s_elect s_hape X, 3 s_elect s_hape X)
+(O, Kh, Kw) := (1 s_elect s_hape W, 3 s_elect s_hape W, 4 s_elect s_hape W)
+Ho := H - Kh - 1
+Wo := Wd - Kw - 1
+Y := "o h w | O Ho Wo" e:s_um< "C - 1, Kh - 1, Kw - 1 | X[c,h+r] * W[o,c,r,s] | c:=0, r:=0, s:=0"
+Y
+s_hape Y

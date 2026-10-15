@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-15
 
+- 10:50 `docs` The four probes behind docs/type-check-macros.md committed as docs/spatial-poc/probe-*.xtl (a text array, a rank-2 array, too few indices giving a silent wrong answer, an unknown index), each linked from its table row so the findings can be rerun.
 - 10:40 `design` Spatial equations decided with the user (Saga 41 step 1, D154): docs/spatial.md (the call `"Y[o,h,w] | O Ho Wo" e:q_< "sum c:=0..C - 1, ... | summand"`, explicit extents, math precedence in the strings, run-time index errors, `e:q_<` / `e:t_ex<` / `e:b_oth<`, expected outputs), docs/eq-rationale.md (seven ways to write the call compared), spec/spatial (six cases pinning the review's corrections), a pipeline step (099) planned for left-to-right ML data flow; docs/type-check-macros.md (what a macro's string arguments let slip to run time or to a wrong answer, seven ways to catch it earlier, a plan).
 
 ## 2026-10-13

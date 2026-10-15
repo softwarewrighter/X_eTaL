@@ -41,14 +41,15 @@ So the expansion is not untyped. The hole is in three places:
 ## What slips through: probes
 
 Run against the spatial proof of concept (`docs/spatial-poc/cnn.xtl`
-with one change each, on the current binary):
+with one change each, on the current binary; each is a file in
+`docs/spatial-poc/`, run from there with `xetal run probe-....xtl`):
 
-| Change | Kind of error | Caught | Reported at |
-| ------ | ------------- | ------ | ----------- |
-| `X := "abcd"` | element type (Char, not number) | compile time | the whole call (`at 276..372`) |
-| summand `X[c,h+q,w+s]` | unknown name `q` | compile time | the whole call |
-| `X` of shape `8 4` (rank 2, three indices used) | rank | run time, `error[index]` | the whole call |
-| summand `X[c,h+r]` (two indices for rank 3) | rank, in the notation | **never: a wrong answer** (`162 162 162 ...`) | nowhere |
+| Change (file) | Kind of error | Caught | Reported at |
+| ------------- | ------------- | ------ | ----------- |
+| `X := "abcd"` (`probe-text-array.xtl`) | element type (Char, not number) | compile time | the whole call (`at 276..372`) |
+| summand `X[c,h+q,w+s]` (`probe-unknown-index.xtl`) | unknown name `q` | compile time | the whole call |
+| `X` of shape `8 4` (rank 2, three indices used; `probe-rank-2-array.xtl`) | rank | run time, `error[index]` | the whole call |
+| summand `X[c,h+r]` (two indices for rank 3; `probe-too-few-indices.xtl`) | rank, in the notation | **never: a wrong answer** (`162 162 162 ...`) | nowhere |
 
 And in plain X_eTaL, for comparison:
 
