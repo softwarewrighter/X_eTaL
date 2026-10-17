@@ -41,9 +41,9 @@ m:c_heck< := { cond label -> "{ @ -> (" c_at cond c_at ") ? \"ok: " c_at label c
 ## macro that wants a name of its own asks for one (t_wice< below).
 ## >> "x:" u_se< "Macros"
 ## >> x := 10
-## >> @ x:t_hree< "x + 1"
+## >> @ x:b_inds< "x + 1"
 ## 4
-m:t_hree< := { @ e -> "{ @ -> x := 3; " c_at e c_at " } @" }
+m:b_inds< := { @ e -> "{ @ -> x := 3; " c_at e c_at " } @" }
 
 ## Twice the expression on the right: the macro binds a local of its
 ## own around your expression, a fresh name from []G_ENSYM (g1:t, say),

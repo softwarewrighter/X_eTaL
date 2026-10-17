@@ -1,10 +1,10 @@
 # Hygiene is by choice (MC30): a name a macro writes stays as written,
-# so x:t_hree< binds x around its text and the text's x is that one;
+# so x:b_inds< binds x around its text and the text's x is that one;
 # x:t_wice< asks []G_ENSYM for a fresh name, so a t of your own is yours.
 == SOURCE
 "x:" u_se< "Macros"
 x := 10
-@ x:t_hree< "x + 1"
+@ x:b_inds< "x + 1"
 t := 5
 @ x:t_wice< "t + 1"
 == EXPAND

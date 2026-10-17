@@ -1,0 +1,8 @@
+number = 114
+slug = "spatial-limits"
+status = "pending"
+description = "Saga 41 step 8 (spatial equations; docs/plan.md, docs/spatial-equations-revie..."
+role = "production"
+context_files = []
+created_at = "2026-10-12T08:43:08"
+commits = []

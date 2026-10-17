@@ -1242,7 +1242,7 @@ s:s_d 2 4 4 4 5 5 7 9    # the standard deviation
 ˢr̲ange 3 1 4 1 5       ⍝ largest minus smallest
 #+end_example
 #+begin_src xetal
-s:r_ange 3 1 4 1 5       # largest minus smallest
+s:s_pread 3 1 4 1 5       # largest minus smallest
 #+end_src
 
 #+RESULTS:

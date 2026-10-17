@@ -18,6 +18,7 @@
 <ul>
 <li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
 <li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-dyadic.xtl.html">dyadic.xtl</a></li>
 <li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
 <li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
 <li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
@@ -29,7 +30,6 @@
 <li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
 <li><a href="demos-square.xtl.html">square.xtl</a></li>
 <li><a href="demos-stats.xtl.html">stats.xtl</a></li>
-<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
 <li><a href="demos-tour.xtl.html">tour.xtl</a></li>
 <li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
 <li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
@@ -75,7 +75,7 @@
 <li class="item"><a href="#L16"><span class="c-macro">ᵐw̲hen&lt;</span></a></li>
 <li class="item"><a href="#L24"><span class="c-macro">ᵐd̲ef&lt;</span></a></li>
 <li class="item"><a href="#L34"><span class="c-macro">ᵐc̲heck&lt;</span></a></li>
-<li class="item"><a href="#L46"><span class="c-macro">ᵐt̲hree&lt;</span></a></li>
+<li class="item"><a href="#L46"><span class="c-macro">ᵐb̲inds&lt;</span></a></li>
 <li class="item"><a href="#L55"><span class="c-macro">ᵐt̲wice&lt;</span></a></li>
 <li class="item"><a href="#L67"><span class="c-macro">ᵐw̲ith&lt;</span></a></li>
 </ul>
@@ -127,9 +127,9 @@
 <span class="line" id="L41"><a class="ln" href="#L41">41</a><span class="c-comment">⍝</span><span class="c-comment"># macro that wants a name of its own asks for one (t_wice&lt; below).</span></span>
 <span class="line" id="L42"><a class="ln" href="#L42">42</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span></span>
 <span class="line" id="L43"><a class="ln" href="#L43">43</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; x := 10</span></span>
-<span class="line" id="L44"><a class="ln" href="#L44">44</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; @ x:t_hree&lt; &quot;x + 1&quot;</span></span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; @ x:b_inds&lt; &quot;x + 1&quot;</span></span>
 <span class="line" id="L45"><a class="ln" href="#L45">45</a><span class="c-comment">⍝</span><span class="c-comment"># 4</span></span>
-<span class="line" id="L46"><a class="ln" href="#L46">46</a><span class="c-macro">ᵐt̲hree&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; x := 3; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; } @&quot;</span> }</span>
+<span class="line" id="L46"><a class="ln" href="#L46">46</a><span class="c-macro">ᵐb̲inds&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; x := 3; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; } @&quot;</span> }</span>
 <span class="line" id="L47"><a class="ln" href="#L47">47</a></span>
 <span class="line" id="L48"><a class="ln" href="#L48">48</a><span class="c-comment">⍝</span><span class="c-comment"># Twice the expression on the right: the macro binds a local of its</span></span>
 <span class="line" id="L49"><a class="ln" href="#L49">49</a><span class="c-comment">⍝</span><span class="c-comment"># own around your expression, a fresh name from []G_ENSYM (g1:t, say),</span></span>

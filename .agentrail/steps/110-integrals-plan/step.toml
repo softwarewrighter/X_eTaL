@@ -1,0 +1,8 @@
+number = 110
+slug = "integrals-plan"
+status = "pending"
+description = "Planning (the user, 2026-10-16): read docs/convolutions/* and plan integrals ..."
+role = "production"
+context_files = []
+created_at = "2026-10-16T08:33:53"
+commits = []

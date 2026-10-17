@@ -19,7 +19,7 @@ v := 2 4 4 4 5 5 7 9
 s:m_ean v                # 5.0
 s:v_ariance v            # the mean squared deviation: 4.0
 s:s_d v                  # the standard deviation: 2.0
-s:r_ange v               # largest minus smallest: 7
+s:s_pread v               # largest minus smallest: 7
 s:m_ean 1.5 2.5          # the same functions work on Floats
 ```
 
@@ -38,7 +38,7 @@ d_eviations := { v -> (f_loat v) - l:m_ean v }
 
 l:v_ariance := { v -> l:m_ean s_quare d_eviations v }
 l:s_d := { (l:v_ariance _r) ^ 0.5 }     # the standard deviation
-l:r_ange := { v -> ('m_ax r_/ v) - 'm_in r_/ v }
+l:s_pread := { v -> ('m_ax r_/ v) - 'm_in r_/ v }
 ```
 
 A name `"Name"` is found as `Name.xtl` beside the importing file, then

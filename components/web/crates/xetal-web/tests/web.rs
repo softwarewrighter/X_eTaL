@@ -1,9 +1,18 @@
 //! The live demo's keys and programs (the language is xetal-play's).
 
-use std::sync::{Arc, OnceLock};
+use std::sync::{Arc, Mutex, MutexGuard, OnceLock};
 
 use xetal_store::{Memory, Store};
 use xetal_web::{Action, DEMOS, action, choices, open, seed};
+
+/// Tests that run or check programs take turns: the Boxed setting is
+/// global, and a macro expanding on one thread while another toggles
+/// it would see a box drawing as its text (the runner's save and
+/// restore interleave; the CLI and the worker are single-threaded).
+fn turn() -> MutexGuard<'static, ()> {
+    static TURN: Mutex<()> = Mutex::new(());
+    TURN.lock().unwrap_or_else(|e| e.into_inner())
+}
 
 /// One store for every test (the store is global, and tests run at
 /// once), with the demos' own libraries seeded, as the page does.
@@ -31,6 +40,7 @@ fn run_and_zoom_keys() {
 #[test]
 fn every_demo_checks() {
     store();
+    let _turn = turn();
     for demo in DEMOS {
         let lines = xetal_play::check(demo.text);
         assert!(
@@ -252,6 +262,7 @@ const SLOW: &[&str] = &["tttml.xtl", "tttml-train.xtl"];
 #[test]
 fn every_choice_runs_boxed_and_as_a_notebook() {
     store();
+    let _turn = turn();
     let mut seen = std::collections::BTreeSet::new();
     for (group, value, label) in choices(&[]) {
         let (name, text) = open(&value).unwrap_or_else(|| panic!("{group}: {label} opens"));

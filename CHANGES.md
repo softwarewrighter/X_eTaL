@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-17
 
+- 08:10 `design` Plain names (step 108, D161; the user): `s:r_ange` is `s_pread`, demos/sub.xtl is dyadic.xtl, Macros' `t_hree<` is `b_inds<`; goldens, the spec case, the tour and literate documents follow; the libraries' renames (`s_ummary`, `d_ate`, aliases `pl:` `li:` `ch:`) are in X_eTaL-libraries.
 
 ## 2026-10-16
 

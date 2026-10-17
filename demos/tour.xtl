@@ -177,7 +177,7 @@ p_rint! "printed, then returned"  # `p_rint!` prints and returns its argument
 "s:" u_se< "Stats"       # import a library under an alias of your choosing
 s:m_ean 2 4 4 4 5 5 7 9  # its exported names, used through the alias
 s:s_d 2 4 4 4 5 5 7 9    # the standard deviation
-s:r_ange 3 1 4 1 5       # largest minus smallest
+s:s_pread 3 1 4 1 5       # largest minus smallest
 "hi:" u_se< "Hello"       # a library of your own, found in userlibs/
 hi:h_ello @               # niladic: called with Unit
 

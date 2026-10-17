@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/dyadic.xtl"
+exit_code = 0
+desc = "M1 demo: demos/dyadic.xtl, a dyadic user function"

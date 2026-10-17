@@ -73,16 +73,16 @@
           "uses": [{"written": "l:v_ariance", "file": "lib/Stats.xtl", "item": "l:v_ariance"}]
         },
         {
-          "name": "l:r_ange",
+          "name": "l:s_pread",
           "kind": "function",
           "public": true,
           "type": "Num a => a -> a",
           "line": 39,
           "section": "Spread",
           "doc": "The range: the largest minus the smallest.",
-          "examples": [{"code": "\"s:\" u_se< \"Stats\"", "output": ""}, {"code": "s:r_ange 2 4 4 4 5 5 7 9", "output": "7"}],
+          "examples": [{"code": "\"s:\" u_se< \"Stats\"", "output": ""}, {"code": "s:s_pread 2 4 4 4 5 5 7 9", "output": "7"}],
           "binds": [],
-          "source": "l:r_ange := ['m_ax r_/ - 'm_in r_/]",
+          "source": "l:s_pread := ['m_ax r_/ - 'm_in r_/]",
           "uses": []
         }
       ]

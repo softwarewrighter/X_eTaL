@@ -18,6 +18,7 @@
 <ul>
 <li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
 <li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-dyadic.xtl.html">dyadic.xtl</a></li>
 <li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
 <li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
 <li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
@@ -29,7 +30,6 @@
 <li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
 <li><a href="demos-square.xtl.html">square.xtl</a></li>
 <li><a href="demos-stats.xtl.html">stats.xtl</a></li>
-<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
 <li><a href="demos-tour.xtl.html">tour.xtl</a></li>
 <li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
 <li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
@@ -151,6 +151,9 @@ with &quot;xetal run demos/combinators.xtl&quot; (or &quot;./demos/combinators.x
 or as a notebook with &quot;just show demos/combinators.xtl&quot;; it prints
 what each bird makes of small numbers, ending with 10 factorial from
 Y and 1024 from a function power. docs/birds.md lists every bird.</li>
+<li>program <a href="demos-dyadic.xtl.html">demos/dyadic.xtl</a>: A dyadic user function; every function is curried. Run it with
+./demos/dyadic.xtl or &quot;xetal run demos/dyadic.xtl&quot;; it prints 7 twice, from
+`10 u:s_ub 3` and from the partial application u:t_enMinus.</li>
 <li>program <a href="demos-factorial.xtl.html">demos/factorial.xtl</a>: Factorial: recursion with guards, one statement per line. Run it with
 &quot;xetal run demos/factorial.xtl&quot; (or &quot;./demos/factorial.xtl&quot;); it
 prints 3628800, the factorial of 10. Read u:f_act for how a guard
@@ -211,9 +214,6 @@ one column right, wrapping around the edges of the board.</li>
 <li>program <a href="demos-stats.xtl.html">demos/stats.xtl</a>: Using a library: Stats is a standard library, built into xetal
 (lib/Stats.xtl). The alias &quot;s:&quot; is this file's name for it: its
 exported names are used as s:m_ean and so on.</li>
-<li>program <a href="demos-sub.xtl.html">demos/sub.xtl</a>: A dyadic user function; every function is curried. Run it with
-./demos/sub.xtl or &quot;xetal run demos/sub.xtl&quot;; it prints 7 twice, from
-`10 u:s_ub 3` and from the partial application u:t_enMinus.</li>
 <li>program <a href="demos-tour.xtl.html">demos/tour.xtl</a>: A tour of X_eTaL: one commented file touching every implemented
 feature, a section per topic, from numbers to Life in one line.</li>
 <li>program <a href="demos-tttml-play.xtl.html">demos/tttml-play.xtl</a>: TTTML, part 2: play the machine that demos/tttml-train.xtl trained
@@ -346,7 +346,7 @@ Points are Geometry3D's (3 rows), pictures Svg's.</li>
 <tr><td><a href="lib-Stats.xtl.html#h.d_eviations"><span class="c-libfunc">ʰd̲eviations</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Stats.xtl.html#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
 <tr><td><a href="lib-Stats.xtl.html#l.s_d"><span class="c-libfunc">ˡs̲d</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
-<tr><td><a href="lib-Stats.xtl.html#l.r_ange"><span class="c-libfunc">ˡr̲ange</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-Stats.xtl.html#l.s_pread"><span class="c-libfunc">ˡs̲pread</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
 <tr><td><a href="lib-Svg.xtl.html#l.a_ttr"><span class="c-libfunc">ˡa̲ttr</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Svg.xtl.html#l.e_scape"><span class="c-libfunc">ˡe̲scape</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Svg.xtl.html#l.f_ill"><span class="c-libfunc">ˡf̲ill</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
@@ -440,7 +440,7 @@ Points are Geometry3D's (3 rows), pictures Svg's.</li>
 <tr><td><a href="lib-Macros.xtlm.html#m.w_hen-3c"><span class="c-macro">ᵐw̲hen&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Macros.xtlm.html#m.d_ef-3c"><span class="c-macro">ᵐd̲ef&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Macros.xtlm.html#m.c_heck-3c"><span class="c-macro">ᵐc̲heck&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
-<tr><td><a href="lib-Macros.xtlm.html#m.t_hree-3c"><span class="c-macro">ᵐt̲hree&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Macros.xtlm.html#m.b_inds-3c"><span class="c-macro">ᵐb̲inds&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Macros.xtlm.html#m.t_wice-3c"><span class="c-macro">ᵐt̲wice&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="lib-Macros.xtlm.html#m.w_ith-3c"><span class="c-macro">ᵐw̲ith&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
 <tr><td><a href="std-System.xtlm.html#s.u_se-3c"><span class="c-macro">ˢu̲se&lt;</span></a></td><td>built-in macro</td><td><code>Char -&gt; Char -&gt; Unit</code></td></tr>
@@ -485,6 +485,8 @@ Points are Geometry3D's (3 rows), pictures Svg's.</li>
 <tr><td><a href="demos-combinators.xtl.html#u.i_nc"><span class="c-userfunc">ᵘi̲nc</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
 <tr><td><a href="demos-combinators.xtl.html#u.d_ouble"><span class="c-userfunc">ᵘd̲ouble</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
 <tr><td><a href="demos-combinators.xtl.html#u.f_act"><span class="c-userfunc">ᵘf̲act</span></a></td><td>function</td><td><code>Num a =&gt; (a -&gt; a) -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-dyadic.xtl.html#u.s_ub"><span class="c-userfunc">ᵘs̲ub</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-dyadic.xtl.html#u.t_enMinus"><span class="c-userfunc">ᵘt̲enMinus</span></a></td><td>function</td><td><code>Int -&gt; Int</code></td></tr>
 <tr><td><a href="demos-factorial.xtl.html#u.f_act"><span class="c-userfunc">ᵘf̲act</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
 <tr><td><a href="userlibs-Hello.xtl.html#l.h_ello"><span class="c-libfunc">ˡh̲ello</span></a></td><td>function</td><td><code>Unit -&gt; Char</code></td></tr>
 <tr><td><a href="userlibs-Greetings.xtl.html#h.n_ame"><span class="c-libfunc">ʰn̲ame</span></a></td><td>function</td><td><code>Unit -&gt; Char</code></td></tr>
@@ -531,8 +533,6 @@ Points are Geometry3D's (3 rows), pictures Svg's.</li>
 <tr><td><a href="demos-rotate.xtl.html#shown">shown</a></td><td>value</td><td><code>Int</code></td></tr>
 <tr><td><a href="demos-square.xtl.html#u.s_quare"><span class="c-userfunc">ᵘs̲quare</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
 <tr><td><a href="demos-stats.xtl.html#v">v</a></td><td>value</td><td><code>Int</code></td></tr>
-<tr><td><a href="demos-sub.xtl.html#u.s_ub"><span class="c-userfunc">ᵘs̲ub</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a -&gt; a</code></td></tr>
-<tr><td><a href="demos-sub.xtl.html#u.t_enMinus"><span class="c-userfunc">ᵘt̲enMinus</span></a></td><td>function</td><td><code>Int -&gt; Int</code></td></tr>
 <tr><td><a href="demos-tour.xtl.html#x">x</a></td><td>value</td><td><code>Int</code></td></tr>
 <tr><td><a href="demos-tour.xtl.html#count-21">count!</a></td><td>value</td><td><code>Int</code></td></tr>
 <tr><td><a href="demos-tour.xtl.html#m">m</a></td><td>value</td><td><code>Int</code></td></tr>

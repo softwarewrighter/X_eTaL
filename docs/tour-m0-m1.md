@@ -13,7 +13,7 @@ argument; dyadic use is currying. The demo scripts in `demos/` are
 executable (`#!/usr/bin/env xetal`):
 
 ```
-# demos/sub.xtl
+# demos/dyadic.xtl
 u:s_ub := { _l - _r }
 10 u:s_ub 3
 u:t_enMinus := u:s_ub 10    # partial application fixes the left argument
@@ -22,7 +22,7 @@ u:t_enMinus 3
 
 ```bash
 ./target/release/xetal run demos/square.xtl       # 49
-./target/release/xetal run demos/sub.xtl          # 7 and 7
+./target/release/xetal run demos/dyadic.xtl          # 7 and 7
 ./target/release/xetal run demos/factorial.xtl    # 3628800
 ./target/release/xetal run --untyped demos/fixed-point.xtl  # 120
 ```

@@ -19,7 +19,7 @@ fn only_its_exports_are_listed() {
         .iter()
         .map(|l| l.split(" : ").next().unwrap().to_string())
         .collect();
-    assert_eq!(names, ["l:m_ean", "l:v_ariance", "l:s_d", "l:r_ange"]);
+    assert_eq!(names, ["l:m_ean", "l:v_ariance", "l:s_d", "l:s_pread"]);
 }
 
 #[test]

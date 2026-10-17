@@ -60,7 +60,7 @@ fn a_failing_block_reports_its_error() {
 
 #[test]
 fn a_notebook_can_import_a_library() {
-    let got = cells("\"s:\" u_se< \"Stats\"\ns:r_ange 3 9 4");
+    let got = cells("\"s:\" u_se< \"Stats\"\ns:s_pread 3 9 4");
     assert_eq!(got[1].1, "6\n");
 }
 

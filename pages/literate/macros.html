@@ -367,9 +367,9 @@ that gives the text replacing the call. The standard library <code>Macros</code>
 <span class="c-comment">⍝# macro that wants a name of its own asks for one (t_wice&lt; below).</span>
 <span class="c-comment">⍝# &gt;&gt; &quot;x:&quot; u_se&lt; &quot;Macros&quot;</span>
 <span class="c-comment">⍝# &gt;&gt; x := 10</span>
-<span class="c-comment">⍝# &gt;&gt; @ x:t_hree&lt; &quot;x + 1&quot;</span>
+<span class="c-comment">⍝# &gt;&gt; @ x:b_inds&lt; &quot;x + 1&quot;</span>
 <span class="c-comment">⍝# 4</span>
-<span class="c-macro">ᵐt̲hree&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; x := 3; &quot;</span> <span class="c-builtin">c̲at</span> e <span class="c-builtin">c̲at</span> <span class="c-string">&quot; } @&quot;</span> }
+<span class="c-macro">ᵐb̲inds&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; x := 3; &quot;</span> <span class="c-builtin">c̲at</span> e <span class="c-builtin">c̲at</span> <span class="c-string">&quot; } @&quot;</span> }
 
 <span class="c-comment">⍝# Twice the expression on the right: the macro binds a local of its</span>
 <span class="c-comment">⍝# own around your expression, a fresh name from []G_ENSYM (g1:t, say),</span>
@@ -396,7 +396,7 @@ that gives the text replacing the call. The standard library <code>Macros</code>
 <span class="c-comment typed">⍝   m:w_hen&lt; := { cond body -&gt; "{ @ -&gt; (n_ot " c_at cond c_at ") ? @; " c_at body c_at "; @ } @" }</span>
 <span class="c-comment typed">⍝   m:d_ef&lt; := { name body -&gt; "u:" c_at name c_at " := { " c_at body c_at " }" }</span>
 <span class="c-comment typed">⍝   m:c_heck&lt; := { cond label -&gt; "{ @ -&gt; (" c_at cond c_at ") ? \"ok: " c_at label c_at "\"; \"FAIL: " c_at label c_at " (" c_at cond c_at ")\" } @" }</span>
-<span class="c-comment typed">⍝   m:t_hree&lt; := { @ e -&gt; "{ @ -&gt; x := 3; " c_at e c_at " } @" }</span>
+<span class="c-comment typed">⍝   m:b_inds&lt; := { @ e -&gt; "{ @ -&gt; x := 3; " c_at e c_at " } @" }</span>
 <span class="c-comment typed">⍝   m:t_wice&lt; := { @ e -&gt;</span>
 <span class="c-comment typed">⍝     t := []G_ENSYM "t"</span>
 <span class="c-comment typed">⍝     "{ @ -&gt; " c_at t c_at " := 2; " c_at t c_at " * (" c_at e c_at ") } @"</span>

@@ -138,7 +138,7 @@ indices (no rank operator).
 
 Done (trains lane, retrofit step): `lib/Stats.xtl` as trains
 (`l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]`, `d_eviations`,
-`l:v_ariance := [l:m_ean [s_quare d_eviations]]`, `l:r_ange`);
+`l:v_ariance := [l:m_ean [s_quare d_eviations]]`, `l:s_pread`);
 `u:f_act := ['* r_/ r_ange]` (factorial, pascal); `'[t_ally
 d_isclose] e_ach` (wordfreq, the reference) and `'['+ r_/ d_isclose]
 e_ach` (pascal); `'[u:m_agic u:s_iamese] e_ach` (magic). The spec map

@@ -48,7 +48,7 @@ deviation and the range:
 #+begin_src xetal
 s:v_ariance 2 4 4 4 5 5 7 9
 s:s_d 2 4 4 4 5 5 7 9
-s:r_ange 3 9 1 7
+s:s_pread 3 9 1 7
 #+end_src
 
 #+RESULTS:

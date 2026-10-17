@@ -34,6 +34,6 @@ l:s_d := { (l:v_ariance _r) ^ 0.5 }
 
 ## The range: the largest minus the smallest.
 ## >> "s:" u_se< "Stats"
-## >> s:r_ange 2 4 4 4 5 5 7 9
+## >> s:s_pread 2 4 4 4 5 5 7 9
 ## 7
-l:r_ange := ['m_ax r_/ - 'm_in r_/]
+l:s_pread := ['m_ax r_/ - 'm_in r_/]

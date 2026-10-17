@@ -18,6 +18,7 @@
 <ul>
 <li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
 <li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-dyadic.xtl.html">dyadic.xtl</a></li>
 <li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
 <li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
 <li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
@@ -29,7 +30,6 @@
 <li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
 <li><a href="demos-square.xtl.html">square.xtl</a></li>
 <li><a href="demos-stats.xtl.html">stats.xtl</a></li>
-<li><a href="demos-sub.xtl.html">sub.xtl</a></li>
 <li><a href="demos-tour.xtl.html">tour.xtl</a></li>
 <li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
 <li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
@@ -78,7 +78,7 @@
 <li><a href="#section-2">Checks</a></li>
 <li class="item"><a href="#m.c_heck-3c"><span class="c-macro">ᵐc̲heck&lt;</span></a></li>
 <li><a href="#section-3">Names a macro binds</a></li>
-<li class="item"><a href="#m.t_hree-3c"><span class="c-macro">ᵐt̲hree&lt;</span></a></li>
+<li class="item"><a href="#m.b_inds-3c"><span class="c-macro">ᵐb̲inds&lt;</span></a></li>
 <li class="item"><a href="#m.t_wice-3c"><span class="c-macro">ᵐt̲wice&lt;</span></a></li>
 <li class="item"><a href="#m.w_ith-3c"><span class="c-macro">ᵐw̲ith&lt;</span></a></li>
 </ul>
@@ -140,8 +140,8 @@ FAIL: doubling (5 = 2 * 2)</pre>
 <div class="uses">Used in: <a href="demos-macros.xtl.src.html#L40">demos/macros.xtl:40</a>, <a href="demos-macros.xtl.src.html#L41">demos/macros.xtl:41</a></div>
 </div>
 <h2 class="section" id="section-3">Names a macro binds</h2>
-<div class="item" id="m.t_hree-3c">
-<h3><a href="#m.t_hree-3c"><span class="c-macro">ᵐt̲hree&lt;</span></a> <span class="type">: Unit -&gt; Char -&gt; Char</span></h3>
+<div class="item" id="m.b_inds-3c">
+<h3><a href="#m.b_inds-3c"><span class="c-macro">ᵐb̲inds&lt;</span></a> <span class="type">: Unit -&gt; Char -&gt; Char</span></h3>
 <div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L46">line 46</a></div>
 <div class="doc">
 <p>The expression on the right with x as 3: the macro binds x around
@@ -150,10 +150,10 @@ macro writes stays as written; that is how an anaphor works, and a
 macro that wants a name of its own asks for one (t_wice&lt; below).</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="lib-Macros.xtlm.html" class="c-string">&quot;Macros&quot;</a></pre>
 <pre class="example"><span class="prompt">      </span>x ← <span class="c-number">10</span></pre>
-<pre class="example"><span class="prompt">      </span>@ <a href="lib-Macros.xtlm.html#m.t_hree-3c" class="c-macro">ˣt̲hree&lt;</a> <span class="c-string">&quot;x + 1&quot;</span>
+<pre class="example"><span class="prompt">      </span>@ <a href="lib-Macros.xtlm.html#m.b_inds-3c" class="c-macro">ˣb̲inds&lt;</a> <span class="c-string">&quot;x + 1&quot;</span>
 4</pre>
 </div>
-<pre class="code"><span class="c-macro">ᵐt̲hree&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; x := 3; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; } @&quot;</span> }</pre>
+<pre class="code"><span class="c-macro">ᵐb̲inds&lt;</span> ← { @ e → <span class="c-string">&quot;{ @ -&gt; x := 3; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> e <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; } @&quot;</span> }</pre>
 </div>
 <div class="item" id="m.t_wice-3c">
 <h3><a href="#m.t_wice-3c"><span class="c-macro">ᵐt̲wice&lt;</span></a> <span class="type">: Unit -&gt; Char -&gt; Char</span></h3>
