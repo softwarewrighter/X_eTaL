@@ -128,9 +128,14 @@ SHA and run `just xetal` again.
 
 ## Published pages
 
-Pages are built locally and committed (`pages/`), so the hosting
-workflow uploads them without building: it needs neither the clone nor
-the binary.
+Pages are built locally into `pages/`, which is not tracked on main,
+and published as one orphan commit on the `gh-pages` branch
+(`just publish`), which GitHub Pages serves as is: nothing is built on
+GitHub, so publishing needs neither the clone nor the binary there.
+A fresh clone seeds `pages/` from `origin/gh-pages`, so only the stale
+parts rebuild. X_eTaL's own history up to D162 tracked `pages/` and is
+left as it is, so the commits sibling repositories pin in
+`XETAL_COMMIT` stay valid.
 
 ## Replacing a tracked vendor/xetal
 

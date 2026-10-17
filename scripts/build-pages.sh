@@ -21,6 +21,7 @@ if [ -z "${parts// /}" ]; then
     exit 0
 fi
 scripts/check-busy.sh
+scripts/seed-pages.sh
 mkdir -p pages
 touch pages/.nojekyll
 
@@ -54,4 +55,4 @@ for part in $parts; do
     scripts/check-pages.sh --write "$part"
     echo "    ($((SECONDS - since))s)"
 done
-echo "pages/ built ($parts): commit it (git add pages/) and push to publish."
+echo "pages/ built ($parts): just publish (from a pushed main) puts it on gh-pages."

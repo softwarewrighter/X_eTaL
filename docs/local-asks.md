@@ -43,8 +43,8 @@ under seven functions, so none is expected.
 - `just pages --all` instead when a demo or library changed, or how
   programs are drawn or run (the lint lane's step 3a edited demos and
   libraries, so its merge needed `--all`).
-- Done when `scripts/check-pages.sh` passes. Commit pages/ with a
-  `chore` line in CHANGES.md, as earlier merges did.
+- Done when `scripts/check-pages.sh` passes. Then `just publish` from
+  the pushed main (pages/ is no longer committed, D162).
 
 ## 4. The saga record (agentrail)
 
