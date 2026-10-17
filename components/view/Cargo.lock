@@ -499,6 +499,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-fmt"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
+ "xetal-syntax",
+]
+
+[[package]]
 name = "xetal-grid"
 version = "0.1.0"
 dependencies = [
@@ -527,6 +536,7 @@ version = "0.1.0"
 dependencies = [
  "xetal-base",
  "xetal-core",
+ "xetal-fmt",
  "xetal-lex",
  "xetal-syntax",
 ]

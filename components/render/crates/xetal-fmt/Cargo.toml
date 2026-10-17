@@ -1,0 +1,13 @@
+[package]
+name = "xetal-fmt"
+description = "The canonical form (xetal fmt)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-lex.workspace = true
+xetal-syntax.workspace = true

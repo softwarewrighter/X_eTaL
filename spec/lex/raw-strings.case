@@ -1,0 +1,28 @@
+# Raw strings (ST4): verbatim, no escapes; with # they may hold quotes.
+# The same Char vector as an ordinary string, and fmt keeps the form.
+== SOURCE
+p := r"C:\data\x.csv"
+q := r#"say "hi""#
+p
+t_ally q
+== TOKENS
+0..1 Var(p)
+2..4 Assign
+5..21 Str("C:\\data\\x.csv")
+21..22 Newline
+22..23 Var(q)
+24..26 Assign
+27..40 Str("say \"hi\"")
+40..41 Newline
+41..42 Var(p)
+42..43 Newline
+43..49 Func(t_ally)
+50..51 Var(q)
+== CANONICAL
+p := r"C:\data\x.csv"
+q := r#"say "hi""#
+p
+(t_ally q)
+== RESULT
+C:\data\x.csv
+8

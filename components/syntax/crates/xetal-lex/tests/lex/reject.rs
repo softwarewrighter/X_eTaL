@@ -102,7 +102,6 @@ fn guard_quote_and_lazy_spacing() {
 
 #[test]
 fn strings() {
-    assert_reject("r\"ab\"", "bad-string", 1, 2); // reserved for raw strings
     assert_reject("\"ab", "bad-string", 0, 3);
     assert_reject("\"a\\qb\"", "bad-string", 2, 4);
     assert_reject("\"a\nb\"", "bad-string", 0, 2);

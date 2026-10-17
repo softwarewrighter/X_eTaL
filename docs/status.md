@@ -21,7 +21,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Built-in functions | 126 | 0 | 0 |
 | Language decisions | 157 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 461 | 0 | 0 |
+| Spec cases | 464 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -164,7 +164,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `s_hape` | `a -> Int` | works | 16 | 2 |
-| `t_ally` | `a -> Int` | works | 20 | 4 |
+| `t_ally` | `a -> Int` | works | 22 | 4 |
 | `r_ange` | `Int -> Int` | works | 42 | 1 |
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 6 | 4 |
@@ -355,9 +355,9 @@ conventions (naming, layout) work without a spec case citing them.
 | B18 | `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...) | works | 3 |
 | SC1 | A symbol function applied to one argument is an error (`- 3`, `/ 2`, `2 +`): under currying it would fill (...) | works | 4 |
 | ST1 | A string is written `"..."` | works | 2 |
-| ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 2 |
+| ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 1 |
 | ST3 | A string is a 1-D array of characters: `"abc"` is a 3-element Char vector and every array function applies (...) | works | 2 |
-| ST4 | Raw strings, Rust's rules: `r"..."` holds its text verbatim (no escapes; a backslash is a backslash) and (...) | works | 0 |
+| ST4 | Raw strings, Rust's rules: `r"..."` holds its text verbatim (no escapes; a backslash is a backslash) and (...) | works | 3 |
 | QD1 | `[]` written touching a name is the system namespace, APL's quad: `[]A`, `[]D_L 0.5` | works | 2 |
 | QD2 | System values, read-only: `[]A` the alphabet `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"`, `[]D` the digits (...) | works | 2 |
 | QD3 | System functions live in the quad namespace and are named like any function: `[]D_L s` waits s seconds (...) | works | 3 |

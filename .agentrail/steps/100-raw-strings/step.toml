@@ -1,6 +1,6 @@
 number = 100
 slug = "raw-strings"
-status = "pending"
+status = "in-progress"
 description = "Saga 41 step 1c: raw strings, docs/lang-choices.md ST4 (decided with the user..."
 role = "production"
 context_files = []

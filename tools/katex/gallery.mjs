@@ -28,12 +28,58 @@ const files = (dir, ext) =>
 const code = (line) => line.trim() !== '' && !line.trim().startsWith('#');
 const read = (f) => readFileSync(join(root, f), 'utf8');
 
-/** [file, line number, source line, may fail to lex] for every source. */
+/** Whether `text` ends inside a raw string (`r"..."`, `r#"..."#`, ST4). */
+function openRaw(text) {
+  let i = 0;
+  while (i < text.length) {
+    const c = text[i];
+    const raw = /^r(#*)"/.exec(text.slice(i));
+    if (c === '#') {
+      const nl = text.indexOf('\n', i);
+      if (nl < 0) return false;
+      i = nl + 1;
+    } else if (c === '"') {
+      i++;
+      while (i < text.length && text[i] !== '"') i += text[i] === '\\' ? 2 : 1;
+      i++;
+    } else if (raw && !/[A-Za-z0-9_:]/.test(text[i - 1] ?? '')) {
+      const close = `"${raw[1]}`;
+      const end = text.indexOf(close, i + raw[0].length);
+      if (end < 0) return true;
+      i = end + close.length;
+    } else {
+      i++;
+    }
+  }
+  return false;
+}
+
+/** [file, line number, source, may fail to lex] for every source line
+ * (a raw string spanning lines makes one entry of its lines). */
 function lines() {
   const out = [];
-  const add = (file, n, text, mayFail = false) => code(text) && out.push([file, n, text, mayFail]);
+  // A raw string spanning lines (ST4) is one piece, from its first line.
+  let pending = null;
+  const add = (file, n, text, mayFail = false) => {
+    if (pending) {
+      pending[2] += `\n${text}`;
+      if (openRaw(pending[2])) return;
+      [file, n, text, mayFail] = pending;
+      pending = null;
+    } else if (openRaw(text)) {
+      pending = [file, n, text, mayFail];
+      return;
+    }
+    if (code(text)) out.push([file, n, text, mayFail]);
+  };
+  // An unterminated raw string ends with its source (a file or a case).
+  const flush = () => {
+    if (pending && code(pending[2])) out.push(pending);
+    pending = null;
+  };
   for (const f of [...files('demos', '.xtl'), ...files('lib', '.xtl'), ...files('userlibs', '.xtl')]) {
     read(f).split('\n').forEach((l, i) => add(f, i + 1, l));
+    flush();
   }
   for (const f of files('docs/literate', '.org')) {
     let inside = false;
@@ -42,6 +88,7 @@ function lines() {
       else if (l.startsWith('#+end_src')) inside = false;
       else if (inside) add(f, i + 1, l);
     });
+    flush();
   }
   for (const f of ['README.md', ...files('docs', '.md').filter((f) => !f.includes('/', 5))]) {
     // A block is a session when its first line is input (six spaces in).
@@ -52,6 +99,7 @@ function lines() {
       else if (inside && session === null) session = /^ {6}\S/.test(l);
       if (inside && session && /^ {6}\S/.test(l)) add(f, i + 1, l.slice(6));
     });
+    flush();
   }
   for (const f of files('spec', '.case')) {
     const text = read(f);
@@ -61,6 +109,7 @@ function lines() {
     // An error case, or a pending one (not yet implemented), may not lex.
     const mayFail = text.includes('== ERROR') || /== STATUS\npending/.test(text);
     m[1].split('\n').forEach((l, i) => add(f, at + i, l, mayFail));
+    flush();
   }
   return out;
 }

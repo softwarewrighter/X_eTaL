@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-render"]
+members = ["crates/xetal-fmt", "crates/xetal-render"]
 
 [workspace.package]
 version = "0.1.0"
@@ -20,6 +20,7 @@ xetal-base = { path = "../base/crates/xetal-base" }
 xetal-lex = { path = "../syntax/crates/xetal-lex" }
 xetal-syntax = { path = "../syntax/crates/xetal-syntax" }
 xetal-render = { path = "crates/xetal-render" }
+xetal-fmt = { path = "crates/xetal-fmt" }
 xetal-core = { path = "../core/crates/xetal-core" }
 xetal-ty = { path = "../types/crates/xetal-ty" }
 xetal-types = { path = "../types/crates/xetal-types" }

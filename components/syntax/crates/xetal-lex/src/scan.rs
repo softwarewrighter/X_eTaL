@@ -5,7 +5,7 @@
 use xetal_base::Span;
 
 use crate::cursor::Cursor;
-use crate::{exponent, literal, name, quad};
+use crate::{literal, name, quad, string};
 use xetal_token::{ErrorKind, LexError};
 use xetal_token::{Side, Symbol, Token, TokenKind};
 
@@ -45,14 +45,17 @@ fn next_token(
     if byte == b'[' && cur.peek_at(1) == Some(b']') {
         return quad::lex_quad(cur);
     }
+    if let Some(hashes) = string::opening(cur) {
+        return string::lex_raw(cur, hashes);
+    }
     if let Some(kind) = punct(byte) {
         cur.pos += 1;
         return Ok(kind);
     }
     match (byte, touching) {
-        (b'^', Some(prev)) => exponent::lex_exponent(cur, prev),
+        (b'^', Some(prev)) => literal::lex_exponent(cur, prev),
         (b'0'..=b'9', _) => literal::lex_number(cur, cur.pos),
-        (b'"', _) => literal::lex_string(cur),
+        (b'"', _) => string::lex_string(cur),
         (b'-', _) => literal::minus(cur),
         (b'_', Some(TokenKind::RParen)) => lambda_arg(cur, true),
         (b'_', _) => lambda_arg(cur, false),

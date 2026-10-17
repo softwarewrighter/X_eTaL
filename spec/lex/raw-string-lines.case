@@ -1,0 +1,24 @@
+# A raw string may span lines; newlines and indentation are kept.
+== SOURCE
+t := r"a
+  b"
+t
+t_ally t
+== TOKENS
+0..1 Var(t)
+2..4 Assign
+5..13 Str("a\n  b")
+13..14 Newline
+14..15 Var(t)
+15..16 Newline
+16..22 Func(t_ally)
+23..24 Var(t)
+== CANONICAL
+t := r"a
+  b"
+t
+(t_ally t)
+== RESULT
+a
+  b
+5

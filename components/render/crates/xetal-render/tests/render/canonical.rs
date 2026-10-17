@@ -138,3 +138,13 @@ fn the_deepest_accepted_trees_print() {
     assert!(xetal_render::decorate(&chain).is_ok());
     assert!(xetal_render::latex(&chain).is_ok());
 }
+
+#[test]
+fn raw_strings_keep_the_form_written() {
+    assert_eq!(fmt(r#"p := r"C:\d""#), r#"p := r"C:\d""#);
+    let multi = "q := r#\"say \"hi\"\n  twice\"#";
+    assert_eq!(fmt(multi), multi);
+    assert_eq!(fmt(r#"t_ally r"a b""#), r#"(t_ally r"a b")"#);
+    assert_eq!(fmt(r#""a\nb""#), r#""a\nb""#);
+    assert_eq!(parse(&fmt(multi)), parse(multi));
+}

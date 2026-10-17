@@ -1,0 +1,6 @@
+# Only r opens a raw string (ST4); any other name touching a quote is
+# an error, never a name followed by a string.
+== SOURCE
+ab"x"
+== ERROR
+error[bad-string]: a name touching `"` is an error: only `r` opens a raw string (`r"..."`, `r#"..."#`) at 2..3

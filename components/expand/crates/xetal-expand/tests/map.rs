@@ -63,3 +63,19 @@ fn an_error_inside_an_argument_points_into_it() {
     let span = d.span.unwrap();
     assert_eq!(&src[span.start..span.end], "i_f<");
 }
+
+#[test]
+fn a_raw_argument_is_its_text_as_written() {
+    let src = "\"x\" u_nless< r\"p_rint! \\n\"";
+    let e = expand_with(src, &Unless).unwrap();
+    assert!(e.text().contains("p_rint! \\n;"), "{}", e.text());
+}
+
+#[test]
+fn raw_argument_text_maps_into_its_string_across_lines() {
+    let src = "\"x\" u_nless< r#\"\n  p_rint! \"ab\"\"#";
+    let e = expand_with(src, &Unless).unwrap();
+    let at = e.text().find("ab").unwrap();
+    let back = e.span(Span::new(at, at + 2));
+    assert_eq!(&src[back.start..back.end], "ab");
+}

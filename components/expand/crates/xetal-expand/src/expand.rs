@@ -83,9 +83,16 @@ fn expansion(src: &Mapped, call: &Call, cx: &Cx) -> Result<Mapped, Diagnostic> {
     Ok(text)
 }
 
-/// The inside of the string literal at `span`, escapes replaced.
+/// The inside of the string literal at `span`: escapes replaced, or a
+/// raw string's text as written (`r"..."`, `r#"..."#`, ST4).
 fn inside(src: &Mapped, span: Span) -> Mapped {
-    src.slice(span.start + 1..span.end - 1).unescape()
+    match src.text()[span.start..span.end].strip_prefix('r') {
+        Some(raw) => {
+            let hashes = raw.len() - raw.trim_start_matches('#').len();
+            src.slice(span.start + 2 + hashes..span.end - 1 - hashes)
+        }
+        None => src.slice(span.start + 1..span.end - 1).unescape(),
+    }
 }
 
 /// `d` with its span located in the text as written.

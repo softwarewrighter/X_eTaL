@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-16
+
+- 16:50 `feat` Raw strings (step 100, ST4, D156): `r"..."` and `r#"..."#` lex verbatim and may span lines (the same Char vector as `"..."`); `xetal fmt` keeps the form written (the canonical printer moved to a new crate, xetal-fmt); a raw macro argument is passed as written, its errors still located inside it; spec cases and tests in the lexer, formatter, expander and view; the LaTeX gallery takes a raw string spanning lines as one piece; xetal-lex regrouped (string forms in `string`, `^` exponents in `literal`) to stay within sw-checklist's limits.
+
 ## 2026-10-15
 
 - 12:25 `design` Pipelines decided with the user (Saga 41 step 1b, D155) from docs/xetal-ml-pipelines-design.md (the user's proposal, committed): `@ e:p_ipe< "X |> W1 nn:d_ense it |> nn:r_elu"`, X_eTaL stages with `it`, ` : name`, shape annotations checked by a planned shape lint and at run time; raw strings decided (ST4, docs/lang-choices.md) for one stage per line; docs/spatial.md, docs/eq-rationale.md, docs/type-check-macros.md (approach 8, the shape lint) updated; docs/spatial-poc/pipes-oracle.xtl gives five examples' expected outputs; steps raw-strings, spatial-pipeline-macro and shape-lint planned.

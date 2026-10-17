@@ -205,3 +205,18 @@ fn a_system_value_is_colored_as_a_built_in() {
         ]
     );
 }
+
+#[test]
+fn a_raw_string_across_lines_stays_a_string_on_each() {
+    let src = "t := r\"a\n  b\"\nt";
+    let ls = lines(&view(src));
+    assert_eq!(ls.len(), 3);
+    let first = ls[0].last().unwrap();
+    let second = &ls[1][0];
+    assert_eq!((first.text.as_str(), first.class), ("r\"a", Class::String));
+    assert_eq!(
+        (second.text.as_str(), second.class),
+        ("  b\"", Class::String)
+    );
+    assert_eq!(&src[second.raw.start..second.raw.end], "  b\"");
+}

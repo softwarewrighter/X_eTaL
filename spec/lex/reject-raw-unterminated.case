@@ -1,0 +1,6 @@
+# A raw string with one # ends only at a quote followed by one #
+# (ST4); a lone quote does not end it.
+== SOURCE
+r#"ab"
+== ERROR
+error[bad-string]: unterminated raw string: it ends with "# at 0..6

@@ -13,7 +13,8 @@ pub fn width(text: &str) -> usize {
 
 /// The segments split into lines at newlines (a segment whose text is
 /// hidden keeps its raw bytes for the source pane). Only text shown as typed
-/// (whitespace) holds newlines, so raw spans split with the text.
+/// holds newlines (whitespace, and a raw string spanning lines, ST4), so
+/// raw spans split with the text.
 pub fn lines(segments: &[Segment]) -> Vec<Vec<Segment>> {
     let mut out = vec![Vec::new()];
     for s in segments {
