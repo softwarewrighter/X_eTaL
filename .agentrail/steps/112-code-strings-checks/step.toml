@@ -1,0 +1,8 @@
+number = 112
+slug = "code-strings-checks"
+status = "pending"
+description = "docs/code-strings.md, step 112 (the user, 2026-10-17: code strings should giv..."
+role = "production"
+context_files = []
+created_at = "2026-10-17T14:35:21"
+commits = []

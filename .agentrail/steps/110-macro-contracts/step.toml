@@ -1,6 +1,6 @@
 number = 110
 slug = "macro-contracts"
-status = "pending"
+status = "in-progress"
 description = "The user (2026-10-17, decided): three contract lines in a macro's doc block, ..."
 role = "production"
 context_files = []
