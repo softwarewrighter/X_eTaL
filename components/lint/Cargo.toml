@@ -22,5 +22,6 @@ xetal-sources = { path = "../macro/crates/xetal-sources" }
 xetal-linter = { path = "crates/xetal-linter" }
 xetal-macrolint = { path = "crates/xetal-macrolint" }
 xetal-doccom = { path = "../doc/crates/xetal-doccom" }
+xetal-contract = { path = "../expand/crates/xetal-contract" }
 xetal-typed = { path = "crates/xetal-typed" }
 xetal-types = { path = "../types/crates/xetal-types" }

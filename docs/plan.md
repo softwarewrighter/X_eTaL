@@ -1194,10 +1194,10 @@ style guide's names (lang-choices section 16).
 12. lint-xtlm (D162; lane lint-xtlm, branch feat/lint-xtlm-gnxaix):
    lints on macro libraries, from the lint plan's section 4.3:
    `gensym-unused`, `gensym-not-name`, `reject-bad-place`,
-   `reject-undocumented`, `reject-unplaced`, `missing-example`, in a
-   new crate xetal-macrolint; the repository test lints `.xtlm` files
-   too. Contracts that do not match the body (`## takes:`, `## uses:`)
-   follow once step 110 (macro contracts) is on main.
+   `reject-undocumented`, `reject-unplaced`, `missing-example`, and
+   contracts the body contradicts (MC31): `takes-mismatch`,
+   `ignored-argument`, `binds-unwritten`; in a new crate
+   xetal-macrolint; the repository test lints `.xtlm` files too.
 ## Saga 41 (proposed) -- spatial equations (paper math to array code, a library)
 
 Proposed after the review of `docs/research8.txt` and

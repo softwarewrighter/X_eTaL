@@ -209,4 +209,44 @@ Example:\n    ## Its argument.\n    m:i_d< := { @ e -> e }\nInstead:\n    \
 ## Its argument.\n    ## >> \"x:\" u_se< \"M\"\n    ## >> @ x:i_d< \"3\"\n    ## 3\n    \
 m:i_d< := { @ e -> e }\n\nOff by default: `xetal lint -W pedantic` turns it on.",
     },
+    Lint {
+        name: "takes-mismatch",
+        group: Group::Suspicious,
+        level: Level::Warn,
+        summary: "a macro's `## takes:` line that its parameters contradict",
+        explain: "What it does: warns on a macro whose `## takes:` line (MC31) says a side \
+takes text where its parameter is `@`, or `@` where its parameter is named.\n\nWhy: \
+the runner refuses every call of another shape before the macro runs, so a side \
+declared text but written `@` never sees the text it is given, and a named side \
+declared `@` names nothing.\n\nExample:\n    ## takes: text text\n    \
+m:o_ne< := { @ e -> e }\nInstead:\n    ## takes: @ text\n    m:o_ne< := { @ e -> e }",
+    },
+    Lint {
+        name: "ignored-argument",
+        group: Group::Correctness,
+        level: Level::Warn,
+        summary: "a copying macro that never reads one of its sides",
+        explain: "What it does: warns on a macro that copies its text (`## uses: copied`, \
+the default, MC31) but never reads one of its named parameters.\n\nWhy: a copying \
+macro must write every name and number of its arguments into its expansion; one it \
+never reads fails every call that gives text there with error[unused-argument].\n\n\
+Example:\n    ## takes: text text\n    m:l_eft< := { a b -> a }\nInstead:\n    \
+## takes: text @\n    m:l_eft< := { a @ -> a }\n\nA macro that reads a notation \
+says `## uses: parsed` and is not checked. Reported instead of `unused-binding` at \
+the same parameter.",
+    },
+    Lint {
+        name: "binds-unwritten",
+        group: Group::Suspicious,
+        level: Level::Warn,
+        summary: "a `## binds:` name that no text the macro writes contains",
+        explain: "What it does: warns on a macro whose `## binds:` line (MC30) names an \
+anaphor that no string literal in its body has as a word.\n\nWhy: the line stops a \
+call's text from binding that name (shadows-anaphor); if the macro never binds it, \
+the line refuses good calls for nothing, and is likely left from an older body.\n\n\
+Example:\n    ## binds: it\n    m:w_ith< := { e body -> \"{ @ -> x := (\" c_at e c_at \
+\"); \" c_at body c_at \" } @\" }\nInstead:\n    ## binds: it\n    m:w_ith< := { e body \
+-> \"{ @ -> it := (\" c_at e c_at \"); \" c_at body c_at \" } @\" }\n\nA name written by \
+a helper the macro calls is not seen: allow it there.",
+    },
 ];

@@ -3,10 +3,12 @@
 //! until a user meets it. A fresh name asked for and never used, or
 //! asked for under a name that is not plain (`[]G_ENSYM`); a code a
 //! macro rejects its call with that its doc block never mentions, or
-//! placed nowhere (`[]R_EJECT`); a macro with no `## >>` example. The
-//! passes read Core and the file's `##` blocks; their catalog entries
-//! are in xetal-lint with the rest.
+//! placed nowhere (`[]R_EJECT`); a macro with no `## >>` example; a
+//! contract (`## takes:`, `## uses:`, `## binds:`, MC31) its body
+//! contradicts. The passes read Core and the file's `##` blocks; their
+//! catalog entries are in xetal-lint with the rest.
 
+mod contract;
 mod example;
 mod fresh;
 mod macros;

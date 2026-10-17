@@ -1628,6 +1628,7 @@ name = "xetal-macrolint"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+ "xetal-contract",
  "xetal-doccom",
  "xetal-ir",
  "xetal-lint",

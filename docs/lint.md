@@ -113,6 +113,9 @@ The live demo needs no JSON: it calls the same Rust functions.
 | `reject-undocumented` | pedantic | allow | a code a macro rejects its call with that its `##` block does not name, in its prose or examples |
 | `reject-unplaced` | pedantic | allow | a literal `"code" []R_EJECT ...` with no place |
 | `missing-example` | pedantic | allow | a macro (`m:n_ame<`) whose doc block has no `## >>` example |
+| `takes-mismatch` | suspicious | warn | a `## takes:` side declared text whose parameter is `@`, or declared `@` whose parameter is named |
+| `ignored-argument` | correctness | warn | a copying macro (`## uses: copied`, the default) that never reads a named parameter, so every call fails `unused-argument`; replaces `unused-binding` there |
+| `binds-unwritten` | suspicious | warn | a `## binds:` name no string literal in the macro's body has as a word |
 
 The naming lints check lang-choices section 16 (style guide). Case
 carries no meaning to the language (decoration decides what a name is),
@@ -127,7 +130,7 @@ name, group, default level, one-line summary and the text
 fails if a pass reports a code that is not in the catalog, or an entry
 lacks its example, so a lint cannot ship undocumented.
 
-The macro library lints (the last six) check what a macro author can
+The macro library lints (the last nine) check what a macro author can
 get wrong that no call shows until a user meets it
 (docs/type-check-macros.md approach 7). They read Core and the file's
 `##` blocks (xetal-doccom), so they need no expansion: a fresh name
@@ -140,7 +143,11 @@ call it); the places in any definition. `gensym-unused` covers a fresh
 name the text never writes, the usual way a macro captures its
 caller's name by mistake; `unused-binding` would report the same name
 with a fix to `_`, which would only throw the fresh name away, so the
-more specific finding replaces it (D162).
+more specific finding replaces it (D162). The contract lints read the
+`## takes:`, `## uses:` and `## binds:` lines (MC31, xetal-contract's
+`contracts_of`, as the runner does) and check them against the
+macro's two parameters and the text its body writes, so a contract
+the body contradicts is found before any call meets it.
 
 ## 4. Setting levels
 

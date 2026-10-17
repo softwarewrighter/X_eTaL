@@ -1,6 +1,6 @@
 # lint-xtlm lane: handoff for the local agent
 
-Saga 40 step 12 (lint-xtlm, D162): lints on macro libraries, built in
+Saga 40 step 12 (lint-xtlm, D162): nine lints on macro libraries, built in
 a cloud sandbox on branch `feat/lint-xtlm-gnxaix`. The sandbox had no
 agentrail, reg-rs, sw-checklist, sw-markdown-checker, just or trunk,
 so this lane has no `lanes/lint-xtlm/.agentrail` yet (agentrail files
@@ -35,7 +35,10 @@ are never written by hand). Record it locally after merging.
 5. D162 and step 12 may need renumbering if another lint lane merged
    first with the same numbers.
 
-## Still to come in this lane
+## Contracts (after step 110)
 
-Contracts that do not match the body (`## takes:`, `## uses:`), once
-step 110 (macro contracts) is on main.
+Rebased onto 57cff93; `takes-mismatch`, `ignored-argument` and
+`binds-unwritten` added over xetal-contract. Self-checked with fmt,
+clippy and tests in core and lint (the repository test included);
+`lint-list.out` refreshed from a real run (three more lints). Goldens
+and gates are left to the integrator's train (CLAUDE.md, 2026-10-17).

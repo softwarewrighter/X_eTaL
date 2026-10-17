@@ -16,3 +16,6 @@ reject-bad-place     suspicious   warn   a []R_EJECT code whose place is not lef
 reject-undocumented  pedantic     allow  a macro rejects its call with a code its doc block never mentions
 reject-unplaced      pedantic     allow  a []R_EJECT code with no place, so the error lands on the macro's name
 missing-example      pedantic     allow  a macro with no `## >>` example in its doc block
+takes-mismatch       suspicious   warn   a macro's `## takes:` line that its parameters contradict
+ignored-argument     correctness  warn   a copying macro that never reads one of its sides
+binds-unwritten      suspicious   warn   a `## binds:` name that no text the macro writes contains
