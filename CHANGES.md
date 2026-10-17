@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-16
 
+- 19:56 `fix` Boxed no longer breaks macros (step 106, D158; the user's report): a macro's text is printed plain while it expands, whatever `--box` or the live demo's Boxed toggle says for the program's output, which drew every expansion as a box that could not lex (`error[non-ascii]` at the call, every macro in every program). Tests: the expansion under Boxed (xetal-program), every Open-menu program run plain, Boxed and as a notebook with the libraries checked (xetal-web), a golden of `run --box demos/macros.xtl`.
 - 19:30 `feat` JuliaMono from jsDelivr (step 105, D157): the live demo, the doc site and the literate pages declare `@font-face` for JuliaMono Regular (cormullion/juliamono v0.63.2, SIL OFL, swap; the live demo preloads it), so decorated source is drawn in JuliaMono whether or not it is installed; nothing redistributed.
 - 18:42 `plan` Saga 41's libraries move to sibling repositories (the user's choice): equations to X_eTaL-libraries as `Equations` (its Saga 12; pin, oracle done), pipelines to X_eTaL-ML; kept here: a canary macro library, the shape lint, the limitations review; integrals after pipelines.
 - 18:22 `test` xetal-eval's closures_keep_captured_values rebinds n in a nested scope: it rebound n at the top level, refused since names are bound once (M1, step 091); found by step 100's affected gate, the first to run eval's tests since.

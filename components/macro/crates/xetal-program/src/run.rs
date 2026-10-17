@@ -53,7 +53,13 @@ fn run(library: &Sources, call: &MacroRun) -> Result<String, Diagnostic> {
         return Err(Diagnostic::new("macro-not-text", message));
     }
     let mut out = Vec::new();
+    // The text is printed plain, whatever the host's Boxed setting for
+    // the program's own output: boxed, it would be a drawing (the live
+    // demo's toggle once made every expansion fail to lex).
+    let boxed = xetal_grid::boxed();
+    xetal_grid::set_boxed(false);
     let (_, result) = xetal_eval::eval_program(&program, &mut out, Some(0));
+    xetal_grid::set_boxed(boxed);
     result.map_err(|d| match rejected(&d) {
         true => Diagnostic { span: None, ..d },
         false => at(d),

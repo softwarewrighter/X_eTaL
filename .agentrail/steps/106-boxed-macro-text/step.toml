@@ -1,6 +1,6 @@
 number = 106
 slug = "boxed-macro-text"
-status = "pending"
+status = "in-progress"
 description = "The user's report (2026-10-16): with Boxed on, every demo with a macro failed..."
 role = "production"
 context_files = []

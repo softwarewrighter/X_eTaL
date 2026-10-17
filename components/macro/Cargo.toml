@@ -29,4 +29,5 @@ xetal-core = { path = "../core/crates/xetal-core" }
 xetal-types = { path = "../types/crates/xetal-types" }
 xetal-lint = { path = "../core/crates/xetal-lint" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
+xetal-grid = { path = "../view/crates/xetal-grid" }
 xetal-system = { path = "../system/crates/xetal-system" }

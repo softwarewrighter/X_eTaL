@@ -234,3 +234,61 @@ fn open_groups_the_demos_by_folder() {
         .unwrap();
     assert_eq!(label(&format!("demo:{leet}")).map(|(g, _)| g), Some("Misc"));
 }
+
+/// Programs that read typed lines; every other choice runs with nothing
+/// typed (the smoke test pipes guesses into these two).
+const INTERACTIVE: &[&str] = &["tttml-play.xtl", "classics/mastermind-play.xtl"];
+
+/// Programs that train a model: two minutes each in a debug build, so
+/// they are run in release by the smoke test and their goldens instead.
+const SLOW: &[&str] = &["tttml.xtl", "tttml-train.xtl"];
+
+/// Every program the Open menu offers (Demos, Classics, Misc) runs in
+/// the live demo's three ways: Run, Run with Boxed on, and Notebook;
+/// each library it offers checks. A program may write to standard
+/// error on purpose (macros.xtl's a_ssert< does); an `error[` there is
+/// a regression (Boxed once drew a macro's text as a box, and the
+/// expansion failed to lex). One test, since the Boxed flag is global.
+#[test]
+fn every_choice_runs_boxed_and_as_a_notebook() {
+    store();
+    let mut seen = std::collections::BTreeSet::new();
+    for (group, value, label) in choices(&[]) {
+        let (name, text) = open(&value).unwrap_or_else(|| panic!("{group}: {label} opens"));
+        if text.is_empty() || INTERACTIVE.contains(&name.as_str()) || SLOW.contains(&name.as_str())
+        {
+            continue;
+        }
+        if group == "Libraries" {
+            let lines = xetal_play::check(&text);
+            assert!(
+                !lines.iter().any(|l| l.starts_with("error[")),
+                "{name}: {lines:?}"
+            );
+            continue;
+        }
+        seen.insert(group);
+        let plain = xetal_play::run(&text, 1);
+        assert!(!plain.err.contains("error["), "{name} (Run): {}", plain.err);
+        xetal_play::set_boxed(true);
+        let boxed = xetal_play::run(&text, 1);
+        xetal_play::set_boxed(false);
+        assert!(
+            !boxed.err.contains("error["),
+            "{name} (Boxed): {}",
+            boxed.err
+        );
+        let mut cell = |_: &str| {};
+        let mut out = xetal_play::Lines::new(|_: &str| {});
+        let notebook = xetal_play::notebook_to(&text, 1, None, &mut cell, &mut out);
+        assert!(
+            !notebook.err.contains("error["),
+            "{name} (Notebook): {}",
+            notebook.err
+        );
+    }
+    assert_eq!(
+        seen.into_iter().collect::<Vec<_>>(),
+        ["Classics", "Demos", "Misc"]
+    );
+}

@@ -2557,6 +2557,7 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-eval",
+ "xetal-grid",
  "xetal-lex",
  "xetal-macro",
  "xetal-sources",

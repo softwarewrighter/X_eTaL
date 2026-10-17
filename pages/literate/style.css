@@ -1,3 +1,15 @@
+/* JuliaMono, the one monospace font with every character the decorated
+   source uses (combining underline, raised letters, APL glyphs, box
+   drawing), from its own release on jsDelivr (SIL Open Font License), so
+   the page does not depend on it being installed. */
+@font-face {
+  font-family: JuliaMono;
+  src: url("https://cdn.jsdelivr.net/gh/cormullion/juliamono@v0.63.2/webfonts/JuliaMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* The literate documents' HTML (scripts/literate-html.sh): dark, like
    the live demo, with JuliaMono for code where it is installed. */
 :root { --bg: #16181d; --fg: #d8dbe2; --dim: #8a90a0; --code: #1e2129; --accent: #f5c518; --link: #7cb3ff; }

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run --box demos/macros.xtl"
+exit_code = 0
+desc = "--box with macros: a macro's text expands plain while the program's arrays (strings too) print boxed; once every expansion was a box drawing and failed to lex (D158)"

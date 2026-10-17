@@ -146,3 +146,22 @@ fn a_signature_line_is_refused_outside_system_xtlm() {
     let err = load_library("M.xtlm", "m:f_< :: Char -> Char -> Char\n").unwrap_err();
     assert_eq!(err.code, "unexpected-char");
 }
+
+#[test]
+fn a_macros_text_is_plain_whatever_the_boxed_setting() {
+    // The host's Boxed setting (xetal run --box, the live demo's toggle)
+    // draws the program's output; a macro's text is source, read by the
+    // lexer, so it is printed plain while the macro runs, and the setting
+    // is back for the program's own output.
+    let main = with_control("boxed", &[]);
+    let src = "\"x:\" u_se< \"Control\"\nn := 4\n\"n != 0\" x:w_hen< \"p_rint! 100 / n\"\n";
+    xetal_grid::set_boxed(true);
+    let text = expanded(&main, src);
+    let still = xetal_grid::boxed();
+    xetal_grid::set_boxed(false);
+    assert!(still, "the setting is restored");
+    assert_eq!(
+        text.unwrap(),
+        "\"x:\" u_se< \"Control\"\nn := 4\n{ @ -> (n != 0) ? @; p_rint! 100 / n; @ } @\n"
+    );
+}
