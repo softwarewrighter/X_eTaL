@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint reg/fixtures/lint/strings.xtl"
+exit_code = 0
+desc = "xetal lint: the string lints read the file as written: extra raw-string `#` (needless-raw-hashes) and a `# lint:` line inside a string (string-holds-directive) warn; the pedantic spelling lints (needless-raw-string, escapes-could-be-raw) are off by default; exit 0"

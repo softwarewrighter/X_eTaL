@@ -1,0 +1,8 @@
+#!/usr/bin/env xetal
+# The string lints: how a string is spelled, plain or raw (ST4).
+s := r#"a "quoted" word"#
+p := r"C:\dir\file"
+q := "plain"
+c := r#"x := "3 + 4""#
+d := "# lint: allow all"
+t := r##"one "#2" two"##

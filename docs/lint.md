@@ -107,6 +107,10 @@ The live demo needs no JSON: it calls the same Rust functions.
 | `function-name-case` | pedantic | allow | a function named UpperCamel (`u:N_extGen`); a capital start is for combinators |
 | `int-condition` | suspicious | warn | a guard whose condition type-checks as an Int (`t_ally v ? ...`), which fails at run time unless it is 1 or 0; runs after type checking |
 | `upper-case-name` | pedantic | allow | a variable of two or more letters, all capitals (`MAXSIZE`) |
+| `needless-raw-hashes` | style | warn | a raw string with more `#` than it needs (`r##"a"##`); the fewest is none without a `"` inside, else one more than the most `#` after a `"`; fix: the delimiters |
+| `needless-raw-string` | pedantic | allow | a raw string with no backslash, `"` or newline, which plain spells the same (`r"abc"` is `"abc"`); fix: drop the `r` and `#` |
+| `escapes-could-be-raw` | pedantic | allow | a plain string with two or more `\"` or `\\` and no `\n` or `\t`, clearer raw; fix: `r"..."`, or `r#"..."#` with the fewest `#` when it holds a `"` |
+| `string-holds-directive` | suspicious | warn | a line inside a string (any kind) that starts `# lint:` or `# lint-file:`: text there, not a directive; no fix |
 
 The naming lints check lang-choices section 16 (style guide). Case
 carries no meaning to the language (decoration decides what a name is),
@@ -204,6 +208,14 @@ these rules testable one by one.
                    the complexity group)
   components/lint: xetal-typed  (int-condition: lints after type
                    checking, over xetal_types::guard_types)
+  components/lint: xetal-strings  (the string lints, over the file's
+                   own tokens, not Core)
+     form.rs      Form (plain, raw with n #), delimiters, fewest_hashes
+     literal.rs   each literal's form, span, body, value; holds()
+     spelling.rs  needless-raw-hashes, needless-raw-string,
+                  escapes-could-be-raw
+     directive.rs string-holds-directive
+     scan.rs      strings() runs them all; line_col() places them
   components/core: xetal-ir    Expr::children(), the walk every pass uses
      walk.rs      Core children and binding sites
 ```
@@ -237,6 +249,21 @@ type error is reported where the program is run. They live in their
 own crate, `xetal-typed` in the lint component, because the checker
 depends on Core and xetal-lint must not depend on the checker; their
 catalog entries are in xetal-lint with the rest.
+
+Why the string lints read the text. How a string is spelled (plain
+`"..."` or raw `r#"..."#`, ST4) is gone once it is lexed: Core holds
+only its value. So `xetal-strings` lexes the program's file as written
+and reads each string token's own text for its form and `#` count;
+its spans are offsets in that file, placed by line and column the way
+the source map places the Core findings (a file that does not lex has
+none: loading reports why). The form is an enum (`Form::Plain`,
+`Form::Raw(n)`), so another kind of string (a code string `c"..."`,
+docs/code-strings.md) is one more variant, and may bring lints of its
+own. Every fix keeps the string's value byte for byte: a plain
+argument is unescaped before a macro sees it and a raw one is not
+(D156), so the fix is offered only when its new spelling lexes to
+exactly the same value (`holds()`), and the tests check that lexing
+the fixed text gives every string its old value.
 
 ## 6. Qualities
 
