@@ -33,7 +33,11 @@ fn named_parameters_and_currying() {
 
 #[test]
 fn closures_keep_captured_values() {
-    assert_eq!(run("n := 3; u:f_ := { x -> x + n }; n := 100; u:f_ 1"), "4");
+    // A name is bound once per scope (M1): the later n shadows in its own.
+    assert_eq!(
+        run("n := 3; u:f_ := { x -> x + n }; { @ -> n := 100; u:f_ 1 } @"),
+        "4"
+    );
     assert_eq!(
         run("u:a_dder := { a -> { b -> a + b } }; (u:a_dder 5)_ 2"),
         "7"

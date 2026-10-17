@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-16
 
+- 18:35 `test` xetal-eval's closures_keep_captured_values rebinds n in a nested scope: it rebound n at the top level, refused since names are bound once (M1, step 091); found by step 100's affected gate, the first to run eval's tests since.
 - 17:15 `feat` Raw strings in Emacs (step 100): xetal-mode marks `r"..."` and `r#"..."#` as string fences (quotes, `#` and backslashes inside are text, across lines), with an ERT test; README's syntax table shows raw strings; ST4 notes how a macro sees a raw argument's newlines.
 - 17:05 `docs` README links the blog series on array languages (https://blog.softwarewrighter.com/series/#array-languages), under the live demo link and first in Documentation.
 - 16:50 `feat` Raw strings (step 100, ST4, D156): `r"..."` and `r#"..."#` lex verbatim and may span lines (the same Char vector as `"..."`); `xetal fmt` keeps the form written (the canonical printer moved to a new crate, xetal-fmt); a raw macro argument is passed as written, its errors still located inside it; spec cases and tests in the lexer, formatter, expander and view; the LaTeX gallery takes a raw string spanning lines as one piece; xetal-lex regrouped (string forms in `string`, `^` exponents in `literal`) to stay within sw-checklist's limits.
