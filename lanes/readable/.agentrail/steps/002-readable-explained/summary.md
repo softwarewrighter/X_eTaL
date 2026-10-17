@@ -1,0 +1,1 @@
+A type mismatch explained (D163): xetal-why labels each operand (binding, literal, built-in result, parameter); labels grouped under the error's line; 4 spec cases.

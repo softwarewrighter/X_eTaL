@@ -1,8 +1,9 @@
 number = 2
 slug = "readable-explained"
-status = "in-progress"
+status = "completed"
 description = "Readable lane (see lanes/readable/.agentrail/plan.md and docs/plan.md Saga 27..."
 role = "production"
 context_files = []
 created_at = "2026-10-17T23:40:00"
-commits = []
+completed_at = "2026-10-17T23:46:27"
+commits = ["d0e37c28c8b42944ed34c0745b359a50d35171ba"]
