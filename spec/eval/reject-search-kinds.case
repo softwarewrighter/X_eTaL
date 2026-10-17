@@ -7,3 +7,5 @@ error[type-mismatch]: expected Char, found a number
   |
 1 | "abc" i_ndexOf 1
   | ^^^^^^^^^^^^^^^^
+  | ----- a string: a vector of Char
+  = note: `i_ndexOf` has type Eq a => a -> a -> Int

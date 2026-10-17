@@ -8,3 +8,4 @@ error[type-mismatch]: expected an array, found a tuple
   |
 1 | r_ev (1, 2)
   | ^^^^^^^^^^^
+  = note: `r_ev` has type a -> a

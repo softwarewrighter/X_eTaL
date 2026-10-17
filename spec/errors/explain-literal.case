@@ -1,0 +1,13 @@
+# A literal says what it is; the built-in applied shows its type (D163).
+== SOURCE
+n := 3; n + 2.5
+== ERROR
+error[type-mismatch]: expected Int, found Float
+ --> -e:1:9
+  |
+1 | n := 3; n + 2.5
+  |         ^^^^^^^
+  |      - `n` gets its type here
+  |         - `n` is an Int
+  |             --- a Float literal
+  = note: `+` has type Num a => a -> a -> a

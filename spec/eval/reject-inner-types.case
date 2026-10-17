@@ -8,3 +8,5 @@ error[type-mismatch]: expected a number, found Char
   |
 1 | "ab" '+ '* i_nner "ab"
   | ^^^^^^^^^^^^^^^^^^^^^^
+  | ---- a string: a vector of Char
+  |                   ---- a string: a vector of Char

@@ -8,3 +8,4 @@ error[type-mismatch]: expected a number, found Char
   |
 1 | '+ r_/ "abc"
   | ^^^^^^^^^^^^
+  |        ----- a string: a vector of Char

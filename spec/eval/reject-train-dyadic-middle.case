@@ -8,5 +8,6 @@ error[type-mismatch]: expected Bool or Int, found a -> b
   |
 1 | 1 2 [+ n_ot -] 3 4
   |        ^^^^
+  = note: `n_ot` has type (Truthy a, Truthy b) => a -> b
   = note: in the train `[+ n_ot -]`, `n_ot` is applied as `(x + y) n_ot (x - y)`, where x and y are the train's arguments
   = note: `n_ot` takes one argument, but here it is given two

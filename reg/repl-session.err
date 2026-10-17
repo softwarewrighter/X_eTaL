@@ -3,6 +3,13 @@ error[type-mismatch]: expected Int, found Float
   |
 4 | x + 2.5
   | ^^^^^^^
+  | - `x` is an Int
+  |     --- a Float literal
+ ::: -e:3:6
+  |
+3 | x := 3
+  |      - `x` gets its type here
+  = note: `+` has type Num a => a -> a -> a
 error[division-by-zero]: division by zero
   --> repl:10:12
    |

@@ -8,3 +8,4 @@ error[type-mismatch]: expected a number, found Char
   |
 1 | '{ @ -> 1 + 2 } []T_RAP '{ e -> []R_ECOVER "text" }
   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |                          -------------------------- this is an Error -> Outcome Char

@@ -7,3 +7,4 @@ error[type-mismatch]: expected Char, found a number
   |
 1 | []S_HOW 3
   | ^^^^^^^^^
+  = note: `[]S_HOW` has type Char -> Char

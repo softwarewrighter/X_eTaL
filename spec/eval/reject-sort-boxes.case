@@ -7,3 +7,5 @@ error[type-mismatch]: expected a number or Char, found Box Char
   |
 1 | s_ort "b" "a"
   | ^^^^^^^^^^^^^
+  |       ------- this is a Box Char
+  = note: `s_ort` has type Ord a => a -> a

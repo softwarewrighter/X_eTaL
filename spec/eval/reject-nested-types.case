@@ -8,3 +8,6 @@ error[type-mismatch]: expected Char, found Box Char
   |
 1 | "ab" c_at "cd" "ef"
   | ^^^^^^^^^^^^^^^^^^^
+  | ---- a string: a vector of Char
+  |           --------- this is a Box Char
+  = note: `c_at` has type a -> a -> a

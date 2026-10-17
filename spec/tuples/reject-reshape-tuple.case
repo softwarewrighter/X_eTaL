@@ -7,3 +7,5 @@ error[type-mismatch]: expected an array, found a tuple
   |
 1 | 2 r_eshape (1, 2)
   | ^^^^^^^^^^^^^^^^^
+  | - a whole-number literal, here an Int
+  = note: `r_eshape` has type Int -> a -> a

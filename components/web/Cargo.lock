@@ -1917,6 +1917,7 @@ dependencies = [
  "xetal-lex",
  "xetal-prim-types",
  "xetal-ty",
+ "xetal-why",
 ]
 
 [[package]]
@@ -1975,6 +1976,17 @@ version = "0.1.0"
 dependencies = [
  "js-sys",
  "xetal-clock",
+]
+
+[[package]]
+name = "xetal-why"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-core",
+ "xetal-lex",
+ "xetal-ty",
 ]
 
 [[package]]

@@ -7,3 +7,5 @@ error[type-mismatch]: expected Int, found Float
   |
 1 | 2.0 e_ncode 5
   | ^^^^^^^^^^^^^
+  | --- a Float literal
+  = note: `e_ncode` has type Int -> Int -> Int

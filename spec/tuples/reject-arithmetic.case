@@ -7,3 +7,4 @@ error[type-mismatch]: expected an array, found a tuple
   |
 1 | (1, 2) + 1
   | ^^^^^^^^^^
+  = note: `+` has type Num a => a -> a -> a

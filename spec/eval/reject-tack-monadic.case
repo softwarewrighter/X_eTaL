@@ -8,3 +8,4 @@ error[type-mismatch]: expected a number, found a -> a
   |
 1 | (r_ight 5) + 1
   |  ^^^^^^^^^^^^^
+  = note: `+` has type Num a => a -> a -> a

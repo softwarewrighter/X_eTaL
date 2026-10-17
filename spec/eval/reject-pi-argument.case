@@ -7,3 +7,4 @@ error[type-mismatch]: expected Unit, found a number
   |
 1 | p_i 3
   | ^^^^^
+  = note: `p_i` has type Unit -> Float

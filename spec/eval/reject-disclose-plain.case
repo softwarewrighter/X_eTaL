@@ -7,3 +7,5 @@ error[type-mismatch]: expected Box a, found Char
   |
 1 | d_isclose "ab"
   | ^^^^^^^^^^^^^^
+  |           ---- a string: a vector of Char
+  = note: `d_isclose` has type Any a => Box a -> a

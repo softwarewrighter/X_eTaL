@@ -51,7 +51,7 @@ pub fn located(sources: &Sources, d: Diagnostic) -> Diagnostic {
     }
     let file = d.span.map_or(0, |s| sources.locate(s.start).index);
     let message = sources.as_written(file, &d.message);
-    let d = d.place_with(|span| sources.place(span));
+    let d = labels_written(sources, d).place_with(|span| sources.place(span));
     Diagnostic {
         message,
         span: None,
@@ -64,6 +64,7 @@ pub fn located(sources: &Sources, d: Diagnostic) -> Diagnostic {
 /// (the combined text starts with the libraries); one in a library is
 /// located there, as [`located`] does. Either way it is placed.
 pub fn in_program(sources: &Sources, d: Diagnostic) -> Diagnostic {
+    let d = labels_written(sources, d);
     let Some(span) = d.span else {
         return d.place_with(|span| sources.place(span));
     };
@@ -82,4 +83,14 @@ pub fn in_program(sources: &Sources, d: Diagnostic) -> Diagnostic {
         }
         _ => located(sources, d),
     }
+}
+
+/// `d` with each label's words naming hidden namespaces as the file
+/// the label points into writes them.
+fn labels_written(sources: &Sources, mut d: Diagnostic) -> Diagnostic {
+    for label in d.labels_mut() {
+        let file = sources.locate(label.span.start).index;
+        label.text = sources.as_written(file, &label.text);
+    }
+    d
 }

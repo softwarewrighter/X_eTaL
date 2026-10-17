@@ -54,23 +54,31 @@ impl Diagnostic {
     }
 }
 
-/// The rest of a located diagnostic, after its first line.
+/// The rest of a located diagnostic, after its first line: each line
+/// it points at once, its own first, with every mark under it.
 pub(crate) fn rest(d: &Diagnostic, place: &Place, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    let labels = d
-        .labels()
-        .iter()
-        .filter_map(|l| Some((l.place.as_ref()?, &l.text)));
-    let w = labels
-        .clone()
-        .map(|(p, _)| p.digits())
-        .fold(place.digits(), usize::max);
+    type Marks<'d> = Vec<(&'d Place, char, &'d str)>;
+    let mut lines: Vec<(&Place, Marks)> = vec![(place, vec![(place, '^', "")])];
+    for label in d.labels() {
+        let Some(at) = &label.place else { continue };
+        let same = |(p, _): &&mut (&Place, Marks)| p.file == at.file && p.line == at.line;
+        match lines.iter_mut().find(same) {
+            Some((_, marks)) => marks.push((at, '-', &label.text)),
+            None => lines.push((at, vec![(at, '-', &label.text)])),
+        }
+    }
+    lines[1..].sort_by_key(|(p, _)| (p.file != place.file, p.line));
+    let w = lines.iter().map(|(p, _)| p.digits()).max().unwrap_or(1);
     write!(f, "\n{:w$}--> {place}", "")?;
-    place.snippet(f, w, '^', "")?;
-    for (at, text) in labels {
+    for (at, marks) in &mut lines {
         if at.file != place.file {
             write!(f, "\n{:w$}::: {at}", "")?;
         }
-        at.snippet(f, w, '-', text)?;
+        at.line_of(f, w)?;
+        marks.sort_by_key(|(p, mark, _)| (*mark != '^', p.col));
+        for (p, mark, say) in marks.iter() {
+            p.mark(f, w, *mark, say)?;
+        }
     }
     for note in &d.notes {
         match note.strip_prefix("help: ") {

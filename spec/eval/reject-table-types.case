@@ -7,3 +7,4 @@ error[type-mismatch]: expected a number, found Char
   |
 1 | 1 2 '+ t_able "ab"
   | ^^^^^^^^^^^^^^^^^^
+  |               ---- a string: a vector of Char

@@ -8,5 +8,6 @@ error[type-mismatch]: expected a number, found a -> b
   |
 1 | 1 2 [r_ev + a_bs] 3 4
   |      ^^^^
+  = note: `r_ev` has type a -> a
   = note: in the train `[r_ev + a_bs]`, `r_ev` is applied as `x r_ev y`, where x and y are the train's arguments
   = note: `r_ev` takes one argument, but here it is given two

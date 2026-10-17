@@ -8,3 +8,5 @@ error[type-mismatch]: expected Int, found Float
   |
 2 | a + 2.5
   | ^^^^^^^
+  |     --- a Float literal
+  = note: `+` has type Num a => a -> a -> a

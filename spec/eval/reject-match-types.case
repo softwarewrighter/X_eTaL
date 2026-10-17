@@ -7,3 +7,5 @@ error[type-mismatch]: expected a number, found Char
   |
 1 | 1 m_atch "a"
   | ^^^^^^^^^^^^
+  |          --- a string: a vector of Char
+  = note: `m_atch` has type (Match a, Truthy b) => a -> a -> b

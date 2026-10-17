@@ -7,3 +7,5 @@ error[type-mismatch]: expected Int, found Float
   |
 1 | 1.5 o_- 1 2 3
   | ^^^^^^^^^^^^^
+  | --- a Float literal
+  = note: `o_-` has type Int -> a -> a

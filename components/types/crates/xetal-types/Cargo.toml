@@ -14,4 +14,5 @@ xetal-core.workspace = true
 xetal-ty.workspace = true
 xetal-prim-types.workspace = true
 xetal-elab.workspace = true
+xetal-why.workspace = true
 

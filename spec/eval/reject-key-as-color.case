@@ -8,3 +8,6 @@ error[type-mismatch]: expected Color, found Key
   |
 2 | t:UP []F_G "x"
   | ^^^^^^^^^^^^^^
+  | - `t:UP` is a Key
+  |            --- a string: a vector of Char
+  = note: `[]F_G` has type Color -> Char -> Char

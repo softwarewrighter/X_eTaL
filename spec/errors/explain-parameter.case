@@ -1,0 +1,12 @@
+# A lambda parameter is the type it is used at (D163).
+== SOURCE
+u:f_ := { x -> (x + 1.5) + (x = "a") }
+== ERROR
+error[type-mismatch]: expected Float, found Char
+ --> -e:1:29
+  |
+1 | u:f_ := { x -> (x + 1.5) + (x = "a") }
+  |                             ^^^^^^^
+  |                             - `x`, the lambda's parameter, is a Float as it is used
+  |                                 --- a string: a vector of Char
+  = note: `=` has type (Eq a, Truthy b) => a -> a -> b

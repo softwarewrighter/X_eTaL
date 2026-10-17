@@ -30,6 +30,8 @@ pub struct Session {
     /// so a place's line is counted from the first line fed.
     name: String,
     fed: usize,
+    /// The line fed that each line of the accepted source was.
+    numbers: Vec<usize>,
     /// Run without the type checker (`--untyped`).
     pub untyped: bool,
 }
@@ -95,11 +97,14 @@ fn run(
 }
 
 /// A diagnostic with its span made relative to the new input `text`,
-/// and placed there: in file `name`, after `before` lines fed.
+/// and placed there: in file `name`, after `before` lines fed. A label
+/// in an earlier input is placed in the accepted `source`, whose lines
+/// were the lines fed `numbers`.
 fn shifted(
     mut d: Diagnostic,
     offset: usize,
     (name, before, text): (&str, usize, &str),
+    (source, numbers): (&str, &[usize]),
 ) -> Diagnostic {
     let inside = |s: Span| (s.start >= offset).then(|| Span::new(s.start - offset, s.end - offset));
     let at = |span| {
@@ -113,10 +118,16 @@ fn shifted(
         d.span = Some(span);
         d.set_place(Some(at(span)));
     }
+    let earlier = |span| {
+        let place = Place::of(name, source, span);
+        let line = numbers.get(place.line - 1).copied().unwrap_or(place.line);
+        Place { line, ..place }
+    };
     for label in d.labels_mut() {
-        if let Some(span) = inside(label.span) {
-            label.place = Some(at(span));
-        }
+        label.place = Some(match inside(label.span) {
+            Some(span) => at(span),
+            None => earlier(label.span),
+        });
     }
     d
 }
@@ -137,6 +148,7 @@ impl Session {
             origin: origin.into(),
             name: origin.into(),
             fed: 0,
+            numbers: Vec::new(),
             untyped: false,
         }
     }
@@ -165,6 +177,7 @@ impl Session {
             text.as_str(),
         );
         let (out, warnings, result) = run(&source, self, sink);
+        let earlier = (source.as_str(), self.numbers.as_slice());
         if matches!(&result, Err(d) if d.code == "unclosed") {
             self.pending = text;
             return Reply::More;
@@ -176,13 +189,15 @@ impl Session {
         match result {
             Ok(()) => {
                 for w in &warnings[self.warned.min(warnings.len())..] {
-                    let _ = writeln!(err, "{}", shifted(w.clone(), offset, at));
+                    let _ = writeln!(err, "{}", shifted(w.clone(), offset, at, earlier));
                 }
+                let lines = at.1 + 1..=at.1 + text.split('\n').count();
+                self.numbers.extend(lines);
                 (self.accepted, self.shown, self.warned) = (source, out.len(), warnings.len());
                 self.pictures = xetal_store::shown();
             }
             Err(e) => {
-                let _ = writeln!(err, "{}", shifted(e, offset, at));
+                let _ = writeln!(err, "{}", shifted(e, offset, at, earlier));
             }
         }
         Reply::Done { out: new_out, err }

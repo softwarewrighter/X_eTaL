@@ -7,3 +7,4 @@ error[type-mismatch]: expected Char, found a number
   |
 1 | []U_CS 65
   | ^^^^^^^^^
+  = note: `[]U_CS` has type Char -> Int

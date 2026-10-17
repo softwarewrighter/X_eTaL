@@ -7,3 +7,5 @@ error[type-mismatch]: expected Int, found Float
   |
 1 | r_oll! 2.5
   | ^^^^^^^^^^
+  |        --- a Float literal
+  = note: `r_oll!` has type Int -> Int

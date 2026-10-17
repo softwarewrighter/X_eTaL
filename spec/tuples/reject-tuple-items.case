@@ -8,3 +8,4 @@ error[type-mismatch]: expected an array, found a tuple
   |
 1 | (1, 2) c_at 3
   | ^^^^^^^^^^^^^
+  = note: `c_at` has type a -> a -> a

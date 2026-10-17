@@ -7,3 +7,4 @@ error[type-mismatch]: expected Char, found a number
   |
 1 | n_umbers 5
   | ^^^^^^^^^^
+  = note: `n_umbers` has type Char -> Float

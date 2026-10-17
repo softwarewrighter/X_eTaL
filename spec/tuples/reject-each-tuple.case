@@ -8,3 +8,4 @@ error[type-mismatch]: expected an array, found a tuple
   |
 1 | '{ x -> (x, x) } e_ach 1 2 3
   | ^^^^^^^^^^^^^^^^^^^^^^
+  = note: `e_ach` has type (a -> b) -> a -> b

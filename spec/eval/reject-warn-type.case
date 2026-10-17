@@ -9,3 +9,5 @@ error[type-mismatch]: expected a number, found Char
   |
 1 | 10 + ("x" []W_ARN "empty" "nothing")
   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |       ----------------------------- this is a Char
+  = note: `+` has type Num a => a -> a -> a

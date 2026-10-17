@@ -93,6 +93,8 @@ impl Infer {
             Item::Def { name, value } => return self.def(name, value),
             Item::Let { name, rec, value } => {
                 let t = self.binding(name, *rec, value)?;
+                let why = (value.span, xetal_why::gives(value));
+                self.rec.bound.insert(value.id, why);
                 let (scheme, shown) = match self.condition(&t, value)? {
                     Some(scheme) => {
                         let shown = mono(self.u.defaulted(&scheme.ty));

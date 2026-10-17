@@ -8,3 +8,5 @@ error[type-mismatch]: expected a number, found Char
   |
 1 | s_in "a"
   | ^^^^^^^^
+  |      --- a string: a vector of Char
+  = note: `s_in` has type Num a => a -> Float

@@ -4,7 +4,7 @@
 
 use std::fmt;
 
-use crate::{Diagnostic, Span};
+use crate::Span;
 
 /// A place in a source file: line and column from 1 (the column in
 /// characters), the line's text and how many characters are marked.
@@ -50,18 +50,22 @@ impl Place {
         self.line.to_string().len()
     }
 
-    /// The line and its mark (`^` for the error, `-` for a label),
+    /// Its line, under an empty gutter line.
+    pub(crate) fn line_of(&self, f: &mut fmt::Formatter<'_>, w: usize) -> fmt::Result {
+        let text = self.text.trim_end();
+        let sep = if text.is_empty() { "" } else { " " };
+        write!(f, "\n{:w$} |\n{:>w$} |{sep}{text}", "", self.line)
+    }
+
+    /// Its mark under its line (`^` for the error, `-` for a label),
     /// followed by `say` when there is something to say.
-    pub(crate) fn snippet(
+    pub(crate) fn mark(
         &self,
         f: &mut fmt::Formatter<'_>,
         w: usize,
         mark: char,
         say: &str,
     ) -> fmt::Result {
-        let text = self.text.trim_end();
-        let sep = if text.is_empty() { "" } else { " " };
-        write!(f, "\n{:w$} |\n{:>w$} |{sep}{text}", "", self.line)?;
         let marks = mark.to_string().repeat(self.width);
         let pad = " ".repeat(self.col - 1);
         write!(f, "\n{:w$} | {pad}{marks}", "")?;
@@ -75,18 +79,6 @@ impl Place {
 impl fmt::Display for Place {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{}:{}:{}", self.file, self.line, self.col)
-    }
-}
-
-impl Diagnostic {
-    /// Where it was written, once located.
-    pub fn place(&self) -> Option<&Place> {
-        self.located.as_ref()?.place.as_ref()
-    }
-
-    /// Located at `place` (or no longer, given none).
-    pub fn set_place(&mut self, place: Option<Place>) {
-        self.located.get_or_insert_with(Box::default).place = place;
     }
 }
 
