@@ -139,5 +139,26 @@
   (should-error (xetal-tests--in-dir "#+begin_src xetal :results file :file x.svg\n1 + 2\n#+end_src\n")
                 :type 'user-error))
 
+(defun xetal-tests--in-string (text needle)
+  "Whether the first NEEDLE in TEXT is inside a string in xetal-mode."
+  (with-temp-buffer
+    (insert text)
+    (xetal-mode)
+    (syntax-propertize (point-max))
+    (goto-char (point-min))
+    (search-forward needle)
+    (nth 3 (syntax-ppss (match-beginning 0)))))
+
+(ert-deftest xetal-mode-raw-strings ()
+  "A raw string (ST4) holds quotes and # with #, and no escapes."
+  (let ((line "q := r#\"say \"hi\" # no\"# + after"))
+    (should (xetal-tests--in-string line "hi"))
+    (should (xetal-tests--in-string line "# no"))
+    (should-not (xetal-tests--in-string line "after")))
+  (should-not (xetal-tests--in-string "p := r\"C:\\\" + after" "after"))
+  (should (xetal-tests--in-string "t := r\"a\n  b\"\nafter" "  b"))
+  (should-not (xetal-tests--in-string "t := r\"a\n  b\"\nafter" "after"))
+  (should-not (xetal-tests--in-string "bar := 1 # r\"x\nafter" "after")))
+
 (provide 'xetal-tests)
 ;;; xetal-tests.el ends here

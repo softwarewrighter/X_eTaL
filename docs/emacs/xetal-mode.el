@@ -59,10 +59,35 @@
   "Syntax: # comments to the end of the line, \"strings\", _ in names.")
 
 ;;;###autoload
+;; Raw strings (ST4): `r"..."` and `r#"..."#`, no escapes, may span
+;; lines.  The `r' and the closing `"' are marked as generic string
+;; fences and backslashes inside as punctuation, so quotes, `#' and
+;; backslashes inside are text.
+(defun xetal--syntax-propertize (start end)
+  "Mark the raw strings that open between START and END."
+  (goto-char start)
+  (while (re-search-forward "\\(?:^\\|[^[:alnum:]_:]\\)\\(r\\)\\(#*\\)\"" end t)
+    (let ((open (match-beginning 1))
+          (close (concat "\"" (match-string 2))))
+      (unless (nth 8 (save-excursion (syntax-ppss open)))
+        (put-text-property open (1+ open) 'syntax-table (string-to-syntax "|"))
+        (when (search-forward close nil t)
+          (put-text-property (1- (point)) (point)
+                             'syntax-table (string-to-syntax "|"))
+          (save-excursion
+            (let ((stop (point)))
+              (goto-char open)
+              (while (search-forward "\\" stop t)
+                (put-text-property (1- (point)) (point)
+                                   'syntax-table (string-to-syntax "."))))))))))
+
 (define-derived-mode xetal-mode prog-mode "X_eTaL"
   "Major mode for X_eTaL source (.xtl)."
   (setq-local comment-start "# ")
   (setq-local font-lock-defaults '(xetal-font-lock-keywords))
+  (setq-local syntax-propertize-function #'xetal--syntax-propertize)
+  (add-hook 'syntax-propertize-extend-region-functions
+            #'syntax-propertize-wholelines nil t)
   (setq-local prettify-symbols-alist xetal-prettify-symbols)
   (prettify-symbols-mode 1))
 

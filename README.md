@@ -75,6 +75,7 @@ a value is an exponent. The language decisions are recorded in
 | `@`           | @                                     | the Unit value                       |
 | `[f_ g_ h_]`  | in square brackets                    | a train: `(f_ x) g_ (h_ x)`          |
 | `"ab" "cde"`  | two strings side by side              | a nested vector of two strings       |
+| `r"C:\data\x.csv"`, `r#"say "hi""#` | as written | raw strings: no escapes, may hold `"` (with `#`) and span lines |
 
 The reserved prefixes say whose a top-level name is. `u:` is the
 program's own: a function an app defines and offers (`u:s_quare`).
