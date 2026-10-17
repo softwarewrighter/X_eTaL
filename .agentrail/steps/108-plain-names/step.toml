@@ -1,8 +1,9 @@
 number = 108
 slug = "plain-names"
-status = "in-progress"
+status = "completed"
 description = "The user (2026-10-17), after a survey of names: rename what reads oddly or de..."
 role = "production"
 context_files = []
 created_at = "2026-10-17T07:45:46"
-commits = []
+completed_at = "2026-10-17T09:15:16"
+commits = ["c18959e997451ed03bc72250dbc670c4c26818f3"]

@@ -1,0 +1,1 @@
+Plain names (D161): s:r_ange -> s_pread, demos/sub.xtl -> dyadic.xtl, Macros t_hree< -> b_inds<; libraries: f_ive -> s_ummary, c_ivil -> d_ate, aliases pl: li: ch: (7f9560d). Goldens rebased for the names; web tests serialized (a Boxed-flag race in the test binary); gates passed.
