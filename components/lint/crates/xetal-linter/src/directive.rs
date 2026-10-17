@@ -29,42 +29,52 @@ impl Directive {
 
 /// Every directive in `text`, in order.
 pub fn directives(text: &str) -> Vec<Directive> {
+    let (mut line, mut start, mut seen) = (1, 0, 0);
     let mut out = Vec::new();
-    for (i, line) in text.lines().enumerate() {
-        let Some(at) = comment(line) else { continue };
-        let Some((file, rest)) = parse(&line[at + 1..]) else {
-            continue;
-        };
-        let mut words = rest
-            .split(|c: char| c.is_whitespace() || c == ',')
-            .filter(|w| !w.is_empty())
-            .map(str::to_string);
-        out.push(Directive {
-            line: i + 1,
-            col: line[..at].chars().count() + 1,
-            own_line: line[..at].trim().is_empty(),
-            file,
-            level: words.next().unwrap_or_default(),
-            names: words.collect(),
-        });
+    for at in comments(text) {
+        for (i, b) in text.bytes().enumerate().take(at).skip(seen) {
+            if b == b'\n' {
+                (line, start) = (line + 1, i + 1);
+            }
+        }
+        seen = at;
+        let end = text[at..].find('\n').map_or(text.len(), |n| at + n);
+        out.extend(directive(&text[start..end], at - start, line));
     }
     out
 }
 
-/// The byte index of the `#` starting `line`'s comment, outside any
-/// string (strings are single-line, escapes `\"` and `\\`).
-fn comment(line: &str) -> Option<usize> {
-    let (mut in_string, mut escaped) = (false, false);
-    for (i, b) in line.bytes().enumerate() {
-        match (in_string, escaped, b) {
-            (true, true, _) => escaped = false,
-            (true, false, b'\\') => escaped = true,
-            (_, false, b'"') => in_string = !in_string,
-            (false, _, b'#') => return Some(i),
-            _ => {}
-        }
-    }
-    None
+/// The directive in the comment at byte `at` of `line` (number `n`).
+fn directive(line: &str, at: usize, n: usize) -> Option<Directive> {
+    let (file, rest) = parse(&line[at + 1..])?;
+    let mut words = rest
+        .split(|c: char| c.is_whitespace() || c == ',')
+        .filter(|w| !w.is_empty())
+        .map(str::to_string);
+    Some(Directive {
+        line: n,
+        col: line[..at].chars().count() + 1,
+        own_line: line[..at].trim().is_empty(),
+        file,
+        level: words.next().unwrap_or_default(),
+        names: words.collect(),
+    })
+}
+
+/// The byte index of each comment's `#`: the first `#` in a gap
+/// between the lexer's tokens. Every string form (plain, raw, and any
+/// later one) is a token, so a `#` or `"` inside one is never read
+/// here, and a comment ends at its line's `Newline` token. Text that
+/// does not lex has none; it does not load either.
+fn comments(text: &str) -> Vec<usize> {
+    let Ok(tokens) = xetal_lex::lex(text) else {
+        return Vec::new();
+    };
+    let ends = std::iter::once(0).chain(tokens.iter().map(|t| t.span.end));
+    let starts = tokens.iter().map(|t| t.span.start);
+    let gaps = ends.zip(starts.chain(std::iter::once(text.len())));
+    gaps.filter_map(|(a, b)| text[a..b].find('#').map(|i| a + i))
+        .collect()
 }
 
 /// After a single `#`: `lint:` or `lint-file:` and the rest; `##`

@@ -126,3 +126,20 @@ fn list_and_explain_need_no_program() {
         "unknown-lint"
     );
 }
+
+#[test]
+fn a_lint_file_directive_inside_a_raw_string_turns_nothing_off() {
+    let text = "s := r\"one\n# lint-file: allow all\ntwo\"\np_rint! s\nCount! := 0";
+    assert_eq!(
+        found(text),
+        [("mutable-constant".to_string(), 5, Level::Warn)]
+    );
+}
+
+#[test]
+fn a_directive_after_a_raw_string_is_honored() {
+    let raw = "Count! := r\"C:\\\" # lint: allow mutable-constant\np_rint! Count!";
+    let hashed = "Count! := r#\"a \"q\" # w\"# # lint: allow mutable-constant\np_rint! Count!";
+    assert!(found(raw).is_empty());
+    assert!(found(hashed).is_empty());
+}

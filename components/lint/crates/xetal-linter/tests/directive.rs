@@ -45,3 +45,38 @@ fn a_bad_level_is_kept_for_reporting() {
     assert_eq!(ds[0].level(), None);
     assert_eq!(ds[0].level, "alow");
 }
+
+#[test]
+fn a_directive_inside_a_multi_line_raw_string_is_text() {
+    let text = "s := r\"one\n# lint-file: allow all\ntwo\"\nCount! := 0";
+    assert!(directives(text).is_empty());
+}
+
+#[test]
+fn a_raw_backslash_does_not_escape_the_closing_quote() {
+    let ds = directives("Count! := r\"C:\\\" # lint: allow mutable-constant");
+    assert_eq!(ds.len(), 1);
+    assert_eq!((ds[0].line, ds[0].col), (1, 18));
+    assert_eq!(ds[0].names, ["mutable-constant"]);
+}
+
+#[test]
+fn quotes_and_hashes_inside_a_hashed_raw_string_are_text() {
+    let text = "Count! := r#\"a \"quoted\" # word\"# # lint: allow mutable-constant";
+    let ds = directives(text);
+    assert_eq!(ds.len(), 1);
+    assert_eq!(ds[0].col, 34);
+}
+
+#[test]
+fn a_directive_after_a_multi_line_string_is_on_the_closing_line() {
+    let ds = directives("s := r\"one\ntwo\" # lint: allow all\n# lint: warn style");
+    assert_eq!(ds.len(), 2);
+    assert_eq!((ds[0].line, ds[0].col, ds[0].own_line), (2, 6, false));
+    assert_eq!((ds[1].line, ds[1].own_line), (3, true));
+}
+
+#[test]
+fn text_that_does_not_lex_has_no_directives() {
+    assert!(directives("s := r\"never closed # lint: allow all").is_empty());
+}
