@@ -1,0 +1,1 @@
+JuliaMono Regular from jsDelivr (v0.63.2, OFL) by @font-face in the live demo (preloaded), the doc site and the literate pages; nothing redistributed (the user). Pages rebuilt; affected gate passed.

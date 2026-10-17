@@ -1,8 +1,9 @@
 number = 105
 slug = "juliamono-webfont"
-status = "in-progress"
+status = "completed"
 description = "The user (2026-10-16): JuliaMono must be the font of decorated X_eTaL source ..."
 role = "production"
 context_files = []
 created_at = "2026-10-16T19:29:10"
-commits = []
+completed_at = "2026-10-16T20:35:15"
+commits = ["b973ab1df1c6ba5024f0d11d398d68c828aa8c8a"]
