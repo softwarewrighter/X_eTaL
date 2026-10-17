@@ -844,6 +844,17 @@ After the terminal and macros (expansions need errors that point at
 the right place) and before the release cleanup (Saga 26), so the
 release shows readable errors and its docs step covers them.
 
+Noted by the blog's agent (2026-10-17), to be taken up by steps 1 and
+2: today the place is written two ways. A one-file program gets a byte
+range (`expected a number, found Char at 16..23`); a program that
+imports anything (so there is more than one file) gets
+`FILE:LINE:COLUMN` from `xetal_sources::describe`, which is why an
+error in macro-generated code, always inside a program with an import,
+shows a file and line while the same error in plain code shows none.
+Step 1 makes the located form the only one. The mismatch message
+(`expected Int, found Float`) also does not say which operand is the
+whole number; step 2's origins do.
+
 | Step | Slug | Content |
 | ---- | ---- | ------- |
 | 1 | located | Every diagnostic shown with its file, line and column and the source line with the spot underlined (in the drawn form where the output is drawn), in the CLI, the REPL, the editor and the live demo; goldens rebased on purpose. |
