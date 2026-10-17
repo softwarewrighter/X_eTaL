@@ -798,6 +798,26 @@ row (or, along axis 2, one column).
 error[shape-mismatch]: shapes differ: 2 3 and 3
 ```
 
+### `s_hapeIs`
+
+`Int -> a -> a`, two arguments.
+
+A shape check: the value on the right, unchanged, when its shape is the
+extents on the left, and an error naming both shapes otherwise. A
+macro can emit it after a step whose shape it promises, and `xetal
+lint` reads it as a fact: from there on the value has that shape, so a
+later mismatch is found before the program runs (`shape-mismatch`).
+
+```
+      2 3 s_hapeIs M
+1 2 3
+4 5 6
+      3 s_hapeIs v
+3 1 2
+      3 2 s_hapeIs M
+error[shape-mismatch]: shape 2 3, expected 3 2
+```
+
 ## Reduce, scan, each and table
 
 These take a function as an operand, written quoted before them

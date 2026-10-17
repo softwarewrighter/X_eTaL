@@ -1,0 +1,3 @@
+command = "mkdir -p work && cp reg/fixtures/lint/strings.xtl work/lint-fix-strings.xtl && ./target/debug/xetal core work/lint-fix-strings.xtl > work/lint-fix-strings.core && ./target/debug/xetal lint -W pedantic --fix --allow-dirty work/lint-fix-strings.xtl && ./target/debug/xetal core work/lint-fix-strings.xtl | diff work/lint-fix-strings.core - && cat work/lint-fix-strings.xtl"
+exit_code = 0
+desc = "--fix -W pedantic --allow-dirty (the copy is not committed): every string lint's fix respells a string in a copy in work/ (fewer `#`, plain for raw, raw for escapes) and keeps its value byte for byte (D156): the Core before and after is the same (diff prints nothing); the directive in a string has no fix and is still reported"

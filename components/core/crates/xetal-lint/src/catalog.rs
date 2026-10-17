@@ -132,4 +132,80 @@ variable lowerCamel (`maxSize`); all capitals hides the word boundaries.\n\n\
 Example:\n    MAXSIZE := 9\nInstead:\n    MaxSize := 9\n\nOff by default: \
 `xetal lint -W pedantic` turns it on.",
     },
+    Lint {
+        name: "shape-mismatch",
+        group: Group::Correctness,
+        level: Level::Warn,
+        summary: "shapes that surely differ where they must agree (fails at run time)",
+        explain: "What it does: carries shapes through the program from literals, \
+`r_eshape` and `s_hapeIs` checks (type-check-macros approach 8), by the shape rules \
+the catalog lists beside each built-in's type, and warns where it proves a failure: \
+an item-by-item function on two arrays of different shapes, an inner product whose \
+paired axes differ, or an `s_hapeIs` check that cannot pass. Extents may be names \
+(`N c_at 3 s_hapeIs X`), so a macro's checks are facts the lint reads without \
+knowing the macro's notation.\n\nWhy: each of these is `error[shape-mismatch]` at run \
+time; found before running, it is found at the place that is wrong.\n\nExample:\n    \
+X := 2 3 r_eshape 0\n    X + 3 2 r_eshape 1\nInstead:\n    X + 2 3 r_eshape 1\n\nIt \
+speaks only where it proves a mismatch: where a size depends on data (a parameter, a \
+file read), it says nothing and the run-time check stays the backstop.",
+    },
+    Lint {
+        name: "shape-check-proven",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "an `s_hapeIs` check the shape lint proves always passes",
+        explain: "What it does: reports an `s_hapeIs` check whose argument's shape the \
+shape lint already knows to be the checked one, extent by extent (the same numbers, \
+or the same named extents).\n\nWhy: the check costs a test at run time and says \
+nothing a reader does not already know there; a macro may emit such checks freely, \
+and this shows the ones that can go.\n\nExample:\n    X := 2 3 r_eshape 0\n    \
+2 3 s_hapeIs X\nInstead:\n    X\n\nOff by default: `xetal lint -W pedantic` turns it on.",
+    },
+    Lint {
+        name: "needless-raw-hashes",
+        group: Group::Style,
+        level: Level::Warn,
+        summary: "a raw string with more `#` than it needs",
+        explain: "What it does: warns on a raw string (ST4) written with more `#` than \
+it needs to end where it does: the fewest is none when it holds no `\"`, else one \
+more than the most `#` after a `\"` in it.\n\nWhy: each `#` tells a reader to look \
+for a `\"#` inside; extra ones send them looking for nothing.\n\nExample:\n    \
+s := r##\"a \"quoted\" word\"##\nInstead:\n    s := r#\"a \"quoted\" word\"#\n\n\
+`--fix` rewrites the delimiters; the value is unchanged.",
+    },
+    Lint {
+        name: "needless-raw-string",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a raw string with no backslash, quote or newline (plain is the same)",
+        explain: "What it does: warns on a raw string `r\"...\"` or `r#\"...\"#` whose \
+text has no backslash, no `\"` and no newline.\n\nWhy: a plain string spells the \
+same value, and a reader need not recall the raw rules.\n\nExample:\n    \
+s := r\"plain text\"\nInstead:\n    s := \"plain text\"\n\n`--fix` drops the `r` \
+and any `#`. Off by default: `xetal lint -W pedantic` turns it on.",
+    },
+    Lint {
+        name: "escapes-could-be-raw",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a string with several `\\\"` or `\\\\` escapes (clearer raw)",
+        explain: "What it does: warns on a plain string with two or more of the escapes \
+`\\\"` and `\\\\` and no `\\n` or `\\t`.\n\nWhy: a raw string (ST4) writes the text as \
+it is, which is easier to read, above all for code passed to a macro.\n\n\
+Example:\n    c := \"x := \\\"3 + 4\\\"\"\nInstead:\n    c := r#\"x := \"3 + 4\"\"#\n\n\
+`--fix` writes it raw with the fewest `#` that work; the value (what a macro \
+receives, D156) is unchanged. Off by default: `xetal lint -W pedantic` turns it on.",
+    },
+    Lint {
+        name: "string-holds-directive",
+        group: Group::Suspicious,
+        level: Level::Warn,
+        summary: "a line inside a string that reads as a `# lint:` directive",
+        explain: "What it does: warns on a line of a string, of any kind, whose text \
+starts with `# lint:` or `# lint-file:`.\n\nWhy: inside a string it is text and sets \
+no level; the author probably meant a comment.\n\nExample:\n    \
+s := r\"one\n    # lint: allow unused-binding\n    two\"\nInstead:\n    \
+# lint: allow unused-binding\n    s := r\"one\n    two\"\n\nNo fix: only the author \
+knows whether the text belongs in the string.",
+    },
 ];

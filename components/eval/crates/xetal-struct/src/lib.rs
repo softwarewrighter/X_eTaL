@@ -9,5 +9,5 @@ mod values;
 
 pub use calls::call;
 pub use cells::{cat, first, replicate, select};
-pub use parts::partition;
+pub use parts::{check_shape, partition};
 pub use resize::{drop, reshape, take};

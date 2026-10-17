@@ -1,0 +1,4 @@
+fixed 5 finding(s) in work/lint-fix-strings.xtl
+warning[string-holds-directive]: `# lint: allow all` is inside a string, where it is text and sets no level: to set one, write it as a comment outside the string at work/lint-fix-strings.xtl:7:7
+  note: `string-holds-directive` is in group `suspicious`; xetal lint --explain string-holds-directive
+1 warning(s), 0 error(s)
