@@ -1,0 +1,20 @@
+## Slips: a macro library with the mistakes the macro library lints
+## find (xetal lint -W pedantic reg/fixtures/lint/Slips.xtlm).
+
+## Twice the expression on the right, in a local of its own.
+## >> "x:" u_se< "Slips"
+## >> @ x:t_wice< "3"
+## 6
+m:t_wice< := { @ e ->
+  t := []G_ENSYM "t"
+  u := []G_ENSYM "the total"
+  "{ @ -> t := 2; t * (" c_at e c_at ") } @"
+}
+
+## The expression on the right, which may not be empty.
+m:o_nly< := { @ e ->
+  []G_ENSYM "s"
+  0 = t_ally e ? "empty-argument rigth" []R_EJECT "an empty argument"
+  "" = e ? "blank-argument" []R_EJECT "a blank argument"
+  e
+}

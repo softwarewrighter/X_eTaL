@@ -1,0 +1,16 @@
+warning[gensym-unused]: the fresh name `t` is never used: write it into the text the macro gives, or drop the []G_ENSYM at reg/fixtures/lint/Slips.xtlm:9:3
+  note: `gensym-unused` is in group `suspicious`; xetal lint --explain gensym-unused
+warning[gensym-unused]: the fresh name `u` is never used: write it into the text the macro gives, or drop the []G_ENSYM at reg/fixtures/lint/Slips.xtlm:10:3
+warning[gensym-not-name]: "the total" is not a plain name, so []G_ENSYM fails at every call (error[bad-gensym]): write a name such as t or s_um at reg/fixtures/lint/Slips.xtlm:10:18
+  note: `gensym-not-name` is in group `correctness`; xetal lint --explain gensym-not-name
+warning[missing-example]: the macro o_nly< has no `## >>` example: show a call and what it gives in its doc block, which `xetal doc --test` runs at reg/fixtures/lint/Slips.xtlm:15:1
+  note: `missing-example` is in group `pedantic`; xetal lint --explain missing-example
+warning[gensym-unused]: a fresh name asked for and thrown away: bind it (t := []G_ENSYM "t") and write it into the text the macro gives at reg/fixtures/lint/Slips.xtlm:16:3
+warning[reject-bad-place]: the place `rigth` is not left, right or call, so the error lands on the macro's name at reg/fixtures/lint/Slips.xtlm:17:18
+  note: `reject-bad-place` is in group `suspicious`; xetal lint --explain reject-bad-place
+warning[reject-undocumented]: o_nly< rejects its call with `empty-argument`, which its doc block does not mention: say when it happens (its users meet it as error[empty-argument]) at reg/fixtures/lint/Slips.xtlm:17:18
+  note: `reject-undocumented` is in group `pedantic`; xetal lint --explain reject-undocumented
+warning[reject-undocumented]: o_nly< rejects its call with `blank-argument`, which its doc block does not mention: say when it happens (its users meet it as error[blank-argument]) at reg/fixtures/lint/Slips.xtlm:18:12
+warning[reject-unplaced]: `blank-argument` names no place, so the error lands on the macro's name: write "blank-argument left" or "blank-argument right" for the argument at fault, or "blank-argument call" at reg/fixtures/lint/Slips.xtlm:18:12
+  note: `reject-unplaced` is in group `pedantic`; xetal lint --explain reject-unplaced
+9 warning(s), 0 error(s)

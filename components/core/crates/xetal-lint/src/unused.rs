@@ -56,7 +56,7 @@ fn check(program: &Program, name: &str, e: &Expr) -> Option<Diagnostic> {
 
 /// Whether `e` refers to `name` (a variable read or set), not counting
 /// where an inner binding of the same name hides it.
-fn uses(e: &Expr, name: &str) -> bool {
+pub fn uses(e: &Expr, name: &str) -> bool {
     match &e.kind {
         Kind::Var(n) => n == name,
         Kind::Set { name: n, .. } if n == name => true,
