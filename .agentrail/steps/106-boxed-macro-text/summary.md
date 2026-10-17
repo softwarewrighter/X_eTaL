@@ -1,0 +1,1 @@
+Boxed broke every macro (expansions captured through the boxed printer): the macro runner now prints a macro's text plain and restores the setting (D158). Tests: xetal-program macros.rs, xetal-web every Open-menu program run plain, Boxed and as a notebook (libraries checked), golden run-box-macro. Pages rebuilt; affected gate passed.
