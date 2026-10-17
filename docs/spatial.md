@@ -40,10 +40,15 @@ Y := "Y[o,h,w] | O Ho Wo" e:e_q< "sum c:=0..C - 1, sum r:=0..Kh - 1, sum s:=0..K
 - **Left argument**: the result's name, its free indices in brackets,
   then `|` and one extent per free index, in order (explicit; extents
   are never inferred). The result has shape `O Ho Wo`.
-- **Right argument**: the sums, comma-separated, outermost first, then
-  `|` and the summand. Each sum is an operator word, an index, `:=`, an
-  inclusive range `low..high`. `sum` first; `prod`, `max` and `min` as
-  the library grows; mixed operators are a word per sum.
+- **Right argument**: an expression over the free indices in which a
+  parenthesized sum is a term, as a paper's sigma is a term of a larger
+  formula (decided with the user, 2026-10-17):
+  `(sum j:=0..M-1 | W[i,j] * x[j]) + b[i]` is a dense layer with its
+  bias, `(sum i:=0..n-1 | (y[i] - p[i])^2) / n` the mean squared
+  error. A sum is an operator word (`sum`, `prod`, `max`, `min`), an
+  index, `:=` and an inclusive range `low..high`; several, separated by
+  commas, nest outermost first; then `|` and the body. A right side
+  that is one bare sum needs no parentheses.
 - **Expressions** inside the strings (bounds, extents, index
   arithmetic, the summand) are the library's own math notation, with
   math precedence: `^` binds tightest (right to left), then `*` and
@@ -52,17 +57,23 @@ Y := "Y[o,h,w] | O Ho Wo" e:e_q< "sum c:=0..C - 1, sum r:=0..Kh - 1, sum s:=0..K
   macro parenthesizes fully when it lowers, so the X_eTaL it writes
   means the same under right-to-left order. Names other than the
   indices (`C`, `Kh`, `X`, `W`) are the caller's X_eTaL values.
+- **Functions**, in the paper's spelling, from a fixed table that grows
+  on purpose: `exp(x)`, `log(x)`, `sqrt(x)`, `abs(x)`, `max(a, b)`,
+  `min(a, b)`; any other name applied is refused.
 - **Every reading rule uses all of its text or refuses it.** A group
   is one parenthesized term, a reference ends at its closing bracket,
   an atom is a name or a number, and only the grammar's characters may
-  appear; anything else is `error[bad-equation]` naming the text. The
-  rule came from three silent wrong answers found while the library
-  was written about (2026-10-17): `(y[i] - p[i])^2` summed as `y - p`,
-  `y[i]2` and `y[i] % 2` as `y`, with the LaTeX printing what was
-  written. A reader that uses part of its input and drops the rest is
-  the class to design against (docs/type-check-macros.md). A function
-  in the summand (`exp(y[i])`) is not in the grammar yet: it is
-  refused, and the function is applied to the array before the call.
+  appear; anything else is `error[bad-equation]` naming the text. One
+  grammar decides what a term is, and the value, the LaTeX and a plain
+  reprint are three readings of it; the reprint is compared with the
+  text at every call, so a rule that dropped a character would refuse
+  the call. The rule came from three silent wrong answers found while
+  the library was written about (2026-10-17): `(y[i] - p[i])^2` summed
+  as `y - p`, `y[i]2` and `y[i] % 2` as `y`, with the LaTeX printing
+  what was written. A reader that uses part of its input and drops the
+  rest is the class to design against (docs/type-check-macros.md);
+  X_eTaL-libraries also checks the reader against forty equations
+  evaluated independently in Python.
 - **Brackets** index arrays: `X[c,h+r,w+s]`, one index per axis, origin
   0 as in the paper (lowered to X_eTaL's origin 1).
 
@@ -205,7 +216,8 @@ by 6 pictures): `X := 3 5 6 r_eshape r_ange 90`,
 1088 1108 1128 1148
 ```
 
-The LaTeX of the CNN call:
+The LaTeX of the CNN call (a quotient prints as `\frac`, `sqrt` as
+`\sqrt`, a scalar result as `L = ...`):
 
 ```
 Y_{o,h,w} = \sum_{c=0}^{C - 1} \sum_{r=0}^{Kh - 1} \sum_{s=0}^{Kw - 1} X_{c,h+r,w+s} \, W_{o,c,r,s}
