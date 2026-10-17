@@ -1,0 +1,8 @@
+number = 106
+slug = "boxed-macro-text"
+status = "pending"
+description = "The user's report (2026-10-16): with Boxed on, every demo with a macro failed..."
+role = "production"
+context_files = []
+created_at = "2026-10-16T20:15:30"
+commits = []

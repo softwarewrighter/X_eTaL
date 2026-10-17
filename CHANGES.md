@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-16
 
+- 19:30 `feat` JuliaMono from jsDelivr (step 105, D157): the live demo, the doc site and the literate pages declare `@font-face` for JuliaMono Regular (cormullion/juliamono v0.63.2, SIL OFL, swap; the live demo preloads it), so decorated source is drawn in JuliaMono whether or not it is installed; nothing redistributed.
 - 18:42 `plan` Saga 41's libraries move to sibling repositories (the user's choice): equations to X_eTaL-libraries as `Equations` (its Saga 12; pin, oracle done), pipelines to X_eTaL-ML; kept here: a canary macro library, the shape lint, the limitations review; integrals after pipelines.
 - 18:22 `test` xetal-eval's closures_keep_captured_values rebinds n in a nested scope: it rebound n at the top level, refused since names are bound once (M1, step 091); found by step 100's affected gate, the first to run eval's tests since.
 - 17:15 `feat` Raw strings in Emacs (step 100): xetal-mode marks `r"..."` and `r#"..."#` as string fences (quotes, `#` and backslashes inside are text, across lines), with an ERT test; README's syntax table shows raw strings; ST4 notes how a macro sees a raw argument's newlines.
