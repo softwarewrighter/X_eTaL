@@ -1214,6 +1214,20 @@ raw strings (ST4) let a pipeline be written one stage per line (step
 1c, a lexer change the user approved). Steps 3 to 5 below read `e:s_um<` as `e:q_<`
 and the three regions as the two of the per-sum form.
 
+Moved (the user, 2026-10-16): the libraries live in sibling
+repositories, since they are library code on the language as it is.
+The equation macros are `Equations` in X_eTaL-libraries (its Saga 12:
+pin, oracle, capture, lowering, latex), written there by this agent;
+the pipeline macro, `a_dd_axis` and `nn:b_ias` go to X_eTaL-ML (it
+needs `nn:` functions); a future X_eTaL-Math may take over equations
+and integrals. Steps 2 to 5b below are done there, not here. What
+stays here: raw strings (1c, done), a canary macro library in
+`spec/macros/data/` pinning what those libraries rely on (raw
+arguments, `[]R_EJECT`, `[]G_ENSYM`, anaphora, located errors), the
+shape lint (5c), and the limitations review (8). The order is the
+user's: equations, then pipelines, then integrals and numerical
+methods (the plan, step integrals-plan, after the pipelines).
+
 | Step | Slug | Content |
 | ---- | ---- | ------- |
 | 1 | spatial-decisions | With the user: the decisions above, recorded in the decisions register (docs/design.md) and a plan, `docs/spatial.md` (the call, the regions, the lowering, what is not in scope); the review's corrections pinned as tests of the language as it is (spec cases: `e:q<` is not a macro name, `+/`, `X[1,2,3]`, `C-1`, `~(1, 2)`, a call as a macro argument; most exist, add the missing ones); the PoC's behavior as pending goldens under `reg/spatial-*` |
