@@ -1,0 +1,1 @@
+Every diagnostic located (D162): Place and labels in xetal-base, rustc-style output; xetal_program, the CLI, REPL, notebook, editor and live demo place errors; 232 spec cases and 32 goldens rebased on purpose. Built in a cloud sandbox: see lanes/readable/HANDOFF.md.
