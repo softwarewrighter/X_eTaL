@@ -1218,7 +1218,7 @@ Moved (the user, 2026-10-16): the libraries live in sibling
 repositories, since they are library code on the language as it is.
 The equation macros are `Equations` in X_eTaL-libraries (its Saga 12:
 pin, oracle, capture, lowering, latex), written there by this agent;
-the pipeline macro, `a_dd_axis` and `nn:b_ias` go to X_eTaL-ML (it
+the pipeline macro, `a_ddAxis` and `nn:b_ias` go to X_eTaL-ML (it
 needs `nn:` functions); a future X_eTaL-Math may take over equations
 and integrals. Steps 2 to 5b below are done there, not here. What
 stays here: raw strings (1c, done), a canary macro library in
