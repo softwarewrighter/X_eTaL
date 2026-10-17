@@ -1,4 +1,4 @@
-# A value where a box is wanted: e_nclose (D164).
+# A value where a box is wanted: e_nclose (D166).
 == SOURCE
 n := 1 2; (e_nclose n) c_at n
 == ERROR

@@ -100,7 +100,7 @@ both under one alias: &quot;c:&quot; u_se&lt; &quot;Combinators&quot; finds Comb
 <h2 class="section" id="section-1">Recursion</h2>
 <div class="item" id="m.Y_-3c">
 <h3><a href="#m.Y_-3c"><span class="c-macro">ᵐY̲&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Combinators.xtlm.src.html#L17">line 17</a></div>
+<div class="meta">macro &middot; <a href="lib-Combinators.xtlm.src.html#L19">line 19</a></div>
 <div class="doc">
 <p>Define the function named on the left by the lambda on the right,
 whose first parameter is the function itself: the knot c:Y_ ties
@@ -128,7 +128,7 @@ lazy parameter and no combinator left to run.</p>
 <h2 class="section" id="section-2">Composition</h2>
 <div class="item" id="m.B_-3c">
 <h3><a href="#m.B_-3c"><span class="c-macro">ᵐB̲&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Combinators.xtlm.src.html#L39">line 39</a></div>
+<div class="meta">macro &middot; <a href="lib-Combinators.xtlm.src.html#L42">line 42</a></div>
 <div class="doc">
 <p>The function on the left applied to the result of the one on the
 right, as one lambda written in place (the Bluebird, B f g x =
@@ -142,13 +142,13 @@ f (g x)); either may be a name, a derived function or a lambda.</p>
 </div>
 <div class="item" id="yShape">
 <h3><a href="#yShape">yShape</a> <span class="type">: Char</span></h3>
-<div class="meta">value <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L41">line 41</a></div>
+<div class="meta">value <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L44">line 44</a></div>
 <pre class="code">yShape ← <span class="c-string">&quot;c:Y_&lt; takes a lambda whose first parameter is the function itself: { s_elf n -&gt; ... }&quot;</span></pre>
 <div class="uses">Used in: <a href="lib-Combinators.xtlm.html#m.Y_-3c"><span class="c-macro">ᵐY̲&lt;</span></a></div>
 </div>
 <div class="item" id="h.t_rim">
 <h3><a href="#h.t_rim"><span class="c-libfunc">ʰt̲rim</span></a> <span class="type">: Char -&gt; Char</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L44">line 44</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L47">line 47</a></div>
 <pre class="code"><span class="c-libfunc">ʰt̲rim</span> ← { t →
   m ← <a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> t <a href="builtins.html#m_ember-3f" class="c-builtin">m̲ember?</a> <span class="c-string">&quot; \n\t&quot;</span>
   <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> m ? <span class="c-string">&quot;&quot;</span>
@@ -159,37 +159,37 @@ f (g x)); either may be a name, a derived function or a lambda.</p>
 </div>
 <div class="item" id="h.w_ords">
 <h3><a href="#h.w_ords"><span class="c-libfunc">ʰw̲ords</span></a> <span class="type">: Char -&gt; Box Char</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L52">line 52</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L55">line 55</a></div>
 <pre class="code"><span class="c-libfunc">ʰw̲ords</span> ← { t → (<a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> t <a href="builtins.html#m_ember-3f" class="c-builtin">m̲ember?</a> <span class="c-string">&quot; \n\t&quot;</span>) <a href="builtins.html#p_artition" class="c-builtin">p̲artition</a> t }</pre>
 <div class="uses">Used in: <a href="lib-Combinators.xtlm.html#m.Y_-3c"><span class="c-macro">ᵐY̲&lt;</span></a></div>
 </div>
 <div class="item" id="h.j_oin">
 <h3><a href="#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a> <span class="type">: Box Char -&gt; Char</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L55">line 55</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L58">line 58</a></div>
 <pre class="code"><span class="c-libfunc">ʰj̲oin</span> ← { b → <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-quote">'</span>{ x y → <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> (<a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> x) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> y } <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> b }</pre>
 <div class="uses">Used in: <a href="lib-Combinators.xtlm.html#m.Y_-3c"><span class="c-macro">ᵐY̲&lt;</span></a>, <a href="lib-Combinators.xtlm.html#h.w_ord"><span class="c-libfunc">ʰw̲ord</span></a></div>
 </div>
 <div class="item" id="h.s_trip">
 <h3><a href="#h.s_trip"><span class="c-libfunc">ʰs̲trip</span></a> <span class="type">: Char -&gt; Char</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L58">line 58</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L61">line 61</a></div>
 <pre class="code"><span class="c-libfunc">ʰs̲trip</span> ← { p → (<a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> p) <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;~&quot;</span> ? <span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> p◆ p }</pre>
 <div class="uses">Used in: <a href="lib-Combinators.xtlm.html#m.Y_-3c"><span class="c-macro">ᵐY̲&lt;</span></a></div>
 </div>
 <div class="item" id="h.s_tarts">
 <h3><a href="#h.s_tarts"><span class="c-libfunc">ʰs̲tarts</span></a> <span class="type">: (Num a, Truthy a) =&gt; Char -&gt; Char -&gt; a</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L61">line 61</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L64">line 64</a></div>
 <pre class="code"><span class="c-libfunc">ʰs̲tarts</span> ← { w t → <span class="c-quote">'</span>{ i → w <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> w) <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> (i <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> t } <a href="builtins.html#e_ach" class="c-builtin">e̲ach</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> t }</pre>
 <div class="uses">Used in: <a href="lib-Combinators.xtlm.html#m.Y_-3c"><span class="c-macro">ᵐY̲&lt;</span></a>, <a href="lib-Combinators.xtlm.html#h.w_ord"><span class="c-libfunc">ʰw̲ord</span></a></div>
 </div>
 <div class="item" id="nameChars">
 <h3><a href="#nameChars">nameChars</a> <span class="type">: Char</span></h3>
-<div class="meta">value <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L64">line 64</a></div>
+<div class="meta">value <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L67">line 67</a></div>
 <pre class="code">nameChars ← <span class="c-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_:&quot;</span></pre>
 <div class="uses">Used in: <a href="lib-Combinators.xtlm.html#h.w_ord"><span class="c-libfunc">ʰw̲ord</span></a></div>
 </div>
 <div class="item" id="h.w_ord">
 <h3><a href="#h.w_ord"><span class="c-libfunc">ʰw̲ord</span></a> <span class="type">: Char -&gt; Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L67">line 67</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="lib-Combinators.xtlm.src.html#L70">line 70</a></div>
 <pre class="code"><span class="c-libfunc">ʰw̲ord</span> ← { w r t →
   n ← <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> w
   e ← <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; &quot;</span>

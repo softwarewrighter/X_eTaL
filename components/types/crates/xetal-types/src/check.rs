@@ -33,7 +33,7 @@ pub fn guard_types(program: &Program) -> Result<Vec<(Span, Type)>, Diagnostic> {
 }
 
 impl Infer {
-    /// A type mismatch at application `app` of `f` explained (D163):
+    /// A type mismatch at application `app` of `f` explained (D165):
     /// what each operand's type is and where it came from, and the
     /// built-in's type. Only the application's own mismatch, once.
     pub(crate) fn explained(

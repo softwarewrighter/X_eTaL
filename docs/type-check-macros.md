@@ -202,6 +202,15 @@ pipeline and integral macros would use it.
 
 ### 10. An unused-argument check in the macro runner (compile time; a compiler change)
 
+**Decided and done (2026-10-17, MC31, step 110):** as a contract the
+macro declares. `## uses: copied` (the default) makes the runner
+check that every name and number of each argument is a token of the
+expansion (inside its strings too), else `unused-argument` at the
+argument naming the text ignored; `## uses: parsed` says the macro
+reads a notation and answers for it (through the Parsing library,
+approach 9). `## takes:` states the shape of call and is checked
+before the macro runs. The design below is what was weighed.
+
 The runner maps a macro's output back to its call. If a macro received
 its arguments as spanned text (as the expander already holds them),
 the runner could refuse an expansion that leaves part of an argument
@@ -280,12 +289,11 @@ wrong answers the worst.
    the shape lint, starting from the pipeline's shape annotations, with
    the run-time check after each annotated stage as the backstop:
    preventable run-time errors should be prevented.
-5. **To decide with the user (from the Equations case):** approach 10,
-   the unused-argument check, is the one change that would make the
-   whole class a compile-time error in every macro; approach 9 is its
-   library-side complement and can start without a decision; approach
-   11 is a lint for the lint lane. All three join the spatial
-   limitations review.
+5. **Done (2026-10-17):** approach 10 as macro contracts (MC31,
+   `## takes:` and `## uses:`), and approach 9 as the Parsing library
+   (`pa:`) in X_eTaL-libraries; approach 11, a lint for `.xtlm`
+   readers, stays with the lint lane and the spatial limitations
+   review.
 6. **Research, not scheduled:** approaches 5 and 6. Ranks in types
    would close the biggest remaining hole (rank and shape errors are
    run-time errors in all X_eTaL, not only in macros) and deserves its

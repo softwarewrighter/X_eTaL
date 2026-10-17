@@ -1,0 +1,5 @@
+error[unused-argument]: d:s_um< did not use 2 of the text on its right; a macro that copies its text writes every name and number of it (## uses: copied)
+ --> spec/macros/data/dropping.xtl:3:11
+  |
+3 | @ d:s_um< "y^2"
+  |           ^^^^^

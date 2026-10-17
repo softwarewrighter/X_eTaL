@@ -7,6 +7,7 @@
 use std::cell::Cell;
 
 use xetal_base::{Diagnostic, Span};
+use xetal_contract::{Contract, shape, unused};
 use xetal_mapped::Mapped;
 
 use crate::calls::Call;
@@ -38,10 +39,12 @@ pub trait Macros {
     /// or `right` is reported at that argument, else at the macro.
     fn run(&self, call: &MacroCall) -> Result<String, Diagnostic>;
 
-    /// The names the macro of `call` declares it binds for the call's
-    /// text (`## binds:`, anaphora); the call's text cannot bind them.
-    fn binds(&self, _call: &MacroCall) -> Vec<String> {
-        Vec::new()
+    /// The contract of the macro of `call` (MC31): the names it binds
+    /// for the call's text (`## binds:`, anaphora), the shape of call
+    /// it takes (`## takes:`), whether it copies or parses its arguments
+    /// (`## uses:`); none declared, the default.
+    fn contract(&self, _call: &MacroCall) -> Contract {
+        Contract::default()
     }
 }
 
@@ -82,12 +85,30 @@ pub(crate) fn user(
         at: whole.start,
         fresh,
     };
+    let contract = macros.contract(&request);
+    let texts = (request.left.is_some(), request.right.is_some());
+    let written = written(&request);
+    if let Some(d) = shape(&contract, &written, texts) {
+        return Err(placed(d, call));
+    }
     let text = macros.run(&request).map_err(|d| placed(d, call))?;
+    let args = [request.left, request.right];
+    if let Some(d) = unused(&contract, &written, &args, &text) {
+        return Err(placed(d, call));
+    }
     let text = match call.statement {
         true => text,
         false => format!("({text})"),
     };
-    Ok((copied(&text, &[left, right], whole), macros.binds(&request)))
+    Ok((copied(&text, &[left, right], whole), contract.binds))
+}
+
+/// The macro as the call writes it: `x:n_ame<`, or `i_f<` for a system macro.
+fn written(call: &MacroCall) -> String {
+    match call.ns {
+        Some(ns) => format!("{ns}:{}", call.name),
+        None => call.name.to_string(),
+    }
 }
 
 /// `d` at the place it names (its `macro-place` note), else at the macro.

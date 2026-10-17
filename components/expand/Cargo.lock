@@ -15,10 +15,19 @@ name = "xetal-base"
 version = "0.1.0"
 
 [[package]]
+name = "xetal-contract"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
+]
+
+[[package]]
 name = "xetal-expand"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+ "xetal-contract",
  "xetal-lex",
  "xetal-mapped",
  "xetal-reflow",

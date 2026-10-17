@@ -34,7 +34,7 @@ merging.
    steps 123 (errors-library-calls) and 126-130 (errors-located ..
    errors-release) are done by this lane: mark them complete there
    with this branch's commits, or remove them, as you prefer.
-4. Decisions register numbers: D162 onward were free when this lane
+4. Decisions register numbers: D164 to D168 (renumbered from D162 at the step-110 merge) were free when this lane
    started; renumber at the merge if another lane took them.
 5. Merge last: the lane rebased all 232 spec cases with an ERROR
    section and every golden that shows an error. A lane merged before

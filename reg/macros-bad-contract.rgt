@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run spec/macros/data/bad-contract.xtl 2>&1"
+exit_code = 1
+desc = "a malformed contract line (## takes: with one word) is bad-contract at its line when the macro library loads (MC31)"

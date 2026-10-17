@@ -1,4 +1,4 @@
-# A Float where an Int is wanted (D164).
+# A Float where an Int is wanted (D166).
 == SOURCE
 x := 2.5; x t_ake 1 2 3
 == ERROR

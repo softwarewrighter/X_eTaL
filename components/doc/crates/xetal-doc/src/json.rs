@@ -1,8 +1,6 @@
 //! The model as JSON (written by hand: no dependency), two spaces an
 //! indent, keys in a fixed order so goldens are stable.
 
-use xetal_doccom::Doc;
-
 use crate::model::{DocFile, Item};
 
 /// The files as a JSON document.
@@ -30,7 +28,7 @@ fn file(f: &DocFile) -> String {
     let fields = [
         ("name", string(&f.name)),
         ("kind", string(f.kind)),
-        ("doc", doc_text(&f.doc)),
+        ("doc", text(f.doc.as_ref().map(|d| d.text.as_str()))),
         ("imports", format!("[{}]", imports.join(", "))),
         ("expansions", format!("[{}]", expansions.join(", "))),
         ("items", format!("[\n{}\n      ]", items.join(",\n"))),
@@ -69,13 +67,15 @@ fn item(i: &Item) -> String {
         ("public", i.public.to_string()),
         ("type", string(&i.ty)),
         ("line", i.line.to_string()),
-        (
-            "section",
-            i.section.as_deref().map_or("null".into(), string),
-        ),
-        ("doc", doc_text(&i.doc)),
+        ("section", text(i.section.as_deref())),
+        ("doc", text(i.doc.as_ref().map(|d| d.text.as_str()))),
         ("examples", format!("[{}]", examples.join(", "))),
         ("binds", format!("[{}]", binds.join(", "))),
+        (
+            "takes",
+            text(i.doc.as_ref().and_then(|d| d.takes.as_deref())),
+        ),
+        ("uses", text(i.doc.as_ref().and_then(|d| d.uses.as_deref()))),
         ("source", string(&i.source)),
         ("uses", format!("[{}]", uses.join(", "))),
     ];
@@ -91,8 +91,9 @@ fn inline(fields: &[(&str, String)]) -> String {
     format!("{{{}}}", shown.join(", "))
 }
 
-fn doc_text(doc: &Option<Doc>) -> String {
-    doc.as_ref().map_or("null".into(), |d| string(&d.text))
+/// A text field as JSON: a string, or null for none.
+fn text(field: Option<&str>) -> String {
+    field.map_or("null".into(), string)
 }
 
 /// `{ "key": value, ... }` at `indent` spaces, one field a line.

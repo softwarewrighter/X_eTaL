@@ -1,4 +1,4 @@
-# Int and Float do not mix: f_loat, f_loor, c_eiling (Saga 27 step 3, D164).
+# Int and Float do not mix: f_loat, f_loor, c_eiling (Saga 27 step 3, D166).
 == SOURCE
 n := 3; u:g_ := { y -> y * 0.5 }; u:g_ n
 == ERROR

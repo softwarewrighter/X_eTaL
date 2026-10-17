@@ -1,4 +1,4 @@
-# A literal says what it is; the built-in applied shows its type (D163).
+# A literal says what it is; the built-in applied shows its type (D165).
 == SOURCE
 n := 3; n + 2.5
 == ERROR

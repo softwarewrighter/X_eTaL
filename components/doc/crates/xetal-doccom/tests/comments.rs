@@ -138,6 +138,18 @@ fn an_expected_error_is_shown_as_the_output() {
 }
 
 #[test]
+fn takes_and_uses_lines_are_fields_not_prose() {
+    let text =
+        "## File.\n\n## Twice.\n## takes: @  text\n## uses: parsed\nm:t_wice< := { @ e -> e }\n";
+    let doc = doc_above(text, 6).expect("doc");
+    assert_eq!(doc.takes.as_deref(), Some("@ text"));
+    assert_eq!(doc.uses.as_deref(), Some("parsed"));
+    assert_eq!(doc.text, "Twice.");
+    let plain = doc_above("## File.\n\n## Plain.\nm:p_< := { @ e -> e }\n", 4).expect("doc");
+    assert_eq!((plain.takes, plain.uses), (None, None));
+}
+
+#[test]
 fn a_binds_line_is_a_field_not_prose() {
     let text = "## And.\n\n## Binds it for the body.\n## binds: it that\n## More prose.\nm:a_nd< := { a b -> a }\n";
     let doc = doc_above(text, 6).expect("doc");

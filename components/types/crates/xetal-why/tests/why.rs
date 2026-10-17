@@ -1,4 +1,4 @@
-//! What a type mismatch says of each side (D163).
+//! What a type mismatch says of each side (D165).
 
 use xetal_base::Span;
 use xetal_core::{Item, lower};

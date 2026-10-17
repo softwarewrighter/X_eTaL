@@ -1,4 +1,4 @@
-//! Hints for the common type mistakes (Saga 27 step 3, D164): read
+//! Hints for the common type mistakes (Saga 27 step 3, D166): read
 //! from the mismatch's own words (`expected E, found F`), each a
 //! `help:` saying what to write instead.
 

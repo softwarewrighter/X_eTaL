@@ -1,4 +1,4 @@
-# A function still waiting for an argument where a value is wanted (D164).
+# A function still waiting for an argument where a value is wanted (D166).
 == SOURCE
 u:f_ := { a b -> a + b }; 1 + u:f_ 1
 == ERROR

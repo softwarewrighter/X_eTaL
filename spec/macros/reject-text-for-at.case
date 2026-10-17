@@ -3,7 +3,7 @@
 == SOURCE
 "" l_ine< @
 == ERROR
-error[bad-macro-argument]: l_ine< takes @ on its left, not text
+error[bad-macro-call]: l_ine< takes @ on its left and @ on its right
  --> -e:1:1
   |
 1 | "" l_ine< @

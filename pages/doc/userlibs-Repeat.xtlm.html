@@ -92,11 +92,12 @@ becomes with xetal expand FILE.</p>
 <h2 class="section" id="section-1">Repeating statements</h2>
 <div class="item" id="m.t_imes-3c">
 <h3><a href="#m.t_imes-3c"><span class="c-macro">ᵐt̲imes&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="userlibs-Repeat.xtlm.src.html#L17">line 17</a></div>
+<div class="meta">macro &middot; <a href="userlibs-Repeat.xtlm.src.html#L20">line 20</a></div>
 <div class="doc">
 <p>The statements on the right, written the number of times on the
 left, one copy per line; it stands as a statement of its own. A
-count below 1 is refused when the program is expanded.</p>
+count below 1 is refused when the program is expanded. The count is
+read as a number, not copied, so the macro says it parses (MC31).</p>
 <pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="userlibs-Repeat.xtlm.html" class="c-string">&quot;Repeat&quot;</a></pre>
 <pre class="example"><span class="prompt">      </span><span class="c-string">&quot;3&quot;</span> <a href="userlibs-Repeat.xtlm.html#m.t_imes-3c" class="c-macro">ʳt̲imes&lt;</a> <span class="c-string">&quot;\&quot;hip hip\&quot;&quot;</span>
 hip hip
@@ -113,7 +114,7 @@ hip hip</pre>
 </div>
 <div class="item" id="h.c_opies">
 <h3><a href="#h.c_opies"><span class="c-libfunc">ʰc̲opies</span></a> <span class="type">: Int -&gt; Char -&gt; Char</span></h3>
-<div class="meta">function <span class="private">(private)</span> &middot; <a href="userlibs-Repeat.xtlm.src.html#L26">line 26</a></div>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="userlibs-Repeat.xtlm.src.html#L29">line 29</a></div>
 <div class="doc">
 <p>The text t written k times, one copy per line (once when k is 1 or
 less).</p>

@@ -1,4 +1,4 @@
-# A string is a vector of Char, not a number (D163).
+# A string is a vector of Char, not a number (D165).
 == SOURCE
 1 + "a"
 == ERROR

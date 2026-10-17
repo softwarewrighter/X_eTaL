@@ -1,5 +1,5 @@
 //! A diagnostic located in its file and shown as rustc shows one
-//! (Saga 27, D162): the message, then `--> FILE:LINE:COLUMN`, the line
+//! (Saga 27, D164): the message, then `--> FILE:LINE:COLUMN`, the line
 //! with the spot underlined, each label's line with its words, and the
 //! notes and hints.
 

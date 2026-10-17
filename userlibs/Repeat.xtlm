@@ -8,7 +8,10 @@
 
 ## The statements on the right, written the number of times on the
 ## left, one copy per line; it stands as a statement of its own. A
-## count below 1 is refused when the program is expanded.
+## count below 1 is refused when the program is expanded. The count is
+## read as a number, not copied, so the macro says it parses (MC31).
+## takes: text text
+## uses: parsed
 ## >> "r:" u_se< "Repeat"
 ## >> "3" r:t_imes< "\"hip hip\""
 ## hip hip

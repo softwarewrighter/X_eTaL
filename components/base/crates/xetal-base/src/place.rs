@@ -22,7 +22,7 @@ pub struct Place {
 pub const CALLED_FROM: &str = "called from the program here";
 
 /// A second place a diagnostic points at, with what it says there
-/// (where a type came from, D163): its span in the same text as the
+/// (where a type came from, D165): its span in the same text as the
 /// diagnostic's own, and its place once located.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Label {

@@ -1,4 +1,4 @@
-# A box where its value is wanted: d_isclose (D164).
+# A box where its value is wanted: d_isclose (D166).
 == SOURCE
 b := e_nclose 1 2; b + 1
 == ERROR

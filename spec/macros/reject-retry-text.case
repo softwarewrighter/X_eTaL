@@ -3,7 +3,7 @@
 == SOURCE
 "1 d_iv 0" t_ry< "@ r_etry< \"e\""
 == ERROR
-error[bad-macro-argument]: r_etry< takes @ on its right, not text
+error[bad-macro-call]: r_etry< takes @ on its left and @ on its right
  --> -e:1:29
   |
 1 | "1 d_iv 0" t_ry< "@ r_etry< \"e\""

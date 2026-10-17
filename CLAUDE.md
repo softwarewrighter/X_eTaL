@@ -409,23 +409,63 @@ fails until the case is flipped to active in a deliberate commit.
 
 `scripts/gate.sh` runs 1-6.
 
+### Release train: fast by day, the full suite by night
+
+Decided with the user 2026-10-17: work is integrated speculatively,
+like a release train, and the nightly full suite is the test of
+record. Twenty gates per feature cost more wall-clock than the
+occasional rework.
+
+By day:
+
+- A lane checks itself cheaply before its PR: `cargo fmt`, clippy
+  `-D warnings`, its crate's tests, `scripts/check-spelling.py`; no
+  goldens, no pages, no gate in a sandbox. The PR body says what ran.
+  Lanes work in their own worktrees, in parallel.
+- The integrator (the local main session) merges every ready PR in
+  sequence onto main, a train, resolving conflicts in the merge
+  commits, with no gate between merges. Drafts and PRs whose own
+  checks fail stay off the train.
+- One sample gate per train (`just gate`, about 30 seconds), then
+  push. No `--affected` per train, no pages per train. Goldens moved
+  on purpose are rebased in the train and the commit says so.
+- A step completes (`agentrail complete`) after the sample gate too.
+- Stale pages are a warning by day; `just pages` on request before a
+  demo.
+- The integrator does not repeat a lane's checks: the review is the
+  diff, and the train gate covers what a sandbox cannot run (goldens,
+  spec cases, sw-checklist).
+- `scripts/check-busy.sh` keys on this worktree's own `target/` lock
+  (and on any `trunk serve`), so lanes building in their own
+  worktrees do not block a train.
+
+By night:
+
+- `scripts/nightly.sh` (launchd, `scripts/nightly.plist`) runs
+  `just gate --full`, every component's fmt, clippy and tests, the
+  browser build, every golden and document, then `just pages --all`
+  and publishes; a GitHub issue when it fails, the log in
+  `work/nightly/`.
+- A red nightly is the first train of the next day: fix forward, or
+  `git revert -m 1 <merge>` the merge that owns it and tell the lane.
+- `--affected` or `--full` by hand only before a release.
+
 ### Three gates: sample, affected, full
 
 - `just gate` (sample, about 30 seconds): the end-to-end checks only,
   in parallel: goldens, spec cases, doc tests, reference, status, data
   tables, spelling, markdown; and sw-checklist (a fraction of a
   second), so a merged lane cannot leave code over its limits. Before
-  every commit, merge and push.
-  A merge of a lane's PR is: merge, `just gate`, `just pages` (only
-  the stale parts rebuild), push.
+  every commit, train and push; stale pages are a warning here.
 - `just gate --affected`: the sample plus the components the change
   touches (`scripts/affected.py` plans it: changed ones checked,
   dependents compiled), the browser build and the document checks
-  whose inputs changed. Before `agentrail complete` of a
-  step that changed code.
-- `just gate --full`: everything. Nightly (`scripts/nightly.sh`, a
-  launchd job in `scripts/nightly.plist`; its log in `work/nightly/`,
-  a GitHub issue when it fails) and before a release.
+  whose inputs changed. By hand before a release (the nightly runs
+  more).
+- `just gate --full`: everything, then `just pages --all` and publish.
+  Nightly (`scripts/nightly.sh`, a launchd job in
+  `scripts/nightly.plist`; its log in `work/nightly/`, a GitHub issue
+  when it fails) and before a release.
 - A merge pushed after the sample gate that the nightly then faults:
   fix forward, or `git revert -m 1 <merge>` and tell the lane.
 - A change to data or documents only (demos/rosetta/data.toml,

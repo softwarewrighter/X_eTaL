@@ -1,5 +1,5 @@
 # A mismatch says where each side got its type: a binding, and the
-# built-in whose result is always one type (Saga 27 step 2, D163).
+# built-in whose result is always one type (Saga 27 step 2, D165).
 == SOURCE
 m := 7 / 2
 k := 1

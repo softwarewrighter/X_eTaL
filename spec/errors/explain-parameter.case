@@ -1,4 +1,4 @@
-# A lambda parameter is the type it is used at (D163).
+# A lambda parameter is the type it is used at (D165).
 == SOURCE
 u:f_ := { x -> (x + 1.5) + (x = "a") }
 == ERROR

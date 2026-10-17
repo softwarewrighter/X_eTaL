@@ -41,7 +41,7 @@ pub(crate) struct Record {
     /// Each guard's condition and its type, for the typed lints.
     pub guards: Vec<(Span, Type)>,
     /// Each binding's value: its span, and what gives its type when a
-    /// built-in does (for the words a type mismatch says, D163).
+    /// built-in does (for the words a type mismatch says, D165).
     pub bound: HashMap<NodeId, (Span, Option<String>)>,
 }
 

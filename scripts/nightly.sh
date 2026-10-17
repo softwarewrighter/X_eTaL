@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# The nightly full gate: bring main up to date, run everything, keep
-# the log, and open a GitHub issue when it fails (closing the open one
-# when it passes again). Scheduled by scripts/nightly.plist (launchd);
-# run it by hand with `just nightly`.
+# The nightly full gate, the test of record (CLAUDE.md, release
+# train): bring main up to date, run everything, then rebuild every
+# part of pages/ and push it; keep the log, and open a GitHub issue
+# when it fails (closing the open one when it passes again). Scheduled
+# by scripts/nightly.plist (launchd); run it by hand with `just nightly`.
 #   scripts/nightly.sh
 set -uo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -14,7 +15,11 @@ log="work/nightly/$stamp.log"
 {
     echo "nightly gate, $(date), $(git rev-parse --short HEAD)"
     git fetch -q origin && git merge -q --ff-only origin/main 2>&1
-    scripts/gate.sh --full
+    scripts/gate.sh --full && scripts/build-pages.sh --all && {
+        # The site, rebuilt whole, published by the Pages workflow on push.
+        git add pages && git diff --quiet --cached \
+            || git commit -q -m "pages: nightly rebuild of every part ($(git rev-parse --short HEAD))" && git push -q origin HEAD:main
+    }
 } > "$log" 2>&1
 status=$?
 title="nightly gate failed"
