@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-17
 
+- 16:30 `plan` Saga 42, integrals (step integrals-plan; the user): docs/plan.md plans convolutions and numerical integration after the pipelines from docs/convolutions/ (goal, what the note asks for, what X_eTaL has and lacks, eight decisions for the user, nine steps with tests first, the asks to send); the note's oracle numbers (10 16, 14 20, 1.0) checked on main, its `e:q_<` corrected to `e:e_q<` (D160).
 - 10:02 `docs` docs/spatial.md describes the equation grammar as extended with the user (X_eTaL-libraries): sums as parenthesized terms of a larger expression, `prod` `max` `min`, the functions `exp log sqrt abs max min`, one grammar read three ways with the reprint compared at every call.
 - 09:39 `docs` `a_ddAxis`, not `a_dd_axis` (the ML agent's report): a function name has one underline, a later `_` starts an axis subscript; the plan and the design docs say the bias helper's name correctly.
 - 09:16 `docs` The Equations case (three silent wrong answers found writing about the library; fixed in X_eTaL-libraries ed91e6d): docs/spatial.md states the grammar's rule (every reading rule uses all of its text or refuses it; `^` tightest, right to left); docs/type-check-macros.md adds approaches 9 to 11 (total parsing for macro authors, an unused-argument check in the macro runner, a lint for `.xtlm` readers) and the case; the limitations review gains L8 to L10.
