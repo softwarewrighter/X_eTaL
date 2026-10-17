@@ -1191,6 +1191,14 @@ style guide's names (lang-choices section 16).
    `missing-bang`, `needless-bang`), findings at the name, `--fix`
    refusing a file git could not restore (`--allow-dirty`), ranges in
    the JSON. The Emacs mode reading the JSON is left for a later step.
+10. lint-origins [DONE] (D162; lane lint-capture): each macro call
+   recorded in the source map with its `## binds:`; a finding in code a
+   macro wrote is `macro-internals` (pedantic), an unread declared
+   anaphor `unused-anaphor` (pedantic), never the caller's finding.
+11. lint-capture [DONE] (D162; lane lint-capture): `macro-capture`
+   (suspicious, warn) in a new crate xetal-origin; lib/Macros.xtlm
+   `b_inds<` declares `## binds: x`. Next: read `## takes:` and
+   `## uses:` once step 110 lands.
 ## Saga 41 (proposed) -- spatial equations (paper math to array code, a library)
 
 Proposed after the review of `docs/research8.txt` and

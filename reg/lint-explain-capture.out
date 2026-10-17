@@ -1,0 +1,15 @@
+macro-capture (suspicious, warn by default)
+
+What it does: warns where the text of a macro call reads a name that the macro's expansion binds, when the macro wrote that name itself, did not get it from `[]G_ENSYM` and does not declare it in its `## binds:` (MC30).
+
+Why: a name a macro writes stays as written, so the caller's `x` silently becomes the macro's `x`. A capture meant for the caller (an anaphor) is declared; any other is a slip.
+
+Example (the macro writes `x := 3` around its argument):
+    x := 10
+    @ x:b_ad< "x + 1"
+Instead (in the macro library):
+    m:b_ad< := { @ e ->
+      x := []G_ENSYM "x"
+      "{ @ -> " c_at x c_at " := 3; " c_at e c_at " } @" }
+
+Or, when the capture is meant, `## binds: x` in the macro's doc block. Reported at each read in the call's text.

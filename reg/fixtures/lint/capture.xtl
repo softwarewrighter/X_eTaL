@@ -1,0 +1,11 @@
+# Origin-aware lints. c:c_ap< writes x := 3 around its text and declares
+# nothing, so the text's x is the macro's (macro-capture, on by default).
+# c:w_ith< declares its it (## binds: it): reading it is meant, and not
+# reading it is unused-anaphor (pedantic). c:w_aste<'s own unread tmp is
+# the macro's to fix, never unused-binding at the call (macro-internals).
+"c:" u_se< "Capture"
+x := 10
+p_rint! @ c:c_ap< "x + 1"
+p_rint! "3 + 4" c:w_ith< "it * it"
+p_rint! "3 + 4" c:w_ith< "5"
+p_rint! @ c:w_aste< "1"

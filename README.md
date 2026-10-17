@@ -447,8 +447,13 @@ default: a shadowed built-in, a parameter or local nothing uses (write
 `_ := expr` to keep a value for its effect), a mutable variable named
 like a constant, a function that calls an effect (`p_rint!`) without a
 `!` in its own name, a lambda that only passes its arguments on to a
-named function (`'{ x -> n_eg x } e_ach v` is `'n_eg e_ach v`); the
-case of names is checked with `-W pedantic`.
+named function (`'{ x -> n_eg x } e_ach v` is `'n_eg e_ach v`), a
+macro call whose text reads a name the macro binds itself without
+`[]G_ENSYM` or `## binds:` (your `x` captured by the macro's); the
+case of names is checked with `-W pedantic`. Code a macro writes is
+not yours to fix, so a finding there is reported only on request
+(`-W macro-internals`, or `-W unused-anaphor` for a name the macro
+binds for your text that it never reads).
 
 - `xetal lint FILE` prints each finding on stderr with its place,
   `warning[mutable-constant]: ... at FILE:4:11`.

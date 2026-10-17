@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint --explain macro-capture"
+exit_code = 0
+desc = "xetal lint --explain macro-capture: what it does, why, an example and its fix"

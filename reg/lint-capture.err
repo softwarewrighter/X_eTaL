@@ -1,0 +1,3 @@
+warning[macro-capture]: `x` here is bound by c:c_ap<, not by your code: the macro writes the name itself (its author can ask for a fresh one with []G_ENSYM, or declare `## binds: x` if it is meant for your text) at reg/fixtures/lint/capture.xtl:8:20
+  note: `macro-capture` is in group `suspicious`; xetal lint --explain macro-capture
+1 warning(s), 0 error(s)
