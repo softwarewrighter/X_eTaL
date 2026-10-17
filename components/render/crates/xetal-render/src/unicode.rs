@@ -1,10 +1,12 @@
 //! Raw ASCII -> decorated Unicode (docs/lang-choices.md section 10).
 //! Whitespace and comment text between tokens are copied verbatim; a
-//! comment's `#` is drawn as APL's lamp.
+//! comment's `#` is drawn as APL's lamp, a doc comment's and a
+//! heading's marker as the lamp and box drawing (I4).
 
 use xetal_base::Diagnostic;
 use xetal_lex::{FuncName, Side, TokenKind, lex};
 
+use crate::comments::{comment_kind, comment_marker};
 use crate::glyphs::{LIGATURES, UNDERLINE, subscript_digit, superscript_text, superscript_word};
 use crate::lambda::lambda_arg;
 
@@ -12,16 +14,17 @@ use crate::lambda::lambda_arg;
 pub fn decorate(src: &str) -> Result<String, Diagnostic> {
     let tokens = lex(src)?;
     let mut out = String::new();
-    let mut pos = 0;
+    let (mut pos, mut line_start) = (0, true);
     for token in &tokens {
-        out.push_str(&gap_text(&src[pos..token.span.start]));
+        out.push_str(&gap_text(&src[pos..token.span.start], line_start));
         out.push_str(&token_text(
             &token.kind,
             &src[token.span.start..token.span.end],
         ));
         pos = token.span.end;
+        line_start = token.kind == TokenKind::Newline;
     }
-    out.push_str(&gap_text(&src[pos..]));
+    out.push_str(&gap_text(&src[pos..], line_start));
     Ok(out)
 }
 
@@ -47,9 +50,15 @@ pub fn token_text(kind: &TokenKind, raw: &str) -> String {
 }
 
 /// The text between tokens: whitespace and at most one comment, whose
-/// `#` becomes a lamp.
-pub fn gap_text(text: &str) -> String {
-    text.replacen('#', &ligature("#").map_or('#', |g| g).to_string(), 1)
+/// marker is drawn (a lamp, or a doc comment's or heading's marker when
+/// the gap starts its line, `line_start`).
+pub fn gap_text(text: &str, line_start: bool) -> String {
+    let Some(hash) = text.find('#') else {
+        return text.into();
+    };
+    let kind = comment_kind(&text[hash..], line_start);
+    let (glyphs, len) = comment_marker(kind);
+    format!("{}{glyphs}{}", &text[..hash], &text[hash + len..])
 }
 
 fn ligature(ascii: &str) -> Option<char> {

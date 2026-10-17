@@ -1,0 +1,11 @@
+# A doc comment's ## is a lamp and a light vertical, a ### heading's a lamp and two heavy horizontals (I4); an end-of-line ## stays a remark.
+== SOURCE
+### Sizes
+## Twice.
+u:t_wice := { 2 * _r } ## a remark
+# a plain comment
+== RENDER
+⍝━━ Sizes
+⍝│ Twice.
+ᵘt̲wice ← { 2 × ⍵ } ⍝# a remark
+⍝ a plain comment

@@ -43,7 +43,7 @@ deviation and the range:
 #+begin_example
 ˢv̲ariance 2 4 4 4 5 5 7 9
 ˢs̲d 2 4 4 4 5 5 7 9
-ˢr̲ange 3 9 1 7
+ˢs̲pread 3 9 1 7
 #+end_example
 #+begin_src xetal
 s:v_ariance 2 4 4 4 5 5 7 9

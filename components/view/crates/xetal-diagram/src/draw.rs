@@ -29,6 +29,7 @@ pub(crate) fn color(class: Class) -> &'static str {
         Class::String => "#e8d27a",
         Class::Symbol => "#7fbfff",
         Class::Comment => "#9aa0a6",
+        Class::Doc | Class::Heading => "#8fc79a",
         Class::Error => "#ff5555",
         _ => "#e6e6e6",
     }
@@ -45,7 +46,7 @@ pub(crate) fn line(segments: &[Segment], cols: &[usize], x0: f64, top: f64) -> S
         if seg.class == Class::Space || seg.text.trim().is_empty() {
             continue;
         }
-        let weight = if seg.class == Class::Quote {
+        let weight = if matches!(seg.class, Class::Quote | Class::Heading) {
             " font-weight=\"bold\""
         } else {
             ""

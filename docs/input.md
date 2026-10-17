@@ -118,7 +118,9 @@ xetal render --latex -e 'o_-_12 x^2'                    # LaTeX math
 
 The decorated form also draws `:=` as an arrow, `;` as a diamond,
 `#` as APL's lamp and `*` `/` `!=` `<=` `>=` `&` `|` as their
-mathematical signs. Unicode has no superscript `q`, so `q:x` is
+mathematical signs. A line's `##` doc comment starts with a lamp and
+a thin vertical bar, a `###` section heading with a lamp and two heavy
+bars, one sign for each `#`, and their text has a style of its own. Unicode has no superscript `q`, so `q:x` is
 displayed as typed; the LaTeX output has no such gap. A decimal
 exponent is raised like any other, its point drawn as a raised middle
 dot: `x^0.5` shows as x with a superscript 0, a dot and a 5.

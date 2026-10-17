@@ -72,6 +72,31 @@ fn comments_get_a_lamp_and_keep_their_text() {
     assert_eq!(dec("x # a; b * c # d\ny"), "x \u{235d} a; b * c # d\ny");
 }
 
+/// A line's `##` doc comment draws its marker as a lamp and a light
+/// vertical, a `###` section heading as a lamp and two heavy
+/// horizontals: one glyph per `#`, so columns are kept (I4).
+#[test]
+fn doc_comments_and_headings_get_their_own_markers() {
+    assert_eq!(dec("## Twice.\nx"), "\u{235d}\u{2502} Twice.\nx");
+    assert_eq!(dec("##\nx"), "\u{235d}\u{2502}\nx");
+    assert_eq!(dec("### Sizes\nx"), "\u{235d}\u{2501}\u{2501} Sizes\nx");
+    assert_eq!(dec("x\n  ## In.\ny"), "x\n  \u{235d}\u{2502} In.\ny");
+    assert_eq!(
+        dec("x := 1\n## End."),
+        "x \u{2190} 1\n\u{235d}\u{2502} End."
+    );
+}
+
+/// Only a doc or heading line by S9 is drawn so: an end-of-line remark,
+/// `##x`, `####` and a bare `###` keep a lone lamp.
+#[test]
+fn other_comments_keep_a_lone_lamp() {
+    assert_eq!(dec("x ## not doc"), "x \u{235d}# not doc");
+    assert_eq!(dec("##x\ny"), "\u{235d}#x\ny");
+    assert_eq!(dec("#### four\ny"), "\u{235d}### four\ny");
+    assert_eq!(dec("###\ny"), "\u{235d}##\ny");
+}
+
 #[test]
 fn lambda_arguments_are_alpha_and_omega() {
     assert_eq!(dec("_l _r"), "\u{237a} \u{2375}");

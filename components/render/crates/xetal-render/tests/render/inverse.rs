@@ -49,6 +49,15 @@ fn single_glyphs_become_their_ascii_tokens() {
 }
 
 #[test]
+fn doc_and_heading_markers_become_their_hashes() {
+    assert_eq!(raw("\u{235d}\u{2502} Twice.\nx"), "## Twice.\nx");
+    assert_eq!(raw("\u{235d}\u{2502}\nx"), "##\nx");
+    assert_eq!(raw("\u{235d}\u{2501}\u{2501} Sizes"), "### Sizes");
+    // Box drawing that is a remark's own text is copied as it is.
+    assert_eq!(raw("\u{235d}\u{2502}x \u{2501}"), "#\u{2502}x \u{2501}");
+}
+
+#[test]
 fn rejects_non_decoration_unicode_with_span() {
     let err = undecorate("x \u{263a} 3").unwrap_err();
     assert_eq!(

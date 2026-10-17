@@ -28,6 +28,10 @@ pub enum Class {
     Punct,
     Unit,
     Comment,
+    /// A `##` doc comment line, marker and text (I4).
+    Doc,
+    /// A `###` section heading line, marker and text, drawn bold.
+    Heading,
     /// Whitespace and newlines.
     Space,
     /// Text that does not lex; shown as typed.
