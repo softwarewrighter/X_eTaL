@@ -4,4 +4,8 @@
 "c:" u_se< "Combinators"
 "u:f_" c:Y_< "{ s_elf -> 1 }"
 == ERROR
-error[bad-macro-argument]: c:Y_< takes a lambda whose first parameter is the function itself: { s_elf n -> ... } at 38..54
+error[bad-macro-argument]: c:Y_< takes a lambda whose first parameter is the function itself: { s_elf n -> ... }
+ --> -e:2:14
+  |
+2 | "u:f_" c:Y_< "{ s_elf -> 1 }"
+  |              ^^^^^^^^^^^^^^^^

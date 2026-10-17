@@ -30,8 +30,8 @@ fn an_error_is_reported_and_the_line_is_dropped() {
     assert_eq!(out, "");
     assert!(err.starts_with("error[type-mismatch]"), "{err}");
     assert!(
-        err.ends_with("at 0..7\n"),
-        "spans are relative to the line: {err}"
+        err.contains("--> repl:2:1\n  |\n2 | x + 2.5\n  | ^^^^^^^\n"),
+        "placed in the line typed, counted from the first: {err}"
     );
     let (out, err) = say(&mut s, "p_rint! 5; 1 / 0");
     assert_eq!(out, "5\n5\n");
@@ -90,7 +90,7 @@ fn a_session_can_import_a_library() {
     );
     let (_, err) = say(&mut s, "s:m_ean y");
     assert!(
-        err.contains("at 8..9"),
+        err.contains("--> repl:3:9\n  |\n3 | s:m_ean y\n  |         ^\n"),
         "the error is placed in the line typed: {err}"
     );
 }

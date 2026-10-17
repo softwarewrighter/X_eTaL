@@ -4,4 +4,8 @@
 u:s_ub := { _l - _r }
 10 u:s_ub^2 3
 == ERROR
-error[infinite-type]: a type would contain itself: a -> a at 25..33
+error[infinite-type]: a type would contain itself: a -> a
+ --> -e:2:4
+  |
+2 | 10 u:s_ub^2 3
+  |    ^^^^^^^^

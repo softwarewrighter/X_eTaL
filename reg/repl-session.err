@@ -1,2 +1,10 @@
-error[type-mismatch]: expected Int, found Float at 0..7
-error[division-by-zero]: division by zero at 11..16
+error[type-mismatch]: expected Int, found Float
+ --> repl:4:1
+  |
+4 | x + 2.5
+  | ^^^^^^^
+error[division-by-zero]: division by zero
+  --> repl:10:12
+   |
+10 | p_rint! 5; 1 / 0
+   |            ^^^^^

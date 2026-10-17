@@ -3,4 +3,8 @@
 == SOURCE
 t_ally_2 2 3 r_eshape r_ange 6
 == ERROR
-error[axis]: a function under an axis subscript changed the rank from 2 to 0 at 0..30
+error[axis]: a function under an axis subscript changed the rank from 2 to 0
+ --> -e:1:1
+  |
+1 | t_ally_2 2 3 r_eshape r_ange 6
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -5,4 +5,8 @@
 == TYPE
 Int
 == ERROR
-error[empty]: nothing to add at 6..40
+error[empty]: nothing to add
+ --> -e:1:7
+  |
+1 | 10 + (0 []W_ARN "empty" "nothing to add")
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,1 +1,5 @@
-error[type-mismatch]: expected Int, found Float at 8..15
+error[type-mismatch]: expected Int, found Float
+ --> -e:1:9
+  |
+1 | n := 3; n + 2.5
+  |         ^^^^^^^

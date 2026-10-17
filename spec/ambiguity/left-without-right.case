@@ -2,4 +2,8 @@
 == SOURCE
 { _l }
 == ERROR
-error[bad-lambda]: a lambda using _l must also use _r; otherwise name the parameters at 0..6
+error[bad-lambda]: a lambda using _l must also use _r; otherwise name the parameters
+ --> -e:1:1
+  |
+1 | { _l }
+  | ^^^^^^

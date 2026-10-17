@@ -4,4 +4,8 @@
 x := 1
 "x > 0" i_f< "y_z 1; 2"
 == ERROR
-error[unknown-builtin]: there is no built-in y_z at 21..24
+error[unknown-builtin]: there is no built-in y_z
+ --> -e:2:15
+  |
+2 | "x > 0" i_f< "y_z 1; 2"
+  |               ^^^

@@ -2,4 +2,8 @@
 == SOURCE
 o_\_13 2 3 r_eshape r_ange 6
 == ERROR
-error[axis]: axis 3 does not exist in an argument of rank 2 at 0..28
+error[axis]: axis 3 does not exist in an argument of rank 2
+ --> -e:1:1
+  |
+1 | o_\_13 2 3 r_eshape r_ange 6
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

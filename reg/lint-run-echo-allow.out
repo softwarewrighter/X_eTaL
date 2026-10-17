@@ -6,4 +6,8 @@
 2 4 6
       { [34mo̲-[0m → [34mo̲-[0m [33m4[0m } [1m'[0m{ [35m⍵[0m [94m+[0m [33m1[0m }[0m
 5
-[31mwarning[shadows-builtin]: `o_-` here shadows the built-in o_- at 0..16[0m
+[31mwarning[shadows-builtin]: `o_-` here shadows the built-in o_-[0m
+[31m --> reg/fixtures/lint/run-allow.xtl:6:1[0m
+[31m  |[0m
+[31m6 | { o_- -> o_- 4 } '{ _r + 1 }[0m
+[31m  | ^^^^^^^^^^^^^^^^[0m

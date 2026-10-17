@@ -1,0 +1,1 @@
+Readable lane (see lanes/readable/.agentrail/plan.md and docs/plan.md Saga 27), step errors-release. TDD; the gate before every commit; one PR from feat/errors-fceu5f, rebased on the latest origin/main before review.

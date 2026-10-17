@@ -2,4 +2,8 @@
 == SOURCE
 _x
 == ERROR
-error[bad-lambda-arg]: lambda arguments are `_l` and `_r` (and `_l_` / `_r_` to apply them) at 0..2
+error[bad-lambda-arg]: lambda arguments are `_l` and `_r` (and `_l_` / `_r_` to apply them)
+ --> -e:1:1
+  |
+1 | _x
+  | ^^

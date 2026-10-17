@@ -2,4 +2,8 @@
 == SOURCE
 []S_HOW 3
 == ERROR
-error[type-mismatch]: expected Char, found a number at 0..9
+error[type-mismatch]: expected Char, found a number
+ --> -e:1:1
+  |
+1 | []S_HOW 3
+  | ^^^^^^^^^

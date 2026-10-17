@@ -3,4 +3,8 @@
 "t:" u_se< "Terminal"
 t:UP []F_G "x"
 == ERROR
-error[type-mismatch]: expected Color, found Key at -e:2:1
+error[type-mismatch]: expected Color, found Key
+ --> -e:2:1
+  |
+2 | t:UP []F_G "x"
+  | ^^^^^^^^^^^^^^

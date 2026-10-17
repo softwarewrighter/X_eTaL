@@ -3,4 +3,8 @@
 == SOURCE
 "Bad Code" []S_IGNAL "message"
 == ERROR
-error[bad-code]: an error code is lowercase letters, digits and hyphens, got "Bad Code" at 0..30
+error[bad-code]: an error code is lowercase letters, digits and hyphens, got "Bad Code"
+ --> -e:1:1
+  |
+1 | "Bad Code" []S_IGNAL "message"
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

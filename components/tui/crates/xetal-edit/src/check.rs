@@ -14,7 +14,7 @@ pub(crate) struct Report {
 fn failed(d: Diagnostic) -> Report {
     let mark = d.span.map(|s| (s.start, s.end));
     Report {
-        lines: vec![d.to_string()],
+        lines: d.to_string().lines().map(String::from).collect(),
         mark,
     }
 }

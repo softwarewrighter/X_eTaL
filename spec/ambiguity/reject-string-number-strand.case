@@ -3,4 +3,8 @@
 == SOURCE
 "ab" 12
 == ERROR
-error[adjacent-values]: two values side by side (only literals of one kind form strands: numbers, or strings) at 0..4
+error[adjacent-values]: two values side by side (only literals of one kind form strands: numbers, or strings)
+ --> -e:1:1
+  |
+1 | "ab" 12
+  | ^^^^

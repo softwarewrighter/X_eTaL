@@ -2,4 +2,8 @@
 == SOURCE
 f_-1
 == ERROR
-error[bad-mark]: a function name ends after one trailing mark at 3..4
+error[bad-mark]: a function name ends after one trailing mark
+ --> -e:1:4
+  |
+1 | f_-1
+  |    ^

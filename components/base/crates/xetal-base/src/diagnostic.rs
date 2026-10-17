@@ -2,7 +2,8 @@
 
 use std::fmt;
 
-use crate::Span;
+use crate::shown;
+use crate::{Fix, Label, Place, Span};
 
 /// Whether a diagnostic stops the program or only informs.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
@@ -10,14 +11,6 @@ pub enum Severity {
     #[default]
     Error,
     Warning,
-}
-
-/// A machine-applicable suggestion, as rustc gives one: write
-/// `replacement` in place of the source behind `span`.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct Fix {
-    pub span: Span,
-    pub replacement: String,
 }
 
 /// A user-facing error or warning: a stable code, a message, an optional
@@ -30,9 +23,22 @@ pub struct Diagnostic {
     pub message: String,
     pub span: Option<Span>,
     pub notes: Vec<String>,
+    /// Its fix, where it was written and the other places it points
+    /// at, once located (Saga 27); boxed, as most have none of these,
+    /// which keeps `Diagnostic` small.
+    pub located: Option<Box<Located>>,
+}
+
+/// Where a diagnostic was written, as a reader finds it: its own place
+/// (the file, line and column, the line underlined) and its labels'.
+#[derive(Debug, Clone, PartialEq, Eq, Default)]
+pub struct Located {
+    pub place: Option<Place>,
+    /// Other places it points at, each with what it says there.
+    pub labels: Vec<Label>,
     /// Empty for most; several for a rename (each place the name is
-    /// written). A boxed slice keeps `Diagnostic` small.
-    pub fix: Box<[Fix]>,
+    /// written).
+    pub fix: Vec<Fix>,
 }
 
 impl Diagnostic {
@@ -43,18 +49,8 @@ impl Diagnostic {
             message: message.into(),
             span: None,
             notes: Vec::new(),
-            fix: Box::default(),
+            located: None,
         }
-    }
-
-    /// With a fix: each `(span, replacement)` written in place of its
-    /// span, all made together or none.
-    pub fn with_fixes(mut self, edits: impl IntoIterator<Item = (Span, String)>) -> Self {
-        let fix = edits
-            .into_iter()
-            .map(|(span, replacement)| Fix { span, replacement });
-        self.fix = self.fix.iter().cloned().chain(fix).collect();
-        self
     }
 
     pub fn with_span(mut self, span: Span) -> Self {
@@ -88,11 +84,17 @@ impl fmt::Display for Diagnostic {
             Severity::Warning => "warning",
         };
         write!(f, "{level}[{}]: {}", self.code, self.message)?;
+        if let Some(place) = self.place() {
+            return shown::rest(self, place, f);
+        }
         if let Some(span) = self.span {
             write!(f, " at {}..{}", span.start, span.end)?;
         }
         for note in &self.notes {
-            write!(f, "\n  note: {note}")?;
+            match note.strip_prefix("help: ") {
+                Some(help) => write!(f, "\n  help: {help}")?,
+                None => write!(f, "\n  note: {note}")?,
+            }
         }
         Ok(())
     }

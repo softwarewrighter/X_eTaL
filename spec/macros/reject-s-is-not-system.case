@@ -4,4 +4,8 @@
 "s:" u_se< "Stats"
 "a" s:i_f< "1; 2"
 == ERROR
-error[unknown-macro]: there is no macro s:i_f<: no macro library is imported as s: ("s:" u_se< "Name" finds Name.xtlm) at 23..29
+error[unknown-macro]: there is no macro s:i_f<: no macro library is imported as s: ("s:" u_se< "Name" finds Name.xtlm)
+ --> -e:2:5
+  |
+2 | "a" s:i_f< "1; 2"
+  |     ^^^^^^

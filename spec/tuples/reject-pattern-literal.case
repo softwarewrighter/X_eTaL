@@ -3,4 +3,8 @@
 == SOURCE
 (a, 1) := (1, 2)
 == ERROR
-error[bad-pattern]: a tuple pattern is names, `_` and parentheses, separated by commas at 4..5
+error[bad-pattern]: a tuple pattern is names, `_` and parentheses, separated by commas
+ --> -e:1:5
+  |
+1 | (a, 1) := (1, 2)
+  |     ^

@@ -1,1 +1,5 @@
-error[library-exports-nothing]: library Helpers exports nothing; mark its exports with l: at 21..41
+error[library-exports-nothing]: library Helpers exports nothing; mark its exports with l:
+ --> reg/fixtures/names/use-helpers.xtl:2:1
+  |
+2 | "v:" u_se< "Helpers"
+  | ^^^^^^^^^^^^^^^^^^^^

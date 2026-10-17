@@ -12,4 +12,8 @@ Int
 Int
 Char
 == ERROR
-error[negative]: n must be 0 or more at 27..69
+error[negative]: n must be 0 or more
+ --> -e:1:28
+  |
+1 | u:c_heck := { n -> n < 0 ? "negative" []S_IGNAL "n must be 0 or more"; n }
+  |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

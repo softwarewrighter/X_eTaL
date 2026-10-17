@@ -2,4 +2,8 @@
 == SOURCE
 1.5 o_- 1 2 3
 == ERROR
-error[type-mismatch]: expected Int, found Float at 0..13
+error[type-mismatch]: expected Int, found Float
+ --> -e:1:1
+  |
+1 | 1.5 o_- 1 2 3
+  | ^^^^^^^^^^^^^

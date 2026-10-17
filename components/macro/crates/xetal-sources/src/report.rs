@@ -1,6 +1,6 @@
 //! Diagnostics reported where they were written.
 
-use xetal_base::{Diagnostic, Severity};
+use xetal_base::{Diagnostic, Place, Severity, Span};
 
 use crate::Sources;
 
@@ -54,5 +54,18 @@ impl Sources {
             out.push_str(&format!("\n  note: {note}"));
         }
         out
+    }
+
+    /// Where `span` (in the combined text) was written: its file, line
+    /// and column, and the line with what it covers there.
+    pub fn place(&self, span: Span) -> Place {
+        let start = self.locate(span.start);
+        let end = self.locate(span.end.max(span.start + 1) - 1);
+        let to = match end.index == start.index {
+            true => end.to.max(start.offset + 1),
+            false => start.to,
+        };
+        let text = self.written_text(start.index);
+        Place::of(start.file, text, Span::new(start.offset, to))
     }
 }

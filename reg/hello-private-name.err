@@ -1,1 +1,5 @@
-error[not-exported]: g:n_ame is not defined by that library; it defines g_reet at 24..31
+error[not-exported]: g:n_ame is not defined by that library; it defines g_reet
+ --> -e:1:25
+  |
+1 | "g:" u_se< "Greetings"; g:n_ame @
+  |                         ^^^^^^^

@@ -5,4 +5,8 @@ a := 42
 a := 43
 a
 == ERROR
-error[rebind]: a is already bound in this scope: a name is bound once; write a! for a variable that changes at 8..15
+error[rebind]: a is already bound in this scope: a name is bound once; write a! for a variable that changes
+ --> -e:2:1
+  |
+2 | a := 43
+  | ^^^^^^^

@@ -22,8 +22,16 @@ u:a_nswer @
 ./target/release/xetal eval -e 'u:a_nswer := { @ -> 42 }; u:a_nswer 42'
 ```
 
-The last command is refused before evaluation:
-`error[type-mismatch]: expected Unit, found a number at 26..38`.
+The last command is refused before evaluation, with the place in the
+source underlined:
+
+```
+error[type-mismatch]: expected Unit, found a number
+ --> -e:1:27
+  |
+1 | u:a_nswer := { @ -> 42 }; u:a_nswer 42
+  |                           ^^^^^^^^^^^^
+```
 
 Numbers are typed as in Haskell. A literal fits any number type, so
 `3 + 2.5` is fine, but a top-level variable has one type: after

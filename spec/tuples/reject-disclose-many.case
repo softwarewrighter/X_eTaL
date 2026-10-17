@@ -4,4 +4,8 @@
 ps := '{ k -> (k, f_loat k) } m_ap r_ange 3
 d_isclose ps
 == ERROR
-error[rank]: d_isclose opens one box, got shape 3 at 44..56
+error[rank]: d_isclose opens one box, got shape 3
+ --> -e:2:1
+  |
+2 | d_isclose ps
+  | ^^^^^^^^^^^^

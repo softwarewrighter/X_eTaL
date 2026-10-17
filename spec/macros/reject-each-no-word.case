@@ -2,4 +2,8 @@
 == SOURCE
 "a b" e_ach< "u:x := 1"
 == ERROR
-error[bad-macro-argument]: an e_ach< template names the word as $w: "a b" e_ach< "u:$w := 1" at 13..23
+error[bad-macro-argument]: an e_ach< template names the word as $w: "a b" e_ach< "u:$w := 1"
+ --> -e:1:14
+  |
+1 | "a b" e_ach< "u:x := 1"
+  |              ^^^^^^^^^^

@@ -3,4 +3,8 @@
 == SOURCE
 (2 2 r_eshape 1) c_at_2 3 2 r_eshape 2
 == ERROR
-error[shape-mismatch]: shapes differ: 2 2 and 3 2 at 1..38
+error[shape-mismatch]: shapes differ: 2 2 and 3 2
+ --> -e:1:2
+  |
+1 | (2 2 r_eshape 1) c_at_2 3 2 r_eshape 2
+  |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

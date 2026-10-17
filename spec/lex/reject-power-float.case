@@ -2,4 +2,8 @@
 == SOURCE
 n_eg^1.5 5
 == ERROR
-error[bad-power]: a power count is a whole number, 0 or more at 4..8
+error[bad-power]: a power count is a whole number, 0 or more
+ --> -e:1:5
+  |
+1 | n_eg^1.5 5
+  |     ^^^^

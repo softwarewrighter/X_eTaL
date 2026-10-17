@@ -2,4 +2,8 @@
 == SOURCE
 n <= 1? 1
 == ERROR
-error[bad-guard]: the guard `?` needs a space before it at 6..7
+error[bad-guard]: the guard `?` needs a space before it
+ --> -e:1:7
+  |
+1 | n <= 1? 1
+  |       ^

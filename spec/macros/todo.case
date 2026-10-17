@@ -9,4 +9,8 @@ u:a_rea := { r -> r < 0 ? (([]P_ANIC ("not yet implemented: negative sizes"))); 
 u:a_rea 3
 u:a_rea -1
 == ERROR
-error[panic]: not yet implemented: negative sizes at 26..51
+error[panic]: not yet implemented: negative sizes
+ --> -e:1:27
+  |
+1 | u:a_rea := { r -> r < 0 ? @ t_odo< "negative sizes"; r * r }
+  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^

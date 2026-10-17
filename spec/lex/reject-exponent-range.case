@@ -2,4 +2,8 @@
 == SOURCE
 1e400
 == ERROR
-error[number-out-of-range]: float literal is too large at 0..5
+error[number-out-of-range]: float literal is too large
+ --> -e:1:1
+  |
+1 | 1e400
+  | ^^^^^

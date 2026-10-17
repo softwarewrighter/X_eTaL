@@ -1,0 +1,51 @@
+# readable lane: handoff for the local agent
+
+Saga 27 (readable type errors, docs/plan.md) with ask E5, built in a
+cloud sandbox on branch `feat/errors-fceu5f`. The sandbox had no
+agentrail, sw-checklist, sw-markdown-checker, just, trunk or Emacs, so
+what follows was not run or recorded there. Do it locally after
+merging.
+
+## What the sandbox ran, every step
+
+- `cargo fmt --check`, `cargo clippy --all-targets --all-features -- -D
+  warnings` in each component the step touched; `cargo test` in every
+  component.
+- `scripts/reg.sh run` with reg-rs built from sw-cli-tools/reg-rs: all
+  pass but the six that fail on main in the sandbox too (cli-too-deep:
+  the argument list is too long there; the five just-* goldens: no
+  `just`).
+- The spec corpus (`cargo test -p xetal-cli --test spec`), the lib/
+  doc tests, `scripts/py scripts/reference.py --check`, rosetta-check,
+  rosetta-run, idioms, check-spelling, check-locks, check-markers.
+  `status.py --check` fails on main already (ST5, from the code-strings
+  docs commits); not this lane's.
+- sw-checklist limits counted by hand on the new and changed modules.
+
+## To do locally, in order
+
+1. `just gate --affected` (sw-checklist, markdown, the wasm32 build of
+   the live demo, the literate documents with Emacs).
+2. `just pages`: every Rust source under components/ is an input of
+   the web and rosetta parts; the literate documents changed too.
+3. agentrail: the lane's saga in lanes/readable/.agentrail was written
+   by hand in agentrail's layout (no agentrail in the sandbox). Check
+   it with `agentrail --saga lanes/readable status`; the main saga's
+   steps 123 (errors-library-calls) and 126-130 (errors-located ..
+   errors-release) are done by this lane: mark them complete there
+   with this branch's commits, or remove them, as you prefer.
+4. Decisions register numbers: D162 onward were free when this lane
+   started; renumber at the merge if another lane took them.
+5. Merge last: the lane rebased all 232 spec cases with an ERROR
+   section and every golden that shows an error. A lane merged before
+   it that adds an ERROR case or an error golden needs it blessed again
+   (`XETAL_BLESS=1 cargo test -p xetal-cli --test spec`, `reg-rs
+   rebase -p NAME`) after this merge.
+
+## Left for other lanes
+
+- `xetal lint` keeps its one-line report (`... at FILE:LINE:COLUMN`),
+  the lint lane's format; it could show the located form too.
+- The editor and the live demo show the located text as the CLI does
+  (the plain line); the span is still marked in the drawn source. A
+  drawn line under the message is not done.

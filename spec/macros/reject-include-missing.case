@@ -2,4 +2,8 @@
 == SOURCE
 @ i_nclude< "no-such-file.txt"
 == ERROR
-error[missing-file]: there is no file "no-such-file.txt" to include at 12..30
+error[missing-file]: there is no file "no-such-file.txt" to include
+ --> -e:1:13
+  |
+1 | @ i_nclude< "no-such-file.txt"
+  |             ^^^^^^^^^^^^^^^^^^

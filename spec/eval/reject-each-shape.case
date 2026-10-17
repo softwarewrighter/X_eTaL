@@ -2,4 +2,8 @@
 == SOURCE
 1 2 '+ e_ach 1 2 3
 == ERROR
-error[shape-mismatch]: shapes differ: 2 and 3 at 0..18
+error[shape-mismatch]: shapes differ: 2 and 3
+ --> -e:1:1
+  |
+1 | 1 2 '+ e_ach 1 2 3
+  | ^^^^^^^^^^^^^^^^^^

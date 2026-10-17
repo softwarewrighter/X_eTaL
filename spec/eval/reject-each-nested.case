@@ -2,4 +2,8 @@
 == SOURCE
 'r_ange e_ach 1 2
 == ERROR
-error[not-a-scalar]: e_ach needs a single value from each call (nested arrays come later), got 1 at 0..17
+error[not-a-scalar]: e_ach needs a single value from each call (nested arrays come later), got 1
+ --> -e:1:1
+  |
+1 | 'r_ange e_ach 1 2
+  | ^^^^^^^^^^^^^^^^^

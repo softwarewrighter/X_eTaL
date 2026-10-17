@@ -2,4 +2,8 @@
 == SOURCE
 2 e_ncode 1.5
 == ERROR
-error[type-mismatch]: expected Int, found Float at 0..13
+error[type-mismatch]: expected Int, found Float
+ --> -e:1:1
+  |
+1 | 2 e_ncode 1.5
+  | ^^^^^^^^^^^^^

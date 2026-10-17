@@ -13,4 +13,8 @@ Int
 Int
 Any a => a
 == ERROR
-error[handler-broke]: while handling at 319..361
+error[handler-broke]: while handling
+ --> -e:4:45
+  |
+4 | '{ @ -> "a" []S_IGNAL "b" } []T_RAP '{ e -> "handler-broke" []S_IGNAL "while handling" }
+  |                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

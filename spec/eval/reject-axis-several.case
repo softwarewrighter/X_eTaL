@@ -3,4 +3,8 @@
 == SOURCE
 r_ev_12 2 3 r_eshape r_ange 6
 == ERROR
-error[axis]: several axes mean something only for rotate, reduce and scan at 0..29
+error[axis]: several axes mean something only for rotate, reduce and scan
+ --> -e:1:1
+  |
+1 | r_ev_12 2 3 r_eshape r_ange 6
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

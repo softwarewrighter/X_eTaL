@@ -2,4 +2,8 @@
 == SOURCE
 { c -> c ? 1; 0 } 1 0
 == ERROR
-error[not-a-scalar]: a condition must be a single value, got 1 0 at 7..8
+error[not-a-scalar]: a condition must be a single value, got 1 0
+ --> -e:1:8
+  |
+1 | { c -> c ? 1; 0 } 1 0
+  |        ^

@@ -2,4 +2,8 @@
 == SOURCE
 o_-_0
 == ERROR
-error[bad-axis]: axes are the digits 1-9, each at most once at 4..5
+error[bad-axis]: axes are the digits 1-9, each at most once
+ --> -e:1:5
+  |
+1 | o_-_0
+  |     ^

@@ -3,4 +3,8 @@
 u:f_ := { @ r -> r + 1 }
 1 u:f_ 2
 == ERROR
-error[type-mismatch]: expected Unit, found a number at 25..33
+error[type-mismatch]: expected Unit, found a number
+ --> -e:2:1
+  |
+2 | 1 u:f_ 2
+  | ^^^^^^^^

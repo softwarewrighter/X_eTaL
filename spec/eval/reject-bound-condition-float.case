@@ -3,4 +3,8 @@
 a := 1 2 > 0
 a + 2.5
 == ERROR
-error[type-mismatch]: expected Int, found Float at 13..20
+error[type-mismatch]: expected Int, found Float
+ --> -e:2:1
+  |
+2 | a + 2.5
+  | ^^^^^^^

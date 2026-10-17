@@ -2,4 +2,8 @@
 == SOURCE
 (2 2 r_eshape 1) o_-_12 3 3 r_eshape r_ange 9
 == ERROR
-error[rank]: rotation amounts must be one number or a list at 1..45
+error[rank]: rotation amounts must be one number or a list
+ --> -e:1:2
+  |
+1 | (2 2 r_eshape 1) o_-_12 3 3 r_eshape r_ange 9
+  |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -2,4 +2,8 @@
 == SOURCE
 { x -> x + _r }
 == ERROR
-error[bad-lambda]: do not mix named parameters with _l / _r at 0..15
+error[bad-lambda]: do not mix named parameters with _l / _r
+ --> -e:1:1
+  |
+1 | { x -> x + _r }
+  | ^^^^^^^^^^^^^^^

@@ -82,6 +82,17 @@ fn checking_gives_the_types_or_the_first_error() {
 }
 
 #[test]
+fn an_error_shows_its_line_with_the_spot_underlined() {
+    store();
+    let r = run("n := 3\nn + 2.5", 1);
+    assert!(
+        r.err.contains(":2:1\n  |\n2 | n + 2.5\n  | ^^^^^^^\n"),
+        "{}",
+        r.err
+    );
+}
+
+#[test]
 fn a_library_shows_its_exports_and_their_types() {
     store();
     let lib = "l:t_wice := { 2 * _r }\nh_alf := { _r / 2 }\n";

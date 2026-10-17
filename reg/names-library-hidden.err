@@ -1,1 +1,5 @@
-error[not-exported]: v:d_iv is not defined by that library; it defines h_alf at 41..47
+error[not-exported]: v:d_iv is not defined by that library; it defines h_alf
+ --> reg/fixtures/names/use-hidden.xtl:3:1
+  |
+3 | v:d_iv 9 3
+  | ^^^^^^

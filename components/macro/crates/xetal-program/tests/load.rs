@@ -38,16 +38,20 @@ fn an_error_in_a_library_is_located_there() {
     let main = dir.join("main.xtl").display().to_string();
     let err = load(&main, "\"b:\" u_se< \"Bad\"\n").unwrap_err();
     assert_eq!(err.code, "expression-in-library");
-    assert!(err.to_string().ends_with("Bad.xtl:2:1"), "{err}");
+    let place = err.place().expect("placed");
+    assert!(place.to_string().ends_with("Bad.xtl:2:1"), "{err}");
+    assert!(err.to_string().ends_with("2 | 1 + 2\n  | ^^^^^"), "{err}");
 }
 
 #[test]
-fn located_leaves_one_file_alone() {
+fn located_keeps_the_span_of_one_file_and_places_it() {
     let loaded = load("-e", "1").unwrap();
     let d = xetal_base::Diagnostic::new("x", "y").with_span(xetal_base::Span::new(0, 1));
+    let shown = located(&loaded.sources, d.clone());
+    assert_eq!(shown.span, d.span);
     assert_eq!(
-        located(&loaded.sources, d.clone()).to_string(),
-        d.to_string()
+        shown.to_string(),
+        "error[x]: y\n --> -e:1:1\n  |\n1 | 1\n  | ^"
     );
 }
 

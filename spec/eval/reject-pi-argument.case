@@ -2,4 +2,8 @@
 == SOURCE
 p_i 3
 == ERROR
-error[type-mismatch]: expected Unit, found a number at 0..5
+error[type-mismatch]: expected Unit, found a number
+ --> -e:1:1
+  |
+1 | p_i 3
+  | ^^^^^

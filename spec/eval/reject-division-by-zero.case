@@ -4,4 +4,8 @@
 == TYPE
 Float
 == ERROR
-error[division-by-zero]: division by zero at 0..5
+error[division-by-zero]: division by zero
+ --> -e:1:1
+  |
+1 | 1 / 0
+  | ^^^^^

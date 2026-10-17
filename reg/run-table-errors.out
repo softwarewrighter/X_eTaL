@@ -1,5 +1,25 @@
-error[bad-table]: reg/fixtures/table.toml: nope: no such list at the top level at 0..40
-error[bad-table]: reg/fixtures/table.toml: count: not a list at 0..41
-error[bad-table]: reg/fixtures/table.toml: bad: a.x: not a string at 0..58
-error[bad-table]: reg/fixtures/table.xtl: expected `.`, `=` at 0..39
-error[io]: []T_ABLE: nope.toml: No such file or directory (os error 2) at 0..26
+error[bad-table]: reg/fixtures/table.toml: nope: no such list at the top level
+ --> -e:1:1
+  |
+1 | "reg/fixtures/table.toml" []L_IST "nope"
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+error[bad-table]: reg/fixtures/table.toml: count: not a list
+ --> -e:1:1
+  |
+1 | "reg/fixtures/table.toml" []L_IST "count"
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+error[bad-table]: reg/fixtures/table.toml: bad: a.x: not a string
+ --> -e:1:1
+  |
+1 | ("reg/fixtures/table.toml" "bad") []T_ABLE ("rows" "cols")
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+error[bad-table]: reg/fixtures/table.xtl: expected `.`, `=`
+ --> -e:1:1
+  |
+1 | "reg/fixtures/table.xtl" []L_IST "rows"
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+error[io]: []T_ABLE: nope.toml: No such file or directory (os error 2)
+ --> -e:1:1
+  |
+1 | "nope.toml" []L_IST "rows"
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^

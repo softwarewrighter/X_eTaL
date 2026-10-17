@@ -2,4 +2,8 @@
 == SOURCE
 m.f_
 == ERROR
-error[unexpected-char]: unexpected character at 1..2
+error[unexpected-char]: unexpected character
+ --> -e:1:2
+  |
+1 | m.f_
+  |  ^

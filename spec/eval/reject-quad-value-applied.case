@@ -3,4 +3,8 @@
 == SOURCE
 []A 1
 == ERROR
-error[adjacent-values]: two values side by side (only literals of one kind form strands: numbers, or strings) at 0..3
+error[adjacent-values]: two values side by side (only literals of one kind form strands: numbers, or strings)
+ --> -e:1:1
+  |
+1 | []A 1
+  | ^^^

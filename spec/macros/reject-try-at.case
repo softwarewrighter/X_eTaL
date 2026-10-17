@@ -3,4 +3,8 @@
 == SOURCE
 @ t_ry< "@ r_ecover< 0"
 == ERROR
-error[bad-macro-argument]: t_ry< takes text on its left, not @ at 0..1
+error[bad-macro-argument]: t_ry< takes text on its left, not @
+ --> -e:1:1
+  |
+1 | @ t_ry< "@ r_ecover< 0"
+  | ^

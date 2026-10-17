@@ -3,4 +3,8 @@
 == SOURCE
 "a" y:u_nless< "b"
 == ERROR
-error[unknown-macro]: there is no macro y:u_nless<: no macro library is imported as y: ("y:" u_se< "Name" finds Name.xtlm) at 4..14
+error[unknown-macro]: there is no macro y:u_nless<: no macro library is imported as y: ("y:" u_se< "Name" finds Name.xtlm)
+ --> -e:1:5
+  |
+1 | "a" y:u_nless< "b"
+  |     ^^^^^^^^^^

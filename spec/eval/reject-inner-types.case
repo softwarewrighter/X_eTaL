@@ -3,4 +3,8 @@
 == SOURCE
 "ab" '+ '* i_nner "ab"
 == ERROR
-error[type-mismatch]: expected a number, found Char at 0..22
+error[type-mismatch]: expected a number, found Char
+ --> -e:1:1
+  |
+1 | "ab" '+ '* i_nner "ab"
+  | ^^^^^^^^^^^^^^^^^^^^^^

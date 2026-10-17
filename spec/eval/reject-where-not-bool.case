@@ -2,4 +2,8 @@
 == SOURCE
 w_here 0 2 1
 == ERROR
-error[not-a-bool]: expected a Bool (or 1 / 0), got 2 at 0..12
+error[not-a-bool]: expected a Bool (or 1 / 0), got 2
+ --> -e:1:1
+  |
+1 | w_here 0 2 1
+  | ^^^^^^^^^^^^

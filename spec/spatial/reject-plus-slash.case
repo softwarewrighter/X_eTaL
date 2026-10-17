@@ -3,4 +3,8 @@
 == SOURCE
 +/ 1 2 3
 == ERROR
-error[symbol-needs-left]: a symbol function needs a left argument (to negate use n_eg; for a partial application use a lambda) at 1..2
+error[symbol-needs-left]: a symbol function needs a left argument (to negate use n_eg; for a partial application use a lambda)
+ --> -e:1:2
+  |
+1 | +/ 1 2 3
+  |  ^

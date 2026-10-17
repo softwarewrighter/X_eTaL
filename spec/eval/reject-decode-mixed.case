@@ -6,4 +6,8 @@
 n := 2
 n d_ecode 1.5 2.5
 == ERROR
-error[type-mismatch]: expected Int, found Float at 7..24
+error[type-mismatch]: expected Int, found Float
+ --> -e:2:1
+  |
+2 | n d_ecode 1.5 2.5
+  | ^^^^^^^^^^^^^^^^^

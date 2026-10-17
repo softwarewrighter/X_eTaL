@@ -5,4 +5,8 @@
 == TYPE
 Int
 == ERROR
-error[a]: b at 8..25
+error[a]: b
+ --> -e:1:9
+  |
+1 | '{ @ -> "a" []S_IGNAL "b" } []T_RAP '{ e -> ([]E_CODE e) m_atch "io" ? []R_ECOVER 1; []H_ALT e }
+  |         ^^^^^^^^^^^^^^^^^

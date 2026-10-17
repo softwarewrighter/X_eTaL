@@ -4,4 +4,8 @@
 x := 6
 @ f_ormat< "x is {x + \"a\"}"
 == ERROR
-error[type-mismatch]: expected Int, found Char at 25..33
+error[type-mismatch]: expected Int, found Char
+ --> -e:2:19
+  |
+2 | @ f_ormat< "x is {x + \"a\"}"
+  |                   ^^^^^^^^

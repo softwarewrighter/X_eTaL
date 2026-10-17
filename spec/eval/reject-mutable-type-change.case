@@ -4,4 +4,8 @@
 a! := 42
 a! := 3.2
 == ERROR
-error[type-mismatch]: expected Int, found Float at 15..18
+error[type-mismatch]: expected Int, found Float
+ --> -e:2:7
+  |
+2 | a! := 3.2
+  |       ^^^

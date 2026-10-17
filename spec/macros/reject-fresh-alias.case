@@ -2,4 +2,8 @@
 == SOURCE
 "g1:" u_se< "Stats"
 == ERROR
-error[reserved-alias]: g and a number (g1:) cannot be an alias: it names what a macro binds at 0..5
+error[reserved-alias]: g and a number (g1:) cannot be an alias: it names what a macro binds
+ --> -e:1:1
+  |
+1 | "g1:" u_se< "Stats"
+  | ^^^^^

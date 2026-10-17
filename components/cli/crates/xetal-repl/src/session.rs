@@ -7,7 +7,7 @@
 
 use std::fmt::Write;
 
-use xetal_base::{Diagnostic, Span};
+use xetal_base::{Diagnostic, Place, Span};
 
 use crate::live::Live;
 
@@ -25,6 +25,11 @@ pub struct Session {
     /// Where libraries are found from: a file's path, or `-e` for the
     /// working directory.
     origin: String,
+    /// The name its places are reported by: the file's (a notebook),
+    /// or `repl` for one typed in; and how many lines were fed before,
+    /// so a place's line is counted from the first line fed.
+    name: String,
+    fed: usize,
     /// Run without the type checker (`--untyped`).
     pub untyped: bool,
 }
@@ -32,7 +37,10 @@ pub struct Session {
 impl Default for Session {
     /// A session with an unpredictable seed.
     fn default() -> Self {
-        Session::new("-e", xetal_eval::Rng::fresh_seed())
+        Session {
+            name: "repl".into(),
+            ..Session::new("-e", xetal_eval::Rng::fresh_seed())
+        }
     }
 }
 
@@ -86,12 +94,30 @@ fn run(
     )
 }
 
-/// A diagnostic with its span made relative to the new input.
-fn shifted(mut d: Diagnostic, offset: usize) -> Diagnostic {
-    d.span = d.span.map(|s| match s.start >= offset {
-        true => Span::new(s.start - offset, s.end - offset),
-        false => s,
-    });
+/// A diagnostic with its span made relative to the new input `text`,
+/// and placed there: in file `name`, after `before` lines fed.
+fn shifted(
+    mut d: Diagnostic,
+    offset: usize,
+    (name, before, text): (&str, usize, &str),
+) -> Diagnostic {
+    let inside = |s: Span| (s.start >= offset).then(|| Span::new(s.start - offset, s.end - offset));
+    let at = |span| {
+        let place = Place::of(name, text, span);
+        Place {
+            line: place.line + before,
+            ..place
+        }
+    };
+    if let Some(span) = d.span.and_then(inside) {
+        d.span = Some(span);
+        d.set_place(Some(at(span)));
+    }
+    for label in d.labels_mut() {
+        if let Some(span) = inside(label.span) {
+            label.place = Some(at(span));
+        }
+    }
     d
 }
 
@@ -109,6 +135,8 @@ impl Session {
             pictures: 0,
             seed,
             origin: origin.into(),
+            name: origin.into(),
+            fed: 0,
             untyped: false,
         }
     }
@@ -130,6 +158,12 @@ impl Session {
             false => format!("{}\n{text}", self.accepted),
         };
         let offset = source.len() - text.len();
+        self.fed += line.split('\n').count();
+        let at = (
+            self.name.as_str(),
+            self.fed - text.split('\n').count(),
+            text.as_str(),
+        );
         let (out, warnings, result) = run(&source, self, sink);
         if matches!(&result, Err(d) if d.code == "unclosed") {
             self.pending = text;
@@ -142,13 +176,13 @@ impl Session {
         match result {
             Ok(()) => {
                 for w in &warnings[self.warned.min(warnings.len())..] {
-                    let _ = writeln!(err, "{}", shifted(w.clone(), offset));
+                    let _ = writeln!(err, "{}", shifted(w.clone(), offset, at));
                 }
                 (self.accepted, self.shown, self.warned) = (source, out.len(), warnings.len());
                 self.pictures = xetal_store::shown();
             }
             Err(e) => {
-                let _ = writeln!(err, "{}", shifted(e, offset));
+                let _ = writeln!(err, "{}", shifted(e, offset, at));
             }
         }
         Reply::Done { out: new_out, err }

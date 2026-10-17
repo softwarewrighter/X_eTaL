@@ -4,4 +4,8 @@
 == TYPE
 Bool
 == ERROR
-error[not-a-bool]: expected a Bool (or 1 / 0), got 2 at 0..5
+error[not-a-bool]: expected a Bool (or 1 / 0), got 2
+ --> -e:1:1
+  |
+1 | 2 & 1
+  | ^^^^^

@@ -2,4 +2,8 @@
 == SOURCE
 a_b_c
 == ERROR
-error[bad-name]: a function name has exactly one underline; a later `_` starts an axis subscript at 3..4
+error[bad-name]: a function name has exactly one underline; a later `_` starts an axis subscript
+ --> -e:1:4
+  |
+1 | a_b_c
+  |    ^

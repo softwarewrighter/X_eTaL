@@ -3,4 +3,8 @@
 == SOURCE
 []U_CHAR 65 200
 == ERROR
-error[domain]: []U_CHAR takes codes 0 to 127, got 200 at 0..15
+error[domain]: []U_CHAR takes codes 0 to 127, got 200
+ --> -e:1:1
+  |
+1 | []U_CHAR 65 200
+  | ^^^^^^^^^^^^^^^
