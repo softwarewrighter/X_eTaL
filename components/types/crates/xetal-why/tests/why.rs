@@ -58,3 +58,20 @@ fn an_open_type_says_nothing() {
     let mut u = xetal_ty::Unifier::default();
     assert!(said(&last("x"), &u.fresh(), &|_: &str| None).is_empty());
 }
+
+#[test]
+fn a_common_mismatch_gets_a_hint_and_others_none() {
+    use xetal_base::Diagnostic;
+    let help = |m: &str| {
+        let d = xetal_why::hinted(Diagnostic::new("type-mismatch", m));
+        d.notes.first().cloned().unwrap_or_default()
+    };
+    assert!(help("expected Int, found Float").contains("f_loat"));
+    assert!(help("expected a number, found Box Int").contains("d_isclose"));
+    assert!(help("expected Box Int, found Int").contains("e_nclose"));
+    assert!(help("expected a number, found a -> a").contains("quote"));
+    assert!(help("expected a -> b, found Float").contains("too many"));
+    assert_eq!(help("expected Char, found Bool"), "");
+    let other = xetal_why::hinted(Diagnostic::new("rebind", "expected Int, found Float"));
+    assert!(other.notes.is_empty(), "only a type mismatch is hinted");
+}

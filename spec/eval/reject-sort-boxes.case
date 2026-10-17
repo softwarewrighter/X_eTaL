@@ -9,3 +9,4 @@ error[type-mismatch]: expected a number or Char, found Box Char
   | ^^^^^^^^^^^^^
   |       ------- this is a Box Char
   = note: `s_ort` has type Ord a => a -> a
+  = help: `d_isclose b` opens a box to get the value inside

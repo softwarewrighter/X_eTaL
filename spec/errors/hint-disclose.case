@@ -1,0 +1,13 @@
+# A box where its value is wanted: d_isclose (D164).
+== SOURCE
+b := e_nclose 1 2; b + 1
+== ERROR
+error[type-mismatch]: expected a number, found Box Int
+ --> -e:1:20
+  |
+1 | b := e_nclose 1 2; b + 1
+  |                    ^^^^^
+  |      ------------ `b` gets its type here
+  |                    - `b` is a Box Int
+  = note: `+` has type Num a => a -> a -> a
+  = help: `d_isclose b` opens a box to get the value inside

@@ -11,3 +11,4 @@ error[type-mismatch]: expected a number, found a -> b
   = note: `r_ev` has type a -> a
   = note: in the train `[r_ev + a_bs]`, `r_ev` is applied as `x r_ev y`, where x and y are the train's arguments
   = note: `r_ev` takes one argument, but here it is given two
+  = help: this is a function still waiting for an argument: give it one, or quote it ('f_) to pass the function itself

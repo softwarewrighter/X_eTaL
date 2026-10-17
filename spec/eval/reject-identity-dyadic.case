@@ -8,3 +8,4 @@ error[type-mismatch]: expected a number, found a -> b
 1 | 1 i_d 2
   | ^^^^^^^
   = note: `i_d` has type Any a => a -> a
+  = help: this is a function still waiting for an argument: give it one, or quote it ('f_) to pass the function itself

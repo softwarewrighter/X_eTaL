@@ -8,3 +8,4 @@ error[type-mismatch]: expected a -> b, found a number
 1 | 2 'n_eg s_wap 1
   |   ^^^^^^^^^^^
   = note: `s_wap` has type (Any a, Any b, Any c) => (a -> b -> c) -> b -> a -> c
+  = help: a value is applied as if it were a function: is there an argument too many, or a function passed without its quote?

@@ -10,3 +10,4 @@ error[type-mismatch]: expected Int, found Float
   | ^^^^^^^
   |     --- a Float literal
   = note: `+` has type Num a => a -> a -> a
+  = help: Int and Float do not mix: `f_loat n` makes a Float of an Int, `f_loor x` or `c_eiling x` an Int of a Float

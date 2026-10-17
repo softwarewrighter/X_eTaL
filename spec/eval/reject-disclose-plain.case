@@ -9,3 +9,4 @@ error[type-mismatch]: expected Box a, found Char
   | ^^^^^^^^^^^^^^
   |           ---- a string: a vector of Char
   = note: `d_isclose` has type Any a => Box a -> a
+  = help: `e_nclose x` puts a value in a box

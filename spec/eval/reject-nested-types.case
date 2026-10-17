@@ -11,3 +11,4 @@ error[type-mismatch]: expected Char, found Box Char
   | ---- a string: a vector of Char
   |           --------- this is a Box Char
   = note: `c_at` has type a -> a -> a
+  = help: `d_isclose b` opens a box to get the value inside

@@ -9,3 +9,4 @@ error[type-mismatch]: expected Int, found Float
   |
 2 | a! := 3.2
   |       ^^^
+  = help: Int and Float do not mix: `f_loat n` makes a Float of an Int, `f_loor x` or `c_eiling x` an Int of a Float

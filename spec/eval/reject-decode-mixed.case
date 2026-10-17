@@ -17,3 +17,4 @@ error[type-mismatch]: expected Int, found Float
 1 | n := 2
   |      - `n` gets its type here
   = note: `d_ecode` has type Num a => a -> a -> a
+  = help: Int and Float do not mix: `f_loat n` makes a Float of an Int, `f_loor x` or `c_eiling x` an Int of a Float

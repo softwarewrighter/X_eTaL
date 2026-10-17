@@ -1,0 +1,12 @@
+# A value applied as if it were a function (D164).
+== SOURCE
+{ x -> x + 1 } 2.5 m_ap 1 2
+== ERROR
+error[type-mismatch]: expected a -> b, found Float
+ --> -e:1:16
+  |
+1 | { x -> x + 1 } 2.5 m_ap 1 2
+  |                ^^^^^^^^^^^^
+  |                --- a Float literal
+  = note: `m_ap` has type Any b => (a -> b) -> a -> Box b
+  = help: a value is applied as if it were a function: is there an argument too many, or a function passed without its quote?

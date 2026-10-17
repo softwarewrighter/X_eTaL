@@ -9,3 +9,4 @@ error[type-mismatch]: expected Bool or Int, found Float
   | ^^^^^^^^^^^^^^^^^^^^
   | ----- this is a Float
   = note: `r_eplicate` has type Truthy a => a -> b -> b
+  = help: a Float is not a condition or a count: `f_loor x` makes an Int of it, a comparison (`x > 0`) a Bool

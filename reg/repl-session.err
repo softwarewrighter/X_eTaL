@@ -5,11 +5,11 @@ error[type-mismatch]: expected Int, found Float
   | ^^^^^^^
   | - `x` is an Int
   |     --- a Float literal
- ::: -e:3:6
   |
 3 | x := 3
   |      - `x` gets its type here
   = note: `+` has type Num a => a -> a -> a
+  = help: Int and Float do not mix: `f_loat n` makes a Float of an Int, `f_loor x` or `c_eiling x` an Int of a Float
 error[division-by-zero]: division by zero
   --> repl:10:12
    |

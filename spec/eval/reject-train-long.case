@@ -12,3 +12,4 @@ error[type-mismatch]: expected Bool or Int, found Int -> a
   = note: `n_ot` has type (Truthy a, Truthy b) => a -> b
   = note: in the train `[a_bs n_ot t_ally]`, `n_ot` is applied as `(a_bs x) n_ot (t_ally x)`, where x is the train's argument
   = note: `n_ot` takes one argument, but here it is given two
+  = help: this is a function still waiting for an argument: give it one, or quote it ('f_) to pass the function itself

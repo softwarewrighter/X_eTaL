@@ -10,3 +10,4 @@ error[type-mismatch]: expected a number, found Int -> a
   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   |         --------------------- this is an Int
   = note: `o_\` has type a -> a
+  = help: this is a function still waiting for an argument: give it one, or quote it ('f_) to pass the function itself
