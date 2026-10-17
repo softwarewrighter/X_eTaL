@@ -44,7 +44,7 @@ under seven functions, so none is expected.
   programs are drawn or run (the lint lane's step 3a edited demos and
   libraries, so its merge needed `--all`).
 - Done when `scripts/check-pages.sh` passes. Then `just publish` from
-  the pushed main (pages/ is no longer committed, D162).
+  the pushed main (pages/ is no longer committed, D164).
 
 ## 4. The saga record (agentrail)
 

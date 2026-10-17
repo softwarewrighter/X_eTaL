@@ -403,7 +403,7 @@ fails until the case is flipped to active in a deliberate commit.
    stamps in pages/INPUTS, `just pages --all` everything (do that after
    a change to how programs are drawn or run; skipped where trunk is
    missing, so whoever merges rebuilds). pages/ is not tracked on main
-   (D162): it is the local build area, seeded from origin/gh-pages in a
+   (D164): it is the local build area, seeded from origin/gh-pages in a
    fresh clone, and `just publish` (scripts/publish-pages.sh, from a
    clean, pushed main) force-pushes it to the gh-pages branch, which
    GitHub Pages serves
