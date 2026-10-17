@@ -1,6 +1,6 @@
 number = 4
 slug = "readable-type-errors-doc"
-status = "pending"
+status = "in-progress"
 description = "Readable lane (see lanes/readable/.agentrail/plan.md and docs/plan.md Saga 27..."
 role = "production"
 context_files = []
