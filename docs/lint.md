@@ -140,8 +140,9 @@ x := 1  # lint: allow upper-case-name at a line's end: that line
 A directive is an ordinary `#` comment (S4), so it needs no grammar,
 the formatter and the decorated display keep it, and every other tool
 ignores it. Only a single `#` counts: `##` documentation and `###`
-headings never hold directives, and a `#` inside a string is not a
-comment. Names may be separated by spaces or commas. Blank and comment
+headings never hold directives, and a `#` inside a string of any
+kind is not a comment: comments are the gaps between the lexer's
+tokens, so a raw string's `#` and `"`, and its lines, are text. Names may be separated by spaces or commas. Blank and comment
 lines between an own-line directive and its statement are skipped; the
 statement's extent comes from its span in Core, so a definition over
 several lines is covered whole. A misspelled level or name is itself a
