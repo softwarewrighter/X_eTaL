@@ -1,0 +1,4 @@
+warning[shape-check-proven]: this check always passes: the shape here is already N 3, so it can go at reg/fixtures/lint/shape.xtl:7:7
+  note: `shape-check-proven` is in group `pedantic`; xetal lint --explain shape-check-proven
+warning[shape-check-proven]: this check always passes: the shape here is already 2 3, so it can go at reg/fixtures/lint/shape.xtl:9:1
+2 warning(s), 0 error(s)

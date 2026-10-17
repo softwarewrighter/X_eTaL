@@ -132,4 +132,33 @@ variable lowerCamel (`maxSize`); all capitals hides the word boundaries.\n\n\
 Example:\n    MAXSIZE := 9\nInstead:\n    MaxSize := 9\n\nOff by default: \
 `xetal lint -W pedantic` turns it on.",
     },
+    Lint {
+        name: "shape-mismatch",
+        group: Group::Correctness,
+        level: Level::Warn,
+        summary: "shapes that surely differ where they must agree (fails at run time)",
+        explain: "What it does: carries shapes through the program from literals, \
+`r_eshape` and `s_hapeIs` checks (type-check-macros approach 8), by the shape rules \
+the catalog lists beside each built-in's type, and warns where it proves a failure: \
+an item-by-item function on two arrays of different shapes, an inner product whose \
+paired axes differ, or an `s_hapeIs` check that cannot pass. Extents may be names \
+(`N c_at 3 s_hapeIs X`), so a macro's checks are facts the lint reads without \
+knowing the macro's notation.\n\nWhy: each of these is `error[shape-mismatch]` at run \
+time; found before running, it is found at the place that is wrong.\n\nExample:\n    \
+X := 2 3 r_eshape 0\n    X + 3 2 r_eshape 1\nInstead:\n    X + 2 3 r_eshape 1\n\nIt \
+speaks only where it proves a mismatch: where a size depends on data (a parameter, a \
+file read), it says nothing and the run-time check stays the backstop.",
+    },
+    Lint {
+        name: "shape-check-proven",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "an `s_hapeIs` check the shape lint proves always passes",
+        explain: "What it does: reports an `s_hapeIs` check whose argument's shape the \
+shape lint already knows to be the checked one, extent by extent (the same numbers, \
+or the same named extents).\n\nWhy: the check costs a test at run time and says \
+nothing a reader does not already know there; a macro may emit such checks freely, \
+and this shows the ones that can go.\n\nExample:\n    X := 2 3 r_eshape 0\n    \
+2 3 s_hapeIs X\nInstead:\n    X\n\nOff by default: `xetal lint -W pedantic` turns it on.",
+    },
 ];

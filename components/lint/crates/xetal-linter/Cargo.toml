@@ -14,3 +14,4 @@ xetal-ir.workspace = true
 xetal-program.workspace = true
 xetal-sources.workspace = true
 xetal-typed.workspace = true
+xetal-shape.workspace = true

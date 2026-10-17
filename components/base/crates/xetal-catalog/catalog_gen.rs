@@ -22,12 +22,32 @@ fn arrows(sig: &str) -> usize {
     count
 }
 
+/// The shape rules the shape lint knows (docs/lint.md, shape-mismatch).
+const SHAPES: [&str; 8] = [
+    "scalar", "shape", "count", "reshape", "cat", "check", "inner", "reduce",
+];
+
 fn check(catalog: &Catalog) {
     let mut seen = HashSet::new();
     let rows = catalog.group.iter().flat_map(|g| &g.entries);
     for (name, arity, sig) in rows {
         assert_eq!(arrows(sig), *arity, "builtins.toml: {name} arity vs {sig}");
         assert!(seen.insert(name.clone()), "builtins.toml: {name} twice");
+    }
+    for g in &catalog.group {
+        for (name, rule) in &g.shapes {
+            let listed = g.entries.iter().any(|(n, _, _)| n == name);
+            assert!(
+                listed,
+                "builtins.toml: shapes names {name}, not in its group"
+            );
+            assert!(
+                SHAPES.contains(&rule.as_str()),
+                "builtins.toml: shape {rule}?"
+            );
+        }
+        let known = g.shape.is_empty() || SHAPES.contains(&g.shape.as_str());
+        assert!(known, "builtins.toml: shape {}?", g.shape);
     }
     for name in catalog.later.iter().flat_map(|l| &l.names) {
         assert!(seen.insert(name.clone()), "builtins.toml: {name} twice");

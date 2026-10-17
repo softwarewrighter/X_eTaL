@@ -1,0 +1,9 @@
+# The shape lint: shapes from literals, r_eshape and s_hapeIs checks.
+X := 2 3 r_eshape r_ange 6
+W := 2 2 r_eshape 1 0 0 1
+P := X '+ '* i_nner W
+V := n_umbers "1 2 3"
+N := t_ally V
+Y := (N c_at 3) s_hapeIs (N c_at 3) r_eshape 0
+Y + 2 4 r_eshape 0
+2 3 s_hapeIs X
