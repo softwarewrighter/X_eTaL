@@ -5,6 +5,9 @@
 <p align="center">
   <b><a href="https://softwarewrighter.github.io/X_eTaL/">Try it live in your browser</a></b>
   -- the editor, running in WebAssembly: type ASCII, see it decorated, run it
+  <br>
+  <a href="https://blog.softwarewrighter.com/series/#array-languages">Read the blog series on array languages</a>
+  -- posts on X_eTaL and array languages
 </p>
 
 # X_eTaL
@@ -317,6 +320,8 @@ Other fonts, checked against the font files:
 
 ## Documentation
 
+- [The blog series on array languages](https://blog.softwarewrighter.com/series/#array-languages)
+  -- posts on X_eTaL and array languages
 - [The Rosetta stone](https://softwarewrighter.github.io/X_eTaL/rosetta/)
   -- the same idiom in six array languages on a stone that rolls
   through the idioms while its halves turn through the languages; an
