@@ -11,3 +11,4 @@ error[type-mismatch]: expected a number, found Char
   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   |       ----------------------------- this is a Char
   = note: `+` has type Num a => a -> a -> a
+  = help: a string is text, not a number: write a number without quotes

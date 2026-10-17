@@ -1,0 +1,7 @@
+error[type-mismatch]: expected a -> b, found a number
+ --> type-errors/quote.xtl:2:10
+  |
+2 | u:t_wice m_ap 3 4
+  |          ^^^^^^^^
+  = note: `m_ap` has type Any b => (a -> b) -> a -> Box b
+  = help: a value is applied as if it were a function: is there an argument too many, or a function passed without its quote?

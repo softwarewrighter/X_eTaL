@@ -10,3 +10,4 @@ error[type-mismatch]: expected a number, found Char
   | ^^^^^^^^^^^^^^^^^^^^^^
   | ---- a string: a vector of Char
   |                   ---- a string: a vector of Char
+  = help: a string is text, not a number: write a number without quotes

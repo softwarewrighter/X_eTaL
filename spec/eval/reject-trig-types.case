@@ -10,3 +10,4 @@ error[type-mismatch]: expected a number, found Char
   | ^^^^^^^^
   |      --- a string: a vector of Char
   = note: `s_in` has type Num a => a -> Float
+  = help: a string is text, not a number: write a number without quotes

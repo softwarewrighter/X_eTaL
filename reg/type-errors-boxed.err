@@ -1,0 +1,11 @@
+error[type-mismatch]: expected a number, found Box Int
+ --> type-errors/boxed.xtl:2:1
+  |
+2 | b + 1
+  | ^^^^^
+  | - `b` is a Box Int
+  |
+1 | b := e_nclose 1 2 3
+  |      -------------- `b` gets its type here
+  = note: `+` has type Num a => a -> a -> a
+  = help: `d_isclose b` opens a box to get the value inside

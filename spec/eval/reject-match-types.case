@@ -9,3 +9,4 @@ error[type-mismatch]: expected a number, found Char
   | ^^^^^^^^^^^^
   |          --- a string: a vector of Char
   = note: `m_atch` has type (Match a, Truthy b) => a -> a -> b
+  = help: a string is text, not a number: write a number without quotes

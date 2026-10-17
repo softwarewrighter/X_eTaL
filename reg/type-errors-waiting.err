@@ -1,0 +1,7 @@
+error[type-mismatch]: expected a number, found a -> a
+ --> type-errors/waiting.xtl:2:1
+  |
+2 | 1 + u:a_dd 2
+  | ^^^^^^^^^^^^
+  = note: `+` has type Num a => a -> a -> a
+  = help: this is a function still waiting for an argument: give it one, or quote it ('f_) to pass the function itself

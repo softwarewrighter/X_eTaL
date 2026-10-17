@@ -1,0 +1,3 @@
+command = "bash -c 'cd docs/literate && ../../target/debug/xetal run type-errors/rebind.xtl; ../../target/debug/xetal run type-errors/rebind-fixed.xtl'"
+exit_code = 0
+desc = "docs/literate/type-errors.org: the rebind mistake, its error and the fix"

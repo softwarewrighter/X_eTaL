@@ -12,3 +12,4 @@ error[type-mismatch]: expected a number, found Char
 3 | "none" m:o_r u:p_ositive 7
   | ^^^^^^^^^^^^^^^^^^^^^^^^^^
   | ------ a string: a vector of Char
+  = help: a string is text, not a number: write a number without quotes

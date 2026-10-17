@@ -8,3 +8,4 @@ error[type-mismatch]: expected a number, found Char
 1 | 'n_eg e_ach "ab"
   | ^^^^^^^^^^^^^^^^
   |             ---- a string: a vector of Char
+  = help: a string is text, not a number: write a number without quotes

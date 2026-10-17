@@ -30,6 +30,7 @@ fn hint(expected: &str, found: &str) -> Option<&'static str> {
         ("Bool or Int", "Float") => {
             "a Float is not a condition or a count: `f_loor x` makes an Int of it, a comparison (`x > 0`) a Bool"
         }
+        ("a number", "Char") => "a string is text, not a number: write a number without quotes",
         (e, f) if boxed(f) && !boxed(e) => "`d_isclose b` opens a box to get the value inside",
         (e, f) if boxed(e) && !boxed(f) => "`e_nclose x` puts a value in a box",
         (e, f) if function(f) && !function(e) => {

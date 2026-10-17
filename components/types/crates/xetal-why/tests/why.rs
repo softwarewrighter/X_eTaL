@@ -71,6 +71,7 @@ fn a_common_mismatch_gets_a_hint_and_others_none() {
     assert!(help("expected Box Int, found Int").contains("e_nclose"));
     assert!(help("expected a number, found a -> a").contains("quote"));
     assert!(help("expected a -> b, found Float").contains("too many"));
+    assert!(help("expected a number, found Char").contains("without quotes"));
     assert_eq!(help("expected Char, found Bool"), "");
     let other = xetal_why::hinted(Diagnostic::new("rebind", "expected Int, found Float"));
     assert!(other.notes.is_empty(), "only a type mismatch is hinted");

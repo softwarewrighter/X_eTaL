@@ -1,0 +1,15 @@
+error[type-mismatch]: expected Int, found Float
+ --> type-errors/int-and-float.xtl:3:1
+  |
+3 | k + m
+  | ^^^^^
+  | - `k` is an Int
+  |     - `m` is a Float
+  |
+1 | m := 7 / 2
+  |      ----- `m` gets its type here: `/` always gives a Float
+  |
+2 | k := 1
+  |      - `k` gets its type here
+  = note: `+` has type Num a => a -> a -> a
+  = help: Int and Float do not mix: `f_loat n` makes a Float of an Int, `f_loor x` or `c_eiling x` an Int of a Float

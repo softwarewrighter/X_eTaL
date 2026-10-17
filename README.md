@@ -384,6 +384,10 @@ Other fonts, checked against the font files:
   the Combinators birds that do the same (Bluebird and atop, Starling and
   hook, Phoenix and fork), checked to agree, and how to read a train's
   errors
+- [`docs/literate/type-errors.org`](docs/literate/type-errors.org) --
+  type errors, read: the common mistakes (Int and Float mixed, a box,
+  a function waiting for an argument or missing its quote, a Float as
+  a condition, a name bound twice), the error each gives and the fix
 - [`docs/literate/tuples.org`](docs/literate/tuples.org) -- tuples and
   patterns: a state of several arrays as one value, an optimizer's
   state packed by position and then as a tuple taken apart by name,

@@ -1,0 +1,3 @@
+command = "bash -c 'cd docs/literate && ../../target/debug/xetal run type-errors/quote.xtl; ../../target/debug/xetal run type-errors/quote-fixed.xtl'"
+exit_code = 0
+desc = "docs/literate/type-errors.org: the quote mistake, its error and the fix"
