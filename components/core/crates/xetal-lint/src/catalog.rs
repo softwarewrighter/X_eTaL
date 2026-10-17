@@ -161,4 +161,51 @@ nothing a reader does not already know there; a macro may emit such checks freel
 and this shows the ones that can go.\n\nExample:\n    X := 2 3 r_eshape 0\n    \
 2 3 s_hapeIs X\nInstead:\n    X\n\nOff by default: `xetal lint -W pedantic` turns it on.",
     },
+    Lint {
+        name: "needless-raw-hashes",
+        group: Group::Style,
+        level: Level::Warn,
+        summary: "a raw string with more `#` than it needs",
+        explain: "What it does: warns on a raw string (ST4) written with more `#` than \
+it needs to end where it does: the fewest is none when it holds no `\"`, else one \
+more than the most `#` after a `\"` in it.\n\nWhy: each `#` tells a reader to look \
+for a `\"#` inside; extra ones send them looking for nothing.\n\nExample:\n    \
+s := r##\"a \"quoted\" word\"##\nInstead:\n    s := r#\"a \"quoted\" word\"#\n\n\
+`--fix` rewrites the delimiters; the value is unchanged.",
+    },
+    Lint {
+        name: "needless-raw-string",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a raw string with no backslash, quote or newline (plain is the same)",
+        explain: "What it does: warns on a raw string `r\"...\"` or `r#\"...\"#` whose \
+text has no backslash, no `\"` and no newline.\n\nWhy: a plain string spells the \
+same value, and a reader need not recall the raw rules.\n\nExample:\n    \
+s := r\"plain text\"\nInstead:\n    s := \"plain text\"\n\n`--fix` drops the `r` \
+and any `#`. Off by default: `xetal lint -W pedantic` turns it on.",
+    },
+    Lint {
+        name: "escapes-could-be-raw",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a string with several `\\\"` or `\\\\` escapes (clearer raw)",
+        explain: "What it does: warns on a plain string with two or more of the escapes \
+`\\\"` and `\\\\` and no `\\n` or `\\t`.\n\nWhy: a raw string (ST4) writes the text as \
+it is, which is easier to read, above all for code passed to a macro.\n\n\
+Example:\n    c := \"x := \\\"3 + 4\\\"\"\nInstead:\n    c := r#\"x := \"3 + 4\"\"#\n\n\
+`--fix` writes it raw with the fewest `#` that work; the value (what a macro \
+receives, D156) is unchanged. Off by default: `xetal lint -W pedantic` turns it on.",
+    },
+    Lint {
+        name: "string-holds-directive",
+        group: Group::Suspicious,
+        level: Level::Warn,
+        summary: "a line inside a string that reads as a `# lint:` directive",
+        explain: "What it does: warns on a line of a string, of any kind, whose text \
+starts with `# lint:` or `# lint-file:`.\n\nWhy: inside a string it is text and sets \
+no level; the author probably meant a comment.\n\nExample:\n    \
+s := r\"one\n    # lint: allow unused-binding\n    two\"\nInstead:\n    \
+# lint: allow unused-binding\n    s := r\"one\n    two\"\n\nNo fix: only the author \
+knows whether the text belongs in the string.",
+    },
 ];

@@ -77,21 +77,15 @@ fn explain(name: &str) -> Result<String, Diagnostic> {
     })
 }
 
-/// Every lint: name, group, default level and summary, one a line.
+/// Every lint: name, group, default level and summary, one a line,
+/// the names as wide as the longest.
 fn list() -> String {
+    let w = all().iter().map(|l| l.name.len()).max().unwrap_or(0);
     let rows = all().iter().map(|l| {
-        format!(
-            "{:<20} {:<12} {:<6} {}",
-            l.name,
-            l.group.name(),
-            l.level.name(),
-            l.summary
-        )
+        let (group, level) = (l.group.name(), l.level.name());
+        format!("{:<w$} {group:<12} {level:<6} {}", l.name, l.summary)
     });
-    let header = format!(
-        "{:<20} {:<12} {:<6} {}",
-        "LINT", "GROUP", "LEVEL", "SUMMARY"
-    );
+    let header = format!("{:<w$} {:<12} {:<6} SUMMARY", "LINT", "GROUP", "LEVEL");
     std::iter::once(header)
         .chain(rows)
         .collect::<Vec<_>>()

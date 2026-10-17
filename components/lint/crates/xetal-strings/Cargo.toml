@@ -1,0 +1,12 @@
+[package]
+name = "xetal-strings"
+description = "The string lints: how string literals are spelled in the file as written (raw strings, ST4)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-lex.workspace = true

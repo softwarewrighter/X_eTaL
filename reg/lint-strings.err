@@ -1,0 +1,6 @@
+warning[needless-raw-hashes]: this raw string has 2 `#` where 1 will do: open it with `r#"` at reg/fixtures/lint/strings.xtl:3:6
+  note: `needless-raw-hashes` is in group `style`; xetal lint --explain needless-raw-hashes
+warning[string-holds-directive]: `# lint: allow all` is inside a string, where it is text and sets no level: to set one, write it as a comment outside the string at reg/fixtures/lint/strings.xtl:7:7
+  note: `string-holds-directive` is in group `suspicious`; xetal lint --explain string-holds-directive
+warning[needless-raw-hashes]: this raw string has 3 `#` where 2 will do: open it with `r##"` at reg/fixtures/lint/strings.xtl:8:6
+3 warning(s), 0 error(s)
