@@ -29,13 +29,6 @@ written; the steps are recorded in docs/plan.md, Saga 40.
   fails on the base commit too (ST5 from 5313094 is not in
   docs/status.md); not regenerated here, to leave it to its lane.
 
-## Also in this branch
-
-- Commit "fix: restore xetal-expand binds.rs": main at 0c525d7 did not
-  build (5313094 deleted `components/expand/crates/xetal-expand/src/binds.rs`
-  while lib.rs still declares it). If step 110 replaces that file, keep
-  step 110's version when merging.
-
 ## To do locally, in order
 
 1. `scripts/reg.sh run`: confirm the lint-* goldens with reg-rs itself.
