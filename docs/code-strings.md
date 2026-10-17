@@ -1,7 +1,7 @@
 # Code strings: X_eTaL inside a string
 
 Decided with the user 2026-10-17 (lang-choices ST5; steps 111 and 112
-of the main saga). This document says what a code string is, what it
+of the main saga; the raw form `cr"..."` was proposed and dropped). This document says what a code string is, what it
 lets the tools check that a plain string cannot, what it does not give,
 and the order the tools are updated in.
 
@@ -20,11 +20,17 @@ should read it as code.
 A code string says which is which, in the source, as a token:
 
 ```
-c"it nn:d_ense W1"            a code string, the usual escapes
-cr"it c_at "label: " c_at x"  a raw code string (no escapes, ST4's r"")
-cr#"..."#                     a raw code string that may hold "#
-"sum i:=0..n - 1 | W[i,j]"    a plain string: text, not code
+c"it nn:d_ense W1"              a code string, the usual escapes
+c"it c_at \"label: \" c_at x"   a string literal inside it is escaped
+c"it nn:d_ense W1
+  |> nn:r_elu"                  it may span lines; newlines are literal
+r"sum i:=0..n - 1 | W[i,j]"     a raw string: verbatim text, not code (ST4)
+"sum i:=0..n - 1 | W[i,j]"      a plain string: text, not code
 ```
+
+There is one code form, not a raw one as well: the user chose
+`c"..."` alone (2026-10-17), multi-line and with escapes, and kept
+`r"..."` for text that is not rendered as code.
 
 The value is the same Char vector as the plain string of the same
 text; a macro receives it unchanged, and no macro has to change. The
@@ -40,7 +46,7 @@ because its inside is X_eTaL by declaration.
 
 | Tool | On a plain string | On a code string |
 | ---- | ----------------- | ---------------- |
-| Renderer | the characters as typed | the inside decorated as the code around it (the underlined letter, the superscript alias); the `c` and the quotes kept |
+| Renderer | the characters as typed | the inside, escapes resolved, decorated as the code around it (the underlined letter, the superscript alias); the `c` and the quotes kept |
 | Lexer | nothing | the inside lexed when the file is lexed: a bad character, an unterminated inner string, a malformed name is `error[...]` at its place inside the string, whether or not a macro ever runs |
 | Parser | nothing | the inside parsed as an expression or statements: an ambiguity (rule 3), an unbalanced bracket, a stray `->` is found before expansion, and placed inside the string |
 | Formatter | the string kept as typed | the inside in canonical form (`c"it nn:d_ense W1"` and `c"it  nn:d_ense  W1"` format alike), rule 10 holding for the inside too |
@@ -80,8 +86,8 @@ the whole.
 
 Step 111 (code-strings), the literal and the view:
 
-1. Lexer: `c"..."`, `cr"..."`, `cr#"..."#`; the token kind records
-   that the string is code and whether it was raw; rejections for an
+1. Lexer: `c"..."`, spanning lines, with ST1's escapes; the token
+   kind records that the string is code; rejections for an
    unterminated code string and a name touching `c"`.
 2. Renderer: the inside decorated with the rules of the code around
    it, escapes unescaped first; a code string whose inside does not
