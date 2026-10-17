@@ -34,6 +34,8 @@ pub struct Sources {
     combined: String,
     /// Warnings found while loading (a macro library's bare helpers).
     pub(crate) warnings: Vec<xetal_base::Diagnostic>,
+    /// The macro calls expanded (see [`crate::Site`]).
+    pub(crate) sites: Vec<crate::Site>,
 }
 
 impl Sources {

@@ -1,0 +1,13 @@
+[package]
+name = "xetal-origin"
+description = "Lints that know where Core came from: a macro call's text or the macro's own (macro-capture, unused-anaphor, macro-internals)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-ir.workspace = true
+xetal-sources.workspace = true

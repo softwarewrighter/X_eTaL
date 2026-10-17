@@ -83,6 +83,7 @@ impl Loader<'_> {
             system: self.system.as_deref(),
             libs: self.libs,
             file: (&file.name, &file.text),
+            sites: Default::default(),
         };
         let expanded = xetal_expand::expand_with(&file.text, &table).map_err(error)?;
         if let (true, Some(shown)) = (main, self.expansion.as_mut()) {
@@ -90,6 +91,15 @@ impl Loader<'_> {
             return Ok(());
         }
         self.sources.expanded(index, &expanded);
+        for (at, name, binds) in table.sites.take() {
+            let site = xetal_sources::Site {
+                file: index,
+                at,
+                name,
+                binds,
+            };
+            self.sources.add_site(site);
+        }
         self.names(file, index, (&expanded, first.len()), &aliases, main)
             .map_err(|d| error(at(&expanded, d)))
     }

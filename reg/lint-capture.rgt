@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint reg/fixtures/lint/capture.xtl"
+exit_code = 0
+desc = "macro-capture: a name a macro writes undeclared, read by the call's text, warns at each read; a declared anaphor, its unread case and the macro's own unread local are not reported at the call"

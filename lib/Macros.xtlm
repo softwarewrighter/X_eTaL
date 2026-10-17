@@ -39,6 +39,7 @@ m:c_heck< := { cond label -> "{ @ -> (" c_at cond c_at ") ? \"ok: " c_at label c
 ## your expression and writes it as it is, so your x is its x. A name a
 ## macro writes stays as written; that is how an anaphor works, and a
 ## macro that wants a name of its own asks for one (t_wice< below).
+## binds: x
 ## >> "x:" u_se< "Macros"
 ## >> x := 10
 ## >> @ x:b_inds< "x + 1"

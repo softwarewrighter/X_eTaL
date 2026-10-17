@@ -3,6 +3,8 @@
 //! alias. A call is appended to its macro library's program and run by
 //! [`Libraries::run_macro`].
 
+use std::cell::RefCell;
+
 use xetal_base::Diagnostic;
 use xetal_expand::{MacroCall, Macros};
 use xetal_lookup::{Libraries, MacroRun};
@@ -15,6 +17,9 @@ pub(crate) struct Table<'a> {
     pub libs: &'a dyn Libraries,
     /// The file the calls are written in: its name and text.
     pub file: (&'a str, &'a str),
+    /// Each call asked for its binds: where, the macro as written, the
+    /// names (recorded in the file's sources as a `Site`).
+    pub sites: RefCell<Vec<(usize, String, Vec<String>)>>,
 }
 
 impl Macros for Table<'_> {
@@ -41,10 +46,14 @@ impl Macros for Table<'_> {
     }
 
     fn binds(&self, call: &MacroCall) -> Vec<String> {
-        self.library(call)
+        let binds = self
+            .library(call)
             .ok()
             .and_then(|lib| lib.binds.get(call.name).cloned())
-            .unwrap_or_default()
+            .unwrap_or_default();
+        let site = (call.at, written(call), binds.clone());
+        self.sites.borrow_mut().push(site);
+        binds
     }
 }
 

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint -W pedantic reg/fixtures/lint/capture.xtl"
+exit_code = 0
+desc = "-W pedantic shows unused-anaphor (a declared anaphor the text never reads) and macro-internals (a finding in code the macro wrote) at the call"

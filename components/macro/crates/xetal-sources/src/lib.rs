@@ -5,9 +5,11 @@
 //! either a copy of a file's bytes or a replacement for one of its
 //! tokens (a rewritten namespace), which maps to the original token.
 
+mod calls;
 mod locate;
 mod report;
 mod sources;
 
+pub use calls::Site;
 pub use locate::Location;
 pub use sources::Sources;

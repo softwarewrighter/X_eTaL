@@ -1,0 +1,7 @@
+warning[macro-capture]: `x` here is bound by c:c_ap<, not by your code: the macro writes the name itself (its author can ask for a fresh one with []G_ENSYM, or declare `## binds: x` if it is meant for your text) at reg/fixtures/lint/capture.xtl:8:20
+  note: `macro-capture` is in group `suspicious`; xetal lint --explain macro-capture
+warning[unused-anaphor]: c:w_ith< binds `it` for your text, which never reads it at reg/fixtures/lint/capture.xtl:10:9
+  note: `unused-anaphor` is in group `pedantic`; xetal lint --explain unused-anaphor
+warning[macro-internals]: in code c:w_aste< wrote: unused-binding: `tmp` is bound but never used; write `_ := ...` to keep a value for its effect at reg/fixtures/lint/capture.xtl:11:9
+  note: `macro-internals` is in group `pedantic`; xetal lint --explain macro-internals
+3 warning(s), 0 error(s)
