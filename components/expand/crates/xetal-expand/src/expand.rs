@@ -56,7 +56,11 @@ fn expand_at(src: &Mapped, cx: &Cx, depth: usize) -> Result<Mapped, Diagnostic> 
     for call in &found {
         out.push(&src.slice(at..call.span.start));
         let expanded = expansion(src, call, cx).map_err(located)?;
-        out.push(&expand_at(&expanded, cx, depth + 1)?);
+        let whole = expand_at(&expanded, cx, depth + 1)?;
+        // Laid out as a program where a line of it is long (D159); the
+        // breaks map to the call, as any text the macro added does.
+        let at_call = src.span(call.span);
+        out.push(&xetal_reflow::laid_out(&whole, at_call.start..at_call.end));
         at = call.span.end;
     }
     out.push(&src.slice(at..src.text().len()));

@@ -3,6 +3,14 @@
 version = 4
 
 [[package]]
+name = "xetal-ast"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
+]
+
+[[package]]
 name = "xetal-base"
 version = "0.1.0"
 
@@ -13,6 +21,16 @@ dependencies = [
  "xetal-base",
  "xetal-lex",
  "xetal-mapped",
+ "xetal-reflow",
+]
+
+[[package]]
+name = "xetal-fmt"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
+ "xetal-syntax",
 ]
 
 [[package]]
@@ -28,6 +46,26 @@ name = "xetal-mapped"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+]
+
+[[package]]
+name = "xetal-reflow"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-fmt",
+ "xetal-lex",
+ "xetal-mapped",
+ "xetal-syntax",
+]
+
+[[package]]
+name = "xetal-syntax"
+version = "0.1.0"
+dependencies = [
+ "xetal-ast",
+ "xetal-base",
+ "xetal-lex",
 ]
 
 [[package]]

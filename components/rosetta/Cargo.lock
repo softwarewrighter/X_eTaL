@@ -1469,6 +1469,7 @@ dependencies = [
  "xetal-base",
  "xetal-lex",
  "xetal-mapped",
+ "xetal-reflow",
 ]
 
 [[package]]
@@ -1708,6 +1709,15 @@ dependencies = [
  "xetal-array",
  "xetal-base",
  "xetal-value",
+]
+
+[[package]]
+name = "xetal-reflow"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
+ "xetal-mapped",
 ]
 
 [[package]]

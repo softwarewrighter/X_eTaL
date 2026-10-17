@@ -1,6 +1,6 @@
 number = 107
 slug = "expand-layout"
-status = "pending"
+status = "in-progress"
 description = "The user (2026-10-16): pretty-print expansions. A macro's text is often one l..."
 role = "production"
 context_files = []

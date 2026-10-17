@@ -10,8 +10,12 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-17
+
+
 ## 2026-10-16
 
+- 07:29 `feat` `xetal expand` and the live demo's Expand lay a macro's text out as a program where a line is longer than 80 columns (step 107, D159; the user): one statement per line inside blocks, nested blocks indented, long expressions broken inside their parentheses; spelling, order and error map kept; the user's lines untouched. New crate xetal-reflow; golden macros-demo-expand rebased.
 - 19:56 `fix` Boxed no longer breaks macros (step 106, D158; the user's report): a macro's text is printed plain while it expands, whatever `--box` or the live demo's Boxed toggle says for the program's output, which drew every expansion as a box that could not lex (`error[non-ascii]` at the call, every macro in every program). Tests: the expansion under Boxed (xetal-program), every Open-menu program run plain, Boxed and as a notebook with the libraries checked (xetal-web), a golden of `run --box demos/macros.xtl`.
 - 19:30 `feat` JuliaMono from jsDelivr (step 105, D157): the live demo, the doc site and the literate pages declare `@font-face` for JuliaMono Regular (cormullion/juliamono v0.63.2, SIL OFL, swap; the live demo preloads it), so decorated source is drawn in JuliaMono whether or not it is installed; nothing redistributed.
 - 18:42 `plan` Saga 41's libraries move to sibling repositories (the user's choice): equations to X_eTaL-libraries as `Equations` (its Saga 12; pin, oracle done), pipelines to X_eTaL-ML; kept here: a canary macro library, the shape lint, the limitations review; integrals after pipelines.

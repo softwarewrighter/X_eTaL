@@ -1,0 +1,17 @@
+[package]
+name = "xetal-reflow"
+description = "Reflowing a macro's expansion into a laid-out program"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-lex.workspace = true
+xetal-mapped.workspace = true
+
+[dev-dependencies]
+xetal-syntax.workspace = true
+xetal-fmt.workspace = true

@@ -211,7 +211,8 @@ reverses the axes, `t_ranspose` permutes them, `o_\_23` swaps two), whole-array 
 `[]N_PUT`, `[]R_EAD`, `f_ormat`, `n_umbers`), trigonometry, pictures
 (`[]G_RID` grids and `[]P_ATH` paths as SVG, animated by frames,
 shown with `[]S_HOW`), the system macros (source written for you,
-shown by `xetal expand`, themselves written in X_eTaL in
+shown by `xetal expand`, laid out as a program when it is long,
+themselves written in X_eTaL in
 `lib/System.xtlm`: `i_f<`, `u_nless<`, `e_ach<`, `f_ormat<`, `d_bg<`,
 `a_ssert<`, `p_anic<`, `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`,
 `e_rror<`), macro
