@@ -855,6 +855,9 @@ Step 1 makes the located form the only one. The mismatch message
 (`expected Int, found Float`) also does not say which operand is the
 whole number; step 2's origins do.
 
+Done in the readable lane (lanes/readable, D164-D168): all five steps,
+with ask E5 (an error in a library names the program's call).
+
 | Step | Slug | Content |
 | ---- | ---- | ------- |
 | 1 | located | Every diagnostic shown with its file, line and column and the source line with the spot underlined (in the drawn form where the output is drawn), in the CLI, the REPL, the editor and the live demo; goldens rebased on purpose. |

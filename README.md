@@ -398,6 +398,10 @@ Other fonts, checked against the font files:
 - [`docs/reference.md`](docs/reference.md) -- every built-in function, with
   examples (and, for the ones that work along an axis, the default axis,
   axis 1 written out, and another axis)
+- [`docs/errors.md`](docs/errors.md) -- every error and warning code,
+  with an example message and the spec case or golden that shows it;
+  how an error says where (file, line, column, the line underlined),
+  why (where each type came from) and what to write instead
 - [`docs/idioms.md`](docs/idioms.md) -- everyday idioms in X_eTaL beside Java,
   JavaScript, Python, C++ and Rust, and beside GNU APL, J, BQN, ngn/k
   and Uiua (the array table is the Rosetta stone's data, generated)
