@@ -1,0 +1,1 @@
+Raw strings (ST4, D156): lexer r"..." and r#"..."# (verbatim, multi-line); xetal fmt keeps the form (new crate xetal-fmt); raw macro arguments passed as written, errors located inside; view and LaTeX gallery handle multi-line; Emacs mode string fences; spec cases; README row. Also: README blog link; a stale eval test (M1) fixed. Affected gate (GATE_BASE 71e074d3) passed.
