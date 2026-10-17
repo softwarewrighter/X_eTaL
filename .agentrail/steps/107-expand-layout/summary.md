@@ -1,0 +1,1 @@
+xetal expand and Expand lay a macro's text out as a program past 80 columns (new crate xetal-reflow, D159): blocks one statement per line, nested indents, long expressions broken in parentheses; spelling, order and map kept; golden and one spec case rebased; pages; gates passed.
