@@ -132,4 +132,81 @@ variable lowerCamel (`maxSize`); all capitals hides the word boundaries.\n\n\
 Example:\n    MAXSIZE := 9\nInstead:\n    MaxSize := 9\n\nOff by default: \
 `xetal lint -W pedantic` turns it on.",
     },
+    Lint {
+        name: "gensym-unused",
+        group: Group::Suspicious,
+        level: Level::Warn,
+        summary: "a fresh name from []G_ENSYM that the macro never uses",
+        explain: "What it does: warns on a `[]G_ENSYM` call in a macro library whose \
+result is thrown away, or bound to a name nothing reads.\n\nWhy: a macro asks for \
+a fresh name to write into the text it gives (MC30); one it never writes there \
+means the text uses a name of its own instead, which a caller's name can capture.\n\n\
+Example (in M.xtlm):\n    m:t_wice< := { @ e ->\n      t := []G_ENSYM \"t\"\n      \
+\"{ @ -> t := 2; t * (\" c_at e c_at \") } @\" }\nInstead:\n    m:t_wice< := { @ e ->\n      \
+t := []G_ENSYM \"t\"\n      \"{ @ -> \" c_at t c_at \" := 2; \" c_at t c_at \" * (\" c_at e c_at \") } @\" }\n\n\
+Reported instead of `unused-binding` at the same name.",
+    },
+    Lint {
+        name: "gensym-not-name",
+        group: Group::Correctness,
+        level: Level::Warn,
+        summary: "[]G_ENSYM given a literal that is not a plain name",
+        explain: "What it does: warns on `[]G_ENSYM \"...\"` whose literal is not a plain \
+name: a letter, then letters and digits, with at most one underline, second (`t`, \
+`s_um`).\n\nWhy: the call fails with error[bad-gensym] whenever the macro runs, \
+but only a call shows it; the library itself loads.\n\nExample:\n    \
+t := []G_ENSYM \"the total\"\nInstead:\n    t := []G_ENSYM \"total\"\n\n\
+A name computed at expansion is not checked.",
+    },
+    Lint {
+        name: "reject-bad-place",
+        group: Group::Suspicious,
+        level: Level::Warn,
+        summary: "a []R_EJECT code whose place is not left, right or call",
+        explain: "What it does: warns on a literal `\"code place\" []R_EJECT message` whose \
+place is not `left`, `right` or `call`.\n\nWhy: an unknown place is ignored, so the \
+error lands on the macro's name instead of the argument meant.\n\nExample:\n    \
+\"bad-macro-argument rigth\" []R_EJECT \"an empty argument\"\nInstead:\n    \
+\"bad-macro-argument right\" []R_EJECT \"an empty argument\"",
+    },
+    Lint {
+        name: "reject-undocumented",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a macro rejects its call with a code its doc block never mentions",
+        explain: "What it does: warns on a literal code a macro rejects its call with \
+(`\"code place\" []R_EJECT message`) that the macro's `##` block does not name, as a \
+word in its prose or its examples.\n\nWhy: a macro's users meet the code as \
+`error[code]`; one nobody documented sends them to the library's source.\n\n\
+Example:\n    ## Its argument.\n    m:i_d< := { @ e ->\n      0 = t_ally e ? \
+\"empty-argument right\" []R_EJECT \"an empty argument\"\n      e }\nInstead:\n    \
+## Its argument, which may not be empty (empty-argument).\n\n\
+Each code once a macro; a code in a helper (`h:`), or one computed, is not checked. \
+Off by default: `xetal lint -W pedantic` turns it on.",
+    },
+    Lint {
+        name: "reject-unplaced",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a []R_EJECT code with no place, so the error lands on the macro's name",
+        explain: "What it does: warns on a literal `\"code\" []R_EJECT message` with no \
+place after the code.\n\nWhy: with no place the error is reported at the macro's \
+name; naming the argument at fault (`left`, `right`) points the user at what to \
+change, and `call` says the whole call was meant.\n\nExample:\n    \
+\"bad-macro-argument\" []R_EJECT \"an empty argument\"\nInstead:\n    \
+\"bad-macro-argument right\" []R_EJECT \"an empty argument\"\n\n\
+Off by default: `xetal lint -W pedantic` turns it on.",
+    },
+    Lint {
+        name: "missing-example",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a macro with no `## >>` example in its doc block",
+        explain: "What it does: warns on a macro (`m:n_ame< := ...`) whose doc block has no \
+`## >>` example, or that has no doc block.\n\nWhy: a macro is read by the text it \
+gives; an example shows a call and its result, and `xetal doc --test` keeps it true.\n\n\
+Example:\n    ## Its argument.\n    m:i_d< := { @ e -> e }\nInstead:\n    \
+## Its argument.\n    ## >> \"x:\" u_se< \"M\"\n    ## >> @ x:i_d< \"3\"\n    ## 3\n    \
+m:i_d< := { @ e -> e }\n\nOff by default: `xetal lint -W pedantic` turns it on.",
+    },
 ];

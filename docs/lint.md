@@ -107,6 +107,12 @@ The live demo needs no JSON: it calls the same Rust functions.
 | `function-name-case` | pedantic | allow | a function named UpperCamel (`u:N_extGen`); a capital start is for combinators |
 | `int-condition` | suspicious | warn | a guard whose condition type-checks as an Int (`t_ally v ? ...`), which fails at run time unless it is 1 or 0; runs after type checking |
 | `upper-case-name` | pedantic | allow | a variable of two or more letters, all capitals (`MAXSIZE`) |
+| `gensym-unused` | suspicious | warn | a `[]G_ENSYM` result thrown away or bound to a name nothing reads; reported instead of `unused-binding` there |
+| `gensym-not-name` | correctness | warn | `[]G_ENSYM "..."` whose literal is not a plain name, which fails at every call (`error[bad-gensym]`) |
+| `reject-bad-place` | suspicious | warn | a literal `"code place" []R_EJECT ...` whose place is not `left`, `right` or `call` (ignored: the error lands on the macro's name) |
+| `reject-undocumented` | pedantic | allow | a code a macro rejects its call with that its `##` block does not name, in its prose or examples |
+| `reject-unplaced` | pedantic | allow | a literal `"code" []R_EJECT ...` with no place |
+| `missing-example` | pedantic | allow | a macro (`m:n_ame<`) whose doc block has no `## >>` example |
 
 The naming lints check lang-choices section 16 (style guide). Case
 carries no meaning to the language (decoration decides what a name is),
@@ -120,6 +126,21 @@ name, group, default level, one-line summary and the text
 `--explain` prints (what it does, why, an example and the fix). A test
 fails if a pass reports a code that is not in the catalog, or an entry
 lacks its example, so a lint cannot ship undocumented.
+
+The macro library lints (the last six) check what a macro author can
+get wrong that no call shows until a user meets it
+(docs/type-check-macros.md approach 7). They read Core and the file's
+`##` blocks (xetal-doccom), so they need no expansion: a fresh name
+from `[]G_ENSYM` and a reject code are found where the macro body
+calls them with a literal (a computed name or code is not checked),
+and a macro's doc block is the `##` block directly above its
+definition, as `xetal doc` reads it. The reject-code documentation is
+checked in macros only (a helper's codes belong to the macros that
+call it); the places in any definition. `gensym-unused` covers a fresh
+name the text never writes, the usual way a macro captures its
+caller's name by mistake; `unused-binding` would report the same name
+with a fix to `_`, which would only throw the fresh name away, so the
+more specific finding replaces it (D162).
 
 ## 4. Setting levels
 
@@ -204,6 +225,8 @@ these rules testable one by one.
                    the complexity group)
   components/lint: xetal-typed  (int-condition: lints after type
                    checking, over xetal_types::guard_types)
+  components/lint: xetal-macrolint  (the macro library lints: fresh
+                   names, reject codes, examples; Core and ## blocks)
   components/core: xetal-ir    Expr::children(), the walk every pass uses
      walk.rs      Core children and binding sites
 ```
@@ -240,8 +263,8 @@ catalog entries are in xetal-lint with the rest.
 
 ## 6. Qualities
 
-- Dogfooding: every library and demo here lints clean at the default
-  levels, and a test (xetal-linter tests/repository.rs) fails on a new
+- Dogfooding: every library, macro library and demo here lints clean
+  at the default levels, and a test (xetal-linter tests/repository.rs) fails on a new
   finding, so the gate keeps it that way.
 - Reliability: no panics (rule 11); a program that does not load is
   reported as `xetal run` reports it, and `xetal lint` exits 1.

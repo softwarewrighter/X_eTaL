@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint -W pedantic reg/fixtures/lint/Slips.xtlm"
+exit_code = 0
+desc = "xetal lint on a macro library: fresh names unused or not plain, reject codes misplaced or undocumented, a macro with no example"
