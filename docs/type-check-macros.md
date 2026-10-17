@@ -189,6 +189,62 @@ starts from, as declared types are in gradual typing.
   call, not in the type system, so it needs no language change; it is
   sound only where it speaks (it never proves a program right).
 
+### 9. Total parsing for macro authors (macro time; a standard library)
+
+A reading library for `.xtlm` files (combinators or a small grammar
+form) whose results carry spans and must end at the end of the input:
+a parse that stops short is an error, so macro libraries stop writing
+their own cut-and-drop readers. Equations, Tags, and the coming
+pipeline and integral macros would use it.
+
+- Feasibility: medium; a library, no compiler change. It is the
+  positive form of the rule the Equations reader now follows by hand.
+
+### 10. An unused-argument check in the macro runner (compile time; a compiler change)
+
+The runner maps a macro's output back to its call. If a macro received
+its arguments as spanned text (as the expander already holds them),
+the runner could refuse an expansion that leaves part of an argument
+unaccounted for, or require the macro to mark text it ignores on
+purpose: "this macro ignored `^2`". That would make the whole class a
+compile-time error for every macro, however its reader is written.
+
+- Feasibility: medium to hard: what counts as "used" needs a design
+  (copied text is tracked today, transformed text is not; approach 3
+  shares the question), and an opt-out for macros that read only part
+  of a text by design (a comment convention, a label).
+
+### 11. A lint for macro libraries (before shipping)
+
+`xetal lint` on a `.xtlm`: a reader that drops characters it has not
+matched (`1 d_rop -1 d_rop t` on an unchecked text) or a parse never
+checked for leftover input.
+
+- Feasibility: medium; heuristic by nature, so a warning, never an
+  error.
+
+### The case that taught the class (2026-10-17)
+
+Writing about the Equations library turned up three silent wrong
+answers, with `y = 1 2 3 4` and `p = 1.5 2 2 4`:
+
+| Summand | Gave | Correct |
+| ------- | ---- | ------- |
+| `(y[i] - p[i])^2` | 0.5, the plain sum of `y - p` | 1.25 |
+| `y[i]2` | 10, the sum of `y` | an error |
+| `y[i] % 2` | 10; the `% 2` was dropped | an error |
+
+No error anywhere, and the LaTeX printed what was written, so the
+typeset math and the value disagreed. The reader took a term starting
+with `(` as a group by dropping its first and last characters without
+checking that the last one closed it, and a reference from the first
+`[` to the last `]` without checking that the `]` ended the term;
+nothing checked that every character was used. Fixed in the library
+(every rule uses all of its text or refuses it; a closed alphabet; six
+rejection tests), it is the clearest case for approaches 9 to 11:
+type and compile-time errors are good, run-time errors worse, silent
+wrong answers the worst.
+
 ## Feasibility in brief
 
 | Approach | Catches | When | Cost |
@@ -201,6 +257,9 @@ starts from, as declared types are in gradual typing.
 | 6 Ranks in types | rank and shape everywhere | compile time | hard, language |
 | 7 Lint and tests | macro bugs | before release | easy to medium |
 | 8 Shape lint | rank and shape mismatches it can prove | before running | medium, lint |
+| 9 Total parsing library | readers that stop short | macro time | medium, library |
+| 10 Unused-argument check | any text a macro ignores | compile time | medium to hard, compiler |
+| 11 .xtlm lint | cut-and-drop readers | before release | medium, lint |
 
 ## Plan
 
@@ -221,7 +280,13 @@ starts from, as declared types are in gradual typing.
    the shape lint, starting from the pipeline's shape annotations, with
    the run-time check after each annotated stage as the backstop:
    preventable run-time errors should be prevented.
-5. **Research, not scheduled:** approaches 5 and 6. Ranks in types
+5. **To decide with the user (from the Equations case):** approach 10,
+   the unused-argument check, is the one change that would make the
+   whole class a compile-time error in every macro; approach 9 is its
+   library-side complement and can start without a decision; approach
+   11 is a lint for the lint lane. All three join the spatial
+   limitations review.
+6. **Research, not scheduled:** approaches 5 and 6. Ranks in types
    would close the biggest remaining hole (rank and shape errors are
    run-time errors in all X_eTaL, not only in macros) and deserves its
    own review before any decision.

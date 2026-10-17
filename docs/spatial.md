@@ -46,11 +46,23 @@ Y := "Y[o,h,w] | O Ho Wo" e:e_q< "sum c:=0..C - 1, sum r:=0..Kh - 1, sum s:=0..K
   the library grows; mixed operators are a word per sum.
 - **Expressions** inside the strings (bounds, extents, index
   arithmetic, the summand) are the library's own math notation, with
-  math precedence: `*` binds tighter than `+` and `-`, which group left
-  to right; parentheses group. `2*h+r` means `(2*h)+r`. The macro
-  parenthesizes fully when it lowers, so the X_eTaL it writes means the
-  same under right-to-left order. Names other than the indices
-  (`C`, `Kh`, `X`, `W`) are the caller's X_eTaL values.
+  math precedence: `^` binds tightest (right to left), then `*` and
+  `/`, then `+` and `-` (left to right); parentheses group. `2*h+r`
+  means `(2*h)+r` and `(y[i] - p[i])^2` is the squared difference. The
+  macro parenthesizes fully when it lowers, so the X_eTaL it writes
+  means the same under right-to-left order. Names other than the
+  indices (`C`, `Kh`, `X`, `W`) are the caller's X_eTaL values.
+- **Every reading rule uses all of its text or refuses it.** A group
+  is one parenthesized term, a reference ends at its closing bracket,
+  an atom is a name or a number, and only the grammar's characters may
+  appear; anything else is `error[bad-equation]` naming the text. The
+  rule came from three silent wrong answers found while the library
+  was written about (2026-10-17): `(y[i] - p[i])^2` summed as `y - p`,
+  `y[i]2` and `y[i] % 2` as `y`, with the LaTeX printing what was
+  written. A reader that uses part of its input and drops the rest is
+  the class to design against (docs/type-check-macros.md). A function
+  in the summand (`exp(y[i])`) is not in the grammar yet: it is
+  refused, and the function is applied to the array before the call.
 - **Brackets** index arrays: `X[c,h+r,w+s]`, one index per axis, origin
   0 as in the paper (lowered to X_eTaL's origin 1).
 

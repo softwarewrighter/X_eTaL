@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-17
 
+- 09:16 `docs` The Equations case (three silent wrong answers found writing about the library; fixed in X_eTaL-libraries ed91e6d): docs/spatial.md states the grammar's rule (every reading rule uses all of its text or refuses it; `^` tightest, right to left); docs/type-check-macros.md adds approaches 9 to 11 (total parsing for macro authors, an unused-argument check in the macro runner, a lint for `.xtlm` readers) and the case; the limitations review gains L8 to L10.
 - 08:10 `design` Plain names (step 108, D161; the user): `s:r_ange` is `s_pread`, demos/sub.xtl is dyadic.xtl, Macros' `t_hree<` is `b_inds<`; goldens, the spec case, the tour and literate documents follow; the libraries' renames (`s_ummary`, `d_ate`, aliases `pl:` `li:` `ch:`) are in X_eTaL-libraries.
 
 ## 2026-10-16
