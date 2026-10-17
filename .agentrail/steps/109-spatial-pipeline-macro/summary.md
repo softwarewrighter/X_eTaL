@@ -1,0 +1,1 @@
+Handed to X_eTaL-ML (the user's choice: the pipeline macro lives beside the nn: functions): the design and what to build are in X_eTaL-ML docs/pipeline-macro.md (b8e7f53); X_eTaL keeps the design (D155, docs/spatial.md) and the oracle (docs/spatial-poc/pipes-oracle.xtl).
