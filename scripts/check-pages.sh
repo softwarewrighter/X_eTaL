@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # pages/ (the published live demo and its pages) is built locally and
-# committed, so it can fall behind what it shows. It is built in parts,
+# published to the gh-pages branch (scripts/publish-pages.sh); it is not
+# tracked on main, and can fall behind what it shows. It is built in parts,
 # each from its own inputs:
 #   web       the live demo: the demos and libraries built into it
 #   rosetta   the Rosetta stone's page: its programs, libraries and data
@@ -55,6 +56,17 @@ stale() {
     done
 }
 
+# The published site's stamps differ from the local ones: main has
+# moved on since the last publish (a warning, not a failure).
+behind_site() {
+    local site
+    site="$(git show origin/gh-pages:INPUTS 2> /dev/null)" || return 0
+    if [ "$site" != "$(cat pages/INPUTS 2> /dev/null)" ]; then
+        echo "check-pages: warning: the published site (origin/gh-pages) is behind pages/: run just publish from main"
+    fi
+}
+
+scripts/seed-pages.sh > /dev/null
 case "${1:-}" in
     --write)
         shift
@@ -67,6 +79,7 @@ case "${1:-}" in
         exit 0 ;;
     --stale) stale; exit 0 ;;
 esac
+behind_site
 # Where pages/ cannot be built (no trunk: the cloud sandbox), the check
 # is skipped; whoever merges with trunk rebuilds pages/.
 if ! command -v trunk > /dev/null; then

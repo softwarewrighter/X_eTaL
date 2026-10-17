@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-17
 
+- 16:45 `build` The site moves to the gh-pages branch (step 119, D162; approved by the user): pages/ is gitignored and untracked on main (history kept); `just publish` (scripts/publish-pages.sh) force-pushes it from a clean, pushed main as one orphan commit; scripts/seed-pages.sh seeds a fresh clone's pages/; check-pages.sh warns when the site is behind; the Pages workflow is removed. Once after merging: `just publish`, then switch GitHub Pages to the branch.
 - 16:30 `plan` Saga 42, integrals (step integrals-plan; the user): docs/plan.md plans convolutions and numerical integration after the pipelines from docs/convolutions/ (goal, what the note asks for, what X_eTaL has and lacks, eight decisions for the user, nine steps with tests first, the asks to send); the note's oracle numbers (10 16, 14 20, 1.0) checked on main, its `e:q_<` corrected to `e:e_q<` (D160).
 - 10:02 `docs` docs/spatial.md describes the equation grammar as extended with the user (X_eTaL-libraries): sums as parenthesized terms of a larger expression, `prod` `max` `min`, the functions `exp log sqrt abs max min`, one grammar read three ways with the reprint compared at every call.
 - 09:39 `docs` `a_ddAxis`, not `a_dd_axis` (the ML agent's report): a function name has one underline, a later `_` starts an axis subscript; the plan and the design docs say the bias helper's name correctly.

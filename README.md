@@ -276,7 +276,7 @@ just draw demos/classics/life-drawn.xtl         # Life animated, as SVG pictures
 just pp demos/factorial.xtl                     # print a file decorated and highlighted
 just edit demos/life.xtl                        # ASCII left, decorated right
 just serve                                      # the live demo locally, at http://127.0.0.1:8490/
-just pages                                      # build the live demo into pages/ (published by a workflow)
+just pages                                      # build the live demo into pages/ (just publish puts it on gh-pages)
 ```
 
 `just run` and `just eval` pass flags through to `xetal`

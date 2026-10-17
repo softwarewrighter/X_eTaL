@@ -111,9 +111,13 @@ name-image:
 literate-html:
     scripts/literate-html.sh
 
-# Build pages/ (committed; the Pages workflow publishes it): only the parts whose inputs changed; `just pages --all` rebuilds everything
+# Build pages/ (local, untracked; `just publish` puts it on gh-pages): only the parts whose inputs changed; `just pages --all` rebuilds everything
 pages *PARTS:
     scripts/build-pages.sh {{PARTS}}
+
+# Publish the site: pages/ as one orphan commit force-pushed to gh-pages (from a clean, pushed main; `--dry-run` makes the commit without pushing)
+publish *ARGS:
+    scripts/publish-pages.sh {{ARGS}}
 
 alias serve := web
 

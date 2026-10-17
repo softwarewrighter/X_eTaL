@@ -27,6 +27,10 @@
 work/
 tools/katex/node_modules/
 
+# The site's local build area (scripts/build-pages.sh); published to the
+# gh-pages branch by scripts/publish-pages.sh, not tracked on main.
+/pages/
+
 # trunk serve output (just serve); the published copy is pages/
 components/web/crates/xetal-web/dist/
 __pycache__/

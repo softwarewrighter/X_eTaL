@@ -1769,6 +1769,12 @@ APL ports (Sagas 11, 12 and 14) may call for it sooner.
 
 ## Cross-cutting (insert as steps when due)
 
+- the site on gh-pages (step pages-gh-pages, D162; approved by the
+  user, 2026-10-08): pages/ untracked on main and published by
+  `just publish` to the gh-pages branch, as X_eTaL-demos, -games and
+  -libraries do. After the merge, once: `just publish`, switch GitHub
+  Pages to the branch, check the live site and /doc.
+
 - editor panes (requested by the user): zoom any one pane to full
   screen and back with Ctrl-T (chosen with the user; Ctrl-F stays
   Emacs forward-char) is done (Saga 9, editor-panes); resizing the
