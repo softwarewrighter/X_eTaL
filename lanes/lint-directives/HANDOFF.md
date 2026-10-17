@@ -13,10 +13,8 @@ sw-checklist, so this lane has no `.agentrail` of its own.
 
 ## What the sandbox ran
 
-Main at 0c525d7 does not build: 5313094 deleted
-`components/expand/crates/xetal-expand/src/binds.rs` while `lib.rs`
-still declares it. The lane was therefore checked on a worktree of
-117c4da (the commit before) with the same diff applied:
+Checked on main at c58204b (binds.rs restored) with this branch
+rebased onto it:
 
 - components/lint: `cargo fmt --check`, `cargo clippy --all-targets
   --all-features -- -D warnings`, `cargo test`: clean.
@@ -24,7 +22,8 @@ still declares it. The lane was therefore checked on a worktree of
   `mutable-constant` at line 4; r2 and r4 are allowed.
 - Every golden in `reg/` by a stand-in for `reg-rs run` (stdout,
   stderr, exit status): the same set fails with and without this
-  change (just, timing and sandbox goldens), so nothing moved.
+  change (just, timing and sandbox goldens; roll-dice is random), so
+  nothing moved.
 - `scripts/check-spelling.py`: ok. The cli, doc, lint, rosetta and web locks
   each gained the one new edge (`scripts/check-locks.sh`: consistent).
 - sw-checklist by hand: `directive.rs` has 5 functions, each under 25
@@ -32,5 +31,5 @@ still declares it. The lane was therefore checked on a worktree of
 
 ## To do locally
 
-1. `scripts/gate.sh --affected` once main builds again.
+1. `scripts/gate.sh --affected`.
 2. Nothing to rebase: no golden output changed.
