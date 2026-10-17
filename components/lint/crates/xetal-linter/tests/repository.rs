@@ -7,13 +7,13 @@ use std::path::{Path, PathBuf};
 
 const DIRS: [&str; 3] = ["lib", "userlibs", "demos"];
 
-/// Every `.xtl` file under `dir`, at any depth.
+/// Every `.xtl` and `.xtlm` file under `dir`, at any depth.
 fn programs(dir: &Path, out: &mut Vec<PathBuf>) {
     for entry in fs::read_dir(dir).into_iter().flatten().flatten() {
         let path = entry.path();
         if path.is_dir() {
             programs(&path, out);
-        } else if path.extension().is_some_and(|e| e == "xtl") {
+        } else if path.extension().is_some_and(|e| e == "xtl" || e == "xtlm") {
             out.push(path);
         }
     }
