@@ -1,6 +1,6 @@
 //! Loading a program.
 
-use xetal_base::Diagnostic;
+use xetal_base::{CALLED_FROM, Diagnostic};
 use xetal_core::Program;
 use xetal_macro::{FsLibraries, Libraries, MacroError, expand};
 use xetal_sources::Sources;
@@ -51,7 +51,8 @@ pub fn located(sources: &Sources, d: Diagnostic) -> Diagnostic {
     }
     let file = d.span.map_or(0, |s| sources.locate(s.start).index);
     let message = sources.as_written(file, &d.message);
-    let d = labels_written(sources, d).place_with(|span| sources.place(span));
+    let d = labels_written(sources, calls_kept(sources, d));
+    let d = d.place_with(|span| sources.place(span));
     Diagnostic {
         message,
         span: None,
@@ -64,7 +65,7 @@ pub fn located(sources: &Sources, d: Diagnostic) -> Diagnostic {
 /// (the combined text starts with the libraries); one in a library is
 /// located there, as [`located`] does. Either way it is placed.
 pub fn in_program(sources: &Sources, d: Diagnostic) -> Diagnostic {
-    let d = labels_written(sources, d);
+    let d = labels_written(sources, calls_kept(sources, d));
     let Some(span) = d.span else {
         return d.place_with(|span| sources.place(span));
     };
@@ -92,5 +93,24 @@ fn labels_written(sources: &Sources, mut d: Diagnostic) -> Diagnostic {
         let file = sources.locate(label.span.start).index;
         label.text = sources.as_written(file, &label.text);
     }
+    d
+}
+
+/// Of the calls an error unwound through (ask E5), the one a reader
+/// needs: for an error in a library, the innermost call the program
+/// made (the program's line that called into the library); none for
+/// an error in the program, whose place says it all.
+fn calls_kept(sources: &Sources, mut d: Diagnostic) -> Diagnostic {
+    let in_program = |span: xetal_base::Span| sources.locate(span.start).index == 0;
+    let keep = match d.span {
+        Some(span) if !in_program(span) => d
+            .labels()
+            .iter()
+            .find(|l| l.text == CALLED_FROM && in_program(l.span))
+            .map(|l| l.span),
+        _ => None,
+    };
+    d.labels_mut()
+        .retain(|l| l.text != CALLED_FROM || Some(l.span) == keep);
     d
 }

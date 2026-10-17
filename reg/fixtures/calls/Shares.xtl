@@ -1,0 +1,3 @@
+# A library that fails at run time on a bad argument (ask E5).
+l:s_hare := { total n -> total d_iv n }
+l:e_ach := { totals n -> '{ t -> t l:s_hare n } m_ap totals }

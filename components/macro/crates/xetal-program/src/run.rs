@@ -60,6 +60,11 @@ fn run(library: &Sources, call: &MacroRun) -> Result<String, Diagnostic> {
     xetal_grid::set_boxed(false);
     let (_, result) = xetal_eval::eval_program(&program, &mut out, Some(0));
     xetal_grid::set_boxed(boxed);
+    // A macro's own calls are not the program's (ask E5 is for runs).
+    let result = result.map_err(|mut d| {
+        d.labels_mut().retain(|l| l.text != xetal_base::CALLED_FROM);
+        d
+    });
     result.map_err(|d| match rejected(&d) {
         true => Diagnostic { span: None, ..d },
         false => at(d),

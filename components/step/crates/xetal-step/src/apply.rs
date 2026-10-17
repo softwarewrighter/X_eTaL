@@ -48,7 +48,7 @@ impl<'a> Machine<'a, '_> {
             }
             Kont::PrimArg { p, span } => self.prim(&p, v, span),
             Kont::UnitBody { body, env, span } => self.unit_body(v, body, env, span),
-            Kont::Called => Ok(Control::Return(v)),
+            Kont::Called { .. } => Ok(Control::Return(v)),
             Kont::Kernel { kernel, span } => self.drive(kernel, Some(v), span),
             _ => Err(Diagnostic::new("internal", "a frame out of place")),
         }
@@ -85,7 +85,7 @@ impl<'a> Machine<'a, '_> {
         match f {
             Value::Closure(c) => match (c.param, arg) {
                 (Param::Name(name), arg) => {
-                    self.stack.push(Kont::Called);
+                    self.stack.push(Kont::Called { span });
                     Ok(Control::Eval(c.body, extend(&c.env, name, arg)))
                 }
                 (Param::Unit, Slot::Value(v)) => self.unit_body(v, c.body, c.env.clone(), span),
@@ -129,7 +129,7 @@ impl<'a> Machine<'a, '_> {
         span: Span,
     ) -> Result<Control<'a>, Diagnostic> {
         match v {
-            Value::Unit => Ok(self.push(Kont::Called, body, env)),
+            Value::Unit => Ok(self.push(Kont::Called { span }, body, env)),
             other => Err(err(
                 "not-unit",
                 span,

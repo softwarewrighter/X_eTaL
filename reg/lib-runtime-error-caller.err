@@ -1,0 +1,9 @@
+error[division-by-zero]: division by zero
+ --> reg/fixtures/calls/Shares.xtl:2:26
+  |
+2 | l:s_hare := { total n -> total d_iv n }
+  |                          ^^^^^^^^^^^^
+ ::: reg/fixtures/calls/split.xtl:5:1
+  |
+5 | 100 200 s:e_ach 0
+  | ----------------- called from the program here

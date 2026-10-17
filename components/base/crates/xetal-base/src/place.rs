@@ -17,6 +17,10 @@ pub struct Place {
     pub width: usize,
 }
 
+/// The label an error unwinding through a call gets at the call (ask
+/// E5); shown only for the call a program made into a library.
+pub const CALLED_FROM: &str = "called from the program here";
+
 /// A second place a diagnostic points at, with what it says there
 /// (where a type came from, D163): its span in the same text as the
 /// diagnostic's own, and its place once located.

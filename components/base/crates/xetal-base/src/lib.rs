@@ -12,5 +12,6 @@ mod span;
 pub use diagnostic::{Diagnostic, Located, Severity};
 pub use fix::Fix;
 pub use lang::LANG_NAME;
+pub use place::CALLED_FROM;
 pub use place::{Label, Place};
 pub use span::{NodeId, Span};
