@@ -2277,6 +2277,7 @@ version = "0.1.0"
 dependencies = [
  "xetal-base",
  "xetal-ir",
+ "xetal-lex",
  "xetal-lint",
  "xetal-program",
  "xetal-sources",
