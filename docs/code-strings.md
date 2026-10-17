@@ -89,9 +89,14 @@ Step 111 (code-strings), the literal and the view:
 3. Formatter: round trip (rule 10) with the inside kept as written in
    this step (canonical inside is step 112).
 4. Expander: `inside()` reads the three forms as it reads raw strings.
-5. Emacs mode, the web editor's decorated pane, the LaTeX gallery,
-   the literate exporter, the syntax poster.
-6. Spec cases, goldens, README syntax row, reference, D163.
+5. The view model (`xetal-view`, which both the terminal editor and
+   the live demo draw through): a code string's inside segmented as
+   code, and an open code string while typing (`c"it nn:d_ense`)
+   decorated too, not marked as an error to the end of the line as
+   an unterminated string is; view tests and a web test.
+6. Emacs mode, the LaTeX gallery, the literate exporter, the syntax
+   poster.
+7. Spec cases, goldens, README syntax row, reference, D163.
 
 Step 112 (code-strings-checks), what the tools check:
 
