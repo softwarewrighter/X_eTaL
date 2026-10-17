@@ -107,6 +107,9 @@ The live demo needs no JSON: it calls the same Rust functions.
 | `function-name-case` | pedantic | allow | a function named UpperCamel (`u:N_extGen`); a capital start is for combinators |
 | `int-condition` | suspicious | warn | a guard whose condition type-checks as an Int (`t_ally v ? ...`), which fails at run time unless it is 1 or 0; runs after type checking |
 | `upper-case-name` | pedantic | allow | a variable of two or more letters, all capitals (`MAXSIZE`) |
+| `macro-capture` | suspicious | warn | the text of a macro call reads a name the macro wrote and bound itself, neither from `[]G_ENSYM` nor declared in `## binds:` (section 8) |
+| `unused-anaphor` | pedantic | allow | a call's text never reads a name the macro declares it binds for it (`## binds: it`) |
+| `macro-internals` | pedantic | allow | another lint's finding in code a macro wrote, not text copied from the call (section 8) |
 
 The naming lints check lang-choices section 16 (style guide). Case
 carries no meaning to the language (decoration decides what a name is),
@@ -204,6 +207,9 @@ these rules testable one by one.
                    the complexity group)
   components/lint: xetal-typed  (int-condition: lints after type
                    checking, over xetal_types::guard_types)
+  components/lint: xetal-origin  (macro-capture, unused-anaphor,
+                   macro-internals: where Core came from, over the
+                   source map and the macro calls it records)
   components/core: xetal-ir    Expr::children(), the walk every pass uses
      walk.rs      Core children and binding sites
 ```
@@ -279,3 +285,62 @@ catalog entries are in xetal-lint with the rest.
 - The Emacs mode reading the JSON, and a configuration file for
   project-wide levels.
 
+## 8. Code a macro wrote
+
+A macro's expansion is a mix of the call's own text (copied from its
+arguments) and text the macro wrote. The macro phase already keeps a
+map from every expanded byte back to where it was written (MC17): a
+copied byte maps to its place inside the call's string, a byte the
+macro wrote maps to the whole call. It now also records each call
+(`xetal_sources::Site`): where it is written, the macro as the call
+writes it (`x:w_ith<`) and the names the macro declares it binds for
+the call's text (`## binds:`). A call inside another's expansion is
+recorded at the outermost call, its binds added to that call's. The
+lints in `xetal-origin` read these two facts.
+
+`macro-capture` (suspicious, warn). A binding whose name the macro
+wrote (not copied from the call), that is not a fresh name from
+`[]G_ENSYM` (`g1:t`) and is not declared in the macro's `## binds:`,
+read by text copied from that call. The caller wrote the name meaning
+their own binding and got the macro's:
+
+```
+x := 10
+p_rint! @ c:c_ap< "x + 1"     # c:c_ap< writes `x := 3; ` around its text
+```
+
+prints 4. It is reported at each read in the call's text, naming the
+macro, with the two fixes open to the macro's author: `[]G_ENSYM` for
+a name of its own, or `## binds: x` when the capture is meant (then it
+is an anaphor, and the call's text may not rebind it:
+`shadows-anaphor`). A name written nowhere (the shorthand's `_r` in a
+lambda the macro opened, as `m:d_ef<` does) is not a capture. The
+caller's own binding of the same name inside the text hides the
+macro's, as scope says, and is not reported.
+
+Origin-aware reporting. Every other pass runs on the expansion too, so
+a finding can start in code the macro wrote, which is placed at the
+whole call. The caller cannot change that code, so the driver
+(`xetal_origin::placed`, before levels) reports it under another lint:
+
+- an `unused-binding` of a name the macro declares it binds for the
+  call's text is `unused-anaphor` (pedantic): "x:w_ith< binds `it` for
+  your text, which never reads it", with no `_ :=` advice and no fix;
+- any other is `macro-internals` (pedantic), its message naming the
+  macro and the lint that found it ("in code x:w_aste< wrote:
+  unused-binding: ..."), with no fix. `xetal lint -W macro-internals`
+  shows them, for a macro's author testing a call.
+
+A finding that starts in text copied from the call is the caller's, and
+is reported as before, at its place inside the string.
+
+Limits. Copied text is found by matching the macro's output against
+the call's arguments (whole arguments first, then runs of three bytes
+or more), so a macro's own text that happens to equal an argument (a
+one-letter argument `"x"` next to the macro's own `x`) counts as
+copied: such a capture is missed, never reported falsely. Two
+neighbors are not done yet: a statement macro that binds a top-level
+name later statements read (`macro-binds-statement`, pedantic), and
+`xetal run`'s own warnings (`shadows-builtin`) over code a macro wrote.
+When step 110's contracts (`## takes:`, `## uses:`) land, the lints
+read them beside `## binds:`.

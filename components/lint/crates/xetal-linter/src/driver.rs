@@ -86,7 +86,9 @@ fn placed(loaded: &Loaded) -> Vec<Raw> {
     let mut out = Vec::new();
     let mut found = xetal_lint::lints(&loaded.program);
     found.extend(xetal_typed::typed(&loaded.program));
+    found.extend(xetal_origin::captures(&loaded.program, &loaded.sources));
     for d in found {
+        let d = xetal_origin::placed(d, &loaded.sources);
         let at = loaded.sources.locate(d.span.map_or(0, |s| s.start));
         if at.index == 0 {
             let end = d

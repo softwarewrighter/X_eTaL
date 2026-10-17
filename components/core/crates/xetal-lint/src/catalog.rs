@@ -132,4 +132,46 @@ variable lowerCamel (`maxSize`); all capitals hides the word boundaries.\n\n\
 Example:\n    MAXSIZE := 9\nInstead:\n    MaxSize := 9\n\nOff by default: \
 `xetal lint -W pedantic` turns it on.",
     },
+    Lint {
+        name: "macro-capture",
+        group: Group::Suspicious,
+        level: Level::Warn,
+        summary: "a macro binds a name the call's own text reads (a capture)",
+        explain: "What it does: warns where the text of a macro call reads a name that \
+the macro's expansion binds, when the macro wrote that name itself, did not get it \
+from `[]G_ENSYM` and does not declare it in its `## binds:` (MC30).\n\nWhy: a name a \
+macro writes stays as written, so the caller's `x` silently becomes the macro's `x`. \
+A capture meant for the caller (an anaphor) is declared; any other is a slip.\n\n\
+Example (the macro writes `x := 3` around its argument):\n    x := 10\n    \
+@ x:b_ad< \"x + 1\"\nInstead (in the macro library):\n    \
+m:b_ad< := { @ e ->\n      x := []G_ENSYM \"x\"\n      \"{ @ -> \" c_at x c_at \" := 3; \" c_at e c_at \" } @\" }\n\n\
+Or, when the capture is meant, `## binds: x` in the macro's doc block. Reported at \
+each read in the call's text.",
+    },
+    Lint {
+        name: "unused-anaphor",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a call's text never reads a name the macro binds for it",
+        explain: "What it does: warns on a macro call whose text never reads a name the \
+macro declares it binds for that text (`## binds: it`, an anaphor).\n\nWhy: the \
+macro offers the name for the text to use; not using it may mean another macro was \
+meant. The binding is the macro's, so the caller cannot write `_ :=` for it: it is \
+reported here, at the call, not as `unused-binding`.\n\nExample:\n    \
+\"3 + 4\" x:w_ith< \"5\"\nInstead:\n    \"3 + 4\" x:w_ith< \"it * it\"\n\n\
+Off by default: `xetal lint -W pedantic` turns it on.",
+    },
+    Lint {
+        name: "macro-internals",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a finding in code a macro wrote, not the call's text",
+        explain: "What it does: reports a finding of another lint in code a macro's \
+expansion wrote (not text copied from the call), naming the macro and the lint.\n\n\
+Why: the caller cannot change code the macro writes, so such findings are not \
+reported as the caller's; they belong to the macro's author.\n\nExample (the \
+macro writes `tmp := 1; ` before its argument, and never reads `tmp`):\n    \
+@ x:w_aste< \"1\"\nInstead (in the macro library): write `_ := 1; `, or drop it.\n\n\
+Off by default: `xetal lint -W macro-internals` shows them.",
+    },
 ];

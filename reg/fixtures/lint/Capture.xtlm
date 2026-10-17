@@ -1,0 +1,12 @@
+### Macros for the origin-aware lints (reg/lint-capture*.rgt)
+
+## Your expression with x as 3: the macro writes x itself and does not
+## declare it, so an x in your text is captured (macro-capture).
+m:c_ap< := { @ e -> "{ @ -> x := 3; " c_at e c_at " } @" }
+
+## The text on the right with it bound to the value on the left.
+## binds: it
+m:w_ith< := { e body -> "{ @ -> it := (" c_at e c_at "); " c_at body c_at " } @" }
+
+## Your expression after a local of the macro's own that it never reads.
+m:w_aste< := { @ e -> "{ @ -> tmp := 1; " c_at e c_at " } @" }
