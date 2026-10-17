@@ -10,6 +10,8 @@
 ## when the program runs is tied here, by writing the name in place of
 ## the self parameter. The result is plain named recursion, with no
 ## lazy parameter and no combinator left to run.
+## takes: text text
+## uses: parsed
 ## >> "c:" u_se< "Combinators"
 ## >> "u:f_act" c:Y_< "{ ~s_elf n -> n <= 1 ? 1; n * s_elf n - 1 }"
 ## >> u:f_act 5
@@ -32,6 +34,7 @@ m:Y_< := { name lambda ->
 ## The function on the left applied to the result of the one on the
 ## right, as one lambda written in place (the Bluebird, B f g x =
 ## f (g x)); either may be a name, a derived function or a lambda.
+## takes: text text
 ## >> "c:" u_se< "Combinators"
 ## >> u:s_umTo := "'+ r_/" c:B_< "r_ange"
 ## >> u:s_umTo 4

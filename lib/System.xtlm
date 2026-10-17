@@ -28,6 +28,7 @@ s:u_se< :: Char -> Char -> Unit
 ## on the left holds, else of the second. The condition is tested when
 ## the program runs, and only the expression chosen is evaluated
 ## (MC14).
+## takes: text text
 ## >> "2 > 0" i_f< "1; -1"
 ## 1
 s:i_f< := { cond both ->
@@ -41,6 +42,7 @@ s:i_f< := { cond both ->
 
 ## Run the statements on the right unless the condition on the left
 ## holds; the value is @ either way (MC15).
+## takes: text text
 ## >> "1 = 0" u_nless< "p_rint! 7"
 ## 7
 ## @
@@ -51,6 +53,8 @@ s:u_nless< := { cond body ->
 ## One statement per word on the left, each a copy of the template on
 ## the right with $w replaced by the word; it stands as a statement of
 ## its own (MC16).
+## takes: text text
+## uses: parsed
 ## >> "m_ax m_in" e_ach< "u:$w/ := { '$w r_/ _r }"
 ## >> u:m_ax/ 3 1 4
 ## 4
@@ -66,12 +70,14 @@ s:e_ach< := { words template ->
 
 ## The line the call is written on, as a number (inside another
 ## macro's expansion, the line of that macro's call).
+## takes: @ @
 ## >> @ l_ine< @
 ## 1
 s:l_ine< := { @ @ -> f_ormat []L_INE @ }
 
 ## The file the call is written in, as a string (-e for text given on
 ## the command line).
+## takes: @ @
 ## >> @ f_ile< @
 ## -e
 s:f_ile< := { @ @ -> h:q_uote []F_ILE @ }
@@ -80,10 +86,14 @@ s:f_ile< := { @ @ -> h:q_uote []F_ILE @ }
 ## call is written in; from the disk at the command line, from the
 ## store in the browser (Rust's include_str!). For example,
 ## t := @ i_nclude< "data.txt" binds the text of data.txt.
+## takes: @ text
+## uses: parsed
 s:i_nclude< := { @ path -> h:q_uote []I_NCLUDE h:t_rim path }
 
 ## 1 when a configuration fact holds, else 0: the platform (cli, or web
 ## in the browser) or a flag set with xetal --cfg NAME.
+## takes: @ text
+## uses: parsed
 ## >> @ c_fg< "cli"
 ## 1
 s:c_fg< := { @ name -> f_ormat 0 + []C_FG h:t_rim name }
@@ -91,6 +101,7 @@ s:c_fg< := { @ name -> f_ormat 0 + []C_FG h:t_rim name }
 ## Stop with a compile error at the call, with the code on the left and
 ## the message on the right (Rust's compile_error!); a macro writes it
 ## into its text to refuse a call.
+## takes: text text
 ## >> "too-big" e_rror< "the grid must be at most 9 wide"
 ## error[too-big]
 s:e_rror< := { code message -> ((h:t_rim code) c_at " call") []R_EJECT message }
@@ -99,6 +110,7 @@ s:e_rror< := { code message -> ((h:t_rim code) c_at " call") []R_EJECT message }
 
 ## The value of the expression on the right, after writing
 ## [file:line] expr = value to standard error (Rust's dbg!).
+## takes: @ text
 ## >> 1 + @ d_bg< "2 * 3"
 ## 7
 s:d_bg< := { @ expr ->
@@ -111,7 +123,8 @@ s:d_bg< := { @ expr ->
 ## assertion failed: cond (message) [file:line] to standard error, the
 ## condition as written, and go on; the message on the right may be @
 ## for none. The value is @ either way. Unlike Rust's assert!, it never
-## stops the program (p_anic< does).
+## stops the program (p_anic< does). Its right takes text or @, so
+## it declares no takes: line (MC22 checks the sides by type).
 ## >> "1 > 2" a_ssert< "one is not more than two"
 ## @
 s:a_ssert< := { cond note ->
@@ -126,6 +139,7 @@ s:a_ssert< := { cond note ->
 ## expr, as the function f_ormat writes it; {{ and }} are braces. An
 ## unclosed {, an empty {} or a lone } fails before the program runs
 ## (Rust's format!).
+## takes: @ text
 ## >> @ f_ormat< "two and two: {2 + 2} {{four}}"
 ## two and two: 4 {four}
 s:f_ormat< := { @ t -> h:o_rEmpty h:p_ieces t }
@@ -133,6 +147,7 @@ s:f_ormat< := { @ t -> h:o_rEmpty h:p_ieces t }
 ## Stop the program with error[panic] and the message on the right,
 ## formatted as f_ormat< does, at the call; it stands where any value
 ## may (Rust's panic!).
+## takes: @ text
 ## >> 1 + @ p_anic< "no {1 + 1}"
 ## error[panic]
 s:p_anic< := { @ t -> "[]P_ANIC (" c_at (h:o_rEmpty h:p_ieces t) c_at ")" }
@@ -141,6 +156,7 @@ s:p_anic< := { @ t -> "[]P_ANIC (" c_at (h:o_rEmpty h:p_ieces t) c_at ")" }
 ## "not yet implemented: " followed by the text on the right (formatted
 ## as f_ormat< does); a placeholder for code still to write, standing
 ## where any value may (Rust's todo!).
+## takes: @ text
 ## >> 1 + @ t_odo< "the size check"
 ## error[panic]
 s:t_odo< := { @ t -> "@ p_anic< " c_at h:q_uote "not yet implemented: " c_at t }
@@ -153,6 +169,7 @@ s:t_odo< := { @ t -> "@ p_anic< " c_at h:q_uote "not yet implemented: " c_at t }
 ## c_atch< choosing among them); the value is the body's or the
 ## recovery. Both sides are written as lambda bodies ([]T_RAP).
 ## binds: e
+## takes: text text
 ## >> "1 d_iv 0" t_ry< "@ r_ecover< \"-1\""
 ## -1
 s:t_ry< := { body handler ->
@@ -161,6 +178,7 @@ s:t_ry< := { body handler ->
 
 ## In a handler: the outcome on the right for an error whose code is
 ## one of the words on the left, and h_alt< for any other error.
+## takes: text text
 ## >> "\"io\" []S_IGNAL \"gone\"" t_ry< "\"io empty\" c_atch< \"@ r_ecover< \\\"0\\\"\""
 ## 0
 s:c_atch< := { codes outcome ->
@@ -173,6 +191,7 @@ s:c_atch< := { codes outcome ->
 ## Run the statements on the left, then the cleanup on the right,
 ## whether the body gave a value or an error; the value is the body's,
 ## or its error going on ([]E_NSURE).
+## takes: text text
 ## >> "p_rint! 1; 2" f_inally< "p_rint! \"cleaned\""
 ## 1
 ## cleaned
@@ -185,6 +204,7 @@ s:f_inally< := { body cleanup ->
 ## type; the try's value is this one ([]R_ECOVER). The right side is
 ## code, like every macro argument: to recover with a string, write a
 ## string literal there, its quotes escaped once more inside t_ry<.
+## takes: @ text
 ## >> "1 d_iv 0" t_ry< "@ r_ecover< \"2 + 2\""
 ## 4
 ##
@@ -193,18 +213,21 @@ s:f_inally< := { body cleanup ->
 s:r_ecover< := { @ value -> "[]R_ECOVER (" c_at (h:t_rim value) c_at ")" }
 
 ## In a handler: run the body again (at most 1000 times; []R_ETRY).
+## takes: @ @
 ## >> n! := 0
 ## >> "n! := n! + 1; n! < 3 ? \"again\" []S_IGNAL \"not yet\"; n!" t_ry< "@ r_etry< @"
 ## 3
 s:r_etry< := { @ @ -> "[]R_ETRY e" }
 
 ## In a handler: let the error go on as it was ([]H_ALT).
+## takes: @ @
 ## >> "1 d_iv 0" t_ry< "@ h_alt< @"
 ## error[division-by-zero]
 s:h_alt< := { @ @ -> "[]H_ALT e" }
 
 ## In a handler: go on from a warning ([]W_ARN) with its value
 ## ([]C_ONTINUE).
+## takes: @ @
 ## >> "10 + (0 []W_ARN \"empty\" \"nothing\")" t_ry< "@ c_ontinue< @"
 ## 10
 s:c_ontinue< := { @ @ -> "[]C_ONTINUE e" }

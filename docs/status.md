@@ -19,9 +19,9 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 126 | 0 | 0 |
-| Language decisions | 157 | 0 | 3 |
+| Language decisions | 159 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 464 | 0 | 0 |
+| Spec cases | 465 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -35,7 +35,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 96 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 97 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 49 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
@@ -358,6 +358,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 1 |
 | ST3 | A string is a 1-D array of characters: `"abc"` is a 3-element Char vector and every array function applies (...) | works | 2 |
 | ST4 | Raw strings, Rust's rules: `r"..."` holds its text verbatim (no escapes; a backslash is a backslash) and (...) | works | 3 |
+| ST5 | Code strings: `c"..."` is a string whose inside is X_eTaL, declared by the writer as a token | works | 0 |
 | QD1 | `[]` written touching a name is the system namespace, APL's quad: `[]A`, `[]D_L 0.5` | works | 2 |
 | QD2 | System values, read-only: `[]A` the alphabet `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"`, `[]D` the digits (...) | works | 2 |
 | QD3 | System functions live in the quad namespace and are named like any function: `[]D_L s` waits s seconds (...) | works | 3 |
@@ -393,6 +394,7 @@ conventions (naming, layout) work without a spec case citing them.
 | MC28 | `@ f_ormat< "x = {x}"` (Rust's `format!`) interpolates: each `{expr}` holds any expression (it ends at the (...) | works | 0 |
 | MC29 | `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...) | planned | 0 |
 | MC30 | Hygiene is by choice, as in Common Lisp, not automatic as in Scheme (changed with the user, 2026-10-12; (...) | works | 8 |
+| MC31 | A macro declares a contract in the `##` doc block directly above its definition, three lines the macro (...) | works | 1 |
 | MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | PN1 | `h:` is a namespace for file-private definitions, functions and variables: `h:j_oin := { b -> ... }`, (...) | works | 2 |
 | PN2 | A bare top-level function in a library is deprecated: it still works and is private, with a warning (...) | works | 0 |

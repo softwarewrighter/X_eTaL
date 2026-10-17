@@ -1,0 +1,19 @@
+## Test macros for the contract goldens (MC31): a copying macro that
+## drops part of its text, and the same declared as parsing.
+
+## The sum of the text on the right, read as a chain and taken apart
+## badly: an exponent is dropped. It says nothing, so it copies.
+## takes: @ text
+m:s_um< := { @ e -> "'+ r_/ " c_at h:n_oExponent e }
+
+## The same, declared as parsing: the macro answers for its text.
+## takes: @ text
+## uses: parsed
+m:r_ead< := { @ e -> "'+ r_/ " c_at h:n_oExponent e }
+
+# The text up to its first ^.
+h:n_oExponent := { e ->
+  i := w_here e = f_irst "^"
+  0 = t_ally i ? e
+  ((f_irst i) - 1) t_ake e
+}

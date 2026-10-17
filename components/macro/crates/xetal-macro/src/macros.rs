@@ -9,6 +9,7 @@ use std::collections::HashMap;
 use std::rc::Rc;
 
 use xetal_base::Diagnostic;
+use xetal_contract::{Contract, contracts_of};
 use xetal_lookup::{Found, Pair};
 use xetal_names::Import;
 use xetal_sources::Sources;
@@ -26,8 +27,8 @@ pub struct MacroLib {
     pub sources: Sources,
     pub own: String,
     pub exports: Vec<String>,
-    /// Per macro, the names it declares it binds (`## binds:`).
-    pub binds: HashMap<String, Vec<String>>,
+    /// Per macro, its contract (`## binds:`, `## takes:`, `## uses:`, MC31).
+    pub contracts: HashMap<String, Contract>,
 }
 
 /// Per alias letters: the macro library named.
@@ -57,11 +58,19 @@ impl Loader<'_> {
             self.sources.warn(d);
         }
         let (own, exports) = inner.loaded.remove(&found.key).unwrap_or_default();
+        let contracts = contracts_of(&found.text).map_err(|diagnostic| {
+            Box::new(MacroError {
+                diagnostic,
+                file: found.name.clone(),
+                text: found.text.clone(),
+                main: false,
+            })
+        })?;
         let lib = Rc::new(MacroLib {
             sources: inner.sources,
             own,
             exports,
-            binds: xetal_expand::binds_of(&found.text),
+            contracts,
         });
         self.macros.insert(found.key.clone(), lib.clone());
         Ok(lib)

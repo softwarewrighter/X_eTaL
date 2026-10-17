@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-mapped", "crates/xetal-reflow", "crates/xetal-expand"]
+members = ["crates/xetal-mapped", "crates/xetal-reflow", "crates/xetal-contract", "crates/xetal-expand"]
 
 [workspace.package]
 version = "0.1.0"
@@ -18,4 +18,5 @@ xetal-syntax = { path = "../syntax/crates/xetal-syntax" }
 xetal-fmt = { path = "../render/crates/xetal-fmt" }
 xetal-reflow = { path = "crates/xetal-reflow" }
 xetal-mapped = { path = "crates/xetal-mapped" }
+xetal-contract = { path = "crates/xetal-contract" }
 xetal-expand = { path = "crates/xetal-expand" }

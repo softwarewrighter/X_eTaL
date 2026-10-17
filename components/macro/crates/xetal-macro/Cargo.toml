@@ -11,6 +11,7 @@ repository.workspace = true
 xetal-base.workspace = true
 xetal-lex.workspace = true
 xetal-expand.workspace = true
+xetal-contract.workspace = true
 xetal-sources.workspace = true
 xetal-lookup.workspace = true
 xetal-libs.workspace = true

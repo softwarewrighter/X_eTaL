@@ -17,6 +17,8 @@
           "doc": null,
           "examples": [],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "h:h_alf := { _r / 2 }",
           "uses": []
         },
@@ -30,6 +32,8 @@
           "doc": null,
           "examples": [],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "h:limit := 8",
           "uses": []
         },
@@ -43,6 +47,8 @@
           "doc": null,
           "examples": [],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "u:t_wice := { 2 * h:h_alf _r }",
           "uses": [{"written": "h:h_alf", "file": "reg/fixtures/names/app.xtl", "item": "h:h_alf"}]
         }

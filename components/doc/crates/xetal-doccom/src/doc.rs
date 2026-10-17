@@ -8,13 +8,17 @@ pub struct Example {
 }
 
 /// A doc comment: its prose (paragraphs split by a blank line), its
-/// examples in order, and the names a macro binds for the text it is
-/// given on purpose (a `## binds: it` line).
+/// examples in order, and a macro's contract lines (MC31): the names
+/// it binds for the text it is given on purpose (`## binds: it`), the
+/// shape of call it takes (`## takes: @ text`) and whether it copies
+/// or parses its arguments (`## uses: parsed`).
 #[derive(Debug, Clone, PartialEq, Eq, Default)]
 pub struct Doc {
     pub text: String,
     pub examples: Vec<Example>,
     pub binds: Vec<String>,
+    pub takes: Option<String>,
+    pub uses: Option<String>,
 }
 
 impl Doc {
@@ -26,6 +30,10 @@ impl Doc {
         for line in lines {
             if let Some(names) = line.strip_prefix("binds:") {
                 doc.binds.extend(names.split_whitespace().map(String::from));
+            } else if let Some(shape) = line.strip_prefix("takes:") {
+                doc.takes = Some(shape.split_whitespace().collect::<Vec<_>>().join(" "));
+            } else if let Some(how) = line.strip_prefix("uses:") {
+                doc.uses = Some(how.trim().to_string());
             } else if let Some(code) = line.strip_prefix(">> ") {
                 doc.close(example.take());
                 example = Some((code.trim().to_string(), Vec::new()));

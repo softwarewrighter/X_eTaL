@@ -3,7 +3,7 @@
 //! macro's rejection is placed where it says (MC12, MC17, MC20, MC22).
 
 use xetal_base::Diagnostic;
-use xetal_expand::{MacroCall, Macros, expand, expand_with};
+use xetal_expand::{Contract, MacroCall, Macros, Uses, expand, expand_with};
 
 /// `u_nless<` (unprefixed, as a system macro), `x:l_oop<` calling
 /// itself forever, `x:t_wice<`, `x:p_icky<` rejecting its right side,
@@ -24,6 +24,17 @@ impl Macros for Control {
                 Ok(format!("{} {}", call.left.is_some(), call.right.is_some()))
             }
             _ => Err(Diagnostic::new("unknown-macro", "no such macro")),
+        }
+    }
+
+    /// `x:s_ide<` answers about its text rather than writing it.
+    fn contract(&self, call: &MacroCall) -> Contract {
+        match call.name {
+            "s_ide<" => Contract {
+                uses: Uses::Parsed,
+                ..Contract::default()
+            },
+            _ => Contract::default(),
         }
     }
 }

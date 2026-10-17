@@ -17,6 +17,8 @@
           "doc": "Greet everyone in a list, shouting.",
           "examples": [{"code": "u:g_reetAll \"Cy\"", "output": "Hello, Cy!"}],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "u:g_reetAll := { n -> g:s_hout n }",
           "uses": [{"written": "g:s_hout", "file": "components/doc/fixtures/Greet.xtl", "item": "l:s_hout"}]
         },
@@ -30,6 +32,8 @@
           "doc": null,
           "examples": [],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "names := \"Ann\"",
           "uses": []
         }
@@ -52,6 +56,8 @@
           "doc": "The greeting for a name.",
           "examples": [{"code": "\"g:\" u_se< \"Greet\"", "output": ""}, {"code": "g:h_ello \"Ann\"", "output": "Hello, Ann"}],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "l:h_ello := { n -> \"Hello, \" c_at n }",
           "uses": []
         },
@@ -65,6 +71,8 @@
           "doc": "A greeting shouted.\n\nIt reuses the plain greeting.",
           "examples": [{"code": "\"g:\" u_se< \"Greet\"", "output": ""}, {"code": "g:s_hout \"Bo\"", "output": "Hello, Bo!"}, {"code": "g:count", "output": "2"}],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "l:s_hout := { n -> (l:h_ello n) c_at mark }",
           "uses": [{"written": "l:h_ello", "file": "components/doc/fixtures/Greet.xtl", "item": "l:h_ello"}, {"written": "mark", "file": "components/doc/fixtures/Greet.xtl", "item": "mark"}]
         },
@@ -78,6 +86,8 @@
           "doc": null,
           "examples": [],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "mark := \"!\"",
           "uses": []
         },
@@ -91,6 +101,8 @@
           "doc": "How many greetings there are.",
           "examples": [],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "l:count := 2",
           "uses": []
         }
@@ -113,6 +125,8 @@
           "doc": "\"c\" g:w_hen< \"b\": run b when c holds.",
           "examples": [],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "m:w_hen< := { cond body -> \"{ @ -> (n_ot \" c_at cond c_at \") ? @; \" c_at body c_at \"; @ } @\" }",
           "uses": []
         }
