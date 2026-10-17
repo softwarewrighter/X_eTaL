@@ -22,15 +22,23 @@ A code string says which is which, in the source, as a token:
 ```
 c"it nn:d_ense W1"              a code string, the usual escapes
 c"it c_at \"label: \" c_at x"   a string literal inside it is escaped
+c#"it c_at "label: ""#          verbatim (ST4's # rule): no escapes inside
 c"it nn:d_ense W1
-  |> nn:r_elu"                  it may span lines; newlines are literal
+  |> nn:r_elu"                  either may span lines; newlines are literal
 r"sum i:=0..n - 1 | W[i,j]"     a raw string: verbatim text, not code (ST4)
 "sum i:=0..n - 1 | W[i,j]"      a plain string: text, not code
 ```
 
-There is one code form, not a raw one as well: the user chose
-`c"..."` alone (2026-10-17), multi-line and with escapes, and kept
-`r"..."` for text that is not rendered as code.
+An unescaped `"` inside plain `c"..."` cannot be allowed: at
+`c"it c_at "label: "`, the second `"` is either the closer or an inner
+string's opener, and choosing by looking ahead is a heuristic (rule 3).
+So inner strings are escaped in `c"..."` or written as they are in
+`c#"..."#`, whose closer is `"#`. Code strings nest one level only:
+the renderer decorates the inside, and a code string inside the inside
+is drawn as a string (a macro call written inside a stage takes
+ordinary strings anyway). Decided with the user 2026-10-17; `cr"..."`
+was proposed and dropped, `r"..."` staying the form for verbatim text
+that is not code.
 
 The value is the same Char vector as the plain string of the same
 text; a macro receives it unchanged, and no macro has to change. The
@@ -86,12 +94,14 @@ the whole.
 
 Step 111 (code-strings), the literal and the view:
 
-1. Lexer: `c"..."`, spanning lines, with ST1's escapes; the token
-   kind records that the string is code; rejections for an
-   unterminated code string and a name touching `c"`.
+1. Lexer: `c"..."` (ST1's escapes) and `c#"..."#` (verbatim, ST4's
+   `#` rule), both spanning lines; the token kind records that the
+   string is code; rejections for an unterminated code string and a
+   name touching `c"`.
 2. Renderer: the inside decorated with the rules of the code around
-   it, escapes unescaped first; a code string whose inside does not
-   lex drawn as a plain string (the lexer reports it separately).
+   it, escapes unescaped first, one level deep (a code string inside
+   is drawn as a string); a code string whose inside does not lex
+   drawn as a plain string (the lexer reports it separately).
 3. Formatter: round trip (rule 10) with the inside kept as written in
    this step (canonical inside is step 112).
 4. Expander: `inside()` reads the three forms as it reads raw strings.
