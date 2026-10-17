@@ -1201,17 +1201,17 @@ during step 1b; nothing else in this saga implements one.
 
 Decided with the user (step 1; D154, docs/spatial.md, the reasons in
 docs/eq-rationale.md): it lives in `demos/spatial/`; the call is
-`"Y[o,h,w] | O Ho Wo" e:q_< "sum c:=0..C - 1, sum r:=0..Kh - 1, sum s:=0..Kw - 1 | X[c,h+r,w+s] * W[o,c,r,s]"`
+`"Y[o,h,w] | O Ho Wo" e:e_q< "sum c:=0..C - 1, sum r:=0..Kh - 1, sum s:=0..Kw - 1 | X[c,h+r,w+s] * W[o,c,r,s]"`
 (explicit extents; per-sum bindings, each with its operator word and
 inclusive range, outermost first, then the summand); math precedence
 inside the strings; an out-of-range index is a run-time error;
-`e:q_<` gives the value, `e:t_ex<` the LaTeX, `e:b_oth<` both; L1
+`e:e_q<` gives the value, `e:t_ex<` the LaTeX, `e:b_oth<` both; L1
 deferred (helpers inline in each expansion). Equations read inside
 out, pipelines left to right, X_eTaL right to left: a companion
 pipeline macro for ML data flow (initial data, then each transform in
 turn), `e:p_ipe<`, was designed with the user in step 1b (D155), and
 raw strings (ST4) let a pipeline be written one stage per line (step
-1c, a lexer change the user approved). Steps 3 to 5 below read `e:s_um<` as `e:q_<`
+1c, a lexer change the user approved). Steps 3 to 5 below read `e:s_um<` as `e:e_q<`
 and the three regions as the two of the per-sum form.
 
 Moved (the user, 2026-10-16): the libraries live in sibling
@@ -1236,7 +1236,7 @@ methods (the plan, step integrals-plan, after the pipelines).
 | 2 | spatial-oracle | The independent oracle, `demos/spatial/oracle.xtl`: valid cross-correlation by rotations, `t_ranspose` and one `i_nner`; fixtures A (all ones: 8 everywhere), B (560 596 632 / 704 740 776 / 848 884 920, from a run, replacing the plan's wrong numbers) and C (2 output channels, 3 input channels, 2 by 3 kernel, 5 by 6 pictures, shape 2 4 4); goldens first, numbers checked against an independent script recorded in the step summary |
 | 3 | spatial-capture | `demos/spatial/Spatial.xtlm`: regions split outside brackets, upper and lower paired by position, names and extents read; `e:d_omains<` gives the descriptors as text for inspection; diagnostics by `[]R_EJECT` at the argument (counts differ, a binding without `:=`, an empty region, a free index without an extent, an index name used twice); `## >>` doc tests and goldens written before the code |
 | 4 | spatial-lowering | `e:s_um<`: coordinate grids (`t_able`, `r_eshape`, `o_ffsets`), gathers by Horner's rule with a bounds check per axis, one `'+ r_/_k` per sum (innermost first); one, two and three sums; hygiene (a user `grid`, `a_t`, `k` untouched); results equal the oracle on A, B and C; `xetal expand` goldens of the generated code |
-| 5 | spatial-latex | `e:t_ex<` and `e:q_<` (the pair) from the same parse; goldens of the LaTeX strings; KaTeX accepts them (tools/katex where node is present, skipped otherwise as the gallery is); the value and the LaTeX of one call agree with steps 4 and 2 |
+| 5 | spatial-latex | `e:t_ex<` and `e:e_q<` (the pair) from the same parse; goldens of the LaTeX strings; KaTeX accepts them (tools/katex where node is present, skipped otherwise as the gallery is); the value and the LaTeX of one call agree with steps 4 and 2 |
 | 5b | spatial-pipeline-macro | `e:p_ipe<` in Spatial.xtlm: splitting on `\|>` outside brackets, braces and strings; `it` stages and function stages; ` : name` and tuple names; rejections at the argument (a value stage without `it`, `it` in the first stage, a name bound twice); shape annotations emit a run-time check; the five examples equal docs/spatial-poc/pipes-oracle.xtl; one-line and raw-string forms; expansion goldens |
 | 5c | shape-lint | Approach 8 of docs/type-check-macros.md in `xetal lint`: shape rules per built-in, symbolic extents, pipeline annotations as facts; warns where it proves a mismatch, silent where data decides (the lint lane's area: check lanes/lint first and coordinate) |
 | 6 | spatial-report | An inspection report, `e:e_xplain<` (or `--cfg spatial-trace` writing `d_bg<` around each stage): the regions, the descriptors, the generated code, the grid shape and the summed axes, then the result, as text; goldens; the debugger stays Saga 17's |

@@ -27,14 +27,14 @@ a standard library; it may move to `lib/` once it has earned it.
 ## The call
 
 ```
-"<result>[<free indices>] | <extents>" e:q_< "<op> <index>:=<low>..<high>, ... | <summand>"
+"<result>[<free indices>] | <extents>" e:e_q< "<op> <index>:=<low>..<high>, ... | <summand>"
 ```
 
 The CNN cross-correlation
 `Y[o,h,w] = sum_{c=0}^{C-1} sum_{r=0}^{Kh-1} sum_{s=0}^{Kw-1} X[c,h+r,w+s] W[o,c,r,s]`:
 
 ```
-Y := "Y[o,h,w] | O Ho Wo" e:q_< "sum c:=0..C - 1, sum r:=0..Kh - 1, sum s:=0..Kw - 1 | X[c,h+r,w+s] * W[o,c,r,s]"
+Y := "Y[o,h,w] | O Ho Wo" e:e_q< "sum c:=0..C - 1, sum r:=0..Kh - 1, sum s:=0..Kw - 1 | X[c,h+r,w+s] * W[o,c,r,s]"
 ```
 
 - **Left argument**: the result's name, its free indices in brackets,
@@ -58,7 +58,7 @@ Y := "Y[o,h,w] | O Ho Wo" e:q_< "sum c:=0..C - 1, sum r:=0..Kh - 1, sum s:=0..Kw
 
 | Macro | Gives |
 | ----- | ----- |
-| `e:q_<` | the value (the array) |
+| `e:e_q<` | the value (the array) |
 | `e:t_ex<` | the LaTeX, a string |
 | `e:b_oth<` | the pair `(value, latex)` |
 
@@ -84,7 +84,7 @@ one call always describe the same equation.
 
 A pipeline writes ML data flow left to right: the initial data, then
 each transform in turn. It lives beside the equations in
-`Spatial.xtlm`, and a stage may be an equation (`@ e:q_< "..."` is just
+`Spatial.xtlm`, and a stage may be an equation (`@ e:e_q< "..."` is just
 a value).
 
 ```
@@ -203,7 +203,7 @@ Y_{o,h,w} = \sum_{c=0}^{C - 1} \sum_{r=0}^{Kh - 1} \sum_{s=0}^{Kw - 1} X_{c,h+r,
 
 What the research assumed and the language refuses is pinned by the
 spec cases in `spec/spatial/`: a macro name needs its underline
-(`e:q_<`, not `e:q<`), reduce is `'+ r_/` (not `+/`), brackets are not
+(`e:e_q<`, not `e:q<`), reduce is `'+ r_/` (not `+/`), brackets are not
 indexing, `C-1` is ambiguous (write `C - 1`), `~` is not quotation, and
 a macro call is never another call's argument. Inside the equation
 strings these are the library's notation, not X_eTaL.

@@ -53,7 +53,7 @@ printed formula; the n-th bound pairs with the n-th binding.
 ### B. Positional regions, operators in the center
 
 ```
-Y := "Y[o,h,w] | O Ho Wo" e:q_< "C - 1, Kh - 1, Kw - 1 | sum sum sum X[c,h+r,w+s] * W[o,c,r,s] | c:=0, r:=0, s:=0"
+Y := "Y[o,h,w] | O Ho Wo" e:e_q< "C - 1, Kh - 1, Kw - 1 | sum sum sum X[c,h+r,w+s] * W[o,c,r,s] | c:=0, r:=0, s:=0"
 ```
 
 - Pros: one macro for every operator; mixed nests (`max sum`) fit;
@@ -65,7 +65,7 @@ Y := "Y[o,h,w] | O Ho Wo" e:q_< "C - 1, Kh - 1, Kw - 1 | sum sum sum X[c,h+r,w+s
 ### C. Per-sum bindings (chosen)
 
 ```
-Y := "Y[o,h,w] | O Ho Wo" e:q_< "sum c:=0..C - 1, sum r:=0..Kh - 1, sum s:=0..Kw - 1 | X[c,h+r,w+s] * W[o,c,r,s]"
+Y := "Y[o,h,w] | O Ho Wo" e:e_q< "sum c:=0..C - 1, sum r:=0..Kh - 1, sum s:=0..Kw - 1 | X[c,h+r,w+s] * W[o,c,r,s]"
 ```
 
 Each sum carries its own operator, index, lower and upper bound,
@@ -152,7 +152,7 @@ limitations review, not prerequisites.
 ## The chosen form, in brief
 
 ```
-"<result>[<free indices>] | <extents>" e:q_< "<op> <index>:=<low>..<high>, ... | <summand>"
+"<result>[<free indices>] | <extents>" e:e_q< "<op> <index>:=<low>..<high>, ... | <summand>"
 ```
 
 - `<op>` is a word: `sum` first; others (`prod`, `max`, `min`) as the
