@@ -6,3 +6,4 @@ role = "production"
 context_files = []
 created_at = "2026-10-08T11:05:33"
 commits = []
+reserved_for = "local agent: the site build moved to gh-pages (b025b3d0); switching GitHub Pages' source remains"

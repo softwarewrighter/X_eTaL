@@ -1,0 +1,1 @@
+Done in X_eTaL-libraries as its Saga 12 step 4 (equations-lowering): ranks and bounds checked when the program runs.

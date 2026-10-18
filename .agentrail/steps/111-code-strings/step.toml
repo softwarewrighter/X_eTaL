@@ -1,7 +1,7 @@
 number = 111
 slug = "code-strings"
 status = "pending"
-description = "The user (2026-10-17, decided; the blog agent's ask M17 in X_eTaL-ML): code s..."
+description = "The user (2026-10-17, decided; lang-choices ST5; the blog agent's ask M17 in ..."
 role = "production"
 context_files = []
 created_at = "2026-10-17T14:29:46"

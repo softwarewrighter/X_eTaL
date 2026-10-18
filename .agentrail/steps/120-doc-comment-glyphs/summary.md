@@ -1,0 +1,1 @@
+Doc comment and heading glyphs and a doc style in every renderer (I4, D165).
