@@ -105,5 +105,18 @@ fn a_label_inside_a_pipeline_is_shown_as_typed_not_as_an_error() {
     let got = classes(r#"c"it nn:d_ense W1 : h |> nn:r_elu""#);
     assert!(got.iter().all(|(_, c)| *c != Class::Error), "{got:?}");
     assert!(got.contains(&(":".to_string(), Class::String)), "{got:?}");
-    assert!(got.contains(&("\u{207f}\u{207f}r\u{332}elu".to_string(), Class::LibFunc)), "{got:?}");
+    assert!(
+        got.contains(&("\u{207f}\u{207f}r\u{332}elu".to_string(), Class::LibFunc)),
+        "{got:?}"
+    );
+}
+
+#[test]
+fn a_label_is_punctuation_and_its_name_a_variable() {
+    let got = classes(r#"c"it nn:d_ense W1 $h |> nn:r_elu""#);
+    assert!(
+        got.contains(&("\u{25b9}".to_string(), Class::Punct)),
+        "{got:?}"
+    );
+    assert!(got.contains(&("h".to_string(), Class::Variable)), "{got:?}");
 }

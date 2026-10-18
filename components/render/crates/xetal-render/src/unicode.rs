@@ -47,6 +47,7 @@ pub fn token_text(kind: &TokenKind, raw: &str) -> String {
         | TokenKind::Assign
         | TokenKind::Arrow
         | TokenKind::Pipe
+        | TokenKind::Label
         | TokenKind::Semi => ligature(raw).map_or_else(|| raw.into(), String::from),
         _ => raw.into(),
     }

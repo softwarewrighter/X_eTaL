@@ -1,0 +1,16 @@
+# `$` labels a pipeline stage's value in a macro's text (S14): one
+# token touching the name or tuple it gives, drawn as a small triangle.
+== SOURCE
+it $h $(q, k)
+== TOKENS
+0..2 Var(it)
+3..4 Label
+4..5 Var(h)
+6..7 Label
+7..8 LParen
+8..9 Var(q)
+9..10 Comma
+11..12 Var(k)
+12..13 RParen
+== RENDER
+it ▹h ▹(q, k)

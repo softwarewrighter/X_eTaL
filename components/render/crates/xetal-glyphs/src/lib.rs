@@ -94,7 +94,7 @@ pub fn from_superscript_letter(c: char) -> Option<char> {
 }
 
 /// Single-glyph display of standalone tokens, as (ASCII, glyph) pairs.
-pub const LIGATURES: [(&str, char); 13] = [
+pub const LIGATURES: [(&str, char); 14] = [
     (":=", '\u{2190}'),
     ("->", '\u{2192}'),
     (";", '\u{25c6}'),
@@ -108,4 +108,5 @@ pub const LIGATURES: [(&str, char); 13] = [
     ("&", '\u{2227}'),
     ("|", '\u{2228}'),
     ("|>", '\u{25b7}'),
+    ("$", '\u{25b9}'),
 ];

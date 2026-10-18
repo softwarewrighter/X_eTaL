@@ -109,3 +109,16 @@ fn what_does_not_lex_is_drawn_as_typed_and_the_rest_as_code() {
         "{shaped}"
     );
 }
+
+#[test]
+fn a_label_is_drawn_as_a_small_triangle() {
+    // S14: `$h` is drawn `▹h`, a small sibling of the join's `▷`.
+    let src = r#"@ flow:p_ipe< c"z |> 'm_ax r_/ it $m |> e_xp z - m $e |> e / '+ r_/ e""#;
+    let drawn = dec(src);
+    assert!(
+        drawn.contains("it \u{25b9}m \u{25b7} e\u{332}xp z \u{2212} m \u{25b9}e"),
+        "{drawn}"
+    );
+    assert_eq!(undecorate(&drawn).unwrap(), src);
+    assert!(dec(r#"c"X |> f_ it $(Q, K, V)""#).contains("\u{25b9}(Q, K, V)"));
+}
