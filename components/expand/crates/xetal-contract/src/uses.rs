@@ -24,7 +24,7 @@ pub fn unused(
         return None;
     }
     let tokens = lex(expansion).ok()?;
-    if tokens.iter().any(|t| refuses(t)) {
+    if tokens.iter().any(refuses) {
         return None;
     }
     let given = words(&tokens, expansion);
