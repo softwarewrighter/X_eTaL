@@ -104,7 +104,7 @@ l:s_tep := { (axis, d) state ->
   axis = l:IDIOM ? moved
   other := 5 - axis
   clash := (axis l:c_urrent moved) = other l:c_urrent moved
-  "clash" i_f< "(axis, d) l:s_tep moved; moved"
+  c"clash" i_f< c"(axis, d) l:s_tep moved; moved"
 }
 
 ## An axis turned to item k the short way round, and paused: choosing
@@ -119,7 +119,7 @@ l:s_tep := { (axis, d) state ->
 l:c_hoose := { (axis, k) state ->
   n := axis l:c_ount state
   d := (k - axis l:c_urrent state) m_od n
-  short := "(2 * d) > n" i_f< "d - n; d"
+  short := c"(2 * d) > n" i_f< c"d - n; d"
   chosen := (axis, 0) h:p_layingTo (axis, short) l:s_tep state
   axis = l:IDIOM ? chosen
   k = (5 - axis) l:c_urrent state ? state
@@ -137,7 +137,7 @@ l:e_ase := { (axis, dt) state ->
   target := 90.0 * f_loat axis l:s_teps state
   gap := target - angle
   moved := angle + gap * 1.0 m_in 2.0 * dt
-  near := "0.5 > a_bs target - moved" i_f< "target; moved"
+  near := c"0.5 > a_bs target - moved" i_f< c"target; moved"
   (axis, near) h:a_ngleTo state
 }
 
@@ -194,7 +194,7 @@ l:a_ttract := { state ->
 }
 
 ## An axis stepped forward if it plays, else left as it is.
-l:p_lay := { axis state -> "1 = axis l:p_laying state" i_f< "(axis, 1) l:s_tep state; state" }
+l:p_lay := { axis state -> c"1 = axis l:p_laying state" i_f< c"(axis, 1) l:s_tep state; state" }
 
 ## The stone touched: the attract mode waits again from now.
 l:t_ouched := { state -> (axes, q, (_, _, b, i)) := state; (axes, q, (0.0, 0.0, b, i)) }
@@ -268,7 +268,7 @@ l:u_pdate := { state e ->
 
 ## The half under a point: the top ring above the middle, the bottom
 ## ring below.
-l:h_alf := { xy -> "(2 s_elect xy) < l:middle" i_f< "l:TOP; l:BOTTOM" }
+l:h_alf := { xy -> c"(2 s_elect xy) < l:middle" i_f< c"l:TOP; l:BOTTOM" }
 
 ## The pointer pressed at a point: remembered, nothing turned yet.
 ## `xy cm:d_own state`.
@@ -297,8 +297,8 @@ l:m_ove := { xy state ->
   moved := (a_bs dx) + (a_bs dy) + moved0
   placed := (axes, (held, xy, moved, last), k)
   (held = -1) & moved <= 4.0 ? placed
-  axis := "held = -1" i_f< "\"(a_bs dx) >= a_bs dy\" i_f< \"l:h_alf xy; l:IDIOM\"; held"
-  along := "axis = l:IDIOM" i_f< "dy; dx"
+  axis := c"held = -1" i_f< c"\"(a_bs dx) >= a_bs dy\" i_f< \"l:h_alf xy; l:IDIOM\"; held"
+  along := c"axis = l:IDIOM" i_f< c"dy; dx"
   turn := n_eg along * l:perPixel
   (turned, _, _) := (axis, turn + axis l:a_ngle placed) h:a_ngleTo placed
   (turned, (axis, xy, moved, turn), k)
@@ -318,7 +318,7 @@ l:u_p := { xy state ->
   held = 0 ? state
   released := (axes, (0, was, moved, last), k)
   held = -1 ? xy l:c_lick released
-  flick := "6.0 < a_bs last" i_f< "45.0 * last / a_bs last; 0.0"
+  flick := c"6.0 < a_bs last" i_f< c"45.0 * last / a_bs last; 0.0"
   angle := held l:a_ngle state
   (held, f_loor 0.5 + (angle + flick) / 90.0) h:s_tepsTo released
 }

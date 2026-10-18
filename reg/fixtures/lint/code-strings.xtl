@@ -1,0 +1,14 @@
+#!/usr/bin/env xetal
+## Code strings and the kinds macro sides take (string-kind), and an
+## inside checked on its own before expansion (code-check).
+
+x := 4
+## i_f< takes code on both sides: plain strings are string-kind.
+p_rint! "x > 0" i_f< "1; -1"
+## A code string on each side: nothing to say.
+p_rint! c"x > 0" i_f< c"1; -1"
+## t_odo< takes text (a note), not X_eTaL: a code string there is
+## string-kind, even where the note happens to lex.
+u:l_ater := { @ -> 1 + @ t_odo< c"the size check" }
+## The inside does not check on its own: n_egg is not a function.
+p_rint! c"x > 0" i_f< c"n_egg 1; 0"

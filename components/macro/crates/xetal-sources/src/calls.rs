@@ -20,6 +20,10 @@ pub struct Site {
     /// It reads a notation (`## uses: parsed`): its text is not the
     /// call's code, even where it repeats it.
     pub parsed: bool,
+    /// Which sides it takes text on (`## takes:`), none declared.
+    pub takes: Option<(bool, bool)>,
+    /// Which of those take X_eTaL (`## takes: @ code`, ST5).
+    pub code: (bool, bool),
 }
 
 impl Sources {
@@ -27,6 +31,11 @@ impl Sources {
     /// recorded at its outermost call, after it).
     pub fn add_site(&mut self, site: Site) {
         self.sites.push(site);
+    }
+
+    /// Every call recorded, outermost first.
+    pub fn sites(&self) -> &[Site] {
+        &self.sites
     }
 
     /// The call written in file `file` over byte `offset`: the first

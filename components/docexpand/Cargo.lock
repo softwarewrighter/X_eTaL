@@ -679,6 +679,7 @@ dependencies = [
  "xetal-lex",
  "xetal-mapped",
  "xetal-reflow",
+ "xetal-syntax",
 ]
 
 [[package]]

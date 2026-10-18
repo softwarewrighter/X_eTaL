@@ -11,11 +11,11 @@
 # one chosen is evaluated.
 ## The number the conditions below test: negative, so `x > 0` is false.
 x := -3
-"x > 0" i_f< "1; -1"
-10 * "x > 0" i_f< "1; -1"
-"x < 0" i_f< "0; 1 / 0"
+c"x > 0" i_f< c"1; -1"
+10 * c"x > 0" i_f< c"1; -1"
+c"x < 0" i_f< c"0; 1 / 0"
 # u_nless< runs statements unless a condition holds; its value is @.
-"x = 0" u_nless< "p_rint! 100 / x"
+c"x = 0" u_nless< c"p_rint! 100 / x"
 
 ## u:m_ax/ v, u:m_in/ v: the largest and smallest item of v, written by
 ## e_ach<, one statement per word with $w replaced by the word.
@@ -35,7 +35,7 @@ u:m_in/ 3 1 4 1 5
 # Macros (lib/Macros.xtlm) is a small example, imported like a library.
 "m:" u_se< "Macros"
 ## u:s_quare x: x times x, defined by the m:d_ef< macro.
-"s_quare" m:d_ef< "_r * _r"
+"s_quare" m:d_ef< c"_r * _r"
 u:s_quare 7
-"4 = 2 + 2" m:c_heck< "addition"
-"5 = 2 * 2" m:c_heck< "doubling"
+c"4 = 2 + 2" m:c_heck< "addition"
+c"5 = 2 * 2" m:c_heck< "doubling"

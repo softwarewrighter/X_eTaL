@@ -354,6 +354,36 @@ says `## uses: parsed` and is not checked. Reported instead of `unused-binding` 
 the same parameter.",
     },
     Lint {
+        name: "string-kind",
+        group: Group::Style,
+        level: Level::Warn,
+        summary: "a plain string where a macro takes code, or a code string where it takes text",
+        explain: "What it does: warns where a macro's contract (`## takes:`, MC31) says a \
+side takes code and the call gives a plain or raw string, or says it takes text and \
+the call gives a code string `c\"...\"` (ST5).\n\nWhy: a code string is drawn as code \
+and checked with the file (lexed, parsed, its inside type-checked and linted); text \
+that is X_eTaL should say so, and text that is not (a label, a notation) should not.\n\n\
+Example:\n    \"2 > 0\" i_f< \"1; -1\"\nInstead:\n    c\"2 > 0\" i_f< c\"1; -1\"\n\n\
+The fix adds or drops the `c` and keeps the value: `\"...\"` and `c\"...\"` share their \
+escapes, `r#\"...\"#` and `c#\"...\"#` are both verbatim.",
+    },
+    Lint {
+        name: "code-check",
+        group: Group::Correctness,
+        level: Level::Deny,
+        summary: "the inside of a code string a macro takes as code does not check on its own",
+        explain: "What it does: checks the inside of a code string passed where its macro \
+takes code (`## takes: @ code`) before expansion, as the body of a lambda over the \
+names it uses (the macro's `## binds:` and every other plain name, each of a free \
+type), with the program's functions in scope; an unknown function, a wrong number \
+of arguments or a type that cannot fit is reported inside the string.\n\nWhy: a \
+macro that answers for its text itself (`## uses: parsed`) leaves no expansion that \
+shows the mistake where it was written.\n\nExample:\n    @ x:s_tage< c\"n_egg it\"\n\
+Instead:\n    @ x:s_tage< c\"n_eg it\"\n\nA partial check: what holds for every value \
+of the free names. Code with `_l`/`_r` beside named parameters or with a mutable \
+name is not checked here; the expansion is checked as always.",
+    },
+    Lint {
         name: "binds-unwritten",
         group: Group::Suspicious,
         level: Level::Warn,

@@ -1,0 +1,25 @@
+# X_eTaL component `codecheck`: one Cargo workspace (see docs/architecture.md).
+
+[workspace]
+resolver = "3"
+members = ["crates/xetal-codecheck"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+authors = ["Michael A Wright"]
+repository = "https://github.com/softwarewrighter/X_eTaL"
+
+[workspace.dependencies]
+xetal-base = { path = "../base/crates/xetal-base" }
+xetal-lex = { path = "../syntax/crates/xetal-lex" }
+xetal-expand = { path = "../expand/crates/xetal-expand" }
+xetal-sources = { path = "../macro/crates/xetal-sources" }
+xetal-macro = { path = "../macro/crates/xetal-macro" }
+xetal-program = { path = "../macro/crates/xetal-program" }
+xetal-core = { path = "../core/crates/xetal-core" }
+xetal-lint = { path = "../core/crates/xetal-lint" }
+xetal-types = { path = "../types/crates/xetal-types" }
+xetal-strtext = { path = "../render/crates/xetal-strtext" }
+xetal-codecheck = { path = "crates/xetal-codecheck" }

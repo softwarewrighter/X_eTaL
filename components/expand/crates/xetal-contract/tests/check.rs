@@ -129,5 +129,8 @@ fn a_code_side_is_named_code_in_the_refusal() {
     };
     assert!(shape(&c, "x:s_tage<", (false, true)).is_none());
     let d = shape(&c, "x:s_tage<", (false, false)).unwrap();
-    assert_eq!(d.message, "x:s_tage< takes @ on its left and code on its right");
+    assert_eq!(
+        d.message,
+        "x:s_tage< takes @ on its left and code on its right"
+    );
 }

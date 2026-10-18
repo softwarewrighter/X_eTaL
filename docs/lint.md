@@ -115,6 +115,8 @@ The live demo needs no JSON: it calls the same Rust functions.
 | `needless-raw-hashes` | style | warn | a raw string with more `#` than it needs (`r##"a"##`); the fewest is none without a `"` inside, else one more than the most `#` after a `"`; fix: the delimiters |
 | `needless-raw-string` | pedantic | allow | a raw string with no backslash, `"` or newline, which plain spells the same (`r"abc"` is `"abc"`); fix: drop the `r` and `#` |
 | `escapes-could-be-raw` | pedantic | allow | a plain string with two or more `\"` or `\\` and no `\n` or `\t`, clearer raw; fix: `r"..."`, or `r#"..."#` with the fewest `#` when it holds a `"` |
+| `string-kind` | style | warn | a plain or raw string on a side its macro takes as code (`## takes: @ code`), or a code string `c"..."` on a side it takes as text; fix: add or drop the `c` (`"..."` and `c"..."` share their escapes; `r#"..."#` and `c#"..."#` are verbatim), the value kept |
+| `code-check` | correctness | deny | the inside of a code string on a code side, checked on its own before expansion as the body of a lambda over the names it uses (the macro's `## binds:`, then every other plain name, each of a free type) with the program's functions in scope: an unknown function, a wrong number of arguments, a type that cannot fit, placed inside the string; the ordinary lints also run there for a macro that parses its text (`## uses: parsed`). Not checked: code with `_l`/`_r` beside named parameters, or naming a mutable variable |
 | `string-holds-directive` | suspicious | warn | a line inside a string (any kind) that starts `# lint:` or `# lint-file:`: text there, not a directive; no fix |
 | `gensym-unused` | suspicious | warn | a `[]G_ENSYM` result thrown away or bound to a name nothing reads; reported instead of `unused-binding` there |
 | `gensym-not-name` | correctness | warn | `[]G_ENSYM "..."` whose literal is not a plain name, which fails at every call (`error[bad-gensym]`) |
@@ -255,6 +257,13 @@ these rules testable one by one.
                   escapes-could-be-raw
      directive.rs string-holds-directive
      scan.rs      strings() runs them all; line_col() places them
+  components/codecheck: xetal-codecheck  (string-kind, code-check:
+                   code strings against their macros' contracts, over
+                   the file's tokens and the calls the loader records)
+     args.rs      each string argument with what its side takes
+     kind.rs      string-kind and its fix
+     probe.rs     an inside as a lambda over the names it uses
+     inside.rs    the probes loaded and checked with the program
   components/lint: xetal-macrolint  (the macro library lints: fresh
                    names, reject codes, examples; Core and ## blocks)
   components/core: xetal-ir    Expr::children(), the walk every pass uses
