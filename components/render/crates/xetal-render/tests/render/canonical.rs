@@ -150,20 +150,44 @@ fn raw_strings_keep_the_form_written() {
 }
 
 #[test]
-fn code_strings_keep_the_form_written() {
-    // ST5: the inside is kept as written in this step (its canonical
-    // form is step 112); rule 10 holds.
+fn a_code_string_in_a_value_keeps_the_form_written() {
+    // ST5: outside a macro's side a code string is a string whose
+    // inside happens to lex: its value is kept; rule 10 holds.
     assert_eq!(
         fmt(r#"s := c"it  nn:d_ense W1""#),
         r#"s := c"it  nn:d_ense W1""#
     );
     let multi = "q := c#\"it c_at \"label: \"\n  |> x\"#";
     assert_eq!(fmt(multi), multi);
-    let call = r#""n = 0" i_f< c"p_rint! 1; n * 2""#;
-    assert!(
-        fmt(call).contains(r#"c"p_rint! 1; n * 2""#),
-        "{}",
-        fmt(call)
-    );
     assert_eq!(parse(&fmt(multi)), parse(multi));
+}
+
+/// On a macro's side, a code string's inside is code: it takes the
+/// canonical form, in the form it was written in (step 112).
+#[test]
+fn a_code_string_on_a_macros_side_takes_the_canonical_inside() {
+    let call = r#"c"n  =  0" i_f< c"p_rint!   1;n * 2""#;
+    assert_eq!(fmt(call), r#"(c"(n = 0)" i_f< c"(p_rint! 1); (n * 2)")"#);
+    assert_eq!(fmt(&fmt(call)), fmt(call));
+    // Escapes as written: inner strings escaped in c"...", verbatim in c#"..."#.
+    assert_eq!(
+        fmt(r#"@ d_bg< c"p_rint!  \"a\"""#),
+        r#"(@ d_bg< c"(p_rint! \"a\")")"#
+    );
+    assert_eq!(
+        fmt(r###"@ d_bg< c#"p_rint!  "a""#"###),
+        r###"(@ d_bg< c#"(p_rint! "a")"#)"###
+    );
+    // An inside on more than one line keeps its statements on lines.
+    assert_eq!(
+        fmt("@ d_bg< c\"x := 1\nx  +  1\""),
+        "(@ d_bg< c\"x := 1\n(x + 1)\")"
+    );
+    // An inside that does not parse (a pipeline's notation), and a
+    // plain string, are kept as written.
+    assert_eq!(
+        fmt(r#"@ f:p_ipe< c"x |> n_eg""#),
+        r#"(@ f:p_ipe< c"x |> n_eg")"#
+    );
+    assert_eq!(fmt(r#""n  = 0" i_f< "1""#), r#"("n  = 0" i_f< "1")"#);
 }
