@@ -20,6 +20,8 @@ pub fn style(class: Class) -> Style {
         Class::Symbol => fg(Color::LightBlue),
         Class::Quote => Style::default().add_modifier(Modifier::BOLD),
         Class::Comment => Style::default().add_modifier(Modifier::DIM),
+        Class::Doc => fg(Color::Green).add_modifier(Modifier::ITALIC),
+        Class::Heading => fg(Color::Green).add_modifier(Modifier::BOLD),
         Class::Error => fg(Color::Red).add_modifier(Modifier::UNDERLINED),
         Class::Variable | Class::Punct | Class::Unit | Class::Space => Style::default(),
     }

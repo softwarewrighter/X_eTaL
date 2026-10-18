@@ -125,6 +125,21 @@ fn macros_are_bold_yellow() {
     assert!(style.add_modifier.contains(ratatui::style::Modifier::BOLD));
 }
 
+/// Doc text has its own style, apart from a dim remark; a section
+/// heading is bold (I4).
+#[test]
+fn doc_comments_are_styled_apart_from_remarks() {
+    use ratatui::style::Modifier;
+    use xetal_view::Class;
+    let (doc, heading) = (
+        xetal_panes::style(Class::Doc),
+        xetal_panes::style(Class::Heading),
+    );
+    assert_ne!(doc, xetal_panes::style(Class::Comment));
+    assert!(!doc.add_modifier.contains(Modifier::DIM));
+    assert!(heading.add_modifier.contains(Modifier::BOLD));
+}
+
 #[test]
 fn the_focused_pane_has_a_highlighted_border() {
     let mut panes = Panes::new(&Buffer::new("x"), None);

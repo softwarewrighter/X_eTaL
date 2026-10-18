@@ -12,9 +12,9 @@
 
 /* The literate documents' HTML (scripts/literate-html.sh): dark, like
    the live demo, with JuliaMono for code where it is installed. */
-:root { --bg: #16181d; --fg: #d8dbe2; --dim: #8a90a0; --code: #1e2129; --accent: #f5c518; --link: #7cb3ff; }
+:root { --bg: #16181d; --fg: #d8dbe2; --dim: #8a90a0; --doc: #8fc79a; --code: #1e2129; --accent: #f5c518; --link: #7cb3ff; }
 @media (prefers-color-scheme: light) {
-  :root { --bg: #fdfdfb; --fg: #20242c; --dim: #626874; --code: #f2f2ee; --accent: #a67c00; --link: #1f5fbf; }
+  :root { --bg: #fdfdfb; --fg: #20242c; --dim: #626874; --doc: #2f7a40; --code: #f2f2ee; --accent: #a67c00; --link: #1f5fbf; }
 }
 body { background: var(--bg); color: var(--fg); margin: 0; font: 17px/1.55 Georgia, "Times New Roman", serif; }
 #content, #postamble { max-width: 46rem; margin: 0 auto; padding: 0 16px; }
@@ -33,6 +33,8 @@ pre.example { border-left: 3px solid var(--dim); }
 .c-lambdaarg { color: #d25fd2; } .c-number, .c-exponent { color: #e0b400; }
 .c-string { color: #e8d27a; } .c-symbol { color: #7fbfff; } .c-quote { font-weight: bold; }
 .c-comment { color: var(--dim); } .c-macro { color: #e0b400; font-weight: bold; }
+/* Doc comments (##) and section headings (###): their own style, apart from remarks. */
+.c-doc { color: var(--doc); font-style: italic; } .c-heading { color: var(--doc); font-weight: bold; }
 .c-error { color: #ff6b6b; } .typed { font-style: italic; }
 @media (prefers-color-scheme: light) {
   .c-builtin { color: #1f5fbf; } .c-userfunc { color: #1e7a34; } .c-libfunc { color: #0b7d8a; }

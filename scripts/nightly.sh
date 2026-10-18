@@ -15,11 +15,7 @@ log="work/nightly/$stamp.log"
 {
     echo "nightly gate, $(date), $(git rev-parse --short HEAD)"
     git fetch -q origin && git merge -q --ff-only origin/main 2>&1
-    scripts/gate.sh --full && scripts/build-pages.sh --all && {
-        # The site, rebuilt whole, published by the Pages workflow on push.
-        git add pages && git diff --quiet --cached \
-            || git commit -q -m "pages: nightly rebuild of every part ($(git rev-parse --short HEAD))" && git push -q origin HEAD:main
-    }
+    scripts/gate.sh --full && scripts/build-pages.sh --all && scripts/publish-pages.sh
 } > "$log" 2>&1
 status=$?
 title="nightly gate failed"

@@ -76,6 +76,9 @@ a value is an exponent. The language decisions are recorded in
 | `[f_ g_ h_]`  | in square brackets                    | a train: `(f_ x) g_ (h_ x)`          |
 | `"ab" "cde"`  | two strings side by side              | a nested vector of two strings       |
 | `r"C:\data\x.csv"`, `r#"say "hi""#` | as written | raw strings: no escapes, may hold `"` (with `#`) and span lines |
+| `# a plain comment` | APL's lamp, then the text    | a comment, ignored                   |
+| `## Twice.`   | a lamp and a thin vertical bar, the text in the doc style | documentation of the definition below |
+| `### Sizes`   | a lamp and two heavy bars, the heading in bold | a section heading                |
 
 The reserved prefixes say whose a top-level name is. `u:` is the
 program's own: a function an app defines and offers (`u:s_quare`).
@@ -276,7 +279,7 @@ just draw demos/classics/life-drawn.xtl         # Life animated, as SVG pictures
 just pp demos/factorial.xtl                     # print a file decorated and highlighted
 just edit demos/life.xtl                        # ASCII left, decorated right
 just serve                                      # the live demo locally, at http://127.0.0.1:8490/
-just pages                                      # build the live demo into pages/ (published by a workflow)
+just pages                                      # build the live demo into pages/ (just publish puts it on gh-pages)
 ```
 
 `just run` and `just eval` pass flags through to `xetal`

@@ -5,6 +5,7 @@
 //! so its output still converts back to the exact source.
 
 use xetal_base::Span;
+use xetal_render::{CommentKind, comment_kind, comment_marker};
 
 use crate::{Class, Segment, view, width};
 
@@ -17,32 +18,39 @@ fn seg(start: usize, end: usize, text: &str, class: Class) -> Segment {
 }
 
 /// The segments of comment `text` (from `#` to the end of its line),
-/// which starts at byte `base`.
-pub(crate) fn comment(text: &str, base: usize, out: &mut Vec<Segment>) {
-    out.push(seg(base, base + 1, "\u{235d}", Class::Comment));
-    let mut at = 1;
+/// which starts at byte `base`; first on its line when `line_start`,
+/// so a doc comment or a heading by its `#`s (I4).
+pub(crate) fn comment(text: &str, base: usize, line_start: bool, out: &mut Vec<Segment>) {
+    let kind = comment_kind(text, line_start);
+    let class = class_of(kind);
+    let (marker, mut at) = comment_marker(kind);
+    out.push(seg(base, base + at, marker, class));
     while at < text.len() {
         let open = text[at..].find('`').map(|i| at + i);
         let close = open.and_then(|o| text[o + 1..].find('`').map(|i| o + 1 + i));
         let (Some(o), Some(c)) = (open, close) else {
-            out.push(seg(
-                base + at,
-                base + text.len(),
-                &text[at..],
-                Class::Comment,
-            ));
+            out.push(seg(base + at, base + text.len(), &text[at..], class));
             return;
         };
         if o > at {
-            out.push(seg(base + at, base + o, &text[at..o], Class::Comment));
+            out.push(seg(base + at, base + o, &text[at..o], class));
         }
-        out.push(seg(base + o, base + o + 1, "", Class::Comment));
+        out.push(seg(base + o, base + o + 1, "", class));
         out.extend(view(&text[o + 1..c]).into_iter().map(|mut s| {
             s.raw = Span::new(s.raw.start + base + o + 1, s.raw.end + base + o + 1);
             s
         }));
-        out.push(seg(base + c, base + c + 1, "", Class::Comment));
+        out.push(seg(base + c, base + c + 1, "", class));
         at = c + 1;
+    }
+}
+
+/// The class a comment's marker and text are shown in.
+fn class_of(kind: CommentKind) -> Class {
+    match kind {
+        CommentKind::Remark => Class::Comment,
+        CommentKind::Doc => Class::Doc,
+        CommentKind::Heading => Class::Heading,
     }
 }
 

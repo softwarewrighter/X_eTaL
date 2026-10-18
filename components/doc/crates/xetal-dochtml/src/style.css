@@ -15,14 +15,14 @@
    (the theme button, remembered in the browser). Token colors are the
    live demo's and the literate documents'. */
 :root {
-  --bg: #fdfdfb; --fg: #20242c; --dim: #626874; --code: #f2f2ee;
+  --bg: #fdfdfb; --fg: #20242c; --dim: #626874; --doc: #2f7a40; --code: #f2f2ee;
   --side: #f3f3ee; --rule: #deded6; --accent: #a67c00; --link: #1f5fbf;
   --builtin: #1f5fbf; --userfunc: #1e7a34; --libfunc: #0b7d8a;
   --lambdaarg: #9b2f9b; --number: #9a6a00; --string: #8a6d00;
   --symbol: #2c6fb8; --macro: #9a6a00; --error: #c62828;
 }
 :root[data-theme="dark"] {
-  --bg: #16181d; --fg: #d8dbe2; --dim: #8a90a0; --code: #1e2129;
+  --bg: #16181d; --fg: #d8dbe2; --dim: #8a90a0; --doc: #8fc79a; --code: #1e2129;
   --side: #1b1e24; --rule: #2c3038; --accent: #f5c518; --link: #7cb3ff;
   --builtin: #5b9cff; --userfunc: #3fbf5f; --libfunc: #22b8c8;
   --lambdaarg: #d25fd2; --number: #e0b400; --string: #e8d27a;
@@ -30,7 +30,7 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #16181d; --fg: #d8dbe2; --dim: #8a90a0; --code: #1e2129;
+    --bg: #16181d; --fg: #d8dbe2; --dim: #8a90a0; --doc: #8fc79a; --code: #1e2129;
     --side: #1b1e24; --rule: #2c3038; --accent: #f5c518; --link: #7cb3ff;
     --builtin: #5b9cff; --userfunc: #3fbf5f; --libfunc: #22b8c8;
     --lambdaarg: #d25fd2; --number: #e0b400; --string: #e8d27a;
@@ -86,6 +86,8 @@ div.source .ln { display: inline-block; width: 3.4rem; padding-right: .9rem; tex
 .c-number, .c-exponent { color: var(--number); } .c-string { color: var(--string); }
 .c-symbol { color: var(--symbol); } .c-quote { font-weight: bold; }
 .c-comment { color: var(--dim); } .c-macro { color: var(--macro); font-weight: bold; }
+/* Doc comments (##) and section headings (###): their own style, apart from remarks. */
+.c-doc { color: var(--doc); font-style: italic; } .c-heading { color: var(--doc); font-weight: bold; }
 .c-error { color: var(--error); }
 button.theme { float: right; background: none; color: var(--dim); border: 1px solid var(--rule); border-radius: 4px; cursor: pointer; font-size: .8rem; }
 @media (max-width: 760px) {

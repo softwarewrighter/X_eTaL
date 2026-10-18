@@ -1245,7 +1245,7 @@ stays here: raw strings (1c, done), a canary macro library in
 arguments, `[]R_EJECT`, `[]G_ENSYM`, anaphora, located errors), the
 shape lint (5c), and the limitations review (8). The order is the
 user's: equations, then pipelines, then integrals and numerical
-methods (the plan, step integrals-plan, after the pipelines).
+methods (Saga 42, planned in step integrals-plan, after the pipelines).
 
 | Step | Slug | Content |
 | ---- | ---- | ------- |
@@ -1263,6 +1263,134 @@ methods (the plan, step integrals-plan, after the pipelines).
 | 6 | spatial-report | An inspection report, `e:e_xplain<` (or `--cfg spatial-trace` writing `d_bg<` around each stage): the regions, the descriptors, the generated code, the grid shape and the summed axes, then the result, as text; goldens; the debugger stays Saga 17's |
 | 7 | spatial-docs | A literate document, `docs/literate/spatial.org` (the paper equation, the call, the descriptors, the expansion, shapes, the result, the LaTeX drawn), the demo in the live demo's list and with `#!/usr/bin/env xetal`, the reference or README section if step 1 made it a standard library; pages rebuilt (`just pages`); every example run by a golden or doc test |
 | 8 | spatial-limits | `docs/spatial.md` limitations: each blocker found (from the review: L1 alias in expansions, L2 short binders, L3 choose indexing, L4 raw strings, L5 punctuation, L6 typed macro arguments, L7 rendering the call; from the Equations case of 2026-10-17: L8 total parsing for macro authors, L9 an unused-argument check in the macro runner, L10 a lint for `.xtlm` readers, docs/type-check-macros.md approaches 9 to 11) with its failing snippet as a pending spec case or golden, the smallest change, the alternatives and a recommendation; **decide with the user**, then stop: an approved change becomes a saga or ask of its own, not part of this one |
+
+## Saga 42 (proposed) -- integrals (convolutions and numerical methods, after the pipelines)
+
+Planned in step integrals-plan (the user, 2026-10-16) from
+`docs/convolutions/` (`integrals.md`, the design note; the infographic
+`Convolutions and Integrals Explained Visually.png`; the figures in
+`integrals-all-graphics.zip`), checked against docs/spatial.md,
+docs/eq-rationale.md and docs/type-check-macros.md. It follows Saga
+41's pipelines, as the user ordered (equations, then pipelines, then
+integrals and numerical methods).
+
+**Goal.** One computation drives four views that agree because they
+read the same numbers: the equation as a paper prints it, the
+left-to-right pipeline, the expanded X_eTaL, and a Blender animation.
+The first deliverable is a 60 to 90 second video comparing asymmetric
+1-D convolution, correlation and the continuous box-function integral,
+every bar, curve and label computed by X_eTaL.
+
+**What the convolution documents ask for.**
+
+- The convolution family: discrete 1-D, cross-correlation, 2-D image,
+  CNN with bias, continuous convolution, separable Gaussian, dilated,
+  transposed, circular, FFT and 3-D; each with an oracle, a fixture
+  that is not symmetric, and an animation.
+- `integral` beside `sum` and `prod` as an operator word, drawn as
+  math, with the numerical lowering (rule, grid, tolerance, the
+  treatment of infinite bounds) always written by the caller, never
+  chosen silently.
+- Library operations named in the pipelines: windows (full, same,
+  valid), dot products per row, reversal, axis sums, a checked bias
+  axis, sampling grids, the trapezoid and Simpson rules, scatter-add,
+  circular windows, padding and an FFT.
+- A shared trace (stage, source, shapes, axis names, kernel
+  orientation, boundary mode, grid, samples, products, contributions,
+  result, precision), bounded windows rather than whole tensors, read
+  by the Blender scenes and later by Saga 17's debugger.
+- `Convolution.xtl` in X_eTaL-extensions' Blender extension computing
+  positions, scales, colors, times and captions from X_eTaL arrays
+  for `Video.xtl`'s fixed player.
+
+**Corrections to the design note** (it was written before D160 and
+before the pipeline names were settled; the numbers below were run
+on main while planning):
+
+- The equation macro is `e:e_q<`, not `e:q_<` (D160); `e:t_ex<` gives
+  only the LaTeX, so an integral's value needs its own lowering (step 4).
+- Pipelines already join through names (docs/spatial.md, Names):
+  `... : f_samples |> ... : g_samples |> f_samples * g_samples` is
+  rejected only because the last stage neither names `it` nor is a
+  function; `it * f_samples` is the stage. Whether a value stage
+  that names earlier stages but not `it` is accepted is a decision
+  (below), not a grammar refinement.
+- The oracle snippets hold: valid windows `2 3 r_eshape 1 2 3 2 3 4`
+  by `'+ '* i_nner` with `3 1 r_eshape 3 2 1` give 10 16 (convolution)
+  and with `1 2 3` give 14 20 (correlation); `0.5 * '+ r_/ f_loat 0
+  0.5 1 0.5 0` is 1.0. They become goldens in step 1.
+
+**What X_eTaL has** (no compiler change needed for steps 1 to 5):
+`r_eshape`, `t_able`, `o_ffsets`, `s_elect` (gathers),
+`t_ake` with zero fill on either side (padding), `o_-` (rotation:
+circular windows), `r_ev`, `i_nner`, `'+ r_/_k` (a sum along an axis),
+`t_ranspose`, `f_loat`, `e_xp`, `s_in`, `c_os`, `p_i`, raw strings and
+code strings for one stage per line, the equation macros
+(X_eTaL-libraries' `Equations`) and the pipeline macro (X_eTaL-ML).
+
+**What it lacks**, each a decision or an ask, not an assumption:
+
+- Complex numbers (Saga 31, undecided): an FFT over real and imaginary
+  Float planes works without them but is clumsy; the FFT step waits
+  for Saga 31 or is written over pairs, the user's choice.
+- Scatter-add (transposed convolution): no indexed amend yet (the
+  amend ask, step asks-amend); until then the transposed operator is
+  built as the transpose of an explicit forward matrix, which is also
+  its oracle.
+- `inf` in a bound: no infinite Float literal, and the note forbids
+  replacing infinity by finite bounds silently; an improper integral
+  needs a written truncation or substitution (decision 3).
+- Shape facts for the new helpers in the shape lint (step 115,
+  approach 8): windows and padding change extents symbolically.
+- A trace format: Saga 41's spatial-report step gives a text report;
+  the trace is a data form of the same thing.
+
+**Decisions to make with the user** (none taken here):
+
+1. Where it lives: Equations' `integral` in X_eTaL-libraries and the
+   numerical helpers beside it, or a new X_eTaL-Math (the plan's
+   "future X_eTaL-Math" for equations and integrals); the convolution
+   helpers in X_eTaL-ML (they serve `nn:`) or with the math.
+2. The `integral` call: `integral tau:=a..b | f(tau) * g(t-tau)` read
+   like `sum`, with the rule and grid written how (an option word in
+   the binding, `integral tau:=a..b by trapezoid 64`, a separate
+   argument, or a named lowering macro).
+3. Improper integrals: refused, or allowed only with a written
+   truncation or change of variables.
+4. Boundary modes: names (`full`, `same`, `valid`, `circular`) and
+   which is the default, if any (the note says none implicit).
+5. Convolution versus correlation as words (`convolve`, `correlate`)
+   expanding to `sum`/`integral`, as library macros, not parser words.
+6. Pipeline value stages that name earlier stages but not `it`
+   (docs/spatial.md rejects them today; accepting them would make a
+   join read as the paper's product), in X_eTaL-ML's pipeline macro.
+7. The trace's form: text (spatial-report), an xtln value (Saga 37),
+   or JSON for Blender and the debugger.
+8. FFT: wait for complex numbers (Saga 31) or Float pairs now.
+
+**Steps** (each test first: goldens or doc tests with the oracle's
+numbers before the code; the convolution documents' fixtures are
+asymmetric; no `components/` change unless a decision above makes
+one, which then becomes its own step):
+
+| Step | Slug | Repository | Content |
+| ---- | ---- | ---------- | ------- |
+| 1 | integrals-decisions | X_eTaL | Decisions 1 to 8 with the user, recorded in the register and in a `docs/integrals.md` (this repository's normative page; the note in docs/convolutions/ stays as given); the design note's snippets as goldens (`reg/integrals-*`: 10 16, 14 20, 1.0) |
+| 2 | conv-1d | where decided | Discrete 1-D: windows full/same/valid (shapes `L+M-1`, `L`, `L-M+1`), convolution and correlation, the asymmetric fixture (`[1,2,3,4]` by `[1,2,3]`: full `1 4 10 16 17 12`, valid `10 16` and `14 20`); an independent oracle (direct sums, and a Python check recorded in the step summary); rejections (kernel longer than the signal in valid mode, an unknown mode) |
+| 3 | conv-2d | where decided | 2-D and CNN with the bias on the first axis (`O`), checked, never broadcast: the triple sum equals Saga 41's fixtures A, B, C through `e:e_q<`; true convolution reverses the spatial kernel axes only; orientation tests; a bias of the wrong length refused |
+| 4 | integrals-quadrature | where decided | `integral` in the equation grammar: LaTeX `\int_{a}^{b}`; the value by the written rule (trapezoid, Simpson), exact on constants and lines (trapezoid) and quadratics (Simpson), convergence order shown on a smooth function; the box-function convolution converging to the triangle `t`, `2-t`; endpoints and discontinuities by the documented sampling policy |
+| 5 | conv-variants | where decided | Separable equals direct (within a stated tolerance), dilated (distinct from stride), circular (modular oracle), transposed (the transpose of an explicit forward matrix, output padding), each with an oracle; FFT per decision 8, with insufficient padding shown to alias |
+| 6 | integrals-trace | where decided | The trace per decision 7 for one pipeline: each stage's name, shape, axis names, boundary mode, grid and a bounded sample; goldens of the trace; the same numbers as the result |
+| 7 | integrals-video | X_eTaL-extensions | `demos/Convolution.xtl` and the three demos (1-D, 2-D, integral) reading the trace; literate documents; the first deliverable video; an ask filed there, not done here |
+| 8 | integrals-docs | X_eTaL | The reference or README section for what landed, the live demo entries (`demos.rs`, `#!/usr/bin/env xetal`), pages rebuilt; every example run by a golden or doc test |
+| 9 | integrals-limits | X_eTaL | What the work ran into (complex numbers, amend, infinite bounds, shape facts for windows), each with a failing snippet, the smallest change and a recommendation; decide with the user, then stop |
+
+**Asks** this saga will send (filed in the target repository's
+`docs/xetal-asks.md` when step 1 decides where things live):
+X_eTaL-libraries or X_eTaL-Math, `integral` in Equations; X_eTaL-ML,
+the window and bias helpers as pipeline stages; X_eTaL-extensions, the
+Blender scenes. None is asked of this repository yet, so the asks
+ledger (docs/asks.toml) is unchanged.
 
 ## Saga 32 -- xetal doc (a cross-reference, before the launch)
 
@@ -1648,6 +1776,12 @@ it (lang-choices section 15). Names to be decided with the user; the
 APL ports (Sagas 11, 12 and 14) may call for it sooner.
 
 ## Cross-cutting (insert as steps when due)
+
+- the site on gh-pages (step pages-gh-pages, D164; approved by the
+  user, 2026-10-08): pages/ untracked on main and published by
+  `just publish` to the gh-pages branch, as X_eTaL-demos, -games and
+  -libraries do. After the merge, once: `just publish`, switch GitHub
+  Pages to the branch, check the live site and /doc.
 
 - editor panes (requested by the user): zoom any one pane to full
   screen and back with Ctrl-T (chosen with the user; Ctrl-F stays

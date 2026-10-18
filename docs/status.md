@@ -25,7 +25,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 ## Planned (decided, not yet implemented)
 
-- **S9** (planned): Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...).
+- **S9** (planned): Comments by count of `#` (each drawn as I4 says; the Emacs Lisp convention): `#` lines and end-of-line (...).
 - **S11** (planned): Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents.
 - **MC29** (planned): `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...).
 
@@ -37,7 +37,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `+` | `Num a => a -> a -> a` | works | 97 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 49 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 50 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
@@ -289,7 +289,7 @@ conventions (naming, layout) work without a spec case citing them.
 | S5 | Scripts use the extension `.xtl` and start with `#!/usr/bin/env xetal` (a plain comment) | works | 1 |
 | S8 | A Float literal may have an exponent: `e` or `E` right after the digits, then an optional `-` and digits, (...) | works | 7 |
 | S7 | The command is `xetal` (easy to type, matches the crate slug) | works | 0 |
-| S9 | Comments by count of `#` (drawn as APL's lamp, one per `#`; the Emacs Lisp convention): `#` lines and (...) | planned | 0 |
+| S9 | Comments by count of `#` (each drawn as I4 says; the Emacs Lisp convention): `#` lines and end-of-line (...) | planned | 0 |
 | S10 | Doc examples are run (Saga 32 step doc-test), as rustdoc runs doc tests: `xetal doc --test FILE` runs the (...) | works | 0 |
 | S11 | Tags in doc comments: a `##` line starting `@` is a tag on the definition its block documents | planned | 0 |
 | S12 | Lint directives are ordinary comments: `# lint: LEVEL NAME...` (LEVEL allow, warn or deny; a NAME is a (...) | works | 0 |
@@ -335,6 +335,7 @@ conventions (naming, layout) work without a spec case citing them.
 | I1 | Source is ASCII, except inside string literals and comments, which may hold any Unicode (revised with the (...) | works | 2 |
 | I2 | The display is Unicode where it can be, plus a LaTeX subset for anything Unicode lacks (for example (...) | works | 2 |
 | I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` (...) | works | 3 |
+| I4 | The display draws a comment's marker by its kind (S9), one glyph for each `#` so columns are kept: a `##` (...) | works | 1 |
 | B1 | Built-ins are named with full words or standard short forms, first letter underlined: `r_eshape`, (...) | works | 0 |
 | B2 | A punctuation-suffixed name is used only where the mark carries APL meaning: `r_/` reduce, `s_\` scan, (...) | works | 0 |
 | B3 | One name per built-in; no aliases (`r_ev` exists, `r_everse` does not) | works | 0 |

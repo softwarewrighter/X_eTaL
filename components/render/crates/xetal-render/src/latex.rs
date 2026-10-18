@@ -2,8 +2,10 @@
 //! MathJax, pdflatex). Every token is braced so TeX adds no operator
 //! spacing; source spacing is explicit (`\ `, `\\` per newline). An
 //! exponent is left unbraced so it is attached to the token it touches,
-//! and axes subscript a function's whole name.
+//! and axes subscript a function's whole name. Remarks are dropped; a
+//! doc line is set as italic text and a section heading as bold.
 
+use crate::comments::{CommentKind, comment_kind, comment_marker};
 use xetal_base::Diagnostic;
 use xetal_lex::{FuncName, Side, Symbol, TokenKind, lex};
 
@@ -11,15 +13,16 @@ use xetal_lex::{FuncName, Side, Symbol, TokenKind, lex};
 pub fn latex(src: &str) -> Result<String, Diagnostic> {
     let tokens = lex(src)?;
     let mut out = String::new();
-    let mut pos = 0;
+    let (mut pos, mut line_start) = (0, true);
     for token in &tokens {
         let raw = &src[token.span.start..token.span.end];
-        // Space before a line end (or a comment, which is dropped) sets
-        // nothing, so it is not written.
+        // Space before a line end (or a remark, which is dropped) sets
+        // nothing, so it is not written; a doc line is kept.
         if token.kind != TokenKind::Newline {
             out.push_str(&spacing(&src[pos..token.span.start]));
         }
         if token.kind == TokenKind::Newline {
+            out.push_str(&doc_tex(&src[pos..token.span.start], line_start));
             out.push_str("\\\\\n");
         } else if let TokenKind::Exp(_) = token.kind {
             // Unbraced, so it is the exponent of the token it touches.
@@ -30,8 +33,29 @@ pub fn latex(src: &str) -> Result<String, Diagnostic> {
             out.push('}');
         }
         pos = token.span.end;
+        line_start = token.kind == TokenKind::Newline;
     }
+    out.push_str(&doc_tex(&src[pos..], line_start));
     Ok(out)
+}
+
+/// A line's doc comment as italic text and a section heading as bold,
+/// after its indentation; nothing for a remark or an empty doc line.
+fn doc_tex(gap: &str, line_start: bool) -> String {
+    let Some(hash) = gap.find('#') else {
+        return String::new();
+    };
+    let comment = gap[hash..].trim_end_matches('\r');
+    let kind = comment_kind(comment, line_start);
+    let text = comment[comment_marker(kind).1..].trim();
+    let style = match kind {
+        _ if text.is_empty() => return String::new(),
+        CommentKind::Remark => return String::new(),
+        CommentKind::Doc => "textit",
+        CommentKind::Heading => "textbf",
+    };
+    let indent = spacing(&gap[..hash]);
+    format!(r"{indent}{{\text{{\{style}{{{}}}}}}}", text_tex(text))
 }
 
 /// Whitespace becomes explicit spaces; comment text is dropped.

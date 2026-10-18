@@ -1239,7 +1239,7 @@ s:s_d 2 4 4 4 5 5 7 9    # the standard deviation
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-ˢr̲ange 3 1 4 1 5       ⍝ largest minus smallest
+ˢs̲pread 3 1 4 1 5       ⍝ largest minus smallest
 #+end_example
 #+begin_src xetal
 s:s_pread 3 1 4 1 5       # largest minus smallest
@@ -1371,7 +1371,7 @@ a binding; ~_~ ignores a part, and patterns nest.
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-⍝# u:s_wapped p: the parts of a pair, swapped; a pattern takes them apart.
+⍝│ u:s_wapped p: the parts of a pair, swapped; a pattern takes them apart.
 ᵘs̲wapped ← { (a, b) → (b, a) }
 ᵘs̲wapped (1, "x")
 #+end_example
@@ -1402,7 +1402,7 @@ it and the step takes it apart: the weights and a count of steps here.
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-⍝# u:s_tep s: one step of a state of several arrays, for p_ower.
+⍝│ u:s_tep s: one step of a state of several arrays, for p_ower.
 ᵘs̲tep ← { (w, k) → (w × 0.5, k + 1) }
 3 'ᵘs̲tep p̲ower (8.0 4.0, 0)
 #+end_example

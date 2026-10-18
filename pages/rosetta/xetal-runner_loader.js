@@ -1,1 +1,0 @@
-importScripts("./xetal-runner.js");wasm_bindgen("./xetal-runner_bg.wasm");

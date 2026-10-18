@@ -402,7 +402,11 @@ fails until the case is flipped to active in a deliberate commit.
    gallery); `just pages` rebuilds only the stale parts and their
    stamps in pages/INPUTS, `just pages --all` everything (do that after
    a change to how programs are drawn or run; skipped where trunk is
-   missing, so whoever merges rebuilds)
+   missing, so whoever merges rebuilds). pages/ is not tracked on main
+   (D164): it is the local build area, seeded from origin/gh-pages in a
+   fresh clone, and `just publish` (scripts/publish-pages.sh, from a
+   clean, pushed main) force-pushes it to the gh-pages branch, which
+   GitHub Pages serves
 7. docs updated if behavior changed (README, docs/design.md)
 8. detailed commit message; commit `.agentrail/` changes too
 9. then `agentrail complete`, push
@@ -457,6 +461,8 @@ By night:
   tables, spelling, markdown; and sw-checklist (a fraction of a
   second), so a merged lane cannot leave code over its limits. Before
   every commit, train and push; stale pages are a warning here.
+  A train ends with one `just publish` (the site on gh-pages),
+  never a pages build per merge.
 - `just gate --affected`: the sample plus the components the change
   touches (`scripts/affected.py` plans it: changed ones checked,
   dependents compiled), the browser build and the document checks
@@ -469,8 +475,8 @@ By night:
 - A merge pushed after the sample gate that the nightly then faults:
   fix forward, or `git revert -m 1 <merge>` and tell the lane.
 - A change to data or documents only (demos/rosetta/data.toml,
-  docs/*.md, a label, README text): `just pages` if a part is stale,
-  then push; no gate.
+  docs/*.md, a label, README text): push, then `just pages` and
+  `just publish` if a part is stale; no gate.
 - Nothing else may be building in this repository while a gate or
   `just pages` runs: `scripts/check-busy.sh` (their first step) fails
   on a `trunk serve` or another session's cargo. Never leave

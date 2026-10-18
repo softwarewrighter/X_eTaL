@@ -1,10 +1,10 @@
+{\text{\textit{Tuples and patterns through the tools: xetal type, xetal doc, the}}}\\
+{\text{\textit{renderers (TU1-TU6).}}}\\
 \\
-\\
-\\
-\\
+{\text{\textit{A count and its Float, as a pair.}}}\\
 {{}^{\mathrm{u}}\mathrm{\underline{p}air}}\ {\leftarrow}\ {\{}\ {\mathrm{k}}\ {\to}\ {(}{\mathrm{k}}{,}\ {\mathrm{\underline{f}loat}}\ {\mathrm{k}}{)}\ {\}}\\
 \\
-\\
+{\text{\textit{The parts of a pair, swapped.}}}\\
 {{}^{\mathrm{u}}\mathrm{\underline{s}wapped}}\ {\leftarrow}\ {\{}\ {(}{\mathrm{a}}{,}\ {\mathrm{b}}{)}\ {\to}\ {(}{\mathrm{b}}{,}\ {\mathrm{a}}{)}\ {\}}\\
 \\
 {\mathrm{s}}\ {\leftarrow}\ {{}^{\mathrm{u}}\mathrm{\underline{p}air}}\ {3}\\

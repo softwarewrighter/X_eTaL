@@ -111,7 +111,8 @@ fn gap(src: &str, from: usize, to: usize, base: usize, out: &mut Vec<Segment>) {
     };
     space(0, hash, out);
     if hash < end {
-        comment(&text[hash..end], base + from + hash, out);
+        let line_start = src[..from].is_empty() || src[..from].ends_with('\n');
+        comment(&text[hash..end], base + from + hash, line_start, out);
     }
     space(end, text.len(), out);
 }

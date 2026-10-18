@@ -17,6 +17,8 @@ fn color(class: Class) -> Option<&'static str> {
         Class::Symbol => "94",
         Class::Quote => "1",
         Class::Comment => "2",
+        Class::Doc => "3;32",
+        Class::Heading => "1;32",
         Class::Error => "31;4",
         Class::Variable | Class::Punct | Class::Unit | Class::Space => return None,
     })

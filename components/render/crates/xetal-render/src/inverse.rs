@@ -1,10 +1,12 @@
 //! Decorated Unicode -> raw ASCII. ASCII passes through unchanged, so
 //! anything shown raw (e.g. `x^0.5`, `q:x`) inverts trivially. A string
 //! or a comment is copied as it is (the drawing never touches either),
-//! so both may hold any Unicode.
+//! so both may hold any Unicode; only a doc comment's or a heading's
+//! marker after the lamp turns back into its `#`s.
 
 use xetal_base::{Diagnostic, Span};
 
+use crate::comments::marker_after_lamp;
 use crate::glyphs::{
     LIGATURES, RAISED_POINT, UNDERLINE, from_subscript, from_superscript, from_superscript_letter,
 };
@@ -57,6 +59,14 @@ pub fn undecorate(text: &str) -> Result<String, Diagnostic> {
         inv.push(c, underlined, span)?;
         inv.string = c == '"';
         inv.comment = inv.out.ends_with('#');
+        if let Some((hashes, bytes)) = inv
+            .comment
+            .then(|| marker_after_lamp(&text[i + len..]))
+            .flatten()
+        {
+            inv.out.push_str(hashes);
+            while chars.next_if(|&(j, _)| j < i + len + bytes).is_some() {}
+        }
     }
     if inv.after == After::Namespace {
         return Err(bad_namespace(Span::new(text.len(), text.len())));

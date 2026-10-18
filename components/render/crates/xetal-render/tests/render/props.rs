@@ -48,6 +48,10 @@ const PIECES: &[&str] = &[
     "-1",
     "\"a_b; *\"",
     "# a; b * c # d",
+    "\n## doc `r_ev` # x",
+    "\n##",
+    "\n### Section",
+    "## after code",
 ];
 
 fn source() -> impl Strategy<Value = String> {

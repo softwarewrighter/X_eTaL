@@ -89,6 +89,27 @@ fn strings_are_escaped_text() {
     );
 }
 
+/// Plain remarks are dropped, but a line's doc comment is kept as
+/// italic text and a section heading as bold text, without their
+/// markers; the line's indentation is set as spaces.
+#[test]
+fn doc_comments_are_italic_and_headings_bold() {
+    assert_eq!(
+        tex("## Twice _x_.\nx"),
+        "{\\text{\\textit{Twice \\_x\\_.}}}\\\\\n{\\mathrm{x}}"
+    );
+    assert_eq!(
+        tex("### Sizes\nx"),
+        "{\\text{\\textbf{Sizes}}}\\\\\n{\\mathrm{x}}"
+    );
+    assert_eq!(
+        tex("x\n  ## In."),
+        "{\\mathrm{x}}\\\\\n\\ \\ {\\text{\\textit{In.}}}"
+    );
+    assert_eq!(tex("x ## remark"), r"{\mathrm{x}}");
+    assert_eq!(tex("##\nx"), "\\\\\n{\\mathrm{x}}");
+}
+
 #[test]
 fn a_wildcard_is_an_escaped_underscore() {
     assert_eq!(tex("(a, _) := (1, 2)").matches(r"{\_}").count(), 1);
