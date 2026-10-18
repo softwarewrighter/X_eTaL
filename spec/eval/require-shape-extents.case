@@ -3,4 +3,10 @@
 == SOURCE
 "ab" r_equireShape 1 2
 == ERROR
-error[type-mismatch]: expected Int, found Char at 0..17
+error[type-mismatch]: expected Int, found Char
+ --> -e:1:1
+  |
+1 | "ab" r_equireShape 1 2
+  | ^^^^^^^^^^^^^^^^^^^^^^
+  | ---- a string: a vector of Char
+  = note: `r_equireShape` has type Int -> a -> a
