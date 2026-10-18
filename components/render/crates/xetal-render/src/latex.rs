@@ -5,7 +5,7 @@
 //! and axes subscript a function's whole name. Remarks are dropped; a
 //! doc line is set as italic text and a section heading as bold.
 
-use crate::comments::{CommentKind, comment_kind, comment_marker};
+use crate::comments::doc_tex;
 use xetal_base::Diagnostic;
 use xetal_lex::{FuncName, Side, Symbol, TokenKind, lex};
 
@@ -39,27 +39,8 @@ pub fn latex(src: &str) -> Result<String, Diagnostic> {
     Ok(out)
 }
 
-/// A line's doc comment as italic text and a section heading as bold,
-/// after its indentation; nothing for a remark or an empty doc line.
-fn doc_tex(gap: &str, line_start: bool) -> String {
-    let Some(hash) = gap.find('#') else {
-        return String::new();
-    };
-    let comment = gap[hash..].trim_end_matches('\r');
-    let kind = comment_kind(comment, line_start);
-    let text = comment[comment_marker(kind).1..].trim();
-    let style = match kind {
-        _ if text.is_empty() => return String::new(),
-        CommentKind::Remark => return String::new(),
-        CommentKind::Doc => "textit",
-        CommentKind::Heading => "textbf",
-    };
-    let indent = spacing(&gap[..hash]);
-    format!(r"{indent}{{\text{{\{style}{{{}}}}}}}", text_tex(text))
-}
-
 /// Whitespace becomes explicit spaces; comment text is dropped.
-fn spacing(gap: &str) -> String {
+pub(crate) fn spacing(gap: &str) -> String {
     gap.split('#')
         .next()
         .unwrap_or("")
@@ -130,7 +111,7 @@ const MARKS: &[(char, &str)] = &[
 
 /// A string as text, spelled as in the source: TeX's specials escaped,
 /// and a letter with a combining underline as `\underline`.
-fn text_tex(raw: &str) -> String {
+pub(crate) fn text_tex(raw: &str) -> String {
     let mut out = String::new();
     let mut chars = raw.chars().peekable();
     while let Some(c) = chars.next() {

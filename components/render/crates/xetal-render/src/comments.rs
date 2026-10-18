@@ -3,6 +3,8 @@
 //! their own, one glyph per `#` so columns are kept; any other comment
 //! (an end-of-line remark, `##x`, `####`) is a lone lamp.
 
+use crate::latex::{spacing, text_tex};
+
 /// The kind of a comment, for its marker and its style.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum CommentKind {
@@ -55,4 +57,23 @@ pub(crate) fn marker_after_lamp(text: &str) -> Option<(&'static str, usize)> {
     let rest = text.strip_prefix("\u{2501}\u{2501}")?;
     rest.starts_with(' ')
         .then_some(("##", 2 * '\u{2501}'.len_utf8()))
+}
+
+/// A line's doc comment as italic text and a section heading as bold,
+/// after its indentation; nothing for a remark or an empty doc line.
+pub(crate) fn doc_tex(gap: &str, line_start: bool) -> String {
+    let Some(hash) = gap.find('#') else {
+        return String::new();
+    };
+    let comment = gap[hash..].trim_end_matches('\r');
+    let kind = comment_kind(comment, line_start);
+    let text = comment[comment_marker(kind).1..].trim();
+    let style = match kind {
+        _ if text.is_empty() => return String::new(),
+        CommentKind::Remark => return String::new(),
+        CommentKind::Doc => "textit",
+        CommentKind::Heading => "textbf",
+    };
+    let indent = spacing(&gap[..hash]);
+    format!(r"{indent}{{\text{{\{style}{{{}}}}}}}", text_tex(text))
 }
