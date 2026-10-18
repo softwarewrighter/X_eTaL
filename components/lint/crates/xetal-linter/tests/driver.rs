@@ -130,10 +130,11 @@ fn list_and_explain_need_no_program() {
 #[test]
 fn a_lint_file_directive_inside_a_raw_string_turns_nothing_off() {
     let text = "s := r\"one\n# lint-file: allow all\ntwo\"\np_rint! s\nCount! := 0";
-    assert_eq!(
-        found(text),
-        [("mutable-constant".to_string(), 5, Level::Warn)]
-    );
+    let want = [
+        ("string-holds-directive", 2, Level::Warn),
+        ("mutable-constant", 5, Level::Warn),
+    ];
+    assert_eq!(found(text), want.map(|(c, l, v)| (c.to_string(), l, v)));
 }
 
 #[test]
