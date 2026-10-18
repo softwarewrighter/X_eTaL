@@ -45,11 +45,14 @@ fn a_code_string_spanning_lines_keeps_its_lines() {
 }
 
 #[test]
-fn an_inside_that_does_not_lex_is_drawn_as_typed() {
+fn what_does_not_lex_is_drawn_as_typed() {
     // `a_b_c` is no name (a function name has one underline): the
     // lexer reports it when the inside is checked (step 112); the
-    // drawing shows it as typed.
-    assert_eq!(dec(r#"c"x := a_b_c""#), r#"c"x := a_b_c""#);
+    // drawing shows from where it fails as typed (`_c`) and the code
+    // before it decorated, and still turns back into the source.
+    let drawn = dec(r#"c"x := a_b_c""#);
+    assert_eq!(drawn, "c\"x \u{2190} a\u{332}b_c\"");
+    assert_eq!(undecorate(&drawn).unwrap(), r#"c"x := a_b_c""#);
 }
 
 #[test]
@@ -71,4 +74,51 @@ fn the_drawing_turns_back_into_the_source() {
         let back = undecorate(&dec(src)).unwrap_or_else(|e| panic!("{src:?}: {e:?}"));
         assert_eq!(back, src);
     }
+}
+
+#[test]
+fn a_pipeline_draws_its_joins_as_triangles() {
+    // S13: `|>` is drawn `▷`; the stages are code, decorated.
+    let src = "Y := @ pipe:p_ipe< c\"\n   X\n|> it nn:d_ense W1\n|> nn:r_elu\"";
+    let drawn = dec(src);
+    assert!(
+        drawn.contains(
+            "\n\u{25b7} it \u{207f}\u{207f}d\u{332}ense W1\n\u{25b7} \u{207f}\u{207f}r\u{332}elu\""
+        ),
+        "{drawn}"
+    );
+    assert_eq!(undecorate(&drawn).unwrap(), src);
+    assert_eq!(dec("x |> y"), "x \u{25b7} y");
+    assert_eq!(undecorate("x \u{25b7} y").unwrap(), "x |> y");
+}
+
+#[test]
+fn what_does_not_lex_is_drawn_as_typed_and_the_rest_as_code() {
+    // A pipeline's labels (` : m`) are its own notation, not X_eTaL: the
+    // rest of the inside is still decorated around them.
+    let src = r#"@ pipe:p_ipe< c"z |> 'm_ax r_/ it : m |> e_xp z - m : e""#;
+    let drawn = dec(src);
+    assert!(
+        drawn.contains("it : m \u{25b7} e\u{332}xp z \u{2212} m : e\""),
+        "{drawn}"
+    );
+    assert_eq!(undecorate(&drawn).unwrap(), src);
+    let shaped = dec(r#"c"X |> nn:r_elu it nn:d_ense W1 : h [4 3] |> h""#);
+    assert!(
+        shaped.contains("\u{207f}\u{207f}d\u{332}ense W1 : h [4 3] \u{25b7} h"),
+        "{shaped}"
+    );
+}
+
+#[test]
+fn a_label_is_drawn_as_a_small_triangle() {
+    // S14: `$h` is drawn `▹h`, a small sibling of the join's `▷`.
+    let src = r#"@ flow:p_ipe< c"z |> 'm_ax r_/ it $m |> e_xp z - m $e |> e / '+ r_/ e""#;
+    let drawn = dec(src);
+    assert!(
+        drawn.contains("it \u{25b9}m \u{25b7} e\u{332}xp z \u{2212} m \u{25b9}e"),
+        "{drawn}"
+    );
+    assert_eq!(undecorate(&drawn).unwrap(), src);
+    assert!(dec(r#"c"X |> f_ it $(Q, K, V)""#).contains("\u{25b9}(Q, K, V)"));
 }

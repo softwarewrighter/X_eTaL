@@ -25,6 +25,7 @@ pub enum ErrorKind {
     UnexpectedChar,
     NonAscii,
     RecordField,
+    BadLabel,
 }
 
 impl ErrorKind {
@@ -44,6 +45,7 @@ impl ErrorKind {
             ErrorKind::BadQuote => "bad-quote",
             ErrorKind::BadLazy => "bad-lazy",
             ErrorKind::BadString => "bad-string",
+            ErrorKind::BadLabel => "bad-label",
             ErrorKind::AmbiguousMinus => "ambiguous-minus",
             ErrorKind::BadNumber => "bad-number",
             ErrorKind::NumberOutOfRange => "number-out-of-range",

@@ -18,8 +18,11 @@
 #     sw-checklist and sw-markdown-checker (sw-vibe-coding forks; the
 #     checker needs sw-cli-tools/sw-cli beside it)
 #   just and trunk (prebuilt, through cargo-binstall; cargo install as
-#     the fallback), the wasm32 target, Emacs (ERT tests), cairosvg and
-#     pillow (pictures)
+#     the fallback), the wasm32 target, Emacs (ERT tests), rsync (the
+#     siblings' page builds), cairosvg and pillow (pictures), and
+#     xetal-chrome, the preinstalled Chromium without its sandbox
+#     (root), for the siblings' browser checks
+#     (CHROME=/usr/local/bin/xetal-chrome)
 #   the sibling repositories X_eTaL-libraries and X_eTaL-ML beside
 #     X_eTaL, with the mixed-case names the repositories use for each
 #     other (../X_eTaL-libraries) linked to the cloned paths
@@ -64,10 +67,19 @@ binary() {
         || note_failure "install $bin"
 }
 
-step "system packages: emacs (ERT tests)"
-if ! have emacs; then
-    (apt-get update -qq && apt-get install -y -qq emacs-nox) >/dev/null 2>&1 \
-        || note_failure "apt-get install emacs-nox"
+step "system packages: emacs (ERT tests), rsync (the siblings' page builds)"
+if ! have emacs || ! have rsync; then
+    (apt-get update -qq && apt-get install -y -qq emacs-nox rsync) >/dev/null 2>&1 \
+        || note_failure "apt-get install emacs-nox rsync"
+fi
+
+step "xetal-chrome: the preinstalled Chromium, headless as root (no sandbox)"
+chromium=$(ls -d /opt/pw-browsers/chromium-*/chrome-linux/chrome 2>/dev/null | tail -1)
+if [ -n "$chromium" ]; then
+    printf '#!/bin/sh\nexec %s --no-sandbox "$@"\n' "$chromium" >/usr/local/bin/xetal-chrome \
+        && chmod +x /usr/local/bin/xetal-chrome || note_failure "xetal-chrome"
+else
+    echo "no Chromium under /opt/pw-browsers: the siblings' browser checks cannot run"
 fi
 
 step "Rust: the wasm32 target (live demo)"
@@ -111,7 +123,7 @@ if [ -d "$home/X_eTaL/scripts" ] && have uv; then
 fi
 
 step "summary"
-for b in agentrail reg-rs sw-checklist sw-markdown-checker just trunk emacs; do
+for b in agentrail reg-rs sw-checklist sw-markdown-checker just trunk emacs rsync xetal-chrome; do
     printf '  %-20s %s\n' "$b" "$(command -v "$b" || echo MISSING)"
 done
 if [ "${#failed[@]}" -gt 0 ]; then

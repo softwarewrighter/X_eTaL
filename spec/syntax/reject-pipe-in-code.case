@@ -1,0 +1,10 @@
+# `|>` joins the stages of a pipeline in a macro's text (S13); in code
+# it means nothing, so it is an error, never or then greater.
+== SOURCE
+x |> f_ x
+== ERROR
+error[unexpected-token]: `|>` joins the stages of a pipeline in a macro's text (`@ p:p_ipe< c"x |> f_ it"`); it has no meaning in code
+ --> -e:1:3
+  |
+1 | x |> f_ x
+  |   ^^

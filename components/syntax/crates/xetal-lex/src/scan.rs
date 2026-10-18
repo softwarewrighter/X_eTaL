@@ -62,6 +62,18 @@ fn next_token(
         (b'_', Some(TokenKind::RParen)) => lambda_arg(cur, true),
         (b'_', _) => lambda_arg(cur, false),
         (b'\'' | b'~' | b'?' | b':' | b'!', _) => marker(cur, byte),
+        // `$` labels a pipeline stage (S14), touching its name or tuple.
+        (b'$', _) => match cur.peek_at(1) {
+            Some(b) if b.is_ascii_alphabetic() || b == b'(' => {
+                cur.pos += 1;
+                Ok(TokenKind::Label)
+            }
+            _ => Err(LexError::at(
+                ErrorKind::BadLabel,
+                cur.pos,
+                "`$` labels a pipeline stage and touches the name or tuple it gives: `$h`, `$(Q, K)`",
+            )),
+        },
         (b'+' | b'*' | b'/' | b'^' | b'=' | b'&' | b'|' | b'<' | b'>', _) => Ok(symbol(cur, byte)),
         (b, _) if b.is_ascii_alphabetic() => name::lex_name(cur),
         _ => Err(unexpected(cur)),
@@ -172,6 +184,11 @@ fn marker(cur: &mut Cursor, byte: u8) -> Result<TokenKind, LexError> {
 }
 
 fn symbol(cur: &mut Cursor, byte: u8) -> TokenKind {
+    // `|>` joins pipeline stages (S13): one token, never `|` then `>`.
+    if byte == b'|' && cur.peek_at(1) == Some(b'>') {
+        cur.pos += 2;
+        return TokenKind::Pipe;
+    }
     let equals = cur.peek_at(1) == Some(b'=');
     let (sym, len) = match byte {
         b'+' => (Symbol::Plus, 1),

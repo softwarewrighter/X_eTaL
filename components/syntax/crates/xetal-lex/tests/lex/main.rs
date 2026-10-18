@@ -3,6 +3,8 @@
 mod accept;
 mod code;
 mod common;
+mod label;
+mod pipe;
 mod props;
 mod raw;
 mod reject;

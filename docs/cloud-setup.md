@@ -46,6 +46,8 @@ fast-forwarded).
 | `cargo-binstall` | its GitHub release | fetching just and trunk prebuilt instead of compiling them |
 | wasm32-unknown-unknown | rustup | the browser builds |
 | Emacs (emacs-nox) | apt | the Emacs mode's ERT tests |
+| rsync | apt | the sibling repositories' page builds (X_eTaL-ML's `build-pages.sh`) |
+| `xetal-chrome` | a wrapper written to `/usr/local/bin`, around the preinstalled Chromium (`/opt/pw-browsers`) with `--no-sandbox` | the siblings' headless browser checks, which look for Chrome at its macOS path: run them with `CHROME=/usr/local/bin/xetal-chrome` |
 | cairosvg, pillow | pip | pictures (frames, PNG conversion) |
 | X_eTaL-libraries, X_eTaL-ML | softwarewrighter, cloned beside X_eTaL | the sibling repositories' work and their asks |
 
@@ -84,6 +86,11 @@ X_eTaL's `target/`.
   `uv run --no-project`, and on a checkout with no `.venv` they race to
   create it and fail ("A virtual environment already exists"). The
   script creates it once first; a second gate run also passes.
+- The siblings' browser checks (X_eTaL-ML's `browser-dom.sh`,
+  `browser-check.sh`, `screenshots.sh`) default to Chrome's macOS
+  path, and Chromium as root starts only without its sandbox: set
+  `CHROME=/usr/local/bin/xetal-chrome` for `just gate` there, or every
+  page reads "NOT LOADED".
 - The sibling repositories are shallow clones (one commit). Fetch
   history when a task needs it: `git fetch --depth=1000 origin main`.
 - Pushing to the sibling repositories needs them attached to the

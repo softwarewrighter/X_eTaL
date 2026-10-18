@@ -7,7 +7,7 @@
 //! each drawn run was written, for views that style them (xetal-view).
 
 use xetal_base::{Diagnostic, Span};
-use xetal_lex::{TokenKind, lex};
+use xetal_lex::{Token, TokenKind, lex};
 use xetal_strtext::{escape, unescape_mapped, unescaped_quote};
 
 use crate::inverse::undecorate;
@@ -23,8 +23,7 @@ pub struct CodePiece {
     pub kind: Option<TokenKind>,
 }
 
-/// The drawing of a code string token written `raw`: its pieces joined;
-/// as typed when the inside does not lex.
+/// The drawing of a code string token written `raw`: its pieces joined.
 pub(crate) fn drawn(raw: &str) -> String {
     code_pieces(raw).map_or_else(
         || raw.to_string(),
@@ -34,11 +33,12 @@ pub(crate) fn drawn(raw: &str) -> String {
 
 /// The pieces of a code string token written `raw` (`c"..."` or
 /// `c#"..."#`), in order, covering every byte of it once; `None` when it
-/// is not one or its inside does not lex.
+/// is not one. What does not lex inside (a macro's own notation, a slip
+/// while typing) is a piece of its own, drawn as typed, with string kind.
 pub fn code_pieces(raw: &str) -> Option<Vec<CodePiece>> {
     let (hashes, text, map) = inside(raw)?;
     let (open, close) = (2 + hashes, 1 + hashes);
-    let tokens = lex(&text).ok()?;
+    let tokens = tolerant(&text);
     let delimiter = |a: usize, b: usize| CodePiece {
         written: Span::new(a, b),
         text: raw[a..b].to_string(),
@@ -80,6 +80,42 @@ pub fn code_pieces(raw: &str) -> Option<Vec<CodePiece>> {
     }
     out.push(delimiter(raw.len() - close, raw.len()));
     Some(out)
+}
+
+/// The tokens of `text`, lexed as far as it lexes: a run that does not
+/// lex is one string token (drawn as typed) and lexing goes on after it.
+fn tolerant(text: &str) -> Vec<Token> {
+    let (mut out, mut at) = (Vec::new(), 0);
+    let shifted = |t: Token, by: usize| Token {
+        span: Span::new(t.span.start + by, t.span.end + by),
+        kind: t.kind,
+    };
+    while at < text.len() {
+        let e = match lex(&text[at..]) {
+            Ok(tokens) => {
+                out.extend(tokens.into_iter().map(|t| shifted(t, at)));
+                break;
+            }
+            Err(e) => e,
+        };
+        let mut start = (at + e.span.start).min(text.len());
+        while !text.is_char_boundary(start) {
+            start -= 1;
+        }
+        let before = lex(&text[at..start]).unwrap_or_default();
+        out.extend(before.into_iter().map(|t| shifted(t, at)));
+        let mut end = (at + e.span.end).clamp(start + 1, text.len());
+        while !text.is_char_boundary(end) {
+            end += 1;
+        }
+        let kind = TokenKind::Str(String::new());
+        out.push(Token {
+            kind,
+            span: Span::new(start, end),
+        });
+        at = end;
+    }
+    out
 }
 
 /// A code string's number of `#`, its text (escapes resolved in the

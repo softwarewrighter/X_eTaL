@@ -122,8 +122,11 @@ Step 111 (code-strings), the literal and the view:
    name touching `c"`.
 2. Renderer: the inside decorated with the rules of the code around
    it, escapes unescaped first, one level deep (a code string inside
-   is drawn as a string); a code string whose inside does not lex
-   drawn as a plain string (the lexer reports it separately).
+   is drawn as a string). Drawing is tolerant: what does not lex (a
+   macro's own notation such as a pipeline's ` : name` labels, or a
+   slip while typing) is drawn as typed, in string color, and the code
+   around it decorated; the checks of step 112 report it. Pipelines'
+   `|>` is a token (S13), drawn as a triangle.
 3. Formatter: round trip (rule 10) with the inside kept as written in
    this step (canonical inside is step 112).
 4. Expander: `inside()` reads the three forms as it reads raw strings.

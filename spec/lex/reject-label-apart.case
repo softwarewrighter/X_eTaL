@@ -1,0 +1,9 @@
+# A `$` must touch the name or tuple it labels (S14).
+== SOURCE
+x $ h
+== ERROR
+error[bad-label]: `$` labels a pipeline stage and touches the name or tuple it gives: `$h`, `$(Q, K)`
+ --> -e:1:3
+  |
+1 | x $ h
+  |   ^
