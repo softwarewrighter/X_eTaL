@@ -10,8 +10,9 @@ use std::path::PathBuf;
 
 use xetal_linter::{command_line, lint};
 
-/// A macro library: a capture, a declared anaphor, a gensym, and a
-/// macro that binds a local of its own it never reads.
+/// A macro library: a capture, a declared anaphor, a gensym, a macro
+/// that binds a local of its own it never reads, the shorthand in a
+/// lambda the macro opens, and two that declare `## uses: parsed`.
 const LIB: &str = r#"## Binds x around the text, undeclared: a capture.
 m:c_ap< := { @ e -> "{ @ -> x := 3; " c_at e c_at " } @" }
 
@@ -26,6 +27,13 @@ m:f_resh< := { @ e ->
 m:w_aste< := { @ e -> "{ @ -> tmp := 1; " c_at e c_at " } @" }
 
 m:d_ef< := { name body -> "u:" c_at name c_at " := { " c_at body c_at " }" }
+
+## The same as c_ap< and w_aste<, declared as reading a notation.
+## uses: parsed
+m:p_cap< := { @ e -> "{ @ -> x := 3; " c_at e c_at " } @" }
+
+## uses: parsed
+m:p_ass< := { @ e -> "(" c_at e c_at ")" }
 "#;
 
 /// Lint `body` (after an import of the library as `x:`) in a directory
@@ -132,4 +140,27 @@ fn a_finding_in_the_callers_own_text_is_still_reported_there() {
         (got[0].0.as_str(), got[0].1, got[0].2),
         ("unused-binding", 2, 24)
     );
+}
+
+#[test]
+fn a_parsing_macro_binding_a_name_of_its_notation_is_no_capture() {
+    let got = found(
+        "parsed-capture",
+        "x := 10\np_rint! @ x:p_cap< \"x + 1\"",
+        &[],
+    );
+    assert_eq!(got, []);
+}
+
+#[test]
+fn a_finding_in_a_parsing_macros_expansion_is_not_the_callers() {
+    let text = "p_rint! @ x:p_ass< \"{ y -> 1 } 2\"";
+    assert_eq!(found("parsed", text, &[]), []);
+    let got = found("parsed-on", text, &["macro-internals"]);
+    assert_eq!(got.len(), 1, "{got:?}");
+    assert_eq!(
+        (got[0].0.as_str(), got[0].1, got[0].2),
+        ("macro-internals", 2, 23)
+    );
+    assert!(got[0].3.contains("x:p_ass< wrote"), "{}", got[0].3);
 }

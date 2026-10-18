@@ -1197,8 +1197,10 @@ style guide's names (lang-choices section 16).
    anaphor `unused-anaphor` (pedantic), never the caller's finding.
 11. lint-capture [DONE] (D162; lane lint-capture): `macro-capture`
    (suspicious, warn) in a new crate xetal-origin; lib/Macros.xtlm
-   `b_inds<` declares `## binds: x`. Next: read `## takes:` and
-   `## uses:` once step 110 lands.
+   `b_inds<` declares `## binds: x`.
+12. lint-contracts [DONE] (D164; lane lint-capture): each recorded call
+   carries its span and `## uses: parsed`; a parsing macro's whole
+   expansion is its own (`macro-internals`, no `macro-capture`).
 ## Saga 41 (proposed) -- spatial equations (paper math to array code, a library)
 
 Proposed after the review of `docs/research8.txt` and

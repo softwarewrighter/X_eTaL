@@ -6,9 +6,10 @@
 use std::cell::RefCell;
 
 use xetal_base::Diagnostic;
-use xetal_contract::Contract;
+use xetal_contract::{Contract, Uses};
 use xetal_expand::{MacroCall, Macros};
 use xetal_lookup::{Libraries, MacroRun};
+use xetal_sources::Site;
 
 use crate::macros::{MacroAliases, MacroLib};
 
@@ -18,9 +19,9 @@ pub(crate) struct Table<'a> {
     pub libs: &'a dyn Libraries,
     /// The file the calls are written in: its name and text.
     pub file: (&'a str, &'a str),
-    /// Each call asked for its contract: where, the macro as written, the
-    /// names (recorded in the file's sources as a `Site`).
-    pub sites: RefCell<Vec<(usize, String, Vec<String>)>>,
+    /// Each call asked for its contract, as recorded in the file's
+    /// sources (its file number set there).
+    pub sites: RefCell<Vec<Site>>,
 }
 
 impl Macros for Table<'_> {
@@ -52,8 +53,13 @@ impl Macros for Table<'_> {
             .ok()
             .and_then(|lib| lib.contracts.get(call.name).cloned())
             .unwrap_or_default();
-        let site = (call.at, written(call), contract.binds.clone());
-        self.sites.borrow_mut().push(site);
+        self.sites.borrow_mut().push(Site {
+            file: 0,
+            span: call.at..call.end,
+            name: written(call),
+            binds: contract.binds.clone(),
+            parsed: contract.uses == Uses::Parsed,
+        });
         contract
     }
 }

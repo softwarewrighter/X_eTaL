@@ -36,7 +36,8 @@ fn captured(program: &Program, sources: &Sources, e: &Expr) -> Vec<Diagnostic> {
     let Some((site, call)) = at.and_then(|at| written_by(sources, at)) else {
         return Vec::new();
     };
-    if gensym(name) || site.binds.iter().any(|b| b == name) {
+    // A parsing macro binds names of its notation on purpose.
+    if site.parsed || gensym(name) || site.binds.iter().any(|b| b == name) {
         return Vec::new();
     }
     let mut reads = Vec::new();
