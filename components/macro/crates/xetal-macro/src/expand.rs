@@ -91,12 +91,10 @@ impl Loader<'_> {
             return Ok(());
         }
         self.sources.expanded(index, &expanded);
-        for (at, name, binds) in table.sites.take() {
+        for site in table.sites.take() {
             let site = xetal_sources::Site {
                 file: index,
-                at,
-                name,
-                binds,
+                ..site
             };
             self.sources.add_site(site);
         }

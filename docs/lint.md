@@ -433,5 +433,15 @@ copied: such a capture is missed, never reported falsely. Two
 neighbors are not done yet: a statement macro that binds a top-level
 name later statements read (`macro-binds-statement`, pedantic), and
 `xetal run`'s own warnings (`shadows-builtin`) over code a macro wrote.
-When step 110's contracts (`## takes:`, `## uses:`) land, the lints
-read them beside `## binds:`.
+
+Contracts (MC31). Each recorded call also carries the span it is written
+over and whether its macro declares `## uses: parsed`. A parsing macro
+reads a notation and writes code of its own from it, so what its
+expansion repeats of the call's text is notation read, not code copied:
+every finding in a parsing macro's expansion is `macro-internals`,
+copied-looking text included (no fix is offered, since a fix there
+would edit the notation), and a name it binds is never a
+`macro-capture` (binding the notation's names is its job, as an
+equation binds its indices). `## takes:` adds nothing here: the shape
+of a call is checked before the macro runs, so a call that reaches the
+lints has the declared shape.

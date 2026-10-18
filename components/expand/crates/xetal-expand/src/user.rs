@@ -26,8 +26,9 @@ pub struct MacroCall<'a> {
     /// The call stands as a statement of its own.
     pub statement: bool,
     /// Where the call was written (a byte offset in its file; inside
-    /// another macro's expansion, that macro's call).
+    /// another macro's expansion, that macro's call), and where it ends.
     pub at: usize,
+    pub end: usize,
     /// The fresh names given so far in this file (`g1:`, `g2:`, ...): a
     /// macro asking for one (`[]G_ENSYM`, MC30) takes the next number.
     pub fresh: &'a Cell<usize>,
@@ -83,6 +84,7 @@ pub(crate) fn user(
         right: call.texts.1.then_some(right.text()),
         statement: call.statement,
         at: whole.start,
+        end: whole.end,
         fresh,
     };
     let contract = macros.contract(&request);

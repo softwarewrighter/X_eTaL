@@ -1209,6 +1209,10 @@ style guide's names (lang-choices section 16).
    contracts the body contradicts (MC31): `takes-mismatch`,
    `ignored-argument`, `binds-unwritten`; in a new crate
    xetal-macrolint; the repository test lints `.xtlm` files too.
+   `b_inds<` declares `## binds: x`.
+12. lint-contracts [DONE] (D174; lane lint-capture): each recorded call
+   carries its span and `## uses: parsed`; a parsing macro's whole
+   expansion is its own (`macro-internals`, no `macro-capture`).
 ## Saga 41 (proposed) -- spatial equations (paper math to array code, a library)
 
 Proposed after the review of `docs/research8.txt` and

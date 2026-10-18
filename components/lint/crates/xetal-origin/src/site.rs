@@ -24,6 +24,16 @@ pub(crate) fn copied_from(sources: &Sources, span: Span, call: &Range<usize>) ->
     at.index == 0 && at.to == at.offset + 1 && call.contains(&at.offset)
 }
 
+/// The parsing call (`## uses: parsed`) the text at `span` came from,
+/// when it is text copied from the program's own file inside one.
+pub(crate) fn parsed_from(sources: &Sources, span: Span) -> Option<Site> {
+    let at = sources.locate(span.start);
+    if at.index != 0 || at.to != at.offset + 1 {
+        return None;
+    }
+    sources.site(0, at.offset).filter(|s| s.parsed)
+}
+
 /// Whether `name` is a fresh name from `[]G_ENSYM` (`g1:t`, MC30).
 pub(crate) fn gensym(name: &str) -> bool {
     name.split_once(':').is_some_and(|(ns, _)| {
