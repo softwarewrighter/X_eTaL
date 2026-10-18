@@ -129,10 +129,14 @@ fn list_and_explain_need_no_program() {
 
 #[test]
 fn a_lint_file_directive_inside_a_raw_string_turns_nothing_off() {
+    // string-holds-directive reports the text that only looks like one.
     let text = "s := r\"one\n# lint-file: allow all\ntwo\"\np_rint! s\nCount! := 0";
     assert_eq!(
         found(text),
-        [("mutable-constant".to_string(), 5, Level::Warn)]
+        [
+            ("string-holds-directive".to_string(), 2, Level::Warn),
+            ("mutable-constant".to_string(), 5, Level::Warn)
+        ]
     );
 }
 
