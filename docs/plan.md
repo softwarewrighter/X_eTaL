@@ -1378,10 +1378,17 @@ step that depends on it begins):
    library and tradition.
 5. `convolve` and `correlate`: library macros expanding to `sum`, not
    parser words; the equation grammar stays one grammar.
-6. Pipeline stages naming earlier stages without `it`: docs/spatial.md's
-   refusal stands; revisit with X_eTaL-ML's pipeline macro once stages
-   are `c"..."` (the join reads as the paper's product, but hides the
-   data flow the pipeline exists to show).
+6. Pipeline stages naming earlier stages: allowed through labels, as
+   X_eTaL's own oracle already does (`z |> 'm_ax r_/ it : m |> e_xp z
+   - m : e |> ...`, docs/spatial.md): a stage may use `it` and any
+   earlier stage's label, and nothing unnamed, so every edge is a
+   written name. X_eTaL-ML's topology design (pipeline-topologies.md:
+   segments separated by `\`, wiring only at a segment's start through
+   a label or a tuple, `pipe:s_ub<` for sub-pipes) makes fan-out,
+   fan-in and several outputs declared edges that the diagram, the
+   trace and the shape lint all see. (Corrected 2026-10-17 after the
+   ML lane's finding; the first wording kept a refusal the oracle never
+   had.)
 7. The trace: an xtln value (Saga 37) as the one form; text and JSON
    derived from it, so the debugger, Blender and the report read one
    source.
