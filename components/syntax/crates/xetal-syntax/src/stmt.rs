@@ -8,8 +8,8 @@ use crate::parser::{Parser, err};
 use xetal_ast::{Program, Stmt, Target};
 
 impl Parser {
-    pub(crate) fn program(&mut self) -> Result<Program, Diagnostic> {
-        let stmts = self.statements(false)?;
+    pub(crate) fn program(&mut self, in_lambda: bool) -> Result<Program, Diagnostic> {
+        let stmts = self.statements(in_lambda)?;
         if self.peek().is_some() {
             return Err(self.end_of_statement("unexpected token"));
         }

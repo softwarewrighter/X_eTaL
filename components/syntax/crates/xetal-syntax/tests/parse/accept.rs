@@ -121,3 +121,13 @@ fn life_parses() {
         "(:= u:l_ife (lambda (_r) ((lambda (_l _r) (+ (= _l 3) (* _r (= _l 4)))) ((operand + r_/_12) (o_-_12 (strand -1 0 1) _r)) _r)))"
     );
 }
+
+/// A lambda's body on its own (the inside of a code string a macro
+/// takes as code, ST5): statements where a guard may stand.
+#[test]
+fn a_body_parses_as_a_lambdas_statements() {
+    let body = xetal_syntax::parse_body("n < 3 ? \"again\"; n").unwrap();
+    assert_eq!(body.len(), 2);
+    assert!(xetal_syntax::parse_body("_r * _r").is_ok());
+    assert!(xetal_syntax::parse_body("x := 3\nx + 1").is_ok());
+}

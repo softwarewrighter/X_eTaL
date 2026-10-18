@@ -1,25 +1,11 @@
 //! The parser state, the entry point, and moving through the tokens:
 //! newlines as whitespace inside brackets, and the bracket nesting limit.
 
-use xetal_ast::Program;
 use xetal_base::{Diagnostic, Span};
-use xetal_lex::{Token, TokenKind, lex};
+use xetal_lex::{Token, TokenKind};
 
 /// The deepest bracket nesting the parser accepts.
 pub const MAX_NESTING: usize = 64;
-
-/// Lex and parse a whole program.
-pub fn parse(src: &str) -> Result<Program, Diagnostic> {
-    let tokens = lex(src)?;
-    let mut parser = Parser {
-        tokens,
-        pos: 0,
-        end: src.len(),
-        newline_is_space: vec![false],
-        nesting: 0,
-    };
-    parser.program()
-}
 
 pub(crate) fn err(code: &str, span: Span, message: impl Into<String>) -> Diagnostic {
     Diagnostic::new(code, message).with_span(span)

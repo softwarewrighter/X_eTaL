@@ -8,13 +8,15 @@
 //! specific error (the ambiguity corpus in `spec/ambiguity/`).
 
 mod block;
+mod entry;
 mod expr;
 mod item;
 mod parser;
 mod stmt;
 mod tuple;
 
-pub use parser::{MAX_NESTING, parse};
+pub use entry::{parse, parse_body};
+pub use parser::MAX_NESTING;
 pub use xetal_ast::{
     Expr, ExprKind, Fun, FunKind, Lambda, MAX_DEPTH, Param, Params, Program, Stmt, Target,
 };

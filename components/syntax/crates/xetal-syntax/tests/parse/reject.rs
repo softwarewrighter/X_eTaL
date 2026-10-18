@@ -101,3 +101,16 @@ fn ordinary_nesting_and_long_strands_are_fine() {
     let strand = "1 ".repeat(100_000);
     assert!(crate::tree(&strand).starts_with("(strand 1 1"));
 }
+
+#[test]
+fn a_body_stands_alone() {
+    let e = xetal_syntax::parse_body("n_eg (x").unwrap_err();
+    assert_eq!(
+        (e.code.as_str(), e.span.map(|s| s.start)),
+        ("unclosed", Some(5))
+    );
+    let e = xetal_syntax::parse_body("1 }").unwrap_err();
+    assert_eq!(e.code, "unexpected-token");
+    // A guard stands in a body, not in a program.
+    assert!(xetal_syntax::parse("n < 3 ? 1; 0").is_err());
+}
