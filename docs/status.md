@@ -21,7 +21,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Built-in functions | 127 | 0 | 0 |
 | Language decisions | 164 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 485 | 0 | 0 |
+| Spec cases | 486 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -44,7 +44,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `/` | `Num a => a -> a -> Float` | works | 18 | 2 |
 | `d_iv` | `Int -> Int -> Int` | works | 4 | 1 |
 | `m_od` | `Int -> Int -> Int` | works | 2 | 2 |
-| `n_eg` | `Num a => a -> a` | works | 19 | 1 |
+| `n_eg` | `Num a => a -> a` | works | 20 | 1 |
 | `a_bs` | `Num a => a -> a` | works | 6 | 1 |
 | `f_loor` | `Num a => a -> Int` | works | 4 | 1 |
 | `c_eiling` | `Num a => a -> Int` | works | 0 | 1 |
@@ -80,7 +80,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `p_rint!` | `Any a => a -> a` | works | 21 | 1 |
+| `p_rint!` | `Any a => a -> a` | works | 22 | 1 |
 | `r_oll!` | `Int -> Int` | works | 3 | 1 |
 | `i_d` | `Any a => a -> a` | works | 3 | 2 |
 | `l_eft` | `(Any a, Any b) => a -> b -> a` | works | 3 | 2 |
@@ -164,7 +164,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `s_hape` | `a -> Int` | works | 16 | 2 |
-| `t_ally` | `a -> Int` | works | 22 | 4 |
+| `t_ally` | `a -> Int` | works | 23 | 4 |
 | `r_ange` | `Int -> Int` | works | 43 | 1 |
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 6 | 4 |
@@ -207,7 +207,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `i_ndexOf` | `Eq a => a -> a -> Int` | works | 6 | 2 |
 | `m_ember?` | `(Eq a, Truthy b) => a -> a -> b` | works | 2 | 1 |
-| `m_atch` | `(Match a, Truthy b) => a -> a -> b` | works | 11 | 8 |
+| `m_atch` | `(Match a, Truthy b) => a -> a -> b` | works | 12 | 8 |
 | `u_nique` | `Eq a => a -> a` | works | 3 | 1 |
 | `s_ort` | `Ord a => a -> a` | works | 5 | 3 |
 | `g_rade` | `Ord a => a -> Int` | works | 1 | 2 |
@@ -363,7 +363,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 1 |
 | ST3 | A string is a 1-D array of characters: `"abc"` is a 3-element Char vector and every array function applies (...) | works | 2 |
 | ST4 | Raw strings, Rust's rules: `r"..."` holds its text verbatim (no escapes; a backslash is a backslash) and (...) | works | 3 |
-| ST5 | Code strings: `c"..."` is a string whose inside is X_eTaL, declared by the writer as a token | works | 0 |
+| ST5 | Code strings: `c"..."` is a string whose inside is X_eTaL, declared by the writer as a token | works | 1 |
 | QD1 | `[]` written touching a name is the system namespace, APL's quad: `[]A`, `[]D_L 0.5` | works | 2 |
 | QD2 | System values, read-only: `[]A` the alphabet `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"`, `[]D` the digits (...) | works | 2 |
 | QD3 | System functions live in the quad namespace and are named like any function: `[]D_L s` waits s seconds (...) | works | 3 |

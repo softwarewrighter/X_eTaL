@@ -1,0 +1,37 @@
+# Code strings (ST5): the inside is X_eTaL, drawn as code (a pipeline's
+# |> as a triangle, a label as a small one); c"..." takes the usual
+# escapes, c#"..."# is verbatim. The value is the same Char vector as a
+# plain string of the same text, and fmt keeps the form.
+== SOURCE
+p := c"n_eg x |> f_ $h"
+q := c#"p_rint! "a""#
+p m_atch "n_eg x |> f_ $h"
+t_ally q
+== TOKENS
+0..1 Var(p)
+2..4 Assign
+5..23 Code("n_eg x |> f_ $h")
+23..24 Newline
+24..25 Var(q)
+26..28 Assign
+29..45 Code("p_rint! \"a\"")
+45..46 Newline
+46..47 Var(p)
+48..54 Func(m_atch)
+55..72 Str("n_eg x |> f_ $h")
+72..73 Newline
+73..79 Func(t_ally)
+80..81 Var(q)
+== RENDER
+p ← c"n̲eg x ▷ f̲ ▹h"
+q ← c#"p̲rint! "a""#
+p m̲atch "n_eg x |> f_ $h"
+t̲ally q
+== CANONICAL
+p := c"n_eg x |> f_ $h"
+q := c#"p_rint! "a""#
+(p m_atch "n_eg x |> f_ $h")
+(t_ally q)
+== RESULT
+1
+11
