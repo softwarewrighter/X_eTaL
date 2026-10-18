@@ -3,6 +3,7 @@
 
 mod error;
 mod fresh;
+mod text;
 mod token;
 
 pub use error::{ErrorKind, LexError};

@@ -1,0 +1,1 @@
+Done in X_eTaL-libraries as its Saga 12 step 5 (equations-latex): e:t_ex< and e:b_oth<; the live demo draws math with KaTeX.

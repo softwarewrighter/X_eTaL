@@ -19,7 +19,7 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 127 | 0 | 0 |
-| Language decisions | 161 | 0 | 3 |
+| Language decisions | 162 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
 | Spec cases | 480 | 0 | 0 |
 
@@ -398,6 +398,7 @@ conventions (naming, layout) work without a spec case citing them.
 | MC29 | `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...) | planned | 0 |
 | MC30 | Hygiene is by choice, as in Common Lisp, not automatic as in Scheme (changed with the user, 2026-10-12; (...) | works | 8 |
 | MC31 | A macro declares a contract in the `##` doc block directly above its definition, three lines the macro (...) | works | 1 |
+| MC32 | A side of a macro call may be declared a notation: `## takes: text notation` (a side's kinds are `text`, (...) | works | 0 |
 | MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | PN1 | `h:` is a namespace for file-private definitions, functions and variables: `h:j_oin := { b -> ... }`, (...) | works | 2 |
 | PN2 | A bare top-level function in a library is deprecated: it still works and is private, with a warning (...) | works | 0 |

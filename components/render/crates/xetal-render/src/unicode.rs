@@ -7,8 +7,8 @@ use xetal_base::Diagnostic;
 use xetal_lex::{FuncName, Side, TokenKind, lex};
 
 use crate::comments::{comment_kind, comment_marker};
-use crate::glyphs::{LIGATURES, UNDERLINE, subscript_digit, superscript_text, superscript_word};
 use crate::lambda::lambda_arg;
+use xetal_glyphs::{LIGATURES, UNDERLINE, subscript_digit, superscript_text, superscript_word};
 
 /// Render lexable raw source in decorated form.
 pub fn decorate(src: &str) -> Result<String, Diagnostic> {
@@ -42,6 +42,7 @@ pub fn token_text(kind: &TokenKind, raw: &str) -> String {
             lambda_arg(if *side == Side::Left { 'l' } else { 'r' }, *applied, raw)
         }
         TokenKind::Exp(_) => superscript_text(&raw[1..]).unwrap_or_else(|| raw.into()),
+        TokenKind::Code(_) => crate::code::drawn(raw),
         TokenKind::Sym(_) | TokenKind::Assign | TokenKind::Arrow | TokenKind::Semi => {
             ligature(raw).map_or_else(|| raw.into(), String::from)
         }

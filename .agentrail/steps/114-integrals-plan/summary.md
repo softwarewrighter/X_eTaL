@@ -1,0 +1,1 @@
+Saga 42 (integrals) planned in docs/plan.md (lane integrals-plan), and its eight decisions taken with the user 2026-10-17.

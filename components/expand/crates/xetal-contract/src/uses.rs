@@ -47,10 +47,7 @@ pub fn unused(
 /// a string lexes, else its runs of name characters (a message).
 fn words(tokens: &[Token], text: &str) -> Vec<String> {
     let mut out: Vec<String> = tokens.iter().filter_map(|t| counted(t, text)).collect();
-    for inner in tokens.iter().filter_map(|t| match &t.kind {
-        TokenKind::Str(s) => Some(s),
-        _ => None,
-    }) {
+    for inner in tokens.iter().filter_map(|t| t.kind.as_str()) {
         match lex(inner) {
             Ok(tokens) => out.extend(words(&tokens, inner)),
             Err(_) => out.extend(loose(inner)),

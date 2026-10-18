@@ -5,7 +5,7 @@ use std::collections::HashMap;
 
 use xetal_base::Span;
 use xetal_expand::{Call, DEPTH, calls};
-use xetal_lex::{Token, TokenKind, lex};
+use xetal_lex::{Token, lex};
 
 use crate::record::{Key, quoted};
 
@@ -46,9 +46,11 @@ fn one(
     seen: &HashMap<Key, String>,
     depth: usize,
 ) -> Option<Expansion> {
-    let side = |span: Span| match tokens.iter().find(|t| t.span == span).map(|t| &t.kind) {
-        Some(TokenKind::Str(s)) => quoted(s),
-        _ => "@".to_string(),
+    let side = |span: Span| {
+        let found = tokens.iter().find(|t| t.span == span);
+        found
+            .and_then(|t| t.kind.as_str())
+            .map_or_else(|| "@".to_string(), quoted)
     };
     let key = (
         c.statement,

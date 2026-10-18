@@ -1,0 +1,1 @@
+The shape lint (shape-mismatch, shape-check-proven, r_equireShape) merged with PR #130 (D166, D167).

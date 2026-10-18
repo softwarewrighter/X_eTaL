@@ -74,12 +74,12 @@ fn call(tokens: &[Token], i: usize, name: String, braced: bool) -> Result<Call, 
 fn shape(name: &str, around: [Option<&TokenKind>; 4]) -> Result<(bool, bool), String> {
     let [before, left, right, after] = around;
     let side = |k: Option<&TokenKind>| match k {
-        Some(TokenKind::Str(_)) => Some(true),
+        Some(k) if k.as_str().is_some() => Some(true),
         Some(TokenKind::Unit) => Some(false),
         _ => None,
     };
-    let more = matches!(before, Some(TokenKind::Str(_)))
-        || matches!(after, Some(TokenKind::Str(_)))
+    let more = before.is_some_and(|k| k.as_str().is_some())
+        || after.is_some_and(|k| k.as_str().is_some())
         || matches!(after, Some(TokenKind::Func(f)) if f.is_macro());
     match (side(left), side(right), more) {
         (Some(l), Some(r), false) => Ok((l, r)),

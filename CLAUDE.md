@@ -357,6 +357,14 @@ scripts/gate.sh --full                              # everything (nightly)
 sw-markdown-checker -f "docs/*.md"                  # ASCII-only markdown for our docs
 ```
 
+### Cloud sessions
+
+A cloud session's container starts without agentrail, reg-rs,
+sw-checklist, sw-markdown-checker, just, trunk, Emacs or the sibling
+repositories. Run `bash scripts/cloud-setup.sh` first (or set it as the
+environment's setup script); docs/cloud-setup.md says what it installs,
+from where, and the differences from a local machine.
+
 ### Tests run in parallel: give each its own resources
 
 Rust tests in one binary run at once, so no test may share a mutable

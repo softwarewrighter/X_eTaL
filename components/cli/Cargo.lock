@@ -2381,6 +2381,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-glyphs"
+version = "0.1.0"
+
+[[package]]
 name = "xetal-grid"
 version = "0.1.0"
 dependencies = [
@@ -2638,7 +2642,9 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-fmt",
+ "xetal-glyphs",
  "xetal-lex",
+ "xetal-strtext",
  "xetal-syntax",
 ]
 
@@ -2744,6 +2750,10 @@ dependencies = [
  "xetal-base",
  "xetal-lex",
 ]
+
+[[package]]
+name = "xetal-strtext"
+version = "0.1.0"
 
 [[package]]
 name = "xetal-struct"

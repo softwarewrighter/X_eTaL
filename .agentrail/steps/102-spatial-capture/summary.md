@@ -1,0 +1,1 @@
+Done in X_eTaL-libraries as its Saga 12 step 3 (equations-capture): the macro e:q_< (renamed e:e_q< by D160), a sum as a paper prints it.

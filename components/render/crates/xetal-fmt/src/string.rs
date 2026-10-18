@@ -6,7 +6,9 @@ use xetal_base::Span;
 /// The literal for `text`, written at `span` of `src`.
 pub(crate) fn string_text(src: &str, span: Span, text: &str) -> String {
     match src.get(span.start..span.end) {
-        Some(written) if written.starts_with('r') => written.to_string(),
+        // Raw and code strings keep the form written (ST4; ST5, whose
+        // inside is kept as written until its canonical form, step 112).
+        Some(written) if written.starts_with(['r', 'c']) => written.to_string(),
         _ => {
             let escaped = text
                 .replace('\\', "\\\\")

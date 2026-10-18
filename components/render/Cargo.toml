@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-fmt", "crates/xetal-render"]
+members = ["crates/xetal-fmt", "crates/xetal-glyphs", "crates/xetal-render", "crates/xetal-strtext"]
 
 [workspace.package]
 version = "0.1.0"
@@ -12,6 +12,8 @@ authors = ["Michael A Wright"]
 repository = "https://github.com/softwarewrighter/X_eTaL"
 
 [workspace.dependencies]
+xetal-glyphs = { path = "crates/xetal-glyphs" }
+xetal-strtext = { path = "crates/xetal-strtext" }
 xetal-catalog = { path = "../base/crates/xetal-catalog" }
 xetal-ast = { path = "../syntax/crates/xetal-ast" }
 xetal-ir = { path = "../core/crates/xetal-ir" }

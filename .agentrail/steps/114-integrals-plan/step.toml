@@ -1,8 +1,12 @@
 number = 114
 slug = "integrals-plan"
-status = "pending"
+status = "completed"
 description = "Planning (the user, 2026-10-16): read docs/convolutions/* and plan integrals ..."
 role = "production"
 context_files = []
 created_at = "2026-10-16T08:33:53"
-commits = []
+completed_at = "2026-10-18T14:43:53"
+commits = [
+    "18c1501f0994893f089160fa5e95ebcb9bc27c15",
+    "6c0bf1c9e64a6f63675b0c0ebe7d4e1e735ce9b9",
+]

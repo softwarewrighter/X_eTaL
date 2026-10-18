@@ -3,7 +3,7 @@
 == SOURCE
 ab"x"
 == ERROR
-error[bad-string]: a name touching `"` is an error: only `r` opens a raw string (`r"..."`, `r#"..."#`)
+error[bad-string]: a name touching `"` is an error: only `r` opens a raw string (`r"..."`) and `c` a code string (`c"..."`)
  --> -e:1:3
   |
 1 | ab"x"

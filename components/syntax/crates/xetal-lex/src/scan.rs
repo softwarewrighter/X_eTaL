@@ -45,8 +45,10 @@ fn next_token(
     if byte == b'[' && cur.peek_at(1) == Some(b']') {
         return quad::lex_quad(cur);
     }
-    if let Some(hashes) = string::opening(cur) {
-        return string::lex_raw(cur, hashes);
+    match string::opening(cur) {
+        Some((b'c', hashes)) => return string::lex_code(cur, hashes),
+        Some((_, hashes)) => return string::lex_raw(cur, hashes),
+        None => {}
     }
     if let Some(kind) = punct(byte) {
         cur.pos += 1;

@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-18
 
+- 15:00 `build` Cloud sessions set themselves up: `scripts/cloud-setup.sh` installs agentrail, reg-rs, sw-checklist and sw-markdown-checker from their repositories, just and trunk prebuilt, the wasm32 target, Emacs, cairosvg and pillow, and clones X_eTaL-libraries and X_eTaL-ML beside this repository; idempotent (a rerun takes seconds); docs/cloud-setup.md documents it and the cloud's known differences (cli-too-deep on Linux, the gate's .venv race); CLAUDE.md points to it.
 - 07:31 `build` The `publish` recipe in the just smoke list (skipped: it force-pushes gh-pages); the full gate on 6ac433f9 otherwise passed every component, the browser build and the end-to-end checks. The site published to gh-pages and GitHub Pages switched to that branch (D164).
 
 ## 2026-10-17

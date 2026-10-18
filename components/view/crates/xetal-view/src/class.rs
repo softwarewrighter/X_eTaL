@@ -52,7 +52,7 @@ pub(crate) fn classify(kind: &TokenKind) -> Class {
         TokenKind::LamArg { .. } => Class::LambdaArg,
         TokenKind::Num(_) => Class::Number,
         TokenKind::Exp(_) => Class::Exponent,
-        TokenKind::Str(_) => Class::String,
+        TokenKind::Str(_) | TokenKind::Code(_) => Class::String,
         TokenKind::Sym(_) => Class::Symbol,
         TokenKind::Quote => Class::Quote,
         TokenKind::Unit => Class::Unit,

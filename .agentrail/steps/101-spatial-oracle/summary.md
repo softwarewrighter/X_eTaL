@@ -1,0 +1,1 @@
+Done in X_eTaL-libraries as its Saga 12 step 2 (equations-oracle): Equations with the CNN cross-correlation as its oracle.

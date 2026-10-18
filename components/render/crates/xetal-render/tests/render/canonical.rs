@@ -148,3 +148,22 @@ fn raw_strings_keep_the_form_written() {
     assert_eq!(fmt(r#""a\nb""#), r#""a\nb""#);
     assert_eq!(parse(&fmt(multi)), parse(multi));
 }
+
+#[test]
+fn code_strings_keep_the_form_written() {
+    // ST5: the inside is kept as written in this step (its canonical
+    // form is step 112); rule 10 holds.
+    assert_eq!(
+        fmt(r#"s := c"it  nn:d_ense W1""#),
+        r#"s := c"it  nn:d_ense W1""#
+    );
+    let multi = "q := c#\"it c_at \"label: \"\n  |> x\"#";
+    assert_eq!(fmt(multi), multi);
+    let call = r#""n = 0" i_f< c"p_rint! 1; n * 2""#;
+    assert!(
+        fmt(call).contains(r#"c"p_rint! 1; n * 2""#),
+        "{}",
+        fmt(call)
+    );
+    assert_eq!(parse(&fmt(multi)), parse(multi));
+}

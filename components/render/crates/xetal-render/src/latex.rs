@@ -65,7 +65,7 @@ fn token_tex(kind: &TokenKind, raw: &str) -> String {
         }
         TokenKind::Exp(_) => format!("^{{{}}}", &raw[1..]),
         TokenKind::Sym(sym) => symbol_tex(*sym).into(),
-        TokenKind::Str(_) => format!(r"\text{{{}}}", text_tex(raw)),
+        TokenKind::Str(_) | TokenKind::Code(_) => format!(r"\text{{{}}}", text_tex(raw)),
         TokenKind::Assign => r"\leftarrow".into(),
         TokenKind::Semi => r"\diamond".into(),
         TokenKind::Arrow => r"\to".into(),
