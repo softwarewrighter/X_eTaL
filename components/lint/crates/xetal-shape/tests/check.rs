@@ -40,7 +40,10 @@ fn extents_named_alike_are_equal() {
 
 #[test]
 fn a_check_on_a_known_shape_is_proven() {
-    let got = found("X := 2 3 r_eshape 0\n2 3 r_equireShape X", "shape-check-proven");
+    let got = found(
+        "X := 2 3 r_eshape 0\n2 3 r_equireShape X",
+        "shape-check-proven",
+    );
     assert_eq!(got.len(), 1);
     assert!(
         found(

@@ -10,9 +10,21 @@ int-condition          suspicious   warn   a guard whose condition is an Int (a 
 function-name-case     pedantic     allow  a function named UpperCamel (functions are lowerCamel)
 mutable-constant       style        warn   a mutable variable named like a constant (UpperCamel)
 upper-case-name        pedantic     allow  a variable named in all capitals
+macro-capture          suspicious   warn   a macro binds a name the call's own text reads (a capture)
+unused-anaphor         pedantic     allow  a call's text never reads a name the macro binds for it
+macro-internals        pedantic     allow  a finding in code a macro wrote, not the call's text
 shape-mismatch         correctness  warn   shapes that surely differ where they must agree (fails at run time)
 shape-check-proven     pedantic     allow  an `r_equireShape` check the shape lint proves always passes
 needless-raw-hashes    style        warn   a raw string with more `#` than it needs
 needless-raw-string    pedantic     allow  a raw string with no backslash, quote or newline (plain is the same)
 escapes-could-be-raw   pedantic     allow  a string with several `\"` or `\\` escapes (clearer raw)
 string-holds-directive suspicious   warn   a line inside a string that reads as a `# lint:` directive
+gensym-unused          suspicious   warn   a fresh name from []G_ENSYM that the macro never uses
+gensym-not-name        correctness  warn   []G_ENSYM given a literal that is not a plain name
+reject-bad-place       suspicious   warn   a []R_EJECT code whose place is not left, right or call
+reject-undocumented    pedantic     allow  a macro rejects its call with a code its doc block never mentions
+reject-unplaced        pedantic     allow  a []R_EJECT code with no place, so the error lands on the macro's name
+missing-example        pedantic     allow  a macro with no `## >>` example in its doc block
+takes-mismatch         suspicious   warn   a macro's `## takes:` line that its parameters contradict
+ignored-argument       correctness  warn   a copying macro that never reads one of its sides
+binds-unwritten        suspicious   warn   a `## binds:` name that no text the macro writes contains

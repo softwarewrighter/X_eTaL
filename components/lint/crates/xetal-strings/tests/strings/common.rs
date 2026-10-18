@@ -17,7 +17,7 @@ pub fn fixed(text: &str, code: &str) -> String {
     let mut edits: Vec<_> = xetal_strings::strings(text)
         .into_iter()
         .filter(|d| d.code == code)
-        .flat_map(|d| d.fix.into_vec())
+        .flat_map(|d| d.fix().to_vec())
         .collect();
     edits.sort_by_key(|f| std::cmp::Reverse(f.span.start));
     let mut out = text.to_string();
