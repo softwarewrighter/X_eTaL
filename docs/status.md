@@ -19,9 +19,9 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 127 | 0 | 0 |
-| Language decisions | 159 | 0 | 3 |
+| Language decisions | 161 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 476 | 0 | 0 |
+| Spec cases | 480 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -37,7 +37,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `+` | `Num a => a -> a -> a` | works | 104 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 50 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 51 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
@@ -169,12 +169,13 @@ conventions (naming, layout) work without a spec case citing them.
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 6 | 4 |
 | `r_avel` | `a -> a` | works | 2 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 69 | 2 |
+| `r_eshape` | `Int -> a -> a` | works | 70 | 2 |
 | `t_ake` | `Int -> a -> a` | works | 16 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 3 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 15 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 6 | 6 |
-| `c_at` | `a -> a -> a` | works | 18 | 5 |
+| `c_at` | `a -> a -> a` | works | 19 | 5 |
+| `r_equireShape` | `Int -> a -> a` | works | 3 | 3 |
 
 ### B6: reduce and scan (leading axis; reduce is a right fold)
 

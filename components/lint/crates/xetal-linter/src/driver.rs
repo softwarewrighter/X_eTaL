@@ -120,9 +120,11 @@ fn spelled(text: &str) -> Vec<Raw> {
     };
     let raw = |d: Diagnostic| {
         let lint = xetal_lint::lint(&d.code)?;
-        let fix = d.fix.iter();
-        let fix = fix.map(|f| Edit::new(f.span.start, f.span.end, f.replacement.clone()));
-        Some((lint.name, place(d.span?), d.message, fix.collect()))
+        let fix = d.fix().iter();
+        let fix: Vec<Edit> = fix
+            .map(|f| Edit::new(f.span.start, f.span.end, f.replacement.clone()))
+            .collect();
+        Some((lint.name, place(d.span?), d.message, fix))
     };
     xetal_strings::strings(text)
         .into_iter()

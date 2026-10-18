@@ -173,6 +173,8 @@ reported as the caller's; they belong to the macro's author.\n\nExample (the \
 macro writes `tmp := 1; ` before its argument, and never reads `tmp`):\n    \
 @ x:w_aste< \"1\"\nInstead (in the macro library): write `_ := 1; `, or drop it.\n\n\
 Off by default: `xetal lint -W macro-internals` shows them.",
+    },
+    Lint {
         name: "shape-mismatch",
         group: Group::Correctness,
         level: Level::Warn,
@@ -247,6 +249,8 @@ no level; the author probably meant a comment.\n\nExample:\n    \
 s := r\"one\n    # lint: allow unused-binding\n    two\"\nInstead:\n    \
 # lint: allow unused-binding\n    s := r\"one\n    two\"\n\nNo fix: only the author \
 knows whether the text belongs in the string.",
+    },
+    Lint {
         name: "gensym-unused",
         group: Group::Suspicious,
         level: Level::Warn,
