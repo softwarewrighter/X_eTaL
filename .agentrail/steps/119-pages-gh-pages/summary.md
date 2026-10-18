@@ -1,0 +1,1 @@
+GitHub Pages' source switched from the main workflow to the gh-pages branch (gh api, 2026-10-18 07:40) after the first just publish from main 723cd4eb; the site build moved there in b025b3d0 (#128, D164).
