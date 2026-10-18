@@ -1,6 +1,6 @@
 number = 111
 slug = "code-strings"
-status = "pending"
+status = "in-progress"
 description = "The user (2026-10-17, decided; lang-choices ST5; the blog agent's ask M17 in ..."
 role = "production"
 context_files = []

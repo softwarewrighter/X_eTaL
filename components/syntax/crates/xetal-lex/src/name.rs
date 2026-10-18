@@ -165,7 +165,7 @@ fn follow(cur: &Cursor, kind: &TokenKind) -> Result<(), LexError> {
         Some(b'"') => Err(LexError::at(
             ErrorKind::BadString,
             cur.pos,
-            "a name touching `\"` is an error: only `r` opens a raw string (`r\"...\"`, `r#\"...\"#`)",
+            "a name touching `\"` is an error: only `r` opens a raw string (`r\"...\"`) and `c` a code string (`c\"...\"`)",
         )),
         Some(b'@') if func => Err(LexError::at(
             ErrorKind::NoNiladicSugar,

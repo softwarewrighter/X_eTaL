@@ -24,6 +24,9 @@ pub enum TokenKind {
     Exp(Number),
     Sym(Symbol),
     Str(String),
+    /// A code string (ST5): `c"..."` or `c#"..."#`, a string whose inside
+    /// is X_eTaL. Its value is the same text as a plain string of it.
+    Code(String),
     Assign,
     Arrow,
     Guard,
@@ -184,6 +187,7 @@ impl fmt::Display for TokenKind {
             TokenKind::Exp(n) => return write!(f, "Exp({})", number_text(n)),
             TokenKind::Sym(s) => return write!(f, "Sym({})", s.text()),
             TokenKind::Str(s) => return write!(f, "Str({s:?})"),
+            TokenKind::Code(s) => return write!(f, "Code({s:?})"),
             TokenKind::Assign => "Assign",
             TokenKind::Arrow => "Arrow",
             TokenKind::Guard => "Guard",

@@ -90,12 +90,22 @@ fn expansion(src: &Mapped, call: &Call, cx: &Cx) -> Result<Mapped, Diagnostic> {
 /// The inside of the string literal at `span`: escapes replaced, or a
 /// raw string's text as written (`r"..."`, `r#"..."#`, ST4).
 fn inside(src: &Mapped, span: Span) -> Mapped {
-    match src.text()[span.start..span.end].strip_prefix('r') {
+    let written = &src.text()[span.start..span.end];
+    // A raw string, or a code string's verbatim form (ST4, ST5): the text
+    // between the quotes as it is. A code string's escaped form and a
+    // plain string: the escapes resolved.
+    let verbatim = written
+        .strip_prefix('r')
+        .or_else(|| written.strip_prefix("c#").map(|_| &written[1..]));
+    match verbatim {
         Some(raw) => {
             let hashes = raw.len() - raw.trim_start_matches('#').len();
             src.slice(span.start + 2 + hashes..span.end - 1 - hashes)
         }
-        None => src.slice(span.start + 1..span.end - 1).unescape(),
+        None => {
+            let open = 1 + usize::from(written.starts_with('c'));
+            src.slice(span.start + open..span.end - 1).unescape()
+        }
     }
 }
 

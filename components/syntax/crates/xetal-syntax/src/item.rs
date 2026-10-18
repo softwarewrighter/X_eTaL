@@ -34,7 +34,7 @@ impl Parser {
                 side,
                 applied: false,
             } => self.exponent(noun(ExprKind::Arg(side)))?,
-            TokenKind::Str(s) => self.strings(noun(ExprKind::Str(s))),
+            TokenKind::Str(s) | TokenKind::Code(s) => self.strings(noun(ExprKind::Str(s))),
             TokenKind::Unit => noun(ExprKind::Unit),
             TokenKind::LParen => return self.paren(token.span),
             TokenKind::Quote => return self.quote(token.span),
@@ -48,7 +48,7 @@ impl Parser {
     fn strings(&mut self, first: Expr) -> Expr {
         let mut parts = vec![first];
         while let Some(Token {
-            kind: TokenKind::Str(s),
+            kind: TokenKind::Str(s) | TokenKind::Code(s),
             span,
         }) = self.peek().cloned()
         {

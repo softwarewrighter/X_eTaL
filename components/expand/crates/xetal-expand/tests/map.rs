@@ -79,3 +79,24 @@ fn raw_argument_text_maps_into_its_string_across_lines() {
     let back = e.span(Span::new(at, at + 2));
     assert_eq!(&src[back.start..back.end], "ab");
 }
+
+#[test]
+fn a_code_argument_is_its_text_escapes_resolved() {
+    // ST5: c"..." reads as a plain string does (escapes resolved), and
+    // c#"..."# as a raw string does (verbatim).
+    let src = "\"x\" u_nless< c\"p_rint! \\\"a\\\"\"";
+    let e = expand_with(src, &Unless).unwrap();
+    assert!(e.text().contains("p_rint! \"a\";"), "{}", e.text());
+    let src = "\"x\" u_nless< c#\"p_rint! \"a\"\"#";
+    let e = expand_with(src, &Unless).unwrap();
+    assert!(e.text().contains("p_rint! \"a\";"), "{}", e.text());
+}
+
+#[test]
+fn code_argument_text_maps_into_its_string_across_lines() {
+    let src = "\"x\" u_nless< c\"\n  p_rint! ab\"";
+    let e = expand_with(src, &Unless).unwrap();
+    let at = e.text().find("ab").unwrap();
+    let back = e.span(Span::new(at, at + 2));
+    assert_eq!(&src[back.start..back.end], "ab");
+}
