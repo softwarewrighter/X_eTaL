@@ -167,3 +167,38 @@ Step 112 (code-strings-checks), what the tools check:
 
 Nothing here changes a macro's text or value; a program that never
 writes `c"` behaves as before.
+
+As built (D176):
+
+1. Every code string's inside is lexed when the file is expanded,
+   before any macro runs. A code string on a side its macro declares
+   `code` is also parsed there, as a lambda's body (`parse_body`: a
+   guard and `_r` may stand, since the macro puts the text in a
+   lambda or a block). One on a `text` side, or on a macro without a
+   `takes:` line, is lexed only: the contract, not the `c`, says the
+   text will be read as code, so a pipeline's notation (`|>`, `$`)
+   stays a code string drawn as code but is never parsed. Spec cases
+   lex/reject-code-inside-char and -string, macros/reject-code-unclosed
+   and -pipe, macros/code-body.
+2. `## takes:` sides are `text`, `code` or `@`. System.xtlm and
+   lib/Macros.xtlm say `code` where they take X_eTaL, and their
+   examples pass code strings. `string-kind` (style, warn) has the fix
+   that adds or drops the `c`, the value kept.
+3. The ordinary lints run on the inside for a macro that parses its
+   text; a copying macro's are found on its expansion, placed by the
+   byte map.
+4. `code-check` (correctness, deny) is the type check before
+   expansion, done in the linter: each code string on a code side is a
+   probe, `_ := { NAMES -> INSIDE }` after the program, NAMES the
+   macro's `## binds:` and then every other plain name the inside reads
+   and does not bind, each of a free type. What it finds: an unknown
+   function, a wrong number of arguments, a type that cannot fit for
+   any value of the names. What it cannot see: whether a name is bound
+   where the call stands (every plain name is a parameter), the
+   values' types at the call (the join between stages), and an inside
+   with `_l`/`_r` beside named parameters or naming a mutable
+   variable (not probed). The expansion is checked as always.
+5. `xetal fmt` writes a code string on a macro's side with its inside
+   in canonical form, in the form written; one in a value position, or
+   whose inside does not parse, is kept as written.
+6. The notice for the siblings is in docs/asks.md.

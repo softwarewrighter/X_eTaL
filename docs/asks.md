@@ -22,6 +22,35 @@ build already does what the ask wants.
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
 | All | 38 | 12 | 20 | 11 | 20 |
 
+## Notice: code strings are checked: say code in ## takes:, write c"..." where code is taken
+
+A macro library can say a side takes X_eTaL: `## takes: @ code`
+(`code` in place of `text`). Where it does, a code string passed there
+(`c"..."`, `c#"..."#`) is parsed before the macro runs, an error placed
+inside the string, and `xetal lint` checks its inside as the body of a
+lambda over the names it uses (`code-check`: an unknown function, a
+wrong number of arguments, a type that cannot fit). A plain string on
+a code side, or a code string on a text side, is the `string-kind`
+warning; `xetal lint --fix` adds or drops the `c` and keeps the value.
+The system macros say `code` where they take X_eTaL (`i_f<`,
+`u_nless<`, `d_bg<`, `t_ry<`, `c_atch<`'s right, `f_inally<`,
+`r_ecover<`), as do lib/Macros.xtlm's.
+
+Every code string's inside must now lex, wherever it stands: a code
+string holding something that is not X_eTaL (a format string, an
+equation) is an error; write it as a plain string.
+
+To act on it:
+
+- X_eTaL-ML: Flow's pipelines stay code strings with no `takes:` line
+  on `p_ipe<` and `t_ext<` (their `|>` and `$` are a notation, never
+  parsed as code; MC32 will let a library draw a notation). A macro
+  whose side is plain X_eTaL (a stage taken alone) says `code`.
+- X_eTaL-libraries: a macro whose side is X_eTaL says `code`, and its
+  demos and examples pass `c"..."` there; Equations' sides stay text
+  (a notation). A survey on 2026-10-18 found no call of the system
+  macros that take code in either repository's libs/ or demos/.
+
 ## Notice: write a library's helpers with h:
 
 A library's top-level function written without a prefix is
