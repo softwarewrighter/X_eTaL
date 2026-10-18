@@ -11,7 +11,7 @@ function-name-case     pedantic     allow  a function named UpperCamel (function
 mutable-constant       style        warn   a mutable variable named like a constant (UpperCamel)
 upper-case-name        pedantic     allow  a variable named in all capitals
 shape-mismatch         correctness  warn   shapes that surely differ where they must agree (fails at run time)
-shape-check-proven     pedantic     allow  an `s_hapeIs` check the shape lint proves always passes
+shape-check-proven     pedantic     allow  an `r_equireShape` check the shape lint proves always passes
 needless-raw-hashes    style        warn   a raw string with more `#` than it needs
 needless-raw-string    pedantic     allow  a raw string with no backslash, quote or newline (plain is the same)
 escapes-could-be-raw   pedantic     allow  a string with several `\"` or `\\` escapes (clearer raw)

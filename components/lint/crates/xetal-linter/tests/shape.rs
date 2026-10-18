@@ -15,7 +15,7 @@ fn found(text: &str, warn: &[&str]) -> Vec<(String, usize, usize)> {
 }
 
 const MISMATCH: &str = "X := 2 3 r_eshape 0\nX + 3 2 r_eshape 1\n";
-const PROVEN: &str = "X := 2 3 r_eshape 0\n2 3 s_hapeIs X\n";
+const PROVEN: &str = "X := 2 3 r_eshape 0\n2 3 r_equireShape X\n";
 
 #[test]
 fn a_mismatch_is_found_by_default_at_its_place() {

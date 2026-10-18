@@ -140,7 +140,7 @@ entries = [
 
 [[group]]
 rule = "B4, B5, B10: structural"
-shapes = { s_hape = "shape", t_ally = "count", r_eshape = "reshape", c_at = "cat", s_hapeIs = "check" }
+shapes = { s_hape = "shape", t_ally = "count", r_eshape = "reshape", c_at = "cat", r_equireShape = "check" }
 entries = [
   ["s_hape", 1, "a -> Int"],
   ["t_ally", 1, "a -> Int"],
@@ -154,7 +154,7 @@ entries = [
   ["s_elect", 2, "Int -> a -> a"],
   ["r_eplicate", 2, "Truthy a => a -> b -> b"],
   ["c_at", 2, "a -> a -> a"],
-  ["s_hapeIs", 2, "Int -> a -> a"],
+  ["r_equireShape", 2, "Int -> a -> a"],
 ]
 
 [[group]]

@@ -29,7 +29,6 @@ sw-checklist, sw-markdown-checker, just or trunk.
    new lints), so the web parts are stale.
 4. agentrail: record the lane (`--saga lanes/shape-lint`) or the main
    saga's lint steps, with this branch's commits.
-5. Decision register: D170 (shape lint, s_hapeIs) and D171 (string
-   lints) were numbered past the parallel lanes; renumber if needed.
-   lang-choices B19 records s_hapeIs as proposed: the name and form
-   wait on the user's pick.
+5. Decision register: D166 (shape lint, r_equireShape) and D167 (string
+   lints), numbered after #127, step 110 and #128 (D162 to D165).
+   lang-choices B19: the name decided with the user, 2026-10-17.

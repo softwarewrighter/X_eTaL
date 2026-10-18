@@ -6,10 +6,10 @@
 const ORACLE: &str = include_str!("../../../../../docs/spatial-poc/pipes-oracle.xtl");
 
 /// The annotations ` : P [2 2]`, ` [2 1]`, ` : c [4]` as checks.
-const CHECKS: &str = "2 2 s_hapeIs P\n\
-2 1 s_hapeIs (0 m_ax X '+ '* i_nner W1) '+ '* i_nner W2\n\
-4 s_hapeIs c\n\
-3 s_hapeIs e\n";
+const CHECKS: &str = "2 2 r_equireShape P\n\
+2 1 r_equireShape (0 m_ax X '+ '* i_nner W1) '+ '* i_nner W2\n\
+4 r_equireShape c\n\
+3 r_equireShape e\n";
 
 fn codes(src: &str) -> Vec<String> {
     let program = xetal_core::lower(src).expect("lowers");

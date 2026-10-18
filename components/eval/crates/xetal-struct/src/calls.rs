@@ -37,7 +37,7 @@ pub fn call<'a>(name: &str, args: &[Value<'a>], span: Span) -> Option<Out<'a>> {
                 .and_then(|k| Ok(to_value(replicate(&k, &a)?)))
         }
         ("c_at", [a, b]) => join(a, b),
-        ("s_hapeIs", [s, x]) => ints(s).and_then(|s| {
+        ("r_equireShape", [s, x]) => ints(s).and_then(|s| {
             check_shape(s.data(), &as_array(x))?;
             Ok(x.clone())
         }),

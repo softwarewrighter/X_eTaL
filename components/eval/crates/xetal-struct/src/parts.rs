@@ -1,5 +1,5 @@
 //! Partition (B14, APL2's partition): major cells cut into pieces by
-//! keys, one per cell; and the shape check `s_hapeIs` (type-check-macros
+//! keys, one per cell; and the shape check `r_equireShape` (type-check-macros
 //! approach 8).
 
 use xetal_array::{Array, ArrayError};
@@ -39,7 +39,7 @@ pub fn partition<T: Clone>(keys: &[usize], a: &Array<T>) -> Result<Vec<Array<T>>
         .collect()
 }
 
-/// `s_hapeIs`: nothing when `a`'s shape is `expected`, else
+/// `r_equireShape`: nothing when `a`'s shape is `expected`, else
 /// `shape-mismatch` naming both, as a macro's emitted check reports it.
 pub fn check_shape<T>(expected: &[i64], a: &Array<T>) -> Result<(), Diagnostic> {
     let same =

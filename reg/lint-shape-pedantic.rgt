@@ -1,3 +1,3 @@
 command = "./target/debug/xetal lint -W pedantic -A shape-mismatch reg/fixtures/lint/shape.xtl"
 exit_code = 0
-desc = "shape-check-proven (pedantic): s_hapeIs checks the shape lint proves always pass, by named extents (N 3) and by numbers (2 3)"
+desc = "shape-check-proven (pedantic): r_equireShape checks the shape lint proves always pass, by named extents (N 3) and by numbers (2 3)"

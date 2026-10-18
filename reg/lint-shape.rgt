@@ -1,3 +1,3 @@
 command = "./target/debug/xetal lint reg/fixtures/lint/shape.xtl"
 exit_code = 0
-desc = "shape-mismatch: an inner product whose paired axes differ, and arrays of shapes N 3 and 2 4 combined item by item (N from data, the shape from an s_hapeIs check), found before running; shape-check-proven is off by default"
+desc = "shape-mismatch: an inner product whose paired axes differ, and arrays of shapes N 3 and 2 4 combined item by item (N from data, the shape from an r_equireShape check), found before running; shape-check-proven is off by default"

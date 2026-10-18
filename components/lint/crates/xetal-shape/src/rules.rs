@@ -65,7 +65,7 @@ fn items(
     Some(a)
 }
 
-/// `s_hapeIs`: the right's shape against the left's extents; after it,
+/// `r_equireShape`: the right's shape against the left's extents; after it,
 /// the value has the checked shape.
 fn check(want: Option<Vec<Ext>>, x: Fact, span: Span, out: &mut Vec<Diagnostic>) -> Fact {
     if let (Some(want), Some(have)) = (&want, &x.shape) {

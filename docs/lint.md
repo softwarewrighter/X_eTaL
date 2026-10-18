@@ -107,8 +107,8 @@ The live demo needs no JSON: it calls the same Rust functions.
 | `function-name-case` | pedantic | allow | a function named UpperCamel (`u:N_extGen`); a capital start is for combinators |
 | `int-condition` | suspicious | warn | a guard whose condition type-checks as an Int (`t_ally v ? ...`), which fails at run time unless it is 1 or 0; runs after type checking |
 | `upper-case-name` | pedantic | allow | a variable of two or more letters, all capitals (`MAXSIZE`) |
-| `shape-mismatch` | correctness | warn | shapes the shape lint proves differ where they must agree: an item-by-item function on two arrays of different shapes, an inner product whose paired axes differ, an `s_hapeIs` check that cannot pass |
-| `shape-check-proven` | pedantic | allow | an `s_hapeIs` check the shape lint proves always passes, so it can go |
+| `shape-mismatch` | correctness | warn | shapes the shape lint proves differ where they must agree: an item-by-item function on two arrays of different shapes, an inner product whose paired axes differ, an `r_equireShape` check that cannot pass |
+| `shape-check-proven` | pedantic | allow | an `r_equireShape` check the shape lint proves always passes, so it can go |
 | `needless-raw-hashes` | style | warn | a raw string with more `#` than it needs (`r##"a"##`); the fewest is none without a `"` inside, else one more than the most `#` after a `"`; fix: the delimiters |
 | `needless-raw-string` | pedantic | allow | a raw string with no backslash, `"` or newline, which plain spells the same (`r"abc"` is `"abc"`); fix: drop the `r` and `#` |
 | `escapes-could-be-raw` | pedantic | allow | a plain string with two or more `\"` or `\\` and no `\n` or `\t`, clearer raw; fix: `r"..."`, or `r#"..."#` with the fewest `#` when it holds a `"` |
@@ -270,7 +270,7 @@ and `check`. Anything else (a parameter, a file read, a function call,
 a mutable `!` variable) is unknown, and an unknown shape never makes a
 finding: the lint warns only where the program surely fails.
 
-The contract with macros is `s_hapeIs` (`2 3 s_hapeIs X` gives X when
+The contract with macros is `r_equireShape` (`2 3 r_equireShape X` gives X when
 its shape is 2 3, else `error[shape-mismatch]`). The linter cannot
 learn the notations of macros in other repositories (Equations, the
 pipeline), so a macro emits the check after a step whose shape it

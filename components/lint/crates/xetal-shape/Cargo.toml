@@ -1,6 +1,6 @@
 [package]
 name = "xetal-shape"
-description = "The shape lint: shapes carried through Core symbolically, from literals, r_eshape and s_hapeIs checks"
+description = "The shape lint: shapes carried through Core symbolically, from literals, r_eshape and r_equireShape checks"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

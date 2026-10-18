@@ -798,7 +798,7 @@ row (or, along axis 2, one column).
 error[shape-mismatch]: shapes differ: 2 3 and 3
 ```
 
-### `s_hapeIs`
+### `r_equireShape`
 
 `Int -> a -> a`, two arguments.
 
@@ -809,12 +809,12 @@ lint` reads it as a fact: from there on the value has that shape, so a
 later mismatch is found before the program runs (`shape-mismatch`).
 
 ```
-      2 3 s_hapeIs M
+      2 3 r_equireShape M
 1 2 3
 4 5 6
-      3 s_hapeIs v
+      3 r_equireShape v
 3 1 2
-      3 2 s_hapeIs M
+      3 2 r_equireShape M
 error[shape-mismatch]: shape 2 3, expected 3 2
 ```
 
