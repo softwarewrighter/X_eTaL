@@ -81,11 +81,11 @@ for c in "${COMPONENTS[@]}"; do
             cd "components/$c"
             cargo fmt --all -- --check
             cargo clippy -q --all-targets --all-features -- -D warnings
-            cargo test -q --workspace "${tests[@]}"
+            cargo test -q --workspace ${tests[@]+"${tests[@]}"}
         )
     elif does "test $c"; then
         step "components/$c: test (files it builds in or tests against changed)"
-        (cd "components/$c" && cargo test -q --workspace "${tests[@]}")
+        (cd "components/$c" && cargo test -q --workspace ${tests[@]+"${tests[@]}"})
     elif does "build $c"; then
         step "components/$c: compiles (it depends on what changed)"
         (cd "components/$c" && cargo check -q --workspace)
