@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run spec/macros/data/parsing.xtl 2>&1"
+exit_code = 0
+desc = "the same macro declared ## uses: parsed answers for its text: the call runs (MC31)"

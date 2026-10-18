@@ -1,0 +1,8 @@
+# A macro's ## takes: line is the shape of call it takes (MC31): a call
+# of another shape is refused before the macro runs, at the side that
+# differs.
+== SOURCE
+"x:" u_se< "Macros"
+"1" x:b_inds< "x + 1"
+== ERROR
+error[bad-macro-call]: x:b_inds< takes @ on its left and text on its right at 20..23

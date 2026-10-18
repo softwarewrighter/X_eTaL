@@ -132,7 +132,11 @@ both under one alias: &quot;c:&quot; u_se&lt; &quot;Combinators&quot; finds Comb
 macro is an ordinary function of the source text written on each
 side of its call; the text it gives replaces the call, then is read
 as code. Import it with an alias of your own, &quot;x:&quot; u_se&lt; &quot;Macros&quot;,
-and see what a program becomes with xetal expand FILE.</li>
+and see what a program becomes with xetal expand FILE. The contract
+lines above a macro (MC31) say the shape of call it takes (checked
+before it runs), whether it copies its text (every name and number
+must reach the expansion) or parses it, and the names it binds for
+your text.</li>
 <li>system macros <a href="std-System.xtlm.html">std/System.xtlm</a>: The system macros (lang-choices MC18, MC19, MC24), loaded before
 every file with no import and no alias: each is called unprefixed,
 as &quot;c&quot; i_f&lt; &quot;a; b&quot;. A macro is a function of the source text on each

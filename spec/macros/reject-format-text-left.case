@@ -3,4 +3,4 @@
 == SOURCE
 "" f_ormat< "x"
 == ERROR
-error[bad-macro-argument]: f_ormat< takes @ on its left, not text at 0..2
+error[bad-macro-call]: f_ormat< takes @ on its left and text on its right at 0..2

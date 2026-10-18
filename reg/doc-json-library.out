@@ -17,6 +17,8 @@
           "doc": "The arithmetic mean, of Int or Float numbers.",
           "examples": [{"code": "\"s:\" u_se< \"Stats\"", "output": ""}, {"code": "s:m_ean 2 4 4 4 5 5 7 9", "output": "5.0"}],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]",
           "uses": []
         },
@@ -30,6 +32,8 @@
           "doc": "Each number times itself.",
           "examples": [],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "h:s_quare := { _r * _r }                  # private: not visible outside",
           "uses": []
         },
@@ -43,6 +47,8 @@
           "doc": "How far each number is from the mean, as Floats.",
           "examples": [],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "h:d_eviations := [f_loat - l:m_ean]",
           "uses": [{"written": "l:m_ean", "file": "lib/Stats.xtl", "item": "l:m_ean"}]
         },
@@ -56,6 +62,8 @@
           "doc": "The variance: the mean squared deviation from the mean.",
           "examples": [{"code": "\"s:\" u_se< \"Stats\"", "output": ""}, {"code": "s:v_ariance 2 4 4 4 5 5 7 9", "output": "4.0"}],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "l:v_ariance := [l:m_ean [h:s_quare h:d_eviations]]",
           "uses": [{"written": "h:d_eviations", "file": "lib/Stats.xtl", "item": "h:d_eviations"}, {"written": "h:s_quare", "file": "lib/Stats.xtl", "item": "h:s_quare"}, {"written": "l:m_ean", "file": "lib/Stats.xtl", "item": "l:m_ean"}]
         },
@@ -69,6 +77,8 @@
           "doc": "The standard deviation: the square root of the variance.",
           "examples": [{"code": "\"s:\" u_se< \"Stats\"", "output": ""}, {"code": "s:s_d 2 4 4 4 5 5 7 9", "output": "2.0"}],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "l:s_d := { (l:v_ariance _r) ^ 0.5 }",
           "uses": [{"written": "l:v_ariance", "file": "lib/Stats.xtl", "item": "l:v_ariance"}]
         },
@@ -82,6 +92,8 @@
           "doc": "The range: the largest minus the smallest.",
           "examples": [{"code": "\"s:\" u_se< \"Stats\"", "output": ""}, {"code": "s:s_pread 2 4 4 4 5 5 7 9", "output": "7"}],
           "binds": [],
+          "takes": null,
+          "uses": null,
           "source": "l:s_pread := ['m_ax r_/ - 'm_in r_/]",
           "uses": []
         }

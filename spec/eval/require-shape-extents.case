@@ -3,4 +3,4 @@
 == SOURCE
 "ab" r_equireShape 1 2
 == ERROR
-error[type-mismatch]: expected Int, found Char at 0..17
+error[type-mismatch]: expected Int, found Char at 0..22

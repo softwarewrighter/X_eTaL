@@ -112,7 +112,7 @@ Step 111 (code-strings), the literal and the view:
    an unterminated string is; view tests and a web test.
 6. Emacs mode, the LaTeX gallery, the literate exporter, the syntax
    poster.
-7. Spec cases, goldens, README syntax row, reference, D163.
+7. Spec cases, goldens, README syntax row, reference, a design register entry.
 
 Step 112 (code-strings-checks), what the tools check:
 

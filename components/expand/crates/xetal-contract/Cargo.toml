@@ -1,0 +1,12 @@
+[package]
+name = "xetal-contract"
+description = "A macro's contract from its doc block: the names it binds, the shape of call it takes, whether it copies or parses its arguments"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-lex.workspace = true

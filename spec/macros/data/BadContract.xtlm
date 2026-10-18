@@ -1,0 +1,3 @@
+## A contract line that is not one of the forms (MC31).
+## takes: text
+m:o_ne< := { @ e -> e }

@@ -597,6 +597,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-contract"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
+]
+
+[[package]]
 name = "xetal-core"
 version = "0.1.0"
 dependencies = [
@@ -655,6 +663,7 @@ name = "xetal-expand"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+ "xetal-contract",
  "xetal-lex",
  "xetal-mapped",
  "xetal-reflow",
@@ -776,6 +785,7 @@ name = "xetal-macro"
 version = "0.1.0"
 dependencies = [
  "xetal-base",
+ "xetal-contract",
  "xetal-expand",
  "xetal-lex",
  "xetal-libs",

@@ -4,6 +4,7 @@
 //! [`Libraries::run_macro`].
 
 use xetal_base::Diagnostic;
+use xetal_contract::Contract;
 use xetal_expand::{MacroCall, Macros};
 use xetal_lookup::{Libraries, MacroRun};
 
@@ -40,10 +41,10 @@ impl Macros for Table<'_> {
         text
     }
 
-    fn binds(&self, call: &MacroCall) -> Vec<String> {
+    fn contract(&self, call: &MacroCall) -> Contract {
         self.library(call)
             .ok()
-            .and_then(|lib| lib.binds.get(call.name).cloned())
+            .and_then(|lib| lib.contracts.get(call.name).cloned())
             .unwrap_or_default()
     }
 }

@@ -5,7 +5,7 @@
 //! a program cannot write the fresh namespace.
 
 use xetal_base::Diagnostic;
-use xetal_expand::{MacroCall, Macros, binds_of, expand_with};
+use xetal_expand::{Contract, MacroCall, Macros, contracts_of, expand_with};
 
 /// `t_wice<` binds t around its text; `f_resh<` binds a fresh name
 /// around it; `w_ith<` binds it (declared); `s_hown<` binds v around
@@ -29,10 +29,13 @@ impl Macros for Binding {
         })
     }
 
-    fn binds(&self, call: &MacroCall) -> Vec<String> {
-        match call.name {
-            "w_ith<" => vec!["it".into()],
-            _ => Vec::new(),
+    fn contract(&self, call: &MacroCall) -> Contract {
+        Contract {
+            binds: match call.name {
+                "w_ith<" => vec!["it".into()],
+                _ => Vec::new(),
+            },
+            ..Contract::default()
         }
     }
 }
@@ -98,10 +101,10 @@ fn a_program_cannot_write_a_fresh_name() {
 #[test]
 fn binds_are_read_from_the_doc_block_above_a_macro() {
     let lib = "## Doc.\n## binds: it that\nm:w_ith< := { a b -> b }\n\n## binds: x\n# a plain comment ends the block\nm:o_ther< := { a b -> b }\n";
-    let binds = binds_of(lib);
+    let contracts = contracts_of(lib).unwrap();
     assert_eq!(
-        binds.get("w_ith<"),
-        Some(&vec!["it".to_string(), "that".to_string()])
+        contracts["w_ith<"].binds,
+        vec!["it".to_string(), "that".to_string()]
     );
-    assert_eq!(binds.get("o_ther<"), None);
+    assert!(contracts["o_ther<"].binds.is_empty());
 }

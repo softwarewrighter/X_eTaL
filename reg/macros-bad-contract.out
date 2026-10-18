@@ -1,0 +1,1 @@
+error[bad-contract]: a takes: line is two of text or @ (text text, @ text, text @, @ @), not text at spec/macros/data/BadContract.xtlm:2:1

@@ -2,13 +2,18 @@
 ## macro is an ordinary function of the source text written on each
 ## side of its call; the text it gives replaces the call, then is read
 ## as code. Import it with an alias of your own, "x:" u_se< "Macros",
-## and see what a program becomes with xetal expand FILE.
+## and see what a program becomes with xetal expand FILE. The contract
+## lines above a macro (MC31) say the shape of call it takes (checked
+## before it runs), whether it copies its text (every name and number
+## must reach the expansion) or parses it, and the names it binds for
+## your text.
 
 ### Statements and definitions
 
 ## Run the statements on the right when the condition on the left
 ## holds; the value is @ either way (the other way round from the
 ## system macro u_nless<).
+## takes: text text
 ## >> "x:" u_se< "Macros"
 ## >> "1 < 2" x:w_hen< "p_rint! 7"
 ## 7
@@ -17,6 +22,7 @@ m:w_hen< := { cond body -> "{ @ -> (n_ot " c_at cond c_at ") ? @; " c_at body c_
 
 ## Define the function named on the left (in u:) as the lambda body on
 ## the right, its name written as text.
+## takes: text text
 ## >> "x:" u_se< "Macros"
 ## >> "s_quare" x:d_ef< "_r * _r"
 ## >> u:s_quare 7
@@ -28,6 +34,7 @@ m:d_ef< := { name body -> "u:" c_at name c_at " := { " c_at body c_at " }" }
 ## The line "ok: label" when the condition on the left holds, else
 ## "FAIL: label (cond)", the condition shown as it was written, which a
 ## function, given only the condition's value, cannot do.
+## takes: text text
 ## >> "x:" u_se< "Macros"
 ## >> "5 = 2 * 2" x:c_heck< "doubling"
 ## FAIL: doubling (5 = 2 * 2)
@@ -39,6 +46,7 @@ m:c_heck< := { cond label -> "{ @ -> (" c_at cond c_at ") ? \"ok: " c_at label c
 ## your expression and writes it as it is, so your x is its x. A name a
 ## macro writes stays as written; that is how an anaphor works, and a
 ## macro that wants a name of its own asks for one (t_wice< below).
+## takes: @ text
 ## >> "x:" u_se< "Macros"
 ## >> x := 10
 ## >> @ x:b_inds< "x + 1"
@@ -48,6 +56,7 @@ m:b_inds< := { @ e -> "{ @ -> x := 3; " c_at e c_at " } @" }
 ## Twice the expression on the right: the macro binds a local of its
 ## own around your expression, a fresh name from []G_ENSYM (g1:t, say),
 ## so a t of your own is still yours.
+## takes: @ text
 ## >> "x:" u_se< "Macros"
 ## >> t := 5
 ## >> @ x:t_wice< "t + 1"
@@ -61,6 +70,7 @@ m:t_wice< := { @ e ->
 ## on the left (an anaphoric macro: it is meant for your text, declared
 ## below, so your text cannot bind an it of its own).
 ## binds: it
+## takes: text text
 ## >> "x:" u_se< "Macros"
 ## >> "3 + 4" x:w_ith< "it * it"
 ## 49

@@ -3,4 +3,4 @@
 == SOURCE
 2 2 r_equireShape 1 2 3
 == ERROR
-error[shape-mismatch]: shape 3, expected 2 2 at 0..18
+error[shape-mismatch]: shape 3, expected 2 2 at 0..23

@@ -92,13 +92,17 @@
 macro is an ordinary function of the source text written on each
 side of its call; the text it gives replaces the call, then is read
 as code. Import it with an alias of your own, &quot;x:&quot; u_se&lt; &quot;Macros&quot;,
-and see what a program becomes with xetal expand FILE.</p>
+and see what a program becomes with xetal expand FILE. The contract
+lines above a macro (MC31) say the shape of call it takes (checked
+before it runs), whether it copies its text (every name and number
+must reach the expansion) or parses it, and the names it binds for
+your text.</p>
 </div>
 <p class="meta"><a href="lib-Macros.xtlm.src.html">source</a></p>
 <h2 class="section" id="section-1">Statements and definitions</h2>
 <div class="item" id="m.w_hen-3c">
 <h3><a href="#m.w_hen-3c"><span class="c-macro">ᵐw̲hen&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L16">line 16</a></div>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L21">line 21</a></div>
 <div class="doc">
 <p>Run the statements on the right when the condition on the left
 holds; the value is @ either way (the other way round from the
@@ -112,7 +116,7 @@ system macro u_nless&lt;).</p>
 </div>
 <div class="item" id="m.d_ef-3c">
 <h3><a href="#m.d_ef-3c"><span class="c-macro">ᵐd̲ef&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L24">line 24</a></div>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L30">line 30</a></div>
 <div class="doc">
 <p>Define the function named on the left (in u:) as the lambda body on
 the right, its name written as text.</p>
@@ -127,7 +131,7 @@ the right, its name written as text.</p>
 <h2 class="section" id="section-2">Checks</h2>
 <div class="item" id="m.c_heck-3c">
 <h3><a href="#m.c_heck-3c"><span class="c-macro">ᵐc̲heck&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L34">line 34</a></div>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L41">line 41</a></div>
 <div class="doc">
 <p>The line &quot;ok: label&quot; when the condition on the left holds, else
 &quot;FAIL: label (cond)&quot;, the condition shown as it was written, which a
@@ -142,7 +146,7 @@ FAIL: doubling (5 = 2 * 2)</pre>
 <h2 class="section" id="section-3">Names a macro binds</h2>
 <div class="item" id="m.b_inds-3c">
 <h3><a href="#m.b_inds-3c"><span class="c-macro">ᵐb̲inds&lt;</span></a> <span class="type">: Unit -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L46">line 46</a></div>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L54">line 54</a></div>
 <div class="doc">
 <p>The expression on the right with x as 3: the macro binds x around
 your expression and writes it as it is, so your x is its x. A name a
@@ -157,7 +161,7 @@ macro that wants a name of its own asks for one (t_wice&lt; below).</p>
 </div>
 <div class="item" id="m.t_wice-3c">
 <h3><a href="#m.t_wice-3c"><span class="c-macro">ᵐt̲wice&lt;</span></a> <span class="type">: Unit -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L55">line 55</a></div>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L64">line 64</a></div>
 <div class="doc">
 <p>Twice the expression on the right: the macro binds a local of its
 own around your expression, a fresh name from []G_ENSYM (g1:t, say),
@@ -174,7 +178,7 @@ so a t of your own is still yours.</p>
 </div>
 <div class="item" id="m.w_ith-3c">
 <h3><a href="#m.w_ith-3c"><span class="c-macro">ᵐw̲ith&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
-<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L67">line 67</a> &middot; binds <code>it</code></div>
+<div class="meta">macro &middot; <a href="lib-Macros.xtlm.src.html#L77">line 77</a> &middot; binds <code>it</code></div>
 <div class="doc">
 <p>The text on the right with it bound to the value of the expression
 on the left (an anaphoric macro: it is meant for your text, declared
