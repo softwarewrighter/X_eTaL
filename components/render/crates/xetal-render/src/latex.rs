@@ -24,6 +24,9 @@ pub fn latex(src: &str) -> Result<String, Diagnostic> {
         if token.kind == TokenKind::Newline {
             out.push_str(&doc_tex(&src[pos..token.span.start], line_start));
             out.push_str("\\\\\n");
+        } else if let Some(tex) = crate::code::code_tex(&token.kind, raw) {
+            // A code string's inside is set as code, token by token.
+            out.push_str(&tex);
         } else if let TokenKind::Exp(_) = token.kind {
             // Unbraced, so it is the exponent of the token it touches.
             out.push_str(&token_tex(&token.kind, raw));
@@ -50,7 +53,7 @@ pub(crate) fn spacing(gap: &str) -> String {
         .collect()
 }
 
-fn token_tex(kind: &TokenKind, raw: &str) -> String {
+pub(crate) fn token_tex(kind: &TokenKind, raw: &str) -> String {
     match kind {
         TokenKind::Var(v) => {
             let ns = ns_tex(&v.ns);
@@ -70,7 +73,7 @@ fn token_tex(kind: &TokenKind, raw: &str) -> String {
         TokenKind::Semi => r"\diamond".into(),
         TokenKind::Arrow => r"\to".into(),
         TokenKind::Pipe => r"\triangleright".into(),
-        TokenKind::Label => r"\smalltriangleright ".into(),
+        TokenKind::Label => r"\scriptstyle\triangleright".into(),
         TokenKind::Lazy => r"\sim".into(),
         TokenKind::Quote => r"\text{'}".into(),
         TokenKind::Apply | TokenKind::Wild => r"\_".into(),

@@ -28,12 +28,14 @@ const files = (dir, ext) =>
 const code = (line) => line.trim() !== '' && !line.trim().startsWith('#');
 const read = (f) => readFileSync(join(root, f), 'utf8');
 
-/** Whether `text` ends inside a raw string (`r"..."`, `r#"..."#`, ST4). */
+/** Whether `text` ends inside a string that may span lines: a raw
+ * string (`r"..."`, `r#"..."#`, ST4) or a code string (`c"..."` with
+ * escapes, `c#"..."#`, ST5). */
 function openRaw(text) {
   let i = 0;
   while (i < text.length) {
     const c = text[i];
-    const raw = /^r(#*)"/.exec(text.slice(i));
+    const raw = /^[rc](#*)"/.exec(text.slice(i));
     if (c === '#') {
       const nl = text.indexOf('\n', i);
       if (nl < 0) return false;
@@ -41,6 +43,12 @@ function openRaw(text) {
     } else if (c === '"') {
       i++;
       while (i < text.length && text[i] !== '"') i += text[i] === '\\' ? 2 : 1;
+      i++;
+    } else if (raw && !/[A-Za-z0-9_:]/.test(text[i - 1] ?? '') && raw[0] === 'c"') {
+      // A code string with escapes: closed by the first unescaped quote.
+      i += 2;
+      while (i < text.length && text[i] !== '"') i += text[i] === '\\' ? 2 : 1;
+      if (i >= text.length) return true;
       i++;
     } else if (raw && !/[A-Za-z0-9_:]/.test(text[i - 1] ?? '')) {
       const close = `"${raw[1]}`;
@@ -55,10 +63,10 @@ function openRaw(text) {
 }
 
 /** [file, line number, source, may fail to lex] for every source line
- * (a raw string spanning lines makes one entry of its lines). */
+ * (a raw or code string spanning lines makes one entry of its lines). */
 function lines() {
   const out = [];
-  // A raw string spanning lines (ST4) is one piece, from its first line.
+  // A raw or code string spanning lines (ST4, ST5) is one piece, from its first line.
   let pending = null;
   const add = (file, n, text, mayFail = false) => {
     if (pending) {
@@ -72,7 +80,7 @@ function lines() {
     }
     if (code(text)) out.push([file, n, text, mayFail]);
   };
-  // An unterminated raw string ends with its source (a file or a case).
+  // An unterminated raw or code string ends with its source (a file or a case).
   const flush = () => {
     if (pending && code(pending[2])) out.push(pending);
     pending = null;
