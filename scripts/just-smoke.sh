@@ -60,6 +60,7 @@ for recipe in $(just --summary); do
     name-image) skip "$recipe" "regenerates images/name-forms.png (headless Chrome)" ;;
     literate-html) skip "$recipe" "rewrites pages/literate; run by pages" ;;
     pages) skip "$recipe" "rewrites pages/ and the screenshot; run before publishing" ;;
+    publish) skip "$recipe" "force-pushes the site to gh-pages from a pushed main; run by hand or by the nightly" ;;
     bench) skip "$recipe" "times the benchmarks (minutes); docs/speed.md records the results" ;;
     bench-check | bench-bless) skip "$recipe" "times the benchmarks against this machine's baseline (minutes)" ;;
     nightly) skip "$recipe" "the full gate (minutes); scheduled" ;;
