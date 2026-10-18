@@ -2,7 +2,18 @@
 //! with its library, loaded, run at expansion, their text expanded
 //! again; the rules of what a macro library defines.
 
+use std::sync::{Mutex, MutexGuard};
+
 use xetal_program::{expanded, load, load_library};
+
+/// Every test here holds this while it runs. A macro runs with the
+/// process-wide Boxed setting switched off and then put back, and one
+/// test switches it on: run at once, a test could see another's
+/// setting, or put back one that is no longer current.
+fn serial() -> MutexGuard<'static, ()> {
+    static SERIAL: Mutex<()> = Mutex::new(());
+    SERIAL.lock().unwrap_or_else(|e| e.into_inner())
+}
 
 fn scratch(name: &str) -> std::path::PathBuf {
     let dir = std::env::temp_dir().join(format!("xetal-macros-{}-{name}", std::process::id()));
@@ -25,6 +36,7 @@ fn with_control(name: &str, extra: &[(&str, &str)]) -> String {
 
 #[test]
 fn a_macro_call_is_replaced_by_what_the_macro_gives() {
+    let _serial = serial();
     let main = with_control("call", &[]);
     let src = "\"x:\" u_se< \"Control\"\nn := 4\n\"n != 0\" x:w_hen< \"p_rint! 100 / n\"\n";
     assert_eq!(
@@ -36,6 +48,7 @@ fn a_macro_call_is_replaced_by_what_the_macro_gives() {
 
 #[test]
 fn inside_an_expression_the_text_is_parenthesized() {
+    let _serial = serial();
     let main = with_control("expr", &[]);
     let src = "\"x:\" u_se< \"Control\"\ny := \"\" x:t_wice< \"1\"\n";
     assert_eq!(
@@ -46,6 +59,7 @@ fn inside_an_expression_the_text_is_parenthesized() {
 
 #[test]
 fn the_library_and_the_macro_library_share_one_alias() {
+    let _serial = serial();
     let main = with_control("pair", &[("Control.xtl", "l:t_wo := { _r * 2 }\n")]);
     let src = "\"x:\" u_se< \"Control\"\n\"1\" x:w_hen< \"x:t_wo 21\"\n";
     let loaded = load(&main, src).unwrap();
@@ -54,6 +68,7 @@ fn the_library_and_the_macro_library_share_one_alias() {
 
 #[test]
 fn unknown_and_failing_macros_are_errors_at_the_call() {
+    let _serial = serial();
     let main = with_control("errors", &[("Bad.xtlm", "m:b_ad< := { a b -> 3 }\n")]);
     let err = load(&main, "\"x:\" u_se< \"Control\"\n\"a\" x:n_ope< \"b\"\n").unwrap_err();
     assert_eq!(err.code, "not-exported");
@@ -65,6 +80,7 @@ fn unknown_and_failing_macros_are_errors_at_the_call() {
 
 #[test]
 fn a_macro_library_defines_m_macros_only() {
+    let _serial = serial();
     let code = |text: &str| load_library("M.xtlm", text).unwrap_err().code;
     assert_eq!(code("m:f_ := { a b -> a }\n"), "misdefined-macro");
     assert_eq!(code("f_< := { a b -> a }\n"), "misdefined-macro");
@@ -79,12 +95,14 @@ fn a_macro_library_defines_m_macros_only() {
 
 #[test]
 fn a_macro_library_checked_on_its_own_lists_its_macros() {
+    let _serial = serial();
     let loaded = load_library("Control.xtlm", CONTROL).unwrap();
     assert_eq!(loaded.sources.file_count(), 1);
 }
 
 #[test]
 fn a_library_not_found_names_both_kinds() {
+    let _serial = serial();
     let err = load("main.xtl", "\"x:\" u_se< \"Nowhere\"\n").unwrap_err();
     assert_eq!(err.code, "library-not-found");
     assert!(
@@ -96,6 +114,7 @@ fn a_library_not_found_names_both_kinds() {
 
 #[test]
 fn a_macro_refuses_a_call_with_e_rror_in_its_text() {
+    let _serial = serial();
     let lib = "m:s_mall< := { a b -> \"\\\"too-big\\\" e_rror< \\\"keep it small\\\"\" }\n";
     let main = with_control("refuse", &[("Small.xtlm", lib)]);
     let src = "\"y:\" u_se< \"Small\"\nx := 1\n\"a\" y:s_mall< \"b\"\n";
@@ -110,6 +129,7 @@ fn a_macro_refuses_a_call_with_e_rror_in_its_text() {
 
 #[test]
 fn a_macro_library_may_not_define_a_system_macro() {
+    let _serial = serial();
     let main = with_control("system", &[("Mine.xtlm", "m:i_f< := { a b -> a }\n")]);
     let err = load(&main, "\"x:\" u_se< \"Mine\"\n").unwrap_err();
     assert_eq!(err.code, "system-macro-redefined");
@@ -117,6 +137,7 @@ fn a_macro_library_may_not_define_a_system_macro() {
 
 #[test]
 fn a_macro_says_which_sides_it_takes() {
+    let _serial = serial();
     // n_one<'s left is Unit (the niladic lambda is applied to it), so it
     // takes @ there; its right is text.
     let lib = "m:n_one< := { u r -> ({ @ -> r })_ u }\nm:r_eject< := { l r -> \"oops right\" []R_EJECT \"no\" }\n";
@@ -141,6 +162,7 @@ fn a_macro_says_which_sides_it_takes() {
 
 #[test]
 fn a_signature_line_is_refused_outside_system_xtlm() {
+    let _serial = serial();
     let err = load("main.xtl", "u:f_ :: Int -> Int\n").unwrap_err();
     assert_eq!(err.code, "unexpected-char");
     let err = load_library("M.xtlm", "m:f_< :: Char -> Char -> Char\n").unwrap_err();
@@ -149,6 +171,7 @@ fn a_signature_line_is_refused_outside_system_xtlm() {
 
 #[test]
 fn a_macros_text_is_plain_whatever_the_boxed_setting() {
+    let _serial = serial();
     // The host's Boxed setting (xetal run --box, the live demo's toggle)
     // draws the program's output; a macro's text is source, read by the
     // lexer, so it is printed plain while the macro runs, and the setting
