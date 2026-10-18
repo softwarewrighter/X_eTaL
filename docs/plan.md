@@ -835,6 +835,17 @@ written as ANSI by the CLI.
 | 8 | terminal-retrofit | TTTML play, Mastermind and the other interactive demos on the terminal; goldens rebased on purpose. |
 | 9 | terminal-release | README, Help, CHANGES, pages, retrospective; X_eTaL-games told how to use the terminal with `xetal-play`. |
 
+## Open question: should `a_ssert<` stop the program, as Rust's assert! does?
+
+Raised by the user 2026-10-17 while naming the shape check: today
+`"cond" a_ssert< "note"` writes `assertion failed: ...` to standard
+error and goes on (MC27), so "assert" could not name a stopping check
+and the built-in became `r_equireShape`. Rust's `assert!` panics. To
+decide: keep the reporting macro and its name, or make `a_ssert<` stop
+(a change to MC27, its goldens and the literate documents, and a
+`p_anic<`-like built-in beneath it), with `d_ebugAssert<`-style
+variants weighed then. Not scheduled; a decision for the user.
+
 ## Saga 27 -- readable type errors
 
 Asked for by the user (2026-10-03): a type error says only `expected
