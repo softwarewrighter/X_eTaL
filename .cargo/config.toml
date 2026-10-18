@@ -9,3 +9,11 @@ target-dir = "target"
 # no threads): give it room for deep recursion (TTTML trains recursively).
 [target.wasm32-unknown-unknown]
 rustflags = ["-C", "link-arg=-zstack-size=67108864"]
+
+# Lighter debuginfo for every dev build: line tables only, enough for
+# panics and error locations. Measured 2026-10-18 on the CLI: a full
+# rebuild 287 s -> 252 s; a rebuild after touching xetal-base 210 s
+# either way (the crate chain's compile time, not debuginfo, is the
+# critical path there).
+[profile.dev]
+debug = "line-tables-only"
