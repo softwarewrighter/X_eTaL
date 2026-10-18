@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-18
+
+- 15:00 `build` Cloud sessions set themselves up: `scripts/cloud-setup.sh` installs agentrail, reg-rs, sw-checklist and sw-markdown-checker from their repositories, just and trunk prebuilt, the wasm32 target, Emacs, cairosvg and pillow, and clones X_eTaL-libraries and X_eTaL-ML beside this repository; idempotent (a rerun takes seconds); docs/cloud-setup.md documents it and the cloud's known differences (cli-too-deep on Linux, the gate's .venv race); CLAUDE.md points to it.
+
 ## 2026-10-17
 
 - 17:40 `feat` The lints read macro contracts (Saga 40 step 12, D174): a recorded macro call carries its span and `## uses: parsed`; a finding anywhere in a parsing macro's expansion is `macro-internals`, and a parsing macro's binders are never `macro-capture`.
