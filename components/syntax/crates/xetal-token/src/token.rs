@@ -29,6 +29,9 @@ pub enum TokenKind {
     Code(String),
     Assign,
     Arrow,
+    /// `|>`, joining a pipeline's stages in a macro's text (S13); not a
+    /// function, and an error in code.
+    Pipe,
     Guard,
     Quote,
     /// `_` touching a closing parenthesis: apply the value (F5).
@@ -190,6 +193,7 @@ impl fmt::Display for TokenKind {
             TokenKind::Code(s) => return write!(f, "Code({s:?})"),
             TokenKind::Assign => "Assign",
             TokenKind::Arrow => "Arrow",
+            TokenKind::Pipe => "Pipe",
             TokenKind::Guard => "Guard",
             TokenKind::Quote => "Quote",
             TokenKind::Apply => "Apply",

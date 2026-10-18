@@ -69,6 +69,7 @@ fn token_tex(kind: &TokenKind, raw: &str) -> String {
         TokenKind::Assign => r"\leftarrow".into(),
         TokenKind::Semi => r"\diamond".into(),
         TokenKind::Arrow => r"\to".into(),
+        TokenKind::Pipe => r"\triangleright".into(),
         TokenKind::Lazy => r"\sim".into(),
         TokenKind::Quote => r"\text{'}".into(),
         TokenKind::Apply | TokenKind::Wild => r"\_".into(),

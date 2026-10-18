@@ -43,9 +43,11 @@ pub fn token_text(kind: &TokenKind, raw: &str) -> String {
         }
         TokenKind::Exp(_) => superscript_text(&raw[1..]).unwrap_or_else(|| raw.into()),
         TokenKind::Code(_) => crate::code::drawn(raw),
-        TokenKind::Sym(_) | TokenKind::Assign | TokenKind::Arrow | TokenKind::Semi => {
-            ligature(raw).map_or_else(|| raw.into(), String::from)
-        }
+        TokenKind::Sym(_)
+        | TokenKind::Assign
+        | TokenKind::Arrow
+        | TokenKind::Pipe
+        | TokenKind::Semi => ligature(raw).map_or_else(|| raw.into(), String::from),
         _ => raw.into(),
     }
 }

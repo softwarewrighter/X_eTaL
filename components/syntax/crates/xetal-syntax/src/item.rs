@@ -95,6 +95,9 @@ impl Parser {
                         "`:=` binds only at the start of a statement (top level or in braces)"
                     }
                     TokenKind::Arrow => "`->` separates parameters from the body inside `{ }`",
+                    TokenKind::Pipe => {
+                        "`|>` joins the stages of a pipeline in a macro's text (`@ p:p_ipe< c\"x |> f_ it\"`); it has no meaning in code"
+                    }
                     TokenKind::Lazy => "`~` marks a lazy parameter inside `{ ... -> }`",
                     TokenKind::Apply => "`_` after `)` applies a parenthesized function value",
                     TokenKind::Exp(_) => "an exponent must touch a value",

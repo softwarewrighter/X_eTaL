@@ -72,3 +72,19 @@ fn the_drawing_turns_back_into_the_source() {
         assert_eq!(back, src);
     }
 }
+
+#[test]
+fn a_pipeline_draws_its_joins_as_triangles() {
+    // S13: `|>` is drawn `▷`; the stages are code, decorated.
+    let src = "Y := @ pipe:p_ipe< c\"\n   X\n|> it nn:d_ense W1\n|> nn:r_elu\"";
+    let drawn = dec(src);
+    assert!(
+        drawn.contains(
+            "\n\u{25b7} it \u{207f}\u{207f}d\u{332}ense W1\n\u{25b7} \u{207f}\u{207f}r\u{332}elu\""
+        ),
+        "{drawn}"
+    );
+    assert_eq!(undecorate(&drawn).unwrap(), src);
+    assert_eq!(dec("x |> y"), "x \u{25b7} y");
+    assert_eq!(undecorate("x \u{25b7} y").unwrap(), "x |> y");
+}

@@ -172,6 +172,11 @@ fn marker(cur: &mut Cursor, byte: u8) -> Result<TokenKind, LexError> {
 }
 
 fn symbol(cur: &mut Cursor, byte: u8) -> TokenKind {
+    // `|>` joins pipeline stages (S13): one token, never `|` then `>`.
+    if byte == b'|' && cur.peek_at(1) == Some(b'>') {
+        cur.pos += 2;
+        return TokenKind::Pipe;
+    }
     let equals = cur.peek_at(1) == Some(b'=');
     let (sym, len) = match byte {
         b'+' => (Symbol::Plus, 1),

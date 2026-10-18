@@ -90,3 +90,12 @@ fn an_open_plain_string_is_still_an_error() {
             .any(|(_, c)| *c == Class::Error)
     );
 }
+
+#[test]
+fn a_pipeline_join_is_punctuation() {
+    let got = classes("c\"x |> nn:r_elu\"");
+    assert!(
+        got.contains(&("\u{25b7}".to_string(), Class::Punct)),
+        "{got:?}"
+    );
+}
