@@ -36,7 +36,7 @@ fn each_such_line_is_reported_and_has_no_fix() {
         .filter(|d| d.code == CODE)
         .collect();
     assert_eq!(found.len(), 2);
-    assert!(found.iter().all(|d| d.fix.is_empty()));
+    assert!(found.iter().all(|d| d.fix().is_empty()));
 }
 
 #[test]
