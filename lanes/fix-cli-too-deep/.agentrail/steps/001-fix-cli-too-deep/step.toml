@@ -1,0 +1,8 @@
+number = 1
+slug = "fix-cli-too-deep"
+status = "in-progress"
+description = "Use 65 nested parentheses in the CLI depth golden; preserve its expected diag..."
+role = "production"
+context_files = []
+created_at = "2026-10-18T10:42:59"
+commits = []
