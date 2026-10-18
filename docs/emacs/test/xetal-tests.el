@@ -160,5 +160,61 @@
   (should-not (xetal-tests--in-string "t := r\"a\n  b\"\nafter" "after"))
   (should-not (xetal-tests--in-string "bar := 1 # r\"x\nafter" "after")))
 
+;; Code strings (ST5): the inside is X_eTaL, colored as code; an
+;; escaped inner string is a string; the c, the # and the quotes keep
+;; the string face.
+(ert-deftest xetal-mode-code-strings ()
+  (let ((line "y := c\"n_eg u:s_um x\" + after"))
+    (should-not (xetal-tests--in-string line "n_eg"))
+    (should (eq (xetal-tests--face-at line "n_eg") 'xetal-builtin-face))
+    (should (eq (xetal-tests--face-at line "u:s_um") 'xetal-user-face))
+    (should (eq (xetal-tests--face-at line "c\"") 'font-lock-string-face))
+    (should-not (xetal-tests--in-string line "after")))
+  (let ((line "c\"p_rint! \\\"a_b\\\" c_at x\" after"))
+    (should (xetal-tests--in-string line "a_b"))
+    (should-not (xetal-tests--in-string line "c_at"))
+    (should-not (xetal-tests--in-string line "after")))
+  (let ((line "q := c#\"p_rint! \"a\" # n\nr_ev y\"# + after"))
+    (should (xetal-tests--in-string line "a\""))
+    (should-not (xetal-tests--in-string line "r_ev"))
+    (should (eq (xetal-tests--face-at line "r_ev") 'xetal-builtin-face))
+    (should-not (xetal-tests--in-string line "after")))
+  (should-not (xetal-tests--in-string "abc\"x\" after" "after"))
+  (should (xetal-tests--in-string "s := \"c_at\" + after" "c_at")))
+
+(ert-deftest xetal-mode-delimiter-hashes-are-not-comments ()
+  "The # of r#\"...\"# and c#\"...\"# opens no comment."
+  (dolist (line '("q := r#\"x\"# + after" "q := c#\"n_eg x\"# + after"))
+    (with-temp-buffer
+      (insert line)
+      (xetal-mode)
+      (syntax-propertize (point-max))
+      (goto-char (point-min))
+      (search-forward "after")
+      (should-not (nth 4 (syntax-ppss (match-beginning 0)))))))
+
+;; S13, S14: |> is drawn as a triangle, a label's $ as a small one.
+(ert-deftest xetal-mode-pipes-and-labels ()
+  (with-temp-buffer
+    (insert "@ f:p_ipe< c\"x |> f_ it $h |> g_\"")
+    (xetal-mode)
+    (font-lock-ensure)
+    (should (equal (buffer-string) "@ f:p_ipe< c\"x |> f_ it $h |> g_\""))
+    (goto-char (point-min))
+    (search-forward "|>")
+    (should (equal (xetal-tests--glyph (match-beginning 0)) ?▷))
+    (search-forward "$")
+    (should (equal (xetal-tests--glyph (match-beginning 0)) ?▹))))
+
+(defun xetal-tests--glyph (pos)
+  "The character composed at POS by `prettify-symbols-mode', or nil."
+  (let ((found nil))
+    (named-let walk ((x (get-text-property pos 'composition)))
+      (cond (found nil)
+            ((and (integerp x) (> x 127)) (setq found x))
+            ((consp x) (walk (car x)) (walk (cdr x)))
+            ((vectorp x) (mapc #'walk x))))
+    found))
+
 (provide 'xetal-tests)
 ;;; xetal-tests.el ends here

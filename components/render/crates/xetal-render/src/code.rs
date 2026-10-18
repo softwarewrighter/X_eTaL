@@ -11,6 +11,7 @@ use xetal_lex::{Token, TokenKind, lex};
 use xetal_strtext::{escape, unescape_mapped, unescaped_quote};
 
 use crate::inverse::undecorate;
+use crate::latex::{spacing, text_tex, token_tex};
 use crate::unicode::{gap_text, token_text};
 
 /// One run of a drawn code string: the bytes of the token it was written
@@ -80,6 +81,27 @@ pub fn code_pieces(raw: &str) -> Option<Vec<CodePiece>> {
     }
     out.push(delimiter(raw.len() - close, raw.len()));
     Some(out)
+}
+
+/// A code string token written `raw` set as LaTeX: the `c`, the `#`s
+/// and the quotes as text, each token inside braced as code is (an
+/// exponent unbraced, a line end `\\`); `None` for any other token.
+pub(crate) fn code_tex(kind: &TokenKind, raw: &str) -> Option<String> {
+    let TokenKind::Code(_) = kind else {
+        return None;
+    };
+    let pieces = code_pieces(raw)?;
+    let set = |p: &CodePiece| {
+        let written = &raw[p.written.start..p.written.end];
+        match &p.kind {
+            None => spacing(written),
+            Some(TokenKind::Newline) => "\\\\\n".to_string(),
+            Some(k @ TokenKind::Exp(_)) => token_tex(k, written),
+            Some(TokenKind::Code(_)) => format!(r"{{\text{{{}}}}}", text_tex(written)),
+            Some(k) => format!("{{{}}}", token_tex(k, written)),
+        }
+    };
+    Some(pieces.iter().map(set).collect())
 }
 
 /// The tokens of `text`, lexed as far as it lexes: a run that does not

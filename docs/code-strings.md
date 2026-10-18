@@ -139,6 +139,16 @@ Step 111 (code-strings), the literal and the view:
    poster.
 7. Spec cases, goldens, README syntax row, reference, a design register entry.
 
+As built (D175): items 1 to 5 in parts 1 and 2; item 6 in the Emacs
+mode (the inside colored as code, `|>` and a touching `$` drawn), in
+`render --latex` (the inside set token by token; a label as
+`{\scriptstyle\triangleright}`, since KaTeX has no
+`\smalltriangleright`) and the gallery (a code string spanning lines
+is one entry), and on the poster (panel 10); the HTML and color
+renderers and the literate exporter draw through the view model and
+needed no change. Item 7: `spec/lex/code-strings.case`, the README
+row; the reference lists built-in functions only, so it is unchanged.
+
 Step 112 (code-strings-checks), what the tools check:
 
 1. Lexer and parser: the inside lexed and parsed with the file;

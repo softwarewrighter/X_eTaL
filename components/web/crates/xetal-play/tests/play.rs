@@ -214,3 +214,18 @@ fn a_lint_comment_allows_a_warning_in_the_live_demo() {
         ("2 4 6\n", "")
     );
 }
+
+/// A code string (ST5) runs as the plain string of the same text, and
+/// the live demo's drawn pane shows its inside as code: the function
+/// underlined, the pipe a triangle, the quotes a string.
+#[test]
+fn a_code_string_runs_and_is_drawn_as_code() {
+    store();
+    let src = "\"2 > 0\" i_f< c\"3 + 4; 0\"\n";
+    assert_eq!(run(src, 1).out, "7\n");
+    let drawn = xetal_play::decorate("x := c\"n_eg y |> f_ $h\"");
+    let class = |t: &str| drawn.iter().find(|s| s.text == t).map(|s| s.class);
+    assert_eq!(class("n\u{332}eg"), Some(xetal_play::Class::Builtin));
+    assert_eq!(class("\u{25b7}"), Some(xetal_play::Class::Punct));
+    assert_eq!(class("c\""), Some(xetal_play::Class::String));
+}

@@ -115,3 +115,24 @@ fn a_wildcard_is_an_escaped_underscore() {
     assert_eq!(tex("(a, _) := (1, 2)").matches(r"{\_}").count(), 1);
     assert!(!tex("(a, _) := (1, 2)").contains("{_}"));
 }
+
+/// A code string (ST5): its inside set as code, token by token, the `c`
+/// and the quotes as text; a line of it ends with `\\` like any other.
+#[test]
+fn a_code_string_is_set_as_code() {
+    assert_eq!(
+        tex(r#"c"n_eg x""#),
+        r#"{\text{c"}}{\mathrm{\underline{n}eg}}\ {\mathrm{x}}{\text{"}}"#
+    );
+    assert_eq!(
+        tex("c\"x\n|> f_ it $h\""),
+        "{\\text{c\"}}{\\mathrm{x}}\\\\\n{\\triangleright}\\ {\\mathrm{\\underline{f}}}\\ \
+         {\\mathrm{it}}\\ {\\scriptstyle\\triangleright}{\\mathrm{h}}{\\text{\"}}"
+    );
+    assert_eq!(
+        tex(r###"c#"p_rint! "a""#"###),
+        r###"{\text{c\#"}}{\mathrm{\underline{p}rint}{!}}\ {\text{"a"}}{\text{"\#}}"###
+    );
+    // A plain string stays text.
+    assert_eq!(tex(r#""n_eg x""#), r#"{\text{"n\_eg x"}}"#);
+}
