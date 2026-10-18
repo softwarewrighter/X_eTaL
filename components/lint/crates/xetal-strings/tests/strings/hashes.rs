@@ -52,7 +52,7 @@ fn a_multi_line_body_is_kept_as_written() {
 fn the_fix_rewrites_only_the_delimiters() {
     let found = xetal_strings::strings(r###"s := r##"x"##"###);
     let spans: Vec<_> = found[0]
-        .fix
+        .fix()
         .iter()
         .map(|f| (f.span.start, f.span.end))
         .collect();
