@@ -1,0 +1,17 @@
+[package]
+name = "xetal-shape"
+description = "The shape lint: shapes carried through Core symbolically, from literals, r_eshape and r_equireShape checks"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-catalog.workspace = true
+xetal-ir.workspace = true
+xetal-lex.workspace = true
+
+[dev-dependencies]
+xetal-core.workspace = true

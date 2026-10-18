@@ -1,0 +1,23 @@
+# r_equireShape: a shape check (type-check-macros approach 8). The extents
+# on the left, the value on the right; it gives the value unchanged
+# when its shape is the left, so a macro can emit it after a stage and
+# the shape lint can read it as a fact.
+== SOURCE
+2 3 r_equireShape 2 3 r_eshape r_ange 6
+3 r_equireShape 1 2 3
+(r_ange 0) r_equireShape 5
+N := 2
+(N c_at 3) r_equireShape 2 3 r_eshape 0
+== TYPE
+Int
+Int
+Int
+N : Int
+Int
+== RESULT
+1 2 3
+4 5 6
+1 2 3
+5
+0 0 0
+0 0 0

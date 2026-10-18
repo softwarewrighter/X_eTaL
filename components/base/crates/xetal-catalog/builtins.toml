@@ -3,10 +3,13 @@
 # `xetal_catalog::BUILTINS`. Each implemented entry is
 # [name, arity, type signature]; the arity must match the arrows of
 # the signature. Types are rank-erased (T7). Optional [[later]] groups
-# list names that exist but arrive with a later saga.
+# list names that exist but arrive with a later saga. A group's
+# `shape` (or `shapes`, by name) is the rule the shape lint reads: how
+# a result's shape follows from the arguments' (see src/builtin.rs).
 
 [[group]]
 rule = "B7, D-10: arithmetic"
+shape = "scalar"
 entries = [
   ["+", 2, "Num a => a -> a -> a"],
   ["-", 2, "Num a => a -> a -> a"],
@@ -28,6 +31,7 @@ entries = [
 
 [[group]]
 rule = "B13: trigonometry (radians)"
+shape = "scalar"
 entries = [
   ["s_in", 1, "Num a => a -> Float"],
   ["c_os", 1, "Num a => a -> Float"],
@@ -37,6 +41,7 @@ entries = [
 
 [[group]]
 rule = "T1, T3, T8: comparisons and logic"
+shape = "scalar"
 entries = [
   ["=", 2, "(Eq a, Truthy b) => a -> a -> b"],
   ["!=", 2, "(Eq a, Truthy b) => a -> a -> b"],
@@ -135,6 +140,7 @@ entries = [
 
 [[group]]
 rule = "B4, B5, B10: structural"
+shapes = { s_hape = "shape", t_ally = "count", r_eshape = "reshape", c_at = "cat", r_equireShape = "check" }
 entries = [
   ["s_hape", 1, "a -> Int"],
   ["t_ally", 1, "a -> Int"],
@@ -148,10 +154,12 @@ entries = [
   ["s_elect", 2, "Int -> a -> a"],
   ["r_eplicate", 2, "Truthy a => a -> b -> b"],
   ["c_at", 2, "a -> a -> a"],
+  ["r_equireShape", 2, "Int -> a -> a"],
 ]
 
 [[group]]
 rule = "B6: reduce and scan (leading axis; reduce is a right fold)"
+shapes = { "r_/" = "reduce" }
 entries = [
   ["r_/", 2, "(a -> a -> a) -> a -> a"],
   ["s_\\", 2, "(a -> a -> a) -> a -> a"],
@@ -167,6 +175,7 @@ entries = [
 
 [[group]]
 rule = "B6: inner product and combinators (operands nearest-first, F9)"
+shapes = { i_nner = "inner" }
 entries = [
   ["i_nner", 4, "(a -> b -> c) -> (c -> c -> c) -> a -> b -> c"],
   ["c_ompose", 3, "(Any a, Any b, Any c) => (a -> b) -> (b -> c) -> a -> c"],

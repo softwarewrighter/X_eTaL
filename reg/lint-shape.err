@@ -1,0 +1,4 @@
+warning[shape-mismatch]: the inner product pairs the left's last axis (3) with the right's first (2): they differ, so this fails at run time at reg/fixtures/lint/shape.xtl:4:6
+  note: `shape-mismatch` is in group `correctness`; xetal lint --explain shape-mismatch
+warning[shape-mismatch]: these shapes differ: N 3 and 2 4, so this fails at run time (item by item, only a single value extends) at reg/fixtures/lint/shape.xtl:8:1
+2 warning(s), 0 error(s)

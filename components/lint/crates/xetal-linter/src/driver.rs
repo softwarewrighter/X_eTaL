@@ -9,6 +9,7 @@ use xetal_ir::Program;
 use xetal_lint::{Level, Lint};
 use xetal_program::Loaded;
 use xetal_sources::Sources;
+use xetal_strings::line_col;
 
 use crate::directive::directives;
 use crate::fix::{Edit, edit};
@@ -66,6 +67,7 @@ pub fn lint(name: &str, text: &str, cli: &[Rule]) -> Result<Vec<Finding>, Diagno
         .map(|(line, col, message)| ("unknown-lint", (line, col, line, col), message, Vec::new()))
         .collect();
     raw.extend(placed(&loaded));
+    raw.extend(spelled(text));
     let mut out: Vec<Finding> = raw
         .into_iter()
         .filter_map(|r| leveled(r, name, &all))
@@ -87,6 +89,7 @@ fn placed(loaded: &Loaded) -> Vec<Raw> {
     let mut found = xetal_lint::lints(&loaded.program);
     found.extend(xetal_typed::typed(&loaded.program));
     found.extend(xetal_origin::captures(&loaded.program, &loaded.sources));
+    found.extend(xetal_shape::shapes(&loaded.program));
     for d in found {
         let d = xetal_origin::placed(d, &loaded.sources);
         let at = loaded.sources.locate(d.span.map_or(0, |s| s.start));
@@ -106,6 +109,25 @@ fn placed(loaded: &Loaded) -> Vec<Raw> {
         }
     }
     out
+}
+
+/// What the string lints (`xetal-strings`) find in the file as
+/// written, `text`: their spans and fixes are offsets in it already.
+fn spelled(text: &str) -> Vec<Raw> {
+    let place = |s: xetal_base::Span| {
+        let ((line, col), end) = (line_col(text, s.start), line_col(text, s.end));
+        (line, col, end.0, end.1)
+    };
+    let raw = |d: Diagnostic| {
+        let lint = xetal_lint::lint(&d.code)?;
+        let fix = d.fix.iter();
+        let fix = fix.map(|f| Edit::new(f.span.start, f.span.end, f.replacement.clone()));
+        Some((lint.name, place(d.span?), d.message, fix.collect()))
+    };
+    xetal_strings::strings(text)
+        .into_iter()
+        .filter_map(raw)
+        .collect()
 }
 
 /// `raw` at the level its rules give it; `None` when allowed.

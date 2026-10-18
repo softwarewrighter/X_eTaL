@@ -18,10 +18,10 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 126 | 0 | 0 |
+| Built-in functions | 127 | 0 | 0 |
 | Language decisions | 159 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 465 | 0 | 0 |
+| Spec cases | 467 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -165,16 +165,17 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `s_hape` | `a -> Int` | works | 16 | 2 |
 | `t_ally` | `a -> Int` | works | 22 | 4 |
-| `r_ange` | `Int -> Int` | works | 42 | 1 |
+| `r_ange` | `Int -> Int` | works | 43 | 1 |
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 6 | 4 |
 | `r_avel` | `a -> a` | works | 2 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 69 | 2 |
+| `r_eshape` | `Int -> a -> a` | works | 70 | 2 |
 | `t_ake` | `Int -> a -> a` | works | 15 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 3 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 15 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 6 | 6 |
-| `c_at` | `a -> a -> a` | works | 17 | 5 |
+| `c_at` | `a -> a -> a` | works | 18 | 5 |
+| `r_equireShape` | `Int -> a -> a` | works | 3 | 3 |
 
 ### B6: reduce and scan (leading axis; reduce is a right fold)
 
@@ -354,6 +355,7 @@ conventions (naming, layout) work without a spec case citing them.
 | B16 | Nested arrays print as APL2's DISPLAY draws them (decided with the user for the classics lane): every (...) | works | 1 |
 | B17 | Transpose, decided with the user for the transpose lane (asked for by X_eTaL-demos, ADVANCEDEX and the (...) | works | 11 |
 | B18 | `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...) | works | 3 |
+| B19 | `r_equireShape` is a shape check: `2 3 r_equireShape X` gives X unchanged when its shape is 2 3, and is (...) | works | 0 |
 | SC1 | A symbol function applied to one argument is an error (`- 3`, `/ 2`, `2 +`): under currying it would fill (...) | works | 4 |
 | ST1 | A string is written `"..."` | works | 2 |
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 1 |

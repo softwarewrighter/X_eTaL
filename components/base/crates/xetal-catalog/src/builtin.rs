@@ -11,6 +11,16 @@ pub struct Builtin {
     pub sig: &'static str,
     /// The lang-choices rules that define it.
     pub rule: &'static str,
+    /// How its result's shape follows from its arguments', for the
+    /// shape lint: `scalar` (item by item, a scalar extends), `shape`
+    /// (`s_hape`: a vector of the rank, whose value is the shape),
+    /// `count` (a single number), `reshape` (the left's values), `cat`
+    /// (`c_at`: a vector's values joined), `check` (`r_equireShape`: the
+    /// left's values, which the right must have), `inner` (A's leading
+    /// axes then B's trailing ones, A's last equal to B's first),
+    /// `reduce` (the right's shape less its leading axis); empty when
+    /// unknown.
+    pub shape: &'static str,
     pub implemented: bool,
 }
 

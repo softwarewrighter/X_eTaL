@@ -6,7 +6,7 @@ use xetal_base::{Diagnostic, Span};
 use xetal_value::Value;
 
 use crate::values::{as_array, as_vector, boxes, counts, disclose, fill, ints, to_value};
-use crate::{cat, drop, first, partition, replicate, reshape, select, take};
+use crate::{cat, check_shape, drop, first, partition, replicate, reshape, select, take};
 
 type Out<'a> = Result<Value<'a>, Diagnostic>;
 
@@ -37,6 +37,10 @@ pub fn call<'a>(name: &str, args: &[Value<'a>], span: Span) -> Option<Out<'a>> {
                 .and_then(|k| Ok(to_value(replicate(&k, &a)?)))
         }
         ("c_at", [a, b]) => join(a, b),
+        ("r_equireShape", [s, x]) => ints(s).and_then(|s| {
+            check_shape(s.data(), &as_array(x))?;
+            Ok(x.clone())
+        }),
         ("p_artition", [k, x]) => {
             let a = as_vector(x);
             counts(k, a.shape()[0], ("p_artition", "key"))

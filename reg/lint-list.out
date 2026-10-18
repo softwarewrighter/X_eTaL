@@ -1,15 +1,18 @@
-LINT                 GROUP        LEVEL  SUMMARY
-shadows-builtin      suspicious   warn   a parameter or local binding shadows a built-in
-deprecated-private   deprecated   warn   a library's bare top-level function (write it h:)
-unknown-lint         suspicious   warn   a `# lint:` directive names no lint, group or level
-unused-binding       suspicious   warn   a lambda parameter or local binding that is never used
-redundant-lambda     complexity   warn   a lambda that only passes its arguments to a named function
-missing-bang         style        warn   a function that calls an effect but has no `!` in its name
-needless-bang        pedantic     allow  a `!` function that calls no effect
-int-condition        suspicious   warn   a guard whose condition is an Int (a count), not a truth
-function-name-case   pedantic     allow  a function named UpperCamel (functions are lowerCamel)
-mutable-constant     style        warn   a mutable variable named like a constant (UpperCamel)
-upper-case-name      pedantic     allow  a variable named in all capitals
-macro-capture        suspicious   warn   a macro binds a name the call's own text reads (a capture)
-unused-anaphor       pedantic     allow  a call's text never reads a name the macro binds for it
-macro-internals      pedantic     allow  a finding in code a macro wrote, not the call's text
+LINT                   GROUP        LEVEL  SUMMARY
+shadows-builtin        suspicious   warn   a parameter or local binding shadows a built-in
+deprecated-private     deprecated   warn   a library's bare top-level function (write it h:)
+unknown-lint           suspicious   warn   a `# lint:` directive names no lint, group or level
+unused-binding         suspicious   warn   a lambda parameter or local binding that is never used
+redundant-lambda       complexity   warn   a lambda that only passes its arguments to a named function
+missing-bang           style        warn   a function that calls an effect but has no `!` in its name
+needless-bang          pedantic     allow  a `!` function that calls no effect
+int-condition          suspicious   warn   a guard whose condition is an Int (a count), not a truth
+function-name-case     pedantic     allow  a function named UpperCamel (functions are lowerCamel)
+mutable-constant       style        warn   a mutable variable named like a constant (UpperCamel)
+upper-case-name        pedantic     allow  a variable named in all capitals
+shape-mismatch         correctness  warn   shapes that surely differ where they must agree (fails at run time)
+shape-check-proven     pedantic     allow  an `r_equireShape` check the shape lint proves always passes
+needless-raw-hashes    style        warn   a raw string with more `#` than it needs
+needless-raw-string    pedantic     allow  a raw string with no backslash, quote or newline (plain is the same)
+escapes-could-be-raw   pedantic     allow  a string with several `\"` or `\\` escapes (clearer raw)
+string-holds-directive suspicious   warn   a line inside a string that reads as a `# lint:` directive

@@ -1,0 +1,6 @@
+# r_equireShape refuses a value whose shape is not the left: the run-time
+# backstop for what the shape lint cannot prove.
+== SOURCE
+2 2 r_equireShape 1 2 3
+== ERROR
+error[shape-mismatch]: shape 3, expected 2 2 at 0..18

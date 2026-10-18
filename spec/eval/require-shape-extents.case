@@ -1,0 +1,6 @@
+# r_equireShape takes its extents as integers: text on the left is a type
+# error, before the program runs.
+== SOURCE
+"ab" r_equireShape 1 2
+== ERROR
+error[type-mismatch]: expected Int, found Char at 0..17

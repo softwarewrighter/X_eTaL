@@ -330,6 +330,16 @@ row (or, along axis 2, one column).
 > M c_at_2 0 9
 !> M c_at_2 1 2 3
 
+== r_equireShape
+A shape check: the value on the right, unchanged, when its shape is the
+extents on the left, and an error naming both shapes otherwise. A
+macro can emit it after a step whose shape it promises, and `xetal
+lint` reads it as a fact: from there on the value has that shape, so a
+later mismatch is found before the program runs (`shape-mismatch`).
+> 2 3 r_equireShape M
+> 3 r_equireShape v
+!> 3 2 r_equireShape M
+
 == SECTION Reduce, scan, each and table
 These take a function as an operand, written quoted before them
 (`'+ r_/`): the nearest quoted function is their first argument.

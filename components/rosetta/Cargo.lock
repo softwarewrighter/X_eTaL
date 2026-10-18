@@ -1582,7 +1582,9 @@ dependencies = [
  "xetal-lint",
  "xetal-origin",
  "xetal-program",
+ "xetal-shape",
  "xetal-sources",
+ "xetal-strings",
  "xetal-typed",
 ]
 
@@ -1806,6 +1808,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-shape"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-ir",
+ "xetal-lex",
+]
+
+[[package]]
 name = "xetal-sigs"
 version = "0.1.0"
 dependencies = [
@@ -1852,6 +1864,14 @@ dependencies = [
 [[package]]
 name = "xetal-store"
 version = "0.1.0"
+
+[[package]]
+name = "xetal-strings"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-lex",
+]
 
 [[package]]
 name = "xetal-struct"

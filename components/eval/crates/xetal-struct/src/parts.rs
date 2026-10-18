@@ -1,7 +1,9 @@
 //! Partition (B14, APL2's partition): major cells cut into pieces by
-//! keys, one per cell.
+//! keys, one per cell; and the shape check `r_equireShape` (type-check-macros
+//! approach 8).
 
 use xetal_array::{Array, ArrayError};
+use xetal_base::Diagnostic;
 
 use crate::cells::cell_len;
 
@@ -35,4 +37,19 @@ pub fn partition<T: Clone>(keys: &[usize], a: &Array<T>) -> Result<Vec<Array<T>>
             Ok(Array::new(shape, a.data()[from * cell..to * cell].to_vec())?.with_kind(a.kind()))
         })
         .collect()
+}
+
+/// `r_equireShape`: nothing when `a`'s shape is `expected`, else
+/// `shape-mismatch` naming both, as a macro's emitted check reports it.
+pub fn check_shape<T>(expected: &[i64], a: &Array<T>) -> Result<(), Diagnostic> {
+    let same =
+        expected.len() == a.rank() && expected.iter().zip(a.shape()).all(|(e, d)| *e == *d as i64);
+    let words = |d: Vec<String>| d.join(" ");
+    let found = words(a.shape().iter().map(ToString::to_string).collect());
+    let wanted = words(expected.iter().map(ToString::to_string).collect());
+    let message = format!("shape {found}, expected {wanted}");
+    match same {
+        true => Ok(()),
+        false => Err(Diagnostic::new("shape-mismatch", message)),
+    }
 }
