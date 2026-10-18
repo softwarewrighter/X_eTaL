@@ -1,6 +1,6 @@
 //! Glyphs for the lambda arguments `_l` and `_r` (I3).
 
-use crate::glyphs::UNDERLINE;
+use xetal_glyphs::UNDERLINE;
 
 /// Lambda arguments as in APL dfns: `_l` as alpha (U+237A), `_r` as
 /// omega (U+2375).

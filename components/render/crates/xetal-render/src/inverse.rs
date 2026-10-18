@@ -7,10 +7,10 @@
 use xetal_base::{Diagnostic, Span};
 
 use crate::comments::marker_after_lamp;
-use crate::glyphs::{
+use crate::lambda::from_lambda_glyph;
+use xetal_glyphs::{
     LIGATURES, RAISED_POINT, UNDERLINE, from_subscript, from_superscript, from_superscript_letter,
 };
-use crate::lambda::from_lambda_glyph;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum After {
@@ -47,6 +47,12 @@ pub fn undecorate(text: &str) -> Result<String, Diagnostic> {
             inv.comment = inv.comment && c != '\n';
             inv.string = inv.string && (inv.escaped || c != '"');
             inv.escaped = inv.string && !inv.escaped && c == '\\';
+            continue;
+        }
+        if let Some(found) = crate::code::undrawn(&text[i..]) {
+            let (len, source) = found?;
+            inv.out.push_str(&source);
+            while chars.next_if(|&(j, _)| j < i + len).is_some() {}
             continue;
         }
         let underlined = chars.peek().is_some_and(|&(_, n)| n == UNDERLINE);

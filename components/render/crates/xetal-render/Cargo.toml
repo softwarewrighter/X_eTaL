@@ -8,6 +8,8 @@ authors.workspace = true
 repository.workspace = true
 
 [dependencies]
+xetal-glyphs.workspace = true
+xetal-strtext.workspace = true
 xetal-base.workspace = true
 xetal-lex.workspace = true
 xetal-syntax.workspace = true

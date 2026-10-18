@@ -90,6 +90,28 @@ the whole.
   c"1 + 2"`) is a string whose inside happens to lex; the lints of
   its own apply only where it is a macro's argument.
 
+## Notations: drawn by the library (MC32)
+
+A string that is not X_eTaL but a library's own notation (an equation,
+a pipeline's `|>` joins) cannot be a code string, so the views cannot
+decorate it from tokens. Decided with the user 2026-10-18: the macro's
+contract says so and names who draws it.
+
+```
+## The value of a sum as a paper prints it.
+## takes: text notation
+## draws: e:t_ex<
+m:e_q< := ...
+```
+
+Where a program is drawn (the pages, the live demo, the editors), the
+notation side of a call is drawn from what the `draws:` macro gives
+(Equations: its LaTeX, drawn by KaTeX); the text typed and the value
+are unchanged. Still to decide with the user: what the terminal editor
+shows for a notation, and how the renderer reads an imported library's
+contract (it now draws from tokens alone). It is its own step, after
+step 112 (which adds the `code` kind beside `text` and `@`).
+
 ## The order of the work
 
 Step 111 (code-strings), the literal and the view:
