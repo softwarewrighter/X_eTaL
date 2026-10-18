@@ -1,3 +1,4 @@
-command = '''d="$(yes '(' | head -n 100000 | tr -d '\n')1$(yes ')' | head -n 100000 | tr -d '\n')"; for s in parse fmt core eval type; do ./target/debug/xetal $s -e "$d" 2>&1 | cut -c1-17; done'''
+# 65 levels exceed MAX_NESTING (64) without exceeding OS argument limits.
+command = '''d="$(yes '(' | head -n 65 | tr -d '\n')1$(yes ')' | head -n 65 | tr -d '\n')"; for s in parse fmt core eval type; do ./target/debug/xetal $s -e "$d" 2>&1 | cut -c1-17; done'''
 exit_code = 0
-desc = "pathologically deep input is error[too-deep] in every stage, never a crash"
+desc = "input exceeding the nesting limit is error[too-deep] in every stage"

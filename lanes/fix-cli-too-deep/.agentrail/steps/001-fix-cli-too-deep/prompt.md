@@ -1,0 +1,1 @@
+Use 65 nested parentheses in the CLI depth golden; preserve its expected diagnostics, validate, commit, and publish a PR.

@@ -1,0 +1,1 @@
+Shrink the CLI depth golden to 65 levels, validate, and publish a PR.

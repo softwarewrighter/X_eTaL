@@ -1,0 +1,1 @@
+Reduced CLI depth golden to 65 levels with unchanged expected output. Original failure reproduced; sample gate passes including all 258 goldens and spec tests. Work on pr/fix-cli-too-deep; push and PR publication follow.
