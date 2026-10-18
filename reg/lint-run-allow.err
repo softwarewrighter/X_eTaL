@@ -1,1 +1,5 @@
-warning[shadows-builtin]: `o_-` here shadows the built-in o_- at 171..187
+warning[shadows-builtin]: `o_-` here shadows the built-in o_-
+ --> reg/fixtures/lint/run-allow.xtl:6:1
+  |
+6 | { o_- -> o_- 4 } '{ _r + 1 }
+  | ^^^^^^^^^^^^^^^^

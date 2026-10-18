@@ -3,4 +3,8 @@
 == SOURCE
 'm_ax r_/ 0 t_ake 1 2
 == ERROR
-error[no-identity]: m_ax has no identity, so it cannot reduce an empty array at 0..21
+error[no-identity]: m_ax has no identity, so it cannot reduce an empty array
+ --> -e:1:1
+  |
+1 | 'm_ax r_/ 0 t_ake 1 2
+  | ^^^^^^^^^^^^^^^^^^^^^

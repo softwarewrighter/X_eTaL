@@ -2,4 +2,8 @@
 == SOURCE
 n_eg^n 5
 == ERROR
-error[bad-power]: a power count must be a number literal; for a computed count write `n 'f_ p_ower x` at 5..6
+error[bad-power]: a power count must be a number literal; for a computed count write `n 'f_ p_ower x`
+ --> -e:1:6
+  |
+1 | n_eg^n 5
+  |      ^

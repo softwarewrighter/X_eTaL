@@ -2,4 +2,10 @@
 == SOURCE
 1 i_d 2
 == ERROR
-error[type-mismatch]: expected a number, found a -> b at 0..7
+error[type-mismatch]: expected a number, found a -> b
+ --> -e:1:1
+  |
+1 | 1 i_d 2
+  | ^^^^^^^
+  = note: `i_d` has type Any a => a -> a
+  = help: this is a function still waiting for an argument: give it one, or quote it ('f_) to pass the function itself

@@ -4,4 +4,8 @@
 == SOURCE
 o_\_22 2 3 r_eshape r_ange 6
 == ERROR
-error[bad-axis]: axes are the digits 1-9, each at most once at 5..6
+error[bad-axis]: axes are the digits 1-9, each at most once
+ --> -e:1:6
+  |
+1 | o_\_22 2 3 r_eshape r_ange 6
+  |      ^

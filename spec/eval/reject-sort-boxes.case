@@ -2,4 +2,11 @@
 == SOURCE
 s_ort "b" "a"
 == ERROR
-error[type-mismatch]: expected a number or Char, found Box Char at 0..13
+error[type-mismatch]: expected a number or Char, found Box Char
+ --> -e:1:1
+  |
+1 | s_ort "b" "a"
+  | ^^^^^^^^^^^^^
+  |       ------- this is a Box Char
+  = note: `s_ort` has type Ord a => a -> a
+  = help: `d_isclose b` opens a box to get the value inside

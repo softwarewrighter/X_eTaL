@@ -2,4 +2,11 @@
 == SOURCE
 2.0 e_ncode 5
 == ERROR
-error[type-mismatch]: expected Int, found Float at 0..13
+error[type-mismatch]: expected Int, found Float
+ --> -e:1:1
+  |
+1 | 2.0 e_ncode 5
+  | ^^^^^^^^^^^^^
+  | --- a Float literal
+  = note: `e_ncode` has type Int -> Int -> Int
+  = help: Int and Float do not mix: `f_loat n` makes a Float of an Int, `f_loor x` or `c_eiling x` an Int of a Float

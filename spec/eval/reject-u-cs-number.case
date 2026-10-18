@@ -2,4 +2,9 @@
 == SOURCE
 []U_CS 65
 == ERROR
-error[type-mismatch]: expected Char, found a number at 0..9
+error[type-mismatch]: expected Char, found a number
+ --> -e:1:1
+  |
+1 | []U_CS 65
+  | ^^^^^^^^^
+  = note: `[]U_CS` has type Char -> Int

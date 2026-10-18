@@ -2,4 +2,8 @@
 == SOURCE
 @ f_ormat< "x } y"
 == ERROR
-error[bad-format]: a } in a format text is written }} at 11..18
+error[bad-format]: a } in a format text is written }}
+ --> -e:1:12
+  |
+1 | @ f_ormat< "x } y"
+  |            ^^^^^^^

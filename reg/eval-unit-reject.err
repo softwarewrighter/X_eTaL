@@ -1,1 +1,5 @@
-error[type-mismatch]: expected Unit, found a number at 26..38
+error[type-mismatch]: expected Unit, found a number
+ --> -e:1:27
+  |
+1 | u:a_nswer := { @ -> 42 }; u:a_nswer 42
+  |                           ^^^^^^^^^^^^

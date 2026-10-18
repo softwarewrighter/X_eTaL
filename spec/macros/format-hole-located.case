@@ -4,4 +4,14 @@
 x := 6
 @ f_ormat< "x is {x + \"a\"}"
 == ERROR
-error[type-mismatch]: expected Int, found Char at 25..33
+error[type-mismatch]: expected Int, found Char
+ --> -e:2:19
+  |
+2 | @ f_ormat< "x is {x + \"a\"}"
+  |                   ^^^^^^^^
+  |                   - `x` is an Int
+  |                       ---- a string: a vector of Char
+  |
+1 | x := 6
+  |      - `x` gets its type here
+  = note: `+` has type Num a => a -> a -> a

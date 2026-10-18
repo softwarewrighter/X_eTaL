@@ -10,6 +10,7 @@ mod stages;
 use std::process::ExitCode;
 
 use clap::Parser;
+use xetal_base::Diagnostic;
 
 use crate::args::{Cli, Command};
 use crate::stages::run;
@@ -37,9 +38,18 @@ fn main() -> ExitCode {
             ExitCode::SUCCESS
         }
         Err(diag) => {
-            eprintln!("{diag}");
+            eprintln!("{}", placed(diag, &command));
             ExitCode::FAILURE
         }
+    }
+}
+
+/// `d` with its file, line and column, if it has a span not yet placed
+/// (a stage that reads the source alone: lex, parse, render, ...).
+fn placed(d: Diagnostic, command: &Command) -> Diagnostic {
+    match (d.place(), d.span, command.source()) {
+        (None, Some(_), Some(Ok(text))) => d.placed_in(&command.origin(), &text),
+        _ => d,
     }
 }
 

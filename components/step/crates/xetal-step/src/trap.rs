@@ -91,7 +91,7 @@ impl<'a> Machine<'a, '_> {
     /// runs, unless a warning's handler already `decided` the outcome.
     fn unwind(
         &mut self,
-        e: Diagnostic,
+        mut e: Diagnostic,
         decided: Option<Rc<Outcome<'a>>>,
     ) -> Result<Control<'a>, Diagnostic> {
         while let Some(k) = self.stack.pop() {
@@ -123,6 +123,11 @@ impl<'a> Machine<'a, '_> {
                     return self.apply(cleanup, Slot::Value(Value::Unit), span);
                 }
                 Kont::Items { .. } => break,
+                // Each place a call unwound was made from, once (ask
+                // E5): the loader keeps the one a reader needs.
+                Kont::Called { span } if !e.labels().iter().any(|l| l.span == span) => {
+                    e = e.with_label(span, xetal_base::CALLED_FROM);
+                }
                 _ => {}
             }
         }

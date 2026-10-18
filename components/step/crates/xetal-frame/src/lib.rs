@@ -110,8 +110,10 @@ pub enum Kont<'a> {
         env: Env<'a>,
         span: Span,
     },
-    /// A function call in progress (the depth a runaway recursion grows).
-    Called,
+    /// A function call in progress (the depth a runaway recursion
+    /// grows), and where it was called: an error unwinding through it
+    /// is labeled with the place (ask E5).
+    Called { span: Span },
     /// A higher-order built-in waiting for the call it asked for.
     Kernel {
         kernel: xetal_kernel::Kernel<'a, Value<'a>>,

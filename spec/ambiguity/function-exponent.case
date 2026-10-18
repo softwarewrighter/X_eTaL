@@ -2,4 +2,8 @@
 == SOURCE
 (r_ev)^2
 == ERROR
-error[bad-exponent]: a power goes on a function name (`f_^3`); otherwise use `p_ower` at 6..8
+error[bad-exponent]: a power goes on a function name (`f_^3`); otherwise use `p_ower`
+ --> -e:1:7
+  |
+1 | (r_ev)^2
+  |       ^^

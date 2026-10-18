@@ -4,4 +4,8 @@
 "x:" u_se< "Macros"
 "3 + 4" x:w_ith< "'{ it -> it * 2 } e_ach it"
 == ERROR
-error[shadows-anaphor]: it is bound by x:w_ith< for this text (## binds: it); the text cannot bind it again: use another name at 37..65
+error[shadows-anaphor]: it is bound by x:w_ith< for this text (## binds: it); the text cannot bind it again: use another name
+ --> -e:2:18
+  |
+2 | "3 + 4" x:w_ith< "'{ it -> it * 2 } e_ach it"
+  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

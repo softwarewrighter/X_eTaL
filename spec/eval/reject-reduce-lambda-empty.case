@@ -2,4 +2,8 @@
 == SOURCE
 '{ _l + _r } r_/ 0 t_ake 1 2
 == ERROR
-error[no-identity]: a function value has no identity, so it cannot reduce an empty array at 0..28
+error[no-identity]: a function value has no identity, so it cannot reduce an empty array
+ --> -e:1:1
+  |
+1 | '{ _l + _r } r_/ 0 t_ake 1 2
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,0 +1,1 @@
+Hints (D166): xetal-why hinted adds help for Int/Float, condition, box, function-waiting, value-applied mismatches; 7 spec cases.

@@ -2,4 +2,9 @@
 == SOURCE
 (e_nclose (1, 2)) = e_nclose (1, 2)
 == ERROR
-error[type-mismatch]: expected an array, found a tuple at 1..35
+error[type-mismatch]: expected an array, found a tuple
+ --> -e:1:2
+  |
+1 | (e_nclose (1, 2)) = e_nclose (1, 2)
+  |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  = note: `=` has type (Eq a, Truthy b) => a -> a -> b

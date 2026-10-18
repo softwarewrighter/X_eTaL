@@ -2,4 +2,8 @@
 == SOURCE
 [x f_]
 == ERROR
-error[bad-train]: a train holds functions only at 1..2
+error[bad-train]: a train holds functions only
+ --> -e:1:2
+  |
+1 | [x f_]
+  |  ^

@@ -2,4 +2,8 @@
 == SOURCE
 (2 2 r_eshape 1) r_eplicate 1 2
 == ERROR
-error[rank]: r_eplicate needs a scalar or a vector of counts, got shape 2 2 at 1..31
+error[rank]: r_eplicate needs a scalar or a vector of counts, got shape 2 2
+ --> -e:1:2
+  |
+1 | (2 2 r_eshape 1) r_eplicate 1 2
+  |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

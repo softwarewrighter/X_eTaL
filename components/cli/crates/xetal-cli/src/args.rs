@@ -297,6 +297,26 @@ impl Command {
         }
     }
 
+    /// The name its source is reported by: the file's path, or `-e`.
+    pub(crate) fn origin(&self) -> String {
+        let input = match self {
+            Command::Run { file, .. } => return file.clone(),
+            Command::Eval(EvalArgs { input, .. })
+            | Command::Render(RenderArgs { input, .. })
+            | Command::Doc(DocArgs { input, .. }) => input,
+            Command::Lex(i)
+            | Command::Expand(i)
+            | Command::Parse(i)
+            | Command::Fmt(i)
+            | Command::Migrate(i)
+            | Command::Core(i)
+            | Command::Type(i)
+            | Command::Diagram(i) => i,
+            _ => return "-e".into(),
+        };
+        input.file.clone().unwrap_or_else(|| "-e".into())
+    }
+
     /// The source this command operates on, if it takes one.
     pub(crate) fn source(&self) -> Option<Result<String, Diagnostic>> {
         match self {

@@ -1,0 +1,2 @@
+u:t_wice := { x -> 2 * x }
+u:t_wice m_ap 3 4

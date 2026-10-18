@@ -2,4 +2,8 @@
 == SOURCE
 r_ev^-1
 == ERROR
-error[reserved-superscript]: `^-1`, the inverse of a function, is reserved at 4..7
+error[reserved-superscript]: `^-1`, the inverse of a function, is reserved
+ --> -e:1:5
+  |
+1 | r_ev^-1
+  |     ^^^

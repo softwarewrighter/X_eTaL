@@ -2,4 +2,8 @@
 == SOURCE
 "Abc:" u_se< "Stats"
 == ERROR
-error[bad-alias]: "Abc:" is not an alias: write a lowercase letter, then lowercase letters or digits, and a colon, like "c:" or "b2:" at 0..6
+error[bad-alias]: "Abc:" is not an alias: write a lowercase letter, then lowercase letters or digits, and a colon, like "c:" or "b2:"
+ --> -e:1:1
+  |
+1 | "Abc:" u_se< "Stats"
+  | ^^^^^^

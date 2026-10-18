@@ -2,4 +2,8 @@
 == SOURCE
 3j4
 == ERROR
-error[bad-number]: a number must be followed by a space, symbol or bracket at 1..2
+error[bad-number]: a number must be followed by a space, symbol or bracket
+ --> -e:1:2
+  |
+1 | 3j4
+  |  ^

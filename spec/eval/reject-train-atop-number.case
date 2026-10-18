@@ -3,6 +3,12 @@
 == SOURCE
 [+ -] 1 2
 == ERROR
-error[type-mismatch]: expected a number, found a -> a at 1..2
-  note: in the train `[+ -]`, `+` is applied as `+ (- x)`, where x is the train's argument
-  note: `-` takes two arguments, so `- x` is a function waiting for the other
+error[type-mismatch]: expected a number, found a -> a
+ --> -e:1:2
+  |
+1 | [+ -] 1 2
+  |  ^
+  = note: `+` has type Num a => a -> a -> a
+  = note: in the train `[+ -]`, `+` is applied as `+ (- x)`, where x is the train's argument
+  = note: `-` takes two arguments, so `- x` is a function waiting for the other
+  = help: this is a function still waiting for an argument: give it one, or quote it ('f_) to pass the function itself

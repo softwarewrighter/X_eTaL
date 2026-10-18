@@ -2,4 +2,8 @@
 == SOURCE
 x ← 3
 == ERROR
-error[non-ascii]: source is ASCII; Unicode appears only in rendered output at 2..5
+error[non-ascii]: source is ASCII; Unicode appears only in rendered output
+ --> -e:1:3
+  |
+1 | x ← 3
+  |   ^

@@ -1,0 +1,14 @@
+# A value where a box is wanted: e_nclose (D166).
+== SOURCE
+n := 1 2; (e_nclose n) c_at n
+== ERROR
+error[type-mismatch]: expected Box Int, found Int
+ --> -e:1:12
+  |
+1 | n := 1 2; (e_nclose n) c_at n
+  |            ^^^^^^^^^^^^^^^^^^
+  |      --- `n` gets its type here
+  |            ---------- this is a Box Int
+  |                             - `n` is an Int
+  = note: `c_at` has type a -> a -> a
+  = help: `e_nclose x` puts a value in a box

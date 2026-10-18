@@ -3,4 +3,8 @@
 == SOURCE
 'n_eg '{ _r c_at "ab" } c_ompose "x"
 == ERROR
-error[type-mismatch]: expected Char, found a number at 0..32
+error[type-mismatch]: expected Char, found a number
+ --> -e:1:1
+  |
+1 | 'n_eg '{ _r c_at "ab" } c_ompose "x"
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

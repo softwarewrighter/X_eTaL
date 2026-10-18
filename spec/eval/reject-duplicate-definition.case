@@ -2,4 +2,8 @@
 == SOURCE
 u:f_ := { _r }; u:f_ := { _r }
 == ERROR
-error[duplicate-definition]: u:f_ is already defined in this file at 16..20
+error[duplicate-definition]: u:f_ is already defined in this file
+ --> -e:1:17
+  |
+1 | u:f_ := { _r }; u:f_ := { _r }
+  |                 ^^^^

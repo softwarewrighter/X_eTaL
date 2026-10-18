@@ -4,4 +4,8 @@
 X := 2 3 r_eshape r_ange 6
 X[1,2,3]
 == ERROR
-error[unexpected-token]: expected `]` at 30..31
+error[unexpected-token]: expected `]`
+ --> -e:2:4
+  |
+2 | X[1,2,3]
+  |    ^

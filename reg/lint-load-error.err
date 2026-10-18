@@ -1,1 +1,5 @@
-error[missing-argument]: this function needs an argument on its right (to pass it as a value, quote it) at 93..97
+error[missing-argument]: this function needs an argument on its right (to pass it as a value, quote it)
+ --> reg/fixtures/Oops.xtl:3:20
+  |
+3 | l:t_wice := { _r * t_wo }
+  |                    ^^^^

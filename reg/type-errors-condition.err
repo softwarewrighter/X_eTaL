@@ -1,0 +1,7 @@
+error[type-mismatch]: expected Bool or Int, found Float
+ --> type-errors/condition.xtl:2:1
+  |
+2 | u:s_ign 0.5
+  | ^^^^^^^^^^^
+  |         --- a Float literal
+  = help: a Float is not a condition or a count: `f_loor x` makes an Int of it, a comparison (`x > 0`) a Bool

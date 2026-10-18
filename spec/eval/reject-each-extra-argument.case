@@ -3,4 +3,9 @@
 == SOURCE
 1 2 3 'n_eg e_ach 4 5 6
 == ERROR
-error[type-mismatch]: expected a number, found a -> b at 0..23
+error[type-mismatch]: expected a number, found a -> b
+ --> -e:1:1
+  |
+1 | 1 2 3 'n_eg e_ach 4 5 6
+  | ^^^^^^^^^^^^^^^^^^^^^^^
+  = help: this is a function still waiting for an argument: give it one, or quote it ('f_) to pass the function itself

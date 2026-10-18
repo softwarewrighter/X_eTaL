@@ -2,4 +2,8 @@
 == SOURCE
 @ i_f< "1; 2"
 == ERROR
-error[bad-macro-call]: i_f< takes text on its left and text on its right at 0..1
+error[bad-macro-call]: i_f< takes text on its left and text on its right
+ --> -e:1:1
+  |
+1 | @ i_f< "1; 2"
+  | ^

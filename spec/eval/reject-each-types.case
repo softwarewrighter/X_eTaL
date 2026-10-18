@@ -2,4 +2,10 @@
 == SOURCE
 'n_eg e_ach "ab"
 == ERROR
-error[type-mismatch]: expected a number, found Char at 0..16
+error[type-mismatch]: expected a number, found Char
+ --> -e:1:1
+  |
+1 | 'n_eg e_ach "ab"
+  | ^^^^^^^^^^^^^^^^
+  |             ---- a string: a vector of Char
+  = help: a string is text, not a number: write a number without quotes

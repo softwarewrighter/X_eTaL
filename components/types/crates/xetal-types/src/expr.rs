@@ -30,7 +30,8 @@ impl Infer {
             Kind::Lam { param, body, .. } => self.lambda(param, body)?,
             Kind::App(f, x) => {
                 let (tf, tx, r) = (self.expr(f)?, self.expr(x)?, self.u.fresh());
-                self.u.unify(&tf, &fun(tx, r.clone()), e.span)?;
+                let applied = self.u.unify(&tf, &fun(tx.clone(), r.clone()), e.span);
+                applied.map_err(|d| self.explained(d, e, f, &[(x, &tx)]))?;
                 r
             }
             Kind::App2 { f, left, right } => {
@@ -40,7 +41,9 @@ impl Infer {
                     self.expr(right)?,
                     self.u.fresh(),
                 );
-                self.u.unify(&tf, &fun(tl, fun(tr, r.clone())), e.span)?;
+                let want = fun(tl.clone(), fun(tr.clone(), r.clone()));
+                let applied = self.u.unify(&tf, &want, e.span);
+                applied.map_err(|d| self.explained(d, e, f, &[(left, &tl), (right, &tr)]))?;
                 r
             }
             Kind::Let {
@@ -82,6 +85,8 @@ impl Infer {
         body: &Expr,
     ) -> Result<Type, Diagnostic> {
         let t = self.binding(name, rec, value)?;
+        let why = (value.span, xetal_why::gives(value));
+        self.rec.bound.insert(value.id, why);
         let scheme = self.close(&t, value, false)?;
         self.env.push((name.to_string(), scheme, Some(value.id)));
         let body = self.expr(body);

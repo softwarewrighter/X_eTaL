@@ -1,6 +1,6 @@
 //! Loading a program.
 
-use xetal_base::Diagnostic;
+use xetal_base::{CALLED_FROM, Diagnostic};
 use xetal_core::Program;
 use xetal_macro::{FsLibraries, Libraries, MacroError, expand};
 use xetal_sources::Sources;
@@ -30,35 +30,44 @@ pub fn load_with(name: &str, text: &str, libs: &dyn Libraries) -> Result<Loaded,
 /// The expanded program lowered to Core; errors located.
 pub(crate) fn lowered(expanded: Result<Sources, Box<MacroError>>) -> Result<Loaded, Diagnostic> {
     let sources = expanded.map_err(|e| {
-        let mut d = e.diagnostic.clone();
-        if !e.main {
-            (d.message, d.span) = (tail(&e.describe(), &d.code), None);
+        let d = e.diagnostic.clone().placed_in(&e.file, &e.text);
+        match e.main {
+            true => d,
+            false => Diagnostic { span: None, ..d },
         }
-        d
     })?;
     let program = xetal_core::lower(sources.combined()).map_err(|d| located(&sources, d))?;
     Ok(Loaded { sources, program })
 }
 
-/// `d` located in the file it came from: for one file, its span is
-/// moved from the expanded text to the text as written; otherwise its
-/// place is given in the message as `FILE:LINE:COLUMN`.
+/// `d` located in the file it came from, with its file, line and
+/// column (Saga 27): for one file, its span is also moved from the
+/// expanded text to the text as written; otherwise it has no span (a
+/// combined offset means nothing to a reader), and hidden namespaces
+/// in its message are written as that file writes them.
 pub fn located(sources: &Sources, d: Diagnostic) -> Diagnostic {
     if sources.file_count() < 2 || d.span.is_none() {
         return in_program(sources, d);
     }
-    let mut out = d.clone();
-    (out.message, out.span, out.notes) = (tail(&sources.describe(&d), &d.code), None, Vec::new());
-    out
+    let file = d.span.map_or(0, |s| sources.locate(s.start).index);
+    let message = sources.as_written(file, &d.message);
+    let d = labels_written(sources, calls_kept(sources, d));
+    let d = d.place_with(|span| sources.place(span));
+    Diagnostic {
+        message,
+        span: None,
+        ..d
+    }
 }
 
 /// `d` for tools that show the program's own text (the REPL, the
 /// editor): an error in the program keeps a span in the program file
 /// (the combined text starts with the libraries); one in a library is
-/// located there, as [`located`] does.
+/// located there, as [`located`] does. Either way it is placed.
 pub fn in_program(sources: &Sources, d: Diagnostic) -> Diagnostic {
+    let d = labels_written(sources, calls_kept(sources, d));
     let Some(span) = d.span else {
-        return d;
+        return d.place_with(|span| sources.place(span));
     };
     let (start, end) = (
         sources.locate(span.start),
@@ -66,7 +75,7 @@ pub fn in_program(sources: &Sources, d: Diagnostic) -> Diagnostic {
     );
     match (start.index, end.index) {
         (0, 0) => {
-            let mut out = d;
+            let mut out = d.place_with(|span| sources.place(span));
             out.span = Some(xetal_base::Span::new(
                 start.offset,
                 end.to.max(start.offset + 1),
@@ -77,10 +86,31 @@ pub fn in_program(sources: &Sources, d: Diagnostic) -> Diagnostic {
     }
 }
 
-/// The text of a described diagnostic after `level[code]: `.
-fn tail(described: &str, code: &str) -> String {
-    let marker = format!("[{code}]: ");
-    described.find(&marker).map_or(described.to_string(), |i| {
-        described[i + marker.len()..].to_string()
-    })
+/// `d` with each label's words naming hidden namespaces as the file
+/// the label points into writes them.
+fn labels_written(sources: &Sources, mut d: Diagnostic) -> Diagnostic {
+    for label in d.labels_mut() {
+        let file = sources.locate(label.span.start).index;
+        label.text = sources.as_written(file, &label.text);
+    }
+    d
+}
+
+/// Of the calls an error unwound through (ask E5), the one a reader
+/// needs: for an error in a library, the innermost call the program
+/// made (the program's line that called into the library); none for
+/// an error in the program, whose place says it all.
+fn calls_kept(sources: &Sources, mut d: Diagnostic) -> Diagnostic {
+    let in_program = |span: xetal_base::Span| sources.locate(span.start).index == 0;
+    let keep = match d.span {
+        Some(span) if !in_program(span) => d
+            .labels()
+            .iter()
+            .find(|l| l.text == CALLED_FROM && in_program(l.span))
+            .map(|l| l.span),
+        _ => None,
+    };
+    d.labels_mut()
+        .retain(|l| l.text != CALLED_FROM || Some(l.span) == keep);
+    d
 }

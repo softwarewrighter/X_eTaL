@@ -2,4 +2,8 @@
 == SOURCE
 n_umbers "1 two 3"
 == ERROR
-error[domain]: n_umbers: "two" is not a number at 0..18
+error[domain]: n_umbers: "two" is not a number
+ --> -e:1:1
+  |
+1 | n_umbers "1 two 3"
+  | ^^^^^^^^^^^^^^^^^^

@@ -2,4 +2,8 @@
 == SOURCE
 1 2 c_at_2 3 4
 == ERROR
-error[axis]: axis 2 does not exist in an argument of rank 1 at 0..14
+error[axis]: axis 2 does not exist in an argument of rank 1
+ --> -e:1:1
+  |
+1 | 1 2 c_at_2 3 4
+  | ^^^^^^^^^^^^^^

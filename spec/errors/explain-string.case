@@ -1,0 +1,12 @@
+# A string is a vector of Char, not a number (D165).
+== SOURCE
+1 + "a"
+== ERROR
+error[type-mismatch]: expected a number, found Char
+ --> -e:1:1
+  |
+1 | 1 + "a"
+  | ^^^^^^^
+  |     --- a string: a vector of Char
+  = note: `+` has type Num a => a -> a -> a
+  = help: a string is text, not a number: write a number without quotes

@@ -6,4 +6,8 @@ u:s_ize 2
 c := "ok" c_at @ p_anic< "never here"
 u:s_ize 5
 == ERROR
-error[panic]: never here at 90..112
+error[panic]: never here
+ --> -e:3:16
+  |
+3 | c := "ok" c_at @ p_anic< "never here"
+  |                ^^^^^^^^^^^^^^^^^^^^^^

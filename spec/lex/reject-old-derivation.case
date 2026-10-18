@@ -3,4 +3,8 @@
 == SOURCE
 +^r
 == ERROR
-error[bad-power]: a power goes on a function name (`f_^3`); for a symbol write `n '+ p_ower x` at 1..2
+error[bad-power]: a power goes on a function name (`f_^3`); for a symbol write `n '+ p_ower x`
+ --> -e:1:2
+  |
+1 | +^r
+  |  ^

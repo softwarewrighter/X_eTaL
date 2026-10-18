@@ -2,4 +2,8 @@
 == SOURCE
 f_irst r_ange 0
 == ERROR
-error[empty]: the array is empty: there is no item to use (and no fill) at 0..15
+error[empty]: the array is empty: there is no item to use (and no fill)
+ --> -e:1:1
+  |
+1 | f_irst r_ange 0
+  | ^^^^^^^^^^^^^^^

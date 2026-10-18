@@ -1,0 +1,12 @@
+# Int and Float do not mix: f_loat, f_loor, c_eiling (Saga 27 step 3, D166).
+== SOURCE
+n := 3; u:g_ := { y -> y * 0.5 }; u:g_ n
+== ERROR
+error[type-mismatch]: expected Float, found Int
+ --> -e:1:35
+  |
+1 | n := 3; u:g_ := { y -> y * 0.5 }; u:g_ n
+  |                                   ^^^^^^
+  |      - `n` gets its type here
+  |                                        - `n` is an Int
+  = help: Int and Float do not mix: `f_loat n` makes a Float of an Int, `f_loor x` or `c_eiling x` an Int of a Float

@@ -2,4 +2,8 @@
 == SOURCE
 ~(1, 2)
 == ERROR
-error[bad-lazy]: `~` marks a lazy parameter and must touch its name at 0..1
+error[bad-lazy]: `~` marks a lazy parameter and must touch its name
+ --> -e:1:1
+  |
+1 | ~(1, 2)
+  | ^

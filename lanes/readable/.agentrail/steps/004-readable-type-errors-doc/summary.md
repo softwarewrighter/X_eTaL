@@ -1,0 +1,1 @@
+docs/literate/type-errors.org (D167): seven mistakes with errors and fixes, fixture programs, a golden each; linked from README, tours, Help.

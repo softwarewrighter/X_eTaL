@@ -1,0 +1,5 @@
+error[rebind]: total is already bound in this scope: a name is bound once; write total! for a variable that changes
+ --> type-errors/rebind.xtl:2:1
+  |
+2 | total := total + 5
+  | ^^^^^^^^^^^^^^^^^^

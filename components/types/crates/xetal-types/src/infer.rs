@@ -71,7 +71,8 @@ pub(crate) fn inferred(program: &Program) -> Result<Infer, Diagnostic> {
         mark: 0,
     };
     for item in &program.items {
-        inf.item(item).map_err(|d| program.annotate(d))?;
+        inf.item(item)
+            .map_err(|d| xetal_why::hinted(program.annotate(d)))?;
     }
     // The first undefined name in the source, whatever the map's order.
     let undefined = inf.globals.values().filter_map(|g| match g {
@@ -93,6 +94,8 @@ impl Infer {
             Item::Def { name, value } => return self.def(name, value),
             Item::Let { name, rec, value } => {
                 let t = self.binding(name, *rec, value)?;
+                let why = (value.span, xetal_why::gives(value));
+                self.rec.bound.insert(value.id, why);
                 let (scheme, shown) = match self.condition(&t, value)? {
                     Some(scheme) => {
                         let shown = mono(self.u.defaulted(&scheme.ty));

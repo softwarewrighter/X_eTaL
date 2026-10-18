@@ -4,4 +4,8 @@
 == SOURCE
 u:f_ :: Int -> Int
 == ERROR
-error[unexpected-char]: unexpected character at 5..6
+error[unexpected-char]: unexpected character
+ --> -e:1:6
+  |
+1 | u:f_ :: Int -> Int
+  |      ^

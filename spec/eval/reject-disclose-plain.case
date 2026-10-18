@@ -2,4 +2,11 @@
 == SOURCE
 d_isclose "ab"
 == ERROR
-error[type-mismatch]: expected Box a, found Char at 0..14
+error[type-mismatch]: expected Box a, found Char
+ --> -e:1:1
+  |
+1 | d_isclose "ab"
+  | ^^^^^^^^^^^^^^
+  |           ---- a string: a vector of Char
+  = note: `d_isclose` has type Any a => Box a -> a
+  = help: `e_nclose x` puts a value in a box

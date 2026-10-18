@@ -1,1 +1,5 @@
-error[too-wide]: the grid is at most 9 wide at 98..147
+error[too-wide]: the grid is at most 9 wide
+ --> reg/fixtures/signal.xtl:3:28
+  |
+3 | u:w_idth := { w -> w > 9 ? "too-wide" []S_IGNAL "the grid is at most 9 wide"; w }
+  |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

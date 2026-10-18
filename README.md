@@ -387,6 +387,10 @@ Other fonts, checked against the font files:
   the Combinators birds that do the same (Bluebird and atop, Starling and
   hook, Phoenix and fork), checked to agree, and how to read a train's
   errors
+- [`docs/literate/type-errors.org`](docs/literate/type-errors.org) --
+  type errors, read: the common mistakes (Int and Float mixed, a box,
+  a function waiting for an argument or missing its quote, a Float as
+  a condition, a name bound twice), the error each gives and the fix
 - [`docs/literate/tuples.org`](docs/literate/tuples.org) -- tuples and
   patterns: a state of several arrays as one value, an optimizer's
   state packed by position and then as a tuple taken apart by name,
@@ -397,6 +401,10 @@ Other fonts, checked against the font files:
 - [`docs/reference.md`](docs/reference.md) -- every built-in function, with
   examples (and, for the ones that work along an axis, the default axis,
   axis 1 written out, and another axis)
+- [`docs/errors.md`](docs/errors.md) -- every error and warning code,
+  with an example message and the spec case or golden that shows it;
+  how an error says where (file, line, column, the line underlined),
+  why (where each type came from) and what to write instead
 - [`docs/idioms.md`](docs/idioms.md) -- everyday idioms in X_eTaL beside Java,
   JavaScript, Python, C++ and Rust, and beside GNU APL, J, BQN, ngn/k
   and Uiua (the array table is the Rosetta stone's data, generated)

@@ -2,4 +2,8 @@
 == SOURCE
 f_ g_
 == ERROR
-error[missing-argument]: this function needs an argument on its right (to pass it as a value, quote it) at 3..5
+error[missing-argument]: this function needs an argument on its right (to pass it as a value, quote it)
+ --> -e:1:4
+  |
+1 | f_ g_
+  |    ^^

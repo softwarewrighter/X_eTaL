@@ -4,4 +4,8 @@
 x := 1
 "too-big" e_rror< "x must be small"
 == ERROR
-error[too-big]: x must be small at 17..24
+error[too-big]: x must be small
+ --> -e:2:11
+  |
+2 | "too-big" e_rror< "x must be small"
+  |           ^^^^^^^

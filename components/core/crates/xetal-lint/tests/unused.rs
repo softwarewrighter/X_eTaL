@@ -65,7 +65,10 @@ fn placed(src: &str) -> Vec<(String, Option<(String, String)>)> {
         .into_iter()
         .filter(|d| d.code == "unused-binding")
         .map(|d| {
-            let fix = d.fix.first().map(|f| (text(f.span), f.replacement.clone()));
+            let fix = d
+                .fix()
+                .first()
+                .map(|f| (text(f.span), f.replacement.clone()));
             (text(d.span.expect("placed")), fix)
         })
         .collect()

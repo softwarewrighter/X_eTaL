@@ -98,7 +98,7 @@ fn placed(loaded: &Loaded) -> Vec<Raw> {
                 .span
                 .map_or((at.line, at.col), |s| ended(&loaded.sources, s));
             let fix = d
-                .fix
+                .fix()
                 .iter()
                 .map(|f| edit(f, &loaded.sources))
                 .collect::<Option<_>>();

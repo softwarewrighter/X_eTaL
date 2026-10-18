@@ -2,4 +2,9 @@
 == SOURCE
 n_umbers 5
 == ERROR
-error[type-mismatch]: expected Char, found a number at 0..10
+error[type-mismatch]: expected Char, found a number
+ --> -e:1:1
+  |
+1 | n_umbers 5
+  | ^^^^^^^^^^
+  = note: `n_umbers` has type Char -> Float

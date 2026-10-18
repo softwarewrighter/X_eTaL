@@ -1,0 +1,11 @@
+# A function still waiting for an argument where a value is wanted (D166).
+== SOURCE
+u:f_ := { a b -> a + b }; 1 + u:f_ 1
+== ERROR
+error[type-mismatch]: expected a number, found a -> a
+ --> -e:1:27
+  |
+1 | u:f_ := { a b -> a + b }; 1 + u:f_ 1
+  |                           ^^^^^^^^^^
+  = note: `+` has type Num a => a -> a -> a
+  = help: this is a function still waiting for an argument: give it one, or quote it ('f_) to pass the function itself

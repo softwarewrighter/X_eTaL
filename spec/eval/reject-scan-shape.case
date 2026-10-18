@@ -3,4 +3,8 @@
 == SOURCE
 '{ _l c_at _r } s_\ 1 2 3
 == ERROR
-error[shape-mismatch]: each result must be a scalar, got shape 2 at 0..25
+error[shape-mismatch]: each result must be a scalar, got shape 2
+ --> -e:1:1
+  |
+1 | '{ _l c_at _r } s_\ 1 2 3
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^

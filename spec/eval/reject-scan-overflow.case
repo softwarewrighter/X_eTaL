@@ -3,4 +3,8 @@
 == SOURCE
 '+ s_\ 9223372036854775807 1 -1
 == ERROR
-error[integer-overflow]: integer overflow (use a Float, e.g. 2.0) at 0..31
+error[integer-overflow]: integer overflow (use a Float, e.g. 2.0)
+ --> -e:1:1
+  |
+1 | '+ s_\ 9223372036854775807 1 -1
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

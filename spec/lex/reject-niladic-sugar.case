@@ -2,4 +2,8 @@
 == SOURCE
 n_ow@
 == ERROR
-error[no-niladic-sugar]: there is no `_@` sugar: write `n_ow @` at 4..5
+error[no-niladic-sugar]: there is no `_@` sugar: write `n_ow @`
+ --> -e:1:5
+  |
+1 | n_ow@
+  |     ^

@@ -4,4 +4,9 @@
 a! := 42
 a! := 3.2
 == ERROR
-error[type-mismatch]: expected Int, found Float at 15..18
+error[type-mismatch]: expected Int, found Float
+ --> -e:2:7
+  |
+2 | a! := 3.2
+  |       ^^^
+  = help: Int and Float do not mix: `f_loat n` makes a Float of an Int, `f_loor x` or `c_eiling x` an Int of a Float

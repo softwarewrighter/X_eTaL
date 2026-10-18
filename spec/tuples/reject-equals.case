@@ -2,4 +2,9 @@
 == SOURCE
 (1, 2) = (1, 2)
 == ERROR
-error[type-mismatch]: expected an array, found a tuple at 0..15
+error[type-mismatch]: expected an array, found a tuple
+ --> -e:1:1
+  |
+1 | (1, 2) = (1, 2)
+  | ^^^^^^^^^^^^^^^
+  = note: `=` has type (Eq a, Truthy b) => a -> a -> b

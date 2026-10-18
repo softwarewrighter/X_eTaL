@@ -1,1 +1,5 @@
-error[division-by-zero]: division by zero at 3..8
+error[division-by-zero]: division by zero
+ --> -e:1:4
+  |
+1 | 1; 2 / 0; 3
+  |    ^^^^^

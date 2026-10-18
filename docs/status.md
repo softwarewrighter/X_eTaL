@@ -21,7 +21,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Built-in functions | 127 | 0 | 0 |
 | Language decisions | 159 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 467 | 0 | 0 |
+| Spec cases | 476 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -35,13 +35,13 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 97 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 104 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 50 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
-| `/` | `Num a => a -> a -> Float` | works | 17 | 2 |
+| `/` | `Num a => a -> a -> Float` | works | 18 | 2 |
 | `d_iv` | `Int -> Int -> Int` | works | 4 | 1 |
 | `m_od` | `Int -> Int -> Int` | works | 2 | 2 |
 | `n_eg` | `Num a => a -> a` | works | 19 | 1 |
@@ -65,7 +65,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 38 | 2 |
+| `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 39 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
 | `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 16 | 1 |
 | `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 15 | 1 |
@@ -169,13 +169,12 @@ conventions (naming, layout) work without a spec case citing them.
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 6 | 4 |
 | `r_avel` | `a -> a` | works | 2 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 70 | 2 |
-| `t_ake` | `Int -> a -> a` | works | 15 | 5 |
+| `r_eshape` | `Int -> a -> a` | works | 69 | 2 |
+| `t_ake` | `Int -> a -> a` | works | 16 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 3 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 15 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 6 | 6 |
 | `c_at` | `a -> a -> a` | works | 18 | 5 |
-| `r_equireShape` | `Int -> a -> a` | works | 3 | 3 |
 
 ### B6: reduce and scan (leading axis; reduce is a right fold)
 
@@ -189,7 +188,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `e_ach` | `(a -> b) -> a -> b` | works | 21 | 3 |
-| `m_ap` | `Any b => (a -> b) -> a -> Box b` | works | 6 | 5 |
+| `m_ap` | `Any b => (a -> b) -> a -> Box b` | works | 7 | 5 |
 | `t_able` | `(a -> b -> c) -> a -> b -> c` | works | 6 | 1 |
 
 ### B6: inner product and combinators (operands nearest-first, F9)
@@ -217,7 +216,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `e_nclose` | `Any a => a -> Box a` | works | 7 | 5 |
+| `e_nclose` | `Any a => a -> Box a` | works | 9 | 5 |
 | `d_isclose` | `Any a => Box a -> a` | works | 8 | 4 |
 | `d_isplay` | `a -> Char` | works | 5 | 5 |
 | `p_artition` | `Truthy a => a -> b -> Box b` | works | 4 | 4 |

@@ -3,4 +3,8 @@
 C := 3
 C-1
 == ERROR
-error[ambiguous-minus]: `-` touching the previous token and a digit is ambiguous: write `3 - 1` to subtract or `3 -1` for a negative literal at 8..9
+error[ambiguous-minus]: `-` touching the previous token and a digit is ambiguous: write `3 - 1` to subtract or `3 -1` for a negative literal
+ --> -e:2:2
+  |
+2 | C-1
+  |  ^

@@ -2,4 +2,10 @@
 == SOURCE
 "abc" i_ndexOf 1
 == ERROR
-error[type-mismatch]: expected Char, found a number at 0..16
+error[type-mismatch]: expected Char, found a number
+ --> -e:1:1
+  |
+1 | "abc" i_ndexOf 1
+  | ^^^^^^^^^^^^^^^^
+  | ----- a string: a vector of Char
+  = note: `i_ndexOf` has type Eq a => a -> a -> Int

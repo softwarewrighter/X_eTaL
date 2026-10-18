@@ -6,4 +6,8 @@
 == TYPE
 Any a => a
 == ERROR
-error[x]: y at 19..36
+error[x]: y
+ --> -e:1:20
+  |
+1 | '{ @ -> p_rint! 3; "x" []S_IGNAL "y" } []E_NSURE '{ @ -> p_rint! "cleaned" }
+  |                    ^^^^^^^^^^^^^^^^^

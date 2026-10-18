@@ -3,4 +3,9 @@
 == SOURCE
 (1, 2) c_at 3
 == ERROR
-error[type-mismatch]: expected an array, found a tuple at 0..13
+error[type-mismatch]: expected an array, found a tuple
+ --> -e:1:1
+  |
+1 | (1, 2) c_at 3
+  | ^^^^^^^^^^^^^
+  = note: `c_at` has type a -> a -> a

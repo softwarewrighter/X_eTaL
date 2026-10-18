@@ -1,0 +1,13 @@
+# A Float where an Int is wanted (D166).
+== SOURCE
+x := 2.5; x t_ake 1 2 3
+== ERROR
+error[type-mismatch]: expected Int, found Float
+ --> -e:1:11
+  |
+1 | x := 2.5; x t_ake 1 2 3
+  |           ^^^^^^^^^^^^^
+  |      --- `x` gets its type here
+  |           - `x` is a Float
+  = note: `t_ake` has type Int -> a -> a
+  = help: Int and Float do not mix: `f_loat n` makes a Float of an Int, `f_loor x` or `c_eiling x` an Int of a Float

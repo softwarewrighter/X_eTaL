@@ -2,4 +2,8 @@
 == SOURCE
 u:
 == ERROR
-error[bad-namespace]: a namespace prefix must be followed by a name (aliases are written as strings) at 0..2
+error[bad-namespace]: a namespace prefix must be followed by a name (aliases are written as strings)
+ --> -e:1:1
+  |
+1 | u:
+  | ^^

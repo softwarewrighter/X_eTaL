@@ -3,4 +3,8 @@
 == SOURCE
 []C_OLOR 9
 == ERROR
-error[domain]: Color has values 1 to 8, not 9 at 0..10
+error[domain]: Color has values 1 to 8, not 9
+ --> -e:1:1
+  |
+1 | []C_OLOR 9
+  | ^^^^^^^^^^

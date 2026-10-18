@@ -3,4 +3,8 @@
 == SOURCE
 2 2 d_ecode 1 0 1
 == ERROR
-error[length-mismatch]: 2 radix values for 3 digits at 0..17
+error[length-mismatch]: 2 radix values for 3 digits
+ --> -e:1:1
+  |
+1 | 2 2 d_ecode 1 0 1
+  | ^^^^^^^^^^^^^^^^^

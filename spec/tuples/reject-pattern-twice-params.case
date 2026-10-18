@@ -3,4 +3,8 @@
 == SOURCE
 u:f_ := { (a, b) a -> a }
 == ERROR
-error[bad-lambda]: a parameter name appears twice at 17..18
+error[bad-lambda]: a parameter name appears twice
+ --> -e:1:18
+  |
+1 | u:f_ := { (a, b) a -> a }
+  |                  ^

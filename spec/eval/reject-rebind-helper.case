@@ -4,4 +4,8 @@ h:limit := 8
 h:limit := 9
 h:limit
 == ERROR
-error[rebind]: h:limit is already bound in this scope: a name is bound once; write h:limit! for a variable that changes at 13..25
+error[rebind]: h:limit is already bound in this scope: a name is bound once; write h:limit! for a variable that changes
+ --> -e:2:1
+  |
+2 | h:limit := 9
+  | ^^^^^^^^^^^^

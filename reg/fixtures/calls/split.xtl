@@ -1,0 +1,5 @@
+# Splits bills; the last call divides by zero inside the library.
+"s:" u_se< "Shares"
+100 s:s_hare 4
+100 200 s:e_ach 2
+100 200 s:e_ach 0

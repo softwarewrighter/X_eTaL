@@ -3,4 +3,8 @@
 == SOURCE
 1 2 3 t_ranspose 2 2 r_eshape r_ange 4
 == ERROR
-error[length]: a permutation of 2 axes needs 2 numbers, got 3 at 0..38
+error[length]: a permutation of 2 axes needs 2 numbers, got 3
+ --> -e:1:1
+  |
+1 | 1 2 3 t_ranspose 2 2 r_eshape r_ange 4
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

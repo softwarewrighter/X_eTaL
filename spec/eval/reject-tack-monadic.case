@@ -3,4 +3,10 @@
 == SOURCE
 (r_ight 5) + 1
 == ERROR
-error[type-mismatch]: expected a number, found a -> a at 1..14
+error[type-mismatch]: expected a number, found a -> a
+ --> -e:1:2
+  |
+1 | (r_ight 5) + 1
+  |  ^^^^^^^^^^^^^
+  = note: `+` has type Num a => a -> a -> a
+  = help: this is a function still waiting for an argument: give it one, or quote it ('f_) to pass the function itself

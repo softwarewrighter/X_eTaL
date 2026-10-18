@@ -3,4 +3,8 @@
 == SOURCE
 []G_ENSYM "t"
 == ERROR
-error[hook-outside-macro]: []G_ENSYM is a macro hook: it works only in a macro body, while a call is expanded at 0..13
+error[hook-outside-macro]: []G_ENSYM is a macro hook: it works only in a macro body, while a call is expanded
+ --> -e:1:1
+  |
+1 | []G_ENSYM "t"
+  | ^^^^^^^^^^^^^

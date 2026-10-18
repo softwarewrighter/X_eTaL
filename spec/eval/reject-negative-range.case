@@ -2,4 +2,8 @@
 == SOURCE
 r_ange -1
 == ERROR
-error[domain]: a count cannot be -1 at 0..9
+error[domain]: a count cannot be -1
+ --> -e:1:1
+  |
+1 | r_ange -1
+  | ^^^^^^^^^

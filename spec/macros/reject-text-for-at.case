@@ -3,4 +3,8 @@
 == SOURCE
 "" l_ine< @
 == ERROR
-error[bad-macro-call]: l_ine< takes @ on its left and @ on its right at 0..2
+error[bad-macro-call]: l_ine< takes @ on its left and @ on its right
+ --> -e:1:1
+  |
+1 | "" l_ine< @
+  | ^^

@@ -1,0 +1,8 @@
+error[type-mismatch]: expected a number, found Char
+ --> type-errors/string.xtl:1:6
+  |
+1 | n := 1 + "2"
+  |      ^^^^^^^
+  |          --- a string: a vector of Char
+  = note: `+` has type Num a => a -> a -> a
+  = help: a string is text, not a number: write a number without quotes

@@ -3,4 +3,8 @@
 == SOURCE
 d_isclose "ab" "cd"
 == ERROR
-error[rank]: d_isclose opens one box, got shape 2 at 0..19
+error[rank]: d_isclose opens one box, got shape 2
+ --> -e:1:1
+  |
+1 | d_isclose "ab" "cd"
+  | ^^^^^^^^^^^^^^^^^^^

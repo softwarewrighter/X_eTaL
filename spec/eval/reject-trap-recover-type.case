@@ -3,4 +3,10 @@
 == SOURCE
 '{ @ -> 1 + 2 } []T_RAP '{ e -> []R_ECOVER "text" }
 == ERROR
-error[type-mismatch]: expected a number, found Char at 0..51
+error[type-mismatch]: expected a number, found Char
+ --> -e:1:1
+  |
+1 | '{ @ -> 1 + 2 } []T_RAP '{ e -> []R_ECOVER "text" }
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |                          -------------------------- this is an Error -> Outcome Char
+  = help: a string is text, not a number: write a number without quotes

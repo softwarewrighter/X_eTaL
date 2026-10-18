@@ -2,4 +2,11 @@
 == SOURCE
 r_oll! 2.5
 == ERROR
-error[type-mismatch]: expected Int, found Float at 0..10
+error[type-mismatch]: expected Int, found Float
+ --> -e:1:1
+  |
+1 | r_oll! 2.5
+  | ^^^^^^^^^^
+  |        --- a Float literal
+  = note: `r_oll!` has type Int -> Int
+  = help: Int and Float do not mix: `f_loat n` makes a Float of an Int, `f_loor x` or `c_eiling x` an Int of a Float

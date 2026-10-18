@@ -2,4 +2,8 @@
 == SOURCE
 (a, a) := (1, 2)
 == ERROR
-error[bad-pattern]: a name appears twice in a pattern at 0..6
+error[bad-pattern]: a name appears twice in a pattern
+ --> -e:1:1
+  |
+1 | (a, a) := (1, 2)
+  | ^^^^^^

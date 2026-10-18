@@ -1,0 +1,11 @@
+# A Float as a condition (D166).
+== SOURCE
+u:f_ := { x -> x ? 1; 2 }; u:f_ 1.5
+== ERROR
+error[type-mismatch]: expected Bool or Int, found Float
+ --> -e:1:28
+  |
+1 | u:f_ := { x -> x ? 1; 2 }; u:f_ 1.5
+  |                            ^^^^^^^^
+  |                                 --- a Float literal
+  = help: a Float is not a condition or a count: `f_loor x` makes an Int of it, a comparison (`x > 0`) a Bool

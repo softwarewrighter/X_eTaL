@@ -1,1 +1,5 @@
-error[not-exported]: s:s_quare is not defined by that library; it defines m_ean, v_ariance, s_d, s_pread at 20..29
+error[not-exported]: s:s_quare is not defined by that library; it defines m_ean, v_ariance, s_d, s_pread
+ --> -e:1:21
+  |
+1 | "s:" u_se< "Stats"; s:s_quare 3
+  |                     ^^^^^^^^^

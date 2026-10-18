@@ -3,4 +3,9 @@
 == SOURCE
 '{ x -> (x, x) } e_ach 1 2 3
 == ERROR
-error[type-mismatch]: expected an array, found a tuple at 0..22
+error[type-mismatch]: expected an array, found a tuple
+ --> -e:1:1
+  |
+1 | '{ x -> (x, x) } e_ach 1 2 3
+  | ^^^^^^^^^^^^^^^^^^^^^^
+  = note: `e_ach` has type (a -> b) -> a -> b

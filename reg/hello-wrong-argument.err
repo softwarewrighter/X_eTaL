@@ -1,1 +1,5 @@
-error[type-mismatch]: expected Unit, found a number at -e:1:22
+error[type-mismatch]: expected Unit, found a number
+ --> -e:1:22
+  |
+1 | "hi:" u_se< "Hello"; hi:h_ello 42
+  |                      ^^^^^^^^^^^^

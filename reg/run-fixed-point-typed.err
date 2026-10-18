@@ -1,1 +1,5 @@
-error[infinite-type]: a type would contain itself: a -> b at 469..475
+error[infinite-type]: a type would contain itself: a -> b
+ --> demos/fixed-point.xtl:9:28
+  |
+9 | u:Y_ := { f_ -> { x_ -> f_ x_ 'x_ } '{ x_ -> f_ x_ 'x_ } }
+  |                            ^^^^^^

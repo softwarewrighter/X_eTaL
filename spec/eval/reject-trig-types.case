@@ -3,4 +3,11 @@
 == SOURCE
 s_in "a"
 == ERROR
-error[type-mismatch]: expected a number, found Char at 0..8
+error[type-mismatch]: expected a number, found Char
+ --> -e:1:1
+  |
+1 | s_in "a"
+  | ^^^^^^^^
+  |      --- a string: a vector of Char
+  = note: `s_in` has type Num a => a -> Float
+  = help: a string is text, not a number: write a number without quotes

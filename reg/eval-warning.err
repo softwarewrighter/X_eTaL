@@ -1,1 +1,5 @@
-warning[shadows-builtin]: `r_ev` here shadows the built-in r_ev at 8..28
+warning[shadows-builtin]: `r_ev` here shadows the built-in r_ev
+ --> -e:1:9
+  |
+1 | u:f_ := { r_ev x -> r_ev x }; 1
+  |         ^^^^^^^^^^^^^^^^^^^^
