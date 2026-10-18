@@ -247,5 +247,120 @@ no level; the author probably meant a comment.\n\nExample:\n    \
 s := r\"one\n    # lint: allow unused-binding\n    two\"\nInstead:\n    \
 # lint: allow unused-binding\n    s := r\"one\n    two\"\n\nNo fix: only the author \
 knows whether the text belongs in the string.",
+        name: "gensym-unused",
+        group: Group::Suspicious,
+        level: Level::Warn,
+        summary: "a fresh name from []G_ENSYM that the macro never uses",
+        explain: "What it does: warns on a `[]G_ENSYM` call in a macro library whose \
+result is thrown away, or bound to a name nothing reads.\n\nWhy: a macro asks for \
+a fresh name to write into the text it gives (MC30); one it never writes there \
+means the text uses a name of its own instead, which a caller's name can capture.\n\n\
+Example (in M.xtlm):\n    m:t_wice< := { @ e ->\n      t := []G_ENSYM \"t\"\n      \
+\"{ @ -> t := 2; t * (\" c_at e c_at \") } @\" }\nInstead:\n    m:t_wice< := { @ e ->\n      \
+t := []G_ENSYM \"t\"\n      \"{ @ -> \" c_at t c_at \" := 2; \" c_at t c_at \" * (\" c_at e c_at \") } @\" }\n\n\
+Reported instead of `unused-binding` at the same name.",
+    },
+    Lint {
+        name: "gensym-not-name",
+        group: Group::Correctness,
+        level: Level::Warn,
+        summary: "[]G_ENSYM given a literal that is not a plain name",
+        explain: "What it does: warns on `[]G_ENSYM \"...\"` whose literal is not a plain \
+name: a letter, then letters and digits, with at most one underline, second (`t`, \
+`s_um`).\n\nWhy: the call fails with error[bad-gensym] whenever the macro runs, \
+but only a call shows it; the library itself loads.\n\nExample:\n    \
+t := []G_ENSYM \"the total\"\nInstead:\n    t := []G_ENSYM \"total\"\n\n\
+A name computed at expansion is not checked.",
+    },
+    Lint {
+        name: "reject-bad-place",
+        group: Group::Suspicious,
+        level: Level::Warn,
+        summary: "a []R_EJECT code whose place is not left, right or call",
+        explain: "What it does: warns on a literal `\"code place\" []R_EJECT message` whose \
+place is not `left`, `right` or `call`.\n\nWhy: an unknown place is ignored, so the \
+error lands on the macro's name instead of the argument meant.\n\nExample:\n    \
+\"bad-macro-argument rigth\" []R_EJECT \"an empty argument\"\nInstead:\n    \
+\"bad-macro-argument right\" []R_EJECT \"an empty argument\"",
+    },
+    Lint {
+        name: "reject-undocumented",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a macro rejects its call with a code its doc block never mentions",
+        explain: "What it does: warns on a literal code a macro rejects its call with \
+(`\"code place\" []R_EJECT message`) that the macro's `##` block does not name, as a \
+word in its prose or its examples.\n\nWhy: a macro's users meet the code as \
+`error[code]`; one nobody documented sends them to the library's source.\n\n\
+Example:\n    ## Its argument.\n    m:i_d< := { @ e ->\n      0 = t_ally e ? \
+\"empty-argument right\" []R_EJECT \"an empty argument\"\n      e }\nInstead:\n    \
+## Its argument, which may not be empty (empty-argument).\n\n\
+Each code once a macro; a code in a helper (`h:`), or one computed, is not checked. \
+Off by default: `xetal lint -W pedantic` turns it on.",
+    },
+    Lint {
+        name: "reject-unplaced",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a []R_EJECT code with no place, so the error lands on the macro's name",
+        explain: "What it does: warns on a literal `\"code\" []R_EJECT message` with no \
+place after the code.\n\nWhy: with no place the error is reported at the macro's \
+name; naming the argument at fault (`left`, `right`) points the user at what to \
+change, and `call` says the whole call was meant.\n\nExample:\n    \
+\"bad-macro-argument\" []R_EJECT \"an empty argument\"\nInstead:\n    \
+\"bad-macro-argument right\" []R_EJECT \"an empty argument\"\n\n\
+Off by default: `xetal lint -W pedantic` turns it on.",
+    },
+    Lint {
+        name: "missing-example",
+        group: Group::Pedantic,
+        level: Level::Allow,
+        summary: "a macro with no `## >>` example in its doc block",
+        explain: "What it does: warns on a macro (`m:n_ame< := ...`) whose doc block has no \
+`## >>` example, or that has no doc block.\n\nWhy: a macro is read by the text it \
+gives; an example shows a call and its result, and `xetal doc --test` keeps it true.\n\n\
+Example:\n    ## Its argument.\n    m:i_d< := { @ e -> e }\nInstead:\n    \
+## Its argument.\n    ## >> \"x:\" u_se< \"M\"\n    ## >> @ x:i_d< \"3\"\n    ## 3\n    \
+m:i_d< := { @ e -> e }\n\nOff by default: `xetal lint -W pedantic` turns it on.",
+    },
+    Lint {
+        name: "takes-mismatch",
+        group: Group::Suspicious,
+        level: Level::Warn,
+        summary: "a macro's `## takes:` line that its parameters contradict",
+        explain: "What it does: warns on a macro whose `## takes:` line (MC31) says a side \
+takes text where its parameter is `@`, or `@` where its parameter is named.\n\nWhy: \
+the runner refuses every call of another shape before the macro runs, so a side \
+declared text but written `@` never sees the text it is given, and a named side \
+declared `@` names nothing.\n\nExample:\n    ## takes: text text\n    \
+m:o_ne< := { @ e -> e }\nInstead:\n    ## takes: @ text\n    m:o_ne< := { @ e -> e }",
+    },
+    Lint {
+        name: "ignored-argument",
+        group: Group::Correctness,
+        level: Level::Warn,
+        summary: "a copying macro that never reads one of its sides",
+        explain: "What it does: warns on a macro that copies its text (`## uses: copied`, \
+the default, MC31) but never reads one of its named parameters.\n\nWhy: a copying \
+macro must write every name and number of its arguments into its expansion; one it \
+never reads fails every call that gives text there with error[unused-argument].\n\n\
+Example:\n    ## takes: text text\n    m:l_eft< := { a b -> a }\nInstead:\n    \
+## takes: text @\n    m:l_eft< := { a @ -> a }\n\nA macro that reads a notation \
+says `## uses: parsed` and is not checked. Reported instead of `unused-binding` at \
+the same parameter.",
+    },
+    Lint {
+        name: "binds-unwritten",
+        group: Group::Suspicious,
+        level: Level::Warn,
+        summary: "a `## binds:` name that no text the macro writes contains",
+        explain: "What it does: warns on a macro whose `## binds:` line (MC30) names an \
+anaphor that no string literal in its body has as a word.\n\nWhy: the line stops a \
+call's text from binding that name (shadows-anaphor); if the macro never binds it, \
+the line refuses good calls for nothing, and is likely left from an older body.\n\n\
+Example:\n    ## binds: it\n    m:w_ith< := { e body -> \"{ @ -> x := (\" c_at e c_at \
+\"); \" c_at body c_at \" } @\" }\nInstead:\n    ## binds: it\n    m:w_ith< := { e body \
+-> \"{ @ -> it := (\" c_at e c_at \"); \" c_at body c_at \" } @\" }\n\nA name written by \
+a helper the macro calls is not seen: allow it there.",
     },
 ];

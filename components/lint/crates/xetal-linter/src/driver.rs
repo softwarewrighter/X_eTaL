@@ -90,7 +90,7 @@ fn placed(loaded: &Loaded) -> Vec<Raw> {
     found.extend(xetal_typed::typed(&loaded.program));
     found.extend(xetal_origin::captures(&loaded.program, &loaded.sources));
     found.extend(xetal_shape::shapes(&loaded.program));
-    for d in found {
+    for d in xetal_macrolint::merged(found, &loaded.program, &loaded.sources) {
         let d = xetal_origin::placed(d, &loaded.sources);
         let at = loaded.sources.locate(d.span.map_or(0, |s| s.start));
         if at.index == 0 {

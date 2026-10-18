@@ -1199,6 +1199,13 @@ style guide's names (lang-choices section 16).
    (suspicious, warn) in a new crate xetal-origin; lib/Macros.xtlm
    `b_inds<` declares `## binds: x`. Next: read `## takes:` and
    `## uses:` once step 110 lands.
+12. lint-xtlm (D168; lane lint-xtlm, branch feat/lint-xtlm-gnxaix):
+   lints on macro libraries, from the lint plan's section 4.3:
+   `gensym-unused`, `gensym-not-name`, `reject-bad-place`,
+   `reject-undocumented`, `reject-unplaced`, `missing-example`, and
+   contracts the body contradicts (MC31): `takes-mismatch`,
+   `ignored-argument`, `binds-unwritten`; in a new crate
+   xetal-macrolint; the repository test lints `.xtlm` files too.
 ## Saga 41 (proposed) -- spatial equations (paper math to array code, a library)
 
 Proposed after the review of `docs/research8.txt` and

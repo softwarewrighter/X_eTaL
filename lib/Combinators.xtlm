@@ -73,6 +73,6 @@ h:w_ord := { w r t ->
   ok_ := { i -> (i + n - 1) > t_ally t ? 0; n_ot ((i s_elect e) m_ember? nameChars) | (i + n + 1) s_elect e m_ember? nameChars }
   h := (w h:s_tarts t) & 'ok_ e_ach r_ange t_ally t
   c := 0 < ('+ s_\ 0 + h) - '+ s_\ 0 + (n r_eshape 0) c_at (0 - n) d_rop 0 + h
-  p_ := { i -> (i s_elect h) ? r; (i s_elect c) ? ""; i s_elect t }
+  p_ := { i -> 0 < i s_elect h ? r; (i s_elect c) ? ""; i s_elect t }
   h:j_oin 'p_ m_ap r_ange t_ally t
 }

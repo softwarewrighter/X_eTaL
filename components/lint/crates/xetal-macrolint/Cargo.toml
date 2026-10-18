@@ -1,0 +1,19 @@
+[package]
+name = "xetal-macrolint"
+description = "Lints over macro libraries: fresh names, reject codes, documented examples"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-contract.workspace = true
+xetal-doccom.workspace = true
+xetal-ir.workspace = true
+xetal-lint.workspace = true
+xetal-sources.workspace = true
+
+[dev-dependencies]
+xetal-program.workspace = true

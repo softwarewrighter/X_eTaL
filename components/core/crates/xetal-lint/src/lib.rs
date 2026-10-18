@@ -12,4 +12,5 @@ mod walk;
 mod warn;
 
 pub use registry::{Group, Level, Lint, all, lint};
+pub use unused::uses;
 pub use warn::{lints, warnings};
