@@ -1359,7 +1359,37 @@ code strings for one stage per line, the equation macros
 - A trace format: Saga 41's spatial-report step gives a text report;
   the trace is a data form of the same thing.
 
-**Decisions to make with the user** (none taken here):
+**Decisions, taken with the user 2026-10-17** (the integrator's
+recommendations, adopted "for now"; each may be revisited when the
+step that depends on it begins):
+
+1. Where it lives: `integral` and quadrature in X_eTaL-libraries'
+   Equations (one grammar, one reader through `pa:`); convolution and
+   window helpers in X_eTaL-ML (they serve `nn:`); no X_eTaL-Math
+   until a second math library justifies it.
+2. The call: `integral tau:=a..b | f(tau) * g(t - tau)`, read like
+   `sum`; the rule and grid as option words in the binding,
+   `integral tau:=a..b by trapezoid 64`, with a documented default
+   (trapezoid, 64) so the plain form works.
+3. Improper integrals: refused, the message naming the two ways out
+   (a written truncation, or a change of variables).
+4. Boundary modes: `full`, `same`, `valid`, `circular`; no implicit
+   default (a missing mode is refused), since defaults differ by
+   library and tradition.
+5. `convolve` and `correlate`: library macros expanding to `sum`, not
+   parser words; the equation grammar stays one grammar.
+6. Pipeline stages naming earlier stages without `it`: docs/spatial.md's
+   refusal stands; revisit with X_eTaL-ML's pipeline macro once stages
+   are `c"..."` (the join reads as the paper's product, but hides the
+   data flow the pipeline exists to show).
+7. The trace: an xtln value (Saga 37) as the one form; text and JSON
+   derived from it, so the debugger, Blender and the report read one
+   source.
+8. FFT: wait for complex numbers (Saga 31); Float pairs now would be
+   code to replace.
+
+The questions as they were put:
+
 
 1. Where it lives: Equations' `integral` in X_eTaL-libraries and the
    numerical helpers beside it, or a new X_eTaL-Math (the plan's
