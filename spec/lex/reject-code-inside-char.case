@@ -1,0 +1,10 @@
+# A code string's inside is lexed with the file (ST5): a character
+# no token takes is an error at its place inside the string.
+== SOURCE
+s := c"x ` y"
+== ERROR
+error[unexpected-char]: unexpected character
+ --> -e:1:10
+  |
+1 | s := c"x ` y"
+  |          ^

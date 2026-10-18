@@ -1,0 +1,10 @@
+# A code string where the macro takes code (## takes: code code) is
+# parsed before the macro runs: an unclosed bracket is found inside it.
+== SOURCE
+c"2 > 0" i_f< c"n_eg (1; 0"
+== ERROR
+error[unexpected-token]: expected `)`
+ --> -e:1:24
+  |
+1 | c"2 > 0" i_f< c"n_eg (1; 0"
+  |                        ^

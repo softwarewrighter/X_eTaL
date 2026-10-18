@@ -1,0 +1,7 @@
+# A code side is parsed as a lambda's body, where the macro puts it:
+# a guard stands there, and the value is the same as a plain string's.
+== SOURCE
+n! := 0
+c#"n! := n! + 1; n! < 3 ? "again" []S_IGNAL "not yet"; n!"# t_ry< c"@ r_etry< @"
+== RESULT
+3

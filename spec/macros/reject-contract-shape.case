@@ -5,7 +5,7 @@
 "x:" u_se< "Macros"
 "1" x:b_inds< "x + 1"
 == ERROR
-error[bad-macro-call]: x:b_inds< takes @ on its left and text on its right
+error[bad-macro-call]: x:b_inds< takes @ on its left and code on its right
  --> -e:2:1
   |
 2 | "1" x:b_inds< "x + 1"
