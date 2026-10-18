@@ -57,10 +57,9 @@ scripts/check-markers.sh
 step "Cargo.lock consistency"
 scripts/check-locks.sh
 scripts/check-modes.sh
-# Stale pages fail the full (nightly) gate, which rebuilds them; by day
-# they are a warning (CLAUDE.md, release train).
-if [ "$mode" = full ]; then scripts/check-pages.sh
-else scripts/check-pages.sh || echo "check-pages: a warning by day; the nightly rebuilds pages/"; fi
+# Stale pages are a warning in every gate: the nightly rebuilds and
+# publishes them after its full gate (CLAUDE.md, release train).
+scripts/check-pages.sh || echo "check-pages: a warning; the nightly rebuilds pages/ (just pages by hand)"
 # Structure in every gate (it takes a fraction of a second), so a merged
 # lane cannot leave a function or module over its limit.
 step "sw-checklist (structure)"
