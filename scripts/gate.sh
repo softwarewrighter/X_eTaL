@@ -16,6 +16,9 @@
 # slowest three. "Changed" is measured from the merge base with
 # origin/main (GATE_BASE names another).
 set -euo pipefail
+# The end-to-end checks run in parallel and the goldens open hundreds of
+# files at once: raise the per-process limit (macOS defaults to 256).
+ulimit -n 4096 2>/dev/null || true
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$root"
 mode=sample
