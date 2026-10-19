@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-19
 
+- 16:40 `build` scripts/reg.sh raises the open-files limit (`ulimit -n 4096`) before the parallel golden run: reg-rs starts all 260 goldens at once, and macOS's default of 256 open files per process failed 40 of them with "Too many open files" (the user, 2026-10-19; confirmed by raising the limit by hand).
 - 17:25 `fix` `xetal fmt` keeps a macro call that stands as a statement of its own unparenthesized (D177): a formatted file with an import (`"m:" u_se< "Macros"`) or a `d_ef<` was refused or changed meaning. Golden fmt-macro-statements.
 
 ## 2026-10-18
