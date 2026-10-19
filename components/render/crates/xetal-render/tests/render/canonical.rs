@@ -167,27 +167,51 @@ fn a_code_string_in_a_value_keeps_the_form_written() {
 #[test]
 fn a_code_string_on_a_macros_side_takes_the_canonical_inside() {
     let call = r#"c"n  =  0" i_f< c"p_rint!   1;n * 2""#;
-    assert_eq!(fmt(call), r#"(c"(n = 0)" i_f< c"(p_rint! 1); (n * 2)")"#);
+    assert_eq!(fmt(call), r#"c"(n = 0)" i_f< c"(p_rint! 1); (n * 2)""#);
     assert_eq!(fmt(&fmt(call)), fmt(call));
     // Escapes as written: inner strings escaped in c"...", verbatim in c#"..."#.
     assert_eq!(
         fmt(r#"@ d_bg< c"p_rint!  \"a\"""#),
-        r#"(@ d_bg< c"(p_rint! \"a\")")"#
+        r#"@ d_bg< c"(p_rint! \"a\")""#
     );
     assert_eq!(
         fmt(r###"@ d_bg< c#"p_rint!  "a""#"###),
-        r###"(@ d_bg< c#"(p_rint! "a")"#)"###
+        r###"@ d_bg< c#"(p_rint! "a")"#"###
     );
     // An inside on more than one line keeps its statements on lines.
     assert_eq!(
         fmt("@ d_bg< c\"x := 1\nx  +  1\""),
-        "(@ d_bg< c\"x := 1\n(x + 1)\")"
+        "@ d_bg< c\"x := 1\n(x + 1)\""
     );
     // An inside that does not parse (a pipeline's notation), and a
     // plain string, are kept as written.
     assert_eq!(
         fmt(r#"@ f:p_ipe< c"x |> n_eg""#),
-        r#"(@ f:p_ipe< c"x |> n_eg")"#
+        r#"@ f:p_ipe< c"x |> n_eg""#
     );
-    assert_eq!(fmt(r#""n  = 0" i_f< "1""#), r#"("n  = 0" i_f< "1")"#);
+    assert_eq!(fmt(r#""n  = 0" i_f< "1""#), r#""n  = 0" i_f< "1""#);
+}
+
+/// A macro call that is a whole statement stays one: the expander
+/// gives such a call statements (an import, a definition), and one in
+/// parentheses is an expression call. Inside an expression the
+/// parentheses stay.
+#[test]
+fn a_macro_call_standing_as_a_statement_is_not_parenthesized() {
+    let src = "\"m:\" u_se< \"Macros\"\n\"s_q\" m:d_ef< \"_r * _r\"\nx := 1";
+    assert_eq!(fmt(src), src);
+    assert_eq!(
+        fmt("{ @ -> \"x\" i_f< \"1; 2\" }"),
+        "{ @ -> \"x\" i_f< \"1; 2\" }"
+    );
+    assert_eq!(
+        fmt("p_rint! \"x\" i_f< \"1; 2\""),
+        "(p_rint! (\"x\" i_f< \"1; 2\"))"
+    );
+    assert_eq!(
+        fmt("y := \"x\" i_f< \"1; 2\""),
+        "y := (\"x\" i_f< \"1; 2\")"
+    );
+    assert_eq!(fmt(&fmt(src)), fmt(src));
+    assert_eq!(parse(&fmt(src)), parse(src));
 }

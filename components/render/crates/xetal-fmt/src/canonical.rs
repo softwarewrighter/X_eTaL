@@ -42,7 +42,16 @@ impl Printer<'_> {
             Stmt::Guard { cond, result, .. } => {
                 format!("{} ? {}", self.expr(cond, true), self.expr(result, true))
             }
-            Stmt::Expr(e) => self.expr(e, true),
+            // A macro call that is the whole statement stays one (the
+            // expander gives it statements: an import, a definition).
+            Stmt::Expr(e) => {
+                let call = match &e.kind {
+                    ExprKind::Monadic { f, .. } | ExprKind::Dyadic { f, .. } => f,
+                    _ => return self.expr(e, true),
+                };
+                let statement = matches!(&call.kind, FunKind::Name(n) if n.is_macro());
+                self.expr(e, !statement)
+            }
         }
     }
 

@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-19
+
+- 17:25 `fix` `xetal fmt` keeps a macro call that stands as a statement of its own unparenthesized (D177): a formatted file with an import (`"m:" u_se< "Macros"`) or a `d_ef<` was refused or changed meaning. Golden fmt-macro-statements.
+
 ## 2026-10-18
 
 - 13:45 `docs` Code strings checked, as built (step 112): docs/code-strings.md says what each tool checks and what the partial type check cannot see; the README syntax row says where code strings are checked; a notice for the siblings in docs/asks.md (say `code` in `## takes:`, write `c"..."` where code is taken; every code string must lex); plan step 1e done.
