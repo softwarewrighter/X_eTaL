@@ -1,0 +1,9 @@
+"m:" u_se< "Macros"
+"s_quare" m:d_ef< c"(_r * _r)"
+x := (u:s_quare 3)
+(p_rint! (c"(x > 4)" i_f< c"x; 0"))
+c"(x = 0)" u_nless< c"(p_rint! (100 / x))"
+9
+9
+11.11111111111111
+@

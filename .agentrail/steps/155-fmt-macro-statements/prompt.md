@@ -1,0 +1,1 @@
+Bug found in step 112, the user's go 2026-10-19: xetal fmt parenthesized a macro call standing as a statement of its own (an import became misplaced-macro, a d_ef< no longer defined). Print such a call without parentheses; inside an expression keep them. Test-first; a golden; D177; CHANGES; sample gate.

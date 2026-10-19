@@ -1,0 +1,3 @@
+command = "mkdir -p work/fmt-macro-statements && ./target/debug/xetal fmt reg/fixtures/fmt-macro-statements.xtl > work/fmt-macro-statements/p.xtl && cat work/fmt-macro-statements/p.xtl && ./target/debug/xetal run work/fmt-macro-statements/p.xtl"
+exit_code = 0
+desc = "xetal fmt keeps a macro call that stands as a statement of its own unparenthesized (an import, a definition, u_nless<), parenthesizes one inside an expression, writes code strings' insides canonically; the formatted program loads and runs: 9, 9, 11.11..."
