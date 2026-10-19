@@ -17,6 +17,8 @@ pub struct Call {
     pub span: Span,
     /// Each side is a string (else `@`, no argument).
     pub texts: (bool, bool),
+    /// Each side is a code string (`c"..."`, ST5).
+    pub codes: (bool, bool),
     /// It is a statement of its own (else part of an expression).
     pub statement: bool,
 }
@@ -64,6 +66,7 @@ fn call(tokens: &[Token], i: usize, name: String, braced: bool) -> Result<Call, 
         right,
         span: Span::new(left.start, right.end),
         texts,
+        codes: (code(&tokens[i - 1]), code(&tokens[i + 1])),
         statement: braced && starts(before) && ends(after),
     })
 }
@@ -87,6 +90,11 @@ fn shape(name: &str, around: [Option<&TokenKind>; 4]) -> Result<(bool, bool), St
             "{name} takes a string, or @ for none, on each side: \"left\" {name} \"right\""
         )),
     }
+}
+
+/// `t` is a code string.
+fn code(t: &Token) -> bool {
+    matches!(t.kind, TokenKind::Code(_))
 }
 
 /// A statement may start after these (or at the start of the text).

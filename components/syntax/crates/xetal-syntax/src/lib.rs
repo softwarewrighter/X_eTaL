@@ -15,6 +15,7 @@ mod stmt;
 mod tuple;
 
 pub use parser::{MAX_NESTING, parse};
+pub use stmt::parse_body;
 pub use xetal_ast::{
     Expr, ExprKind, Fun, FunKind, Lambda, MAX_DEPTH, Param, Params, Program, Stmt, Target,
 };

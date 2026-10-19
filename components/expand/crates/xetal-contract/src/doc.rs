@@ -33,12 +33,13 @@ fn read(c: &mut Contract, doc: &str, span: Span) -> Result<(), Diagnostic> {
     if let Some(names) = doc.strip_prefix("binds:") {
         c.binds.extend(names.split_whitespace().map(String::from));
     } else if let Some(sides) = doc.strip_prefix("takes:") {
-        c.takes = Some(takes(sides).ok_or_else(|| {
+        let (texts, code) = takes(sides).ok_or_else(|| {
             let message = format!(
-                "a takes: line is two of text or @ (text text, @ text, text @, @ @), not{sides}"
+                "a takes: line is two of text, code or @ (text text, @ code, text @, @ @), not{sides}"
             );
             Diagnostic::new("bad-contract", message).with_span(span)
-        })?);
+        })?;
+        (c.takes, c.code) = (Some(texts), code);
     } else if let Some(how) = doc.strip_prefix("uses:") {
         c.uses = match how.trim() {
             "copied" => Uses::Copied,
@@ -52,15 +53,21 @@ fn read(c: &mut Contract, doc: &str, span: Span) -> Result<(), Diagnostic> {
     Ok(())
 }
 
-/// The shape `sides` names: which sides are text.
-fn takes(sides: &str) -> Option<(bool, bool)> {
+/// The shape `sides` names: which sides are text, and which of those
+/// are code.
+type Sides = ((bool, bool), (bool, bool));
+fn takes(sides: &str) -> Option<Sides> {
     let side = |w: &str| match w {
-        "text" => Some(true),
-        "@" => Some(false),
+        "text" => Some((true, false)),
+        "code" => Some((true, true)),
+        "@" => Some((false, false)),
         _ => None,
     };
     match sides.split_whitespace().collect::<Vec<_>>()[..] {
-        [l, r] => Some((side(l)?, side(r)?)),
+        [l, r] => {
+            let (l, r) = (side(l)?, side(r)?);
+            Some(((l.0, r.0), (l.1, r.1)))
+        }
         _ => None,
     }
 }

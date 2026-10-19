@@ -1,0 +1,10 @@
+# The verbatim form holds quotes as written, so an inner string must
+# close inside it: an unterminated one is an error inside the string.
+== SOURCE
+s := c#"p_rint! "a"#
+== ERROR
+error[bad-string]: unterminated string (strings are single-line; use \n)
+ --> -e:1:17
+  |
+1 | s := c#"p_rint! "a"#
+  |                 ^^

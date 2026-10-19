@@ -18,7 +18,7 @@ pub fn parse(src: &str) -> Result<Program, Diagnostic> {
         newline_is_space: vec![false],
         nesting: 0,
     };
-    parser.program()
+    parser.program(false)
 }
 
 pub(crate) fn err(code: &str, span: Span, message: impl Into<String>) -> Diagnostic {

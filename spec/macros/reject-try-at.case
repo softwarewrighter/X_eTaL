@@ -3,7 +3,7 @@
 == SOURCE
 @ t_ry< "@ r_ecover< 0"
 == ERROR
-error[bad-macro-call]: t_ry< takes text on its left and text on its right
+error[bad-macro-call]: t_ry< takes code on its left and code on its right
  --> -e:1:1
   |
 1 | @ t_ry< "@ r_ecover< 0"

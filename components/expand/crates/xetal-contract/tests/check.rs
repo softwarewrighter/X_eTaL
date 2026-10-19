@@ -119,3 +119,18 @@ fn an_expansion_that_refuses_the_call_is_not_checked() {
     let text = "\"too-big\" e_rror< \"keep it small\"";
     assert!(unused(&copied(), "y:s_mall<", &args, text).is_none());
 }
+
+#[test]
+fn a_code_side_is_named_code_in_the_refusal() {
+    let c = Contract {
+        takes: Some((false, true)),
+        code: (false, true),
+        ..Contract::default()
+    };
+    assert!(shape(&c, "x:s_tage<", (false, true)).is_none());
+    let d = shape(&c, "x:s_tage<", (false, false)).unwrap();
+    assert_eq!(
+        d.message,
+        "x:s_tage< takes @ on its left and code on its right"
+    );
+}

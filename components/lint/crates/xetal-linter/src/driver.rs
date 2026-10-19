@@ -55,7 +55,8 @@ impl fmt::Display for Finding {
 /// in file order. A library is loaded as it is when imported. A
 /// program that does not load is an error.
 pub fn lint(name: &str, text: &str, cli: &[Rule]) -> Result<Vec<Finding>, Diagnostic> {
-    let loaded = match xetal_program::is_library_named(name, text) {
+    let library = xetal_program::is_library_named(name, text);
+    let loaded = match library {
         true => xetal_program::load_library(name, text)?,
         false => xetal_program::load(name, text)?,
     };
@@ -67,7 +68,9 @@ pub fn lint(name: &str, text: &str, cli: &[Rule]) -> Result<Vec<Finding>, Diagno
         .map(|(line, col, message)| ("unknown-lint", (line, col, line, col), message, Vec::new()))
         .collect();
     raw.extend(placed(&loaded));
-    raw.extend(spelled(text));
+    raw.extend(as_written(text, xetal_strings::strings(text)));
+    let code = xetal_codecheck::checks(name, text, &loaded.sources, library);
+    raw.extend(as_written(text, code));
     let mut out: Vec<Finding> = raw
         .into_iter()
         .filter_map(|r| leveled(r, name, &all))
@@ -111,9 +114,9 @@ fn placed(loaded: &Loaded) -> Vec<Raw> {
     out
 }
 
-/// What the string lints (`xetal-strings`) find in the file as
-/// written, `text`: their spans and fixes are offsets in it already.
-fn spelled(text: &str) -> Vec<Raw> {
+/// Findings on the file as written, `text` (the string lints, the code
+/// string checks): their spans and fixes are offsets in it already.
+fn as_written(text: &str, found: Vec<Diagnostic>) -> Vec<Raw> {
     let place = |s: xetal_base::Span| {
         let ((line, col), end) = (line_col(text, s.start), line_col(text, s.end));
         (line, col, end.0, end.1)
@@ -126,10 +129,7 @@ fn spelled(text: &str) -> Vec<Raw> {
             .collect();
         Some((lint.name, place(d.span?), d.message, fix))
     };
-    xetal_strings::strings(text)
-        .into_iter()
-        .filter_map(raw)
-        .collect()
+    found.into_iter().filter_map(raw).collect()
 }
 
 /// `raw` at the level its rules give it; `None` when allowed.

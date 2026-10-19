@@ -7,9 +7,23 @@ use xetal_lex::{Token, TokenKind};
 use crate::parser::{Parser, err};
 use xetal_ast::{Program, Stmt, Target};
 
+/// Lex and parse the body of a lambda standing alone, its statements
+/// (a guard may stand there): the inside of a code string its macro
+/// takes as code (ST5), which the macro puts in a lambda or a block.
+pub fn parse_body(src: &str) -> Result<Vec<Stmt>, Diagnostic> {
+    let mut parser = Parser {
+        tokens: xetal_lex::lex(src)?,
+        pos: 0,
+        end: src.len(),
+        newline_is_space: vec![false],
+        nesting: 0,
+    };
+    parser.program(true).map(|p| p.stmts)
+}
+
 impl Parser {
-    pub(crate) fn program(&mut self) -> Result<Program, Diagnostic> {
-        let stmts = self.statements(false)?;
+    pub(crate) fn program(&mut self, in_lambda: bool) -> Result<Program, Diagnostic> {
+        let stmts = self.statements(in_lambda)?;
         if self.peek().is_some() {
             return Err(self.end_of_statement("unexpected token"));
         }

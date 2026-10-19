@@ -3,10 +3,10 @@
 
 use xetal_base::Diagnostic;
 use xetal_lex::{Number, Side};
-use xetal_syntax::{Expr, ExprKind, Fun, FunKind, Lambda, Params, Stmt, parse};
+use xetal_syntax::{Expr, ExprKind, Fun, FunKind, Lambda, Params, Stmt, parse, parse_body};
 
 use crate::names::{func_text, target_text, var_text};
-use crate::string::string_text;
+use crate::string::{code_text, string_text};
 
 /// Format lexable, parsable source canonically.
 pub fn canonical(src: &str) -> Result<String, Diagnostic> {
@@ -14,6 +14,17 @@ pub fn canonical(src: &str) -> Result<String, Diagnostic> {
     let printer = Printer { src };
     let lines: Vec<String> = program.stmts.iter().map(|s| printer.stmt(s)).collect();
     Ok(lines.join("\n"))
+}
+
+/// The canonical form of `text`, a lambda's body standing alone (a code
+/// string's inside, ST5): its statements on lines where it was written
+/// on lines, else joined by `; `; none when it does not parse.
+pub(crate) fn body(text: &str) -> Option<String> {
+    let stmts = parse_body(text).ok()?;
+    let printer = Printer { src: text };
+    let sep = if text.contains('\n') { "\n" } else { "; " };
+    let lines: Vec<String> = stmts.iter().map(|s| printer.stmt(s)).collect();
+    Some(lines.join(sep))
 }
 
 /// The source being formatted, for what the tree does not keep (the
@@ -65,16 +76,23 @@ impl Printer<'_> {
                 format!("{base_text}^{exp_text}")
             }
             ExprKind::Quote(f) => format!("'{}", self.fun(f)),
-            ExprKind::Monadic { f, arg } => {
-                group(format!("{} {}", self.fun(f), self.expr(arg, true)))
-            }
+            ExprKind::Monadic { f, arg } => group(format!("{} {}", self.fun(f), self.side(arg, f))),
             ExprKind::Dyadic { left, f, right } => group(format!(
                 "{} {} {}",
-                self.expr(left, true),
+                self.side(left, f),
                 self.fun(f),
-                self.expr(right, true)
+                self.side(right, f)
             )),
             ExprKind::Fn(f) => self.fun(f),
+        }
+    }
+
+    /// An argument of `f`: a code string on a macro's side is code, its
+    /// inside in canonical form (ST5); any other as usual.
+    fn side(&self, e: &Expr, f: &Fun) -> String {
+        match (&e.kind, &f.kind) {
+            (ExprKind::Str(s), FunKind::Name(n)) if n.is_macro() => code_text(self.src, e.span, s),
+            _ => self.expr(e, true),
         }
     }
 

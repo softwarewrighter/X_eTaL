@@ -136,8 +136,8 @@ u:f_ace := { i l ->
   src := d_isclose l s_elect i s_elect source
   out := d_isclose l s_elect i s_elect output
   note := d_isclose l s_elect i s_elect notes
-  missing := "0 = t_ally note" i_f< "\"(no concise idiom)\"; note"
-  result := "0 = t_ally out" i_f< "\"\"; \"-> \" c_at u:o_neLine out"
+  missing := c"0 = t_ally note" i_f< c"\"(no concise idiom)\"; note"
+  result := c"0 = t_ally out" i_f< c"\"\"; \"-> \" c_at u:o_neLine out"
   n_oteLine := { b -> 0.07 v:s_ized "#4b5563" v:s_pan d_isclose b }
   0 = t_ally src ? (e_nclose name) c_at 'n_oteLine m_ap 18 u:w_rap missing
   c_odeLine := { b -> (t_ally d_isclose b) u:f_itted (i c_at l) u:c_olored d_isclose b }
@@ -205,9 +205,9 @@ u:l_oop! := { state ->
   kind := []E_KIND e
   kind m_atch "end" ? state
   next := state cm:u_pdate e
-  "(u:w_here state) m_atch u:w_here next" u_nless< "p_rint! u:w_here next"
-  "(cm:m_ode state) m_atch cm:m_ode next" u_nless< "p_rint! \"mode \" c_at cm:m_ode next"
-  "n_ot kind m_atch \"tick\"" u_nless< "[]S_HOW u:s_tone next"
+  c"(u:w_here state) m_atch u:w_here next" u_nless< c"p_rint! u:w_here next"
+  c"(cm:m_ode state) m_atch cm:m_ode next" u_nless< c"p_rint! \"mode \" c_at cm:m_ode next"
+  c"n_ot kind m_atch \"tick\"" u_nless< c"[]S_HOW u:s_tone next"
   u:l_oop! next
 }
 

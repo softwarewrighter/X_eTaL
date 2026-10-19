@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint reg/fixtures/lint/code-strings.xtl"
+exit_code = 1
+desc = "xetal lint: code strings against their macros' contracts: plain strings where i_f< takes code, and a code string where t_odo< takes text, warn (string-kind, with fixes); an inside that does not check (an unknown function in i_f<'s code) is code-check, denied, placed inside the string; exit 1"

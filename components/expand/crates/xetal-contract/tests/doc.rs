@@ -67,3 +67,16 @@ fn a_malformed_line_is_an_error_at_its_line() {
     let bad = contracts_of("## takes: text @ text\nm:a_< := { @ e -> e }\n").unwrap_err();
     assert_eq!(bad.code, "bad-contract");
 }
+
+/// `code` is a side that takes text which is X_eTaL (ST5, step 112): a
+/// text side, marked as code.
+#[test]
+fn code_is_a_text_side_that_takes_x_etal() {
+    let c = contracts_of("## takes: @ code\nm:s_tage< := { @ t -> t }\n").unwrap();
+    let stage = &c["s_tage<"];
+    assert_eq!(stage.takes, Some((false, true)));
+    assert_eq!(stage.code, (false, true));
+    let c = contracts_of("## takes: code text\nm:w_< := { c t -> c }\n").unwrap();
+    assert_eq!(c["w_<"].code, (true, false));
+    assert_eq!(c["w_<"].takes, Some((true, true)));
+}

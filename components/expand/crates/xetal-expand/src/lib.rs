@@ -13,6 +13,7 @@
 //! for the imports.
 
 mod calls;
+mod code;
 mod copied;
 mod expand;
 mod hygiene;

@@ -65,13 +65,16 @@ impl Macros for NoMacros {
     }
 }
 
+/// Parses the code string on a side of the call (`true`, the right).
+pub(crate) type Parse<'a> = &'a dyn Fn(bool) -> Result<(), Diagnostic>;
+
 /// The expansion of `call`, run by `macros`; its arguments are `left`
 /// and `right` (mapped where they were written, empty for `@`).
 pub(crate) fn user(
     call: &Call,
     (left, right): (&Mapped, &Mapped),
     macros: &dyn Macros,
-    (whole, fresh): (Span, &Cell<usize>),
+    (whole, fresh, code): (Span, &Cell<usize>, Parse<'_>),
 ) -> Result<(Mapped, Vec<String>), Diagnostic> {
     let (ns, name) = match call.name.split_once(':') {
         Some((ns, name)) => (Some(ns), name),
@@ -92,6 +95,13 @@ pub(crate) fn user(
     let written = written(&request);
     if let Some(d) = shape(&contract, &written, texts) {
         return Err(placed(d, call));
+    }
+    // Code where the macro takes code is parsed before it runs (ST5).
+    if contract.code.0 && call.codes.0 {
+        code(false)?;
+    }
+    if contract.code.1 && call.codes.1 {
+        code(true)?;
     }
     let text = macros.run(&request).map_err(|d| placed(d, call))?;
     let args = [request.left, request.right];

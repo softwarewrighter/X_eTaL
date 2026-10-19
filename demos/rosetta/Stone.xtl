@@ -143,10 +143,10 @@ l:f_acing := { s ->
 ## monospace face a tenth of the face high (the faces are small on a
 ## phone, so the code is the boldest thing on them).
 l:l_ine := { k t ->
-  size := "k = 1" i_f< "\"0.06\"; \"0.1\""
-  y := "k = 1" i_f< "0.13; 0.14 + 0.16 * f_loat k"
-  color := "k = 1" i_f< "\"#4b5563\"; \"#000000\""
-  weight := "k = 1" i_f< "\"500\"; \"700\""
+  size := c"k = 1" i_f< c"\"0.06\"; \"0.1\""
+  y := c"k = 1" i_f< c"0.13; 0.14 + 0.16 * f_loat k"
+  color := c"k = 1" i_f< c"\"#4b5563\"; \"#000000\""
+  weight := c"k = 1" i_f< c"\"500\"; \"700\""
   ((v:a_t 0.06 c_at y) c_at ("font-size" v:a_ttr size) c_at ("font-weight" v:a_ttr weight) c_at (v:f_ill color) c_at "font-family" v:a_ttr "ui-monospace, monospace") v:m_arkup t
 }
 

@@ -45,7 +45,7 @@ u:l_it := { f ->
 
 # A face as a polygon, shaded (or, with fill "none", as a wireframe).
 u:p_olygon := { shaded f ->
-  fill := v:f_ill "shaded" i_f< "v:r_gb 3 r_eshape 40 + 200 * u:l_it f; \"none\""
+  fill := v:f_ill c"shaded" i_f< c"v:r_gb 3 r_eshape 40 + 200 * u:l_it f; \"none\""
   (fill c_at "#222" v:s_troke 1.5) v:p_olygon f_loor 0.5 + u:s_creen f
 }
 

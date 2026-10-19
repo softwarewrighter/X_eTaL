@@ -27,4 +27,6 @@ reject-unplaced        pedantic     allow  a []R_EJECT code with no place, so th
 missing-example        pedantic     allow  a macro with no `## >>` example in its doc block
 takes-mismatch         suspicious   warn   a macro's `## takes:` line that its parameters contradict
 ignored-argument       correctness  warn   a copying macro that never reads one of its sides
+string-kind            style        warn   a plain string where a macro takes code, or a code string where it takes text
+code-check             correctness  deny   the inside of a code string a macro takes as code does not check on its own
 binds-unwritten        suspicious   warn   a `## binds:` name that no text the macro writes contains

@@ -1,7 +1,8 @@
 //! A macro's contract (MC31), read from the `##` doc block directly
 //! above its definition: `## binds:` the names it binds for the text of
 //! its call (anaphora, MC30); `## takes:` the shape of call it takes
-//! (`text text`, `@ text`, `text @`, `@ @`), checked before it runs;
+//! (`text text`, `@ text`, `text @`, `@ @`; `code` is a text side
+//! whose text is X_eTaL, ST5), checked before it runs;
 //! `## uses: copied` (the default) or `## uses: parsed`, whether every
 //! name and number of its arguments must appear in its expansion.
 
@@ -21,6 +22,9 @@ pub struct Contract {
     /// Which sides take text (`## takes: @ text` is `(false, true)`);
     /// none declared, any shape.
     pub takes: Option<(bool, bool)>,
+    /// Which text sides take X_eTaL (`## takes: @ code` is `(false,
+    /// true)`): a code string is expected there (ST5).
+    pub code: (bool, bool),
     /// How it treats its arguments.
     pub uses: Uses,
 }

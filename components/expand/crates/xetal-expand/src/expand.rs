@@ -8,6 +8,7 @@ use xetal_mapped::Mapped;
 use std::cell::Cell;
 
 use crate::calls::{Call, calls};
+use crate::code::{inside, lexed, parsed};
 use crate::hygiene::{anaphora, unwritten};
 use crate::user::{Macros, NoMacros, user};
 
@@ -26,6 +27,7 @@ pub fn expand(text: &str) -> Result<Mapped, Diagnostic> {
 pub fn expand_with(text: &str, macros: &dyn Macros) -> Result<Mapped, Diagnostic> {
     if let Ok(tokens) = lex(text) {
         unwritten(&tokens)?;
+        lexed(text, &tokens)?;
     }
     let cx = Cx {
         macros,
@@ -77,36 +79,19 @@ fn expansion(src: &Mapped, call: &Call, cx: &Cx) -> Result<Mapped, Diagnostic> {
         side(call.texts.0, call.left),
         side(call.texts.1, call.right),
     );
+    // A code string where the macro takes code parses (src's places).
+    let code = |right: bool| match right {
+        false => parsed(src.text(), call.left),
+        true => parsed(src.text(), call.right),
+    };
     let (text, binds) = user(
         call,
         (&left, &right),
         cx.macros,
-        (src.span(call.span), &cx.fresh),
+        (src.span(call.span), &cx.fresh, &code),
     )?;
     anaphora(call, (&left, &right), &binds)?;
     Ok(text)
-}
-
-/// The inside of the string literal at `span`: escapes replaced, or a
-/// raw string's text as written (`r"..."`, `r#"..."#`, ST4).
-fn inside(src: &Mapped, span: Span) -> Mapped {
-    let written = &src.text()[span.start..span.end];
-    // A raw string, or a code string's verbatim form (ST4, ST5): the text
-    // between the quotes as it is. A code string's escaped form and a
-    // plain string: the escapes resolved.
-    let verbatim = written
-        .strip_prefix('r')
-        .or_else(|| written.strip_prefix("c#").map(|_| &written[1..]));
-    match verbatim {
-        Some(raw) => {
-            let hashes = raw.len() - raw.trim_start_matches('#').len();
-            src.slice(span.start + 2 + hashes..span.end - 1 - hashes)
-        }
-        None => {
-            let open = 1 + usize::from(written.starts_with('c'));
-            src.slice(span.start + open..span.end - 1).unescape()
-        }
-    }
 }
 
 /// `d` with its span located in the text as written.

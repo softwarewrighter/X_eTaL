@@ -59,6 +59,8 @@ impl Macros for Table<'_> {
             name: written(call),
             binds: contract.binds.clone(),
             parsed: contract.uses == Uses::Parsed,
+            takes: contract.takes,
+            code: contract.code,
         });
         contract
     }

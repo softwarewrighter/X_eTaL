@@ -1,0 +1,10 @@
+# `|>` has no meaning in code: on a side that takes code it is an
+# error inside the string, before the macro runs.
+== SOURCE
+c"2 > 0" i_f< c"1 |> n_eg; 0"
+== ERROR
+error[unexpected-token]: `|>` joins the stages of a pipeline in a macro's text (`@ p:p_ipe< c"x |> f_ it"`); it has no meaning in code
+ --> -e:1:19
+  |
+1 | c"2 > 0" i_f< c"1 |> n_eg; 0"
+  |                   ^^
