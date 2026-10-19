@@ -16,6 +16,10 @@ command -v reg-rs >/dev/null || { echo "reg-rs not found on PATH" >&2; exit 127;
 [ "${GATE_BUILT:-}" = 1 ] || (cd components/cli && cargo build -q -p xetal-cli && cargo build -q --release -p xetal-cli)
 if [ "${1:-}" = "run" ] && [ "$#" -eq 1 ]; then
     # In parallel: every golden writes only under its own path (CLAUDE.md).
+    # reg-rs starts every golden at once (260, several through bash -c
+    # and pipes); macOS's default of 256 open files per process is too
+    # few ("Too many open files", 2026-10-19), so raise the soft limit.
+    ulimit -n 4096 2>/dev/null || true
     exec reg-rs run -p .rgt --parallel
 fi
 exec reg-rs "$@"
