@@ -1,0 +1,1 @@
+xetal fmt prints a macro call that is a whole statement without parentheses (D177); inside an expression they stay. Test in xetal-render canonical.rs, golden fmt-macro-statements; demos formatted and run the same. Sample gate passed.

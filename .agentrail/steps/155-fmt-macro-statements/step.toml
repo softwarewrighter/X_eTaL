@@ -1,0 +1,9 @@
+number = 155
+slug = "fmt-macro-statements"
+status = "completed"
+description = "Bug found in step 112, the user's go 2026-10-19: xetal fmt parenthesized a ma..."
+role = "production"
+context_files = []
+created_at = "2026-10-19T00:26:11"
+completed_at = "2026-10-19T00:26:11"
+commits = ["0040a7bc6f84ab720c99dc2aef6067cff56ae033"]
