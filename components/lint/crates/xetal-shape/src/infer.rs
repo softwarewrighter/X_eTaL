@@ -41,12 +41,8 @@ pub(crate) fn infer(e: &Expr, env: &mut Env, out: &mut Vec<Diagnostic>) -> Fact 
             infer(f, env, out);
             applied(f, args, e.span, out)
         }
-        Kind::Lam { param, body, .. } => {
-            let name = match param {
-                Param::Name(name) => Some(name.as_str()),
-                Param::Unit => None,
-            };
-            scoped(name, Fact::default(), body, env, out);
+        Kind::Lam { .. } => {
+            block(e, &Fact::default(), env, out);
             Fact::default()
         }
         Kind::Let {
