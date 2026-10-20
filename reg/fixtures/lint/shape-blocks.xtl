@@ -1,0 +1,16 @@
+#!/usr/bin/env xetal
+# The shape lint follows a tuple binding and a block applied at once:
+# what an equation macro expands to (its extents bound by a tuple, its
+# grid built inside ({ @ -> ... } @) and the value reshaped to it), so
+# a mismatch after the equation is found before the program runs with
+# no check written by the library.
+(C, O, Ho, Wo) := (2, 1, 3, 3)
+Y := (({ @ ->
+  grid := O c_at Ho c_at Wo
+  grid r_eshape (({ @ ->
+    inner := O c_at Ho c_at Wo c_at (1 + (C - 1) - 0)
+    '+ r_/ inner r_eshape 0.5
+  } @))
+} @))
+B := 1 3 4 r_eshape 0.5
+Y + B

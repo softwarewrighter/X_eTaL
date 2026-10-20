@@ -85,3 +85,53 @@ fn a_reduce_drops_the_leading_axis() {
     assert!(found("('+ r_/ 2 3 r_eshape 0) + 1 2 3").is_empty());
     assert!(found("('+ r_/_2 2 3 r_eshape 0) + 1 2").is_empty());
 }
+
+/// A lambda applied at once (a block, `({ @ -> ... } @)`, what a macro
+/// expands to) is its body: the result's shape comes out of the block.
+#[test]
+fn a_block_applied_at_once_carries_its_bodys_shape() {
+    let src =
+        "O := 1\nY := ({ @ -> g := O c_at 3 c_at 3\n  g r_eshape 0.5 } @)\nY + 1 3 4 r_eshape 0.5";
+    let got = found(src);
+    assert_eq!(got.len(), 1, "{got:?}");
+    assert!(
+        got[0].contains("1 3 3") && got[0].contains("1 3 4"),
+        "{}",
+        got[0]
+    );
+    // A lambda given a value at once binds its parameter to it.
+    assert_eq!(
+        found("({ n -> n r_eshape 0 } 2 3) + 3 2 r_eshape 1").len(),
+        1
+    );
+}
+
+/// A tuple binding gives each name its part: `(O, Ho) := (1, 3)` binds
+/// two single numbers the lint can see.
+#[test]
+fn a_tuple_binding_binds_each_part() {
+    let src = "(O, Ho) := (1, 3)\nY := (O c_at Ho c_at 3) r_eshape 0.5\nY + 1 3 4 r_eshape 0.5";
+    let got = found(src);
+    assert_eq!(got.len(), 1, "{got:?}");
+    assert!(got[0].contains("1 3 3"), "{}", got[0]);
+    // Parts that are arrays carry their shapes too.
+    assert_eq!(
+        found("(A, B) := (2 3 r_eshape 0, 7)\nA + 3 2 r_eshape 1").len(),
+        1
+    );
+}
+
+/// What an equation macro expands to: the extents bound by a tuple, the
+/// grid built inside a block and the value reshaped to it; a later
+/// mismatch is found without the library emitting any check.
+#[test]
+fn an_equations_expansion_is_followed() {
+    let src = "(C, O, Ho, Wo) := (2, 1, 3, 3)\nY := (({ @ ->\n  g4:grid := O c_at Ho c_at Wo\n  g4:grid r_eshape (({ @ -> g6:grid := O c_at Ho c_at Wo c_at (1 + (C - 1) - 0)\n    '+ r_/ g6:grid r_eshape 0.5 } @))\n} @))\nY + 1 3 4 r_eshape 0.5";
+    let got = found(src);
+    assert_eq!(got.len(), 1, "{got:?}");
+    assert!(
+        got[0].contains("1 3 3") && got[0].contains("1 3 4"),
+        "{}",
+        got[0]
+    );
+}

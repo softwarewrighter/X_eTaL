@@ -12,17 +12,32 @@ pub(crate) enum Ext {
 /// A shape whose rank is known: one extent per axis.
 pub(crate) type Shape = Vec<Ext>;
 
-/// What the lint knows of a value: its shape, and its items when it is
-/// a vector of extents (`2 3`, `N c_at 3`, `s_hape X`).
+/// What the lint knows of a value: its shape, its items when it is a
+/// vector of extents (`2 3`, `N c_at 3`, `s_hape X`), and its parts
+/// when it is a tuple (`(1, 3)`), each a fact of its own.
 #[derive(Debug, Clone, Default)]
 pub(crate) struct Fact {
     pub shape: Option<Shape>,
     pub value: Option<Vec<Ext>>,
+    pub parts: Option<Vec<Fact>>,
 }
 
 impl Fact {
     pub fn shaped(shape: Option<Shape>) -> Fact {
-        Fact { shape, value: None }
+        Fact {
+            shape,
+            value: None,
+            parts: None,
+        }
+    }
+
+    /// A tuple of `parts`.
+    pub fn tuple(parts: Vec<Fact>) -> Fact {
+        Fact {
+            shape: None,
+            value: None,
+            parts: Some(parts),
+        }
     }
 }
 

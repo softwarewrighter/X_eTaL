@@ -1,0 +1,3 @@
+warning[shape-mismatch]: these shapes differ: 1 3 3 and 1 3 4, so this fails at run time (item by item, only a single value extends) at reg/fixtures/lint/shape-blocks.xtl:16:1
+  note: `shape-mismatch` is in group `correctness`; xetal lint --explain shape-mismatch
+1 warning(s), 0 error(s)
