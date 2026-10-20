@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-19
 
+- 22:05 `refactor` The code-string check of a macro call moves out of `user()` into `strings()` in xetal-expand: #150 left `user()` at 61 lines, over sw-checklist's 50; no behavior change.
 - 20:15 `feat` A code string on a side a macro takes as text or as a notation is `error[string-kind]` with the drop-the-c fix when its inside is not X_eTaL (B2, D181), not the lexer's `bad-number` inside the string; `xetal lint --fix` makes that fix. Spec cases reject-code-on-text-side, code-on-text-side-lexes; golden macros-code-on-notation.
 - 21:30 `fix` An import line is drawn as typed in every view (D179): the editors and `render --html` drew `"e:" u_se<` as `ᵉ⁼u̲se<`, the alias raised with a raised `=`, which readers took for a bug and `xetal render` never did; the special case is removed, goldens rebased for that line.
 - 18:10 `chore` draws lane: step 1 (main's step 154) complete; the lane saga archived under lanes/draws/.agentrail-archive/.

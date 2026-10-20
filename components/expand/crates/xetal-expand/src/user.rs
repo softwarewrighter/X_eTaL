@@ -98,9 +98,28 @@ pub(crate) fn user(
     if let Some(d) = shape(&contract, &written, texts) {
         return Err(placed(d, call));
     }
-    // A code string is parsed where the macro takes code (ST5), else
-    // lexed; one that does not lex on a text or notation side of a
-    // macro with a contract is advice to drop the c (B2).
+    strings(call, &contract, &written, code)?;
+    let text = macros.run(&request).map_err(|d| placed(d, call))?;
+    let args = [request.left, request.right];
+    if let Some(d) = unused(&contract, &written, &args, &text) {
+        return Err(placed(d, call));
+    }
+    let text = match call.statement {
+        true => text,
+        false => format!("({text})"),
+    };
+    Ok((copied(&text, &[left, right], whole), contract.binds))
+}
+
+/// The code strings of `call`: one is parsed where the macro takes code
+/// (ST5), else lexed; one that does not lex on a text or notation side
+/// of a macro with a contract is advice to drop the c (B2).
+fn strings(
+    call: &Call,
+    contract: &Contract,
+    written: &str,
+    code: Parse<'_>,
+) -> Result<(), Diagnostic> {
     for (right, is_code, takes_code) in [
         (false, call.codes.0, contract.code.0),
         (true, call.codes.1, contract.code.1),
@@ -120,18 +139,9 @@ pub(crate) fn user(
             contract.notation.0
         };
         let span = if right { call.right } else { call.left };
-        return Err(respelled(&written, right, notation, span));
+        return Err(respelled(written, right, notation, span));
     }
-    let text = macros.run(&request).map_err(|d| placed(d, call))?;
-    let args = [request.left, request.right];
-    if let Some(d) = unused(&contract, &written, &args, &text) {
-        return Err(placed(d, call));
-    }
-    let text = match call.statement {
-        true => text,
-        false => format!("({text})"),
-    };
-    Ok((copied(&text, &[left, right], whole), contract.binds))
+    Ok(())
 }
 
 /// The macro as the call writes it: `x:n_ame<`, or `i_f<` for a system macro.
