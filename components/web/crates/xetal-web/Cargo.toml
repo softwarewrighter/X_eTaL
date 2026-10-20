@@ -9,6 +9,7 @@ repository.workspace = true
 
 [dependencies]
 xetal-play.workspace = true
+xetal-katex.workspace = true
 xetal-chrome.workspace = true
 xetal-layout.workspace = true
 xetal-runner.workspace = true

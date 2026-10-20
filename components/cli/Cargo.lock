@@ -2141,6 +2141,7 @@ dependencies = [
  "xetal-lint",
  "xetal-linter",
  "xetal-names",
+ "xetal-notate",
  "xetal-program",
  "xetal-render",
  "xetal-repl",
@@ -2251,6 +2252,7 @@ version = "0.1.0"
 dependencies = [
  "xetal-base",
  "xetal-doclink",
+ "xetal-notate",
  "xetal-view",
 ]
 
@@ -2316,6 +2318,7 @@ dependencies = [
  "xetal-core",
  "xetal-eval",
  "xetal-keys",
+ "xetal-notate",
  "xetal-panes",
  "xetal-program",
  "xetal-term",
@@ -2561,6 +2564,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-notate"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-macro",
+ "xetal-program",
+ "xetal-sources",
+ "xetal-view",
+]
+
+[[package]]
+name = "xetal-notations"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-expand",
+ "xetal-lex",
+ "xetal-sources",
+]
+
+[[package]]
 name = "xetal-origin"
 version = "0.1.0"
 dependencies = [
@@ -2575,6 +2599,7 @@ version = "0.1.0"
 dependencies = [
  "ratatui",
  "xetal-buffer",
+ "xetal-notate",
  "xetal-view",
 ]
 
@@ -2619,6 +2644,7 @@ dependencies = [
  "xetal-grid",
  "xetal-lex",
  "xetal-macro",
+ "xetal-notations",
  "xetal-sources",
  "xetal-system",
  "xetal-types",

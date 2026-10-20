@@ -1,0 +1,17 @@
+[package]
+name = "xetal-notations"
+description = "The notation calls of a loaded program's files (MC32): each call whose macro draws a notation side, with the strings a view replaces by the drawing"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-lex.workspace = true
+xetal-expand.workspace = true
+xetal-sources.workspace = true
+
+[dev-dependencies]
+xetal-program.workspace = true

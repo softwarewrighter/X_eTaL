@@ -1,0 +1,3 @@
+## A notation side with no draws: line (MC32): bad-contract.
+## takes: notation text
+m:e_q< := { l r -> r }

@@ -46,7 +46,7 @@ impl Editor {
             _ => &self.out,
         };
         let extent = match self.focus {
-            Pane::Rendered => Panes::new(&self.buffer, None).extent(),
+            Pane::Rendered => Panes::new(&self.buffer, None, &self.report.notations).extent(),
             _ => (
                 self.report.lines.len(),
                 self.report

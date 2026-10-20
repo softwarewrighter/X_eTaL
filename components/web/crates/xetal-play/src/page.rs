@@ -5,7 +5,9 @@
 
 use xetal_base::Diagnostic;
 use xetal_macro::StoreLibraries;
+use xetal_notate::{drawn, found};
 use xetal_program::{expanded_with, name_for};
+use xetal_view::{Segment, view};
 
 /// Add the library file `name` (`Name.xtl` or `Name.xtlm`) with `text`
 /// to the store in use; a program imports it as `"x:" u_se< "Name"`.
@@ -17,4 +19,13 @@ pub fn add_library(name: &str, text: &str) -> Result<(), String> {
 /// them (the store in use, then the standard libraries).
 pub fn expanded(src: &str) -> Result<String, Diagnostic> {
     expanded_with(name_for(src), src, &StoreLibraries)
+}
+
+/// `src` drawn decorated for the Rendered pane, its notation calls
+/// (MC32) drawn as their `draws:` macros wrote them: one segment of
+/// class `Notation` holding the LaTeX in place of the typed strings.
+/// When `src` does not load, it is drawn as typed.
+pub fn decorated(src: &str) -> Vec<Segment> {
+    let notations = found(name_for(src), src, &StoreLibraries);
+    drawn(view(src), &notations)
 }

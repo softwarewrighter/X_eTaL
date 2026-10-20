@@ -12,3 +12,4 @@ mod widget;
 pub use panes::{Focus, Panes};
 pub use scroll::Scroll;
 pub use theme::{frame, style};
+pub use xetal_notate::{Notation, Span};

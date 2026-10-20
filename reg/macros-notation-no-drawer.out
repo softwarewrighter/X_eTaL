@@ -1,0 +1,5 @@
+error[bad-contract]: e_q< takes a notation: a draws: line names the macro of this library that draws it (## draws: t_ex<)
+ --> spec/macros/data/NoDrawer.xtlm:2:1
+  |
+2 | ## takes: notation text
+  | ^^^^^^^^^^^^^^^^^^^^^^^

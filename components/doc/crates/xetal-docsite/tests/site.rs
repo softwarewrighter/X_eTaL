@@ -141,3 +141,43 @@ fn the_site_is_written_into_a_directory() {
     assert!(dir.join("index.html").is_file());
     std::fs::remove_dir_all(&dir).expect("cleaned");
 }
+
+/// A macro call whose sides are notations (MC32) is drawn as one math
+/// box: the macro name and the binding stay code, the strings become a
+/// `c-notation` span holding the LaTeX the `draws:` macro wrote, for
+/// KaTeX to typeset; the source page and the file page alike.
+#[test]
+fn a_notation_call_is_drawn_as_its_latex() {
+    let path = fixtures().join("math.xtl");
+    let text = std::fs::read_to_string(&path).expect("fixture");
+    let files = model(&path.to_string_lossy(), &text).expect("model");
+    let pages = site(&files);
+    let source = page(
+        &pages,
+        &format!("{}.src.html", xetal_dochtml::page(&files[0].name)),
+    );
+    assert!(
+        source.contains("<span class=\"c-notation\">L = \\sum a + b</span>"),
+        "the LaTeX in one notation span:\n{source}"
+    );
+    assert!(
+        !source.contains("&quot;a + b&quot;"),
+        "the typed strings are replaced by the drawing"
+    );
+    assert!(
+        source.contains("class=\"c-macro\">q:e\u{332}q&lt;</a>"),
+        "the macro name stays, decorated and linked"
+    );
+    assert!(
+        source.contains("katex"),
+        "the page loads KaTeX to typeset it"
+    );
+    let item = page(
+        &pages,
+        &format!("{}.html", xetal_dochtml::page(&files[0].name)),
+    );
+    assert!(
+        item.contains("<span class=\"c-notation\">L = \\sum a + b</span>"),
+        "the item's source is drawn the same way:\n{item}"
+    );
+}

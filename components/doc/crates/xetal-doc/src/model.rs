@@ -4,6 +4,7 @@ use xetal_base::Diagnostic;
 use xetal_doccom::{Doc, Example};
 use xetal_docexpand::Expansion;
 use xetal_macro::{FsLibraries, Libraries};
+use xetal_program::Notation;
 
 /// One source file: a program, a library, a macro library or the
 /// system macro library.
@@ -18,6 +19,9 @@ pub struct DocFile {
     pub expansions: Vec<Expansion>,
     /// The file as written (the site draws it; not in the JSON).
     pub text: String,
+    /// The notation calls written in it, with their drawings (MC32;
+    /// the site typesets them; not in the JSON).
+    pub notations: Vec<Notation>,
 }
 
 /// An import of a file: its alias (without the colon), the library it

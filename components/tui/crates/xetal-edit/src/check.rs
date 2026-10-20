@@ -3,12 +3,21 @@
 //! each value laid out as a grid (`xetal-grid`).
 
 use xetal_base::Diagnostic;
+use xetal_panes::Notation;
 
-/// Lines to show, and the span of an error to highlight.
+/// Lines to show, the span of an error to highlight, and the notation
+/// calls the rendered pane styles as notation (MC32).
 #[derive(Debug, Clone, Default)]
 pub(crate) struct Report {
     pub lines: Vec<String>,
     pub mark: Option<(usize, usize)>,
+    pub notations: Vec<Notation>,
+}
+
+/// The notation calls of the program loaded (its own file), as the
+/// panes take them.
+fn notations(loaded: &xetal_program::Loaded) -> Vec<Notation> {
+    xetal_notate::of(&loaded.sources)
 }
 
 fn failed(d: Diagnostic) -> Report {
@@ -16,6 +25,7 @@ fn failed(d: Diagnostic) -> Report {
     Report {
         lines: d.to_string().lines().map(String::from).collect(),
         mark,
+        notations: Vec::new(),
     }
 }
 
@@ -26,12 +36,17 @@ pub(crate) fn check(src: &str, origin: &str) -> Report {
         Ok(l) => l,
         Err(d) => return failed(d),
     };
+    let notations = notations(&loaded);
     match xetal_types::check_program(&mut loaded.program) {
         Ok(lines) => Report {
             lines: xetal_program::program_types(lines),
             mark: None,
+            notations,
         },
-        Err(d) => failed(xetal_program::in_program(&loaded.sources, d)),
+        Err(d) => Report {
+            notations,
+            ..failed(xetal_program::in_program(&loaded.sources, d))
+        },
     }
 }
 
@@ -46,21 +61,27 @@ fn shown(event: &xetal_eval::Event) -> Vec<String> {
 
 /// Type-check and run, collecting what the program shows.
 pub(crate) fn run(src: &str, origin: &str) -> Report {
-    let xetal_program::Loaded {
-        sources,
-        mut program,
-    } = match xetal_program::load(origin, src) {
+    let loaded = match xetal_program::load(origin, src) {
         Ok(l) => l,
         Err(d) => return failed(d),
     };
+    let notations = notations(&loaded);
+    let xetal_program::Loaded {
+        sources,
+        mut program,
+    } = loaded;
     let here = |d| xetal_program::in_program(&sources, d);
     if let Err(d) = xetal_types::check_program(&mut program) {
-        return failed(here(d));
+        return Report {
+            notations,
+            ..failed(here(d))
+        };
     }
     let (_, events, result) = xetal_eval::eval_events(&program, None);
     let mut report = Report {
         lines: events.iter().flat_map(shown).collect(),
         mark: None,
+        notations,
     };
     if let Err(d) = result {
         let err = failed(here(d));

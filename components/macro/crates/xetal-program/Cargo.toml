@@ -10,6 +10,7 @@ repository.workspace = true
 [dependencies]
 xetal-base.workspace = true
 xetal-lex.workspace = true
+xetal-notations.workspace = true
 xetal-sources.workspace = true
 xetal-macro.workspace = true
 xetal-core.workspace = true

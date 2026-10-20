@@ -33,6 +33,7 @@ pre.example { border-left: 3px solid var(--dim); }
 .c-lambdaarg { color: #d25fd2; } .c-number, .c-exponent { color: #e0b400; }
 .c-string { color: #e8d27a; } .c-symbol { color: #7fbfff; } .c-quote { font-weight: bold; }
 .c-comment { color: var(--dim); } .c-macro { color: #e0b400; font-weight: bold; }
+.c-notation { color: #e8d27a; font-style: italic; } .c-notation .katex { font-style: normal; font-size: 1.05em; }
 /* Doc comments (##) and section headings (###): their own style, apart from remarks. */
 .c-doc { color: var(--doc); font-style: italic; } .c-heading { color: var(--doc); font-weight: bold; }
 .c-error { color: #ff6b6b; } .typed { font-style: italic; }

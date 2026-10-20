@@ -1,0 +1,8 @@
+#!/usr/bin/env xetal
+## A program with a drawn notation: the xetal doc tests' math file.
+
+"q:" u_se< "Eq"
+
+## The equation's right side, counted.
+n := "L" q:e_q< "a + b"
+n

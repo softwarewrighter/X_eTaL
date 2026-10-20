@@ -2,15 +2,19 @@
 //! above its definition: `## binds:` the names it binds for the text of
 //! its call (anaphora, MC30); `## takes:` the shape of call it takes
 //! (`text text`, `@ text`, `text @`, `@ @`; `code` is a text side
-//! whose text is X_eTaL, ST5), checked before it runs;
+//! whose text is X_eTaL, ST5; `notation` a text side in a notation the
+//! library reads, MC32), checked before it runs; `## draws: m_acro<`,
+//! the macro of the same library that draws a notation side;
 //! `## uses: copied` (the default) or `## uses: parsed`, whether every
 //! name and number of its arguments must appear in its expansion.
 
 mod doc;
+mod drawn;
 mod takes;
 mod uses;
 
 pub use doc::contracts_of;
+pub use drawn::drawing;
 pub use takes::shape;
 pub use uses::unused;
 
@@ -25,6 +29,12 @@ pub struct Contract {
     /// Which text sides take X_eTaL (`## takes: @ code` is `(false,
     /// true)`): a code string is expected there (ST5).
     pub code: (bool, bool),
+    /// Which text sides are a notation (`## takes: text notation` is
+    /// `(false, true)`): drawn by the `draws:` macro, not as typed (MC32).
+    pub notation: (bool, bool),
+    /// The macro of the same library that draws the notation sides
+    /// (`## draws: e:t_ex<` gives `t_ex<`), given the same call.
+    pub draws: Option<String>,
     /// How it treats its arguments.
     pub uses: Uses,
 }

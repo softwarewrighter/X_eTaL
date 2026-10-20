@@ -2,6 +2,7 @@
 //! live demo colors it by, its names linked.
 
 use xetal_doclink::{Link, Target};
+pub use xetal_notate::Notation;
 use xetal_view::{Class, Segment, lines, view};
 
 use crate::escape;
@@ -12,14 +13,29 @@ pub type Href<'a> = &'a dyn Fn(Target) -> String;
 /// `text` drawn decorated, for inside `<pre>` or `<code>`; a token
 /// whose bytes are a link's is an `<a>` to its target.
 pub fn code(text: &str, links: &[Link], href: Href) -> String {
-    view(text).iter().map(|s| segment(s, links, href)).collect()
+    code_with(text, &[], links, href)
 }
 
-/// `text` drawn decorated line by line, each line numbered and
-/// anchored (`id="L3"`), what `after` gives for a line (by its number)
-/// placed after it (a call's expansion), for a source page.
-pub fn lined(text: &str, links: &[Link], href: Href, after: &dyn Fn(usize) -> String) -> String {
-    let all = lines(&view(text));
+/// [`code`], with the notation calls in `text` drawn (MC32): each
+/// becomes one `c-notation` span holding its LaTeX, after the macro's
+/// name, for KaTeX to typeset in place of the typed strings.
+pub fn code_with(text: &str, notations: &[Notation], links: &[Link], href: Href) -> String {
+    let segments = xetal_notate::drawn(view(text), notations);
+    segments.iter().map(|s| segment(s, links, href)).collect()
+}
+
+/// `text` drawn decorated line by line, its notations drawn as
+/// [`code_with`] does, each line numbered and anchored (`id="L3"`),
+/// what `after` gives for a line (by its number) placed after it (a
+/// call's expansion), for a source page.
+pub fn lined(
+    text: &str,
+    notations: &[Notation],
+    links: &[Link],
+    href: Href,
+    after: &dyn Fn(usize) -> String,
+) -> String {
+    let all = lines(&xetal_notate::drawn(view(text), notations));
     let count = text.lines().count();
     let mut out = String::new();
     for (i, line) in all.iter().take(count).enumerate() {

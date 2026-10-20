@@ -24,6 +24,12 @@ pub struct Site {
     pub takes: Option<(bool, bool)>,
     /// Which of those take X_eTaL (`## takes: @ code`, ST5).
     pub code: (bool, bool),
+    /// Which of those are a notation (`## takes: text notation`, MC32).
+    pub notation: (bool, bool),
+    /// The notation sides' drawing (LaTeX), as the macro's `draws:`
+    /// macro gave it for this call; none when it is not a notation, or
+    /// the drawer failed.
+    pub drawn: Option<String>,
 }
 
 impl Sources {

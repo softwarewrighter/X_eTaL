@@ -80,3 +80,45 @@ fn code_is_a_text_side_that_takes_x_etal() {
     assert_eq!(c["w_<"].code, (true, false));
     assert_eq!(c["w_<"].takes, Some((true, true)));
 }
+
+/// `notation` is a text side in a notation the library reads (MC32),
+/// drawn by the macro `## draws:` names, one of the library's own.
+#[test]
+fn notation_is_a_text_side_drawn_by_the_draws_macro() {
+    let lib = "## takes: notation notation\n## draws: e:t_ex<\nm:e_q< := { l r -> l }\n\n## takes: text text\nm:t_ex< := { l r -> r }\n";
+    let c = contracts_of(lib).unwrap();
+    let eq = &c["e_q<"];
+    assert_eq!(eq.takes, Some((true, true)));
+    assert_eq!(eq.code, (false, false));
+    assert_eq!(eq.notation, (true, true));
+    assert_eq!(eq.draws.as_deref(), Some("t_ex<"));
+    assert_eq!(c["t_ex<"].notation, (false, false));
+    assert_eq!(c["t_ex<"].draws, None);
+    // Written without the alias too.
+    let c = contracts_of(
+        "## takes: @ notation\n## draws: t_ex<\nm:e_q< := { @ r -> r }\nm:t_ex< := { l r -> r }\n",
+    )
+    .unwrap();
+    assert_eq!(c["e_q<"].draws.as_deref(), Some("t_ex<"));
+}
+
+#[test]
+fn a_notation_needs_its_drawer_and_a_drawer_its_notation() {
+    let bad = contracts_of("## takes: text notation\nm:e_q< := { l r -> l }\n").unwrap_err();
+    assert_eq!(bad.code, "bad-contract");
+    assert!(bad.message.contains("draws:"), "{}", bad.message);
+    let bad = contracts_of(
+        "## takes: text text\n## draws: t_ex<\nm:e_q< := { l r -> l }\nm:t_ex< := { l r -> r }\n",
+    )
+    .unwrap_err();
+    assert_eq!(bad.code, "bad-contract");
+    assert!(bad.message.contains("notation"), "{}", bad.message);
+    let bad = contracts_of("## takes: text notation\n## draws: n_ope<\nm:e_q< := { l r -> l }\n")
+        .unwrap_err();
+    assert_eq!(bad.code, "bad-contract");
+    assert!(bad.message.contains("n_ope<"), "{}", bad.message);
+    let bad = contracts_of("## draws: e_q<\n## takes: text notation\nm:e_q< := { l r -> l }\n")
+        .unwrap_err();
+    assert_eq!(bad.code, "bad-contract");
+    assert!(bad.message.contains("itself"), "{}", bad.message);
+}

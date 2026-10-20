@@ -16,3 +16,4 @@ pub use library::{is_library, is_library_named, load_library, load_library_with,
 pub use load::{Loaded, in_program, load, load_with, located};
 pub use run::Running;
 pub use types::{library_types, program_types};
+pub use xetal_notations::{Notation, notations};

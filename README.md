@@ -77,6 +77,7 @@ a value is an exponent. The language decisions are recorded in
 | `"ab" "cde"`  | two strings side by side              | a nested vector of two strings       |
 | `r"C:\data\x.csv"`, `r#"say "hi""#` | as written | raw strings: no escapes, may hold `"` (with `#`) and span lines |
 | `c"n_eg x \|> f_ $h"`, `c#"p_rint! "a""#` | the inside drawn as code: n underlined, a triangle for `\|>`, a small triangle before h | code strings: X_eTaL text for a macro (a pipeline's stages), the same value as a plain string, lexed with the file and checked where the macro takes code (`## takes: @ code`); `c#"..."#` is verbatim |
+| `"L" n:e_q< "a + b"` | the strings as one math box after `n:e_q<` in HTML (the pages, the live demo); as typed, in the notation style, in the terminal | a notation: a plain string a macro's library draws (`## takes: notation notation`, `## draws: t_ex<`; golden render-html-notation); the value and the text are unchanged (docs/code-strings.md) |
 | `# a plain comment` | APL's lamp, then the text    | a comment, ignored                   |
 | `## Twice.`   | a lamp and a thin vertical bar, the text in the doc style | documentation of the definition below |
 | `### Sizes`   | a lamp and two heavy bars, the heading in bold | a section heading                |

@@ -1,0 +1,3 @@
+command = "./target/debug/xetal render --html spec/macros/data/notation.xtl"
+exit_code = 0
+desc = "a notation call (MC32) in HTML: one c-notation span holding the LaTeX its draws: macro wrote, after the macro name; the left string an empty span"

@@ -89,6 +89,8 @@ div.source .ln { display: inline-block; width: 3.4rem; padding-right: .9rem; tex
 /* Doc comments (##) and section headings (###): their own style, apart from remarks. */
 .c-doc { color: var(--doc); font-style: italic; } .c-heading { color: var(--doc); font-weight: bold; }
 .c-error { color: var(--error); }
+/* A notation (MC32): the LaTeX a draws: macro wrote, typeset by KaTeX in place; as typed until then. */
+.c-notation { color: var(--string); font-style: italic; } .c-notation .katex { font-style: normal; font-size: 1.05em; }
 button.theme { float: right; background: none; color: var(--dim); border: 1px solid var(--rule); border-radius: 4px; cursor: pointer; font-size: .8rem; }
 @media (max-width: 760px) {
   body { display: block; }

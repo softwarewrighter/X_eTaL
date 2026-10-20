@@ -36,6 +36,10 @@ pub enum Class {
     Space,
     /// Text that does not lex; shown as typed.
     Error,
+    /// A notation a library draws (MC32): a string of a macro call
+    /// whose contract names a `draws:` macro; its text is the drawing
+    /// (LaTeX) where a view draws math, else the typed string.
+    Notation,
 }
 
 /// The class of a token.

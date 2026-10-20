@@ -23,7 +23,7 @@ pub(crate) fn item(cx: &Ctx, file: usize, index: usize) -> String {
         cx.name(&i.name),
         meta(cx, file, i),
         doc(cx, file, i.doc.as_ref()),
-        cx.draw(file, &i.source),
+        cx.draw_lines(file, i.line, &i.source),
         on_lines(
             cx,
             file,

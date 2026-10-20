@@ -249,3 +249,48 @@ fn the_cursor_cell_is_drawn_reversed_in_both_panes() {
     );
     assert!(!cell(&e, 1, 1).modifier.contains(Modifier::REVERSED));
 }
+
+/// A notation call (MC32) in the editor: the program is loaded live, so
+/// both panes style the notation strings as notation (italic), the
+/// typed text kept (the terminal has no math renderer), and the
+/// binding and the macro name as code.
+#[test]
+fn a_notation_is_styled_in_the_rendered_pane() {
+    let path = scratch("notation");
+    let dir = path.parent().unwrap();
+    std::fs::write(
+        dir.join("Eqn.xtlm"),
+        "## takes: notation notation\n## draws: t_ex<\n## uses: parsed\nm:e_q< := { l r -> f_ormat t_ally r }\n\n## takes: text text\nm:t_ex< := { l r -> \"\\\"\" c_at l c_at \" = \" c_at r c_at \"\\\"\" }\n",
+    )
+    .unwrap();
+    let mut e = Editor::open(&path).unwrap();
+    keys(&mut e, "\"e:\" u_se< \"Eqn\"\ny := \"L\" e:e_q< \"a + b\"");
+    let mut t = Terminal::new(TestBackend::new(70, 12)).unwrap();
+    t.draw(|f| e.draw(f)).unwrap();
+    let b = t.backend().buffer();
+    let italic: Vec<(u16, u16)> = (0..b.area.height)
+        .flat_map(|y| (0..b.area.width).map(move |x| (x, y)))
+        .filter(|&(x, y)| {
+            b[(x, y)]
+                .modifier
+                .contains(ratatui::style::Modifier::ITALIC)
+        })
+        .collect();
+    let s = screen(&e);
+    assert!(s.contains("\"a + b\""), "typed text kept: {s}");
+    let ascii = italic.iter().any(|&(x, _)| x < 35);
+    let rendered = italic.iter().any(|&(x, _)| x >= 35);
+    assert!(
+        ascii && rendered,
+        "{italic:?}
+{s}"
+    );
+    assert!(
+        italic.iter().all(|&(_, y)| y == 2),
+        "the call's line only: {italic:?}"
+    );
+    assert!(
+        !italic.contains(&(1, 2)) && !italic.contains(&(36, 2)),
+        "the binding stays code"
+    );
+}

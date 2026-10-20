@@ -1,0 +1,5 @@
+error[bad-contract]: e_q< draws by t_ex<, which this library does not define
+ --> spec/macros/data/DrawerMissing.xtlm:2:1
+  |
+2 | ## takes: notation text
+  | ^^^^^^^^^^^^^^^^^^^^^^^

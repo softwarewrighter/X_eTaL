@@ -1056,6 +1056,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-notations"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-expand",
+ "xetal-lex",
+ "xetal-program",
+ "xetal-sources",
+]
+
+[[package]]
 name = "xetal-prim"
 version = "0.1.0"
 dependencies = [
@@ -1097,6 +1108,7 @@ dependencies = [
  "xetal-lex",
  "xetal-lint",
  "xetal-macro",
+ "xetal-notations",
  "xetal-sources",
  "xetal-system",
  "xetal-types",

@@ -1,0 +1,4 @@
+## A draws: line naming a macro this library does not define (MC32).
+## takes: notation text
+## draws: t_ex<
+m:e_q< := { l r -> r }

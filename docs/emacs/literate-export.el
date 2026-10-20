@@ -15,7 +15,17 @@
       org-html-validation-link nil
       org-html-head-include-default-style nil
       org-html-head-include-scripts nil
-      org-html-head "<link rel=\"stylesheet\" href=\"style.css\"/>"
+      ;; KaTeX typesets notations (MC32, the c-notation spans xetal render
+      ;; --html writes for an equation macro's sides); from jsDelivr,
+      ;; nothing redistributed; without it a notation shows its LaTeX.
+      org-html-head (concat "<link rel=\"stylesheet\" href=\"style.css\"/>\n"
+                            "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.18.10/dist/katex.min.css\" crossorigin=\"anonymous\"/>\n"
+                            "<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.18.10/dist/katex.min.js\" crossorigin=\"anonymous\"></script>\n"
+                            "<script>document.addEventListener('DOMContentLoaded', function () {"
+                            " if (typeof katex === 'undefined') return;"
+                            " document.querySelectorAll('.c-notation').forEach(function (el) {"
+                            " var tex = el.textContent; if (!tex) return;"
+                            " try { katex.render(tex, el, { throwOnError: false }); } catch (e) { el.textContent = tex; } }); });</script>")
       org-html-postamble t
       org-html-postamble-format
       '(("en" "<p><a href=\"index.html\">Literate documents</a> &middot; <a href=\"../\">Live demo</a> &middot; <a href=\"https://github.com/softwarewrighter/X_eTaL\">Repository</a></p>")))

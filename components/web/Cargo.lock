@@ -1563,6 +1563,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-katex"
+version = "0.1.0"
+dependencies = [
+ "js-sys",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "xetal-kernel"
 version = "0.1.0"
 dependencies = [
@@ -1688,6 +1696,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-notate"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-macro",
+ "xetal-program",
+ "xetal-sources",
+ "xetal-view",
+]
+
+[[package]]
+name = "xetal-notations"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-expand",
+ "xetal-lex",
+ "xetal-sources",
+]
+
+[[package]]
 name = "xetal-origin"
 version = "0.1.0"
 dependencies = [
@@ -1709,6 +1738,7 @@ dependencies = [
  "xetal-lint",
  "xetal-linter",
  "xetal-macro",
+ "xetal-notate",
  "xetal-program",
  "xetal-step",
  "xetal-store",
@@ -1757,6 +1787,7 @@ dependencies = [
  "xetal-grid",
  "xetal-lex",
  "xetal-macro",
+ "xetal-notations",
  "xetal-sources",
  "xetal-system",
  "xetal-types",
@@ -2047,6 +2078,7 @@ dependencies = [
  "wasm-bindgen",
  "web-sys",
  "xetal-chrome",
+ "xetal-katex",
  "xetal-layout",
  "xetal-libs",
  "xetal-play",
