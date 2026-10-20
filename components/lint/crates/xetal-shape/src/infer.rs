@@ -16,12 +16,23 @@ pub(crate) fn infer(e: &Expr, env: &mut Env, out: &mut Vec<Diagnostic>) -> Fact 
         Kind::Lit(Number::Int(n)) => Fact {
             shape: Some(Vec::new()),
             value: Some(vec![Ext::Num(*n)]),
+            parts: None,
         },
         Kind::Lit(_) => Fact::shaped(Some(Vec::new())),
         Kind::Array(items) => strand(items, env, out),
         Kind::Var(name) => env.lookup(name),
+        Kind::Tuple(items) => Fact::tuple(items.iter().map(|i| infer(i, env, out)).collect()),
+        Kind::Proj { index, tuple, .. } => {
+            let parts = infer(tuple, env, out).parts;
+            parts
+                .and_then(|p| p.get(*index).cloned())
+                .unwrap_or_default()
+        }
         Kind::App(f, x) => {
             let x = infer(x, env, out);
+            if let Some(fact) = block(f, &x, env, out) {
+                return fact;
+            }
             infer(f, env, out);
             operated(f).map_or_else(Fact::default, |rule| monadic(rule, x))
         }
@@ -53,6 +64,20 @@ pub(crate) fn infer(e: &Expr, env: &mut Env, out: &mut Vec<Diagnostic>) -> Fact 
     }
 }
 
+/// A lambda applied at once (a block, `({ @ -> ... } @)`, what a macro
+/// expands to; or `{ n -> ... } 2 3`) is its body, the parameter bound
+/// to the argument's fact; `None` when `f` is not a lambda.
+fn block(f: &Expr, x: &Fact, env: &mut Env, out: &mut Vec<Diagnostic>) -> Option<Fact> {
+    let Kind::Lam { param, body, .. } = &f.kind else {
+        return None;
+    };
+    let name = match param {
+        Param::Name(name) => Some(name.as_str()),
+        Param::Unit => None,
+    };
+    Some(scoped(name, x.clone(), body, env, out))
+}
+
 /// `body` with `name` bound to `fact`.
 fn scoped(
     name: Option<&str>,
@@ -80,7 +105,11 @@ fn strand(items: &[Expr], env: &mut Env, out: &mut Vec<Diagnostic>) -> Fact {
     };
     let value = facts.iter().map(one).collect();
     let shape = Some(vec![Ext::Num(items.len() as i64)]);
-    Fact { shape, value }
+    Fact {
+        shape,
+        value,
+        parts: None,
+    }
 }
 
 /// The shape rule of built-in `f` when it takes `arity` arguments.

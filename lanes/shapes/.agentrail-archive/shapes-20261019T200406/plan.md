@@ -1,0 +1,1 @@
+shapes lane (the blog agent's shape item, 2026-10-19): the shape lint follows a block applied at once and a tuple binding, so an equation macro's result shape (grid r_eshape ... inside ({ @ -> ... } @), extents bound by (C, O, Ho) := (2, 1, 3)) is a fact without the library emitting r_equireShape. One step, one PR from main.

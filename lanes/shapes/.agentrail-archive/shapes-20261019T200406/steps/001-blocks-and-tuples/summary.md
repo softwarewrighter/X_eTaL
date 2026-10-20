@@ -1,0 +1,1 @@
+Shape lint follows tuples and blocks (D180) on branch pr/shape-blocks; three xetal-shape tests, golden lint-shape-blocks; verified against Equations' CNN by hand; gate green.

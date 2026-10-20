@@ -14,6 +14,7 @@ pub(crate) fn monadic(rule: &str, x: Fact) -> Fact {
         "shape" => Fact {
             shape: x.shape.as_ref().map(|s| vec![Ext::Num(s.len() as i64)]),
             value: x.shape,
+            parts: None,
         },
         _ => Fact::default(),
     }
@@ -30,7 +31,11 @@ pub(crate) fn dyadic(rule: &str, [l, r]: [Fact; 2], span: Span, out: &mut Vec<Di
             let value = l.value.zip(r.value).filter(|_| both);
             let value = value.map(|(a, b)| [a, b].concat());
             let shape = value.as_ref().map(|v| vec![Ext::Num(v.len() as i64)]);
-            Fact { shape, value }
+            Fact {
+                shape,
+                value,
+                parts: None,
+            }
         }
         "check" => check(l.value, r, span, out),
         _ => Fact::default(),
@@ -84,6 +89,7 @@ fn check(want: Option<Vec<Ext>>, x: Fact, span: Span, out: &mut Vec<Diagnostic>)
     Fact {
         shape: want.or(x.shape),
         value: x.value,
+        parts: None,
     }
 }
 

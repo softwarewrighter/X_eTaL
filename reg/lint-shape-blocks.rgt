@@ -1,0 +1,3 @@
+command = "./target/debug/xetal lint reg/fixtures/lint/shape-blocks.xtl"
+exit_code = 0
+desc = "shape-mismatch through a tuple binding and a block applied at once (an equation macro's expansion): the extents (O, Ho, Wo) := (1, 3, 3), the grid built inside ({ @ -> ... } @), the value reshaped to it; Y + B with B 1 3 4 found before running"
