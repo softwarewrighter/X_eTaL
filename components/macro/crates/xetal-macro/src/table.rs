@@ -6,7 +6,7 @@
 use std::cell::RefCell;
 
 use xetal_base::Diagnostic;
-use xetal_contract::{Contract, Uses};
+use xetal_contract::{Contract, Uses, drawing};
 use xetal_expand::{MacroCall, Macros};
 use xetal_lookup::{Libraries, MacroRun};
 use xetal_sources::Site;
@@ -61,8 +61,30 @@ impl Macros for Table<'_> {
             parsed: contract.uses == Uses::Parsed,
             takes: contract.takes,
             code: contract.code,
+            notation: contract.notation,
+            drawn: self.drawn(call, &contract),
         });
         contract
+    }
+}
+
+impl Table<'_> {
+    /// The drawing of `call`'s notation sides: the `draws:` macro of the
+    /// same library, given the same call, its text read as a drawing
+    /// (MC32); none when the macro draws nothing or the drawer fails
+    /// (the call itself reports its own errors).
+    fn drawn(&self, call: &MacroCall, contract: &Contract) -> Option<String> {
+        let drawer = contract.draws.as_deref()?;
+        if !(contract.notation.0 && call.left.is_some()
+            || contract.notation.1 && call.right.is_some())
+        {
+            return None;
+        }
+        let draw = MacroCall {
+            name: drawer,
+            ..call.clone()
+        };
+        drawing(&self.run(&draw).ok()?)
     }
 }
 

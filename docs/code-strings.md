@@ -107,10 +107,57 @@ m:e_q< := ...
 Where a program is drawn (the pages, the live demo, the editors), the
 notation side of a call is drawn from what the `draws:` macro gives
 (Equations: its LaTeX, drawn by KaTeX); the text typed and the value
-are unchanged. Still to decide with the user: what the terminal editor
-shows for a notation, and how the renderer reads an imported library's
-contract (it now draws from tokens alone). It is its own step, after
-step 112 (which adds the `code` kind beside `text` and `@`).
+are unchanged.
+
+### Why no notation string (`n"..."`)
+
+Settled with the user, 2026-10-19, when step 154 began. A fourth
+spelling, `n"..."` by analogy with `c"..."`, was proposed so that a
+view with only the tokens could style a notation, and declined.
+
+The string forms are one type, a `Char` vector, and each prefix tells
+the tools something they can act on. `r"..."` says how the characters
+are read (verbatim, across lines) and changes nothing about their
+meaning. `c"..."` says the characters are X_eTaL, and the tools act on
+that: the renderer draws them decorated, the editor highlights them,
+`xetal lint` and the type checker reach into them, the macro runner
+checks them before the macro runs. A notation is neither: it is text to
+every tool but its own library (an equation's `..`, `X[c,h]` and `|`
+mean nothing to X_eTaL, so a code string mis-draws it and the code
+checks reject it), and no tool but that library's `draws:` macro can
+draw it. So a call-site mark would carry one fact, "a library draws
+this", which the contract already states once per macro, and it would
+cost a lexer kind, a formatter case, a renderer case, a `string-kind`
+lint and a reference section. The drawing needs the program phase
+either way, since only the library can typeset its notation, and the
+same program phase can tell the editors which strings are notations
+and style them. If a token-only view ever needs the mark, `n"..."` can
+be added then as another spelling of the same `Char` vector, as `r`
+and `c` were, from a concrete need; `c"..."` itself arrived that way
+(ask M17).
+
+Graphical tools that generate X_eTaL fit this: they write plain
+strings for equations and `c"..."` for pipeline stages, and the
+contracts say which is which. Integrals and continuous equations
+change nothing: an integral is an operator word inside the same
+equation string, drawn by the same `e:t_ex<`.
+
+### How the views draw a notation (step 154)
+
+1. The program phase, which loads the libraries anyway, runs the
+   `draws:` macro for each call whose contract has one, given the same
+   call, and records the drawing (its text read as one string literal,
+   LaTeX for Equations) on the call's site in the program's sources;
+   the renderer never resolves imports itself.
+2. A view takes that overlay. In HTML (the doc site, the pages, the
+   live demo) the notation strings of a call become one math box,
+   drawn by KaTeX, after the macro's name and the binding, which stay
+   as code: `Y := e:e_q< [math]`, so a reader still sees which macro
+   ran. The terminal and the TUI, having no math renderer, show the
+   typed text styled as notation; a Unicode drawing may come later.
+3. A library loads with `bad-contract` when a notation side has no
+   `draws:`, a `draws:` names no notation side or a macro the library
+   lacks, or a macro names itself.
 
 ## The order of the work
 
