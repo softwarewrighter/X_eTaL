@@ -125,6 +125,7 @@ fn doc_file(s: &Sources, i: usize) -> DocFile {
         items: Vec::new(),
         expansions: Vec::new(),
         text: s.written_text(i).to_string(),
+        notations: xetal_program::notations(i, s),
     }
 }
 

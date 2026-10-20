@@ -17,6 +17,9 @@ xetal-ast = { path = "../syntax/crates/xetal-ast" }
 xetal-ir = { path = "../core/crates/xetal-ir" }
 xetal-lint = { path = "../core/crates/xetal-lint" }
 xetal-base = { path = "../base/crates/xetal-base" }
+xetal-program = { path = "../macro/crates/xetal-program" }
+xetal-macro = { path = "../macro/crates/xetal-macro" }
+xetal-sources = { path = "../macro/crates/xetal-sources" }
 xetal-lex = { path = "../syntax/crates/xetal-lex" }
 xetal-syntax = { path = "../syntax/crates/xetal-syntax" }
 xetal-render = { path = "../render/crates/xetal-render" }

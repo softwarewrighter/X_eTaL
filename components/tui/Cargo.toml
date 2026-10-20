@@ -16,6 +16,7 @@ xetal-base = { path = "../base/crates/xetal-base" }
 xetal-lex = { path = "../syntax/crates/xetal-lex" }
 xetal-render = { path = "../render/crates/xetal-render" }
 xetal-view = { path = "../view/crates/xetal-view" }
+xetal-notate = { path = "../view/crates/xetal-notate" }
 xetal-buffer = { path = "crates/xetal-buffer" }
 xetal-keys = { path = "crates/xetal-keys" }
 xetal-panes = { path = "crates/xetal-panes" }

@@ -1,0 +1,12 @@
+## Equation macros: the xetal doc tests' notation fixture (MC32).
+
+## "lhs" q:e_q< "rhs": the length of the right side, as a number; both
+## sides are notations, drawn by q:t_ex<.
+## takes: notation notation
+## draws: t_ex<
+## uses: parsed
+m:e_q< := { l r -> f_ormat t_ally r }
+
+## "lhs" q:t_ex< "rhs": the equation in LaTeX, as a string literal.
+## takes: text text
+m:t_ex< := { l r -> "\"" c_at l c_at " = \\\\sum " c_at r c_at "\"" }

@@ -159,6 +159,41 @@ equation string, drawn by the same `e:t_ex<`.
    `draws:`, a `draws:` names no notation side or a macro the library
    lacks, or a macro names itself.
 
+As built (D178). The contract: `xetal-contract` reads `notation` as a
+text side that is drawn and `## draws: m_acro<` (an alias before the
+name is dropped: `e:t_ex<` and `t_ex<` name the same macro), and
+checks the three rules when the library loads. The program phase: the
+macro table (`xetal-macro`) runs the `draws:` macro with the call's
+own sides right after the call's contract is looked up, reads its
+output as one string literal (`xetal_contract::drawing`; anything
+else, or a failing drawer, draws nothing and the call reports its own
+errors) and records it on the call's site (`Site::drawn`, beside
+`Site::notation`); `xetal_notations::notations(file, sources)` lists a
+file's drawn calls with the spans of the strings they stand for. The
+overlay: `xetal-notate` (view component) replaces those strings on a
+file's segments, `drawn` with one segment of class `Notation` holding
+the LaTeX in place of the last string and an empty one for the other
+(so the box follows the macro's name) and `marked` with the class
+only; `found(name, src, libs)` loads a file as `xetal run` does and
+gives its notations, none when it does not load. The views: `xetal
+render --html`, the doc site (`xetal doc --out`, its source pages and
+each item's source) and the literate pages write the LaTeX in a
+`c-notation` span and load KaTeX from jsDelivr (0.18.10, the release
+the libraries' site uses) to typeset it in place; the live demo's
+Rendered pane typesets through `xetal-katex` (its own component,
+`katex.renderToString` from wasm; the LaTeX, escaped, where KaTeX is
+missing); `xetal render --color` and `xetal edit` show the typed
+strings in the notation style (ANSI italic bright yellow; the TUI
+theme light yellow italic), the binding and the macro name as code.
+The value and the text are unchanged: the `draws:` macro runs only
+where a program is drawn, never when it runs. Tests: xetal-contract
+tests/doc.rs, xetal-notations tests/notations.rs, xetal-notate
+tests/overlay.rs, xetal-docsite tests/site.rs (fixtures math.xtl and
+Eq.xtlm), xetal-play tests/notation.rs, xetal-panes and xetal-edit
+tests; goldens render-color-notation, render-html-notation,
+macros-notation-run, macros-notation-no-drawer,
+macros-notation-drawer-missing (spec/macros/data/Notation.xtlm).
+
 ## The order of the work
 
 Step 111 (code-strings), the literal and the view:

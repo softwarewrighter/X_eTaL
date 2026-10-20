@@ -1,0 +1,12 @@
+[package]
+name = "xetal-katex"
+description = "A notation's LaTeX typeset to HTML by the page's KaTeX (the live demo and the sites); the LaTeX itself, escaped, where KaTeX is missing"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen.workspace = true
+js-sys.workspace = true

@@ -15,7 +15,7 @@ pub use engine::{Run, check, run, run_to};
 pub use interactive::{Interactive, Step};
 pub use lines::Lines;
 pub use notebook::{notebook_to, statements};
-pub use page::{add_library, expanded};
+pub use page::{add_library, decorated, expanded};
 pub use xetal_grid::set_boxed;
 pub use xetal_program::is_library;
 pub use xetal_store::{Memory, install};

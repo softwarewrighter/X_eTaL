@@ -10,7 +10,7 @@ mod escape;
 mod prose;
 
 pub use builtins::described;
-pub use code::{Href, code, lined};
+pub use code::{Href, Notation, code, code_with, lined};
 pub use escape::{anchor, escape, page, relative, root};
 pub use prose::{Draw, example, prose};
 

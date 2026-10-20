@@ -48,6 +48,8 @@ assert_cmd = "2"
 proptest = "1"
 predicates = "3"
 xetal-view = { path = "../view/crates/xetal-view" }
+xetal-katex = { path = "../katex/crates/xetal-katex" }
+xetal-notate = { path = "../view/crates/xetal-notate" }
 xetal-grid = { path = "../view/crates/xetal-grid" }
 xetal-program = { path = "../macro/crates/xetal-program" }
 xetal-macro = { path = "../macro/crates/xetal-macro" }

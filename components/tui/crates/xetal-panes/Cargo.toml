@@ -10,4 +10,5 @@ repository.workspace = true
 [dependencies]
 ratatui.workspace = true
 xetal-view.workspace = true
+xetal-notate.workspace = true
 xetal-buffer.workspace = true

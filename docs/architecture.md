@@ -72,7 +72,9 @@ components/
                            located; or a library file on its own;
                            macros run),
                            xetal-libs (the standard libraries, lib/,
-                           built in)
+                           built in), xetal-notations (a loaded
+                           file's notation calls with their
+                           drawings, MC32)
   syntax/                  xetal-token (tokens, lexer errors),
                            xetal-lex (lexer), xetal-ast
                            (surface AST, printer), xetal-syntax (parser)
@@ -87,7 +89,10 @@ components/
                            model (styled segments, classes, raw <->
                            rendered map, ANSI output); xetal-grid:
                            values laid out for display; xetal-diagram:
-                           annotated SVG diagrams of a line of source
+                           annotated SVG diagrams of a line of source;
+                           xetal-notate: notation calls overlaid on a
+                           view (the LaTeX a library drew as one math
+                           box, or the strings marked; MC32)
   types/                   xetal-ty (types, unifier, schemes),
                            xetal-prim-types (built-in types, read from
                            catalog signatures),
@@ -183,6 +188,9 @@ components/
   lint/                    xetal-linter (`xetal lint`, the driver:
                            levels from -A/-W/-D and # lint: comments,
                            findings placed in the file; docs/lint.md)
+  katex/                   xetal-katex: a notation's LaTeX typeset to
+                           HTML by the page's KaTeX (from wasm; the
+                           escaped LaTeX without it)
   web/                     xetal-play: the live demo's engine
                            (decorate, check, run; libraries and files
                            from the installed store, then the standard

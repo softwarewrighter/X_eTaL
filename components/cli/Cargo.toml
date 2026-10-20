@@ -28,6 +28,7 @@ xetal-lex = { path = "../syntax/crates/xetal-lex" }
 xetal-syntax = { path = "../syntax/crates/xetal-syntax" }
 xetal-render = { path = "../render/crates/xetal-render" }
 xetal-view = { path = "../view/crates/xetal-view" }
+xetal-notate = { path = "../view/crates/xetal-notate" }
 xetal-edit = { path = "../tui/crates/xetal-edit" }
 xetal-line = { path = "../line/crates/xetal-line" }
 xetal-program = { path = "../macro/crates/xetal-program" }

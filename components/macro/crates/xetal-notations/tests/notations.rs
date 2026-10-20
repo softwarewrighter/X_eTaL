@@ -2,7 +2,8 @@
 //! program phase runs it for each call and records the drawing on the
 //! call's site; `notations` lists them with the strings they replace.
 
-use xetal_program::{load, notations};
+use xetal_notations::notations;
+use xetal_program::load;
 
 fn scratch(name: &str) -> std::path::PathBuf {
     let dir = std::env::temp_dir().join(format!("xetal-notations-{}-{name}", std::process::id()));
@@ -21,7 +22,7 @@ fn a_notation_calls_drawing_is_recorded_on_its_site() {
     let main = dir.join("main.xtl").display().to_string();
     let src = "\"e:\" u_se< \"Eq\"\ny := \"L\" e:e_q< \"a + b\"\n";
     let loaded = load(&main, src).unwrap();
-    let drawn = notations(src, &loaded.sources);
+    let drawn = notations(0, &loaded.sources);
     assert_eq!(drawn.len(), 1);
     let n = &drawn[0];
     assert_eq!(n.latex, "L = \\sum a + b");
@@ -41,5 +42,5 @@ fn a_call_of_a_macro_without_draws_is_not_a_notation() {
     let main = dir.join("main.xtl").display().to_string();
     let src = "\"e:\" u_se< \"Eq\"\n\"L\" e:t_ex< \"a\"\n";
     let loaded = load(&main, src).unwrap();
-    assert!(notations(src, &loaded.sources).is_empty());
+    assert!(notations(0, &loaded.sources).is_empty());
 }

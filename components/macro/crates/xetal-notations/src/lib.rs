@@ -7,7 +7,7 @@ use xetal_base::Span;
 use xetal_lex::lex;
 use xetal_sources::Sources;
 
-/// A drawn notation call in the program's own file.
+/// A drawn notation call in one of the program's files.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Notation {
     /// The whole call, as written.
@@ -19,10 +19,10 @@ pub struct Notation {
     pub latex: String,
 }
 
-/// The notation calls written in `text` (the program's file, file 0 of
-/// `sources`) whose drawing was recorded; in order.
-pub fn notations(text: &str, sources: &Sources) -> Vec<Notation> {
-    let Ok(tokens) = lex(text) else {
+/// The notation calls written in file `file` of `sources` (0 is the
+/// program's own file) whose drawing was recorded; in order.
+pub fn notations(file: usize, sources: &Sources) -> Vec<Notation> {
+    let Ok(tokens) = lex(sources.written_text(file)) else {
         return Vec::new();
     };
     let Ok(calls) = xetal_expand::calls(&tokens) else {
@@ -31,7 +31,7 @@ pub fn notations(text: &str, sources: &Sources) -> Vec<Notation> {
     let mut out = Vec::new();
     for call in calls {
         let at = call.span.start..call.span.end;
-        let mine = |s: &&xetal_sources::Site| s.file == 0 && s.span == at && s.name == call.name;
+        let mine = |s: &&xetal_sources::Site| s.file == file && s.span == at && s.name == call.name;
         let Some(latex) = sources
             .sites()
             .iter()

@@ -7,7 +7,6 @@
 mod expanded;
 mod library;
 mod load;
-mod notations;
 mod run;
 mod sides;
 mod types;
@@ -15,6 +14,6 @@ mod types;
 pub use expanded::{expanded, expanded_with};
 pub use library::{is_library, is_library_named, load_library, load_library_with, name_for};
 pub use load::{Loaded, in_program, load, load_with, located};
-pub use notations::{Notation, notations};
 pub use run::Running;
 pub use types::{library_types, program_types};
+pub use xetal_notations::{Notation, notations};

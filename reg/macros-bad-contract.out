@@ -1,4 +1,4 @@
-error[bad-contract]: a takes: line is two of text, code or @ (text text, @ code, text @, @ @), not text
+error[bad-contract]: a takes: line is two of text, code, notation or @ (text text, @ code, text notation, @ @), not text
  --> spec/macros/data/BadContract.xtlm:2:1
   |
 2 | ## takes: text

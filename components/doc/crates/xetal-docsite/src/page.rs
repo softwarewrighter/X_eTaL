@@ -86,6 +86,7 @@ pub(crate) fn source_page(cx: &Ctx, file: usize) -> String {
     let after = |n: usize| on_lines(cx, file, n, n);
     let drawn = lined(
         &f.text,
+        &cx.notations(file, 1, f.text.len()),
         &links(&cx.r, file, &f.text),
         &|t| cx.href(t),
         &after,

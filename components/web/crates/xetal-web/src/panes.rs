@@ -2,7 +2,7 @@
 //! decorated, and the types or, after a run, the output.
 
 use web_sys::{Element, HtmlTextAreaElement};
-use xetal_play::{Class, check, decorate};
+use xetal_play::{Class, check, decorate, decorated};
 use xetal_runner::Runs;
 use yew::prelude::*;
 
@@ -56,9 +56,15 @@ fn class_name(class: Class) -> String {
     format!("c-{class:?}").to_lowercase()
 }
 
+/// The source drawn decorated; a notation call (MC32) as its `draws:`
+/// macro wrote it, typeset by KaTeX in one math box.
 pub(crate) fn rendered(text: &str, current: Pane, focus: Callback<Pane>, drawn: NodeRef) -> Html {
-    let spans = decorate(text).into_iter().map(|s| {
-        html! { <span class={class_name(s.class)}>{ s.text }</span> }
+    let spans = decorated(text).into_iter().map(|s| match s.class {
+        Class::Notation => {
+            let math = Html::from_html_unchecked(xetal_katex::html(&s.text).into());
+            html! { <span class="c-notation">{ math }</span> }
+        }
+        class => html! { <span class={class_name(class)}>{ s.text }</span> },
     });
     let body = html! { <pre tabindex="0" ref={drawn}>{ for spans }</pre> };
     frame("Rendered", Pane::Rendered, current, focus, body)

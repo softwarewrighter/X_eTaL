@@ -39,7 +39,7 @@ fn source_lines_are_numbered_with_anchors() {
         1 => "<details>one</details>".to_string(),
         _ => String::new(),
     };
-    let html = lined("x := 1\ny := 2\n", &[], &href, &after);
+    let html = lined("x := 1\ny := 2\n", &[], &[], &href, &after);
     assert!(
         html.contains("</span>\n<details>one</details><span class=\"line\" id=\"L2\">"),
         "{html}"

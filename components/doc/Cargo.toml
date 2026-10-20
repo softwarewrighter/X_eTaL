@@ -42,6 +42,7 @@ xetal-doclink = { path = "crates/xetal-doclink" }
 xetal-dochtml = { path = "crates/xetal-dochtml" }
 xetal-docsite = { path = "crates/xetal-docsite" }
 xetal-view = { path = "../view/crates/xetal-view" }
+xetal-notate = { path = "../view/crates/xetal-notate" }
 xetal-doctest = { path = "crates/xetal-doctest" }
 xetal-repl = { path = "../cli/crates/xetal-repl" }
 xetal-store = { path = "../base/crates/xetal-store" }

@@ -7,7 +7,11 @@
 //! text and marks it as notation. Spans are kept, so the raw-to-drawn
 //! map still holds.
 
-use xetal_base::Span;
+mod found;
+
+pub use found::{found, of};
+pub use xetal_base::Span;
+pub use xetal_macro::{FsLibraries, Libraries};
 use xetal_view::{Class, Segment};
 
 /// A notation call: the string literal on each side, when that side is

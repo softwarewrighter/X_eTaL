@@ -1,0 +1,3 @@
+command = "./target/debug/xetal render --color spec/macros/data/notation.xtl"
+exit_code = 0
+desc = "a notation call's strings (MC32) are shown as typed in the terminal, styled as notation (italic bright yellow); the binding and the macro name as code"

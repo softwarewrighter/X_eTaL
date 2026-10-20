@@ -1,0 +1,19 @@
+# X_eTaL component `katex`: one Cargo workspace (see docs/architecture.md).
+# KaTeX, the math typesetter the browser pages load from a CDN, as seen
+# from Rust compiled to wasm32: a notation (MC32) typeset to HTML.
+
+[workspace]
+resolver = "3"
+members = ["crates/xetal-katex"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+authors = ["Michael A Wright"]
+repository = "https://github.com/softwarewrighter/X_eTaL"
+
+[workspace.dependencies]
+xetal-katex = { path = "crates/xetal-katex" }
+wasm-bindgen = "0.2"
+js-sys = "0.3"

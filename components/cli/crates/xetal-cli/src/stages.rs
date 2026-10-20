@@ -95,15 +95,26 @@ fn doc(args: &crate::args::DocArgs, name: &str, source: &str) -> Result<String, 
     }
 }
 
+/// `xetal render`: the decorated form, or it in ANSI colors or HTML
+/// spans; in those two a notation call (MC32) is drawn as its `draws:`
+/// macro wrote it when the file loads: the HTML as one math box (the
+/// LaTeX in a `c-notation` span), the terminal as typed, styled as
+/// notation.
 fn render(args: &RenderArgs, source: &str) -> Result<String, Diagnostic> {
+    let notations = || {
+        let name = args.input.file.clone().unwrap_or("-e".into());
+        xetal_notate::found(&name, source, &xetal_notate::FsLibraries::from_env())
+    };
     if args.raw {
         let raw = xetal_render::undecorate(source)?;
         xetal_lex::lex(&raw)?;
         Ok(raw)
     } else if args.color {
-        Ok(xetal_view::ansi(&xetal_view::view(source)))
+        let segments = xetal_notate::marked(xetal_view::view(source), &notations());
+        Ok(xetal_view::ansi(&segments))
     } else if args.html {
-        Ok(xetal_view::html(&xetal_view::view(source)))
+        let segments = xetal_notate::drawn(xetal_view::view(source), &notations());
+        Ok(xetal_view::html(&segments))
     } else if args.latex {
         xetal_render::latex(source)
     } else {

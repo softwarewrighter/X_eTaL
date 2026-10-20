@@ -10,4 +10,5 @@ repository.workspace = true
 [dependencies]
 xetal-base.workspace = true
 xetal-view.workspace = true
+xetal-notate.workspace = true
 xetal-doclink.workspace = true

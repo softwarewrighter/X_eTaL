@@ -11,6 +11,7 @@ repository.workspace = true
 xetal-linter.workspace = true
 xetal-base.workspace = true
 xetal-view.workspace = true
+xetal-notate.workspace = true
 xetal-grid.workspace = true
 xetal-program.workspace = true
 xetal-core.workspace = true

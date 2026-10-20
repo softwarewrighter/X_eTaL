@@ -13,7 +13,7 @@ impl Editor {
     /// while it has the focus.
     pub fn draw(&self, frame: &mut Frame) {
         let [top, bottom, status] = self.areas(frame.area());
-        let mut panes = Panes::new(&self.buffer, self.report.mark);
+        let mut panes = Panes::new(&self.buffer, self.report.mark, &self.report.notations);
         panes.zoomed = self.zoom;
         (panes.left, panes.right) = (self.left.get(), self.right.get());
         panes.focus = match self.focus {

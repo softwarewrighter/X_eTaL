@@ -3,6 +3,7 @@
 use ratatui::layout::{Constraint, Layout, Position, Rect};
 use ratatui::text::Line;
 use xetal_buffer::Buffer;
+use xetal_notate::Notation;
 use xetal_view::{column, view, width};
 
 use crate::Scroll;
@@ -30,10 +31,11 @@ pub struct Panes {
 
 impl Panes {
     /// The panes for `buffer`, unscrolled, with the byte range `mark`
-    /// (an error's span) highlighted in both.
-    pub fn new(buffer: &Buffer, mark: Option<(usize, usize)>) -> Self {
+    /// (an error's span) highlighted in both, and the `notations` the
+    /// program phase found shown as typed, styled as notation (MC32).
+    pub fn new(buffer: &Buffer, mark: Option<(usize, usize)>, notations: &[Notation]) -> Self {
         let text = buffer.text();
-        let lines = split(&view(&text));
+        let lines = split(&xetal_notate::marked(view(&text), notations));
         let (row, col) = buffer.cursor();
         let left = width(&buffer.lines()[row].chars().take(col).collect::<String>());
         let right = lines.get(row).map_or(0, |l| column(l, buffer.offset()));

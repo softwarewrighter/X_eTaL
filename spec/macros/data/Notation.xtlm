@@ -1,0 +1,13 @@
+## Equation-like macros for the notation goldens (MC32): a side
+## declared `notation` is drawn by the `draws:` macro of this library.
+
+## "lhs" n:e_q< "rhs": the length of the right side; both sides are
+## notations, drawn by n:t_ex<.
+## takes: notation notation
+## draws: t_ex<
+## uses: parsed
+m:e_q< := { l r -> f_ormat t_ally r }
+
+## "lhs" n:t_ex< "rhs": the equation as LaTeX, in a string literal.
+## takes: text text
+m:t_ex< := { l r -> "\"" c_at l c_at " = \\\\sum " c_at r c_at "\"" }
