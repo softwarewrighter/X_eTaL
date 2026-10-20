@@ -1,0 +1,1 @@
+B2 done on branch pr/code-on-notation: expander checks a macro's code-string arguments with the contract (parsed on code sides, lexed otherwise; string-kind error with the drop-the-c fix on text/notation sides); lint --fix applies a load error's fix; spec cases, golden, D179, docs; sample gate green.
