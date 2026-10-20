@@ -1447,6 +1447,23 @@ one, which then becomes its own step):
 | 8 | integrals-docs | X_eTaL | The reference or README section for what landed, the live demo entries (`demos.rs`, `#!/usr/bin/env xetal`), pages rebuilt; every example run by a golden or doc test |
 | 9 | integrals-limits | X_eTaL | What the work ran into (complex numbers, amend, infinite bounds, shape facts for windows), each with a failing snippet, the smallest change and a recommendation; decide with the user, then stop |
 
+**Asks received** from the blog's agent (2026-10-19, writing about
+continuous equations), with their state here:
+
+- B1. Type errors from a notation macro should point at the term
+  inside the string, not at the call or the expansion: planned as
+  type-check-macros approach 3 (located errors for transformed text, a
+  hook in the macro phase), the next change decided with the user
+  after approaches 9 and 10 landed; it joins the spatial limitations
+  review (step 118).
+- B2. A code string passed on a notation side (`## takes: text
+  notation`) should get the `string-kind` fix ("drop the `c`"), not
+  the lexer's error about an inside that is not X_eTaL: a refinement
+  of step 112's checks (the lint knows the side's kind; the lexer
+  runs first today); small, for the lint lane.
+- B3 and B4 are the Equations library's (numerical diagnostics; the
+  planned notations) and are filed in X_eTaL-libraries' plan.
+
 **Asks** this saga will send (filed in the target repository's
 `docs/xetal-asks.md` when step 1 decides where things live):
 X_eTaL-libraries or X_eTaL-Math, `integral` in Equations; X_eTaL-ML,
