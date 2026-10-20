@@ -1,0 +1,1 @@
+Curry's Phoenix (c:P_hi) and Psi (c:P_si) added to lib/Combinators.xtl with doc tests, shown in demos/combinators.xtl, listed in docs/birds.md (40 typed birds) and the macros-and-trains table; trains.org uses the library's c:P_hi; goldens run-combinators and type-combinators rebased; sample gate green.
