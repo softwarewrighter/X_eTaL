@@ -21,7 +21,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Built-in functions | 127 | 0 | 0 |
 | Language decisions | 164 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 491 | 0 | 0 |
+| Spec cases | 493 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -35,7 +35,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 105 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 106 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 27 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 51 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
@@ -136,7 +136,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `[]B_OLD` | `Char -> Char` | works | 0 | 1 |
 | `[]A_T` | `Int -> Char -> Char` | works | 0 | 1 |
 | `[]C_LS` | `Unit -> Char` | works | 0 | 1 |
-| `f_ormat` | `a -> Char` | works | 8 | 2 |
+| `f_ormat` | `a -> Char` | works | 10 | 2 |
 | `n_umbers` | `Char -> Float` | works | 4 | 1 |
 
 ### MC20: macro hooks (only in a macro body, while a call is expanded)
@@ -340,7 +340,7 @@ conventions (naming, layout) work without a spec case citing them.
 | I3 | The display may render a multi-character token as one glyph: `:=` as the left arrow, `->` as an arrow, `;` (...) | works | 3 |
 | I4 | The display draws a comment's marker by its kind (S9), one glyph for each `#` so columns are kept: a `##` (...) | works | 1 |
 | B1 | Built-ins are named with full words or standard short forms, first letter underlined: `r_eshape`, (...) | works | 0 |
-| B2 | A punctuation-suffixed name is used only where the mark carries APL meaning: `r_/` reduce, `s_\` scan, (...) | works | 0 |
+| B2 | A punctuation-suffixed name is used only where the mark carries APL meaning: `r_/` reduce, `s_\` scan, (...) | works | 1 |
 | B3 | One name per built-in; no aliases (`r_ev` exists, `r_everse` does not) | works | 0 |
 | B4 | Structural built-ins (one arity each, leading axis default, `_digits` for other axes, 1-origin): `s_hape` (...) | works | 5 |
 | B5 | `o_ffsets n` gives `0 1 ... n-1`: a distinct built-in for offset arithmetic (place values, wrap-around), (...) | works | 1 |

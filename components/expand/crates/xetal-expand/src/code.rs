@@ -29,18 +29,45 @@ pub(crate) fn inside(src: &Mapped, span: Span) -> Mapped {
     }
 }
 
-/// Each code string among `tokens` (of `text`) lexes: the first that
-/// does not is its lexer's error, placed in `text`.
-pub(crate) fn lexed(text: &str, tokens: &[Token]) -> Result<(), Diagnostic> {
+/// Each code string among `tokens` (of `text`) lexes, but for those
+/// at `sides` (a macro call's arguments, checked with the macro's
+/// contract in hand, [`lexes`]): the first that does not is its
+/// lexer's error, placed in `text`.
+pub(crate) fn lexed(text: &str, tokens: &[Token], sides: &[Span]) -> Result<(), Diagnostic> {
     let whole = Mapped::new(text);
     for t in tokens
         .iter()
-        .filter(|t| matches!(t.kind, TokenKind::Code(_)))
+        .filter(|t| matches!(t.kind, TokenKind::Code(_)) && !sides.contains(&t.span))
     {
         let code = inside(&whole, t.span);
         lex(code.text()).map_err(|d| placed(&code, d.into()))?;
     }
     Ok(())
+}
+
+/// The code string at `span` of `src` lexes: its lexer's error, placed
+/// in `src`'s text.
+pub(crate) fn lexes(src: &str, span: Span) -> Result<(), Diagnostic> {
+    let code = inside(&Mapped::new(src), span);
+    lex(code.text())
+        .map(drop)
+        .map_err(|d| placed(&code, d.into()))
+}
+
+/// A code string on a side its macro takes as text or as a notation
+/// (B2): the side need not be X_eTaL, so its inside not lexing is the
+/// advice to write it as a plain string, with the fix that drops the
+/// `c` (the same value; `c#"..."#` becomes the raw `r#"..."#`).
+pub(crate) fn respelled(macro_name: &str, right: bool, notation: bool, span: Span) -> Diagnostic {
+    let side = if right { "right" } else { "left" };
+    let kind = if notation { "a notation" } else { "text" };
+    let message = format!(
+        "{macro_name} takes {kind} on its {side}, not X_eTaL: write it as a plain string (drop the c; the value is the same)"
+    );
+    let c = Span::new(span.start, span.start + 1);
+    Diagnostic::new("string-kind", message)
+        .with_span(span)
+        .with_fixes([(c, String::new())])
 }
 
 /// The code string at `span` of `src` parses (as a lambda's body,

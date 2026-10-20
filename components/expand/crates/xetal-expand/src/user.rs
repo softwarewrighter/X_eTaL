@@ -11,6 +11,7 @@ use xetal_contract::{Contract, shape, unused};
 use xetal_mapped::Mapped;
 
 use crate::calls::Call;
+use crate::code::respelled;
 use crate::copied::copied;
 
 /// One call, as a macro sees it.
@@ -65,8 +66,9 @@ impl Macros for NoMacros {
     }
 }
 
-/// Parses the code string on a side of the call (`true`, the right).
-pub(crate) type Parse<'a> = &'a dyn Fn(bool) -> Result<(), Diagnostic>;
+/// Checks the code string on a side of the call (`true`, the right):
+/// parsed where the macro takes code (`true`), else lexed.
+pub(crate) type Parse<'a> = &'a dyn Fn(bool, bool) -> Result<(), Diagnostic>;
 
 /// The expansion of `call`, run by `macros`; its arguments are `left`
 /// and `right` (mapped where they were written, empty for `@`).
@@ -96,12 +98,29 @@ pub(crate) fn user(
     if let Some(d) = shape(&contract, &written, texts) {
         return Err(placed(d, call));
     }
-    // Code where the macro takes code is parsed before it runs (ST5).
-    if contract.code.0 && call.codes.0 {
-        code(false)?;
-    }
-    if contract.code.1 && call.codes.1 {
-        code(true)?;
+    // A code string is parsed where the macro takes code (ST5), else
+    // lexed; one that does not lex on a text or notation side of a
+    // macro with a contract is advice to drop the c (B2).
+    for (right, is_code, takes_code) in [
+        (false, call.codes.0, contract.code.0),
+        (true, call.codes.1, contract.code.1),
+    ] {
+        if !is_code {
+            continue;
+        }
+        let Err(d) = code(right, takes_code) else {
+            continue;
+        };
+        if takes_code || contract.takes.is_none() {
+            return Err(d);
+        }
+        let notation = if right {
+            contract.notation.1
+        } else {
+            contract.notation.0
+        };
+        let span = if right { call.right } else { call.left };
+        return Err(respelled(&written, right, notation, span));
     }
     let text = macros.run(&request).map_err(|d| placed(d, call))?;
     let args = [request.left, request.right];

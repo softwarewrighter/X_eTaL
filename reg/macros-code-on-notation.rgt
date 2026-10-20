@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run spec/macros/data/code-on-notation.xtl 2>&1"
+exit_code = 1
+desc = "a code string on a notation side (B2, after step 112): the compiler advises dropping the c (string-kind, the value kept) instead of the lexer's error about the inside; xetal lint --fix makes the edit"

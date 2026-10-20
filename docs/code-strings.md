@@ -265,7 +265,18 @@ As built (D176):
 2. `## takes:` sides are `text`, `code` or `@`. System.xtlm and
    lib/Macros.xtlm say `code` where they take X_eTaL, and their
    examples pass code strings. `string-kind` (style, warn) has the fix
-   that adds or drops the `c`, the value kept.
+   that adds or drops the `c`, the value kept. A code string on a side
+   the macro takes as text or as a notation whose inside is not X_eTaL
+   (an equation's `0..2`) is `string-kind` from the compiler too, an
+   error with the same fix, in place of the lexer's error about the
+   inside (B2, the blog's ask, 2026-10-19; D181): the expander lexes
+   the inside of a code string up front only where it is not a macro's
+   argument, and checks an argument with the macro's contract in hand
+   (parsed on a code side, lexed otherwise; a macro without a
+   `takes:` line keeps the lexer's error). `xetal lint --fix` makes a
+   load error's own fix as it makes a finding's, so the file then loads
+   and is linted. Spec cases macros/reject-code-on-text-side and
+   macros/code-on-text-side-lexes; golden macros-code-on-notation.
 3. The ordinary lints run on the inside for a macro that parses its
    text; a copying macro's are found on its expansion, placed by the
    byte map.

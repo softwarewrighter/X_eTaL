@@ -1,0 +1,6 @@
+# A code string on a text side whose inside is X_eTaL runs as a plain
+# string would (the lint, not the compiler, advises dropping the c).
+== SOURCE
+@ f_ormat< c"2 + 2 is {2 + 2}"
+== RESULT
+2 + 2 is 4

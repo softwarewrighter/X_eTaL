@@ -224,3 +224,28 @@ fn a_function_with_an_effect_gains_its_bang_at_every_call() {
     let want = "u:s_ay! := { v -> p_rint! v }\nu:s_ay! 1\n'u:s_ay! e_ach 2 3";
     assert_eq!((out.as_str(), n), (want, 1));
 }
+
+/// A code string on a side the macro takes as text stops the program
+/// from loading with `string-kind` (B2), an error that carries its fix:
+/// `--fix` drops the `c` as it would a finding's edit, then lints the
+/// file that now loads.
+#[test]
+fn fix_drops_the_c_of_a_code_string_on_a_text_side() {
+    let path = scratch("text-side", "@ f_ormat< c\"from 3..4\"\n");
+    let name = path.to_string_lossy().to_string();
+    let text = std::fs::read_to_string(&path).unwrap();
+    let req = Request {
+        input: Some((name, text)),
+        fix: true,
+        allow_dirty: true,
+        ..Request::default()
+    };
+    let mut err = Vec::new();
+    command(&req, &mut Vec::new(), &mut err).unwrap();
+    let after = std::fs::read_to_string(&path).unwrap();
+    std::fs::remove_file(&path).unwrap();
+    assert_eq!(after, "@ f_ormat< \"from 3..4\"\n");
+    let err = String::from_utf8(err).unwrap();
+    assert!(err.contains("fixed 1 finding(s) in "), "{err}");
+    assert!(!err.contains("string-kind"), "{err}");
+}
