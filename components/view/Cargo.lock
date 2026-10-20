@@ -535,6 +535,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-notate"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-view",
+]
+
+[[package]]
 name = "xetal-render"
 version = "0.1.0"
 dependencies = [

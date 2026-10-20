@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-view", "crates/xetal-grid", "crates/xetal-diagram"]
+members = ["crates/xetal-view", "crates/xetal-grid", "crates/xetal-diagram", "crates/xetal-notate"]
 
 [workspace.package]
 version = "0.1.0"
@@ -21,6 +21,7 @@ xetal-lex = { path = "../syntax/crates/xetal-lex" }
 xetal-syntax = { path = "../syntax/crates/xetal-syntax" }
 xetal-render = { path = "../render/crates/xetal-render" }
 xetal-view = { path = "crates/xetal-view" }
+xetal-notate = { path = "crates/xetal-notate" }
 xetal-grid = { path = "crates/xetal-grid" }
 xetal-diagram = { path = "crates/xetal-diagram" }
 unicode-width = "0.2"
