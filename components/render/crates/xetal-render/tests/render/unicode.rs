@@ -103,6 +103,12 @@ fn lambda_arguments_are_alpha_and_omega() {
     assert_eq!(dec("_l_ _r_"), format!("\u{237a}{UL} \u{2375}{UL}"));
 }
 
+/// The unused parameter `_u` (L8) is the lower one-eighth block.
+#[test]
+fn the_unused_parameter_is_a_thick_low_line() {
+    assert_eq!(dec("{ x _u -> x }"), "{ x \u{2581} \u{2192} x }");
+}
+
 #[test]
 fn life_line() {
     let src = "u:l_ife := { ('+ r_/_12 -1 0 1 o_-_12 _r) { (_l = 3) + _r * _l = 4 } _r }";

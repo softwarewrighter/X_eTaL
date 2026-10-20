@@ -42,6 +42,7 @@ A name starts with a letter and continues with letters and digits.
 | `m:pi`      | the variable pi from the library m          | superscript m, pi               |
 | `x^2`       | x squared                                   | x, superscript 2                |
 | `_r` `_l`   | a lambda's right and left arguments         | APL omega, APL alpha            |
+| `_u`        | a parameter the lambda never uses           | a thick low line                |
 
 Rules that follow (each is rejected with an error and a hint):
 
@@ -101,7 +102,8 @@ u:s_quare := { _r * _r }; u:s_quare 7
 - `:=` binds a name; `=` is always equality.
 - In `{ ... }`, `_l` and `_r` are the left and right arguments; named
   parameters come before `->`: `{ ~s_elf n -> n <= 1 ? 1 }` (the `~`
-  makes a parameter lazy, and a spaced `?` is a guard).
+  makes a parameter lazy, and a spaced `?` is a guard); `_u` is a
+  parameter the lambda never uses: `{ x _u -> x }`.
 - `'` passes a function as a value: `'+ r_/ v` reduces v by plus.
 - A newline or `;` separates statements; `#` starts a comment that
   runs to the end of the line.

@@ -1,4 +1,1 @@
-fixed 1 finding(s) in work/lint-fix-unused.xtl
-warning[unused-binding]: parameter `b` is never used at work/lint-fix-unused.xtl:4:17
-  note: `unused-binding` is in group `suspicious`; xetal lint --explain unused-binding
-1 warning(s), 0 error(s)
+fixed 2 finding(s) in work/lint-fix-unused.xtl

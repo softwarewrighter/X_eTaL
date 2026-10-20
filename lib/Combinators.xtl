@@ -24,12 +24,12 @@
 ## 7
 l:I_ := { x -> x }                                  # Idiot Bird (identity)
 
-# lint: allow unused-binding
-## The Kestrel: K x y = x, the first argument kept, the second dropped.
+## The Kestrel: K x y = x, the first argument kept, the second dropped
+## (`_u`, a parameter nothing reads).
 ## >> "c:" u_se< "Combinators"
 ## >> 1 c:K_ 2
 ## 1
-l:K_ := { x y -> x }                                # Kestrel
+l:K_ := { x _u -> x }                               # Kestrel
 
 ## The Thrush: T x y = y x, the value x given to the function y.
 ## >> "c:" u_se< "Combinators"

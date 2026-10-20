@@ -41,6 +41,7 @@ pub fn token_text(kind: &TokenKind, raw: &str) -> String {
         TokenKind::LamArg { side, applied } => {
             lambda_arg(if *side == Side::Left { 'l' } else { 'r' }, *applied, raw)
         }
+        TokenKind::Unused => lambda_arg('u', false, raw),
         TokenKind::Exp(_) => superscript_text(&raw[1..]).unwrap_or_else(|| raw.into()),
         TokenKind::Code(_) => crate::code::drawn(raw),
         TokenKind::Sym(_)

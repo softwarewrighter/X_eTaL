@@ -2,6 +2,6 @@ warning[mutable-constant]: `Count!` is mutable but named like a constant: write 
   note: `mutable-constant` is in group `style`; xetal lint --explain mutable-constant
 warning[shadows-builtin]: `r_ev` here shadows the built-in r_ev at reg/fixtures/lint/style.xtl:6:13
   note: `shadows-builtin` is in group `suspicious`; xetal lint --explain shadows-builtin
-warning[unused-binding]: parameter `y` is never used at reg/fixtures/lint/style.xtl:7:13
+warning[unused-binding]: parameter `y` is never used; write `_u` for a parameter nothing reads at reg/fixtures/lint/style.xtl:7:13
   note: `unused-binding` is in group `suspicious`; xetal lint --explain unused-binding
 3 warning(s), 0 error(s)

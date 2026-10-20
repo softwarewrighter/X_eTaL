@@ -1,0 +1,9 @@
+# `_u` cannot make a shorthand lambda (L1 counts `_l` and `_r`; L8).
+== SOURCE
+{ _u + 1 }
+== ERROR
+error[bad-lambda-arg]: `_u` marks a parameter the lambda never uses (`{ x _u -> x }`); name it to use it, and write `_r` or `_l` in a shorthand lambda
+ --> -e:1:3
+  |
+1 | { _u + 1 }
+  |   ^^

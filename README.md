@@ -71,6 +71,7 @@ a value is an exponent. The language decisions are recorded in
 | `x^2`         | x squared                             | exponent on a value                  |
 | `x^0.5`       | x, raised 0.5 (a middle dot as point) | a decimal exponent: the square root  |
 | `_l` `_r`     | APL alpha and omega                   | left / right lambda argument         |
+| `_u`          | a thick low line                      | a parameter the lambda never uses    |
 | `:=` `;`      | a left arrow, a black diamond         | binding, statement separator         |
 | `@`           | @                                     | the Unit value                       |
 | `[f_ g_ h_]`  | in square brackets                    | a train: `(f_ x) g_ (h_ x)`          |

@@ -112,6 +112,13 @@ fn lambda_arg(cur: &mut Cursor, after_paren: bool) -> Result<TokenKind, LexError
         cur.pos += 1;
         return Ok(TokenKind::Wild);
     }
+    // `_u`: a parameter the lambda never uses (L8); the parser rejects
+    // it outside a parameter list.
+    let continues = |b: Option<u8>| b.is_some_and(|b| b.is_ascii_alphanumeric() || b == b'_');
+    if next == Some(b'u') && !continues(cur.peek_at(2)) {
+        cur.pos += 2;
+        return Ok(TokenKind::Unused);
+    }
     let side = if cur.peek_at(1) == Some(b'l') {
         Side::Left
     } else {
@@ -153,7 +160,12 @@ fn marker(cur: &mut Cursor, byte: u8) -> Result<TokenKind, LexError> {
                 "a quote must touch a function name, `{`, `[` or a symbol",
             )),
         ),
-        b'~' if next.is_some_and(|b| b.is_ascii_alphabetic()) => (TokenKind::Lazy, 1, None),
+        // A lazy parameter's name, or the unused parameter `~_u` (L8).
+        b'~' if next.is_some_and(|b| b.is_ascii_alphabetic())
+            || (next == Some(b'_') && cur.peek_at(2) == Some(b'u')) =>
+        {
+            (TokenKind::Lazy, 1, None)
+        }
         b'~' => (
             TokenKind::Lazy,
             1,

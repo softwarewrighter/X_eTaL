@@ -1,0 +1,9 @@
+# `_u` is never read (L8): a body that uses it names it instead.
+== SOURCE
+{ x _u -> _u }
+== ERROR
+error[bad-lambda-arg]: `_u` marks a parameter the lambda never uses (`{ x _u -> x }`); name it to use it, and write `_r` or `_l` in a shorthand lambda
+ --> -e:1:11
+  |
+1 | { x _u -> _u }
+  |           ^^

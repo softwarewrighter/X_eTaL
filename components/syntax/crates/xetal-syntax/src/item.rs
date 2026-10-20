@@ -8,6 +8,10 @@ use crate::expr::Item;
 use crate::parser::{Parser, err};
 use xetal_ast::{Expr, ExprKind, Fun, FunKind};
 
+/// `_` and `_u` are never read (M3, TU4, L8).
+const WILD: &str = "`_` is never read: it discards a value (`_ := expr`) or skips a part of a tuple pattern; lambda arguments are `_l` and `_r`";
+const UNUSED: &str = "`_u` marks a parameter the lambda never uses (`{ x _u -> x }`); name it to use it, and write `_r` or `_l` in a shorthand lambda";
+
 impl Parser {
     pub(crate) fn item(&mut self, token: Token) -> Result<Item, Diagnostic> {
         let noun = |kind| Expr::new(kind, token.span);
@@ -84,9 +88,14 @@ impl Parser {
             } => FunKind::Arg(side),
             TokenKind::LBrace => return self.lambda(token.span),
             TokenKind::LBracket => return self.train(token.span),
-            // `_` is never read: it discards (M3) or skips a pattern's part (TU4).
-            TokenKind::Wild => {
-                let message = "`_` is never read: it discards a value (`_ := expr`) or skips a part of a tuple pattern; lambda arguments are `_l` and `_r`";
+            // Never read: `_` discards (M3) or skips a pattern's part (TU4);
+            // `_u` marks a parameter the lambda ignores (L8).
+            TokenKind::Wild | TokenKind::Unused => {
+                let message = if token.kind == TokenKind::Wild {
+                    WILD
+                } else {
+                    UNUSED
+                };
                 return Err(err("bad-lambda-arg", token.span, message));
             }
             other => {

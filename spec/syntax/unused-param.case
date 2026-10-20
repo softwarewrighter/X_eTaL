@@ -1,0 +1,19 @@
+# `_u` is a parameter nothing reads (L8): it may repeat, may be lazy,
+# prints back as `_u`, and the type checker gives it a type nothing
+# constrains.
+== SOURCE
+{ x _u -> x + 1 }
+{ _u _u -> 0 }
+{ a ~_u -> a }
+== SURFACE
+(lambda (x _u) (+ x 1))
+(lambda (_u _u) 0)
+(lambda (a ~_u) a)
+== CANONICAL
+{ x _u -> (x + 1) }
+{ _u _u -> 0 }
+{ a ~_u -> a }
+== TYPE
+(Num a, Any b) => a -> b -> a
+(Any a, Any b, Num c) => a -> b -> c
+(Any a, Any b) => a -> b -> a

@@ -1,10 +1,16 @@
-//! Glyphs for the lambda arguments `_l` and `_r` (I3).
+//! Glyphs for the lambda arguments `_l` and `_r` (I3) and the unused
+//! parameter `_u` (L8).
 
 use xetal_glyphs::UNDERLINE;
 
 /// Lambda arguments as in APL dfns: `_l` as alpha (U+237A), `_r` as
-/// omega (U+2375).
-pub const LAMBDA_ARGS: [(char, char); 2] = [('l', '\u{237a}'), ('r', '\u{2375}')];
+/// omega (U+2375); the unused parameter `_u` as a thick low line (the
+/// lower one-eighth block, U+2581).
+pub const LAMBDA_ARGS: [(char, char); 3] = [
+    ('l', '\u{237a}'),
+    ('r', '\u{2375}'),
+    ('u', '\u{2581}'),
+];
 
 /// The glyph for lambda argument `side` (`l` or `r`).
 pub fn lambda_glyph(side: char) -> Option<char> {

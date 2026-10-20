@@ -1,0 +1,12 @@
+# A lambda with `_u` takes that argument and ignores it (L8); a lazy
+# `~_u` is never evaluated, so the division by zero never happens.
+== SOURCE
+{ _u -> 42 } 7
+3 { x _u -> x + 1 } 9
+1 { _u _u -> 0 } 2
+7 { a ~_u -> a } 1 / 0
+== RESULT
+42
+4
+0
+7

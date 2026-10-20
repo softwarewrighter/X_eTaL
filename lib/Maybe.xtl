@@ -11,19 +11,19 @@
 
 ### Making a maybe
 
-# lint: allow unused-binding
-## The empty maybe.
+## The empty maybe: given the two continuations, it takes the first and
+## drops the second (`_u`).
 ## >> "m:" u_se< "Maybe"
 ## >> 0 m:o_r 'm:n_othing
 ## 0
-l:n_othing := { n j -> n }
+l:n_othing := { n _u -> n }
 
-# lint: allow unused-binding
-## A maybe holding x.
+## A maybe holding x: it drops the first continuation and hands x to
+## the second.
 ## >> "m:" u_se< "Maybe"
 ## >> 0 m:o_r m:j_ust 7
 ## 7
-l:j_ust := { x n j_ -> j_ x }
+l:j_ust := { x _u j_ -> j_ x }
 
 ### Using a maybe
 

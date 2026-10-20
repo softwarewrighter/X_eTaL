@@ -99,7 +99,7 @@ The live demo needs no JSON: it calls the same Rust functions.
 | `shadows-builtin` | suspicious | warn | a parameter or local binding shadows a built-in (L7; also printed by `xetal run`) |
 | `deprecated-private` | deprecated | warn | a library's bare top-level function (PN2; also printed by `xetal run`) |
 | `unknown-lint` | suspicious | warn | a `# lint:` comment with a bad level, no names, or an unknown name |
-| `unused-binding` | suspicious | warn | a lambda parameter or local `:=` nothing uses; `_ :=`, `_r`/`_l` and top-level names are exempt |
+| `unused-binding` | suspicious | warn | a lambda parameter or local `:=` nothing uses; `_ :=`, `_r`/`_l`, the unused parameter `_u` and top-level names are exempt |
 | `redundant-lambda` | complexity | warn | a lambda that only passes its arguments to a named function (`'{ x -> n_eg x }` is `'n_eg`) or returns its argument (`'i_d`); a definition's whole value is exempt, and so is power (`{ a b -> a ^ b }`: `'^` is an exponent, so power has no quoted form) |
 | `mutable-constant` | style | warn | a mutable variable named like a constant (`Count!`) |
 | `missing-bang` | style | warn | a function calling an effect (`p_rint!`, a `!` function) directly, without `!` in its name |
@@ -133,8 +133,8 @@ carries no meaning to the language (decoration decides what a name is),
 so only the naming lint that misleads a reader, `mutable-constant`, is
 on by default; the case checks are `pedantic`, on request. A parameter
 that must be there but is not used (a combinator such as `K_`, an
-operand ignoring an argument) has no spelling of its own: silence it
-with `# lint: allow unused-binding` (decided with the user, D140). The
+operand ignoring an argument) is written `_u` (`{ x _u -> x }`, L8,
+D182), which the lint never reports; no `# lint: allow` is needed. The
 catalog is data (`xetal-lint`'s `catalog.rs`): each entry has its
 name, group, default level, one-line summary and the text
 `--explain` prints (what it does, why, an example and the fix). A test

@@ -1,0 +1,10 @@
+# `_u` is one token: a parameter the lambda never uses (L8).
+== SOURCE
+{ x _u -> x }
+== TOKENS
+0..1 LBrace
+2..3 Var(x)
+4..6 Unused
+7..9 Arrow
+10..11 Var(x)
+12..13 RBrace

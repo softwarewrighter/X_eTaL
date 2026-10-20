@@ -14,6 +14,7 @@ A landed ask's repro must pass. A planned, declined or new ask whose
 repro passes is flagged in the ledger: it may have landed.
 """
 
+import os
 import re
 import subprocess
 import sys
@@ -23,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "docs/asks.toml"
 OUT = ROOT / "docs/asks.md"
-XETAL = ROOT / "target/release/xetal"
+XETAL = Path(os.environ.get("XETAL_BIN", ROOT / "target/release/xetal"))
 WORK = ROOT / "work/asks"
 REPOS = ["X_eTaL-demos", "X_eTaL-ML", "X_eTaL-games", "X_eTaL-libraries", "X_eTaL-extensions",
          "X_eTaL-gpu", "X_eTaL-fpga"]

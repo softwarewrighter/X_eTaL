@@ -1,0 +1,8 @@
+# `_u` is drawn as a thick low line, the lower one-eighth block (L8),
+# beside alpha and omega.
+== SOURCE
+{ x ~_u -> x } 1 2
+{ _l + _r }
+== RENDER
+{ x ~▁ → x } 1 2
+{ ⍺ + ⍵ }

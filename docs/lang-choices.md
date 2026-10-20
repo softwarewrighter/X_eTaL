@@ -99,6 +99,7 @@ This document supersedes `docs/syntax-proposal.md`.
 | L5 | Shorthand and named parameters may not be mixed in one lambda. |
 | L7 | Names resolve lexically: the innermost enclosing lambda's parameter, then outer lambdas, then the program (variables) or the system (unqualified functions). A parameter or local variable may shadow a system name; the parameter wins and a non-fatal warning is reported ("parameter `r_ev` shadows the built-in reverse"). Warnings go to stderr, do not change the exit code, and a linter may treat them as errors. New built-ins therefore never break existing programs. (Review R6.) |
 | L6 | A niladic function is defined with `@` as its only parameter: `u:n_ow! := { @ -> ... }`, and called as `u:n_ow! @` (the `!` marks the effect, by the style guide). There is no `_@` call sugar; the subscript slot is for axes only. Extended (decided with the user, 2026-10-04): `@` may also stand among named parameters for an argument that takes only Unit, as a macro side that takes nothing does (`m:l_ine< := { @ @ -> ... }`, `{ @ path -> ... }`); `{ @ r -> b }` lowers as `{ @ -> { r -> b } }`, and `~@` is an error. |
+| L8 | An unused parameter is spelled `_u` (decided with the user and the blog's agent, 2026-10-20; supersedes D140's "no opt-out spelling"): `{ _u -> 42 }`, `{ x _u -> x + 1 }`, `{ a ~_u -> a }` (lazy, so never evaluated). It stands only in a parameter list, may repeat, and is never read: `_u` in a body is `bad-lambda-arg` ("name it to use it"), and it cannot make a shorthand lambda (`{ _u + 1 }` is an error; L1 counts `_l` and `_r` only). `_` keeps its one meaning (discard a value, skip a pattern's part; TU4). The `unused-binding` lint never reports it, so no `# lint: allow` is needed; the type checker gives it a type nothing constrains. Drawn as a thick low line (the lower one-eighth block, U+2581) in every view, and typed back as `_u`. |
 
 ## 6a. Trains
 
@@ -407,7 +408,7 @@ Example:
 
 ```
 # Combinators.xtl  (a library)
-l:K_ := { x y -> x }
+l:K_ := { x _u -> x }
 l:B_ := { f_ g_ x -> f_ g_ x }
 ```
 
@@ -554,7 +555,7 @@ The birds, in named-parameter form:
 
 ```
 u:I_ := { x -> x }
-u:K_ := { x y -> x }
+u:K_ := { x _u -> x }
 u:B_ := { f_ g_ x -> f_ g_ x }       # f (g x)
 u:C_ := { f_ x y -> y f_ x }         # f y x
 u:S_ := { f_ g_ x -> x f_ g_ x }     # f x (g x)

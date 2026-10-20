@@ -48,6 +48,9 @@ pub enum TokenKind {
     /// `_` standing alone: the wildcard of a tuple pattern (TU4), an
     /// error anywhere else.
     Wild,
+    /// `_u`: a parameter the lambda never uses (L8); in a parameter
+    /// list only, an error anywhere else.
+    Unused,
     Newline,
     LParen,
     RParen,
@@ -206,6 +209,7 @@ impl fmt::Display for TokenKind {
             TokenKind::Semi => "Semi",
             TokenKind::Comma => "Comma",
             TokenKind::Wild => "Wild",
+            TokenKind::Unused => "Unused",
             TokenKind::Newline => "Newline",
             TokenKind::LParen => "LParen",
             TokenKind::RParen => "RParen",

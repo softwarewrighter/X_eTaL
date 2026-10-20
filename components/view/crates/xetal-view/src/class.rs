@@ -53,7 +53,7 @@ pub(crate) fn classify(kind: &TokenKind) -> Class {
         },
         TokenKind::Var(v) if v.ns.as_deref() == Some(xetal_lex::SYSTEM) => Class::Builtin,
         TokenKind::Var(_) => Class::Variable,
-        TokenKind::LamArg { .. } => Class::LambdaArg,
+        TokenKind::LamArg { .. } | TokenKind::Unused => Class::LambdaArg,
         TokenKind::Num(_) => Class::Number,
         TokenKind::Exp(_) => Class::Exponent,
         TokenKind::Str(_) | TokenKind::Code(_) => Class::String,

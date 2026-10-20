@@ -29,6 +29,14 @@ fn underlines_namespaces_subscripts_and_exponents() {
     assert_eq!(raw("x\u{207b}\u{b2}\u{b7}\u{2075} + 1"), "x^-2.5 + 1");
 }
 
+/// The lambda glyphs type back: alpha, omega and the unused
+/// parameter's thick low line (L8).
+#[test]
+fn lambda_glyphs_type_back() {
+    assert_eq!(raw("{ \u{237a} + \u{2375} }"), "{ _l + _r }");
+    assert_eq!(raw("{ x \u{2581} \u{2192} x }"), "{ x _u -> x }");
+}
+
 #[test]
 fn a_raised_point_belongs_to_an_exponent_only() {
     assert!(xetal_render::undecorate("a \u{b7} b").is_err());

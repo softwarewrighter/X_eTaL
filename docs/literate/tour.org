@@ -490,12 +490,12 @@ u:t_wo @
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-ᵘk̲eep ← { a ~b → a }         ⍝ `~b` is a lazy parameter: evaluated
-7 ᵘk̲eep 1 ÷ 0                  ⍝ only if used, so no division by zero
+ᵘk̲eep ← { a ~▁ → a }        ⍝ `_u` is a parameter nothing reads; the
+7 ᵘk̲eep 1 ÷ 0                  ⍝ tilde makes it lazy: no division by zero
 #+end_example
 #+begin_src xetal
-u:k_eep := { a ~b -> a }         # `~b` is a lazy parameter: evaluated
-7 u:k_eep 1 / 0                  # only if used, so no division by zero
+u:k_eep := { a ~_u -> a }        # `_u` is a parameter nothing reads; the
+7 u:k_eep 1 / 0                  # tilde makes it lazy: no division by zero
 #+end_src
 
 #+RESULTS:

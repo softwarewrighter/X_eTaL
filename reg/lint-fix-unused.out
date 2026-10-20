@@ -1,7 +1,7 @@
 #!/usr/bin/env xetal
 # unused-binding: a parameter or local nothing uses; `_ :=`, `_r` and top-level names are exempt.
 x := 3
-u:f_irst := { a b -> a }
+u:f_irst := { a _u -> a }
 u:s_how! := { v ->
   _ := p_rint! v
   _ := p_rint! ""

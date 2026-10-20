@@ -5,7 +5,7 @@ use xetal_lex::{Token, TokenKind};
 
 use crate::expr::{Item, bind_operands};
 use crate::parser::{Parser, err};
-use xetal_ast::{Fun, FunKind, Lambda, Param, Params, stmt_args};
+use xetal_ast::{Fun, FunKind, Lambda, Param, Params, Target, stmt_args};
 
 impl Parser {
     /// `{ [params ->] body }`.
@@ -79,6 +79,7 @@ impl Parser {
                     | TokenKind::RParen
                     | TokenKind::Comma
                     | TokenKind::Wild
+                    | TokenKind::Unused
             )
         }) {
             i += 1;
@@ -160,6 +161,12 @@ fn named(tokens: Vec<Token>) -> Result<Vec<Param>, Diagnostic> {
                 name: None,
                 lazy: false,
                 span: t.span,
+            }),
+            // `_u`: a parameter nothing reads (L8); it may repeat.
+            TokenKind::Unused => params.push(Param {
+                name: Some(Target::Wild),
+                span: lazy.map_or(t.span, |l| l.join(t.span)),
+                lazy: lazy.take().is_some(),
             }),
             TokenKind::LParen | TokenKind::Var(_) | TokenKind::Func(_) | TokenKind::Wild => {
                 let start = t.span;

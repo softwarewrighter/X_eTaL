@@ -20,6 +20,36 @@ fn an_unused_parameter_warns() {
     );
 }
 
+/// An unused parameter's fix writes `_u` in place of its name; the `~`
+/// of a lazy one stays, so it becomes `~_u`.
+#[test]
+fn an_unused_parameter_offers_the_fix() {
+    let fix = |src: &str| {
+        let program = xetal_core::lower(src).expect("lowers");
+        let found = xetal_lint::lints(&program);
+        let d = found
+            .iter()
+            .find(|d| d.code == "unused-binding")
+            .expect("found");
+        let fix = &d.fix()[0];
+        let mut out = src.to_string();
+        out.replace_range(fix.span.start..fix.span.end, &fix.replacement);
+        out
+    };
+    assert_eq!(fix("u:f_irst := { x y -> x }"), "u:f_irst := { x _u -> x }");
+    assert_eq!(fix("u:k_eep := { a ~b -> a }"), "u:k_eep := { a ~_u -> a }");
+}
+
+/// `_u` says the parameter is unused (L8): nothing to report, and no
+/// `# lint: allow` needed; lazy, repeated and alone alike.
+#[test]
+fn the_unused_parameter_is_exempt() {
+    assert!(unused("u:f_irst := { x _u -> x }").is_empty());
+    assert!(unused("u:k_eep := { a ~_u -> a }").is_empty());
+    assert!(unused("u:z_ero := { _u _u -> 0 }").is_empty());
+    assert!(unused("u:a_nswer := { _u -> 42 }").is_empty());
+}
+
 #[test]
 fn an_unused_local_warns() {
     let found = unused("u:f_ := { x -> n := x + 1\nx }");
@@ -78,7 +108,7 @@ fn placed(src: &str) -> Vec<(String, Option<(String, String)>)> {
 fn a_finding_is_at_the_name_and_a_local_is_fixed_to_a_discard() {
     let src = "u:f_ := { x ~y -> n := p_rint! x\n  x }";
     let want = [
-        ("y".to_string(), None),
+        ("y".to_string(), Some(("y".to_string(), "_u".to_string()))),
         ("n".to_string(), Some(("n".to_string(), "_".to_string()))),
     ];
     assert_eq!(placed(src), want);

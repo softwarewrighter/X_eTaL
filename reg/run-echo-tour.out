@@ -120,10 +120,10 @@ hello X̲ᵉTᵃL
       [32mᵘt̲wo[0m ← { @ → [33m2[0m }                 [2m⍝ a niladic function takes [0m@[0m
       [32mᵘt̲wo[0m @[0m
 2
-      [2m⍝ lint: allow unused-binding[0m
-      [3;32m⍝│ a u:k_eep b: a; b is lazy, so it is never evaluated.[0m
-      [32mᵘk̲eep[0m ← { a ~b → a }             [2m⍝ [0m~b[2m is a lazy parameter: evaluated[0m
-      [33m7[0m [32mᵘk̲eep[0m [33m1[0m [94m÷[0m [33m0[0m                    [2m⍝ only if used, so no division by zero[0m
+      [3;32m⍝│ a u:k_eep b: a; the second argument is unused and lazy, so it is[0m
+      [3;32m⍝│ never evaluated.[0m
+      [32mᵘk̲eep[0m ← { a ~[35m▁[0m → a }             [2m⍝ [0m[35m▁[0m[2m is a parameter nothing reads; the[0m
+      [33m7[0m [32mᵘk̲eep[0m [33m1[0m [94m÷[0m [33m0[0m                    [2m⍝ tilde makes it lazy: no division by zero[0m
 7
       ([32mᵘs̲ub[0m [33m100[0m)_ [33m1[0m                    [2m⍝ [0m(expr)_[2m applies a function value[0m
 99

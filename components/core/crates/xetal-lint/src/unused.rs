@@ -22,7 +22,9 @@ pub(crate) fn unused(program: &Program) -> Vec<Diagnostic> {
 }
 
 /// The finding for `name`, bound by node `e`, if nothing uses it: at
-/// the name where it is written (D152), and for a `:=` a fix to `_`.
+/// the name where it is written (D152), with a fix: `_` for a `:=`,
+/// `_u` for a parameter (L8; the `~` of a lazy one is outside the name
+/// and stays).
 fn check(program: &Program, name: &str, e: &Expr) -> Option<Diagnostic> {
     if name.starts_with(['_', '%']) {
         return None;
@@ -30,7 +32,7 @@ fn check(program: &Program, name: &str, e: &Expr) -> Option<Diagnostic> {
     let (used, message, at) = match &e.kind {
         Kind::Lam { body, .. } => (
             uses(body, name),
-            format!("parameter `{name}` is never used"),
+            format!("parameter `{name}` is never used; write `_u` for a parameter nothing reads"),
             program.param_span(e.id),
         ),
         Kind::Let {
@@ -50,6 +52,7 @@ fn check(program: &Program, name: &str, e: &Expr) -> Option<Diagnostic> {
     let found = Diagnostic::warning("unused-binding", message).with_span(at.unwrap_or(e.span));
     match (at, &e.kind) {
         (Some(at), Kind::Let { .. }) => Some(found.with_fixes([(at, "_".into())])),
+        (Some(at), Kind::Lam { .. }) => Some(found.with_fixes([(at, "_u".into())])),
         _ => Some(found),
     }
 }

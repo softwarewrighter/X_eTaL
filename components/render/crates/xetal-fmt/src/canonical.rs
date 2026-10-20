@@ -3,7 +3,9 @@
 
 use xetal_base::Diagnostic;
 use xetal_lex::{Number, Side};
-use xetal_syntax::{Expr, ExprKind, Fun, FunKind, Lambda, Params, Stmt, parse, parse_body};
+use xetal_syntax::{
+    Expr, ExprKind, Fun, FunKind, Lambda, Params, Stmt, Target, parse, parse_body,
+};
 
 use crate::names::{func_text, target_text, var_text};
 use crate::string::{code_text, string_text};
@@ -129,7 +131,11 @@ impl Printer<'_> {
                 let names: Vec<String> = ps
                     .iter()
                     .map(|p| {
-                        let name = p.name.as_ref().map_or("@".to_string(), target_text);
+                        let name = match &p.name {
+                            None => "@".to_string(),
+                            Some(Target::Wild) => "_u".to_string(),
+                            Some(name) => target_text(name),
+                        };
                         format!("{}{name}", if p.lazy { "~" } else { "" })
                     })
                     .collect();

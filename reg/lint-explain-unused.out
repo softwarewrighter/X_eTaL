@@ -11,4 +11,4 @@ Instead:
     { v -> _ := p_rint! v
     v }
 
-Exempt: `_ := ...` (a value kept for its effect), the shorthand's `_r` and `_l`, and top-level bindings. A parameter a caller requires (an operand ignoring an argument) is silenced with a `# lint: allow unused-binding` comment.
+Exempt: `_ := ...` (a value kept for its effect), the shorthand's `_r` and `_l`, and top-level bindings. A parameter a caller requires but the lambda ignores (an operand dropping an argument, a combinator such as K) is written `_u`: `{ x _u -> x }`.

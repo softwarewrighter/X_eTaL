@@ -43,8 +43,8 @@ in its scope uses.\n\nWhy: an unused name is often a slip (the wrong name used b
 it) or code left behind.\n\nExample:\n    { v -> shown := p_rint! v\n    v }\nInstead:\n    \
 { v -> _ := p_rint! v\n    v }\n\nExempt: `_ := ...` (a value \
 kept for its effect), the shorthand's `_r` and `_l`, and top-level bindings. A \
-parameter a caller requires (an operand ignoring an argument) is silenced with a \
-`# lint: allow unused-binding` comment.",
+parameter a caller requires but the lambda ignores (an operand dropping an \
+argument, a combinator such as K) is written `_u`: `{ x _u -> x }`.",
     },
     Lint {
         name: "redundant-lambda",

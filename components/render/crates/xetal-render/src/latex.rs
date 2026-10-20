@@ -66,6 +66,7 @@ pub(crate) fn token_tex(kind: &TokenKind, raw: &str) -> String {
             let a = if *applied { r"\_" } else { "" };
             format!(r"\_\mathrm{{{s}}}{a}")
         }
+        TokenKind::Unused => r"\_\mathrm{u}".into(),
         TokenKind::Exp(_) => format!("^{{{}}}", &raw[1..]),
         TokenKind::Sym(sym) => symbol_tex(*sym).into(),
         TokenKind::Str(_) | TokenKind::Code(_) => format!(r"\text{{{}}}", text_tex(raw)),

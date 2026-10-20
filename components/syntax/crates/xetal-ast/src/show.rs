@@ -107,11 +107,13 @@ impl fmt::Display for Fun {
                     Params::Niladic => vec!["@".into()],
                     Params::Named(ps) => ps
                         .iter()
-                        .map(|p| match &p.name {
-                            None => "@".to_string(),
-                            Some(name) => {
-                                format!("{}{}", if p.lazy { "~" } else { "" }, target(name))
-                            }
+                        .map(|p| {
+                            let name = match &p.name {
+                                None => return "@".to_string(),
+                                Some(Target::Wild) => "_u".to_string(),
+                                Some(name) => target(name),
+                            };
+                            format!("{}{name}", if p.lazy { "~" } else { "" })
                         })
                         .collect(),
                 };

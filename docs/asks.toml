@@ -19,6 +19,26 @@
 # repository should act on; it is printed after the summary.
 
 [[notice]]
+title = "an unused parameter is _u: drop # lint: allow unused-binding"
+text = """
+A parameter a caller requires but the lambda ignores is written `_u`
+(L8, D182): `{ x _u -> x }` (K), `{ _u -> 42 }`, `{ a ~_u -> a }` (lazy,
+so the argument is never evaluated). It stands in a parameter list
+only, may repeat, and is never read (`_u` in a body is an error that
+says to name it); `_` keeps its one meaning (discard, or skip a part of
+a tuple pattern). The `unused-binding` lint never reports `_u`, so the
+`# lint: allow unused-binding` directive is no longer needed for this:
+`xetal lint --fix` rewrites an unused parameter to `_u` by itself. Every
+view draws `_u` as a thick low line (U+2581) and types it back.
+
+Sites found by `grep -rn "allow unused-binding"`: X_eTaL-libraries
+libs/Eigencube/tests/checks.xtl, X_eTaL-gpu
+extensions/gpu/demos/offload.xtl. X_eTaL-demos and X_eTaL-games build
+their own copy of the live editor from their pinned X_eTaL commit, so
+their editors draw `_u` only after a pin bump and a republish.
+"""
+
+[[notice]]
 title = "code strings are checked: say code in ## takes:, write c\"...\" where code is taken"
 text = """
 A macro library can say a side takes X_eTaL: `## takes: @ code`
