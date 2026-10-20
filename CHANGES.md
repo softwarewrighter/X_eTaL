@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-19
 
+- 18:10 `chore` draws lane: step 1 (main's step 154) complete; the lane saga archived under lanes/draws/.agentrail-archive/.
 - 18:05 `feat` Notations drawn by the library (step 154, D178, MC32): a macro side may be `notation` (`## takes: text notation`) with `## draws: m_acro<` naming the macro of its library that draws it; the program phase runs the drawer per call and records the drawing on the call's site; HTML views (`render --html`, the doc site, the literate pages) show the strings as one KaTeX math box after the macro name, the live demo's Rendered pane too (new component katex), the terminal and `xetal edit` the typed text styled as notation; `bad-contract` for a notation without a drawer, a drawer without a notation or one the library lacks. New crates xetal-notations (macro) and xetal-notate (view). Goldens render-color-notation, render-html-notation, macros-notation-run, -no-drawer, -drawer-missing.
 - 16:40 `build` scripts/reg.sh raises the open-files limit (`ulimit -n 4096`) before the parallel golden run: reg-rs starts all 260 goldens at once, and macOS's default of 256 open files per process failed 40 of them with "Too many open files" (the user, 2026-10-19; confirmed by raising the limit by hand).
 - 17:25 `fix` `xetal fmt` keeps a macro call that stands as a statement of its own unparenthesized (D177): a formatted file with an import (`"m:" u_se< "Macros"`) or a `d_ef<` was refused or changed meaning. Golden fmt-macro-statements.
