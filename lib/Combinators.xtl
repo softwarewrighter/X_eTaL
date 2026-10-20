@@ -1,8 +1,9 @@
 ## Combinators: the birds Raymond Smullyan names in "To Mock a
 ## Mockingbird" that type-check (a standard library, built into xetal).
 ## Import it with an alias of your choice: "c:" u_se< "Combinators".
-## docs/birds.md lists them all; the self-applying birds (L, M, M2, U)
-## have no finite type and are in demos/birds-untyped.xtl.
+## docs/birds.md lists them all, with two of Curry's that trains name
+## (the Phoenix and Psi); the self-applying birds (L, M, M2, U) have no
+## finite type and are in demos/birds-untyped.xtl.
 ##
 ## Each bird only rearranges, repeats, drops or groups its curried
 ## arguments; its rule is given in Smullyan's notation, where
@@ -147,6 +148,23 @@ l:S_ := { x_ y_ z -> z x_ y_ z }                    # Starling
 ## >> (1 c:V_ 2)_ '-
 ## -1
 l:V_ := { x y z_ -> x z_ y }                        # Vireo: a pair
+
+### From Curry's aviary
+
+## The Phoenix (Curry's S', not in Smullyan's list): Phi x y z w =
+## x (y w) (z w), the fork `[y_ x_ z_] w` as a bird: two functions of
+## the same argument, joined by a third.
+## >> "c:" u_se< "Combinators"
+## >> 'a_bs 'n_eg '- c:P_hi 3
+## -6
+l:P_hi := { x_ y_ z_ w -> (y_ w) x_ z_ w }          # Phoenix: a fork
+
+## Psi (Curry's, not in Smullyan's list): Psi x y z w = x (y z) (y w),
+## one function of both arguments before another joins them.
+## >> "c:" u_se< "Combinators"
+## >> 1 2 'a_bs '- c:P_si -3
+## -2 -1
+l:P_si := { x_ y_ z w -> (y_ z) x_ y_ w }           # Psi: on
 
 ### Once removed
 

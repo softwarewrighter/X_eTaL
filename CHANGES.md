@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-19
 
+- 23:10 `feat` The Combinators library has Curry's Phoenix (`c:P_hi`, the fork as a bird: `Phi x y z w = x (y w) (z w)`) and Psi (`c:P_si`, `Psi x y z w = x (y z) (y w)`), the two birds trains name that Smullyan's list lacks (the user, 2026-10-19), with doc tests; the combinators demo shows both (goldens run-combinators and type-combinators rebased), docs/birds.md lists them (40 typed birds), the macros-and-trains table names them, and trains.org calls the library's `c:P_hi` instead of defining its own.
 - 22:40 `refactor` The lambda arm of the shape lint's `infer()` goes through `block()` with a default fact instead of repeating its parameter match: #151 left `infer()` at 52 lines, over sw-checklist's 50; no behavior change.
 - 22:05 `refactor` The code-string check of a macro call moves out of `user()` into `strings()` in xetal-expand: #150 left `user()` at 61 lines, over sw-checklist's 50; no behavior change.
 - 20:45 `feat` The shape lint follows a tuple binding and a block applied at once (D180): `(O, Ho) := (1, 3)` binds single numbers and `({ @ -> ... } @)` is its body, so an equation macro's result (Equations' expansion) has a shape and a later mismatch is `shape-mismatch` before the program runs, with no `r_equireShape` written by the library. Golden lint-shape-blocks.

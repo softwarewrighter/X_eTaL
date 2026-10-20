@@ -113,10 +113,19 @@ first two, through unchanged and act as the plain bird on the rest:
 | V** | `V** x y z w v = x y v z w` | yes | `V_ss` |
 | W** | `W** x y z w = x y z w w` | yes | `W_ss` |
 
-That is 38 typed birds in the library (Y among them) and 4 untyped
+Two birds from Curry's aviary are not in Smullyan's list but are in the
+library, because trains name them: the Phoenix is a fork (`[y x z] w`
+is `x (y w) (z w)`) and Psi applies one function to both arguments
+before another joins them (Haskell's `on`):
+
+| Bird | Name | Definition | Typed | Spelling |
+| ---- | ---- | ---------- | ----- | -------- |
+| Phi | Phoenix (S') | `Phi x y z w = x (y w) (z w)` | yes | `P_hi` |
+| Psi | Psi | `Psi x y z w = x (y z) (y w)` | yes | `P_si` |
+
+That is 40 typed birds in the library (Y among them) and 4 untyped
 ones (L, M, M2, U), which are in the untyped demo,
 `demos/birds-untyped.xtl`, with the textbook Y, Z (the Sage Bird for
 strict evaluation) and Turing's fixed point U U. `demos/combinators.xtl`
 shows the library at work (`just show demos/combinators.xtl`).
-Birds from other aviaries (the Kite `K I`, Curry's Phoenix and Psi)
-are not in Smullyan's list; they are one line each in a user file.
+The Kite (`KI x y = y`) is `K I`, or the built-in `r_ight`.

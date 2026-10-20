@@ -121,7 +121,8 @@ arguments are written at the call.
 | C, Cardinal | `C f x y = f y x` | `s_wap` | | `c:C_` | inline (swaps the text) |
 | W, Warbler | `W f x = f x x` | | `[i_d f_ i_d] x` | `c:W_` | inline, binding x once |
 | S, Starling | `S f g x = f x (g x)` | | hook `[i_d f_ g_] x` | `c:S_` | inline, binding x once |
-| Phoenix (S') | `f (g x) (h x)` around `g` | | fork `[f_ g_ h_] x` | (one line, birds.org) | inline |
+| Phoenix (S') | `Phi f g h x = f (g x) (h x)` | | fork `[g_ f_ h_] x` | `c:P_hi` | inline |
+| Psi | `Psi f g x y = f (g x) (g y)` | | | `c:P_si` | inline |
 | dyadic fork | `(x f y) g (x h y)` | | `x [f_ g_ h_] y` | | inline |
 | T, Thrush | `T x f = f x` | | | `c:T_` | inline |
 | V, Vireo | `V x y f = f x y` | | | `c:V_` | inline |

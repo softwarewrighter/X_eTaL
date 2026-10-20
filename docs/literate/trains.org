@@ -135,18 +135,18 @@ sides, as the Warbler does.
 
 Three functions are a fork: the outer two apply to the argument and
 the middle one joins their results. Its bird, Curry's Phoenix (S'), is
-not in Smullyan's book, so the library leaves it out; it is one line.
+not in Smullyan's book, but the library has it as ~c:P_hi~ (with
+Curry's Psi, ~c:P_si~, which applies one function to both arguments of
+another), because the fork is the train readers reach for first.
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-ᵘP̲hi ← { c̲ f̲ g̲ x → (f̲ x) c̲ g̲ x }
 [n̲eg + ᵘs̲quare] 1 2 3
-'ᵘs̲quare 'n̲eg '+ ᵘP̲hi 1 2 3
+'ᵘs̲quare 'n̲eg '+ ᶜP̲hi 1 2 3
 #+end_example
 #+begin_src xetal
-u:P_hi := { c_ f_ g_ x -> (f_ x) c_ g_ x }
 [n_eg + u:s_quare] 1 2 3
-'u:s_quare 'n_eg '+ u:P_hi 1 2 3
+'u:s_quare 'n_eg '+ c:P_hi 1 2 3
 #+end_src
 
 #+RESULTS:
@@ -279,5 +279,5 @@ both sides become Floats first, in trains of their own:
 | ~x [F G] y~      | ~F (x G y)~       | Blackbird: ~x 'G 'F c:B_1 y~  |
 | ~[i_d F G] x~    | ~x F (G x)~       | Starling: ~'G 'F c:S_ x~      |
 | ~[i_d F i_d] x~  | ~x F x~           | Warbler: ~'F c:W_ x~          |
-| ~[F G H] x~      | ~(F x) G (H x)~   | Phoenix: ~'H 'F 'G u:P_hi x~  |
+| ~[F G H] x~      | ~(F x) G (H x)~   | Phoenix: ~'H 'F 'G c:P_hi x~  |
 | ~i_d~, ~l_eft~, ~r_ight~ | x; x of x y; y of x y | Idiot, Kestrel, Kite |

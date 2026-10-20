@@ -1,6 +1,7 @@
 #!/usr/bin/env xetal
-## Combinators: the Combinators library, Smullyan's birds, each a
-## function that only rearranges, repeats or drops its arguments. Run it
+## Combinators: the Combinators library, Smullyan's birds and two of
+## Curry's, each a function that only rearranges, repeats or drops its
+## arguments. Run it
 ## with "xetal run demos/combinators.xtl" (or "./demos/combinators.xtl"),
 ## or as a notebook with "just show demos/combinators.xtl"; it prints
 ## what each bird makes of small numbers, ending with 10 factorial from
@@ -36,6 +37,14 @@ u:d_ouble := { _r * 2 }
 
 # S, the Starling: x z (y z), here 3 + (3 * 2).
 'u:d_ouble '+ c:S_ 3
+
+# The Phoenix (Curry's S'), a fork as a bird: x (y w) (z w), here
+# (3 + 1) + (3 * 2), what the train [u:i_nc + u:d_ouble] 3 computes.
+'u:d_ouble 'u:i_nc '+ c:P_hi 3
+
+# Psi (Curry's): x (y z) (y w), one function of both arguments before
+# another joins them: (3 * 2) + (4 * 2).
+3 'u:d_ouble '+ c:P_si 4
 
 # T, the Thrush, applies its second argument to its first.
 3 c:T_ 'u:d_ouble
