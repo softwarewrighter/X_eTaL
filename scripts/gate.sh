@@ -102,9 +102,19 @@ if does "flag wasm"; then
     (cd components/rosetta && cargo check -q --target wasm32-unknown-unknown)
 fi
 # The goldens and the rest run target/debug/xetal: built here, so it is
-# current whatever the component plan did.
-step "the CLI (debug and release) for the end-to-end checks"
-(cd components/cli && cargo build -q -p xetal-cli && cargo build -q --release -p xetal-cli)
+# current whatever the component plan did. The sample gate builds only
+# that: the reference and asks checks take the debug binary through
+# XETAL_BIN, so a change low in the stack is compiled once, not twice
+# (the user, 2026-10-20). The affected and full gates build release too,
+# for the literate documents and the pages.
+if [ "$mode" = sample ]; then
+    step "the CLI (debug) for the end-to-end checks"
+    (cd components/cli && cargo build -q -p xetal-cli)
+    export XETAL_BIN="$root/target/debug/xetal"
+else
+    step "the CLI (debug and release) for the end-to-end checks"
+    (cd components/cli && cargo build -q -p xetal-cli && cargo build -q --release -p xetal-cli)
+fi
 export GATE_BUILT=1
 # The end-to-end checks share nothing once the CLI is built: all at once,
 # each to its own log, reported in order when all are done.

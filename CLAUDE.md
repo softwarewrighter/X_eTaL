@@ -393,7 +393,23 @@ in output is intended, and say so in the commit message.
 `STATUS pending` case must fail; if it starts passing the harness
 fails until the case is flipped to active in a deliberate commit.
 
-## Pre-commit gate (every commit)
+## Checks: minimal before a commit, the rest after it
+
+Decided with the user 2026-10-20: the checks do not gate. Before a
+commit: the compiler, clippy and the tests of the crates the change
+touches, then sw-checklist (a second). Commit, push, use the change.
+After the push, in the background: `just spot` (a random fifth of the
+goldens plus the spec cases, about a minute) for early detection,
+`just gate` when a step closes or a train lands. All the tests run
+only when the user asks or at the end of the day (the nightly), after
+work has progressed, never before it. Publish (`just publish`) right
+after a push that changes what the live demo does, before the slower
+checks, so the user tests by hand while they run. A failure found
+later is fixed forward, as the first thing: a red check is an
+interrupt, not a gate. Trust the compiler and the linter to catch most
+regressions; the spot check and the nightly catch the rest.
+
+The full list, for reference (the nightly runs all of it):
 
 1. `cargo fmt --all` then `cargo fmt --all -- --check` (per component)
 2. `cargo clippy --all-targets --all-features -- -D warnings` (zero
@@ -438,10 +454,12 @@ By day:
   sequence onto main, a train, resolving conflicts in the merge
   commits, with no gate between merges. Drafts and PRs whose own
   checks fail stay off the train.
-- One sample gate per train (`just gate`, about 30 seconds), then
-  push. No `--affected` per train, no pages per train. Goldens moved
-  on purpose are rebased in the train and the commit says so.
-- A step completes (`agentrail complete`) after the sample gate too.
+- Push after the minimal checks (compiler, clippy, the touched crates'
+  tests, sw-checklist); `just spot` after the push, `just gate` once
+  per train or step close, both in the background while work goes on.
+  No `--affected` per train, no pages per train. Goldens moved on
+  purpose are rebased when the check finds them and the commit says so.
+- A step completes (`agentrail complete`) on the minimal checks too.
 - Stale pages are a warning by day; `just pages` on request before a
   demo.
 - The integrator does not repeat a lane's checks: the review is the
@@ -464,13 +482,18 @@ By night:
 
 ### Three gates: sample, affected, full
 
-- `just gate` (sample, about 30 seconds): the end-to-end checks only,
-  in parallel: goldens, spec cases, doc tests, reference, status, data
-  tables, spelling, markdown; and sw-checklist (a fraction of a
-  second), so a merged lane cannot leave code over its limits. Before
-  every commit, train and push; stale pages are a warning here.
-  A train ends with one `just publish` (the site on gh-pages),
-  never a pages build per merge.
+- `just spot` (about a minute): a random fifth of the goldens and the
+  spec cases, against the debug binary. After a push, in the
+  background; `SPOT=all` or a count picks how many goldens.
+- `just gate` (sample, about 30 seconds once built): the end-to-end
+  checks only, in parallel: goldens, spec cases, doc tests, reference,
+  status, data tables, spelling, markdown; and sw-checklist (a fraction
+  of a second), so a merged lane cannot leave code over its limits. It
+  builds the debug CLI only (the reference and asks checks take it
+  through `XETAL_BIN`); release is built by `--affected` and `--full`.
+  Once per train or step close, in the background; stale pages are a
+  warning here. A train ends with one `just publish` (the site on
+  gh-pages), never a pages build per merge.
 - `just gate --affected`: the sample plus the components the change
   touches (`scripts/affected.py` plans it: changed ones checked,
   dependents compiled), the browser build and the document checks

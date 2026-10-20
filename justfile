@@ -60,6 +60,10 @@ locks *args:
 gate *FLAGS:
     scripts/gate.sh {{FLAGS}}
 
+# A spot check after a push: a random fifth of the goldens (SPOT=N or all) and the spec cases; does not gate
+spot:
+    scripts/spot-check.sh
+
 # Start the interactive session
 repl: _quiet-build
     @{{xetal}} repl

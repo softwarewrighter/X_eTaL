@@ -90,14 +90,8 @@ impl Parser {
             TokenKind::LBracket => return self.train(token.span),
             // Never read: `_` discards (M3) or skips a pattern's part (TU4);
             // `_u` marks a parameter the lambda ignores (L8).
-            TokenKind::Wild | TokenKind::Unused => {
-                let message = if token.kind == TokenKind::Wild {
-                    WILD
-                } else {
-                    UNUSED
-                };
-                return Err(err("bad-lambda-arg", token.span, message));
-            }
+            TokenKind::Wild => return Err(err("bad-lambda-arg", token.span, WILD)),
+            TokenKind::Unused => return Err(err("bad-lambda-arg", token.span, UNUSED)),
             other => {
                 let message = match other {
                     TokenKind::Assign => {
