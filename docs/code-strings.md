@@ -269,7 +269,7 @@ As built (D176):
    the macro takes as text or as a notation whose inside is not X_eTaL
    (an equation's `0..2`) is `string-kind` from the compiler too, an
    error with the same fix, in place of the lexer's error about the
-   inside (B2, the blog's ask, 2026-10-19; D179): the expander lexes
+   inside (B2, the blog's ask, 2026-10-19; D181): the expander lexes
    the inside of a code string up front only where it is not a macro's
    argument, and checks an argument with the macro's contract in hand
    (parsed on a code side, lexed otherwise; a macro without a
