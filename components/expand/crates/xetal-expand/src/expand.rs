@@ -8,7 +8,7 @@ use xetal_mapped::Mapped;
 use std::cell::Cell;
 
 use crate::calls::{Call, calls};
-use crate::code::{inside, lexed, parsed};
+use crate::code::{inside, lexed, lexes, parsed};
 use crate::hygiene::{anaphora, unwritten};
 use crate::user::{Macros, NoMacros, user};
 
@@ -27,7 +27,14 @@ pub fn expand(text: &str) -> Result<Mapped, Diagnostic> {
 pub fn expand_with(text: &str, macros: &dyn Macros) -> Result<Mapped, Diagnostic> {
     if let Ok(tokens) = lex(text) {
         unwritten(&tokens)?;
-        lexed(text, &tokens)?;
+        // A macro's arguments are checked with its contract (B2).
+        let sides: Vec<Span> = calls(&tokens)
+            .unwrap_or_default()
+            .iter()
+            .flat_map(|c| [c.codes.0.then_some(c.left), c.codes.1.then_some(c.right)])
+            .flatten()
+            .collect();
+        lexed(text, &tokens, &sides)?;
     }
     let cx = Cx {
         macros,
@@ -79,10 +86,14 @@ fn expansion(src: &Mapped, call: &Call, cx: &Cx) -> Result<Mapped, Diagnostic> {
         side(call.texts.0, call.left),
         side(call.texts.1, call.right),
     );
-    // A code string where the macro takes code parses (src's places).
-    let code = |right: bool| match right {
-        false => parsed(src.text(), call.left),
-        true => parsed(src.text(), call.right),
+    // A code string where the macro takes code parses, elsewhere it
+    // lexes (src's places).
+    let code = |right: bool, takes_code: bool| {
+        let span = if right { call.right } else { call.left };
+        match takes_code {
+            true => parsed(src.text(), span),
+            false => lexes(src.text(), span),
+        }
     };
     let (text, binds) = user(
         call,

@@ -1,0 +1,1 @@
+stringkind lane (B2, the blog agent's ask, 2026-10-19; a refinement of step 112): a code string on a macro side that takes text or a notation gets the string-kind advice (drop the c, the value kept) when its inside is not X_eTaL, instead of the lexer's error about the inside. One step, one PR from main; main's saga untouched.

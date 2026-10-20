@@ -1,0 +1,13 @@
+# A code string on a side the macro takes as text (## takes: @ text)
+# is advised, not refused for its inside: text need not be X_eTaL, so
+# an inside that does not lex is string-kind, with the fix that drops
+# the c and keeps the value (B2, after step 112). A code string whose
+# inside does lex is left to the lint's string-kind warning.
+== SOURCE
+@ f_ormat< c"from 3..4"
+== ERROR
+error[string-kind]: f_ormat< takes text on its right, not X_eTaL: write it as a plain string (drop the c; the value is the same)
+ --> -e:1:12
+  |
+1 | @ f_ormat< c"from 3..4"
+  |            ^^^^^^^^^^^^

@@ -81,8 +81,11 @@ pub fn fixed(text: &str, findings: &[Finding]) -> (String, usize) {
 
 /// `--fix`: make the findings' edits in file `name` (written only when
 /// the result still loads), say how many on `err`, and lint what is
-/// left. Text given with `-e` has no file to rewrite, and a file git
-/// cannot give back as it was is not rewritten unless `allow_dirty`.
+/// left. An error that stops the program from loading but carries a
+/// fix of its own (a code string on a text side, `string-kind`, B2) is
+/// made the same way, so the file loads and is linted after. Text
+/// given with `-e` has no file to rewrite, and a file git cannot give
+/// back as it was is not rewritten unless `allow_dirty`.
 pub(crate) fn fix_file(
     name: &str,
     text: &str,
@@ -94,7 +97,17 @@ pub(crate) fn fix_file(
         let message = "--fix rewrites a file: give a FILE path, not -e";
         return Err(Diagnostic::new("fix-needs-file", message));
     }
-    let (after, n) = fixed(text, &lint(name, text, rules)?);
+    let (after, n) = match lint(name, text, rules) {
+        Ok(findings) => fixed(text, &findings),
+        Err(d) if !d.fix().is_empty() => {
+            let edits = d
+                .fix()
+                .iter()
+                .map(|f| Edit::new(f.span.start, f.span.end, f.replacement.clone()));
+            apply(text, &[edits.collect()])
+        }
+        Err(d) => return Err(d),
+    };
     let left = lint(name, &after, rules)?;
     if n > 0 && !allow_dirty && !restorable(name) {
         let message = format!(

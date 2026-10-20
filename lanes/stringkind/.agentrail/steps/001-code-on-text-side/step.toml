@@ -1,0 +1,8 @@
+number = 1
+slug = "code-on-text-side"
+status = "in-progress"
+description = "B2: today xetal_expand::lexed lexes the inside of every code string before an..."
+role = "production"
+context_files = []
+created_at = "2026-10-19T19:50:45"
+commits = []

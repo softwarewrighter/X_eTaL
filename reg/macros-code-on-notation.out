@@ -1,0 +1,5 @@
+error[string-kind]: n:e_q< takes a notation on its right, not X_eTaL: write it as a plain string (drop the c; the value is the same)
+ --> spec/macros/data/code-on-notation.xtl:3:22
+  |
+3 | y := "L[] | " n:e_q< c"sum i:=0..2 | x[i]"
+  |                      ^^^^^^^^^^^^^^^^^^^^^
