@@ -87,18 +87,16 @@ fn macros_have_their_own_class_and_color() {
 }
 
 #[test]
-fn an_import_is_drawn_as_its_alias_bound_to_the_macro() {
+fn an_import_is_drawn_as_typed_like_the_renderer() {
+    // Once drawn as the alias raised and bound (s-superscript, raised =,
+    // u_se<), which two readers took for a bug and xetal render never
+    // did (D179): the alias string stays a string.
     assert_eq!(
         shown("\"s:\" u_se< \"Stats\""),
-        "\u{2e2}\u{207c}u\u{332}se< \"Stats\""
+        "\"s:\" u\u{332}se< \"Stats\""
     );
     let got = classes("\"s:\" u_se< \"Stats\"");
-    assert_eq!(got[0].1, Class::LibFunc);
-    assert_eq!(
-        shown("\"s\" u_se< \"Stats\""),
-        "\"s\" u\u{332}se< \"Stats\"",
-        "not an alias: as typed"
-    );
+    assert_eq!(got[0].1, Class::String);
 }
 
 #[test]

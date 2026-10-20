@@ -5,9 +5,7 @@ use xetal_lex::{TokenKind, lex};
 use xetal_render::{code_pieces, token_text};
 
 use crate::Class;
-use crate::class::{
-    classify, imports_drawn, powers_take_function_class, quotes_take_function_class,
-};
+use crate::class::{classify, powers_take_function_class, quotes_take_function_class};
 use crate::comment::{align, comment};
 
 /// A run of source shown as `text` in style `class`, from bytes `raw`.
@@ -110,7 +108,6 @@ fn valid(src: &str, base: usize, out: &mut Vec<Segment>) {
     gap(src, pos, src.len(), base, out);
     powers_take_function_class(&mut out[first..]);
     quotes_take_function_class(&mut out[first..]);
-    imports_drawn(&mut out[first..]);
 }
 
 /// Whitespace, then a comment if the gap holds one.

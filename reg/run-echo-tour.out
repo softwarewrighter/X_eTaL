@@ -299,19 +299,19 @@ printed, then returned
 <svg xmlns="htt
 
       [1;32m⍝━━ Libraries[0m
-      [36mˢ⁼[0m[1;33mu̲se<[0m [93m"Stats"[0m           [2m⍝ import a library under an alias of your choosing[0m
+      [93m"s:"[0m [1;33mu̲se<[0m [93m"Stats"[0m        [2m⍝ import a library under an alias of your choosing[0m
       [36mˢm̲ean[0m [33m2[0m [33m4[0m [33m4[0m [33m4[0m [33m5[0m [33m5[0m [33m7[0m [33m9[0m    [2m⍝ its exported names, used through the alias[0m
 5.0
       [36mˢs̲d[0m [33m2[0m [33m4[0m [33m4[0m [33m4[0m [33m5[0m [33m5[0m [33m7[0m [33m9[0m      [2m⍝ the standard deviation[0m
 2.0
       [36mˢs̲pread[0m [33m3[0m [33m1[0m [33m4[0m [33m1[0m [33m5[0m         [2m⍝ largest minus smallest[0m
 4
-      [36mʰⁱ⁼[0m[1;33mu̲se<[0m [93m"Hello"[0m           [2m⍝ a library of your own, found in userlibs/[0m
+      [93m"hi:"[0m [1;33mu̲se<[0m [93m"Hello"[0m        [2m⍝ a library of your own, found in userlibs/[0m
       [36mʰⁱh̲ello[0m @                 [2m⍝ niladic: called with Unit[0m
 hello X̲ᵉTᵃL
 
       [1;32m⍝━━ Combinators and power[0m
-      [36mᶜ⁼[0m[1;33mu̲se<[0m [93m"Combinators"[0m     [2m⍝ Smullyan's birds, a standard library[0m
+      [93m"c:"[0m [1;33mu̲se<[0m [93m"Combinators"[0m  [2m⍝ Smullyan's birds, a standard library[0m
       [33m1[0m [36mᶜK̲[0m [33m2[0m                   [2m⍝ K keeps its first argument[0m
 1
       [33m10[0m [94m'−[0m [36mᶜC̲[0m [33m3[0m               [2m⍝ C swaps the arguments: 3 - 10[0m
