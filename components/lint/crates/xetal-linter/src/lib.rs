@@ -13,6 +13,6 @@ mod scope;
 
 pub use command::{Request, command, json_string};
 pub use directive::{Directive, directives};
-pub use driver::{Finding, honored, lint};
+pub use driver::{Finding, honored, lint, lint_with};
 pub use fix::{Edit, apply, fixed};
 pub use rule::{Rule, Scope, command_line, known, resolve};

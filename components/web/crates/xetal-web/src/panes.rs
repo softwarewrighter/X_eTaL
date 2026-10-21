@@ -1,8 +1,9 @@
 //! The three panes: the ASCII source (a text area), the source drawn
-//! decorated, and the types or, after a run, the output.
+//! decorated, and the types or, after a run, the output (after Lint,
+//! the findings).
 
 use web_sys::{Element, HtmlTextAreaElement};
-use xetal_play::{Class, check, decorate, decorated};
+use xetal_play::{Class, Kind, Report, check, decorate, decorated};
 use xetal_runner::Runs;
 use yew::prelude::*;
 
@@ -85,6 +86,7 @@ fn picture(svg: &str) -> Html {
 pub(crate) fn output(
     text: &str,
     runs: &Runs,
+    lint: Option<&Report>,
     current: Pane,
     focus: Callback<Pane>,
     printed: NodeRef,
@@ -92,7 +94,9 @@ pub(crate) fn output(
 ) -> Html {
     let o = &runs.output;
     let input = (o.waiting && !o.wants_key).then(|| xetal_typing::typed_line(typing));
+    let lint = lint.filter(|_| o.run.is_none());
     let title = match (&o.run, o.running, o.cells.is_empty()) {
+        (None, ..) if lint.is_some() => "Lint".to_string(),
         (None, ..) => "Types".to_string(),
         (_, true, _) if o.waiting && o.wants_key => "Output (waiting for a key)".to_string(),
         (_, true, _) if o.waiting && o.wants_event => "Output (running on events)".to_string(),
@@ -102,13 +106,23 @@ pub(crate) fn output(
         (_, false, false) if runs.stepped > 0 => format!("Notebook (step {})", runs.stepped),
         (_, false, false) => "Notebook".to_string(),
     };
-    let body = match &o.run {
-        None => html! { <pre tabindex="0">{ check(text).join("\n") }</pre> },
-        Some(r) if o.cells.is_empty() => html! {
+    let class = |k: Kind| match k {
+        Kind::Error => "c-error",
+        Kind::Warning => "c-warning",
+        Kind::Note => "c-note",
+    };
+    let body = match (&o.run, lint) {
+        (None, Some(l)) => html! {
+            <pre tabindex="0">{ for l.lines.iter().map(|line| html! {
+                <span class={class(line.kind)}>{ &line.text }{ "\n" }</span>
+            }) }</pre>
+        },
+        (None, None) => html! { <pre tabindex="0">{ check(text).join("\n") }</pre> },
+        (Some(r), _) if o.cells.is_empty() => html! {
             <pre tabindex="0" ref={printed.clone()}>{ xetal_typing::screen(&r.out).unwrap_or_else(|| html! { { &r.out } }) }{ input }<span class="c-error">{ &r.err }</span>
                 { for r.pictures.iter().map(|svg| picture(svg)) }</pre>
         },
-        Some(r) => html! {
+        (Some(r), _) => html! {
             <pre tabindex="0" ref={printed.clone()}>{ notebook(runs) }<span class="c-error">{ &r.err }</span></pre>
         },
     };

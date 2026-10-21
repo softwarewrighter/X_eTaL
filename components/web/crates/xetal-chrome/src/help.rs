@@ -18,6 +18,18 @@ pub(crate) fn help_text() -> Html {
                   plain ASCII and drawn typographically. What you type on the left \
                   is drawn decorated on the right as you type." }</p>
             { name() }
+            { editing() }
+            { reading() }
+            { reference() }
+            { links() }
+        </>
+    }
+}
+
+/// How the editor is used: the panes, the buttons, the keys, files.
+fn editing() -> Html {
+    html! {
+        <>
             <h2>{ "Editing" }</h2>
             <ul>
                 <li>{ "Type in the ASCII pane; the Rendered pane follows, and the \
@@ -29,6 +41,10 @@ pub(crate) fn help_text() -> Html {
                        printed, with any pictures it draws ([]S_HOW) under it; the classics demos \
                        draw. While it runs, a spinner turns and Run becomes " }<b>{ "Stop" }</b>
                     { "; Clear also stops it." }</li>
+                <li><b>{ "Lint" }</b>{ " checks the program against the lints, as xetal lint does, and shows \
+                       each finding below with its code, message and place (a warning, or an error \
+                       where a # lint: comment denies it). When findings carry fixes the button reads " }
+                    <b>{ "Fix n" }</b>{ ": a click makes them in the source and lints again." }</li>
                 <li><b>{ "Notebook" }</b>{ " runs the whole program showing each statement, drawn, above \
                        its output, as just show does; " }<b>{ "Step" }</b>{ " runs the next statement only (k of n), \
                        the one just run marked; " }<b>{ "Reset" }</b>{ " starts the steps again." }</li>
@@ -53,9 +69,6 @@ pub(crate) fn help_text() -> Html {
                        are among your files (the hello-library and user-macros demos \
                        import them): edit one, Save, and run its demo again." }</li>
             </ul>
-            { reading() }
-            { reference() }
-            { links() }
         </>
     }
 }

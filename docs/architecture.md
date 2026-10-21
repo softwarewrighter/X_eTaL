@@ -187,7 +187,10 @@ components/
                            plain script)
   lint/                    xetal-linter (`xetal lint`, the driver:
                            levels from -A/-W/-D and # lint: comments,
-                           findings placed in the file; docs/lint.md)
+                           findings placed in the file; docs/lint.md);
+                           xetal-report (the report an editor shows:
+                           the findings as lines with their level, the
+                           count, the text with the fixes made)
   katex/                   xetal-katex: a notation's LaTeX typeset to
                            HTML by the page's KaTeX (from wasm; the
                            escaped LaTeX without it)

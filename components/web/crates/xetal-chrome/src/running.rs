@@ -1,5 +1,5 @@
-//! The run buttons: Run (the output; Stop while a run goes on),
-//! Notebook (the whole program, each statement above its output), Boxed
+//! The run buttons: Run (the output; Stop while a run goes on), Lint
+//! (the findings; Fix when they carry fixes), Notebook (the whole program, each statement above its output), Boxed
 //! (every array printed framed), Step (the next statement, as a
 //! notebook) and Reset (back to the types, the steps forgotten).
 
@@ -8,6 +8,11 @@ use yew::prelude::*;
 /// What the run buttons do, and what they show.
 pub struct RunButtons {
     pub run: Callback<()>,
+    /// Lint the program (the findings below); with fixes to make, the
+    /// button is Fix and a click makes them and lints again.
+    pub lint: Callback<()>,
+    /// How many fixes the last lint's findings carry (0: the button is Lint).
+    pub fixable: usize,
     /// Run the whole program as a notebook.
     pub notebook: Callback<()>,
     pub step: Callback<()>,
@@ -35,6 +40,8 @@ pub fn run_buttons(b: &RunButtons) -> Html {
         <>
             <button class={classes!(b.running.then_some("stop"))} onclick={b.run.reform(|_| ())}
                 disabled={b.library} title={run_title(b)}>{ if b.running { "Stop" } else { "Run" } }</button>
+            <button class={classes!((b.fixable > 0).then_some("on"))} onclick={b.lint.reform(|_| ())} disabled={b.running}
+                title={lint_title(b)}>{ if b.fixable > 0 { format!("Fix {}", b.fixable) } else { "Lint".to_string() } }</button>
             <button onclick={b.notebook.reform(|_| ())} disabled={b.library || b.running}
                 title="Run the whole program as a notebook: each statement above its output">{ "Notebook" }</button>
             <button class={classes!(b.boxed.then_some("on"))} onclick={b.toggle_boxed.reform(|_| ())}
@@ -45,6 +52,13 @@ pub fn run_buttons(b: &RunButtons) -> Html {
                 <button onclick={b.clear.reform(|_| ())} title="Back to the types; Step starts again">{ "Reset" }</button>
             }
         </>
+    }
+}
+
+fn lint_title(b: &RunButtons) -> String {
+    match b.fixable {
+        0 => "Check the program against the lints (xetal lint): each finding below".to_string(),
+        n => format!("Make the {n} fix(es) the findings carry, then lint again"),
     }
 }
 

@@ -303,3 +303,25 @@ fn every_choice_runs_boxed_and_as_a_notebook() {
         ["Classics", "Demos", "Misc"]
     );
 }
+
+/// Lint shows every demo's findings as warnings at most: each loads
+/// under the lint (a demo that did not would show `error[`).
+#[test]
+fn every_demo_lints() {
+    store();
+    let _turn = turn();
+    for demo in DEMOS {
+        let r = xetal_play::lint(demo.text);
+        assert!(
+            !r.lines.iter().any(|l| l.kind == xetal_play::Kind::Error),
+            "{}: {:?}",
+            demo.name,
+            r.lines
+        );
+        assert!(
+            r.lines.last().unwrap().text.ends_with(" error(s)"),
+            "{}",
+            demo.name
+        );
+    }
+}

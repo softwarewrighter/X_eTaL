@@ -1,9 +1,18 @@
 //! What the bottom pane shows: types or the first diagnostic (live),
-//! or a run's output (Ctrl-R only, so effects never run on a keystroke),
-//! each value laid out as a grid (`xetal-grid`).
+//! a run's output (Ctrl-R only, so effects never run on a keystroke),
+//! each value laid out as a grid (`xetal-grid`), or the lint report
+//! (Ctrl-L).
 
 use xetal_base::Diagnostic;
 use xetal_panes::Notation;
+
+/// Which the bottom pane shows.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum Bottom {
+    Types,
+    Output,
+    Lint,
+}
 
 /// Lines to show, the span of an error to highlight, and the notation
 /// calls the rendered pane styles as notation (MC32).
@@ -48,6 +57,19 @@ pub(crate) fn check(src: &str, origin: &str) -> Report {
             ..failed(xetal_program::in_program(&loaded.sources, d))
         },
     }
+}
+
+/// The lint findings of `src` as `xetal lint` reports them (no mark:
+/// each line names its place), and the text with their fixes made when
+/// they carry any (Ctrl-L again makes them).
+pub(crate) fn lint(src: &str, origin: &str) -> (Report, Option<String>) {
+    let r = xetal_report::report(origin, src);
+    let report = Report {
+        lines: r.lines.into_iter().map(|l| l.text).collect(),
+        mark: None,
+        notations: Vec::new(),
+    };
+    (report, r.fixed)
 }
 
 /// Printed text as its lines; a value laid out as a grid (type and

@@ -76,6 +76,8 @@ body { font: 15px/1.35 var(--mono); }
 /* Doc comments (##) and section headings (###): their own style, apart from remarks. */
 .c-doc { color: var(--doc); font-style: italic; } .c-heading { color: var(--doc); font-weight: bold; }
 .c-error { color: #ff6b6b; }
+/* The lint report (Lint): a warning, and the notes and the count. */
+.c-warning { color: #e8c76b; } .c-note { color: var(--doc); }
 
 .pane pre .picture { display: block; margin: 8px 0; }
 .pane pre .picture img { max-width: 100%; max-height: 420px; background: #fff; border-radius: 4px; }

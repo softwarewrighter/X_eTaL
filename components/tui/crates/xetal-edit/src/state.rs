@@ -8,7 +8,7 @@ use xetal_buffer::Buffer;
 use xetal_keys::{Action, Command, apply, command};
 use xetal_panes::Scroll;
 
-use crate::check::{Report, check, run};
+use crate::check::{Bottom, Report, check, lint, run};
 use crate::focus::{Pane, motion};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -27,8 +27,11 @@ pub struct Editor {
     pub(crate) right: Cell<Scroll>,
     pub(crate) out: Cell<Scroll>,
     pub(crate) report: Report,
-    /// True while the bottom pane shows a run's output.
-    pub(crate) ran: bool,
+    /// What the bottom pane shows: the types, a run's output or the
+    /// lint report.
+    pub(crate) bottom: Bottom,
+    /// The text with the lint report's fixes made (Ctrl-L again).
+    fix: Option<String>,
     pub(crate) status: String,
     /// Only the focused pane is shown, full screen (Ctrl-T).
     pub(crate) zoom: bool,
@@ -52,8 +55,9 @@ impl Editor {
             right: fresh(),
             out: fresh(),
             report: check(&text, &path.display().to_string()),
-            ran: false,
-            status: "^S save  ^R run  ^Q quit  Tab pane  ^T zoom".into(),
+            bottom: Bottom::Types,
+            fix: None,
+            status: "^S save  ^R run  ^L lint  ^Q quit  Tab pane  ^T zoom".into(),
             zoom: false,
             confirm_quit: false,
         })
@@ -67,6 +71,7 @@ impl Editor {
         match (cmd, motion(cmd)) {
             (Command::App(Action::NextPane), _) => self.cycle(1),
             (Command::App(Action::PrevPane), _) => self.cycle(-1),
+            (Command::App(Action::Lint), _) => self.lint(),
             (_, Some(delta)) if self.focus != Pane::Source => self.scroll_focused(delta),
             _ => return self.edit(cmd),
         }
@@ -85,8 +90,12 @@ impl Editor {
             None => Flow::Continue,
         };
         if self.buffer.text() != before {
-            (self.report, self.ran, self.confirm_quit) =
-                (check(&self.buffer.text(), &self.origin()), false, false);
+            (self.report, self.bottom, self.fix) = (
+                check(&self.buffer.text(), &self.origin()),
+                Bottom::Types,
+                None,
+            );
+            self.confirm_quit = false;
         }
         flow
     }
@@ -95,7 +104,8 @@ impl Editor {
         match action {
             Action::Save => self.save(),
             Action::Run => {
-                (self.report, self.ran) = (run(&self.buffer.text(), &self.origin()), true)
+                (self.report, self.bottom) =
+                    (run(&self.buffer.text(), &self.origin()), Bottom::Output)
             }
             Action::Quit if self.buffer.is_dirty() && !self.confirm_quit => {
                 self.confirm_quit = true;
@@ -103,9 +113,26 @@ impl Editor {
             }
             Action::Quit => return Flow::Quit,
             Action::Zoom => self.zoom = !self.zoom,
-            Action::NextPane | Action::PrevPane => {}
+            Action::Lint | Action::NextPane | Action::PrevPane => {}
         }
         Flow::Continue
+    }
+
+    /// Ctrl-L: the lint report below; pressed again while its findings
+    /// carry fixes, the fixes are made in the text (unsaved) and the
+    /// result is linted. The rendered pane keeps its notations.
+    fn lint(&mut self) {
+        let src = match (self.bottom, self.fix.take()) {
+            (Bottom::Lint, Some(fixed)) => {
+                self.buffer.replace(&fixed);
+                fixed
+            }
+            _ => self.buffer.text(),
+        };
+        let (mut report, fix) = lint(&src, &self.origin());
+        report.notations = std::mem::take(&mut self.report.notations);
+        (self.report, self.fix, self.bottom) = (report, fix, Bottom::Lint);
+        self.confirm_quit = false;
     }
 
     /// Where the file's libraries are found from: its own path.

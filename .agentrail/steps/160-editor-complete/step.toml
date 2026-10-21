@@ -1,0 +1,8 @@
+number = 160
+slug = "editor-complete"
+status = "pending"
+description = "The user (2026-10-21): autocomplete in the editors. Typing r_ and pausing sho..."
+role = "production"
+context_files = []
+created_at = "2026-10-21T09:40:18"
+commits = []

@@ -229,3 +229,34 @@ fn a_code_string_runs_and_is_drawn_as_code() {
     assert_eq!(class("\u{25b7}"), Some(xetal_play::Class::Punct));
     assert_eq!(class("c\""), Some(xetal_play::Class::String));
 }
+
+/// The Lint button: the report finds a library in the store as a run
+/// does, and carries the text with the fixes made.
+#[test]
+fn lint_reports_findings_and_the_fixed_text_with_libraries_from_the_store() {
+    store().put("Sq.xtl", "l:s_q := { _r * _r }\n").unwrap();
+    let _turn = turn();
+    let src = "\"q:\" u_se< \"Sq\"\nu:k_ := { x y -> x }\nq:s_q u:k_ 4 5";
+    let r = xetal_play::lint(src);
+    assert!(
+        r.lines[0]
+            .text
+            .starts_with("warning[unused-binding]: parameter `y`"),
+        "{:?}",
+        r.lines
+    );
+    assert!(
+        r.lines[0].text.ends_with(" at main.xtl:2:13"),
+        "{:?}",
+        r.lines
+    );
+    assert_eq!(r.lines[0].kind, xetal_play::Kind::Warning);
+    assert_eq!(r.lines.last().unwrap().text, "1 warning(s), 0 error(s)");
+    assert_eq!(
+        r.fixed.as_deref(),
+        Some("\"q:\" u_se< \"Sq\"\nu:k_ := { x _u -> x }\nq:s_q u:k_ 4 5")
+    );
+    let clean = xetal_play::lint(r.fixed.as_deref().unwrap());
+    assert_eq!(clean.lines.len(), 1, "{:?}", clean.lines);
+    assert_eq!(clean.fixed, None);
+}

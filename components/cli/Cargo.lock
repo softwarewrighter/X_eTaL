@@ -2321,6 +2321,7 @@ dependencies = [
  "xetal-notate",
  "xetal-panes",
  "xetal-program",
+ "xetal-report",
  "xetal-term",
  "xetal-types",
 ]
@@ -2490,6 +2491,7 @@ dependencies = [
  "xetal-ir",
  "xetal-lex",
  "xetal-lint",
+ "xetal-macro",
  "xetal-macrolint",
  "xetal-origin",
  "xetal-program",
@@ -2704,6 +2706,15 @@ dependencies = [
  "xetal-program",
  "xetal-store",
  "xetal-types",
+]
+
+[[package]]
+name = "xetal-report"
+version = "0.1.0"
+dependencies = [
+ "xetal-lint",
+ "xetal-linter",
+ "xetal-macro",
 ]
 
 [[package]]

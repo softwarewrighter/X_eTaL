@@ -790,6 +790,7 @@ dependencies = [
  "xetal-ir",
  "xetal-lex",
  "xetal-lint",
+ "xetal-macro",
  "xetal-macrolint",
  "xetal-origin",
  "xetal-program",
@@ -970,6 +971,15 @@ dependencies = [
  "xetal-lex",
  "xetal-strtext",
  "xetal-syntax",
+]
+
+[[package]]
+name = "xetal-report"
+version = "0.1.0"
+dependencies = [
+ "xetal-lint",
+ "xetal-linter",
+ "xetal-macro",
 ]
 
 [[package]]

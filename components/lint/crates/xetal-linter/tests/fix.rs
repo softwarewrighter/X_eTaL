@@ -15,10 +15,17 @@ fn a_redundant_lambda_carries_its_edit() {
     assert_eq!(edit.replacement, "n_eg");
 }
 
+/// A typed lint names the mistake but not its fix (the comparison left
+/// out is the writer's to choose), and an unused parameter's fix is
+/// `_u` since L8.
 #[test]
 fn findings_without_a_sure_edit_carry_none() {
-    let found = lint("t.xtl", "u:f_ := { a b -> a }", &[]).expect("loads");
+    let any = "u:a_ny := { v -> t_ally v ? 1\n0 }\nu:a_ny 1 2";
+    let found = lint("t.xtl", any, &[]).expect("loads");
+    assert_eq!(found[0].lint.name, "int-condition");
     assert!(found[0].fix.is_empty());
+    let found = lint("t.xtl", "u:f_ := { a b -> a }", &[]).expect("loads");
+    assert_eq!(found[0].fix[0].replacement, "_u");
 }
 
 #[test]
@@ -76,12 +83,11 @@ fn fix_rewrites_the_file_and_reports_what_is_left() {
     std::fs::remove_file(&path).unwrap();
     assert_eq!(
         after,
-        "u:f_ := { v -> 'n_eg e_ach v }\nu:g_ := { a b -> a }\n"
+        "u:f_ := { v -> 'n_eg e_ach v }\nu:g_ := { a _u -> a }\n"
     );
     let err = String::from_utf8(err).unwrap();
-    assert!(err.contains("fixed 1 finding(s) in "), "{err}");
-    assert!(err.contains("warning[unused-binding]"), "{err}");
-    assert!(!err.contains("redundant-lambda"), "{err}");
+    assert!(err.contains("fixed 2 finding(s) in "), "{err}");
+    assert!(!err.contains("warning["), "{err}");
 }
 
 #[test]

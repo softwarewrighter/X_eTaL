@@ -80,7 +80,14 @@ the same exit status:
 marks a range), its start when it ends outside the file as written;
 `fix` is the list of a fix's edits (empty without one), each with
 `start` and `end` as byte offsets in the file.
-The live demo needs no JSON: it calls the same Rust functions.
+The editors need no JSON: the live demo's Lint button and `xetal
+edit`'s Ctrl-L call the same driver through the crate xetal-report and
+show the report above in the pane below the source, the count always
+(a clean program shows `0 warning(s), 0 error(s)`), a denied finding
+or a program that does not load in red. When findings carry fixes the
+live demo's button reads `Fix n`, and a click (Ctrl-L again in the
+terminal) makes them in the source and lints the result; the change is
+unsaved until Save.
 
 ## 2. Vocabulary (borrowed from clippy and rustc)
 

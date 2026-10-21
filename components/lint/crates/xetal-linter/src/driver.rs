@@ -7,12 +7,13 @@ use std::fmt;
 use xetal_base::Diagnostic;
 use xetal_ir::Program;
 use xetal_lint::{Level, Lint};
-use xetal_program::Loaded;
+use xetal_macro::{FsLibraries, Libraries};
+use xetal_program::{Loaded, expanded_with, is_library};
 use xetal_sources::Sources;
 use xetal_strings::line_col;
 
 use crate::directive::directives;
-use crate::fix::{Edit, edit};
+use crate::fix::{Edit, edit, ended};
 use crate::rule::{Rule, resolve};
 use crate::scope::{rules, unknown};
 
@@ -53,12 +54,26 @@ impl fmt::Display for Finding {
 /// The findings for program `text`, reported as `name`, under the
 /// command line's `cli` rules and the text's own `# lint:` directives;
 /// in file order. A library is loaded as it is when imported. A
-/// program that does not load is an error.
+/// program that does not load is an error. Libraries are found beside
+/// the file (and the standard ones built in).
 pub fn lint(name: &str, text: &str, cli: &[Rule]) -> Result<Vec<Finding>, Diagnostic> {
-    let library = xetal_program::is_library_named(name, text);
+    lint_with(name, text, cli, &FsLibraries::from_env())
+}
+
+/// [`lint`], its libraries found by `libs` (the live demo's come from
+/// the browser's storage); a text naming no `l:` is a library when its
+/// expansion names one (ask E7), as `is_library_named` decides.
+pub fn lint_with(
+    name: &str,
+    text: &str,
+    cli: &[Rule],
+    libs: &dyn Libraries,
+) -> Result<Vec<Finding>, Diagnostic> {
+    let library = is_library(text)
+        || !text.starts_with("#!") && expanded_with(name, text, libs).is_ok_and(|e| is_library(&e));
     let loaded = match library {
-        true => xetal_program::load_library(name, text)?,
-        false => xetal_program::load(name, text)?,
+        true => xetal_program::load_library_with(name, text, libs)?,
+        false => xetal_program::load_with(name, text, libs)?,
     };
     let written = directives(text);
     let mut all = cli.to_vec();
@@ -149,17 +164,6 @@ fn leveled((code, place, message, fix): Raw, name: &str, rules: &[Rule]) -> Opti
         message,
         fix,
     })
-}
-
-/// Line and column just past the end of `span`, which starts in the
-/// program's file: its start when the end is not written there.
-fn ended(sources: &Sources, span: xetal_base::Span) -> (usize, usize) {
-    let (start, last) = (sources.locate(span.start), span.end.saturating_sub(1));
-    let last = sources.locate(last.max(span.start));
-    match last.index == 0 && last.offset >= start.offset {
-        true => (last.line, last.col + 1),
-        false => (start.line, start.col),
-    }
 }
 
 /// The warnings `xetal run` prints (spans in the combined text), less

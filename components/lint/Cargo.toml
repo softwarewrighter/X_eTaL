@@ -4,7 +4,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-linter", "crates/xetal-origin", "crates/xetal-typed", "crates/xetal-shape", "crates/xetal-strings", "crates/xetal-macrolint"]
+members = ["crates/xetal-linter", "crates/xetal-origin", "crates/xetal-typed", "crates/xetal-shape", "crates/xetal-strings", "crates/xetal-macrolint", "crates/xetal-report"]
 
 [workspace.package]
 version = "0.1.0"
@@ -21,6 +21,8 @@ xetal-ir = { path = "../core/crates/xetal-ir" }
 xetal-program = { path = "../macro/crates/xetal-program" }
 xetal-sources = { path = "../macro/crates/xetal-sources" }
 xetal-linter = { path = "crates/xetal-linter" }
+xetal-report = { path = "crates/xetal-report" }
+xetal-macro = { path = "../macro/crates/xetal-macro" }
 xetal-origin = { path = "crates/xetal-origin" }
 xetal-strings = { path = "crates/xetal-strings" }
 xetal-macrolint = { path = "crates/xetal-macrolint" }

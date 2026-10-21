@@ -1,0 +1,8 @@
+number = 163
+slug = "glyph-self-test"
+status = "pending"
+description = "The user (2026-10-21), with step 162: a self-test command, xetal self-test (o..."
+role = "production"
+context_files = []
+created_at = "2026-10-21T12:19:57"
+commits = []

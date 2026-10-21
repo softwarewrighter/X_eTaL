@@ -294,3 +294,30 @@ fn a_notation_is_styled_in_the_rendered_pane() {
         "the binding stays code"
     );
 }
+
+/// Ctrl-L shows the lint report below, as `xetal lint` prints it;
+/// Ctrl-L again makes the fixes the findings carry in the text (unsaved)
+/// and lints the result; typing returns the pane to the types.
+#[test]
+fn ctrl_l_lints_and_again_makes_the_fixes() {
+    let mut e = Editor::open(&scratch("lint")).unwrap();
+    keys(&mut e, "u:k_ := { x y -> x }\nu:k_ 1 2");
+    ctrl(&mut e, 'l');
+    let s = screen(&e);
+    assert!(
+        s.contains("Lint") && s.contains("warning[unused-binding]"),
+        "{s}"
+    );
+    assert!(
+        s.contains("{ x y -> x }"),
+        "the text is not changed yet: {s}"
+    );
+    ctrl(&mut e, 'l');
+    let s = screen(&e);
+    assert!(s.contains("{ x _u -> x }"), "{s}");
+    assert!(s.contains("0 warning(s), 0 error(s)"), "{s}");
+    assert!(s.contains("[+]"), "the fix is an unsaved change: {s}");
+    keys(&mut e, " ");
+    let s = screen(&e);
+    assert!(s.contains("Types") && !s.contains("Lint"), "{s}");
+}

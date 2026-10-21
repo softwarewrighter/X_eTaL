@@ -7,6 +7,7 @@ use xetal_base::Diagnostic;
 use xetal_macro::StoreLibraries;
 use xetal_notate::{drawn, found};
 use xetal_program::{expanded_with, name_for};
+use xetal_report::{Report, report_with};
 use xetal_view::{Segment, view};
 
 /// Add the library file `name` (`Name.xtl` or `Name.xtlm`) with `text`
@@ -19,6 +20,13 @@ pub fn add_library(name: &str, text: &str) -> Result<(), String> {
 /// them (the store in use, then the standard libraries).
 pub fn expanded(src: &str) -> Result<String, Diagnostic> {
     expanded_with(name_for(src), src, &StoreLibraries)
+}
+
+/// The lint report of `src` (the Lint button): its findings as
+/// `xetal lint` prints them and the text with their fixes made, its
+/// libraries found as a run finds them.
+pub fn lint(src: &str) -> Report {
+    report_with(name_for(src), src, &StoreLibraries)
 }
 
 /// `src` drawn decorated for the Rendered pane, its notation calls

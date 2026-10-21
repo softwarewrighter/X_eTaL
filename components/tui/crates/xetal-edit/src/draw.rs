@@ -6,6 +6,7 @@ use ratatui::text::Line;
 use ratatui::widgets::Paragraph;
 use xetal_panes::{Focus, Panes, frame};
 
+use crate::check::Bottom;
 use crate::{Editor, Pane};
 
 impl Editor {
@@ -55,7 +56,11 @@ impl Editor {
     }
 
     fn bottom(&self) -> Paragraph<'_> {
-        let title = if self.ran { "Output" } else { "Types" };
+        let title = match self.bottom {
+            Bottom::Types => "Types",
+            Bottom::Output => "Output",
+            Bottom::Lint => "Lint",
+        };
         let lines: Vec<Line> = self
             .report
             .lines

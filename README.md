@@ -172,7 +172,8 @@ lists every spelling and why the logo is itself XeTaL (`X_ e:T a:L`).
 
 Source is typed as ASCII and shown decorated. `xetal edit FILE` puts
 the two side by side, with the types (or the first error) below as
-you type and the results on Ctrl-R. Tab moves between the panes (the
+you type, the results on Ctrl-R and the lint report on Ctrl-L (again
+to make its fixes). Tab moves between the panes (the
 current one has a thick border) and Ctrl-T zooms it to the full
 screen and back:
 
@@ -486,6 +487,9 @@ binds for your text that it never reads).
   `# lint-file: deny style` sets a level for the whole file.
   `xetal run`, the REPL and the live demo honor these comments too: a
   warning they allow is not printed (a run never fails on a lint).
+- In the editors: the live demo's Lint button and `xetal edit`'s Ctrl-L
+  show the same report below the source; when findings carry fixes the
+  button reads `Fix n` (Ctrl-L again in the terminal) and makes them.
 
 ## Documenting your own code: xetal doc
 

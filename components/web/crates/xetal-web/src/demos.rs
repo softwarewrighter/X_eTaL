@@ -2,6 +2,8 @@
 //! libraries, named as `u_se<` finds them (`Stats.xtl`); and the files
 //! saved in the store (local storage, in the browser).
 
+use xetal_runner::{Mode, Request};
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Demo {
     pub name: &'static str,
@@ -158,3 +160,20 @@ const OWN_LIBRARIES: &[(&str, &str)] = &[
         include_str!("../../../../../userlibs/Repeat.xtlm"),
     ),
 ];
+
+/// A run of `text`, with the saved files (workers have no local
+/// storage) and a fresh seed for `r_oll!`.
+pub(crate) fn request(text: &str, paths: &[String], mode: Mode) -> Request {
+    let files = paths
+        .iter()
+        .filter_map(|p| xetal_store::read(p).ok().map(|t| (p.clone(), t)));
+    let seed = (js_sys::Math::random() * 4_294_967_296.0) as u64;
+    Request {
+        src: text.to_string(),
+        seed,
+        mode,
+        boxed: false,
+        frames: false,
+        files: files.collect(),
+    }
+}

@@ -3,9 +3,7 @@
 
 use xetal_base::Diagnostic;
 use xetal_lex::{Number, Side};
-use xetal_syntax::{
-    Expr, ExprKind, Fun, FunKind, Lambda, Params, Stmt, Target, parse, parse_body,
-};
+use xetal_syntax::{Expr, ExprKind, Fun, FunKind, Lambda, Params, Stmt, Target, parse, parse_body};
 
 use crate::names::{func_text, target_text, var_text};
 use crate::string::{code_text, string_text};

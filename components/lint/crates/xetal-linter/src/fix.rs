@@ -47,6 +47,17 @@ pub(crate) fn edit(fix: &Fix, sources: &Sources) -> Option<Edit> {
     (written == seen).then(|| Edit::new(a.offset, b.offset + 1, fix.replacement.clone()))
 }
 
+/// Line and column just past the end of `span`, which starts in the
+/// program's file: its start when the end is not written there.
+pub(crate) fn ended(sources: &Sources, span: xetal_base::Span) -> (usize, usize) {
+    let (start, last) = (sources.locate(span.start), span.end.saturating_sub(1));
+    let last = sources.locate(last.max(span.start));
+    match last.index == 0 && last.offset >= start.offset {
+        true => (last.line, last.col + 1),
+        false => (start.line, start.col),
+    }
+}
+
 /// `text` with `fixes` made, and how many: each fix's edits together or
 /// none, earliest fix first; a fix with an edit overlapping one already
 /// kept (or outside the text) is left out. Applied from the end, so the

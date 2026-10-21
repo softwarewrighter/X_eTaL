@@ -9,6 +9,7 @@ repository.workspace = true
 
 [dependencies]
 xetal-linter.workspace = true
+xetal-report.workspace = true
 xetal-base.workspace = true
 xetal-view.workspace = true
 xetal-notate.workspace = true
