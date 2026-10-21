@@ -1,0 +1,1 @@
+Lint button in the live demo (Fix n when findings carry fixes) and Ctrl-L in xetal edit, both through the xetal lint driver (lint_with); new crate xetal-report shapes the report for both editors; tests in xetal-report, xetal-play, xetal-web, xetal-edit, xetal-keys; D183; two stale xetal-linter tests fixed forward

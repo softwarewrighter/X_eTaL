@@ -2302,6 +2302,7 @@ dependencies = [
  "xetal-ir",
  "xetal-lex",
  "xetal-lint",
+ "xetal-macro",
  "xetal-macrolint",
  "xetal-origin",
  "xetal-program",
