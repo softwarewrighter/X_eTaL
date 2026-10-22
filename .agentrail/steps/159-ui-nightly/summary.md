@@ -1,0 +1,1 @@
+scripts/ui-check.py (Playwright, headless Chromium) with scripts/ui-scenarios.toml: build stamp vs main, five typed scenarios over the three panes, Help, Open, Save, zoom, Tab, Lint and Fix, completion; scripts/ui-nightly.sh with systemd user units for Arch and docs/ui-nightly.md; 20 checks pass against the published site
