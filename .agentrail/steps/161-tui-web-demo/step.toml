@@ -1,8 +1,12 @@
 number = 161
 slug = "tui-web-demo"
-status = "pending"
+status = "completed"
 description = "The user (2026-10-21): a second live demo, beside the three-pane editor: the ..."
 role = "production"
 context_files = []
 created_at = "2026-10-21T09:58:46"
-commits = []
+completed_at = "2026-10-21T21:25:48"
+commits = [
+    "e60ca587d4e92bf2dbcef8aeac7542412f9124ca",
+    "1fb38faa3a64710ea8b46bb1b9151b2a0f995f92",
+]

@@ -1,0 +1,1 @@
+xetal edit in the browser: one editor for both hosts (a key type of its own, injected libraries and store, the tty loop behind a feature, ratatui without crossterm for wasm); xetal-webtui draws the in-memory backend's cells as styled runs; the Terminal button or #tui; Ctrl-R seeded by the page, F5 runs too; D185; nightly UI check types into the page
