@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>X_eTaL -- live editor</title>
+    <link rel="icon" href="/X_eTaL/favicon-4e963492c77e259d.ico" integrity="sha384-NKMCH4BuN/1NVAgSqToQwJnP5xgiqUIJiOJ1eG5AC6sa/wf8wrswuP51hKKyrw4+"/>
+    
+    
+    
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+    <meta name="theme-color" content="#16181d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="XeTaL" />
+    
+    
+    
+    
+<script type="module">
+import init, * as bindings from '/X_eTaL/xetal-web-e011da0683fad47a.js';
+const wasm = await init({ module_or_path: '/X_eTaL/xetal-web-e011da0683fad47a_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/cormullion/juliamono@v0.63.2/webfonts/JuliaMono-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <!-- KaTeX typesets notations (MC32) in the Rendered pane; from jsDelivr, nothing redistributed; without it a notation shows its LaTeX. -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.10/dist/katex.min.css" integrity="sha384-rdqqrpVNEfmY6hsVFS50HU5L84tWeMdr4XpF+TJPvLR6e8YxPgRyDzzpawPHMQE6" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.18.10/dist/katex.min.js" integrity="sha384-oeXTyN/gxEn/v98/oDFW+7XVfZrp59R6Tporzsg2uNs9g+G9Xel/Afxdamc4Mags" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/X_eTaL/app-2053c3b4a4e78928.css" integrity="sha384-1eASSjeG8ZCaniYqWMFolqHL/raYG59VhdXtfEtw9Z+rS//a20xqDqG2UU2OCvUM"/>
+<link rel="modulepreload" href="/X_eTaL/xetal-web-e011da0683fad47a.js" crossorigin="anonymous" integrity="sha384-GN1sE+rVDtNBas57miSTtL13IT770f4EojkQpf0H3j3FAQcEF9Kdvz1EF6JthM+t"><link rel="preload" href="/X_eTaL/xetal-web-e011da0683fad47a_bg.wasm" crossorigin="anonymous" integrity="sha384-iPr8NqbTHW3guH/k1MVOt1rNTE74jFswvJUJk5tSFClRp12GVmFbhBB4rrSpgTXN" as="fetch" type="application/wasm"></head>
+<body>
+    <script>
+        // An installable app that runs offline (sw.js).
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("./sw.js");
+        }
+    </script>
+</body>
+</html>

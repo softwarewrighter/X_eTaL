@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Type errors, read</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.10/dist/katex.min.css" crossorigin="anonymous"/>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.10/dist/katex.min.js" crossorigin="anonymous"></script>
+<script>document.addEventListener('DOMContentLoaded', function () { if (typeof katex === 'undefined') return; document.querySelectorAll('.c-notation').forEach(function (el) { var tex = el.textContent; if (!tex) return; try { katex.render(tex, el, { throwOnError: false }); } catch (e) { el.textContent = tex; } }); });</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Type errors, read
+<br />
+<span class="subtitle">the common mistakes, the errors they give, and the fixes</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orge2ba014">Reading an error</a></li>
+<li><a href="#org47fbda7">Int and Float mixed</a></li>
+<li><a href="#org5fc5f49">A box where its value is wanted</a></li>
+<li><a href="#org4548bab">A function still waiting for an argument</a></li>
+<li><a href="#org4270dc6">A function passed without its quote</a></li>
+<li><a href="#orgcb6e9a1">A Float as a condition</a></li>
+<li><a href="#orgc70c674">A string where a number is wanted</a></li>
+<li><a href="#orga46da23">A name bound twice</a></li>
+</ul>
+</div>
+</div>
+<p>
+X_eTaL checks the types of a whole program before it runs any of it.
+When a check fails, the error says where, as a file, a line and a
+column, shows the line with the place underlined, and, for a type
+mismatch, says where each side got its type: a binding, a literal, or a
+built-in whose result is always one type. A common mistake also gets a
+<code>help:</code> line that says what to write instead.
+</p>
+
+<p>
+Each section below is one mistake: a short wrong program, the error
+<code>xetal run</code> gives for it, and the program fixed. The programs are the
+files in <code>docs/literate/type-errors/</code>, and the goldens
+<code>type-errors-*</code> (in <code>reg/</code>) run each one, so the errors shown here are
+the ones <code>xetal</code> gives today.
+</p>
+<div id="outline-container-orge2ba014" class="outline-2">
+<h2 id="orge2ba014">Reading an error</h2>
+<div class="outline-text-2" id="text-orge2ba014">
+<p>
+An error has four parts:
+</p>
+
+<ul class="org-ul">
+<li>the first line: <code>error[CODE]: MESSAGE</code>, the code stable and the
+message in words;</li>
+<li><code>--&gt; FILE:LINE:COLUMN</code> and the line itself, the place underlined in
+<code>^</code>;</li>
+<li>labels, underlined in <code>-</code>: other places that explain the error, each
+with what it says there;</li>
+<li>notes (<code>= note:</code>) and hints (<code>= help:</code>).</li>
+</ul>
+
+<p>
+The same text appears in the CLI, the REPL (where the file is <code>repl</code>
+and the lines are those you typed), the editor and the live demo, which
+also mark the place in the drawn source.
+</p>
+</div>
+</div>
+<div id="outline-container-org47fbda7" class="outline-2">
+<h2 id="org47fbda7">Int and Float mixed</h2>
+<div class="outline-text-2" id="text-org47fbda7">
+<p>
+A name has one type. <code>/</code> always gives a Float, so <code>m</code> is a Float, while
+<code>k</code>, bound to a whole number, is an Int; <code>+</code> takes two numbers of one
+type. The error points at the sum, says what each side is, and shows the
+two bindings that gave them their types.
+</p>
+
+<pre class="example" id="orge113c56">
+m := 7 / 2
+k := 1
+k + m
+</pre>
+
+<pre class="example" id="orgb8f3f19">
+$ xetal run type-errors/int-and-float.xtl
+error[type-mismatch]: expected Int, found Float
+ --&gt; type-errors/int-and-float.xtl:3:1
+  |
+3 | k + m
+  | ^^^^^
+  | - `k` is an Int
+  |     - `m` is a Float
+  |
+1 | m := 7 / 2
+  |      ----- `m` gets its type here: `/` always gives a Float
+  |
+2 | k := 1
+  |      - `k` gets its type here
+  = note: `+` has type Num a =&gt; a -&gt; a -&gt; a
+  = help: Int and Float do not mix: `f_loat n` makes a Float of an Int, `f_loor x` or `c_eiling x` an Int of a Float
+</pre>
+
+<p>
+Convert one side: <code>f_loor</code> (or <code>c_eiling</code>) makes an Int of a Float,
+<code>f_loat</code> a Float of an Int.
+</p>
+
+<pre class="example" id="orga0d51c3">
+m := f_loor 7 / 2
+k := 1
+k + m
+</pre>
+
+<pre class="example" id="org1abe3be">
+$ xetal run type-errors/int-and-float-fixed.xtl
+4
+</pre>
+</div>
+</div>
+<div id="outline-container-org5fc5f49" class="outline-2">
+<h2 id="org5fc5f49">A box where its value is wanted</h2>
+<div class="outline-text-2" id="text-org5fc5f49">
+<p>
+<code>e_nclose</code> puts its argument in a box, a single value that holds an
+array. Arithmetic works on the numbers, not on the box.
+</p>
+
+<pre class="example" id="org615044c">
+b := e_nclose 1 2 3
+b + 1
+</pre>
+
+<pre class="example" id="org94486f1">
+$ xetal run type-errors/boxed.xtl
+error[type-mismatch]: expected a number, found Box Int
+ --&gt; type-errors/boxed.xtl:2:1
+  |
+2 | b + 1
+  | ^^^^^
+  | - `b` is a Box Int
+  |
+1 | b := e_nclose 1 2 3
+  |      -------------- `b` gets its type here
+  = note: `+` has type Num a =&gt; a -&gt; a -&gt; a
+  = help: `d_isclose b` opens a box to get the value inside
+</pre>
+
+<p>
+Open the box with <code>d_isclose</code> first.
+</p>
+
+<pre class="example" id="orgd574f7d">
+b := e_nclose 1 2 3
+(d_isclose b) + 1
+</pre>
+
+<pre class="example" id="org3504a05">
+$ xetal run type-errors/boxed-fixed.xtl
+2 3 4
+</pre>
+</div>
+</div>
+<div id="outline-container-org4548bab" class="outline-2">
+<h2 id="org4548bab">A function still waiting for an argument</h2>
+<div class="outline-text-2" id="text-org4548bab">
+<p>
+<code>u:a_dd</code> takes two arguments, one on each side. Given only the right
+one, <code>u:a_dd 2</code> is a function waiting for the left, and <code>+</code> cannot add a
+function.
+</p>
+
+<pre class="example" id="org83cb458">
+u:a_dd := { a b -&gt; a + b }
+1 + u:a_dd 2
+</pre>
+
+<pre class="example" id="orge9dc061">
+$ xetal run type-errors/waiting.xtl
+error[type-mismatch]: expected a number, found a -&gt; a
+ --&gt; type-errors/waiting.xtl:2:1
+  |
+2 | 1 + u:a_dd 2
+  | ^^^^^^^^^^^^
+  = note: `+` has type Num a =&gt; a -&gt; a -&gt; a
+  = help: this is a function still waiting for an argument: give it one, or quote it ('f_) to pass the function itself
+</pre>
+
+<p>
+Give it both arguments.
+</p>
+
+<pre class="example" id="org372746d">
+u:a_dd := { a b -&gt; a + b }
+1 + 2 u:a_dd 3
+</pre>
+
+<pre class="example" id="org9aaf24e">
+$ xetal run type-errors/waiting-fixed.xtl
+6
+</pre>
+</div>
+</div>
+<div id="outline-container-org4270dc6" class="outline-2">
+<h2 id="org4270dc6">A function passed without its quote</h2>
+<div class="outline-text-2" id="text-org4270dc6">
+<p>
+To pass a function as a value, to <code>m_ap</code> for instance, quote it.
+Unquoted, <code>u:t_wice m_ap 3 4</code> applies <code>u:t_wice</code> to the map's result,
+and <code>m_ap</code> is given a number where it wants a function.
+</p>
+
+<pre class="example" id="orgefc91dd">
+u:t_wice := { x -&gt; 2 * x }
+u:t_wice m_ap 3 4
+</pre>
+
+<pre class="example" id="org371465b">
+$ xetal run type-errors/quote.xtl
+error[type-mismatch]: expected a -&gt; b, found a number
+ --&gt; type-errors/quote.xtl:2:10
+  |
+2 | u:t_wice m_ap 3 4
+  |          ^^^^^^^^
+  = note: `m_ap` has type Any b =&gt; (a -&gt; b) -&gt; a -&gt; Box b
+  = help: a value is applied as if it were a function: is there an argument too many, or a function passed without its quote?
+</pre>
+
+<p>
+Quote the function: <code>'u:t_wice</code>.
+</p>
+
+<pre class="example" id="orgabf39c0">
+u:t_wice := { x -&gt; 2 * x }
+'u:t_wice m_ap 3 4
+</pre>
+
+<pre class="example" id="orgc6fb020">
+$ xetal run type-errors/quote-fixed.xtl
+┌→────────┐
+│ ┌─┐ ┌─┐ │
+│ │6│ │8│ │
+│ └~┘ └~┘ │
+└∊────────┘
+</pre>
+</div>
+</div>
+<div id="outline-container-orgcb6e9a1" class="outline-2">
+<h2 id="orgcb6e9a1">A Float as a condition</h2>
+<div class="outline-text-2" id="text-orgcb6e9a1">
+<p>
+A guard's condition is a Bool or an Int (zero is false). A Float is
+neither.
+</p>
+
+<pre class="example" id="org6802bec">
+u:s_ign := { x -&gt; x ? 1; 0 }
+u:s_ign 0.5
+</pre>
+
+<pre class="example" id="org4b7656a">
+$ xetal run type-errors/condition.xtl
+error[type-mismatch]: expected Bool or Int, found Float
+ --&gt; type-errors/condition.xtl:2:1
+  |
+2 | u:s_ign 0.5
+  | ^^^^^^^^^^^
+  |         --- a Float literal
+  = help: a Float is not a condition or a count: `f_loor x` makes an Int of it, a comparison (`x &gt; 0`) a Bool
+</pre>
+
+<p>
+Compare to get a Bool, or round to an Int.
+</p>
+
+<pre class="example" id="org64adac9">
+u:s_ign := { x -&gt; x &gt; 0 ? 1; 0 }
+u:s_ign 0.5
+</pre>
+
+<pre class="example" id="org2c241ef">
+$ xetal run type-errors/condition-fixed.xtl
+1
+</pre>
+</div>
+</div>
+<div id="outline-container-orgc70c674" class="outline-2">
+<h2 id="orgc70c674">A string where a number is wanted</h2>
+<div class="outline-text-2" id="text-orgc70c674">
+<p>
+A string is a vector of characters, so <code>"2"</code> is text, not the number 2.
+</p>
+
+<pre class="example" id="orgfdbbc2e">
+n := 1 + "2"
+n
+</pre>
+
+<pre class="example" id="org94e7f8e">
+$ xetal run type-errors/string.xtl
+error[type-mismatch]: expected a number, found Char
+ --&gt; type-errors/string.xtl:1:6
+  |
+1 | n := 1 + "2"
+  |      ^^^^^^^
+  |          --- a string: a vector of Char
+  = note: `+` has type Num a =&gt; a -&gt; a -&gt; a
+  = help: a string is text, not a number: write a number without quotes
+</pre>
+
+<p>
+Write the number without quotes.
+</p>
+
+<pre class="example" id="org644ab5a">
+n := 1 + 2
+n
+</pre>
+
+<pre class="example" id="org83556b9">
+$ xetal run type-errors/string-fixed.xtl
+3
+</pre>
+</div>
+</div>
+<div id="outline-container-orga46da23" class="outline-2">
+<h2 id="orga46da23">A name bound twice</h2>
+<div class="outline-text-2" id="text-orga46da23">
+<p>
+Values are immutable: a name without <code>!</code> is bound once in its scope.
+Binding it again is an error that says what to write.
+</p>
+
+<pre class="example" id="orgb98668d">
+total := 0
+total := total + 5
+total
+</pre>
+
+<pre class="example" id="orgedd7c4c">
+$ xetal run type-errors/rebind.xtl
+error[rebind]: total is already bound in this scope: a name is bound once; write total! for a variable that changes
+ --&gt; type-errors/rebind.xtl:2:1
+  |
+2 | total := total + 5
+  | ^^^^^^^^^^^^^^^^^^
+</pre>
+
+<p>
+A variable that changes is written with <code>!</code>, every time it is used.
+</p>
+
+<pre class="example" id="org43ab3ea">
+total! := 0
+total! := total! + 5
+total!
+</pre>
+
+<pre class="example" id="org5a2b826">
+$ xetal run type-errors/rebind-fixed.xtl
+5
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>
