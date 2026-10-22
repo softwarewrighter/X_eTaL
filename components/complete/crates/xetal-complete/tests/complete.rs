@@ -117,3 +117,17 @@ fn a_lint_directive_offers_the_level_then_the_lints_and_groups() {
     let c = at_end("# lint: allow un").unwrap();
     assert_eq!((c.start, c.end), (14, 16));
 }
+
+#[test]
+fn a_system_macro_is_offered_with_its_doc_line() {
+    let c = at_end("i_").unwrap();
+    let macro_if = c.candidates.iter().find(|k| k.label == "i_f<").unwrap();
+    assert_eq!(macro_if.insert, "i_f<");
+    assert!(
+        macro_if
+            .detail
+            .starts_with("The value of the first expression"),
+        "{macro_if:?}"
+    );
+    assert!(labels(&at_end("a_s")).contains(&"a_ssert<".to_string()));
+}
