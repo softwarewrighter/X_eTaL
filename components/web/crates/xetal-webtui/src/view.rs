@@ -79,6 +79,11 @@ pub fn tui(props: &Props) -> Html {
             return;
         };
         e.prevent_default();
+        // Leaving loses nothing here (the text goes back to the three
+        // panes), so Ctrl-Q leaves at once, unsaved or not.
+        if key == xetal_keys::Key::ctrl('q') {
+            return exit.emit(s.borrow().editor.text());
+        }
         let seed = (js_sys::Math::random() * 4_294_967_296.0) as u64;
         s.borrow_mut().editor.seed(seed);
         let flow = s.borrow_mut().editor.handle(key);
