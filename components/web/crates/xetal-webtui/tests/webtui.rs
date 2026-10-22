@@ -31,7 +31,15 @@ fn browser_key_names_become_the_editors_keys() {
         None,
         "a modifier alone"
     );
-    assert_eq!(key_of("F5", false, false, false), None);
+    assert_eq!(
+        key_of("F5", false, false, false).map(|k| k.code),
+        Some(Code::F(5))
+    );
+    assert_eq!(
+        key_of("F12", false, false, false).map(|k| k.code),
+        Some(Code::F(12))
+    );
+    assert_eq!(key_of("Fn", false, false, false), None);
 }
 
 /// The text typed through browser keys shows in the ASCII pane's rows,

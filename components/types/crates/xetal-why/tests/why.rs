@@ -42,6 +42,11 @@ fn a_variable_says_where_it_was_bound() {
     let bound = |_: &str| Some(Bound::Value(Span::new(5, 10), Some("why".into())));
     let labels = said(&last("x"), &Type::Int, &bound);
     assert_eq!(labels[0].1, "`x` is an Int");
+    let labels = said(&last("x"), &Type::Unit, &bound);
+    assert_eq!(
+        labels[0].1, "`x` is a Unit",
+        "the article goes by the sound"
+    );
     assert_eq!(
         labels[1],
         (Span::new(5, 10), "`x` gets its type here: why".into())

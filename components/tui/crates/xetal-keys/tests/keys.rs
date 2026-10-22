@@ -41,6 +41,7 @@ fn nano_keys_map_to_commands() {
     assert_eq!(command(ctrl('t')), Some(Command::App(Action::Zoom)));
     assert_eq!(command(ctrl('l')), Some(Command::App(Action::Lint)));
     assert_eq!(command(ctrl('.')), Some(Command::App(Action::Zoom)));
+    assert_eq!(command(key(KeyCode::F(5))), Some(Command::App(Action::Run)));
     assert_eq!(command(key(KeyCode::PageDown)), Some(Command::PageDown));
     assert_eq!(command(ctrl('z')), None);
 }

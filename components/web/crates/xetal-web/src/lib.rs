@@ -20,6 +20,9 @@ pub use keys::{Action, action};
 pub fn start() {
     console_error_panic_hook::set_once();
     xetal_store::install(std::sync::Arc::new(storage::Local));
+    // The terminal page runs programs on the page itself: the browser's
+    // clock, as the worker installs for its runs.
+    xetal_clock::install(std::sync::Arc::new(xetal_webclock::Browser));
     seed();
     yew::Renderer::<App>::new().render();
 }

@@ -25,9 +25,10 @@ pub fn gives(e: &Expr) -> Option<String> {
     concrete.then(|| format!("`{name}` always gives {}", article(result)))
 }
 
-/// A type named with its article: "an Int", "a Float".
+/// A type named with its article, by its sound: "an Int", "a Float",
+/// "a Unit" (a U says "you").
 pub(crate) fn article(ty: &str) -> String {
-    match ty.starts_with(['A', 'E', 'I', 'O', 'U']) {
+    match ty.starts_with(['A', 'E', 'I', 'O']) {
         true => format!("an {ty}"),
         false => format!("a {ty}"),
     }

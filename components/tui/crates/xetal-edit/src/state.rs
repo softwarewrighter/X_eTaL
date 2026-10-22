@@ -79,7 +79,7 @@ impl Editor {
             fix: None,
             suggest: None,
             seed: None,
-            status: "^S save  ^R run  ^L lint  ^Q quit  Tab pane  ^T zoom".into(),
+            status: "^S save  ^R/F5 run  ^L lint  ^Q quit  Tab pane  ^T zoom".into(),
             zoom: false,
             confirm_quit: false,
         }
@@ -133,7 +133,12 @@ impl Editor {
         match action {
             Action::Save => self.save(),
             Action::Run => {
-                let ran = run(&self.buffer.text(), &self.origin(), self.libs.as_ref(), self.seed);
+                let ran = run(
+                    &self.buffer.text(),
+                    &self.origin(),
+                    self.libs.as_ref(),
+                    self.seed,
+                );
                 (self.report, self.bottom) = (ran, Bottom::Output)
             }
             Action::Quit if self.buffer.is_dirty() && !self.confirm_quit => {

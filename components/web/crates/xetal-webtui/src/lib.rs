@@ -3,7 +3,8 @@
 //! in-memory backend, whose cells the page shows as styled spans; the
 //! page's key events become the editor's keys (`xetal-keys`). The
 //! editor saves through the browser's store and finds libraries there.
-//! Ctrl-Q hands the text back to the host.
+//! Ctrl-Q hands the text back to the host. A run rolls from a seed the
+//! page draws, since the page has no clock to seed from.
 
 mod cells;
 mod keys;

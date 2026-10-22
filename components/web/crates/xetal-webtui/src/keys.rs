@@ -4,7 +4,7 @@ use xetal_keys::{Code, Key};
 
 /// The key for a browser key name (`KeyboardEvent.key`) and its
 /// modifiers; `None` for a key the editor does not use (a modifier
-/// alone, a function key). Shift-Tab is BackTab; Command counts as
+/// alone). F1 to F12 are function keys (F5 runs). Shift-Tab is BackTab; Command counts as
 /// Control, as the live demo's other keys do.
 pub fn key_of(name: &str, ctrl: bool, alt: bool, shift: bool) -> Option<Key> {
     let code = match name {
@@ -22,6 +22,9 @@ pub fn key_of(name: &str, ctrl: bool, alt: bool, shift: bool) -> Option<Key> {
         "Tab" if shift => Code::BackTab,
         "Tab" => Code::Tab,
         "Escape" => Code::Esc,
+        _ if name.len() <= 3 && name.starts_with('F') && name[1..].parse::<u8>().is_ok() => {
+            Code::F(name[1..].parse().unwrap_or(0))
+        }
         _ => {
             let mut chars = name.chars();
             let c = chars.next().filter(|_| chars.next().is_none())?;

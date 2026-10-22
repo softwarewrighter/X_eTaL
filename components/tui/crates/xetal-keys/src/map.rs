@@ -5,7 +5,8 @@
 //! character, Ctrl-P/N previous and next line), Ctrl-T to zoom the
 //! focused pane (for once not transpose; Ctrl-. too, for a browser
 //! that keeps Ctrl-T), Ctrl-L to lint (again to
-//! make the fixes); a printable character without Control inserts
+//! make the fixes), F5 to run where a terminal keeps Ctrl-R (VS Code's
+//! takes it for its own history); a printable character without Control inserts
 //! itself.
 
 /// What was pressed, without its modifiers.
@@ -27,6 +28,8 @@ pub enum Code {
     /// Shift-Tab.
     BackTab,
     Esc,
+    /// A function key, F1 to F12.
+    F(u8),
     /// A key the editors do not use.
     Other,
 }
@@ -81,6 +84,7 @@ impl From<ratatui::crossterm::event::KeyEvent> for Key {
             KeyCode::Tab => Code::Tab,
             KeyCode::BackTab => Code::BackTab,
             KeyCode::Esc => Code::Esc,
+            KeyCode::F(n) => Code::F(n),
             _ => Code::Other,
         };
         Key {
@@ -132,6 +136,7 @@ pub const KEYMAP: &[(Code, bool, Command)] = &[
     (Code::Char('q'), true, Command::App(Action::Quit)),
     (Code::Char('x'), true, Command::App(Action::Quit)),
     (Code::Char('r'), true, Command::App(Action::Run)),
+    (Code::F(5), false, Command::App(Action::Run)),
     (Code::Char('t'), true, Command::App(Action::Zoom)),
     (Code::Char('.'), true, Command::App(Action::Zoom)),
     (Code::Char('l'), true, Command::App(Action::Lint)),

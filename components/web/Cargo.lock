@@ -3524,6 +3524,7 @@ dependencies = [
  "wasm-bindgen",
  "web-sys",
  "xetal-chrome",
+ "xetal-clock",
  "xetal-katex",
  "xetal-layout",
  "xetal-libs",
@@ -3532,6 +3533,7 @@ dependencies = [
  "xetal-store",
  "xetal-suggest",
  "xetal-typing",
+ "xetal-webclock",
  "xetal-webtui",
  "yew",
 ]
