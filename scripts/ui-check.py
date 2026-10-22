@@ -3,7 +3,8 @@
 Chromium (Playwright) opens each published site in
 scripts/ui-scenarios.toml, types each scenario into the ASCII pane and
 checks the Rendered, Types and output panes, exercises the chrome
-(Help, Open, Save, Zoom, Tab, Lint, completion), and compares the
+(Help, Open, Save, Zoom, Tab, Lint, completion, the
+Terminal page), and compares the
 footer's build stamp with the repository's main. A failure leaves a
 screenshot under work/ui/.
 
@@ -206,6 +207,22 @@ class Run:
         self.page.keyboard.press("Tab")
         time.sleep(0.3)
         self.expect("complete: Tab writes it", self.page.input_value(SOURCE), ["1 + r_ange"])
+
+    def check_terminal(self):
+        """The Terminal button shows xetal edit as one screen; typing
+        draws in its cells; Ctrl-Q returns to the three panes with the
+        text."""
+        self.type_source("")
+        self.page.click("button:text-is('Terminal')")
+        self.page.wait_for_selector("pre.tui")
+        self.page.focus("pre.tui")
+        self.page.keyboard.type("1 + 2")
+        time.sleep(0.3)
+        text = self.page.inner_text("pre.tui")
+        self.expect("terminal: the screen", text, ["1 + 2", "Types", "Int", "^S save"])
+        self.page.keyboard.press("Control+q")
+        self.page.wait_for_selector(SOURCE)
+        self.expect("terminal: Ctrl-Q brings the text back", self.page.input_value(SOURCE), ["1 + 2"])
 
     def all(self, scenarios):
         self.page.goto(self.site["url"], wait_until="networkidle")

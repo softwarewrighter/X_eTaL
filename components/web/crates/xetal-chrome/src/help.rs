@@ -34,9 +34,8 @@ fn editing() -> Html {
             <ul>
                 <li>{ "Type in the ASCII pane; the Rendered pane follows, and the \
                        pane below shows each statement's type (or the first error)." }</li>
-                <li>{ "A program reading a line ([]R_EAD) waits for it in the output pane, a terminal: type \
-                       the line (arrows, Home, End and history with Up and Down work) and press \
-                       Enter; Ctrl-C stops the program." }</li>
+                <li>{ "A program reading a line ([]R_EAD) waits for it in the output pane, a terminal: \
+                       type the line (arrows, Home, End, history with Up and Down), Enter; Ctrl-C stops it." }</li>
                 <li><b>{ "Run" }</b>{ " (Ctrl-Enter) runs the program and shows its output as it is \
                        printed, with any pictures it draws ([]S_HOW) under it; the classics demos \
                        draw. While it runs, a spinner turns and Run becomes " }<b>{ "Stop" }</b>
@@ -55,24 +54,24 @@ fn editing() -> Html {
                        the one just run marked; " }<b>{ "Reset" }</b>{ " starts the steps again." }</li>
                 <li><b>{ "Boxed" }</b>{ " prints every array framed, as APL2's DISPLAY draws it \
                        (d_isplay gives that picture as a value)." }</li>
-                <li><b>{ "Tab" }</b>{ " moves between the panes; the current one has the bright border." }</li>
-                <li><b>{ "Zoom" }</b>{ " (Ctrl-.) shows the current pane alone, and back." }</li>
-                <li>{ "On a phone the panes stack; Add to Home Screen installs the editor as \
-                       an app that works offline." }</li>
-                <li>{ "Drag the bars between the panes to resize them (this browser \
-                       remembers); double-click a bar to put it back." }</li>
+                <li><b>{ "Tab" }</b>{ " moves between the panes (the current one has the bright border); " }
+                    <b>{ "Zoom" }</b>{ " (Ctrl-.) shows the current pane alone, and back." }</li>
+                <li><b>{ "Terminal" }</b>{ " opens the same file in xetal edit, the terminal editor, drawn in the \
+                       page (also at #tui): one screen, the keys as in the terminal (Ctrl-S save, Ctrl-R run, \
+                       Ctrl-L lint, Tab pane, Ctrl-. zoom, as the browser keeps Ctrl-T), Ctrl-Q back." }</li>
+                <li>{ "On a phone the panes stack; Add to Home Screen installs the editor as an app that \
+                       works offline. Drag the bars between the panes to resize them (remembered); \
+                       double-click a bar to put it back." }</li>
                 <li><b>{ "Open" }</b>{ " lists the demos, the classics, the standard libraries (shown with \
                        their exports' types), the other demos (Misc) and your files, each group \
                        closed until you click it; the arrows move through it, Enter opens, Escape \
                        closes. " }<b>{ "Clear" }</b>
                     { " (or \"(empty)\") gives an empty editor to type into." }</li>
-                <li><b>{ "Save" }</b>{ " and " }<b>{ "Save as" }</b>{ " keep files in this \
-                       browser's local storage. A saved library (Name.xtl) or macro \
-                       library (Name.xtlm) is imported with u_se<; []N_PUT and []N_GET \
-                       use the same files (open work/tttml.model after tttml-train), and \
-                       []R_EAD asks for a line. Hello.xtl and Repeat.xtlm, of your own, \
-                       are among your files (the hello-library and user-macros demos \
-                       import them): edit one, Save, and run its demo again." }</li>
+                <li><b>{ "Save" }</b>{ " and " }<b>{ "Save as" }</b>{ " keep files in this browser's local \
+                       storage. A saved library (Name.xtl) or macro library (Name.xtlm) is imported with \
+                       u_se<; []N_PUT and []N_GET use the same files (open work/tttml.model after \
+                       tttml-train). Hello.xtl and Repeat.xtlm, of your own, are among your files (the \
+                       hello-library and user-macros demos import them): edit one, Save, run its demo." }</li>
             </ul>
         </>
     }

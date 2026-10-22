@@ -2211,10 +2211,12 @@ dependencies = [
  "xetal-eval",
  "xetal-keys",
  "xetal-libs",
+ "xetal-macro",
  "xetal-notate",
  "xetal-panes",
  "xetal-program",
  "xetal-report",
+ "xetal-store",
  "xetal-term",
  "xetal-types",
 ]

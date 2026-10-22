@@ -2,7 +2,11 @@
 //! libraries, named as `u_se<` finds them (`Stats.xtl`); and the files
 //! saved in the store (local storage, in the browser).
 
+use xetal_play::Run;
 use xetal_runner::{Mode, Request};
+use yew::prelude::*;
+
+use crate::storage;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Demo {
@@ -176,4 +180,39 @@ pub(crate) fn request(text: &str, paths: &[String], mode: Mode) -> Request {
         frames: false,
         files: files.collect(),
     }
+}
+
+/// Save the text under its name, or (`true`) under a name asked for.
+pub(crate) fn saving(
+    text: UseStateHandle<String>,
+    name: UseStateHandle<String>,
+    files: UseStateHandle<Vec<String>>,
+) -> Callback<bool> {
+    Callback::from(move |ask: bool| {
+        let chosen = match ask {
+            true => web_sys::window().and_then(|w| {
+                w.prompt_with_message_and_default("Save as", &name)
+                    .ok()
+                    .flatten()
+            }),
+            false => Some((*name).clone()),
+        };
+        let Some(path) = chosen.filter(|p| !p.trim().is_empty()) else {
+            return;
+        };
+        if xetal_store::write(path.trim(), &text).is_ok() {
+            name.set(path.trim().to_string());
+            files.set(storage::saved());
+        }
+    })
+}
+
+/// Keep the output pane scrolled to its end as output arrives.
+#[hook]
+pub(crate) fn use_follow(result: &Option<Run>, pane: NodeRef) {
+    use_effect_with(result.clone(), move |_| {
+        if let Some(pane) = pane.cast::<web_sys::Element>() {
+            pane.set_scroll_top(pane.scroll_height());
+        }
+    });
 }

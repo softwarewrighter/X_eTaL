@@ -7,14 +7,20 @@ license.workspace = true
 authors.workspace = true
 repository.workspace = true
 
+[features]
+default = ["terminal"]
+# Running on a terminal (xetal edit): crossterm keys and the terminal.
+terminal = ["dep:xetal-term", "xetal-keys/crossterm"]
+
 [dependencies]
 ratatui.workspace = true
+xetal-macro.workspace = true
 xetal-base.workspace = true
 xetal-buffer.workspace = true
 xetal-keys.workspace = true
 xetal-panes.workspace = true
 xetal-notate.workspace = true
-xetal-term.workspace = true
+xetal-term = { workspace = true, optional = true }
 xetal-core.workspace = true
 xetal-types.workspace = true
 xetal-eval.workspace = true
@@ -22,3 +28,4 @@ xetal-program.workspace = true
 xetal-report.workspace = true
 xetal-complete.workspace = true
 xetal-libs.workspace = true
+xetal-store.workspace = true

@@ -4,6 +4,9 @@
 //! (Ctrl-L).
 
 use xetal_base::Diagnostic;
+use xetal_macro::Libraries;
+
+use crate::Editor;
 use xetal_panes::Notation;
 
 /// Which the bottom pane shows.
@@ -40,8 +43,8 @@ fn failed(d: Diagnostic) -> Report {
 
 /// The type of each top-level item (libraries loaded, found from
 /// `origin`), or the error.
-pub(crate) fn check(src: &str, origin: &str) -> Report {
-    let mut loaded = match xetal_program::load(origin, src) {
+pub(crate) fn check(src: &str, origin: &str, libs: &dyn Libraries) -> Report {
+    let mut loaded = match xetal_program::load_with(origin, src, libs) {
         Ok(l) => l,
         Err(d) => return failed(d),
     };
@@ -62,8 +65,8 @@ pub(crate) fn check(src: &str, origin: &str) -> Report {
 /// The lint findings of `src` as `xetal lint` reports them (no mark:
 /// each line names its place), and the text with their fixes made when
 /// they carry any (Ctrl-L again makes them).
-pub(crate) fn lint(src: &str, origin: &str) -> (Report, Option<String>) {
-    let r = xetal_report::report(origin, src);
+pub(crate) fn lint(src: &str, origin: &str, libs: &dyn Libraries) -> (Report, Option<String>) {
+    let r = xetal_report::report_with(origin, src, libs);
     let report = Report {
         lines: r.lines.into_iter().map(|l| l.text).collect(),
         mark: None,
@@ -82,8 +85,10 @@ fn shown(event: &xetal_eval::Event) -> Vec<String> {
 }
 
 /// Type-check and run, collecting what the program shows.
-pub(crate) fn run(src: &str, origin: &str) -> Report {
-    let loaded = match xetal_program::load(origin, src) {
+/// `seed` is what `r_oll!` draws from; none takes a fresh one (not in
+/// the browser, which has no clock of its own: the host gives one).
+pub(crate) fn run(src: &str, origin: &str, libs: &dyn Libraries, seed: Option<u64>) -> Report {
+    let loaded = match xetal_program::load_with(origin, src, libs) {
         Ok(l) => l,
         Err(d) => return failed(d),
     };
@@ -99,7 +104,7 @@ pub(crate) fn run(src: &str, origin: &str) -> Report {
             ..failed(here(d))
         };
     }
-    let (_, events, result) = xetal_eval::eval_events(&program, None);
+    let (_, events, result) = xetal_eval::eval_events(&program, seed);
     let mut report = Report {
         lines: events.iter().flat_map(shown).collect(),
         mark: None,
@@ -111,4 +116,23 @@ pub(crate) fn run(src: &str, origin: &str) -> Report {
         report.mark = err.mark;
     }
     report
+}
+
+impl Editor {
+    /// Ctrl-L: the lint report below; pressed again while its findings
+    /// carry fixes, the fixes are made in the text (unsaved) and the
+    /// result is linted. The rendered pane keeps its notations.
+    pub(crate) fn lint(&mut self) {
+        let src = match (self.bottom, self.fix.take()) {
+            (Bottom::Lint, Some(fixed)) => {
+                self.buffer.replace(&fixed);
+                fixed
+            }
+            _ => self.buffer.text(),
+        };
+        let (mut report, fix) = lint(&src, &self.origin(), self.libs.as_ref());
+        report.notations = std::mem::take(&mut self.report.notations);
+        (self.report, self.fix, self.bottom) = (report, fix, Bottom::Lint);
+        self.confirm_quit = false;
+    }
 }

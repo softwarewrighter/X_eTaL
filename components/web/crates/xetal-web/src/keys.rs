@@ -1,6 +1,7 @@
 //! The editor's keys in the browser. Browsers keep Ctrl-T (a new tab)
 //! for themselves, so Zoom is Ctrl-. here; Run is Ctrl-Enter (and
-//! Ctrl-R where the browser lets a page have it).
+//! Ctrl-R where the browser lets a page have it). Also where the page
+//! was opened: `#tui` is the terminal page.
 
 use yew::prelude::*;
 
@@ -37,4 +38,11 @@ pub(crate) fn keys(
             }
         }
     })
+}
+
+/// Whether the page was opened at `#tui`: the terminal page first.
+pub(crate) fn wants_terminal() -> bool {
+    web_sys::window()
+        .and_then(|w| w.location().hash().ok())
+        .is_some_and(|h| h == "#tui")
 }

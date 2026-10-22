@@ -25,7 +25,8 @@ Chromium) reads `scripts/ui-scenarios.toml` and, for each site:
   demo; Save as keeps a file in local storage across a reload; Ctrl-.
   zooms; Tab moves the focus; Lint reports a finding and `Fix 1`
   rewrites the source; a pause after typing opens the completion list
-  and Tab takes its first row.
+  and Tab takes its first row; Terminal shows the editor as one
+  screen, typing draws in its cells, and Ctrl-Q brings the text back.
 
 A failure prints `FAIL`, leaves a screenshot under `work/ui/`, and the
 exit status is the number of failures. The scenarios are data: add a

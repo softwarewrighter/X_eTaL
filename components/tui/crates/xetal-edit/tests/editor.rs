@@ -342,3 +342,18 @@ fn typing_offers_completions_and_tab_accepts_the_first() {
     use ratatui::style::Color::Yellow;
     assert_eq!(border_color(&e, 35, 0), Yellow, "Tab moves the focus again");
 }
+
+/// A host may give the seed a run rolls from: two editors seeded alike
+/// print the same roll.
+#[test]
+fn a_given_seed_makes_a_run_repeatable() {
+    let roll = |seed: u64| {
+        let mut e = Editor::open(&scratch(&format!("seed{seed}"))).unwrap();
+        e.seed(seed);
+        keys(&mut e, "r_oll! 1000000");
+        ctrl(&mut e, 'r');
+        screen(&e)
+    };
+    assert_eq!(roll(7), roll(7));
+    assert_ne!(roll(7), roll(8));
+}

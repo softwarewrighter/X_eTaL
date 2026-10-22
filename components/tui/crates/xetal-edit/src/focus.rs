@@ -1,4 +1,5 @@
-//! Which pane has the focus, and scrolling a pane by hand. In the ASCII
+//! Which pane has the focus, scrolling a pane by hand, the text the
+//! host reads back, and the seed it gives. In the ASCII
 //! pane the motion keys move the cursor and both panes follow it; in
 //! the Rendered and Output panes they scroll that pane.
 
@@ -33,6 +34,17 @@ pub(crate) fn motion(cmd: Command) -> Option<(isize, isize)> {
 }
 
 impl Editor {
+    /// The text as it is now (the host takes it back on quit).
+    pub fn text(&self) -> String {
+        self.buffer.text()
+    }
+
+    /// The seed the next run rolls from (a browser host gives one: the
+    /// page has no clock to seed from).
+    pub fn seed(&mut self, seed: u64) {
+        self.seed = Some(seed);
+    }
+
     /// Move the focus `step` panes along (Tab: 1, Shift-Tab: -1).
     pub(crate) fn cycle(&mut self, step: isize) {
         let at = ORDER.iter().position(|p| *p == self.focus).unwrap_or(0) as isize;

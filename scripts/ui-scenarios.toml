@@ -16,7 +16,7 @@ name = "X_eTaL live editor"
 url = "https://softwarewrighter.github.io/X_eTaL/"
 repo = "softwarewrighter/X_eTaL"
 stamp = "main"
-checks = ["help", "open", "save", "zoom", "focus", "lint", "complete"]
+checks = ["help", "open", "save", "zoom", "focus", "lint", "complete", "terminal"]
 
 [[site]]
 name = "X_eTaL-libraries site"

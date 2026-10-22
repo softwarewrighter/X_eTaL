@@ -1,11 +1,12 @@
 //! The editor's state and what changes it.
 
 use xetal_layout::{Axis, divider, use_split};
-use xetal_play::{Report, Run, is_library, statements};
+use xetal_play::{Report, is_library, statements};
 use xetal_runner::{Mode, Runs, use_runs};
 use yew::prelude::*;
 
-use crate::keys::keys;
+use crate::demos::{saving, use_follow};
+use crate::keys::{keys, wants_terminal};
 use crate::{DEMOS, choices, demos, open, panes, storage};
 use xetal_chrome as chrome;
 
@@ -33,11 +34,12 @@ pub fn app() -> Html {
     let name = use_state(|| DEMOS[0].name.to_string());
     let (files, current) = (use_state(storage::saved), use_state(|| Pane::Source));
     let (zoom, help) = (use_state(|| false), use_state(|| false));
+    let (tui, leave) = (use_state(wants_terminal), use_state(|| 0u32));
     let (runs, lint) = (use_runs(), use_state(|| None::<Report>));
-    let (result, running) = (runs.output.run.clone(), runs.output.running);
+    let running = runs.output.running;
     let split = use_split();
     let (drawn, printed, area) = (use_node_ref(), use_node_ref(), use_node_ref());
-    use_follow(&result, printed.clone());
+    use_follow(&runs.output.run, printed.clone());
     let buttons = run_buttons(&text, &files, &runs, &lint);
     let (z, h) = (zoom.clone(), help.clone());
     let toggle = Callback::from(move |_: ()| z.set(!*z));
@@ -51,17 +53,14 @@ pub fn app() -> Html {
     let (edit, load) = editing(&text, &name, (&runs.clear, &lint), running);
     let save = saving(text.clone(), name.clone(), files.clone());
     let suggest = xetal_suggest::use_suggest((*files).clone(), area.clone(), edit.clone());
-    let bar = chrome::Bar {
-        load,
-        save,
-        runs: buttons,
-        zoom: toggle,
-        help: show_help.clone(),
-        options: choices(&files),
-        open,
-        name: (*name).clone(),
-        zoomed: *zoom,
-    };
+    if *tui {
+        return terminal_view(&text, &name, (&tui, &leave), (show_help, *help));
+    }
+    let bar = bar(
+        (load, save, buttons),
+        (toggle, show_help.clone(), &tui),
+        (&files, &name, *zoom),
+    );
     html! {
         <div class="app" onkeydown={on_key}>
             { chrome::toolbar(bar) }
@@ -76,16 +75,6 @@ pub fn app() -> Html {
             { if *help { chrome::help(show_help.reform(|_| false)) } else { html! {} } }
         </div>
     }
-}
-
-/// Keep the output pane scrolled to its end as output arrives.
-#[hook]
-fn use_follow(result: &Option<Run>, pane: NodeRef) {
-    use_effect_with(result.clone(), move |_| {
-        if let Some(pane) = pane.cast::<web_sys::Element>() {
-            pane.set_scroll_top(pane.scroll_height());
-        }
-    });
 }
 
 /// Editing the text (which clears a finished run's output and the lint
@@ -111,31 +100,6 @@ fn editing(
         e.emit(body);
     });
     (edit, load)
-}
-
-/// Save the text under its name, or (`true`) under a name asked for.
-fn saving(
-    text: UseStateHandle<String>,
-    name: UseStateHandle<String>,
-    files: UseStateHandle<Vec<String>>,
-) -> Callback<bool> {
-    Callback::from(move |ask: bool| {
-        let chosen = match ask {
-            true => web_sys::window().and_then(|w| {
-                w.prompt_with_message_and_default("Save as", &name)
-                    .ok()
-                    .flatten()
-            }),
-            false => Some((*name).clone()),
-        };
-        let Some(path) = chosen.filter(|p| !p.trim().is_empty()) else {
-            return;
-        };
-        if xetal_store::write(path.trim(), &text).is_ok() {
-            name.set(path.trim().to_string());
-            files.set(storage::saved());
-        }
-    })
 }
 
 /// Lint: the text's findings in the output pane, any run's output
@@ -205,5 +169,59 @@ fn run_buttons(
         boxed,
         stepped,
         statements,
+    }
+}
+
+/// The terminal page (`#tui`): the file in xetal edit, drawn in the
+/// page; Ctrl-Q, or the bar's button, returns to the three panes with
+/// the text as edited.
+fn terminal_view(
+    text: &UseStateHandle<String>,
+    name: &UseStateHandle<String>,
+    (tui, leave): (&UseStateHandle<bool>, &UseStateHandle<u32>),
+    (help, shown): (Callback<bool>, bool),
+) -> Html {
+    let (t, tu) = (text.clone(), tui.clone());
+    let on_exit = Callback::from(move |edited: String| {
+        t.set(edited);
+        tu.set(false);
+    });
+    let l = leave.clone();
+    let back = Callback::from(move |_: ()| l.set(*l + 1));
+    html! {
+        <div class="app">
+            { chrome::terminal_bar(name, back, help.clone()) }
+            <main class="tui-main">
+                <xetal_webtui::Tui name={(**name).clone()} text={(**text).clone()} {on_exit} leave={**leave}/>
+            </main>
+            { chrome::footer() }
+            { if shown { chrome::help(help.reform(|_| false)) } else { html! {} } }
+        </div>
+    }
+}
+
+/// The toolbar's controls: what Open, Save, the run buttons, Zoom,
+/// Terminal and Help do, and what it shows.
+fn bar(
+    (load, save, runs): (
+        Callback<(String, String)>,
+        Callback<bool>,
+        chrome::RunButtons,
+    ),
+    (zoom, help, tui): (Callback<()>, Callback<bool>, &UseStateHandle<bool>),
+    (files, name, zoomed): (&UseStateHandle<Vec<String>>, &UseStateHandle<String>, bool),
+) -> chrome::Bar {
+    let t = tui.clone();
+    chrome::Bar {
+        load,
+        save,
+        runs,
+        zoom,
+        terminal: Callback::from(move |_: ()| t.set(true)),
+        help,
+        options: choices(files),
+        open,
+        name: (**name).clone(),
+        zoomed,
     }
 }

@@ -11,4 +11,4 @@ mod toolbar;
 pub use dialog::help;
 pub use footer::{footer, footer_at};
 pub use running::RunButtons;
-pub use toolbar::{Bar, toolbar};
+pub use toolbar::{Bar, terminal_bar, toolbar};

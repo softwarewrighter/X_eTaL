@@ -1,12 +1,17 @@
 [package]
 name = "xetal-keys"
-description = "The nano-like keymap as data: key events to editing and app commands"
+description = "The editors' keys: a key as any host sees it, the nano-like keymap as a table, and applying editing commands to a buffer"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 authors.workspace = true
 repository.workspace = true
 
+[features]
+default = ["crossterm"]
+# A terminal's key events (crossterm, through ratatui) become keys.
+crossterm = ["dep:ratatui", "ratatui/crossterm"]
+
 [dependencies]
-ratatui.workspace = true
+ratatui = { workspace = true, optional = true }
 xetal-buffer.workspace = true

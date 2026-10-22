@@ -18,7 +18,7 @@ xetal-render = { path = "../render/crates/xetal-render" }
 xetal-view = { path = "../view/crates/xetal-view" }
 xetal-notate = { path = "../view/crates/xetal-notate" }
 xetal-buffer = { path = "crates/xetal-buffer" }
-xetal-keys = { path = "crates/xetal-keys" }
+xetal-keys = { path = "crates/xetal-keys", default-features = false }
 xetal-panes = { path = "crates/xetal-panes" }
 xetal-term = { path = "crates/xetal-term" }
 xetal-edit = { path = "crates/xetal-edit" }
@@ -29,5 +29,7 @@ xetal-program = { path = "../macro/crates/xetal-program" }
 xetal-report = { path = "../lint/crates/xetal-report" }
 xetal-complete = { path = "../complete/crates/xetal-complete" }
 xetal-libs = { path = "../macro/crates/xetal-libs" }
-ratatui = "0.30"
+ratatui = { version = "0.30", default-features = false, features = ["all-widgets", "macros", "std", "layout-cache", "underline-color"] }
+xetal-macro = { path = "../macro/crates/xetal-macro" }
+xetal-store = { path = "../base/crates/xetal-store" }
 proptest = "1"

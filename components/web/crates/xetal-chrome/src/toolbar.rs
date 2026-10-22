@@ -1,6 +1,6 @@
 //! The editor's toolbar: the yellow logo and the name, Open, the file's name, Save, Save
-//! as, Clear, the run buttons (Run or Stop, Notebook, Step, Reset), Zoom
-//! and Help.
+//! as, Clear, the run buttons (Run or Stop, Notebook, Step, Reset), Zoom,
+//! Terminal and Help; and the terminal page's bar.
 
 use xetal_base::LANG_NAME;
 use yew::prelude::*;
@@ -14,6 +14,8 @@ pub struct Bar {
     pub save: Callback<bool>,
     pub runs: RunButtons,
     pub zoom: Callback<()>,
+    /// Switch to the terminal page (xetal edit as in the terminal), and back.
+    pub terminal: Callback<()>,
     pub help: Callback<bool>,
     /// What Open offers, as (group, value, label), and how a value opens.
     pub options: Vec<(&'static str, String, String)>,
@@ -45,7 +47,22 @@ pub fn toolbar(bar: Bar) -> Html {
             <button onclick={bar.zoom.reform(|_| ())} title="Zoom the current pane (Ctrl-.)">
                 { if bar.zoomed { "Unzoom" } else { "Zoom" } }
             </button>
+            <button onclick={bar.terminal.reform(|_| ())} title="The same file in xetal edit, the terminal editor, drawn in the page">{ "Terminal" }</button>
             <button class="help" onclick={bar.help.reform(|_| true)} title="How it works">{ "Help" }</button>
+        </nav>
+    }
+}
+
+/// The terminal page's bar: the logo, the page's name, the way back to
+/// the three panes, and Help.
+pub fn terminal_bar(name: &str, back: Callback<()>, help: Callback<bool>) -> Html {
+    html! {
+        <nav class="toolbar">
+            <img class="logo" src="xetal-logo-yellow.png" alt={LANG_NAME}/>
+            <span class="brand">{ LANG_NAME }</span>
+            <span class="name" title="The file being edited, as xetal edit shows it">{ name }</span>
+            <button onclick={back.reform(|_| ())} title="Back to the three panes (Ctrl-Q in the editor does the same)">{ "Three panes" }</button>
+            <button class="help" onclick={help.reform(|_| true)} title="How it works">{ "Help" }</button>
         </nav>
     }
 }

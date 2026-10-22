@@ -174,7 +174,9 @@ Source is typed as ASCII and shown decorated. `xetal edit FILE` puts
 the two side by side, with the types (or the first error) below as
 you type, the results on Ctrl-R and the lint report on Ctrl-L (again
 to make its fixes); typing a name opens a completion list under the
-cursor, and Tab takes the chosen one (docs/input.md). Tab moves between the panes (the
+cursor, and Tab takes the chosen one (docs/input.md). The same editor
+runs in the browser: the live demo's Terminal button (or its address
+with `#tui`) shows it as one screen, the keys as here. Tab moves between the panes (the
 current one has a thick border) and Ctrl-T zooms it to the full
 screen and back:
 

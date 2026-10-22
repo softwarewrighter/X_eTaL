@@ -87,6 +87,18 @@ body { font: 15px/1.35 var(--mono); }
 .suggest li { display: flex; gap: 12px; padding: 3px 8px; border-radius: 4px; cursor: pointer; }
 .suggest li.chosen { background: var(--bg); color: var(--bright); }
 .suggest .detail { margin-left: auto; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* The terminal page (xetal-webtui): the editor's cells as rows, the
+   theme's colors by class, the cursor a bright block. */
+.tui-main { flex: 1; min-height: 0; overflow: auto; padding: 8px 12px; }
+.tui { margin: 0; outline: none; font-family: var(--mono); font-size: 14px; line-height: 1.25; white-space: pre; width: max-content; }
+.tui:focus { box-shadow: 0 0 0 1px var(--bright); }
+.tui .row { height: 1.25em; }
+.tui .fg-blue { color: #7aa2f7; } .tui .fg-lightblue { color: #9ab8ff; } .tui .fg-green { color: #9ece6a; }
+.tui .fg-cyan { color: #7dcfff; } .tui .fg-magenta { color: #bb9af7; } .tui .fg-yellow { color: #ffd21f; }
+.tui .fg-lightyellow { color: #e8d27a; } .tui .fg-red { color: #ff6b6b; } .tui .fg-darkgray { color: #6b7280; }
+.tui .bold { font-weight: 700; } .tui .dim { opacity: .6; } .tui .italic { font-style: italic; }
+.tui .underlined { text-decoration: underline; } .tui .reversed { background: var(--text); color: var(--bg); }
+.tui .cursor { background: var(--bright); color: var(--bg); }
 /* The lint report (Lint): a warning, and the notes and the count. */
 .c-warning { color: #e8c76b; } .c-note { color: var(--doc); }
 

@@ -4,8 +4,8 @@
 //! key closes it and goes on). Libraries are the standard ones and the
 //! `.xtl` files beside the file being edited.
 
-use ratatui::crossterm::event::{KeyCode, KeyEvent};
 use xetal_complete::{Completion, Context, complete};
+use xetal_keys::{Code, Key};
 
 use crate::Editor;
 use crate::check::{Bottom, check};
@@ -39,7 +39,8 @@ impl Editor {
             .map_or_else(|| ".".into(), |d| d.to_path_buf());
         let files = beside(&dir);
         let library = |name: &str| {
-            let own = std::fs::read_to_string(dir.join(format!("{name}.xtl"))).ok();
+            let own =
+                xetal_store::read(&dir.join(format!("{name}.xtl")).display().to_string()).ok();
             own.or_else(|| xetal_libs::standard(name).map(String::from))
         };
         let ctx = Context {
@@ -55,16 +56,16 @@ impl Editor {
 
     /// A key while the list is open: Tab accepts, Up and Down choose,
     /// Escape closes (all taken); any other key closes it and is not.
-    pub(crate) fn choose(&mut self, key: KeyEvent) -> bool {
+    pub(crate) fn choose(&mut self, key: Key) -> bool {
         let Some(s) = self.suggest.as_mut() else {
             return false;
         };
         let n = s.completion.candidates.len();
         match key.code {
-            KeyCode::Tab => self.accept(),
-            KeyCode::Down => s.selected = (s.selected + 1) % n,
-            KeyCode::Up => s.selected = (s.selected + n - 1) % n,
-            KeyCode::Esc => self.suggest = None,
+            Code::Tab => self.accept(),
+            Code::Down => s.selected = (s.selected + 1) % n,
+            Code::Up => s.selected = (s.selected + n - 1) % n,
+            Code::Esc => self.suggest = None,
             _ => {
                 self.suggest = None;
                 return false;
@@ -87,6 +88,7 @@ impl Editor {
             self.buffer.insert(c);
         }
         let origin = self.path.display().to_string();
-        (self.report, self.bottom) = (check(&self.buffer.text(), &origin), Bottom::Types);
+        let checked = check(&self.buffer.text(), &origin, self.libs.as_ref());
+        (self.report, self.bottom) = (checked, Bottom::Types);
     }
 }
