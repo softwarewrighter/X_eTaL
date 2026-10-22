@@ -321,3 +321,24 @@ fn ctrl_l_lints_and_again_makes_the_fixes() {
     let s = screen(&e);
     assert!(s.contains("Types") && !s.contains("Lint"), "{s}");
 }
+
+/// Typing a name opens the completion list under the cursor; Tab writes
+/// the chosen candidate over the word; Escape closes the list and Tab
+/// moves the focus again.
+#[test]
+fn typing_offers_completions_and_tab_accepts_the_first() {
+    let mut e = Editor::open(&scratch("complete")).unwrap();
+    keys(&mut e, "1 + r_a");
+    let s = screen(&e);
+    assert!(s.contains("r_ange") && s.contains("Int -> Int"), "{s}");
+    press(&mut e, KeyCode::Tab);
+    let s = screen(&e);
+    assert!(s.contains("1 + r_ange"), "{s}");
+    assert!(!s.contains("r_avel"), "the list is closed: {s}");
+    keys(&mut e, " r_a");
+    press(&mut e, KeyCode::Esc);
+    assert!(!screen(&e).contains("r_avel"), "{}", screen(&e));
+    press(&mut e, KeyCode::Tab);
+    use ratatui::style::Color::Yellow;
+    assert_eq!(border_color(&e, 35, 0), Yellow, "Tab moves the focus again");
+}

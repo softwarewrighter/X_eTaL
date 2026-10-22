@@ -2027,6 +2027,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-complete"
+version = "0.1.0"
+dependencies = [
+ "xetal-catalog",
+ "xetal-libs",
+ "xetal-lint",
+]
+
+[[package]]
 name = "xetal-complexity"
 version = "0.1.0"
 dependencies = [
@@ -2277,7 +2286,9 @@ version = "0.1.0"
 dependencies = [
  "ratatui",
  "xetal-buffer",
+ "xetal-complete",
  "xetal-keys",
+ "xetal-libs",
  "xetal-tty",
  "xetal-view",
 ]

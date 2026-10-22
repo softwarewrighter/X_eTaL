@@ -110,6 +110,26 @@ u:s_quare := { _r * _r }; u:s_quare 7
 - Strings are `"..."` with the escapes `\"`, `\\`, `\n`, `\t`, on one
   line: `"c:" u_se< "Combinators"`.
 
+## Completion
+
+The editors complete what you are typing. In the live demo the list
+opens under the ASCII pane after a short pause; in `xetal edit` it
+opens under the cursor as you type a name; at the REPL, Tab completes
+the word and Tab again cycles through the other candidates. Tab (or
+Enter in the browser) writes the chosen candidate over the word, Up
+and Down choose, Escape closes. What is offered:
+
+- A built-in, by its typed prefix or its plain letters: `r_` or `ran`
+  offers `r_ange` with its type, `[]S` offers `[]S_HOW`.
+- A name the text defines (`u:k` offers `u:k_eep`, with its line).
+- A library, inside the string after `u_se<`: `"x:" u_se< "S` offers
+  `Stats`, the standard macro libraries, and your saved files.
+- An imported library's exports after its alias: with `"s:" u_se<
+  "Stats"` above, `s:m` offers `s:m_ean` with its doc line.
+- `_l`, `_r` and `_u` after a lone `_` inside `{ }`.
+- After `# lint:` or `# lint-file:`, the level, then the lints, the
+  groups and `all`.
+
 ## Seeing what you typed
 
 ```bash

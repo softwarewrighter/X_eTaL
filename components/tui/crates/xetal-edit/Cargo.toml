@@ -20,3 +20,5 @@ xetal-types.workspace = true
 xetal-eval.workspace = true
 xetal-program.workspace = true
 xetal-report.workspace = true
+xetal-complete.workspace = true
+xetal-libs.workspace = true

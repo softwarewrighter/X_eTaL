@@ -28,17 +28,21 @@ fn frame(title: &str, pane: Pane, current: Pane, focus: Callback<Pane>, body: Ht
 }
 
 /// The ASCII pane; as it scrolls (by hand, or as the browser follows
-/// the cursor), the drawn pane scrolls to the same line.
+/// the cursor), the drawn pane scrolls to the same line. The completion
+/// list opens under the text after a pause (`xetal-suggest`).
 pub(crate) fn source(
     text: &str,
     current: Pane,
     focus: Callback<Pane>,
     edit: Callback<String>,
     drawn: NodeRef,
+    (area, suggest): (NodeRef, &xetal_suggest::Suggest),
 ) -> Html {
+    let typed = suggest.on_input.clone();
     let input = Callback::from(move |e: InputEvent| {
         let area: HtmlTextAreaElement = e.target_unchecked_into();
         edit.emit(area.value());
+        typed.emit(());
     });
     let follow = Callback::from(move |e: Event| {
         let area: HtmlTextAreaElement = e.target_unchecked_into();
@@ -47,8 +51,12 @@ pub(crate) fn source(
         }
     });
     let body = html! {
-        <textarea value={text.to_string()} oninput={input} onscroll={follow}
-            spellcheck="false" autocomplete="off" aria-label="source, as typed"/>
+        <>
+            <textarea value={text.to_string()} oninput={input} onscroll={follow} ref={area}
+                onkeydown={suggest.on_key.clone()}
+                spellcheck="false" autocomplete="off" aria-label="source, as typed"/>
+            { suggest.list.clone() }
+        </>
     };
     frame("ASCII", Pane::Source, current, focus, body)
 }

@@ -45,6 +45,11 @@ fn editing() -> Html {
                        each finding below with its code, message and place (a warning, or an error \
                        where a # lint: comment denies it). When findings carry fixes the button reads " }
                     <b>{ "Fix n" }</b>{ ": a click makes them in the source and lints again." }</li>
+                <li>{ "Pause while typing a name and a list of completions opens under the text: \
+                       built-ins with their types (r_ or ran offers r_ange), the names the program \
+                       defines, a library's name inside the string after u_se<, an imported library's \
+                       exports after its alias, _l _r _u in a block, and lint names after # lint:. \
+                       Tab or Enter takes the chosen one, the arrows choose, Escape closes." }</li>
                 <li><b>{ "Notebook" }</b>{ " runs the whole program showing each statement, drawn, above \
                        its output, as just show does; " }<b>{ "Step" }</b>{ " runs the next statement only (k of n), \
                        the one just run marked; " }<b>{ "Reset" }</b>{ " starts the steps again." }</li>

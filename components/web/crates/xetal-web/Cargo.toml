@@ -11,6 +11,7 @@ repository.workspace = true
 xetal-play.workspace = true
 xetal-katex.workspace = true
 xetal-chrome.workspace = true
+xetal-suggest.workspace = true
 xetal-layout.workspace = true
 xetal-runner.workspace = true
 xetal-typing.workspace = true

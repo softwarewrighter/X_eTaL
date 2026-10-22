@@ -185,6 +185,11 @@ components/
                            the index of every item and built-in, by
                            name and by type, Hoogle-like, searched by a
                            plain script)
+  complete/                xetal-complete (completion for the editors:
+                           the candidates for the word at the cursor,
+                           from the catalog, the libraries, the lint
+                           directives and the text; pure, so the live
+                           demo, xetal edit and the REPL share it)
   lint/                    xetal-linter (`xetal lint`, the driver:
                            levels from -A/-W/-D and # lint: comments,
                            findings placed in the file; docs/lint.md);

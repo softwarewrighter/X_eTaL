@@ -10,6 +10,7 @@ use xetal_panes::Scroll;
 
 use crate::check::{Bottom, Report, check, lint, run};
 use crate::focus::{Pane, motion};
+use crate::suggest::Suggest;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Flow {
@@ -32,6 +33,8 @@ pub struct Editor {
     pub(crate) bottom: Bottom,
     /// The text with the lint report's fixes made (Ctrl-L again).
     fix: Option<String>,
+    /// The completion list open under the cursor.
+    pub(crate) suggest: Option<Suggest>,
     pub(crate) status: String,
     /// Only the focused pane is shown, full screen (Ctrl-T).
     pub(crate) zoom: bool,
@@ -57,6 +60,7 @@ impl Editor {
             report: check(&text, &path.display().to_string()),
             bottom: Bottom::Types,
             fix: None,
+            suggest: None,
             status: "^S save  ^R run  ^L lint  ^Q quit  Tab pane  ^T zoom".into(),
             zoom: false,
             confirm_quit: false,
@@ -65,6 +69,9 @@ impl Editor {
 
     /// Handle one key.
     pub fn handle(&mut self, key: KeyEvent) -> Flow {
+        if self.choose(key) {
+            return Flow::Continue;
+        }
         let Some(cmd) = command(key) else {
             return Flow::Continue;
         };
@@ -96,6 +103,9 @@ impl Editor {
                 None,
             );
             self.confirm_quit = false;
+            if matches!(cmd, Command::Insert(c) if c.is_ascii_alphanumeric() || "_:[".contains(c)) {
+                self.suggest();
+            }
         }
         flow
     }

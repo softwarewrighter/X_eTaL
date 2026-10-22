@@ -1741,6 +1741,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-bang"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-ir",
+]
+
+[[package]]
 name = "xetal-base"
 version = "0.1.0"
 
@@ -1754,6 +1762,23 @@ version = "0.1.0"
 dependencies = [
  "serde",
  "toml",
+]
+
+[[package]]
+name = "xetal-complete"
+version = "0.1.0"
+dependencies = [
+ "xetal-catalog",
+ "xetal-libs",
+ "xetal-lint",
+]
+
+[[package]]
+name = "xetal-complexity"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-ir",
 ]
 
 [[package]]
@@ -1815,14 +1840,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-libs"
+version = "0.1.0"
+
+[[package]]
 name = "xetal-line"
 version = "0.1.0"
 dependencies = [
  "ratatui",
  "xetal-buffer",
+ "xetal-complete",
  "xetal-keys",
+ "xetal-libs",
  "xetal-tty",
  "xetal-view",
+]
+
+[[package]]
+name = "xetal-lint"
+version = "0.1.0"
+dependencies = [
+ "xetal-bang",
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-complexity",
+ "xetal-ir",
 ]
 
 [[package]]

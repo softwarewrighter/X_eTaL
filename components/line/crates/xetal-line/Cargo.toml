@@ -13,3 +13,5 @@ ratatui.workspace = true
 xetal-view.workspace = true
 xetal-buffer.workspace = true
 xetal-keys.workspace = true
+xetal-complete.workspace = true
+xetal-libs.workspace = true

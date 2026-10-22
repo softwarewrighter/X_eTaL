@@ -1,0 +1,13 @@
+[package]
+name = "xetal-complete"
+description = "Completion for the editors: candidates for the word at the cursor, from the catalog, the libraries, the lint directives and the text itself"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-catalog.workspace = true
+xetal-libs.workspace = true
+xetal-lint.workspace = true

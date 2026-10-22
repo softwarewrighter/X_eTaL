@@ -31,14 +31,12 @@ impl Pane {
 pub fn app() -> Html {
     let text = use_state(|| DEMOS[0].text.to_string());
     let name = use_state(|| DEMOS[0].name.to_string());
-    let files = use_state(storage::saved);
-    let current = use_state(|| Pane::Source);
+    let (files, current) = (use_state(storage::saved), use_state(|| Pane::Source));
     let (zoom, help) = (use_state(|| false), use_state(|| false));
-    let runs = use_runs();
-    let lint = use_state(|| None::<Report>);
+    let (runs, lint) = (use_runs(), use_state(|| None::<Report>));
     let (result, running) = (runs.output.run.clone(), runs.output.running);
     let split = use_split();
-    let (drawn, printed) = (use_node_ref(), use_node_ref());
+    let (drawn, printed, area) = (use_node_ref(), use_node_ref(), use_node_ref());
     use_follow(&result, printed.clone());
     let buttons = run_buttons(&text, &files, &runs, &lint);
     let (z, h) = (zoom.clone(), help.clone());
@@ -52,6 +50,7 @@ pub fn app() -> Html {
     let (typing, on_key) = xetal_typing::use_terminal(terminal, page_keys, printed.clone());
     let (edit, load) = editing(&text, &name, (&runs.clear, &lint), running);
     let save = saving(text.clone(), name.clone(), files.clone());
+    let suggest = xetal_suggest::use_suggest((*files).clone(), area.clone(), edit.clone());
     let bar = chrome::Bar {
         load,
         save,
@@ -67,7 +66,7 @@ pub fn app() -> Html {
         <div class="app" onkeydown={on_key}>
             { chrome::toolbar(bar) }
             <main class={classes!("panes", zoom.then_some("zoomed"), running.then_some("running"))} style={split.style()}>
-                { panes::source(&text, *current, focus.clone(), edit, drawn.clone()) }
+                { panes::source(&text, *current, focus.clone(), edit, drawn.clone(), (area, &suggest)) }
                 { divider(Axis::Columns, &split) }
                 { panes::rendered(&text, *current, focus.clone(), drawn) }
                 { divider(Axis::Rows, &split) }

@@ -1,0 +1,20 @@
+# X_eTaL component `complete`: one Cargo workspace (see docs/architecture.md).
+# Completion for the editors: the candidates for the word at the cursor,
+# from the catalog, the libraries, the directives and the text itself.
+
+[workspace]
+resolver = "3"
+members = ["crates/xetal-complete"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+authors = ["Michael A Wright"]
+repository = "https://github.com/softwarewrighter/X_eTaL"
+
+[workspace.dependencies]
+xetal-catalog = { path = "../base/crates/xetal-catalog" }
+xetal-libs = { path = "../macro/crates/xetal-libs" }
+xetal-lint = { path = "../core/crates/xetal-lint" }
+xetal-complete = { path = "crates/xetal-complete" }

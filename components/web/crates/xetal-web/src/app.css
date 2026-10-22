@@ -76,6 +76,17 @@ body { font: 15px/1.35 var(--mono); }
 /* Doc comments (##) and section headings (###): their own style, apart from remarks. */
 .c-doc { color: var(--doc); font-style: italic; } .c-heading { color: var(--doc); font-weight: bold; }
 .c-error { color: #ff6b6b; }
+/* The completion list under the ASCII text (xetal-suggest): a row a
+   candidate, its label and detail, the chosen one marked. */
+.pane.source { position: relative; }
+.suggest {
+  position: absolute; left: 12px; right: 12px; bottom: 8px; z-index: 30; margin: 0; padding: 4px;
+  list-style: none; max-height: 45%; overflow-y: auto; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 8px 24px rgba(0, 0, 0, .45); font-size: 14px;
+}
+.suggest li { display: flex; gap: 12px; padding: 3px 8px; border-radius: 4px; cursor: pointer; }
+.suggest li.chosen { background: var(--bg); color: var(--bright); }
+.suggest .detail { margin-left: auto; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* The lint report (Lint): a warning, and the notes and the count. */
 .c-warning { color: #e8c76b; } .c-note { color: var(--doc); }
 

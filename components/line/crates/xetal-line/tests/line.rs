@@ -93,3 +93,29 @@ fn ctrl_d_ends_on_an_empty_line_and_ctrl_c_clears() {
     assert_eq!(line.text(), "");
     assert_eq!(line.handle(ctrl('d')), Outcome::End);
 }
+
+/// Tab completes the word at the cursor with the first candidate, Tab
+/// again cycles to the next; typing on ends the cycle.
+#[test]
+fn tab_completes_the_word_and_cycles() {
+    let mut line = Line::default();
+    typed(&mut line, "1 + r_a");
+    assert_eq!(line.handle(key(KeyCode::Tab)), Outcome::Editing);
+    assert_eq!(line.text(), "1 + r_ange");
+    line.handle(key(KeyCode::Tab));
+    let second = line.text();
+    assert!(
+        second.starts_with("1 + r_a") && second != "1 + r_ange",
+        "{second}"
+    );
+    typed(&mut line, " 3");
+    assert_eq!(line.text(), format!("{second} 3"));
+    let mut plain_tab = Line::default();
+    typed(&mut plain_tab, "1 + ");
+    plain_tab.handle(key(KeyCode::Tab));
+    assert_eq!(
+        plain_tab.text(),
+        "1 + ",
+        "nothing to complete: Tab does nothing"
+    );
+}

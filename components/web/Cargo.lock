@@ -1417,6 +1417,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-complete"
+version = "0.1.0"
+dependencies = [
+ "xetal-catalog",
+ "xetal-libs",
+ "xetal-lint",
+]
+
+[[package]]
 name = "xetal-complexity"
 version = "0.1.0"
 dependencies = [
@@ -1964,6 +1973,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-suggest"
+version = "0.1.0"
+dependencies = [
+ "js-sys",
+ "wasm-bindgen",
+ "web-sys",
+ "xetal-complete",
+ "xetal-libs",
+ "xetal-store",
+ "yew",
+]
+
+[[package]]
 name = "xetal-svg"
 version = "0.1.0"
 
@@ -2095,6 +2117,7 @@ dependencies = [
  "xetal-play",
  "xetal-runner",
  "xetal-store",
+ "xetal-suggest",
  "xetal-typing",
  "yew",
 ]

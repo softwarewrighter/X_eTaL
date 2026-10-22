@@ -1,9 +1,11 @@
-//! The screen: both panes, the types or output pane, a status line.
+//! The screen: both panes, the types or output pane, a status line, and
+//! the completion list under the cursor while it is open.
 
 use ratatui::Frame;
 use ratatui::layout::{Constraint, Layout, Rect};
+use ratatui::style::{Modifier, Style};
 use ratatui::text::Line;
-use ratatui::widgets::Paragraph;
+use ratatui::widgets::{Clear, List, ListItem, Paragraph};
 use xetal_panes::{Focus, Panes, frame};
 
 use crate::check::Bottom;
@@ -29,6 +31,9 @@ impl Editor {
             frame.set_cursor_position(panes.cursors(top).0);
         }
         frame.render_widget(&panes, top);
+        if self.focus == Pane::Source {
+            self.popup(frame, panes.cursors(top).0, top);
+        }
         if bottom.area() > 0 {
             frame.render_widget(self.bottom(), bottom);
         }
@@ -71,6 +76,41 @@ impl Editor {
         Paragraph::new(lines)
             .block(frame(title, self.focus == Pane::Output))
             .scroll(at)
+    }
+
+    /// The completion list, under the cursor (above it near the bottom),
+    /// the chosen candidate marked; each row a label and its detail.
+    fn popup(&self, frame: &mut Frame, at: ratatui::layout::Position, within: Rect) {
+        let Some(s) = &self.suggest else {
+            return;
+        };
+        let rows: Vec<String> = s
+            .completion
+            .candidates
+            .iter()
+            .take(8)
+            .map(|c| format!(" {}  {} ", c.label, c.detail))
+            .collect();
+        let width = rows.iter().map(|r| r.chars().count()).max().unwrap_or(0) as u16;
+        let width = width.min(within.width.saturating_sub(1)).max(1);
+        let height = rows.len() as u16;
+        let below = at.y + 1 + height <= within.bottom();
+        let y = if below {
+            at.y + 1
+        } else {
+            at.y.saturating_sub(height)
+        };
+        let x = at.x.min(within.right().saturating_sub(width));
+        let area = Rect::new(x, y, width, height);
+        let items = rows.into_iter().enumerate().map(|(i, r)| {
+            let style = match i == s.selected.min(7) {
+                true => Style::default().add_modifier(Modifier::REVERSED),
+                false => Style::default(),
+            };
+            ListItem::new(r).style(style)
+        });
+        frame.render_widget(Clear, area);
+        frame.render_widget(List::new(items), area);
     }
 
     fn status_line(&self) -> String {

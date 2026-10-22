@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-play", "crates/xetal-chrome", "crates/xetal-layout", "crates/xetal-runner", "crates/xetal-web", "crates/xetal-typing", "crates/xetal-webclock"]
+members = ["crates/xetal-play", "crates/xetal-chrome", "crates/xetal-layout", "crates/xetal-runner", "crates/xetal-web", "crates/xetal-typing", "crates/xetal-webclock", "crates/xetal-suggest"]
 
 [workspace.package]
 version = "0.1.0"
@@ -38,6 +38,8 @@ xetal-arith = { path = "../eval/crates/xetal-arith" }
 xetal-system = { path = "../system/crates/xetal-system" }
 xetal-play = { path = "crates/xetal-play" }
 xetal-chrome = { path = "crates/xetal-chrome" }
+xetal-suggest = { path = "crates/xetal-suggest" }
+xetal-complete = { path = "../complete/crates/xetal-complete" }
 xetal-layout = { path = "crates/xetal-layout" }
 xetal-runner = { path = "crates/xetal-runner" }
 xetal-libs = { path = "../macro/crates/xetal-libs" }

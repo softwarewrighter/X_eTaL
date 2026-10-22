@@ -1,7 +1,9 @@
-//! The line being typed, its history, and how keys change them.
+//! The line being typed, its history, and how keys change them; Tab
+//! completes (tab.rs).
 
 use ratatui::crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
 use xetal_buffer::Buffer;
+use xetal_complete::Completion;
 use xetal_keys::{Command, apply, command};
 use xetal_view::{ansi, column, view, width};
 
@@ -17,12 +19,14 @@ pub enum Outcome {
 
 #[derive(Debug, Default)]
 pub struct Line {
-    buffer: Buffer,
+    pub(crate) buffer: Buffer,
     history: Vec<String>,
     /// Position in `history` while recalling; `draft` holds the line
     /// being typed before recall started.
     recall: Option<usize>,
     draft: String,
+    /// The completion Tab is cycling through, and which candidate shows.
+    pub(crate) cycle: Option<(Completion, usize)>,
 }
 
 impl Line {
@@ -34,6 +38,11 @@ impl Line {
     /// Handle one key.
     pub fn handle(&mut self, key: KeyEvent) -> Outcome {
         let ctrl = key.modifiers.contains(KeyModifiers::CONTROL);
+        if key.code == KeyCode::Tab {
+            self.complete();
+            return Outcome::Editing;
+        }
+        self.cycle = None;
         match (key.code, ctrl) {
             (KeyCode::Char('d'), true) if self.text().is_empty() => return Outcome::End,
             (KeyCode::Char('c'), true) => self.replace(""),
