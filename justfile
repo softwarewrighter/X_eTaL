@@ -137,6 +137,14 @@ web:
 nightly:
     scripts/nightly.sh
 
+# The UI tests of the published live demos in a headless browser (docs/ui-nightly.md)
+ui-check *ARGS:
+    uv run --no-project --with playwright python scripts/ui-check.py {{ARGS}}
+
+# The nightly UI tests: pull main, run them, keep the log, open an issue on failure
+ui-nightly:
+    scripts/ui-nightly.sh
+
 # Time the benchmarks (bench/*.xtl and three demos), best of RUNS, as a table for docs/speed.md
 bench RUNS="3":
     scripts/bench.sh {{RUNS}}

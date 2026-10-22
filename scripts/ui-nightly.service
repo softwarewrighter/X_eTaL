@@ -1,0 +1,14 @@
+# The nightly UI tests of the live demos, as a systemd user service
+# (docs/ui-nightly.md). Install on the always-on machine:
+#   mkdir -p ~/.config/systemd/user
+#   cp scripts/ui-nightly.service scripts/ui-nightly.timer ~/.config/systemd/user/
+#   systemctl --user daemon-reload && systemctl --user enable --now ui-nightly.timer
+# The repository is expected at %h/github/softwarewrighter/X_eTaL.
+[Unit]
+Description=X_eTaL nightly UI tests of the live demos
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/github/softwarewrighter/X_eTaL
+ExecStart=/bin/bash %h/github/softwarewrighter/X_eTaL/scripts/ui-nightly.sh
+Environment=UI_BROWSER=/usr/bin/chromium

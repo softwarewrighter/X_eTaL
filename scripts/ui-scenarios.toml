@@ -1,0 +1,59 @@
+# The nightly UI test's data (scripts/ui-check.py, docs/ui-nightly.md):
+# the sites to open and the scenarios typed into each editor. A site
+# is a published editor page; its stamp check compares the footer's
+# build commit with the repository's main ("main"), only records it
+# ("report": the sibling sites pin an older build on purpose), or is
+# skipped ("none": a site without the editor's footer; `editor =
+# false` opens the page and checks nothing else). A
+# scenario types `source` into the ASCII pane and checks the Rendered
+# pane (`rendered`: substrings of its text), the Types pane
+# (`types`), and, when `run` is true, the output pane after Run
+# (`output`). Named checks (`check`) exercise the chrome: help, open,
+# save, zoom, focus, lint, complete. Add a scenario by adding a table.
+
+[[site]]
+name = "X_eTaL live editor"
+url = "https://softwarewrighter.github.io/X_eTaL/"
+repo = "softwarewrighter/X_eTaL"
+stamp = "main"
+checks = ["help", "open", "save", "zoom", "focus", "lint", "complete"]
+
+[[site]]
+name = "X_eTaL-libraries site"
+url = "https://softwarewrighter.github.io/X_eTaL-libraries/"
+repo = "softwarewrighter/X_eTaL-libraries"
+stamp = "none"
+editor = false
+
+[[scenario]]
+name = "tour lines"
+source = "x := 3\nx^2\n'+ r_/ 1 2 3"
+rendered = ["x \u2190 3", "x\u00b2", "r\u0332/"]
+types = ["x : Int", "Int"]
+run = true
+output = ["9", "6"]
+
+[[scenario]]
+name = "lambda arguments and the unused parameter"
+source = "u:k_ := { x _u -> x }\n5 u:k_ 7\n'{ _l + _r } r_/ 1 2 3"
+rendered = ["\u2581", "\u237a", "\u2375"]
+types = ["u:k_ :", "Int"]
+run = true
+output = ["5", "6"]
+
+[[scenario]]
+name = "a code string is drawn as code"
+source = "c\"x := 1\""
+rendered = ["x \u2190 1"]
+types = ["Char"]
+
+[[scenario]]
+name = "an error names its place"
+source = "1 + 'x"
+types = ["error[bad-quote]", "1:5"]
+
+[[scenario]]
+name = "a library import"
+source = "\"s:\" u_se< \"Stats\"\ns:m_ean 1 2 3"
+run = true
+output = ["2.0"]

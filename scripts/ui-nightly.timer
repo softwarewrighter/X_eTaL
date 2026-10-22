@@ -1,0 +1,12 @@
+# Runs ui-nightly.service at 03:30 every night (after the Mac's 02:00
+# full gate has published), and on the next boot if a night was missed.
+[Unit]
+Description=X_eTaL nightly UI tests, every night at 03:30
+
+[Timer]
+OnCalendar=*-*-* 03:30:00
+Persistent=true
+RandomizedDelaySec=5min
+
+[Install]
+WantedBy=timers.target

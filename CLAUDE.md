@@ -478,6 +478,10 @@ By night:
   `work/nightly/`.
 - A red nightly is the first train of the next day: fix forward, or
   `git revert -m 1 <merge>` the merge that owns it and tell the lane.
+- `scripts/ui-nightly.sh` (a systemd user timer on the always-on Arch
+  machine, docs/ui-nightly.md) runs `scripts/ui-check.py`, the headless
+  browser tests of the published live demos (scripts/ui-scenarios.toml
+  holds the scenarios); a GitHub issue when it fails.
 - `--affected` or `--full` by hand only before a release.
 
 ### Three gates: sample, affected, full
