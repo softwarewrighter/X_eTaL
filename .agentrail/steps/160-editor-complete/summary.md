@@ -1,0 +1,1 @@
+Completion: xetal-complete (pure candidates: built-ins, own names, libraries after u_se<, alias exports, lambda args, lint directives), the live demo's list (xetal-suggest), xetal edit's popup, the REPL's Tab; D184; tests in three crates

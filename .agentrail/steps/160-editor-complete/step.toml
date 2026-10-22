@@ -1,8 +1,9 @@
 number = 160
 slug = "editor-complete"
-status = "pending"
+status = "completed"
 description = "The user (2026-10-21): autocomplete in the editors. Typing r_ and pausing sho..."
 role = "production"
 context_files = []
 created_at = "2026-10-21T09:40:18"
-commits = []
+completed_at = "2026-10-21T19:05:27"
+commits = ["b6e00be35211c185e539fb8b1bd08efa33028470"]
