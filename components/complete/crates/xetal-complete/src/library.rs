@@ -41,6 +41,18 @@ fn imported(text: &str, alias: &str) -> Option<String> {
     })
 }
 
+/// The first line of the `##` doc comment block just above line number
+/// `line` (from 1), if there is one.
+pub(crate) fn doc_above(lines: &[&str], line: usize) -> Option<String> {
+    let block: Vec<&&str> = lines[..line.saturating_sub(1)]
+        .iter()
+        .rev()
+        .take_while(|l| l.trim_start().starts_with("##"))
+        .collect();
+    let first = block.last()?;
+    Some(first.trim().trim_start_matches('#').trim().to_string())
+}
+
 /// The exports of the library `alias` names, as `alias:name`, matching
 /// `rest` (what is typed after the colon); each with its doc line when
 /// the definition has one, else the library's name.
@@ -58,10 +70,7 @@ pub(crate) fn exports(text: &str, alias: &str, rest: &str, ctx: &Context) -> Vec
             let export = name
                 .strip_prefix("l:")
                 .or_else(|| name.strip_prefix("m:"))?;
-            let doc = lines[..line - 1]
-                .last()
-                .and_then(|l| l.trim().strip_prefix("##"))
-                .map(|d| d.trim().to_string());
+            let doc = doc_above(&lines, line);
             let aliased = format!("{alias}:{export}");
             offered(&aliased, &format!("{alias}:{rest}")).then(|| Candidate {
                 label: aliased.clone(),

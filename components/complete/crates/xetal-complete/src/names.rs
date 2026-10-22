@@ -1,8 +1,9 @@
-//! Names: the built-ins of the catalog, the names the text defines, and
-//! the lambda arguments.
+//! Names: the built-ins of the catalog, the system macros, the names
+//! the text defines, and the lambda arguments.
 
 use xetal_catalog::BUILTINS;
 
+use crate::library::doc_above;
 use crate::word::Candidate;
 
 /// A name without its underlines, so `ran` finds `r_ange` and `r_a`
@@ -17,7 +18,8 @@ pub(crate) fn offered(name: &str, prefix: &str) -> bool {
     name != prefix && (name.starts_with(prefix) || plain(name).starts_with(&plain(prefix)))
 }
 
-/// The built-ins and the text's own definitions matching `prefix`.
+/// The built-ins, the system macros and the text's own definitions
+/// matching `prefix`.
 pub(crate) fn names(text: &str, prefix: &str) -> Vec<Candidate> {
     let mut out: Vec<Candidate> = BUILTINS
         .iter()
@@ -35,7 +37,29 @@ pub(crate) fn names(text: &str, prefix: &str) -> Vec<Candidate> {
             detail: format!("defined on line {line}"),
         })
     }));
+    out.extend(system(prefix));
     out
+}
+
+/// The system macros (System.xtlm's `s:` definitions, called
+/// unprefixed: `i_f<`, `a_ssert<`) matching `prefix`, each with the
+/// first line of its doc comment.
+fn system(prefix: &str) -> Vec<Candidate> {
+    let Some(source) = xetal_libs::standard_macros("System") else {
+        return Vec::new();
+    };
+    let lines: Vec<&str> = source.lines().collect();
+    defined(source)
+        .into_iter()
+        .filter_map(|(name, line)| {
+            let name = name.strip_prefix("s:")?.to_string();
+            offered(&name, prefix).then(|| Candidate {
+                insert: name.clone(),
+                label: name,
+                detail: doc_above(&lines, line).unwrap_or_else(|| "a system macro".into()),
+            })
+        })
+        .collect()
 }
 
 /// The names `text` binds with `:=`, each with its line number (from
