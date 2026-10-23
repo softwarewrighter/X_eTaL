@@ -368,8 +368,8 @@ works = ""
 id = "M11"
 repo = "X_eTaL-ML"
 ask = "a macro's text cannot name a library by the importer's alias (the same as X14's remaining half)"
-state = "new"
-here = "not yet decided: MC5 rewrites a library's `l:` to the importer's alias, but nothing names that alias in a macro's expansion, and an expansion may not import (MC23 row 20)"
+state = "planned"
+here = "step 171 (macro-alias): decide with the user, then rewrite the macro library's own prefix in an expansion to the importer's alias (as MC5 does for `l:`), or a hook giving the caller's alias for a library it imported, or both"
 
 [[ask]]
 id = "M12"
@@ -382,22 +382,44 @@ here = "T7: array types are rank-erased, a type names only the element type, sha
 id = "M14"
 repo = "X_eTaL-ML"
 ask = "`xetal_play::run` collects `[]S_HOW` pictures in state shared across threads, so two runs at once take each other's"
-state = "new"
-here = "filed after the asks audit; `xetal_store::take_shown` takes from the one installed store"
+state = "planned"
+here = "step 167 (pictures-per-run): the pictures and the replay counters belong to the run (thread-local in xetal-store), so `take_shown` gives only this run's"
 
 [[ask]]
 id = "M15"
 repo = "X_eTaL-ML"
 ask = "`xetal doc --out` names every site after X_eTaL (page titles, the sidebar's heading): a sibling's site cannot say whose it is; asked: a `--title` option"
-state = "new"
-here = "filed 2026-10-11; not yet triaged (small: an option for the site's name)"
+state = "planned"
+here = "step 168 (doc-title): `xetal doc --out DIR --title TEXT` for the sidebar's home link, the titles' suffix and the index heading"
 
 [[ask]]
 id = "M16"
 repo = "X_eTaL-ML"
 ask = "the matrix product runs at about 85 ns a multiply-add (`'+ '* i_nner` on 8 by 9 and 9 by 33800, 2.4 million multiply-adds in about 0.2 s)"
-state = "new"
-here = "filed 2026-10-11; D12 landed at about 94 ns for its ask; vector kernels are Saga 22 (speed)"
+state = "planned"
+here = "Saga 22, speed (vector kernels); D12 landed at about 94 ns a multiply-add for its ask"
+
+[[ask]]
+id = "M17"
+repo = "X_eTaL-ML"
+ask = "a macro argument that holds code (a pipeline's stages) is drawn as typed; let a macro library declare it code and the renderers decorate it"
+state = "landed"
+here = "code strings (ST5, step 111, 2026-10-18): `c\"...\"` and `c#\"...\"#` are drawn as code where the inside lexes (`|>` and `$` as triangles, S13, S14); step 112 lexes every code string's inside with the file; Flow's pipelines are written as code strings"
+repro = "c\"1 + 2\""
+
+[[ask]]
+id = "M18"
+repo = "X_eTaL-ML"
+ask = "`c\"...\"` reads the backslash of `o_\\` and `s_\\` as an escape: let the linter or the lexer's error point to `c#\"...\"#`"
+state = "planned"
+here = "step 170 (code-string-escape-hint): the unknown-escape error names the verbatim form, and the string lints look at code strings too (`escapes-could-be-raw` with the fix `c#\"...\"#`)"
+
+[[ask]]
+id = "M19"
+repo = "X_eTaL-ML"
+ask = "the libm built-ins t_anh, e_rf (e_rfc), s_qrt, e_xpm1, l_og1p: a built-in is what libm gives at full accuracy and a library cannot write as well; the rest of trigonometry and the special functions stay libraries"
+state = "planned"
+here = "step 169 (libm-builtins): the rule to confirm with the user and record in lang-choices, then the six built-ins beside e_xp and l_og (erf through the libm crate, which builds for wasm32); with X22"
 
 [[ask]]
 id = "G1"
@@ -662,7 +684,7 @@ id = "X14"
 repo = "X_eTaL-libraries"
 ask = "a `.xtlm` calling its own library's functions, or naming the importer's alias in its expansion"
 state = "partly landed"
-here = "MC23: a `.xtlm` imports its own `.xtl` by path; naming the importer's alias in an expansion is not yet decided (ask M11)"
+here = "MC23: a `.xtlm` imports its own `.xtl` by path; naming the importer's alias in an expansion is step 171 (macro-alias, with ask M11)"
 
 [[ask]]
 id = "X15"

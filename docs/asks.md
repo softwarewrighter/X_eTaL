@@ -14,13 +14,13 @@ build already does what the ask wants.
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
 | X_eTaL-demos | 11 | 3 | 3 | 2 | 2 |
-| X_eTaL-ML | 7 | 1 | 1 | 3 | 4 |
+| X_eTaL-ML | 8 | 1 | 7 | 3 | 0 |
 | X_eTaL-games | 8 | 4 | 4 | 1 | 3 |
 | X_eTaL-libraries | 9 | 3 | 2 | 3 | 1 |
 | X_eTaL-extensions | 3 | 1 | 3 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 38 | 12 | 20 | 11 | 20 |
+| All | 39 | 12 | 26 | 11 | 16 |
 
 ## Notice: an unused parameter is _u: drop # lint: allow unused-binding
 
@@ -151,11 +151,14 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | M9 | a Bool bound to a name cannot be used in arithmetic (the same as D14) | landed | ffd5526 | passes |
 | M13 | a state of several arrays for `p_ower`: train-live packs 99 weights and Adam's two averages into one vector of 298 numbers | landed | Saga 39, tuples (lanes/tuples): a tuple state such as `(w, m, v, k)` goes through `p_ower` (TU9) and the step takes it apart with a pattern parameter, `{ (w, k) -> ... }` (TU3) | passes |
 | M10 | `e_ach` returning an array per item | declined | B14: `e_ach` stays scalar-only; `m_ap` applies a function returning arrays and boxes each result, and mix (turning the boxes back into an array) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-mix) | fails |
-| M11 | a macro's text cannot name a library by the importer's alias (the same as X14's remaining half) | new | not yet decided: MC5 rewrites a library's `l:` to the importer's alias, but nothing names that alias in a macro's expansion, and an expansion may not import (MC23 row 20) | - |
+| M11 | a macro's text cannot name a library by the importer's alias (the same as X14's remaining half) | planned | step 171 (macro-alias): decide with the user, then rewrite the macro library's own prefix in an expansion to the importer's alias (as MC5 does for `l:`), or a hook giving the caller's alias for a library it imported, or both | - |
 | M12 | shapes in types: a matrix's type is `Float`, so code can be well-typed and shape-wrong | declined | T7: array types are rank-erased, a type names only the element type, shapes are checked at run time; T4: no annotations in v0 (`::` signatures later); D-10: one Int type, overflow an error | - |
-| M14 | `xetal_play::run` collects `[]S_HOW` pictures in state shared across threads, so two runs at once take each other's | new | filed after the asks audit; `xetal_store::take_shown` takes from the one installed store | - |
-| M15 | `xetal doc --out` names every site after X_eTaL (page titles, the sidebar's heading): a sibling's site cannot say whose it is; asked: a `--title` option | new | filed 2026-10-11; not yet triaged (small: an option for the site's name) | - |
-| M16 | the matrix product runs at about 85 ns a multiply-add (`'+ '* i_nner` on 8 by 9 and 9 by 33800, 2.4 million multiply-adds in about 0.2 s) | new | filed 2026-10-11; D12 landed at about 94 ns for its ask; vector kernels are Saga 22 (speed) | - |
+| M14 | `xetal_play::run` collects `[]S_HOW` pictures in state shared across threads, so two runs at once take each other's | planned | step 167 (pictures-per-run): the pictures and the replay counters belong to the run (thread-local in xetal-store), so `take_shown` gives only this run's | - |
+| M15 | `xetal doc --out` names every site after X_eTaL (page titles, the sidebar's heading): a sibling's site cannot say whose it is; asked: a `--title` option | planned | step 168 (doc-title): `xetal doc --out DIR --title TEXT` for the sidebar's home link, the titles' suffix and the index heading | - |
+| M16 | the matrix product runs at about 85 ns a multiply-add (`'+ '* i_nner` on 8 by 9 and 9 by 33800, 2.4 million multiply-adds in about 0.2 s) | planned | Saga 22, speed (vector kernels); D12 landed at about 94 ns a multiply-add for its ask | - |
+| M17 | a macro argument that holds code (a pipeline's stages) is drawn as typed; let a macro library declare it code and the renderers decorate it | landed | code strings (ST5, step 111, 2026-10-18): `c"..."` and `c#"..."#` are drawn as code where the inside lexes (`|>` and `$` as triangles, S13, S14); step 112 lexes every code string's inside with the file; Flow's pipelines are written as code strings | passes |
+| M18 | `c"..."` reads the backslash of `o_\` and `s_\` as an escape: let the linter or the lexer's error point to `c#"..."#` | planned | step 170 (code-string-escape-hint): the unknown-escape error names the verbatim form, and the string lints look at code strings too (`escapes-could-be-raw` with the fix `c#"..."#`) | - |
+| M19 | the libm built-ins t_anh, e_rf (e_rfc), s_qrt, e_xpm1, l_og1p: a built-in is what libm gives at full accuracy and a library cannot write as well; the rest of trigonometry and the special functions stay libraries | planned | step 169 (libm-builtins): the rule to confirm with the user and record in lang-choices, then the six built-ins beside e_xp and l_og (erf through the libm crate, which builds for wasm32); with X22 | - |
 
 ## X_eTaL-games
 
@@ -199,7 +202,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | X11 | what a macro may know while it expands (the platform, flags) and an include macro | landed | the macros lane's system macros: `@ c_fg< "cli"`, `@ i_nclude< "file"`, `--cfg NAME` (MC14-MC17, D76; in v0.1.0) | passes |
 | X12 | a macro call with nothing on the left: `@ d_bg< "x"` | landed | the macros lane (MC14-MC17, D76): `@` stands for the empty side | passes |
 | X13 | a macro reporting its own compile error at the call, with its own message | landed | `[]R_EJECT` (MC20, D76) and the system macro `e_rror<` | passes |
-| X14 | a `.xtlm` calling its own library's functions, or naming the importer's alias in its expansion | partly landed | MC23: a `.xtlm` imports its own `.xtl` by path; naming the importer's alias in an expansion is not yet decided (ask M11) | - |
+| X14 | a `.xtlm` calling its own library's functions, or naming the importer's alias in its expansion | partly landed | MC23: a `.xtlm` imports its own `.xtl` by path; naming the importer's alias in an expansion is step 171 (macro-alias, with ask M11) | - |
 | X15 | an error a macro reports with `[]R_EJECT` is located by byte range only | planned | Saga 27, readable type errors (step errors-located: every diagnostic with its file, line and column) | - |
 | X16 | `[]U_CHAR` beyond ASCII: it takes codes 0 to 127 | planned | deferred: Unicode text (lang-choices section 15, plan.md Deferred), each deferred item a saga when scheduled | fails |
 | X17 | a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix | new | a question: by T1 a comparison's result is any `Truthy` type so it converts in arithmetic (`(Num c, Truthy c) => a -> b -> c`); whether to default it is not yet decided | - |
