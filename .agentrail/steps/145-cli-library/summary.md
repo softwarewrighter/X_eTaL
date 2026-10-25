@@ -1,0 +1,1 @@
+The command line as a library: crate xetal-command (parse, run against a Host with Files, output, error and a seed); the xetal binary a thin shell over it; goldens unchanged; E3 landed
