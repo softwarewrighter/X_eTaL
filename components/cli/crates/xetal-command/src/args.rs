@@ -3,7 +3,7 @@
 use clap::{Args, Parser, Subcommand};
 use xetal_base::{Diagnostic, LANG_NAME};
 
-use crate::stages::read_input;
+use crate::Host;
 
 /// Full `-V` / `--version` block: version, copyright, license,
 /// repository, then build information from `build.rs`.
@@ -37,38 +37,38 @@ const VERSION: &str = concat!(
     after_long_help = include_str!("cli_help.txt"),
     override_usage = "xetal [OPTIONS] [SCRIPT]\n       xetal [OPTIONS] <COMMAND>"
 )]
-pub(crate) struct Cli {
+pub struct Cli {
     #[command(subcommand)]
-    pub(crate) command: Option<Command>,
+    pub command: Option<Command>,
     /// A script to run (`xetal FILE` is `xetal run FILE`; for shebangs).
-    pub(crate) script: Option<String>,
+    pub script: Option<String>,
     /// Where pictures shown with []S_HOW are written, as NAME-1.svg,
     /// NAME-2.svg, ... (default: XETAL_DRAW, else the current directory).
     #[arg(long, global = true, value_name = "DIR")]
-    pub(crate) draw: Option<String>,
+    pub draw: Option<String>,
     /// Read the events a program waits for ([]E_VENT, and lines for
     /// []R_EAD and []K_EY) from this file instead of standard input, one
     /// per line (`tick 0.016`, `down 120 80`, `key Up`; blank lines and
     /// # comments skipped); the end of the file is the end of input.
     #[arg(long, global = true, value_name = "FILE")]
-    pub(crate) events: Option<String>,
+    pub events: Option<String>,
     /// Draw nested arrays in plain ASCII (. ' - | > v e) instead of box
     /// characters, as APL2's DISPLAY did on plain terminals.
     #[arg(long, global = true)]
-    pub(crate) ascii: bool,
+    pub ascii: bool,
     /// Print every array result boxed, flat ones too, as APL2's DISPLAY
     /// draws it (what d_isplay gives).
     #[arg(long = "box", global = true)]
-    pub(crate) boxed: bool,
+    pub boxed: bool,
     /// Set a configuration fact NAME, which a macro tests with
     /// `@ c_fg< "NAME"` (repeatable; `cli` holds at the command line).
     #[arg(long = "cfg", global = true, value_name = "NAME")]
-    pub(crate) cfg: Vec<String>,
+    pub cfg: Vec<String>,
 }
 
 /// Source given inline with `-e` or as a file path.
 #[derive(Args)]
-pub(crate) struct Input {
+pub struct Input {
     /// Source text to process.
     #[arg(
         short = 'e',
@@ -76,95 +76,95 @@ pub(crate) struct Input {
         conflicts_with = "file",
         allow_hyphen_values = true
     )]
-    pub(crate) expr: Option<String>,
+    pub expr: Option<String>,
     /// Source file to process.
-    pub(crate) file: Option<String>,
+    pub file: Option<String>,
 }
 
 /// `eval` and `run` options: type-checked unless `--untyped`.
 #[derive(Args)]
-pub(crate) struct EvalArgs {
+pub struct EvalArgs {
     #[command(flatten)]
-    pub(crate) input: Input,
+    pub input: Input,
     /// Skip the type checker (for experiments such as the Y combinator).
     #[arg(long)]
-    pub(crate) untyped: bool,
+    pub untyped: bool,
     /// Seed `r_oll!` so a run can be repeated (default: XETAL_SEED, else
     /// unpredictable).
     #[arg(long)]
-    pub(crate) seed: Option<u64>,
+    pub seed: Option<u64>,
     /// Show each statement pretty-printed, then its output (a notebook).
     #[arg(long)]
-    pub(crate) echo: bool,
+    pub echo: bool,
     /// With --echo, pause this many milliseconds after each statement.
     #[arg(long, requires = "echo", value_name = "MS")]
-    pub(crate) delay: Option<u64>,
+    pub delay: Option<u64>,
 }
 
 /// `doc` options: the cross-reference as JSON, as a site, or its doc
 /// tests.
 #[derive(Args)]
 #[command(group(clap::ArgGroup::new("output").required(true).args(["json", "out", "test"])))]
-pub(crate) struct DocArgs {
+pub struct DocArgs {
     #[command(flatten)]
-    pub(crate) input: Input,
+    pub input: Input,
     /// Print the model as JSON: every item of the file, its imports and
     /// the system macros, with type, doc comment, source and uses.
     #[arg(long)]
-    pub(crate) json: bool,
+    pub json: bool,
     /// Write the documentation as a static site into DIR: an index, a
     /// page per file with its items, its source drawn decorated, every
     /// name linked to its definition and its uses.
     #[arg(long, value_name = "DIR")]
-    pub(crate) out: Option<String>,
+    pub out: Option<String>,
     /// Run the file's `## >>` examples and compare what each prints
     /// with the output shown under it (each doc block one session).
     #[arg(long)]
-    pub(crate) test: bool,
+    pub test: bool,
     /// More programs and libraries documented in the same site or model
     /// (each file once, however many of them import it).
     #[arg(conflicts_with = "test", value_name = "MORE")]
-    pub(crate) more: Vec<String>,
+    pub more: Vec<String>,
 }
 
 /// `lint` options: levels (lints, groups or `all`), or the catalog.
 #[derive(Args)]
-pub(crate) struct LintArgs {
+pub struct LintArgs {
     #[command(flatten)]
-    pub(crate) input: Input,
+    pub input: Input,
     /// Do not report these lints or groups (repeatable).
     #[arg(short = 'A', long = "allow", value_name = "LINT")]
-    pub(crate) allow: Vec<String>,
+    pub allow: Vec<String>,
     /// Report these lints or groups as warnings (repeatable).
     #[arg(short = 'W', long = "warn", value_name = "LINT")]
-    pub(crate) warn: Vec<String>,
+    pub warn: Vec<String>,
     /// Report these lints or groups as errors: the command fails
     /// (repeatable).
     #[arg(short = 'D', long = "deny", value_name = "LINT")]
-    pub(crate) deny: Vec<String>,
+    pub deny: Vec<String>,
     /// Print what a lint checks, why, and an example.
     #[arg(long, value_name = "LINT", conflicts_with = "list")]
-    pub(crate) explain: Option<String>,
+    pub explain: Option<String>,
     /// List every lint: group, default level and summary.
     #[arg(long)]
-    pub(crate) list: bool,
+    pub list: bool,
     /// Rewrite FILE with the fixes that can be made surely, then report
     /// what is left.
     #[arg(long, conflicts_with_all = ["list", "explain"])]
-    pub(crate) fix: bool,
+    pub fix: bool,
     /// Let --fix rewrite a file that is not committed as it is (git could
     /// not undo the fix).
     #[arg(long, requires = "fix")]
-    pub(crate) allow_dirty: bool,
+    pub allow_dirty: bool,
     /// How findings are written: text on stderr, or json (one object a
     /// line on stdout, for editors).
     #[arg(long, value_enum, default_value_t = LintFormat::Text)]
-    pub(crate) format: LintFormat,
+    pub format: LintFormat,
 }
 
 /// `xetal lint --format`.
 #[derive(Clone, Copy, PartialEq, Eq, clap::ValueEnum)]
-pub(crate) enum LintFormat {
+pub enum LintFormat {
     Text,
     Json,
 }
@@ -172,12 +172,12 @@ pub(crate) enum LintFormat {
 impl LintArgs {
     /// The driver's request; the program is read here (unless only the
     /// catalog is asked for).
-    pub(crate) fn request(&self) -> Result<xetal_linter::Request, Diagnostic> {
+    pub fn request(&self, host: &Host) -> Result<xetal_linter::Request, Diagnostic> {
         let catalog = self.list || self.explain.is_some();
         let (expr, file) = (self.input.expr.as_deref(), self.input.file.as_deref());
         let input = match catalog {
             true => None,
-            false => Some((file.unwrap_or("-e").to_string(), read_input(expr, file)?)),
+            false => Some((file.unwrap_or("-e").to_string(), host.input(expr, file)?)),
         };
         Ok(xetal_linter::Request {
             input,
@@ -195,28 +195,28 @@ impl LintArgs {
 
 /// `render` options: decorated Unicode by default.
 #[derive(Args)]
-pub(crate) struct RenderArgs {
+pub struct RenderArgs {
     #[command(flatten)]
-    pub(crate) input: Input,
+    pub input: Input,
     /// Convert decorated Unicode back to raw ASCII (validated by lexing).
     #[arg(long)]
-    pub(crate) raw: bool,
+    pub raw: bool,
     /// Print LaTeX math for a post-processor (KaTeX, MathJax, pdflatex).
     #[arg(long, conflicts_with = "raw")]
-    pub(crate) latex: bool,
+    pub latex: bool,
     /// Color the decorated form for a terminal; text that does not lex
     /// is shown as typed, in red, and never stops the rendering.
     #[arg(long, conflicts_with_all = ["raw", "latex"])]
-    pub(crate) color: bool,
+    pub color: bool,
     /// Print the decorated form as HTML spans for a web page (classes
     /// c-builtin, c-number, ...), escaped; like --color, text that does
     /// not lex is shown as typed.
     #[arg(long, conflicts_with_all = ["raw", "latex", "color"])]
-    pub(crate) html: bool,
+    pub html: bool,
 }
 
 #[derive(Subcommand)]
-pub(crate) enum Command {
+pub enum Command {
     /// Print the token stream.
     Lex(Input),
     /// Print the decorated Unicode form (or --raw, --latex).
@@ -277,7 +277,7 @@ pub(crate) enum Command {
 }
 
 impl Command {
-    pub(crate) fn stage(&self) -> &'static str {
+    pub fn stage(&self) -> &'static str {
         match self {
             Command::Lex(_) => "lex",
             Command::Render(_) => "render",
@@ -298,7 +298,7 @@ impl Command {
     }
 
     /// The name its source is reported by: the file's path, or `-e`.
-    pub(crate) fn origin(&self) -> String {
+    pub fn origin(&self) -> String {
         let input = match self {
             Command::Run { file, .. } => return file.clone(),
             Command::Eval(EvalArgs { input, .. })
@@ -317,8 +317,9 @@ impl Command {
         input.file.clone().unwrap_or_else(|| "-e".into())
     }
 
-    /// The source this command operates on, if it takes one.
-    pub(crate) fn source(&self) -> Option<Result<String, Diagnostic>> {
+    /// The source this command operates on, if it takes one, read from
+    /// the host's files.
+    pub fn source(&self, host: &Host) -> Option<Result<String, Diagnostic>> {
         match self {
             Command::Lex(i)
             | Command::Expand(i)
@@ -329,13 +330,13 @@ impl Command {
             | Command::Type(i)
             | Command::Diagram(i)
             | Command::Eval(EvalArgs { input: i, .. }) => {
-                Some(read_input(i.expr.as_deref(), i.file.as_deref()))
+                Some(host.input(i.expr.as_deref(), i.file.as_deref()))
             }
             Command::Render(RenderArgs { input: i, .. })
             | Command::Doc(DocArgs { input: i, .. }) => {
-                Some(read_input(i.expr.as_deref(), i.file.as_deref()))
+                Some(host.input(i.expr.as_deref(), i.file.as_deref()))
             }
-            Command::Run { file, .. } => Some(read_input(None, Some(file))),
+            Command::Run { file, .. } => Some(host.input(None, Some(file))),
             Command::Lint(_) | Command::Repl | Command::Edit { .. } => None,
         }
     }

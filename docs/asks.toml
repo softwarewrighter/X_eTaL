@@ -737,8 +737,8 @@ works = "ok: addition"
 id = "E3"
 repo = "X_eTaL-extensions"
 ask = "the CLI as a library: a host entry point so a host can be `xetal` with its own store"
-state = "planned"
-here = "the step cli-as-library, after the asks audit's small fixes (plan.md, after Saga 38)"
+state = "landed"
+here = "step 145 (cli-library): the crate `xetal-command` (components/cli): `parse` reads the arguments as the binary does, `run` runs a command against a `Host` (its files through the `Files` trait, its output and error streams, a seed); the `xetal` binary is a thin shell over it, and the browser's terminal uses it too"
 
 [[ask]]
 id = "E4"

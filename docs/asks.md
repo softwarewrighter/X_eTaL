@@ -17,10 +17,10 @@ build already does what the ask wants.
 | X_eTaL-ML | 8 | 1 | 7 | 3 | 0 |
 | X_eTaL-games | 8 | 4 | 4 | 1 | 3 |
 | X_eTaL-libraries | 9 | 3 | 2 | 3 | 1 |
-| X_eTaL-extensions | 3 | 1 | 3 | 0 | 1 |
+| X_eTaL-extensions | 4 | 1 | 2 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 39 | 12 | 26 | 11 | 16 |
+| All | 40 | 12 | 25 | 11 | 16 |
 
 ## Notice: an unused parameter is _u: drop # lint: allow unused-binding
 
@@ -214,7 +214,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | - | --- | ----- | ---- | ----- |
 | E1 | a native hook: X_eTaL code calling a function in a native library (`[]S_VO`) | planned | Saga 23, host bindings and native packages (may start from this repo's ABI V1) | - |
 | E2 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | passes |
-| E3 | the CLI as a library: a host entry point so a host can be `xetal` with its own store | planned | the step cli-as-library, after the asks audit's small fixes (plan.md, after Saga 38) | - |
+| E3 | the CLI as a library: a host entry point so a host can be `xetal` with its own store | landed | step 145 (cli-library): the crate `xetal-command` (components/cli): `parse` reads the arguments as the binary does, `run` runs a command against a `Host` (its files through the `Files` trait, its output and error streams, a seed); the `xetal` binary is a thin shell over it, and the browser's terminal uses it too | - |
 | E4 | the time: a quad for the current time and a monotonic or CPU clock | partly landed | `[]TS` (the local time stamp) and `[]D_L` (a delay), through the host's clock (D84, quads lane step 2); no monotonic or CPU clock (APL's quad AI) yet, not planned | passes |
 | E5 | an error in a library function also names the program line that called it | planned | Saga 27, readable type errors | - |
 | E6 | `xetal --draw DIR run FILE` failed: options before the subcommand | landed | 5f00608 (options before the subcommand) | golden `cli-draw-before` |

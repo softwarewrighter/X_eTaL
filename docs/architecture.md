@@ -31,7 +31,14 @@ Side paths:
 - `xetal-render`: raw <-> decorated Unicode presentation (lossless),
   LaTeX output, and the canonical (fully parenthesized) printer; an
   expanded (long names) printer comes later.
-- `xetal-cli`: the `xetal` binary exposing every stage as text.
+- `xetal-command`: the command line as a library: `parse` gives the
+  arguments as the binary reads them, `run` runs a command against a
+  `Host` (its files, output and error streams, a seed), so the binary
+  and the browser's terminal share one dispatch; the interactive
+  commands (`repl`, `edit`) are the host's.
+- `xetal-cli`: the `xetal` binary, a thin shell over `xetal-command`
+  with the process as its host, plus the REPL and the editor on the
+  terminal.
 - `xetal-web` (later): Rust -> WASM playground consuming the public
   library APIs only.
 
@@ -205,8 +212,9 @@ components/
                            libraries); builds for wasm32;
                            xetal-webclock (the browser's clock, which
                            the worker installs)
-  cli/                     xetal-cli (`xetal` binary + tests/spec.rs
-                           harness), xetal-spec (case files),
+  cli/                     xetal-command (the command line as a
+                           library), xetal-cli (`xetal` binary +
+                           tests/spec.rs harness), xetal-spec (case files),
                            xetal-repl (interactive session)
 docs/emacs/                xetal-mode.el, ob-xetal.el (Org Babel), ERT tests
 docs/literate/             literate Org documents (tour.org), results recorded
@@ -232,7 +240,7 @@ change.
 
 Build provenance (the build host, the short commit and the build time,
 in `xetal --version` and the live demo's footer) comes from the
-`build.rs` of `xetal-cli` and `xetal-chrome`: `hostname`, `git
+`build.rs` of `xetal-command` and `xetal-chrome`: `hostname`, `git
 rev-parse` and the clock, each overridden by `XETAL_BUILD_HOST`,
 `XETAL_BUILD_SHA` or `XETAL_BUILD_TIMESTAMP` when set (for a repository
 that vendors X_eTaL, where `git` would report its own commit).

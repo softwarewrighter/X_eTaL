@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-25
+
+- 08:44 `refactor` The command line as a library (step 145, X_eTaL-extensions' ask E3; the first part of step 165): a new crate xetal-command in components/cli holds the arguments, the stages, the notebook (`--echo`) and `--context`, moved from xetal-cli; `parse` reads the arguments as the binary does and `run` runs a command against a `Host`: files through a `Files` trait (the disk, or a browser's store), the output and error streams as writers, and a seed for a run that names none (the browser has no clock to seed from). The `xetal` binary is a thin shell over it with the process as host, keeping `repl` and `edit`, which take the terminal. Behavior unchanged: all 267 goldens pass; the `just --list` golden rebased for the `spot`, `ui-check` and `ui-nightly` recipes it predated. Tests: xetal-command tests/command.rs (output to the host, files from the host, stages' text, lint's findings, the interactive commands left to the host, the host's seed). docs/architecture.md; the ledger: E3 landed.
+
 ## 2026-10-23
 
 - 11:47 `plan` X_eTaL-ML's asks (docs/xetal-asks.md there) read and taken into steps: 167 pictures-per-run (M14: a run's `[]S_HOW` pictures and the replay counters belong to the run, not the process), 168 doc-title (M15: `xetal doc --out --title`), 169 libm-builtins (M19, with X22: t_anh, s_qrt, e_xpm1, l_og1p, e_rf, e_rfc, by the rule that a built-in is what libm gives at full accuracy; the rule to confirm with the user first), 170 code-string-escape-hint (M18: the unknown-escape error and the string lints point to `c#"..."#`), 171 macro-alias (M11 and X14: the importer's alias in a macro's expansion, a decision with the user first). The ledger: M17 landed (code strings), M11, M14, M15, M18, M19 planned at their steps, M16 planned at Saga 22; docs/asks.md regenerated.

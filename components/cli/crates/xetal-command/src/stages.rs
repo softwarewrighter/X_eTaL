@@ -3,50 +3,26 @@
 use xetal_base::Diagnostic;
 
 use crate::args::{Command, RenderArgs};
+use crate::host::Host;
 
-pub(crate) fn read_input(expr: Option<&str>, file: Option<&str>) -> Result<String, Diagnostic> {
-    match (expr, file) {
-        (Some(expr), _) => Ok(expr.to_string()),
-        (None, Some(path)) => std::fs::read_to_string(path)
-            .map_err(|e| Diagnostic::new("io", format!("cannot read {path}: {e}"))),
-        (None, None) => Err(Diagnostic::new(
-            "no-input",
-            "give source with -e EXPR or a FILE path",
-        )),
-    }
-}
-
-/// Run the pipeline as far as `command` asks. Every stage runs the
-/// earlier ones first, so an early error is reported by any command.
-pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
-    if matches!(command, Command::Repl) {
-        xetal_repl::stdio().map_err(|e| Diagnostic::new("io", e.to_string()))?;
-        return Ok(String::new());
-    }
+/// Run the pipeline as far as `command` asks against `host`. Every
+/// stage runs the earlier ones first, so an early error is reported by
+/// any command. The interactive commands (`repl`, `edit`) are the
+/// host's own and are reported unsupported here.
+pub fn run(command: &Command, host: &mut Host) -> Result<String, Diagnostic> {
     if let Command::Lint(args) = command {
-        let (mut out, mut err) = (std::io::stdout(), std::io::stderr());
-        return xetal_linter::command(&args.request()?, &mut out, &mut err);
+        let request = args.request(host)?;
+        let Host { out, err, .. } = host;
+        return xetal_linter::command(&request, out, err);
     }
-    if let Command::Edit { file } = command {
-        use std::io::IsTerminal;
-        if !(std::io::stdin().is_terminal() && std::io::stdout().is_terminal()) {
-            return Err(Diagnostic::new(
-                "no-terminal",
-                "xetal edit needs a terminal",
-            ));
-        }
-        xetal_edit::run(std::path::Path::new(file))
-            .map_err(|e| Diagnostic::new("io", e.to_string()))?;
-        return Ok(String::new());
-    }
-    let Some(source) = command.source() else {
+    let Some(source) = command.source(host) else {
         return Err(Diagnostic::unsupported(command.stage()));
     };
     let source = source?;
-    if let Some(result) = whole(command, &source) {
+    if let Some(result) = whole(command, &source, host) {
         return result;
     }
-    if let Some(result) = crate::echo::evaluation(command, &source) {
+    if let Some(result) = crate::echo::evaluation(command, &source, host) {
         return result;
     }
     let tokens = xetal_lex::lex(&source)?;
@@ -65,7 +41,7 @@ pub(crate) fn run(command: &Command) -> Result<String, Diagnostic> {
 
 /// The commands that take the whole source rather than its tokens:
 /// render, diagram, expand, migrate and doc (its model or its tests).
-fn whole(command: &Command, source: &str) -> Option<Result<String, Diagnostic>> {
+fn whole(command: &Command, source: &str, host: &mut Host) -> Option<Result<String, Diagnostic>> {
     let named = |input: &crate::args::Input| input.file.clone().unwrap_or("-e".into());
     Some(match command {
         Command::Render(args) => render(args, source),
@@ -73,21 +49,26 @@ fn whole(command: &Command, source: &str) -> Option<Result<String, Diagnostic>> 
         Command::Expand(input) => xetal_program::expanded(&named(input), source),
         Command::Migrate(_) => xetal_names::migrate(source).map(|s| s.trim_end().to_string()),
         Command::Doc(args) if args.test => xetal_doctest::test(&named(&args.input), source),
-        Command::Doc(args) => doc(args, &named(&args.input), source),
+        Command::Doc(args) => doc(args, &named(&args.input), source, host),
         _ => return None,
     })
 }
 
 /// `xetal doc`: the model as JSON, or the site with its search written
 /// into `--out` (the paths written, one a line); of FILE and any MORE.
-fn doc(args: &crate::args::DocArgs, name: &str, source: &str) -> Result<String, Diagnostic> {
+fn doc(
+    args: &crate::args::DocArgs,
+    name: &str,
+    source: &str,
+    host: &mut Host,
+) -> Result<String, Diagnostic> {
     let mut inputs = vec![(name.to_string(), source.to_string())];
     for more in &args.more {
-        inputs.push((more.clone(), read_input(None, Some(more))?));
+        inputs.push((more.clone(), host.input(None, Some(more))?));
     }
     let files = xetal_doc::models(&inputs)?;
     for w in xetal_doc::warnings(&files) {
-        eprintln!("{w}");
+        host.warn(w);
     }
     match &args.out {
         Some(dir) => xetal_docsearch::document(&inputs, std::path::Path::new(dir)),
@@ -122,8 +103,9 @@ fn render(args: &RenderArgs, source: &str) -> Result<String, Diagnostic> {
     }
 }
 
-/// The `--seed` given, else `XETAL_SEED`, else none (unpredictable).
-pub(crate) fn seed_or_env(seed: Option<u64>) -> Result<Option<u64>, Diagnostic> {
+/// The `--seed` given, else `XETAL_SEED`, else the host's, else none
+/// (unpredictable: a fresh one from the clock).
+pub(crate) fn seed_or_env(seed: Option<u64>, host: &Host) -> Result<Option<u64>, Diagnostic> {
     match (seed, std::env::var("XETAL_SEED")) {
         (Some(s), _) => Ok(Some(s)),
         (None, Ok(text)) => text.trim().parse().map(Some).map_err(|_| {
@@ -132,17 +114,18 @@ pub(crate) fn seed_or_env(seed: Option<u64>) -> Result<Option<u64>, Diagnostic> 
                 format!("XETAL_SEED must be a whole number, got {text:?}"),
             )
         }),
-        (None, Err(_)) => Ok(None),
+        (None, Err(_)) => Ok(host.seed),
     }
 }
 
 /// Type-check (unless `untyped`), then evaluate, streaming results to
-/// stdout; warnings go to stderr.
+/// the host's output; warnings go to its error stream.
 pub(crate) fn evaluate(
     source: &str,
     name: &str,
     untyped: bool,
     seed: Option<u64>,
+    host: &mut Host,
 ) -> Result<String, Diagnostic> {
     let xetal_program::Loaded {
         sources,
@@ -150,15 +133,15 @@ pub(crate) fn evaluate(
     } = xetal_program::load(name, source)?;
     let at = |d| xetal_program::located(&sources, d);
     for warning in sources.warnings() {
-        eprintln!("{warning}");
+        host.warn(warning);
     }
     if !untyped {
         xetal_types::check_program(&mut program).map_err(at)?;
     }
-    let mut stdout = std::io::stdout();
-    let (warnings, result) = xetal_eval::eval_program(&program, &mut stdout, seed);
+    let (warnings, result) = xetal_eval::eval_program(&program, host.out, seed);
+    let _ = host.out.flush();
     for warning in xetal_linter::honored(&sources, &program, warnings) {
-        eprintln!("{}", at(warning));
+        host.warn(at(warning));
     }
     result.map(|()| String::new()).map_err(at)
 }

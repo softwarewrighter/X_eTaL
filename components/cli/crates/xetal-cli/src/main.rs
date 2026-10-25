@@ -1,19 +1,12 @@
-//! The `xetal` binary: every pipeline stage exposed as deterministic text.
-
-mod args;
-mod context;
-mod echo;
-mod live;
-mod once;
-mod stages;
+//! The `xetal` binary: a thin shell over `xetal-command`, which parses
+//! the arguments and runs each command against a host; here the host
+//! is the process (its files, standard output and error), and the
+//! interactive commands (`repl`, `edit`) take the terminal.
 
 use std::process::ExitCode;
 
-use clap::Parser;
 use xetal_base::Diagnostic;
-
-use crate::args::{Cli, Command};
-use crate::stages::run;
+use xetal_command::{Cli, Command, Host, Local};
 
 fn main() -> ExitCode {
     // A closed stdout (`xetal run FILE | head`) ends the run quietly, as
@@ -22,7 +15,7 @@ fn main() -> ExitCode {
     // disposition ends the process with the signal instead.
     sigpipe::reset();
     xetal_tty::install(std::sync::Arc::new(xetal_line::Terminal));
-    let cli = Cli::parse();
+    let cli = xetal_command::parse(std::env::args()).unwrap_or_else(|e| e.exit());
     let draw = cli.draw.clone();
     let events = cli.events.clone();
     xetal_grid::set_ascii(cli.ascii);
@@ -30,7 +23,14 @@ fn main() -> ExitCode {
     xetal_system::set_flags(cli.cfg.clone());
     let command = command(cli.command, cli.script);
     install_drawing(draw, events, &command);
-    match run(&command) {
+    let (mut out, mut err) = (std::io::stdout(), std::io::stderr());
+    let mut host = Host {
+        files: &Local,
+        out: &mut out,
+        err: &mut err,
+        seed: None,
+    };
+    match run(&command, &mut host) {
         Ok(text) => {
             if !text.is_empty() {
                 println!("{text}");
@@ -38,16 +38,40 @@ fn main() -> ExitCode {
             ExitCode::SUCCESS
         }
         Err(diag) => {
-            eprintln!("{}", placed(diag, &command));
+            eprintln!("{}", placed(diag, &command, &host));
             ExitCode::FAILURE
         }
     }
 }
 
+/// The interactive commands on this terminal; the rest through the
+/// library.
+fn run(command: &Command, host: &mut Host) -> Result<String, Diagnostic> {
+    match command {
+        Command::Repl => {
+            xetal_repl::stdio().map_err(|e| Diagnostic::new("io", e.to_string()))?;
+            Ok(String::new())
+        }
+        Command::Edit { file } => {
+            use std::io::IsTerminal;
+            if !(std::io::stdin().is_terminal() && std::io::stdout().is_terminal()) {
+                return Err(Diagnostic::new(
+                    "no-terminal",
+                    "xetal edit needs a terminal",
+                ));
+            }
+            xetal_edit::run(std::path::Path::new(file))
+                .map_err(|e| Diagnostic::new("io", e.to_string()))?;
+            Ok(String::new())
+        }
+        _ => xetal_command::run(command, host),
+    }
+}
+
 /// `d` with its file, line and column, if it has a span not yet placed
 /// (a stage that reads the source alone: lex, parse, render, ...).
-fn placed(d: Diagnostic, command: &Command) -> Diagnostic {
-    match (d.place(), d.span, command.source()) {
+fn placed(d: Diagnostic, command: &Command, host: &Host) -> Diagnostic {
+    match (d.place(), d.span, command.source(host)) {
         (None, Some(_), Some(Ok(text))) => d.placed_in(&command.origin(), &text),
         _ => d,
     }

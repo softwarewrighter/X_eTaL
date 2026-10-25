@@ -2123,36 +2123,18 @@ dependencies = [
 name = "xetal-cli"
 version = "0.1.0"
 dependencies = [
- "chrono",
  "clap",
- "hostname",
  "sigpipe",
  "xetal-base",
- "xetal-core",
- "xetal-diagram",
- "xetal-doc",
- "xetal-docsearch",
- "xetal-doctest",
+ "xetal-command",
  "xetal-edit",
- "xetal-eval",
  "xetal-grid",
- "xetal-lex",
  "xetal-line",
- "xetal-lint",
- "xetal-linter",
- "xetal-names",
- "xetal-notate",
- "xetal-program",
- "xetal-render",
  "xetal-repl",
- "xetal-sources",
  "xetal-spec",
  "xetal-store",
- "xetal-syntax",
  "xetal-system",
  "xetal-tty",
- "xetal-types",
- "xetal-view",
 ]
 
 [[package]]
@@ -2176,6 +2158,35 @@ dependencies = [
  "xetal-sources",
  "xetal-strtext",
  "xetal-types",
+]
+
+[[package]]
+name = "xetal-command"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "clap",
+ "hostname",
+ "xetal-base",
+ "xetal-core",
+ "xetal-diagram",
+ "xetal-doc",
+ "xetal-docsearch",
+ "xetal-doctest",
+ "xetal-eval",
+ "xetal-lex",
+ "xetal-lint",
+ "xetal-linter",
+ "xetal-names",
+ "xetal-notate",
+ "xetal-program",
+ "xetal-render",
+ "xetal-repl",
+ "xetal-sources",
+ "xetal-store",
+ "xetal-syntax",
+ "xetal-types",
+ "xetal-view",
 ]
 
 [[package]]

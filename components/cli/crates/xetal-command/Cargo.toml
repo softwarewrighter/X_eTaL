@@ -1,0 +1,35 @@
+[package]
+name = "xetal-command"
+description = "The xetal command line as a library: its arguments parsed and each command run against a host (files, output, a seed), so the binary and the browser's terminal share one dispatch"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-lex.workspace = true
+xetal-render.workspace = true
+xetal-view.workspace = true
+xetal-notate.workspace = true
+xetal-syntax.workspace = true
+xetal-core.workspace = true
+xetal-types.workspace = true
+xetal-eval.workspace = true
+xetal-repl.workspace = true
+xetal-program.workspace = true
+xetal-names.workspace = true
+xetal-doc.workspace = true
+xetal-docsearch.workspace = true
+xetal-doctest.workspace = true
+xetal-lint.workspace = true
+xetal-linter.workspace = true
+xetal-sources.workspace = true
+xetal-diagram.workspace = true
+xetal-store.workspace = true
+clap.workspace = true
+
+[build-dependencies]
+hostname = "0.4"
+chrono = { version = "0.4", default-features = false, features = ["clock"] }
