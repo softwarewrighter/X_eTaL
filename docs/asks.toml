@@ -422,6 +422,14 @@ state = "planned"
 here = "step 169 (libm-builtins): the rule to confirm with the user and record in lang-choices, then the six built-ins beside e_xp and l_og (erf through the libm crate, which builds for wasm32); with X22"
 
 [[ask]]
+id = "M20"
+repo = "X_eTaL-ML"
+ask = "n-wise reduction, APL2's `N f/ V`: f over every window of N consecutive items (`2 -/ V` the differences, `2 ,/ S` the pairs), a negative N reversing each window; a spelling for the window, since `r_/` takes its function on the left"
+state = "planned"
+here = "step 172 (n-wise-reduce): the spelling to decide with the user first (recommended: a built-in `n_wise`, `2 '- n_wise c`, as `n 'f_ p_ower x` places its count); meanwhile `(1 d_rop c) - -1 d_rop c`"
+repro = "2 '- n_wise 1 3 6"
+
+[[ask]]
 id = "G1"
 repo = "X_eTaL-games"
 ask = "a terminal for interactive programs, in the browser too"

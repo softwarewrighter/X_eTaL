@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-29
+
+- 08:16 `plan` X_eTaL-ML's ask M20 taken as step 172 (n-wise-reduce): APL2's `N f/ V`, every window of N items reduced, a negative N reversing each; the spelling to decide with the user first (recommended `2 '- n_wise c`, placed as `p_ower` places its count). The ledger: M20 planned; docs/asks.md regenerated.
+
 ## 2026-10-25
 
 - 08:44 `refactor` The command line as a library (step 145, X_eTaL-extensions' ask E3; the first part of step 165): a new crate xetal-command in components/cli holds the arguments, the stages, the notebook (`--echo`) and `--context`, moved from xetal-cli; `parse` reads the arguments as the binary does and `run` runs a command against a `Host`: files through a `Files` trait (the disk, or a browser's store), the output and error streams as writers, and a seed for a run that names none (the browser has no clock to seed from). The `xetal` binary is a thin shell over it with the process as host, keeping `repl` and `edit`, which take the terminal. Behavior unchanged: all 267 goldens pass; the `just --list` golden rebased for the `spot`, `ui-check` and `ui-nightly` recipes it predated. Tests: xetal-command tests/command.rs (output to the host, files from the host, stages' text, lint's findings, the interactive commands left to the host, the host's seed). docs/architecture.md; the ledger: E3 landed.
