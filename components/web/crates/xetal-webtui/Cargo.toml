@@ -1,6 +1,6 @@
 [package]
 name = "xetal-webtui"
-description = "xetal edit in the browser: the terminal editor drawn into an in-memory backend and shown as a grid of cells, the page's keys fed to it"
+description = "xetal in the browser's terminal: a shell running its commands, the REPL and the editor, drawn into an in-memory backend and shown as a grid of cells, the page's keys fed to it"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -9,6 +9,7 @@ repository.workspace = true
 
 [dependencies]
 xetal-edit.workspace = true
+xetal-shell.workspace = true
 xetal-keys.workspace = true
 ratatui.workspace = true
 yew.workspace = true

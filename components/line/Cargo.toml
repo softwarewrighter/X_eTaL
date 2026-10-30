@@ -20,6 +20,6 @@ xetal-lex = { path = "../syntax/crates/xetal-lex" }
 xetal-render = { path = "../render/crates/xetal-render" }
 xetal-view = { path = "../view/crates/xetal-view" }
 xetal-buffer = { path = "../tui/crates/xetal-buffer" }
-xetal-keys = { path = "../tui/crates/xetal-keys" }
+xetal-keys = { path = "../tui/crates/xetal-keys", default-features = false }
 xetal-line = { path = "crates/xetal-line" }
-ratatui = "0.30"
+ratatui = { version = "0.30", default-features = false, features = ["all-widgets", "macros", "std", "layout-cache", "underline-color"] }

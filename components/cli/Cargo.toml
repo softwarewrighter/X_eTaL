@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-command", "crates/xetal-cli", "crates/xetal-spec", "crates/xetal-repl"]
+members = ["crates/xetal-command", "crates/xetal-shell", "crates/xetal-cli", "crates/xetal-spec", "crates/xetal-repl"]
 
 [workspace.package]
 version = "0.1.0"
@@ -29,8 +29,12 @@ xetal-syntax = { path = "../syntax/crates/xetal-syntax" }
 xetal-render = { path = "../render/crates/xetal-render" }
 xetal-view = { path = "../view/crates/xetal-view" }
 xetal-notate = { path = "../view/crates/xetal-notate" }
-xetal-edit = { path = "../tui/crates/xetal-edit" }
-xetal-line = { path = "../line/crates/xetal-line" }
+xetal-edit = { path = "../tui/crates/xetal-edit", default-features = false }
+xetal-keys = { path = "../tui/crates/xetal-keys", default-features = false }
+xetal-macro = { path = "../macro/crates/xetal-macro" }
+xetal-shell = { path = "crates/xetal-shell" }
+ratatui = { version = "0.30", default-features = false, features = ["all-widgets", "macros", "std", "layout-cache", "underline-color"] }
+xetal-line = { path = "../line/crates/xetal-line", default-features = false }
 xetal-program = { path = "../macro/crates/xetal-program" }
 xetal-names = { path = "../macro/crates/xetal-names" }
 xetal-doc = { path = "../doc/crates/xetal-doc" }
@@ -42,7 +46,7 @@ xetal-types = { path = "../types/crates/xetal-types" }
 xetal-array = { path = "../eval/crates/xetal-array" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
 xetal-command = { path = "crates/xetal-command" }
-xetal-repl = { path = "crates/xetal-repl" }
+xetal-repl = { path = "crates/xetal-repl", default-features = false }
 xetal-spec = { path = "crates/xetal-spec" }
 clap = { version = "4", features = ["derive"] }
 assert_cmd = "2"

@@ -64,3 +64,33 @@ fn the_editor_draws_into_rows_with_the_cursor_marked() {
         "{bottom}"
     );
 }
+
+/// The page's rows, joined, are the screen `xetal edit --screen` prints
+/// after the same keys: one drawing for both hosts.
+#[test]
+fn the_pages_rows_are_the_screen_dump() {
+    let path = std::path::Path::new("same.xtl");
+    let keys = xetal_keys::keys("1 + 2<C-r>").unwrap();
+    let dumped = xetal_shell::screen(
+        Editor::with_text(path, "", Box::new(StoreLibraries)),
+        &keys,
+        (60, 14),
+    );
+    let mut editor = Editor::with_text(path, "", Box::new(StoreLibraries));
+    for key in keys {
+        editor.handle(key);
+    }
+    let mut terminal = Terminal::new(TestBackend::new(60, 14)).unwrap();
+    terminal.draw(|f| editor.draw(f)).unwrap();
+    let page: Vec<String> = rows(terminal.backend().buffer(), None)
+        .iter()
+        .map(|row| {
+            row.iter()
+                .map(|r| r.text.as_str())
+                .collect::<String>()
+                .trim_end()
+                .to_string()
+        })
+        .collect();
+    assert_eq!(page, dumped);
+}

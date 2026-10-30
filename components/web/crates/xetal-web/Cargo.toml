@@ -19,6 +19,7 @@ xetal-layout.workspace = true
 xetal-runner.workspace = true
 xetal-typing.workspace = true
 xetal-libs.workspace = true
+xetal-macro.workspace = true
 xetal-store.workspace = true
 yew.workspace = true
 wasm-bindgen.workspace = true

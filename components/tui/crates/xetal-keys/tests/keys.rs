@@ -70,3 +70,34 @@ fn a_scripted_session_edits_the_buffer() {
         Some(Action::Save)
     );
 }
+
+/// Keys written as text: characters type themselves, names in angle
+/// brackets are keys, `<lt>` is a `<`; a bad name is an error.
+#[test]
+fn keys_written_as_text() {
+    use xetal_keys::{Code, Key, keys};
+    assert_eq!(
+        keys("1<C-r><F5>").unwrap(),
+        vec![
+            Key::plain(Code::Char('1')),
+            Key::ctrl('r'),
+            Key::plain(Code::F(5))
+        ]
+    );
+    assert_eq!(
+        keys("a<lt>b<Enter><S-Tab>").unwrap(),
+        vec![
+            Key::plain(Code::Char('a')),
+            Key::plain(Code::Char('<')),
+            Key::plain(Code::Char('b')),
+            Key::plain(Code::Enter),
+            Key::plain(Code::BackTab)
+        ]
+    );
+    assert!(
+        keys("<Bogus>")
+            .unwrap_err()
+            .contains("unknown key name <Bogus>")
+    );
+    assert!(keys("<C-r").unwrap_err().contains("unclosed"));
+}

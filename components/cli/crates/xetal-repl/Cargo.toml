@@ -7,6 +7,11 @@ license.workspace = true
 authors.workspace = true
 repository.workspace = true
 
+[features]
+default = ["terminal"]
+# The session on standard input, with the line editor on a terminal.
+terminal = ["dep:xetal-line", "xetal-line/terminal"]
+
 [dependencies]
 xetal-linter.workspace = true
 xetal-store.workspace = true
@@ -14,5 +19,5 @@ xetal-base.workspace = true
 xetal-core.workspace = true
 xetal-types.workspace = true
 xetal-eval.workspace = true
-xetal-line.workspace = true
+xetal-line = { workspace = true, optional = true }
 xetal-program.workspace = true

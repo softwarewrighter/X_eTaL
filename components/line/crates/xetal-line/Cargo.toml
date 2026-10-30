@@ -7,9 +7,14 @@ license.workspace = true
 authors.workspace = true
 repository.workspace = true
 
+[features]
+default = ["terminal"]
+# Reading lines and keys on a terminal (crossterm).
+terminal = ["dep:ratatui", "ratatui/crossterm", "xetal-keys/crossterm"]
+
 [dependencies]
 xetal-tty.workspace = true
-ratatui = { workspace = true, features = ["crossterm"] }
+ratatui = { workspace = true, optional = true }
 xetal-view.workspace = true
 xetal-buffer.workspace = true
 xetal-keys.workspace = true

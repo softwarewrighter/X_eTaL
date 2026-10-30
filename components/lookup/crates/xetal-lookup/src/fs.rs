@@ -4,6 +4,7 @@
 //! each directory of XETAL_PATH, then among the standard libraries
 //! built into xetal. The first directory holding either file gives
 //! both it holds; files from different directories are never mixed.
+//! A host without a disk (the browser) finds in the store instead.
 
 use std::path::{Path, PathBuf};
 
@@ -53,6 +54,9 @@ impl Libraries for FsLibraries {
     }
 
     fn find_both(&self, name: &str, from: &str) -> Pair {
+        if crate::store::in_store() {
+            return crate::StoreLibraries.find_both(name, from);
+        }
         let base = Path::new(from)
             .parent()
             .filter(|p| !p.as_os_str().is_empty())

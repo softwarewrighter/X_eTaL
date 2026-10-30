@@ -209,23 +209,45 @@ class Run:
         self.expect("complete: Tab writes it", self.page.input_value(SOURCE), ["1 + r_ange"])
 
     def check_terminal(self):
-        """The Terminal button shows xetal edit as one screen; typing
-        draws in its cells; Ctrl-Q returns to the three panes with the
-        text."""
+        """The Terminal button opens a shell on the file in xetal edit;
+        the editor's screen after the same keys is the one `xetal edit
+        --screen` prints (reg/edit-screen-run.out); the shell runs a
+        command; exit brings the file back to the three panes."""
         self.type_source("")
         self.page.click("button:text-is('Terminal')")
         self.page.wait_for_selector("pre.tui")
         self.page.focus("pre.tui")
+        self.page.keyboard.press("Control+q")
+        self.page.keyboard.press("Control+q")
+        self.page.keyboard.type("xetal edit screen-sum.xtl")
+        self.page.keyboard.press("Enter")
         self.page.keyboard.type("1 + 2")
-        time.sleep(0.3)
-        text = self.page.inner_text("pre.tui")
-        self.expect("terminal: the screen", text, ["1 + 2", "Types", "Int", "^S save"])
         self.page.keyboard.press("Control+r")
         time.sleep(0.5)
-        self.expect("terminal: Ctrl-R runs", self.page.inner_text("pre.tui"), ["Output", "3"])
+        self.same_screen("terminal: the editor's screen is xetal edit --screen's", "edit-screen-run")
         self.page.keyboard.press("Control+q")
+        self.page.keyboard.press("Control+q")
+        self.page.keyboard.type("xetal eval -e '6 * 7'")
+        self.page.keyboard.press("Enter")
+        time.sleep(0.3)
+        self.expect("terminal: the shell runs xetal eval", self.page.inner_text("pre.tui"), ["$ xetal eval -e '6 * 7'", "42"])
+        self.page.keyboard.type("exit")
+        self.page.keyboard.press("Enter")
         self.page.wait_for_selector(SOURCE)
-        self.expect("terminal: Ctrl-Q brings the text back", self.page.input_value(SOURCE), ["1 + 2"])
+        self.expect("terminal: exit brings the file back", self.page.input_value(SOURCE), ["1 + 2"])
+
+    def same_screen(self, what, golden):
+        """The page's terminal rows against a golden's screen, line by
+        line, trailing blanks ignored."""
+        want = (ROOT / "reg" / f"{golden}.out").read_text().rstrip("\n").split("\n")
+        rows = self.page.locator("pre.tui .row")
+        got = [rows.nth(i).inner_text().rstrip() for i in range(rows.count())]
+        diff = [i for i, (a, b) in enumerate(zip(got, want)) if a != b.rstrip()]
+        if len(got) != len(want) or diff:
+            at = diff[0] if diff else min(len(got), len(want))
+            self.fail(f"{what}: row {at + 1} differs: {got[at:at + 1]!r} vs {want[at:at + 1]!r}")
+        else:
+            self.ok(what)
 
     def all(self, scenarios):
         self.page.goto(self.site["url"], wait_until="networkidle")

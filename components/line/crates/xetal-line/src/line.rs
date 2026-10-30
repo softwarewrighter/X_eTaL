@@ -1,10 +1,9 @@
 //! The line being typed, its history, and how keys change them; Tab
 //! completes (tab.rs).
 
-use ratatui::crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
 use xetal_buffer::Buffer;
 use xetal_complete::Completion;
-use xetal_keys::{Command, apply, command};
+use xetal_keys::{Code, Command, Key, apply, command};
 use xetal_view::{ansi, column, view, width};
 
 /// What a key did.
@@ -35,20 +34,21 @@ impl Line {
         self.buffer.text()
     }
 
-    /// Handle one key.
-    pub fn handle(&mut self, key: KeyEvent) -> Outcome {
-        let ctrl = key.modifiers.contains(KeyModifiers::CONTROL);
-        if key.code == KeyCode::Tab {
+    /// Handle one key (a terminal's event, or a [`Key`] the host made).
+    pub fn handle(&mut self, key: impl Into<Key>) -> Outcome {
+        let key = key.into();
+        let ctrl = key.ctrl;
+        if key.code == Code::Tab {
             self.complete();
             return Outcome::Editing;
         }
         self.cycle = None;
         match (key.code, ctrl) {
-            (KeyCode::Char('d'), true) if self.text().is_empty() => return Outcome::End,
-            (KeyCode::Char('c'), true) => self.replace(""),
-            (KeyCode::Enter, _) => return self.submit(),
-            (KeyCode::Up, _) => self.step(-1),
-            (KeyCode::Down, _) => self.step(1),
+            (Code::Char('d'), true) if self.text().is_empty() => return Outcome::End,
+            (Code::Char('c'), true) => self.replace(""),
+            (Code::Enter, _) => return self.submit(),
+            (Code::Up, _) => self.step(-1),
+            (Code::Down, _) => self.step(1),
             _ => {
                 if let Some(cmd) =
                     command(key).filter(|c| !matches!(c, Command::Newline | Command::App(_)))
@@ -67,6 +67,14 @@ impl Line {
         let segments = view(&text);
         let col = width(prompt) + column(&segments, self.buffer.offset());
         (format!("{prompt}{}", ansi(&segments)), col)
+    }
+
+    /// The prompt and the line as typed, undecorated (a shell's
+    /// command line), and the cursor's column.
+    pub fn plain(&self, prompt: &str) -> (String, usize) {
+        let text = self.text();
+        let before = text[..self.buffer.offset().min(text.len())].chars().count();
+        (format!("{prompt}{text}"), width(prompt) + before)
     }
 
     fn submit(&mut self) -> Outcome {

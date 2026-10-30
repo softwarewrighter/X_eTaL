@@ -1,12 +1,11 @@
-//! The component: an editor and an in-memory terminal, redrawn after
-//! every key, shown as a focusable block of rows.
-
-use std::path::Path;
+//! The component: a shell (xetal's commands at a prompt, the REPL, the
+//! editor full screen) and an in-memory terminal, redrawn after every
+//! key, shown as a focusable block of rows.
 
 use ratatui::Terminal;
 use ratatui::backend::TestBackend;
 use web_sys::HtmlElement;
-use xetal_edit::{Editor, Flow, StoreLibraries};
+use xetal_shell::{Catalog, Flow, Shell};
 use yew::prelude::*;
 
 use crate::cells::{Run, rows};
@@ -16,36 +15,66 @@ use crate::keys::key_of;
 pub const COLS: u16 = 100;
 pub const ROWS: u16 = 32;
 
-/// The file's name and text to edit, and what takes the text back
-/// when the editor quits (Ctrl-Q).
+/// The host's files: how a path is read and which paths `ls` lists
+/// (the store, the demos, the standard libraries).
+#[derive(Clone, Copy)]
+pub struct Files {
+    pub read: fn(&str) -> Option<String>,
+    pub list: fn() -> Vec<String>,
+}
+
+impl PartialEq for Files {
+    /// The host's files never change while the page is open.
+    fn eq(&self, _: &Files) -> bool {
+        true
+    }
+}
+
+impl Catalog for Files {
+    fn read(&self, path: &str) -> Option<String> {
+        (self.read)(path)
+    }
+
+    fn list(&self) -> Vec<String> {
+        (self.list)()
+    }
+}
+
+/// The file's name and text to open, the host's files, and what takes
+/// the file's name and text back when the shell ends (`exit`, Ctrl-D).
 #[derive(Properties, PartialEq)]
 pub struct Props {
     pub name: String,
     pub text: String,
-    pub on_exit: Callback<String>,
-    /// Counts the host's requests to leave: each change hands the text
-    /// back as Ctrl-Q does.
+    pub files: Files,
+    pub on_exit: Callback<(String, String)>,
+    /// Counts the host's requests to leave: each change hands the file
+    /// back as `exit` does.
     #[prop_or_default]
     pub leave: u32,
+    /// Counts the host's requests to open a file (Open on the bar), and
+    /// the file's name: each change runs `xetal edit NAME`.
+    #[prop_or_default]
+    pub open: (u32, String),
 }
 
-/// The editor and the terminal it draws into.
+/// The shell and the terminal it draws into.
 pub(crate) struct Session {
-    editor: Editor,
+    shell: Shell,
     terminal: Terminal<TestBackend>,
 }
 
 impl Session {
-    pub(crate) fn new(name: &str, text: &str) -> Session {
-        let editor = Editor::with_text(Path::new(name), text, Box::new(StoreLibraries));
+    pub(crate) fn new(props: &Props) -> Session {
+        let shell = Shell::new(&props.name, &props.text, Box::new(props.files));
         let terminal = Terminal::new(TestBackend::new(COLS, ROWS)).expect("an in-memory terminal");
-        Session { editor, terminal }
+        Session { shell, terminal }
     }
 
-    /// Draw the editor and give the rows, the cursor marked when shown.
+    /// Draw the shell and give the rows, the cursor marked when shown.
     pub(crate) fn draw(&mut self) -> Vec<Vec<Run>> {
-        let Session { editor, terminal } = self;
-        let _ = terminal.draw(|f| editor.draw(f));
+        let Session { shell, terminal } = self;
+        let _ = terminal.draw(|f| shell.draw(f));
         let backend = terminal.backend();
         let cursor = backend.cursor_visible().then(|| {
             let at = backend.cursor_position();
@@ -57,7 +86,7 @@ impl Session {
 
 #[function_component(Tui)]
 pub fn tui(props: &Props) -> Html {
-    let session = use_mut_ref(|| Session::new(&props.name, &props.text));
+    let session = use_mut_ref(|| Session::new(props));
     let redraw = use_force_update();
     let block = use_node_ref();
     let b = block.clone();
@@ -69,7 +98,17 @@ pub fn tui(props: &Props) -> Html {
     let (s, exit) = (session.clone(), props.on_exit.clone());
     use_effect_with(props.leave, move |n| {
         if *n > 0 {
-            exit.emit(s.borrow().editor.text());
+            exit.emit(s.borrow_mut().shell.leave());
+        }
+    });
+    let (s, r, b) = (session.clone(), redraw.clone(), block.clone());
+    use_effect_with(props.open.clone(), move |(n, name)| {
+        if *n > 0 {
+            s.borrow_mut().shell.open(name);
+            r.force_update();
+            if let Some(el) = b.cast::<HtmlElement>() {
+                let _ = el.focus();
+            }
         }
     });
     let (s, exit) = (session.clone(), props.on_exit.clone());
@@ -79,16 +118,14 @@ pub fn tui(props: &Props) -> Html {
             return;
         };
         e.prevent_default();
-        // Leaving loses nothing here (the text goes back to the three
-        // panes), so Ctrl-Q leaves at once, unsaved or not.
-        if key == xetal_keys::Key::ctrl('q') {
-            return exit.emit(s.borrow().editor.text());
-        }
         let seed = (js_sys::Math::random() * 4_294_967_296.0) as u64;
-        s.borrow_mut().editor.seed(seed);
-        let flow = s.borrow_mut().editor.handle(key);
+        let flow = {
+            let mut session = s.borrow_mut();
+            session.shell.seed(seed);
+            session.shell.handle(key)
+        };
         match flow {
-            Flow::Quit => exit.emit(s.borrow().editor.text()),
+            Flow::Exit => exit.emit(s.borrow_mut().shell.leave()),
             Flow::Continue => redraw.force_update(),
         }
     });
@@ -98,6 +135,6 @@ pub fn tui(props: &Props) -> Html {
     });
     html! {
         <pre class="tui" tabindex="0" ref={block} onkeydown={on_key}
-            aria-label="xetal edit, as in the terminal">{ for lines }</pre>
+            aria-label="xetal in a terminal: a shell, the REPL and the editor">{ for lines }</pre>
     }
 }

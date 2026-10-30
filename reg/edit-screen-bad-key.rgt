@@ -1,0 +1,3 @@
+command = "./target/debug/xetal edit screen-x.xtl --screen --keys '<Nope>'"
+exit_code = 1
+desc = "xetal edit --screen: an unknown key name is an error"

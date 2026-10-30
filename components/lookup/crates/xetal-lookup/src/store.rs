@@ -3,11 +3,27 @@
 //! the files are the browser's local storage. A name is `Name.xtl` and
 //! `Name.xtlm` in the store (MC11); a path is looked up as written.
 
+use std::sync::atomic::{AtomicBool, Ordering};
+
 use crate::disk::standard;
 use crate::found::{Pair, Spec, spec};
 use crate::{Found, Libraries};
 
 pub struct StoreLibraries;
+
+/// Whether the host has no disk of its own: then the disk finder
+/// (`FsLibraries`, what a plain load uses) finds in the store instead.
+static NO_DISK: AtomicBool = AtomicBool::new(false);
+
+/// Say once, at start, that this host keeps its files in the store
+/// (the browser): every load finds libraries as the live demo does.
+pub fn libraries_in_store(on: bool) {
+    NO_DISK.store(on, Ordering::SeqCst);
+}
+
+pub(crate) fn in_store() -> bool {
+    NO_DISK.load(Ordering::SeqCst)
+}
 
 impl Libraries for StoreLibraries {
     fn find(&self, spec: &str, from: &str) -> Option<Found> {

@@ -176,7 +176,13 @@ you type, the results on Ctrl-R (or F5) and the lint report on Ctrl-L (again
 to make its fixes); typing a name opens a completion list under the
 cursor, and Tab takes the chosen one (docs/input.md). The same editor
 runs in the browser: the live demo's Terminal button (or its address
-with `#tui`) shows it as one screen, the keys as here. Tab moves between the panes (the
+with `#tui`) opens a shell there, the file in the editor, the keys as
+here; Ctrl-Q quits to its `$` prompt, where `xetal` and its commands
+run as at a terminal (`xetal run life.xtl`, `xetal repl`, `ls`,
+`help`), and `exit` returns to the three panes with the file.
+`xetal edit FILE --screen --keys '1 + 2<C-r>'` prints the editor's
+screen after those keys as text, the screen the browser shows after
+the same keys. Tab moves between the panes (the
 current one has a thick border) and Ctrl-T zooms it to the full
 screen and back:
 
@@ -352,6 +358,8 @@ Other fonts, checked against the font files:
   call with its expansion, every name linked, and a search by name or
   by type (`Num a => a -> a -> a` finds `+` and `m_ax`). Made by
   `xetal doc` (below); `just doc` rebuilds it into `pages/doc`.
+- [`docs/learn-xetal.md`](docs/learn-xetal.md) -- Learn X_eTaL in Y
+  minutes: one short runnable program, read top to bottom in five minutes
 - [`docs/tour.md`](docs/tour.md) -- the language tour and the milestone
   tours (M0 to M6)
 - [The literate documents as web pages](https://softwarewrighter.github.io/X_eTaL/literate/)

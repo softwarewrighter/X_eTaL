@@ -14,9 +14,11 @@ path = "src/main.rs"
 [dependencies]
 xetal-base.workspace = true
 xetal-command.workspace = true
-xetal-edit.workspace = true
-xetal-repl.workspace = true
-xetal-line.workspace = true
+xetal-edit = { workspace = true, features = ["terminal"] }
+xetal-shell.workspace = true
+xetal-keys.workspace = true
+xetal-repl = { workspace = true, features = ["terminal"] }
+xetal-line = { workspace = true, features = ["terminal"] }
 xetal-tty.workspace = true
 xetal-store.workspace = true
 xetal-system.workspace = true

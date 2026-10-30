@@ -33,6 +33,56 @@ dependencies = [
 ]
 
 [[package]]
+name = "anstream"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "824a212faf96e9acacdbd09febd34438f8f711fb84e09a8916013cd7815ca28d"
+dependencies = [
+ "anstyle",
+ "anstyle-parse",
+ "anstyle-query",
+ "anstyle-wincon",
+ "colorchoice",
+ "is_terminal_polyfill",
+ "utf8parse",
+]
+
+[[package]]
+name = "anstyle"
+version = "1.0.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "940b3a0ca603d1eade50a4846a2afffd5ef57a9feac2c0e2ec2e14f9ead76000"
+
+[[package]]
+name = "anstyle-parse"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "52ce7f38b242319f7cabaa6813055467063ecdc9d355bbb4ce0c68908cd8130e"
+dependencies = [
+ "utf8parse",
+]
+
+[[package]]
+name = "anstyle-query"
+version = "1.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "40c48f72fd53cd289104fc64099abca73db4166ad86ea0b4341abe65af83dadc"
+dependencies = [
+ "windows-sys",
+]
+
+[[package]]
+name = "anstyle-wincon"
+version = "3.0.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "291e6a250ff86cd4a820112fb8898808a366d8f9f58ce16d1f538353ad55747d"
+dependencies = [
+ "anstyle",
+ "once_cell_polyfill",
+ "windows-sys",
+]
+
+[[package]]
 name = "anyhow"
 version = "1.0.104"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -190,6 +240,52 @@ dependencies = [
  "num-traits",
  "windows-link",
 ]
+
+[[package]]
+name = "clap"
+version = "4.6.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "aa8876b300ab35ba921adea3dfd70157a46249b33f95c9084ae5709785478946"
+dependencies = [
+ "clap_builder",
+ "clap_derive",
+]
+
+[[package]]
+name = "clap_builder"
+version = "4.6.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ec0797fb7aeb1406c84efac526901f7ec3ead2124f946b494e72879d4b54704d"
+dependencies = [
+ "anstream",
+ "anstyle",
+ "clap_lex",
+ "strsim",
+]
+
+[[package]]
+name = "clap_derive"
+version = "4.6.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f9c751b79415d4e559e3d1fcf128e09e720eb673a06d26cf6f392d37d75b66e0"
+dependencies = [
+ "heck",
+ "proc-macro2",
+ "quote",
+ "syn 3.0.6",
+]
+
+[[package]]
+name = "clap_lex"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1c133bc6a41be0d194c306b5506d15e6feeea7b1d6604bd3f8310dfb2ca96486"
+
+[[package]]
+name = "colorchoice"
+version = "1.0.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1d07550c9036bf2ae0c684c4297d503f838287c83c53686d05370d0e139ae570"
 
 [[package]]
 name = "compact_str"
@@ -998,6 +1094,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
+name = "hostname"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "617aaa3557aef3810a6369d0a99fac8a080891b68bd9f9812a1eeda0c0730cbd"
+dependencies = [
+ "cfg-if",
+ "libc",
+ "windows-link",
+]
+
+[[package]]
 name = "http"
 version = "0.2.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1089,6 +1196,12 @@ dependencies = [
  "quote",
  "syn 3.0.6",
 ]
+
+[[package]]
+name = "is_terminal_polyfill"
+version = "1.70.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a6cb138bb79a146c1bd460005623e142ef0181e3d0219cb493e02f7d08a35695"
 
 [[package]]
 name = "itertools"
@@ -1350,6 +1463,12 @@ name = "once_cell"
 version = "1.21.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f7c3e4beb33f85d45ae3e3a1792185706c8e16d043238c593331cc7cd313b50"
+
+[[package]]
+name = "once_cell_polyfill"
+version = "1.70.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "384b8ab6d37215f3c5301a95a4accb5d64aa607f1fcb26a11b5303878451b4fe"
 
 [[package]]
 name = "ordered-float"
@@ -2792,6 +2911,35 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-command"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "clap",
+ "hostname",
+ "xetal-base",
+ "xetal-core",
+ "xetal-diagram",
+ "xetal-doc",
+ "xetal-docsearch",
+ "xetal-doctest",
+ "xetal-eval",
+ "xetal-lex",
+ "xetal-lint",
+ "xetal-linter",
+ "xetal-names",
+ "xetal-notate",
+ "xetal-program",
+ "xetal-render",
+ "xetal-repl",
+ "xetal-sources",
+ "xetal-store",
+ "xetal-syntax",
+ "xetal-types",
+ "xetal-view",
+]
+
+[[package]]
 name = "xetal-complete"
 version = "0.1.0"
 dependencies = [
@@ -2829,8 +2977,98 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-diagram"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-view",
+]
+
+[[package]]
+name = "xetal-doc"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-doccom",
+ "xetal-docexpand",
+ "xetal-libs",
+ "xetal-macro",
+ "xetal-names",
+ "xetal-program",
+ "xetal-sources",
+ "xetal-types",
+]
+
+[[package]]
 name = "xetal-doccom"
 version = "0.1.0"
+
+[[package]]
+name = "xetal-docexpand"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-expand",
+ "xetal-lex",
+ "xetal-macro",
+ "xetal-program",
+ "xetal-sources",
+]
+
+[[package]]
+name = "xetal-dochtml"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-doclink",
+ "xetal-notate",
+ "xetal-view",
+]
+
+[[package]]
+name = "xetal-doclink"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-doc",
+ "xetal-lex",
+]
+
+[[package]]
+name = "xetal-docsearch"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-doc",
+ "xetal-dochtml",
+ "xetal-docsite",
+]
+
+[[package]]
+name = "xetal-docsite"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-catalog",
+ "xetal-doc",
+ "xetal-doccom",
+ "xetal-dochtml",
+ "xetal-doclink",
+]
+
+[[package]]
+name = "xetal-doctest"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-doc",
+ "xetal-doccom",
+ "xetal-repl",
+ "xetal-store",
+]
 
 [[package]]
 name = "xetal-draw"
@@ -3009,6 +3247,18 @@ dependencies = [
 [[package]]
 name = "xetal-libs"
 version = "0.1.0"
+
+[[package]]
+name = "xetal-line"
+version = "0.1.0"
+dependencies = [
+ "xetal-buffer",
+ "xetal-complete",
+ "xetal-keys",
+ "xetal-libs",
+ "xetal-tty",
+ "xetal-view",
+]
 
 [[package]]
 name = "xetal-lineedit"
@@ -3260,6 +3510,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-repl"
+version = "0.1.0"
+dependencies = [
+ "xetal-base",
+ "xetal-core",
+ "xetal-eval",
+ "xetal-linter",
+ "xetal-program",
+ "xetal-store",
+ "xetal-types",
+]
+
+[[package]]
 name = "xetal-report"
 version = "0.1.0"
 dependencies = [
@@ -3314,6 +3577,23 @@ dependencies = [
  "xetal-catalog",
  "xetal-ir",
  "xetal-lex",
+]
+
+[[package]]
+name = "xetal-shell"
+version = "0.1.0"
+dependencies = [
+ "ratatui",
+ "xetal-base",
+ "xetal-command",
+ "xetal-edit",
+ "xetal-grid",
+ "xetal-keys",
+ "xetal-line",
+ "xetal-macro",
+ "xetal-repl",
+ "xetal-store",
+ "xetal-system",
 ]
 
 [[package]]
@@ -3528,6 +3808,7 @@ dependencies = [
  "xetal-katex",
  "xetal-layout",
  "xetal-libs",
+ "xetal-macro",
  "xetal-play",
  "xetal-runner",
  "xetal-store",
@@ -3555,6 +3836,7 @@ dependencies = [
  "web-sys",
  "xetal-edit",
  "xetal-keys",
+ "xetal-shell",
  "yew",
 ]
 

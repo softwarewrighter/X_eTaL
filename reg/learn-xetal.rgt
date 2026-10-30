@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run docs/learn-xetal.xtl"
+exit_code = 0
+desc = "Learn X_eTaL in Y minutes (docs/learn-xetal.xtl): every statement runs, and each prints what its comment says"

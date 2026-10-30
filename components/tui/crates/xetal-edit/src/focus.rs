@@ -39,6 +39,16 @@ impl Editor {
         self.buffer.text()
     }
 
+    /// The file's path as it was given (the name a host shows).
+    pub fn name(&self) -> String {
+        self.path.display().to_string()
+    }
+
+    /// Whether the text has changed since it was opened or saved.
+    pub fn is_dirty(&self) -> bool {
+        self.buffer.is_dirty()
+    }
+
     /// The seed the next run rolls from (a browser host gives one: the
     /// page has no clock to seed from).
     pub fn seed(&mut self, seed: u64) {

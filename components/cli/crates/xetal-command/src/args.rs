@@ -273,6 +273,29 @@ pub enum Command {
     Edit {
         /// The file to edit (created on the first save if missing).
         file: String,
+        /// Print the screen as text after the keys given with --keys,
+        /// instead of editing (the browser's terminal page shows the
+        /// same screen after the same keys).
+        #[arg(long)]
+        screen: bool,
+        /// With --screen, the keys pressed: characters type themselves,
+        /// names in angle brackets are keys (`<C-r>`, `<Enter>`, `<Tab>`,
+        /// `<F5>`, `<lt>` for a `<`).
+        #[arg(
+            long,
+            requires = "screen",
+            value_name = "KEYS",
+            allow_hyphen_values = true
+        )]
+        keys: Option<String>,
+        /// With --screen, the screen's size as COLSxROWS.
+        #[arg(
+            long,
+            requires = "screen",
+            value_name = "COLSxROWS",
+            default_value = "100x32"
+        )]
+        size: String,
     },
 }
 

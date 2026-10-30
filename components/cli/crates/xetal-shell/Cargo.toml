@@ -1,0 +1,21 @@
+[package]
+name = "xetal-shell"
+description = "A shell for the browser's terminal: xetal's commands at a prompt, the REPL and the editor full screen, drawn with ratatui; and the editor's screen after given keys, as text"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-command.workspace = true
+xetal-repl.workspace = true
+xetal-line.workspace = true
+xetal-edit.workspace = true
+xetal-keys.workspace = true
+xetal-macro.workspace = true
+xetal-store.workspace = true
+xetal-grid.workspace = true
+xetal-system.workspace = true
+ratatui.workspace = true

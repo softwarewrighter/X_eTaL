@@ -69,6 +69,12 @@ fn color_name(fg: Color) -> Option<&'static str> {
         Color::LightYellow => "fg-lightyellow",
         Color::Red => "fg-red",
         Color::DarkGray => "fg-darkgray",
+        Color::LightRed => "fg-lightred",
+        Color::LightGreen => "fg-lightgreen",
+        Color::LightMagenta => "fg-lightmagenta",
+        Color::LightCyan => "fg-lightcyan",
+        Color::Gray => "fg-gray",
+        Color::White => "fg-white",
         _ => return None,
     })
 }

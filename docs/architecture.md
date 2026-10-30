@@ -36,6 +36,10 @@ Side paths:
   `Host` (its files, output and error streams, a seed), so the binary
   and the browser's terminal share one dispatch; the interactive
   commands (`repl`, `edit`) are the host's.
+- `xetal-shell`: a shell for the browser's terminal page: `xetal`
+  and its commands at a `$` prompt (through `xetal-command`), the REPL
+  and the editor full screen, keys in and a ratatui frame out; and an
+  editor's screen after given keys as text (`xetal edit --screen`).
 - `xetal-cli`: the `xetal` binary, a thin shell over `xetal-command`
   with the process as its host, plus the REPL and the editor on the
   terminal.
@@ -213,7 +217,8 @@ components/
                            xetal-webclock (the browser's clock, which
                            the worker installs)
   cli/                     xetal-command (the command line as a
-                           library), xetal-cli (`xetal` binary +
+                           library), xetal-shell (the browser
+                           terminal's shell), xetal-cli (`xetal` binary +
                            tests/spec.rs harness), xetal-spec (case files),
                            xetal-repl (interactive session)
 docs/emacs/                xetal-mode.el, ob-xetal.el (Org Babel), ERT tests

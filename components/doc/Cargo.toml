@@ -44,7 +44,7 @@ xetal-docsite = { path = "crates/xetal-docsite" }
 xetal-view = { path = "../view/crates/xetal-view" }
 xetal-notate = { path = "../view/crates/xetal-notate" }
 xetal-doctest = { path = "crates/xetal-doctest" }
-xetal-repl = { path = "../cli/crates/xetal-repl" }
+xetal-repl = { path = "../cli/crates/xetal-repl", default-features = false }
 xetal-store = { path = "../base/crates/xetal-store" }
 xetal-program = { path = "../macro/crates/xetal-program" }
 xetal-sources = { path = "../macro/crates/xetal-sources" }

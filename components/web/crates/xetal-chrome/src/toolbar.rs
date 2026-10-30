@@ -53,15 +53,22 @@ pub fn toolbar(bar: Bar) -> Html {
     }
 }
 
-/// The terminal page's bar: the logo, the page's name, the way back to
-/// the three panes, and Help.
-pub fn terminal_bar(name: &str, back: Callback<()>, help: Callback<bool>) -> Html {
+/// The terminal page's bar: the logo, the page's name, Open (a file
+/// in the editor), the file's name, the way back to the three panes,
+/// and Help.
+pub fn terminal_bar(
+    name: &str,
+    back: Callback<()>,
+    help: Callback<bool>,
+    (options, pick): (Vec<(&'static str, String, String)>, Callback<String>),
+) -> Html {
     html! {
         <nav class="toolbar">
             <img class="logo" src="xetal-logo-yellow.png" alt={LANG_NAME}/>
             <span class="brand">{ LANG_NAME }</span>
-            <span class="name" title="The file being edited, as xetal edit shows it">{ name }</span>
-            <button onclick={back.reform(|_| ())} title="Back to the three panes (Ctrl-Q in the editor does the same)">{ "Three panes" }</button>
+            <OpenMenu {options} {pick}/>
+            <span class="name" title="The file last opened in xetal edit">{ name }</span>
+            <button onclick={back.reform(|_| ())} title="Back to the three panes with this file (exit, or Ctrl-D at the prompt, does the same)">{ "Three panes" }</button>
             <button class="help" onclick={help.reform(|_| true)} title="How it works">{ "Help" }</button>
         </nav>
     }

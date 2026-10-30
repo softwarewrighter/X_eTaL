@@ -96,6 +96,8 @@ body { font: 15px/1.35 var(--mono); }
 .tui .fg-blue { color: #7aa2f7; } .tui .fg-lightblue { color: #9ab8ff; } .tui .fg-green { color: #9ece6a; }
 .tui .fg-cyan { color: #7dcfff; } .tui .fg-magenta { color: #bb9af7; } .tui .fg-yellow { color: #ffd21f; }
 .tui .fg-lightyellow { color: #e8d27a; } .tui .fg-red { color: #ff6b6b; } .tui .fg-darkgray { color: #6b7280; }
+.tui .fg-lightred { color: #ff8f8f; } .tui .fg-lightgreen { color: #b9f27c; } .tui .fg-lightmagenta { color: #d4b8ff; }
+.tui .fg-lightcyan { color: #a6e3ff; } .tui .fg-gray { color: #c0c4cc; } .tui .fg-white { color: #ffffff; }
 .tui .bold { font-weight: 700; } .tui .dim { opacity: .6; } .tui .italic { font-style: italic; }
 .tui .underlined { text-decoration: underline; } .tui .reversed { background: var(--text); color: var(--bg); }
 .tui .cursor { background: var(--bright); color: var(--bg); }

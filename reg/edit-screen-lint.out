@@ -1,0 +1,16 @@
+┏ ▶ ASCII ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓┌ Rendered ────────────────────────────┐
+┃u:k_ := { a b -> a }                  ┃│ᵘk̲ ← { a b → a }                      │
+┃1 u:k_ 2                              ┃│1 ᵘk̲ 2                                │
+┃                                      ┃│                                      │
+┃                                      ┃│                                      │
+┃                                      ┃│                                      │
+┃                                      ┃│                                      │
+┃                                      ┃│                                      │
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛└──────────────────────────────────────┘
+┌ Lint ────────────────────────────────────────────────────────────────────────┐
+│warning[unused-binding]: parameter `b` is never used; write `_u` for a paramet│
+│  note: `unused-binding` is in group `suspicious`; xetal lint --explain unused│
+│1 warning(s), 0 error(s)                                                      │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ screen-keep.xtl [+]  ^S save  ^R/F5 run  ^L lint  ^Q quit  Tab pane  ^T zoom

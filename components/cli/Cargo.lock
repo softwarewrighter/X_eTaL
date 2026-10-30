@@ -2129,8 +2129,10 @@ dependencies = [
  "xetal-command",
  "xetal-edit",
  "xetal-grid",
+ "xetal-keys",
  "xetal-line",
  "xetal-repl",
+ "xetal-shell",
  "xetal-spec",
  "xetal-store",
  "xetal-system",
@@ -2770,6 +2772,23 @@ dependencies = [
  "xetal-catalog",
  "xetal-ir",
  "xetal-lex",
+]
+
+[[package]]
+name = "xetal-shell"
+version = "0.1.0"
+dependencies = [
+ "ratatui",
+ "xetal-base",
+ "xetal-command",
+ "xetal-edit",
+ "xetal-grid",
+ "xetal-keys",
+ "xetal-line",
+ "xetal-macro",
+ "xetal-repl",
+ "xetal-store",
+ "xetal-system",
 ]
 
 [[package]]

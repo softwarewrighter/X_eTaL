@@ -1,10 +1,12 @@
-//! `xetal edit` in the browser: the same editor as the terminal's
-//! (`xetal-edit`: keys in, a ratatui frame out) drawn into ratatui's
-//! in-memory backend, whose cells the page shows as styled spans; the
-//! page's key events become the editor's keys (`xetal-keys`). The
-//! editor saves through the browser's store and finds libraries there.
-//! Ctrl-Q hands the text back to the host. A run rolls from a seed the
-//! page draws, since the page has no clock to seed from.
+//! xetal in the browser's terminal: a shell (`xetal-shell`) where
+//! xetal's commands run as at a terminal, `xetal repl` is the REPL and
+//! `xetal edit FILE` the same editor as the terminal's, all keys in and
+//! a ratatui frame out, drawn into ratatui's in-memory backend, whose
+//! cells the page shows as styled spans; the page's key events become
+//! the shell's keys (`xetal-keys`). Files are the browser's store, the
+//! demos and the standard libraries; `exit` hands the file back to the
+//! host. A run rolls from a seed the page draws, since the page has no
+//! clock to seed from.
 
 mod cells;
 mod keys;
@@ -12,4 +14,4 @@ mod view;
 
 pub use cells::{Run, rows};
 pub use keys::key_of;
-pub use view::{Props, Tui};
+pub use view::{Files, Props, Tui};

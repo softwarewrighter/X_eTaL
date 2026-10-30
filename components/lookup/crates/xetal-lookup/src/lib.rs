@@ -10,4 +10,4 @@ mod store;
 
 pub use found::{Found, Libraries, MacroRun, Pair};
 pub use fs::{FsLibraries, USERLIBS};
-pub use store::StoreLibraries;
+pub use store::{StoreLibraries, libraries_in_store};

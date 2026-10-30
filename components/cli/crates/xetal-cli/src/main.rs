@@ -52,7 +52,13 @@ fn run(command: &Command, host: &mut Host) -> Result<String, Diagnostic> {
             xetal_repl::stdio().map_err(|e| Diagnostic::new("io", e.to_string()))?;
             Ok(String::new())
         }
-        Command::Edit { file } => {
+        Command::Edit {
+            file,
+            screen: true,
+            keys,
+            size,
+        } => screen(file, keys.as_deref().unwrap_or(""), size),
+        Command::Edit { file, .. } => {
             use std::io::IsTerminal;
             if !(std::io::stdin().is_terminal() && std::io::stdout().is_terminal()) {
                 return Err(Diagnostic::new(
@@ -66,6 +72,21 @@ fn run(command: &Command, host: &mut Host) -> Result<String, Diagnostic> {
         }
         _ => xetal_command::run(command, host),
     }
+}
+
+/// `xetal edit FILE --screen --keys KEYS --size COLSxROWS`: the
+/// editor's screen after the keys, as text.
+fn screen(file: &str, keys: &str, size: &str) -> Result<String, Diagnostic> {
+    let bad = |m: String| Diagnostic::new("bad-screen", m);
+    let size = size
+        .split_once('x')
+        .and_then(|(c, r)| Some((c.parse::<u16>().ok()?, r.parse::<u16>().ok()?)))
+        .filter(|(c, r)| *c > 0 && *r > 0)
+        .ok_or_else(|| bad(format!("--size must be COLSxROWS, as 100x32, got {size:?}")))?;
+    let keys = xetal_keys::keys(keys).map_err(bad)?;
+    let editor = xetal_edit::Editor::open(std::path::Path::new(file))
+        .map_err(|e| Diagnostic::new("io", format!("cannot read {file}: {e}")))?;
+    Ok(xetal_shell::screen(editor, &keys, size).join("\n"))
 }
 
 /// `d` with its file, line and column, if it has a span not yet placed

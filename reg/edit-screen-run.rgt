@@ -1,0 +1,3 @@
+command = "./target/debug/xetal edit screen-sum.xtl --screen --keys '1 + 2<C-r>'"
+exit_code = 0
+desc = "xetal edit --screen: the editor's screen after typing 1 + 2 and Ctrl-R, as text (the browser's terminal page shows the same; the nightly UI check compares them)"

@@ -34,7 +34,11 @@ pub fn app() -> Html {
     let name = use_state(|| DEMOS[0].name.to_string());
     let (files, current) = (use_state(storage::saved), use_state(|| Pane::Source));
     let (zoom, help) = (use_state(|| false), use_state(|| false));
-    let (tui, leave) = (use_state(wants_terminal), use_state(|| 0u32));
+    let (tui, leave, opened) = (
+        use_state(wants_terminal),
+        use_state(|| 0u32),
+        use_state(|| (0u32, String::new())),
+    );
     let (runs, lint) = (use_runs(), use_state(|| None::<Report>));
     let running = runs.output.running;
     let split = use_split();
@@ -54,7 +58,11 @@ pub fn app() -> Html {
     let save = saving(text.clone(), name.clone(), files.clone());
     let suggest = xetal_suggest::use_suggest((*files).clone(), area.clone(), edit.clone());
     if *tui {
-        return terminal_view(&text, &name, (&tui, &leave), (show_help, *help));
+        return terminal_view(
+            (&text, &name, &files),
+            (&tui, &leave, &opened),
+            (show_help, *help),
+        );
     }
     let bar = bar(
         (load, save, buttons),
@@ -172,27 +180,46 @@ fn run_buttons(
     }
 }
 
-/// The terminal page (`#tui`): the file in xetal edit, drawn in the
-/// page; Ctrl-Q, or the bar's button, returns to the three panes with
-/// the text as edited.
+/// The terminal page (`#tui`): a shell where xetal's commands run,
+/// opened on the file in xetal edit, drawn in the page; `exit`, Ctrl-D
+/// at its prompt, or the bar's button returns to the three panes with
+/// the file last edited and its text. Open on the bar edits a file.
 fn terminal_view(
-    text: &UseStateHandle<String>,
-    name: &UseStateHandle<String>,
-    (tui, leave): (&UseStateHandle<bool>, &UseStateHandle<u32>),
+    (text, name, files): (
+        &UseStateHandle<String>,
+        &UseStateHandle<String>,
+        &UseStateHandle<Vec<String>>,
+    ),
+    (tui, leave, opened): (
+        &UseStateHandle<bool>,
+        &UseStateHandle<u32>,
+        &UseStateHandle<(u32, String)>,
+    ),
     (help, shown): (Callback<bool>, bool),
 ) -> Html {
-    let (t, tu) = (text.clone(), tui.clone());
-    let on_exit = Callback::from(move |edited: String| {
+    let (t, n, f, tu) = (text.clone(), name.clone(), files.clone(), tui.clone());
+    let on_exit = Callback::from(move |(file, edited): (String, String)| {
+        n.set(file);
         t.set(edited);
+        f.set(storage::saved());
         tu.set(false);
     });
     let l = leave.clone();
     let back = Callback::from(move |_: ()| l.set(*l + 1));
+    let (o, n) = (opened.clone(), name.clone());
+    let pick = Callback::from(move |value: String| {
+        if let Some((file, _)) = open(&value) {
+            n.set(file.clone());
+            o.set((o.0 + 1, file));
+        }
+    });
+    let menu = (choices(files), pick);
     html! {
         <div class="app">
-            { chrome::terminal_bar(name, back, help.clone()) }
+            { chrome::terminal_bar(name, back, help.clone(), menu) }
             <main class="tui-main">
-                <xetal_webtui::Tui name={(**name).clone()} text={(**text).clone()} {on_exit} leave={**leave}/>
+                <xetal_webtui::Tui name={(**name).clone()} text={(**text).clone()} files={crate::files::FILES}
+                    {on_exit} leave={**leave} open={(**opened).clone()}/>
             </main>
             { chrome::footer() }
             { if shown { chrome::help(help.reform(|_| false)) } else { html! {} } }

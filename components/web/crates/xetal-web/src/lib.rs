@@ -8,6 +8,7 @@
 
 mod app;
 mod demos;
+mod files;
 mod keys;
 mod panes;
 mod storage;
@@ -23,6 +24,8 @@ pub fn start() {
     // The terminal page runs programs on the page itself: the browser's
     // clock, as the worker installs for its runs.
     xetal_clock::install(std::sync::Arc::new(xetal_webclock::Browser));
+    // No disk here: a program's libraries are found in the store.
+    xetal_macro::libraries_in_store(true);
     seed();
     yew::Renderer::<App>::new().render();
 }

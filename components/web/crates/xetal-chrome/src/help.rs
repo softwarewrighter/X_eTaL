@@ -56,9 +56,9 @@ fn editing() -> Html {
                        (d_isplay gives that picture as a value)." }</li>
                 <li><b>{ "Tab" }</b>{ " moves between the panes (the current one has the bright border); " }
                     <b>{ "Zoom" }</b>{ " (Ctrl-.) shows the current pane alone, and back." }</li>
-                <li><b>{ "Terminal" }</b>{ " opens the same file in xetal edit, the terminal editor, drawn in the \
-                       page (also at #tui): one screen, the keys as in the terminal (Ctrl-S save, Ctrl-R run, \
-                       Ctrl-L lint, Tab pane, Ctrl-. zoom, as the browser keeps Ctrl-T), Ctrl-Q back." }</li>
+                <li><b>{ "Terminal" }</b>{ " opens a shell, as at a terminal, on the file in xetal edit (also at #tui): \
+                       the editor's keys (Ctrl-S save, Ctrl-R or F5 run, Ctrl-L lint, Ctrl-Q quit to the prompt); at the \
+                       $ prompt xetal's commands run (xetal run life.xtl, xetal repl, help, ls); exit returns." }</li>
                 <li>{ "On a phone the panes stack; Add to Home Screen installs the editor as an app that \
                        works offline. Drag the bars between the panes to resize them (remembered); \
                        double-click a bar to put it back." }</li>
