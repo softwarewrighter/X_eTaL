@@ -1,0 +1,1 @@
+The browser terminal page is a shell (xetal-shell): xetal's commands at a prompt via xetal-command, the REPL, the editor; xetal edit --screen dumps the editor's screen, pinned by goldens and compared by the nightly UI check
