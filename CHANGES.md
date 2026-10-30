@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-10-30
+
+- 08:40 `docs` docs/subtyping-research.txt (the user's): an archival research conversation on algebraic subtyping (MLsub, Simple-sub) and X_eTaL, where its Hindley-Milner typing stands, the costs and benefits of subtyping, and structural subtyping for tuples first; not normative, as docs/research*.txt are not.
+
 ## 2026-10-29
 
 - 13:10 `feat` A shell in the browser's terminal (D186, step 165; the user, 2026-10-21): the terminal page opens a shell (new crate xetal-shell, components/cli) on the file in xetal edit; Ctrl-Q quits the editor to a `$` prompt as in a terminal (a second Ctrl-Q when unsaved), where `xetal` and its subcommands run through xetal-command as the binary runs them, `xetal repl` is the REPL on the same line editor, `xetal edit FILE` reopens the editor, and `help`, `ls`, `cat`, `clear` and `exit` are its own words; text edited and not saved is kept, and `exit` (or Ctrl-D) hands the file last edited back to the three panes. Open on the terminal bar edits a demo, a library or one of your files. Files are your store, then the demos, then the standard libraries; a host without a disk now finds a program's libraries in its store (xetal-lookup `libraries_in_store`), so a run from the shell imports your saved libraries. The line editor and the REPL take the shared key type, their terminal loops behind a `terminal` feature, so they build for wasm. `xetal edit FILE --screen --keys KEYS --size COLSxROWS` prints the editor's screen after the keys (Vim's notation, `<C-r>`, new in xetal-keys); goldens edit-screen-run, edit-screen-lint, edit-screen-bad-key pin it, and the nightly UI check types the same keys in the page and compares its rows with the golden row for row. Tests: xetal-shell tests/shell.rs, xetal-keys (key notation), xetal-lookup tests/no_disk.rs, xetal-webtui (the page's rows are the screen dump). README, the Help dialog, docs/architecture.md, docs/ui-nightly.md.
