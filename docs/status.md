@@ -18,10 +18,10 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 127 | 0 | 0 |
-| Language decisions | 164 | 0 | 3 |
+| Built-in functions | 133 | 0 | 0 |
+| Language decisions | 166 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 493 | 0 | 0 |
+| Spec cases | 502 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -35,20 +35,20 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 106 | 3 |
-| `-` | `Num a => a -> a -> a` | works | 27 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 51 | 2 |
+| `+` | `Num a => a -> a -> a` | works | 111 | 3 |
+| `-` | `Num a => a -> a -> a` | works | 28 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 52 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 10 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
-| `/` | `Num a => a -> a -> Float` | works | 18 | 2 |
+| `/` | `Num a => a -> a -> Float` | works | 20 | 2 |
 | `d_iv` | `Int -> Int -> Int` | works | 4 | 1 |
 | `m_od` | `Int -> Int -> Int` | works | 2 | 2 |
 | `n_eg` | `Num a => a -> a` | works | 22 | 1 |
 | `a_bs` | `Num a => a -> a` | works | 6 | 1 |
 | `f_loor` | `Num a => a -> Int` | works | 4 | 1 |
 | `c_eiling` | `Num a => a -> Int` | works | 0 | 1 |
-| `e_xp` | `Num a => a -> Float` | works | 0 | 1 |
+| `e_xp` | `Num a => a -> Float` | works | 1 | 1 |
 | `l_og` | `Num a => a -> Float` | works | 0 | 1 |
 | `f_loat` | `Num a => a -> Float` | works | 7 | 3 |
 
@@ -59,7 +59,18 @@ conventions (naming, layout) work without a spec case citing them.
 | `s_in` | `Num a => a -> Float` | works | 2 | 1 |
 | `c_os` | `Num a => a -> Float` | works | 1 | 1 |
 | `a_tan` | `Num a => a -> Float` | works | 1 | 1 |
-| `p_i` | `Unit -> Float` | works | 2 | 2 |
+| `p_i` | `Unit -> Float` | works | 2 | 1 |
+
+### B20: the libm functions a library cannot write as well
+
+| Name | Type | State | Spec cases | Reference examples |
+| ---- | ---- | ----- | ---------- | ------------------ |
+| `t_anh` | `Num a => a -> Float` | works | 1 | 1 |
+| `s_qrt` | `Num a => a -> Float` | works | 2 | 1 |
+| `e_xpm1` | `Num a => a -> Float` | works | 1 | 1 |
+| `l_og1p` | `Num a => a -> Float` | works | 2 | 1 |
+| `e_rf` | `Num a => a -> Float` | works | 1 | 2 |
+| `e_rfc` | `Num a => a -> Float` | works | 1 | 2 |
 
 ### T1, T3, T8: comparisons and logic
 
@@ -270,13 +281,14 @@ conventions (naming, layout) work without a spec case citing them.
 | A5 | Index origin is 1: `r_ange 5` is `1 2 3 4 5` and index 1 is the first item, consistent with 1-based axes | works | 2 |
 | A6 | An axis subscript works on any function by one rule: `f_k X` moves axis k to the front, applies f (which (...) | works | 7 |
 | A7 | Nested arrays follow APL2 / BQN: any element may itself be an array (`"ab" "cde"` is a 2-element vector of (...) | works | 4 |
-| L1 | Shorthand arguments: `_r` alone makes a monadic lambda; `_l` and `_r` make a dyadic (curried) one | works | 5 |
+| L1 | Shorthand arguments: `_r` alone makes a monadic lambda; `_l` and `_r` make a dyadic (curried) one | works | 6 |
 | L2 | `_l` and `_r` refer to the innermost enclosing lambda | works | 1 |
 | L3 | An inline lambda is an ordinary function, so `X { ... } Y` is a dyadic application | works | 1 |
 | L4 | Named parameters, decorated like names, separated from the body by `->`: `{ f_ g_ x -> f_ g_ x }` | works | 3 |
 | L5 | Shorthand and named parameters may not be mixed in one lambda | works | 1 |
 | L7 | Names resolve lexically: the innermost enclosing lambda's parameter, then outer lambdas, then the program (...) | works | 0 |
 | L6 | A niladic function is defined with `@` as its only parameter: `u:n_ow! := { @ -> ... }`, and called as (...) | works | 5 |
+| L8 | An unused parameter is spelled `_u` (decided with the user and the blog's agent, 2026-10-20; supersedes (...) | works | 6 |
 | TR1 | Trains are written in square brackets | works | 3 |
 | TR2 | A two-element train is atop: `[F G] x` is `F (G x)` (BQN / Dyalog, not J's hook) | works | 1 |
 | TR4 | A train's arity comes from where it is written: `[F G H] x` is monadic, `x [F G H] y` dyadic | works | 0 |
@@ -358,6 +370,7 @@ conventions (naming, layout) work without a spec case citing them.
 | B17 | Transpose, decided with the user for the transpose lane (asked for by X_eTaL-demos, ADVANCEDEX and the (...) | works | 11 |
 | B18 | `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...) | works | 3 |
 | B19 | `r_equireShape` is a shape check: `2 3 r_equireShape X` gives X unchanged when its shape is 2 3, and is (...) | works | 0 |
+| B20 | What is a built-in, for mathematics (decided with the user, 2026-10-25, from X_eTaL-ML's ask M19 and (...) | works | 3 |
 | SC1 | A symbol function applied to one argument is an error (`- 3`, `/ 2`, `2 +`): under currying it would fill (...) | works | 4 |
 | ST1 | A string is written `"..."` | works | 2 |
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 1 |

@@ -24,4 +24,6 @@ xetal-table.workspace = true
 xetal-source.workspace = true
 xetal-rotate.workspace = true
 xetal-transpose.workspace = true
+# The error function (B20): Rust's std has none; libm builds for wasm32 too.
+libm = "0.2"
 

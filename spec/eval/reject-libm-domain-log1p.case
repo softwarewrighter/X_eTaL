@@ -1,0 +1,9 @@
+# l_og1p needs a number above -1 (B20).
+== SOURCE
+l_og1p -1
+== ERROR
+error[domain]: l_og1p needs a number above -1
+ --> -e:1:1
+  |
+1 | l_og1p -1
+  | ^^^^^^^^^

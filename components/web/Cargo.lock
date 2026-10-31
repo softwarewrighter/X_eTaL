@@ -3424,6 +3424,7 @@ dependencies = [
 name = "xetal-prim"
 version = "0.1.0"
 dependencies = [
+ "libm",
  "xetal-arith",
  "xetal-array",
  "xetal-base",

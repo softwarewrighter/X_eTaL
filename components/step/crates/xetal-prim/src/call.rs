@@ -130,6 +130,16 @@ fn unary<'a>(name: &str, a: &Value<'a>, span: Span) -> Result<Value<'a>, Diagnos
         ("s_in", n) => Ok(Value::Float(n.f().sin())),
         ("c_os", n) => Ok(Value::Float(n.f().cos())),
         ("a_tan", n) => Ok(Value::Float(n.f().atan())),
+        ("t_anh", n) => Ok(Value::Float(n.f().tanh())),
+        ("s_qrt", n) if n.f() < 0.0 => Err(err("domain", span, "s_qrt needs a number at least 0")),
+        ("s_qrt", n) => Ok(Value::Float(n.f().sqrt())),
+        ("e_xpm1", n) => Ok(Value::Float(n.f().exp_m1())),
+        ("l_og1p", n) if n.f() <= -1.0 => {
+            Err(err("domain", span, "l_og1p needs a number above -1"))
+        }
+        ("l_og1p", n) => Ok(Value::Float(n.f().ln_1p())),
+        ("e_rf", n) => Ok(Value::Float(libm::erf(n.f()))),
+        ("e_rfc", n) => Ok(Value::Float(libm::erfc(n.f()))),
         ("f_loat", n) => Ok(Value::Float(n.f())),
         ("l_og", n) if n.f() <= 0.0 => Err(err("domain", span, "l_og needs a positive number")),
         ("l_og", n) => Ok(Value::Float(n.f().ln())),

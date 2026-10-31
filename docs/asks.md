@@ -14,13 +14,24 @@ build already does what the ask wants.
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
 | X_eTaL-demos | 11 | 3 | 3 | 2 | 2 |
-| X_eTaL-ML | 8 | 1 | 8 | 3 | 0 |
+| X_eTaL-ML | 9 | 1 | 7 | 3 | 0 |
 | X_eTaL-games | 8 | 4 | 4 | 1 | 3 |
 | X_eTaL-libraries | 9 | 3 | 2 | 3 | 1 |
 | X_eTaL-extensions | 4 | 1 | 2 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 40 | 12 | 26 | 11 | 16 |
+| All | 41 | 12 | 25 | 11 | 16 |
+
+## Notice: t_anh, s_qrt, e_xpm1, l_og1p, e_rf and e_rfc are built-ins: drop private versions
+
+The libm functions a library cannot write as well are built-ins now
+(B20, D187; asks M19 and X22), each `Num a => a -> Float`, item by
+item: `t_anh`, `s_qrt` (correctly rounded; `^ 0.5` is not), `e_xpm1`,
+`l_og1p`, `e_rf` and `e_rfc`. A private erf (Abramowitz and Stegun),
+`2 s_igmoid(2x) - 1` for tanh and `^ 0.5` for a root can go at the next
+re-pin; a library's own `nn:t_anh` keeps working beside the
+built-in. The rest of trigonometry and the special functions stay
+libraries.
 
 ## Notice: an unused parameter is _u: drop # lint: allow unused-binding
 
@@ -158,7 +169,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | M16 | the matrix product runs at about 85 ns a multiply-add (`'+ '* i_nner` on 8 by 9 and 9 by 33800, 2.4 million multiply-adds in about 0.2 s) | planned | Saga 22, speed (vector kernels); D12 landed at about 94 ns a multiply-add for its ask | - |
 | M17 | a macro argument that holds code (a pipeline's stages) is drawn as typed; let a macro library declare it code and the renderers decorate it | landed | code strings (ST5, step 111, 2026-10-18): `c"..."` and `c#"..."#` are drawn as code where the inside lexes (`|>` and `$` as triangles, S13, S14); step 112 lexes every code string's inside with the file; Flow's pipelines are written as code strings | passes |
 | M18 | `c"..."` reads the backslash of `o_\` and `s_\` as an escape: let the linter or the lexer's error point to `c#"..."#` | planned | step 170 (code-string-escape-hint): the unknown-escape error names the verbatim form, and the string lints look at code strings too (`escapes-could-be-raw` with the fix `c#"..."#`) | - |
-| M19 | the libm built-ins t_anh, e_rf (e_rfc), s_qrt, e_xpm1, l_og1p: a built-in is what libm gives at full accuracy and a library cannot write as well; the rest of trigonometry and the special functions stay libraries | planned | step 169 (libm-builtins): the rule to confirm with the user and record in lang-choices, then the six built-ins beside e_xp and l_og (erf through the libm crate, which builds for wasm32); with X22 | - |
+| M19 | the libm built-ins t_anh, e_rf (e_rfc), s_qrt, e_xpm1, l_og1p: a built-in is what libm gives at full accuracy and a library cannot write as well; the rest of trigonometry and the special functions stay libraries | landed | step 169 (libm-builtins), by the rule B20 the user approved: `t_anh`, `s_qrt`, `e_xpm1`, `l_og1p`, `e_rf` and `e_rfc`, each `Num a => a -> Float` item by item; `s_qrt` of a negative number and `l_og1p` of -1 or less are `error[domain]`; erf through the libm crate (in wasm too); X_eTaL-libraries' X22 (`t_anh`) is answered by the same | passes |
 | M20 | n-wise reduction, APL2's `N f/ V`: f over every window of N consecutive items (`2 -/ V` the differences, `2 ,/ S` the pairs), a negative N reversing each window; a spelling for the window, since `r_/` takes its function on the left | planned | step 172 (n-wise-reduce): the spelling to decide with the user first (recommended: a built-in `n_wise`, `2 '- n_wise c`, as `n 'f_ p_ower x` places its count); meanwhile `(1 d_rop c) - -1 d_rop c` | fails |
 
 ## X_eTaL-games

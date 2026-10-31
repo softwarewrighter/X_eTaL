@@ -110,6 +110,36 @@ Arctangent, the angle whose tangent is the argument.
 == p_i
 The constant pi. It is niladic, so it is applied to `@`.
 > p_i @
+
+== t_anh
+The hyperbolic tangent: exact near 0 (no cancellation) and 1.0 for a
+large argument (no overflow), as libm gives it.
+> t_anh 0.5 1e-10 1000
+
+== s_qrt
+The square root, correctly rounded (`^ 0.5` is not); a negative
+argument is `error[domain]`.
+> s_qrt 2 16
+
+== e_xpm1
+`e_xp x - 1`, exact for an `x` near 0, where the subtraction loses
+every digit.
+> e_xpm1 1e-10
+
+== l_og1p
+`l_og 1 + x`, exact for an `x` near 0; the argument must be above -1.
+> l_og1p 1e-10
+
+== e_rf
+The Gauss error function: the normal distribution's CDF is
+`0.5 * 1 + e_rf x / s_qrt 2`.
+> e_rf 0 0.5 3
+> 0.5 * 1 + e_rf 1 / s_qrt 2
+
+== e_rfc
+The complementary error function, `1 - e_rf x`, exact in the tail
+where that subtraction gives 0.
+> e_rfc 0.5 3
 > 2 * p_i @
 
 == SECTION Comparisons and logic

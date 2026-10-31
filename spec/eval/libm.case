@@ -1,0 +1,33 @@
+# The libm built-ins (B20): what libm gives at full accuracy and a
+# library cannot write as well. Each takes any number and gives a
+# Float, item by item: t_anh (no cancellation near 0, no overflow at
+# 1000), s_qrt (the correctly rounded root), e_xpm1 and l_og1p (exact
+# near 0, where e_xp x - 1 and l_og 1 + x lose every digit), e_rf and
+# e_rfc (the Gauss error function and its complement).
+== SOURCE
+t_anh 0.5 1e-10 1000
+s_qrt 2 16
+e_xpm1 1e-10
+(e_xp 1e-10) - 1
+l_og1p 1e-10
+e_rf 0 0.5 3
+e_rfc 0.5 10
+0.5 * 1 + e_rf 1 / s_qrt 2
+== TYPE
+Float
+Float
+Float
+Float
+Float
+Float
+Float
+Float
+== RESULT
+0.46211715726000974 0.0000000001 1.0
+1.4142135623730951 4.0
+0.000000000100000000005
+0.0000000001000000082740371
+0.00000000009999999999500001
+0.0 0.5204998778130465 0.9999779095030014
+0.4795001221869535 0.000000000000000000000000000000000000000000002088487583762545
+0.8413447460685429

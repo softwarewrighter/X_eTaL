@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-10-30
 
+- 18:17 `feat` The libm built-ins (B20, D187, step 169; X_eTaL-ML's ask M19 and X_eTaL-libraries' X22, the rule approved by the user): `t_anh`, `s_qrt`, `e_xpm1`, `l_og1p`, `e_rf` and `e_rfc`, each `Num a => a -> Float` item by item, beside `e_xp` and `l_og`: a built-in is what libm gives at full accuracy and a library cannot write as well, the rest stays in libraries. `s_qrt` of a negative number and `l_og1p` of -1 or less are `error[domain]`. erf comes from the libm crate (Rust's std has none), which builds for wasm32; its `e_rf 3` is one unit in the last place from glibc's. Spec cases eval/libm (tanh without cancellation or overflow, the correctly rounded root, expm1 and log1p beside the subtractions that lose every digit, the normal CDF), eval/reject-libm-domain and -log1p; six reference entries; docs/status.md regenerated; lang-choices B20; the ledger: M19 landed, with a notice to the siblings to drop their private versions at the next re-pin.
 - 08:40 `docs` docs/subtyping-research.txt (the user's): an archival research conversation on algebraic subtyping (MLsub, Simple-sub) and X_eTaL, where its Hindley-Milner typing stands, the costs and benefits of subtyping, and structural subtyping for tuples first; not normative, as docs/research*.txt are not.
 
 ## 2026-10-29

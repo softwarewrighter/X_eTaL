@@ -40,6 +40,18 @@ entries = [
 ]
 
 [[group]]
+rule = "B20: the libm functions a library cannot write as well"
+shape = "scalar"
+entries = [
+  ["t_anh", 1, "Num a => a -> Float"],
+  ["s_qrt", 1, "Num a => a -> Float"],
+  ["e_xpm1", 1, "Num a => a -> Float"],
+  ["l_og1p", 1, "Num a => a -> Float"],
+  ["e_rf", 1, "Num a => a -> Float"],
+  ["e_rfc", 1, "Num a => a -> Float"],
+]
+
+[[group]]
 rule = "T1, T3, T8: comparisons and logic"
 shape = "scalar"
 entries = [

@@ -19,6 +19,19 @@
 # repository should act on; it is printed after the summary.
 
 [[notice]]
+title = "t_anh, s_qrt, e_xpm1, l_og1p, e_rf and e_rfc are built-ins: drop private versions"
+text = """
+The libm functions a library cannot write as well are built-ins now
+(B20, D187; asks M19 and X22), each `Num a => a -> Float`, item by
+item: `t_anh`, `s_qrt` (correctly rounded; `^ 0.5` is not), `e_xpm1`,
+`l_og1p`, `e_rf` and `e_rfc`. A private erf (Abramowitz and Stegun),
+`2 s_igmoid(2x) - 1` for tanh and `^ 0.5` for a root can go at the next
+re-pin; a library's own `nn:t_anh` keeps working beside the
+built-in. The rest of trigonometry and the special functions stay
+libraries.
+"""
+
+[[notice]]
 title = "an unused parameter is _u: drop # lint: allow unused-binding"
 text = """
 A parameter a caller requires but the lambda ignores is written `_u`
@@ -418,8 +431,9 @@ here = "step 170 (code-string-escape-hint): the unknown-escape error names the v
 id = "M19"
 repo = "X_eTaL-ML"
 ask = "the libm built-ins t_anh, e_rf (e_rfc), s_qrt, e_xpm1, l_og1p: a built-in is what libm gives at full accuracy and a library cannot write as well; the rest of trigonometry and the special functions stay libraries"
-state = "planned"
-here = "step 169 (libm-builtins): the rule to confirm with the user and record in lang-choices, then the six built-ins beside e_xp and l_og (erf through the libm crate, which builds for wasm32); with X22"
+state = "landed"
+here = "step 169 (libm-builtins), by the rule B20 the user approved: `t_anh`, `s_qrt`, `e_xpm1`, `l_og1p`, `e_rf` and `e_rfc`, each `Num a => a -> Float` item by item; `s_qrt` of a negative number and `l_og1p` of -1 or less are `error[domain]`; erf through the libm crate (in wasm too); X_eTaL-libraries' X22 (`t_anh`) is answered by the same"
+repro = "t_anh 0.5\ns_qrt 2\ne_rf 0.5"
 
 [[ask]]
 id = "M20"

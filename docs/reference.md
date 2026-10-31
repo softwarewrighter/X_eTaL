@@ -287,6 +287,79 @@ The constant pi. It is niladic, so it is applied to `@`.
 ```
       p_i @
 3.141592653589793
+```
+
+### `t_anh`
+
+`Num a => a -> Float`, one argument.
+
+The hyperbolic tangent: exact near 0 (no cancellation) and 1.0 for a
+large argument (no overflow), as libm gives it.
+
+```
+      t_anh 0.5 1e-10 1000
+0.46211715726000974 0.0000000001 1.0
+```
+
+### `s_qrt`
+
+`Num a => a -> Float`, one argument.
+
+The square root, correctly rounded (`^ 0.5` is not); a negative
+argument is `error[domain]`.
+
+```
+      s_qrt 2 16
+1.4142135623730951 4.0
+```
+
+### `e_xpm1`
+
+`Num a => a -> Float`, one argument.
+
+`e_xp x - 1`, exact for an `x` near 0, where the subtraction loses
+every digit.
+
+```
+      e_xpm1 1e-10
+0.000000000100000000005
+```
+
+### `l_og1p`
+
+`Num a => a -> Float`, one argument.
+
+`l_og 1 + x`, exact for an `x` near 0; the argument must be above -1.
+
+```
+      l_og1p 1e-10
+0.00000000009999999999500001
+```
+
+### `e_rf`
+
+`Num a => a -> Float`, one argument.
+
+The Gauss error function: the normal distribution's CDF is
+`0.5 * 1 + e_rf x / s_qrt 2`.
+
+```
+      e_rf 0 0.5 3
+0.0 0.5204998778130465 0.9999779095030014
+      0.5 * 1 + e_rf 1 / s_qrt 2
+0.8413447460685429
+```
+
+### `e_rfc`
+
+`Num a => a -> Float`, one argument.
+
+The complementary error function, `1 - e_rf x`, exact in the tail
+where that subtraction gives 0.
+
+```
+      e_rfc 0.5 3
+0.4795001221869535 0.000022090496998585438
       2 * p_i @
 6.283185307179586
 ```

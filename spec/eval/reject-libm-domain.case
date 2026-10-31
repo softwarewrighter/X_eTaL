@@ -1,0 +1,10 @@
+# s_qrt of a negative number has no real root, and l_og1p of -1 or
+# less no logarithm: domain errors, as l_og of 0 is (B20).
+== SOURCE
+s_qrt -4
+== ERROR
+error[domain]: s_qrt needs a number at least 0
+ --> -e:1:1
+  |
+1 | s_qrt -4
+  | ^^^^^^^^
