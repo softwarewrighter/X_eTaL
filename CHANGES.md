@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-04
 
+- 10:49 `docs` Learn X_eTaL: a section on binding and mutability (the user): a plain name is bound once (`error[rebind]` when bound again, at check time), a lambda may bind its own name and leave the outer one alone, a `!` variable is bound again but keeps its first type (`error[type-mismatch]`), and `[]E_X` unbinds a name only at the REPL (`error[erase-outside-session]` in a file); the errors shown as comments, each pinned by its spec case (reject-rebind, reject-mutable-type-change, reject-erase-in-file). The learn-xetal golden rebased on purpose for the two new lines of output.
 - 10:45 `docs` docs/idioms.md's two tables put X_eTaL first, beside the idiom's name, then the other languages by first release, newest first (the user: alphabetical columns pushed X_eTaL off the right of a narrow page): Rust, JavaScript, Java, Python, C++; Uiua, BQN, ngn/k, J, GNU APL. The mainstream table reordered in docs/idioms.template.md; the array table ordered by scripts/idioms.py (`ORDER`), the Rosetta data unchanged.
 
 ## 2026-11-02

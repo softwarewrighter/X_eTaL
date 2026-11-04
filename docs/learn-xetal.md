@@ -61,12 +61,25 @@ which needs nothing installed.
 1 2 3 = 1 5 3            # 1 0 1: comparisons give Bools, 1 true, 0 false
 (3 < 4) & 2 != 2         # 0
 
-### Binding
+### Binding and mutability
 x := 5                   # `:=` binds (APL's left arrow); `=` is equality
 x * x                    # 25
-count! := 0              # only a name ending in ! may be bound again
+# A plain name is bound once: values are immutable. Binding it again,
+#   x := 6               # error[rebind]: x is already bound in this scope
+# is refused when the program is checked, before anything runs.
+## u:t_wice y: a lambda's own x, which leaves the outer x alone.
+u:t_wice := { y -> x := y * 2; x }   # a new scope may bind its own x
+u:t_wice 10              # 20
+x                        # 5: the outer x is unchanged
+# A name ending in ! is a variable: it may be bound again, but its
+# type is fixed by its first binding.
+count! := 0
 count! := count! + 1
 count!                   # 1
+#   count! := "one"      # error[type-mismatch]: expected Int, found Char
+# At the REPL only, []E_X "x" unbinds a name, so it may be bound again,
+# with a new type too; in a file that is error[erase-outside-session]:
+# a program binds a new name instead.
 
 ### Shapes, ranges and indexing
 r_ange 5                 # 1 2 3 4 5: 1-origin, like APL's iota
