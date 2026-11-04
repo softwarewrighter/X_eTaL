@@ -56,9 +56,23 @@ def cell(source, note):
     return escape(note) if note else "none"
 
 
+# The array table's columns: X_eTaL first, then the others by their
+# first release, newest first (Uiua 2023, BQN 2020, k 1993, J 1990,
+# APL 1966); a language the data adds later goes after them.
+ORDER = ["xetal", "uiua", "bqn", "k", "j", "apl2"]
+
+
+def columns(data):
+    """The data's languages and their names, in ORDER."""
+    pairs = list(zip(data["languages"], data["language_names"]))
+    rank = {lang: i for i, lang in enumerate(ORDER)}
+    pairs.sort(key=lambda p: rank.get(p[0], len(ORDER)))
+    return [p[0] for p in pairs], [p[1] for p in pairs]
+
+
 def table(data):
     """The array-language table's lines, from the data's axes and tables."""
-    langs, names = data["languages"], data["language_names"]
+    langs, names = columns(data)
     lines = ["| Idiom | " + " | ".join(names) + " |", "| ----- | " + " | ".join("-" * max(3, len(n)) for n in names) + " |"]
     for idiom, name in zip(data["idioms"], data["idiom_names"]):
         src, note = data["source"].get(idiom, {}), data["notes"].get(idiom, {})

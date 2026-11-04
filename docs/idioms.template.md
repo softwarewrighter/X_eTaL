@@ -21,36 +21,36 @@ Three things to know when reading the X_eTaL column:
 
 ## Mainstream languages
 
-| Idiom | Java | JavaScript | Python | C++ | Rust | X_eTaL |
-| ----- | ---- | ---------- | ------ | --- | ---- | ------ |
+| Idiom | X_eTaL | Rust | JavaScript | Java | Python | C++ |
+| ----- | ------ | ---- | ---------- | ---- | ------ | --- |
 | Arithmetic | <code>a + b * c</code> | <code>a + b * c</code> | <code>a + b * c</code> | <code>a + b * c</code> | <code>a + b * c</code> | <code>a + b * c</code> |
 | Comparison | <code>x &gt; 0</code> | <code>x &gt; 0</code> | <code>x &gt; 0</code> | <code>x &gt; 0</code> | <code>x &gt; 0</code> | <code>x &gt; 0</code> |
-| Binding | <code>var x = 5;</code> | <code>const x = 5;</code> | <code>x = 5</code> | <code>auto x = 5;</code> | <code>let x = 5;</code> | <code>x := 5</code> |
-| Mutation | <code>x = x + 1;</code> | <code>x += 1;</code> | <code>x += 1</code> | <code>x += 1;</code> | <code>x += 1; // let mut x</code> | <code>x! := x! + 1</code> |
-| Defining a function | <code>int sq(int x) { return x * x; }</code> | <code>function sq(x) { return x * x; }</code> | <code>def sq(x): return x * x</code> | <code>int sq(int x) { return x * x; }</code> | <code>fn sq(x: i64) -&gt; i64 { x * x }</code> | <code>u:s_q := { x -&gt; x * x }</code> |
-| Calling a function | <code>sq(5)</code> | <code>sq(5)</code> | <code>sq(5)</code> | <code>sq(5)</code> | <code>sq(5)</code> | <code>u:s_q 5</code> |
-| Anonymous function | <code>x -&gt; x * x</code> | <code>x =&gt; x * x</code> | <code>lambda x: x * x</code> | <code>[](int x) { return x * x; }</code> | <code>&#124;x&#124; x * x</code> | <code>{ _r * _r }</code> |
-| Comment | <code>// note</code> | <code>// note</code> | <code># note</code> | <code>// note</code> | <code>// note</code> | <code># note</code> |
-| Conditional | <code>x &lt; 0 ? -x : x</code> | <code>x &lt; 0 ? -x : x</code> | <code>-x if x &lt; 0 else x</code> | <code>x &lt; 0 ? -x : x</code> | <code>if x &lt; 0 { -x } else { x }</code> | <code>{ x -&gt; x &lt; 0 ? n_eg x; x }</code> |
-| Several cases | <code>switch (x) { case 0 -&gt; "zero"; default -&gt; "other"; }</code> | <code>switch (x) { case 0: return "zero"; default: return "other"; }</code> | <code>match x:
- case 0: ...</code> | <code>switch (x) { case 0: ...; default: ... }</code> | <code>match x { 0 =&gt; "zero", _ =&gt; "other" }</code> | <code>{ x -&gt; x = 0 ? "zero"; "other" }</code> |
-| Loop over 1..n | <code>for (int i = 1; i &lt;= n; i++)</code> | <code>for (let i = 1; i &lt;= n; i++)</code> | <code>for i in range(1, n + 1):</code> | <code>for (int i = 1; i &lt;= n; ++i)</code> | <code>for i in 1..=n</code> | <code>r_ange n</code> |
-| Map | <code>xs.stream().map(x -&gt; x * 2)</code> | <code>xs.map(x =&gt; x * 2)</code> | <code>[x * 2 for x in xs]</code> | <code>xs &#124; std::views::transform(f)</code> | <code>xs.iter().map(&#124;x&#124; x * 2)</code> | <code>xs * 2</code> |
-| Filter | <code>xs.stream().filter(x -&gt; x % 2 == 0)</code> | <code>xs.filter(x =&gt; x % 2 === 0)</code> | <code>[x for x in xs if x % 2 == 0]</code> | <code>xs &#124; std::views::filter(even)</code> | <code>xs.iter().filter(&#124;x&#124; *x % 2 == 0)</code> | <code>(w_here 0 = xs m_od 2) s_elect xs</code> |
-| Sum | <code>IntStream.of(xs).sum()</code> | <code>xs.reduce((a, b) =&gt; a + b, 0)</code> | <code>sum(xs)</code> | <code>std::accumulate(xs.begin(), xs.end(), 0)</code> | <code>xs.iter().sum::&lt;i64&gt;()</code> | <code>'+ r_/ xs</code> |
-| Sort | <code>Arrays.sort(xs);</code> | <code>xs.sort((a, b) =&gt; a - b)</code> | <code>sorted(xs)</code> | <code>std::ranges::sort(xs);</code> | <code>xs.sort();</code> | <code>s_ort xs</code> |
-| Length | <code>xs.length</code> | <code>xs.length</code> | <code>len(xs)</code> | <code>xs.size()</code> | <code>xs.len()</code> | <code>t_ally xs</code> |
-| Joining text | <code>s + t</code> | <code>s + t</code> | <code>s + t</code> | <code>s + t</code> | <code>format!("{s}{t}")</code> | <code>s c_at t</code> |
-| Print | <code>System.out.println(x);</code> | <code>console.log(x)</code> | <code>print(x)</code> | <code>std::cout &lt;&lt; x &lt;&lt; ' ';</code> | <code>println!("{x}");</code> | <code>p_rint! x</code> |
-| Read a line | <code>new Scanner(System.in).nextLine()</code> | <code>await rl.question("")</code> | <code>input()</code> | <code>std::getline(std::cin, s);</code> | <code>io::stdin().read_line(&amp;mut s)</code> | <code>[]R_EAD @</code> |
-| Read a file | <code>Files.readString(Path.of(p))</code> | <code>fs.readFileSync(p, "utf8")</code> | <code>open(p).read()</code> | <code>std::ifstream f(p); /* read */</code> | <code>fs::read_to_string(p)</code> | <code>[]N_GET p</code> |
-| Write a file | <code>Files.writeString(Path.of(p), s)</code> | <code>fs.writeFileSync(p, s)</code> | <code>open(p, "w").write(s)</code> | <code>std::ofstream(p) &lt;&lt; s;</code> | <code>fs::write(p, s)</code> | <code>s []N_PUT p</code> |
-| Text to number | <code>Double.parseDouble(s)</code> | <code>parseFloat(s)</code> | <code>float(s)</code> | <code>std::stod(s)</code> | <code>s.parse::&lt;f64&gt;()</code> | <code>n_umbers s</code> |
-| Importing | <code>import java.util.List;</code> | <code>import { f } from "./m.js";</code> | <code>import stats</code> | <code>#include &lt;vector&gt;</code> | <code>use std::fs;</code> | <code>"s:" u_se&lt; "Stats"</code> |
-| Error handling | <code>try { ... } catch (E e) { ... }</code> | <code>try { ... } catch (e) { ... }</code> | <code>try: ...
-except E: ...</code> | <code>try { ... } catch (const E&amp; e) { ... }</code> | <code>fallible()?  // Result</code> | <code>"1 d_iv 0" t_ry&lt; "@ r_ecover&lt; \"-1\""</code> |
-| Pattern matching | <code>switch (o) { case Point(var x, var y) -&gt; ... }</code> | none (destructuring only) | <code>match p:
- case Point(x=0): ...</code> | none (<code>std::visit</code>) | <code>match p { Point { x: 0, .. } =&gt; ... }</code> | none: guards on values |
+| Binding | <code>x := 5</code> | <code>let x = 5;</code> | <code>const x = 5;</code> | <code>var x = 5;</code> | <code>x = 5</code> | <code>auto x = 5;</code> |
+| Mutation | <code>x! := x! + 1</code> | <code>x += 1; // let mut x</code> | <code>x += 1;</code> | <code>x = x + 1;</code> | <code>x += 1</code> | <code>x += 1;</code> |
+| Defining a function | <code>u:s_q := { x -&gt; x * x }</code> | <code>fn sq(x: i64) -&gt; i64 { x * x }</code> | <code>function sq(x) { return x * x; }</code> | <code>int sq(int x) { return x * x; }</code> | <code>def sq(x): return x * x</code> | <code>int sq(int x) { return x * x; }</code> |
+| Calling a function | <code>u:s_q 5</code> | <code>sq(5)</code> | <code>sq(5)</code> | <code>sq(5)</code> | <code>sq(5)</code> | <code>sq(5)</code> |
+| Anonymous function | <code>{ _r * _r }</code> | <code>&#124;x&#124; x * x</code> | <code>x =&gt; x * x</code> | <code>x -&gt; x * x</code> | <code>lambda x: x * x</code> | <code>[](int x) { return x * x; }</code> |
+| Comment | <code># note</code> | <code>// note</code> | <code>// note</code> | <code>// note</code> | <code># note</code> | <code>// note</code> |
+| Conditional | <code>{ x -&gt; x &lt; 0 ? n_eg x; x }</code> | <code>if x &lt; 0 { -x } else { x }</code> | <code>x &lt; 0 ? -x : x</code> | <code>x &lt; 0 ? -x : x</code> | <code>-x if x &lt; 0 else x</code> | <code>x &lt; 0 ? -x : x</code> |
+| Several cases | <code>{ x -&gt; x = 0 ? "zero"; "other" }</code> | <code>match x { 0 =&gt; "zero", _ =&gt; "other" }</code> | <code>switch (x) { case 0: return "zero"; default: return "other"; }</code> | <code>switch (x) { case 0 -&gt; "zero"; default -&gt; "other"; }</code> | <code>match x:
+ case 0: ...</code> | <code>switch (x) { case 0: ...; default: ... }</code> |
+| Loop over 1..n | <code>r_ange n</code> | <code>for i in 1..=n</code> | <code>for (let i = 1; i &lt;= n; i++)</code> | <code>for (int i = 1; i &lt;= n; i++)</code> | <code>for i in range(1, n + 1):</code> | <code>for (int i = 1; i &lt;= n; ++i)</code> |
+| Map | <code>xs * 2</code> | <code>xs.iter().map(&#124;x&#124; x * 2)</code> | <code>xs.map(x =&gt; x * 2)</code> | <code>xs.stream().map(x -&gt; x * 2)</code> | <code>[x * 2 for x in xs]</code> | <code>xs &#124; std::views::transform(f)</code> |
+| Filter | <code>(w_here 0 = xs m_od 2) s_elect xs</code> | <code>xs.iter().filter(&#124;x&#124; *x % 2 == 0)</code> | <code>xs.filter(x =&gt; x % 2 === 0)</code> | <code>xs.stream().filter(x -&gt; x % 2 == 0)</code> | <code>[x for x in xs if x % 2 == 0]</code> | <code>xs &#124; std::views::filter(even)</code> |
+| Sum | <code>'+ r_/ xs</code> | <code>xs.iter().sum::&lt;i64&gt;()</code> | <code>xs.reduce((a, b) =&gt; a + b, 0)</code> | <code>IntStream.of(xs).sum()</code> | <code>sum(xs)</code> | <code>std::accumulate(xs.begin(), xs.end(), 0)</code> |
+| Sort | <code>s_ort xs</code> | <code>xs.sort();</code> | <code>xs.sort((a, b) =&gt; a - b)</code> | <code>Arrays.sort(xs);</code> | <code>sorted(xs)</code> | <code>std::ranges::sort(xs);</code> |
+| Length | <code>t_ally xs</code> | <code>xs.len()</code> | <code>xs.length</code> | <code>xs.length</code> | <code>len(xs)</code> | <code>xs.size()</code> |
+| Joining text | <code>s c_at t</code> | <code>format!("{s}{t}")</code> | <code>s + t</code> | <code>s + t</code> | <code>s + t</code> | <code>s + t</code> |
+| Print | <code>p_rint! x</code> | <code>println!("{x}");</code> | <code>console.log(x)</code> | <code>System.out.println(x);</code> | <code>print(x)</code> | <code>std::cout &lt;&lt; x &lt;&lt; ' ';</code> |
+| Read a line | <code>[]R_EAD @</code> | <code>io::stdin().read_line(&amp;mut s)</code> | <code>await rl.question("")</code> | <code>new Scanner(System.in).nextLine()</code> | <code>input()</code> | <code>std::getline(std::cin, s);</code> |
+| Read a file | <code>[]N_GET p</code> | <code>fs::read_to_string(p)</code> | <code>fs.readFileSync(p, "utf8")</code> | <code>Files.readString(Path.of(p))</code> | <code>open(p).read()</code> | <code>std::ifstream f(p); /* read */</code> |
+| Write a file | <code>s []N_PUT p</code> | <code>fs::write(p, s)</code> | <code>fs.writeFileSync(p, s)</code> | <code>Files.writeString(Path.of(p), s)</code> | <code>open(p, "w").write(s)</code> | <code>std::ofstream(p) &lt;&lt; s;</code> |
+| Text to number | <code>n_umbers s</code> | <code>s.parse::&lt;f64&gt;()</code> | <code>parseFloat(s)</code> | <code>Double.parseDouble(s)</code> | <code>float(s)</code> | <code>std::stod(s)</code> |
+| Importing | <code>"s:" u_se&lt; "Stats"</code> | <code>use std::fs;</code> | <code>import { f } from "./m.js";</code> | <code>import java.util.List;</code> | <code>import stats</code> | <code>#include &lt;vector&gt;</code> |
+| Error handling | <code>"1 d_iv 0" t_ry&lt; "@ r_ecover&lt; \"-1\""</code> | <code>fallible()?  // Result</code> | <code>try { ... } catch (e) { ... }</code> | <code>try { ... } catch (E e) { ... }</code> | <code>try: ...
+except E: ...</code> | <code>try { ... } catch (const E&amp; e) { ... }</code> |
+| Pattern matching | none: guards on values | <code>match p { Point { x: 0, .. } =&gt; ... }</code> | none (destructuring only) | <code>switch (o) { case Point(var x, var y) -&gt; ... }</code> | <code>match p:
+ case Point(x=0): ...</code> | none (<code>std::visit</code>) |
 
 ## Array languages
 
