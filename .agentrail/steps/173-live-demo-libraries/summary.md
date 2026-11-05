@@ -1,0 +1,1 @@
+X_eTaL-libraries vendored (vendor/libraries, pinned) and embedded in the live demo (xetal-collection); found after the store and standard libraries; Open lists libraries and demos; tests and a UI check

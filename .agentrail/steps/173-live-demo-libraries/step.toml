@@ -1,8 +1,9 @@
 number = 173
 slug = "live-demo-libraries"
-status = "pending"
+status = "completed"
 description = 'The user (2026-10-29): in the X_eTaL live demo, `"e:" u_se< "Equations"` is e...'
 role = "production"
 context_files = []
 created_at = "2026-10-29T13:03:28"
-commits = []
+completed_at = "2026-11-05T08:01:52"
+commits = ["16f2fe7505f5de8d155990993abc034305d6e371"]
