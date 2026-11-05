@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tuples</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.10/dist/katex.min.css" crossorigin="anonymous"/>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.10/dist/katex.min.js" crossorigin="anonymous"></script>
+<script>document.addEventListener('DOMContentLoaded', function () { if (typeof katex === 'undefined') return; document.querySelectorAll('.c-notation').forEach(function (el) { var tex = el.textContent; if (!tex) return; try { katex.render(tex, el, { throwOnError: false }); } catch (e) { el.textContent = tex; } }); });</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Tuples
+<br />
+<span class="subtitle">a state of several arrays as one value: packed by position, then a tuple taken apart by name</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org37478f2">A tuple and a pattern</a></li>
+<li><a href="#org1b3fba8">An optimizer's state, packed</a></li>
+<li><a href="#org5a8f4b4">The same state as a tuple</a></li>
+<li><a href="#orgf579456">The Rosetta stone's state, before and after</a></li>
+<li><a href="#org7dafa2b">When to use a tuple</a></li>
+</ul>
+</div>
+</div>
+<p>
+An array holds items of one type in a shape. Some values are several
+arrays of different shapes and types that travel together: a
+network's weights with the running averages its optimizer keeps and a
+count of steps; a game's board with its score; a stone's three axes
+with the pointer dragging one of them. Before tuples such a state was
+packed into one array, and every function took it apart by position.
+A tuple keeps the parts side by side, each with its own type, and a
+pattern takes them apart by name.
+</p>
+<div id="outline-container-org37478f2" class="outline-2">
+<h2 id="org37478f2">A tuple and a pattern</h2>
+<div class="outline-text-2" id="text-org37478f2">
+<p>
+A tuple is written with commas inside parentheses. Its type is written
+as the literal is, and its parts keep their own types and shapes: an
+Int vector, a Float and a text here.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(<span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>, <span class="c-number">4.5</span>, <span class="c-string">&quot;abc&quot;</span>)
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (1 2 3, 4.5, "abc")</span></pre>
+</div>
+
+<pre class="example">
+(1 2 3, 4.5, abc)
+</pre>
+
+
+<p>
+A pattern, in a binding or in a lambda's parameters, gives each part a
+name; <code>_</code> ignores a part and patterns nest. A pattern of the wrong size
+is a type error, found before the program runs.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(n, (x, _)) ← (<span class="c-number">3</span>, (<span class="c-number">2.5</span>, <span class="c-string">&quot;unused&quot;</span>))
+x <span class="c-symbol">×</span> <span class="c-builtin">f̲loat</span> n
+<span class="c-userfunc">ᵘs̲wapped</span> ← { (a, b) → (b, a) }
+<span class="c-userfunc">ᵘs̲wapped</span> (<span class="c-number">1</span>, <span class="c-string">&quot;x&quot;</span>)
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (n, (x, _)) := (3, (2.5, "unused"))</span>
+<span class="c-comment typed">⍝   x * f_loat n</span>
+<span class="c-comment typed">⍝   u:s_wapped := { (a, b) -&gt; (b, a) }</span>
+<span class="c-comment typed">⍝   u:s_wapped (1, "x")</span></pre>
+</div>
+
+<pre class="example">
+7.5
+(x, 1)
+</pre>
+</div>
+</div>
+<div id="outline-container-org1b3fba8" class="outline-2">
+<h2 id="org1b3fba8">An optimizer's state, packed</h2>
+<div class="outline-text-2" id="text-org1b3fba8">
+<p>
+Adam keeps, for every weight array, two running averages: of the
+gradients and of their squares. A step of Adam reads the weights, the
+averages and the step count, and gives all of them back, so <code>p_ower</code> can
+repeat it. Two weight arrays here (a vector and a matrix) learn to
+equal two targets; the gradient of the squared distance is twice the
+difference.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">target1 ← <span class="c-number">1.0</span> <span class="c-number">2.0</span> <span class="c-number">3.0</span>
+target2 ← <span class="c-number">2</span> <span class="c-number">2</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0.5</span> <span class="c-number">-0.5</span> <span class="c-number">0.25</span> <span class="c-number">-0.25</span>
+<span class="c-userfunc">ᵘg̲rad</span> ← { W1 W2 → (<span class="c-builtin">e̲nclose</span> <span class="c-number">2.0</span> <span class="c-symbol">×</span> W1 <span class="c-symbol">−</span> target1) <span class="c-builtin">c̲at</span> <span class="c-builtin">e̲nclose</span> <span class="c-number">2.0</span> <span class="c-symbol">×</span> W2 <span class="c-symbol">−</span> target2 }
+lr ← <span class="c-number">0.1</span>
+<span class="c-userfunc">ᵘr̲ound</span> ← { a → (<span class="c-builtin">f̲loat</span> <span class="c-builtin">f̲loor</span> <span class="c-number">0.5</span> <span class="c-symbol">+</span> <span class="c-number">1000.0</span> <span class="c-symbol">×</span> a) <span class="c-symbol">÷</span> <span class="c-number">1000.0</span> }
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   target1 := 1.0 2.0 3.0</span>
+<span class="c-comment typed">⍝   target2 := 2 2 r_eshape 0.5 -0.5 0.25 -0.25</span>
+<span class="c-comment typed">⍝   u:g_rad := { W1 W2 -&gt; (e_nclose 2.0 * W1 - target1) c_at e_nclose 2.0 * W2 - target2 }</span>
+<span class="c-comment typed">⍝   lr := 0.1</span>
+<span class="c-comment typed">⍝   u:r_ound := { a -&gt; (f_loat f_loor 0.5 + 1000.0 * a) / 1000.0 }</span></pre>
+</div>
+
+<p>
+Without tuples the seven parts (two weight arrays, four averages and
+the count) are boxed into one vector, and every part is reached by its
+position: <code>d_isclose 3 s_elect s</code> is the first average because the
+author remembers that it is third. The count is a Float, since a
+vector of boxes holds one item type.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘm̲oveBy</span> ← { mv k → ((<span class="c-builtin">d̲isclose</span> <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> mv) <span class="c-symbol">÷</span> <span class="c-number">1.0</span> <span class="c-symbol">−</span> <span class="c-number">0.9</span> <span class="c-symbol">^</span> k) <span class="c-symbol">÷</span> <span class="c-number">0.00000001</span> <span class="c-symbol">+</span> ((<span class="c-builtin">d̲isclose</span> <span class="c-number">2</span> <span class="c-builtin">s̲elect</span> mv) <span class="c-symbol">÷</span> <span class="c-number">1.0</span> <span class="c-symbol">−</span> <span class="c-number">0.999</span> <span class="c-symbol">^</span> k) <span class="c-symbol">^</span> <span class="c-number">0.5</span> }
+<span class="c-userfunc">ᵘp̲acked</span> ← { s →
+  W1 ← <span class="c-builtin">d̲isclose</span> <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> s
+  W2 ← <span class="c-builtin">d̲isclose</span> <span class="c-number">2</span> <span class="c-builtin">s̲elect</span> s
+  k ← <span class="c-number">1.0</span> <span class="c-symbol">+</span> <span class="c-builtin">d̲isclose</span> <span class="c-number">7</span> <span class="c-builtin">s̲elect</span> s
+  g ← W1 <span class="c-userfunc">ᵘg̲rad</span> W2
+  G1 ← <span class="c-builtin">d̲isclose</span> <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> g
+  G2 ← <span class="c-builtin">d̲isclose</span> <span class="c-number">2</span> <span class="c-builtin">s̲elect</span> g
+  M1 ← (<span class="c-number">0.9</span> <span class="c-symbol">×</span> <span class="c-builtin">d̲isclose</span> <span class="c-number">3</span> <span class="c-builtin">s̲elect</span> s) <span class="c-symbol">+</span> <span class="c-number">0.1</span> <span class="c-symbol">×</span> G1
+  M2 ← (<span class="c-number">0.9</span> <span class="c-symbol">×</span> <span class="c-builtin">d̲isclose</span> <span class="c-number">4</span> <span class="c-builtin">s̲elect</span> s) <span class="c-symbol">+</span> <span class="c-number">0.1</span> <span class="c-symbol">×</span> G2
+  V1 ← (<span class="c-number">0.999</span> <span class="c-symbol">×</span> <span class="c-builtin">d̲isclose</span> <span class="c-number">5</span> <span class="c-builtin">s̲elect</span> s) <span class="c-symbol">+</span> <span class="c-number">0.001</span> <span class="c-symbol">×</span> G1 <span class="c-symbol">×</span> G1
+  V2 ← (<span class="c-number">0.999</span> <span class="c-symbol">×</span> <span class="c-builtin">d̲isclose</span> <span class="c-number">6</span> <span class="c-builtin">s̲elect</span> s) <span class="c-symbol">+</span> <span class="c-number">0.001</span> <span class="c-symbol">×</span> G2 <span class="c-symbol">×</span> G2
+  N1 ← W1 <span class="c-symbol">−</span> lr <span class="c-symbol">×</span> ((<span class="c-builtin">e̲nclose</span> M1) <span class="c-builtin">c̲at</span> <span class="c-builtin">e̲nclose</span> V1) <span class="c-userfunc">ᵘm̲oveBy</span> k
+  N2 ← W2 <span class="c-symbol">−</span> lr <span class="c-symbol">×</span> ((<span class="c-builtin">e̲nclose</span> M2) <span class="c-builtin">c̲at</span> <span class="c-builtin">e̲nclose</span> V2) <span class="c-userfunc">ᵘm̲oveBy</span> k
+  (<span class="c-builtin">e̲nclose</span> N1) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> N2) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> M1) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> M2) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> V1) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> V2) <span class="c-builtin">c̲at</span> <span class="c-builtin">e̲nclose</span> k
+}
+z1 ← <span class="c-number">0.0</span> <span class="c-number">0.0</span> <span class="c-number">0.0</span>
+z2 ← <span class="c-number">2</span> <span class="c-number">2</span> <span class="c-builtin">r̲eshape</span> <span class="c-number">0.0</span>
+p0 ← (<span class="c-builtin">e̲nclose</span> z1) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> z2) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> z1) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> z2) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> z1) <span class="c-builtin">c̲at</span> (<span class="c-builtin">e̲nclose</span> z2) <span class="c-builtin">c̲at</span> <span class="c-builtin">e̲nclose</span> <span class="c-number">0.0</span>
+p ← <span class="c-number">200</span> <span class="c-userfunc">'ᵘp̲acked</span> <span class="c-builtin">p̲ower</span> p0
+<span class="c-userfunc">ᵘr̲ound</span> <span class="c-builtin">d̲isclose</span> <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> p
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:m_oveBy := { mv k -&gt; ((d_isclose 1 s_elect mv) / 1.0 - 0.9 ^ k) / 0.00000001 + ((d_isclose 2 s_elect mv) / 1.0 - 0.999 ^ k) ^ 0.5 }</span>
+<span class="c-comment typed">⍝   u:p_acked := { s -&gt;</span>
+<span class="c-comment typed">⍝     W1 := d_isclose 1 s_elect s</span>
+<span class="c-comment typed">⍝     W2 := d_isclose 2 s_elect s</span>
+<span class="c-comment typed">⍝     k := 1.0 + d_isclose 7 s_elect s</span>
+<span class="c-comment typed">⍝     g := W1 u:g_rad W2</span>
+<span class="c-comment typed">⍝     G1 := d_isclose 1 s_elect g</span>
+<span class="c-comment typed">⍝     G2 := d_isclose 2 s_elect g</span>
+<span class="c-comment typed">⍝     M1 := (0.9 * d_isclose 3 s_elect s) + 0.1 * G1</span>
+<span class="c-comment typed">⍝     M2 := (0.9 * d_isclose 4 s_elect s) + 0.1 * G2</span>
+<span class="c-comment typed">⍝     V1 := (0.999 * d_isclose 5 s_elect s) + 0.001 * G1 * G1</span>
+<span class="c-comment typed">⍝     V2 := (0.999 * d_isclose 6 s_elect s) + 0.001 * G2 * G2</span>
+<span class="c-comment typed">⍝     N1 := W1 - lr * ((e_nclose M1) c_at e_nclose V1) u:m_oveBy k</span>
+<span class="c-comment typed">⍝     N2 := W2 - lr * ((e_nclose M2) c_at e_nclose V2) u:m_oveBy k</span>
+<span class="c-comment typed">⍝     (e_nclose N1) c_at (e_nclose N2) c_at (e_nclose M1) c_at (e_nclose M2) c_at (e_nclose V1) c_at (e_nclose V2) c_at e_nclose k</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   z1 := 0.0 0.0 0.0</span>
+<span class="c-comment typed">⍝   z2 := 2 2 r_eshape 0.0</span>
+<span class="c-comment typed">⍝   p0 := (e_nclose z1) c_at (e_nclose z2) c_at (e_nclose z1) c_at (e_nclose z2) c_at (e_nclose z1) c_at (e_nclose z2) c_at e_nclose 0.0</span>
+<span class="c-comment typed">⍝   p := 200 'u:p_acked p_ower p0</span>
+<span class="c-comment typed">⍝   u:r_ound d_isclose 1 s_elect p</span></pre>
+</div>
+
+<pre class="example">
+1.0 2.0 3.0
+</pre>
+</div>
+</div>
+<div id="outline-container-org5a8f4b4" class="outline-2">
+<h2 id="org5a8f4b4">The same state as a tuple</h2>
+<div class="outline-text-2" id="text-org5a8f4b4">
+<p>
+With a tuple the state is <code>(W1, W2, M1, M2, V1, V2, k)</code>: the step
+names its parts once, in its parameter, and gives a tuple back. The
+count is an Int. Nothing is boxed, nothing is selected by number, and
+a step that gave back six parts instead of seven would not type-check.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘm̲ove</span> ← { (m, v) k → (m <span class="c-symbol">÷</span> <span class="c-number">1.0</span> <span class="c-symbol">−</span> <span class="c-number">0.9</span> <span class="c-symbol">^</span> k) <span class="c-symbol">÷</span> <span class="c-number">0.00000001</span> <span class="c-symbol">+</span> (v <span class="c-symbol">÷</span> <span class="c-number">1.0</span> <span class="c-symbol">−</span> <span class="c-number">0.999</span> <span class="c-symbol">^</span> k) <span class="c-symbol">^</span> <span class="c-number">0.5</span> }
+<span class="c-userfunc">ᵘa̲dam</span> ← { (W1, W2, M1, M2, V1, V2, k) →
+  t ← <span class="c-number">1</span> <span class="c-symbol">+</span> k
+  g ← W1 <span class="c-userfunc">ᵘg̲rad</span> W2
+  (G1, G2) ← (<span class="c-builtin">d̲isclose</span> <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> g, <span class="c-builtin">d̲isclose</span> <span class="c-number">2</span> <span class="c-builtin">s̲elect</span> g)
+  m1 ← (<span class="c-number">0.9</span> <span class="c-symbol">×</span> M1) <span class="c-symbol">+</span> <span class="c-number">0.1</span> <span class="c-symbol">×</span> G1
+  m2 ← (<span class="c-number">0.9</span> <span class="c-symbol">×</span> M2) <span class="c-symbol">+</span> <span class="c-number">0.1</span> <span class="c-symbol">×</span> G2
+  v1 ← (<span class="c-number">0.999</span> <span class="c-symbol">×</span> V1) <span class="c-symbol">+</span> <span class="c-number">0.001</span> <span class="c-symbol">×</span> G1 <span class="c-symbol">×</span> G1
+  v2 ← (<span class="c-number">0.999</span> <span class="c-symbol">×</span> V2) <span class="c-symbol">+</span> <span class="c-number">0.001</span> <span class="c-symbol">×</span> G2 <span class="c-symbol">×</span> G2
+  (W1 <span class="c-symbol">−</span> lr <span class="c-symbol">×</span> (m1, v1) <span class="c-userfunc">ᵘm̲ove</span> <span class="c-builtin">f̲loat</span> t, W2 <span class="c-symbol">−</span> lr <span class="c-symbol">×</span> (m2, v2) <span class="c-userfunc">ᵘm̲ove</span> <span class="c-builtin">f̲loat</span> t, m1, m2, v1, v2, t)
+}
+s0 ← (z1, z2, z1, z2, z1, z2, <span class="c-number">0</span>)
+(w1, w2, _, _, _, _, steps) ← <span class="c-number">200</span> <span class="c-userfunc">'ᵘa̲dam</span> <span class="c-builtin">p̲ower</span> s0
+<span class="c-userfunc">ᵘr̲ound</span> w1
+steps
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:m_ove := { (m, v) k -&gt; (m / 1.0 - 0.9 ^ k) / 0.00000001 + (v / 1.0 - 0.999 ^ k) ^ 0.5 }</span>
+<span class="c-comment typed">⍝   u:a_dam := { (W1, W2, M1, M2, V1, V2, k) -&gt;</span>
+<span class="c-comment typed">⍝     t := 1 + k</span>
+<span class="c-comment typed">⍝     g := W1 u:g_rad W2</span>
+<span class="c-comment typed">⍝     (G1, G2) := (d_isclose 1 s_elect g, d_isclose 2 s_elect g)</span>
+<span class="c-comment typed">⍝     m1 := (0.9 * M1) + 0.1 * G1</span>
+<span class="c-comment typed">⍝     m2 := (0.9 * M2) + 0.1 * G2</span>
+<span class="c-comment typed">⍝     v1 := (0.999 * V1) + 0.001 * G1 * G1</span>
+<span class="c-comment typed">⍝     v2 := (0.999 * V2) + 0.001 * G2 * G2</span>
+<span class="c-comment typed">⍝     (W1 - lr * (m1, v1) u:m_ove f_loat t, W2 - lr * (m2, v2) u:m_ove f_loat t, m1, m2, v1, v2, t)</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   s0 := (z1, z2, z1, z2, z1, z2, 0)</span>
+<span class="c-comment typed">⍝   (w1, w2, _, _, _, _, steps) := 200 'u:a_dam p_ower s0</span>
+<span class="c-comment typed">⍝   u:r_ound w1</span>
+<span class="c-comment typed">⍝   steps</span></pre>
+</div>
+
+<pre class="example">
+1.0 2.0 3.0
+200
+</pre>
+
+
+<p>
+Both reach the same weights. The tuple version is the one X_eTaL-ML's
+training demo uses (its ask M13): its state was 99 weights and two
+averages packed into one vector of 298 numbers, taken apart by
+<code>t_ake</code> and <code>d_rop</code> at fixed offsets.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal">(<span class="c-userfunc">ᵘr̲ound</span> w1) <span class="c-builtin">m̲atch</span> <span class="c-userfunc">ᵘr̲ound</span> <span class="c-builtin">d̲isclose</span> <span class="c-number">1</span> <span class="c-builtin">s̲elect</span> p
+(<span class="c-userfunc">ᵘr̲ound</span> w2) <span class="c-builtin">m̲atch</span> <span class="c-userfunc">ᵘr̲ound</span> <span class="c-builtin">d̲isclose</span> <span class="c-number">2</span> <span class="c-builtin">s̲elect</span> p
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   (u:r_ound w1) m_atch u:r_ound d_isclose 1 s_elect p</span>
+<span class="c-comment typed">⍝   (u:r_ound w2) m_atch u:r_ound d_isclose 2 s_elect p</span></pre>
+</div>
+
+<pre class="example">
+1
+1
+</pre>
+</div>
+</div>
+<div id="outline-container-orgf579456" class="outline-2">
+<h2 id="orgf579456">The Rosetta stone's state, before and after</h2>
+<div class="outline-text-2" id="text-orgf579456">
+<p>
+The Rosetta stone (<code>demos/rosetta/Comparison.xtl</code>) kept its whole state
+in one 5 x 5 Float matrix: three rows for the axes (count, steps,
+angle, playing), one for the pointer, one for the attract mode's
+clock. A cell was read by its row and column number and written
+through a mask, and the counts were Floats because a matrix has one
+element type. Before:
+</p>
+
+<pre class="example" id="org0abc2d6">
+31 cm:s_tart 7
+31.0 0.0 0.0 1.0 0.0
+ 7.0 0.0 0.0 1.0 0.0
+ 7.0 0.0 0.0 1.0 0.0
+ 0.0 0.0 0.0 0.0 0.0
+20.0 0.0 0.0 0.0 0.0
+(cm:TOP c_at cm:STEPS) cm:a_t (cm:TOP c_at 7.0) cm:c_hoose 31 cm:s_tart 7
+-1.0
+</pre>
+
+<p>
+After, the state is <code>(axes, pointer, clock)</code>. The axes are four
+vectors of three, one per field (a struct of arrays, so an axis number
+still selects an axis); counts and steps are Ints. A call names the
+axis and its argument as a pair, and a field is read by name.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-string">&quot;cm:&quot;</span> <span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Comparison&quot;</span>
+s ← <span class="c-number">31</span> <span class="c-libfunc">ᶜᵐs̲tart</span> <span class="c-number">7</span>
+s
+ᶜᵐTOP <span class="c-libfunc">ᶜᵐs̲teps</span> (ᶜᵐTOP, <span class="c-number">7</span>) <span class="c-libfunc">ᶜᵐc̲hoose</span> s
+ᶜᵐTOP <span class="c-libfunc">ᶜᵐa̲ngle</span> <span class="c-number">0.1</span> <span class="c-libfunc">ᶜᵐt̲ick</span> (ᶜᵐTOP, <span class="c-number">7</span>) <span class="c-libfunc">ᶜᵐc̲hoose</span> s
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "cm:" u_se&lt; "Comparison"</span>
+<span class="c-comment typed">⍝   s := 31 cm:s_tart 7</span>
+<span class="c-comment typed">⍝   s</span>
+<span class="c-comment typed">⍝   cm:TOP cm:s_teps (cm:TOP, 7) cm:c_hoose s</span>
+<span class="c-comment typed">⍝   cm:TOP cm:a_ngle 0.1 cm:t_ick (cm:TOP, 7) cm:c_hoose s</span></pre>
+</div>
+
+<pre class="example">
+((31 7 7, 0 0 0, 0.0 0.0 0.0, 1 1 1), (0, 0.0 0.0, 0.0, 0.0), (20.0, 0.0, 0, 0))
+-1
+-18.0
+</pre>
+
+
+<p>
+Inside the library, a function takes the state apart with a pattern
+and builds the new one from its parts, <code>cm:t_ouched</code> for one:
+</p>
+
+<pre class="example" id="org2159a28">
+l:t_ouched := { state -&gt; (axes, q, (_, _, b, i)) := state; (axes, q, (0.0, 0.0, b, i)) }
+</pre>
+</div>
+</div>
+<div id="outline-container-org7dafa2b" class="outline-2">
+<h2 id="org7dafa2b">When to use a tuple</h2>
+<div class="outline-text-2" id="text-org7dafa2b">
+<p>
+A tuple groups parts of different types or shapes that travel
+together and are taken apart by name. A fixed count of same-typed
+numbers that are added, scaled or joined like any vector stays an
+array: a tuple has no arithmetic (<code>=</code> and <code>+</code> do not reach into it, only
+<code>m_atch</code> compares) and no shape. A tuple can be an item of an array only
+in a box: <code>m_ap</code> of a function giving a tuple boxes each result.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-quote">'</span>{ k → (k, <span class="c-builtin">f̲loat</span> k) } <span class="c-builtin">m̲ap</span> <span class="c-number">1</span> <span class="c-number">2</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   '{ k -&gt; (k, f_loat k) } m_ap 1 2</span></pre>
+</div>
+
+<pre class="example">
+┌→──────────────────────┐
+│ ┌────────┐ ┌────────┐ │
+│ │(1, 1.0)│ │(2, 2.0)│ │
+│ └∊───────┘ └∊───────┘ │
+└∊──────────────────────┘
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>

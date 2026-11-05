@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lib/Stats.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<h3>demos/</h3>
+<ul>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-dyadic.xtl.html">dyadic.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+</ul>
+<h3>demos/rosetta/</h3>
+<ul>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+</ul>
+<h3>lib/</h3>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>userlibs/</h3>
+<ul>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+</ul>
+<ul>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#L14"><span class="c-libfunc">ˡm̲ean</span></a></li>
+<li class="item"><a href="#L17"><span class="c-libfunc">ʰs̲quare</span></a></li>
+<li class="item"><a href="#L19"><span class="c-libfunc">ʰd̲eviations</span></a></li>
+<li class="item"><a href="#L27"><span class="c-libfunc">ˡv̲ariance</span></a></li>
+<li class="item"><a href="#L33"><span class="c-libfunc">ˡs̲d</span></a></li>
+<li class="item"><a href="#L39"><span class="c-libfunc">ˡs̲pread</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">source</span><a href="lib-Stats.xtl.html">lib/Stats.xtl</a></h1>
+<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-doc">⍝│</span><span class="c-doc"> Stats: a small statistics library (a standard library, built into</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-doc">⍝│</span><span class="c-doc"> xetal). Import it with an alias of your choice: &quot;s:&quot; u_se&lt; &quot;Stats&quot;.</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-doc">⍝│</span><span class="c-doc"> It is a demo library, loaded only by that import: a small subset of</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-doc">⍝│</span><span class="c-doc"> X_eTaL-libraries' Statistics, which has much more (a program may use</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-doc">⍝│</span><span class="c-doc"> either).</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-doc">⍝│</span><span class="c-doc"> Names with l: are exported; names with h: are private to this file.</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-heading">⍝━━</span><span class="c-heading"> Center</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-doc">⍝│</span><span class="c-doc"> The arithmetic mean, of Int or Float numbers.</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-doc">⍝│</span><span class="c-doc"> &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-doc">⍝│</span><span class="c-doc"> &gt;&gt; s:m_ean 2 4 4 4 5 5 7 9</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-doc">⍝│</span><span class="c-doc"> 5.0</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-libfunc">ˡm̲ean</span> ← [[<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a>] <a href="builtins.html#-2f" class="c-symbol">÷</a> [<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a>]]</span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-doc">⍝│</span><span class="c-doc"> Each number times itself.</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-libfunc">ʰs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-lambdaarg">⍵</span> }                       <span class="c-comment">⍝</span><span class="c-comment"> private: not visible outside</span></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-doc">⍝│</span><span class="c-doc"> How far each number is from the mean, as Floats.</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-libfunc">ʰd̲eviations</span> ← [<a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#-2d" class="c-symbol">−</a> <a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˡm̲ean</a>]</span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-heading">⍝━━</span><span class="c-heading"> Spread</span></span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a></span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-doc">⍝│</span><span class="c-doc"> The variance: the mean squared deviation from the mean.</span></span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-doc">⍝│</span><span class="c-doc"> &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span></span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a><span class="c-doc">⍝│</span><span class="c-doc"> &gt;&gt; s:v_ariance 2 4 4 4 5 5 7 9</span></span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a><span class="c-doc">⍝│</span><span class="c-doc"> 4.0</span></span>
+<span class="line" id="L27"><a class="ln" href="#L27">27</a><span class="c-libfunc">ˡv̲ariance</span> ← [<a href="lib-Stats.xtl.html#l.m_ean" class="c-libfunc">ˡm̲ean</a> [<a href="lib-Stats.xtl.html#h.s_quare" class="c-libfunc">ʰs̲quare</a> <a href="lib-Stats.xtl.html#h.d_eviations" class="c-libfunc">ʰd̲eviations</a>]]</span>
+<span class="line" id="L28"><a class="ln" href="#L28">28</a></span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-doc">⍝│</span><span class="c-doc"> The standard deviation: the square root of the variance.</span></span>
+<span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-doc">⍝│</span><span class="c-doc"> &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span></span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-doc">⍝│</span><span class="c-doc"> &gt;&gt; s:s_d 2 4 4 4 5 5 7 9</span></span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a><span class="c-doc">⍝│</span><span class="c-doc"> 2.0</span></span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-libfunc">ˡs̲d</span> ← { (<a href="lib-Stats.xtl.html#l.v_ariance" class="c-libfunc">ˡv̲ariance</a> <span class="c-lambdaarg">⍵</span>) <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">0.5</span> }</span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a></span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a><span class="c-doc">⍝│</span><span class="c-doc"> The range: the largest minus the smallest.</span></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-doc">⍝│</span><span class="c-doc"> &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span></span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a><span class="c-doc">⍝│</span><span class="c-doc"> &gt;&gt; s:s_pread 2 4 4 4 5 5 7 9</span></span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-doc">⍝│</span><span class="c-doc"> 7</span></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-libfunc">ˡs̲pread</span> ← [<span class="c-builtin">'</span><a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-builtin">'</span><a href="builtins.html#m_in" class="c-builtin">m̲in</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a>]</span>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>index - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<h3>demos/</h3>
+<ul>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-dyadic.xtl.html">dyadic.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+</ul>
+<h3>demos/rosetta/</h3>
+<ul>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+</ul>
+<h3>lib/</h3>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>userlibs/</h3>
+<ul>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+</ul>
+<ul>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1>X_eTaL documentation</h1>
+<h2>Files</h2>
+<ul>
+<li>library <a href="lib-Combinators.xtl.html">lib/Combinators.xtl</a>: Combinators: the birds Raymond Smullyan names in &quot;To Mock a
+Mockingbird&quot; that type-check (a standard library, built into xetal).
+Import it with an alias of your choice: &quot;c:&quot; u_se&lt; &quot;Combinators&quot;.
+docs/birds.md lists them all, with two of Curry's that trains name
+(the Phoenix and Psi); the self-applying birds (L, M, M2, U) have no
+finite type and are in demos/birds-untyped.xtl.</li>
+<li>library <a href="lib-Geometry3D.xtl.html">lib/Geometry3D.xtl</a>: Geometry3D: points in space as arrays (a standard library, built into
+xetal). Import it with an alias of your choice: &quot;g:&quot; u_se&lt; &quot;Geometry3D&quot;.
+Points are a 3-row matrix, x over y over z, one column per point, as
+[]P_ATH takes 2 rows; a rotation is a 3 x 3 matrix, and turning the
+points is one inner product. A face is a 3 x 4 matrix of corners,
+and a solid is faces stacked along a new first axis (F x 3 x 4), so
+one expression orders them far to near for painting.
+Names with l: are exported; names with h: are private to this file.</li>
+<li>library <a href="lib-Maybe.xtl.html">lib/Maybe.xtl</a>: Maybe: a value that may be missing, and the monad that chains
+computations which can fail (a standard library, built into xetal).
+Import it with an alias of your choice: &quot;m:&quot; u_se&lt; &quot;Maybe&quot;.</li>
+<li>library <a href="lib-Stats.xtl.html">lib/Stats.xtl</a>: Stats: a small statistics library (a standard library, built into
+xetal). Import it with an alias of your choice: &quot;s:&quot; u_se&lt; &quot;Stats&quot;.
+It is a demo library, loaded only by that import: a small subset of
+X_eTaL-libraries' Statistics, which has much more (a program may use
+either).
+Names with l: are exported; names with h: are private to this file.</li>
+<li>library <a href="lib-Svg.xtl.html">lib/Svg.xtl</a>: Svg: pictures as SVG text, written for you (a standard library, built
+into xetal). Import it with an alias of your choice: &quot;v:&quot; u_se&lt; &quot;Svg&quot;.
+An element is its SVG text; a picture is elements joined with c_at
+inside v:p_icture, which []S_HOW shows and the command line writes.
+Points are a 2-row matrix, x over y, as []P_ATH and Geometry3D's
+g:p_roject give them; y grows downward, as SVG's does. Attributes
+are text made by v:a_ttr, v:f_ill, v:s_troke and the transforms, so
+no program writes a quote mark or an angle bracket of its own.
+Names with l: are exported; names with h: are private to this file.</li>
+<li>library <a href="lib-Terminal.xtl.html">lib/Terminal.xtl</a>: Terminal: the names of the colors and keys a program draws and reads
+with, a standard library built into xetal. Import it with an alias
+of your choice: &quot;t:&quot; u_se&lt; &quot;Terminal&quot;.</li>
+<li>library <a href="lib-TTTML.xtl.html">lib/TTTML.xtl</a>: TTTML: a machine that learns tic-tac-toe by playing itself (a
+standard library, built into xetal), ported from the TTTML workspace
+of sw-apl's library 1. Import it with an alias of your choice:
+&quot;t:&quot; u_se&lt; &quot;TTTML&quot;. docs/literate/tttml.org explains it; the demos
+demos/tttml.xtl, demos/tttml-train.xtl and demos/tttml-play.xtl use it.</li>
+<li>library <a href="lib-Turtle.xtl.html">lib/Turtle.xtl</a>: Turtle: turtle graphics as arrays (a standard library, built into
+xetal). Import it with an alias of your choice: &quot;t:&quot; u_se&lt; &quot;Turtle&quot;.
+A walk is a vector of turns in degrees, one before each step forward;
+the turtle starts at the origin facing east (0 degrees, counting
+anticlockwise). No turtle moves: the headings are a running sum of
+the turns, the steps are their cosines and sines, and the positions
+are running sums of the steps. Draw the points with []P_ATH.
+Names with l: are exported; names with h: are private to this file.</li>
+<li>macro library <a href="lib-Combinators.xtlm.html">lib/Combinators.xtlm</a>: Combinators as macros: the birds of the Combinators library written
+in at compile time instead of applied when the program runs. Import
+both under one alias: &quot;c:&quot; u_se&lt; &quot;Combinators&quot; finds Combinators.xtl
+(c:Y_, c:B_, ...) and this file (c:Y_&lt;, c:B_&lt;).</li>
+<li>macro library <a href="lib-Macros.xtlm.html">lib/Macros.xtlm</a>: A small macro library, an example of macros of your own (MC10). A
+macro is an ordinary function of the source text written on each
+side of its call; the text it gives replaces the call, then is read
+as code. Import it with an alias of your own, &quot;x:&quot; u_se&lt; &quot;Macros&quot;,
+and see what a program becomes with xetal expand FILE. The contract
+lines above a macro (MC31) say the shape of call it takes (checked
+before it runs), whether it copies its text (every name and number
+must reach the expansion) or parses it, and the names it binds for
+your text.</li>
+<li>system macros <a href="std-System.xtlm.html">std/System.xtlm</a>: The system macros (lang-choices MC18, MC19, MC24), loaded before
+every file with no import and no alias: each is called unprefixed,
+as &quot;c&quot; i_f&lt; &quot;a; b&quot;. A macro is a function of the source text on each
+side of its call; the text it gives replaces the call. @ on a side
+means the macro takes nothing there (MC22). What only the compiler
+knows comes from hooks (MC20), usable only in a macro body.</li>
+<li>program <a href="demos-arrays.xtl.html">demos/arrays.xtl</a>: Arrays: dense arrays, 1-origin indexing, the structural built-ins and
+scalar extension. Run it with &quot;xetal run demos/arrays.xtl&quot; (or
+&quot;./demos/arrays.xtl&quot;); it prints the result of each line after the
+definition of m: the matrix, its shape, a row, the last row, the
+matrix times ten, a row joined to more items and powers of ten.
+Read it for how r_eshape, s_elect, t_ake and c_at treat a matrix.</li>
+<li>program <a href="demos-combinators.xtl.html">demos/combinators.xtl</a>: Combinators: the Combinators library, Smullyan's birds and two of
+Curry's, each a function that only rearranges, repeats or drops its
+arguments. Run it
+with &quot;xetal run demos/combinators.xtl&quot; (or &quot;./demos/combinators.xtl&quot;),
+or as a notebook with &quot;just show demos/combinators.xtl&quot;; it prints
+what each bird makes of small numbers, ending with 10 factorial from
+Y and 1024 from a function power. docs/birds.md lists every bird.</li>
+<li>program <a href="demos-dyadic.xtl.html">demos/dyadic.xtl</a>: A dyadic user function; every function is curried. Run it with
+./demos/dyadic.xtl or &quot;xetal run demos/dyadic.xtl&quot;; it prints 7 twice, from
+`10 u:s_ub 3` and from the partial application u:t_enMinus.</li>
+<li>program <a href="demos-factorial.xtl.html">demos/factorial.xtl</a>: Factorial: recursion with guards, one statement per line. Run it with
+&quot;xetal run demos/factorial.xtl&quot; (or &quot;./demos/factorial.xtl&quot;); it
+prints 3628800, the factorial of 10. Read u:f_act for how a guard
+(`c ? r`) ends a function early and how a function calls itself.</li>
+<li>program <a href="demos-hello-library.xtl.html">demos/hello-library.xtl</a>: Hello library: a program using two libraries of its own,
+userlibs/Hello.xtl and userlibs/Greetings.xtl. Run it from the
+repository's root with &quot;xetal run demos/hello-library.xtl&quot; (or
+&quot;./demos/hello-library.xtl&quot;); it prints a greeting and two personal
+greetings. Read the imports for how u_se&lt; finds a library: &quot;Hello&quot; is
+Hello.xtl beside this file, then in userlibs/, then on XETAL_PATH,
+then among the standard libraries; the string on its left is the
+prefix the library's l: names get here.</li>
+<li>library <a href="userlibs-Hello.xtl.html">userlibs/Hello.xtl</a>: Hello: the smallest library, one greeting. A library is an ordinary
+file whose exported names start with l:; libraries of your own live
+in userlibs/, on the search path. demos/hello-library.xtl imports it
+(&quot;hi:&quot; u_se&lt; &quot;Hello&quot;), and docs/literate/hello.org walks through
+both. The name in the string is the logo: typed X_ e:T a:L, drawn,
+spaces removed (a string may hold any Unicode).</li>
+<li>library <a href="userlibs-Greetings.xtl.html">userlibs/Greetings.xtl</a>: Greetings: a library with a private name. h:n_ame is file-private, so it is
+used here but cannot be imported; g_reet is exported, and takes the
+greeting from the program that calls it. Import it with an alias of
+your choice: &quot;g:&quot; u_se&lt; &quot;Greetings&quot; (it is found in userlibs/).</li>
+<li>program <a href="demos-higher-order.xtl.html">demos/higher-order.xtl</a>: Higher-order built-ins: they take quoted functions as operands, as
+`'+ r_/ v` reduces v with plus. Run it with
+&quot;xetal run demos/higher-order.xtl&quot; (or &quot;./demos/higher-order.xtl&quot;);
+it prints the result of each line: reductions, a scan, an outer and
+an inner product, e_ach, c_ompose and s_wap, then the search and
+order built-ins s_ort, g_rade, u_nique, i_ndexOf and w_here.</li>
+<li>program <a href="demos-keys.xtl.html">demos/keys.xtl</a>: Keys: every way X_eTaL is typed. Each line of code appears twice:
+drawn decorated, as &quot;just pp demos/keys.xtl&quot; shows it, and at the end
+of the line, after &quot;typed:&quot;, exactly the keys you type (a comment is
+drawn as written, so that text stays plain ASCII). Run it with
+&quot;xetal run demos/keys.xtl&quot; (or &quot;./demos/keys.xtl&quot;) to print each
+line's result, or &quot;just show demos/keys.xtl&quot; to see each line next to
+its result. docs/input.md explains each form.</li>
+<li>program <a href="demos-life.xtl.html">demos/life.xtl</a>: Life: Conway's Game of Life in one line, u:l_ife, then a blinker and
+a glider run through it. Run it with &quot;xetal run demos/life.xtl&quot; (or
+&quot;./demos/life.xtl&quot;); it prints a blinker after one and two steps, 1s
+showing that two steps restore it, then a glider's five generations
+a blank line apart. Read u:l_ife for reduce and rotate along both
+axes at once (the `_12` subscripts).</li>
+<li>program <a href="demos-macros.xtl.html">demos/macros.xtl</a>: Macros write source for you: a call &quot;left&quot; n_ame&lt; &quot;right&quot; is replaced,
+before the program is checked, by the source the macro writes from the
+two texts. Run it with ./demos/macros.xtl (or xetal run): it prints what
+the system macros give, then a macro library's checks; a failed a_ssert&lt;
+goes to standard error. Read each call beside its expansion, which
+&quot;xetal expand demos/macros.xtl&quot; shows.</li>
+<li>program <a href="demos-magmas.xtl.html">demos/magmas.xtl</a>: Magmas: a set with a binary operation that stays in the set, and
+nothing more is promised. Rock-paper-scissors is one: x played against
+y gives the winner (x on a tie). With its table we can ask which laws
+hold, for every case at once.</li>
+<li>program <a href="demos-monads.xtl.html">demos/monads.xtl</a>: The Maybe monad from the Maybe library: computations that can fail,
+chained so that the first failure stops the chain.</li>
+<li>program <a href="demos-rotate.xtl.html">demos/rotate.xtl</a>: Rotate along both axes: every frame moves the arrow one row down and
+one column right, wrapping around the edges of the board.</li>
+<li>program <a href="demos-square.xtl.html">demos/square.xtl</a>: A user function with the shorthand right argument `_r`. Run it with
+./demos/square.xtl or &quot;xetal run demos/square.xtl&quot;; it prints 49.</li>
+<li>program <a href="demos-stats.xtl.html">demos/stats.xtl</a>: Using a library: Stats is a standard library, built into xetal
+(lib/Stats.xtl). The alias &quot;s:&quot; is this file's name for it: its
+exported names are used as s:m_ean and so on.</li>
+<li>program <a href="demos-tour.xtl.html">demos/tour.xtl</a>: A tour of X_eTaL: one commented file touching every implemented
+feature, a section per topic, from numbers to Life in one line.</li>
+<li>program <a href="demos-tttml-play.xtl.html">demos/tttml-play.xtl</a>: TTTML, part 2: play the machine that demos/tttml-train.xtl trained
+(run that first), with &quot;xetal run demos/tttml-play.xtl&quot;. You are X and
+move first: type a square, 1 to 9, numbered row by row. Something
+that is not an empty square is asked for again. Uses the TTTML
+library (lib/TTTML.xtl).</li>
+<li>program <a href="demos-tttml-train.xtl.html">demos/tttml-train.xtl</a>: TTTML, part 1: learn tic-tac-toe by playing itself, then save what
+it learned to work/tttml.model, a text file of numbers (the codes of
+the positions it met, then their values). Run it with
+&quot;xetal run demos/tttml-train.xtl&quot;; part 2, demos/tttml-play.xtl, loads
+the model and plays you. Uses the TTTML library (lib/TTTML.xtl).</li>
+<li>program <a href="demos-tttml.xtl.html">demos/tttml.xtl</a>: TTTML: a machine that learns tic-tac-toe by playing itself, from the
+TTTML library (lib/TTTML.xtl, ported from sw-apl's TTTML workspace;
+docs/literate/tttml.org explains it). Run it with
+&quot;xetal run demos/tttml.xtl&quot;, or as a notebook with &quot;just tttml&quot; (the
+optimized build: training takes seconds).</li>
+<li>program <a href="demos-unit.xtl.html">demos/unit.xtl</a>: A niladic function takes Unit, written @; `u:a_nswer 42` is a type
+error. Run it with ./demos/unit.xtl or &quot;xetal run demos/unit.xtl&quot;; it
+prints 42.</li>
+<li>program <a href="demos-user-macros.xtl.html">demos/user-macros.xtl</a>: A macro library of your own: userlibs/Repeat.xtlm (in the live demo,
+Repeat.xtlm among your files). It is found as a library of your own
+is, and its macro r:t_imes&lt; writes statements as many times as you
+ask, when the program is expanded: a loop unrolled before it runs.</li>
+<li>macro library <a href="userlibs-Repeat.xtlm.html">userlibs/Repeat.xtlm</a>: A macro library of your own (userlibs/, found as libraries of your
+own are): statements written as many times as you ask, when the
+program is expanded, a loop unrolled at compile time. Import it with
+an alias of your choice, &quot;r:&quot; u_se&lt; &quot;Repeat&quot;, and see what a program
+becomes with xetal expand FILE.</li>
+<li>library <a href="demos-rosetta-Comparison.xtl.html">demos/rosetta/Comparison.xtl</a>: Comparison: the Rosetta stone's state machine (docs/rosetta.md), a
+library beside the demo (&quot;cm:&quot; u_se&lt; &quot;Comparison&quot;). The state is a
+tuple of three tuples, (axes, pointer, clock), each part typed:
+- the axes (the idiom drum, the top ring, the bottom ring), a vector
+  of three per field: (counts, steps, angles, playing). counts: how
+  many items the axis has (Int); steps: how many steps it has taken
+  (Int; the item facing is 1 + steps, wrapped, and this is the
+  truth); angles: degrees (Float, 90 per step; the presentation,
+  easing toward 90 * steps); playing: whether it plays on its own
+  (1 or 0);
+- the pointer, (dragging, at, moved, last): the axis being dragged
+  (0 none, -1 pressed and not yet moved, else the axis), where it
+  last was (x y), how far it has moved in all, and the last turn it
+  gave in degrees (for a flick);
+- the attract mode's clock, (idle, since, bottoms, idioms): seconds
+  since the last interaction, seconds since its last step, and its
+  two counters (how far the bottom ring is through its sweep of the
+  other languages, how far the drum is through its sweep of the
+  idioms).
+Nothing is ever inferred from an angle except what to draw. Every
+function gives a new state; none has an effect. Events (RS1) come in
+as []E_VENT gives them; cm:u_pdate takes one.</li>
+<li>program <a href="demos-rosetta-cube.xtl.html">demos/rosetta/cube.xtl</a></li>
+<li>program <a href="demos-rosetta-rosetta.xtl.html">demos/rosetta/rosetta.xtl</a></li>
+<li>library <a href="demos-rosetta-Stone.xtl.html">demos/rosetta/Stone.xtl</a>: Stone: the Rosetta stone's geometry and faces (docs/rosetta.md), a
+library beside the demo (&quot;st:&quot; u_se&lt; &quot;Stone&quot;). The stone is three
+carousels sharing one place: the whole stone rolling about the x
+axis through the idioms (roll it up or down for the previous or next
+idiom), and its two halves, closed boxes, each turning about the y
+axis through the languages, one for the top half of the facing
+idiom, one for the bottom. Each is a square prism, so the geometry
+never changes: the facing side shows the current item and the sides
+at right angles show its neighbors, found by index; the lid of the
+top half and the floor of the bottom name the idioms before and
+after. The halves turn independently, which is the impossible part:
+no solid turns like this, and none needs to.
+Points are Geometry3D's (3 rows), pictures Svg's.</li>
+</ul>
+<h2>Items</h2>
+<table class="items">
+<tr><th>name</th><th>kind</th><th>type</th></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.I_"><span class="c-libfunc">ˡI̲</span></a></td><td>function</td><td><code>Any a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.K_"><span class="c-libfunc">ˡK̲</span></a></td><td>function</td><td><code>(Any a, Any b) =&gt; a -&gt; b -&gt; a</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.T_"><span class="c-libfunc">ˡT̲</span></a></td><td>function</td><td><code>(Any a, Any b) =&gt; a -&gt; (a -&gt; b) -&gt; b</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.W_"><span class="c-libfunc">ˡW̲</span></a></td><td>function</td><td><code>(Any a, Any b) =&gt; (a -&gt; a -&gt; b) -&gt; a -&gt; b</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.W_1"><span class="c-libfunc">ˡW̲1</span></a></td><td>function</td><td><code>(Any a, Any b) =&gt; a -&gt; (a -&gt; a -&gt; b) -&gt; b</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.B_"><span class="c-libfunc">ˡB̲</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a -&gt; b) -&gt; (c -&gt; a) -&gt; c -&gt; b</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.B_1"><span class="c-libfunc">ˡB̲1</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (a -&gt; b) -&gt; (c -&gt; d -&gt; a) -&gt; c -&gt; d -&gt; b</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.B_2"><span class="c-libfunc">ˡB̲2</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b) -&gt; (c -&gt; d -&gt; e -&gt; a) -&gt; c -&gt; d -&gt; e -&gt; b</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.B_3"><span class="c-libfunc">ˡB̲3</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (a -&gt; b) -&gt; (c -&gt; a) -&gt; (d -&gt; c) -&gt; d -&gt; b</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.C_"><span class="c-libfunc">ˡC̲</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a -&gt; b -&gt; c) -&gt; b -&gt; a -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.D_"><span class="c-libfunc">ˡD̲</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c) -&gt; a -&gt; (d -&gt; b) -&gt; d -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.D_1"><span class="c-libfunc">ˡD̲1</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c -&gt; d) -&gt; a -&gt; b -&gt; (e -&gt; c) -&gt; e -&gt; d</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.D_2"><span class="c-libfunc">ˡD̲2</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c) -&gt; (d -&gt; a) -&gt; d -&gt; (e -&gt; b) -&gt; e -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.E_"><span class="c-libfunc">ˡE̲</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c) -&gt; a -&gt; (d -&gt; e -&gt; b) -&gt; d -&gt; e -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.E_h"><span class="c-libfunc">ˡE̲h</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e, Any f, Any g) =&gt; (a -&gt; b -&gt; c) -&gt; (d -&gt; e -&gt; a) -&gt; d -&gt; e -&gt; (f -&gt; g -&gt; b) -&gt; f -&gt; g -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.F_"><span class="c-libfunc">ˡF̲</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; a -&gt; b -&gt; (b -&gt; a -&gt; c) -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.G_"><span class="c-libfunc">ˡG̲</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c) -&gt; (d -&gt; b) -&gt; d -&gt; a -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.H_"><span class="c-libfunc">ˡH̲</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a -&gt; b -&gt; a -&gt; c) -&gt; a -&gt; b -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.J_"><span class="c-libfunc">ˡJ̲</span></a></td><td>function</td><td><code>(Any a, Any b) =&gt; (a -&gt; b -&gt; b) -&gt; a -&gt; b -&gt; a -&gt; b</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.O_"><span class="c-libfunc">ˡO̲</span></a></td><td>function</td><td><code>(Any a, Any b) =&gt; ((a -&gt; b) -&gt; a) -&gt; (a -&gt; b) -&gt; b</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.Q_"><span class="c-libfunc">ˡQ̲</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a -&gt; b) -&gt; (b -&gt; c) -&gt; a -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.Q_1"><span class="c-libfunc">ˡQ̲1</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a -&gt; b) -&gt; c -&gt; (c -&gt; a) -&gt; b</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.Q_2"><span class="c-libfunc">ˡQ̲2</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; a -&gt; (b -&gt; c) -&gt; (a -&gt; b) -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.Q_3"><span class="c-libfunc">ˡQ̲3</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a -&gt; b) -&gt; a -&gt; (b -&gt; c) -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.Q_4"><span class="c-libfunc">ˡQ̲4</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; a -&gt; (a -&gt; b) -&gt; (b -&gt; c) -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.R_"><span class="c-libfunc">ˡR̲</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; a -&gt; (b -&gt; a -&gt; c) -&gt; b -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.S_"><span class="c-libfunc">ˡS̲</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a -&gt; b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.V_"><span class="c-libfunc">ˡV̲</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; a -&gt; b -&gt; (a -&gt; b -&gt; c) -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.P_hi"><span class="c-libfunc">ˡP̲hi</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c) -&gt; (d -&gt; a) -&gt; (d -&gt; b) -&gt; d -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.P_si"><span class="c-libfunc">ˡP̲si</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a -&gt; a -&gt; b) -&gt; (c -&gt; a) -&gt; c -&gt; c -&gt; b</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.C_s"><span class="c-libfunc">ˡC̲s</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c -&gt; d) -&gt; a -&gt; c -&gt; b -&gt; d</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.R_s"><span class="c-libfunc">ˡR̲s</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c -&gt; d) -&gt; c -&gt; a -&gt; b -&gt; d</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.F_s"><span class="c-libfunc">ˡF̲s</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c -&gt; d) -&gt; c -&gt; b -&gt; a -&gt; d</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.V_s"><span class="c-libfunc">ˡV̲s</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c -&gt; d) -&gt; b -&gt; c -&gt; a -&gt; d</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.W_s"><span class="c-libfunc">ˡW̲s</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a -&gt; b -&gt; b -&gt; c) -&gt; a -&gt; b -&gt; c</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.C_ss"><span class="c-libfunc">ˡC̲ss</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c -&gt; d -&gt; e) -&gt; a -&gt; b -&gt; d -&gt; c -&gt; e</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.R_ss"><span class="c-libfunc">ˡR̲ss</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c -&gt; d -&gt; e) -&gt; a -&gt; d -&gt; b -&gt; c -&gt; e</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.F_ss"><span class="c-libfunc">ˡF̲ss</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c -&gt; d -&gt; e) -&gt; a -&gt; d -&gt; c -&gt; b -&gt; e</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.V_ss"><span class="c-libfunc">ˡV̲ss</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e) =&gt; (a -&gt; b -&gt; c -&gt; d -&gt; e) -&gt; a -&gt; c -&gt; d -&gt; b -&gt; e</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.W_ss"><span class="c-libfunc">ˡW̲ss</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (a -&gt; b -&gt; c -&gt; c -&gt; d) -&gt; a -&gt; b -&gt; c -&gt; d</code></td></tr>
+<tr><td><a href="lib-Combinators.xtl.html#l.Y_"><span class="c-libfunc">ˡY̲</span></a></td><td>function</td><td><code>Any a =&gt; (a -&gt; a) -&gt; a</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#h.r_adians"><span class="c-libfunc">ʰr̲adians</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.r_otX"><span class="c-libfunc">ˡr̲otX</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.r_otY"><span class="c-libfunc">ˡr̲otY</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.r_otZ"><span class="c-libfunc">ˡr̲otZ</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.t_urn"><span class="c-libfunc">ˡt̲urn</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.p_roject"><span class="c-libfunc">ˡp̲roject</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.f_ar"><span class="c-libfunc">ˡf̲ar</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.o_rder"><span class="c-libfunc">ˡo̲rder</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Int</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.c_ube"><span class="c-libfunc">ˡc̲ube</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.c_ubeFaces"><span class="c-libfunc">ˡc̲ubeFaces</span></a></td><td>function</td><td><code>Num a =&gt; Unit -&gt; a</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.f_ace"><span class="c-libfunc">ˡf̲ace</span></a></td><td>function</td><td><code>Int -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-Geometry3D.xtl.html#l.s_olid"><span class="c-libfunc">ˡs̲olid</span></a></td><td>function</td><td><code>Int -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-Maybe.xtl.html#l.n_othing"><span class="c-libfunc">ˡn̲othing</span></a></td><td>function</td><td><code>(Any a, Any b) =&gt; a -&gt; b -&gt; a</code></td></tr>
+<tr><td><a href="lib-Maybe.xtl.html#l.j_ust"><span class="c-libfunc">ˡj̲ust</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; a -&gt; b -&gt; (a -&gt; c) -&gt; c</code></td></tr>
+<tr><td><a href="lib-Maybe.xtl.html#l.m_aybe"><span class="c-libfunc">ˡm̲aybe</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; a -&gt; b -&gt; (b -&gt; a -&gt; c) -&gt; c</code></td></tr>
+<tr><td><a href="lib-Maybe.xtl.html#l.o_r"><span class="c-libfunc">ˡo̲r</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; a -&gt; (a -&gt; (b -&gt; b) -&gt; c) -&gt; c</code></td></tr>
+<tr><td><a href="lib-Maybe.xtl.html#l.m_ap"><span class="c-libfunc">ˡm̲ap</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e, Any f, Any g) =&gt; (a -&gt; b) -&gt; ((c -&gt; d -&gt; c) -&gt; (a -&gt; e -&gt; (b -&gt; f) -&gt; f) -&gt; g) -&gt; g</code></td></tr>
+<tr><td><a href="lib-Maybe.xtl.html#l.b_ind"><span class="c-libfunc">ˡb̲ind</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; a -&gt; ((b -&gt; c -&gt; b) -&gt; a -&gt; d) -&gt; d</code></td></tr>
+<tr><td><a href="lib-Stats.xtl.html#l.m_ean"><span class="c-libfunc">ˡm̲ean</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Stats.xtl.html#h.s_quare"><span class="c-libfunc">ʰs̲quare</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-Stats.xtl.html#h.d_eviations"><span class="c-libfunc">ʰd̲eviations</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Stats.xtl.html#l.v_ariance"><span class="c-libfunc">ˡv̲ariance</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Stats.xtl.html#l.s_d"><span class="c-libfunc">ˡs̲d</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Stats.xtl.html#l.s_pread"><span class="c-libfunc">ˡs̲pread</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.a_ttr"><span class="c-libfunc">ˡa̲ttr</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.e_scape"><span class="c-libfunc">ˡe̲scape</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.f_ill"><span class="c-libfunc">ˡf̲ill</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.r_gb"><span class="c-libfunc">ˡr̲gb</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.s_troke"><span class="c-libfunc">ˡs̲troke</span></a></td><td>function</td><td><code>Char -&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.p_olygon"><span class="c-libfunc">ˡp̲olygon</span></a></td><td>function</td><td><code>Char -&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.p_olyline"><span class="c-libfunc">ˡp̲olyline</span></a></td><td>function</td><td><code>Char -&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.a_t"><span class="c-libfunc">ˡa̲t</span></a></td><td>function</td><td><code>a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.t_ext"><span class="c-libfunc">ˡt̲ext</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.s_pan"><span class="c-libfunc">ˡs̲pan</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.s_ized"><span class="c-libfunc">ˡs̲ized</span></a></td><td>function</td><td><code>a -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.m_arkup"><span class="c-libfunc">ˡm̲arkup</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.g_roup"><span class="c-libfunc">ˡg̲roup</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.t_ranslate"><span class="c-libfunc">ˡt̲ranslate</span></a></td><td>function</td><td><code>a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.r_otate"><span class="c-libfunc">ˡr̲otate</span></a></td><td>function</td><td><code>a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.m_atrix"><span class="c-libfunc">ˡm̲atrix</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.s_cale"><span class="c-libfunc">ˡs̲cale</span></a></td><td>function</td><td><code>a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.c_lip"><span class="c-libfunc">ˡc̲lip</span></a></td><td>function</td><td><code>Char -&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.c_lipped"><span class="c-libfunc">ˡc̲lipped</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.g_radient"><span class="c-libfunc">ˡg̲radient</span></a></td><td>function</td><td><code>Char -&gt; Box Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.p_icture"><span class="c-libfunc">ˡp̲icture</span></a></td><td>function</td><td><code>a -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#l.p_ictureWith"><span class="c-libfunc">ˡp̲ictureWith</span></a></td><td>function</td><td><code>a -&gt; Box Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#h.e_sc"><span class="c-libfunc">ʰe̲sc</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Svg.xtl.html#h.p_airs"><span class="c-libfunc">ʰp̲airs</span></a></td><td>function</td><td><code>a -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.BLACK">ˡBLACK</a></td><td>value</td><td><code>Color</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.RED">ˡRED</a></td><td>value</td><td><code>Color</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.GREEN">ˡGREEN</a></td><td>value</td><td><code>Color</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.YELLOW">ˡYELLOW</a></td><td>value</td><td><code>Color</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.BLUE">ˡBLUE</a></td><td>value</td><td><code>Color</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.MAGENTA">ˡMAGENTA</a></td><td>value</td><td><code>Color</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.CYAN">ˡCYAN</a></td><td>value</td><td><code>Color</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.WHITE">ˡWHITE</a></td><td>value</td><td><code>Color</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.UP">ˡUP</a></td><td>value</td><td><code>Key</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.DOWN">ˡDOWN</a></td><td>value</td><td><code>Key</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.LEFT">ˡLEFT</a></td><td>value</td><td><code>Key</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.RIGHT">ˡRIGHT</a></td><td>value</td><td><code>Key</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.ENTER">ˡENTER</a></td><td>value</td><td><code>Key</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.ESCAPE">ˡESCAPE</a></td><td>value</td><td><code>Key</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.BACKSPACE">ˡBACKSPACE</a></td><td>value</td><td><code>Key</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.TAB">ˡTAB</a></td><td>value</td><td><code>Key</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.DELETE">ˡDELETE</a></td><td>value</td><td><code>Key</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.HOME">ˡHOME</a></td><td>value</td><td><code>Key</code></td></tr>
+<tr><td><a href="lib-Terminal.xtl.html#l.END">ˡEND</a></td><td>value</td><td><code>Key</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.s_how"><span class="c-libfunc">ˡs̲how</span></a></td><td>function</td><td><code>Int -&gt; Char</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.lines">ˡlines</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.o_utcome"><span class="c-libfunc">ˡo̲utcome</span></a></td><td>function</td><td><code>Num a =&gt; Int -&gt; a</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.symmetries">ˡsymmetries</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.c_ode"><span class="c-libfunc">ˡc̲ode</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.empty">ˡempty</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.v_alues"><span class="c-libfunc">ˡv̲alues</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.v_alue"><span class="c-libfunc">ˡv̲alue</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.a_fter"><span class="c-libfunc">ˡa̲fter</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; a -&gt; Int -&gt; a</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Float -&gt; a -&gt; Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.p_ick-21"><span class="c-libfunc">ʰp̲ick!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Float -&gt; a -&gt; Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.p_lay-21"><span class="c-libfunc">ʰp̲lay!</span></a></td><td>function</td><td><code>Float -&gt; Int -&gt; Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.g_ame-21"><span class="c-libfunc">ˡg̲ame!</span></a></td><td>function</td><td><code>Float -&gt; Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.r_esult"><span class="c-libfunc">ʰr̲esult</span></a></td><td>function</td><td><code>Int -&gt; Int -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.t_arget"><span class="c-libfunc">ʰt̲arget</span></a></td><td>function</td><td><code>Int -&gt; Float -&gt; Int -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.b_ack"><span class="c-libfunc">ʰb̲ack</span></a></td><td>function</td><td><code>Int -&gt; Float -&gt; Int -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.m_eet"><span class="c-libfunc">ʰm̲eet</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.l_earn"><span class="c-libfunc">ˡl̲earn</span></a></td><td>function</td><td><code>Float -&gt; Int -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.r_ound-21"><span class="c-libfunc">ʰr̲ound!</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.l_oop-21"><span class="c-libfunc">ʰl̲oop!</span></a></td><td>function</td><td><code>Int -&gt; Float -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.t_rain-21"><span class="c-libfunc">ˡt̲rain!</span></a></td><td>function</td><td><code>Int -&gt; Float -&gt; Float</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.t_urn-21"><span class="c-libfunc">ʰt̲urn!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Float -&gt; a -&gt; a -&gt; Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.v_ersus-21"><span class="c-libfunc">ʰv̲ersus!</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; Int -&gt; Int -&gt; a</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.c_ount-21"><span class="c-libfunc">ʰc̲ount!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Float -&gt; Int -&gt; Int -&gt; a</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.t_rial-21"><span class="c-libfunc">ˡt̲rial!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Int -&gt; Float -&gt; a</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.g_reedy"><span class="c-libfunc">ʰg̲reedy</span></a></td><td>function</td><td><code>Float -&gt; Int -&gt; Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.b_est"><span class="c-libfunc">ˡb̲est</span></a></td><td>function</td><td><code>Float -&gt; Int</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.b_oards"><span class="c-libfunc">ˡb̲oards</span></a></td><td>function</td><td><code>Int -&gt; Char</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.o_pening-21"><span class="c-libfunc">ʰo̲pening!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Unit -&gt; a</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#h.f_inal"><span class="c-libfunc">ʰf̲inal</span></a></td><td>function</td><td><code>Num a =&gt; Int -&gt; a</code></td></tr>
+<tr><td><a href="lib-TTTML.xtl.html#l.s_elfTrial-21"><span class="c-libfunc">ˡs̲elfTrial!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Int -&gt; Float -&gt; a</code></td></tr>
+<tr><td><a href="lib-Turtle.xtl.html#h.r_adians"><span class="c-libfunc">ʰr̲adians</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Turtle.xtl.html#l.w_alk"><span class="c-libfunc">ˡw̲alk</span></a></td><td>function</td><td><code>(Num a, Num b) =&gt; a -&gt; b -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Turtle.xtl.html#l.p_oints"><span class="c-libfunc">ˡp̲oints</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Turtle.xtl.html#l.t_urn"><span class="c-libfunc">ˡt̲urn</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="lib-Turtle.xtl.html#l.p_olygon"><span class="c-libfunc">ˡp̲olygon</span></a></td><td>function</td><td><code>Int -&gt; Float</code></td></tr>
+<tr><td><a href="lib-Combinators.xtlm.html#m.Y_-3c"><span class="c-macro">ᵐY̲&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Combinators.xtlm.html#m.B_-3c"><span class="c-macro">ᵐB̲&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Combinators.xtlm.html#yShape">yShape</a></td><td>value</td><td><code>Char</code></td></tr>
+<tr><td><a href="lib-Combinators.xtlm.html#h.t_rim"><span class="c-libfunc">ʰt̲rim</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Combinators.xtlm.html#h.w_ords"><span class="c-libfunc">ʰw̲ords</span></a></td><td>function</td><td><code>Char -&gt; Box Char</code></td></tr>
+<tr><td><a href="lib-Combinators.xtlm.html#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Combinators.xtlm.html#h.s_trip"><span class="c-libfunc">ʰs̲trip</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Combinators.xtlm.html#h.s_tarts"><span class="c-libfunc">ʰs̲tarts</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Char -&gt; Char -&gt; a</code></td></tr>
+<tr><td><a href="lib-Combinators.xtlm.html#nameChars">nameChars</a></td><td>value</td><td><code>Char</code></td></tr>
+<tr><td><a href="lib-Combinators.xtlm.html#h.w_ord"><span class="c-libfunc">ʰw̲ord</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Macros.xtlm.html#m.w_hen-3c"><span class="c-macro">ᵐw̲hen&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Macros.xtlm.html#m.d_ef-3c"><span class="c-macro">ᵐd̲ef&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Macros.xtlm.html#m.c_heck-3c"><span class="c-macro">ᵐc̲heck&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Macros.xtlm.html#m.b_inds-3c"><span class="c-macro">ᵐb̲inds&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Macros.xtlm.html#m.t_wice-3c"><span class="c-macro">ᵐt̲wice&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="lib-Macros.xtlm.html#m.w_ith-3c"><span class="c-macro">ᵐw̲ith&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.u_se-3c"><span class="c-macro">ˢu̲se&lt;</span></a></td><td>built-in macro</td><td><code>Char -&gt; Char -&gt; Unit</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.i_f-3c"><span class="c-macro">ˢi̲f&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.u_nless-3c"><span class="c-macro">ˢu̲nless&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.e_ach-3c"><span class="c-macro">ˢe̲ach&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.l_ine-3c"><span class="c-macro">ˢl̲ine&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Unit -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.f_ile-3c"><span class="c-macro">ˢf̲ile&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Unit -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.i_nclude-3c"><span class="c-macro">ˢi̲nclude&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.c_fg-3c"><span class="c-macro">ˢc̲fg&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.e_rror-3c"><span class="c-macro">ˢe̲rror&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.d_bg-3c"><span class="c-macro">ˢd̲bg&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.a_ssert-3c"><span class="c-macro">ˢa̲ssert&lt;</span></a></td><td>macro</td><td><code>Char -&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.f_ormat-3c"><span class="c-macro">ˢf̲ormat&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.p_anic-3c"><span class="c-macro">ˢp̲anic&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.t_odo-3c"><span class="c-macro">ˢt̲odo&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.t_ry-3c"><span class="c-macro">ˢt̲ry&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.c_atch-3c"><span class="c-macro">ˢc̲atch&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.f_inally-3c"><span class="c-macro">ˢf̲inally&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.r_ecover-3c"><span class="c-macro">ˢr̲ecover&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.r_etry-3c"><span class="c-macro">ˢr̲etry&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Unit -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.h_alt-3c"><span class="c-macro">ˢh̲alt&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Unit -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#s.c_ontinue-3c"><span class="c-macro">ˢc̲ontinue&lt;</span></a></td><td>macro</td><td><code>Unit -&gt; Unit -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#catchCodes">catchCodes</a></td><td>value</td><td><code>Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.m_atchCode"><span class="c-libfunc">ʰm̲atchCode</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#ifArgs">ifArgs</a></td><td>value</td><td><code>Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#eachAlone">eachAlone</a></td><td>value</td><td><code>Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#eachHole">eachHole</a></td><td>value</td><td><code>Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.t_rim"><span class="c-libfunc">ʰt̲rim</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.w_ords"><span class="c-libfunc">ʰw̲ords</span></a></td><td>function</td><td><code>Char -&gt; Box Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.s_eps"><span class="c-libfunc">ʰs̲eps</span></a></td><td>function</td><td><code>Truthy a =&gt; Char -&gt; a</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.h_oles"><span class="c-libfunc">ʰh̲oles</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; Char -&gt; a</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.q_uote"><span class="c-libfunc">ʰq̲uote</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.c_opy"><span class="c-libfunc">ʰc̲opy</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.w_hy"><span class="c-libfunc">ʰw̲hy</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.o_rEmpty"><span class="c-libfunc">ʰo̲rEmpty</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.l_it"><span class="c-libfunc">ʰl̲it</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.c_j"><span class="c-libfunc">ʰc̲j</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="std-System.xtlm.html#h.p_ieces"><span class="c-libfunc">ʰp̲ieces</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="demos-arrays.xtl.html#m">m</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-combinators.xtl.html#u.i_nc"><span class="c-userfunc">ᵘi̲nc</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-combinators.xtl.html#u.d_ouble"><span class="c-userfunc">ᵘd̲ouble</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-combinators.xtl.html#u.f_act"><span class="c-userfunc">ᵘf̲act</span></a></td><td>function</td><td><code>Num a =&gt; (a -&gt; a) -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-dyadic.xtl.html#u.s_ub"><span class="c-userfunc">ᵘs̲ub</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-dyadic.xtl.html#u.t_enMinus"><span class="c-userfunc">ᵘt̲enMinus</span></a></td><td>function</td><td><code>Int -&gt; Int</code></td></tr>
+<tr><td><a href="demos-factorial.xtl.html#u.f_act"><span class="c-userfunc">ᵘf̲act</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="userlibs-Hello.xtl.html#l.h_ello"><span class="c-libfunc">ˡh̲ello</span></a></td><td>function</td><td><code>Unit -&gt; Char</code></td></tr>
+<tr><td><a href="userlibs-Greetings.xtl.html#h.n_ame"><span class="c-libfunc">ʰn̲ame</span></a></td><td>function</td><td><code>Unit -&gt; Char</code></td></tr>
+<tr><td><a href="userlibs-Greetings.xtl.html#l.g_reet"><span class="c-libfunc">ˡg̲reet</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="demos-higher-order.xtl.html#v">v</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-higher-order.xtl.html#m">m</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-higher-order.xtl.html#u.s_ign"><span class="c-userfunc">ᵘs̲ign</span></a></td><td>function</td><td><code>(Num a, Num b) =&gt; a -&gt; b</code></td></tr>
+<tr><td><a href="demos-keys.xtl.html#x">x</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-keys.xtl.html#count-21">count!</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-keys.xtl.html#u.s_quare"><span class="c-userfunc">ᵘs̲quare</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-keys.xtl.html#M">M</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-keys.xtl.html#u.a_dd"><span class="c-userfunc">ᵘa̲dd</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-keys.xtl.html#u.s_ign"><span class="c-userfunc">ᵘs̲ign</span></a></td><td>function</td><td><code>(Num a, Num b) =&gt; a -&gt; b</code></td></tr>
+<tr><td><a href="demos-keys.xtl.html#u.m_ean"><span class="c-userfunc">ᵘm̲ean</span></a></td><td>function</td><td><code>Int -&gt; Float</code></td></tr>
+<tr><td><a href="demos-life.xtl.html#u.l_ife"><span class="c-userfunc">ᵘl̲ife</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-life.xtl.html#u.s_teps-21"><span class="c-userfunc">ᵘs̲teps!</span></a></td><td>function</td><td><code>(Any a, Num b) =&gt; (a -&gt; a) -&gt; b -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-life.xtl.html#blinker">blinker</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-life.xtl.html#glider">glider</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-life.xtl.html#last">last</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-macros.xtl.html#x">x</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-macros.xtl.html#u.m_ax-2f"><span class="c-userfunc">ᵘm̲ax/</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-macros.xtl.html#u.m_in-2f"><span class="c-userfunc">ᵘm̲in/</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-macros.xtl.html#u.s_quare"><span class="c-userfunc">ᵘs̲quare</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#u.r_ps"><span class="c-userfunc">ᵘr̲ps</span></a></td><td>function</td><td><code>Int -&gt; Int -&gt; Int</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#names">names</a></td><td>value</td><td><code>Box Char</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#t">t</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#u.c_ommutative"><span class="c-userfunc">ᵘc̲ommutative</span></a></td><td>function</td><td><code>(Match a, Truthy b) =&gt; (Int -&gt; Int -&gt; a) -&gt; Int -&gt; b</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#u.i_dempotent"><span class="c-userfunc">ᵘi̲dempotent</span></a></td><td>function</td><td><code>Truthy a =&gt; (Int -&gt; Int -&gt; Int) -&gt; Int -&gt; a</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#u.a_ssociative"><span class="c-userfunc">ᵘa̲ssociative</span></a></td><td>function</td><td><code>Truthy a =&gt; (Int -&gt; Int -&gt; Int) -&gt; Int -&gt; a</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#u.i_dentity"><span class="c-userfunc">ᵘi̲dentity</span></a></td><td>function</td><td><code>(Int -&gt; Int -&gt; Int) -&gt; Int -&gt; Int</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#u.a_dd"><span class="c-userfunc">ᵘa̲dd</span></a></td><td>function</td><td><code>Int -&gt; Int -&gt; Int</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#u.s_ub"><span class="c-userfunc">ᵘs̲ub</span></a></td><td>function</td><td><code>Int -&gt; Int -&gt; Int</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#u.r_psls"><span class="c-userfunc">ᵘr̲psls</span></a></td><td>function</td><td><code>Int -&gt; Int -&gt; Int</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#moves">moves</a></td><td>value</td><td><code>Box Char</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#w">w</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#beats">beats</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-magmas.xtl.html#shown">shown</a></td><td>value</td><td><code>Char</code></td></tr>
+<tr><td><a href="demos-monads.xtl.html#u.d_iv"><span class="c-userfunc">ᵘd̲iv</span></a></td><td>function</td><td><code>(Num a, Any b) =&gt; a -&gt; a -&gt; b -&gt; (Float -&gt; b) -&gt; b</code></td></tr>
+<tr><td><a href="demos-monads.xtl.html#u.h_alf"><span class="c-userfunc">ᵘh̲alf</span></a></td><td>function</td><td><code>(Num a, Any b) =&gt; a -&gt; b -&gt; (Float -&gt; b) -&gt; b</code></td></tr>
+<tr><td><a href="demos-monads.xtl.html#u.f_ifth"><span class="c-userfunc">ᵘf̲ifth</span></a></td><td>function</td><td><code>(Num a, Any b) =&gt; a -&gt; b -&gt; (Float -&gt; b) -&gt; b</code></td></tr>
+<tr><td><a href="demos-monads.xtl.html#u.b_yZero"><span class="c-userfunc">ᵘb̲yZero</span></a></td><td>function</td><td><code>(Num a, Any b) =&gt; a -&gt; b -&gt; (Float -&gt; b) -&gt; b</code></td></tr>
+<tr><td><a href="demos-rotate.xtl.html#u.f_rames-21"><span class="c-userfunc">ᵘf̲rames!</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; b -&gt; a</code></td></tr>
+<tr><td><a href="demos-rotate.xtl.html#arrow">arrow</a></td><td>value</td><td><code>Char</code></td></tr>
+<tr><td><a href="demos-rotate.xtl.html#shown">shown</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-square.xtl.html#u.s_quare"><span class="c-userfunc">ᵘs̲quare</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-stats.xtl.html#v">v</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#x">x</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#count-21">count!</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#m">m</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.s_quare"><span class="c-userfunc">ᵘs̲quare</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.s_ub"><span class="c-userfunc">ᵘs̲ub</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.h_yp"><span class="c-userfunc">ᵘh̲yp</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.s_ign"><span class="c-userfunc">ᵘs̲ign</span></a></td><td>function</td><td><code>(Num a, Num b) =&gt; a -&gt; b</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.f_act"><span class="c-userfunc">ᵘf̲act</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.t_wo"><span class="c-userfunc">ᵘt̲wo</span></a></td><td>function</td><td><code>Num a =&gt; Unit -&gt; a</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.k_eep"><span class="c-userfunc">ᵘk̲eep</span></a></td><td>function</td><td><code>(Any a, Any b) =&gt; a -&gt; b -&gt; a</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.t_wice"><span class="c-userfunc">ᵘt̲wice</span></a></td><td>function</td><td><code>Any a =&gt; (a -&gt; a) -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.a_vg"><span class="c-userfunc">ᵘa̲vg</span></a></td><td>function</td><td><code>Int -&gt; Float</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#a">a</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#v">v</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#n">n</a></td><td>value</td><td><code>Box Char</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#s">s</a></td><td>value</td><td><code>Char</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.t_riangle"><span class="c-userfunc">ᵘt̲riangle</span></a></td><td>function</td><td><code>Num a =&gt; (a -&gt; a) -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.s_wapped"><span class="c-userfunc">ᵘs̲wapped</span></a></td><td>function</td><td><code>(Any a, Any b) =&gt; (a, b) -&gt; (b, a)</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#n">n</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#x">x</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.s_tep"><span class="c-userfunc">ᵘs̲tep</span></a></td><td>function</td><td><code>Num a =&gt; (Float, a) -&gt; (Float, a)</code></td></tr>
+<tr><td><a href="demos-tour.xtl.html#u.l_ife"><span class="c-userfunc">ᵘl̲ife</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-tttml-play.xtl.html#v">v</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-tttml-play.xtl.html#m">m</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-tttml-play.xtl.html#u.a_sk-21"><span class="c-userfunc">ᵘa̲sk!</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Int</code></td></tr>
+<tr><td><a href="demos-tttml-play.xtl.html#u.y_ou-21"><span class="c-userfunc">ᵘy̲ou!</span></a></td><td>function</td><td><code>Int -&gt; Int</code></td></tr>
+<tr><td><a href="demos-tttml-play.xtl.html#u.m_e-21"><span class="c-userfunc">ᵘm̲e!</span></a></td><td>function</td><td><code>Int -&gt; Int</code></td></tr>
+<tr><td><a href="demos-tttml-play.xtl.html#u.v_erdict"><span class="c-userfunc">ᵘv̲erdict</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Char</code></td></tr>
+<tr><td><a href="demos-tttml-train.xtl.html#m">m</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-tttml.xtl.html#m">m</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-unit.xtl.html#u.a_nswer"><span class="c-userfunc">ᵘa̲nswer</span></a></td><td>function</td><td><code>Num a =&gt; Unit -&gt; a</code></td></tr>
+<tr><td><a href="demos-user-macros.xtl.html#x-21">x!</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="userlibs-Repeat.xtlm.html#m.t_imes-3c"><span class="c-macro">ᵐt̲imes&lt;</span></a></td><td>macro</td><td><code>Char -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="userlibs-Repeat.xtlm.html#h.c_opies"><span class="c-libfunc">ʰc̲opies</span></a></td><td>function</td><td><code>Int -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.dwell">ˡdwell</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.idleBefore">ˡidleBefore</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.s_tart"><span class="c-libfunc">ˡs̲tart</span></a></td><td>function</td><td><code>(Num b, Num c, Num d, Num e, Num f) =&gt; a -&gt; a -&gt; ((a, b, Float, c), (d, Float, Float, Float), (Float, Float, e, f))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.IDIOM">ˡIDIOM</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.TOP">ˡTOP</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.BOTTOM">ˡBOTTOM</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.middle">ˡmiddle</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.perPixel">ˡperPixel</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_ount"><span class="c-libfunc">ˡc̲ount</span></a></td><td>function</td><td><code>(Any b, Any c, Any d, Any e, Any f) =&gt; Int -&gt; ((a, b, c, d), e, f) -&gt; a</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.s_teps"><span class="c-libfunc">ˡs̲teps</span></a></td><td>function</td><td><code>(Any a, Any c, Any d, Any e, Any f) =&gt; Int -&gt; ((a, b, c, d), e, f) -&gt; b</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.a_ngle"><span class="c-libfunc">ˡa̲ngle</span></a></td><td>function</td><td><code>(Any a, Any b, Any d, Any e, Any f) =&gt; Int -&gt; ((a, b, c, d), e, f) -&gt; c</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.p_laying"><span class="c-libfunc">ˡp̲laying</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any e, Any f) =&gt; Int -&gt; ((a, b, c, d), e, f) -&gt; d</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.p_ointer"><span class="c-libfunc">ˡp̲ointer</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a, b, c) -&gt; b</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_lock"><span class="c-libfunc">ˡc̲lock</span></a></td><td>function</td><td><code>(Any a, Any b, Any c) =&gt; (a, b, c) -&gt; c</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#h.s_et"><span class="c-libfunc">ʰs̲et</span></a></td><td>function</td><td><code>(Int, a) -&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#h.s_tepsTo"><span class="c-libfunc">ʰs̲tepsTo</span></a></td><td>function</td><td><code>(Any b, Any c, Any d, Any e, Any f) =&gt; (Int, a) -&gt; ((b, a, c, d), e, f) -&gt; ((b, a, c, d), e, f)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#h.a_ngleTo"><span class="c-libfunc">ʰa̲ngleTo</span></a></td><td>function</td><td><code>(Any b, Any c, Any d, Any e, Any f) =&gt; (Int, a) -&gt; ((b, c, a, d), e, f) -&gt; ((b, c, a, d), e, f)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#h.p_layingTo"><span class="c-libfunc">ʰp̲layingTo</span></a></td><td>function</td><td><code>(Any b, Any c, Any d, Any e, Any f) =&gt; (Int, a) -&gt; ((b, c, d, a), e, f) -&gt; ((b, c, d, a), e, f)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#h.i_dleTo"><span class="c-libfunc">ʰi̲dleTo</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e, Any f, Any g) =&gt; a -&gt; (b, c, (d, e, f, g)) -&gt; (b, c, (a, e, f, g))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.w_rap"><span class="c-libfunc">ˡw̲rap</span></a></td><td>function</td><td><code>Int -&gt; Int -&gt; Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_urrent"><span class="c-libfunc">ˡc̲urrent</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; Int -&gt; ((Int, Int, a, b), c, d) -&gt; Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (Int, Int) -&gt; ((Int, Int, a, b), c, d) -&gt; ((Int, Int, a, b), c, d)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_hoose"><span class="c-libfunc">ˡc̲hoose</span></a></td><td>function</td><td><code>(Any a, Num b, Any c, Any d) =&gt; (Int, Int) -&gt; ((Int, Int, a, b), c, d) -&gt; ((Int, Int, a, b), c, d)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.e_ase"><span class="c-libfunc">ˡe̲ase</span></a></td><td>function</td><td><code>(Any a, Num b, Any c, Any d, Any e) =&gt; (Int, Float) -&gt; ((a, b, Float, c), d, e) -&gt; ((a, b, Float, c), d, e)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.s_ettle"><span class="c-libfunc">ˡs̲ettle</span></a></td><td>function</td><td><code>(Any a, Num b, Any c, Any d, Any e) =&gt; ((a, b, Float, c), d, e) -&gt; ((a, b, Float, c), d, e)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a></td><td>function</td><td><code>(Num a, Any b) =&gt; Float -&gt; ((Int, Int, Float, a), b, (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), b, (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.a_ttract"><span class="c-libfunc">ˡa̲ttract</span></a></td><td>function</td><td><code>(Num a, Any b) =&gt; ((Int, Int, Float, a), b, (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), b, (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.p_lay"><span class="c-libfunc">ˡp̲lay</span></a></td><td>function</td><td><code>(Num a, Any b) =&gt; Int -&gt; ((Int, Int, Float, a), b, (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), b, (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.t_ouched"><span class="c-libfunc">ˡt̲ouched</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e, Any f) =&gt; (a, b, (c, d, e, f)) -&gt; (a, b, (Float, Float, e, f))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.r_esume"><span class="c-libfunc">ˡr̲esume</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d, Any e, Any f, Num g) =&gt; ((a, b, c, d), e, f) -&gt; ((a, b, c, g), e, f)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.t_oggleTour"><span class="c-libfunc">ˡt̲oggleTour</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Num d, Any e, Any f, Num g) =&gt; ((a, b, c, d), e, f) -&gt; ((a, b, c, g), e, f)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.m_ode"><span class="c-libfunc">ˡm̲ode</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Num d, Truthy d, Any e, Any f, Any g, Any h) =&gt; ((a, b, c, d), e, (Float, f, g, h)) -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.t_oggle"><span class="c-libfunc">ˡt̲oggle</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Num d, Any e, Any f) =&gt; Int -&gt; ((a, b, c, d), e, f) -&gt; ((a, b, c, d), e, f)</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.u_pdate"><span class="c-libfunc">ˡu̲pdate</span></a></td><td>function</td><td><code>Num a =&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; Event -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.h_alf"><span class="c-libfunc">ˡh̲alf</span></a></td><td>function</td><td><code>Float -&gt; Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.d_own"><span class="c-libfunc">ˡd̲own</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.m_ove"><span class="c-libfunc">ˡm̲ove</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.u_p"><span class="c-libfunc">ˡu̲p</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.c_lick"><span class="c-libfunc">ˡc̲lick</span></a></td><td>function</td><td><code>Num a =&gt; Float -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-Comparison.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></td><td>function</td><td><code>Num a =&gt; Key -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#size">size</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#eye">eye</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#zoom">zoom</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#light">light</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#cube">cube</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#faces">faces</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#u.s_creen"><span class="c-userfunc">ᵘs̲creen</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#u.n_ormal"><span class="c-userfunc">ᵘn̲ormal</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; a</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#u.l_it"><span class="c-userfunc">ᵘl̲it</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#u.p_olygon"><span class="c-userfunc">ᵘp̲olygon</span></a></td><td>function</td><td><code>Truthy a =&gt; a -&gt; Float -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#u.s_cene"><span class="c-userfunc">ᵘs̲cene</span></a></td><td>function</td><td><code>Truthy a =&gt; a -&gt; Float -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#u.f_rame"><span class="c-userfunc">ᵘf̲rame</span></a></td><td>function</td><td><code>Truthy a =&gt; a -&gt; Float -&gt; Unit</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#angles">angles</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#_">_</a></td><td>function</td><td><code>Unit</code></td></tr>
+<tr><td><a href="demos-rosetta-cube.xtl.html#_">_</a></td><td>function</td><td><code>Unit</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#data">data</a></td><td>value</td><td><code>Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#idioms">idioms</a></td><td>value</td><td><code>Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#idiomNames">idiomNames</a></td><td>value</td><td><code>Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#languages">languages</a></td><td>value</td><td><code>Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#languageNames">languageNames</a></td><td>value</td><td><code>Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.t_able"><span class="c-userfunc">ᵘt̲able</span></a></td><td>function</td><td><code>Char -&gt; Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#source">source</a></td><td>value</td><td><code>Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#output">output</a></td><td>value</td><td><code>Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#notes">notes</a></td><td>value</td><td><code>Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#spans">spans</a></td><td>value</td><td><code>Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.c_olor"><span class="c-userfunc">ᵘc̲olor</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.r_uns"><span class="c-userfunc">ᵘr̲uns</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.g_uess"><span class="c-userfunc">ᵘg̲uess</span></a></td><td>function</td><td><code>Char -&gt; Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.s_pans"><span class="c-userfunc">ᵘs̲pans</span></a></td><td>function</td><td><code>Char -&gt; Char -&gt; Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.c_olored"><span class="c-userfunc">ᵘc̲olored</span></a></td><td>function</td><td><code>Int -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#fits">fits</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#smallest">smallest</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.f_itted"><span class="c-userfunc">ᵘf̲itted</span></a></td><td>function</td><td><code>Int -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.s_plit"><span class="c-userfunc">ᵘs̲plit</span></a></td><td>function</td><td><code>Char -&gt; Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.l_ines"><span class="c-userfunc">ᵘl̲ines</span></a></td><td>function</td><td><code>Int -&gt; Box Char -&gt; Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.w_rap"><span class="c-userfunc">ᵘw̲rap</span></a></td><td>function</td><td><code>Int -&gt; Char -&gt; Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.o_neLine"><span class="c-userfunc">ᵘo̲neLine</span></a></td><td>function</td><td><code>Char -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.f_ace"><span class="c-userfunc">ᵘf̲ace</span></a></td><td>function</td><td><code>Int -&gt; Int -&gt; Box Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.i_tem"><span class="c-userfunc">ᵘi̲tem</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; (Int, Int) -&gt; ((Int, a, Float, b), c, d) -&gt; Int</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.s_tone"><span class="c-userfunc">ᵘs̲tone</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; ((Int, a, Float, b), c, d) -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.j_oin"><span class="c-userfunc">ᵘj̲oin</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.w_here"><span class="c-userfunc">ᵘw̲here</span></a></td><td>function</td><td><code>(Any a, Any b, Any c, Any d) =&gt; ((Int, a, Float, b), c, d) -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#u.l_oop-21"><span class="c-userfunc">ᵘl̲oop!</span></a></td><td>function</td><td><code>(Num a, Truthy a) =&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int)) -&gt; ((Int, Int, Float, a), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#start">start</a></td><td>value</td><td><code>((Int, Int, Float, Int), (Int, Float, Float, Float), (Float, Float, Int, Int))</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#shown">shown</a></td><td>value</td><td><code>Char</code></td></tr>
+<tr><td><a href="demos-rosetta-rosetta.xtl.html#mode">mode</a></td><td>value</td><td><code>Char</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.width">ˡwidth</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.height">ˡheight</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.depth">ˡdepth</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.eye">ˡeye</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.size">ˡsize</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#zoom">zoom</a></td><td>value</td><td><code>Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.b_ox"><span class="c-libfunc">ˡb̲ox</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.v_iew"><span class="c-libfunc">ˡv̲iew</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.b_ase"><span class="c-libfunc">ˡb̲ase</span></a></td><td>function</td><td><code>Float -&gt; Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.p_art"><span class="c-libfunc">ˡp̲art</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.r_ing"><span class="c-libfunc">ˡr̲ing</span></a></td><td>function</td><td><code>Float -&gt; Float -&gt; Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.ringOffsets">ˡringOffsets</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.capOffsets">ˡcapOffsets</a></td><td>value</td><td><code>Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.p_anel"><span class="c-libfunc">ˡp̲anel</span></a></td><td>function</td><td><code>Box Char -&gt; Float -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.r_ounded"><span class="c-libfunc">ˡr̲ounded</span></a></td><td>function</td><td><code>Float -&gt; Float</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.a_ffine"><span class="c-libfunc">ˡa̲ffine</span></a></td><td>function</td><td><code>Float -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.f_acing"><span class="c-libfunc">ˡf̲acing</span></a></td><td>function</td><td><code>Truthy a =&gt; Float -&gt; a</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.l_ine"><span class="c-libfunc">ˡl̲ine</span></a></td><td>function</td><td><code>Int -&gt; Char -&gt; Char</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#l.p_ainting"><span class="c-libfunc">ˡp̲ainting</span></a></td><td>function</td><td><code>Num a =&gt; a -&gt; Int</code></td></tr>
+<tr><td><a href="demos-rosetta-Stone.xtl.html#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a></td><td>function</td><td><code>Box Char -&gt; Char</code></td></tr>
+</table>
+</main>
+</body>
+</html>

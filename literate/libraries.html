@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Libraries</title>
+<meta name="author" content="Michael A Wright" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.10/dist/katex.min.css" crossorigin="anonymous"/>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.10/dist/katex.min.js" crossorigin="anonymous"></script>
+<script>document.addEventListener('DOMContentLoaded', function () { if (typeof katex === 'undefined') return; document.querySelectorAll('.c-notation').forEach(function (el) { var tex = el.textContent; if (!tex) return; try { katex.render(tex, el, { throwOnError: false }); } catch (e) { el.textContent = tex; } }); });</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Libraries
+<br />
+<span class="subtitle">what a library is, and the standard libraries at work</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org4b7d108">Stats</a></li>
+<li><a href="#org7604a25">Maybe</a></li>
+<li><a href="#org424bfdd">Combinators</a></li>
+<li><a href="#org68b08e8">Turtle</a></li>
+<li><a href="#org814fe1a">TTTML</a></li>
+<li><a href="#org0752bf8">A library of your own</a></li>
+</ul>
+</div>
+</div>
+<p>
+A library is an ordinary X_eTaL file whose exported names are written
+with <code>l:</code>; its helpers, written with <code>h:</code>, are private to it. A program imports a
+library with the <code>u_se&lt;</code> macro, choosing the prefix its names get:
+<code>"s:" u_se&lt; "Stats"</code> makes the library's <code>l:m_ean</code> the program's
+<code>s:m_ean</code>. The prefix is required, so every name says where it comes
+from. Four libraries are built into <code>xetal</code> (their source is in
+<code>lib/</code>); a library of your own is imported by its path. Every block
+below is run by <code>xetal</code> through <code>ob-xetal</code>, and its result recorded
+under it.
+</p>
+<div id="outline-container-org4b7d108" class="outline-2">
+<h2 id="org4b7d108">Stats</h2>
+<div class="outline-text-2" id="text-org4b7d108">
+<p>
+A small statistics library. Its whole source:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-doc">⍝│ Stats: a small statistics library (a standard library, built into</span>
+<span class="c-doc">⍝│ xetal). Import it with an alias of your choice: &quot;s:&quot; u_se&lt; &quot;Stats&quot;.</span>
+<span class="c-doc">⍝│ It is a demo library, loaded only by that import: a small subset of</span>
+<span class="c-doc">⍝│ X_eTaL-libraries' Statistics, which has much more (a program may use</span>
+<span class="c-doc">⍝│ either).</span>
+<span class="c-doc">⍝│ Names with l: are exported; names with h: are private to this file.</span>
+
+<span class="c-heading">⍝━━ Center</span>
+
+<span class="c-doc">⍝│ The arithmetic mean, of Int or Float numbers.</span>
+<span class="c-doc">⍝│ &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
+<span class="c-doc">⍝│ &gt;&gt; s:m_ean 2 4 4 4 5 5 7 9</span>
+<span class="c-doc">⍝│ 5.0</span>
+<span class="c-libfunc">ˡm̲ean</span> ← [[<span class="c-builtin">f̲loat</span> <span class="c-symbol">'+</span> <span class="c-builtin">r̲/</span>] <span class="c-symbol">÷</span> [<span class="c-builtin">f̲loat</span> <span class="c-builtin">t̲ally</span>]]
+
+<span class="c-doc">⍝│ Each number times itself.</span>
+<span class="c-libfunc">ʰs̲quare</span> ← { <span class="c-lambdaarg">⍵</span> <span class="c-symbol">×</span> <span class="c-lambdaarg">⍵</span> }                       <span class="c-comment">⍝ private: not visible outside</span>
+<span class="c-doc">⍝│ How far each number is from the mean, as Floats.</span>
+<span class="c-libfunc">ʰd̲eviations</span> ← [<span class="c-builtin">f̲loat</span> <span class="c-symbol">−</span> <span class="c-libfunc">ˡm̲ean</span>]
+
+<span class="c-heading">⍝━━ Spread</span>
+
+<span class="c-doc">⍝│ The variance: the mean squared deviation from the mean.</span>
+<span class="c-doc">⍝│ &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
+<span class="c-doc">⍝│ &gt;&gt; s:v_ariance 2 4 4 4 5 5 7 9</span>
+<span class="c-doc">⍝│ 4.0</span>
+<span class="c-libfunc">ˡv̲ariance</span> ← [<span class="c-libfunc">ˡm̲ean</span> [<span class="c-libfunc">ʰs̲quare</span> <span class="c-libfunc">ʰd̲eviations</span>]]
+
+<span class="c-doc">⍝│ The standard deviation: the square root of the variance.</span>
+<span class="c-doc">⍝│ &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
+<span class="c-doc">⍝│ &gt;&gt; s:s_d 2 4 4 4 5 5 7 9</span>
+<span class="c-doc">⍝│ 2.0</span>
+<span class="c-libfunc">ˡs̲d</span> ← { (<span class="c-libfunc">ˡv̲ariance</span> <span class="c-lambdaarg">⍵</span>) <span class="c-symbol">^</span> <span class="c-number">0.5</span> }
+
+<span class="c-doc">⍝│ The range: the largest minus the smallest.</span>
+<span class="c-doc">⍝│ &gt;&gt; &quot;s:&quot; u_se&lt; &quot;Stats&quot;</span>
+<span class="c-doc">⍝│ &gt;&gt; s:s_pread 2 4 4 4 5 5 7 9</span>
+<span class="c-doc">⍝│ 7</span>
+<span class="c-libfunc">ˡs̲pread</span> ← [<span class="c-builtin">'m̲ax</span> <span class="c-builtin">r̲/</span> <span class="c-symbol">−</span> <span class="c-builtin">'m̲in</span> <span class="c-builtin">r̲/</span>]
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   l:m_ean := [[f_loat '+ r_/] / [f_loat t_ally]]</span>
+<span class="c-comment typed">⍝   h:s_quare := { _r * _r }                  # private: not visible outside</span>
+<span class="c-comment typed">⍝   h:d_eviations := [f_loat - l:m_ean]</span>
+<span class="c-comment typed">⍝   l:v_ariance := [l:m_ean [h:s_quare h:d_eviations]]</span>
+<span class="c-comment typed">⍝   l:s_d := { (l:v_ariance _r) ^ 0.5 }</span>
+<span class="c-comment typed">⍝   l:s_pread := ['m_ax r_/ - 'm_in r_/]</span></pre>
+</div>
+
+<p>
+<code>h:s_quare</code> and <code>h:d_eviations</code> are helpers, written with <code>h:</code>, so a
+program cannot see them; the rest it imports:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-string">&quot;s:&quot;</span> <span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Stats&quot;</span>
+<span class="c-libfunc">ˢm̲ean</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "s:" u_se&lt; "Stats"</span>
+<span class="c-comment typed">⍝   s:m_ean 1 2 3 4</span></pre>
+</div>
+
+<pre class="example">
+2.5
+</pre>
+
+
+<p>
+The mean is a Float for Int numbers too. The variance, the standard
+deviation and the range:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-libfunc">ˢv̲ariance</span> <span class="c-number">2</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">5</span> <span class="c-number">7</span> <span class="c-number">9</span>
+<span class="c-libfunc">ˢs̲d</span> <span class="c-number">2</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">5</span> <span class="c-number">7</span> <span class="c-number">9</span>
+<span class="c-libfunc">ˢs̲pread</span> <span class="c-number">3</span> <span class="c-number">9</span> <span class="c-number">1</span> <span class="c-number">7</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   s:v_ariance 2 4 4 4 5 5 7 9</span>
+<span class="c-comment typed">⍝   s:s_d 2 4 4 4 5 5 7 9</span>
+<span class="c-comment typed">⍝   s:s_pread 3 9 1 7</span></pre>
+</div>
+
+<pre class="example">
+4.0
+2.0
+8
+</pre>
+</div>
+</div>
+<div id="outline-container-org7604a25" class="outline-2">
+<h2 id="org7604a25">Maybe</h2>
+<div class="outline-text-2" id="text-org7604a25">
+<p>
+A value that may be missing, and the monad that chains computations
+which can fail. A maybe is Church-encoded: a function of two
+arguments, what to give when it is empty and what to do with its
+value. <code>j_ust x</code> holds a value, <code>n_othing</code> holds none, and <code>d m:o_r m</code>
+is the value, or <code>d</code> when there is none:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-string">&quot;m:&quot;</span> <span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Maybe&quot;</span>
+<span class="c-userfunc">ᵘd̲iv</span> ← { a b → b <span class="c-symbol">=</span> <span class="c-number">0</span> ? <span class="c-libfunc">'ᵐn̲othing</span>◆ <span class="c-libfunc">ᵐj̲ust</span> a <span class="c-symbol">÷</span> b }
+<span class="c-number">-1</span> <span class="c-libfunc">ᵐo̲r</span> <span class="c-number">100</span> <span class="c-userfunc">ᵘd̲iv</span> <span class="c-number">4</span>
+<span class="c-number">-1</span> <span class="c-libfunc">ᵐo̲r</span> <span class="c-number">100</span> <span class="c-userfunc">ᵘd̲iv</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "m:" u_se&lt; "Maybe"</span>
+<span class="c-comment typed">⍝   u:d_iv := { a b -&gt; b = 0 ? 'm:n_othing; m:j_ust a / b }</span>
+<span class="c-comment typed">⍝   -1 m:o_r 100 u:d_iv 4</span>
+<span class="c-comment typed">⍝   -1 m:o_r 100 u:d_iv 0</span></pre>
+</div>
+
+<pre class="example">
+25.0
+-1.0
+</pre>
+
+
+<p>
+<code>b_ind</code> chains a step that can itself fail; the first failure gives
+the default, and the steps after it never run:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-userfunc">ᵘh̲alf</span> ← { <span class="c-libfunc">ᵐj̲ust</span> <span class="c-lambdaarg">⍵</span> <span class="c-symbol">÷</span> <span class="c-number">2</span> }
+<span class="c-number">-1</span> <span class="c-libfunc">ᵐo̲r</span> <span class="c-userfunc">'ᵘh̲alf</span> <span class="c-libfunc">ᵐb̲ind</span> <span class="c-number">100</span> <span class="c-userfunc">ᵘd̲iv</span> <span class="c-number">4</span>
+<span class="c-number">-1</span> <span class="c-libfunc">ᵐo̲r</span> <span class="c-userfunc">'ᵘh̲alf</span> <span class="c-libfunc">ᵐb̲ind</span> <span class="c-number">100</span> <span class="c-userfunc">ᵘd̲iv</span> <span class="c-number">0</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   u:h_alf := { m:j_ust _r / 2 }</span>
+<span class="c-comment typed">⍝   -1 m:o_r 'u:h_alf m:b_ind 100 u:d_iv 4</span>
+<span class="c-comment typed">⍝   -1 m:o_r 'u:h_alf m:b_ind 100 u:d_iv 0</span></pre>
+</div>
+
+<pre class="example">
+12.5
+-1.0
+</pre>
+</div>
+</div>
+<div id="outline-container-org424bfdd" class="outline-2">
+<h2 id="org424bfdd">Combinators</h2>
+<div class="outline-text-2" id="text-org424bfdd">
+<p>
+Every bird Raymond Smullyan names in <i>To Mock a Mockingbird</i> that
+type-checks, under its letter. K keeps its first argument, C swaps
+the arguments of a function, and B composes (here negate after
+reverse):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-string">&quot;c:&quot;</span> <span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Combinators&quot;</span>
+<span class="c-number">1</span> <span class="c-libfunc">ᶜK̲</span> <span class="c-number">2</span>
+<span class="c-number">10</span> <span class="c-symbol">'−</span> <span class="c-libfunc">ᶜC̲</span> <span class="c-number">3</span>
+<span class="c-builtin">'n̲eg</span> <span class="c-builtin">'r̲ev</span> <span class="c-libfunc">ᶜB̲</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "c:" u_se&lt; "Combinators"</span>
+<span class="c-comment typed">⍝   1 c:K_ 2</span>
+<span class="c-comment typed">⍝   10 '- c:C_ 3</span>
+<span class="c-comment typed">⍝   'n_eg 'r_ev c:B_ 1 2 3</span></pre>
+</div>
+
+<pre class="example">
+1
+-7
+-3 -2 -1
+</pre>
+
+
+<p>
+<a href="birds.html">The aviary</a> meets them all.
+</p>
+</div>
+</div>
+<div id="outline-container-org68b08e8" class="outline-2">
+<h2 id="org68b08e8">Turtle</h2>
+<div class="outline-text-2" id="text-org68b08e8">
+<p>
+Turtle graphics as arrays: a walk is a vector of turns in degrees, one
+before each step, and its points are running sums of cosines and sines,
+two rows (x over y) that <code>[]P_ATH</code> draws. Its whole source:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-doc">⍝│ Turtle: turtle graphics as arrays (a standard library, built into</span>
+<span class="c-doc">⍝│ xetal). Import it with an alias of your choice: &quot;t:&quot; u_se&lt; &quot;Turtle&quot;.</span>
+<span class="c-doc">⍝│ A walk is a vector of turns in degrees, one before each step forward;</span>
+<span class="c-doc">⍝│ the turtle starts at the origin facing east (0 degrees, counting</span>
+<span class="c-doc">⍝│ anticlockwise). No turtle moves: the headings are a running sum of</span>
+<span class="c-doc">⍝│ the turns, the steps are their cosines and sines, and the positions</span>
+<span class="c-doc">⍝│ are running sums of the steps. Draw the points with []P_ATH.</span>
+<span class="c-doc">⍝│ Names with l: are exported; names with h: are private to this file.</span>
+
+<span class="c-doc">⍝│ Degrees as radians, a Float.</span>
+<span class="c-libfunc">ʰr̲adians</span> ← { (<span class="c-builtin">f̲loat</span> <span class="c-lambdaarg">⍵</span>) <span class="c-symbol">×</span> (<span class="c-builtin">p̲i</span> @) <span class="c-symbol">÷</span> <span class="c-number">180</span> }         <span class="c-comment">⍝ private</span>
+
+<span class="c-heading">⍝━━ Points of a walk</span>
+
+<span class="c-doc">⍝│ The points of a walk with steps of the given lengths, 2 rows (x over</span>
+<span class="c-doc">⍝│ y), starting at the origin: </span>lengths <span class="c-libfunc">ᵗw̲alk</span> turns<span class="c-doc">; a single length</span>
+<span class="c-doc">⍝│ serves every step. A walk of n turns gives n + 1 points.</span>
+<span class="c-doc">⍝│ &gt;&gt; &quot;t:&quot; u_se&lt; &quot;Turtle&quot;</span>
+<span class="c-doc">⍝│ &gt;&gt; f_loor 0.5 + 2 t:w_alk 0 90 90</span>
+<span class="c-doc">⍝│ 0 2 2 0</span>
+<span class="c-doc">⍝│ 0 0 2 2</span>
+<span class="c-libfunc">ˡw̲alk</span> ← { lengths turns →
+  h ← <span class="c-libfunc">ʰr̲adians</span> <span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> turns
+  xs ← <span class="c-number">0</span> <span class="c-builtin">c̲at</span> <span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> (<span class="c-builtin">f̲loat</span> lengths) <span class="c-symbol">×</span> <span class="c-builtin">c̲os</span> h
+  ys ← <span class="c-number">0</span> <span class="c-builtin">c̲at</span> <span class="c-symbol">'+</span> <span class="c-builtin">s̲\</span> (<span class="c-builtin">f̲loat</span> lengths) <span class="c-symbol">×</span> <span class="c-builtin">s̲in</span> h
+  (<span class="c-number">2</span> <span class="c-builtin">c̲at</span> <span class="c-builtin">t̲ally</span> xs) <span class="c-builtin">r̲eshape</span> xs <span class="c-builtin">c̲at</span> ys
+}
+
+<span class="c-doc">⍝│ The points of a walk of unit steps: </span><span class="c-libfunc">ᵗp̲oints</span> turns<span class="c-doc">.</span>
+<span class="c-doc">⍝│ &gt;&gt; &quot;t:&quot; u_se&lt; &quot;Turtle&quot;</span>
+<span class="c-doc">⍝│ &gt;&gt; f_loor 0.5 + t:p_oints t:p_olygon 4</span>
+<span class="c-doc">⍝│ 0 0 -1 -1 0</span>
+<span class="c-doc">⍝│ 0 1  1  0 0</span>
+<span class="c-libfunc">ˡp̲oints</span> ← { turns → <span class="c-number">1</span> <span class="c-libfunc">ˡw̲alk</span> turns }
+
+<span class="c-heading">⍝━━ Building walks</span>
+
+<span class="c-doc">⍝│ The walk w with t degrees more turned before its first step: how</span>
+<span class="c-doc">⍝│ pieces of a curve are joined (</span><span class="c-number">60</span> <span class="c-libfunc">ᵗt̲urn</span> w<span class="c-doc">).</span>
+<span class="c-doc">⍝│ &gt;&gt; &quot;t:&quot; u_se&lt; &quot;Turtle&quot;</span>
+<span class="c-doc">⍝│ &gt;&gt; 60 t:t_urn 0 120 120</span>
+<span class="c-doc">⍝│ 60 120 120</span>
+<span class="c-libfunc">ˡt̲urn</span> ← { t w → (t <span class="c-symbol">+</span> <span class="c-number">1</span> <span class="c-builtin">t̲ake</span> w) <span class="c-builtin">c̲at</span> <span class="c-number">1</span> <span class="c-builtin">d̲rop</span> w }
+
+<span class="c-doc">⍝│ A regular polygon of n sides, as a walk: n turns of 360 / n degrees,</span>
+<span class="c-doc">⍝│ so it closes where it began.</span>
+<span class="c-doc">⍝│ &gt;&gt; &quot;t:&quot; u_se&lt; &quot;Turtle&quot;</span>
+<span class="c-doc">⍝│ &gt;&gt; t:p_olygon 4</span>
+<span class="c-doc">⍝│ 90.0 90.0 90.0 90.0</span>
+<span class="c-libfunc">ˡp̲olygon</span> ← { n → n <span class="c-builtin">r̲eshape</span> <span class="c-number">360</span> <span class="c-symbol">÷</span> n }
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   h:r_adians := { (f_loat _r) * (p_i @) / 180 }   # private</span>
+<span class="c-comment typed">⍝   l:w_alk := { lengths turns -&gt;</span>
+<span class="c-comment typed">⍝     h := h:r_adians '+ s_\ turns</span>
+<span class="c-comment typed">⍝     xs := 0 c_at '+ s_\ (f_loat lengths) * c_os h</span>
+<span class="c-comment typed">⍝     ys := 0 c_at '+ s_\ (f_loat lengths) * s_in h</span>
+<span class="c-comment typed">⍝     (2 c_at t_ally xs) r_eshape xs c_at ys</span>
+<span class="c-comment typed">⍝   }</span>
+<span class="c-comment typed">⍝   l:p_oints := { turns -&gt; 1 l:w_alk turns }</span>
+<span class="c-comment typed">⍝   l:t_urn := { t w -&gt; (t + 1 t_ake w) c_at 1 d_rop w }</span>
+<span class="c-comment typed">⍝   l:p_olygon := { n -&gt; n r_eshape 360 / n }</span></pre>
+</div>
+
+<p>
+A square, one unit a side, its points rounded (the cosine of a right
+angle is only nearly 0):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xetal"><span class="c-string">&quot;t:&quot;</span> <span class="c-macro">u̲se&lt;</span> <span class="c-string">&quot;Turtle&quot;</span>
+<span class="c-libfunc">ᵗp̲olygon</span> <span class="c-number">4</span>
+<span class="c-builtin">f̲loor</span> <span class="c-number">0.5</span> <span class="c-symbol">+</span> <span class="c-libfunc">ᵗp̲oints</span> <span class="c-libfunc">ᵗp̲olygon</span> <span class="c-number">4</span>
+
+<span class="c-comment typed">⍝ typed:</span>
+<span class="c-comment typed">⍝   "t:" u_se&lt; "Turtle"</span>
+<span class="c-comment typed">⍝   t:p_olygon 4</span>
+<span class="c-comment typed">⍝   f_loor 0.5 + t:p_oints t:p_olygon 4</span></pre>
+</div>
+
+<pre class="example">
+90.0 90.0 90.0 90.0
+0 0 -1 -1 0
+0 1  1  0 0
+</pre>
+
+
+<p>
+<a href="classics.html">Classic programs, drawn</a> uses it for Koch's
+snowflake and Sierpinski's arrowhead.
+</p>
+</div>
+</div>
+<div id="outline-container-org814fe1a" class="outline-2">
+<h2 id="org814fe1a">TTTML</h2>
+<div class="outline-text-2" id="text-org814fe1a">
+<p>
+A machine that learns tic-tac-toe by playing itself: its model is an
+ordinary value, passed to the library's functions and returned by
+them. <a href="tttml.html">TTTML</a> trains it and plays it.
+</p>
+</div>
+</div>
+<div id="outline-container-org0752bf8" class="outline-2">
+<h2 id="org0752bf8">A library of your own</h2>
+<div class="outline-text-2" id="text-org0752bf8">
+<p>
+<a href="hello.html">Hello, library</a> writes one and uses it. In short:
+write the exported names with <code>l:</code> and save the file; a program then
+imports it by name from beside it, or by its path, <code>"g:" u_se&lt; "lib/Geometry.xtl"</code>. In the live
+demo, Save as a name like <code>Geometry.xtl</code> keeps it in the browser, and
+<code>"g:" u_se&lt; "Geometry"</code> imports it; saved under a standard library's
+name (<code>Stats.xtl</code>), your copy is the one imported. A library cannot
+define <code>u:</code> names, and a program cannot define <code>l:</code> names.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a href="index.html">Literate documents</a> &middot; <a href="../">Live demo</a> &middot; <a href="https://github.com/softwarewrighter/X_eTaL">Repository</a></p>
+</div>
+</body>
+</html>
