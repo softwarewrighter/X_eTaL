@@ -1,0 +1,17 @@
+#!/usr/bin/env xetal
+## Word count: the words of a text, how often each occurs, the most
+## frequent first. Run with "just demo Strings word-count".
+
+"t:" u_se< "Strings"
+text := "The cat sat on the mat. The dog sat on the log; the cat ran."
+
+# Lower case, punctuation to spaces, then the words.
+clean := t:l_ower "." " " t:r_eplace ";" " " t:r_eplace text
+words := t:w_ords clean
+t_ally words
+
+# Each distinct word and its count, most frequent first.
+distinct := u_nique words
+counts := '{ t_ally w_here words = _r } e_ach distinct
+order := g_rade n_eg counts                  # ties keep their first-seen order
+"\n" t:j_oin '{ i -> (10 t:p_adRight d_isclose i s_elect distinct) c_at f_ormat i s_elect counts } m_ap 5 t_ake order

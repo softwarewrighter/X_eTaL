@@ -1,0 +1,22 @@
+## Equations: sums as printed in papers, written in one macro call (e:e_q<, e:t_ex<, e:b_oth< in Equations.xtlm);
+## here the valid 2-D cross-correlation of a CNN layer, as array code, which checks the macro.
+## Import it with an alias of your choice: "e:" u_se< "Equations".
+## Put libs/Equations/src on XETAL_PATH ("just path"); the reference is libs/Equations/docs.
+## Names with l: are exported; those under h: are private to this file.
+
+## The valid 2-D cross-correlation of pictures X (channels, height,
+## width) with filters W (outputs, channels, kernel height, kernel
+## width), as CNN layers compute it: no kernel flip, stride 1, no
+## padding, so the result has shape outputs, H - Kh + 1, Wd - Kw + 1.
+## Y[o,h,w] is the sum over c, r, s of X[c,h+r,w+s] * W[o,c,r,s]. It is
+## written without the macros (the windows by rotation, then one inner
+## product with the filters), so it checks them independently.
+l:c_orrelate := { X W ->
+  (C, H, Wd) := (1 s_elect s_hape X, 2 s_elect s_hape X, 3 s_elect s_hape X)
+  (O, Kh, Kw) := (1 s_elect s_hape W, 3 s_elect s_hape W, 4 s_elect s_hape W)
+  Ho := H - Kh - 1
+  Wo := Wd - Kw - 1
+  P := 2 3 1 4 5 t_ranspose Wo t_ake_5 Ho t_ake_4 (o_ffsets Kh) o_-_3 (o_ffsets Kw) o_-_3 X
+  F := (O c_at C * Kh * Kw) r_eshape W
+  (O c_at Ho c_at Wo) r_eshape F '+ '* i_nner ((C * Kh * Kw) c_at Ho * Wo) r_eshape P
+}

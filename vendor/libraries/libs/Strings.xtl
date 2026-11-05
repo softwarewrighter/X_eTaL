@@ -1,0 +1,115 @@
+## Strings: text functions -- case, trimming, words, split and join,
+## search, replace, padding.
+## Import it with an alias of your choice: "t:" u_se< "Strings".
+## Put libs/Strings/src on XETAL_PATH ("just path"); the reference is libs/Strings/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## A string is a Char vector; a list of strings is a nested vector
+## (Box Char), as "ab" "cde" is. Patterns, separators and widths go on
+## the left, the text on the right: "," t:s_plit "a,b".
+
+blanks := " \t\n"                           # what trimming removes
+
+### Case and trimming
+
+## Case by character code ([]U_CS): a letter's two cases are 32 apart.
+## ASCII letters only: []U_CHAR takes codes 0 to 127 (ask X16).
+l:u_pper := { t -> c := []U_CS t; []U_CHAR c - 32 * (c >= 97) & c <= 122 }   # "Hello" to "HELLO"
+l:l_ower := { t -> c := []U_CS t; []U_CHAR c + 32 * (c >= 65) & c <= 90 }    # "Hello" to "hello"
+
+## Trimming: blanks (space, tab, newline) off the start, the end, or both.
+l:t_rimStart := { t -> (n_ot '& s_\ t m_ember? blanks) r_eplicate t }
+l:t_rimEnd := { t -> r_ev l:t_rimStart r_ev t }
+l:t_rim := { t -> l:t_rimEnd l:t_rimStart t }
+
+### Words and joining
+
+## w_ords t: the words of t, split at runs of blanks (dfns words).
+l:w_ords := { t -> (n_ot t m_ember? blanks) p_artition t }
+
+## sep j_oin list: the strings of list with sep between them.
+l:j_oin := { sep b ->
+  0 = t_ally b ? ""
+  d_isclose '{ e_nclose (d_isclose _l) c_at sep c_at d_isclose _r } r_/ b
+}
+
+## s_queeze t: the words of t one space apart (J's deb).
+l:s_queeze := { t -> " " l:j_oin l:w_ords t }
+
+### Finding and splitting
+
+## p f_ind t: where the pattern p starts in t, overlaps included (APL's
+## find, dfns ss's search).
+l:f_ind := { p t ->
+  m := t_ally p
+  n := t_ally t
+  (m = 0) | m > n ? 0 r_eshape 0
+  cells := ((r_ange 1 + n - m) '+ t_able o_ffsets m) s_elect t
+  w_here '& r_/_2 cells = (s_hape cells) r_eshape p
+}
+
+## Starts ps of matches of length m, keeping only those that do not
+## overlap an earlier one (left to right).
+h:a_part := { m ps ->
+  0 = t_ally ps ? ps
+  f := f_irst ps
+  f c_at m h:a_part (ps >= f + m) r_eplicate ps
+}
+
+## p o_ccurrences t: how many times p occurs in t, without overlaps.
+l:o_ccurrences := { p t -> t_ally (t_ally p) h:a_part p l:f_ind t }
+
+## sep s_plit t: the pieces of t between the separators (any length);
+## empty pieces are kept, so "a,,b" has three ("a" "" "b").
+l:s_plit := { sep t ->
+  m := t_ally sep
+  m = 0 ? 1 r_eshape e_nclose t
+  ps := m h:a_part sep l:f_ind t
+  starts := 1 c_at ps + m
+  ends := ps c_at 1 + t_ally t
+  '{ i -> ((i s_elect ends) - i s_elect starts) t_ake ((i s_elect starts) - 1) d_rop t } m_ap r_ange t_ally starts
+}
+
+## l_ines t: the lines of t (a final newline does not make an empty line).
+l:l_ines := { t ->
+  e := (0 < t_ally t) & ("\n" m_atch -1 t_ake t)
+  "\n" l:s_plit (n_eg e) d_rop t
+}
+
+## Old and new as a pair: "cat" "dog" t:r_eplace t, without overlaps
+## (dfns ss).
+l:r_eplace := { pair t ->
+  (d_isclose 2 s_elect pair) l:j_oin (d_isclose 1 s_elect pair) l:s_plit t
+}
+
+### Prefixes
+
+## p p_refix? t, p s_uffix? t, p i_nfix? t: whether p begins, ends or
+## occurs in t.
+l:p_refix? := { p t -> (t_ally p) > t_ally t ? 0 = 1; p m_atch (t_ally p) t_ake t }
+l:s_uffix? := { p t -> (t_ally p) > t_ally t ? 0 = 1; p m_atch (n_eg t_ally p) t_ake t }
+l:i_nfix? := { p t -> 0 < t_ally p l:f_ind t }
+
+### Padding
+
+## n p_adLeft t, n p_adRight t, n c_enter t: t in a field n wide, filled
+## with spaces (right-aligned, left-aligned, centered); a longer t is
+## kept whole.
+l:p_adLeft := { n t -> (n_eg n m_ax t_ally t) t_ake t }
+l:p_adRight := { n t -> (n m_ax t_ally t) t_ake t }
+l:c_enter := { n t ->
+  w := n m_ax t_ally t
+  w t_ake (n_eg (t_ally t) + (w - t_ally t) d_iv 2) t_ake t
+}
+
+## n r_epeat t: t, n times over.
+l:r_epeat := { n t -> 0 = t_ally t ? t; (n * t_ally t) r_eshape t }
+
+## m_ix list: the texts of a list as a character matrix, one per row,
+## padded with spaces to the longest (APL2's disclose of a list of
+## strings, "mix").
+l:m_ix := { b ->
+  w := 'm_ax r_/ '{ t_ally d_isclose _r } e_ach b
+  all := d_isclose '{ e_nclose (d_isclose _l) c_at d_isclose _r } r_/ '{ s -> w t_ake d_isclose s } m_ap b
+  ((t_ally b) c_at w) r_eshape all
+}

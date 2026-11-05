@@ -1,0 +1,23 @@
+#!/usr/bin/env xetal
+## A curve through five points: the polynomial of degree 4 through
+## them (solving with the Matrix library), where it crosses zero, where
+## it turns (the roots of its derivative), and its picture.
+## Run with "just demo Polynomials curve".
+
+"pl:" u_se< "Polynomials"
+"mx:" u_se< "Matrix"
+x := -2.0 -1.0 0.0 1.0 2.0
+y := 3.0 -1.0 1.0 -1.0 3.0
+
+# The coefficients c solve V c = y, V the table of the powers of x.
+V := x '{ a b -> a ^ b } t_able 4.0 3.0 2.0 1.0 0.0
+c := y mx:s_olve V
+pl:t_ext (f_loat f_loor 0.5 + c * 1000.0) / 1000.0     # rounded for reading
+c pl:a_t x                                    # it passes through the points
+
+pl:r_oots c                                   # where it crosses zero
+pl:r_oots pl:d_erivative c                    # where it turns
+
+# Its picture: 81 points from -2 to 2.
+t := -2.0 + (f_loat o_ffsets 81) / 20.0
+picture := []S_HOW []P_ATH 2 81 r_eshape t c_at c pl:a_t t

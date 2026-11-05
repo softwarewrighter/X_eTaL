@@ -1,0 +1,152 @@
+## Trig: trigonometric and hyperbolic functions not in the base
+## language, written in closed form from its builtins (s_in, c_os,
+## a_tan, s_qrt, e_xp, e_xpm1, l_og, l_og1p). The hyperbolic tangent
+## is the builtin t_anh; Trig keeps no copy of it.
+## Import it with an alias of your choice: "tr:" u_se< "Trig".
+## Put libs/Trig/src on XETAL_PATH ("just path"); the reference is libs/Trig/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## Angles are in radians. Every function works on whole arrays, one
+## element at a time, and its results are Floats.
+
+### Circular
+
+## Half of pi, the angle of a quarter turn.
+h:q_uarter := { u -> 0.5 * p_i u }
+
+## t_an x: the tangent, the sine over the cosine. Near an odd multiple
+## of a quarter turn it is as large as the cosine there is small.
+l:t_an := { x -> (s_in x) / c_os x }
+
+## a_sin x: the angle whose sine is x, from -pi/2 to pi/2, by the
+## half-angle form 2 atan(x / (1 + sqrt(1 - x^2))), whose divisor is
+## never below 1. Outside -1..1 the square root (s_qrt) refuses
+## (error[domain]).
+l:a_sin := { x -> y := f_loat x; 2.0 * a_tan y / 1.0 + s_qrt 1.0 - y * y }
+
+## a_cos x: the angle whose cosine is x, from 0 to pi, as
+## 2 asin(sqrt((1 - x) / 2)), exact near both ends. Outside -1..1 the
+## square root (s_qrt) refuses (error[domain]).
+l:a_cos := { x -> 2.0 * l:a_sin s_qrt 0.5 * 1.0 - f_loat x }
+
+## y a_tan2 x: the angle of the point (x, y) from the positive x axis,
+## from -pi to pi: a_tan (y / x) turned by pi into the left half plane
+## (up for y >= 0, down for y < 0); on the y axis, pi/2 or -pi/2; at
+## the origin, 0.
+l:a_tan2 := { y x ->
+  b := f_loat y
+  a := f_loat x
+  z := f_loat a = 0.0
+  t := (1.0 - z) * a_tan b / a + z
+  up := (f_loat b >= 0.0) - f_loat b < 0.0
+  side := (f_loat b > 0.0) - f_loat b < 0.0
+  t + ((p_i @) * up * f_loat a < 0.0) + (h:q_uarter @) * side * z
+}
+
+### Hyperbolic
+
+## ((k p_ick lo)_ hi): lo where the mask k is 1.0, hi where it is 0.0.
+## The branch not picked must be finite (0 times an infinity is NaN),
+## so each caller clamps the argument it gives a branch.
+h:p_ick := { k lo hi -> (k * lo) + (1.0 - k) * hi }
+
+## The sign of x as a Float, 1.0 for 0: the odd functions take it from
+## their argument and work on its magnitude.
+h:s_ign := { x -> 1.0 - 2.0 * f_loat x < 0.0 }
+
+## Where the large-argument forms take over: past it e^-a is below
+## 2e-9 of e^a (and below 1e-16 of 1/a^2 for the inverses).
+h:b_ig := { u -> 20.0 }
+
+## e^a / 2, as e^(a - ln 2) so it does not overflow until the result
+## does (a up to about 710.47, where e^a alone stops at 709.78).
+h:h_alfExp := { a -> e_xp a - l_og 2.0 }
+
+## s_inh x: the hyperbolic sine, (e^x - e^-x) / 2. Up to |x| = 20 as
+## (m + m / (m + 1)) / 2 with m = e^|x| - 1 (e_xpm1), so no
+## cancellation near 0; past it e^|x| / 2. Infinite past about 710.47.
+l:s_inh := { x ->
+  y := f_loat x
+  a := a_bs y
+  m := e_xpm1 a m_in h:b_ig @
+  k := f_loat a <= h:b_ig @
+  lo := 0.5 * m + m / m + 1.0
+  hi := h:h_alfExp a m_ax h:b_ig @
+  (h:s_ign y) * ((k h:p_ick lo)_ hi)
+}
+
+## c_osh x: the hyperbolic cosine, (e^x + e^-x) / 2, never below 1.
+## Up to |x| = 20 as 1 + m^2 / (2 (m + 1)) with m = e^|x| - 1, past it
+## e^|x| / 2. Infinite past about 710.47.
+l:c_osh := { x ->
+  a := a_bs f_loat x
+  m := e_xpm1 a m_in h:b_ig @
+  k := f_loat a <= h:b_ig @
+  lo := 1.0 + (m * m) / 2.0 * m + 1.0
+  hi := h:h_alfExp a m_ax h:b_ig @
+  ((k h:p_ick lo)_ hi)
+}
+
+## Where the inverses' large-argument form takes over: past it
+## sqrt(a^2 + 1) is a to the last bit (and a^2 cannot overflow below).
+h:h_uge := { u -> 100000000.0 }
+
+## ln(2a), for a past h:h_uge: the inverses' large-argument form.
+h:l_ogTwice := { a -> (l_og a) + l_og 2.0 }
+
+## a_sinh x: the inverse hyperbolic sine, ln(x + sqrt(x^2 + 1)), for
+## every x. Up to |x| = 1e8 as log1p(a + a^2 / (1 + sqrt(1 + a^2)))
+## (l_og1p), so no cancellation near 0; past it ln(2a).
+l:a_sinh := { x ->
+  y := f_loat x
+  a := a_bs y
+  b := a m_in h:h_uge @
+  k := f_loat a <= h:h_uge @
+  lo := l_og1p b + (b * b) / 1.0 + s_qrt 1.0 + b * b
+  hi := h:l_ogTwice a m_ax h:h_uge @
+  (h:s_ign y) * ((k h:p_ick lo)_ hi)
+}
+
+## a_cosh x: the inverse hyperbolic cosine, ln(x + sqrt(x^2 - 1)), for
+## x of 1 or more, from 0 up. Up to 1e8 as log1p(t + sqrt(t) sqrt(t + 2))
+## with t = x - 1, exact near 1; past it ln(2x). Below 1 the square
+## root of t (s_qrt) refuses (error[domain]).
+l:a_cosh := { x ->
+  y := f_loat x
+  t := (y m_in h:h_uge @) - 1.0
+  k := f_loat y <= h:h_uge @
+  lo := l_og1p t + (s_qrt t) * s_qrt t + 2.0
+  hi := h:l_ogTwice y m_ax h:h_uge @
+  ((k h:p_ick lo)_ hi)
+}
+
+## a_tanh x: the inverse hyperbolic tangent, ln((1 + x) / (1 - x)) / 2,
+## for x strictly between -1 and 1, as log1p(2a / (1 - a)) / 2 on the
+## magnitude a (no cancellation near 0). At -1 or 1 the division
+## refuses (error[division-by-zero]); beyond them l_og1p does
+## (error[domain]).
+l:a_tanh := { x ->
+  y := f_loat x
+  a := a_bs y
+  (h:s_ign y) * 0.5 * l_og1p (2.0 * a) / 1.0 - a
+}
+
+### Units and lengths
+
+## d_egrees x: the angle x (radians) in degrees, x * 180 / pi.
+l:d_egrees := { x -> (f_loat x) * 180.0 / p_i @ }
+
+## r_adians x: the angle x (degrees) in radians, x * pi / 180.
+l:r_adians := { x -> (f_loat x) * (p_i @) / 180.0 }
+
+## y h_ypot x: the length of (x, y), sqrt(x^2 + y^2), without
+## overflow or underflow: both are divided by the larger magnitude m
+## before squaring (so the squares are at most 1) and the root is
+## multiplied by m again; 0 when both are 0.
+l:h_ypot := { y x ->
+  a := a_bs f_loat x
+  b := a_bs f_loat y
+  m := a m_ax b
+  d := m + f_loat m = 0.0
+  m * s_qrt ((a / d) * a / d) + (b / d) * b / d
+}

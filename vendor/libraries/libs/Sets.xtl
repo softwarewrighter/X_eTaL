@@ -1,0 +1,46 @@
+## Sets: vectors as sets -- union, intersection, difference, subset,
+## and how often each item occurs.
+## Import it with an alias of your choice: "se:" u_se< "Sets".
+## Put libs/Sets/src on XETAL_PATH ("just path"); the reference is libs/Sets/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## A set is a vector of any type with equality (numbers, characters,
+## boxes); results have no repeats and keep the order in which items
+## are first seen, left argument first.
+
+### Combining
+
+## a u_nion b: the items of either.
+l:u_nion := { a b -> u_nique a c_at b }
+
+## a i_ntersect b: the items of a that are also in b.
+l:i_ntersect := { a b -> u := u_nique a; (u m_ember? b) r_eplicate u }
+
+## a d_ifference b: the items of a that are not in b.
+l:d_ifference := { a b -> u := u_nique a; (n_ot u m_ember? b) r_eplicate u }
+
+## a s_ymmetric b: the items in one but not both.
+l:s_ymmetric := { a b -> (a l:d_ifference b) c_at b l:d_ifference a }
+
+### Comparing
+
+## a s_ubset? b: whether every item of a is in b.
+l:s_ubset? := { a b -> '& r_/ a m_ember? b }
+
+## a s_ame? b: whether a and b hold the same items, ignoring order and
+## repeats.
+l:s_ame? := { a b -> (a l:s_ubset? b) & b l:s_ubset? a }
+
+## a d_isjoint? b: whether no item is in both.
+l:d_isjoint? := { a b -> n_ot '| r_/ a m_ember? b }
+
+### Counting
+
+## c_ounts v: how often each item of u_nique v occurs in v, in that order.
+l:c_ounts := { v -> '{ t_ally w_here v = _r } e_ach u_nique v }
+
+## m_ode v: the items that occur most often, first seen first.
+l:m_ode := { v ->
+  c := l:c_ounts v
+  (c = 'm_ax r_/ c) r_eplicate u_nique v
+}

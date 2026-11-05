@@ -1,0 +1,58 @@
+## Csv: its macro library -- c_olumns<, a table's columns as named,
+## typed variables.
+## Imported with the functions, under one alias: "cs:" u_se< "Csv".
+## A macro is a function from the source text written left and right of
+## its call to the source that replaces the call, run before the program
+## is compiled (X_eTaL MC10). Names with m: are macros; those under h: are
+## private to this file.
+
+"t:" u_se< "Strings"
+"pa:" u_se< "Parsing"
+
+### Parsing
+
+## A column's name and kind, from "name:kind": the colon's position
+## (Parsing's pa:a_t) cuts it.
+h:c_olon := { c -> ":" pa:a_t c }
+h:c_olName := { c -> ((h:c_olon c) - 1) t_ake c }
+h:c_olKind := { c -> (h:c_olon c) d_rop c }
+
+## Whether a column is "name:text" or "name:number": a lowercase
+## name (Parsing's pa:n_ame?); name and kind split the column
+## completely, so nothing between them is ever dropped.
+h:c_olumn? := { c ->
+  1 != t_ally w_here c = f_irst ":" ? 0 = 1
+  (pa:n_ame? h:c_olName c) & ("text" m_atch h:c_olKind c) | "number" m_atch h:c_olKind c
+}
+
+## The code for one column of table tb: its texts, found by header, the
+## header left out; numbers read from them when the kind is number.
+h:c_ode := { tb c ->
+  n := h:c_olName c
+  texts := "(1 d_rop ((f_irst " c_at tb c_at ") i_ndexOf e_nclose \"" c_at n c_at "\") s_elect_2 " c_at tb c_at ")"
+  "text" m_atch h:c_olKind c ? n c_at " := " c_at texts
+  n c_at " := n_umbers d_isclose '{ e_nclose (d_isclose _l) c_at \" \" c_at d_isclose _r } r_/ " c_at texts
+}
+
+### The macro
+
+## "city:text population:number" cs:c_olumns< "t": the columns of table
+## t (a table as cs:r_ows gives it, its first row the header) as
+## variables named after them: city the texts of column "city",
+## population its numbers (Floats). When the program is compiled the
+## schema is checked and a definition written per column, so the rest
+## of the program uses the columns by name and their kinds are
+## type-checked like any variable (population c_at "x" is a type
+## error). A malformed schema or table name stops the compiler:
+## error[bad-columns]. Columns are found by their header when the
+## program runs.
+## takes: text code
+## uses: parsed
+m:c_olumns< := { schema tb ->
+  cs := t:w_ords schema
+  0 = t_ally cs ? "bad-columns left" []R_EJECT "no columns: write name:text or name:number"
+  bad := (n_ot '{ h:c_olumn? d_isclose _r } e_ach cs) r_eplicate cs
+  0 < t_ally bad ? "bad-columns left" []R_EJECT (d_isclose f_irst bad) c_at " is not a column: write name:text or name:number (a lowercase name)"
+  n_ot pa:n_ame? t:t_rim tb ? "bad-columns right" []R_EJECT tb c_at " is not a table's name"
+  "\n" t:j_oin '{ c -> (t:t_rim tb) h:c_ode d_isclose c } m_ap cs
+}

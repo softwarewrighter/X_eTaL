@@ -1,0 +1,93 @@
+## Polynomials: polynomials -- evaluation, sums, products, derivatives,
+## integrals, real roots, text.
+## Import it with an alias of your choice: "pl:" u_se< "Polynomials".
+## Put libs/Polynomials/src on XETAL_PATH ("just path"); the reference is libs/Polynomials/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## A polynomial is its coefficients, highest power first, as APL's
+## decode reads digits: 3 -2 1 is 3x^2 - 2x + 1. Results are Floats.
+
+"t:" u_se< "Strings"
+"f:" u_se< "Format"
+
+### Evaluation
+
+## p a_t x: p's value at each x: the coefficients decoded in radix x
+## (APL's decode is Horner's rule, on any numbers).
+l:a_t := { p x -> c := f_loat p; '{ v -> v d_ecode c } e_ach f_loat x }
+
+### Arithmetic
+
+## p without its leading zeros (at least one coefficient kept).
+h:t_rim := { p -> n := t_ally w_here '& s_\ p = 0; (n m_in (t_ally p) - 1) d_rop p }
+
+## a p_lus b: the sum.
+l:p_lus := { a b ->
+  n := (t_ally a) m_ax t_ally b
+  h:t_rim ((n_eg n) t_ake f_loat a) + (n_eg n) t_ake f_loat b
+}
+
+## a t_imes b: the product: every product of a coefficient of a with
+## one of b, summed by the power it belongs to.
+l:t_imes := { a b ->
+  m := (f_loat a) '* t_able f_loat b
+  k := r_avel (o_ffsets t_ally a) '+ t_able o_ffsets t_ally b
+  v := r_avel m
+  h:t_rim '{ i -> '+ r_/ (k = i) r_eplicate v } e_ach o_ffsets (t_ally a) + (t_ally b) - 1
+}
+
+## d_erivative p: the derivative (0 for a constant).
+l:d_erivative := { p ->
+  1 = t_ally p ? 1 r_eshape 0.0
+  -1 d_rop (f_loat p) * f_loat r_ev o_ffsets t_ally p
+}
+
+## i_ntegral p: the integral that is 0 at 0.
+l:i_ntegral := { p -> ((f_loat p) / f_loat 1 + r_ev o_ffsets t_ally p) c_at 0.0 }
+
+### Roots
+
+## One Newton step for every x at once (a flat spot is nudged, not
+## divided by).
+h:s_tep := { p x ->
+  d := (l:d_erivative p) l:a_t x
+  x - (p l:a_t x) / d + 0.000000000001 * f_loat d = 0.0
+}
+
+## r_oots p: the real roots, found by Newton's method from 64 starting
+## points spread over the interval holding them all (Cauchy's bound),
+## kept where the value is 0 to within 1e-9, rounded to 9 decimals.
+l:r_oots := { p ->
+  q := h:t_rim f_loat p
+  1 = t_ally q ? 0 r_eshape 0.0
+  b := 1.0 + 'm_ax r_/ a_bs (1 d_rop q) / f_irst q
+  xs := 60 '{ y -> q h:s_tep y } p_ower b * ((f_loat o_ffsets 64) / 31.5) - 1.0
+  x := (0.000000001 > a_bs q l:a_t xs) r_eplicate xs
+  s_ort u_nique (f_loat f_loor 0.5 + x * 1000000000.0) / 1000000000.0
+}
+
+### Text
+
+## A coefficient's size as text: whole numbers without a point.
+h:s_ize := { c -> a := a_bs c; a = f_loat f_loor a ? f_ormat f_loor a; f_ormat a }
+
+## x to the power k, as text.
+h:p_ow := { k -> k = 0 ? ""; k = 1 ? "x"; "x^" c_at f_ormat k }
+
+## One term, without its sign: the size (left out when it is 1 and a
+## power of x follows) and the power.
+h:t_erm := { c k -> (k > 0) & 1.0 = a_bs c ? h:p_ow k; (h:s_ize c) c_at h:p_ow k }
+
+## The sign between terms.
+h:s_ep := { c -> c < 0.0 ? " - "; " + " }
+
+## t_ext p: the polynomial as text, 3x^2 - 2x + 1.
+l:t_ext := { p ->
+  c0 := f_loat h:t_rim p
+  keep := (c0 != 0.0) | 1 = t_ally c0
+  c := keep r_eplicate c0
+  k := keep r_eplicate r_ev o_ffsets t_ally c0
+  first := (((f_irst c) < 0.0) r_eplicate "-") c_at (f_irst c) h:t_erm f_irst k
+  rest := '{ i -> (h:s_ep f_irst i s_elect c) c_at (f_irst i s_elect c) h:t_erm f_irst i s_elect k } m_ap 1 d_rop r_ange t_ally c
+  first c_at "" t:j_oin rest
+}

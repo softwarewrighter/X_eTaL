@@ -36,6 +36,11 @@ Side paths:
   `Host` (its files, output and error streams, a seed), so the binary
   and the browser's terminal share one dispatch; the interactive
   commands (`repl`, `edit`) are the host's.
+- `xetal-collection` (web): X_eTaL-libraries' libraries, their demos
+  and data, vendored at a pinned commit in `vendor/libraries`
+  (`scripts/sync-libraries.sh`) and embedded in the live demo; the
+  store's library finder looks there last (`add_collection`), after
+  your files and the standard libraries. The command line does not.
 - `xetal-shell`: a shell for the browser's terminal page: `xetal`
   and its commands at a `$` prompt (through `xetal-command`), the REPL
   and the editor full screen, keys in and a ratatui frame out; and an

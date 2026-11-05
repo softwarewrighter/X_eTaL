@@ -1423,6 +1423,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-collection"
+version = "0.1.0"
+dependencies = [
+ "xetal-macro",
+]
+
+[[package]]
 name = "xetal-complexity"
 version = "0.1.0"
 dependencies = [
@@ -1868,6 +1875,7 @@ dependencies = [
  "wasm-bindgen",
  "web-sys",
  "xetal-clock",
+ "xetal-collection",
  "xetal-play",
  "xetal-store",
  "xetal-tty",

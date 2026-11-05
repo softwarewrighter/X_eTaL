@@ -1,0 +1,86 @@
+## Matrix: matrices -- identity, diagonal, trace, product,
+## determinant, inverse, solving linear systems.
+## Import it with an alias of your choice: "mx:" u_se< "Matrix".
+## Put libs/Matrix/src on XETAL_PATH ("just path"); the reference is libs/Matrix/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## A matrix is a rank-2 array, rows first. The numerical functions
+## (d_et, i_nverse, s_olve) work in Floats, by Gaussian elimination with
+## partial pivoting; compare their results with Check's ch:n_ear. The
+## transpose is the built-in o_\.
+
+### Basics
+
+## i_dentity n: the n by n identity matrix (1 then n zeros, cycled).
+l:i_dentity := { n -> (n c_at n) r_eshape 1 c_at n r_eshape 0 }
+
+## d_iag m: the items on the main diagonal.
+l:d_iag := { m ->
+  k := 'm_in r_/ s_hape m
+  (1 + (o_ffsets k) * 1 + f_irst r_ev s_hape m) s_elect r_avel m
+}
+
+## t_race m: the sum of the diagonal.
+l:t_race := { m -> '+ r_/ l:d_iag m }
+
+## a m_ul b: the matrix product (a matrix and a vector work too).
+l:m_ul := { a b -> a '+ '* i_nner b }
+
+### Solving
+
+## The permutation of 1..n that swaps i and j.
+h:s_wapping := { n i j ->
+  r := r_ange n
+  r + ((r = i) * j - i) + (r = j) * i - j
+}
+
+## The row (k..n) whose item in column k is largest in size.
+h:p_ivot := { k m ->
+  c := a_bs (k - 1) d_rop k s_elect_2 m
+  k + (f_irst g_rade n_eg c) - 1
+}
+
+## Gauss-Jordan on m (Float) for columns k..n of its first n: each
+## column's pivot row moved up, scaled to 1, and the column cleared
+## from every other row.
+h:g_j := { n k m ->
+  k > n ? m
+  s := ((n h:s_wapping k)_ k h:p_ivot m) s_elect m
+  r := r_ange t_ally s
+  v := f_irst k s_elect k s_elect_2 s         # the pivot
+  0.000000000001 > a_bs v ? @ p_anic< "the matrix is singular: it has no inverse, and its system no unique solution"
+  row := (k s_elect s) / v
+  c := (k s_elect_2 s) - f_loat r = k
+  ((n h:g_j k + 1)_ s - c '* t_able row)
+}
+
+## b s_olve a: x with a m_ul x = b, for a square a; b is a vector or a
+## matrix of right-hand sides (one per column). A singular a divides by
+## zero (error[division-by-zero]).
+l:s_olve := { b a ->
+  n := t_ally a
+  x := n d_rop_2 ((n h:g_j 1)_ f_loat a c_at_2 b)
+  (s_hape b) r_eshape x
+}
+
+## i_nverse a: the inverse of a square matrix.
+l:i_nverse := { a -> (l:i_dentity t_ally a) l:s_olve a }
+
+### Determinant
+
+## The determinant of a Float matrix m, by elimination: the first pivot
+## times the determinant of what is left, negated for a row swap.
+h:d_etF := { m ->
+  n := t_ally m
+  n = 1 ? f_irst r_avel m
+  p := 1 h:p_ivot m
+  w := ((n h:s_wapping 1)_ p) s_elect m
+  v := f_irst r_avel w
+  v = 0 ? 0.0
+  s := f_loat (p = 1) - p != 1
+  r := (1 d_rop_2 1 d_rop w) - ((1 d_rop f_irst_2 w) / v) '* t_able 1 d_rop f_irst w
+  s * v * h:d_etF r
+}
+
+## d_et a: the determinant of a square matrix.
+l:d_et := { a -> h:d_etF f_loat a }

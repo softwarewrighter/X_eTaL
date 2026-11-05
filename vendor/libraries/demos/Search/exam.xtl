@@ -1,0 +1,18 @@
+#!/usr/bin/env xetal
+## Exam results: the top three, everyone's rank (ties share it), the
+## score at each grade boundary, and who scored between 60 and 79.
+## Run with "just demo Search exam".
+
+"sr:" u_se< "Search"
+"t:" u_se< "Strings"
+"li:" u_se< "Lists"
+names := "Ada" "Ben" "Cy" "Dee" "Eve" "Fay" "Gus" "Hal" "Ivy" "Jo"
+score := 72 88 65 88 91 54 79 65 70 83
+
+", " t:j_oin (3 sr:t_opAt score) s_elect names     # the top three
+sr:r_ank n_eg score                                 # rank 1 is the best; ties share
+# Each score's grade, by where it falls among the boundaries 60 70 80 90.
+grade := (1 + 60 70 80 90 li:b_search score) s_elect "FDCBA"
+grade
+
+", " t:j_oin ((60 79) sr:b_etween score) r_eplicate names

@@ -1,0 +1,11 @@
+#!/usr/bin/env xetal
+## Every third reading from a sensor log, by index: for i:=0..len(v)-1
+## by 3 binds i to the stride (0, 3, 6, ...); (1 + i) s_elect v reads
+## them (X_eTaL arrays are 1-origin, the range 0-origin as it is
+## written). Run with "just demo Ranges sampled".
+
+"rg:" u_se< "Ranges"
+v := 10 12 9 14 20 7 15 22 11 18 25 6
+@ rg:f_or< "for i:=0..len(v)-1 by 3"
+i                              # the indices sampled
+(1 + i) s_elect v              # the readings at them

@@ -1,0 +1,29 @@
+#!/usr/bin/env xetal
+## A turtle on a grid: its heading is one of four choices, its state a
+## tagged tuple of a position, a heading and a count of steps -- parts of
+## different types, used by name. e_num< names the choices, p_arts< the
+## parts; both write plain definitions when the program is compiled.
+## Turns and moves are tables indexed by the heading, not branches.
+## Run with "just demo Tags turtle".
+
+"tg:" u_se< "Tags"
+@ tg:e_num< "Heading: north east south west"
+@ tg:p_arts< "Turtle: at heading steps"
+RIGHT := EAST c_at SOUTH c_at WEST c_at NORTH        # the heading after a right turn, by heading
+LEFT := WEST c_at NORTH c_at EAST c_at SOUTH
+MOVE := 4 2 r_eshape 0 1 1 0 0 -1 -1 0             # a step's x and y, by heading
+## u:f_orward s: one step the way the turtle faces, counted.
+u:f_orward := { s ->
+  next := (u:t_urtleAt s) + (u:t_urtleHeading s) s_elect MOVE
+  next u:s_etTurtleAt (1 + u:t_urtleSteps s) u:s_etTurtleSteps s
+}
+## u:r_ight s and u:l_eft s: a quarter turn, by table.
+u:r_ight := { s -> ((u:t_urtleHeading s) s_elect RIGHT) u:s_etTurtleHeading s }
+u:l_eft := { s -> ((u:t_urtleHeading s) s_elect LEFT) u:s_etTurtleHeading s }
+start := u:t_urtle (0 0, NORTH, 0)
+start
+up := 3 'u:f_orward p_ower start                   # three steps north
+over := 2 'u:f_orward p_ower u:r_ight up            # right, two steps east
+back := u:f_orward u:l_eft u:l_eft over             # about turn, one step west
+back
+"now at " c_at (f_ormat u:t_urtleAt back) c_at ", facing " c_at (d_isclose (u:t_urtleHeading back) s_elect HEADING) c_at ", after " c_at (f_ormat u:t_urtleSteps back) c_at " steps"

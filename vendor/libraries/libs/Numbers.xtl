@@ -1,0 +1,84 @@
+## Numbers: number theory -- gcd and lcm, primes, factors, divisors,
+## digits, integer square roots, Fibonacci numbers.
+## Import it with an alias of your choice: "n:" u_se< "Numbers".
+## Put libs/Numbers/src on XETAL_PATH ("just path"); the reference is libs/Numbers/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## Whole numbers are X_eTaL's 64-bit Ints: a result past about 9.2e18
+## is an overflow error (big numbers are an ask, X6).
+
+### Divisors
+
+## Euclid on two whole numbers.
+h:e_uclid := { a b -> b = 0 ? a_bs a; b h:e_uclid a m_od b }
+
+## a g_cd b: the greatest common divisor, item by item.
+l:g_cd := { a b -> a 'h:e_uclid e_ach b }
+
+## a l_cm b: the least common multiple, item by item (0 with a 0).
+l:l_cm := { a b ->
+  g := a l:g_cd b
+  (a_bs a * b) d_iv g + g = 0
+}
+
+## i_sqrt n: the whole square root, the largest s with s * s <= n.
+l:i_sqrt := { n ->
+  e := f_loor (f_loat n) ^ 0.5
+  s := e - (e * e) > n
+  s + ((s + 1) * s + 1) <= n
+}
+
+### Primes
+
+## The sieve: the first candidate is prime; strike its multiples and go
+## on, until the first is past the square root of the last.
+h:s_ieve := { c ->
+  0 = t_ally c ? c
+  p := f_irst c
+  (p * p) > f_irst -1 t_ake c ? c
+  p c_at h:s_ieve (0 != c m_od p) r_eplicate c
+}
+
+## p_rimes n: the primes up to n (Eratosthenes).
+l:p_rimes := { n -> n < 2 ? 0 r_eshape 0; h:s_ieve 1 d_rop r_ange n }
+
+## One whole number: prime or not.
+h:p_rime1 := { n -> n < 2 ? 0 = 1; n < 4 ? 1 = 1; '& r_/ 0 != n m_od 1 d_rop r_ange l:i_sqrt n }
+
+## p_rime? v: whether each item is prime.
+l:p_rime? := { v -> 'h:p_rime1 e_ach v }
+
+## f_actors n: the prime factors of a whole number, smallest first,
+## with repeats (12 is 2 2 3).
+l:f_actors := { n ->
+  n < 2 ? 0 r_eshape 0
+  c := (1 d_rop r_ange l:i_sqrt n) c_at n   # candidates, n itself last
+  d := f_irst (0 = n m_od c) r_eplicate c   # the smallest divisor
+  d c_at l:f_actors n d_iv d
+}
+
+## d_ivisors n: every divisor of a whole number, in order.
+l:d_ivisors := { n -> r := r_ange n; (0 = n m_od r) r_eplicate r }
+
+### Digits
+
+## b b_ase n: the digits of a whole number n >= 0 in base b, most
+## significant first.
+l:b_ase := { b n ->
+  b < 2 ? @ p_anic< "a base is 2 or more, not {b}"
+  n < 0 ? @ p_anic< "b_ase writes whole numbers 0 or more, not {n}"
+  n = 0 ? 1 r_eshape 0
+  d := (64 r_eshape b) e_ncode n
+  (n_ot '& s_\ d = 0) r_eplicate d
+}
+
+## d_igits n: the decimal digits of a whole number.
+l:d_igits := { n -> 10 l:b_ase n }
+
+### Sequences
+
+## f_ib n: the first n Fibonacci numbers, 1 1 2 3 5 ...
+l:f_ib := { n ->
+  n <= 2 ? n t_ake 1 1
+  (n - 2) '{ v -> v c_at '+ r_/ -2 t_ake v } p_ower 1 1
+}

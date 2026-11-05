@@ -1,0 +1,17 @@
+#!/usr/bin/env xetal
+## A month of sales: totals, averages and the best sale per region,
+## set as a table, and the totals as bars.
+## Run with "just demo Grouping sales".
+
+"gr:" u_se< "Grouping"
+"f:" u_se< "Format"
+"p:" u_se< "Plot"
+region := "north" "south" "east" "north" "west" "east" "south" "north" "east" "west"
+amount := 120 340 95 210 180 60 400 75 150 220
+
+regions := u_nique region
+n := t_ally regions
+cells := ((n c_at 1) r_eshape regions) c_at_2 ((n c_at 1) r_eshape 'f_ormat m_ap gr:c_ount region) c_at_2 ((n c_at 1) r_eshape f:t_housands region gr:s_um amount) c_at_2 ((n c_at 1) r_eshape 1 f:f_ixed region gr:m_ean amount) c_at_2 (n c_at 1) r_eshape f:t_housands region gr:g_reatest amount
+f:t_able ("region" "sales" "total" "average" "best") c_at cells
+
+regions p:b_ars region gr:s_um amount

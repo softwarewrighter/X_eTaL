@@ -1,0 +1,14 @@
+#!/usr/bin/env xetal
+## A table's columns as named, typed variables: c_olumns< reads the
+## schema when the program is compiled and writes a definition per
+## column, so the program speaks of city and population, and their
+## kinds are checked like any variable's. Run with "just demo Csv schema".
+
+"cs:" u_se< "Csv"
+"s:" u_se< "Stats"
+t := cs:r_ows @ i_nclude< "cities.csv"         # the data, built in from the file beside this program
+"city:text population:number area:number" cs:c_olumns< c"t"
+city
+population / area                         # people per square kilometre
+d_isclose (f_irst g_rade n_eg population / area) s_elect city   # the densest
+s:m_ean population

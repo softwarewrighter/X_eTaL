@@ -1,0 +1,17 @@
+#!/usr/bin/env xetal
+## A year's dates as arrays: this month's calendar, every Friday the
+## 13th of 2026 at once, and how many days lie between two dates.
+## Run with "just demo Dates calendar".
+
+"d:" u_se< "Dates"
+2026 d:m_onth 10
+
+# The 13th of every month of 2026, as day numbers: a 3 by 12 matrix of
+# dates, one per column, converted all at once.
+thirteenths := d:d_ays 3 12 r_eshape (12 r_eshape 2026) c_at (r_ange 12) c_at 12 r_eshape 13
+d:i_so (5 = d:w_eekday thirteenths) r_eplicate thirteenths
+
+# Days from the first moon landing to the start of 2026, and the weekday it fell on.
+landing := d:d_ays 1969 7 20
+(d:d_ays 2026 1 1) - landing
+d:w_eekday landing                    # 7: a Sunday

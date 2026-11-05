@@ -1,0 +1,62 @@
+## Bits: its macro library -- f_ields<, named bit fields.
+## Imported with the functions, under one alias: "b:" u_se< "Bits".
+## A macro is a function from the source text written left and right of
+## its call to the source that replaces the call, run before the program
+## is compiled (X_eTaL MC10). Names with m: are macros; those under h: are
+## private to this file.
+
+"t:" u_se< "Strings"
+"pa:" u_se< "Parsing"
+
+lowers := "abcdefghijklmnopqrstuvwxyz"
+uppers := []A
+
+### Parsing fields
+
+## A field's name and width, from "name:width": the colon's position
+## (Parsing's pa:a_t, as any library finds a separator) cuts it.
+h:c_olon := { f -> ":" pa:a_t f }
+h:f_ieldName := { f -> ((h:c_olon f) - 1) t_ake f }
+h:f_ieldWidth := { f -> f_loor f_irst n_umbers (h:c_olon f) d_rop f }
+
+## Whether a field is "name:width": a lowercase name of letters and
+## digits (Parsing's pa:n_ame?), a whole width; name and width split
+## the field completely, so nothing between them is ever dropped.
+h:f_ield? := { f ->
+  1 != t_ally w_here f = f_irst ":" ? 0 = 1
+  n := h:f_ieldName f
+  w := (h:c_olon f) d_rop f
+  (pa:n_ame? n) & (0 < t_ally w) & '& r_/ w m_ember? []D
+}
+
+### The macro
+
+## The function names for a field: m_ode and s_etMode for "mode".
+h:g_etter := { n -> "u:" c_at (1 t_ake n) c_at "_" c_at 1 d_rop n }
+h:s_etter := { n -> up := f_irst (lowers i_ndexOf 1 t_ake n) s_elect uppers; "u:s_et" c_at up c_at 1 d_rop n }
+
+## @ b:f_ields< "flag:1 mode:3 count:12": named fields of a packed whole
+## number, lowest bits first. When the program is compiled it writes,
+## for each field, a getter (u:m_ode x: the field of x) and a setter
+## (v u:s_etMode x: x with the field set to v), their offsets and sizes
+## worked out as plain numbers, so nothing is computed about the layout
+## at run time. A malformed field, or more than 62 bits, stops the
+## compiler: error[bad-fields]. Nothing goes on the left (@).
+## takes: @ text
+## uses: parsed
+m:f_ields< := { @ t ->
+  fs := t:w_ords t
+  0 = t_ally fs ? "bad-fields right" []R_EJECT "no fields: write them name:width, lowest bits first"
+  bad := (n_ot '{ h:f_ield? d_isclose _r } e_ach fs) r_eplicate fs
+  0 < t_ally bad ? "bad-fields right" []R_EJECT (d_isclose f_irst bad) c_at " is not a field: write name:width (a lowercase name, a whole width)"
+  ws := '{ h:f_ieldWidth d_isclose _r } e_ach fs
+  (0 < t_ally w_here ws = 0) | 62 < '+ r_/ ws ? "bad-fields right" []R_EJECT "the fields take " c_at (f_ormat '+ r_/ ws) c_at " bits: each 1 or more, 62 in all at most"
+  offs := (0 c_at -1 d_rop '+ s_\ ws)
+  "\n" t:j_oin '{ i ->
+    f := d_isclose i s_elect fs
+    n := h:f_ieldName f
+    div := f_ormat 2 ^ f_irst i s_elect offs
+    size := f_ormat 2 ^ f_irst i s_elect ws
+    (h:g_etter n) c_at " := { x -> (x d_iv " c_at div c_at ") m_od " c_at size c_at " }\n" c_at (h:s_etter n) c_at " := { v x -> x + (" c_at div c_at " * v m_od " c_at size c_at ") - " c_at div c_at " * (x d_iv " c_at div c_at ") m_od " c_at size c_at " }"
+  } m_ap r_ange t_ally fs
+}

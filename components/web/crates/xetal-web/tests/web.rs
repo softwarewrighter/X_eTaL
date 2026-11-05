@@ -22,6 +22,7 @@ fn store() -> Arc<Memory> {
         .get_or_init(|| {
             let store = Arc::new(Memory::default());
             xetal_store::install(store.clone());
+            xetal_collection::install();
             seed();
             store
         })
@@ -214,8 +215,8 @@ fn the_live_demo_is_an_installable_app() {
 }
 
 /// Open's groups, in order: Demos (the top folder), Classics, Libraries,
-/// Misc (any other folder), Your files; a classic is listed without its
-/// folder.
+/// X_eTaL-libraries and its demos, Misc (any other folder), Your files;
+/// a classic is listed without its folder.
 #[test]
 fn open_groups_the_demos_by_folder() {
     let list = choices(&["Mine.xtl".to_string()]);
@@ -223,7 +224,15 @@ fn open_groups_the_demos_by_folder() {
     groups.dedup();
     assert_eq!(
         groups,
-        ["Demos", "Classics", "Libraries", "Misc", "Your files"]
+        [
+            "Demos",
+            "Classics",
+            "Libraries",
+            "X_eTaL-libraries",
+            "X_eTaL-libraries demos",
+            "Misc",
+            "Your files"
+        ]
     );
     let label = |v: &str| {
         list.iter()
@@ -253,7 +262,8 @@ const INTERACTIVE: &[&str] = &["tttml-play.xtl", "classics/mastermind-play.xtl"]
 /// they are run in release by the smoke test and their goldens instead.
 const SLOW: &[&str] = &["tttml.xtl", "tttml-train.xtl"];
 
-/// Every program the Open menu offers (Demos, Classics, Misc) runs in
+/// Every program the Open menu offers (Demos, Classics, Misc, the
+/// collection's demos) runs in
 /// the live demo's three ways: Run, Run with Boxed on, and Notebook;
 /// each library it offers checks. A program may write to standard
 /// error on purpose (macros.xtl's a_ssert< does); an `error[` there is
@@ -270,7 +280,7 @@ fn every_choice_runs_boxed_and_as_a_notebook() {
         {
             continue;
         }
-        if group == "Libraries" {
+        if group == "Libraries" || group == "X_eTaL-libraries" {
             let lines = xetal_play::check(&text);
             assert!(
                 !lines.iter().any(|l| l.starts_with("error[")),
@@ -300,7 +310,7 @@ fn every_choice_runs_boxed_and_as_a_notebook() {
     }
     assert_eq!(
         seen.into_iter().collect::<Vec<_>>(),
-        ["Classics", "Demos", "Misc"]
+        ["Classics", "Demos", "Misc", "X_eTaL-libraries demos"]
     );
 }
 

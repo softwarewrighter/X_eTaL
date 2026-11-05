@@ -1,0 +1,20 @@
+#!/usr/bin/env xetal
+# Eigencube in use: a random scramble, its stickers, a solution, and the
+# cube after it. Run with "just demo Eigencube solve".
+"ec:" u_se< "Eigencube"
+sc := r_oll! 20 r_eshape 12
+"scramble: " c_at ec:n_ame sc
+x := sc ec:d_o ec:solved
+# The stickers, a face per row (U D F B R L), each cell the face its
+# color belongs on: 1 to 6, white, yellow, green, blue, red, orange.
+ec:s_tickers x
+(sol, lens, e) := 1 ec:s_olve x
+"solution: " c_at ec:n_ame sol
+"moves: " c_at f_ormat t_ally sol
+# The moves each stage took: the top layer a cubelet at a time
+# (stages 1 to 9), the middle layer (10 to 17), the bottom edges (18
+# to 25) and the bottom corners' places (26 to 29), then the
+# endgame's corner twists.
+lens c_at e
+ec:s_tickers sol ec:d_o x
+"solved: " c_at f_ormat ec:s_olved? sol ec:d_o x

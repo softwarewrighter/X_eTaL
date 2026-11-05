@@ -26,6 +26,8 @@ pub fn start() {
     xetal_clock::install(std::sync::Arc::new(xetal_webclock::Browser));
     // No disk here: a program's libraries are found in the store.
     xetal_macro::libraries_in_store(true);
+    // Then X_eTaL-libraries' collection, after the standard libraries.
+    xetal_collection::install();
     seed();
     yew::Renderer::<App>::new().render();
 }

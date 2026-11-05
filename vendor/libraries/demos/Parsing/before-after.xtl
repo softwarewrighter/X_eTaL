@@ -1,0 +1,27 @@
+#!/usr/bin/env xetal
+## Before and after: why libs/Parsing's group check looks at the whole
+## text, not just its start. Equations once summed (y[i] - p[i])^2 as
+## y[i] - p[i] -- a silent wrong answer, found only by reading the
+## output -- because its group rule decided "(y - p)^2" was just a
+## parenthesized group and never looked at what followed the closing
+## parenthesis. pa:g_roup? checks the closing parenthesis is the
+## text's own LAST character, so the same mistake is caught instead
+## of computed wrong (an actual refusal, not just a wrong Bool, needs
+## a macro to call; libs/Ranges' reject-*.xtl tests show that side of
+## it, and this library's own tests/Probe.xtlm wraps pa:g_roup? for
+## the same reason). Run with "just demo Parsing before-after".
+
+"pa:" u_se< "Parsing"
+term := "(y - p)^2"
+
+## The check any reader might start with: starts with "(" and has a
+## ")" somewhere. True here, and wrong -- the text keeps going.
+u:n_aiveGroup? := { t -> ("(" m_atch 1 t_ake t) & 0 < '+ r_/ 0 + t m_ember? ")" }
+
+u:n_aiveGroup? term                 # 1: "yes, a group" -- wrong
+pa:g_roup? term                     # 0: Parsing checks the close is the text's last character
+
+y := 5.0
+p := 3.0
+y - p                                # 2.0: what the naive reading would compute, silently
+(y - p) ^ 2                          # 4.0: the actual value of (y - p)^2

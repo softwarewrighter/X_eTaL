@@ -1,0 +1,20 @@
+#!/usr/bin/env xetal
+## Primes: twin primes, Goldbach's conjecture and perfect numbers,
+## each one array expression. Run with "just demo Numbers primes".
+
+"n:" u_se< "Numbers"
+p := n:p_rimes 200
+
+# Twin primes: primes two apart.
+twin := (2 = (1 d_rop p) - -1 d_rop p) r_eplicate -1 d_rop p
+twin
+
+# Goldbach: every even number from 4 to 40 as a sum of two primes;
+# here, how many ways (p <= q).
+u:g_oldbach := { e -> q := (p <= e d_iv 2) r_eplicate p; t_ally w_here n:p_rime? e - q }
+'u:g_oldbach e_ach 2 * 2 d_rop r_ange 20
+
+# Perfect numbers below 1000: the sum of the proper divisors is the number.
+v := 1 d_rop r_ange 1000
+s := '{ ('+ r_/ n:d_ivisors _r) - _r } e_ach v
+(s = v) r_eplicate v

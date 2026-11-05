@@ -1,0 +1,18 @@
+#!/usr/bin/env xetal
+## Two dice, 6000 throws: how often each total comes up, drawn as a
+## bar of stars per total, beside what theory says (36ths).
+## Run with "just demo Random dice".
+
+"r:" u_se< "Random"
+"t:" u_se< "Strings"
+n := 6000
+throws := (6000 r:s_ample! r_ange 6) + 6000 r:s_ample! r_ange 6
+totals := 1 d_rop r_ange 12
+counts := '{ t_ally w_here throws = _r } e_ach totals
+expected := (n * 6 - a_bs totals - 7) d_iv 36
+# Each row: f_ormat< (X_eTaL's system macro) lays out the three padded
+# columns as the line reads, instead of pieces joined by c_at " " c_at.
+"\n" t:j_oin '{ i ->
+  c := f_irst i s_elect counts
+  (@ f_ormat< "{3 t:p_adLeft f_ormat f_irst i s_elect totals} {5 t:p_adLeft f_ormat c} {5 t:p_adLeft f_ormat f_irst i s_elect expected} ") c_at (c d_iv 25) r_eshape "*"
+} m_ap r_ange 11

@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-05
+
+- 08:01 `feat` X_eTaL-libraries in the live demo (D188, step 173; the user, 2026-10-29: `u_se< "Equations"` was not found): the collection vendored at 27478ec9 in vendor/libraries (scripts/sync-libraries.sh: 32 library files, 38 demos and their data) and embedded by a new crate xetal-collection; the store's library finder looks there after your files and the standard libraries (xetal-lookup `add_collection`), in the page and in the worker. Open lists the collection's libraries and demos (`Equations/integrals.xtl`), whose `e:e_q<` call the Rendered pane typesets; the terminal page's shell reads them too (`xetal run Equations/integrals.xtl`); the Csv demo's `cities.csv` is seeded among your files. The command line is unchanged. Tests: xetal-collection (Equations imported with nothing saved, the integral's value, the notation drawn), xetal-web (every collection demo runs, boxed and as a notebook; every collection library checks); a UI check opens the integrals demo, finds the KaTeX math and runs it. README, the Help dialog, docs/architecture.md.
+
 ## 2026-11-04
 
 - 10:49 `docs` Learn X_eTaL: a section on binding and mutability (the user): a plain name is bound once (`error[rebind]` when bound again, at check time), a lambda may bind its own name and leave the outer one alone, a `!` variable is bound again but keeps its first type (`error[type-mismatch]`), and `[]E_X` unbinds a name only at the REPL (`error[erase-outside-session]` in a file); the errors shown as comments, each pinned by its spec case (reject-rebind, reject-mutable-type-change, reject-erase-in-file). The learn-xetal golden rebased on purpose for the two new lines of output.

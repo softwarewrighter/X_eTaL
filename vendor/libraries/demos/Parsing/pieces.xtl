@@ -1,0 +1,18 @@
+#!/usr/bin/env xetal
+## Taking a notation apart safely: the pieces of an equation's right
+## side, each parser using all of its text; what a macro library does
+## with Parsing before it writes code. Run with "just demo Parsing pieces".
+"pa:" u_se< "Parsing"
+
+call := "(sum j:=0..M-1 | W[i,j] * x[j]) + b[i]"
+# The top-level chain: one + between two terms.
+"+-" pa:t_op call
+"+" pa:s_plit call
+# The first term is a group; inside it, the binding and the body.
+term := d_isclose f_irst "+" pa:s_plit call
+pa:g_roup? term
+"|" pa:s_plit pa:i_nner term
+# A reference's name and indices are read whole.
+pa:a_pplied? "exp(z[i])"
+pa:n_ame? "j"
+pa:n_umber? "0.5"

@@ -1,0 +1,22 @@
+#!/usr/bin/env xetal
+## A small dataset as CSV: read it into a table, take columns by name,
+## summarize them with Statistics, and set a report with Format. The
+## data is the file cities.csv beside this program, built in when the
+## program is compiled (X_eTaL's system macro i_nclude<), so it needs no
+## file access when it runs, in a terminal or in the browser.
+## Run with "just demo Csv cities".
+
+"cs:" u_se< "Csv"
+"sx:" u_se< "Statistics"
+"f:" u_se< "Format"
+data := @ i_nclude< "cities.csv"
+t := cs:r_ows data
+pop := "population" cs:n_umbers t
+area := "area" cs:n_umbers t
+
+# Each city's density, people per square kilometre, as a table.
+density := pop / area
+f:t_able ("city" "people" "per km2") c_at ((5 1 r_eshape "city" cs:f_ield t) c_at_2 (5 1 r_eshape f:t_housands pop) c_at_2 5 1 r_eshape f:t_housands density)
+
+sx:m_edian density
+pop sx:c_orrelation area

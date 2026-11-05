@@ -1,0 +1,76 @@
+## Statistics: statistics -- median, quantiles, five-number summaries,
+## z-scores, covariance, correlation, a least-squares line, binned
+## counts; builds on the standard Stats.
+## Import it with an alias of your choice: "sx:" u_se< "Statistics".
+## Put libs/Statistics/src on XETAL_PATH ("just path"); the reference is libs/Statistics/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## X_eTaL's standard Stats has the mean, variance (of the population),
+## standard deviation and range: import it beside this one
+## ("s:" u_se< "Stats"). Results here are Floats.
+
+"s:" u_se< "Stats"
+
+### Summaries
+
+## The p quantile of sorted Floats x (0 <= p <= 1), interpolating
+## between the two nearest items (R's type 7, Excel's PERCENTILE).
+h:q_1 := { x p ->
+  h := p * f_loat (t_ally x) - 1           # 0-origin position
+  lo := f_loor h
+  hi := (lo + 1) m_in (t_ally x) - 1
+  a := f_irst (1 + lo) s_elect x
+  b := f_irst (1 + hi) s_elect x
+  a + (h - f_loat lo) * b - a
+}
+
+## p q_uantile v: the p quantile of v for each p (0.5 is the median).
+l:q_uantile := { p v ->
+  0 = t_ally v ? @ p_anic< "the list is empty: a median or quantile needs at least one value"
+  '| r_/ r_avel (p < 0) | p > 1 ? @ p_anic< "a quantile is from 0 to 1, not {p}"
+  x := s_ort f_loat v
+  '{ q -> x h:q_1 q } e_ach f_loat p
+}
+
+## m_edian v: the middle value (the mean of the two middle ones for an
+## even count).
+l:m_edian := { v -> f_irst 0.5 l:q_uantile v }
+
+## s_ummary v: the five-number summary: least, lower quartile, median,
+## upper quartile, greatest.
+l:s_ummary := { v -> 0.0 0.25 0.5 0.75 1.0 l:q_uantile v }
+
+## z_scores v: how many standard deviations each item is from the mean.
+l:z_scores := { v ->
+  0.0 = s:s_d v ? @ p_anic< "the values do not vary (their standard deviation is 0): z-scores are undefined"
+  ((f_loat v) - s:m_ean v) / s:s_d v
+}
+
+### Relationships
+
+## a c_ovariance b: the mean product of the deviations (population).
+l:c_ovariance := { a b -> s:m_ean ((f_loat a) - s:m_ean a) * (f_loat b) - s:m_ean b }
+
+## a c_orrelation b: Pearson's correlation, from -1 to 1.
+l:c_orrelation := { a b ->
+  (0.0 = s:s_d a) | 0.0 = s:s_d b ? @ p_anic< "a list that does not vary (standard deviation 0) has no correlation"
+  (a l:c_ovariance b) / (s:s_d a) * s:s_d b
+}
+
+## x f_it y: the least-squares line through the points, intercept and
+## slope (y is about intercept + slope * x).
+l:f_it := { x y ->
+  slope := (x l:c_ovariance y) / s:v_ariance x
+  ((s:m_ean y) - slope * s:m_ean x) c_at slope
+}
+
+### Binning
+
+## n b_ins v: how many items of v fall in each of n bins of equal width
+## from its least to its greatest (the greatest in the last bin).
+l:b_ins := { n v ->
+  lo := 'm_in r_/ f_loat v
+  step := 0.000000000001 m_ax (('m_ax r_/ f_loat v) - lo) / f_loat n
+  bin := 1 + (n - 1) m_in f_loor ((f_loat v) - lo) / step
+  '{ t_ally w_here bin = _r } e_ach r_ange n
+}

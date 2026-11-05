@@ -1,0 +1,26 @@
+#!/usr/bin/env xetal
+## An invoice: items, quantities and prices set as a table, money to 2
+## places, a total with thousands separated, the tax as a percentage.
+## Run with "just demo Format invoice".
+
+"f:" u_se< "Format"
+"t:" u_se< "Strings"
+items := "notebook" "pen" "stapler" "paper (ream)" "desk"
+qty := 4 12 1 10 1
+price := 2.5 0.85 12.99 4.25 1249.0
+amount := price * f_loat qty
+
+# The table: a header row, then a row per item (columns joined by c_at_2).
+body := (5 1 r_eshape items) c_at_2 (5 1 r_eshape 'f_ormat m_ap qty) c_at_2 (5 1 r_eshape 2 f:f_ixed price) c_at_2 5 1 r_eshape 2 f:f_ixed amount
+f:t_able ("item" "qty" "price" "amount") c_at body
+
+total := '+ r_/ amount
+rate := 0.0825
+"subtotal " c_at d_isclose f_irst 2 f:a_mount total
+discount := 0.05 * f_loat total > 1000.0                    # 5% off orders over 1,000 (a comparison is 0 or 1)
+"discount " c_at d_isclose f_irst 1 f:p_ercent discount
+net := total * 1.0 - discount
+# Text of several pieces: f_ormat< (X_eTaL's system macro) writes the
+# line as it reads, each value in braces, instead of pieces joined by
+# c_at; a bad format string fails before the program runs.
+@ f_ormat< "tax      {d_isclose f_irst 2 f:p_ercent rate} = {d_isclose f_irst 2 f:f_ixed net * rate}"

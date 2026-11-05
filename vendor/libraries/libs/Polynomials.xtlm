@@ -1,0 +1,83 @@
+## Polynomials: its macro library -- p_oly<, maths notation compiled.
+## Imported with the functions, under one alias: "pl:" u_se< "Polynomials".
+## A macro is a function from the source text written left and right of
+## its call to the source that replaces the call, run before the program
+## is compiled (X_eTaL MC10). Names with m: are macros; those under h: are
+## private to this file.
+
+allowed := []D c_at ".x^+-"
+
+### Parsing
+
+## The text without spaces.
+h:s_queezed := { t -> (t != f_irst " ") r_eplicate t }
+
+## The terms of a sum: a new term at each + or - after the first
+## character; each keeps its sign.
+h:t_erms := { t ->
+  s := (t m_ember? "+-") & (r_ange t_ally t) > 1
+  (1 + '+ s_\ s) p_artition t
+}
+
+## A term's sign and the rest.
+h:s_ign := { t -> (f_irst t) = f_irst "-" ? -1.0; 1.0 }
+h:b_ody := { t -> (f_irst t) m_ember? "+-" ? 1 d_rop t; t }
+
+## Whether a term is well formed: digits and at most one point before
+## x, then nothing, x, or x^ and digits.
+h:w_ell? := { t ->
+  b := h:b_ody t
+  0 = t_ally b ? 0 = 1
+  k := t_ally w_here b = f_irst "x"
+  k > 1 ? 0 = 1
+  k = 0 ? h:n_umeral? b
+  p := f_irst w_here b = f_irst "x"
+  c := (p - 1) t_ake b
+  e := p d_rop b
+  n_ot (0 = t_ally c) | h:n_umeral? c ? 0 = 1
+  0 = t_ally e ? 1 = 1                       # x alone
+  n_ot "^" m_atch 1 t_ake e ? 0 = 1
+  (1 < t_ally e) & '& r_/ (1 d_rop e) m_ember? []D
+}
+
+## Whether a text is a number: digits with at most one point.
+h:n_umeral? := { c -> (0 < t_ally c) & ('& r_/ c m_ember? []D c_at ".") & 1 >= t_ally w_here c = f_irst "." }
+
+## A well-formed term's power of x.
+h:p_ower := { t ->
+  b := h:b_ody t
+  0 = t_ally w_here b = f_irst "x" ? 0
+  e := (f_irst w_here b = f_irst "x") d_rop b
+  0 = t_ally e ? 1
+  f_loor f_irst n_umbers 1 d_rop e
+}
+
+## A well-formed term's coefficient, with its sign.
+h:c_oefficient := { t ->
+  b := h:b_ody t
+  p := w_here b = f_irst "x"
+  k := (f_irst p c_at 1 + t_ally b) - 1
+  c := k t_ake b
+  0 = t_ally c ? h:s_ign t
+  (h:s_ign t) * f_irst n_umbers c
+}
+
+### The macro
+
+## @ pl:p_oly< "3x^2 - 2x + 1": the polynomial written in maths
+## notation, compiled into its coefficients, highest power first
+## (3.0 -2.0 1.0), when the program is compiled. Notation that is not a
+## polynomial in x stops the compiler at it: error[bad-polynomial].
+## Nothing goes on the left (@).
+## takes: @ text
+## uses: parsed
+m:p_oly< := { @ t ->
+  s := h:s_queezed t
+  (0 = t_ally s) | n_ot '& r_/ s m_ember? allowed ? "bad-polynomial right" []R_EJECT t c_at " is not a polynomial in x: use digits, x, ^, + and -"
+  ts := h:t_erms s
+  n_ot '& r_/ '{ h:w_ell? d_isclose _r } e_ach ts ? "bad-polynomial right" []R_EJECT t c_at " is not a polynomial in x: each term is a number, x, or x^k"
+  k := '{ h:p_ower d_isclose _r } e_ach ts
+  c := '{ h:c_oefficient d_isclose _r } e_ach ts
+  d := 'm_ax r_/ k
+  f_ormat '{ i -> '+ r_/ (k = i) r_eplicate c } e_ach r_ev o_ffsets d + 1
+}

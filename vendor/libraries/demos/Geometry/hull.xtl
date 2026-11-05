@@ -1,0 +1,13 @@
+#!/usr/bin/env xetal
+## A fence round scattered trees: the convex hull of 40 random points
+## (seeded, so it repeats), its corners, the area it encloses and its
+## center, and its picture. Run with "just demo Geometry hull".
+
+"ge:" u_se< "Geometry"
+"r:" u_se< "Random"
+trees := 2 40 r_eshape 100.0 * r:u_niform! 80
+fence := ge:h_ull trees
+t_ally o_\ fence                       # corners
+ge:a_rea fence                         # square meters inside
+ge:c_entroid fence
+picture := ge:s_how! fence

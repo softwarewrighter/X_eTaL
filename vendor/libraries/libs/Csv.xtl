@@ -1,0 +1,68 @@
+## Csv: comma-separated values -- lines to fields (quoted fields kept
+## whole), a table of texts, columns by number or name, numbers, and
+## back to text.
+## Import it with an alias of your choice: "cs:" u_se< "Csv".
+## Put libs/Csv/src on XETAL_PATH ("just path"); the reference is libs/Csv/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## A table is a matrix of texts (Box Char), a row per line, its first
+## row the header. Fields follow RFC 4180: a field in double quotes may
+## hold commas, and a doubled quote inside stands for one.
+
+"t:" u_se< "Strings"
+"li:" u_se< "Lists"
+
+dq := "\""                                    # a double quote, as text
+
+### Parsing
+
+## A field as written to its value: outer quotes off, "" to ".
+h:u_nquote := { f ->
+  2 > t_ally f ? f
+  n_ot (dq m_atch 1 t_ake f) & dq m_atch -1 t_ake f ? f
+  ((e_nclose dq c_at dq) c_at e_nclose dq) t:r_eplace 1 d_rop -1 d_rop f
+}
+
+## f_ields line: the fields of one line. A comma separates fields
+## unless an odd number of quotes comes before it (it is inside a
+## quoted field).
+l:f_ields := { line ->
+  inside := 1 = ('+ s_\ 0 + line = f_irst dq) m_od 2
+  cut := w_here (line = f_irst ",") & n_ot inside
+  starts := 1 c_at cut + 1
+  ends := cut c_at 1 + t_ally line
+  '{ i -> h:u_nquote ((f_irst i s_elect ends) - f_irst i s_elect starts) t_ake ((f_irst i s_elect starts) - 1) d_rop line } m_ap r_ange t_ally starts
+}
+
+## r_ows text: the table of a whole text, a row per line (every line
+## has the same number of fields).
+l:r_ows := { text ->
+  lines := t:l_ines text
+  rows := '{ l -> l:f_ields d_isclose l } m_ap lines
+  ((t_ally lines) c_at t_ally d_isclose f_irst rows) r_eshape li:r_aze rows
+}
+
+### Columns
+
+## n c_olumn table: the texts of column n, the header left out.
+l:c_olumn := { n table -> 1 d_rop n s_elect_2 table }
+
+## name f_ield table: the texts of the column whose header is name.
+l:f_ield := { name table -> (f_irst (f_irst table) i_ndexOf e_nclose name) l:c_olumn table }
+
+## name n_umbers table: the column whose header is name, as numbers.
+l:n_umbers := { name table -> n_umbers " " t:j_oin name l:f_ield table }
+
+### Writing
+
+## A value as a field: quoted (quotes doubled) when it holds a comma, a
+## quote or a newline.
+h:q_uote := { v ->
+  n_ot '| r_/ v m_ember? ",\n" c_at dq ? v
+  dq c_at (((e_nclose dq) c_at e_nclose dq c_at dq) t:r_eplace v) c_at dq
+}
+
+## t_ext table: the table as comma-separated text, a line per row.
+l:t_ext := { table ->
+  "\n" t:j_oin '{ i -> "," t:j_oin '{ f -> h:q_uote d_isclose f } m_ap i s_elect table } m_ap r_ange t_ally table
+}

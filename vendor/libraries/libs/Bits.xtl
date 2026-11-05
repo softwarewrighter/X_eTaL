@@ -1,0 +1,66 @@
+## Bits: bits -- binary digits and back, popcount, and, or, xor on
+## whole numbers, shifts, single bits, Gray codes.
+## Import it with an alias of your choice: "b:" u_se< "Bits".
+## Put libs/Bits/src on XETAL_PATH ("just path"); the reference is libs/Bits/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## Numbers are whole and at least 0 (up to 2^62); bit 0 is the lowest.
+## The logic works on every item at once: the numbers are taken apart
+## into bits with e_ncode, combined with the built-in &, | and !=, and
+## put back together with d_ecode. On vectors of bits those built-ins
+## are the logic already.
+
+w := 63                                       # bits taken from each number
+
+### Columns and value
+
+## The w bits of each number, one column per number.
+h:c_ols := { x ->
+  '| r_/ r_avel x < 0 ? @ p_anic< "Bits works on whole numbers 0 or more, not {x}"
+  (w r_eshape 2) e_ncode x
+}
+
+## n b_its x: the low n bits of each number, most significant first: a
+## vector for one number, a row per number for several.
+l:b_its := { n x ->
+  '| r_/ r_avel x < 0 ? @ p_anic< "Bits works on whole numbers 0 or more, not {x}"
+  o_\ (n r_eshape 2) e_ncode x
+}
+
+## v_alue bits: the number each row of bits (or the vector) stands for.
+l:v_alue := { bits -> 2 d_ecode o_\ bits }
+
+### Bit by bit
+
+## p_opcount x: how many 1 bits each number has.
+l:p_opcount := { x -> '+ r_/ h:c_ols x }
+
+## a a_nd b, a o_r b, a x_or b: bit by bit, item by item (a single
+## number on either side goes with every item of the other: a + 0 * b
+## has the shape of both). On 0/1 digits: and is the smaller, or the
+## larger, xor the distance; Int arithmetic keeps the result an Int (a
+## comparison such as & would leave its numeric type to the caller: ask
+## X17).
+l:a_nd := { a b -> 2 d_ecode (h:c_ols a + 0 * b) m_in h:c_ols b + 0 * a }
+l:o_r := { a b -> 2 d_ecode (h:c_ols a + 0 * b) m_ax h:c_ols b + 0 * a }
+l:x_or := { a b -> 2 d_ecode a_bs (h:c_ols a + 0 * b) - h:c_ols b + 0 * a }
+
+### Shifts and masks
+
+## n s_hl x, n s_hr x: each number shifted n bits left (times 2^n) or
+## right (halved n times, dropping the bits shifted out).
+l:s_hl := { n x -> x * 2 ^ n }
+l:s_hr := { n x -> x d_iv 2 ^ n }
+
+## i b_it? x: whether bit i of each number is 1.
+l:b_it? := { i x -> 1 = (x d_iv 2 ^ i) m_od 2 }
+
+## m_ask n: the number whose low n bits are 1.
+l:m_ask := { n -> (2 ^ n) - 1 }
+
+### Gray code
+
+## g_ray x: the Gray code of each number (neighbors differ in one bit);
+## u_ngray g: back again.
+l:g_ray := { x -> x l:x_or 1 l:s_hr x }
+l:u_ngray := { g -> 2 d_ecode '!= s_\ h:c_ols g }

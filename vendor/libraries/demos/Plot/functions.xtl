@@ -1,0 +1,16 @@
+## A mathematical function plotted over a range, not a sequence: the
+## horizontal axis reads x's own values. A sine wave, a parabola, and
+## both together, titled and named.
+## Run with "just demo Plot functions".
+
+"p:" u_se< "Plot"
+
+xs := 100 p:l_inspace (0.0 - 6.28, 6.28)              # -2pi to 2pi
+wave := p:f_unction! (2 100 r_eshape xs c_at 's_in e_ach xs)
+
+ys := 100 p:l_inspace (-3.0, 3.0)
+curve := p:f_unction! (2 100 r_eshape ys c_at ys * ys)
+
+both := ("sine" "parabola") p:f_unctions! ((e_nclose 2 100 r_eshape xs c_at 's_in e_ach xs) c_at e_nclose 2 100 r_eshape ys c_at ys * ys)
+
+titled := ("sin(x) and x^2" "x" "y" "sin(x)" "x^2") p:f_unctionChart! ((e_nclose 2 100 r_eshape xs c_at 's_in e_ach xs) c_at e_nclose 2 100 r_eshape ys c_at ys * ys)

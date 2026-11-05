@@ -1,0 +1,50 @@
+## Graphs: its macro library -- g_raph<, a graph written by its names.
+## Imported with the functions, under one alias: "g:" u_se< "Graphs".
+## A macro is a function from the source text written left and right of
+## its call to the source that replaces the call, run before the program
+## is compiled (X_eTaL MC10). Names with m: are macros; those under h: are
+## private to this file.
+
+"t:" u_se< "Strings"
+"pa:" u_se< "Parsing"
+
+### Parsing
+
+## The lists of a list joined into one list.
+h:r_aze := { b -> d_isclose '{ e_nclose (d_isclose _l) c_at d_isclose _r } r_/ b }
+
+## The paths of a graph text: a list per path, its stations in order,
+## cut at the commas and dashes outside brackets (Parsing's pa:s_plit,
+## as any list here is).
+h:p_aths := { t -> '{ p -> '{ s -> t:t_rim d_isclose s } m_ap "-" pa:s_plit t:t_rim d_isclose p } m_ap "," pa:s_plit t }
+
+### The macro
+
+## "town" g:g_raph< "airport-bridge-center, center-docks": the graph
+## written by its names, paths of stations joined by "-", paths
+## separated by ",". When the program is compiled it defines a variable
+## per station, numbered in order of first appearance (airport := 1,
+## bridge := 2, ...), and town as the adjacency matrix, every edge both
+## ways, so the rest of the program speaks of stations by name
+## (town g:l_evels center). It stands as a statement of its own. A name
+## that cannot be a variable stops the compiler at it: error[bad-name].
+## takes: text text
+## uses: parsed
+m:g_raph< := { name t ->
+  ps := h:p_aths t
+  stations := u_nique h:r_aze ps
+  n_ot pa:n_ame? name ? "bad-name left" []R_EJECT name c_at " cannot be a variable's name: a lowercase letter, then letters and digits"
+  bad := (n_ot '{ pa:n_ame? d_isclose _r } e_ach stations) r_eplicate stations
+  0 < t_ally bad ? "bad-name right" []R_EJECT (d_isclose f_irst bad) c_at " cannot be a station's name: a lowercase letter, then letters and digits"
+  n := t_ally stations
+  # each station's number, path by path; neighbors on a path are edges
+  ks := '{ p -> stations i_ndexOf d_isclose p } m_ap ps
+  a := h:r_aze '{ k -> -1 d_rop d_isclose k } m_ap ks
+  b := h:r_aze '{ k -> 1 d_rop d_isclose k } m_ap ks
+  from := a c_at b                            # both ways
+  to := b c_at a
+  at := (n * from - 1) + to
+  m := (r_ange n * n) m_ember? at
+  defs := "\n" t:j_oin '{ i -> (d_isclose i s_elect stations) c_at " := " c_at f_ormat i } m_ap r_ange n
+  defs c_at "\n" c_at name c_at " := " c_at (f_ormat n) c_at " " c_at (f_ormat n) c_at " r_eshape " c_at f_ormat 0 + m
+}

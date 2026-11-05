@@ -9,14 +9,15 @@
 # pane (`rendered`: substrings of its text), the Types pane
 # (`types`), and, when `run` is true, the output pane after Run
 # (`output`). Named checks (`check`) exercise the chrome: help, open,
-# save, zoom, focus, lint, complete. Add a scenario by adding a table.
+# save, zoom, focus, lint, complete, terminal, collection. Add a
+# scenario by adding a table.
 
 [[site]]
 name = "X_eTaL live editor"
 url = "https://softwarewrighter.github.io/X_eTaL/"
 repo = "softwarewrighter/X_eTaL"
 stamp = "main"
-checks = ["help", "open", "save", "zoom", "focus", "lint", "complete", "terminal"]
+checks = ["help", "open", "save", "zoom", "focus", "lint", "complete", "terminal", "collection"]
 
 [[site]]
 name = "X_eTaL-libraries site"

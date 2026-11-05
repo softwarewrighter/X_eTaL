@@ -1,0 +1,28 @@
+#!/usr/bin/env xetal
+## Heights and weights of twelve people: a summary of each, how they
+## relate, the line through them, and who is unusual.
+## Run with "just demo Statistics heights".
+
+"sx:" u_se< "Statistics"
+"s:" u_se< "Stats"
+height := 158 162 165 168 170 171 173 175 178 180 183 191     # cm
+weight := 52 58 61 60 66 70 68 72 75 80 79 95                 # kg
+
+sx:s_ummary height                        # least, quartiles, median, greatest
+s:m_ean weight
+height sx:c_orrelation weight          # strongly related
+f := height sx:f_it weight             # kg = intercept + slope * cm
+f
+(f_irst f) + 175.0 * f_irst 1 d_rop f  # the expected weight at 175 cm
+
+# Unusual: more than 1.5 standard deviations from the mean.
+z := sx:z_scores weight
+((a_bs z) > 1.5) r_eplicate weight
+
+# The mean height of those over 100 kg: nobody here, and the mean of
+# nothing divides by zero. A guard evaluates only the result it
+# chooses, so the mean is never taken of an empty list (a comparison
+# used as a number, (n > 0) * mean, would take it and stop with an
+# error).
+u:m_eanOr0 := { v -> 0 = t_ally v ? 0.0; s:m_ean v }
+u:m_eanOr0 (weight > 100) r_eplicate height

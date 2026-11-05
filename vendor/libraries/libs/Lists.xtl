@@ -1,0 +1,72 @@
+## Lists: list functions -- differences, windows, moving means, run
+## lengths, chunks, shifts, interleaving, binary search, raze.
+## Import it with an alias of your choice: "li:" u_se< "Lists".
+## Put libs/Lists/src on XETAL_PATH ("just path"); the reference is libs/Lists/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## Counts and sizes go on the left, the list on the right, as for the
+## built-ins: 3 li:w_indows v.
+
+### Differences and windows
+
+## d_eltas v: each item minus the one before (one fewer item).
+l:d_eltas := { v -> (1 d_rop v) - -1 d_rop v }
+
+## n w_indows v: every run of n consecutive items, one per row.
+l:w_indows := { n v ->
+  n < 1 ? @ p_anic< "a window holds 1 item or more, not {n}"
+  k := 1 + (t_ally v) - n
+  k < 1 ? (0 c_at n) r_eshape v
+  ((r_ange k) '+ t_able o_ffsets n) s_elect v
+}
+
+## n m_ovingMean v: the mean of each window of n (a Float each).
+l:m_ovingMean := { n v -> (f_loat '+ r_/_2 n l:w_indows v) / f_loat n }
+
+### Runs
+
+## Where each run of equal items starts (a 0/1 mask).
+h:s_tarts := { v -> 0 = t_ally v ? 0 r_eshape 1 = 1; 1 c_at (1 d_rop v) != -1 d_rop v }
+
+## r_unValues v: the item of each run of equal items ("aaabcc" is "abc").
+l:r_unValues := { v -> (h:s_tarts v) r_eplicate v }
+
+## r_unLengths v: the length of each run ("aaabcc" is 3 1 2).
+l:r_unLengths := { v -> l:d_eltas (w_here h:s_tarts v) c_at 1 + t_ally v }
+
+### Reshaping
+
+## n c_hunks v: v cut into pieces of n (the last may be shorter), as a list.
+l:c_hunks := { n v ->
+  n < 1 ? @ p_anic< "a chunk holds 1 item or more, not {n}"
+  (1 + (o_ffsets t_ally v) d_iv n) p_artition v
+}
+
+## r_aze list: the items of a list of lists joined into one list (APL2's
+## enlist of a simple list). An empty list has no items to take a type's
+## fill from: error[no-identity].
+l:r_aze := { b ->
+  0 = t_ally b ? @ p_anic< "r_aze needs at least one list: an empty list has no items to join (nor a type to make an empty result of)"
+  d_isclose '{ e_nclose (d_isclose _l) c_at d_isclose _r } r_/ b
+}
+
+## n s_hift v: v moved n places toward the front (back for negative n),
+## without wrapping: the places left empty get the fill (0, or a space).
+l:s_hift := { n v -> t := t_ally v; n >= 0 ? t t_ake n d_rop v; (n_eg t) t_ake n d_rop v }
+
+## a i_nterleave b: a1 b1 a2 b2 ... (a and b of one length).
+l:i_nterleave := { a b -> r_avel_2 (2 c_at t_ally a) r_eshape a c_at b }
+
+### Searching
+
+## Binary search in sorted v between lo and hi: how many items are <= x.
+h:b_s := { v x lo hi ->
+  lo >= hi ? lo
+  m := (lo + hi + 1) d_iv 2
+  (f_irst m s_elect v) <= x ? (((v h:b_s x)_ m)_ hi)
+  ((v h:b_s x)_ lo)_ m - 1
+}
+
+## v b_search x: in a sorted list v, how many items are <= each item of
+## x: the place x would go after its equals (dfns bsearch).
+l:b_search := { v x -> '{ y -> (((v h:b_s y)_ 0)_ t_ally v) } e_ach x }

@@ -1,0 +1,65 @@
+## Combinatorics: counting and listing -- factorials, binomials,
+## combinations, permutations, subsets, Cartesian products.
+## Import it with an alias of your choice: "cb:" u_se< "Combinatorics".
+## Put libs/Combinatorics/src on XETAL_PATH ("just path"); the reference is libs/Combinatorics/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## Lists come as matrices, one combination (or permutation, subset,
+## pair) per row, in lexicographic order.
+
+### Counting
+
+## f_actorial n: n!, item by item (0! is 1).
+l:f_actorial := { n -> '{ '* r_/ r_ange _r } e_ach n }
+
+## C(n, k) for one k and n, exactly: C(n, j) = C(n, j - 1) * (n - j + 1) / j.
+h:c_h := { k n ->
+  (k < 0) | k > n ? 0
+  j := k m_in n - k
+  j = 0 ? 1
+  ((1 + n - j) * (j - 1) h:c_h n) d_iv j
+}
+
+## k c_hoose n: how many ways to choose k things of n, item by item.
+l:c_hoose := { k n -> k 'h:c_h e_ach n }
+
+### Listing
+
+## k c_ombinations n: every choice of k of 1..n, one per row, in
+## lexicographic order (dfns cmat).
+l:c_ombinations := { k n ->
+  (k < 0) | k > n ? (0 c_at k) r_eshape 0
+  k = 0 ? 1 0 r_eshape 0
+  k = n ? (1 c_at n) r_eshape r_ange n
+  (1 c_at_2 1 + (k - 1) l:c_ombinations n - 1) c_at 1 + k l:c_ombinations n - 1
+}
+
+## The rows of P (permutations of 1..n-1) with i put first and the
+## others renumbered around it.
+h:f_irstThen := { i p -> i c_at_2 p + p >= i }
+
+## p_ermutations n: every ordering of 1..n, one per row, in
+## lexicographic order (dfns pmat).
+l:p_ermutations := { n ->
+  n <= 1 ? (1 c_at n) r_eshape 1
+  p := l:p_ermutations n - 1
+  d_isclose '{ e_nclose (d_isclose _l) c_at d_isclose _r } r_/ '{ i -> i h:f_irstThen p } m_ap r_ange n
+}
+
+## s_ubsets n: every subset of 1..n as a mask, one per row: 2^n rows,
+## counting in binary (the empty set first).
+l:s_ubsets := { n -> o_\ (n r_eshape 2) e_ncode o_ffsets 2 ^ n }
+
+## p_owerset v: every subset of the items of v, as a list (Box), in
+## the order of s_ubsets.
+l:p_owerset := { v ->
+  m := l:s_ubsets t_ally v
+  '{ i -> (i s_elect m) r_eplicate v } m_ap r_ange t_ally m
+}
+
+## a p_roduct b: every pair of an item of a with one of b, one per row
+## (a's items vary slowest).
+l:p_roduct := { a b ->
+  n := (t_ally a) * t_ally b
+  o_\ (2 c_at n) r_eshape ((t_ally b) r_eplicate a) c_at n r_eshape b
+}

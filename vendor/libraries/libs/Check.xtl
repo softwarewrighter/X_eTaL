@@ -1,0 +1,80 @@
+## Check: assertions that report as text, for tests and teaching.
+## Import it with an alias of your choice: "ch:" u_se< "Check".
+## Put libs/Check/src on XETAL_PATH ("just path"); the reference is libs/Check/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## A check is a line of text, "ok" or "FAIL: ..." (X_eTaL has no
+## assert and no way to stop with an error of your own yet): it prints
+## when it is a statement, and checks join into a report with a_nd.
+##   6 ch:i_s '+ r_/ 1 2 3                     # ok
+##   "sum" ch:t_est 5 ch:i_s '+ r_/ 1 2 3       # FAIL: sum: expected 5, got 6
+##   ch:r_eport (a ch:a_nd b ch:a_nd c)          # the lines, then "3 checks, all passed"
+
+h:n_l := { @ -> f_irst "\n" }                  # the newline character
+
+## t, its newlines shown as ";", so a value takes one line.
+h:o_neLine := { t ->
+  m := t = h:n_l @
+  ((r_ange t_ally t) + m * (1 + t_ally t) - r_ange t_ally t) s_elect t c_at ";"
+}
+
+## t on one line; when longer than 60 characters, its start and its
+## shape: "1 2 3 ... (shape 100)".
+h:s_hown := { t ->
+  s := h:o_neLine f_ormat t
+  60 >= t_ally s ? s
+  (48 t_ake s) c_at " ... (shape " c_at (f_ormat s_hape t) c_at ")"
+}
+
+h:f_ail := { w g -> "FAIL: expected " c_at (h:s_hown w) c_at ", got " c_at h:s_hown g }
+
+### Checks
+
+## want i_s got: ok when got has want's shape and items (m_atch).
+l:i_s := { w g -> w m_atch g ? "ok"; w h:f_ail g }
+
+## want n_ear got: ok when the shapes match and every item is equal
+## within e_q~'s relative tolerance, or within 1e-12 of it (so a
+## computed 1e-17 is near an exact 0, which e_q~ alone never allows).
+l:n_ear := { w g ->
+  n_ot (s_hape w) m_atch s_hape g ? w h:f_ail g
+  '& r_/ r_avel (w e_q~ g) | 0.000000000001 >= a_bs (f_loat w) - f_loat g ? "ok"
+  w h:f_ail g
+}
+
+## t_rue c: ok when every item of the condition c is true (1).
+l:t_rue := { c -> '& r_/ r_avel c ? "ok"; "FAIL: expected true, got " c_at h:s_hown c }
+
+### Naming a check
+
+## name t_est line: the check's line, named: "ok: name" or "FAIL: name: ...".
+l:t_est := { name line ->
+  "ok" m_atch 2 t_ake line ? "ok: " c_at name
+  "FAIL: " c_at name c_at ": " c_at 6 d_rop line
+}
+
+### Reports
+
+## a a_nd b: two checks (or reports) as one text, a line each.
+l:a_nd := { a b -> a c_at "\n" c_at b }
+
+## c_ount t: how many checks a text holds (its lines).
+l:c_ount := { t -> 1 + t_ally w_here t = h:n_l @ }
+
+## f_ailures t: how many of its checks failed (lines starting FAIL).
+l:f_ailures := { t ->
+  s := (h:n_l @) c_at t
+  t_ally w_here (-1 d_rop s = h:n_l @) & (1 d_rop s) = f_irst "F"
+}
+
+## p_assed? t: whether every check passed.
+l:p_assed? := { t -> 0 = l:f_ailures t }
+
+## r_eport t: the checks, then a summary line.
+l:r_eport := { t ->
+  n := l:c_ount t
+  f := l:f_ailures t
+  s := (f_ormat n) c_at " check" c_at (n != 1) r_eplicate "s"
+  f = 0 ? t l:a_nd s c_at ", all passed"
+  t l:a_nd s c_at ", " c_at (f_ormat f) c_at " FAILED"
+}

@@ -1,0 +1,22 @@
+#!/usr/bin/env xetal
+## A year of weather in text charts: rainfall by month as bars,
+## temperatures as a sparkline, a scatter of temperature against
+## rain, and the temperatures as a line chart picture.
+## Run with "just demo Plot weather".
+
+"p:" u_se< "Plot"
+months := "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
+rain := 102 86 79 52 41 18 5 9 22 61 95 118          # mm
+temp := 8 9 12 15 19 23 27 27 23 17 11 8             # degrees C
+
+months p:b_ars rain
+p:s_park temp
+
+# Warm months are dry: temperature (x) against rain (y).
+(36 10) p:s_catter (2 12 r_eshape temp c_at rain)
+
+picture := p:l_ine! temp                              # shown as a picture
+
+# Rain and temperature in one picture, titled, with named axes and a
+# legend (the two series share the vertical axis).
+both := ("A year of weather" "month" "mm, degrees C" "rain" "temperature") p:c_hart! (e_nclose rain) c_at e_nclose temp

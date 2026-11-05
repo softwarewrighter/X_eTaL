@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-play", "crates/xetal-chrome", "crates/xetal-layout", "crates/xetal-runner", "crates/xetal-web", "crates/xetal-typing", "crates/xetal-webclock", "crates/xetal-suggest", "crates/xetal-webtui"]
+members = ["crates/xetal-play", "crates/xetal-chrome", "crates/xetal-layout", "crates/xetal-runner", "crates/xetal-web", "crates/xetal-typing", "crates/xetal-webclock", "crates/xetal-suggest", "crates/xetal-webtui", "crates/xetal-collection"]
 
 [workspace.package]
 version = "0.1.0"
@@ -40,6 +40,7 @@ xetal-play = { path = "crates/xetal-play" }
 xetal-chrome = { path = "crates/xetal-chrome" }
 xetal-suggest = { path = "crates/xetal-suggest" }
 xetal-webtui = { path = "crates/xetal-webtui" }
+xetal-collection = { path = "crates/xetal-collection" }
 xetal-shell = { path = "../cli/crates/xetal-shell" }
 xetal-edit = { path = "../tui/crates/xetal-edit", default-features = false }
 xetal-keys = { path = "../tui/crates/xetal-keys", default-features = false }

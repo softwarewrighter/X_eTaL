@@ -1,0 +1,56 @@
+## Check: its macro library -- c_ases<, table-driven checks named by
+## their own source text.
+## Imported with the functions, under one alias: "ch:" u_se< "Check".
+## A macro is a function from the source text written left and right of
+## its call to the source that replaces the call, run before the program
+## is compiled (X_eTaL MC10). Names with m: are macros; those under h: are
+## private to this file.
+
+"t:" u_se< "Strings"
+"pa:" u_se< "Parsing"
+
+bs := "\\"
+dq := "\""
+
+### Rows
+
+## A text as the inside of an X_eTaL string literal: \ and " escaped.
+h:e_scaped := { s -> ((e_nclose dq) c_at e_nclose bs c_at dq) t:r_eplace ((e_nclose bs) c_at e_nclose bs c_at bs) t:r_eplace s }
+
+## Whether a row is "input -> expected".
+h:r_ow? := { r -> 1 = t_ally "->" t:f_ind r }
+
+## One check: f applied to the row's input, compared (m_atch) with its
+## expected value, both evaluated where the call is (hygiene: the
+## lambda's w and g only receive them); a line like Check's own.
+h:c_heck := { f r ->
+  at := "->" pa:a_t r
+  input := t:t_rim (at - 1) t_ake r
+  want := t:t_rim (at + 1) d_rop r
+  label := h:e_scaped f c_at " " c_at input
+  "(" c_at want c_at ") { w g -> w m_atch g ? \"ok: " c_at label c_at "\"; \"FAIL: " c_at label c_at ": expected \" c_at (f_ormat w) c_at \", got \" c_at f_ormat g } (" c_at f c_at " (" c_at input c_at "))"
+}
+
+### The macro
+
+## "u:s_quare" ch:c_ases< "2 -> 4; 3 -> 9; -1 -> 1": a table of checks of
+## one function, a row per case, input -> expected. When the program is
+## compiled it writes one check per row, named by its own source text
+## ("ok: u:s_quare 2", or "FAIL: u:s_quare 3: expected 9, got 10"), so
+## a failing case says which, without writing the expression twice.
+## Expected and actual values must share a type: a mismatch is a type
+## error at compile time. It stands as a statement of its own. A row
+## without one -> stops the compiler: error[bad-cases]. Rows are cut
+## at ; outside brackets (Parsing's pa:s_plit, as any list here is),
+## not that it can matter today: a ; only ever occurs inside a lambda
+## body, whose own -> would already make the row ambiguous.
+## takes: code text
+## uses: parsed
+m:c_ases< := { f body ->
+  all := '{ r -> t:t_rim d_isclose r } m_ap ";" pa:s_plit body
+  rs := (0 < '{ t_ally d_isclose _r } e_ach all) r_eplicate all
+  0 = t_ally rs ? "bad-cases right" []R_EJECT "no cases: write input -> expected; ..."
+  bad := (n_ot '{ h:r_ow? d_isclose _r } e_ach rs) r_eplicate rs
+  0 < t_ally bad ? "bad-cases right" []R_EJECT (d_isclose f_irst bad) c_at " is not a case: write input -> expected"
+  "\n" t:j_oin '{ r -> f h:c_heck d_isclose r } m_ap rs
+}

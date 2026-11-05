@@ -82,9 +82,11 @@ pub const DEMOS: &[Demo] = demos![
 
 /// The choices, as (group, value, label), group by group: Demos (the
 /// tour, the empty editor, then the top folder's demos), Classics (shown
-/// without their folder), Libraries, Misc (any other folder), Your files;
+/// without their folder), Libraries, X_eTaL-libraries (the collection's
+/// libraries) and its demos, Misc (any other folder), Your files;
 /// each group alphabetical. A value is `demo:N`, `lib:Name` (a
-/// library), `macros:Name` (a macro library) or `file:path`, and
+/// library), `macros:Name` (a macro library), `coll:File` (one of the
+/// collection's files) or `file:path`, and
 /// [`open`] reads it.
 pub fn choices(saved: &[String]) -> Vec<(&'static str, String, String)> {
     let by_label = |mut group: Vec<(&'static str, String, String)>| {
@@ -108,6 +110,15 @@ pub fn choices(saved: &[String]) -> Vec<(&'static str, String, String)> {
         .iter()
         .map(|(n, _)| lib("macros", "xtlm", n));
     let libs = by_label(libs.chain(macros).collect());
+    let collection = xetal_collection::LIBRARIES
+        .iter()
+        .map(|(n, _)| ("X_eTaL-libraries", format!("coll:{n}"), n.to_string()))
+        .chain(
+            xetal_collection::DEMOS
+                .iter()
+                .map(|(n, _)| ("X_eTaL-libraries demos", format!("coll:{n}"), n.to_string())),
+        );
+    let collection: Vec<_> = collection.collect();
     let files = by_label(
         saved
             .iter()
@@ -119,6 +130,7 @@ pub fn choices(saved: &[String]) -> Vec<(&'static str, String, String)> {
         pick("Demos"),
         pick("Classics"),
         libs,
+        collection,
         pick("Misc"),
         files,
     ]
@@ -134,15 +146,19 @@ pub fn open(value: &str) -> Option<(String, String)> {
         ("lib", n) => xetal_libs::standard(n).map(|t| (format!("{n}.xtl"), t.into())),
         ("macros", n) => xetal_libs::standard_macros(n).map(|t| (format!("{n}.xtlm"), t.into())),
         ("file", p) => xetal_store::read(p).ok().map(|t| (p.to_string(), t)),
+        ("coll", p) => xetal_collection::library(p)
+            .or_else(|| xetal_collection::demo(p))
+            .map(|t| (p.to_string(), t.into())),
         _ => None,
     }
 }
 
 /// Put the demos' own libraries among your files, unless they are there
 /// already (so your edits are kept): `hello-library.xtl` imports
-/// `Hello.xtl` from there, as it would from beside it on disk.
+/// `Hello.xtl` from there, as it would from beside it on disk; and the
+/// collection's demos' data (`cities.csv`).
 pub fn seed() {
-    for (path, text) in OWN_LIBRARIES {
+    for (path, text) in OWN_LIBRARIES.iter().chain(xetal_collection::DATA) {
         if xetal_store::read(path).is_err() {
             let _ = xetal_store::write(path, text);
         }

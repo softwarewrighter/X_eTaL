@@ -1,0 +1,17 @@
+#!/usr/bin/env xetal
+## Clubs: who is in which club, as sets of names. Run with "just demo Sets clubs".
+
+"se:" u_se< "Sets"
+"t:" u_se< "Strings"
+chess := "ana" "ben" "cy" "dee"
+drama := "ben" "eve" "dee" "fay"
+choir := "gus" "eve"
+
+", " t:j_oin chess se:i_ntersect drama      # in chess and drama
+", " t:j_oin chess se:s_ymmetric drama      # in exactly one of the two
+", " t:j_oin (chess se:u_nion drama) se:u_nion choir   # everyone
+choir se:d_isjoint? chess                   # no chess player sings
+
+# How many clubs each person is in.
+all := chess c_at drama c_at choir
+"\n" t:j_oin '{ i -> (5 t:p_adRight d_isclose i s_elect u_nique all) c_at f_ormat i s_elect se:c_ounts all } m_ap r_ange t_ally u_nique all

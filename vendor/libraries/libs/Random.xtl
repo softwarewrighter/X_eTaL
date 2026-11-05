@@ -1,0 +1,58 @@
+## Random: randomness -- shuffles, deals, choices, uniform and normal
+## samples, weighted picks.
+## Import it with an alias of your choice: "r:" u_se< "Random".
+## Put libs/Random/src on XETAL_PATH ("just path"); the reference is libs/Random/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## Everything is built on the built-in r_oll!, so "xetal run --seed N"
+## (or XETAL_SEED) makes a run repeatable. Every function has an effect
+## and ends in !, as r_oll! does.
+
+big := 1000000000                            # the resolution of a draw
+
+### Shuffling
+
+## k random keys, 1..big.
+h:k_eys! := { k -> r_oll! k r_eshape big }
+
+## s_huffle! v: the items of v in a random order (sorting random keys).
+l:s_huffle! := { v -> (g_rade h:k_eys! t_ally v) s_elect v }
+
+## k d_eal! n: k different numbers from 1..n, in random order (APL's deal).
+l:d_eal! := { k n ->
+  (k < 0) | k > n ? @ p_anic< "cannot deal {k} different numbers from 1 to {n}"
+  k t_ake l:s_huffle! r_ange n
+}
+
+## c_hoice! v: one item of v, each as likely.
+l:c_hoice! := { v ->
+  0 = t_ally v ? @ p_anic< "there is nothing to choose from: the list is empty"
+  (r_oll! t_ally v) s_elect v
+}
+
+## k s_ample! v: k items of v, each drawn afresh (with replacement).
+l:s_ample! := { k v ->
+  (0 = t_ally v) & k > 0 ? @ p_anic< "there is nothing to sample from: the list is empty"
+  (r_oll! k r_eshape t_ally v) s_elect v
+}
+
+### Sampling distributions
+
+## u_niform! n: n Floats, each as likely anywhere in [0, 1).
+l:u_niform! := { n -> (f_loat (h:k_eys! n) - 1) / f_loat big }
+
+## n_ormal! n: n Floats from the standard normal distribution (mean 0,
+## standard deviation 1), by the Box-Muller transform.
+l:n_ormal! := { n ->
+  a := 1.0 - l:u_niform! n                   # in (0, 1], so l_og is finite
+  b := l:u_niform! n
+  ((-2.0 * l_og a) ^ 0.5) * c_os 2.0 * b * p_i @
+}
+
+## w w_eighted! k: k positions of w, each drawn with probability
+## proportional to its weight (weights >= 0, not all 0).
+l:w_eighted! := { w k ->
+  c := '+ s_\ f_loat w
+  u := (f_irst -1 t_ake c) * l:u_niform! k
+  1 + '{ t_ally w_here c <= _r } e_ach u
+}

@@ -1,0 +1,107 @@
+## Format: number formatting -- fixed decimals, thousands separators,
+## percentages, aligned columns, text tables.
+## Import it with an alias of your choice: "f:" u_se< "Format".
+## Put libs/Format/src on XETAL_PATH ("just path"); the reference is libs/Format/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## X_eTaL's f_ormat has no width or precision yet (dyadic format is on
+## its wish list): these build the text from the digits. A formatted
+## list is a list of texts (Box Char), one per number, ready for
+## f:c_olumn or f:t_able.
+
+"t:" u_se< "Strings"
+"li:" u_se< "Lists"
+
+digits := []D
+
+### Fixed decimals
+
+## The k decimal digits of a whole number d, leading zeros kept.
+h:p_added := { k d -> k = 0 ? ""; (1 + (k r_eshape 10) e_ncode d) s_elect digits }
+
+## One number with n decimals, rounded half away from zero.
+h:o_ne := { n x ->
+  s := f_loor 0.5 + (a_bs f_loat x) * f_loat 10 ^ n
+  w := s d_iv 10 ^ n
+  sign := ((x < 0) & s > 0) r_eplicate "-"
+  n = 0 ? sign c_at f_ormat w
+  sign c_at (f_ormat w) c_at "." c_at n h:p_added s m_od 10 ^ n
+}
+
+## n f_ixed v: each number of v with exactly n decimals (n >= 0).
+l:f_ixed := { n v -> '{ x -> n h:o_ne x } m_ap r_avel v }
+
+### Thousands and money
+
+## A whole number >= 0 with a comma between each group of three digits:
+## padded in front to a multiple of 3, cut into rows of 3, joined.
+h:c_ommas := { w ->
+  d := f_ormat w
+  p := 3 * c_eiling (f_loat t_ally d) / 3.0
+  rows := ((p d_iv 3) c_at 3) r_eshape (n_eg p) t_ake d
+  t:t_rimStart "," t:j_oin '{ i -> i s_elect rows } m_ap r_ange p d_iv 3
+}
+
+## One number rounded to a whole number, its thousands separated.
+h:g_rouped := { x ->
+  w := f_loor 0.5 + f_loat a_bs x
+  (((x < 0) & w > 0) r_eplicate "-") c_at h:c_ommas w
+}
+
+## One number with n decimals and its thousands separated.
+h:a_mount1 := { n x ->
+  s := f_loor 0.5 + (a_bs f_loat x) * f_loat 10 ^ n
+  w := s d_iv 10 ^ n
+  sign := ((x < 0) & s > 0) r_eplicate "-"
+  n = 0 ? sign c_at h:c_ommas w
+  sign c_at (h:c_ommas w) c_at "." c_at n h:p_added s m_od 10 ^ n
+}
+
+## t_housands v: each number of v, rounded to a whole number, with its
+## thousands separated by commas.
+l:t_housands := { v -> 'h:g_rouped m_ap r_avel v }
+
+## n a_mount v: each number of v with n decimals and its thousands
+## separated by commas (money: 2 f:a_mount 1324.69 is 1,324.69).
+l:a_mount := { n v -> '{ x -> n h:a_mount1 x } m_ap r_avel v }
+
+## n p_ercent v: each fraction of v as a percentage with n decimals.
+l:p_ercent := { n v -> '{ t -> (d_isclose t) c_at "%" } m_ap n l:f_ixed 100.0 * f_loat v }
+
+### Tables
+
+## A list of texts as a character matrix, one per row, w wide.
+h:r_ows := { w list -> ((t_ally list) c_at w) r_eshape li:r_aze list }
+
+## c_olumn list: the texts of a list right-aligned under each other (a
+## character matrix), as numbers are set in a column.
+l:c_olumn := { list ->
+  w := 'm_ax r_/ '{ t_ally d_isclose _r } e_ach list
+  w h:r_ows '{ t -> w t:p_adLeft d_isclose t } m_ap list
+}
+
+## Whether a text reads as a number (set right-aligned in a table).
+h:n_umeric? := { t -> 0 = t_ally t ? 0 = 1; '& r_/ t m_ember? []D c_at "-+.,%" }
+
+## t_able cells: a matrix of texts (Box Char), its first row the
+## header, as a character matrix: columns two spaces apart, each as wide
+## as its widest text, a column of numbers (every cell under the header)
+## right-aligned with its header, other columns left-aligned, a rule
+## under the header.
+l:t_able := { cells ->
+  w := 'm_ax r_/ '{ t_ally d_isclose _r } e_ach cells     # each column's width
+  num := '& r_/ 1 d_rop '{ h:n_umeric? d_isclose _r } e_ach cells
+  ws := r_avel (s_hape cells) r_eshape w                   # each cell's width
+  ns := r_avel (s_hape cells) r_eshape num                 # each cell's alignment
+  cs := r_avel cells
+  p := (s_hape cells) r_eshape '{ i ->
+    n := f_irst i s_elect ws
+    c := d_isclose i s_elect cs
+    f_irst i s_elect ns ? n t:p_adLeft c
+    n t:p_adRight c
+  } m_ap r_ange t_ally cs
+  rows := '{ i -> "  " t:j_oin i s_elect p } m_ap r_ange t_ally p
+  rule := "  " t:j_oin '{ n -> n r_eshape "-" } m_ap w
+  all := (1 t_ake rows) c_at (e_nclose rule) c_at 1 d_rop rows
+  (t_ally rule) h:r_ows all
+}

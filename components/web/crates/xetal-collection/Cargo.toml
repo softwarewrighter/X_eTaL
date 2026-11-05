@@ -1,0 +1,15 @@
+[package]
+name = "xetal-collection"
+description = "The X_eTaL-libraries collection for the live demo: its libraries and their demos, vendored at a pinned commit (vendor/libraries) and embedded, found after your files and the standard libraries"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-macro.workspace = true
+
+[dev-dependencies]
+xetal-play.workspace = true
+xetal-store.workspace = true

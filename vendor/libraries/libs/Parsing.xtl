@@ -1,0 +1,215 @@
+## Parsing: total parsers for macro authors: a notation in a string in, its pieces out or a refusal, nothing dropped.
+## Import it with an alias of your choice: "pa:" u_se< "Parsing".
+## Put libs/Parsing/src on XETAL_PATH ("just path"); the reference is libs/Parsing/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## A macro parses a notation written inside a string; the language
+## outside the string is untouched (X_eTaL macros cannot change how
+## source is read, MC10). A parser that uses part of its text and drops
+## the rest gives a silent wrong answer (the Equations library once
+## did). These parsers each use all of their text or refuse the call: a
+## group must close at its last character, a reference must end at its
+## bracket, a chain must have a value beside every operator; and a whole
+## parse can be written back and compared with its text. Refusing
+## parsers take the refusal's tag in their left argument: the macro's
+## error code and the place to report at (left, right or call), as
+## []R_EJECT takes them ("bad-equation right"), so a refusal reads as
+## the notation's own error.
+
+"t:" u_se< "Strings"
+
+### Pieces of text
+
+## t without its blanks: spaces, tabs and newlines.
+## >> "pa:" u_se< "Parsing"
+## >> pa:s_queeze "a + b"
+## a+b
+l:s_queeze := { t -> (n_ot t m_ember? " \t\n") r_eplicate t }
+
+## 1 at each character of t that is one of ops and at the top level:
+## outside parentheses, brackets and braces.
+## >> "+-" pa:t_op "a + (b - c)"
+## 0 0 1 0 0 0 0 0 0 0 0
+l:t_op := { ops t ->
+  d := '+ s_\ (0 + t m_ember? "([{") - 0 + t m_ember? ")]}"
+  (t m_ember? ops) & d = 0
+}
+
+## t cut at each character ch at the top level, the pieces trimmed and
+## boxed; no ch gives the one piece.
+## >> "," pa:s_plit "a, f(b, c), d"
+## ┌→──────────────────┐
+## │ ┌→┐ ┌→──────┐ ┌→┐ │
+## │ │a│ │f(b, c)│ │d│ │
+## │ └─┘ └───────┘ └─┘ │
+## └∊──────────────────┘
+l:s_plit := { ch t ->
+  cut := ch l:t_op t
+  k := (1 + '+ s_\ 0 + cut) * n_ot cut
+  '{ p -> t:t_rim d_isclose p } m_ap k p_artition t
+}
+
+## The position of the first w in t, or 0.
+## >> ":=" pa:a_t "i:=0..n"
+## 2
+l:a_t := { w t ->
+  i := w t:f_ind t
+  0 = t_ally i ? 0
+  f_irst i
+}
+
+## Whether t is one group in the brackets (open, close): it opens with
+## open and the depth returns to zero once only, at its last character.
+## >> ("(", ")") pa:c_losed "(a)(b)"
+## 0
+## >> ("(", ")") pa:c_losed "(a (b) c)"
+## 1
+l:c_losed := { (open, close) t ->
+  0 = t_ally t ? 0 = 1
+  n_ot open m_atch 1 t_ake t ? 0 = 1
+  d := '+ s_\ (0 + t m_ember? open) - 0 + t m_ember? close
+  (1 = '+ r_/ 0 + d = 0) & 0 = f_irst -1 t_ake d
+}
+
+## Whether t is one parenthesized group.
+## >> pa:g_roup? "((a) + b)"
+## 1
+l:g_roup? := { t -> ("(", ")") l:c_losed t }
+
+## The text inside a group: without its first and last characters.
+## >> pa:i_nner "(a + b)"
+## a + b
+l:i_nner := { t -> 1 d_rop -1 d_rop t }
+
+### Kinds of text
+
+## Whether t is a lowercase name: a lowercase letter, then letters or digits.
+## >> pa:n_ame? "x2"
+## 1
+l:n_ame? := { t -> (0 < t_ally t) & ((f_irst t) m_ember? lowers) & '* r_/ 0 + t m_ember? lowers c_at uppers c_at digits }
+
+## Whether t is a number: digits, with at most one point between digits.
+## >> pa:n_umber? "2.5"
+## 1
+## >> pa:n_umber? "2."
+## 0
+l:n_umber? := { t ->
+  points := '+ r_/ 0 + t m_ember? "."
+  ok := (0 < t_ally t) & '* r_/ 0 + t m_ember? digits c_at "."
+  ok & (points < 2) & ((f_irst t) m_ember? digits) & (f_irst -1 t_ake t) m_ember? digits
+}
+
+## Whether t is a word of name characters: letters, digits, _ and :
+## (an X_eTaL name with its namespace), as macros write them.
+## >> pa:w_ord? "nn:r_elu"
+## 1
+l:w_ord? := { t -> (0 < t_ally t) & '* r_/ 0 + t m_ember? lowers c_at uppers c_at digits c_at "_:" }
+
+### Refusals
+
+## Nothing when ok holds; else the call is refused with message under
+## the tag where (an error code and a place: "bad-text right"), as
+## []R_EJECT does.
+l:r_equire := { ok (where, message) ->
+  ok ? ""
+  where []R_EJECT message
+}
+
+## t when every character of it is in allowed; else a refusal naming
+## the first that is not.
+l:c_haracters := { (where, allowed) t ->
+  bad := (n_ot t m_ember? allowed) r_eplicate t
+  0 < t_ally bad ? where []R_EJECT "not a character of this notation: " c_at (1 t_ake bad) c_at " in " c_at t
+  t
+}
+
+## A parse written back equals its text without blanks, or the call is
+## refused: a rule dropped something.
+l:w_hole := { where (text, reprint) ->
+  (reprint m_atch l:s_queeze text) l:r_equire (where, "the parser did not use all of the text: it read " c_at reprint c_at " from " c_at text)
+}
+
+### Parsers
+
+## A chain cut at its top-level operators ops: (parts, the operators,
+## whether it opens with a minus); each operator must have a value on
+## each side (a leading minus negates the first), else a refusal.
+l:p_arts := { (where, ops) t ->
+  cut := ops l:t_op t
+  os := cut r_eplicate t
+  k := (1 + '+ s_\ 0 + cut) * n_ot cut
+  parts := '{ p -> t:t_rim d_isclose p } m_ap k p_artition t
+  neg := ("-" m_atch 1 t_ake t) & "-" m_atch 1 t_ake os
+  rest := neg h:p_ickText (1 d_rop os, os)
+  _ := ((t_ally parts) = 1 + t_ally rest) l:r_equire (where, "an operator needs a value on each side: " c_at t)
+  _ := ('* r_/ 1 c_at '{ p -> 0 < t_ally d_isclose p } e_ach parts) l:r_equire (where, "an operator needs a value on each side: " c_at t)
+  (parts, rest, neg)
+}
+
+## A binding "word i:=low..high" as (word, index, low, high): the word
+## one of words, the index a name, the range written with := and ..;
+## else a refusal, which calls the word what kind says ("an operator
+## word").
+l:b_inding := { (where, kind, words) t ->
+  s := t:t_rim t
+  ws := t:w_ords s
+  _ := (0 < t_ally ws) l:r_equire (where, "an empty binding: each is " c_at kind c_at ", an index, := and a range low..high")
+  word := d_isclose f_irst ws
+  known := 0 < '+ r_/ 0 + '{ w -> (d_isclose w) m_atch word } e_ach words
+  _ := known l:r_equire (where, "a binding starts with " c_at kind c_at " (" c_at (", " t:j_oin words) c_at "): " c_at s)
+  rest := t:t_rim (t_ally word) d_rop s
+  at := ":=" l:a_t rest
+  ix := t:t_rim (at - 1) t_ake rest
+  range := t:t_rim (at + 1) d_rop rest
+  dots := ".." l:a_t range
+  _ := ((0 < at) & 0 < dots) l:r_equire (where, "a binding is " c_at kind c_at ", an index, := and a range low..high, not " c_at s)
+  _ := (l:n_ame? ix) l:r_equire (where, "an index is a lowercase name: " c_at s)
+  (word, ix, t:t_rim (dots - 1) t_ake range, t:t_rim (dots + 1) d_rop range)
+}
+
+## A function applied, "f(a, b)", as (name, arguments): a name, then
+## one parenthesized group that ends the text, its arguments cut at the
+## top-level commas; else a refusal. Whether f is a function of the
+## notation, and how many arguments it takes, is the caller's to check.
+l:a_pplied := { where t ->
+  open := "(" l:a_t t
+  name := (open - 1) t_ake t
+  shaped := (0 < open) & (l:w_ord? name) & l:g_roup? (open - 1) d_rop t
+  _ := shaped l:r_equire (where, "a function applied is a name, then its arguments in parentheses that end the text: " c_at t)
+  (name, "," l:s_plit l:i_nner (open - 1) d_rop t)
+}
+
+## Whether t has the shape of a function applied: a word, then a
+## parenthesized group that ends the text.
+## >> pa:a_pplied? "exp(x)"
+## 1
+## >> pa:a_pplied? "exp(x) + 1"
+## 0
+l:a_pplied? := { t ->
+  open := "(" l:a_t t
+  0 = open ? 0 = 1
+  (0 < open) & (l:w_ord? (open - 1) t_ake t) & l:g_roup? (open - 1) d_rop t
+}
+
+## An array reference "A[i,j]" as (name, indices): a word, then its
+## indices in brackets that end the text, cut at the top-level commas;
+## else a refusal.
+l:r_eference := { where t ->
+  open := "[" l:a_t t
+  name := t:t_rim (open - 1) t_ake t
+  _ := ((0 < open) & l:w_ord? name) l:r_equire (where, "an array reference is a name, then its indices in brackets: " c_at t)
+  _ := (("[", "]") l:c_losed (open - 1) d_rop t) l:r_equire (where, "an array reference ends with its closing bracket; nothing follows it: " c_at t)
+  (name, "," l:s_plit l:i_nner (open - 1) d_rop t)
+}
+
+### Characters
+
+lowers := "abcdefghijklmnopqrstuvwxyz"
+uppers := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+digits := "0123456789"
+
+## a when c holds, else b (texts, already computed).
+h:p_ickText := { c (a, b) ->
+  c ? a
+  b
+}

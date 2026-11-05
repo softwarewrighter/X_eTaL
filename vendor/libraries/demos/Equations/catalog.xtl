@@ -1,0 +1,119 @@
+#!/usr/bin/env xetal
+## Thirteen equations as ML papers print them, each one call: its LaTeX (a
+## line between $$ is drawn as math in the live demo), its value, and
+## 1 when the value equals the same computation written as plain
+## X_eTaL. Run with "just demo Equations catalog".
+"e:" u_se< "Equations"
+
+### A matrix product: C[i,k] = sum_j A[i,j] B[j,k]
+A := f_loat 2 3 r_eshape 1 2 3 4 5 6
+B := f_loat 3 2 r_eshape 1 0 0 1 1 1
+(C, tex1) := "C[i,k] | 2 2" e:b_oth< "sum j:=0..2 | A[i,j] * B[j,k]"
+"$$" c_at tex1 c_at "$$"
+C
+C m_atch A '+ '* i_nner B
+
+### A dense layer with its bias: z[i] = sum_j W[i,j] x[j] + b[i]
+W := f_loat 2 3 r_eshape 1 2 3 4 5 6
+x := f_loat 1 1 1
+b := f_loat 10 20
+(z, tex2) := "z[i] | 2" e:b_oth< "(sum j:=0..2 | W[i,j] * x[j]) + b[i]"
+"$$" c_at tex2 c_at "$$"
+z
+z m_atch (W '+ '* i_nner x) + b
+
+### Attention scores and output: S = Q K^T / sqrt(d), O = S V
+Q := f_loat 2 4 r_eshape 1 0 0 0 0 1 0 0
+K := f_loat 2 4 r_eshape 2 0 0 0 0 2 0 0
+V := f_loat 2 3 r_eshape 1 2 3 4 5 6
+(S, tex3) := "S[i,j] | 2 2" e:b_oth< "(sum d:=0..3 | Q[i,d] * K[j,d]) / sqrt(4)"
+"$$" c_at tex3 c_at "$$"
+S
+S m_atch (Q '+ '* i_nner 2 1 t_ranspose K) / 2.0
+(O, tex4) := "O[i,k] | 2 3" e:b_oth< "sum j:=0..1 | S[i,j] * V[j,k]"
+"$$" c_at tex4 c_at "$$"
+O
+O m_atch S '+ '* i_nner V
+
+### Softmax: p[i] = exp(z[i]) / sum_j exp(z[j])
+logits := f_loat 1 2 3
+(p, tex5) := "p[i] | 3" e:b_oth< "exp(logits[i]) / (sum j:=0..2 | exp(logits[j]))"
+"$$" c_at tex5 c_at "$$"
+p
+p m_atch (e_xp logits) / '+ r_/ e_xp logits
+
+### Cross-entropy: L = -sum_i y[i] log(p[i])
+y := f_loat 0 0 1
+(ce, tex6) := "L[] | " e:b_oth< "-(sum i:=0..2 | y[i] * log(p[i]))"
+"$$" c_at tex6 c_at "$$"
+ce
+ce m_atch 0 - '+ r_/ y * l_og p
+
+### Mean squared error: L = (1/n) sum_i (y[i] - p[i])^2
+yy := f_loat 1 2 3 4
+pp := 1.5 2 2 4
+(mse, tex7) := "L[] | " e:b_oth< "(sum i:=0..3 | (yy[i] - pp[i])^2) / 4"
+"$$" c_at tex7 c_at "$$"
+mse
+mse m_atch ('+ r_/ (yy - pp) ^ 2) / 4.0
+
+### Layer norm's mean and variance: mu = (1/n) sum_i x[i], var = (1/n) sum_i (x[i] - mu)^2
+h := f_loat 1 2 3 4
+(mu, tex8) := "mu[] | " e:b_oth< "(sum i:=0..3 | h[i]) / 4"
+"$$" c_at tex8 c_at "$$"
+(var, tex9) := "var[] | " e:b_oth< "(sum i:=0..3 | (h[i] - mu)^2) / 4"
+"$$" c_at tex9 c_at "$$"
+mu c_at var
+(mu c_at var) m_atch 2.5 1.25
+
+### Cosine similarity: cos = sum_i a[i] b[i] / (sqrt(sum_i a[i]^2) sqrt(sum_i b[i]^2))
+a := f_loat 1 0 1
+bb := f_loat 1 1 0
+(cosine, tex10) := "c[] | " e:b_oth< "(sum i:=0..2 | a[i] * bb[i]) / (sqrt((sum i:=0..2 | a[i]^2)) * sqrt((sum i:=0..2 | bb[i]^2)))"
+"$$" c_at tex10 c_at "$$"
+cosine
+cosine m_atch ('+ r_/ a * bb) / (('+ r_/ a ^ 2) ^ 0.5) * ('+ r_/ bb ^ 2) ^ 0.5
+
+### An L2 penalty: R = lambda sum_i w[i]^2
+weights := f_loat 1 -2 3
+(l2, tex11) := "R[] | " e:b_oth< "0.5 * (sum i:=0..2 | weights[i]^2)"
+"$$" c_at tex11 c_at "$$"
+l2
+l2 m_atch 0.5 * '+ r_/ weights ^ 2
+
+### Max pooling, 2 by 2 windows: P[o,h,w] = max_r max_s X[o,2h+r,2w+s]
+X := 1 4 4 r_eshape r_ange 16
+(P, tex12) := "P[o,h,w] | 1 2 2" e:b_oth< "max r:=0..1, max s:=0..1 | X[o,2*h+r,2*w+s]"
+"$$" c_at tex12 c_at "$$"
+P
+P m_atch 1 2 2 r_eshape 6 8 14 16
+
+### A 1-D convolution: y[n] = sum_m x[n-m] h[m], valid mode (the layer's cross-correlation is the kernel unreversed)
+xs := 1 2 3 4
+hk := 1 2 3
+(M, L) := (3, 4)
+(yc, tex13) := "y[n] | L-M+1" e:b_oth< "sum m:=0..M-1 | xs[n+M-1-m] * hk[m]"
+"$$" c_at tex13 c_at "$$"
+yc
+yc m_atch "y[n] | valid" e:c_onvolve< "xs hk"
+yc m_atch ((r_ev hk) '+ '* i_nner 3 t_ake xs) c_at (r_ev hk) '+ '* i_nner 1 d_rop xs
+
+### GELU: x Phi(x), Phi(x) = 1/2 + integral_0^x exp(-u^2/2) / sqrt(2 pi) du (Hendrycks and Gimpel, 2016)
+pi := 3.141592653589793
+u:g_elu := { x -> x * "Phi[] | " e:e_q< "1 / 2 + (integral u:=0..x by simpson 32 | exp(-(u^2) / 2) / sqrt(2 * pi))" }
+tex14 := "Phi[] | " e:t_ex< "1 / 2 + (integral u:=0..x | exp(-(u^2) / 2) / sqrt(2 * pi))"
+"$$" c_at tex14 c_at "$$"
+gelu := 'u:g_elu e_ach -2.0 -1.0 0.0 1.0 2.0
+(f_loat f_loor 0.5 + 10000.0 * gelu) / 10000.0
+## The tanh approximation the frameworks compute agrees to 5e-4 (its largest error over -4..4 is 0.000473).
+u:t_anh := { z -> ((e_xp z) - e_xp n_eg z) / (e_xp z) + e_xp n_eg z }
+u:a_pprox := { x -> 0.5 * x * 1.0 + u:t_anh ((2.0 / pi) ^ 0.5) * x + 0.044715 * x ^ 3 }
+'& r_/ 0.0005 > a_bs gelu - u:a_pprox -2.0 -1.0 0.0 1.0 2.0
+
+### KL divergence of two Gaussians: KL(p || q) = integral p(x) log(p(x) / q(x)) dx, against its closed form
+(m1, s1, m2, s2) := (0.0, 1.0, 1.0, 2.0)
+(kl, tex15) := "KL[] | " e:b_oth< "integral x:=-10..10 by simpson 400 | (exp(-((x - m1)^2) / (2 * s1^2)) / (s1 * sqrt(2 * pi))) * log((exp(-((x - m1)^2) / (2 * s1^2)) / (s1 * sqrt(2 * pi))) / (exp(-((x - m2)^2) / (2 * s2^2)) / (s2 * sqrt(2 * pi))))"
+"$$" c_at tex15 c_at "$$"
+(f_loat f_loor 0.5 + 1000000.0 * kl) / 1000000.0
+closed := (l_og s2 / s1) + ((s1^2 + (m1 - m2)^2) / 2.0 * s2^2) - 0.5
+0.000001 > a_bs kl - closed

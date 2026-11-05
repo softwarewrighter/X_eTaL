@@ -1,0 +1,16 @@
+#!/usr/bin/env xetal
+## Grading a function with Check: a student's median, tested against
+## cases with known answers. Run with "just demo Check grading".
+
+"ch:" u_se< "Check"
+
+# The student's attempt: sort, then take the middle item.
+u:m_edian := { v -> s := s_ort v; f_irst (1 + (t_ally v) d_iv 2) s_elect s }
+
+# The cases. An even count has two middle items: the median is their
+# mean, which the attempt misses.
+a := "odd count" ch:t_est 3 ch:n_ear u:m_edian 5 3 1
+b := "unsorted" ch:t_est 4 ch:n_ear u:m_edian 9 4 1 7 2
+c := "one item" ch:t_est 7 ch:n_ear u:m_edian 7
+d := "even count" ch:t_est 2.5 ch:n_ear u:m_edian 1 2 3 4    # shows failures
+ch:r_eport a ch:a_nd b ch:a_nd c ch:a_nd d

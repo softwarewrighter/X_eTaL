@@ -1,0 +1,33 @@
+#!/usr/bin/env xetal
+## Two continuous equations of machine learning, written as the papers
+## print them. GELU, the activation of BERT and GPT, is x Phi(x)
+## (Hendrycks and Gimpel, 2016), Phi the Gaussian CDF: 1/2 plus the
+## integral from 0 to x of the density exp(-u^2/2) / sqrt(2 pi), so no
+## improper bound is needed. The tanh form the frameworks compute is an
+## approximation; the integral says by how much. Then the KL divergence
+## of two Gaussians, the integral of p log(p / q) over a truncation
+## (the tails beyond -10..10 are below 1e-20), beside its closed form.
+## Run with "just demo Equations integrals".
+"e:" u_se< "Equations"
+pi := 3.141592653589793
+## GELU at one x: x (1/2 + the integral of the density from 0 to x), simpson on 32 steps.
+u:g_elu := { x -> x * 0.5 + "L[] | " e:e_q< "integral u:=0..x by simpson 32 | exp(-(u^2) / 2) / sqrt(2 * pi)" }
+## The tanh approximation: x/2 (1 + tanh(sqrt(2/pi) (x + 0.044715 x^3))), tanh by exp.
+u:t_anh := { z -> ((e_xp z) - e_xp n_eg z) / (e_xp z) + e_xp n_eg z }
+u:a_pprox := { x -> 0.5 * x * 1.0 + u:t_anh ((2.0 / pi) ^ 0.5) * x + 0.044715 * x ^ 3 }
+xs := -3.0 -2.0 -1.0 -0.5 0.0 0.5 1.0 2.0 3.0
+g := 'u:g_elu e_ach xs
+(f_loat f_loor 0.5 + 10000.0 * g) / 10000.0
+## The approximation's error at those points, and its largest over -4..4.
+(f_loat f_loor 0.5 + 1000000.0 * g - u:a_pprox xs) / 1000000.0
+fine := -4.0 + 0.05 * f_loat o_ffsets 161
+(f_loat f_loor 0.5 + 1000000.0 * 'm_ax r_/ a_bs ('u:g_elu e_ach fine) - u:a_pprox fine) / 1000000.0
+## What the paper writes.
+"$$" c_at ("Phi[] | " e:t_ex< "1 / 2 + (integral u:=0..x | exp(-(u^2) / 2) / sqrt(2 * pi))") c_at "$$"
+## KL(N(0, 1) || N(1, 2)) over -10..10 by simpson on 400 steps, and the
+## closed form log(s2 / s1) + (s1^2 + (m1 - m2)^2) / (2 s2^2) - 1/2.
+(m1, s1, m2, s2) := (0.0, 1.0, 1.0, 2.0)
+kl := "L[] | " e:e_q< "integral x:=-10..10 by simpson 400 | (exp(-((x - m1)^2) / (2 * s1^2)) / (s1 * sqrt(2 * pi))) * log((exp(-((x - m1)^2) / (2 * s1^2)) / (s1 * sqrt(2 * pi))) / (exp(-((x - m2)^2) / (2 * s2^2)) / (s2 * sqrt(2 * pi))))"
+closed := (l_og s2 / s1) + ((s1^2 + (m1 - m2)^2) / 2.0 * s2^2) - 0.5
+(f_loat f_loor 0.5 + 1000000.0 * kl c_at closed) / 1000000.0
+"$$" c_at ("KL[] | " e:t_ex< "integral x:=-10..10 | P[x] * log(P[x] / Q[x])") c_at "$$"

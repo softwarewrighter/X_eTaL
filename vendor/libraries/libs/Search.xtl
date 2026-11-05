@@ -1,0 +1,65 @@
+## Search: searching and ranking -- positions in sorted lists, merges,
+## the k largest, ranks with ties, nearest items, order statistics,
+## ranges.
+## Import it with an alias of your choice: "sr:" u_se< "Search".
+## Put libs/Search/src on XETAL_PATH ("just path"); the reference is libs/Search/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## Positions count from 1, as everywhere in X_eTaL. Binary search is
+## Lists' li:b_search; the rest works on whole lists at once.
+
+"li:" u_se< "Lists"
+
+### Finding
+
+## s p_osition x: where each x is in the sorted list s (its first
+## place), 0 where it is not there.
+l:p_osition := { s x ->
+  after := s li:b_search x                     # how many are <= x
+  before := '{ y -> t_ally w_here s < y } e_ach x
+  found := (after > before)
+  found * before + 1
+}
+
+## a m_erge b: two sorted lists as one sorted list (stable: a's items
+## before b's equals).
+l:m_erge := { a b -> v := a c_at b; (g_rade v) s_elect v }
+
+### Ranking
+
+## k t_opAt v: the positions of the k largest items, largest first
+## (ties in order of position).
+l:t_opAt := { k v ->
+  (k < 0) | k > t_ally v ? @ p_anic< "there are {t_ally v} items, so not {k} largest"
+  k t_ake g_rade n_eg v
+}
+
+## k t_op v: the k largest items, largest first.
+l:t_op := { k v -> (k l:t_opAt v) s_elect v }
+
+## k k_th v: the k-th smallest item (1 is the least).
+l:k_th := { k v ->
+  (k < 1) | k > t_ally v ? @ p_anic< "there are {t_ally v} items: the k-th smallest is for k from 1 to {t_ally v}, not {k}"
+  f_irst k s_elect s_ort v
+}
+
+## r_ank v: each item's rank, 1 for the least; tied items share the
+## mean of their places (1 2.5 2.5 4).
+l:r_ank := { v ->
+  less := '+ r_/_2 v '> t_able v
+  same := '+ r_/_2 v '= t_able v
+  (f_loat less) + (f_loat same + 1) / 2.0
+}
+
+## d_enseRank v: each item's rank among the distinct values (1 2 2 3).
+l:d_enseRank := { v -> (s_ort u_nique v) i_ndexOf v }
+
+### Nearest and ranges
+
+## v n_earest x: for each x, the position of the item of v closest to
+## it (the first, on a tie).
+l:n_earest := { v x -> '{ y -> f_irst g_rade a_bs (f_loat v) - f_loat y } e_ach x }
+
+## range b_etween v: range is two numbers, lo and hi; whether each
+## item of v lies from lo to hi, both included.
+l:b_etween := { r v -> (v >= f_irst r) & v <= f_irst 1 d_rop r }

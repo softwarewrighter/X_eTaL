@@ -1,0 +1,446 @@
+## Eigencube: a Rubik's cube as rotation matrices, turned by matrix
+## products and solved by search. A port of Steffen Smolka's
+## eigencube.py (github.com/smolkaj/eigencube, MIT). Each of the 26
+## cubelets is the integer point c of {-1, 0, 1}^3 where it sits in the
+## solved cube and carries a rotation matrix R: it sits now at R c. A
+## quarter turn of the face with outward normal v moves the cubelets
+## with v . (R c) > 0, multiplying R by one rotation matrix. A batch of
+## cubes is one array, n by 26 by 3 by 3, so all twelve turns of every
+## cube in a search are two matrix products.
+## Import it with an alias of your choice: "ec:" u_se< "Eigencube".
+## Put libs/Eigencube/src on XETAL_PATH ("just path"); the reference is libs/Eigencube/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## Moves are numbered 1 to 12: move 2f-1 turns face f clockwise as seen
+## facing it, move 2f counterclockwise, the faces in the order of
+## ec:faces, "UDFBRL" (up +z, front +x, right +y); ec:n_ame writes them
+## in the usual notation (U, U', D, ...) and ec:p_arse reads it.
+
+### The cube
+
+## The 27 integer points of {-1, 0, 1}^3, one per row (x slowest).
+pts := (o_\ 3 3 3 e_ncode o_ffsets 27) - 1
+## The 26 cubelets, each named by its place in the solved cube: every
+## point but the hidden center.
+C := (0 < '+ r_/_2 a_bs pts) r_eplicate pts
+## Each cubelet's 1-norm, its number of stickers: 1 center, 2 edge,
+## 3 corner.
+kind := '+ r_/_2 a_bs C
+## Each cubelet's layer in the solved cube: 1 top, 0 middle, -1 bottom.
+z := 3 s_elect_2 C
+## The 3-by-3 identity.
+I := 3 3 r_eshape 1 0 0 0 1 0 0 0 1
+## The solved cube: every cubelet unrotated, a batch of one, 1 26 3 3.
+l:solved := 1 26 3 3 r_eshape I
+
+### The twelve quarter turns
+
+## The six faces' outward normals, named U D F B R L: up is +z, front
+## +x, right +y. Faces 2a-1 and 2a share axis a.
+N := 6 3 r_eshape 0 0 1  0 0 -1  1 0 0  -1 0 0  0 1 0  0 -1 0
+## The face names, in the order of N.
+l:faces := "UDFBRL"
+## The move vectors: move 2f-1 turns face f clockwise as seen facing
+## it, move 2f counterclockwise.
+V := 2 r_eplicate N
+## Each move's direction: 1 clockwise, -1 counterclockwise.
+dir := 12 r_eshape 1 -1
+## The cross-product matrices, flattened: row k holds minus the
+## Levi-Civita symbol eps(i, j, k) over (i, j), so that row v of
+## `V '+ '* i_nner E` is [v]x, the matrix with [v]x u = v x u.
+E := 3 9 r_eshape 0 0 0  0 0 -1  0 1 0  0 0 1  0 0 0  -1 0 0  0 -1 0  1 0 0  0 0 0
+## The twelve rotation matrices, flattened, one per row: a quarter
+## turn clockwise about v (seen from v) is v v^T - [v]x, Rodrigues'
+## formula at -90 degrees; counterclockwise flips the sign of [v]x.
+Mf := (((3 r_eplicate 1 2 3) s_elect_2 V) * (9 r_eshape 1 2 3) s_elect_2 V) - (12 9 r_eshape 9 r_eplicate dir) * V '+ '* i_nner E
+## The twelve matrices stacked into one 36 by 3 matrix: rows 3m-2 to
+## 3m are move m's. One product with it turns a batch every way at once.
+M := 36 3 r_eshape Mf
+
+## h:t_urns R: every quarter turn applied to every 3-by-3 matrix of R,
+## a batch of n (n 3 3); the result is 12 n 3 3, turn first. The batch
+## is laid out 3 n 3, so one matrix product with M turns them all.
+h:t_urns := { R ->
+  n := t_ally R
+  1 3 2 4 t_ranspose (12 3 c_at n c_at 3) r_eshape M '+ '* i_nner 2 1 3 t_ranspose R
+}
+
+## h:p_os S: where each cubelet of each cube of the batch S (n 26 3 3)
+## sits, R c; the result is n 26 3.
+h:p_os := { S -> '+ r_/_4 S * (s_hape S) r_eshape 2 1 3 t_ranspose 3 26 3 r_eshape C }
+
+## h:c_hildren S: all twelve turns of every cube of the batch S, 12n
+## cubes, move-major: cube r is move 1 + (r - 1) div n of cube
+## 1 + (r - 1) mod n. A cubelet moves when the move vector's dot
+## product with where it sits is positive (one matrix product for
+## every move and cubelet); a moved cubelet's matrix is the turn's
+## matrix times its own (the other product, in h:t_urns).
+h:c_hildren := { S ->
+  n := t_ally S
+  sh := 12 c_at n c_at 26 3 3
+  sel := 0 < V '+ '* i_nner o_\ ((n * 26) c_at 3) r_eshape h:p_os S
+  T := sh r_eshape h:t_urns ((n * 26) c_at 3 3) r_eshape S
+  S12 := sh r_eshape S
+  ((12 * n) c_at 26 3 3) r_eshape S12 + (sh r_eshape 9 r_eplicate r_avel sel) * T - S12
+}
+
+## l:t_urn m S: move m (1 to 12) applied to every cube of the batch S.
+## >> "ec:" u_se< "Eigencube"
+## >> ec:solved m_atch 4 '{ S -> 5 ec:t_urn S } p_ower ec:solved
+## 1
+l:t_urn := { m S -> (((m - 1) * t_ally S) + r_ange t_ally S) s_elect h:c_hildren S }
+
+## l:d_o ms S: the moves ms (a vector of 1 to 12) applied in order to
+## every cube of the batch S.
+## >> "ec:" u_se< "Eigencube"
+## >> ec:solved m_atch 12 11 10 9 ec:d_o 9 10 11 12 ec:d_o ec:solved
+## 1
+l:d_o := { ms S ->
+  0 = t_ally ms ? S
+  (1 d_rop ms) l:d_o (f_irst ms) l:t_urn S
+}
+
+### Stickers: the cube as six faces of nine colors
+
+## Each face's two directions across the page, as a cube net draws
+## it: rightward, then downward, seen from outside the face (U with F
+## below it, D with F above it, the side faces with U above them).
+across := 6 3 r_eshape 0 1 0  0 1 0  0 1 0  0 -1 0  -1 0 0  1 0 0
+down := 6 3 r_eshape 1 0 0  -1 0 0  0 0 -1  0 0 -1  0 0 -1  0 0 -1
+
+## l:s_tickers S: the colors of the cube S (a batch of one) as a 6 by 9
+## matrix, a row per face (U D F B R L), its cells row by row as the
+## face is seen; a color is the face of the solved cube it belongs to
+## (1 to 6, the order of N). Cubelet k shows a sticker on face v when
+## v . (R c) = 1; the sticker's color is the direction it faced in the
+## solved cube, R^T v, so the colors are one more matrix product.
+l:s_tickers := { S ->
+  P := 26 3 r_eshape h:p_os S
+  on := r_avel 1 = N '+ '* i_nner o_\ P
+  cell := (3 * 1 + down '+ '* i_nner o_\ P) + 2 + across '+ '* i_nner o_\ P
+  key := r_avel (10 * 6 26 r_eshape 26 r_eplicate r_ange 6) + cell
+  home := N '+ '* i_nner 2 1 3 t_ranspose 26 3 3 r_eshape S
+  color := N i_ndexOf 156 3 r_eshape home
+  6 9 r_eshape (g_rade on r_eplicate key) s_elect on r_eplicate color
+}
+
+### The 24 orientations, and how far each cubelet is from home
+
+## h:g_row G: the rotations G (flattened rows of 9) and every turn of
+## them, without repeats.
+h:g_row := { G -> u_nique G c_at ((12 * t_ally G) c_at 9) r_eshape h:t_urns ((t_ally G) c_at 3 3) r_eshape G }
+## The cube's 24 rotations, flattened, one per row: what the twelve
+## turns reach from the identity (three rounds reach them all).
+G := 3 'h:g_row p_ower 1 9 r_eshape I
+## The turns' Cayley table: row m, column g is the index in G of the
+## rotation that move m makes of rotation g.
+Tm := 12 24 r_eshape G i_ndexOf 288 9 r_eshape h:t_urns 24 3 3 r_eshape G
+
+## h:o_rient S: the index in G of each cubelet's rotation, n 26.
+h:o_rient := { S -> ((t_ally S) c_at 26) r_eshape G i_ndexOf ((26 * t_ally S) c_at 9) r_eshape S }
+
+## Where each cubelet sits in each rotation, 26 24: the index in pts
+## of G c, from one matrix product of every rotation with every name.
+at := 26 24 r_eshape pts i_ndexOf 624 3 r_eshape 2 3 1 t_ranspose 24 3 26 r_eshape (72 3 r_eshape G) '+ '* i_nner o_\ C
+## Which points each move turns, 12 27: the dot product of the move
+## vector with the point is positive.
+layer := 1 * 0 < V '+ '* i_nner o_\ pts
+
+## h:n_ext O: h:c_hildren for cubes given by their orientations O (n 26),
+## as orientations (12n 26): the same turns, read from the two tables
+## the matrices made (at, layer and the Cayley table Tm), so the search
+## moves 26 small integers per cube instead of 26 matrices.
+h:n_ext := { O ->
+  n := t_ally O
+  m := (n * 26) r_eplicate o_ffsets 12
+  o := (12 * n * 26) r_eshape r_avel O
+  P := ((r_avel O) + 24 * (n * 26) r_eshape o_ffsets 26) s_elect r_avel at
+  sel := ((27 * m) + (12 * n * 26) r_eshape P) s_elect r_avel layer
+  ((12 * n) c_at 26) r_eshape o + sel * (((24 * m) + o) s_elect r_avel Tm) - o
+}
+
+## h:r_elax d: a table of distances (cubelet by rotation) relaxed along
+## every turn until it stops changing, so d[k; g] becomes the fewest
+## quarter turns that take rotation g to one where cubelet k is done.
+h:r_elax := { d ->
+  e := d m_in 1 + 'm_in r_/_2 26 12 24 r_eshape (r_avel Tm) s_elect_2 d
+  e m_atch d ? d
+  h:r_elax e
+}
+## h:d_istances done: the distance table from a 26 by 24 table of 1s
+## where the cubelet counts as done in that rotation.
+h:d_istances := { done -> h:r_elax 99 * 1 - done }
+
+## How far column j of each rotation is from e_j, 24 3.
+colDev := '+ r_/_2 a_bs (24 3 3 r_eshape G) - 24 3 3 r_eshape I
+## Solved distances, 26 24 (eigencube.py's min_moves_to_solved): a
+## cubelet is solved when its rotation fixes each axis it has stickers
+## on, the nonzero coordinates of its name.
+Dsolved := h:d_istances 0 = (a_bs C) '+ '* i_nner o_\ colDev
+## l:s_olved? S: whether every cubelet of the cube S (a batch of one) is
+## solved (eigencube.py's is_cube_solved): a center may still be turned
+## about its own axis, which no sticker shows.
+## >> "ec:" u_se< "Eigencube"
+## >> (ec:s_olved? ec:solved) c_at ec:s_olved? 1 ec:t_urn ec:solved
+## 1 0
+l:s_olved? := { S -> 0 = '+ r_/ ((r_avel h:o_rient S) + 24 * o_ffsets 26) s_elect r_avel Dsolved }
+## How far each rotation moves each home point, 24 26.
+posDev := '+ r_/_2 a_bs (24 3 26 r_eshape (72 3 r_eshape G) '+ '* i_nner o_\ C) - 24 3 26 r_eshape o_\ C
+## Place distances, 26 24 (eigencube.py's min_moves_to_position): a
+## cubelet is in place when R c = c, its stickers perhaps twisted.
+Dplace := h:d_istances 0 = o_\ posDev
+## Whether each rotation keeps the bottom face (yellow) down: R fixes z.
+yellowDown := 1 * 0 = 3 s_elect_2 colDev
+
+### The stages: goals and heuristics as matrix products
+
+## The cubelet sets the stages count over, one per row: 1 none, 2 top
+## edges, 3 top layer, 4 top and middle layers, 5 bottom edges,
+## 6 bottom corners, 7 middle layer, 8 bottom layer but its corners,
+## 9 all but the bottom corners.
+sets := 9 26 r_eshape (26 r_eshape 0) c_at ((z = 1) & kind = 2) c_at (z = 1) c_at (z >= 0) c_at ((z = -1) & kind = 2) c_at ((z = -1) & kind = 3) c_at (z = 0) c_at ((z = -1) & kind < 3) c_at n_ot (z = -1) & kind = 3
+
+## h:s_pec s: stage s (1 to 29) as 7 rows of 3. A goal is three counts
+## at least their thresholds: count c is how many cubelets of set
+## row1[c] are solved, plus of set row2[c] have yellow down, plus of
+## set row3[c] are in place; row 6 holds the thresholds. The heuristic
+## is a sum of three terms, term t (sum of sqrt d)^2 / row7[t], the
+## sum over set row4[t] of solved distances and over set row5[t] of
+## place distances (eigencube.py's p-norms with p = 1/2).
+## Stages 1-17 solve the top and middle layers a cubelet at a time,
+## 18-25 the bottom edges (yellow down, then solved), 26-29 put the
+## bottom corners in place.
+h:s_pec := { s ->
+  s <= 9 ? 7 3 r_eshape (2 3 4 1 1 1 1 1 1 3 1 1 1 1 1) c_at (4 m_in s) c_at s c_at s c_at 8 1 1
+  s <= 17 ? 7 3 r_eshape (2 3 4 1 1 1 1 1 1 4 1 1 1 1 1 4 9) c_at s c_at 4 1 1
+  s <= 25 ? 7 3 r_eshape (4 1 5 1 5 1 1 1 1 9 1 1 1 1 1 17) c_at (4 m_in s - 17) c_at (s - 21) c_at 3 1 1
+  7 3 r_eshape (4 5 1 1 1 1 1 1 6 3 7 8 1 1 6 17 4) c_at (s - 25) c_at 5 3 8
+}
+
+## h:o_f r spec: the cubelet sets named by row r of a stage's spec, as
+## the columns of a 26 by 3 matrix of 1s and 0s.
+h:o_f := { r spec -> o_\ (r s_elect spec) s_elect sets }
+
+## h:r_elevant spec: the cubelets a stage looks at, 1s and 0s over the
+## 26: those of every set its goal and heuristic name (rows 1 to 5).
+h:r_elevant := { spec -> 0 < '+ r_/ (r_avel 5 t_ake spec) s_elect sets }
+## h:p_roject rel O: the orientations O with every cubelet the stage
+## does not look at (rel 0) set to 1, the identity. A turn moves each
+## cubelet by its own position and rotation alone, never by the others,
+## so cubes that differ only there are one state to the stage's search.
+h:p_roject := { rel O -> 1 + (O - 1) * (s_hape O) r_eshape rel }
+
+## h:s_core spec O: each cube's search score, from its cubelets'
+## orientations O (n 26, h:o_rient): -1 for a cube that meets the
+## stage's goal, else its heuristic, a Float per cube.
+h:s_core := { spec O ->
+  n := t_ally O
+  o := r_avel O
+  ix := o + 24 * (n * 26) r_eshape o_ffsets 26
+  ds := (n c_at 26) r_eshape ix s_elect r_avel Dsolved
+  dp := (n c_at 26) r_eshape ix s_elect r_avel Dplace
+  yd := (n c_at 26) r_eshape o s_elect yellowDown
+  cnt := ((ds = 0) '+ '* i_nner (1 h:o_f spec)) + (yd '+ '* i_nner (2 h:o_f spec)) + (dp = 0) '+ '* i_nner (3 h:o_f spec)
+  goal := '& r_/_2 cnt >= (n c_at 3) r_eshape 6 s_elect spec
+  q := (((f_loat ds) ^ 0.5) '+ '* i_nner f_loat 4 h:o_f spec) + ((f_loat dp) ^ 0.5) '+ '* i_nner f_loat 5 h:o_f spec
+  h := (q * q) '+ '* i_nner 1 / 7 s_elect spec
+  ((f_loat n_ot goal) * h + 1.0) - 1.0
+}
+
+### Search: A*, a batch of cubes at a time
+
+## How many of the best open cubes each step of the search expands.
+batch := 256
+## How much more the heuristic weighs than the moves made (weighted A*).
+greed := 1.0
+
+## l:i_nverse m: the move that undoes move m (0, no move, has none).
+l:i_nverse := { m -> m + (2 * m m_od 2) - 1 }
+## h:f_ace m: the face move m turns, 1 to 6 (0 for no move).
+h:f_ace := { m -> (m + 1) d_iv 2 }
+
+## h:c_ubes O: the cubes whose cubelets' orientations are O (n 26), their
+## rotation matrices looked up in G, n 26 3 3.
+h:c_ubes := { O -> ((t_ally O) c_at 26 3 3) r_eshape (r_avel O) s_elect G }
+## h:k_ey O: each cube's key, n 2: its 26 orientations (1 to 24) as two
+## 13-digit numbers in base 24, so one i_ndexOf finds a cube.
+h:k_ey := { O -> o_\ (2 c_at t_ally O) r_eshape (24 d_ecode o_\ 13 t_ake_2 O - 1) c_at 24 d_ecode o_\ -13 t_ake_2 O - 1 }
+
+## The macros: the solver's moves for the middle and bottom layers,
+## each a fixed sequence of turns. 1 to 3: D, D' and D2. 4 to 8: the
+## classic sequences for the last layer, mirrored from the top to the
+## bottom (U and D swap, R and L swap): F L D L' D' F' flips two bottom
+## edges, Sune (L D L' D L D2 L') and its mirror cycle edges and twist
+## corners, D L D' R' D L' D' R and its inverse cycle three bottom
+## corners. 9 to 16: a middle edge brought up from the bottom into each
+## of the four slots, from either side (U R U' R' U' F' U F and its
+## mirror, mirrored the same way and turned about the vertical axis).
+## Each keeps the top layer whole, and each of 1 to 8 the top two
+## layers, so a search over them builds on what is solved (as the
+## endgame's twist does in eigencube.py).
+macros := (e_nclose 1 r_eshape 3) c_at (e_nclose 1 r_eshape 4) c_at (e_nclose 3 3) c_at (e_nclose 5 11 3 12 4 6) c_at (e_nclose 11 3 12 3 11 3 3 12) c_at (e_nclose 11 3 3 12 4 11 4 12) c_at (e_nclose 3 11 4 10 3 12 4 9) c_at (e_nclose 10 3 11 4 9 3 12 4) c_at (e_nclose 3 11 4 12 4 6 3 5) c_at (e_nclose 3 5 4 6 4 10 3 9) c_at (e_nclose 3 9 4 10 4 8 3 7) c_at (e_nclose 3 7 4 8 4 12 3 11) c_at (e_nclose 4 10 3 9 3 5 4 6) c_at (e_nclose 4 8 3 7 3 9 4 10) c_at (e_nclose 4 12 3 11 3 7 4 8) c_at e_nclose 4 6 3 5 3 11 4 12
+## The macros the middle layer's stages search over: D turns and the
+## insertions.
+middle := 1 2 3 9 10 11 12 13 14 15 16
+## The macros the bottom layer's stages search over: D turns and the
+## last-layer sequences.
+bottom := 1 2 3 4 5 6 7 8
+
+## h:a_ctions hybrid s: what stage s searches over: none for the twelve
+## turns (all stages when hybrid is 0, eigencube.py's search alone; the
+## top layer always), else the middle or the bottom layer's macros.
+h:a_ctions := { hybrid s ->
+  (hybrid = 0) | s <= 9 ? o_ffsets 0
+  s <= 17 ? middle
+  bottom
+}
+
+## h:a_long ms O: the moves ms applied in order to the cubes O (n 26),
+## as orientations.
+h:a_long := { ms O ->
+  0 = t_ally ms ? O
+  (1 d_rop ms) h:a_long ((((f_irst ms) - 1) * t_ally O) + r_ange t_ally O) s_elect h:n_ext O
+}
+## h:m_acros set O: every macro of the set (indices into `macros`)
+## applied to every cube of O, macro-major as h:n_ext orders the turns.
+h:m_acros := { set O ->
+  0 = t_ally set ? 0 26 r_eshape 0
+  ((d_isclose (f_irst set) s_elect macros) h:a_long O) c_at (1 d_rop set) h:m_acros O
+}
+## h:e_xpand set O: the cubes one action from O: the twelve turns for an
+## empty set, else the set's macros.
+h:e_xpand := { set O ->
+  0 = t_ally set ? h:n_ext O
+  set h:m_acros O
+}
+## h:f_latten acts: macros (indices into `macros`) as the moves they make.
+h:f_latten := { acts ->
+  0 = t_ally acts ? o_ffsets 0
+  (d_isclose (f_irst acts) s_elect macros) c_at h:f_latten 1 d_rop acts
+}
+
+## h:s_tep spec table: one step of the search. The table holds every cube
+## found, a row each: its key, its orientations, the cube it was reached
+## from, the move, its moves from the start g and its priority
+## g + greed * h; then the open cubes, best first. A step takes the best
+## `batch` open cubes, turns each every way at once, drops a move that
+## undoes the last one or turns two opposite faces out of order (they
+## commute; eigencube.py prunes the same two), and adds the cubes not
+## found before. It stops on a cube that meets the goal, giving the
+## moves to it.
+h:s_tep := { (spec, set) (keys, O, par, mv, g, f, open) ->
+  0 = t_ally open ? "stuck" []S_IGNAL "the search ran out of cubes"
+  pick := (batch m_in t_ally open) t_ake open
+  n := t_ally pick
+  r := o_ffsets n * (t_ally set) + 12 * 0 = t_ally set
+  cm := 1 + r d_iv n
+  cp := (1 + r m_od n) s_elect pick
+  last := cp s_elect mv
+  ok := w_here (0 < t_ally set) | n_ot (cm = l:i_nverse last) | (h:f_ace last) = 1 + (h:f_ace cm) * 1 = 2 m_od h:f_ace cm
+  KO := (h:r_elevant spec) h:p_roject ok s_elect set h:e_xpand pick s_elect O
+  kp := ok s_elect cp
+  km := ok s_elect cm
+  sc := spec h:s_core KO
+  hit := w_here sc < 0
+  0 < t_ally hit ? ((par, mv) h:t_race f_irst hit s_elect kp) c_at f_irst hit s_elect km
+  KK := h:k_ey KO
+  new := w_here ((KK i_ndexOf KK) = r_ange t_ally KK) & (keys i_ndexOf KK) > t_ally keys
+  ng := 1 + new s_elect kp s_elect g
+  f2 := f c_at (f_loat ng) + greed * new s_elect sc
+  rest := (batch d_rop open) c_at (t_ally keys) + r_ange t_ally new
+  (spec, set) h:s_tep (keys c_at new s_elect KK, O c_at new s_elect KO, par c_at new s_elect kp, mv c_at new s_elect km, g c_at ng, f2, (g_rade rest s_elect f2) s_elect rest)
+}
+
+## h:t_race (par, mv) i: the moves from the start (cube 1) to cube i, by
+## following each cube back to the one it was reached from.
+h:t_race := { (par, mv) i ->
+  1 = i ? o_ffsets 0
+  ((par, mv) h:t_race i s_elect par) c_at i s_elect mv
+}
+
+## h:s_earch (spec, set) S: the moves taking the cube S (a batch of one)
+## to the stage's goal, found by h:s_tep from a table holding S alone,
+## over the twelve turns or the set's macros.
+h:s_earch := { (spec, set) S ->
+  O := (h:r_elevant spec) h:p_roject h:o_rient S
+  0 > f_irst spec h:s_core O ? o_ffsets 0
+  acts := (spec, set) h:s_tep (h:k_ey O, O, 1 r_eshape 0, 1 r_eshape 0, 1 r_eshape 0, 1 r_eshape 0.0, 1 r_eshape 1)
+  0 = t_ally set ? acts
+  h:f_latten acts s_elect set
+}
+
+### Solving
+
+## h:s_tage hybrid (S, ms, lens): the next search stage run on the cube
+## S, its moves added to the moves so far ms and its length to the
+## stage lengths (h:a_ctions says what it searches over).
+h:s_tage := { hybrid (S, ms, lens) ->
+  s := 1 + t_ally lens
+  next := ((h:s_pec s), hybrid h:a_ctions s) h:s_earch S
+  (next l:d_o S, ms c_at next, lens c_at t_ally next)
+}
+
+## The endgame's twist: L' U' L U, twice (eigencube.py's routine).
+twist := 12 2 11 1 12 2 11 1
+## The bottom turn eigencube.py makes between corners, D' here.
+bottomTurn := 1 r_eshape 4
+
+## h:o_riented? S: whether the corner at front-left-bottom, (1 -1 -1),
+## has its yellow sticker down, so that turns of the bottom alone solve
+## it (eigencube.py's is_corner_oriented): its rotation fixes z.
+h:o_riented? := { S ->
+  k := (26 3 r_eshape h:p_os S) i_ndexOf 1 -1 -1
+  1 = (k s_elect r_avel h:o_rient S) s_elect yellowDown
+}
+
+## h:c_orner (S, ms): twist the front-left-bottom corner until it is
+## oriented, then turn the bottom to bring the next corner there.
+h:c_orner := { (S, ms) ->
+  h:o_riented? S ? (bottomTurn l:d_o S, ms c_at bottomTurn)
+  h:c_orner (twist l:d_o S, ms c_at twist)
+}
+
+## h:f_inish (S, ms): turn the bottom until the cube is solved.
+h:f_inish := { (S, ms) ->
+  l:s_olved? S ? (S, ms)
+  h:f_inish (bottomTurn l:d_o S, ms c_at bottomTurn)
+}
+
+## l:s_olve hybrid S: a solution of the cube S (a batch of one), after
+## eigencube.py's solve: 29 search stages (the top and middle layers a
+## cubelet at a time, then the bottom edges and the bottom corners'
+## places), then the endgame's corner twists. With hybrid 1 the middle
+## and bottom stages search over macros, as a person solving by hand
+## uses known sequences (seconds); with 0 every stage searches the
+## twelve turns, eigencube.py's search alone (minutes in X_eTaL). The
+## moves, each stage's length, and the endgame's length.
+l:s_olve := { hybrid S ->
+  (S1, ms, lens) := 29 '{ st -> hybrid h:s_tage st } p_ower (S, o_ffsets 0, o_ffsets 0)
+  (_, all) := h:f_inish 4 'h:c_orner p_ower (S1, ms)
+  (all, lens, (t_ally all) - t_ally ms)
+}
+
+### Notation
+
+## l:n_ame ms: moves as text in the usual notation, U for the top face
+## clockwise, U' counterclockwise, separated by spaces.
+l:n_ame := { ms ->
+  n := t_ally ms
+  marks := (1 + ms m_od 2) s_elect "' "
+  txt := r_avel o_\ (3 c_at n) r_eshape ((h:f_ace ms) s_elect l:faces) c_at marks c_at n r_eshape " "
+  -1 d_rop (r_avel o_\ (3 c_at n) r_eshape (n r_eshape 1) c_at (marks = f_irst "'") c_at n r_eshape 1) r_eplicate txt
+}
+
+## ec:p_arse t: moves written in the usual notation as numbers: each
+## letter of ec:faces is a move, counterclockwise when a ' follows it;
+## anything else between moves is ignored. The inverse of ec:n_ame.
+## >> "ec:" u_se< "Eigencube"
+## >> ec:p_arse "U R' F B'"
+## 1 10 5 8
+## >> (ec:p_arse ec:n_ame 3 12 7) m_atch 3 12 7
+## 1
+l:p_arse := { t ->
+  at := w_here t m_ember? l:faces
+  f := l:faces i_ndexOf at s_elect t
+  (2 * f) - n_ot ((1 + at) s_elect t c_at " ") = f_irst "'"
+}

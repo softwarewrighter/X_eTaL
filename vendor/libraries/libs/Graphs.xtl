@@ -1,0 +1,100 @@
+## Graphs: graphs as adjacency matrices -- from edges, degrees,
+## reachability, shortest paths, breadth-first levels, connected
+## components.
+## Import it with an alias of your choice: "g:" u_se< "Graphs".
+## Put libs/Graphs/src on XETAL_PATH ("just path"); the reference is libs/Graphs/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## A graph of n nodes, numbered 1 to n, is an n by n matrix: item i j
+## is 1 when there is an edge from i to j (or, for s_hortest, the
+## edge's length, 0 meaning none). Walks are matrix products: with the
+## inner product '| '& a step from every node at once, with 'm_in '+
+## the shortest way through one more node.
+
+far := 1000000000000.0                        # the length of no path
+
+### Building
+
+## n a_djacency edges: the n by n matrix of the edges, given as 2 rows,
+## from over to (directed).
+l:a_djacency := { n e ->
+  at := (n * (f_irst e) - 1) + f_irst 1 d_rop e   # (from - 1) times n, plus to
+  0 + (n c_at n) r_eshape (r_ange n * n) m_ember? at   # 0 + : as Ints
+}
+
+## n w_eighted edges: the n by n matrix of edge lengths, given as 3
+## rows, from over to over length (directed; 0 where there is no edge).
+l:w_eighted := { n e ->
+  at := (n * (f_irst e) - 1) + f_irst 1 d_rop e
+  len := f_irst 2 d_rop e
+  (n c_at n) r_eshape '{ c -> k := w_here at = c; 0 = t_ally k ? 0; f_irst (f_irst k) s_elect len } e_ach r_ange n * n
+}
+
+## u_ndirected m: the graph with every edge going both ways.
+l:u_ndirected := { m -> m | o_\ m }
+
+## o_utDegree m, i_nDegree m: how many edges leave and reach each node.
+l:o_utDegree := { m -> '+ r_/_2 m }
+l:i_nDegree := { m -> '+ r_/ m }
+
+### Reachability
+
+## Walks of length 1 to 2k: m with m times itself or-ed in, until it
+## no longer grows.
+h:c_lose := { m ->
+  n := m | m '| '& i_nner m
+  n m_atch m ? m
+  h:c_lose n
+}
+
+## r_each m: item i j is 1 when j can be reached from i by one or more
+## edges (Warshall's transitive closure, by repeated squaring).
+l:r_each := { m -> h:c_lose 0 < m }
+
+### Paths
+
+## Min-plus products until the distances settle.
+h:r_elax := { d ->
+  e := d 'm_in '+ i_nner d
+  e m_atch d ? d
+  h:r_elax e
+}
+
+## s_hortest w: the length of the shortest path from i to j, for edge
+## lengths w (0 meaning no edge); 0 from a node to itself, -1 where
+## there is no path (Floyd-Warshall by min-plus products).
+l:s_hortest := { w ->
+  n := t_ally w
+  i := (r_ange n) '= t_able r_ange n
+  d := (f_loat w) + far * f_loat (w = 0) & n_ot i
+  r := h:r_elax d
+  r - (f_loat r >= far) * 1.0 + r            # -1 where nothing reached
+}
+
+### Levels and components
+
+## The breadth-first frontier from seen nodes s, level by level.
+h:b_fs := { m s f k lv ->
+  0 = '+ r_/ f ? lv
+  nxt := (f '| '& i_nner m) & n_ot s
+  ((((m h:b_fs s | nxt)_ nxt)_ k + 1)_ lv + (k + 1) * nxt)
+}
+
+## m l_evels s: how many edges from node s to each node (0 for s
+## itself), -1 where it cannot be reached (breadth-first search).
+l:l_evels := { m s ->
+  (s < 1) | s > t_ally m ? @ p_anic< "the graph's nodes are 1 to {t_ally m}: there is no node {s}"
+  n := t_ally m
+  start := (r_ange n) = s
+  lv := ((((m h:b_fs start)_ start)_ 0)_ (r_ange n) * 0)
+  lv - (lv = 0) & n_ot start
+}
+
+## c_omponents m: each node's component, numbered 1, 2, ... in order of
+## their least node (edges taken both ways).
+l:c_omponents := { m ->
+  n := t_ally m
+  r := (l:r_each l:u_ndirected m) | (r_ange n) '= t_able r_ange n
+  first := '{ i -> f_irst w_here i s_elect r } e_ach r_ange n
+  (u_nique first) i_ndexOf first
+}

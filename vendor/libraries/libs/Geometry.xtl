@@ -1,0 +1,103 @@
+## Geometry: plane geometry -- points as 2-row matrices, distances,
+## polygon area and centroid, rotation, scaling and moves, convex
+## hulls, pictures.
+## Import it with an alias of your choice: "ge:" u_se< "Geometry".
+## Put libs/Geometry/src on XETAL_PATH ("just path"); the reference is libs/Geometry/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## Points are a matrix of 2 rows, x over y, one point per column, as
+## X_eTaL's []P_ATH takes them; a polygon is its corners in order.
+## Results are Floats.
+
+### Distance and area
+
+h:x_s := { p -> f_loat f_irst p }               # the x of every point
+h:y_s := { p -> f_loat f_irst 1 d_rop p }       # the y of every point
+
+## d_istances p: the distance between every pair of points (a matrix).
+l:d_istances := { p ->
+  dx := (h:x_s p) '- t_able h:x_s p
+  dy := (h:y_s p) '- t_able h:y_s p
+  ((dx * dx) + dy * dy) ^ 0.5
+}
+
+## The polygon's area, signed: positive when the corners go round
+## anticlockwise (the shoelace formula).
+h:s_igned := { p -> x := h:x_s p; y := h:y_s p; 0.5 * '+ r_/ (x * 1 o_- y) - y * 1 o_- x }
+
+## a_rea p: the area of the polygon.
+l:a_rea := { p -> a_bs h:s_igned p }
+
+### Moves
+
+## c_entroid p: the polygon's center of mass, x and y.
+l:c_entroid := { p ->
+  0.000000000001 > a_bs h:s_igned p ? @ p_anic< "the polygon has no area (its corners are in a line): its centroid is undefined"
+  x := h:x_s p
+  y := h:y_s p
+  c := (x * 1 o_- y) - y * 1 o_- x
+  k := 1.0 / 6.0 * h:s_igned p
+  (k * '+ r_/ c * x + 1 o_- x) c_at k * '+ r_/ c * y + 1 o_- y
+}
+
+## angle r_otate p: the points turned anticlockwise about the origin
+## by angle (radians).
+l:r_otate := { a p ->
+  c := c_os a
+  s := s_in a
+  x := h:x_s p
+  y := h:y_s p
+  (2 c_at t_ally x) r_eshape ((c * x) - s * y) c_at (s * x) + c * y
+}
+
+## Two numbers (or one, used twice) as a column for every point.
+h:c_olumn := { d p -> o_\ ((t_ally h:x_s p) c_at 2) r_eshape f_loat d }
+
+## f s_cale p: the points scaled by f about the origin (one factor, or
+## two: x and y).
+l:s_cale := { f p -> (f_loat p) * f h:c_olumn p }
+
+## d m_ove p: the points moved by d, two numbers dx dy.
+l:m_ove := { d p -> (f_loat p) + d h:c_olumn p }
+
+### Polygons
+
+## The cross product of (q - c) and (r - c) for every candidate q and
+## every point r: positive where r is left of the line from c to q.
+h:c_ross := { p i ->
+  x := h:x_s p
+  y := h:y_s p
+  dx := x - f_irst i s_elect x
+  dy := y - f_irst i s_elect y
+  (dx '* t_able dy) - dy '* t_able dx
+}
+
+## The hull's next corner after corner i: the point with no point to
+## the left of the line to it (the farthest, when several are in line).
+h:n_ext := { p i ->
+  ok := ('& r_/_2 0.000000001 >= p h:c_ross i) & (r_ange t_ally h:x_s p) != i
+  d := i s_elect l:d_istances p
+  f_irst g_rade n_eg d * f_loat ok
+}
+
+## The corners from i round to the start s, in order.
+h:w_alk := { p s i acc ->
+  j := p h:n_ext i
+  j = s ? acc
+  ((((p h:w_alk s)_ j)_ acc c_at j))
+}
+
+## h_ull p: the convex hull, its corners in order (clockwise from the
+## lowest of the leftmost points), as a polygon.
+l:h_ull := { p ->
+  x := h:x_s p
+  y := h:y_s p
+  left := w_here x = 'm_in r_/ x
+  s := f_irst (g_rade (left s_elect y)) s_elect left
+  (((p h:w_alk s)_ s)_ 1 r_eshape s) s_elect_2 p
+}
+
+### Pictures
+
+## s_how! p: the polygon (closed) as a picture, shown with []S_HOW.
+l:s_how! := { p -> []S_HOW []P_ATH (f_loat p) c_at_2 1 t_ake_2 f_loat p }

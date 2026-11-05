@@ -1,0 +1,17 @@
+#!/usr/bin/env xetal
+## A straight line through noisy points by least squares: the normal
+## equations (X' X) b = X' y, solved. Run with "just demo Matrix line-fit".
+
+"mx:" u_se< "Matrix"
+x := f_loat r_ange 8
+y := 2.9 5.1 7.2 8.8 11.1 13.0 14.8 17.2   # about 1 + 2x
+
+# The design matrix: a column of 1s (the intercept) and the x values.
+X := 1 c_at_2 (8 1 r_eshape x)
+Xt := o_\ X
+b := (Xt mx:m_ul y) mx:s_olve Xt mx:m_ul X
+b                                     # intercept and slope
+
+# Residuals, and their sum of squares.
+r := y - X mx:m_ul b
+'+ r_/ r * r

@@ -249,6 +249,23 @@ class Run:
         else:
             self.ok(what)
 
+    def check_collection(self):
+        """X_eTaL-libraries in the live demo: Open lists the collection's
+        demos; the Equations integrals demo loads, its e:e_q< call is
+        typeset (KaTeX) in the Rendered pane, and it runs."""
+        self.page.click("button.open")
+        self.page.click(".menu .group-header:has-text('X_eTaL-libraries demos')")
+        item = self.page.locator(".menu .item:has-text('Equations/integrals.xtl')").first
+        if item.count() == 0:
+            return self.fail("Open lists no Equations/integrals.xtl under X_eTaL-libraries demos")
+        item.click()
+        time.sleep(PAUSE * 2)
+        math = self.page.locator(f"{RENDERED} .c-notation .katex").count()
+        self.expect("collection: the integral is typeset", str(math > 0), ["True"])
+        self.page.click("button:text-is('Run')")
+        self.wait_run()
+        self.expect("collection: Equations runs", self.page.inner_text(OUTPUT), ["0.8413", "1.9545"])
+
     def all(self, scenarios):
         self.page.goto(self.site["url"], wait_until="networkidle")
         self.stamp()

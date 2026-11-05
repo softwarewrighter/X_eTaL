@@ -1,0 +1,20 @@
+#!/usr/bin/env xetal
+# Trig in use: the angles of a triangle from its sides, and the
+# heading and distance of points seen from the origin. Run with
+# "just demo Trig angles".
+"tr:" u_se< "Trig"
+a := 3.0                                       # the two short sides of a right triangle
+b := 4.0
+c := a tr:h_ypot b                             # the long side: 5
+c
+# the law of cosines: the angle opposite each side
+ta := tr:a_cos ((b * b) + (c * c) - a * a) / 2.0 * b * c
+tb := tr:a_cos ((a * a) + (c * c) - b * b) / 2.0 * a * c
+tc := tr:a_cos ((a * a) + (b * b) - c * c) / 2.0 * a * b
+tr:d_egrees ta c_at tb c_at tc                 # 36.87 53.13 90 degrees
+(ta + tb + tc) - p_i @                         # they add to a half turn
+# the corners of a square round the origin, then two points on the axes
+x := 2.0 -2.0 -2.0 2.0 0.0 -3.0
+y := 2.0 2.0 -2.0 -2.0 3.0 0.0
+tr:d_egrees y tr:a_tan2 x                      # headings: 45 135 -135 -45 90 180
+y tr:h_ypot x                                  # distances: 2.83 four times, 3, 3

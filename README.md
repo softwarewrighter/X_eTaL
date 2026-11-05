@@ -29,6 +29,11 @@ visualize, and experiment with.
 In the live demo, type ASCII on the left and watch it drawn decorated
 on the right; Run shows the output, Open lists the demos, the classics, the
 libraries and your saved files in collapsible groups, and Save keeps them in the browser.
+The [X_eTaL-libraries](https://github.com/softwarewrighter/X_eTaL-libraries)
+collection is built in too, at a pinned commit (`vendor/libraries`,
+`scripts/sync-libraries.sh`): `"e:" u_se< "Equations"` imports it with
+nothing saved, its demos are in Open, and an equation's notation call
+is typeset in the Rendered pane.
 Output appears as it is printed, with Stop while a program runs;
 Notebook runs it showing each statement above its output, and Step runs
 one statement at a time ([notebooks](docs/notebook.md)). On a

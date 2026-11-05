@@ -1,0 +1,14 @@
+#!/usr/bin/env xetal
+## Polynomials written as maths: p_oly< reads the notation when the
+## program is compiled and writes the coefficients in its place.
+## Run with "just demo Polynomials notation".
+
+"pl:" u_se< "Polynomials"
+p := @ pl:p_oly< "3x^2 - 2x + 1"
+p
+pl:t_ext p
+p pl:a_t 0 1 2
+@ pl:p_oly< "x^3 - 1"
+@ pl:p_oly< "-x + 0.5"
+@ pl:p_oly< "2x + x + 4x^2"                 # like powers are added
+pl:r_oots @ pl:p_oly< "x^2 - 2"

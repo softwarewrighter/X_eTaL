@@ -63,7 +63,8 @@ fn editing() -> Html {
                        works offline. Drag the bars between the panes to resize them (remembered); \
                        double-click a bar to put it back." }</li>
                 <li><b>{ "Open" }</b>{ " lists the demos, the classics, the standard libraries (shown with \
-                       their exports' types), the other demos (Misc) and your files, each group \
+                       their exports' types), X_eTaL-libraries (Equations, Strings, ...; u_se< finds them too) \
+                       and their demos, the other demos (Misc) and your files, each group \
                        closed until you click it; the arrows move through it, Enter opens, Escape \
                        closes. " }<b>{ "Clear" }</b>
                     { " (or \"(empty)\") gives an empty editor to type into." }</li>

@@ -1,0 +1,11 @@
+#!/usr/bin/env xetal
+## Date literals: d_ate< turns each into its day number when the program
+## is compiled, so the program holds plain numbers and nothing parses a
+## date when it runs. Run with "just demo Dates literals".
+
+"d:" u_se< "Dates"
+landing := @ d:d_ate< "1969-07-20"
+landing
+d:w_eekday landing                        # 7: a Sunday
+(@ d:d_ate< "2026-12-25") - @ d:d_ate< "2026-10-03"   # days to go
+d:i_so @ d:d_ate< "2000-02-29"           # a leap day

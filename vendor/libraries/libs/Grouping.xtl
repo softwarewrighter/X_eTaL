@@ -1,0 +1,32 @@
+## Grouping: grouping by key -- the groups, and counts, sums, means,
+## least and greatest per key, or any function per key.
+## Import it with an alias of your choice: "gr:" u_se< "Grouping".
+## Put libs/Grouping/src on XETAL_PATH ("just path"); the reference is libs/Grouping/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## Keys and values are lists of one length: item i of the values
+## belongs to key i. Keys may be numbers, characters or texts (boxes).
+## Every result has one item per distinct key, in the order of
+## u_nique keys (first seen first), as APL's key operator gives them.
+
+### Grouping
+
+## keys g_roups values: the values of each key, a list per key.
+l:g_roups := { k v -> '{ u -> (k = u) r_eplicate v } m_ap u_nique k }
+
+## keys 'f b_y values: f applied to each key's values (f gives one
+## number per group): keys '{ '+ r_/ _r } gr:b_y values.
+l:b_y := { f_ k v -> '{ u -> f_ (k = u) r_eplicate v } e_ach u_nique k }
+
+### Per-key summaries
+
+## gr:c_ount keys: how many items each key has.
+l:c_ount := { k -> '{ u -> t_ally w_here k = u } e_ach u_nique k }
+
+## keys s_um values, keys m_ean values: per key.
+l:s_um := { k v -> k '{ '+ r_/ _r } l:b_y v }
+l:m_ean := { k v -> (f_loat k l:s_um v) / f_loat l:c_ount k }
+
+## keys l_east values, keys g_reatest values: per key.
+l:l_east := { k v -> k '{ 'm_in r_/ _r } l:b_y v }
+l:g_reatest := { k v -> k '{ 'm_ax r_/ _r } l:b_y v }

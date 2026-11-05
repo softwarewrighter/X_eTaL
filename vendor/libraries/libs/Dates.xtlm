@@ -1,0 +1,45 @@
+## Dates: its macro library -- d_ate<, date literals checked at compile time.
+## Imported with the functions, under one alias: "d:" u_se< "Dates".
+## A macro is a function from the source text written left and right of
+## its call to the source that replaces the call, run before the program
+## is compiled (X_eTaL MC10). Names with m: are macros; those under h: are
+## private to this file.
+
+"dd:" u_se< "Dates.xtl"                      # this library's functions, by path (MC23)
+
+digits := []D
+
+### Parsing
+
+## The text with each "-" as a space, so n_umbers reads the three parts.
+h:s_paced := { t ->
+  n := t_ally t
+  dash := t = f_irst "-"
+  ((r_ange n) + dash * (n + 1) - r_ange n) s_elect t c_at " "
+}
+
+## Whether a text has the form yyyy-mm-dd (digits and two dashes).
+h:f_ormed? := { t -> (2 = t_ally w_here t = f_irst "-") & '& r_/ t m_ember? digits c_at "-" }
+
+## Whether y m d is a date of the calendar (Dates' own month lengths).
+h:v_alid? := { ymd ->
+  m := f_irst 1 d_rop ymd
+  d := f_irst 2 d_rop ymd
+  (m < 1) | m > 12 ? 0 = 1
+  (d >= 1) & d <= (f_irst ymd) dd:d_aysIn m
+}
+
+### The macro
+
+## @ d:d_ate< "2026-10-03": the date's day number, worked out when the
+## program is compiled (20729), written in place of the call. A text
+## that is not a date of the calendar (2026-02-30, 2026-13-01) stops the
+## compiler at it: error[bad-date]. Nothing goes on the left (@).
+## takes: @ text
+## uses: parsed
+m:d_ate< := { @ t ->
+  n_ot h:f_ormed? t ? "bad-date right" []R_EJECT t c_at " is not a date: write it yyyy-mm-dd"
+  ymd := f_loor n_umbers h:s_paced t
+  n_ot h:v_alid? ymd ? "bad-date right" []R_EJECT t c_at " is not a date of the calendar"
+  f_ormat dd:d_ays ymd
+}

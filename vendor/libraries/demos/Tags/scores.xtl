@@ -1,0 +1,12 @@
+#!/usr/bin/env xetal
+## A table as columns: one array per part, side by side in a tagged
+## tuple, so every operation is on a whole column and rows are taken
+## from all of them at once. p_arts< writes the names. Run with
+## "just demo Tags scores".
+
+"tg:" u_se< "Tags"
+@ tg:p_arts< "Scores: player round points"
+t := u:s_cores ("ann" "bob" "ann" "cy" "bob", 1 1 2 2 2, 7 4 9 6 8)
+'+ r_/ u:s_coresPoints t                                   # every point scored
+(w_here 2 = u:s_coresRound t) u:s_coresRows t              # the second round's rows
+(g_rade n_eg u:s_coresPoints t) u:s_coresRows t            # best first

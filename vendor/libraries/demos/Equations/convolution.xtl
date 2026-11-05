@@ -1,0 +1,33 @@
+#!/usr/bin/env xetal
+## Discrete convolution and correlation as the sums they are, on an
+## asymmetric signal and kernel so the two cannot be confused: the
+## kernel slides reversed in a convolution and as written in a
+## correlation (what a CNN layer computes). Each mode, named every
+## time, and what the paper prints. Run with "just demo Equations
+## convolution"; xetal expand shows the sum each call becomes.
+"e:" u_se< "Equations"
+x := 1 2 3 4
+h := 1 2 3
+## Every overlap (full), the center (same, as numpy centers it), the complete overlaps (valid).
+"y[n] | full" e:c_onvolve< "x h"
+"y[n] | same" e:c_onvolve< "x h"
+"y[n] | valid" e:c_onvolve< "x h"
+"y[n] | full" e:c_orrelate< "x h"
+"y[n] | same" e:c_orrelate< "x h"
+"y[n] | valid" e:c_orrelate< "x h"
+## What the paper prints: the valid cases, written out as equations
+## over the same arrays (their values agree with the macros), and the
+## LaTeX of each.
+(M, L) := (3, 4)
+(conv, ctex) := "y[n] | L-M+1" e:b_oth< "sum m:=0..M-1 | x[n+M-1-m] * h[m]"
+(corr, rtex) := "y[n] | L-M+1" e:b_oth< "sum m:=0..M-1 | x[n+m] * h[m]"
+conv c_at corr
+"$$" c_at ctex c_at "$$"
+"$$" c_at rtex c_at "$$"
+## A smoothing is a correlation with a kernel of weights; a difference
+## filter, a correlation with 1 0 -1.
+t := 2.0 4.0 6.0 8.0 10.0 12.0
+third := 0.25 0.5 0.25            # a smoothing kernel: weights that sum to 1
+diff := 1.0 0.0 -1.0
+"a[n] | valid" e:c_orrelate< "t third"
+"d[n] | valid" e:c_orrelate< "t diff"

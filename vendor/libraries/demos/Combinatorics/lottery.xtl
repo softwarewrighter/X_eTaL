@@ -1,0 +1,18 @@
+#!/usr/bin/env xetal
+## Lottery odds and a tiny tournament. Run with "just demo Combinatorics lottery".
+
+"cb:" u_se< "Combinatorics"
+"t:" u_se< "Strings"
+
+# Choose 6 of 49: how many tickets, and the chance of matching k.
+tickets := 6 cb:c_hoose 49
+tickets
+k := o_ffsets 7
+ways := (k cb:c_hoose 6) * (6 - k) cb:c_hoose 43
+ways
+(f_loat ways) / f_loat tickets
+
+# Four teams, every match once: the pairs of 4 choose 2.
+teams := "ABCD"
+m := 2 cb:c_ombinations 4
+" " t:j_oin '{ i -> (i s_elect m) s_elect teams } m_ap r_ange t_ally m

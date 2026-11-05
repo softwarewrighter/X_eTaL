@@ -1,0 +1,22 @@
+#!/usr/bin/env xetal
+## A small subway map: eight stations on a red line, a blue line and a
+## branch, with the minutes between stations. How long from the
+## Airport to everywhere, how many stops from the Center, and what a
+## closure cuts off. Run with "just demo Graphs subway".
+
+"g:" u_se< "Graphs"
+"t:" u_se< "Strings"
+names := "Airport" "Bridge" "Center" "Docks" "Exchange" "Fair" "Garden" "Harbor"
+# The red line 1-2-3-4-5, the blue line 6-3-7, the branch 4-8: from, to, minutes.
+lines := 3 7 r_eshape 1 2 3 4 6 3 4  2 3 4 5 3 7 8  7 4 3 5 6 4 9
+w := (8 g:w_eighted lines) + o_\ 8 g:w_eighted lines
+
+# Minutes from the Airport to every station.
+"\n" t:j_oin '{ i -> (10 t:p_adRight d_isclose i s_elect names) c_at f_ormat f_irst i s_elect f_irst g:s_hortest w } m_ap r_ange 8
+
+# Stops from the Center.
+(0 < w) g:l_evels 3
+
+# Close the Center: drop its edges, and see the network fall apart.
+open := (0 < w) & n_ot ((r_ange 8) = 3) '| t_able (r_ange 8) = 3
+g:c_omponents open

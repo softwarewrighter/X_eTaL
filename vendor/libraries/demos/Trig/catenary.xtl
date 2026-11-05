@@ -1,0 +1,19 @@
+#!/usr/bin/env xetal
+# Trig in use: a cable hung between two poles 100 m apart hangs in a
+# catenary, y = k cosh(x / k), whose arc from the middle to x is
+# k sinh(x / k) long. Given the cable's length, find k by bisection
+# (the length grows as k shrinks), then the sag at the middle and
+# the angle the cable leaves each pole at. Run with "just demo Trig catenary".
+"tr:" u_se< "Trig"
+span := 100.0                                  # meters between the poles
+cable := 110.0                                 # meters of cable
+h := span / 2.0
+u:l_ength := { k -> 2.0 * k * tr:s_inh h / k }   # the cable's length for k
+u:s_tep := { (lo, hi) -> m := 0.5 * lo + hi; cable < u:l_ength m ? (m, hi); (lo, m) }
+(lo, hi) := 60 'u:s_tep p_ower (1.0, 1000.0)    # 60 halvings: k to the last bit
+k := 0.5 * lo + hi
+k                                              # the catenary's parameter, meters
+u:l_ength k                                    # 110, the cable
+k * (tr:c_osh h / k) - 1.0                     # the sag at the middle, meters
+tr:d_egrees a_tan tr:s_inh h / k               # the angle at each pole, degrees
+k * tr:a_cosh 1.0 + 1.0 / k                    # where the cable is 1 m above its lowest point

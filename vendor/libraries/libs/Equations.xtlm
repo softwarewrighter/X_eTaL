@@ -1,0 +1,819 @@
+## Equations: its macro library -- e_q<, t_ex< and b_oth<: an equation as
+## printed in a paper, to its value, its LaTeX, or both.
+## Imported with the functions, under one alias: "e:" u_se< "Equations".
+## A macro is a function from the source text written left and right of
+## its call to the source that replaces the call, run before the program
+## is compiled (X_eTaL MC10). Names with m: are macros; those under h: are
+## private to this file.
+
+"t:" u_se< "Strings"
+"pa:" u_se< "Parsing"
+
+### The macros
+
+## The value of an equation written as a paper prints it. The left names
+## the result, its free indices and their extents ("Y[o,h,w] | O Ho Wo",
+## or "L[] | " for a scalar). The right is an expression over the free
+## indices in which a parenthesized sum is a term:
+##   "(sum j:=0..M-1 | W[i,j] * x[j]) + b[i]"
+## A sum is an operator word (sum, prod, max, min), an index, := and an
+## inclusive range low..high, then | and its body; several, separated by
+## commas, nest outermost first. A right side that is one bare sum needs
+## no parentheses: "sum c:=0..C-1, sum r:=0..Kh-1 | X[c,h+r] * W[c,r]".
+## The word integral binds a continuous variable over Float bounds and
+## takes the value of its body by a quadrature rule written after by:
+## "integral tau:=0..1 by simpson 64 | exp(tau)" (trapezoid or simpson,
+## then the number of steps; without by, trapezoid 64; simpson needs an
+## even number). The variable is the grid of n + 1 points a, a + h, ...,
+## b; a bound of inf is refused (write a truncation and show the tail is
+## small, or change variables). Trapezoid is exact on lines, simpson on
+## cubics; at a jump of the body the sample takes the body's value at
+## that point as written.
+## Expressions follow math precedence: ^ binds tightest (right to left),
+## then * and /, then + and - (left to right); parentheses group; the
+## functions are exp(x), log(x), sqrt(x), abs(x), sin(x), cos(x),
+## max(a, b) and min(a, b); A[e1,e2] reads one element of the caller's array A, one
+## index per axis, from 0. Every reading rule uses all of its text or
+## refuses the call, and what was read is written back and compared
+## with the text at every call, so nothing written is ever dropped.
+## Both sides are notations (X_eTaL MC32): where a program is drawn
+## (the pages, the live demo, xetal render --html) the call's two
+## strings are shown as one math box, what e:t_ex< gives for them,
+## after the macro's name; the value and the text are unchanged.
+## takes: notation notation
+## draws: t_ex<
+## uses: parsed
+m:e_q< := { lhs rhs -> (h:f_ree lhs) h:v_alue h:c_hecked rhs }
+
+## The LaTeX of the same call, a string: the result as written (L for a
+## scalar, Y_{o,h,w} for an array), then = and the expression, with
+## \sum \prod \max \min, \int_{a}^{b} ... \, d\tau for an integral (a
+## Greek letter's name as its command), \frac for a quotient, \sqrt \exp
+## \log \sin \cos, and the brackets as subscripts.
+## takes: text text
+## uses: parsed
+m:t_ex< := { lhs rhs -> "\"" c_at (lhs h:t_ex h:c_hecked rhs) c_at "\"" }
+
+## Both from one call: the pair (value, LaTeX); drawn as e:e_q< is.
+## takes: notation notation
+## draws: t_ex<
+## uses: parsed
+m:b_oth< := { lhs rhs -> "(" c_at ((h:f_ree lhs) h:v_alue h:c_hecked rhs) c_at ", \"" c_at (lhs h:t_ex h:c_hecked rhs) c_at "\")" }
+
+## Discrete 1-D convolution and cross-correlation, written as the
+## sums they are (X_eTaL Saga 42 decision 5: library macros over sum,
+## not words of the grammar). The left names the result, its index and
+## the boundary mode, "y[n] | full"; the right names the signal and the
+## kernel, two of the caller's vectors, "x h". The modes: full gives
+## L + M - 1 values (every overlap, the signal padded with M - 1 zeros
+## at each end), same the L centered on full (as numpy centers them),
+## valid the L - M + 1 complete overlaps (a kernel longer than the
+## signal stops the program when it runs); no mode is implicit.
+## Convolution is y[n] = sum over m of x[n - m] h[m], the kernel
+## reversed as it slides; correlation y[n] = sum over m of x[n + m]
+## h[m], not reversed, so correlation is convolution with the kernel
+## reversed. xetal expand shows the sum each call becomes. Both sides
+## are notations (MC32), drawn by e:c_onvolveTex<.
+## takes: notation notation
+## draws: c_onvolveTex<
+## uses: parsed
+m:c_onvolve< := { lhs rhs -> "convolve" h:s_lide (lhs, rhs) }
+
+## Cross-correlation, the same call shape (see c_onvolve<); drawn by
+## e:c_orrelateTex<.
+## takes: notation notation
+## draws: c_orrelateTex<
+## uses: parsed
+m:c_orrelate< := { lhs rhs -> "correlate" h:s_lide (lhs, rhs) }
+
+## The LaTeX of a convolution call, a string: the textbook sum,
+## y_{n} = \sum_{m} x_{n-m} \, h_{m}, with the mode after it in words.
+## takes: text text
+## uses: parsed
+m:c_onvolveTex< := { lhs rhs -> "convolve" h:s_lideTex (lhs, rhs) }
+
+## The LaTeX of a correlation call (x_{n+m}, the kernel not reversed).
+## takes: text text
+## uses: parsed
+m:c_orrelateTex< := { lhs rhs -> "correlate" h:s_lideTex (lhs, rhs) }
+
+### Convolution and correlation
+
+## The boundary modes.
+modes := "full" "same" "valid"
+
+## The expansion of a convolution or correlation call: a block that
+## measures the signal (L) and the kernel (M), pads the signal with
+## M - 1 zeros of its own type at each end (full and same), checks the
+## lengths (valid), then the equation over the free index, computed
+## as any equation is.
+h:s_lide := { op (lhs, rhs) ->
+  (y, n, mode) := h:s_lideLeft lhs
+  (x, h) := h:s_lideRight rhs
+  (gL, gM, gC, gP) := ([]G_ENSYM "L", []G_ENSYM "M", []G_ENSYM "c", []G_ENSYM "p")
+  m := n h:o_therIndex ("m", "j", "q")
+  lines := "  " c_at gL c_at " := t_ally " c_at x c_at "\n  " c_at gM c_at " := t_ally " c_at h c_at "\n  " c_at gC c_at " := (" c_at gM c_at " - 1) d_iv 2\n  " c_at gP c_at " := ((" c_at gM c_at " - 1) r_eshape 0 * 1 t_ake " c_at x c_at ") c_at " c_at x c_at " c_at (" c_at gM c_at " - 1) r_eshape 0 * 1 t_ake " c_at x c_at "\n"
+  check := ("valid" m_atch mode) h:p_ickText ("  _ := { @ -> " c_at gM c_at " <= " c_at gL c_at " ? @; \"valid-mode\" []S_IGNAL \"valid: the kernel (\" c_at (f_ormat " c_at gM c_at ") c_at \") is longer than the signal (\" c_at (f_ormat " c_at gL c_at ") c_at \")\" } @\n", "")
+  extent := ("full" m_atch mode) h:p_ickText (gL c_at "+" c_at gM c_at "-1", ("same" m_atch mode) h:p_ickText (gL, gL c_at "-" c_at gM c_at "+1"))
+  signal := ("valid" m_atch mode) h:p_ickText (x, gP)
+  shift := ("full" m_atch mode) h:p_ickText (gM c_at "-1", ("same" m_atch mode) h:p_ickText (gM c_at "-1+" c_at gC, ""))
+  at := ("convolve" m_atch op) h:p_ickText (n c_at (h:p_lus ("valid" m_atch mode) h:p_ickText (gM c_at "-1", shift)) c_at "-" c_at m, n c_at (h:p_lus ("valid" m_atch mode) h:p_ickText ("", ("full" m_atch mode) h:p_ickText ("", gC))) c_at "+" c_at m)
+  eq := "sum " c_at m c_at ":=0.." c_at gM c_at "-1 | " c_at signal c_at "[" c_at at c_at "] * " c_at h c_at "[" c_at m c_at "]"
+  "({ @ ->\n" c_at lines c_at check c_at "  " c_at ((h:f_ree y c_at "[" c_at n c_at "] | " c_at extent) h:v_alue h:c_hecked eq) c_at "\n} @)"
+}
+
+## The LaTeX of a convolution or correlation call as a string literal:
+## the result and its index, = , the sum over the kernel's index of the
+## signal at n - m (convolution) or n + m (correlation) times the
+## kernel at m, then the mode in words; the sides read as the call is.
+h:s_lideTex := { op (lhs, rhs) ->
+  (y, n, mode) := h:s_lideLeft lhs
+  (x, h) := h:s_lideRight rhs
+  m := n h:o_therIndex ("m", "j", "q")
+  sign := ("convolve" m_atch op) h:p_ickText (" - ", " + ")
+  "\"" c_at y c_at "_{" c_at n c_at "} = \\\\sum_{" c_at m c_at "} " c_at x c_at "_{" c_at n c_at sign c_at m c_at "} \\\\, " c_at h c_at "_{" c_at m c_at "} \\\\quad \\\\text{(" c_at mode c_at ")}\""
+}
+
+## "+" and t, or "" for an empty t.
+h:p_lus := { t ->
+  0 = t_ally t ? ""
+  "+" c_at t
+}
+
+## The left side "y[n] | mode" as (result, index, mode): one index, a
+## mode the library has.
+h:s_lideLeft := { lhs ->
+  l := "|" pa:s_plit lhs
+  _ := (2 = t_ally l) pa:r_equire ("bad-convolution left", "the result, its index and the mode: \"y[n] | full\"")
+  (y, ix) := "bad-convolution left" pa:r_eference d_isclose f_irst l
+  _ := (1 = t_ally ix) pa:r_equire ("bad-convolution left", "one index: \"y[n] | full\", not " c_at lhs)
+  mode := t:t_rim d_isclose 2 s_elect l
+  _ := (0 < t_ally mode) pa:r_equire ("bad-convolution left", "the mode is not implicit: write full, same or valid after |")
+  _ := ('| r_/ 0 + '{ w -> (d_isclose w) m_atch mode } e_ach modes) pa:r_equire ("bad-convolution left", "the mode is full, same or valid, not " c_at mode)
+  (y, d_isclose f_irst ix, mode)
+}
+
+## The right side "x h" as (signal, kernel): two names.
+h:s_lideRight := { rhs ->
+  ws := t:w_ords rhs
+  _ := (2 = t_ally ws) pa:r_equire ("bad-convolution right", "the signal and the kernel, two names: \"x h\", not " c_at rhs)
+  _ := ('& r_/ 1 c_at '{ w -> pa:n_ame? d_isclose w } e_ach ws) pa:r_equire ("bad-convolution right", "the signal and the kernel are names: " c_at rhs)
+  (d_isclose f_irst ws, d_isclose 2 s_elect ws)
+}
+
+## The first of the candidates that is not the free index, as the sum's
+## index.
+h:o_therIndex := { n (a, b, c) ->
+  n_ot n m_atch a ? a
+  n_ot n m_atch b ? b
+  c
+}
+
+### Reading the call
+
+## The free indices and their extents, from "Y[o,h,w] | O Ho Wo", as
+## (names, extents), boxed texts; "L[] | " gives none of either.
+h:f_ree := { lhs ->
+  l := "|" pa:s_plit lhs
+  _ := (2 = t_ally l) pa:r_equire ("bad-equation left", "the result, then | and its extents: \"Y[o,h,w] | O Ho Wo\"")
+  head := d_isclose f_irst l
+  _ := (0 < t_ally w_here head m_ember? "[") pa:r_equire ("bad-equation left", "the result names its free indices in brackets: Y[o,h,w], or L[] for a scalar")
+  (_, names) := "bad-equation left" pa:r_eference head
+  extents := " " pa:s_plit d_isclose f_irst 1 d_rop l
+  _ := ((t_ally names) = t_ally extents) pa:r_equire ("bad-equation left", "one extent for each free index: " c_at lhs)
+  (names, extents)
+}
+
+## The right text, checked: its characters are the grammar's, a bare
+## sum is wrapped as the term it is, and the reading written back
+## equals the text with its spaces removed (so no rule dropped a
+## character); the text to read.
+h:c_hecked := { rhs ->
+  t := t:t_rim rhs
+  _ := (0 < t_ally t) pa:r_equire ("bad-equation right", "an empty equation")
+  bad := (n_ot t m_ember? alphabet) r_eplicate t
+  0 < t_ally bad ? "bad-equation right" []R_EJECT "not a character of an equation (names, numbers, + - * / ^, parentheses, brackets, a sum's | := and ..): " c_at (1 t_ake bad) c_at " in " c_at t
+  whole := h:w_hole t
+  back := h:p_lain whole
+  _ := (back m_atch pa:s_queeze whole) pa:r_equire ("bad-equation right", "the reader did not use all of the text: it read " c_at back c_at " from " c_at t)
+  t
+}
+
+## A right side that is one bare sum, "sum i:=0..n | body", as the term
+## it is, parenthesized; anything else as written.
+h:w_hole := { t ->
+  0 < '+ r_/ 0 + "|" pa:t_op t ? "(" c_at t c_at ")"
+  t
+}
+
+### The grammar, shared by the three readings
+
+## Characters of names and numbers.
+nameChars := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_:"
+
+## Every character an equation may hold.
+alphabet := nameChars c_at ".+-*/^()[]|,= "
+
+## The operator words and the functions.
+words := "sum" "prod" "max" "min" "integral" "scan"
+functions := "exp" "log" "sqrt" "abs" "sin" "cos" "max" "min"
+
+## The quadrature rules an integral may be taken by, and the default
+## option text when a call writes none.
+rules := "trapezoid" "simpson"
+defaultBy := "trapezoid 64"
+
+## The spellings of an infinite bound.
+infinities := "inf" "-inf" "+inf" "infinity" "-infinity" "oo" "-oo"
+
+## a when c holds, else b, both already computed: texts or counts (one each: a library's helpers form one binding group, in
+## which a helper used at two types is not yet generalized).
+h:p_ickText := { c (a, b) ->
+  c ? a
+  b
+}
+h:p_ickCount := { c (a, b) ->
+  c ? a
+  b
+}
+
+## What a term is, from its text (trimmed, not empty): "add" (a chain of
+## + and -, a leading - a negation), "mul" (* and /), "pow" (^), "sum"
+## (a parenthesized sum), "group" (parentheses), "fn" (a function
+## applied), "ref" (an array indexed) or "atom" (a name or a number).
+## One place decides, so the value, the LaTeX and the reprint agree.
+h:k_ind := { t ->
+  0 < '+ r_/ 0 + "+-" pa:t_op t ? "add"
+  0 < '+ r_/ 0 + "*/" pa:t_op t ? "mul"
+  0 < '+ r_/ 0 + "^" pa:t_op t ? "pow"
+  (pa:g_roup? t) & 0 < '+ r_/ 0 + "|" pa:t_op pa:i_nner t ? "sum"
+  pa:g_roup? t ? "group"
+  h:f_n? t ? "fn"
+  0 < t_ally w_here t m_ember? "[" ? "ref"
+  "atom"
+}
+
+## Whether t is a function applied: a word, then one parenthesized
+## group that ends the text (pa:a_pplied?'s shape alone): the fixed
+## math functions and the program's own are both read this way
+## (X_eTaL-ML ask E3), told apart only in h:v_alueFn/h:t_exFn.
+h:f_n? := { t -> pa:a_pplied? t }
+
+## A function applied, as (name, arguments), the arguments cut at the
+## top-level commas. The count is checked only for a fixed math
+## function (its own, not the caller's): a named function is trusted
+## with however many it is given, since nothing here knows its real
+## arity -- a wrong count is caught only when the expanded code fails
+## to compile (X_eTaL-ML ask E3, decided with the user).
+h:f_nParts := { t ->
+  (name, args) := "bad-equation right" pa:a_pplied t
+  known := 0 < '+ r_/ 0 + '{ f -> (d_isclose f) m_atch name } e_ach functions
+  wanted := (("max" m_atch name) | ("min" m_atch name)) h:p_ickCount (2, 1)
+  _ := ((n_ot known) | (wanted = t_ally args)) pa:r_equire ("bad-equation right", name c_at " takes " c_at (f_ormat wanted) c_at " argument(s): " c_at t)
+  (name, args)
+}
+
+## A parenthesized sum as (words, indices, lows, highs, options, body):
+## the bindings before the top-level |, each "word i:=low..high" (the
+## word an operator word), an integral's followed by its by options
+## (the text after by as written, "" for none).
+h:s_umParts := { t ->
+  inner := pa:i_nner t
+  cut := "|" pa:t_op inner
+  _ := (1 = '+ r_/ 0 + cut) pa:r_equire ("bad-equation right", "a sum has its bindings, then one | and its body: " c_at t)
+  at := f_irst w_here cut
+  bindings := "," pa:s_plit (at - 1) t_ake inner
+  body := t:t_rim at d_rop inner
+  _ := (0 < t_ally body) pa:r_equire ("bad-equation right", "a sum needs a body after |: " c_at t)
+  ds := '{ b -> h:b_oxed h:b_inding d_isclose b } m_ap bindings
+  p_art := { k -> '{ d -> d_isclose k s_elect d_isclose d } m_ap ds }
+  (p_art 1, p_art 2, p_art 3, p_art 4, p_art 5, body)
+}
+
+## One binding, "word i:=low..high", "integral x:=a..b by rule n" or
+## "scan t:=lo..hi by seed", as (word, index, low, high, options): the
+## by options cut off before Parsing reads the range, then checked
+## (an integral's rule and grid; a scan's seed, any expression of the
+## caller's values, checked only when it is read as one; a sum has
+## neither; an integral's bounds are finite).
+h:b_inding := { b ->
+  at := " by " pa:a_t b
+  core := t:t_rim at h:u_pTo b
+  opt := t:t_rim (at, 4) h:p_ast b
+  (w, i, lo, hi) := ("bad-equation right", "an operator word", words) pa:b_inding core
+  integral := "integral" m_atch w
+  scan := "scan" m_atch w
+  _ := ((integral | scan) | 0 = at) pa:r_equire ("bad-equation right", "by names an integral's rule and grid, or a scan's seed; a " c_at w c_at " takes none: " c_at b)
+  _ := (n_ot integral & (h:i_nfinite? lo) | h:i_nfinite? hi) pa:r_equire ("bad-equation right", "an improper integral (a bound of inf): write a truncation, 0..20 say, and show the tail is small, or change variables so the bounds are finite: " c_at b)
+  _ := h:o_ptionsOk (integral, at, opt)
+  (w, i, lo, hi, opt)
+}
+
+## Whether a bound is written infinite (inf, -inf, infinity, oo).
+h:i_nfinite? := { b -> '| r_/ 0 + '{ f -> (d_isclose f) m_atch b } e_ach infinities }
+
+## The by options checked when there are any (at is where by was
+## found, 0 for none): an integral's rule and grid; a scan's seed is
+## any expression, read when the scan itself is (h:v_alueScan).
+h:o_ptionsOk := { (integral, at, opt) ->
+  0 = at ? 1 = 1
+  n_ot integral ? 1 = 1
+  h:o_ption? opt
+}
+
+## Whether an integral's by options are a rule the library has and a
+## whole number of steps (even for simpson); else a refusal.
+h:o_ption? := { opt ->
+  ws := t:w_ords opt
+  _ := (2 = t_ally ws) pa:r_equire ("bad-equation right", "after by: the rule and the grid, trapezoid 64 or simpson 32, not " c_at opt)
+  rule := d_isclose f_irst ws
+  n := d_isclose 2 s_elect ws
+  _ := ('| r_/ 0 + '{ r -> (d_isclose r) m_atch rule } e_ach rules) pa:r_equire ("bad-equation right", "the rule is trapezoid or simpson, not " c_at rule)
+  _ := ((0 < t_ally n) & '& r_/ n m_ember? []D) pa:r_equire ("bad-equation right", "the grid is a whole number of steps: " c_at n)
+  k := f_irst f_loor n_umbers n
+  _ := (0 < k) pa:r_equire ("bad-equation right", "the grid needs at least one step: " c_at n)
+  _ := (n_ot (rule m_atch "simpson") & 1 = k m_od 2) pa:r_equire ("bad-equation right", "simpson needs an even number of steps, not " c_at n)
+  1 = 1
+}
+
+## The rule and the steps of an integral's options ("" for the default).
+h:r_uleSteps := { opt ->
+  ws := t:w_ords ((0 = t_ally opt) h:p_ickText (defaultBy, opt))
+  (d_isclose f_irst ws, f_irst f_loor n_umbers d_isclose 2 s_elect ws)
+}
+
+## s before position k (all of s when k is 0), and s after a separator
+## of length m at position k ("" when k is 0).
+h:u_pTo := { k s ->
+  0 = k ? s
+  (k - 1) t_ake s
+}
+h:p_ast := { (k, m) s ->
+  0 = k ? ""
+  ((k + m) - 1) d_rop s
+}
+
+## A binding's (word, index, low, high, options), boxed, so a sum's
+## bindings can be taken apart by position.
+h:b_oxed := { (w, i, lo, hi, o) -> (e_nclose w) c_at (e_nclose i) c_at (e_nclose lo) c_at (e_nclose hi) c_at e_nclose o }
+
+## An atom checked: a name or a number.
+h:a_tom := { t ->
+  _ := ((0 < t_ally t) & '* r_/ 0 + t m_ember? nameChars c_at ".") pa:r_equire ("bad-equation right", "not a name, number, A[i,j], function or (sum ...) in an equation: " c_at t)
+  t
+}
+
+### The value
+
+## The whole expansion: a block defining the checks, the grid of the
+## free indices, and the expression's value over it.
+h:v_alue := { (names, extents) t ->
+  helpers := ([]G_ENSYM "a_t", []G_ENSYM "c_heck", []G_ENSYM "r_ank")
+  (at, chk, rk) := helpers
+  grid := []G_ENSYM "grid"
+  cell := []G_ENSYM "g_rid"
+  spans := '{ e -> (e_nclose "") h:b_ound d_isclose e } m_ap extents
+  lows := (t_ally names) r_eshape e_nclose "(0 + "
+  env := (names, spans, lows, cell, helpers)
+  gridLines := (0 = t_ally names) h:p_ickText ("", h:g_ridLines (grid, cell, spans))
+  atLine := "  " c_at at c_at " := { A i -> (1 + i) s_elect r_avel A }\n"
+  # A value that names no index is a scalar: shaped to the grid, so the
+  # result has one axis per free index whatever the expression.
+  shaped := (0 = t_ally names) h:p_ickText ("", grid c_at " r_eshape ")
+  "({ @ ->\n" c_at atLine c_at (h:c_hecks (chk, rk)) c_at gridLines c_at "  " c_at shaped c_at "(" c_at (env h:v_alueOf h:w_hole t) c_at ")\n} @)"
+}
+
+## The lines defining a grid over spans and its cell function (the
+## coordinates along axis k, shaped like the grid).
+h:g_ridLines := { (grid, cell, spans) ->
+  "  " c_at grid c_at " := " c_at (" c_at " h:j_oinWith spans) c_at "\n  " c_at cell c_at " := { k -> " c_at grid c_at " r_eshape (o_ffsets k s_elect " c_at grid c_at ") 'l_eft t_able ('* r_/ k d_rop " c_at grid c_at ") r_eshape 0 }\n"
+}
+
+## The value of a term in env (the indices in scope, their spans and
+## lows, the grid's cell function, the helpers), as X_eTaL text.
+h:v_alueOf := { env text ->
+  t := t:t_rim text
+  k := h:k_ind t
+  "add" m_atch k ? env h:v_alueChain ("+-", t)
+  "mul" m_atch k ? env h:v_alueChain ("*/", t)
+  "pow" m_atch k ? env h:v_aluePow t
+  "sum" m_atch k ? env h:v_alueSum t
+  "group" m_atch k ? "(" c_at (env h:v_alueOf pa:i_nner t) c_at ")"
+  "fn" m_atch k ? env h:v_alueFn t
+  "ref" m_atch k ? env h:v_alueRef t
+  env h:v_alueAtom h:a_tom t
+}
+
+## A chain folded left: ((a + b) - c); a leading minus is 0 - a.
+h:v_alueChain := { env (ops, t) ->
+  (parts, os, neg) := ("bad-equation right", ops) pa:p_arts t
+  first := env h:v_alueOf d_isclose f_irst parts
+  acc := neg h:p_ickText ("(0 - " c_at first c_at ")", first)
+  env h:v_alueFold (acc, os, 1 d_rop parts)
+}
+
+## The left fold of a chain: acc, then each operator with the next part.
+h:v_alueFold := { env (acc, os, parts) ->
+  0 = t_ally os ? acc
+  next := "(" c_at acc c_at " " c_at (1 t_ake os) c_at " " c_at (env h:v_alueOf d_isclose f_irst parts) c_at ")"
+  env h:v_alueFold (next, 1 d_rop os, 1 d_rop parts)
+}
+
+## a ^ b, right to left: the text cut at its first top-level ^.
+h:v_aluePow := { env t ->
+  i := f_irst w_here "^" pa:t_op t
+  "(" c_at (env h:v_alueOf (i - 1) t_ake t) c_at " ^ " c_at (env h:v_alueOf i d_rop t) c_at ")"
+}
+
+## A parenthesized sum: a block with its own grid over the indices in
+## scope and then its own, the body on that grid, and one reduction per
+## binding (innermost first), leaving an array over the indices in
+## scope. A scan is not a reduction (its term may use the one before,
+## X_eTaL-ML ask E2) and is handled on its own, h:v_alueScan, before
+## any of this -- it must be the term's only binding. Outside a scan,
+## prev is refused wherever it is written: the word is reserved for
+## the term a scan folds into the one before it.
+h:v_alueSum := { (names, spans, lows, cell, helpers) t ->
+  (ws, ns, ls, hs, os, body) := h:s_umParts t
+  isScan := 0 < '+ r_/ 0 + '{ w -> (d_isclose w) m_atch "scan" } e_ach ws
+  _ := ((n_ot isScan) | (1 = t_ally ws)) pa:r_equire ("bad-equation right", "a scan must be the only binding of its term (no sum, prod, max, min or integral alongside it): " c_at t)
+  isScan ? h:v_alueScan ((names, spans, lows, cell, helpers), d_isclose f_irst ns, d_isclose f_irst ls, d_isclose f_irst hs, d_isclose f_irst os, body)
+  _ := (n_ot h:h_asPrev? body) pa:r_equire ("bad-equation right", "prev names the term before inside a scan; it cannot be used here: " c_at t)
+  n := t_ally names
+  _ := ((t_ally ns) = '+ r_/ 0 + r_avel (names c_at ns) 'm_atch t_able ns) pa:r_equire ("bad-equation right", "an index is bound once: " c_at (", " h:j_oinWith (names c_at ns)))
+  qs := '{ k -> names h:q_uadrature (d_isclose k s_elect ws, d_isclose k s_elect ls, d_isclose k s_elect hs, d_isclose k s_elect os) } m_ap r_ange t_ally ns
+  q_ := { k j -> d_isclose j s_elect d_isclose k s_elect qs }
+  own := '{ k -> k q_ 1 } m_ap r_ange t_ally ns
+  lows2 := '{ k -> k q_ 2 } m_ap r_ange t_ally ns
+  grid := []G_ENSYM "grid"
+  cell2 := []G_ENSYM "g_rid"
+  env := (names c_at ns, spans c_at own, lows c_at lows2, cell2, helpers)
+  reds := "" t:j_oin '{ k -> (h:r_educer d_isclose k s_elect ws) c_at " r_/_" c_at (f_ormat n + k) c_at " " } m_ap r_ange t_ally ns
+  weighted := "" t:j_oin '{ k -> h:w_eighted (k q_ 4, cell2, n + k) } m_ap r_ange t_ally ns
+  none := 0 = t_ally spans c_at own
+  lines := ("" t:j_oin '{ k -> k q_ 3 } m_ap r_ange t_ally ns) c_at none h:p_ickText ("", h:g_ridLines (grid, cell2, spans c_at own))
+  shaped := none h:p_ickText ("", grid c_at " r_eshape ")
+  "({ @ ->\n" c_at lines c_at "  " c_at reds c_at shaped c_at weighted c_at "(" c_at (env h:v_alueOf body) c_at ")\n} @)"
+}
+
+## The length of the leading run of name characters in t (0 if t does
+## not start with one): how h:r_enamed and h:h_asPrev? find a whole
+## word instead of matching part of a longer name.
+h:w_ordLen := { t ->
+  0 = t_ally t ? 0
+  n_ot (f_irst t m_ember? nameChars) ? 0
+  1 + h:w_ordLen 1 d_rop t
+}
+
+## t with every whole-word occurrence of from replaced by to, anything
+## else untouched: how a scan's index and prev become plain generated
+## names before the body is translated like any other expression (its
+## own grammar has no notion of either, so they are never looked up
+## through the grid env the other bindings use).
+h:r_enamed := { (from, to) t ->
+  0 = t_ally t ? t
+  n_ot (f_irst t m_ember? nameChars) ? (1 t_ake t) c_at (from, to) h:r_enamed 1 d_rop t
+  k := h:w_ordLen t
+  word := k t_ake t
+  piece := ({ @ -> (word m_atch from) ? to; word } @)
+  piece c_at (from, to) h:r_enamed k d_rop t
+}
+
+## Whether prev appears as a whole word anywhere in t: the word a
+## scan's own body may use (its term before), refused everywhere else.
+h:h_asPrev? := { t ->
+  0 = t_ally t ? 1 = 0
+  n_ot (f_irst t m_ember? nameChars) ? h:h_asPrev? 1 d_rop t
+  k := h:w_ordLen t
+  ((k t_ake t) m_atch "prev") ? 1 = 1
+  h:h_asPrev? k d_rop t
+}
+
+## A scan's value: a genuine fold, not a reduction -- the array
+## machinery's reduce is a right fold (B6), only the same as a running
+## left-to-right accumulation when the combining step is associative,
+## which a scan's body need not be. Built instead from p_ower: one
+## state-threading step function, (t, prev) to (t's successor, the
+## body at that successor), applied once per point of the range,
+## starting one step before the low end so the first real application
+## lands there. prev starts at the seed (`by`, X_eTaL-ML ask E2); a
+## scan with no seed and a body that never names prev folds in a seed
+## of 0 harmlessly, since it is never read. The index and prev are
+## substituted into the body's own translation (not its text: that
+## would be reparsed as if it were the equation's grammar, which it
+## is not) by name, so a scan's free indices, references and nested
+## terms still translate through the ordinary env.
+h:v_alueScan := { (env, index, lo, hi, seed, body) ->
+  (names, _, _, _, _) := env
+  loCode := names h:b_ound lo
+  hiCode := names h:b_ound hi
+  _ := ((0 < t_ally seed) | (n_ot (h:h_asPrev? body))) pa:r_equire ("bad-equation right", "a scan whose body uses prev needs a seed: scan " c_at index c_at ":=" c_at lo c_at ".." c_at hi c_at " by seed | " c_at body)
+  seedCode := (0 = t_ally seed) h:p_ickText ("0", names h:b_ound seed)
+  rawBody := env h:v_alueOf body
+  (gStep, gT, gAcc, gNext) := ([]G_ENSYM "step", []G_ENSYM "t", []G_ENSYM "acc", []G_ENSYM "t")
+  stepBody := (index, gNext) h:r_enamed (("prev", gAcc) h:r_enamed rawBody)
+  "(({ @ ->\n  " c_at gStep c_at " := ({ @ -> ((" c_at hiCode c_at ") >= (" c_at loCode c_at ")) ? 1; 0 - 1 } @)\n  (_, " c_at gAcc c_at ") := (1 + a_bs ((" c_at hiCode c_at ") - (" c_at loCode c_at "))) '{ (" c_at gT c_at ", " c_at gAcc c_at ") ->\n    " c_at gNext c_at " := " c_at gT c_at " + " c_at gStep c_at "\n    (" c_at gNext c_at ", " c_at stepBody c_at ")\n  } p_ower ((" c_at loCode c_at ") - " c_at gStep c_at ", " c_at seedCode c_at ")\n  " c_at gAcc c_at "\n} @))"
+}
+
+## A binding's span, coordinate prefix, defining lines and weights
+## name, as texts: a sum's span is its range's length, checked at run
+## time (low and high are the caller's values, not known until then):
+## a negative length -- the range runs high..low, backwards -- signals
+## error[bad-equation] naming the word and the range as written,
+## rather than falling through to the array machinery's own count
+## error (X_eTaL-ML ask E1); its coordinate is its low plus the cell,
+## no lines, no weights; an integral's span is its grid's n + 1
+## points, its coordinate a + h * the cell, its lines define a, b, h
+## and the weights (fresh names, so the body may name any of a, b, h
+## or w), the weights holding the rule's and the step.
+h:q_uadrature := { names (w, lo, hi, opt) ->
+  n_ot "integral" m_atch w ? (e_nclose "({ v -> (0 <= v) ? v; \"bad-equation\" []S_IGNAL \"" c_at w c_at "'s range runs low..high: " c_at lo c_at ".." c_at hi c_at "\" } (1 + " c_at (names h:b_ound hi) c_at " - " c_at (names h:b_ound lo) c_at "))") c_at (e_nclose "(" c_at (names h:b_ound lo) c_at " + ") c_at (e_nclose "") c_at e_nclose ""
+  (rule, k) := h:r_uleSteps opt
+  (a, b, h, ws) := ([]G_ENSYM "a", []G_ENSYM "b", []G_ENSYM "h", []G_ENSYM "w")
+  lines := "  " c_at a c_at " := f_loat (" c_at (names h:b_ound lo) c_at ")\n  " c_at b c_at " := f_loat (" c_at (names h:b_ound hi) c_at ")\n  " c_at h c_at " := (" c_at b c_at " - " c_at a c_at ") / " c_at (f_ormat k) c_at ".0\n  " c_at ws c_at " := " c_at h c_at " * " c_at (rule h:w_eights k) c_at "\n"
+  (e_nclose "(" c_at (f_ormat k + 1) c_at ")") c_at (e_nclose "(" c_at a c_at " + " c_at h c_at " * f_loat ") c_at (e_nclose lines) c_at e_nclose ws
+}
+
+## The rule's weights over k steps (k + 1 points), as code: trapezoid
+## 1/2, 1, ..., 1, 1/2; simpson (1, 4, 2, 4, ..., 4, 1) / 3.
+h:w_eights := { rule k ->
+  rule m_atch "simpson" ? "(1.0 c_at (" c_at (f_ormat k - 1) c_at " r_eshape 4.0 2.0) c_at 1.0) / 3.0"
+  "0.5 c_at (" c_at (f_ormat k - 1) c_at " r_eshape 1.0) c_at 0.5"
+}
+
+## The factor an integral's binding puts before the body: its weights
+## laid over the grid along its axis; "" for a sum.
+h:w_eighted := { (ws, cell, axis) ->
+  0 = t_ally ws ? ""
+  "((1 + " c_at cell c_at " " c_at (f_ormat axis) c_at ") s_elect " c_at ws c_at ") * "
+}
+
+## The reduction an operator word stands for.
+h:r_educer := { w ->
+  "sum" m_atch w ? "'+"
+  "prod" m_atch w ? "'*"
+  "max" m_atch w ? "'m_ax"
+  "integral" m_atch w ? "'+"
+  "'m_in"
+}
+
+## A bound or extent: an expression of the caller's values, with no
+## index in scope; one that names an index is refused.
+h:b_ound := { names t ->
+  used := '{ w -> 0 < '+ r_/ 0 + '{ n -> (d_isclose n) m_atch d_isclose w } e_ach names } e_ach t:w_ords h:s_paced t
+  _ := (0 = '+ r_/ 0 + used) pa:r_equire ("bad-equation right", "a bound or extent cannot depend on an index: " c_at t)
+  (e_nclose "", e_nclose "", e_nclose "", "", ("", "", "")) h:v_alueOf t
+}
+
+## t with its operators and brackets spaced out, so its words are its names.
+h:s_paced := { t -> "" t:j_oin '{ ch -> (ch m_ember? "+-*/^()[],") ? " "; ch } m_ap t }
+
+## A function applied to its arguments' values: the fixed math
+## functions by their own rule, any other name as the caller's own
+## u: function, applied to however many arguments it was given
+## (X_eTaL-ML ask E3) -- u:name(args), not a quoted call, so a name
+## that is not a function, or not one of this arity, is the expanded
+## code's own compile error, naming the equation's call.
+h:v_alueFn := { env t ->
+  (name, args) := h:f_nParts t
+  vs := '{ a -> env h:v_alueOf d_isclose a } m_ap args
+  a := d_isclose f_irst vs
+  "sqrt" m_atch name ? "(" c_at a c_at " ^ 0.5)"
+  "exp" m_atch name ? "(e_xp " c_at a c_at ")"
+  "log" m_atch name ? "(l_og " c_at a c_at ")"
+  "abs" m_atch name ? "(a_bs " c_at a c_at ")"
+  "sin" m_atch name ? "(s_in " c_at a c_at ")"
+  "cos" m_atch name ? "(c_os " c_at a c_at ")"
+  (("max" m_atch name) | ("min" m_atch name)) ? "(" c_at a c_at (("max" m_atch name) h:p_ickText (" m_ax ", " m_in ")) c_at (d_isclose 2 s_elect vs) c_at ")"
+  "(u:" c_at name c_at "(" c_at (", " t:j_oin vs) c_at "))"
+}
+
+## A[e1,...,en] as a gather from A's ravel, the index by Horner's rule
+## over A's shape (0-origin, as the equation writes it); A is checked
+## to have n axes, and each index to lie within its axis.
+h:v_alueRef := { (names, spans, lows, cell, (at, chk, rk)) t ->
+  (name, ix) := "bad-equation right" pa:r_eference t
+  inner := (names, spans, lows, cell, (at, chk, rk)) h:h_orner (name, ix, t_ally ix)
+  checked := "(" c_at rk c_at " (" c_at name c_at ", \"" c_at name c_at "\", " c_at (f_ormat t_ally ix) c_at ", \"" c_at t c_at "\"))"
+  "\n    (" c_at checked c_at " " c_at at c_at " (" c_at inner c_at "))"
+}
+
+## The ravel position of A[e1,...,ek] by Horner's rule: ek + (k-th
+## extent of A) * (the same for e1 ... e(k-1)), down to e1; each ek
+## passes through the bounds check.
+h:h_orner := { (names, spans, lows, cell, (at, chk, rk)) (name, ix, k) ->
+  env := (names, spans, lows, cell, (at, chk, rk))
+  written := t:t_rim d_isclose k s_elect ix
+  e := "\n      ((" c_at name c_at ", \"" c_at name c_at "\", " c_at (f_ormat k) c_at ", \"" c_at written c_at "\") " c_at chk c_at " " c_at (env h:v_alueOf written) c_at ")"
+  k = 1 ? e
+  "(" c_at e c_at " + (" c_at (f_ormat k) c_at " s_elect s_hape " c_at name c_at ") * " c_at (env h:h_orner (name, ix, k - 1)) c_at ")"
+}
+
+## An index in scope as its coordinates on the grid (its low added),
+## anything else as written: the caller's name or a number.
+h:v_alueAtom := { (names, _, lows, cell, _) t ->
+  hit := w_here '{ n -> (d_isclose n) m_atch t } e_ach names
+  0 = t_ally hit ? t
+  k := f_irst hit
+  (d_isclose k s_elect lows) c_at cell c_at " " c_at (f_ormat k) c_at ")"
+}
+
+## The two run-time checks the expansion defines: an index within its
+## axis (0 to the extent less one), and a reference with as many
+## indices as its array has axes; each names the array, the axis and
+## the expression as written, and gives its argument back when it holds.
+h:c_hecks := { (chk, rk) ->
+  c := "  " c_at chk c_at " := { (A, name, k, from) e ->\n    n := k s_elect s_hape A\n    bad := w_here n_ot r_avel (0 <= e) & e < n\n    0 = t_ally bad ? e\n    \"index\" []S_IGNAL name c_at \" axis \" c_at (f_ormat k) c_at \": index \" c_at (f_ormat (f_irst bad) s_elect r_avel e) c_at \" is outside 0..\" c_at (f_ormat n - 1) c_at \" (from \" c_at from c_at \")\"\n  }\n"
+  r := "  " c_at rk c_at " := { (A, name, q, ref) ->\n    (t_ally s_hape A) = q ? A\n    \"rank\" []S_IGNAL ref c_at \" indexes \" c_at (f_ormat q) c_at \" axes, but \" c_at name c_at \" has rank \" c_at f_ormat t_ally s_hape A\n  }\n"
+  c c_at r
+}
+
+### The same call as LaTeX
+
+## The LaTeX text of the call (no quotes): the result as written (L for
+## a scalar), = and the expression; a bare sum without the parentheses
+## the reader gave it.
+h:t_ex := { lhs rhs ->
+  (names, _) := h:f_ree lhs
+  head := t:t_rim d_isclose f_irst "|" pa:s_plit lhs
+  name := ((f_irst w_here head m_ember? "[") - 1) t_ake head
+  sub := (0 = t_ally names) h:p_ickText ("", "_{" c_at ("," t:j_oin names) c_at "}")
+  (h:g_reek name) c_at sub c_at " = " c_at h:t_exBody t:t_rim rhs
+}
+
+## The right side as LaTeX: a bare sum without the parentheses the
+## reader gives it, anything else as a term.
+h:t_exBody := { t ->
+  0 < '+ r_/ 0 + "|" pa:t_op t ? ("", "") h:t_exSum t
+  h:t_exOf h:w_hole t
+}
+
+## A term as LaTeX.
+h:t_exOf := { text ->
+  t := t:t_rim text
+  k := h:k_ind t
+  "add" m_atch k ? "+-" h:t_exChain t
+  "mul" m_atch k ? "*/" h:t_exChain t
+  "pow" m_atch k ? h:t_exPow t
+  "sum" m_atch k ? ("\\\\left(", "\\\\right)") h:t_exSum pa:i_nner t
+  "group" m_atch k ? "\\\\left(" c_at (h:t_exOf pa:i_nner t) c_at "\\\\right)"
+  "fn" m_atch k ? h:t_exFn t
+  "ref" m_atch k ? h:t_exRef t
+  h:g_reek h:a_tom t
+}
+
+## A chain: a + b - c; a \, b for a product; \frac{a}{b} for a quotient.
+h:t_exChain := { ops t ->
+  (parts, os, neg) := ("bad-equation right", ops) pa:p_arts t
+  p1 := d_isclose f_irst parts
+  first := ("/" m_atch 1 t_ake os c_at " ") h:p_ickText (h:t_exBare p1, h:t_exOf p1)
+  acc := neg h:p_ickText ("-" c_at first, first)
+  h:t_exFold (acc, os, 1 d_rop parts)
+}
+
+h:t_exFold := { (acc, os, parts) ->
+  0 = t_ally os ? acc
+  op := 1 t_ake os
+  p := d_isclose f_irst parts
+  next := ("/" m_atch op) h:p_ickText (h:t_exBare p, h:t_exOf p)
+  h:t_exFold (h:t_exJoin (acc, op, next), 1 d_rop os, 1 d_rop parts)
+}
+
+## A term without the parentheses it was written in, where what holds
+## it already sets it apart: the numerator or denominator of \frac, the
+## argument of \sqrt.
+h:t_exBare := { text ->
+  t := t:t_rim text
+  k := h:k_ind t
+  "sum" m_atch k ? ("", "") h:t_exSum pa:i_nner t
+  "group" m_atch k ? h:t_exOf pa:i_nner t
+  h:t_exOf t
+}
+
+## Two operands joined by an operator: \frac for /, a thin space for *.
+h:t_exJoin := { (acc, op, next) ->
+  "/" m_atch op ? "\\\\frac{" c_at acc c_at "}{" c_at next c_at "}"
+  "*" m_atch op ? acc c_at " \\\\, " c_at next
+  acc c_at " " c_at op c_at " " c_at next
+}
+
+h:t_exPow := { t ->
+  i := f_irst w_here "^" pa:t_op t
+  (h:t_exOf (i - 1) t_ake t) c_at "^{" c_at (h:t_exOf i d_rop t) c_at "}"
+}
+
+## A sum's bindings as \sum_{i=low}^{high} (the operator word's symbol),
+## then its body, wrapped as asked.
+h:t_exSum := { (open, close) inner ->
+  (ws, ns, ls, hs, _, body) := h:s_umParts "(" c_at inner c_at ")"
+  o_ne := { k -> (h:s_ymbol d_isclose k s_elect ws) c_at "_{" c_at (h:t_exIndex (d_isclose k s_elect ws, d_isclose k s_elect ns)) c_at (h:t_exOf d_isclose k s_elect ls) c_at "}^{" c_at (h:t_exOf d_isclose k s_elect hs) c_at "} " }
+  d_ := { k -> ("integral" m_atch d_isclose k s_elect ws) h:p_ickText (" \\\\, d" c_at (h:g_reek d_isclose k s_elect ns), "") }
+  open c_at ("" t:j_oin 'o_ne m_ap r_ange t_ally ns) c_at (h:t_exOf body) c_at ("" t:j_oin 'd_ m_ap r_ev r_ange t_ally ns) c_at close
+}
+
+## A sum's index and = before its low; an integral's lower bound stands
+## alone (\int_{a}^{b}).
+h:t_exIndex := { (w, i) ->
+  "integral" m_atch w ? ""
+  i c_at "="
+}
+
+## A Greek letter's name as its LaTeX command (a capital's too: Phi,
+## Sigma); any other name as is.
+h:g_reek := { v ->
+  '| r_/ 0 + '{ w -> (d_isclose w) m_atch v } e_ach t:w_ords greek ? "\\\\" c_at v
+  v
+}
+greek := "alpha beta gamma delta epsilon zeta eta theta iota kappa lambda mu nu xi pi rho sigma tau upsilon phi chi psi omega Gamma Delta Theta Lambda Xi Pi Sigma Upsilon Phi Psi Omega"
+
+## The symbol of an operator word.
+h:s_ymbol := { w ->
+  "sum" m_atch w ? "\\\\sum"
+  "prod" m_atch w ? "\\\\prod"
+  "max" m_atch w ? "\\\\max"
+  "integral" m_atch w ? "\\\\int"
+  "scan" m_atch w ? "\\\\operatorname{scan}"
+  "\\\\min"
+}
+
+## A function applied: \exp(x), \log(x), \sqrt{x}, \lvert x \rvert, \max(a, b).
+h:t_exFn := { t ->
+  (name, args) := h:f_nParts t
+  as := '{ a -> h:t_exOf d_isclose a } m_ap args
+  a := d_isclose f_irst as
+  known := 0 < '+ r_/ 0 + '{ f -> (d_isclose f) m_atch name } e_ach functions
+  "sqrt" m_atch name ? "\\\\sqrt{" c_at (h:t_exBare d_isclose f_irst args) c_at "}"
+  "abs" m_atch name ? "\\\\lvert " c_at a c_at " \\\\rvert"
+  known ? "\\\\" c_at name c_at "(" c_at (", " t:j_oin as) c_at ")"
+  "\\\\operatorname{" c_at name c_at "}(" c_at (", " t:j_oin as) c_at ")"
+}
+
+## A reference as a subscript: A_{i,j}, the indices as written without
+## spaces, a product among them as a thin space.
+h:t_exRef := { t ->
+  (name, ix) := "bad-equation right" pa:r_eference t
+  name c_at "_{" c_at ("," t:j_oin '{ i -> h:s_ubscript d_isclose i } m_ap ix) c_at "}"
+}
+
+h:s_ubscript := { t -> "" t:j_oin '{ ch -> (ch m_ember? "*") ? "\\\\,"; (ch m_ember? " ") ? ""; ch } m_ap t }
+
+### The reading written back
+
+## A term as it was read, with no spaces: the same text it came from,
+## or a rule dropped something.
+h:p_lain := { text ->
+  t := t:t_rim text
+  k := h:k_ind t
+  "add" m_atch k ? "+-" h:p_lainChain t
+  "mul" m_atch k ? "*/" h:p_lainChain t
+  "pow" m_atch k ? h:p_lainPow t
+  "sum" m_atch k ? h:p_lainSum t
+  "group" m_atch k ? "(" c_at (h:p_lain pa:i_nner t) c_at ")"
+  "fn" m_atch k ? h:p_lainFn t
+  "ref" m_atch k ? h:p_lainRef t
+  h:a_tom t
+}
+
+h:p_lainChain := { ops t ->
+  (parts, os, neg) := ("bad-equation right", ops) pa:p_arts t
+  first := h:p_lain d_isclose f_irst parts
+  acc := neg h:p_ickText ("-" c_at first, first)
+  h:p_lainFold (acc, os, 1 d_rop parts)
+}
+
+h:p_lainFold := { (acc, os, parts) ->
+  0 = t_ally os ? acc
+  h:p_lainFold (acc c_at (1 t_ake os) c_at (h:p_lain d_isclose f_irst parts), 1 d_rop os, 1 d_rop parts)
+}
+
+h:p_lainPow := { t ->
+  i := f_irst w_here "^" pa:t_op t
+  (h:p_lain (i - 1) t_ake t) c_at "^" c_at h:p_lain i d_rop t
+}
+
+h:p_lainSum := { t ->
+  (ws, ns, ls, hs, os, body) := h:s_umParts t
+  o_ne := { k -> (d_isclose k s_elect ws) c_at (d_isclose k s_elect ns) c_at ":=" c_at (h:p_lain d_isclose k s_elect ls) c_at ".." c_at (h:p_lain d_isclose k s_elect hs) c_at h:p_lainBy d_isclose k s_elect os }
+  "(" c_at ("," t:j_oin 'o_ne m_ap r_ange t_ally ns) c_at "|" c_at (h:p_lain body) c_at ")"
+}
+
+## An integral's by options as written, squeezed; "" for none.
+h:p_lainBy := { opt ->
+  0 = t_ally opt ? ""
+  "by" c_at pa:s_queeze opt
+}
+
+h:p_lainFn := { t ->
+  (name, args) := h:f_nParts t
+  name c_at "(" c_at ("," t:j_oin '{ a -> h:p_lain d_isclose a } m_ap args) c_at ")"
+}
+
+h:p_lainRef := { t ->
+  (name, ix) := "bad-equation right" pa:r_eference t
+  name c_at "[" c_at ("," t:j_oin '{ i -> h:p_lain d_isclose i } m_ap ix) c_at "]"
+}
+
+### Text helpers
+
+## The boxed texts b joined by sep.
+h:j_oinWith := { sep b -> sep t:j_oin b }

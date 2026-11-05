@@ -1,0 +1,90 @@
+## Ranges: its macro library -- f_or<, a list of stepped ranges, each
+## bound to a name: "for i:=0..10 by 2". No functions.
+## Imported with the functions, under one alias: "rg:" u_se< "Ranges".
+## A macro is a function from the source text written left and right of
+## its call to the source that replaces the call, run before the program
+## is compiled (X_eTaL MC10). Names with m: are macros; those under h: are
+## private to this file. libs/Parsing/docs/guide.md builds this exact
+## macro step by step, tool by tool, as a worked example of writing a
+## notation macro with libs/Parsing.
+
+"t:" u_se< "Strings"
+"pa:" u_se< "Parsing"
+
+words := e_nclose "for"
+
+## a when c holds, else b: a text already computed, picked by value
+## (not a guard), so it can be used inside a larger expression.
+h:p_ickText := { c (a, b) -> c ? a; b }
+
+## As h:p_ickText, picking one of two (text, text) pairs.
+h:p_ickPair := { c (a, b) -> c ? a; b }
+
+## A bound: a chain of +/- atoms (a leading minus negates the first),
+## each atom a number, a parenthesized group (recurse), len(name) (an
+## array's length), A[i] (one of its elements) or a bare name; an atom
+## alone skips the chain.
+h:b_ound := { t ->
+  0 = '+ r_/ 0 + "+-" pa:t_op t ? h:a_tom t
+  (parts, os, neg) := ("bad-range right", "+-") pa:p_arts t
+  first := h:a_tom d_isclose f_irst parts
+  acc := neg h:p_ickText ("(0 - " c_at first c_at ")", first)
+  h:f_old (acc, os, 1 d_rop parts)
+}
+h:f_old := { (acc, os, parts) ->
+  0 = t_ally os ? acc
+  next := "(" c_at acc c_at " " c_at (1 t_ake os) c_at " " c_at (h:a_tom d_isclose f_irst parts) c_at ")"
+  h:f_old (next, 1 d_rop os, 1 d_rop parts)
+}
+h:a_tom := { t ->
+  pa:g_roup? t ? h:b_ound pa:i_nner t
+  pa:a_pplied? t ? h:f_n t
+  0 < "[" pa:a_t t ? h:r_ef t
+  t
+}
+h:f_n := { t ->
+  (name, args) := "bad-range right" pa:a_pplied t
+  _ := (("len" m_atch name) & 1 = t_ally args) pa:r_equire ("bad-range right", "a bound's function is len(name): " c_at t)
+  "(t_ally " c_at (d_isclose f_irst args) c_at ")"
+}
+h:r_ef := { t ->
+  (name, ix) := "bad-range right" pa:r_eference t
+  "((1 + " c_at (d_isclose f_irst ix) c_at ") s_elect " c_at name c_at ")"
+}
+
+## One "for i:=lo..hi [by step]" piece: a canonical reprint (for the
+## whole-text check) paired with the statement it binds.
+h:p_iece := { t ->
+  at := " by " pa:a_t t
+  (core, stepText) := (0 = at) h:p_ickPair ((t, "1"), (t:t_rim (at - 1) t_ake t, t:t_rim (at + 3) d_rop t))
+  _ := (pa:n_umber? stepText) pa:r_equire ("bad-range right", "a step is a whole number: " c_at stepText)
+  (word, ix, lo, hi) := ("bad-range right", "a loop variable (for)", words) pa:b_inding core
+  low := h:b_ound lo
+  high := h:b_ound hi
+  byPart := (0 = at) h:p_ickText ("", "by" c_at stepText)
+  reprint := word c_at ix c_at ":=" c_at lo c_at ".." c_at hi c_at byPart
+  stmt := ix c_at " := " c_at low c_at " + (" c_at stepText c_at " * ((r_ange (1 + f_loor ((" c_at high c_at " - " c_at low c_at ") / " c_at stepText c_at ")))" c_at " - 1))\n"
+  (reprint, stmt)
+}
+
+### The macro
+
+## for i:=0..10 by 2, for j:=0..len(A)-1: a comma-separated list of
+## stepped ranges, lowest to highest inclusive, each bound to its own
+## name (i and j here). The step (by 2) is optional, 1 when it is not
+## written. A bound is a number, a parenthesized chain of them, an
+## array's length (len(A)) or one of its elements (A[0]). When the
+## program is compiled, each binding becomes a plain array built from
+## r_ange, so nothing about the range is computed again at run time
+## beyond what the program itself asks for. A malformed range, an
+## unknown loop word, a non-whole step, or any text left over once
+## every piece is read, stops the compiler: error[bad-range]. It
+## stands as a statement of its own.
+## takes: @ text
+## uses: parsed
+m:f_or< := { @ text ->
+  pieces := '{ p -> h:p_iece d_isclose p } m_ap "," pa:s_plit t:t_rim text
+  reprint := "," t:j_oin '{ b -> (rp, _) := d_isclose b; rp } m_ap pieces
+  _ := "bad-range right" pa:w_hole (text, reprint)
+  "" t:j_oin '{ b -> (_, st) := d_isclose b; st } m_ap pieces
+}
