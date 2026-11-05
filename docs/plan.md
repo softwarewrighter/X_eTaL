@@ -670,8 +670,8 @@ Retrospective (the lane is closed; its saga is archived in
 
 ## Saga 43 -- a time-traveling debugger (prioritized by the user, 2026-11-04)
 
-Next after the steps in hand (166 discarded-value-lint, 174
-terminal-math): a debugger that steps through any program, X_eTaL-ML's
+First, ahead of the steps in hand (166 discarded-value-lint, 174
+terminal-math, which follow it): a debugger that steps through any program, X_eTaL-ML's
 pipelines of equations in their expanded code included, showing every
 intermediate value, with breakpoints, watches, the stack, 2D and 3D
 views of arrays, stepping backward in time, and the Debug Adapter
@@ -683,7 +683,8 @@ own, DAP first, then the terminal debugger and the live demo's page.
 Steps 175-183: debug-core, debug-variables, debug-time-travel,
 debug-expansion, debug-dap, debug-views, debug-tui, debug-web,
 debug-ml. It supersedes Saga 17's stepper, whose trace tree it uses;
-docs/debugger-plan.md section 9 lists the decisions to make first.
+docs/debugger-plan.md section 9 has the decisions, made with the
+user on 2026-11-05 (D189).
 
 ## Next, in order (decided with the user, 2026-10-02; asks first, 2026-10-03)
 

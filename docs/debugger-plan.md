@@ -181,15 +181,21 @@ DAP comes before the terminal and page front ends because the clients
 give breakpoints, watches, the stack and stepping their windows for
 free, so the core is usable, and tested, early.
 
-## 9. Decisions to make with the user
+## 9. Decisions (made with the user, 2026-11-05)
 
-- **Granularity**: statement stops by default and expression stops on
-  step in (recommended), or expression stops always.
-- **Time travel**: checkpoints and replay (recommended) or a full
-  trace of every transition (simpler to query, far more memory).
-- **Front end order**: DAP first (recommended), the terminal debugger
-  first, or the page first.
-- **The VS Code extension**: published to the marketplace, or a local
-  extension installed from the repository.
-- **Effects when stepping back**: say so and go on (recommended), or
-  refuse to step back over a file write.
+The user took the recommendation on each:
+
+- **Granularity**: statement stops by default; step in stops at each
+  application (expression stops), and inside the higher-order
+  built-ins at each operand call.
+- **Time travel**: checkpoints and replay (section 3), not a full
+  trace of every transition.
+- **Front end order**: DAP first (`xetal dap`, step debug-dap), then
+  the views, the terminal debugger and the live demo's page.
+- **The VS Code extension**: published to the Visual Studio
+  Marketplace. The repository holds the extension (`editors/vscode`)
+  and a packaging recipe (`vsce package`); publishing uses the user's
+  publisher account, so the user runs the publish step.
+- **Effects when stepping back**: say so and go on. Output already
+  shown is not shown again; a file written by `[]N_PUT` stays written,
+  and the debugger names it when stepping back over it.
