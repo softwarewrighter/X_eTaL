@@ -1,0 +1,8 @@
+number = 189
+slug = "render-applied-parens"
+status = "pending"
+description = "The user (2026-11-07), rule D-11 in docs/lang-choices.md: a parenthesized exp..."
+role = "production"
+context_files = []
+created_at = "2026-11-07T11:22:41"
+commits = []
