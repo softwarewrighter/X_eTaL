@@ -85,6 +85,42 @@ u:s_ub := { _l - _r }            # `_l` is the left argument (APL's alpha)
 u:h_yp := { a b -> ((a * a) + b * b) ^ 0.5 }   # named arguments before ->
 3 u:h_yp 4                       # 5.0
 
+### Every function takes one argument
+# APL functions are niladic, monadic or dyadic, and many are both
+# monadic and dyadic (ambivalent). Here a function takes exactly one
+# argument: no-argument use passes the unit value @ (below), and
+# two-argument use is currying: `x f y` is `(f x) y`, f applied to x
+# giving a function that is then applied to y: u:p_ow below has type
+# Num a => a -> a -> a.
+## b u:p_ow e: b to the power e.
+u:p_ow := { b e -> b ^ e }
+2 u:p_ow 10              # 1024: dyadic use
+## u:t_woTo e: 2 to the power e, u:p_ow with its left argument given.
+u:t_woTo := u:p_ow 2     # partial application: give the left argument only
+u:t_woTo 10              # 1024
+(u:p_ow 3)_ 2            # 9: `_` makes a parenthesized value a function
+# A symbol needs both sides (`- 3` is error[symbol-needs-left]), so
+# a symbol is partially applied quoted: ('-)_ 10 is "10 minus ...".
+## u:t_enMinus x: 10 - x.
+u:t_enMinus := ('-)_ 10
+u:t_enMinus 3            # 7
+## u:m_inusTen x: x - 10, the arguments swapped first.
+u:m_inusTen := (s_wap '-)_ 10
+u:m_inusTen 3            # -7
+(('*)_ 2) e_ach 1 2 3    # 2 4 6: a partial application as an operand
+1 2 3 '= e_ach 1 5 3     # 1 0 1: dyadic each is currying too
+# A function with no argument (niladic) takes the unit value @, so
+# that it is still a function of one argument: call it with @.
+p_i @                    # 3.141592653589793
+## u:a_nswer: 42, computed when called.
+u:a_nswer := { @ -> 42 }
+u:a_nswer @              # 42; u:a_nswer alone is the function itself
+# Composing functions: c_ompose (the nearest operand applies first),
+# an atop train, or s_wap to exchange the arguments (APL's commute).
+'n_eg 'a_bs c_ompose -4  # -4: n_eg of a_bs
+[n_eg a_bs] -4           # -4: the same as a train
+10 '- s_wap 3            # -7: 3 - 10
+
 ### Operators take quoted functions
 # A quote `'` passes a function as a value: it is the operand of the
 # function on its right. APL's operators are plain functions here.

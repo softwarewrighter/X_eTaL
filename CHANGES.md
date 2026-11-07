@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-06
+
+- 18:20 `docs` How functions take arguments (the user): the learn page gains a section, every function takes one argument (where APL's are niladic, monadic or dyadic, and often ambivalent), two-argument use is currying, partial application (`u:p_ow 2`, `(u:p_ow 3)_ 2`, a quoted symbol `('-)_ 10`, `s_wap`), a partial application as an operand, niladic functions take `@`, and composition (`c_ompose`, an atop train, `s_wap`); docs/idioms.md gains a fourth note for readers and three rows (two arguments, partial application, no arguments) beside Rust, JavaScript, Java, Python and C++, each run by spec/integration/idioms.case. The learn-xetal golden rebased on purpose.
+
 ## 2026-11-05
 
 - 12:05 `design` The debugger's decisions (D189; the user took each recommendation): statement stops by default and expression stops on step in; time travel by checkpoints and replay; DAP first; a VS Code extension for the Visual Studio Marketplace (the user publishes it); stepping back over an effect says so and goes on. Saga 43 moved first, ahead of steps 166 and 174.

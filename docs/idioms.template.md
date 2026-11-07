@@ -9,7 +9,7 @@ X_eTaL entry runs as shown (`spec/integration/idioms.case` and the
 `idioms-io` golden check them); where X_eTaL has no equivalent, the
 table says so.
 
-Three things to know when reading the X_eTaL column:
+Four things to know when reading the X_eTaL column:
 
 - Expressions are read right to left, with no precedence:
   `a + b * c` is `a + (b * c)`, and `2 * 3 + 1` is 8.
@@ -18,6 +18,11 @@ Three things to know when reading the X_eTaL column:
 - A name with an underlined letter is a function (`r_ev`, typed `r_`
   then the rest); a quote passes a function as a value, the operand
   of the function to its right (`'+ r_/ xs` sums).
+- Every function takes one argument, where APL's are niladic, monadic
+  or dyadic (and often ambivalent, both monadic and dyadic): `x f y` is
+  `(f x) y` (currying), so `u:p_ow 2` is a function
+  still waiting for its right argument (partial application), and a
+  function of no arguments takes the unit value `@` (`p_i @`).
 
 ## Mainstream languages
 
@@ -29,6 +34,9 @@ Three things to know when reading the X_eTaL column:
 | Mutation | <code>x! := x! + 1</code> | <code>x += 1; // let mut x</code> | <code>x += 1;</code> | <code>x = x + 1;</code> | <code>x += 1</code> | <code>x += 1;</code> |
 | Defining a function | <code>u:s_q := { x -&gt; x * x }</code> | <code>fn sq(x: i64) -&gt; i64 { x * x }</code> | <code>function sq(x) { return x * x; }</code> | <code>int sq(int x) { return x * x; }</code> | <code>def sq(x): return x * x</code> | <code>int sq(int x) { return x * x; }</code> |
 | Calling a function | <code>u:s_q 5</code> | <code>sq(5)</code> | <code>sq(5)</code> | <code>sq(5)</code> | <code>sq(5)</code> | <code>sq(5)</code> |
+| Two arguments | <code>2 u:p_ow 10</code> (<code>u:p_ow := { b e -&gt; b ^ e }</code>) | <code>pow(2, 10)</code> | <code>pow(2, 10)</code> | <code>pow(2, 10)</code> | <code>pow(2, 10)</code> | <code>pow(2, 10)</code> |
+| Partial application | <code>u:t_woTo := u:p_ow 2</code> | <code>let two_to = &#124;e&#124; pow(2, e);</code> | <code>const twoTo = e =&gt; pow(2, e);</code> | <code>IntUnaryOperator twoTo = e -&gt; pow(2, e);</code> | <code>two_to = functools.partial(pow, 2)</code> | <code>auto two_to = std::bind_front(pow, 2);</code> |
+| No arguments | <code>u:a_nswer := { @ -&gt; 42 }; u:a_nswer @</code> | <code>fn answer() -&gt; i32 { 42 }</code> then <code>answer()</code> | <code>const answer = () =&gt; 42; answer()</code> | <code>IntSupplier answer = () -&gt; 42; answer.getAsInt()</code> | <code>answer = lambda: 42; answer()</code> | <code>auto answer = [] { return 42; }; answer()</code> |
 | Anonymous function | <code>{ _r * _r }</code> | <code>&#124;x&#124; x * x</code> | <code>x =&gt; x * x</code> | <code>x -&gt; x * x</code> | <code>lambda x: x * x</code> | <code>[](int x) { return x * x; }</code> |
 | Comment | <code># note</code> | <code>// note</code> | <code>// note</code> | <code>// note</code> | <code># note</code> | <code>// note</code> |
 | Conditional | <code>{ x -&gt; x &lt; 0 ? n_eg x; x }</code> | <code>if x &lt; 0 { -x } else { x }</code> | <code>x &lt; 0 ? -x : x</code> | <code>x &lt; 0 ? -x : x</code> | <code>-x if x &lt; 0 else x</code> | <code>x &lt; 0 ? -x : x</code> |

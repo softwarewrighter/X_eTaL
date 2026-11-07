@@ -56,6 +56,11 @@ f_ormat v
 "c:" u_se< "Combinators"
 10 '- c:C_ 3
 "1 d_iv 0" t_ry< "@ r_ecover< \"-1\""
+u:p_ow := { b e -> b ^ e }
+2 u:p_ow 10
+u:t_woTo := u:p_ow 2
+u:t_woTo 10
+u:a_nswer := { @ -> 42 }; u:a_nswer @
 == RESULT
 14
 1
@@ -104,3 +109,6 @@ abcd
 3 1 2
 -7
 -1
+1024
+1024
+42
