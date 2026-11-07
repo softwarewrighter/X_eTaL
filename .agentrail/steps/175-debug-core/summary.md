@@ -1,0 +1,1 @@
+xetal-debug: a session over the steppable evaluator with statement and application stops, breakpoints by line, over/in/out/continue and the call stack; Machine::view() the only change to the machine
