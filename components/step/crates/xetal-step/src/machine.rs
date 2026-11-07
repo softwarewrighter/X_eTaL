@@ -123,6 +123,17 @@ impl<'a, 'o> Machine<'a, 'o> {
         }
     }
 
+    /// The state as it is between transitions, read-only (a debugger
+    /// reads it; a run without one never calls this).
+    pub fn view(&self) -> xetal_frame::View<'_, 'a> {
+        xetal_frame::View {
+            control: self.control.as_ref(),
+            stack: &self.stack,
+            env: &self.env,
+            globals: &self.globals,
+        }
+    }
+
     /// What the run waits for.
     fn waited(&self) -> Status {
         match self.inbox.wants {

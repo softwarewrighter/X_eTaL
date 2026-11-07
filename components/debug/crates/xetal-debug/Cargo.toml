@@ -1,0 +1,19 @@
+[package]
+name = "xetal-debug"
+description = "The debugger's core: a session over the steppable evaluator with stops, breakpoints, stepping and the call stack, for every front end (DAP, the terminal, the live demo)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-base.workspace = true
+xetal-core.workspace = true
+xetal-step.workspace = true
+xetal-arith.workspace = true
+xetal-sources.workspace = true
+
+[dev-dependencies]
+xetal-program.workspace = true
+xetal-types.workspace = true

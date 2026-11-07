@@ -41,6 +41,12 @@ Side paths:
   (`scripts/sync-libraries.sh`) and embedded in the live demo; the
   store's library finder looks there last (`add_collection`), after
   your files and the standard libraries. The command line does not.
+- `xetal-debug` (components/debug): the debugger's core (Saga 43,
+  docs/debugger-plan.md): a session over the steppable evaluator,
+  driven one transition at a time through the machine's read-only
+  `view()`, with stops, breakpoints by file and line, step over, in
+  and out, continue, and the call stack; every debugger front end is
+  a client of it.
 - `xetal-shell`: a shell for the browser's terminal page: `xetal`
   and its commands at a `$` prompt (through `xetal-command`), the REPL
   and the editor full screen, keys in and a ratatui frame out; and an

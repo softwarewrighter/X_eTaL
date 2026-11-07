@@ -1,6 +1,7 @@
 //! The steppable evaluator's state as data (D50): what to do next
 //! ([`Control`]) and the stack of pending work, each frame waiting for
-//! the value of what runs above it ([`Kont`]). A crate of its own so
+//! the value of what runs above it ([`Kont`]); a [`View`] of it for a
+//! debugger. A crate of its own so
 //! `xetal-step` keeps to its modules; it holds no logic beyond the
 //! inbox of fed lines ([`Inbox`]).
 
@@ -14,6 +15,15 @@ use std::rc::Rc;
 use xetal_base::{Diagnostic, Span};
 use xetal_core::Expr;
 use xetal_value::{Env, Outcome, Prim, Slot, Value};
+
+/// A machine's state, read-only, for a debugger: what it does next,
+/// the pending frames (innermost last), and the top level's bindings.
+pub struct View<'m, 'a> {
+    pub control: Option<&'m Control<'a>>,
+    pub stack: &'m [Kont<'a>],
+    pub env: &'m Env<'a>,
+    pub globals: &'m std::collections::HashMap<String, Value<'a>>,
+}
 
 /// Evaluate an expression, or give a value to the frame on top.
 pub enum Control<'a> {

@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-07
+
+- 10:54 `feat` The debugger's core (Saga 43, step 175, D190): a new component components/debug with the crate xetal-debug, a session over the steppable evaluator that stops at statements (and at applications when stepping in), keeps breakpoints by file and line, steps over, in and out, continues, and gives the call stack innermost first; the machine gains one read-only accessor, `Machine::view()` (a `View` in xetal-frame), so runs without a debugger are unchanged. Tests: xetal-debug tests/session.rs (stepping over statements to the end with the program's output, step in and out of a call, a breakpoint hit once per recursive call, the stack's names and lines, an error stopping the session).
+
 ## 2026-11-06
 
 - 18:20 `docs` How functions take arguments (the user): the learn page gains a section, every function takes one argument (where APL's are niladic, monadic or dyadic, and often ambivalent), two-argument use is currying, partial application (`u:p_ow 2`, `(u:p_ow 3)_ 2`, a quoted symbol `('-)_ 10`, `s_wap`), a partial application as an operand, niladic functions take `@`, and composition (`c_ompose`, an atop train, `s_wap`); docs/idioms.md gains a fourth note for readers and three rows (two arguments, partial application, no arguments) beside Rust, JavaScript, Java, Python and C++, each run by spec/integration/idioms.case. The learn-xetal golden rebased on purpose.
