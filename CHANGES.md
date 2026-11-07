@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-07
 
+- 11:17 `plan` Editors and IDEs (Saga 44, steps 184-188, D191; the user): docs/editors-plan.md records the analysis and decisions: `xetal lsp` beside `xetal dap`, built from the checker, linter, completion, the doc model, the formatter and the renderer; Emacs through eglot and dape; JetBrains through LSP4IJ in IntelliJ IDEA and RustRover (a full-stack Rust, Yew and X_eTaL window, under RustRover's license), MPS not used (projectional, a second implementation); a native IDE's bases compared (Code - OSS as Positron did, Eclipse Theia, Zed in Rust, the Eclipse IDE, other JavaScript IDEs); extensions first, no fork.
 - 10:54 `feat` The debugger's core (Saga 43, step 175, D190): a new component components/debug with the crate xetal-debug, a session over the steppable evaluator that stops at statements (and at applications when stepping in), keeps breakpoints by file and line, steps over, in and out, continues, and gives the call stack innermost first; the machine gains one read-only accessor, `Machine::view()` (a `View` in xetal-frame), so runs without a debugger are unchanged. Tests: xetal-debug tests/session.rs (stepping over statements to the end with the program's output, step in and out of a call, a breakpoint hit once per recursive call, the stack's names and lines, an error stopping the session).
 
 ## 2026-11-06

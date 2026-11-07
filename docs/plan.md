@@ -686,6 +686,19 @@ debug-ml. It supersedes Saga 17's stepper, whose trace tree it uses;
 docs/debugger-plan.md section 9 has the decisions, made with the
 user on 2026-11-05 (D189).
 
+## Saga 44 -- editors (LSP, and X_eTaL in Emacs, JetBrains, VS Code and Zed)
+
+After the debugger (Saga 43): `xetal lsp`, a language server built from
+the checker, the linter and its fixes, completion, the `xetal doc`
+model, the formatter and the renderer, beside `xetal dap`; then the
+editors as clients of both: Emacs (eglot and dape), JetBrains (LSP4IJ,
+in IntelliJ IDEA and RustRover), Zed (an extension in Rust) and VS Code
+(the extension of Saga 43 gains the language server). The analysis and
+the decisions (extensions first, no fork; a Code - OSS fork as Positron
+did if a branded IDE is wanted later; MPS and the Eclipse IDE not used)
+are docs/editors-plan.md. Steps 184-188: lsp-server, editor-emacs,
+editor-jetbrains, editor-zed, editor-vscode-lsp.
+
 ## Next, in order (decided with the user, 2026-10-02; asks first, 2026-10-03)
 
 Launch (the user, 2026-10-03): all six repositories are promoted on

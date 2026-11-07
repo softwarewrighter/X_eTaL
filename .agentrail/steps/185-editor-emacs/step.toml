@@ -1,0 +1,8 @@
+number = 185
+slug = "editor-emacs"
+status = "pending"
+description = "Saga 44, editors (the user, 2026-11-07; the analysis and decisions are docs/e..."
+role = "production"
+context_files = []
+created_at = "2026-11-07T11:17:40"
+commits = []
