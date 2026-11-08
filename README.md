@@ -363,8 +363,16 @@ Other fonts, checked against the font files:
   call with its expansion, every name linked, and a search by name or
   by type (`Num a => a -> a -> a` finds `+` and `m_ax`). Made by
   `xetal doc` (below); `just doc` rebuilds it into `pages/doc`.
-- [`docs/learn-xetal.md`](docs/learn-xetal.md) -- Learn X_eTaL in Y
-  minutes: one short runnable program, read top to bottom in five minutes
+- [`docs/learn-xetal.md`](docs/learn-xetal.md) -- Learn X_eTaL in five
+  minutes: one short runnable program, read top to bottom (functions
+  and currying, partial application, tuples and their limits)
+- [`docs/several-arguments.md`](docs/several-arguments.md) -- calling a
+  function of several arguments three ways: written out, a macro of
+  your own (`userlibs/Apply.xtlm`), and a tuple, the idiom
+- [`docs/debugger-plan.md`](docs/debugger-plan.md) -- the time-traveling
+  debugger (DAP, the terminal, the live demo) and
+  [`docs/editors-plan.md`](docs/editors-plan.md), X_eTaL in Emacs,
+  JetBrains, VS Code and Zed
 - [`docs/tour.md`](docs/tour.md) -- the language tour and the milestone
   tours (M0 to M6)
 - [The literate documents as web pages](https://softwarewrighter.github.io/X_eTaL/literate/)
