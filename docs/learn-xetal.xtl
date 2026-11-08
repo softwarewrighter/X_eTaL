@@ -193,6 +193,12 @@ lo + hi                  # 4
 ## u:s_wap p: the pair p the other way around.
 u:s_wap := { (a, b) -> (b, a) }     # a pattern as a parameter
 u:s_wap (1, "x")         # (x, 1)
+# A function of three or more arguments takes them as one tuple: one
+# call, instead of applied groups `((a f b)_ c)_ d`
+# (docs/several-arguments.md).
+## u:v_olume (l, w, h): a box's volume.
+u:v_olume := { (l, w, h) -> l * w * h }
+u:v_olume (2, 3, 4)      # 24
 ## u:s_tep st: halve the weight, count the steps: a state of two parts.
 u:s_tep := { (w, k) -> (w * 0.5, k + 1) }
 3 'u:s_tep p_ower (8.0, 0)   # (1.0, 3): a tuple as p_ower's state

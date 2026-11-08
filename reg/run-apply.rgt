@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run demos/apply.xtl && ./target/debug/xetal expand demos/apply.xtl"
+exit_code = 0
+desc = "calling a function of four arguments three ways (docs/several-arguments.md): written out, the demo macro ap:a_pply< (userlibs/Apply.xtlm), a tuple; the run, then the expansion"

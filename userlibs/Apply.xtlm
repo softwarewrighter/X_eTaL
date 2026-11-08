@@ -1,0 +1,41 @@
+## A macro library of your own (userlibs/, as Repeat is): a function
+## applied to several arguments, written as one call. Every X_eTaL
+## function takes one argument, so a call with more is a chain of
+## applied groups, `((a f b)_ c)_ d`; this macro writes that chain for
+## you when the program is expanded. Import it with an alias of your
+## choice, "ap:" u_se< "Apply", and see what a call becomes with
+## xetal expand FILE. The idiom for a function of more than two
+## arguments is a tuple (`f (a, b, c, d)`); this library shows what a
+## macro can write.
+
+### Applying a function to several arguments
+
+## The function on the left applied to the arguments on the right,
+## separated by `;` (a space would make one array of them): the first
+## is its left argument, the second its right, and each one after that
+## is passed to the function the call so far gives, as `(...)_ next`.
+## One argument is a plain call. The pieces are copied as written, each
+## in parentheses.
+## takes: code code
+## uses: copied
+## >> "ap:" u_se< "Apply"
+## >> u:f_ := { a b c d -> a + (10 * b) + (100 * c) + 1000 * d }
+## >> c"u:f_" ap:a_pply< c"1; 2; 3; 4"
+## 4321
+m:a_pply< := { f args ->
+  parts := '{ h:t_rim d_isclose _r } m_ap (args != f_irst ";") p_artition args
+  0 = t_ally parts ? "bad-macro-argument right" []R_EJECT "ap:a_pply< needs at least one argument"
+  1 = t_ally parts ? f c_at " (" c_at (d_isclose f_irst parts) c_at ")"
+  first := "(" c_at (d_isclose f_irst parts) c_at ") " c_at f c_at " (" c_at (d_isclose (2 s_elect parts)) c_at ")"
+  first h:c_hain 2 d_rop parts
+}
+
+## The text t without its leading spaces.
+h:t_rim := { t -> ('+ r_/ '& s_\ t = f_irst " ") d_rop t }
+
+## The call so far applied to each further argument, in order:
+## `(call)_ (next)`.
+h:c_hain := { call rest ->
+  0 = t_ally rest ? call
+  ("(" c_at call c_at ")_ (" c_at (d_isclose f_irst rest) c_at ")") h:c_hain 1 d_rop rest
+}

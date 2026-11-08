@@ -1,0 +1,39 @@
+4321
+4321
+4321
+4321
+4321
+#!/usr/bin/env xetal
+## Calling a function of several arguments, three ways
+## (docs/several-arguments.md). Every X_eTaL function takes one
+## argument: `x f y` is `(f x) y`, so a third argument goes to the
+## function that call gives, as an applied group `(...)_ z`.
+##
+## Run it with ./demos/apply.xtl or "xetal run demos/apply.xtl"; each
+## way prints 4321. "xetal expand demos/apply.xtl" shows what the
+## macro of the second way wrote.
+
+## a b c d u:f_: the digits a, b, c and d as one number, a the ones.
+u:f_ := { a b c d -> a + (10 * b) + (100 * c) + 1000 * d }
+
+# 1. Written out: one applied group per argument after the second.
+((1 u:f_ 2)_ 3)_ 4
+
+# 2. A macro of your own writes that chain (userlibs/Apply.xtlm; in
+# the live demo, Apply.xtlm among your files): the function on the
+# left, the arguments on the right separated by `;`.
+"ap:" u_se< "Apply"
+(((1) u:f_ (2))_ (3))_ (4)
+(((2 - 1) u:f_ (2))_ (3))_ (4)   # any expression is an argument
+
+# 3. The idiom for three or more arguments: one tuple, no nesting.
+## u:g_ (a, b, c, d): the same number, its four digits as one tuple.
+u:g_ := { (a, b, c, d) -> a + (10 * b) + (100 * c) + 1000 * d }
+u:g_ (1, 2, 3, 4)
+
+# Written out, a call can stop early: a partial application, here the
+# function still waiting for d (a tuple comes whole and cannot).
+## u:f_irstThree d: 321 plus 1000 d.
+u:f_irstThree := (1 u:f_ 2)_ 3
+u:f_irstThree 4
+

@@ -31,6 +31,7 @@ macro_rules! demos {
 /// editor, to type into as at a REPL. The rest are listed here in
 /// alphabetical order (a test keeps them so), and Open sorts them too.
 pub const DEMOS: &[Demo] = demos![
+    "apply.xtl",
     "arrays.xtl",
     "classics/automaton.xtl",
     "classics/bases.xtl",
@@ -178,6 +179,10 @@ const OWN_LIBRARIES: &[(&str, &str)] = &[
     (
         "Repeat.xtlm",
         include_str!("../../../../../userlibs/Repeat.xtlm"),
+    ),
+    (
+        "Apply.xtlm",
+        include_str!("../../../../../userlibs/Apply.xtlm"),
     ),
 ];
 

@@ -525,6 +525,14 @@ Recommended function-name suffixes:
 No `$` suffix for functions that produce text, for now (decided with
 the user): they are named plainly, like `f_ormat`.
 
+A function of one or two arguments is called `f x` or `x f y`; a
+function of three or more takes a tuple and names its parts in a
+pattern, `{ (a, b, c) -> ... }`, called `f (a, b, c)`: one call, no
+nesting of applied groups (`((a f b)_ c)_ d`), and a wrong number of
+arguments is a type error. Currying past two arguments is for a partial
+application on purpose (docs/several-arguments.md; decided with the
+user, 2026-11-08).
+
 In a comment, backquotes mark X_eTaL code, drawn decorated
 (`` `'+ r_/ v` ``); a shell command, a path or other text that is not
 X_eTaL goes in double quotes, drawn as written: `# run with "just show

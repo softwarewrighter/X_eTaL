@@ -71,8 +71,8 @@ fn editing() -> Html {
                 <li><b>{ "Save" }</b>{ " and " }<b>{ "Save as" }</b>{ " keep files in this browser's local \
                        storage. A saved library (Name.xtl) or macro library (Name.xtlm) is imported with \
                        u_se<; []N_PUT and []N_GET use the same files (open work/tttml.model after \
-                       tttml-train). Hello.xtl and Repeat.xtlm, of your own, are among your files (the \
-                       hello-library and user-macros demos import them): edit one, Save, run its demo." }</li>
+                       tttml-train). Hello.xtl, Repeat.xtlm and Apply.xtlm, of your own, are among your files (the \
+                       hello-library, user-macros and apply demos import them): edit one, Save, run its demo." }</li>
             </ul>
         </>
     }
