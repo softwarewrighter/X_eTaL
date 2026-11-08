@@ -9,9 +9,9 @@ use xetal_base::Diagnostic;
 use xetal_core::Item;
 use xetal_value::{Slot, Value, extend};
 
-use crate::machine::Machine;
+use crate::machine::{Machine, Status};
 use xetal_frame::err;
-use xetal_frame::{Control, Kont};
+use xetal_frame::{Control, Kont, Wants};
 
 impl<'a> Machine<'a, '_> {
     /// The frame on top takes `v`; `None` when the program has finished.
@@ -187,5 +187,14 @@ impl<'a> Machine<'a, '_> {
                 .map_err(|x| err("io", span, x.to_string()))?,
         }
         Ok(Control::Return(Value::Unit))
+    }
+
+    /// What the run waits for.
+    pub(crate) fn waited(&self) -> Status {
+        match self.inbox.wants {
+            Some(Wants::Key) => Status::WaitingKey,
+            Some(Wants::Event) => Status::WaitingEvent,
+            _ => Status::Waiting,
+        }
     }
 }

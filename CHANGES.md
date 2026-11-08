@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-08
+
+- 08:51 `feat` The debugger's variables and watches (Saga 43, step 176, D192): scopes (Locals, Top level, Libraries) with each value's summary and its children a page at a time (new crate xetal-inspect); watches evaluated where the program stopped and type-checked against it (new crate xetal-watch: the checker elaborates numeric code with a hidden argument per call, so an unchecked watch calling the program's function got a function back), run in a machine started from the frame (`Machine::within`, the step crate's one new builder), effects refused, a budget of transitions; breakpoints with conditions and hit counts (`n`, `>= n`, `== n`, `> n`, `% n`); a watch's value at every stop. Tests: xetal-inspect tests/inspect.rs, xetal-debug tests/variables.rs (locals and the top level in a call, a matrix by rows, watches including a call and a refused effect, a condition, hit counts, a watch's history).
+
 ## 2026-11-07
 
 - 11:36 `design` D-11 refined (the user): the `_` of an applied group is not drawn, and its parentheses' underline is as strong as the medium allows: the terminal's underline attribute where colors are drawn, a thicker CSS underline in HTML, `\underline` in LaTeX, the combining low line only in plain text (step 189).

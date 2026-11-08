@@ -22,16 +22,13 @@ impl Debugger<'_, '_> {
             let ((kind, span), d) = (next(&view), depth(&view));
             let kind = self.fresh(kind, span, d);
             if kind == Kind::Other {
-                self.at = self.at.or(span);
                 continue;
             }
             let here = span.map(|s| place(self.sources, s));
-            let hit = kind == Kind::Statement
-                && here
-                    .as_ref()
-                    .is_some_and(|p| self.breakpoints.contains(&(p.file.clone(), p.line)));
+            self.at = span;
+            let hit = kind == Kind::Statement && here.as_ref().is_some_and(|p| self.breaks(p));
             if hit || wanted(kind, d) {
-                self.at = span;
+                self.stopped();
                 let reason = if hit && why != Reason::Entry {
                     Reason::Breakpoint
                 } else {

@@ -9,7 +9,7 @@ use xetal_base::{Diagnostic, Span};
 use xetal_core::Program;
 use xetal_value::{Env, Value};
 
-use xetal_frame::{Control, Inbox, Kont, Wants};
+use xetal_frame::{Control, Inbox, Kont};
 
 /// Pending frames allowed before reporting `stack-overflow` (the depth a
 /// runaway recursion reaches; deep finite recursion is well within it).
@@ -79,6 +79,13 @@ impl<'a, 'o> Machine<'a, 'o> {
         self
     }
 
+    /// Start from a paused run's bindings (a debugger's watch runs in
+    /// the frame where the program stopped).
+    pub fn within(mut self, env: Env<'a>, globals: HashMap<String, Value<'a>>) -> Self {
+        (self.env, self.globals) = (env, globals);
+        self
+    }
+
     /// Run at most `budget` transitions.
     pub fn run(&mut self, budget: usize) -> Result<Status, Diagnostic> {
         for _ in 0..budget {
@@ -131,15 +138,6 @@ impl<'a, 'o> Machine<'a, 'o> {
             stack: &self.stack,
             env: &self.env,
             globals: &self.globals,
-        }
-    }
-
-    /// What the run waits for.
-    fn waited(&self) -> Status {
-        match self.inbox.wants {
-            Some(Wants::Key) => Status::WaitingKey,
-            Some(Wants::Event) => Status::WaitingEvent,
-            _ => Status::Waiting,
         }
     }
 }

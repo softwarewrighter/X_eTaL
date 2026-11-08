@@ -622,10 +622,13 @@ dependencies = [
  "xetal-arith",
  "xetal-base",
  "xetal-core",
+ "xetal-inspect",
  "xetal-program",
  "xetal-sources",
  "xetal-step",
  "xetal-types",
+ "xetal-value",
+ "xetal-watch",
 ]
 
 [[package]]
@@ -731,6 +734,14 @@ dependencies = [
  "xetal-base",
  "xetal-kernel",
  "xetal-map",
+ "xetal-value",
+]
+
+[[package]]
+name = "xetal-inspect"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
  "xetal-value",
 ]
 
@@ -1099,6 +1110,16 @@ dependencies = [
  "xetal-base",
  "xetal-lex",
  "xetal-render",
+]
+
+[[package]]
+name = "xetal-watch"
+version = "0.1.0"
+dependencies = [
+ "xetal-core",
+ "xetal-program",
+ "xetal-types",
+ "xetal-value",
 ]
 
 [[package]]

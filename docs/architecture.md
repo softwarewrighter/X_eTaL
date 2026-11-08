@@ -45,8 +45,12 @@ Side paths:
   docs/debugger-plan.md): a session over the steppable evaluator,
   driven one transition at a time through the machine's read-only
   `view()`, with stops, breakpoints by file and line, step over, in
-  and out, continue, and the call stack; every debugger front end is
-  a client of it.
+  and out, continue, the call stack, scopes and variables a page at a
+  time, watches, and breakpoints with conditions and hit counts; every
+  debugger front end is a client of it. Beside it `xetal-inspect` (a
+  value's summary and its children by page, a frame's own bindings)
+  and `xetal-watch` (a watch type-checked against the program, so its
+  calls are elaborated as the program's are).
 - `xetal-shell`: a shell for the browser's terminal page: `xetal`
   and its commands at a `$` prompt (through `xetal-command`), the REPL
   and the editor full screen, keys in and a ratatui frame out; and an

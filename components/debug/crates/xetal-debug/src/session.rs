@@ -1,7 +1,7 @@
 //! A debugging session: the machine run one transition at a time until
 //! a stop wanted by the step in hand or a breakpoint.
 
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, HashMap};
 use std::io::Write;
 
 use xetal_arith::Rng;
@@ -9,6 +9,7 @@ use xetal_base::{Diagnostic, Span};
 use xetal_core::Program;
 use xetal_sources::Sources;
 use xetal_step::Machine;
+use xetal_value::Value;
 
 use crate::here::{Place, depth};
 use crate::stack::{Frame, frames};
@@ -38,11 +39,32 @@ pub struct Stop {
     pub depth: usize,
 }
 
+/// A breakpoint on a line, with an optional condition (an expression
+/// evaluated where it stops: it breaks when the value is true) and an
+/// optional hit condition (`3` or `>= 3`, `== 3`, `> 3`, `% 3`: which
+/// hits break, counted from 1).
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct Breakpoint {
+    pub line: usize,
+    pub condition: Option<String>,
+    pub hit: Option<String>,
+}
+
 /// A program being debugged.
 pub struct Debugger<'a, 'o> {
     pub(crate) machine: Machine<'a, 'o>,
     pub(crate) sources: &'a Sources,
-    pub(crate) breakpoints: BTreeSet<(String, usize)>,
+    pub(crate) breakpoints: BTreeMap<(String, usize), Breakpoint>,
+    pub(crate) hits: HashMap<(String, usize), usize>,
+    /// Values shown at this stop with children, by id (id 1 is the
+    /// first): a front end opens one by its id, a page at a time.
+    pub(crate) refs: Vec<Value<'a>>,
+    /// Each watch's lowered program, kept for the session.
+    pub(crate) programs: HashMap<String, &'a Program>,
+    pub(crate) watches: Vec<String>,
+    /// (stop number, watch, summary) at every stop.
+    pub(crate) history: Vec<(usize, String, String)>,
+    pub(crate) stops: usize,
     pub(crate) at: Option<Span>,
     /// The last statement seen, its depth, and the call it was in
     /// (`calls` counts each change of depth): a statement inside it in
@@ -65,7 +87,13 @@ impl<'a, 'o> Debugger<'a, 'o> {
         Debugger {
             machine,
             sources,
-            breakpoints: BTreeSet::new(),
+            breakpoints: BTreeMap::new(),
+            hits: HashMap::new(),
+            refs: Vec::new(),
+            programs: HashMap::new(),
+            watches: Vec::new(),
+            history: Vec::new(),
+            stops: 0,
             at: None,
             last: None,
             calls: 0,
@@ -75,9 +103,21 @@ impl<'a, 'o> Debugger<'a, 'o> {
 
     /// The breakpoints of `file`, by line (replacing its earlier ones).
     pub fn set_breakpoints(&mut self, file: &str, lines: &[usize]) {
-        self.breakpoints.retain(|(f, _)| f != file);
-        self.breakpoints
-            .extend(lines.iter().map(|l| (file.to_string(), *l)));
+        let plain = |line: &usize| Breakpoint {
+            line: *line,
+            ..Breakpoint::default()
+        };
+        self.set_conditional(file, lines.iter().map(plain).collect());
+    }
+
+    /// The breakpoints of `file`, with conditions and hit conditions;
+    /// their hit counts start again.
+    pub fn set_conditional(&mut self, file: &str, points: Vec<Breakpoint>) {
+        self.breakpoints.retain(|(f, _), _| f != file);
+        self.hits.retain(|(f, _), _| f != file);
+        for b in points {
+            self.breakpoints.insert((file.to_string(), b.line), b);
+        }
     }
 
     /// Run to the first statement.
