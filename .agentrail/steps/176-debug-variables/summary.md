@@ -1,0 +1,1 @@
+Scopes and paged variables (xetal-inspect), watches type-checked against the program (xetal-watch) and run from the frame, conditional and hit-count breakpoints, watch history
