@@ -88,6 +88,7 @@ div.source .ln { display: inline-block; width: 3.4rem; padding-right: .9rem; tex
 .c-comment { color: var(--dim); } .c-macro { color: var(--macro); font-weight: bold; }
 /* Doc comments (##) and section headings (###): their own style, apart from remarks. */
 .c-doc { color: var(--doc); font-style: italic; } .c-heading { color: var(--doc); font-weight: bold; }
+.c-applied { text-decoration: underline; text-decoration-thickness: 0.14em; text-underline-offset: 0.18em; }
 .c-error { color: var(--error); }
 /* A notation (MC32): the LaTeX a draws: macro wrote, typeset by KaTeX in place; as typed until then. */
 .c-notation { color: var(--string); font-style: italic; } .c-notation .katex { font-style: normal; font-size: 1.05em; }

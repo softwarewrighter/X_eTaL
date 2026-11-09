@@ -4,7 +4,7 @@
 //! heading's marker as the lamp and box drawing (I4).
 
 use xetal_base::Diagnostic;
-use xetal_lex::{FuncName, Side, TokenKind, lex};
+use xetal_lex::{FuncName, Side, TokenKind, applied_parens, lex};
 
 use crate::comments::{comment_kind, comment_marker};
 use crate::lambda::lambda_arg;
@@ -13,14 +13,18 @@ use xetal_glyphs::{LIGATURES, UNDERLINE, subscript_digit, superscript_text, supe
 /// Render lexable raw source in decorated form.
 pub fn decorate(src: &str) -> Result<String, Diagnostic> {
     let tokens = lex(src)?;
+    let applied = applied_parens(&tokens);
     let mut out = String::new();
     let (mut pos, mut line_start) = (0, true);
-    for token in &tokens {
+    for (token, applied) in tokens.iter().zip(applied) {
         out.push_str(&gap_text(&src[pos..token.span.start], line_start));
         out.push_str(&token_text(
             &token.kind,
             &src[token.span.start..token.span.end],
         ));
+        if applied {
+            out.push(UNDERLINE);
+        }
         pos = token.span.end;
         line_start = token.kind == TokenKind::Newline;
     }
@@ -28,9 +32,12 @@ pub fn decorate(src: &str) -> Result<String, Diagnostic> {
     Ok(out)
 }
 
-/// The decorated form of one token, given its raw text.
+/// The decorated form of one token, given its raw text. An applied
+/// group's `_` is drawn as nothing (D-11): its parentheses carry the
+/// underline instead ([`applied_parens`] says which).
 pub fn token_text(kind: &TokenKind, raw: &str) -> String {
     match kind {
+        TokenKind::Apply => String::new(),
         TokenKind::Func(name) => func_glyphs(name),
         TokenKind::Var(v) => format!(
             "{}{}{}",

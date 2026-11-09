@@ -24,6 +24,7 @@ pub fn style(class: Class) -> Style {
         Class::Heading => fg(Color::Green).add_modifier(Modifier::BOLD),
         Class::Error => fg(Color::Red).add_modifier(Modifier::UNDERLINED),
         Class::Notation => fg(Color::LightYellow).add_modifier(Modifier::ITALIC),
+        Class::Applied => Style::default().add_modifier(Modifier::UNDERLINED),
         Class::Variable | Class::Punct | Class::Unit | Class::Space => Style::default(),
     }
 }

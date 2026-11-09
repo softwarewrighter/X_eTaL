@@ -10,5 +10,5 @@
       [3;32m⍝│ Factorial written open: s_elf stands for the function itself, so[0m
       [3;32m⍝│ u:Y_ 'u:F_ is the factorial.[0m
       [32mᵘF̲[0m ← { ~[34ms̲elf[0m n → n [94m≤[0m [33m1[0m ? [33m1[0m◆ n [94m×[0m [34ms̲elf[0m n [94m−[0m [33m1[0m }[0m
-      ([32mᵘY̲[0m [32m'ᵘF̲[0m)_ [33m5[0m
+      [4m([0m[32mᵘY̲[0m [32m'ᵘF̲[0m[4m)[0m [33m5[0m
 120

@@ -75,6 +75,7 @@ body { font: 15px/1.35 var(--mono); }
 .c-notation { color: #e8d27a; } .c-notation .katex { font-size: 1.05em; }
 /* Doc comments (##) and section headings (###): their own style, apart from remarks. */
 .c-doc { color: var(--doc); font-style: italic; } .c-heading { color: var(--doc); font-weight: bold; }
+.c-applied { text-decoration: underline; text-decoration-thickness: 0.14em; text-underline-offset: 0.18em; }
 .c-error { color: #ff6b6b; }
 /* The completion list under the ASCII text (xetal-suggest): a row a
    candidate, its label and detail, the chosen one marked. */

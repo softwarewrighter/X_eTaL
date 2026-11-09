@@ -7,12 +7,13 @@
 //! each drawn run was written, for views that style them (xetal-view).
 
 use xetal_base::{Diagnostic, Span};
-use xetal_lex::{Token, TokenKind, lex};
+use xetal_lex::{Token, TokenKind, applied_parens, lex};
 use xetal_strtext::{escape, unescape_mapped, unescaped_quote};
 
 use crate::inverse::undecorate;
 use crate::latex::{spacing, text_tex, token_tex};
 use crate::unicode::{gap_text, token_text};
+use xetal_glyphs::UNDERLINE;
 
 /// One run of a drawn code string: the bytes of the token it was written
 /// on, what is drawn, and its token (`None` for a gap: spaces or a
@@ -40,6 +41,7 @@ pub fn code_pieces(raw: &str) -> Option<Vec<CodePiece>> {
     let (hashes, text, map) = inside(raw)?;
     let (open, close) = (2 + hashes, 1 + hashes);
     let tokens = tolerant(&text);
+    let applied = applied_parens(&tokens);
     let delimiter = |a: usize, b: usize| CodePiece {
         written: Span::new(a, b),
         text: raw[a..b].to_string(),
@@ -49,7 +51,7 @@ pub fn code_pieces(raw: &str) -> Option<Vec<CodePiece>> {
     let place = |a: usize, b: usize| Span::new(open + map[a], open + map[b]);
     let mut out = vec![delimiter(0, open)];
     let (mut pos, mut line_start) = (0, false);
-    for t in &tokens {
+    for (t, applied) in tokens.iter().zip(applied) {
         if pos < t.span.start {
             let gap = gap_text(&text[pos..t.span.start], line_start);
             out.push(CodePiece {
@@ -60,10 +62,13 @@ pub fn code_pieces(raw: &str) -> Option<Vec<CodePiece>> {
         }
         let piece = &text[t.span.start..t.span.end];
         // Code strings nest one level: one inside is drawn as typed.
-        let drawn = match t.kind {
+        let mut drawn = match t.kind {
             TokenKind::Code(_) => piece.to_string(),
             _ => token_text(&t.kind, piece),
         };
+        if applied {
+            drawn.push(UNDERLINE);
+        }
         out.push(CodePiece {
             written: place(t.span.start, t.span.end),
             text: shown(drawn),
@@ -97,6 +102,10 @@ pub(crate) fn code_tex(kind: &TokenKind, raw: &str) -> Option<String> {
             None => spacing(written),
             Some(TokenKind::Newline) => "\\\\\n".to_string(),
             Some(k @ TokenKind::Exp(_)) => token_tex(k, written),
+            Some(TokenKind::Apply) => String::new(),
+            Some(k @ (TokenKind::LParen | TokenKind::RParen)) if p.text.ends_with(UNDERLINE) => {
+                format!(r"{{\underline{{{}}}}}", token_tex(k, written))
+            }
             Some(TokenKind::Code(_)) => format!(r"{{\text{{{}}}}}", text_tex(written)),
             Some(k) => format!("{{{}}}", token_tex(k, written)),
         }

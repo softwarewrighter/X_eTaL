@@ -7,14 +7,15 @@
 
 use crate::comments::doc_tex;
 use xetal_base::Diagnostic;
-use xetal_lex::{FuncName, Side, Symbol, TokenKind, lex};
+use xetal_lex::{FuncName, Side, Symbol, TokenKind, applied_parens, lex};
 
 /// Render lexable raw source as the body of a LaTeX math environment.
 pub fn latex(src: &str) -> Result<String, Diagnostic> {
     let tokens = lex(src)?;
+    let applied = applied_parens(&tokens);
     let mut out = String::new();
     let (mut pos, mut line_start) = (0, true);
-    for token in &tokens {
+    for (token, applied) in tokens.iter().zip(applied) {
         let raw = &src[token.span.start..token.span.end];
         // Space before a line end (or a remark, which is dropped) sets
         // nothing, so it is not written; a doc line is kept.
@@ -27,6 +28,10 @@ pub fn latex(src: &str) -> Result<String, Diagnostic> {
         } else if let Some(tex) = crate::code::code_tex(&token.kind, raw) {
             // A code string's inside is set as code, token by token.
             out.push_str(&tex);
+        } else if token.kind == TokenKind::Apply {
+            // Drawn as nothing: the group's parentheses are underlined.
+        } else if applied {
+            out.push_str(&format!(r"{{\underline{{{raw}}}}}"));
         } else if let TokenKind::Exp(_) = token.kind {
             // Unbraced, so it is the exponent of the token it touches.
             out.push_str(&token_tex(&token.kind, raw));

@@ -21,6 +21,7 @@ fn color(class: Class) -> Option<&'static str> {
         Class::Heading => "1;32",
         Class::Error => "31;4",
         Class::Notation => "3;93",
+        Class::Applied => "4",
         Class::Variable | Class::Punct | Class::Unit | Class::Space => return None,
     })
 }

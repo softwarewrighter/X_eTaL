@@ -24,8 +24,12 @@ pub enum Class {
     Symbol,
     /// `'`, which passes a function as a value.
     Quote,
-    /// Brackets, `:=`, `->`, `;`, `?`, `~` and `_` (apply).
+    /// Brackets, `:=`, `->`, `;`, `?`, `~` and `_` (apply, drawn as
+    /// nothing).
     Punct,
+    /// A parenthesis of an applied group, `(expr)_ x` (D-11): drawn
+    /// underlined, as strongly as the medium allows.
+    Applied,
     Unit,
     Comment,
     /// A `##` doc comment line, marker and text (I4).

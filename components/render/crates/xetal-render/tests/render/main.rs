@@ -1,5 +1,6 @@
 //! Render tests (one test binary so helpers are shared).
 
+mod applied;
 mod canonical;
 mod code;
 mod inverse;

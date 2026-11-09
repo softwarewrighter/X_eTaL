@@ -11,6 +11,6 @@ mod string;
 
 pub use scan::lex;
 pub use xetal_token::{
-    ErrorKind, FuncName, LexError, Number, SYSTEM, Side, Symbol, Token, TokenKind, Var, is_fresh,
-    ns_text,
+    ErrorKind, FuncName, LexError, Number, SYSTEM, Side, Symbol, Token, TokenKind, Var,
+    applied_parens, is_fresh, ns_text,
 };

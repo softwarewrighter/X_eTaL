@@ -218,3 +218,27 @@ fn a_raw_string_across_lines_stays_a_string_on_each() {
     );
     assert_eq!(&src[second.raw.start..second.raw.end], "  b\"");
 }
+
+/// D-11: an applied group's parentheses are their own class (drawn
+/// underlined by every view), and its `_` is drawn as nothing.
+#[test]
+fn applied_group_parentheses() {
+    let segs = view("((a f_ b)_ c)_ d");
+    let shown: Vec<(&str, Class)> = segs
+        .iter()
+        .filter(|s| s.class != Class::Space)
+        .map(|s| (s.text.as_str(), s.class))
+        .collect();
+    let applied: Vec<&str> = shown
+        .iter()
+        .filter(|(_, c)| *c == Class::Applied)
+        .map(|(t, _)| *t)
+        .collect();
+    assert_eq!(applied, ["(", "(", ")", ")"]);
+    assert!(!segs.iter().any(|s| s.text.contains('_')));
+    assert_eq!(
+        xetal_view::ansi(&view("(a)_ b")),
+        "\u{1b}[4m(\u{1b}[0ma\u{1b}[4m)\u{1b}[0m b\u{1b}[0m"
+    );
+    assert!(xetal_view::html(&view("(a)_ b")).starts_with("<span class=\"c-applied\">(</span>"));
+}

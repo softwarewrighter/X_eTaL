@@ -1,7 +1,7 @@
 //! Source text -> styled segments, tolerating text that does not lex.
 
 use xetal_base::Span;
-use xetal_lex::{TokenKind, lex};
+use xetal_lex::{TokenKind, applied_parens, lex};
 use xetal_render::{code_pieces, token_text};
 
 use crate::Class;
@@ -86,8 +86,9 @@ fn shift(mut s: Segment, by: usize) -> Segment {
 fn valid(src: &str, base: usize, out: &mut Vec<Segment>) {
     let Ok(tokens) = lex(src) else { return };
     let first = out.len();
+    let applied = applied_parens(&tokens);
     let mut pos = 0;
-    for t in &tokens {
+    for (t, applied) in tokens.iter().zip(applied) {
         gap(src, pos, t.span.start, base, out);
         let raw = &src[t.span.start..t.span.end];
         if let TokenKind::Code(_) = t.kind
@@ -97,7 +98,12 @@ fn valid(src: &str, base: usize, out: &mut Vec<Segment>) {
             pos = t.span.end;
             continue;
         }
-        let (text, class) = (token_text(&t.kind, raw), classify(&t.kind));
+        let class = if applied {
+            Class::Applied
+        } else {
+            classify(&t.kind)
+        };
+        let text = token_text(&t.kind, raw);
         out.push(Segment {
             raw: Span::new(base + t.span.start, base + t.span.end),
             text,

@@ -99,6 +99,8 @@ u:p_ow := { b e -> b ^ e }
 u:t_woTo := u:p_ow 2     # partial application: give the left argument only
 u:t_woTo 10              # 1024
 (u:p_ow 3)_ 2            # 9: `_` makes a parenthesized value a function
+# Drawn, an applied group's two parentheses are underlined and its
+# `_` is not shown; it is still typed `)_`.
 # A symbol needs both sides (`- 3` is error[symbol-needs-left]), so
 # a symbol is partially applied quoted: ('-)_ 10 is "10 minus ...".
 ## u:t_enMinus x: 10 - x.

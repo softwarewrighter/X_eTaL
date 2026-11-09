@@ -101,6 +101,13 @@ impl Inverse {
                 self.out.push('_');
             }
             self.after = After::Other;
+        } else if underlined && matches!(c, '(' | ')') {
+            // An applied group's parentheses (D-11): `)` was typed `)_`.
+            self.out.push(c);
+            if c == ')' {
+                self.out.push('_');
+            }
+            self.after = After::Other;
         } else if underlined {
             if !c.is_ascii_alphabetic() {
                 return Err(bad_underline(span));
