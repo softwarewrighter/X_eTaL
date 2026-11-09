@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-08
 
+- 17:04 `docs` The live demo's and the poster's screenshots retaken after the publish (applied groups drawn underlined).
 - 17:02 `chore` Step 189 (render-applied-parens) closed.
 - 17:02 `feat` Applied groups drawn as rule D-11 says (step 189, D193): `(expr)_ x` is drawn with both parentheses underlined and no `_`, in every renderer: `xetal render` (a combining low line on each parenthesis, code strings too), `--latex` (`\underline{(}`, `\underline{)}`), `--color` and the editor (the terminal's underline), `--html`, the live demo, the doc site, the literate pages and the poster (class `c-applied`, a thicker CSS underline). One rule finds the pair for all of them, `applied_parens` in xetal-token; `xetal render --raw` reads an underlined `)` back as `)_`, so the round trip holds (its property test now includes `)_`). Typing is unchanged. Goldens echo-untyped and run-echo-tour rebased on purpose (their echoed lines show the new drawing); the learn page notes it.
 - 10:32 `docs` README links the new documents: the learn page (now titled five minutes, with currying, partial application and tuples), docs/several-arguments.md, docs/debugger-plan.md and docs/editors-plan.md.
