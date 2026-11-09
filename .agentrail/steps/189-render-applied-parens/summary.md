@@ -1,0 +1,1 @@
+Applied groups drawn per D-11 in every renderer (plain, LaTeX, ANSI, HTML, editor, live demo, doc site, poster); applied_parens in xetal-token; raw round trip holds; D193

@@ -1,8 +1,9 @@
 number = 189
 slug = "render-applied-parens"
-status = "pending"
+status = "completed"
 description = "The user (2026-11-07), rule D-11 in docs/lang-choices.md: a parenthesized exp..."
 role = "production"
 context_files = []
 created_at = "2026-11-07T11:22:41"
-commits = []
+completed_at = "2026-11-08T17:02:24"
+commits = ["358c21f94ecb8162c47305276e87c80f1d4034f7"]
