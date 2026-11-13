@@ -1068,8 +1068,10 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-eval",
+ "xetal-lex",
  "xetal-linter",
  "xetal-program",
+ "xetal-render",
  "xetal-store",
  "xetal-types",
 ]
