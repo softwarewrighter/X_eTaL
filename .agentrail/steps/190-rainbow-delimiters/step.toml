@@ -1,8 +1,9 @@
 number = 190
 slug = "rainbow-delimiters"
-status = "pending"
+status = "completed"
 description = "The user (2026-11-10), rule D-12 in docs/lang-choices.md: rainbow delimiters...."
 role = "production"
 context_files = []
 created_at = "2026-11-10T12:38:58"
-commits = []
+completed_at = "2026-11-12T18:36:47"
+commits = ["71a293e5f5fa01fe4701c6c72039797b85b5304a"]
