@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>userlibs/Apply.xtlm - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<h3>demos/</h3>
+<ul>
+<li><a href="demos-apply.xtl.html">apply.xtl</a></li>
+<li><a href="demos-arrays.xtl.html">arrays.xtl</a></li>
+<li><a href="demos-combinators.xtl.html">combinators.xtl</a></li>
+<li><a href="demos-dyadic.xtl.html">dyadic.xtl</a></li>
+<li><a href="demos-factorial.xtl.html">factorial.xtl</a></li>
+<li><a href="demos-hello-library.xtl.html">hello-library.xtl</a></li>
+<li><a href="demos-higher-order.xtl.html">higher-order.xtl</a></li>
+<li><a href="demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="demos-life.xtl.html">life.xtl</a></li>
+<li><a href="demos-macros.xtl.html">macros.xtl</a></li>
+<li><a href="demos-magmas.xtl.html">magmas.xtl</a></li>
+<li><a href="demos-monads.xtl.html">monads.xtl</a></li>
+<li><a href="demos-rotate.xtl.html">rotate.xtl</a></li>
+<li><a href="demos-square.xtl.html">square.xtl</a></li>
+<li><a href="demos-stats.xtl.html">stats.xtl</a></li>
+<li><a href="demos-tour.xtl.html">tour.xtl</a></li>
+<li><a href="demos-tttml-play.xtl.html">tttml-play.xtl</a></li>
+<li><a href="demos-tttml-train.xtl.html">tttml-train.xtl</a></li>
+<li><a href="demos-tttml.xtl.html">tttml.xtl</a></li>
+<li><a href="demos-unit.xtl.html">unit.xtl</a></li>
+<li><a href="demos-user-macros.xtl.html">user-macros.xtl</a></li>
+</ul>
+<h3>demos/rosetta/</h3>
+<ul>
+<li><a href="demos-rosetta-Comparison.xtl.html">Comparison.xtl</a></li>
+<li><a href="demos-rosetta-cube.xtl.html">cube.xtl</a></li>
+<li><a href="demos-rosetta-rosetta.xtl.html">rosetta.xtl</a></li>
+<li><a href="demos-rosetta-Stone.xtl.html">Stone.xtl</a></li>
+</ul>
+<h3>lib/</h3>
+<ul>
+<li><a href="lib-Combinators.xtl.html">Combinators.xtl</a></li>
+<li><a href="lib-Combinators.xtlm.html">Combinators.xtlm</a></li>
+<li><a href="lib-Geometry3D.xtl.html">Geometry3D.xtl</a></li>
+<li><a href="lib-Macros.xtlm.html">Macros.xtlm</a></li>
+<li><a href="lib-Maybe.xtl.html">Maybe.xtl</a></li>
+<li><a href="lib-Stats.xtl.html">Stats.xtl</a></li>
+<li><a href="lib-Svg.xtl.html">Svg.xtl</a></li>
+<li><a href="lib-Terminal.xtl.html">Terminal.xtl</a></li>
+<li><a href="lib-TTTML.xtl.html">TTTML.xtl</a></li>
+<li><a href="lib-Turtle.xtl.html">Turtle.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>userlibs/</h3>
+<ul>
+<li><a href="userlibs-Apply.xtlm.html">Apply.xtlm</a></li>
+<li><a href="userlibs-Greetings.xtl.html">Greetings.xtl</a></li>
+<li><a href="userlibs-Hello.xtl.html">Hello.xtl</a></li>
+<li><a href="userlibs-Repeat.xtlm.html">Repeat.xtlm</a></li>
+</ul>
+<ul>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li><a href="#section-1">Applying a function to several arguments</a></li>
+<li class="item"><a href="#m.a_pply-3c"><span class="c-macro">ᵐa̲pply&lt;</span></a></li>
+<li class="item"><a href="#h.t_rim"><span class="c-libfunc">ʰt̲rim</span></a></li>
+<li class="item"><a href="#h.c_hain"><span class="c-libfunc">ʰc̲hain</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">macro library</span>userlibs/Apply.xtlm</h1>
+<div class="doc">
+<p>A macro library of your own (userlibs/, as Repeat is): a function
+applied to several arguments, written as one call. Every X_eTaL
+function takes one argument, so a call with more is a chain of
+applied groups, <code><span class="c-applied c-depth0">(</span><span class="c-applied c-depth1">(</span>a f b<span class="c-applied c-depth1">)</span> c<span class="c-applied c-depth0">)</span> d</code>; this macro writes that chain for
+you when the program is expanded. Import it with an alias of your
+choice, &quot;ap:&quot; u_se&lt; &quot;Apply&quot;, and see what a call becomes with
+xetal expand FILE. The idiom for a function of more than two
+arguments is a tuple (<code>f <span class="c-depth0">(</span>a, b, c, d<span class="c-depth0">)</span></code>); this library shows what a
+macro can write.</p>
+</div>
+<p class="meta"><a href="userlibs-Apply.xtlm.src.html">source</a></p>
+<h2 class="section" id="section-1">Applying a function to several arguments</h2>
+<div class="item" id="m.a_pply-3c">
+<h3><a href="#m.a_pply-3c"><span class="c-macro">ᵐa̲pply&lt;</span></a> <span class="type">: Char -&gt; Char -&gt; Char</span></h3>
+<div class="meta">macro &middot; <a href="userlibs-Apply.xtlm.src.html#L25">line 25</a></div>
+<div class="doc">
+<p>The function on the left applied to the arguments on the right,
+separated by <code>◆</code> (a space would make one array of them): the first
+is its left argument, the second its right, and each one after that
+is passed to the function the call so far gives, as <code><span class="c-unmatched">(</span><span class="c-error">.</span><span class="c-error">.</span><span class="c-error">.</span><span class="c-applied c-unmatched">)</span> next</code>.
+One argument is a plain call. The pieces are copied as written, each
+in parentheses.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-string">&quot;ap:&quot;</span> <a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="userlibs-Apply.xtlm.html" class="c-string">&quot;Apply&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘf̲</span> ← <span class="c-depth0">{</span> a b c d → a <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-depth1">(</span><span class="c-number">10</span> <a href="builtins.html#-2a" class="c-symbol">×</a> b<span class="c-depth1">)</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-depth1">(</span><span class="c-number">100</span> <a href="builtins.html#-2a" class="c-symbol">×</a> c<span class="c-depth1">)</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1000</span> <a href="builtins.html#-2a" class="c-symbol">×</a> d <span class="c-depth0">}</span></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-string">c&quot;</span><span class="c-userfunc">ᵘf̲</span><span class="c-string">&quot;</span> <a href="userlibs-Apply.xtlm.html#m.a_pply-3c" class="c-macro">ᵃᵖa̲pply&lt;</a> <span class="c-string">c&quot;</span><span class="c-number">1</span>◆ <span class="c-number">2</span>◆ <span class="c-number">3</span>◆ <span class="c-number">4</span><span class="c-string">&quot;</span>
+4321</pre>
+</div>
+<pre class="code"><span class="c-macro">ᵐa̲pply&lt;</span> ← <span class="c-depth0">{</span> f args →
+  parts ← <span class="c-quote">'</span><span class="c-depth1">{</span> <a href="userlibs-Apply.xtlm.html#h.t_rim" class="c-libfunc">ʰt̲rim</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-lambdaarg">⍵</span> <span class="c-depth1">}</span> <a href="builtins.html#m_ap" class="c-builtin">m̲ap</a> <span class="c-depth1">(</span>args <a href="builtins.html#-21-3d" class="c-symbol">≠</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;;&quot;</span><span class="c-depth1">)</span> <a href="builtins.html#p_artition" class="c-builtin">p̲artition</a> args
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> parts ? <span class="c-string">&quot;bad-macro-argument right&quot;</span> <a href="builtins.html#-5b-5dR_EJECT" class="c-builtin">⎕R̲EJECT</a> <span class="c-string">&quot;ap:a_pply&lt; needs at least one argument&quot;</span>
+  <span class="c-number">1</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> parts ? f <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-depth1">(</span><a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> parts<span class="c-depth1">)</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;)&quot;</span>
+  first ← <span class="c-string">&quot;(&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-depth1">(</span><a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> parts<span class="c-depth1">)</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;) &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> f <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-depth1">(</span><a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <span class="c-depth2">(</span><span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> parts<span class="c-depth2">)</span><span class="c-depth1">)</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;)&quot;</span>
+  first <a href="userlibs-Apply.xtlm.html#h.c_hain" class="c-libfunc">ʰc̲hain</a> <span class="c-number">2</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> parts
+<span class="c-depth0">}</span></pre>
+<div class="uses">Used in: <a href="demos-apply.xtl.src.html#L21">demos/apply.xtl:21</a>, <a href="demos-apply.xtl.src.html#L22">demos/apply.xtl:22</a></div>
+</div>
+<div class="item" id="h.t_rim">
+<h3><a href="#h.t_rim"><span class="c-libfunc">ʰt̲rim</span></a> <span class="type">: Char -&gt; Char</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="userlibs-Apply.xtlm.src.html#L34">line 34</a></div>
+<div class="doc">
+<p>The text t without its leading spaces.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰt̲rim</span> ← <span class="c-depth0">{</span> t → <span class="c-depth1">(</span><span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> <span class="c-symbol">'</span><a href="builtins.html#-26" class="c-symbol">∧</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> t <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot; &quot;</span><span class="c-depth1">)</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> t <span class="c-depth0">}</span></pre>
+<div class="uses">Used in: <a href="userlibs-Apply.xtlm.html#m.a_pply-3c"><span class="c-macro">ᵐa̲pply&lt;</span></a></div>
+</div>
+<div class="item" id="h.c_hain">
+<h3><a href="#h.c_hain"><span class="c-libfunc">ʰc̲hain</span></a> <span class="type">: Char -&gt; Box Char -&gt; Char</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="userlibs-Apply.xtlm.src.html#L38">line 38</a></div>
+<div class="doc">
+<p>The call so far applied to each further argument, in order:
+<code><span class="c-applied c-depth0">(</span>call<span class="c-applied c-depth0">)</span> <span class="c-depth0">(</span>next<span class="c-depth0">)</span></code>.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰc̲hain</span> ← <span class="c-depth0">{</span> call rest →
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> rest ? call
+  <span class="c-depth1">(</span><span class="c-string">&quot;(&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> call <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;)_ (&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-depth2">(</span><a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> rest<span class="c-depth2">)</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;)&quot;</span><span class="c-depth1">)</span> <a href="userlibs-Apply.xtlm.html#h.c_hain" class="c-libfunc">ʰc̲hain</a> <span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> rest
+<span class="c-depth0">}</span></pre>
+<div class="uses">Used in: <a href="userlibs-Apply.xtlm.html#m.a_pply-3c"><span class="c-macro">ᵐa̲pply&lt;</span></a>, <a href="userlibs-Apply.xtlm.html#h.c_hain"><span class="c-libfunc">ʰc̲hain</span></a></div>
+</div>
+</main>
+</body>
+</html>
