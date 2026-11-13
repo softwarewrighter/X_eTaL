@@ -132,8 +132,8 @@ Vireo, holds two values until a function arrives:
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
 3 ᶜT̲ 'ᵘd̲ouble
-(3 ᶜV̲ 4)_ '+
-(3 ᶜV̲ 4)_ 'ᵘa̲b
+(̲3 ᶜV̲ 4)̲ '+
+(̲3 ᶜV̲ 4)̲ 'ᵘa̲b
 #+end_example
 #+begin_src xetal
 3 c:T_ 'u:d_ouble
@@ -194,10 +194,10 @@ too.
 #+begin_example
 ᵘM̲ ← { x̲ → x̲ 'x̲ }
 ᵘI̲ ← { x → x }
-('ᵘI̲ ᵘM̲)_ 42
+(̲'ᵘI̲ ᵘM̲)̲ 42
 ᵘY̲ ← { f̲ → { x̲ → f̲ x̲ 'x̲ } '{ x̲ → f̲ x̲ 'x̲ } }
 ᵘF̲ ← { ~s̲elf n → n ≤ 1 ? 1◆ n × s̲elf n − 1 }
-(ᵘY̲ 'ᵘF̲)_ 5
+(̲ᵘY̲ 'ᵘF̲)̲ 5
 #+end_example
 #+begin_src xetal :session none :untyped yes
 u:M_ := { x_ -> x_ 'x_ }

@@ -1,19 +1,21 @@
 //! Source text -> styled segments, tolerating text that does not lex.
 
 use xetal_base::Span;
-use xetal_lex::{TokenKind, applied_parens, lex};
+use xetal_lex::{Bracket, TokenKind, applied_parens, bracket_depths, lex};
 use xetal_render::{code_pieces, token_text};
 
 use crate::Class;
 use crate::class::{classify, powers_take_function_class, quotes_take_function_class};
 use crate::comment::{align, comment};
 
-/// A run of source shown as `text` in style `class`, from bytes `raw`.
+/// A run of source shown as `text` in style `class`, from bytes `raw`;
+/// a bracket's depth or stray, for rainbow delimiters (D-12).
 #[derive(Debug, Clone, PartialEq)]
 pub struct Segment {
     pub raw: Span,
     pub text: String,
     pub class: Class,
+    pub bracket: Option<Bracket>,
 }
 
 /// The view of `src`: segments in order, covering every byte once.
@@ -73,6 +75,7 @@ fn around_error(rest: &str, base: usize, span: Option<Span>, out: &mut Vec<Segme
         raw: Span::new(base + start, base + end),
         text,
         class: Class::Error,
+        bracket: None,
     });
     base + end
 }
@@ -86,9 +89,9 @@ fn shift(mut s: Segment, by: usize) -> Segment {
 fn valid(src: &str, base: usize, out: &mut Vec<Segment>) {
     let Ok(tokens) = lex(src) else { return };
     let first = out.len();
-    let applied = applied_parens(&tokens);
+    let (applied, brackets) = (applied_parens(&tokens), bracket_depths(&tokens));
     let mut pos = 0;
-    for (t, applied) in tokens.iter().zip(applied) {
+    for ((t, applied), bracket) in tokens.iter().zip(applied).zip(brackets) {
         gap(src, pos, t.span.start, base, out);
         let raw = &src[t.span.start..t.span.end];
         if let TokenKind::Code(_) = t.kind
@@ -108,6 +111,7 @@ fn valid(src: &str, base: usize, out: &mut Vec<Segment>) {
             raw: Span::new(base + t.span.start, base + t.span.end),
             text,
             class,
+            bracket,
         });
         pos = t.span.end;
     }
@@ -128,6 +132,7 @@ fn gap(src: &str, from: usize, to: usize, base: usize, out: &mut Vec<Segment>) {
                 raw,
                 text: text[a..b].to_string(),
                 class: Class::Space,
+                bracket: None,
             });
         }
     };
@@ -154,6 +159,7 @@ fn code(raw: &str, base: usize, open: bool) -> Option<Vec<Segment>> {
         raw: Span::new(base + p.written.start, base + p.written.end),
         text: p.text,
         class: p.kind.as_ref().map_or(Class::Space, classify),
+        bracket: None,
     };
     Some(pieces.into_iter().map(segment).collect())
 }

@@ -89,6 +89,14 @@ div.source .ln { display: inline-block; width: 3.4rem; padding-right: .9rem; tex
 /* Doc comments (##) and section headings (###): their own style, apart from remarks. */
 .c-doc { color: var(--doc); font-style: italic; } .c-heading { color: var(--doc); font-weight: bold; }
 .c-applied { text-decoration: underline; text-decoration-thickness: 0.14em; text-underline-offset: 0.18em; }
+/* Rainbow delimiters (D-12): a bracket colored by its depth. */
+.c-depth0 { color: #6b6b6b; } .c-depth1 { color: #c25e00; } .c-depth2 { color: #c2307a; } .c-depth3 { color: #20242c; }
+.c-unmatched { color: #c62828; text-decoration: underline wavy; }
+:root[data-theme="dark"] .c-depth0 { color: #9a9a9a; } :root[data-theme="dark"] .c-depth1 { color: #ff9a3c; } :root[data-theme="dark"] .c-depth2 { color: #ffa8d2; } :root[data-theme="dark"] .c-depth3 { color: #f4f4f4; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .c-depth0 { color: #9a9a9a; } :root:not([data-theme="light"]) .c-depth1 { color: #ff9a3c; }
+  :root:not([data-theme="light"]) .c-depth2 { color: #ffa8d2; } :root:not([data-theme="light"]) .c-depth3 { color: #f4f4f4; }
+}
 .c-error { color: var(--error); }
 /* A notation (MC32): the LaTeX a draws: macro wrote, typeset by KaTeX in place; as typed until then. */
 .c-notation { color: var(--string); font-style: italic; } .c-notation .katex { font-style: normal; font-size: 1.05em; }

@@ -20,4 +20,4 @@ pub use xetal_grid::set_boxed;
 pub use xetal_program::is_library;
 pub use xetal_report::{Kind, Line, Report};
 pub use xetal_store::{Memory, install};
-pub use xetal_view::{Class, Segment, view as decorate};
+pub use xetal_view::{Class, Segment, rainbow_class, view as decorate};

@@ -3,7 +3,7 @@
 
 use xetal_doclink::{Link, Target};
 pub use xetal_notate::Notation;
-use xetal_view::{Class, Segment, lines, view};
+use xetal_view::{Class, Segment, lines, rainbow_class, view};
 
 use crate::escape;
 
@@ -51,7 +51,12 @@ pub fn lined(
 
 fn segment(s: &Segment, links: &[Link], href: Href) -> String {
     let text = escape(&s.text);
-    let class = css(s.class).map_or(String::new(), |c| format!(" class=\"{c}\""));
+    // Rainbow delimiters (D-12) on the site: a bracket's depth class.
+    let names: Vec<String> = css(s.class).into_iter().chain(rainbow_class(s)).collect();
+    let class = match names.is_empty() {
+        true => String::new(),
+        false => format!(" class=\"{}\"", names.join(" ")),
+    };
     match links.iter().find(|l| l.span == s.raw) {
         Some(l) => format!("<a href=\"{}\"{class}>{text}</a>", href(l.target)),
         None if class.is_empty() => text,

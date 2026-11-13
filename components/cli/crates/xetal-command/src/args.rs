@@ -213,6 +213,11 @@ pub struct RenderArgs {
     /// not lex is shown as typed.
     #[arg(long, conflicts_with_all = ["raw", "latex", "color"])]
     pub html: bool,
+    /// With --color or --html, rainbow delimiters: each bracket colored
+    /// by its depth, a pair alike, a bracket with no pair in red (with
+    /// --html, the classes c-depth0 to c-depth3 and c-unmatched).
+    #[arg(long)]
+    pub rainbow: bool,
 }
 
 #[derive(Subcommand)]

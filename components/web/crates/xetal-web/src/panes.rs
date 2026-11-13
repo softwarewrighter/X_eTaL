@@ -73,9 +73,17 @@ pub(crate) fn rendered(text: &str, current: Pane, focus: Callback<Pane>, drawn: 
             let math = Html::from_html_unchecked(xetal_katex::html(&s.text).into());
             html! { <span class="c-notation">{ math }</span> }
         }
-        class => html! { <span class={class_name(class)}>{ s.text }</span> },
+        class => {
+            let names = classes!(class_name(class), xetal_play::rainbow_class(&s));
+            html! { <span class={names}>{ s.text }</span> }
+        }
     });
-    let body = html! { <pre tabindex="0" ref={drawn}>{ for spans }</pre> };
+    // Rainbow delimiters (D-12), off with this box: the stylesheet reads
+    // it (`:has`), so the app keeps no state for it.
+    let body = html! { <>
+        <label class="plain-brackets"><input type="checkbox" id="plain-brackets"/>{ " plain brackets" }</label>
+        <pre tabindex="0" ref={drawn}>{ for spans }</pre>
+    </> };
     frame("Rendered", Pane::Rendered, current, focus, body)
 }
 

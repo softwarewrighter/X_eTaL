@@ -503,7 +503,7 @@ u:k_eep := { a ~_u -> a }        # `_u` is a parameter nothing reads; the
 
 # drawn by xetal render (scripts/literate-draw.py); edit the block below
 #+begin_example
-(ᵘs̲ub 100)_ 1                  ⍝ `(expr)_` applies a function value
+(̲ᵘs̲ub 100)̲ 1                  ⍝ `(expr)_` applies a function value
 #+end_example
 #+begin_src xetal
 (u:s_ub 100)_ 1                  # `(expr)_` applies a function value

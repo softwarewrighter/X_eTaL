@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-12
+
+- 18:36 `feat` Rainbow delimiters (step 190, rule D-12, D194; the user): every bracket, `()`, `{}` and `[]`, colored by its depth from four colors apart from the classes' (gray, orange, pink, white; darker on light pages), a pair alike, a stray in the error color; an applied group's parentheses keep their underline. On in the editor and the REPL's line (`XETAL_RAINBOW=off` turns it off), the live demo's Rendered pane (its "plain brackets" box turns it off), the doc site, the literate pages and the poster; `xetal render --color` and `--html` with `--rainbow` (classes `c-depth0` to `c-depth3`, `c-unmatched`). New in xetal-token: `bracket_depths`; view segments carry their bracket. A fork of forks is pinned by spec/eval/train-fork-of-forks.case. The literate documents' drawn blocks redrawn (D-11 and D-12), golden doc-site-expansions rebased on purpose (the site's code now has depth classes).
+
 ## 2026-11-08
 
 - 17:04 `docs` The live demo's and the poster's screenshots retaken after the publish (applied groups drawn underlined).

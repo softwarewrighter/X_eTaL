@@ -2,7 +2,8 @@
 
 use ratatui::style::{Color, Style};
 use ratatui::text::{Line, Span};
-use xetal_view::{Segment, lines};
+
+use xetal_view::{Bracket, Class, RAINBOW, Segment, lines, rainbow_on};
 
 use crate::style;
 
@@ -16,9 +17,14 @@ pub(crate) fn split(segments: &[Segment]) -> Vec<Vec<Segment>> {
 
 fn styled(s: &Segment, mark: Mark) -> Style {
     let hit = mark.is_some_and(|(a, b)| s.raw.start < b.max(a + 1) && a < s.raw.end);
+    let base = match (rainbow_on(), s.bracket) {
+        (true, Some(Bracket::Depth(d))) => style(s.class).fg(Color::Indexed(RAINBOW[d % 4])),
+        (true, Some(Bracket::Unmatched)) => style(Class::Error),
+        _ => style(s.class),
+    };
     match hit {
-        true => style(s.class).bg(Color::Red),
-        false => style(s.class),
+        true => base.bg(Color::Red),
+        false => base,
     }
 }
 

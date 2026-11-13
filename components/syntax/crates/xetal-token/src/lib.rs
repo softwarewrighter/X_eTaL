@@ -9,5 +9,5 @@ mod token;
 
 pub use error::{ErrorKind, LexError};
 pub use fresh::is_fresh;
-pub use groups::applied_parens;
+pub use groups::{Bracket, applied_parens, bracket_depths};
 pub use token::{FuncName, Number, SYSTEM, Side, Symbol, Token, TokenKind, Var, ns_text};

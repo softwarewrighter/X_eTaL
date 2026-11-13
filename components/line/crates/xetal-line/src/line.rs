@@ -4,7 +4,7 @@
 use xetal_buffer::Buffer;
 use xetal_complete::Completion;
 use xetal_keys::{Code, Command, Key, apply, command};
-use xetal_view::{ansi, column, view, width};
+use xetal_view::{ansi, ansi_rainbow, column, rainbow_on, view, width};
 
 /// What a key did.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -66,7 +66,11 @@ impl Line {
         let text = self.text();
         let segments = view(&text);
         let col = width(prompt) + column(&segments, self.buffer.offset());
-        (format!("{prompt}{}", ansi(&segments)), col)
+        let drawn = match rainbow_on() {
+            true => ansi_rainbow(&segments),
+            false => ansi(&segments),
+        };
+        (format!("{prompt}{drawn}"), col)
     }
 
     /// The prompt and the line as typed, undecorated (a shell's

@@ -242,3 +242,22 @@ fn applied_group_parentheses() {
     );
     assert!(xetal_view::html(&view("(a)_ b")).starts_with("<span class=\"c-applied\">(</span>"));
 }
+
+/// D-12: brackets colored by depth, a pair alike, a stray in the error
+/// color; an applied group's parenthesis keeps its underline. Off in
+/// the plain writers.
+#[test]
+fn rainbow_delimiters() {
+    use xetal_view::{ansi_rainbow, html, html_rainbow};
+    let fork = view("[['+ r_/ - t_ally] * (a)_ b]");
+    let colored = ansi_rainbow(&fork);
+    assert!(colored.starts_with("\u{1b}[38;5;245m[\u{1b}[0m\u{1b}[38;5;208m[\u{1b}[0m"));
+    assert!(colored.contains("\u{1b}[4;38;5;208m(\u{1b}[0m"));
+    assert!(colored.ends_with("\u{1b}[38;5;245m]\u{1b}[0m"));
+    assert_eq!(ansi(&fork), ansi(&fork).replace("38;5", "x"));
+    let stray = ansi_rainbow(&view("(a]"));
+    assert_eq!(stray.matches("\u{1b}[31;4m").count(), 2);
+    let page = html_rainbow(&view("(a)_ b"));
+    assert!(page.starts_with("<span class=\"c-applied c-depth0\">(</span>"));
+    assert!(!html(&view("[a]")).contains("c-depth"));
+}

@@ -34,6 +34,7 @@ pub fn lines(segments: &[Segment]) -> Vec<Vec<Segment>> {
                     raw: Span::new(start, end),
                     text: part.to_string(),
                     class: s.class,
+                    bracket: s.bracket,
                 };
                 out.last_mut()
                     .into_iter()

@@ -95,11 +95,11 @@ fourth arguments are applied to the function value with ~(expr)_~:
 ᵘm̲v ← { from to → 1 2 r̲eshape from c̲at to }
 ᵘh̲ ← { n from to via →
   n = 0 ? 0 2 r̲eshape 0
-  a ← (((n − 1) ᵘh̲ from)_ via)_ to
-  b ← (((n − 1) ᵘh̲ via)_ to)_ from
+  a ← (̲(̲(n − 1) ᵘh̲ from)̲ via)̲ to
+  b ← (̲(̲(n − 1) ᵘh̲ via)̲ to)̲ from
   a c̲at (from ᵘm̲v to) c̲at b
 }
-((3 ᵘh̲ 1)_ 3)_ 2
+(̲(̲3 ᵘh̲ 1)̲ 3)̲ 2
 #+end_example
 #+begin_src xetal
 u:m_v := { from to -> 1 2 r_eshape from c_at to }
@@ -135,7 +135,7 @@ the Combinators library: ~to 'f c:C_ via~ is ~via f to~.
   b̲ack ← (n − 1) ᵘh̲c via
   (to 'm̲ove ᶜC̲ via) c̲at (from ᵘm̲v to) c̲at to b̲ack from
 }
-(((6 ᵘh̲c 1)_ 3)_ 2) m̲atch 6 ᵘh̲anoi 1 3 2
+((̲(̲6 ᵘh̲c 1)̲ 3)̲ 2) m̲atch 6 ᵘh̲anoi 1 3 2
 #+end_example
 #+begin_src xetal
 "c:" u_se< "Combinators"

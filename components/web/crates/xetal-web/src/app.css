@@ -76,6 +76,11 @@ body { font: 15px/1.35 var(--mono); }
 /* Doc comments (##) and section headings (###): their own style, apart from remarks. */
 .c-doc { color: var(--doc); font-style: italic; } .c-heading { color: var(--doc); font-weight: bold; }
 .c-applied { text-decoration: underline; text-decoration-thickness: 0.14em; text-underline-offset: 0.18em; }
+/* Rainbow delimiters (D-12): a bracket colored by its depth; the Rendered pane's box turns them off. */
+.c-depth0 { color: #9a9a9a; } .c-depth1 { color: #ff9a3c; } .c-depth2 { color: #ffa8d2; } .c-depth3 { color: #f4f4f4; }
+.c-unmatched { color: #ff6b6b; text-decoration: underline wavy; }
+body:has(#plain-brackets:checked) :is(.c-depth0, .c-depth1, .c-depth2, .c-depth3) { color: inherit; }
+.plain-brackets { font-size: 0.8em; color: var(--dim); padding: 2px 10px; }
 .c-error { color: #ff6b6b; }
 /* The completion list under the ASCII text (xetal-suggest): a row a
    candidate, its label and detail, the chosen one marked. */

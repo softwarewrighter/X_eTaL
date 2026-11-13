@@ -92,10 +92,16 @@ fn render(args: &RenderArgs, source: &str) -> Result<String, Diagnostic> {
         Ok(raw)
     } else if args.color {
         let segments = xetal_notate::marked(xetal_view::view(source), &notations());
-        Ok(xetal_view::ansi(&segments))
+        Ok(match args.rainbow {
+            true => xetal_view::ansi_rainbow(&segments),
+            false => xetal_view::ansi(&segments),
+        })
     } else if args.html {
         let segments = xetal_notate::drawn(xetal_view::view(source), &notations());
-        Ok(xetal_view::html(&segments))
+        Ok(match args.rainbow {
+            true => xetal_view::html_rainbow(&segments),
+            false => xetal_view::html(&segments),
+        })
     } else if args.latex {
         xetal_render::latex(source)
     } else {

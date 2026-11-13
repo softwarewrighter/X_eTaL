@@ -40,7 +40,7 @@
   "CODE drawn as HTML spans by `xetal render --html'."
   (with-temp-buffer
     (let ((status (call-process literate-export-xetal nil t nil
-                                "render" "--html" "-e" code)))
+                                "render" "--html" "--rainbow" "-e" code)))
       (unless (eq status 0)
         (error "xetal render --html failed: %s" (buffer-string)))
       (string-trim-right (buffer-string)))))

@@ -14,6 +14,7 @@ fn seg(start: usize, end: usize, text: &str, class: Class) -> Segment {
         raw: Span::new(start, end),
         text: text.into(),
         class,
+        bracket: None,
     }
 }
 

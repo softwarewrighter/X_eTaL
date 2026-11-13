@@ -1,0 +1,8 @@
+# A fork of forks (TR1, TR3): each tine is itself a fork, (sum - count)
+# times (max - min). Its brackets nest, drawn as rainbow delimiters (D-12).
+== SOURCE
+[['+ r_/ - t_ally] * ['m_ax r_/ - 'm_in r_/]] 1 2 3 10
+== RENDER
+[['+ r̲/ − t̲ally] × ['m̲ax r̲/ − 'm̲in r̲/]] 1 2 3 10
+== RESULT
+108

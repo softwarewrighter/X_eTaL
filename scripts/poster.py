@@ -30,7 +30,7 @@ PLACEHOLDER = re.compile(
 def drawn(source):
     """SOURCE as `xetal render --html` draws it; an error is fatal."""
     out = subprocess.run(
-        [str(XETAL), "render", "--html", "-e", source],
+        [str(XETAL), "render", "--html", "--rainbow", "-e", source],
         capture_output=True, text=True, check=False,
     )
     if out.returncode != 0 or "c-error" in out.stdout:

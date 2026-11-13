@@ -31,3 +31,42 @@ pub fn applied_parens(tokens: &[Token]) -> Vec<bool> {
     }
     marks
 }
+
+/// A bracket's place: its depth (the outermost pair is 0, every kind of
+/// bracket counting), the same for both of a pair; or a stray with no
+/// pair (D-12).
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Bracket {
+    Depth(usize),
+    Unmatched,
+}
+
+/// For each token of `tokens`, its [`Bracket`] if it is one. A closer
+/// that does not close the innermost open bracket is a stray, and so is
+/// an opener never closed.
+pub fn bracket_depths(tokens: &[Token]) -> Vec<Option<Bracket>> {
+    let mut out: Vec<Option<Bracket>> = vec![None; tokens.len()];
+    let mut open: Vec<(usize, TokenKind)> = Vec::new();
+    for (i, t) in tokens.iter().enumerate() {
+        let closes = match t.kind {
+            TokenKind::LParen | TokenKind::LBrace | TokenKind::LBracket => {
+                open.push((i, t.kind.clone()));
+                continue;
+            }
+            TokenKind::RParen => TokenKind::LParen,
+            TokenKind::RBrace => TokenKind::LBrace,
+            TokenKind::RBracket => TokenKind::LBracket,
+            _ => continue,
+        };
+        out[i] = Some(Bracket::Unmatched);
+        if open.last().is_some_and(|(_, k)| *k == closes) {
+            let (j, _) = open.pop().unwrap_or((i, closes));
+            out[i] = Some(Bracket::Depth(open.len()));
+            out[j] = out[i];
+        }
+    }
+    for (j, _) in open {
+        out[j] = Some(Bracket::Unmatched);
+    }
+    out
+}

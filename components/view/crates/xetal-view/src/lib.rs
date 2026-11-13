@@ -11,8 +11,9 @@ mod html;
 mod map;
 mod segment;
 
-pub use ansi::ansi;
+pub use ansi::{RAINBOW, ansi, ansi_rainbow, rainbow_on};
 pub use class::Class;
-pub use html::html;
+pub use html::{html, html_rainbow, rainbow_class};
 pub use map::{column, lines, width};
 pub use segment::{Segment, view};
+pub use xetal_lex::Bracket;

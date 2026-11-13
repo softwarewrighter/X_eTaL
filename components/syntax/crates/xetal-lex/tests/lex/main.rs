@@ -1,6 +1,7 @@
 //! Lexer tests (one test binary so helpers are shared).
 
 mod accept;
+mod brackets;
 mod code;
 mod common;
 mod label;
