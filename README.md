@@ -300,6 +300,17 @@ just serve                                      # the live demo locally, at http
 just pages                                      # build the live demo into pages/ (just publish puts it on gh-pages)
 ```
 
+At the REPL (and in the live demo's terminal), a line starting with `)`
+is a workspace command, as in APL: `)fns` lists the functions you have
+defined with their types, `)vars` your variables, and `)def u:f_` shows
+a definition drawn, with its doc comment and type:
+
+```
+u:f_ := { a b -> a + (10 * b) }
+)fns                     # u:f_ : Num a => a -> a -> a
+)def u:f_                # ᵘf̲ ← { a b → a + (10 × b) }, then its type
+```
+
 `just run` and `just eval` pass flags through to `xetal`
 (`just run --echo FILE`). Without `just`, build with
 `scripts/build-all.sh --release` and call `./target/release/xetal`;

@@ -1,0 +1,2 @@
+error[unknown-name]: `y` is not defined in this session
+error[unknown-command]: `)save` is not a workspace command: )fns, )vars, )def NAME

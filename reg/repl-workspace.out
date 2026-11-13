@@ -1,0 +1,9 @@
+u:f_ : Num a => a -> a -> a
+u:p_air : Any a => a -> (a, a)
+x : Int
+count! : Int
+⍝│ u:p_air a: a beside itself.
+ᵘp̲air ← { a →
+  (a, a) }
+u:p_air : Any a => a -> (a, a)
+24

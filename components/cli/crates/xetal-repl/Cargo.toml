@@ -21,3 +21,5 @@ xetal-types.workspace = true
 xetal-eval.workspace = true
 xetal-line = { workspace = true, optional = true }
 xetal-program.workspace = true
+xetal-lex.workspace = true
+xetal-render.workspace = true

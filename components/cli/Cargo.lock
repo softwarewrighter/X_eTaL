@@ -2730,9 +2730,11 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-eval",
+ "xetal-lex",
  "xetal-line",
  "xetal-linter",
  "xetal-program",
+ "xetal-render",
  "xetal-store",
  "xetal-types",
 ]

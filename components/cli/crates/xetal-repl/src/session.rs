@@ -161,6 +161,14 @@ impl Session {
     /// Feed one line of input, its new output also written to `sink`
     /// as the program writes it (to watch a long computation).
     pub fn feed_to(&mut self, line: &str, sink: &mut (dyn std::io::Write + Send)) -> Reply {
+        if self.pending.is_empty() && crate::workspace::is_command(line) {
+            return crate::workspace::reply(line, &self.accepted, &self.origin);
+        }
+        self.feed_code(line, sink)
+    }
+
+    /// Feed one line of code (the start of a statement, or more of one).
+    fn feed_code(&mut self, line: &str, sink: &mut (dyn std::io::Write + Send)) -> Reply {
         let text = match self.pending.is_empty() {
             true => line.to_string(),
             false => format!("{}\n{line}", self.pending),

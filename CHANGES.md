@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-13
+
+- 13:01 `feat` Workspace commands at the REPL (step 191, D195; the user), as APL's )FNS and )VARS: a line starting with `)` lists the session's functions (`)fns`) or variables (`)vars`) with their types, or shows a definition drawn with its doc comment and type (`)def u:f_`); an unknown command or name is an error and the session goes on; commands are not kept. The browser's terminal shares the session, so it has them too. Tests: xetal-repl tests/workspace.rs; golden repl-workspace; the README shows them.
+
 ## 2026-11-12
 
 - 18:40 `docs` Screenshots retaken after rebuilding every page (applied groups and rainbow delimiters).

@@ -6,6 +6,7 @@ mod notebook;
 mod session;
 #[cfg(feature = "terminal")]
 mod stdio;
+mod workspace;
 
 pub use notebook::{Cell, continued, notebook};
 pub use session::{Reply, Session};
