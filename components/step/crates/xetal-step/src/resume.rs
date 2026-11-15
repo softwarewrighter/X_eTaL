@@ -16,7 +16,7 @@ use xetal_frame::{Control, Kont, Wants};
 impl<'a> Machine<'a, '_> {
     /// The frame on top takes `v`; `None` when the program has finished.
     pub(crate) fn resume(&mut self, v: Value<'a>) -> Result<Option<Control<'a>>, Diagnostic> {
-        let Some(k) = self.stack.pop() else {
+        let Some(k) = self.state.stack.pop() else {
             return Err(Diagnostic::new(
                 "internal",
                 "a value with nothing waiting for it",
@@ -25,7 +25,7 @@ impl<'a> Machine<'a, '_> {
         Ok(Some(match k {
             Kont::Items { next } => return self.item(next),
             Kont::Def { name } => {
-                self.globals.insert(name.to_string(), v);
+                self.state.globals.insert(name.to_string(), v);
                 Control::Return(Value::Unit)
             }
             Kont::Show { span } => self.show(&v, span)?,
@@ -58,6 +58,7 @@ impl<'a> Machine<'a, '_> {
                 let bound = match inner {
                     Some(inner) => {
                         if let Some(slot) = xetal_value::lookup(&inner, name) {
+                            self.state.record(&slot);
                             *slot.borrow_mut() = Slot::Value(v);
                         }
                         inner
@@ -67,6 +68,7 @@ impl<'a> Machine<'a, '_> {
                 self.then(body, bound)
             }
             Kont::Assign { slot, env, body } => {
+                self.state.record(&slot);
                 *slot.borrow_mut() = Slot::Value(v);
                 self.then(body, env)
             }
@@ -122,7 +124,7 @@ impl<'a> Machine<'a, '_> {
             done,
             env: env.clone(),
         };
-        self.stack.push(k);
+        self.state.stack.push(k);
         Control::Eval(next, env)
     }
 
@@ -136,7 +138,7 @@ impl<'a> Machine<'a, '_> {
         match body {
             Some(body) => Control::Eval(body, env),
             None => {
-                self.env = env;
+                self.state.env = env;
                 Control::Return(Value::Unit)
             }
         }
@@ -148,8 +150,8 @@ impl<'a> Machine<'a, '_> {
         let Some(item) = program.items.get(next) else {
             return Ok(None);
         };
-        self.stack.push(Kont::Items { next: next + 1 });
-        let env = self.env.clone();
+        self.state.stack.push(Kont::Items { next: next + 1 });
+        let env = self.state.env.clone();
         if let Some(hook) = self.before.as_mut() {
             hook(match item {
                 Item::Def { value, .. } | Item::Let { value, .. } | Item::Set { value, .. } => {
@@ -160,20 +162,20 @@ impl<'a> Machine<'a, '_> {
         }
         Ok(Some(match item {
             Item::Def { name, value } => {
-                if self.globals.contains_key(name) {
+                if self.state.globals.contains_key(name) {
                     return Err(err(
                         "duplicate-definition",
                         value.span,
                         format!("{name} is already defined in this file"),
                     ));
                 }
-                self.stack.push(Kont::Def { name });
+                self.state.stack.push(Kont::Def { name });
                 Control::Eval(value, env)
             }
             Item::Let { name, rec, value } => self.bind(name, *rec, value, &env, None),
             Item::Set { name, value } => self.assign(name, value, &env, None)?,
             Item::Eval(e) => {
-                self.stack.push(Kont::Show { span: e.span });
+                self.state.stack.push(Kont::Show { span: e.span });
                 Control::Eval(e, env)
             }
         }))
@@ -191,7 +193,7 @@ impl<'a> Machine<'a, '_> {
 
     /// What the run waits for.
     pub(crate) fn waited(&self) -> Status {
-        match self.inbox.wants {
+        match self.state.inbox.wants {
             Some(Wants::Key) => Status::WaitingKey,
             Some(Wants::Event) => Status::WaitingEvent,
             _ => Status::Waiting,

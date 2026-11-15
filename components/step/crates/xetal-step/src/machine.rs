@@ -7,9 +7,9 @@ use std::io::Write;
 use xetal_arith::Rng;
 use xetal_base::{Diagnostic, Span};
 use xetal_core::Program;
-use xetal_value::{Env, Value};
+use xetal_value::Value;
 
-use xetal_frame::{Control, Inbox, Kont};
+use xetal_frame::{Control, Inbox, Kont, State};
 
 /// Pending frames allowed before reporting `stack-overflow` (the depth a
 /// runaway recursion reaches; deep finite recursion is well within it).
@@ -34,36 +34,34 @@ pub enum Status {
 /// any two transitions and go on later.
 pub struct Machine<'a, 'o> {
     pub(crate) program: &'a Program,
-    pub(crate) globals: HashMap<String, Value<'a>>,
-    /// The top level's bindings so far.
-    pub(crate) env: Env<'a>,
-    pub(crate) stack: Vec<Kont<'a>>,
-    pub(crate) control: Option<Control<'a>>,
+    /// The run's state: what is in hand, the pending frames, the
+    /// bindings, the generator, the inbox.
+    pub(crate) state: State<'a>,
     pub(crate) out: &'o mut dyn Write,
-    pub(crate) rng: Rng,
     /// When set, given each top-level value instead of printing it.
     pub(crate) keep: Option<&'o mut dyn FnMut(&Value<'a>)>,
     /// Called with each top-level item's span just before it runs.
     pub(crate) before: Option<&'o mut (dyn FnMut(Span) + Send)>,
-    /// Lines fed for `[]R_EAD`, `[]K_EY` and `[]E_VENT`, and what the
-    /// run waits for; without a queue those read standard input.
-    pub(crate) inbox: Inbox,
 }
 
 impl<'a, 'o> Machine<'a, 'o> {
     /// A run of `program`, printing to `out`, `r_oll!` drawing from `rng`.
     pub fn new(program: &'a Program, out: &'o mut dyn Write, rng: Rng) -> Self {
-        Machine {
-            program,
+        let state = State {
             globals: HashMap::new(),
             env: None,
             stack: vec![Kont::Items { next: 0 }],
             control: Some(Control::Return(Value::Unit)),
-            out,
             rng,
+            inbox: Inbox::default(),
+            journal: None,
+        };
+        Machine {
+            program,
+            state,
+            out,
             keep: None,
             before: None,
-            inbox: Inbox::default(),
         }
     }
 
@@ -79,32 +77,34 @@ impl<'a, 'o> Machine<'a, 'o> {
         self
     }
 
-    /// Start from a paused run's bindings (a debugger's watch runs in
-    /// the frame where the program stopped).
-    pub fn within(mut self, env: Env<'a>, globals: HashMap<String, Value<'a>>) -> Self {
-        (self.env, self.globals) = (env, globals);
-        self
+    /// The run's state, to start from a paused run's bindings (a
+    /// debugger's watch runs in the frame where the program stopped),
+    /// or to copy and put back (a debugger's checkpoints).
+    pub fn state(&mut self) -> &mut State<'a> {
+        &mut self.state
     }
 
     /// Run at most `budget` transitions.
     pub fn run(&mut self, budget: usize) -> Result<Status, Diagnostic> {
         for _ in 0..budget {
-            if self.inbox.waiting {
+            if self.state.inbox.waiting {
                 return Ok(self.waited());
             }
-            let Some(control) = self.control.take() else {
+            let Some(control) = self.state.control.take() else {
                 return Ok(Status::Done);
             };
             match self.transition(control) {
-                Ok(next) => self.control = next,
-                Err(e) => self.control = Some(self.catch(e)?),
+                Ok(next) => self.state.control = next,
+                Err(e) => self.state.control = Some(self.catch(e)?),
             }
         }
-        Ok(match (self.inbox.waiting, self.control.is_some()) {
-            (true, _) => self.waited(),
-            (false, true) => Status::Running,
-            (false, false) => Status::Done,
-        })
+        Ok(
+            match (self.state.inbox.waiting, self.state.control.is_some()) {
+                (true, _) => self.waited(),
+                (false, true) => Status::Running,
+                (false, false) => Status::Done,
+            },
+        )
     }
 
     /// Run to the end (or until it waits for a line).
@@ -120,7 +120,7 @@ impl<'a, 'o> Machine<'a, 'o> {
     ) -> Result<Option<Control<'a>>, Diagnostic> {
         match control {
             Control::Eval(e, env) => {
-                if self.stack.len() >= MAX_FRAMES {
+                if self.state.stack.len() >= MAX_FRAMES {
                     return Err(Diagnostic::new("stack-overflow", "recursion is too deep")
                         .with_span(e.span));
                 }
@@ -134,10 +134,10 @@ impl<'a, 'o> Machine<'a, 'o> {
     /// reads it; a run without one never calls this).
     pub fn view(&self) -> xetal_frame::View<'_, 'a> {
         xetal_frame::View {
-            control: self.control.as_ref(),
-            stack: &self.stack,
-            env: &self.env,
-            globals: &self.globals,
+            control: self.state.control.as_ref(),
+            stack: &self.state.stack,
+            env: &self.state.env,
+            globals: &self.state.globals,
         }
     }
 }

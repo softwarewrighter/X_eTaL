@@ -33,7 +33,7 @@ impl Wants {
 }
 
 /// The queue of lines fed to a run, and whether the run waits on it.
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 pub struct Inbox {
     queue: Option<VecDeque<String>>,
     pub waiting: bool,

@@ -16,6 +16,8 @@ xetal-sources.workspace = true
 xetal-value.workspace = true
 xetal-inspect.workspace = true
 xetal-watch.workspace = true
+xetal-travel.workspace = true
+xetal-store.workspace = true
 
 [dev-dependencies]
 xetal-program.workspace = true

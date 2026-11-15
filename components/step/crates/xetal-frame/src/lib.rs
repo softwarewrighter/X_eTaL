@@ -6,8 +6,10 @@
 //! inbox of fed lines ([`Inbox`]).
 
 mod inbox;
+mod state;
 
 pub use inbox::{Inbox, Wants, value_of};
+pub use state::{Journal, State};
 
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -26,6 +28,7 @@ pub struct View<'m, 'a> {
 }
 
 /// Evaluate an expression, or give a value to the frame on top.
+#[derive(Clone)]
 pub enum Control<'a> {
     Eval(&'a Expr, Env<'a>),
     Return(Value<'a>),

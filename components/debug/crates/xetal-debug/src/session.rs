@@ -9,9 +9,10 @@ use xetal_base::{Diagnostic, Span};
 use xetal_core::Program;
 use xetal_sources::Sources;
 use xetal_step::Machine;
+use xetal_travel::{Tally, Timeline};
 use xetal_value::Value;
 
-use crate::here::{Place, depth};
+use crate::here::Place;
 use crate::stack::{Frame, frames};
 
 /// Why the session stopped.
@@ -31,12 +32,25 @@ pub enum Reason {
     Error(Diagnostic),
 }
 
-/// Where and why the session stopped, and the call depth there.
+/// Where and why the session stopped, and the call depth there; after
+/// going back, the files written after this point (they stay written).
 #[derive(Debug, Clone, PartialEq)]
 pub struct Stop {
     pub reason: Reason,
     pub place: Option<Place>,
     pub depth: usize,
+    pub rewound: Vec<String>,
+}
+
+/// What the session keeps beside a checkpoint: its own state there.
+#[derive(Clone)]
+pub(crate) struct Book {
+    pub(crate) hits: HashMap<(String, usize), usize>,
+    pub(crate) last: Option<(Span, usize, usize)>,
+    pub(crate) calls: usize,
+    pub(crate) depth: usize,
+    pub(crate) out: usize,
+    pub(crate) mark: xetal_store::Mark,
 }
 
 /// A breakpoint on a line, with an optional condition (an expression
@@ -72,6 +86,13 @@ pub struct Debugger<'a, 'o> {
     pub(crate) last: Option<(Span, usize, usize)>,
     pub(crate) calls: usize,
     pub(crate) depth: usize,
+    /// Transitions run so far (the step counter time travel counts by).
+    pub(crate) now: usize,
+    pub(crate) timeline: Timeline<'a, Book>,
+    pub(crate) tally: Tally,
+    /// Where a trip back began (the step and the store's counts), until
+    /// it arrives.
+    pub(crate) left: Option<(usize, xetal_store::Mark)>,
 }
 
 impl<'a, 'o> Debugger<'a, 'o> {
@@ -83,7 +104,23 @@ impl<'a, 'o> Debugger<'a, 'o> {
         out: &'o mut dyn Write,
         seed: u64,
     ) -> Self {
-        let machine = Machine::new(program, out, Rng::seeded(seed));
+        // The output passes a gate, so a stretch run again after going
+        // back prints nothing twice (leaked: it lives as long as `out`).
+        let (gate, tally) = xetal_travel::gate(out);
+        let out: &'o mut dyn Write = Box::leak(Box::new(gate));
+        let mut machine = Machine::new(program, out, Rng::seeded(seed));
+        machine.state().journal = Some(Vec::new());
+        xetal_store::replay(0);
+        let mut timeline = Timeline::new(1000, 1000);
+        let book = || Book {
+            hits: HashMap::new(),
+            last: None,
+            calls: 0,
+            depth: 0,
+            out: 0,
+            mark: xetal_store::mark(),
+        };
+        timeline.take(0, machine.state(), book);
         Debugger {
             machine,
             sources,
@@ -98,7 +135,28 @@ impl<'a, 'o> Debugger<'a, 'o> {
             last: None,
             calls: 0,
             depth: 0,
+            now: 0,
+            timeline,
+            tally,
+            left: None,
         }
+    }
+
+    /// Keep a checkpoint every `every` transitions, at most `max` (then
+    /// every other one goes and they come half as often); by default
+    /// every 1,000, at most 1,000.
+    pub fn keep_checkpoints(&mut self, every: usize, max: usize) {
+        let mut timeline = Timeline::new(every, max);
+        let first = self.timeline.back_to(0);
+        if let Some((step, state, book)) = first {
+            timeline.take(step, &state, || book);
+        }
+        self.timeline = timeline;
+    }
+
+    /// How many checkpoints the session keeps now.
+    pub fn checkpoints(&self) -> usize {
+        self.timeline.count()
     }
 
     /// The breakpoints of `file`, by line (replacing its earlier ones).
@@ -128,9 +186,5 @@ impl<'a, 'o> Debugger<'a, 'o> {
     /// The call stack at the stop, innermost first.
     pub fn stack(&self) -> Vec<Frame> {
         frames(&self.machine.view(), self.sources, self.at)
-    }
-
-    pub(crate) fn depth(&self) -> usize {
-        depth(&self.machine.view())
     }
 }

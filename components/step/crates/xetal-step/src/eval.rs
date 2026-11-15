@@ -31,7 +31,7 @@ impl<'a> Machine<'a, '_> {
             Kind::Array(items) if !items.is_empty() => self.array_start(items, false, env),
             Kind::Tuple(parts) => self.array_start(parts, true, env),
             Kind::Proj { index, tuple, .. } => {
-                self.stack.push(Kont::Part {
+                self.state.stack.push(Kont::Part {
                     index: *index,
                     span: e.span,
                 });
@@ -82,7 +82,7 @@ impl<'a> Machine<'a, '_> {
             ),
             _ => return Control::Eval(e, env),
         };
-        self.stack.push(k);
+        self.state.stack.push(k);
         Control::Eval(next, env)
     }
 
@@ -90,7 +90,7 @@ impl<'a> Machine<'a, '_> {
     fn array_start(&mut self, items: &'a [Expr], tuple: bool, env: &Env<'a>) -> Control<'a> {
         let left = items.len() - 1;
         let done = Vec::new();
-        self.stack.push(Kont::Array {
+        self.state.stack.push(Kont::Array {
             items,
             tuple,
             left,
@@ -112,14 +112,14 @@ impl<'a> Machine<'a, '_> {
             )),
             Kind::Array(_) => Value::Array(Rc::new(Array::vector(Vec::new()))),
             Kind::Global(name) => {
-                let v = self.globals.get(name).cloned();
+                let v = self.state.globals.get(name).cloned();
                 v.ok_or_else(|| err("undefined-name", e.span, format!("{name} is not defined")))?
             }
             Kind::Prim(name) => {
                 let (name, arity) = xetal_prim::arity(name, e.span)?;
                 if arity == 0 {
                     // A system value (QD7): read each time it is used.
-                    return xetal_prim::call(name, &[], e.span, self.out, &mut self.rng);
+                    return xetal_prim::call(name, &[], e.span, self.out, &mut self.state.rng);
                 }
                 Value::Prim(Rc::new(Prim {
                     name,
@@ -169,8 +169,9 @@ impl<'a> Machine<'a, '_> {
                 ));
             }
         };
+        self.state.record(&slot);
         *slot.borrow_mut() = Slot::Forcing;
-        self.stack.push(Kont::Force {
+        self.state.stack.push(Kont::Force {
             slot,
             expr,
             env: thunk_env.clone(),
@@ -189,7 +190,7 @@ impl<'a> Machine<'a, '_> {
     ) -> Control<'a> {
         let inner = rec.then(|| extend(env, name, Slot::Empty));
         let at = inner.clone().unwrap_or_else(|| env.clone());
-        self.stack.push(Kont::Bind {
+        self.state.stack.push(Kont::Bind {
             name,
             env: env.clone(),
             inner,
@@ -213,7 +214,7 @@ impl<'a> Machine<'a, '_> {
                 format!("{name} is not defined"),
             )
         })?;
-        self.stack.push(Kont::Assign {
+        self.state.stack.push(Kont::Assign {
             slot,
             env: env.clone(),
             body,

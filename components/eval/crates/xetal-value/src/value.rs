@@ -65,7 +65,7 @@ pub struct Prim<'a> {
 }
 
 /// A variable's storage: shared so closures see `!` updates (M2).
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Slot<'a> {
     Value(Value<'a>),
     /// A lazy argument not yet needed (E1).

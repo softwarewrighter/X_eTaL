@@ -626,6 +626,8 @@ dependencies = [
  "xetal-program",
  "xetal-sources",
  "xetal-step",
+ "xetal-store",
+ "xetal-travel",
  "xetal-types",
  "xetal-value",
  "xetal-watch",
@@ -707,6 +709,7 @@ dependencies = [
 name = "xetal-frame"
 version = "0.1.0"
 dependencies = [
+ "xetal-arith",
  "xetal-array",
  "xetal-base",
  "xetal-core",
@@ -937,6 +940,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-replay"
+version = "0.1.0"
+
+[[package]]
 name = "xetal-rotate"
 version = "0.1.0"
 dependencies = [
@@ -1002,6 +1009,9 @@ dependencies = [
 [[package]]
 name = "xetal-store"
 version = "0.1.0"
+dependencies = [
+ "xetal-replay",
+]
 
 [[package]]
 name = "xetal-strtext"
@@ -1065,6 +1075,14 @@ version = "0.1.0"
 dependencies = [
  "xetal-array",
  "xetal-base",
+ "xetal-value",
+]
+
+[[package]]
+name = "xetal-travel"
+version = "0.1.0"
+dependencies = [
+ "xetal-step",
  "xetal-value",
 ]
 

@@ -50,7 +50,11 @@ Side paths:
   debugger front end is a client of it. Beside it `xetal-inspect` (a
   value's summary and its children by page, a frame's own bindings)
   and `xetal-watch` (a watch type-checked against the program, so its
-  calls are elaborated as the program's are).
+  calls are elaborated as the program's are), and `xetal-travel` (time
+  travel: checkpoints of the machine's `State`, each with the slot
+  writes to undo, thinned as the run grows, and an output gate that
+  shows each byte once): step back, reverse continue and run to step k
+  restore a checkpoint and run forward.
 - `xetal-shell`: a shell for the browser's terminal page: `xetal`
   and its commands at a `$` prompt (through `xetal-command`), the REPL
   and the editor full screen, keys in and a ratatui frame out; and an
@@ -79,7 +83,10 @@ components/
                            xetal-store (where files live: the disk,
                            memory, or a store the host installs),
                            xetal-clock (the clock []TS and []D_L read:
-                           the system's, or one the host installs)
+                           the system's, or one the host installs),
+                           xetal-replay (a run run again: pictures
+                           shown, lines read and files written once;
+                           marks a debugger goes back to)
   expand/                  xetal-mapped (a text with a map back to
                            where each byte was written), xetal-expand
                            (macro calls found and replaced by what

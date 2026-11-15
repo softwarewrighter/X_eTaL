@@ -24,20 +24,25 @@ pub fn read(path: &str) -> Result<String, String> {
 }
 
 /// Write `text` to `path` in the store in use.
+/// A run gone back to an earlier point (a debugger's step back) does
+/// not write again what it wrote after that point.
 pub fn write(path: &str, text: &str) -> Result<(), String> {
-    current().put(path, text)
+    match xetal_replay::admit_write(path) {
+        true => current().put(path, text),
+        false => Ok(()),
+    }
 }
 
 /// A line typed at the keyboard, from the store in use; a replayed run
 /// gets the lines its source read before (see `replay`).
 pub fn read_line() -> Result<String, String> {
-    crate::replay::line(|| current().line())
+    xetal_replay::line(|| current().line())
 }
 
 /// Show a picture with the store in use (`[]S_HOW`), unless a replay
 /// showed it before or pictures are muted (see `replay`).
 pub fn show(svg: &str) -> Result<(), String> {
-    match crate::replay::admit() {
+    match xetal_replay::admit() {
         true => current().show(svg),
         false => Ok(()),
     }

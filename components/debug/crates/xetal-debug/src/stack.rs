@@ -85,6 +85,12 @@ pub struct Scope {
 }
 
 impl<'a> Debugger<'a, '_> {
+    /// Transitions run so far: the step counter time travel counts by
+    /// (`run_to` takes one).
+    pub fn now(&self) -> usize {
+        self.now
+    }
+
     /// The scopes at the stop: Locals (when stopped in a call), Top
     /// level (bindings and `u:` definitions), Libraries (by alias).
     pub fn scopes(&mut self) -> Vec<Scope> {

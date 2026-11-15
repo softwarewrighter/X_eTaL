@@ -8,11 +8,10 @@ mod current;
 mod drawing;
 mod memory;
 mod memory_store;
-mod replay;
 mod stores;
 
 pub use current::{install, read, read_line, show, take_shown, write};
 pub use drawing::Drawing;
 pub use memory::Memory;
-pub use replay::{forget_lines, muted, replay, shown};
 pub use stores::{Disk, Store};
+pub use xetal_replay::{Mark, forget_lines, mark, muted, replay, rewind, shown, written};

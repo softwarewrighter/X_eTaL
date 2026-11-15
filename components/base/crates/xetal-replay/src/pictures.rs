@@ -10,18 +10,19 @@
 use std::sync::Mutex;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 
-static SKIP: AtomicUsize = AtomicUsize::new(0);
-static ASKED: AtomicUsize = AtomicUsize::new(0);
+pub(crate) static SKIP: AtomicUsize = AtomicUsize::new(0);
+pub(crate) static ASKED: AtomicUsize = AtomicUsize::new(0);
 static MUTED: AtomicBool = AtomicBool::new(false);
 /// Every line read in this process, and how many this run has read.
 static READ: Mutex<Vec<String>> = Mutex::new(Vec::new());
-static NEXT: AtomicUsize = AtomicUsize::new(0);
+pub(crate) static NEXT: AtomicUsize = AtomicUsize::new(0);
 
 /// Start a run whose first `skip` pictures were shown before.
 pub fn replay(skip: usize) {
     SKIP.store(skip, Ordering::SeqCst);
     ASKED.store(0, Ordering::SeqCst);
     NEXT.store(0, Ordering::SeqCst);
+    crate::travel::forget_writes();
 }
 
 /// How many pictures this run has asked to show (skipped ones too).
@@ -35,7 +36,7 @@ pub fn muted(on: bool) {
 }
 
 /// Count a picture; true when it should really be shown.
-pub(crate) fn admit() -> bool {
+pub fn admit() -> bool {
     let n = ASKED.fetch_add(1, Ordering::SeqCst);
     n >= SKIP.load(Ordering::SeqCst) && !MUTED.load(Ordering::SeqCst)
 }
@@ -48,7 +49,7 @@ pub fn forget_lines() {
 
 /// The next line for `[]R_EAD`: one an earlier run of the same source
 /// read, else a new one from `read`, kept for the runs after.
-pub(crate) fn line(read: impl FnOnce() -> Result<String, String>) -> Result<String, String> {
+pub fn line(read: impl FnOnce() -> Result<String, String>) -> Result<String, String> {
     let n = NEXT.fetch_add(1, Ordering::SeqCst);
     let mut lines = READ.lock().unwrap_or_else(|e| e.into_inner());
     if let Some(seen) = lines.get(n) {

@@ -31,8 +31,9 @@ impl<'a> Debugger<'a, '_> {
         let mut kept: Vec<Value<'a>> = Vec::new();
         let status = {
             let (mut sink, mut keep) = (std::io::sink(), |v: &Value<'a>| kept.push(v.clone()));
-            let machine = Machine::new(program, &mut sink, Rng::seeded(0)).within(env, globals);
+            let machine = Machine::new(program, &mut sink, Rng::seeded(0));
             let mut machine = machine.hooks(Some(&mut keep), None);
+            (machine.state().env, machine.state().globals) = (env, globals);
             machine.run(BUDGET)
         };
         match status {

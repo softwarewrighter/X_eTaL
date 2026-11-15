@@ -40,15 +40,15 @@ impl<'a> Machine<'a, '_> {
                 span,
             },
             ("[]W_ARN", [default, _]) => {
-                let raised = xetal_prim::call(name, args, span, self.out, &mut self.rng);
+                let raised = xetal_prim::call(name, args, span, self.out, &mut self.state.rng);
                 return Some(match raised {
                     Ok(v) => Ok(Control::Return(v)),
-                    Err(e) => self.resumable(Rc::new(e), default.clone(), self.stack.len()),
+                    Err(e) => self.resumable(Rc::new(e), default.clone(), self.state.stack.len()),
                 });
             }
             _ => return None,
         };
-        self.stack.push(frame);
+        self.state.stack.push(frame);
         Some(self.apply(args[0].clone(), Slot::Value(Value::Unit), span))
     }
 
@@ -61,7 +61,7 @@ impl<'a> Machine<'a, '_> {
         default: Value<'a>,
         below: usize,
     ) -> Result<Control<'a>, Diagnostic> {
-        let trap = self.stack[..below]
+        let trap = self.state.stack[..below]
             .iter()
             .enumerate()
             .rev()
@@ -73,7 +73,7 @@ impl<'a> Machine<'a, '_> {
         let Some(Ok((trap_at, handler, span))) = trap else {
             return self.catch((*error).clone());
         };
-        self.stack.push(Kont::Continuing {
+        self.state.stack.push(Kont::Continuing {
             error: error.clone(),
             default,
             trap_at,
@@ -94,9 +94,12 @@ impl<'a> Machine<'a, '_> {
         mut e: Diagnostic,
         decided: Option<Rc<Outcome<'a>>>,
     ) -> Result<Control<'a>, Diagnostic> {
-        while let Some(k) = self.stack.pop() {
+        while let Some(k) = self.state.stack.pop() {
             match k {
-                Kont::Force { slot, expr, env } => *slot.borrow_mut() = Slot::Thunk(expr, env),
+                Kont::Force { slot, expr, env } => {
+                    self.state.record(&slot);
+                    *slot.borrow_mut() = Slot::Thunk(expr, env);
+                }
                 Kont::Trap {
                     body,
                     handler,
@@ -107,7 +110,7 @@ impl<'a> Machine<'a, '_> {
                         return self.outcome(body, handler, runs, span, &outcome);
                     }
                     let error = Value::Error(Rc::new(e));
-                    self.stack.push(Kont::Handling {
+                    self.state.stack.push(Kont::Handling {
                         body,
                         handler: handler.clone(),
                         runs,
@@ -116,7 +119,7 @@ impl<'a> Machine<'a, '_> {
                     return self.apply(handler, Slot::Value(error), span);
                 }
                 Kont::Ensure { cleanup, span } => {
-                    self.stack.push(Kont::Cleaning {
+                    self.state.stack.push(Kont::Cleaning {
                         result: Err(e),
                         decided,
                     });
@@ -131,7 +134,7 @@ impl<'a> Machine<'a, '_> {
                 _ => {}
             }
         }
-        self.stack.clear();
+        self.state.stack.clear();
         Err(e)
     }
 
@@ -146,7 +149,7 @@ impl<'a> Machine<'a, '_> {
         Ok(Some(match k {
             Kont::Trap { .. } => Control::Return(v),
             Kont::Ensure { cleanup, span } => {
-                self.stack.push(Kont::Cleaning {
+                self.state.stack.push(Kont::Cleaning {
                     result: Ok(v),
                     decided: None,
                 });
@@ -203,7 +206,7 @@ impl<'a> Machine<'a, '_> {
                 self.catch(err("retry-limit", span, message))
             }
             Outcome::Retry => {
-                self.stack.push(Kont::Trap {
+                self.state.stack.push(Kont::Trap {
                     body: body.clone(),
                     handler,
                     runs: runs + 1,

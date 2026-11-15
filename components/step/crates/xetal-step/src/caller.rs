@@ -32,7 +32,7 @@ impl<'a> Machine<'a, '_> {
         })?;
         match next {
             Next::Call(f, x) => {
-                self.stack.push(Kont::Kernel { kernel, span });
+                self.state.stack.push(Kont::Kernel { kernel, span });
                 self.apply(f, Slot::Value(x), span)
             }
             Next::Done(v) => Ok(Control::Return(v)),
@@ -65,14 +65,13 @@ impl<'a> Machine<'a, '_> {
         }
         let mut now = xetal_prim::Now {
             out: &mut *self.out,
-            rng: &mut self.rng,
+            rng: &mut self.state.rng,
             span,
         };
         match xetal_hof::call(p.name, &args, span, &mut now) {
             Some(kernel) => self.drive(kernel?, None, span),
-            None => {
-                xetal_prim::call(p.name, &args, span, self.out, &mut self.rng).map(Control::Return)
-            }
+            None => xetal_prim::call(p.name, &args, span, self.out, &mut self.state.rng)
+                .map(Control::Return),
         }
     }
 
@@ -87,10 +86,10 @@ impl<'a> Machine<'a, '_> {
         span: Span,
         wants: Wants,
     ) -> Option<Result<Control<'a>, Diagnostic>> {
-        match self.inbox.next(wants)? {
+        match self.state.inbox.next(wants)? {
             Some(value) => Some(value.map(Control::Return).map_err(|d| d.with_span(span))),
             None => {
-                self.stack.push(Kont::PrimArg { p: p.clone(), span });
+                self.state.stack.push(Kont::PrimArg { p: p.clone(), span });
                 args.last().cloned().map(Control::Return).map(Ok)
             }
         }
@@ -99,13 +98,13 @@ impl<'a> Machine<'a, '_> {
     /// Read typed lines from a queue fed with [`Machine::feed`]: a run
     /// that needs a line before one is fed stops as Waiting.
     pub fn waiting_for_input(mut self) -> Self {
-        self.inbox.open();
+        self.state.inbox.open();
         self
     }
 
     /// A line typed (without its newline); a waiting run can go on.
     pub fn feed(&mut self, line: String) {
-        self.inbox.feed(line);
+        self.state.inbox.feed(line);
     }
 
     /// `f_axes`: a built-in value `#axes` holding the axes and f, which

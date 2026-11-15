@@ -38,11 +38,12 @@ impl<'a> Machine<'a, '_> {
             )),
             Kont::PairRight { f, l, env, span } => self.left(f, Slot::Value(v), l, env, span),
             Kont::PairLeft { f, right, span } => {
-                self.stack.push(Kont::ApplyTo { arg: right, span });
+                self.state.stack.push(Kont::ApplyTo { arg: right, span });
                 self.apply(f, Slot::Value(v), span)
             }
             Kont::ApplyTo { arg, span } => self.apply(v, arg, span),
             Kont::Force { slot, .. } => {
+                self.state.record(&slot);
                 *slot.borrow_mut() = Slot::Value(v.clone());
                 Ok(Control::Return(v))
             }
@@ -55,7 +56,7 @@ impl<'a> Machine<'a, '_> {
     }
 
     fn push(&mut self, k: Kont<'a>, next: &'a Expr, env: Env<'a>) -> Control<'a> {
-        self.stack.push(k);
+        self.state.stack.push(k);
         Control::Eval(next, env)
     }
 
@@ -69,7 +70,7 @@ impl<'a> Machine<'a, '_> {
         span: Span,
     ) -> Result<Control<'a>, Diagnostic> {
         if lazy_first(&f) {
-            self.stack.push(Kont::ApplyTo { arg: right, span });
+            self.state.stack.push(Kont::ApplyTo { arg: right, span });
             return self.apply(f, Slot::Thunk(l, env), span);
         }
         Ok(self.push(Kont::PairLeft { f, right, span }, l, env))
@@ -85,7 +86,7 @@ impl<'a> Machine<'a, '_> {
         match f {
             Value::Closure(c) => match (c.param, arg) {
                 (Param::Name(name), arg) => {
-                    self.stack.push(Kont::Called { span });
+                    self.state.stack.push(Kont::Called { span });
                     Ok(Control::Eval(c.body, extend(&c.env, name, arg)))
                 }
                 (Param::Unit, Slot::Value(v)) => self.unit_body(v, c.body, c.env.clone(), span),

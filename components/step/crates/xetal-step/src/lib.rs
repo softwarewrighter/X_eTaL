@@ -11,4 +11,4 @@ mod resume;
 mod trap;
 
 pub use machine::{Machine, Status};
-pub use xetal_frame::{Control, Kont, View};
+pub use xetal_frame::{Control, Journal, Kont, State, View};
