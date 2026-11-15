@@ -1,0 +1,1 @@
+Time travel: checkpoints (State snapshots + slot undo journals, thinned), output gate, xetal-replay marks; step_back, reverse_continue, run_to; D196

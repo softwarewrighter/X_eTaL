@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-14
 
+- 10:14 `chore` Step 177 (debug-time-travel) closed.
 - 10:14 `feat` The debugger travels back in time (Saga 43, step 177, D196): step back (the reverse of step over), reverse continue (the last breakpoint hit before) and run to step k, by checkpoints and replay. New crate xetal-travel: checkpoints of the machine's state, each with the `!` slots written in its interval to put back, thinned as the run grows (at most 1,000 by default), and an output gate that shows each byte once. The machine's state is now one value, `State` in xetal-frame (copied for a checkpoint; not while a higher-order built-in is part way through), and journals slot writes while a debugger runs it. New crate xetal-replay (the store's replay counts, moved out of xetal-store): a run gone back shows no picture twice, reads its lines again as first typed and writes no file again; a stop reached going back names the files written after it, which stay written. Tests: xetal-debug tests/travel.rs (back then forward reaches the same states, `!` variables and output included; reverse continue stops where the forward run stopped; run to a step back and forward; checkpoints stay few on a long run) and tests/rewound.rs (a file written after the stop is named and not written again).
 
 ## 2026-11-13
