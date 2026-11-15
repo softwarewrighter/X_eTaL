@@ -1,0 +1,1 @@
+xetal-mode: .xtlm, drawn names and applied groups, reveal at cursor; ERT 21 pass
