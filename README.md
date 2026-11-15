@@ -393,7 +393,9 @@ Other fonts, checked against the font files:
   train and a library import
 - [`docs/literate/tour.org`](docs/literate/tour.org) -- the language tour
   as a literate Org document, every block run and its result recorded
-  (`docs/emacs/`: `xetal-mode` and `ob-xetal` for Org Babel)
+  (`docs/emacs/`: `xetal-mode`, which colors `.xtl` and `.xtlm` files
+  and draws names as rendered while the file stays ASCII, and `ob-xetal`
+  for Org Babel)
 - [`docs/literate/hello.org`](docs/literate/hello.org) -- a library of
   your own: write `userlibs/Hello.xtl`, import it, call it
 - [`docs/literate/macros.org`](docs/literate/macros.org) -- macros,

@@ -1,0 +1,1 @@
+The user (2026-11-15): xetal-mode opens .xtlm files and draws names as rendered (underlined letter, no _), applied groups per D-11, the name under the cursor as typed; ERT tests; docs.

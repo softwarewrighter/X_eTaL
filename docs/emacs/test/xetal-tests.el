@@ -35,7 +35,8 @@
     (goto-char (point-min))
     (search-forward needle)
     (let ((face (get-text-property (match-beginning 0) 'face)))
-      (if (consp face) (car face) face))))
+      ;; A drawn name's underline is prepended; the class's face is next.
+      (if (consp face) (car (remq 'xetal-underline-face face)) face))))
 
 (ert-deftest xetal-mode-tuples-and-patterns ()
   ;; TU1, TU4: the comma and the wildcard are plain text, never a name.
@@ -205,6 +206,75 @@
     (should (equal (xetal-tests--glyph (match-beginning 0)) ?▷))
     (search-forward "$")
     (should (equal (xetal-tests--glyph (match-beginning 0)) ?▹))))
+
+(ert-deftest xetal-mode-opens-macro-libraries ()
+  (should (eq (assoc-default "Apply.xtlm" auto-mode-alist #'string-match) 'xetal-mode))
+  (should (eq (assoc-default "life.xtl" auto-mode-alist #'string-match) 'xetal-mode)))
+
+(defun xetal-tests--drawn (text)
+  "TEXT in xetal-mode, fontified, with point at the end."
+  (let ((buffer (generate-new-buffer "drawn")))
+    (with-current-buffer buffer
+      (insert text)
+      (xetal-mode)
+      (goto-char (point-max))
+      (xetal--reveal)
+      (font-lock-ensure))
+    buffer))
+
+(defun xetal-tests--hidden-p (pos)
+  "Whether the character at POS is drawn as nothing."
+  (equal (get-text-property pos 'display) ""))
+
+(defun xetal-tests--underlined-p (pos)
+  "Whether the character at POS is underlined."
+  (let ((face (get-text-property pos 'face)))
+    (memq 'xetal-underline-face (if (listp face) face (list face)))))
+
+(ert-deftest xetal-mode-draws-names-as-rendered ()
+  (with-current-buffer (xetal-tests--drawn "x := r_ev u:s_quare 2 # r_ev \"r_ev\"\n")
+    (should (equal (buffer-string) "x := r_ev u:s_quare 2 # r_ev \"r_ev\"\n"))
+    (goto-char (point-min))
+    (search-forward "r_ev")
+    (should (xetal-tests--underlined-p (match-beginning 0)))
+    (should (xetal-tests--hidden-p (1+ (match-beginning 0))))
+    (search-forward "s_quare")
+    (should (xetal-tests--underlined-p (match-beginning 0)))
+    (should (xetal-tests--hidden-p (1+ (match-beginning 0))))
+    ;; Comments and strings are as typed.
+    (search-forward "r_ev")
+    (should-not (xetal-tests--hidden-p (1+ (match-beginning 0))))
+    (search-forward "r_ev")
+    (should-not (xetal-tests--hidden-p (1+ (match-beginning 0))))
+    (kill-buffer)))
+
+(ert-deftest xetal-mode-draws-applied-groups ()
+  (with-current-buffer (xetal-tests--drawn "((a f_ b)_ c)_ d\n")
+    (should (xetal-tests--underlined-p 1))
+    (should (xetal-tests--underlined-p 2))
+    (should (xetal-tests--underlined-p 9))
+    (should (xetal-tests--hidden-p 10))
+    (should (xetal-tests--underlined-p 13))
+    (should (xetal-tests--hidden-p 14))
+    (kill-buffer)))
+
+(ert-deftest xetal-mode-shows-the-name-under-the-cursor-as-typed ()
+  (with-current-buffer (xetal-tests--drawn "x := r_ev 1 2\n")
+    (goto-char 7)
+    (xetal--reveal)
+    (font-lock-ensure)
+    (should-not (xetal-tests--hidden-p 7))
+    (goto-char (point-max))
+    (xetal--reveal)
+    (font-lock-ensure)
+    (should (xetal-tests--hidden-p 7))
+    (kill-buffer)))
+
+(ert-deftest xetal-mode-draws-names-only-when-asked ()
+  (let ((xetal-draw-names nil))
+    (with-current-buffer (xetal-tests--drawn "x := r_ev 1 2\n")
+      (should-not (xetal-tests--hidden-p 7))
+      (kill-buffer))))
 
 (defun xetal-tests--glyph (pos)
   "The character composed at POS by `prettify-symbols-mode', or nil."

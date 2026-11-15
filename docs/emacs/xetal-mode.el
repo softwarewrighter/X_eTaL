@@ -15,6 +15,15 @@
 ;; ASCII.  The inside of a code string (c"..." and c#"..."#, ST5) is
 ;; colored as code; the c, the #s and the quotes as a string.
 ;;
+;; With `xetal-draw-names' (on by default) a function name is drawn as
+;; rendered, as `prettify-symbols-mode' draws the arrows: the letter
+;; before its `_' underlined and the `_' not shown (r_ev as r̲ev), and an
+;; applied group's parentheses underlined with its `_' not shown (rule
+;; D-11).  The buffer keeps its ASCII, and the name or group under the
+;; cursor is shown as typed, so what you type is what you see there.
+;; Rainbow delimiters (D-12): (add-hook 'xetal-mode-hook
+;; #'rainbow-delimiters-mode) with the rainbow-delimiters package.
+;;
 ;;   (add-to-list 'load-path "path/to/X_eTaL/docs/emacs")
 ;;   (require 'xetal-mode)
 
@@ -31,6 +40,16 @@
 (defface xetal-argument-face '((t :foreground "#b04fc4")) "The lambda arguments _l and _r." :group 'xetal)
 (defface xetal-number-face '((t :foreground "#b5892a")) "Numbers and exponents." :group 'xetal)
 
+(defface xetal-underline-face '((t :underline t))
+  "A drawn name's underlined letter, an applied group's parentheses." :group 'xetal)
+
+(defcustom xetal-draw-names t
+  "Draw function names and applied groups as rendered.
+The letter before a name's `_' is underlined and the `_' not shown; an
+applied group's parentheses are underlined and its `_' not shown.  The
+buffer keeps its ASCII; the name under the cursor is shown as typed."
+  :type 'boolean :group 'xetal)
+
 (defconst xetal--mark "[|/\\\\+*<>~!?%$&-]"
   "A punctuation character a function name may end in.")
 
@@ -43,7 +62,10 @@
     (,(concat "\\_<[A-Za-z][A-Za-z0-9]*_[A-Za-z0-9]*" xetal--mark "?\\(?:_[1-9]+\\)?")
      . 'xetal-builtin-face)
     ("\\^-?[0-9.]+\\|\\_<-?[0-9]+\\(?:\\.[0-9]+\\)?\\(?:[eE]-?[0-9]+\\)?" . 'xetal-number-face)
-    ("!=\\|<=\\|>=\\|[-+*/=<>&|^]" . 'xetal-symbol-face))
+    ("!=\\|<=\\|>=\\|[-+*/=<>&|^]" . 'xetal-symbol-face)
+    (xetal--match-drawn-name (1 'xetal-underline-face prepend) (2 '(face nil display "")))
+    (xetal--match-applied (1 'xetal-underline-face prepend) (2 'xetal-underline-face prepend)
+                          (3 '(face nil display ""))))
   "Colors by token class, as in `xetal render --color'.")
 
 (defconst xetal-prettify-symbols
@@ -141,6 +163,52 @@ quote no backslash escapes."
         (goto-char stop)
         t))))
 
+;; Drawn names (`xetal-draw-names'): font-lock hides the `_' with a
+;; `display' property; the name or group under the cursor is left as
+;; typed (`xetal--reveal' notes it after each command and refontifies).
+(defvar-local xetal--typed nil
+  "The (START . END) of the name or group shown as typed, at the cursor.")
+
+(defun xetal--drawable-p (pos)
+  "Whether the `_' at POS may be drawn: in code, not at the cursor."
+  (and xetal-draw-names
+       (not (nth 8 (save-excursion (syntax-ppss pos))))
+       (not (and xetal--typed (<= (car xetal--typed) pos) (< pos (cdr xetal--typed))))))
+
+(defun xetal--match-drawn-name (limit)
+  "Font-lock matcher: a function name's underlined letter and `_'."
+  (let (found)
+    (while (and (not found)
+                (re-search-forward
+                 "\\_<\\(?:[a-z][a-z0-9]*:\\)?[A-Za-z0-9]*?\\([A-Za-z]\\)\\(_\\)" limit t))
+      (setq found (xetal--drawable-p (match-beginning 2))))
+    found))
+
+(defun xetal--match-applied (limit)
+  "Font-lock matcher: an applied group's `(', `)' and `_' (rule D-11)."
+  (let (found)
+    (while (and (not found) (re-search-forward ")\\(_\\)\\_>" limit t))
+      (let* ((close (1- (match-beginning 1)))
+             (open (ignore-errors (scan-lists (1+ close) -1 0))))
+        (when (and open (xetal--drawable-p (match-beginning 1)))
+          (set-match-data (list open (match-end 1) open (1+ open) close (1+ close)
+                                (match-beginning 1) (match-end 1)))
+          (setq found t))))
+    found))
+
+(defun xetal--reveal ()
+  "Show the name or applied group at the cursor as typed, the rest drawn."
+  (let ((here (save-excursion
+                (skip-chars-backward "A-Za-z0-9_:)")
+                (let ((start (point)))
+                  (skip-chars-forward "A-Za-z0-9_:)")
+                  (and (< start (point)) (cons start (point)))))))
+    (unless (equal here xetal--typed)
+      (let ((old xetal--typed))
+        (setq xetal--typed here)
+        (dolist (r (list old here))
+          (when r (font-lock-flush (car r) (cdr r))))))))
+
 (defun xetal--compose-p (start end match)
   "Draw a label's $ only where it touches a name or a tuple (S14)."
   (if (equal match "$")
@@ -149,7 +217,7 @@ quote no backslash escapes."
     (prettify-symbols-default-compose-p start end match)))
 
 (define-derived-mode xetal-mode prog-mode "X_eTaL"
-  "Major mode for X_eTaL source (.xtl)."
+  "Major mode for X_eTaL source (.xtl) and macro libraries (.xtlm)."
   (setq-local comment-start "# ")
   (setq-local font-lock-defaults '(xetal-font-lock-keywords))
   (setq-local syntax-propertize-function #'xetal--syntax-propertize)
@@ -157,10 +225,12 @@ quote no backslash escapes."
             #'syntax-propertize-wholelines nil t)
   (setq-local prettify-symbols-alist xetal-prettify-symbols)
   (setq-local prettify-symbols-compose-predicate #'xetal--compose-p)
+  (setq-local font-lock-extra-managed-props '(display composition))
+  (add-hook 'post-command-hook #'xetal--reveal nil t)
   (prettify-symbols-mode 1))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.xtl\\'" . xetal-mode))
+(add-to-list 'auto-mode-alist '("\\.xtlm?\\'" . xetal-mode))
 
 (provide 'xetal-mode)
 ;;; xetal-mode.el ends here

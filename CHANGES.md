@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-15
+
+- 10:48 `feat` Emacs: xetal-mode opens `.xtlm` macro libraries too, and draws function names as rendered (the letter before the `_` underlined, the `_` not shown) and applied groups as D-11 says (both parentheses underlined, the `_` not shown), on by default (`xetal-draw-names`); the buffer stays ASCII, strings and comments are as typed, and the name or group under the cursor is shown as typed, so editing is never surprising (step 192). Rainbow delimiters: the rainbow-delimiters package on `xetal-mode-hook`. ERT: five new tests (21 in all).
+
 ## 2026-11-14
 
 - 10:14 `chore` Step 177 (debug-time-travel) closed.

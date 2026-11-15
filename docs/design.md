@@ -615,7 +615,15 @@ the browser.
 `docs/emacs/xetal-mode.el` colors X_eTaL source in the classes of
 `xetal render --color` and, with `prettify-symbols-mode`, shows `:=`
 `->` `_l` `_r` `!=` `<=` `>=` as the decorated glyphs while the file
-keeps its ASCII. `docs/emacs/ob-xetal.el` runs Org Babel blocks with
+keeps its ASCII. It opens `.xtl` and `.xtlm` files. With `xetal-draw-names`
+(on by default) it draws function names as rendered (the letter before
+the `_` underlined, the `_` not shown) and applied groups as D-11 says
+(both parentheses underlined, the `_` not shown), through font-lock's
+`display` and an underline face; the name or group under the cursor is
+shown as typed, as `prettify-symbols-mode` shows the arrows, so editing
+is always of the ASCII you see there. Strings and comments are never
+drawn. Rainbow delimiters (D-12) come from the `rainbow-delimiters`
+package on `xetal-mode-hook`. `docs/emacs/ob-xetal.el` runs Org Babel blocks with
 `xetal run`: `:seed`, `:echo yes` (a notebook run) and `:untyped yes`
 map to the flags, and `:session NAME` continues the earlier blocks of
 that session in the buffer (`xetal run --context FILE`: the context
