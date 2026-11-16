@@ -16,6 +16,7 @@ xetal-base.workspace = true
 xetal-command.workspace = true
 xetal-edit = { workspace = true, features = ["terminal"] }
 xetal-shell.workspace = true
+xetal-dap.workspace = true
 xetal-keys.workspace = true
 xetal-repl = { workspace = true, features = ["terminal"] }
 xetal-line = { workspace = true, features = ["terminal"] }

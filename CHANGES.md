@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-16
+
+- 13:36 `feat` `xetal dap` (Saga 43, step 179, D197): the Debug Adapter Protocol over the debugger's core, so VS Code, Emacs (dape, dap-mode) and Neovim (nvim-dap) debug X_eTaL programs: breakpoints with conditions and hit counts, the stack, scopes and paged variables, watches and hovers, next, step in and out, continue, Step Back and Reverse Continue, `xetal/runTo`; output once in the debug console, `[]R_EAD` lines from the launch configuration. New crate xetal-dap (tests/server.rs: a session forward and back, refusals, Content-Length framing); `--lines` for transcripts (golden dap-session). A minimal VS Code extension in editors/vscode; docs/debugging.md with VS Code, Emacs and Neovim setups; the README links it.
+
 ## 2026-11-15
 
 - 19:38 `chore` Step 193 (games-format-asks) closed.

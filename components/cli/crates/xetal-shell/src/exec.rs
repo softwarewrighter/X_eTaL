@@ -80,6 +80,9 @@ fn xetal(shell: &mut Shell, words: Vec<String>) {
     };
     match &command {
         Command::Repl => shell.repl(),
+        Command::Dap { .. } => shell.print(&red(
+            "error: xetal dap serves an editor's debugger; run it on a computer",
+        )),
         Command::Edit { file, .. } => shell.edit(file),
         _ => run(shell, &command),
     }

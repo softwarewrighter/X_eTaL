@@ -1,0 +1,16 @@
+[package]
+name = "xetal-dap"
+description = "xetal dap: the Debug Adapter Protocol over the debugger's core, on standard input and output"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+serde_json = "1"
+xetal-base.workspace = true
+xetal-debug.workspace = true
+xetal-program.workspace = true
+xetal-types.workspace = true
+xetal-store.workspace = true

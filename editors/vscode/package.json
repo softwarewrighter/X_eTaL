@@ -1,0 +1,81 @@
+{
+  "name": "xetal",
+  "displayName": "X_eTaL",
+  "description": "Debug X_eTaL programs with xetal dap: breakpoints, the stack, variables, watches, and stepping back in time",
+  "version": "0.1.0",
+  "publisher": "softwarewrighter",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/softwarewrighter/X_eTaL"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Debuggers", "Programming Languages"],
+  "main": "./extension.js",
+  "activationEvents": ["onDebugResolve:xetal", "onLanguage:xetal"],
+  "contributes": {
+    "languages": [
+      {
+        "id": "xetal",
+        "aliases": ["X_eTaL", "xetal"],
+        "extensions": [".xtl", ".xtlm"]
+      }
+    ],
+    "breakpoints": [{ "language": "xetal" }],
+    "debuggers": [
+      {
+        "type": "xetal",
+        "label": "X_eTaL",
+        "languages": ["xetal"],
+        "configurationAttributes": {
+          "launch": {
+            "required": ["program"],
+            "properties": {
+              "program": {
+                "type": "string",
+                "description": "The .xtl file to debug.",
+                "default": "${file}"
+              },
+              "seed": {
+                "type": "number",
+                "description": "The seed r_oll! draws from (the same seed, the same run).",
+                "default": 0
+              },
+              "stopOnEntry": {
+                "type": "boolean",
+                "description": "Stop before the first statement.",
+                "default": false
+              },
+              "input": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "The lines the program reads with []R_EAD, in order.",
+                "default": []
+              }
+            }
+          }
+        },
+        "initialConfigurations": [
+          {
+            "type": "xetal",
+            "request": "launch",
+            "name": "Debug this X_eTaL file",
+            "program": "${file}"
+          }
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "X_eTaL",
+      "properties": {
+        "xetal.path": {
+          "type": "string",
+          "default": "xetal",
+          "description": "The xetal binary that serves the debugger (xetal dap)."
+        }
+      }
+    }
+  }
+}

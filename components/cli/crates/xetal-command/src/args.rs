@@ -273,6 +273,15 @@ pub enum Command {
     },
     /// Start an interactive session.
     Repl,
+    /// Serve the Debug Adapter Protocol on standard input and output,
+    /// for an editor's debugger (VS Code, Emacs dape, Neovim nvim-dap;
+    /// docs/debugging.md).
+    Dap {
+        /// One JSON message a line instead of Content-Length headers
+        /// (for transcripts and tests).
+        #[arg(long)]
+        lines: bool,
+    },
     /// Edit a file: ASCII left, live decorated view right, types below
     /// (Ctrl-S save, Ctrl-R run, Ctrl-Q quit).
     Edit {
@@ -321,6 +330,7 @@ impl Command {
             Command::Eval(_) => "eval",
             Command::Run { .. } => "run",
             Command::Repl => "repl",
+            Command::Dap { .. } => "dap",
             Command::Edit { .. } => "edit",
         }
     }
@@ -365,7 +375,7 @@ impl Command {
                 Some(host.input(i.expr.as_deref(), i.file.as_deref()))
             }
             Command::Run { file, .. } => Some(host.input(None, Some(file))),
-            Command::Lint(_) | Command::Repl | Command::Edit { .. } => None,
+            Command::Lint(_) | Command::Repl | Command::Dap { .. } | Command::Edit { .. } => None,
         }
     }
 }

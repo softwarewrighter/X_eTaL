@@ -52,6 +52,16 @@ fn run(command: &Command, host: &mut Host) -> Result<String, Diagnostic> {
             xetal_repl::stdio().map_err(|e| Diagnostic::new("io", e.to_string()))?;
             Ok(String::new())
         }
+        Command::Dap { lines } => {
+            let framing = match lines {
+                true => xetal_dap::Framing::Lines,
+                false => xetal_dap::Framing::Headers,
+            };
+            let (input, mut output) = (std::io::stdin(), std::io::stdout());
+            xetal_dap::serve(&mut input.lock(), &mut output, framing)
+                .map_err(|e| Diagnostic::new("io", e.to_string()))?;
+            Ok(String::new())
+        }
         Command::Edit {
             file,
             screen: true,

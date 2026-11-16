@@ -380,6 +380,9 @@ Other fonts, checked against the font files:
 - [`docs/several-arguments.md`](docs/several-arguments.md) -- calling a
   function of several arguments three ways: written out, a macro of
   your own (`userlibs/Apply.xtlm`), and a tuple, the idiom
+- [`docs/debugging.md`](docs/debugging.md) -- debugging a program from
+  VS Code, Emacs or Neovim with `xetal dap`: breakpoints, the stack,
+  variables, watches, and stepping back in time
 - [`docs/debugger-plan.md`](docs/debugger-plan.md) -- the time-traveling
   debugger (DAP, the terminal, the live demo) and
   [`docs/editors-plan.md`](docs/editors-plan.md), X_eTaL in Emacs,

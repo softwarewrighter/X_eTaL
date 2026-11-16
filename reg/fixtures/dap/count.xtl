@@ -1,0 +1,11 @@
+#!/usr/bin/env xetal
+## A program to debug: a ! variable added to by a function, printed.
+total! := 0
+## u:a_dd n: total! grown by n, and its new value.
+u:a_dd := { n ->
+  total! := total! + n
+  total!
+}
+u:a_dd 1
+x := u:a_dd 2
+p_rint! x * 10

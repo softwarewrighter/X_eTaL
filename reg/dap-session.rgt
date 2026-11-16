@@ -1,0 +1,3 @@
+command = "./target/debug/xetal dap --lines < reg/fixtures/dap/session.jsonl"
+exit_code = 0
+desc = "xetal dap: a debugging session as an editor drives it (one JSON message a line): a breakpoint in a call, the stack, the locals, a watch, continue, step back, reverse continue, next, the end; the program's output once"

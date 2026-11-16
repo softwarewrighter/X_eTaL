@@ -47,6 +47,7 @@ xetal-array = { path = "../eval/crates/xetal-array" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
 xetal-command = { path = "crates/xetal-command" }
 xetal-repl = { path = "crates/xetal-repl", default-features = false }
+xetal-dap = { path = "../debug/crates/xetal-dap" }
 xetal-spec = { path = "crates/xetal-spec" }
 clap = { version = "4", features = ["derive"] }
 assert_cmd = "2"
