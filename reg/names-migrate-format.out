@@ -1,0 +1,9 @@
+## A library whose helper is used inside a format template: xetal
+## migrate writes it h: in the template's braces too, and leaves the
+## text outside them, an escaped brace and other strings as they are.
+
+## l:s_how n: n doubled, in bold.
+l:s_how := { n -> @ f_ormat< "<b>{h:f_ill n}</b> {{f_ill}}" }
+## l:p_lain n: the helper's name as text.
+l:p_lain := { n -> "{f_ill n}" }
+h:f_ill := { n -> n * 2 }

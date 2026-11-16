@@ -1,0 +1,3 @@
+command = "./target/debug/xetal migrate reg/fixtures/names/BareFormat.xtl"
+exit_code = 0
+desc = "xetal migrate renames a helper inside a format template's braces too (asked by X_eTaL-games), leaving an escaped brace and other strings as written"

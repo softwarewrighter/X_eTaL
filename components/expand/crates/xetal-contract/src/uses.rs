@@ -44,24 +44,27 @@ pub fn unused(
 }
 
 /// The words of `tokens`, and of the strings among them: as code when
-/// a string lexes, else its runs of name characters (a message).
+/// a string lexes, and always its runs of name characters too (a
+/// string may be markup or a message, where `<` opens a tag and `#`
+/// is a color, not a comment).
 fn words(tokens: &[Token], text: &str) -> Vec<String> {
     let mut out: Vec<String> = tokens.iter().filter_map(|t| counted(t, text)).collect();
     for inner in tokens.iter().filter_map(|t| t.kind.as_str()) {
-        match lex(inner) {
-            Ok(tokens) => out.extend(words(&tokens, inner)),
-            Err(_) => out.extend(loose(inner)),
+        if let Ok(tokens) = lex(inner) {
+            out.extend(words(&tokens, inner));
         }
+        out.extend(loose(inner));
     }
     out
 }
 
 /// The runs of name characters of a text that is not code, each
-/// without a namespace (`ns:name` splits at the colon).
+/// without a namespace (`ns:name` splits at the colon), and each also
+/// without a leading `<` (`<rect` is a tag holding `rect`).
 fn loose(text: &str) -> Vec<String> {
-    text.split(|c: char| !(c.is_ascii_alphanumeric() || "_!.<".contains(c)))
-        .filter(|w| !w.is_empty())
-        .map(String::from)
+    let runs = text.split(|c: char| !(c.is_ascii_alphanumeric() || "_!.<".contains(c)));
+    runs.filter(|w| !w.is_empty())
+        .flat_map(|w| [w.to_string(), w.trim_start_matches('<').to_string()])
         .collect()
 }
 

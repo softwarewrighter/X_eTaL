@@ -1,0 +1,10 @@
+# Text outside a format's braces is any text (asked by X_eTaL-games):
+# SVG markup, an open quote, a `#` color; only the braces hold X_eTaL.
+== SOURCE
+p_rint! @ f_ormat< "<rect \"{1 + 2}\""
+p_rint! @ f_ormat< "class=\"light\" fill=\"{1}\" stroke=\"#000000\" stroke-width=\"4\""
+== RESULT
+<rect "3"
+<rect "3"
+class="light" fill="1" stroke="#000000" stroke-width="4"
+class="light" fill="1" stroke="#000000" stroke-width="4"

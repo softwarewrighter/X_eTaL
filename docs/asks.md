@@ -15,12 +15,12 @@ build already does what the ask wants.
 | ---------- | ------ | ------------- | ------- | -------- | --- |
 | X_eTaL-demos | 11 | 3 | 3 | 2 | 2 |
 | X_eTaL-ML | 9 | 1 | 7 | 3 | 0 |
-| X_eTaL-games | 8 | 4 | 4 | 1 | 3 |
+| X_eTaL-games | 10 | 4 | 4 | 1 | 3 |
 | X_eTaL-libraries | 9 | 3 | 2 | 3 | 1 |
 | X_eTaL-extensions | 4 | 1 | 2 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 41 | 12 | 25 | 11 | 16 |
+| All | 43 | 12 | 25 | 11 | 16 |
 
 ## Notice: t_anh, s_qrt, e_xpm1, l_og1p, e_rf and e_rfc are built-ins: drop private versions
 
@@ -196,6 +196,8 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | G18 | `xetal doc --out` over several programs lists files by name alone, so eleven `play.xtl` look the same in the sidebar | landed | step 088 (D129): the sidebar groups files under their directory relative to the documented files' common root, and the search index and the used-at links name a file by that relative path | - |
 | G19 | a comparison's result inside a tuple a function returned is a Bool once bound: `0 +` it is a type error, while the same tuple written inline works | landed | step 095: a top-level value keeps the conditions inside it (tuple parts, boxes) open, so a later use makes each a number or a truth value (T1) | - |
 | G20 | type inference is not deterministic: the same library prints one of two types for a function, about half the runs each | landed | step 096: a group of mutually dependent top-level definitions closes its functions first, then its values, in source order, and the module map is ordered, so the same program gets the same type every run; checked on tower defense's Defense.xtl at the games' pin with the fix applied (12 of 12 runs alike, md a Num). The workaround (md := md m_od 2) can go; on current main it would also break the bound-once rule (M1). | - |
+| G21 | `f_ormat<` refuses markup: a text holding an SVG tag (`<rect`) or a hex color (`#000000`) stops with `unused-argument` since the macro contracts (MC31) | landed | 2026-11-15: the copying check also reads a string's plain words (a `<` opening a tag dropped, a `#` not a comment), so any text outside a format's braces is accepted; spec/macros/format-markup.case runs both repros | - |
+| G22 | `xetal migrate` leaves the names inside a format template's braces bare (`"{f_ill j}"`), so the migrated library fails where the template is expanded | landed | 2026-11-15: migrate renames the helpers in the braces of a `f_ormat<`, `p_anic<` or `t_odo<` template too, leaving `{{` and other strings as written; golden names-migrate-format | - |
 
 ## X_eTaL-libraries
 

@@ -592,6 +592,20 @@ state = "landed"
 here = "step 096: a group of mutually dependent top-level definitions closes its functions first, then its values, in source order, and the module map is ordered, so the same program gets the same type every run; checked on tower defense's Defense.xtl at the games' pin with the fix applied (12 of 12 runs alike, md a Num). The workaround (md := md m_od 2) can go; on current main it would also break the bound-once rule (M1)."
 
 [[ask]]
+id = "G21"
+repo = "X_eTaL-games"
+ask = "`f_ormat<` refuses markup: a text holding an SVG tag (`<rect`) or a hex color (`#000000`) stops with `unused-argument` since the macro contracts (MC31)"
+state = "landed"
+here = "2026-11-15: the copying check also reads a string's plain words (a `<` opening a tag dropped, a `#` not a comment), so any text outside a format's braces is accepted; spec/macros/format-markup.case runs both repros"
+
+[[ask]]
+id = "G22"
+repo = "X_eTaL-games"
+ask = "`xetal migrate` leaves the names inside a format template's braces bare (`\"{f_ill j}\"`), so the migrated library fails where the template is expanded"
+state = "landed"
+here = "2026-11-15: migrate renames the helpers in the braces of a `f_ormat<`, `p_anic<` or `t_odo<` template too, leaving `{{` and other strings as written; golden names-migrate-format"
+
+[[ask]]
 id = "X1"
 repo = "X_eTaL-libraries"
 ask = "`.xtlm` macro libraries: user-defined macros imported with `u_se<`"
