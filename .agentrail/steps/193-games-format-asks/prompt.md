@@ -1,0 +1,1 @@
+X_eTaL-games' asks (2026-11-15): f_ormat< refuses markup (G21: the copying check misses words after a < or a #), and xetal migrate leaves names inside format templates bare (G22). Fix both test-first; ledger.

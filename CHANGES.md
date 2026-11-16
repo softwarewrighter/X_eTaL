@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-15
 
+- 19:38 `chore` Step 193 (games-format-asks) closed.
+- 19:38 `fix` Two of X_eTaL-games' asks (step 193): `f_ormat<` (and `p_anic<`, `t_odo<`) accept markup again: the copying check of the macro contracts also reads a string's plain words, so `<rect` holds `rect` and a `#000000` color hides nothing (G21; spec/macros/format-markup.case); and `xetal migrate` renames a library's helpers inside a format template's braces too (G22; golden names-migrate-format). docs/asks.md updated.
 - 10:48 `chore` Step 192 (emacs-drawn-names) closed.
 - 10:48 `feat` Emacs: xetal-mode opens `.xtlm` macro libraries too, and draws function names as rendered (the letter before the `_` underlined, the `_` not shown) and applied groups as D-11 says (both parentheses underlined, the `_` not shown), on by default (`xetal-draw-names`); the buffer stays ASCII, strings and comments are as typed, and the name or group under the cursor is shown as typed, so editing is never surprising (step 192). Rainbow delimiters: the rainbow-delimiters package on `xetal-mode-hook`. ERT: five new tests (21 in all).
 
