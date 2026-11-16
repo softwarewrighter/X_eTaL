@@ -1,8 +1,9 @@
 number = 193
 slug = "games-format-asks"
-status = "pending"
+status = "completed"
 description = "X_eTaL-games' asks (2026-11-15): f_ormat< refuses markup (G21: the copying ch..."
 role = "production"
 context_files = []
 created_at = "2026-11-15T19:38:43"
-commits = []
+completed_at = "2026-11-15T19:38:58"
+commits = ["d5ae66a6d1d0d6bcbef6068aee5f75a4d7d76b8a"]

@@ -1,0 +1,1 @@
+f_ormat< markup accepted (G21), migrate renames helpers in templates (G22); the work is d5ae66a6 (an earlier close recorded 538537ca by mistake)
