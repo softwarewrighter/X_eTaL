@@ -46,8 +46,12 @@ u:m_e! := { s ->
   _ := p_rint! ""
   0 = t:o_utcome played ? u:y_ou! played; played
 }
-## u:v_erdict w: an outcome said from your side: 1 "you win", -1 "it
-## wins", anything else "a draw".
-u:v_erdict := { w -> w = 1 ? "you win"; w = -1 ? "it wins"; "a draw" }
+## u:p_aint c t: text t in color c where the terminal draws colors
+## (the fourth of []T_E's facts: a terminal, the live demo's pane),
+## else as it is (piped to a file).
+u:p_aint := { c t -> 1 = 4 s_elect []T_E @ ? ([]C_OLOR c) []F_G t; t }
+## u:v_erdict w: an outcome said from your side: 1 "you win" (green),
+## -1 "it wins" (red), anything else "a draw".
+u:v_erdict := { w -> w = 1 ? 3 u:p_aint "you win"; w = -1 ? 2 u:p_aint "it wins"; "a draw" }
 
 u:v_erdict t:o_utcome u:y_ou! 9 r_eshape 0

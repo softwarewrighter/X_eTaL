@@ -26,3 +26,4 @@ xetal-store.workspace = true
 
 [dev-dependencies]
 xetal-libs.workspace = true
+xetal-tty.workspace = true

@@ -863,7 +863,7 @@ written as ANSI by the CLI.
 | 5 | terminal-grid | Crates on the web-sw-tos split: the grid (cells, attributes, scrollback, line editing with echo, backspace and history), key translation, and the session that feeds lines to the waiting run; all pure Rust, tested natively. |
 | 6 | terminal-pane | The live demo's output pane becomes the terminal (Yew, keys from the window); `[]R_EAD` reads from it; no `window.prompt` left. Checked in headless Chrome. |
 | 7 | screen-control | The quads (QD6): write at a row and column, clear, style, one key, the terminal's facts, standard error in red; the same in the grid and as ANSI at the CLI. |
-| 8 | terminal-retrofit | TTTML play, Mastermind and the other interactive demos on the terminal; goldens rebased on purpose. |
+| 8 | terminal-retrofit | Done: TTTML play and Mastermind ran in the pane since terminal-pane; now they draw in color where the terminal says it can (`[]T_E`'s fourth fact: a terminal, the pane), Mastermind's pegs and verdict, TTTML's verdict, and stay plain when piped, so no golden moved (tests/terminal_colors.rs in xetal-play checks the colored path). |
 | 9 | terminal-release | README, Help, CHANGES, pages, retrospective; X_eTaL-games told how to use the terminal with `xetal-play`. |
 
 ## Open question: should `a_ssert<` stop the program, as Rust's assert! does?

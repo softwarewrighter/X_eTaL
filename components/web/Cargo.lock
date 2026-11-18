@@ -3426,6 +3426,7 @@ dependencies = [
  "xetal-report",
  "xetal-step",
  "xetal-store",
+ "xetal-tty",
  "xetal-types",
  "xetal-view",
 ]

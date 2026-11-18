@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-17
+
+- 14:10 `demo` The interactive demos on the terminal (Saga 25, step 124): Mastermind's pegs and verdict and TTTML play's verdict in color where the terminal draws colors (`[]T_E`, the live demo's pane, a terminal), plain when piped, so the goldens stay; a test of the colored path in xetal-play.
+
 ## 2026-11-16
 
 - 13:52 `docs` The live demo's screenshot retaken after publishing.

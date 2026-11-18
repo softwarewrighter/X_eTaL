@@ -4,14 +4,19 @@
 # anything else is asked for again. Each guess is scored with a * for
 # every right color in the right place and an o for every other right
 # color (the scoring is explained in demos/classics/mastermind.xtl).
+# On a terminal that draws colors (a terminal, the live demo's pane)
+# the pegs and the verdict are in color; piped, the text is plain.
 u:s_core := { s g ->
   black := '+ r_/ s = g
   both := '+ r_/ ('+ r_/_2 (r_ange 6) '= t_able s) m_in '+ r_/_2 (r_ange 6) '= t_able g
   black c_at both - black
 }
+# Text t in color c where the terminal draws colors ([]T_E's fourth
+# fact), else as it is.
+u:p_aint := { c t -> 1 = 4 s_elect []T_E @ ? ([]C_OLOR c) []F_G t; t }
 u:p_egs := { r ->
   0 = '+ r_/ r ? "none"
-  ((1 t_ake r) r_eshape "*") c_at (-1 t_ake r) r_eshape "o"
+  (2 u:p_aint (1 t_ake r) r_eshape "*") c_at 8 u:p_aint (-1 t_ake r) r_eshape "o"
 }
 secret := r_oll! 6 6 6 6
 
@@ -28,8 +33,8 @@ u:t_urn! := { n ->
   g := u:a_sk! n
   r := secret u:s_core g
   _ := p_rint! @ f_ormat< "{g}   {u:p_egs r}"
-  4 = f_irst r ? @ f_ormat< "solved in {n}"
-  n = 10 ? @ f_ormat< "out of guesses: it was {secret}"
+  4 = f_irst r ? 3 u:p_aint @ f_ormat< "solved in {n}"
+  n = 10 ? 2 u:p_aint @ f_ormat< "out of guesses: it was {secret}"
   u:t_urn! n + 1
 }
 u:t_urn! 1
