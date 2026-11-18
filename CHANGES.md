@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-17
 
+- 18:10 `design` The siblings' open asks decided (step 146, D198): amend (A8), mix (A9), rank (A10), n-wise reduction (B21), numbers on a grid with a typed scale (QD8), data paths relative to the file (QD9, breaking), a macro naming its library by the importer's alias (MC33), a comparison's result defaulting to Int at a top-level definition (T10, breaking); steps 196 (data-paths) and 197 (truthy-default) added. scripts/asks.py also writes `docs/<repo>-asks.md` for each sibling: its breaking changes first (three earlier notices now marked breaking with their commit and fix), the notices, its landed asks, what waits here, what was declined.
 - 17:25 `docs` The live demo's screenshot retaken after publishing.
 - 15:45 `chore` Step 195 (member-hashed) closed.
 - 15:40 `fix` `m_ember?` hashes (X_eTaL-games' ask G10, step 195): when both sides hold only numbers and characters each item gets a key equal exactly when `=` says so, so 207360 items against 20000 take 0.09 s instead of 8.4 s; boxes, tuples, NaN and Floats beside Ints beyond 2^53 keep the comparison loop. tests/member.rs checks it against `=` on mixed items. Also the Help item on the terminal reworded to two lines (sw-checklist: `editing` is back to 50 lines).

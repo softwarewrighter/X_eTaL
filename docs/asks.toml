@@ -65,6 +65,9 @@ their editors draw `_u` only after a pin bump and a republish.
 
 [[notice]]
 title = "code strings are checked: say code in ## takes:, write c\"...\" where code is taken"
+breaking = true
+since = "423ccdeb, 2026-10-18"
+fix = "a code string `c\"...\"` whose inside is not X_eTaL (a format string, an equation) is now an error: make it a plain string; `xetal lint --fix` adds or drops the `c` where a macro's `## takes:` says code or text."
 text = """
 A macro library can say a side takes X_eTaL: `## takes: @ code`
 (`code` in place of `text`). Where it does, a code string passed there
@@ -96,6 +99,9 @@ To act on it:
 
 [[notice]]
 title = "write a library's helpers with h:"
+breaking = true
+since = "1d75a321, 2026-10-07"
+fix = "a library's bare top-level function warns `deprecated-private` and becomes an error after one release: run `xetal migrate FILE` on each library and keep its output (helpers written `h:`)."
 text = """
 A library's top-level function written without a prefix is
 deprecated: it still works and stays private, but every run warns
@@ -118,6 +124,9 @@ warning becomes an error. See `docs/private-names.md`.
 
 [[notice]]
 title = "a name is bound once: write a! for one that changes, _ := for a value you discard"
+breaking = true
+since = "1a77fe68, 2026-10-09"
+fix = "binding a name twice in one scope is `error[rebind]`: write `_ := ...` for a value kept only for its effect, `s! := ...` for state that changes, or rename a reused temporary."
 text = """
 A variable without `!` is bound once in its scope: `a := 42` then
 `a := 43` in the same scope (a file's top level, or a lambda's body
@@ -181,7 +190,7 @@ id = "D6"
 repo = "X_eTaL-demos"
 ask = "nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix)"
 state = "partly landed"
-here = "cf834e1 (`m_ap` boxes each result); mix to decide with the user, then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-mix)"
+here = "cf834e1 (`m_ap` boxes each result); mix decided (A9, 2026-11-17): `m_ix`, step 147 (asks-mix)"
 repro = "d_isclose 2 s_elect '{ r_ange _r } m_ap 2 3"
 works = "1 2 3"
 
@@ -233,8 +242,8 @@ here = "Saga 30 (16b710d, 8456e45): about 94 ns per multiply-add, measured 2026-
 id = "D13"
 repo = "X_eTaL-demos"
 ask = "grade along an axis per row (`g_rade_2 M`), for top-k per row"
-state = "declined"
-here = "as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade (a rank form) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-row-grade)"
+state = "planned"
+here = "as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade by the rank form decided (A10, 2026-11-17): `1 'g_rade r_ank M`, step 148 (asks-row-grade)"
 repro = "g_rade_2 2 3 r_eshape 3 1 2 6 5 4"
 works = "3 2 1"
 
@@ -327,8 +336,8 @@ here = "16b710d: `i_nner` with built-in operands is computed at once, 0 transiti
 id = "M4"
 repo = "X_eTaL-ML"
 ask = "grade per row, top-k along an axis (the same as D13)"
-state = "declined"
-here = "as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade (a rank form) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-row-grade)"
+state = "planned"
+here = "as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade by the rank form decided (A10, 2026-11-17): `1 'g_rade r_ank M`, step 148 (asks-row-grade)"
 repro = "g_rade_2 2 3 r_eshape 3 1 2 6 5 4"
 works = "3 2 1"
 
@@ -384,8 +393,8 @@ works = "(1.0 0.5, 3)"
 id = "M10"
 repo = "X_eTaL-ML"
 ask = "`e_ach` returning an array per item"
-state = "declined"
-here = "B14: `e_ach` stays scalar-only; `m_ap` applies a function returning arrays and boxes each result, and mix (turning the boxes back into an array) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-mix)"
+state = "planned"
+here = "B14: `e_ach` stays scalar-only; `m_ap` applies a function returning arrays and boxes each result, and mix (turning the boxes back into an array) decided (A9, 2026-11-17): `m_ix`, step 147 (asks-mix)"
 repro = "'{ i -> i * 1 2 3 } e_ach 1 2"
 works = ""
 
@@ -394,7 +403,7 @@ id = "M11"
 repo = "X_eTaL-ML"
 ask = "a macro's text cannot name a library by the importer's alias (the same as X14's remaining half)"
 state = "planned"
-here = "step 171 (macro-alias): decide with the user, then rewrite the macro library's own prefix in an expansion to the importer's alias (as MC5 does for `l:`), or a hook giving the caller's alias for a library it imported, or both"
+here = "decided (MC33, 2026-11-17): the macro library's own prefix in an expansion is rewritten to the importer's alias, as MC5 does for `l:`; step 171 (macro-alias)"
 
 [[ask]]
 id = "M12"
@@ -452,7 +461,7 @@ id = "M20"
 repo = "X_eTaL-ML"
 ask = "n-wise reduction, APL2's `N f/ V`: f over every window of N consecutive items (`2 -/ V` the differences, `2 ,/ S` the pairs), a negative N reversing each window; a spelling for the window, since `r_/` takes its function on the left"
 state = "planned"
-here = "step 172 (n-wise-reduce): the spelling to decide with the user first (recommended: a built-in `n_wise`, `2 '- n_wise c`, as `n 'f_ p_ower x` places its count); meanwhile `(1 d_rop c) - -1 d_rop c`"
+here = "decided (B21, 2026-11-17): `2 '- n_wise c`; step 172 (n-wise-reduce); meanwhile `(1 d_rop c) - -1 d_rop c`"
 repro = "2 '- n_wise 1 3 6"
 
 [[ask]]
@@ -467,14 +476,14 @@ id = "G2"
 repo = "X_eTaL-games"
 ask = "`[]G_RID` of numbers: the numbers drawn in the cells, a color scale the program chooses"
 state = "planned"
-here = "to decide with the user (a typed color scale), then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-grid-numbers)"
+here = "decided (QD8, 2026-11-17): `s []N_GRID m` with a `Scale` (`[]S_CALE` 1 gray, 2 heat, 3 diverging); step 150 (asks-grid-numbers)"
 
 [[ask]]
 id = "G3"
 repo = "X_eTaL-games"
 ask = "a functional update (amend, APL's at): items replaced at given positions"
 state = "planned"
-here = "to decide with the user, then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-amend)"
+here = "decided (A8, 2026-11-17): `s a_mend (p, v)`; step 149 (asks-amend)"
 
 [[ask]]
 id = "G4"
@@ -551,8 +560,8 @@ here = "Saga 37, xtln (step xtln-table: `[]T_ABLE` and a general reader over `.x
 id = "G13"
 repo = "X_eTaL-games"
 ask = "`[]T_ABLE` and `[]L_IST` read a path relative to the working directory, `i_nclude<` relative to the file"
-state = "new"
-here = "confirmed 2026-10-07; not yet decided or planned"
+state = "planned"
+here = "decided (QD9, 2026-11-17): `[]T_ABLE`, `[]L_IST` and `[]V_IEW` read a path relative to the file that names it, as `i_nclude<` does; step 196 (data-paths), a breaking change"
 
 [[ask]]
 id = "G14"
@@ -566,7 +575,7 @@ id = "G15"
 repo = "X_eTaL-games"
 ask = "fast paths for array idioms: raze, hashed membership, mix, linear number parsing, a matrix-product kernel"
 state = "partly landed"
-here = "linear number parsing landed (`n_umbers`, ask G9); mix to decide (asks-decisions, asks-mix); the matrix-product kernel in Saga 22 (G8); raze and hashed membership (G10) not yet planned"
+here = "linear number parsing landed (`n_umbers`, ask G9); mix decided (A9, `m_ix`, step 147); the matrix-product kernel in Saga 22 (G8); raze and hashed membership (G10) not yet planned"
 
 [[ask]]
 id = "G16"
@@ -761,8 +770,8 @@ works = ""
 id = "X17"
 repo = "X_eTaL-libraries"
 ask = "a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix"
-state = "new"
-here = "a question: by T1 a comparison's result is any `Truthy` type so it converts in arithmetic (`(Num c, Truthy c) => a -> b -> c`); whether to default it is not yet decided"
+state = "planned"
+here = "decided (T10, 2026-11-17): a result constrained only by Num and Truthy defaults to Int at a top-level definition, so `a_nd` is `Int -> Int -> Int`; step 197 (truthy-default)"
 
 [[ask]]
 id = "X18"

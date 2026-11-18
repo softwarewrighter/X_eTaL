@@ -13,14 +13,14 @@ build already does what the ask wants.
 
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
-| X_eTaL-demos | 11 | 3 | 3 | 2 | 2 |
-| X_eTaL-ML | 9 | 1 | 7 | 3 | 0 |
-| X_eTaL-games | 12 | 3 | 5 | 1 | 2 |
-| X_eTaL-libraries | 9 | 3 | 2 | 3 | 1 |
+| X_eTaL-demos | 11 | 3 | 4 | 1 | 2 |
+| X_eTaL-ML | 9 | 1 | 9 | 1 | 0 |
+| X_eTaL-games | 12 | 3 | 6 | 1 | 1 |
+| X_eTaL-libraries | 9 | 3 | 3 | 3 | 0 |
 | X_eTaL-extensions | 4 | 1 | 2 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 45 | 11 | 26 | 11 | 15 |
+| All | 45 | 11 | 31 | 8 | 13 |
 
 ## Notice: Interactive programs in a page: xetal_play::Interactive, no replay
 
@@ -140,14 +140,14 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | D3 | `xetal-play`: arrays in and out without text, or a session between runs | planned | Saga 23, host bindings and native packages | - |
 | D4 | Float literals with an exponent (`1.5e-7`) | landed | 54fea87 (decision S8) | passes |
 | D5 | complex numbers (Mandelbrot, Julia) | planned | Saga 31, complex numbers, on Saga 29's types | - |
-| D6 | nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix) | partly landed | cf834e1 (`m_ap` boxes each result); mix to decide with the user, then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-mix) | passes |
+| D6 | nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix) | partly landed | cf834e1 (`m_ap` boxes each result); mix decided (A9, 2026-11-17): `m_ix`, step 147 (asks-mix) | passes |
 | D7 | a state of several arrays for `p_ower` (a tuple or record) | landed | Saga 39, tuples with patterns (docs/tuples.md, lanes/tuples; with X_eTaL-ML ask M13): a game state `(board, score, rng)` through `p_ower`, taken apart by a pattern in the step; records in Saga 29 on its types | - |
 | D8 | a per-operation evaluation trace through `xetal-play` | planned | a step of Saga 17, trace and explain | - |
 | D9 | transpose | landed | 3ad1f8e (`o_\`, `t_ranspose`, decision B17) | passes |
 | D10 | a vendored build reports the outer repo's commit as its own | landed | 4a31ba9 (`XETAL_BUILD_SHA` overrides the build's commit) | - |
 | D11 | `t_able` about 2.7x and `i_nner` about 1.5x slower since abb8274 (a regression) | landed | 16b710d (a built-in operand is called at once) and 8456e45 (lean kernels); X_eTaL-demos measured `t_able` 82% and `i_nner` 86% faster than before the regression (docs/speed.md) | - |
 | D12 | `i_nner` costs about 370 ns per multiply-add, slower than broadcast-and-reduce | landed | Saga 30 (16b710d, 8456e45): about 94 ns per multiply-add, measured 2026-10-07 (a 27 by 81 by 9 product in 1.85 ms); a vector kernel for it in Saga 22 (ask G8) | - |
-| D13 | grade along an axis per row (`g_rade_2 M`), for top-k per row | declined | as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade (a rank form) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-row-grade) | fails |
+| D13 | grade along an axis per row (`g_rade_2 M`), for top-k per row | planned | as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade by the rank form decided (A10, 2026-11-17): `1 'g_rade r_ank M`, step 148 (asks-row-grade) | fails |
 | D14 | a condition bound to a name cannot be used in arithmetic | landed | ffd5526 (a bound condition stays Bool, and a Bool converts to Int in arithmetic) | passes |
 | D15 | a scan with a built-in operand is quadratic in the axis length (Int now linear, Float still quadratic) | partly landed | an Int scan is linear (a 64 by 4096 `'+ s_\_2` in 0.02 s); a Float `+` or `*` scan stays quadratic (64 by 1024 in 0.8 s, 2026-10-07), since a one-pass Float scan is not identical to the definition (plan.md, Saga 5's lessons); a primitive operand of scan as a vector kernel in Saga 22 | - |
 | D16 | `xetal-play`: a run with a page's own macro library, and the program after expansion | landed | step 087 (D128): `xetal_play::add_library` puts a page's `.xtl` or `.xtlm` into the store a run reads, and `xetal_play::expanded` gives the program after expansion; `Memory` and `install` re-exported (test page_library) | - |
@@ -164,15 +164,15 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | M1 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | passes |
 | M2 | `xetal expand FILE`: the source after macro expansion (the same as X2) | landed | `xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61) | golden `macros-user-expand` |
 | M3 | `'+ '* i_nner`: about 700 ns per multiply-add at abb8274 (the regression D11) | landed | 16b710d: `i_nner` with built-in operands is computed at once, 0 transitions and 0.25 allocations per multiply-add (docs/speed.md) | - |
-| M4 | grade per row, top-k along an axis (the same as D13) | declined | as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade (a rank form) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-row-grade) | fails |
+| M4 | grade per row, top-k along an axis (the same as D13) | planned | as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade by the rank form decided (A10, 2026-11-17): `1 'g_rade r_ank M`, step 148 (asks-row-grade) | fails |
 | M5 | `xetal-play`: arrays in and out without text, or a session (the same as D3) | planned | Saga 23, host bindings and native packages | - |
 | M6 | whole-array arithmetic: vector kernels (the same as D2) | partly landed | elementwise about 8x faster since abb8274; vector kernels in Saga 22 | - |
 | M7 | long Int literal strands read in quadratic time (the same as D1) | landed | 6010d70 | - |
 | M8 | Float literals with an exponent (the same as D4) | landed | 54fea87 (decision S8) | passes |
 | M9 | a Bool bound to a name cannot be used in arithmetic (the same as D14) | landed | ffd5526 | passes |
 | M13 | a state of several arrays for `p_ower`: train-live packs 99 weights and Adam's two averages into one vector of 298 numbers | landed | Saga 39, tuples (lanes/tuples): a tuple state such as `(w, m, v, k)` goes through `p_ower` (TU9) and the step takes it apart with a pattern parameter, `{ (w, k) -> ... }` (TU3) | passes |
-| M10 | `e_ach` returning an array per item | declined | B14: `e_ach` stays scalar-only; `m_ap` applies a function returning arrays and boxes each result, and mix (turning the boxes back into an array) is to decide with the user (plan.md, Next in order item 6: asks-decisions, asks-mix) | fails |
-| M11 | a macro's text cannot name a library by the importer's alias (the same as X14's remaining half) | planned | step 171 (macro-alias): decide with the user, then rewrite the macro library's own prefix in an expansion to the importer's alias (as MC5 does for `l:`), or a hook giving the caller's alias for a library it imported, or both | - |
+| M10 | `e_ach` returning an array per item | planned | B14: `e_ach` stays scalar-only; `m_ap` applies a function returning arrays and boxes each result, and mix (turning the boxes back into an array) decided (A9, 2026-11-17): `m_ix`, step 147 (asks-mix) | fails |
+| M11 | a macro's text cannot name a library by the importer's alias (the same as X14's remaining half) | planned | decided (MC33, 2026-11-17): the macro library's own prefix in an expansion is rewritten to the importer's alias, as MC5 does for `l:`; step 171 (macro-alias) | - |
 | M12 | shapes in types: a matrix's type is `Float`, so code can be well-typed and shape-wrong | declined | T7: array types are rank-erased, a type names only the element type, shapes are checked at run time; T4: no annotations in v0 (`::` signatures later); D-10: one Int type, overflow an error | - |
 | M14 | `xetal_play::run` collects `[]S_HOW` pictures in state shared across threads, so two runs at once take each other's | planned | step 167 (pictures-per-run): the pictures and the replay counters belong to the run (thread-local in xetal-store), so `take_shown` gives only this run's | - |
 | M15 | `xetal doc --out` names every site after X_eTaL (page titles, the sidebar's heading): a sibling's site cannot say whose it is; asked: a `--title` option | planned | step 168 (doc-title): `xetal doc --out DIR --title TEXT` for the sidebar's home link, the titles' suffix and the index heading | - |
@@ -180,15 +180,15 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | M17 | a macro argument that holds code (a pipeline's stages) is drawn as typed; let a macro library declare it code and the renderers decorate it | landed | code strings (ST5, step 111, 2026-10-18): `c"..."` and `c#"..."#` are drawn as code where the inside lexes (`|>` and `$` as triangles, S13, S14); step 112 lexes every code string's inside with the file; Flow's pipelines are written as code strings | passes |
 | M18 | `c"..."` reads the backslash of `o_\` and `s_\` as an escape: let the linter or the lexer's error point to `c#"..."#` | planned | step 170 (code-string-escape-hint): the unknown-escape error names the verbatim form, and the string lints look at code strings too (`escapes-could-be-raw` with the fix `c#"..."#`) | - |
 | M19 | the libm built-ins t_anh, e_rf (e_rfc), s_qrt, e_xpm1, l_og1p: a built-in is what libm gives at full accuracy and a library cannot write as well; the rest of trigonometry and the special functions stay libraries | landed | step 169 (libm-builtins), by the rule B20 the user approved: `t_anh`, `s_qrt`, `e_xpm1`, `l_og1p`, `e_rf` and `e_rfc`, each `Num a => a -> Float` item by item; `s_qrt` of a negative number and `l_og1p` of -1 or less are `error[domain]`; erf through the libm crate (in wasm too); X_eTaL-libraries' X22 (`t_anh`) is answered by the same | passes |
-| M20 | n-wise reduction, APL2's `N f/ V`: f over every window of N consecutive items (`2 -/ V` the differences, `2 ,/ S` the pairs), a negative N reversing each window; a spelling for the window, since `r_/` takes its function on the left | planned | step 172 (n-wise-reduce): the spelling to decide with the user first (recommended: a built-in `n_wise`, `2 '- n_wise c`, as `n 'f_ p_ower x` places its count); meanwhile `(1 d_rop c) - -1 d_rop c` | fails |
+| M20 | n-wise reduction, APL2's `N f/ V`: f over every window of N consecutive items (`2 -/ V` the differences, `2 ,/ S` the pairs), a negative N reversing each window; a spelling for the window, since `r_/` takes its function on the left | planned | decided (B21, 2026-11-17): `2 '- n_wise c`; step 172 (n-wise-reduce); meanwhile `(1 d_rop c) - -1 d_rop c` | fails |
 
 ## X_eTaL-games
 
 | # | Ask | State | Here | Repro |
 | - | --- | ----- | ---- | ----- |
 | G1 | a terminal for interactive programs, in the browser too | landed | Saga 25: a run waits for typed lines, keys and events and resumes where it read (D50, `xetal_play::Interactive`: `start`, `step`, `feed`), the terminal pane in the live demo (6683d8e), screen control (2d65a76); the interactive demos draw in color on it (step 124); docs/terminal.md says how a page of one's own uses `xetal-play` (step 125, 2026-11-17). The pane as a crate others can take is G23 | - |
-| G2 | `[]G_RID` of numbers: the numbers drawn in the cells, a color scale the program chooses | planned | to decide with the user (a typed color scale), then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-grid-numbers) | - |
-| G3 | a functional update (amend, APL's at): items replaced at given positions | planned | to decide with the user, then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-amend) | - |
+| G2 | `[]G_RID` of numbers: the numbers drawn in the cells, a color scale the program chooses | planned | decided (QD8, 2026-11-17): `s []N_GRID m` with a `Scale` (`[]S_CALE` 1 gray, 2 heat, 3 diverging); step 150 (asks-grid-numbers) | - |
+| G3 | a functional update (amend, APL's at): items replaced at given positions | planned | decided (A8, 2026-11-17): `s a_mend (p, v)`; step 149 (asks-amend) | - |
 | G4 | local functions: a function defined inside a lambda and applied there | landed | a lambda's local function names (`g_ := { ... }` inside a body) work today | passes |
 | G5 | an executable program that defines `l:` names is taken for a library | landed | ffd5526 (a #! file is a program, and `l:` names in it are MC8 row 9) | passes |
 | G6 | named dyadic trains: `u:s_ign := [> - <]` is monadic only | declined | TR4: a train bound to a name or quoted is monadic; a named dyadic train is written as a lambda, `{ a b -> (a F b) G (a H b) }` | fails |
@@ -198,9 +198,9 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | G10 | `m_ember?` of a long vector against a long vector (207360 against 20000: 13 s) | landed | 2026-11-17 (step 195): `m_ember?` hashes when both sides hold only numbers and characters, keeping `=`'s exact equality (other items, NaN, and Floats beside Ints beyond 2^53 compare as before); 207360 against 20000 takes 0.09 s, from 8.4 s (xetal-search tests/member.rs) | - |
 | G11 | Star Trek's scripted game went from 15 ms to 42 ms since f823212 | new | not yet measured here (under the games' bench allowance); Saga 30's performance gates do not cover it | - |
 | G12 | numbers in data files: `[]L_IST` and `[]T_ABLE` give strings only | planned | Saga 37, xtln (step xtln-table: `[]T_ABLE` and a general reader over `.xtln`) | - |
-| G13 | `[]T_ABLE` and `[]L_IST` read a path relative to the working directory, `i_nclude<` relative to the file | new | confirmed 2026-10-07; not yet decided or planned | - |
+| G13 | `[]T_ABLE` and `[]L_IST` read a path relative to the working directory, `i_nclude<` relative to the file | planned | decided (QD9, 2026-11-17): `[]T_ABLE`, `[]L_IST` and `[]V_IEW` read a path relative to the file that names it, as `i_nclude<` does; step 196 (data-paths), a breaking change | - |
 | G14 | a clearer message for a half-written library: also say "or define an `l:` name to make this file a library" | partly landed | PN3, PN4 (D121): run on its own the file says `write u:h_elp (the program's) or h:h_elp (a helper)`; imported, `library Half exports nothing; mark its exports with l:` | - |
-| G15 | fast paths for array idioms: raze, hashed membership, mix, linear number parsing, a matrix-product kernel | partly landed | linear number parsing landed (`n_umbers`, ask G9); mix to decide (asks-decisions, asks-mix); the matrix-product kernel in Saga 22 (G8); raze and hashed membership (G10) not yet planned | - |
+| G15 | fast paths for array idioms: raze, hashed membership, mix, linear number parsing, a matrix-product kernel | partly landed | linear number parsing landed (`n_umbers`, ask G9); mix decided (A9, `m_ix`, step 147); the matrix-product kernel in Saga 22 (G8); raze and hashed membership (G10) not yet planned | - |
 | G16 | a library that fails to parse is reported at the import as `not-exported` with an empty list | landed | checked 2026-10-07 at 8f006d6: the import reports the library's own error, located in it (`error[bad-quote]: ... at ./L.xtl:1:18`) | - |
 | G17 | `t_able` and `i_nner` slower since the higher-order built-ins became kernels (the regression D11) | landed | Saga 30: 16b710d, 8456e45 | - |
 | G18 | `xetal doc --out` over several programs lists files by name alone, so eleven `play.xtl` look the same in the sidebar | landed | step 088 (D129): the sidebar groups files under their directory relative to the documented files' common root, and the search index and the used-at links name a file by that relative path | - |
@@ -230,7 +230,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | X14 | a `.xtlm` calling its own library's functions, or naming the importer's alias in its expansion | partly landed | MC23: a `.xtlm` imports its own `.xtl` by path; naming the importer's alias in an expansion is step 171 (macro-alias, with ask M11) | - |
 | X15 | an error a macro reports with `[]R_EJECT` is located by byte range only | planned | Saga 27, readable type errors (step errors-located: every diagnostic with its file, line and column) | - |
 | X16 | `[]U_CHAR` beyond ASCII: it takes codes 0 to 127 | planned | deferred: Unicode text (lang-choices section 15, plan.md Deferred), each deferred item a saga when scheduled | fails |
-| X17 | a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix | new | a question: by T1 a comparison's result is any `Truthy` type so it converts in arithmetic (`(Num c, Truthy c) => a -> b -> c`); whether to default it is not yet decided | - |
+| X17 | a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix | planned | decided (T10, 2026-11-17): a result constrained only by Num and Truthy defaults to Int at a top-level definition, so `a_nd` is `Int -> Int -> Int`; step 197 (truthy-default) | - |
 | X18 | a library that does not lex or parse is reported as exporting nothing (`library-exports-nothing`), hiding the real error | landed | step 089 (D130): the renamer reports a lexing error in the library's own file; parse errors already did | golden `names-library-does-not-lex` |
 
 ## X_eTaL-extensions

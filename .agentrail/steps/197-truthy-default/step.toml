@@ -1,0 +1,8 @@
+number = 197
+slug = "truthy-default"
+status = "pending"
+description = "T10 (decided 2026-11-17, X_eTaL-libraries' ask X17): when a top-level definit..."
+role = "production"
+context_files = []
+created_at = "2026-11-17T17:46:12"
+commits = []
