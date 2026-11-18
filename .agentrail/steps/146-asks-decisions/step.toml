@@ -1,8 +1,9 @@
 number = 146
 slug = "asks-decisions"
-status = "pending"
+status = "completed"
 description = "Decide with the user the sibling repos' feature asks that need language decis..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T12:59:23"
-commits = []
+completed_at = "2026-11-17T17:57:05"
+commits = ["1915b8ba2ba3070dcc11b62459830f163d18e8f1"]
