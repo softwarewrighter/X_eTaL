@@ -1,8 +1,9 @@
 number = 125
 slug = "terminal-release"
-status = "pending"
+status = "completed"
 description = "Saga 25 (the terminal, docs/plan.md), step 7 of 7, moved ahead of web-release..."
 role = "production"
 context_files = []
 created_at = "2026-10-02T17:06:31"
-commits = []
+completed_at = "2026-11-17T16:44:13"
+commits = ["abd0c4236b8c9427b68a38ef44b8395125dc30fd"]

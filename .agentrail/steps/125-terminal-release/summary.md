@@ -1,0 +1,1 @@
+docs/terminal.md (reading, drawing, xetal_play::Interactive for other pages), README link, Help line; G1 landed, G23 added as step 194, sibling notice; Saga 25 retrospective
