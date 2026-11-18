@@ -1,0 +1,1 @@
+m_ix (A9) in new crate xetal-assemble with a_mend; spec cases; D6, M10 landed
