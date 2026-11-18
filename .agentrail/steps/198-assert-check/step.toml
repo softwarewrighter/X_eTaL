@@ -1,0 +1,8 @@
+number = 198
+slug = "assert-check"
+status = "pending"
+description = "MC34 (the user, 2026-11-17): rename MC27's reporting macro to c_heck< (lib/Sy..."
+role = "production"
+context_files = []
+created_at = "2026-11-18T07:50:24"
+commits = []

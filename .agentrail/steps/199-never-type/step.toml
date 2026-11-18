@@ -1,0 +1,8 @@
+number = 199
+slug = "never-type"
+status = "pending"
+description = "T11 (the user, 2026-11-17): a Never type, as Rust's !, inferred. First confir..."
+role = "production"
+context_files = []
+created_at = "2026-11-18T07:50:24"
+commits = []

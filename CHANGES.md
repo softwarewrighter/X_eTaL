@@ -10,6 +10,11 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-18
+
+- 09:10 `design` Two asks from the user planned: MC34, `c_heck<` reports and goes on (MC27's macro renamed) and `a_ssert<` stops as Rust's `assert!` does, with `xetal migrate` rewriting old uses (step 198, a breaking change; X_eTaL-games has 68 uses); T11, a `Never` type, inferred (step 199). The plan's open question on `a_ssert<` resolved.
+- 09:00 `chore` Step 172 (n-wise-reduce) closed.
+
 ## 2026-11-17
 
 - 20:40 `feat` N-wise reduction (B21, step 172, D202; ask M20): `n 'f n_wise v` reduces every window of n cells, so `2 '- n_wise v` gives the differences and `3 '+ n_wise v` moving sums; a negative n reverses each window. New crate xetal-window. Spec cases n-wise and reject-n-wise-length; the reference entry; an idioms row.

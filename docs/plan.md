@@ -882,16 +882,24 @@ be announced in its ask's row the day it lands, not at the saga's end.
 The pane itself is still part of the live demo; a page outside it
 writes its own (G23).
 
-## Open question: should `a_ssert<` stop the program, as Rust's assert! does?
+## Decided: `a_ssert<` stops, `c_heck<` reports (MC34)
 
-Raised by the user 2026-10-17 while naming the shape check: today
-`"cond" a_ssert< "note"` writes `assertion failed: ...` to standard
-error and goes on (MC27), so "assert" could not name a stopping check
-and the built-in became `r_equireShape`. Rust's `assert!` panics. To
-decide: keep the reporting macro and its name, or make `a_ssert<` stop
-(a change to MC27, its goldens and the literate documents, and a
-`p_anic<`-like built-in beneath it), with `d_ebugAssert<`-style
-variants weighed then. Not scheduled; a decision for the user.
+Raised by the user 2026-10-17 while naming the shape check and decided
+2026-11-17: the reporting macro of MC27 is renamed `c_heck<`, and
+`a_ssert<` stops as Rust's `assert!` does. Step 198 (assert-check)
+does it, with `xetal migrate` rewriting old uses to `c_heck<`. A survey
+the same day: X_eTaL-games has 68 uses in the 21 scripted games, each a
+block "What the game guarantees" at the end of the script, relying on
+the line on standard error to fail its tests (`c_heck<` after the
+migration; `a_ssert<` would fit their intent, as a broken guarantee
+makes the rest of the script meaningless); X_eTaL-libraries and
+X_eTaL-gpu name it in their docs only; the other siblings do not use
+it; here, demos/macros.xtl and lib/System.xtlm.
+
+## Planned: a `Never` type (T11)
+
+Asked for by the user 2026-11-17, inspired by Rust's `!`: the type of
+what never gives a value, inferred. Step 199 (never-type).
 
 ## Saga 27 -- readable type errors
 
