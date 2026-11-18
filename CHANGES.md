@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-18
 
+- 09:25 `docs` The live demo's screenshot retaken after publishing.
 - 09:10 `design` Two asks from the user planned: MC34, `c_heck<` reports and goes on (MC27's macro renamed) and `a_ssert<` stops as Rust's `assert!` does, with `xetal migrate` rewriting old uses (step 198, a breaking change; X_eTaL-games has 68 uses); T11, a `Never` type, inferred (step 199). The plan's open question on `a_ssert<` resolved.
 - 09:00 `chore` Step 172 (n-wise-reduce) closed.
 
