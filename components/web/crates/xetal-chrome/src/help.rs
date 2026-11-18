@@ -34,10 +34,8 @@ fn editing() -> Html {
             <ul>
                 <li>{ "Type in the ASCII pane; the Rendered pane follows, and the \
                        pane below shows each statement's type (or the first error)." }</li>
-                <li>{ "A program reading a line ([]R_EAD) waits for it in the output pane, a terminal: \
-                       type the line (arrows, Home, End, history with Up and Down), Enter; Ctrl-C stops it. \
-                       []K_EY waits for one key; colors, []A_T and []C_LS draw on it as on a terminal \
-                       (Mastermind's pegs come in color)." }</li>
+                <li>{ "The output pane is a terminal: []R_EAD waits for a line (history with Up), []K_EY for a key, \
+                       Ctrl-C stops; colors, []A_T and []C_LS draw on it (Mastermind's pegs)." }</li>
                 <li><b>{ "Run" }</b>{ " (Ctrl-Enter) runs the program and shows its output as it is \
                        printed, with any pictures it draws ([]S_HOW) under it; the classics demos \
                        draw. While it runs, a spinner turns and Run becomes " }<b>{ "Stop" }</b>

@@ -15,12 +15,12 @@ build already does what the ask wants.
 | ---------- | ------ | ------------- | ------- | -------- | --- |
 | X_eTaL-demos | 11 | 3 | 3 | 2 | 2 |
 | X_eTaL-ML | 9 | 1 | 7 | 3 | 0 |
-| X_eTaL-games | 11 | 3 | 5 | 1 | 3 |
+| X_eTaL-games | 12 | 3 | 5 | 1 | 2 |
 | X_eTaL-libraries | 9 | 3 | 2 | 3 | 1 |
 | X_eTaL-extensions | 4 | 1 | 2 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 44 | 11 | 26 | 11 | 16 |
+| All | 45 | 11 | 26 | 11 | 15 |
 
 ## Notice: Interactive programs in a page: xetal_play::Interactive, no replay
 
@@ -195,7 +195,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | G7 | `p_ower` with a Bool count (a 0/1 condition) | landed | step 087 (D128): a condition as a `p_ower` count counts 0 or 1 times (spec eval/power-bool-count) | passes |
 | G8 | `i_nner` on numeric matrices costs about 100 ns per multiply-add | planned | Saga 22 (vector kernels: a primitive operand of inner product as a kernel); about 94 ns per multiply-add on 2026-10-07 | - |
 | G9 | reading numbers out of long text is slow: `n_umbers` on 3000 lines, `@ i_nclude<` of a 228 KB file | partly landed | `n_umbers` on 3000 lines (47 KB) now takes under 0.01 s; `@ i_nclude<` of a 218 KB file still takes about 3.5 minutes (2026-10-07), not yet planned | - |
-| G10 | `m_ember?` of a long vector against a long vector (207360 against 20000: 13 s) | new | still about 10 s (2026-10-07); hashed membership is not yet planned (Saga 22 covers arithmetic kernels) | - |
+| G10 | `m_ember?` of a long vector against a long vector (207360 against 20000: 13 s) | landed | 2026-11-17 (step 195): `m_ember?` hashes when both sides hold only numbers and characters, keeping `=`'s exact equality (other items, NaN, and Floats beside Ints beyond 2^53 compare as before); 207360 against 20000 takes 0.09 s, from 8.4 s (xetal-search tests/member.rs) | - |
 | G11 | Star Trek's scripted game went from 15 ms to 42 ms since f823212 | new | not yet measured here (under the games' bench allowance); Saga 30's performance gates do not cover it | - |
 | G12 | numbers in data files: `[]L_IST` and `[]T_ABLE` give strings only | planned | Saga 37, xtln (step xtln-table: `[]T_ABLE` and a general reader over `.xtln`) | - |
 | G13 | `[]T_ABLE` and `[]L_IST` read a path relative to the working directory, `i_nclude<` relative to the file | new | confirmed 2026-10-07; not yet decided or planned | - |

@@ -530,8 +530,8 @@ here = "`n_umbers` on 3000 lines (47 KB) now takes under 0.01 s; `@ i_nclude<` o
 id = "G10"
 repo = "X_eTaL-games"
 ask = "`m_ember?` of a long vector against a long vector (207360 against 20000: 13 s)"
-state = "new"
-here = "still about 10 s (2026-10-07); hashed membership is not yet planned (Saga 22 covers arithmetic kernels)"
+state = "landed"
+here = "2026-11-17 (step 195): `m_ember?` hashes when both sides hold only numbers and characters, keeping `=`'s exact equality (other items, NaN, and Floats beside Ints beyond 2^53 compare as before); 207360 against 20000 takes 0.09 s, from 8.4 s (xetal-search tests/member.rs)"
 
 [[ask]]
 id = "G11"

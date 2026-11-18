@@ -47,13 +47,17 @@ pub(crate) fn matches<'a>(x: &Value<'a>, y: &Value<'a>) -> Out<'a> {
 /// Whether each item of `x` occurs among the items of `y`.
 pub(crate) fn member<'a>(x: &Value<'a>, y: &Value<'a>) -> Out<'a> {
     let (xs, ys) = (as_array(x), as_array(y));
+    let shape = xs.shape().to_vec();
+    if let Some(found) = crate::hashed::member(xs.data(), ys.data()) {
+        let data = found.into_iter().map(Value::Bool).collect();
+        return Ok(to_value(Array::new(shape, data)?));
+    }
     let has = |v: &Value<'a>| {
         ys.data()
             .iter()
             .any(|w| same(std::slice::from_ref(v), std::slice::from_ref(w)))
     };
     let data = xs.data().iter().map(|v| Value::Bool(has(v))).collect();
-    let shape = xs.shape().to_vec();
     Ok(to_value(Array::new(shape, data)?))
 }
 

@@ -5,6 +5,7 @@
 mod calls;
 mod compare;
 mod find;
+mod hashed;
 mod order;
 
 pub use calls::call;
