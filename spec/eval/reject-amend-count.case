@@ -1,0 +1,9 @@
+# One value cell per position, or one for them all (A8).
+== SOURCE
+1 2 3 a_mend (1 2, 7 8 9)
+== ERROR
+error[shape-mismatch]: shapes differ: 2 and 3
+ --> -e:1:1
+  |
+1 | 1 2 3 a_mend (1 2, 7 8 9)
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^

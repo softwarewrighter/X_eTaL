@@ -22,6 +22,7 @@ Each notice's text is in `docs/asks.md`.
 ## Landed: drop the workaround
 
 - G1 (landed): a terminal for interactive programs, in the browser too. Here: Saga 25: a run waits for typed lines, keys and events and resumes where it read (D50, `xetal_play::Interactive`: `start`, `step`, `feed`), the terminal pane in the live demo (6683d8e), screen control (2d65a76); the interactive demos draw in color on it (step 124); docs/terminal.md says how a page of one's own uses `xetal-play` (step 125, 2026-11-17). The pane as a crate others can take is G23
+- G3 (landed): a functional update (amend, APL's at): items replaced at given positions. Here: 2026-11-17 (A8, step 149): `s a_mend (p, v)` is a new array with the cells at positions p replaced by v's (one each, or one for all), `a_mend_2` along columns; `l:u_pdate` can go: `s a_mend (p, v)` where it took interleaved positions and values
 - G4 (landed): local functions: a function defined inside a lambda and applied there. Here: a lambda's local function names (`g_ := { ... }` inside a body) work today
 - G5 (landed): an executable program that defines `l:` names is taken for a library. Here: ffd5526 (a #! file is a program, and `l:` names in it are MC8 row 9)
 - G7 (landed): `p_ower` with a Bool count (a 0/1 condition). Here: step 087 (D128): a condition as a `p_ower` count counts 0 or 1 times (spec eval/power-bool-count)
@@ -40,7 +41,6 @@ Each notice's text is in `docs/asks.md`.
 ## Waiting here
 
 - G2 (planned): `[]G_RID` of numbers: the numbers drawn in the cells, a color scale the program chooses. Here: decided (QD8, 2026-11-17): `s []N_GRID m` with a `Scale` (`[]S_CALE` 1 gray, 2 heat, 3 diverging); step 150 (asks-grid-numbers)
-- G3 (planned): a functional update (amend, APL's at): items replaced at given positions. Here: decided (A8, 2026-11-17): `s a_mend (p, v)`; step 149 (asks-amend)
 - G8 (planned): `i_nner` on numeric matrices costs about 100 ns per multiply-add. Here: Saga 22 (vector kernels: a primitive operand of inner product as a kernel); about 94 ns per multiply-add on 2026-10-07
 - G11 (new): Star Trek's scripted game went from 15 ms to 42 ms since f823212. Here: not yet measured here (under the games' bench allowance); Saga 30's performance gates do not cover it
 - G12 (planned): numbers in data files: `[]L_IST` and `[]T_ABLE` give strings only. Here: Saga 37, xtln (step xtln-table: `[]T_ABLE` and a general reader over `.xtln`)

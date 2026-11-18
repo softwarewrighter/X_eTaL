@@ -262,6 +262,18 @@ along the subscript's axis.
 > 2 s_elect_1 M
 > 2 s_elect_2 M
 
+== a_mend
+Amend: a new array with the items at the given positions (from 1)
+replaced, the array itself unchanged. The positions and the values
+come as a tuple: one value for each position, or one value for them
+all; a position given twice takes its last value. With a subscript
+the positions go along that axis, each value a cell along it. A
+position outside the array is an error.
+> v a_mend (1 3, 0 9)
+> v a_mend (1 3, 0)
+> M a_mend (2, 0 0 0)
+> M a_mend_2 (3, 0 0)
+
 == r_eplicate
 Replicate: each item (each row of a matrix) repeated as many times as
 its count on the left, so a 0 drops it and a mask of 1s and 0s keeps

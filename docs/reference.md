@@ -650,6 +650,30 @@ along the subscript's axis.
 2 5
 ```
 
+### `a_mend`
+
+`a -> (Int, a) -> a`, two arguments.
+
+Amend: a new array with the items at the given positions (from 1)
+replaced, the array itself unchanged. The positions and the values
+come as a tuple: one value for each position, or one value for them
+all; a position given twice takes its last value. With a subscript
+the positions go along that axis, each value a cell along it. A
+position outside the array is an error.
+
+```
+      v a_mend (1 3, 0 9)
+0 1 9
+      v a_mend (1 3, 0)
+0 1 0
+      M a_mend (2, 0 0 0)
+1 2 3
+0 0 0
+      M a_mend_2 (3, 0 0)
+1 2 0
+4 5 0
+```
+
 ### `r_eplicate`
 
 `Truthy a => a -> b -> b`, two arguments.

@@ -481,9 +481,11 @@ here = "decided (QD8, 2026-11-17): `s []N_GRID m` with a `Scale` (`[]S_CALE` 1 g
 [[ask]]
 id = "G3"
 repo = "X_eTaL-games"
+repro = "(10 20 30 40) a_mend (2 4, 0 9)"
+works = "10 0 30 9"
 ask = "a functional update (amend, APL's at): items replaced at given positions"
-state = "planned"
-here = "decided (A8, 2026-11-17): `s a_mend (p, v)`; step 149 (asks-amend)"
+state = "landed"
+here = "2026-11-17 (A8, step 149): `s a_mend (p, v)` is a new array with the cells at positions p replaced by v's (one each, or one for all), `a_mend_2` along columns; `l:u_pdate` can go: `s a_mend (p, v)` where it took interleaved positions and values"
 
 [[ask]]
 id = "G4"

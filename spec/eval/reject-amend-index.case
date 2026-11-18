@@ -1,0 +1,9 @@
+# A position outside the array is an error, not ignored (A8).
+== SOURCE
+1 2 3 a_mend (4, 0)
+== ERROR
+error[index]: index 4 is outside 1..3
+ --> -e:1:1
+  |
+1 | 1 2 3 a_mend (4, 0)
+  | ^^^^^^^^^^^^^^^^^^^

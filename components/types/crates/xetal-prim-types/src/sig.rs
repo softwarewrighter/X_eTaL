@@ -20,7 +20,10 @@ pub fn read(sig: &str, u: &mut Unifier) -> Result<Type, Diagnostic> {
             vars.insert(var.to_string(), u.fresh_in(class));
         }
     }
-    let spaced = ty.replace('(', " ( ").replace(')', " ) ");
+    let spaced = ty
+        .replace('(', " ( ")
+        .replace(')', " ) ")
+        .replace(',', " , ");
     let mut tokens: Vec<&str> = spaced.split_whitespace().collect();
     tokens.reverse();
     let t = arrow(&mut tokens, &mut vars, u)?;
@@ -58,7 +61,15 @@ fn atom(tokens: &mut Vec<&str>, vars: &mut Vars, u: &mut Unifier) -> Result<Type
         "Box" => Type::Box(Box::new(atom(tokens, vars, u)?)),
         "Outcome" => Type::Outcome(Box::new(atom(tokens, vars, u)?)),
         "(" => {
-            let t = arrow(tokens, vars, u)?;
+            let mut parts = vec![arrow(tokens, vars, u)?];
+            while tokens.last() == Some(&",") {
+                tokens.pop();
+                parts.push(arrow(tokens, vars, u)?);
+            }
+            let t = match parts.len() {
+                1 => parts.remove(0),
+                _ => Type::Tuple(parts),
+            };
             (tokens.pop() == Some(")"))
                 .then_some(t)
                 .ok_or_else(|| bad("(unclosed)"))?

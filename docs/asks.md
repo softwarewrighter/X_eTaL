@@ -15,12 +15,12 @@ build already does what the ask wants.
 | ---------- | ------ | ------------- | ------- | -------- | --- |
 | X_eTaL-demos | 11 | 3 | 4 | 1 | 2 |
 | X_eTaL-ML | 9 | 1 | 9 | 1 | 0 |
-| X_eTaL-games | 12 | 3 | 6 | 1 | 1 |
+| X_eTaL-games | 13 | 3 | 5 | 1 | 1 |
 | X_eTaL-libraries | 9 | 3 | 3 | 3 | 0 |
 | X_eTaL-extensions | 4 | 1 | 2 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 45 | 11 | 31 | 8 | 13 |
+| All | 46 | 11 | 30 | 8 | 13 |
 
 ## Notice: Interactive programs in a page: xetal_play::Interactive, no replay
 
@@ -188,7 +188,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | - | --- | ----- | ---- | ----- |
 | G1 | a terminal for interactive programs, in the browser too | landed | Saga 25: a run waits for typed lines, keys and events and resumes where it read (D50, `xetal_play::Interactive`: `start`, `step`, `feed`), the terminal pane in the live demo (6683d8e), screen control (2d65a76); the interactive demos draw in color on it (step 124); docs/terminal.md says how a page of one's own uses `xetal-play` (step 125, 2026-11-17). The pane as a crate others can take is G23 | - |
 | G2 | `[]G_RID` of numbers: the numbers drawn in the cells, a color scale the program chooses | planned | decided (QD8, 2026-11-17): `s []N_GRID m` with a `Scale` (`[]S_CALE` 1 gray, 2 heat, 3 diverging); step 150 (asks-grid-numbers) | - |
-| G3 | a functional update (amend, APL's at): items replaced at given positions | planned | decided (A8, 2026-11-17): `s a_mend (p, v)`; step 149 (asks-amend) | - |
+| G3 | a functional update (amend, APL's at): items replaced at given positions | landed | 2026-11-17 (A8, step 149): `s a_mend (p, v)` is a new array with the cells at positions p replaced by v's (one each, or one for all), `a_mend_2` along columns; `l:u_pdate` can go: `s a_mend (p, v)` where it took interleaved positions and values | passes |
 | G4 | local functions: a function defined inside a lambda and applied there | landed | a lambda's local function names (`g_ := { ... }` inside a body) work today | passes |
 | G5 | an executable program that defines `l:` names is taken for a library | landed | ffd5526 (a #! file is a program, and `l:` names in it are MC8 row 9) | passes |
 | G6 | named dyadic trains: `u:s_ign := [> - <]` is monadic only | declined | TR4: a train bound to a name or quoted is monadic; a named dyadic train is written as a lambda, `{ a b -> (a F b) G (a H b) }` | fails |

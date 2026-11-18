@@ -164,6 +164,7 @@ entries = [
   ["t_ake", 2, "Int -> a -> a"],
   ["d_rop", 2, "Int -> a -> a"],
   ["s_elect", 2, "Int -> a -> a"],
+  ["a_mend", 2, "a -> (Int, a) -> a"],
   ["r_eplicate", 2, "Truthy a => a -> b -> b"],
   ["c_at", 2, "a -> a -> a"],
   ["r_equireShape", 2, "Int -> a -> a"],

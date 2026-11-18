@@ -1,7 +1,8 @@
 //! The move-to-front rule on runtime values, f applied by the evaluator
 //! one call at a time (a kernel, D50). Rotate defines several axes and amount
 //! lists itself (A4); reduce and scan take several axes in turn (R1);
-//! catenate moves the axis of both arguments; transpose swaps two (B17).
+//! catenate moves the axis of both arguments; transpose swaps two (B17);
+//! amend moves its array's, the left argument (A8).
 
 use std::rc::Rc;
 
@@ -27,6 +28,10 @@ pub fn on_axes<'a>(axes: &[u8], f: &Value<'a>, args: &[Value<'a>]) -> Out<'a> {
         ("o_\\", [x]) => Ok(done(transpose_on(axes, x)?)),
         ("r_/" | "s_\\", [op, x]) => Ok(several(checked(axes, as_array(x).rank())?, f, op, x)),
         ("c_at", [a, b]) => cat_on(axes, f, (a, b)),
+        ("a_mend", [x, pv]) => match checked(axes, as_array(x).rank())?[..] {
+            [k] => amend_on(k, f, x, pv),
+            _ => Err(axis_error("amend takes one axis")),
+        },
         (_, [.., x]) => match checked(axes, as_array(x).rank())?[..] {
             [k] => one_axis(k, f, args),
             _ => Err(axis_error(
@@ -112,6 +117,21 @@ fn one_axis<'a>(k: usize, f: &Value<'a>, args: &[Value<'a>]) -> Out<'a> {
                 )));
             }
         }))
+    }))
+}
+
+/// Amend along axis k (A8): the array's axis k moved to the front, so
+/// the positions count along it and each value is a cell of the moved
+/// array; the result moved back.
+fn amend_on<'a>(k: usize, f: &Value<'a>, x: &Value<'a>, pv: &Value<'a>) -> Out<'a> {
+    let a = as_array(x);
+    let moved = to_value(move_axis(&a, k - 1, 0));
+    Ok(then(apply(f.clone(), vec![moved, pv.clone()]), move |r| {
+        Ok(done(Value::Array(Rc::new(move_axis(
+            &as_array(&r),
+            0,
+            k - 1,
+        )))))
     }))
 }
 

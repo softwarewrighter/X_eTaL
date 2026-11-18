@@ -18,10 +18,10 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 133 | 0 | 0 |
-| Language decisions | 166 | 0 | 3 |
+| Built-in functions | 134 | 0 | 0 |
+| Language decisions | 174 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 502 | 0 | 0 |
+| Spec cases | 507 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -35,12 +35,12 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 111 | 3 |
-| `-` | `Num a => a -> a -> a` | works | 28 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 52 | 2 |
-| `^` | `Num a => a -> a -> a` | works | 10 | 2 |
-| `m_ax` | `Num a => a -> a -> a` | works | 4 | 2 |
-| `m_in` | `Num a => a -> a -> a` | works | 0 | 2 |
+| `+` | `Num a => a -> a -> a` | works | 112 | 3 |
+| `-` | `Num a => a -> a -> a` | works | 29 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 53 | 2 |
+| `^` | `Num a => a -> a -> a` | works | 11 | 2 |
+| `m_ax` | `Num a => a -> a -> a` | works | 5 | 2 |
+| `m_in` | `Num a => a -> a -> a` | works | 1 | 2 |
 | `/` | `Num a => a -> a -> Float` | works | 20 | 2 |
 | `d_iv` | `Int -> Int -> Int` | works | 4 | 1 |
 | `m_od` | `Int -> Int -> Int` | works | 2 | 2 |
@@ -91,7 +91,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `p_rint!` | `Any a => a -> a` | works | 23 | 1 |
+| `p_rint!` | `Any a => a -> a` | works | 24 | 1 |
 | `r_oll!` | `Int -> Int` | works | 3 | 1 |
 | `i_d` | `Any a => a -> a` | works | 3 | 2 |
 | `l_eft` | `(Any a, Any b) => a -> b -> a` | works | 3 | 2 |
@@ -147,7 +147,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `[]B_OLD` | `Char -> Char` | works | 0 | 1 |
 | `[]A_T` | `Int -> Char -> Char` | works | 0 | 1 |
 | `[]C_LS` | `Unit -> Char` | works | 0 | 1 |
-| `f_ormat` | `a -> Char` | works | 10 | 2 |
+| `f_ormat` | `a -> Char` | works | 11 | 2 |
 | `n_umbers` | `Char -> Float` | works | 4 | 1 |
 
 ### MC20: macro hooks (only in a macro body, while a call is expanded)
@@ -175,15 +175,16 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `s_hape` | `a -> Int` | works | 16 | 2 |
-| `t_ally` | `a -> Int` | works | 23 | 4 |
-| `r_ange` | `Int -> Int` | works | 43 | 1 |
+| `t_ally` | `a -> Int` | works | 24 | 4 |
+| `r_ange` | `Int -> Int` | works | 44 | 1 |
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 6 | 4 |
 | `r_avel` | `a -> a` | works | 2 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 70 | 2 |
+| `r_eshape` | `Int -> a -> a` | works | 71 | 2 |
 | `t_ake` | `Int -> a -> a` | works | 16 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 3 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 15 | 4 |
+| `a_mend` | `a -> (Int, a) -> a` | works | 3 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 6 | 6 |
 | `c_at` | `a -> a -> a` | works | 19 | 5 |
 | `r_equireShape` | `Int -> a -> a` | works | 3 | 3 |
@@ -192,7 +193,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `r_/` | `(a -> a -> a) -> a -> a` | works | 18 | 7 |
+| `r_/` | `(a -> a -> a) -> a -> a` | works | 19 | 7 |
 | `s_\` | `(a -> a -> a) -> a -> a` | works | 5 | 4 |
 
 ### B6: each and table (item by item; dyadic each by currying)
@@ -279,8 +280,11 @@ conventions (naming, layout) work without a spec case citing them.
 | A3 | Reverse is `r_ev` (`r_ev_2` along axis 2) | works | 1 |
 | A4 | A list of amounts with a multi-axis subscript means every combination, with one leading result axis per (...) | works | 4 |
 | A5 | Index origin is 1: `r_ange 5` is `1 2 3 4 5` and index 1 is the first item, consistent with 1-based axes | works | 2 |
-| A6 | An axis subscript works on any function by one rule: `f_k X` moves axis k to the front, applies f (which (...) | works | 7 |
+| A6 | An axis subscript works on any function by one rule: `f_k X` moves axis k to the front, applies f (which (...) | works | 8 |
 | A7 | Nested arrays follow APL2 / BQN: any element may itself be an array (`"ab" "cde"` is a 2-element vector of (...) | works | 4 |
+| A8 | Amend (X_eTaL-games' ask G3): `s a_mend (p, v)` is a new array, s with its major cells at positions p (...) | works | 3 |
+| A9 | Mix (X_eTaL-demos, X_eTaL-games' G15): `m_ix v` turns an array of boxes (what `m_ap` gives) into one array (...) | works | 0 |
+| A10 | Rank (X_eTaL-demos, X_eTaL-ML: grade per row): `k 'f r_ank x` applies the monadic f to each rank-k cell of (...) | works | 0 |
 | L1 | Shorthand arguments: `_r` alone makes a monadic lambda; `_l` and `_r` make a dyadic (curried) one | works | 6 |
 | L2 | `_l` and `_r` refer to the innermost enclosing lambda | works | 1 |
 | L3 | An inline lambda is an ordinary function, so `X { ... } Y` is a dyadic application | works | 1 |
@@ -289,10 +293,10 @@ conventions (naming, layout) work without a spec case citing them.
 | L7 | Names resolve lexically: the innermost enclosing lambda's parameter, then outer lambdas, then the program (...) | works | 0 |
 | L6 | A niladic function is defined with `@` as its only parameter: `u:n_ow! := { @ -> ... }`, and called as (...) | works | 5 |
 | L8 | An unused parameter is spelled `_u` (decided with the user and the blog's agent, 2026-10-20; supersedes (...) | works | 6 |
-| TR1 | Trains are written in square brackets | works | 3 |
+| TR1 | Trains are written in square brackets | works | 4 |
 | TR2 | A two-element train is atop: `[F G] x` is `F (G x)` (BQN / Dyalog, not J's hook) | works | 1 |
 | TR4 | A train's arity comes from where it is written: `[F G H] x` is monadic, `x [F G H] y` dyadic | works | 0 |
-| TR3 | Longer trains group from the right into forks: `[A B C D E]` is `[A B [C D E]]` | works | 1 |
+| TR3 | Longer trains group from the right into forks: `[A B C D E]` is `[A B [C D E]]` | works | 2 |
 | G1 | Branching uses APL dfn-style guards inside lambdas: a statement `condition ? result` returns `result` from (...) | works | 5 |
 | G2 | A guard's condition must be a scalar Bool (or Int 1 / 0, per T1); an array condition is an error | works | 2 |
 | S1 | Binding is `:=` (`x := 3`); `=` is always equality | works | 2 |
@@ -316,6 +320,7 @@ conventions (naming, layout) work without a spec case citing them.
 | T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 10 |
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
 | T9 | An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...) | works | 4 |
+| T10 | A comparison's open result type is settled at a top-level definition (X_eTaL-libraries' ask X17): when a (...) | works | 0 |
 | T4 | Type annotations: none in v0 (types are inferred) | works | 1 |
 | M1 | Values are immutable | works | 14 |
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (...) | works | 3 |
@@ -371,6 +376,7 @@ conventions (naming, layout) work without a spec case citing them.
 | B18 | `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...) | works | 3 |
 | B19 | `r_equireShape` is a shape check: `2 3 r_equireShape X` gives X unchanged when its shape is 2 3, and is (...) | works | 0 |
 | B20 | What is a built-in, for mathematics (decided with the user, 2026-10-25, from X_eTaL-ML's ask M19 and (...) | works | 3 |
+| B21 | N-wise reduction (X_eTaL-ML's ask M20, APL2's `N f/ V`): `n 'f n_wise v` reduces f over every window of n (...) | works | 0 |
 | SC1 | A symbol function applied to one argument is an error (`- 3`, `/ 2`, `2 +`): under currying it would fill (...) | works | 4 |
 | ST1 | A string is written `"..."` | works | 2 |
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 1 |
@@ -384,6 +390,8 @@ conventions (naming, layout) work without a spec case citing them.
 | QD6 | A terminal for interactive programs (asked for by X_eTaL-games): screen control is named, typed system (...) | works | 2 |
 | QD5 | Graphics, decided with the user for the classics lane: programs compute what to draw as ordinary arrays, (...) | works | 5 |
 | QD7 | One static type per quad name: `[]U_CS` is `Char -> Int` (the code of each character) and `[]U_CHAR` is (...) | works | 6 |
+| QD8 | Numbers drawn on a grid (X_eTaL-games' ask G2): `s []N_GRID m` draws a number vector or matrix as (...) | works | 0 |
+| QD9 | Paths read by `[]T_ABLE`, `[]L_IST` and `[]V_IEW` resolve against the folder of the file that names them, (...) | works | 0 |
 | MC1 | A macro phase runs between the lexer and the parser | works | 0 |
 | MC2 | A macro is a function-shaped name ending in `<` ("slurp in"): `u_se<` | works | 2 |
 | MC3 | `u_se<` is applied like a dyadic function: `"c:" u_se< "Combinators"` inlines the library with its (...) | works | 2 |
@@ -414,6 +422,7 @@ conventions (naming, layout) work without a spec case citing them.
 | MC30 | Hygiene is by choice, as in Common Lisp, not automatic as in Scheme (changed with the user, 2026-10-12; (...) | works | 8 |
 | MC31 | A macro declares a contract in the `##` doc block directly above its definition, three lines the macro (...) | works | 1 |
 | MC32 | A side of a macro call may be declared a notation: `## takes: text notation` (a side's kinds are `text`, (...) | works | 0 |
+| MC33 | A macro naming its own library by the importer's alias (X_eTaL-ML's ask M11, X_eTaL-libraries' X14): where (...) | works | 0 |
 | MC23 | How a macro of a macro library runs: the `.xtlm` is loaded on its own when imported (its own imports (...) | works | 0 |
 | PN1 | `h:` is a namespace for file-private definitions, functions and variables: `h:j_oin := { b -> ... }`, (...) | works | 2 |
 | PN2 | A bare top-level function in a library is deprecated: it still works and is private, with a warning (...) | works | 0 |
