@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-17
 
+- 15:05 `docs` The live demo's screenshot retaken with the pages.
+- 14:45 `chore` Step 125 (terminal-release) closed.
 - 14:40 `docs` The terminal released (Saga 25, step 125): docs/terminal.md (reading lines, keys and events; colors and placed text; `xetal_play::Interactive` for a page of one's own), linked from the README; Help names `[]K_EY` and the drawing calls; X_eTaL-games' G1 landed, its new ask G23 (the pane as a crate) planned as step 194, and a notice to the siblings to step interactive runs instead of replaying them; the Saga 25 retrospective.
 - 14:15 `chore` Step 124 (terminal-retrofit) closed.
 - 14:10 `demo` The interactive demos on the terminal (Saga 25, step 124): Mastermind's pegs and verdict and TTTML play's verdict in color where the terminal draws colors (`[]T_E`, the live demo's pane, a terminal), plain when piped, so the goldens stay; a test of the colored path in xetal-play.
