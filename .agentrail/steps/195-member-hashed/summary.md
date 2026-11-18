@@ -1,0 +1,1 @@
+m_ember? hashes numbers and characters with ='s exact equality; 207360 vs 20000 from 8.4 s to 0.09 s; tests/member.rs; G10 landed
