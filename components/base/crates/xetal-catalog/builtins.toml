@@ -194,6 +194,7 @@ entries = [
   ["c_ompose", 3, "(Any a, Any b, Any c) => (a -> b) -> (b -> c) -> a -> c"],
   ["s_wap", 3, "(Any a, Any b, Any c) => (a -> b -> c) -> b -> a -> c"],
   ["p_ower", 3, "Any a => (a -> a) -> Int -> a -> a"],
+  ["n_wise", 3, "Any a => (a -> a -> a) -> Int -> a -> a"],
   ["r_ank", 3, "(Any a, Any b) => (a -> b) -> Int -> a -> b"],
 ]
 

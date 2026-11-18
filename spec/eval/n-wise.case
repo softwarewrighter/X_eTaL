@@ -1,0 +1,29 @@
+# n 'f n_wise v reduces f over every window of n consecutive major
+# cells (B21, APL2's N f/ V): 2 '- the differences, 3 '+ moving sums,
+# 2 'c_at the pairs; a negative n reverses each window; n of the length
+# is one window, one more is none, 0 gives the identity once more than
+# there are items; a matrix goes by rows, a subscript along that axis.
+== SOURCE
+2 '- n_wise 1 4 9 16
+-2 '- n_wise 1 4 9 16
+3 '+ n_wise 1 2 3 4 5
+2 'c_at n_wise "abcd"
+4 '+ n_wise 1 2 3 4
+t_ally 5 '+ n_wise 1 2 3 4
+0 '+ n_wise 1 2 3
+2 '+ n_wise 3 2 r_eshape r_ange 6
+2 '- n_wise_2 2 3 r_eshape 1 4 9 2 3 5
+== RESULT
+-3 -5 -7
+3 5 7
+6 9 12
+ab
+bc
+cd
+10
+0
+0 0 0 0
+4  6
+8 10
+-3 -5
+-1 -2

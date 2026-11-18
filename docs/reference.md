@@ -1098,6 +1098,29 @@ takes apart with a pattern.
 (1.0 0.5, 3)
 ```
 
+### `n_wise`
+
+`Any a => (a -> a -> a) -> Int -> a -> a`, three arguments.
+
+N-wise reduction: `n 'f n_wise v` reduces f over every window of n
+consecutive items (rows of a matrix), as `r_/` reduces, so `2 '-` gives
+the differences of neighbors and `3 '+` moving sums. A negative n
+reverses each window first; a window of n is longer than the items by
+at most one (n of one more gives none, 0 the identity once more than
+there are items).
+
+```
+      2 '- n_wise 1 4 9 16
+-3 -5 -7
+      -2 '- n_wise 1 4 9 16
+3 5 7
+      3 '+ n_wise v c_at v
+6 6 6 6
+      2 'c_at n_wise "abc"
+ab
+bc
+```
+
 ### `r_ank`
 
 `(Any a, Any b) => (a -> b) -> Int -> a -> b`, three arguments.

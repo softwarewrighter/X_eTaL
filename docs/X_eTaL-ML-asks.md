@@ -33,6 +33,7 @@ Each notice's text is in `docs/asks.md`.
 - M10 (landed): `e_ach` returning an array per item. Here: B14: `e_ach` stays scalar-only; `m_ap` applies a function returning arrays and boxes each result, and mix (turning the boxes back into an array) landed (A9, step 147, 2026-11-17): `m_ix` of what `m_ap` gives
 - M17 (landed): a macro argument that holds code (a pipeline's stages) is drawn as typed; let a macro library declare it code and the renderers decorate it. Here: code strings (ST5, step 111, 2026-10-18): `c"..."` and `c#"..."#` are drawn as code where the inside lexes (`|>` and `$` as triangles, S13, S14); step 112 lexes every code string's inside with the file; Flow's pipelines are written as code strings
 - M19 (landed): the libm built-ins t_anh, e_rf (e_rfc), s_qrt, e_xpm1, l_og1p: a built-in is what libm gives at full accuracy and a library cannot write as well; the rest of trigonometry and the special functions stay libraries. Here: step 169 (libm-builtins), by the rule B20 the user approved: `t_anh`, `s_qrt`, `e_xpm1`, `l_og1p`, `e_rf` and `e_rfc`, each `Num a => a -> Float` item by item; `s_qrt` of a negative number and `l_og1p` of -1 or less are `error[domain]`; erf through the libm crate (in wasm too); X_eTaL-libraries' X22 (`t_anh`) is answered by the same
+- M20 (landed): n-wise reduction, APL2's `N f/ V`: f over every window of N consecutive items (`2 -/ V` the differences, `2 ,/ S` the pairs), a negative N reversing each window; a spelling for the window, since `r_/` takes its function on the left. Here: 2026-11-17 (B21, step 172): `n 'f n_wise v`: `2 '- n_wise c` the differences, `-2 '- n_wise c` in reading order, `3 '+ n_wise c` moving sums; `li:d_eltas` and `li:w_indows` can go
 
 ## Waiting here
 
@@ -42,7 +43,6 @@ Each notice's text is in `docs/asks.md`.
 - M15 (planned): `xetal doc --out` names every site after X_eTaL (page titles, the sidebar's heading): a sibling's site cannot say whose it is; asked: a `--title` option. Here: step 168 (doc-title): `xetal doc --out DIR --title TEXT` for the sidebar's home link, the titles' suffix and the index heading
 - M16 (planned): the matrix product runs at about 85 ns a multiply-add (`'+ '* i_nner` on 8 by 9 and 9 by 33800, 2.4 million multiply-adds in about 0.2 s). Here: Saga 22, speed (vector kernels); D12 landed at about 94 ns a multiply-add for its ask
 - M18 (planned): `c"..."` reads the backslash of `o_\` and `s_\` as an escape: let the linter or the lexer's error point to `c#"..."#`. Here: step 170 (code-string-escape-hint): the unknown-escape error names the verbatim form, and the string lints look at code strings too (`escapes-could-be-raw` with the fix `c#"..."#`)
-- M20 (planned): n-wise reduction, APL2's `N f/ V`: f over every window of N consecutive items (`2 -/ V` the differences, `2 ,/ S` the pairs), a negative N reversing each window; a spelling for the window, since `r_/` takes its function on the left. Here: decided (B21, 2026-11-17): `2 '- n_wise c`; step 172 (n-wise-reduce); meanwhile `(1 d_rop c) - -1 d_rop c`
 
 ## Declined
 

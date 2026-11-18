@@ -3215,6 +3215,7 @@ dependencies = [
  "xetal-kernel",
  "xetal-map",
  "xetal-value",
+ "xetal-window",
 ]
 
 [[package]]
@@ -3883,6 +3884,16 @@ dependencies = [
  "xetal-core",
  "xetal-lex",
  "xetal-ty",
+]
+
+[[package]]
+name = "xetal-window"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-kernel",
+ "xetal-value",
 ]
 
 [[package]]

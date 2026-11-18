@@ -1,0 +1,9 @@
+# A window longer than one more than the items is an error (B21).
+== SOURCE
+6 '+ n_wise 1 2 3 4
+== ERROR
+error[length]: a window of 6 over 4 items
+ --> -e:1:1
+  |
+1 | 6 '+ n_wise 1 2 3 4
+  | ^^^^^^^^^^^^^^^^^^^

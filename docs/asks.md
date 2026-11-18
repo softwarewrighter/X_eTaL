@@ -14,13 +14,13 @@ build already does what the ask wants.
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
 | X_eTaL-demos | 13 | 2 | 3 | 1 | 2 |
-| X_eTaL-ML | 11 | 1 | 7 | 1 | 0 |
+| X_eTaL-ML | 12 | 1 | 6 | 1 | 0 |
 | X_eTaL-games | 13 | 3 | 5 | 1 | 1 |
 | X_eTaL-libraries | 9 | 3 | 3 | 3 | 0 |
 | X_eTaL-extensions | 4 | 1 | 2 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 50 | 10 | 27 | 8 | 13 |
+| All | 51 | 10 | 26 | 8 | 13 |
 
 ## Notice: Interactive programs in a page: xetal_play::Interactive, no replay
 
@@ -180,7 +180,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | M17 | a macro argument that holds code (a pipeline's stages) is drawn as typed; let a macro library declare it code and the renderers decorate it | landed | code strings (ST5, step 111, 2026-10-18): `c"..."` and `c#"..."#` are drawn as code where the inside lexes (`|>` and `$` as triangles, S13, S14); step 112 lexes every code string's inside with the file; Flow's pipelines are written as code strings | passes |
 | M18 | `c"..."` reads the backslash of `o_\` and `s_\` as an escape: let the linter or the lexer's error point to `c#"..."#` | planned | step 170 (code-string-escape-hint): the unknown-escape error names the verbatim form, and the string lints look at code strings too (`escapes-could-be-raw` with the fix `c#"..."#`) | - |
 | M19 | the libm built-ins t_anh, e_rf (e_rfc), s_qrt, e_xpm1, l_og1p: a built-in is what libm gives at full accuracy and a library cannot write as well; the rest of trigonometry and the special functions stay libraries | landed | step 169 (libm-builtins), by the rule B20 the user approved: `t_anh`, `s_qrt`, `e_xpm1`, `l_og1p`, `e_rf` and `e_rfc`, each `Num a => a -> Float` item by item; `s_qrt` of a negative number and `l_og1p` of -1 or less are `error[domain]`; erf through the libm crate (in wasm too); X_eTaL-libraries' X22 (`t_anh`) is answered by the same | passes |
-| M20 | n-wise reduction, APL2's `N f/ V`: f over every window of N consecutive items (`2 -/ V` the differences, `2 ,/ S` the pairs), a negative N reversing each window; a spelling for the window, since `r_/` takes its function on the left | planned | decided (B21, 2026-11-17): `2 '- n_wise c`; step 172 (n-wise-reduce); meanwhile `(1 d_rop c) - -1 d_rop c` | fails |
+| M20 | n-wise reduction, APL2's `N f/ V`: f over every window of N consecutive items (`2 -/ V` the differences, `2 ,/ S` the pairs), a negative N reversing each window; a spelling for the window, since `r_/` takes its function on the left | landed | 2026-11-17 (B21, step 172): `n 'f n_wise v`: `2 '- n_wise c` the differences, `-2 '- n_wise c` in reading order, `3 '+ n_wise c` moving sums; `li:d_eltas` and `li:w_indows` can go | passes |
 
 ## X_eTaL-games
 

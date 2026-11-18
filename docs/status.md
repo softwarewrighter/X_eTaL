@@ -18,10 +18,10 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 136 | 0 | 0 |
+| Built-in functions | 137 | 0 | 0 |
 | Language decisions | 174 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 511 | 0 | 0 |
+| Spec cases | 513 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -175,18 +175,18 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `s_hape` | `a -> Int` | works | 16 | 2 |
-| `t_ally` | `a -> Int` | works | 24 | 4 |
-| `r_ange` | `Int -> Int` | works | 46 | 1 |
+| `t_ally` | `a -> Int` | works | 25 | 4 |
+| `r_ange` | `Int -> Int` | works | 47 | 1 |
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 6 | 4 |
 | `r_avel` | `a -> a` | works | 2 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 73 | 2 |
+| `r_eshape` | `Int -> a -> a` | works | 74 | 2 |
 | `t_ake` | `Int -> a -> a` | works | 16 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 3 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 15 | 4 |
 | `a_mend` | `a -> (Int, a) -> a` | works | 3 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 6 | 6 |
-| `c_at` | `a -> a -> a` | works | 20 | 5 |
+| `c_at` | `a -> a -> a` | works | 21 | 5 |
 | `r_equireShape` | `Int -> a -> a` | works | 3 | 3 |
 
 ### B6: reduce and scan (leading axis; reduce is a right fold)
@@ -212,6 +212,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `c_ompose` | `(Any a, Any b, Any c) => (a -> b) -> (b -> c) -> a -> c` | works | 4 | 2 |
 | `s_wap` | `(Any a, Any b, Any c) => (a -> b -> c) -> b -> a -> c` | works | 5 | 1 |
 | `p_ower` | `Any a => (a -> a) -> Int -> a -> a` | works | 5 | 3 |
+| `n_wise` | `Any a => (a -> a -> a) -> Int -> a -> a` | works | 3 | 4 |
 | `r_ank` | `(Any a, Any b) => (a -> b) -> Int -> a -> b` | works | 2 | 3 |
 
 ### B7: search and order (over major cells)
@@ -378,7 +379,7 @@ conventions (naming, layout) work without a spec case citing them.
 | B18 | `d_ecode` takes any numbers, as APL's decode does: `Num a => a -> a -> a`, Horner's rule with the radix on (...) | works | 3 |
 | B19 | `r_equireShape` is a shape check: `2 3 r_equireShape X` gives X unchanged when its shape is 2 3, and is (...) | works | 0 |
 | B20 | What is a built-in, for mathematics (decided with the user, 2026-10-25, from X_eTaL-ML's ask M19 and (...) | works | 3 |
-| B21 | N-wise reduction (X_eTaL-ML's ask M20, APL2's `N f/ V`): `n 'f n_wise v` reduces f over every window of n (...) | works | 0 |
+| B21 | N-wise reduction (X_eTaL-ML's ask M20, APL2's `N f/ V`): `n 'f n_wise v` reduces f over every window of n (...) | works | 2 |
 | SC1 | A symbol function applied to one argument is an error (`- 3`, `/ 2`, `2 +`): under currying it would fill (...) | works | 4 |
 | ST1 | A string is written `"..."` | works | 2 |
 | ST2 | A string may not span lines (use `\n`) and may hold any Unicode (I1 as revised); a string is a vector of (...) | works | 1 |

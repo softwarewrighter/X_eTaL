@@ -149,9 +149,10 @@ components/
                            xetal-prim (the first-order built-ins
                            called on values)
   hof/                     xetal-hof (higher-order built-ins: reduce,
-                           scan, power, dispatch; each a kernel whose
+                           scan, power, rank, dispatch; each a kernel whose
                            operand calls the evaluator makes), xetal-map
-                           (item by item: each, table, inner)
+                           (item by item: each, table, inner), xetal-window
+                           (n-wise reduction)
   search/                  xetal-search (search and order: index-of,
                            member, unique, sort, grade, where)
   radix/                   xetal-radix (encode and decode in a mixed

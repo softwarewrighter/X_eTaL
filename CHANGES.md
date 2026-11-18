@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-17
 
+- 20:40 `feat` N-wise reduction (B21, step 172, D202; ask M20): `n 'f n_wise v` reduces every window of n cells, so `2 '- n_wise v` gives the differences and `3 '+ n_wise v` moving sums; a negative n reverses each window. New crate xetal-window. Spec cases n-wise and reject-n-wise-length; the reference entry; an idioms row.
+- 20:00 `chore` Step 148 (asks-row-grade) closed.
 - 19:55 `feat` The rank form (A10, step 148, D201; asks D13, M4): `k 'f r_ank x` applies f to each rank-k cell and mixes the results, so `1 'g_rade r_ank M` grades each row. Spec cases rank and reject-rank-count; the reference entry.
 - 19:25 `chore` Step 147 (asks-mix) closed.
 - 19:20 `feat` Mix (A9, step 147, D200; asks D6, M10, G15): `m_ix` turns an array of boxes into one array, raising and padding the items, so `m_ix '{ r_ange _r } m_ap 1 2 3` is a 3 by 3 matrix. Spec cases mix and reject-mix-unboxed; the reference entry.

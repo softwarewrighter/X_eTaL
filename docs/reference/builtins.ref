@@ -462,6 +462,18 @@ The value may be a tuple, a state of several arrays that each step
 takes apart with a pattern.
 > 3 '{ (w, k) -> (w * 0.5, k + 1) } p_ower (8.0 4.0, 0)
 
+== n_wise
+N-wise reduction: `n 'f n_wise v` reduces f over every window of n
+consecutive items (rows of a matrix), as `r_/` reduces, so `2 '-` gives
+the differences of neighbors and `3 '+` moving sums. A negative n
+reverses each window first; a window of n is longer than the items by
+at most one (n of one more gives none, 0 the identity once more than
+there are items).
+> 2 '- n_wise 1 4 9 16
+> -2 '- n_wise 1 4 9 16
+> 3 '+ n_wise v c_at v
+> 2 'c_at n_wise "abc"
+
 == r_ank
 The rank form: `k 'f r_ank x` applies f to each rank-k cell of x (the
 cells made of its last k axes, so 1 means each row of a matrix and 0

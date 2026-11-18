@@ -63,6 +63,7 @@ u:t_woTo 10
 u:a_nswer := { @ -> 42 }; u:a_nswer @
 u:v_olume := { (l, w, h) -> l * w * h }
 u:v_olume (2, 3, 4)
+-2 '- n_wise 1 4 9 16
 == RESULT
 14
 1
@@ -115,3 +116,4 @@ abcd
 1024
 42
 24
+3 5 7

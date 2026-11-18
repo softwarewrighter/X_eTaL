@@ -15,3 +15,4 @@ xetal-kernel.workspace = true
 xetal-map.workspace = true
 xetal-axes.workspace = true
 xetal-assemble.workspace = true
+xetal-window.workspace = true

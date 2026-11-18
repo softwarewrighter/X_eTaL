@@ -460,8 +460,8 @@ repro = "t_anh 0.5\ns_qrt 2\ne_rf 0.5"
 id = "M20"
 repo = "X_eTaL-ML"
 ask = "n-wise reduction, APL2's `N f/ V`: f over every window of N consecutive items (`2 -/ V` the differences, `2 ,/ S` the pairs), a negative N reversing each window; a spelling for the window, since `r_/` takes its function on the left"
-state = "planned"
-here = "decided (B21, 2026-11-17): `2 '- n_wise c`; step 172 (n-wise-reduce); meanwhile `(1 d_rop c) - -1 d_rop c`"
+state = "landed"
+here = "2026-11-17 (B21, step 172): `n 'f n_wise v`: `2 '- n_wise c` the differences, `-2 '- n_wise c` in reading order, `3 '+ n_wise c` moving sums; `li:d_eltas` and `li:w_indows` can go"
 repro = "2 '- n_wise 1 3 6"
 
 [[ask]]
