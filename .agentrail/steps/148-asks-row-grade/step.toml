@@ -1,8 +1,9 @@
 number = 148
 slug = "asks-row-grade"
-status = "pending"
+status = "completed"
 description = "Implement grade per row (or the rank form) as decided in asks-decisions (top-..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T12:59:23"
-commits = []
+completed_at = "2026-11-17T21:04:39"
+commits = ["de23f62fca59a5a2f7d39d14ce4e1c84f6e507ff"]
