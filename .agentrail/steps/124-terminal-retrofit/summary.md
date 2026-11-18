@@ -1,0 +1,1 @@
+Mastermind and TTTML play draw in color where []T_E reports screen control (the pane, a terminal), plain when piped; goldens unchanged; xetal-play test of the colored path
