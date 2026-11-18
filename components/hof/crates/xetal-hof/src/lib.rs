@@ -7,6 +7,7 @@ mod cells;
 mod fold;
 mod identity;
 mod power;
+mod rank;
 
 pub use calls::{call, higher};
 pub use cells::join;

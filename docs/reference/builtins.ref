@@ -462,6 +462,16 @@ The value may be a tuple, a state of several arrays that each step
 takes apart with a pattern.
 > 3 '{ (w, k) -> (w * 0.5, k + 1) } p_ower (8.0 4.0, 0)
 
+== r_ank
+The rank form: `k 'f r_ank x` applies f to each rank-k cell of x (the
+cells made of its last k axes, so 1 means each row of a matrix and 0
+each item) and puts the results back along x's other axes, padded as
+`m_ix` pads them when they differ in length. A negative k counts the
+leading axes instead: -1 is each major cell.
+> 1 'g_rade r_ank N
+> 1 'r_ev r_ank M
+> -1 '{ '+ r_/ _r } r_ank M
+
 == SECTION Search and order
 These work on the items along the first axis (the rows of a matrix).
 

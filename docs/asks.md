@@ -13,14 +13,14 @@ build already does what the ask wants.
 
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
-| X_eTaL-demos | 12 | 2 | 4 | 1 | 2 |
-| X_eTaL-ML | 10 | 1 | 8 | 1 | 0 |
+| X_eTaL-demos | 13 | 2 | 3 | 1 | 2 |
+| X_eTaL-ML | 11 | 1 | 7 | 1 | 0 |
 | X_eTaL-games | 13 | 3 | 5 | 1 | 1 |
 | X_eTaL-libraries | 9 | 3 | 3 | 3 | 0 |
 | X_eTaL-extensions | 4 | 1 | 2 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 48 | 10 | 29 | 8 | 13 |
+| All | 50 | 10 | 27 | 8 | 13 |
 
 ## Notice: Interactive programs in a page: xetal_play::Interactive, no replay
 
@@ -147,7 +147,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | D10 | a vendored build reports the outer repo's commit as its own | landed | 4a31ba9 (`XETAL_BUILD_SHA` overrides the build's commit) | - |
 | D11 | `t_able` about 2.7x and `i_nner` about 1.5x slower since abb8274 (a regression) | landed | 16b710d (a built-in operand is called at once) and 8456e45 (lean kernels); X_eTaL-demos measured `t_able` 82% and `i_nner` 86% faster than before the regression (docs/speed.md) | - |
 | D12 | `i_nner` costs about 370 ns per multiply-add, slower than broadcast-and-reduce | landed | Saga 30 (16b710d, 8456e45): about 94 ns per multiply-add, measured 2026-10-07 (a 27 by 81 by 9 product in 1.85 ms); a vector kernel for it in Saga 22 (ask G8) | - |
-| D13 | grade along an axis per row (`g_rade_2 M`), for top-k per row | planned | as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade by the rank form decided (A10, 2026-11-17): `1 'g_rade r_ank M`, step 148 (asks-row-grade) | fails |
+| D13 | grade along an axis per row (`g_rade_2 M`), for top-k per row | landed | as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); 2026-11-17 (A10, step 148): the rank form `k 'f r_ank x` applies f to each rank-k cell, so `1 'g_rade r_ank M` grades each row | passes |
 | D14 | a condition bound to a name cannot be used in arithmetic | landed | ffd5526 (a bound condition stays Bool, and a Bool converts to Int in arithmetic) | passes |
 | D15 | a scan with a built-in operand is quadratic in the axis length (Int now linear, Float still quadratic) | partly landed | an Int scan is linear (a 64 by 4096 `'+ s_\_2` in 0.02 s); a Float `+` or `*` scan stays quadratic (64 by 1024 in 0.8 s, 2026-10-07), since a one-pass Float scan is not identical to the definition (plan.md, Saga 5's lessons); a primitive operand of scan as a vector kernel in Saga 22 | - |
 | D16 | `xetal-play`: a run with a page's own macro library, and the program after expansion | landed | step 087 (D128): `xetal_play::add_library` puts a page's `.xtl` or `.xtlm` into the store a run reads, and `xetal_play::expanded` gives the program after expansion; `Memory` and `install` re-exported (test page_library) | - |
@@ -164,7 +164,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | M1 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | passes |
 | M2 | `xetal expand FILE`: the source after macro expansion (the same as X2) | landed | `xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61) | golden `macros-user-expand` |
 | M3 | `'+ '* i_nner`: about 700 ns per multiply-add at abb8274 (the regression D11) | landed | 16b710d: `i_nner` with built-in operands is computed at once, 0 transitions and 0.25 allocations per multiply-add (docs/speed.md) | - |
-| M4 | grade per row, top-k along an axis (the same as D13) | planned | as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade by the rank form decided (A10, 2026-11-17): `1 'g_rade r_ank M`, step 148 (asks-row-grade) | fails |
+| M4 | grade per row, top-k along an axis (the same as D13) | landed | as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); 2026-11-17 (A10, step 148): the rank form `k 'f r_ank x` applies f to each rank-k cell, so `1 'g_rade r_ank M` grades each row | passes |
 | M5 | `xetal-play`: arrays in and out without text, or a session (the same as D3) | planned | Saga 23, host bindings and native packages | - |
 | M6 | whole-array arithmetic: vector kernels (the same as D2) | partly landed | elementwise about 8x faster since abb8274; vector kernels in Saga 22 | - |
 | M7 | long Int literal strands read in quadratic time (the same as D1) | landed | 6010d70 | - |

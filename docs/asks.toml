@@ -242,9 +242,9 @@ here = "Saga 30 (16b710d, 8456e45): about 94 ns per multiply-add, measured 2026-
 id = "D13"
 repo = "X_eTaL-demos"
 ask = "grade along an axis per row (`g_rade_2 M`), for top-k per row"
-state = "planned"
-here = "as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade by the rank form decided (A10, 2026-11-17): `1 'g_rade r_ank M`, step 148 (asks-row-grade)"
-repro = "g_rade_2 2 3 r_eshape 3 1 2 6 5 4"
+state = "landed"
+here = "as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); 2026-11-17 (A10, step 148): the rank form `k 'f r_ank x` applies f to each rank-k cell, so `1 'g_rade r_ank M` grades each row"
+repro = "1 'g_rade r_ank 2 3 r_eshape 3 1 2 6 5 4"
 works = "3 2 1"
 
 [[ask]]
@@ -336,9 +336,9 @@ here = "16b710d: `i_nner` with built-in operands is computed at once, 0 transiti
 id = "M4"
 repo = "X_eTaL-ML"
 ask = "grade per row, top-k along an axis (the same as D13)"
-state = "planned"
-here = "as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade by the rank form decided (A10, 2026-11-17): `1 'g_rade r_ank M`, step 148 (asks-row-grade)"
-repro = "g_rade_2 2 3 r_eshape 3 1 2 6 5 4"
+state = "landed"
+here = "as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); 2026-11-17 (A10, step 148): the rank form `k 'f r_ank x` applies f to each rank-k cell, so `1 'g_rade r_ank M` grades each row"
+repro = "1 'g_rade r_ank 2 3 r_eshape 3 1 2 6 5 4"
 works = "3 2 1"
 
 [[ask]]

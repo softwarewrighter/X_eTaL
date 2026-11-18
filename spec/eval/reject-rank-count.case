@@ -1,0 +1,11 @@
+# A rank is a whole number (A10).
+== SOURCE
+1.5 'r_ev r_ank 1 2 3
+== ERROR
+error[type-mismatch]: expected Int, found Float
+ --> -e:1:1
+  |
+1 | 1.5 'r_ev r_ank 1 2 3
+  | ^^^^^^^^^^^^^^^^^^^^^
+  | --- a Float literal
+  = help: Int and Float do not mix: `f_loat n` makes a Float of an Int, `f_loor x` or `c_eiling x` an Int of a Float

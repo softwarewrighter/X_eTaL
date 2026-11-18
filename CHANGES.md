@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-17
 
+- 19:55 `feat` The rank form (A10, step 148, D201; asks D13, M4): `k 'f r_ank x` applies f to each rank-k cell and mixes the results, so `1 'g_rade r_ank M` grades each row. Spec cases rank and reject-rank-count; the reference entry.
+- 19:25 `chore` Step 147 (asks-mix) closed.
 - 19:20 `feat` Mix (A9, step 147, D200; asks D6, M10, G15): `m_ix` turns an array of boxes into one array, raising and padding the items, so `m_ix '{ r_ange _r } m_ap 1 2 3` is a 3 by 3 matrix. Spec cases mix and reject-mix-unboxed; the reference entry.
 - 18:55 `chore` Step 149 (asks-amend) closed.
 - 18:50 `feat` Amend (A8, step 149, D199; X_eTaL-games' ask G3): `s a_mend (p, v)` gives s with its cells at positions p replaced by v's, one each or one for all, along any axis with a subscript (`M a_mend_2 (3, 0 0)`); a built-in signature may name a tuple type. Spec cases amend, reject-amend-index and reject-amend-count; the reference entry.

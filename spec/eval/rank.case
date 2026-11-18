@@ -1,0 +1,23 @@
+# k 'f r_ank x applies f to each rank-k cell of x (its last k axes; a
+# negative k counts the leading axes instead) and assembles the results
+# along x's other axes, mixed as m_ix mixes (A10): grade per row.
+== SOURCE
+M := 2 3 r_eshape 3 1 2 6 4 5
+1 'g_rade r_ank M
+1 'r_ev r_ank M
+-1 '{ '+ r_/ _r } r_ank M
+0 '{ r_ange _r } r_ank 1 2 3
+2 'g_rade r_ank M
+5 'r_ev r_ank M
+== RESULT
+2 3 1
+2 3 1
+2 1 3
+5 4 6
+6 15
+1 0 0
+1 2 0
+1 2 3
+1 2
+6 4 5
+3 1 2

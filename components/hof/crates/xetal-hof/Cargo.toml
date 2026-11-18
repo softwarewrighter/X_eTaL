@@ -14,3 +14,4 @@ xetal-value.workspace = true
 xetal-kernel.workspace = true
 xetal-map.workspace = true
 xetal-axes.workspace = true
+xetal-assemble.workspace = true

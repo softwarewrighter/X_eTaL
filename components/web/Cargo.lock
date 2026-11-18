@@ -3209,6 +3209,7 @@ name = "xetal-hof"
 version = "0.1.0"
 dependencies = [
  "xetal-array",
+ "xetal-assemble",
  "xetal-axes",
  "xetal-base",
  "xetal-kernel",

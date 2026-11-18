@@ -168,6 +168,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-assemble"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+ "xetal-base",
+ "xetal-value",
+]
+
+[[package]]
 name = "xetal-ast"
 version = "0.1.0"
 dependencies = [
@@ -232,6 +241,7 @@ name = "xetal-hof"
 version = "0.1.0"
 dependencies = [
  "xetal-array",
+ "xetal-assemble",
  "xetal-axes",
  "xetal-base",
  "xetal-kernel",

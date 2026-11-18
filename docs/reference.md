@@ -1098,6 +1098,27 @@ takes apart with a pattern.
 (1.0 0.5, 3)
 ```
 
+### `r_ank`
+
+`(Any a, Any b) => (a -> b) -> Int -> a -> b`, three arguments.
+
+The rank form: `k 'f r_ank x` applies f to each rank-k cell of x (the
+cells made of its last k axes, so 1 means each row of a matrix and 0
+each item) and puts the results back along x's other axes, padded as
+`m_ix` pads them when they differ in length. A negative k counts the
+leading axes instead: -1 is each major cell.
+
+```
+      1 'g_rade r_ank N
+2 3 1
+2 3 1
+      1 'r_ev r_ank M
+3 2 1
+6 5 4
+      -1 '{ '+ r_/ _r } r_ank M
+6 15
+```
+
 ## Search and order
 
 These work on the items along the first axis (the rows of a matrix).

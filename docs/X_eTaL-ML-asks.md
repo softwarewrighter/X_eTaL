@@ -24,6 +24,7 @@ Each notice's text is in `docs/asks.md`.
 - M1 (landed): `.xtlm` macro libraries (the same as X1). Here: the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm`
 - M2 (landed): `xetal expand FILE`: the source after macro expansion (the same as X2). Here: `xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61)
 - M3 (landed): `'+ '* i_nner`: about 700 ns per multiply-add at abb8274 (the regression D11). Here: 16b710d: `i_nner` with built-in operands is computed at once, 0 transitions and 0.25 allocations per multiply-add (docs/speed.md)
+- M4 (landed): grade per row, top-k along an axis (the same as D13). Here: as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); 2026-11-17 (A10, step 148): the rank form `k 'f r_ank x` applies f to each rank-k cell, so `1 'g_rade r_ank M` grades each row
 - M6 (partly landed): whole-array arithmetic: vector kernels (the same as D2). Here: elementwise about 8x faster since abb8274; vector kernels in Saga 22
 - M7 (landed): long Int literal strands read in quadratic time (the same as D1). Here: 6010d70
 - M8 (landed): Float literals with an exponent (the same as D4). Here: 54fea87 (decision S8)
@@ -35,7 +36,6 @@ Each notice's text is in `docs/asks.md`.
 
 ## Waiting here
 
-- M4 (planned): grade per row, top-k along an axis (the same as D13). Here: as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); a per-row grade by the rank form decided (A10, 2026-11-17): `1 'g_rade r_ank M`, step 148 (asks-row-grade)
 - M5 (planned): `xetal-play`: arrays in and out without text, or a session (the same as D3). Here: Saga 23, host bindings and native packages
 - M11 (planned): a macro's text cannot name a library by the importer's alias (the same as X14's remaining half). Here: decided (MC33, 2026-11-17): the macro library's own prefix in an expansion is rewritten to the importer's alias, as MC5 does for `l:`; step 171 (macro-alias)
 - M14 (planned): `xetal_play::run` collects `[]S_HOW` pictures in state shared across threads, so two runs at once take each other's. Here: step 167 (pictures-per-run): the pictures and the replay counters belong to the run (thread-local in xetal-store), so `take_shown` gives only this run's

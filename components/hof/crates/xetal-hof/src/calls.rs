@@ -14,9 +14,9 @@ use xetal_value::as_array;
 type Out<'a> = Result<Kernel<'a, Value<'a>>, Diagnostic>;
 
 /// The higher-order built-ins' names.
-const NAMES: [&str; 11] = [
+const NAMES: [&str; 12] = [
     "r_/", "s_\\", "e_ach", "#each", "m_ap", "t_able", "i_nner", "c_ompose", "#axes", "s_wap",
-    "p_ower",
+    "p_ower", "r_ank",
 ];
 
 /// Whether `name` is a higher-order built-in (one that calls functions).
@@ -50,6 +50,7 @@ pub fn call<'a>(
         ("#axes", [spec, f, rest @ ..]) => on_axes(&digits(spec), f, rest),
         ("s_wap", [f, x, y]) => Ok(apply(f.clone(), vec![y.clone(), x.clone()])),
         ("p_ower", [f, n, x]) => power(f, n, x),
+        ("r_ank", [f, k, x]) => crate::rank::rank(f, k, x),
         _ => return None,
     };
     Some(result.map_err(|d| match d.span {
