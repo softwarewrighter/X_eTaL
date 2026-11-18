@@ -19,6 +19,18 @@
 # repository should act on; it is printed after the summary.
 
 [[notice]]
+title = "Interactive programs in a page: xetal_play::Interactive, no replay"
+text = """
+A page that runs a program reading lines, keys or events steps it with
+`xetal_play::Interactive` (`start`, `step`, `feed`): the run stops where
+the program reads and goes on from that call when the page feeds what
+was read, so nothing is replayed from the start. docs/terminal.md has
+the loop, and how to draw colors and placed text (`[]T_E`, `[]F_G`,
+`[]A_T`, `[]C_LS`) as the live demo's pane does. Pages that still
+replay the typed history on every line can move to it at the next re-pin.
+"""
+
+[[notice]]
 title = "t_anh, s_qrt, e_xpm1, l_og1p, e_rf and e_rfc are built-ins: drop private versions"
 text = """
 The libm functions a library cannot write as well are built-ins now
@@ -447,8 +459,8 @@ repro = "2 '- n_wise 1 3 6"
 id = "G1"
 repo = "X_eTaL-games"
 ask = "a terminal for interactive programs, in the browser too"
-state = "partly landed"
-here = "Saga 25: a run waits for typed lines and resumes (D50), the terminal pane in the live demo (6683d8e), typed screen control (2d65a76); its retrofit and release remain"
+state = "landed"
+here = "Saga 25: a run waits for typed lines, keys and events and resumes where it read (D50, `xetal_play::Interactive`: `start`, `step`, `feed`), the terminal pane in the live demo (6683d8e), screen control (2d65a76); the interactive demos draw in color on it (step 124); docs/terminal.md says how a page of one's own uses `xetal-play` (step 125, 2026-11-17). The pane as a crate others can take is G23"
 
 [[ask]]
 id = "G2"
@@ -604,6 +616,13 @@ repo = "X_eTaL-games"
 ask = "`xetal migrate` leaves the names inside a format template's braces bare (`\"{f_ill j}\"`), so the migrated library fails where the template is expanded"
 state = "landed"
 here = "2026-11-15: migrate renames the helpers in the braces of a `f_ormat<`, `p_anic<` or `t_odo<` template too, leaving `{{` and other strings as written; golden names-migrate-format"
+
+[[ask]]
+id = "G23"
+repo = "X_eTaL-games"
+ask = "a terminal pane a page can take: the live demo's pane as a crate with a Yew component (a program, its libraries and data files, a seed, restart), the cell grid so screen control works, lines, keys and events fed where the program waits, `[]S_HOW` pictures in place, the transcript as text for tests"
+state = "planned"
+here = "step 194 (terminal-pane-crate): the pane moved out of xetal-web into a crate of its own, the live demo on it too; until then a page writes its own pane over `xetal_play::Interactive` (docs/terminal.md)"
 
 [[ask]]
 id = "X1"

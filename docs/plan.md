@@ -864,7 +864,23 @@ written as ANSI by the CLI.
 | 6 | terminal-pane | The live demo's output pane becomes the terminal (Yew, keys from the window); `[]R_EAD` reads from it; no `window.prompt` left. Checked in headless Chrome. |
 | 7 | screen-control | The quads (QD6): write at a row and column, clear, style, one key, the terminal's facts, standard error in red; the same in the grid and as ANSI at the CLI. |
 | 8 | terminal-retrofit | Done: TTTML play and Mastermind ran in the pane since terminal-pane; now they draw in color where the terminal says it can (`[]T_E`'s fourth fact: a terminal, the pane), Mastermind's pegs and verdict, TTTML's verdict, and stay plain when piped, so no golden moved (tests/terminal_colors.rs in xetal-play checks the colored path). |
-| 9 | terminal-release | README, Help, CHANGES, pages, retrospective; X_eTaL-games told how to use the terminal with `xetal-play`. |
+| 9 | terminal-release | Done: docs/terminal.md (reading, drawing, and `xetal_play::Interactive` for a page of one's own), the README links it, Help names `[]K_EY` and the drawing calls; X_eTaL-games' ask G1 landed, and its pane-as-a-crate ask (G23) planned as a step of its own. |
+
+### Saga 25 retrospective
+
+The hard part was the first: a run that stops where it reads and goes
+on later meant an explicit machine in place of the Rust call stack
+(steppable-core, steppable-hof), and that machine later carried more
+than the terminal: events and the real-time games, the notebook in
+the browser, and the time-traveling debugger's checkpoints (Saga 43),
+which copy its state as a value. The grid and the pane were short
+once the run could wait. What lagged was the telling: the run landed
+in October and the games built their click-driven pages on it, but
+their typed games still replayed the whole session on every line
+until the release said how to use it; a run a sibling can use should
+be announced in its ask's row the day it lands, not at the saga's end.
+The pane itself is still part of the live demo; a page outside it
+writes its own (G23).
 
 ## Open question: should `a_ssert<` stop the program, as Rust's assert! does?
 

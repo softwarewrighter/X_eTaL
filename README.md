@@ -380,6 +380,9 @@ Other fonts, checked against the font files:
 - [`docs/several-arguments.md`](docs/several-arguments.md) -- calling a
   function of several arguments three ways: written out, a macro of
   your own (`userlibs/Apply.xtlm`), and a tuple, the idiom
+- [`docs/terminal.md`](docs/terminal.md) -- interactive programs: lines,
+  keys and events read, colors and placed text, the same at the command
+  line and in the live demo, and `xetal-play` for a page of your own
 - [`docs/debugging.md`](docs/debugging.md) -- debugging a program from
   VS Code, Emacs or Neovim with `xetal dap`: breakpoints, the stack,
   variables, watches, and stepping back in time

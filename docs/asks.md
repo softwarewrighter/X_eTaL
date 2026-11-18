@@ -15,12 +15,22 @@ build already does what the ask wants.
 | ---------- | ------ | ------------- | ------- | -------- | --- |
 | X_eTaL-demos | 11 | 3 | 3 | 2 | 2 |
 | X_eTaL-ML | 9 | 1 | 7 | 3 | 0 |
-| X_eTaL-games | 10 | 4 | 4 | 1 | 3 |
+| X_eTaL-games | 11 | 3 | 5 | 1 | 3 |
 | X_eTaL-libraries | 9 | 3 | 2 | 3 | 1 |
 | X_eTaL-extensions | 4 | 1 | 2 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 43 | 12 | 25 | 11 | 16 |
+| All | 44 | 11 | 26 | 11 | 16 |
+
+## Notice: Interactive programs in a page: xetal_play::Interactive, no replay
+
+A page that runs a program reading lines, keys or events steps it with
+`xetal_play::Interactive` (`start`, `step`, `feed`): the run stops where
+the program reads and goes on from that call when the page feeds what
+was read, so nothing is replayed from the start. docs/terminal.md has
+the loop, and how to draw colors and placed text (`[]T_E`, `[]F_G`,
+`[]A_T`, `[]C_LS`) as the live demo's pane does. Pages that still
+replay the typed history on every line can move to it at the next re-pin.
 
 ## Notice: t_anh, s_qrt, e_xpm1, l_og1p, e_rf and e_rfc are built-ins: drop private versions
 
@@ -176,7 +186,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 
 | # | Ask | State | Here | Repro |
 | - | --- | ----- | ---- | ----- |
-| G1 | a terminal for interactive programs, in the browser too | partly landed | Saga 25: a run waits for typed lines and resumes (D50), the terminal pane in the live demo (6683d8e), typed screen control (2d65a76); its retrofit and release remain | - |
+| G1 | a terminal for interactive programs, in the browser too | landed | Saga 25: a run waits for typed lines, keys and events and resumes where it read (D50, `xetal_play::Interactive`: `start`, `step`, `feed`), the terminal pane in the live demo (6683d8e), screen control (2d65a76); the interactive demos draw in color on it (step 124); docs/terminal.md says how a page of one's own uses `xetal-play` (step 125, 2026-11-17). The pane as a crate others can take is G23 | - |
 | G2 | `[]G_RID` of numbers: the numbers drawn in the cells, a color scale the program chooses | planned | to decide with the user (a typed color scale), then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-grid-numbers) | - |
 | G3 | a functional update (amend, APL's at): items replaced at given positions | planned | to decide with the user, then a step of its own (plan.md, Next in order item 6: asks-decisions, asks-amend) | - |
 | G4 | local functions: a function defined inside a lambda and applied there | landed | a lambda's local function names (`g_ := { ... }` inside a body) work today | passes |
@@ -198,6 +208,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | G20 | type inference is not deterministic: the same library prints one of two types for a function, about half the runs each | landed | step 096: a group of mutually dependent top-level definitions closes its functions first, then its values, in source order, and the module map is ordered, so the same program gets the same type every run; checked on tower defense's Defense.xtl at the games' pin with the fix applied (12 of 12 runs alike, md a Num). The workaround (md := md m_od 2) can go; on current main it would also break the bound-once rule (M1). | - |
 | G21 | `f_ormat<` refuses markup: a text holding an SVG tag (`<rect`) or a hex color (`#000000`) stops with `unused-argument` since the macro contracts (MC31) | landed | 2026-11-15: the copying check also reads a string's plain words (a `<` opening a tag dropped, a `#` not a comment), so any text outside a format's braces is accepted; spec/macros/format-markup.case runs both repros | - |
 | G22 | `xetal migrate` leaves the names inside a format template's braces bare (`"{f_ill j}"`), so the migrated library fails where the template is expanded | landed | 2026-11-15: migrate renames the helpers in the braces of a `f_ormat<`, `p_anic<` or `t_odo<` template too, leaving `{{` and other strings as written; golden names-migrate-format | - |
+| G23 | a terminal pane a page can take: the live demo's pane as a crate with a Yew component (a program, its libraries and data files, a seed, restart), the cell grid so screen control works, lines, keys and events fed where the program waits, `[]S_HOW` pictures in place, the transcript as text for tests | planned | step 194 (terminal-pane-crate): the pane moved out of xetal-web into a crate of its own, the live demo on it too; until then a page writes its own pane over `xetal_play::Interactive` (docs/terminal.md) | - |
 
 ## X_eTaL-libraries
 
