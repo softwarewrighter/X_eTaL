@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-17
 
+- 17:25 `docs` The live demo's screenshot retaken after publishing.
+- 15:45 `chore` Step 195 (member-hashed) closed.
 - 15:40 `fix` `m_ember?` hashes (X_eTaL-games' ask G10, step 195): when both sides hold only numbers and characters each item gets a key equal exactly when `=` says so, so 207360 items against 20000 take 0.09 s instead of 8.4 s; boxes, tuples, NaN and Floats beside Ints beyond 2^53 keep the comparison loop. tests/member.rs checks it against `=` on mixed items. Also the Help item on the terminal reworded to two lines (sw-checklist: `editing` is back to 50 lines).
 - 15:05 `docs` The live demo's screenshot retaken with the pages.
 - 14:45 `chore` Step 125 (terminal-release) closed.
