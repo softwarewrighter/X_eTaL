@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-17
 
+- 19:20 `feat` Mix (A9, step 147, D200; asks D6, M10, G15): `m_ix` turns an array of boxes into one array, raising and padding the items, so `m_ix '{ r_ange _r } m_ap 1 2 3` is a 3 by 3 matrix. Spec cases mix and reject-mix-unboxed; the reference entry.
+- 18:55 `chore` Step 149 (asks-amend) closed.
 - 18:50 `feat` Amend (A8, step 149, D199; X_eTaL-games' ask G3): `s a_mend (p, v)` gives s with its cells at positions p replaced by v's, one each or one for all, along any axis with a subscript (`M a_mend_2 (3, 0 0)`); a built-in signature may name a tuple type. Spec cases amend, reject-amend-index and reject-amend-count; the reference entry.
 - 18:15 `chore` Step 146 (asks-decisions) closed.
 - 18:10 `design` The siblings' open asks decided (step 146, D198): amend (A8), mix (A9), rank (A10), n-wise reduction (B21), numbers on a grid with a typed scale (QD8), data paths relative to the file (QD9, breaking), a macro naming its library by the importer's alias (MC33), a comparison's result defaulting to Int at a top-level definition (T10, breaking); steps 196 (data-paths) and 197 (truthy-default) added. scripts/asks.py also writes `docs/<repo>-asks.md` for each sibling: its breaking changes first (three earlier notices now marked breaking with their commit and fix), the notices, its landed asks, what waits here, what was declined.

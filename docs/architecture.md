@@ -134,7 +134,7 @@ components/
   eval/                    xetal-array (dense arrays, layout),
                            xetal-value (runtime values, printing),
                            xetal-arith (scalar rules, scalar extension),
-                           xetal-struct (structural built-ins),
+                           xetal-struct (structural built-ins), xetal-assemble (amend and mix),
                            xetal-eval (running a program: the API the
                            CLI, REPL and live demo call)
   step/                    the steppable evaluator (D50): xetal-frame

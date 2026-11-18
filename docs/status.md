@@ -18,10 +18,10 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 134 | 0 | 0 |
+| Built-in functions | 135 | 0 | 0 |
 | Language decisions | 174 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 507 | 0 | 0 |
+| Spec cases | 509 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -176,17 +176,17 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `s_hape` | `a -> Int` | works | 16 | 2 |
 | `t_ally` | `a -> Int` | works | 24 | 4 |
-| `r_ange` | `Int -> Int` | works | 44 | 1 |
+| `r_ange` | `Int -> Int` | works | 45 | 1 |
 | `o_ffsets` | `Int -> Int` | works | 2 | 1 |
 | `f_irst` | `a -> a` | works | 6 | 4 |
 | `r_avel` | `a -> a` | works | 2 | 2 |
-| `r_eshape` | `Int -> a -> a` | works | 71 | 2 |
+| `r_eshape` | `Int -> a -> a` | works | 72 | 2 |
 | `t_ake` | `Int -> a -> a` | works | 16 | 5 |
 | `d_rop` | `Int -> a -> a` | works | 3 | 4 |
 | `s_elect` | `Int -> a -> a` | works | 15 | 4 |
 | `a_mend` | `a -> (Int, a) -> a` | works | 3 | 4 |
 | `r_eplicate` | `Truthy a => a -> b -> b` | works | 6 | 6 |
-| `c_at` | `a -> a -> a` | works | 19 | 5 |
+| `c_at` | `a -> a -> a` | works | 20 | 5 |
 | `r_equireShape` | `Int -> a -> a` | works | 3 | 3 |
 
 ### B6: reduce and scan (leading axis; reduce is a right fold)
@@ -201,7 +201,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `e_ach` | `(a -> b) -> a -> b` | works | 21 | 3 |
-| `m_ap` | `Any b => (a -> b) -> a -> Box b` | works | 7 | 5 |
+| `m_ap` | `Any b => (a -> b) -> a -> Box b` | works | 8 | 5 |
 | `t_able` | `(a -> b -> c) -> a -> b -> c` | works | 6 | 1 |
 
 ### B6: inner product and combinators (operands nearest-first, F9)
@@ -229,8 +229,9 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `e_nclose` | `Any a => a -> Box a` | works | 9 | 5 |
+| `e_nclose` | `Any a => a -> Box a` | works | 10 | 5 |
 | `d_isclose` | `Any a => Box a -> a` | works | 8 | 4 |
+| `m_ix` | `Any a => Box a -> a` | works | 2 | 2 |
 | `d_isplay` | `a -> Char` | works | 5 | 5 |
 | `p_artition` | `Truthy a => a -> b -> Box b` | works | 4 | 4 |
 
@@ -283,7 +284,7 @@ conventions (naming, layout) work without a spec case citing them.
 | A6 | An axis subscript works on any function by one rule: `f_k X` moves axis k to the front, applies f (which (...) | works | 8 |
 | A7 | Nested arrays follow APL2 / BQN: any element may itself be an array (`"ab" "cde"` is a 2-element vector of (...) | works | 4 |
 | A8 | Amend (X_eTaL-games' ask G3): `s a_mend (p, v)` is a new array, s with its major cells at positions p (...) | works | 3 |
-| A9 | Mix (X_eTaL-demos, X_eTaL-games' G15): `m_ix v` turns an array of boxes (what `m_ap` gives) into one array (...) | works | 0 |
+| A9 | Mix (X_eTaL-demos, X_eTaL-games' G15): `m_ix v` turns an array of boxes (what `m_ap` gives) into one array (...) | works | 2 |
 | A10 | Rank (X_eTaL-demos, X_eTaL-ML: grade per row): `k 'f r_ank x` applies the monadic f to each rank-k cell of (...) | works | 0 |
 | L1 | Shorthand arguments: `_r` alone makes a monadic lambda; `_l` and `_r` make a dyadic (curried) one | works | 6 |
 | L2 | `_l` and `_r` refer to the innermost enclosing lambda | works | 1 |

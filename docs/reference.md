@@ -815,6 +815,26 @@ error[rank]: d_isclose opens one box, got shape 2
 (1, 2.5)
 ```
 
+### `m_ix`
+
+`Any a => Box a -> a`, one argument.
+
+Mix: an array of boxes as one array, the boxes' axes first and the
+items' after. An item of lower rank gets leading axes of length 1, and
+a shorter one is padded at the end with its kind's fill (0 for
+numbers, a space for characters), so ragged results of `m_ap` become a
+matrix.
+
+```
+      m_ix '{ r_ange _r } m_ap v
+1 2 3
+1 0 0
+1 2 0
+      m_ix "ab" "cde"
+ab 
+cde
+```
+
 ### `d_isplay`
 
 `a -> Char`, one argument.

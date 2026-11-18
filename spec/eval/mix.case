@@ -1,0 +1,29 @@
+# m_ix turns an array of boxes into one array: its leading axes are the
+# boxes', its trailing axes the items'; an item of lower rank gets
+# leading axes of length 1, a shorter one is padded at the end with its
+# kind's fill (0, a space) (A9, APL2's first-axis mix).
+== SOURCE
+m_ix '{ r_ange _r } m_ap 1 2 3
+m_ix "ab" "cde"
+m_ix '{ (2 c_at _r) r_eshape 1 } m_ap 1 2
+m_ix e_nclose 7 8
+m_ix 1 r_eshape e_nclose 5
+m_ix (e_nclose 1 2) c_at e_nclose 2 2 r_eshape 3 4 5 6
+== RESULT
+1 0 0
+1 2 0
+1 2 3
+ab 
+cde
+1 0
+1 0
+
+1 1
+1 1
+7 8
+5
+1 2
+0 0
+
+3 4
+5 6

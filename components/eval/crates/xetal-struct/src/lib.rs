@@ -1,7 +1,6 @@
 //! Structural built-ins (B4, B10): generic kernels over arrays along
 //! the leading axis, and their calls on runtime values.
 
-mod amend;
 mod calls;
 mod cells;
 mod parts;

@@ -1,0 +1,11 @@
+# m_ix takes boxes: a plain array is a type error (A9).
+== SOURCE
+m_ix 1 2 3
+== ERROR
+error[type-mismatch]: expected Box a, found a number
+ --> -e:1:1
+  |
+1 | m_ix 1 2 3
+  | ^^^^^^^^^^
+  = note: `m_ix` has type Any a => Box a -> a
+  = help: `e_nclose x` puts a value in a box

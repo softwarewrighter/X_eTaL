@@ -13,14 +13,14 @@ build already does what the ask wants.
 
 | Repository | Landed | Partly landed | Planned | Declined | New |
 | ---------- | ------ | ------------- | ------- | -------- | --- |
-| X_eTaL-demos | 11 | 3 | 4 | 1 | 2 |
-| X_eTaL-ML | 9 | 1 | 9 | 1 | 0 |
+| X_eTaL-demos | 12 | 2 | 4 | 1 | 2 |
+| X_eTaL-ML | 10 | 1 | 8 | 1 | 0 |
 | X_eTaL-games | 13 | 3 | 5 | 1 | 1 |
 | X_eTaL-libraries | 9 | 3 | 3 | 3 | 0 |
 | X_eTaL-extensions | 4 | 1 | 2 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 46 | 11 | 30 | 8 | 13 |
+| All | 48 | 10 | 29 | 8 | 13 |
 
 ## Notice: Interactive programs in a page: xetal_play::Interactive, no replay
 
@@ -140,7 +140,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | D3 | `xetal-play`: arrays in and out without text, or a session between runs | planned | Saga 23, host bindings and native packages | - |
 | D4 | Float literals with an exponent (`1.5e-7`) | landed | 54fea87 (decision S8) | passes |
 | D5 | complex numbers (Mandelbrot, Julia) | planned | Saga 31, complex numbers, on Saga 29's types | - |
-| D6 | nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix) | partly landed | cf834e1 (`m_ap` boxes each result); mix decided (A9, 2026-11-17): `m_ix`, step 147 (asks-mix) | passes |
+| D6 | nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix) | landed | cf834e1 (`m_ap` boxes each result); mix landed (A9, step 147, 2026-11-17): `m_ix '{ r_ange _r } m_ap 1 2 3` is a 3 by 3 matrix padded with 0 | passes |
 | D7 | a state of several arrays for `p_ower` (a tuple or record) | landed | Saga 39, tuples with patterns (docs/tuples.md, lanes/tuples; with X_eTaL-ML ask M13): a game state `(board, score, rng)` through `p_ower`, taken apart by a pattern in the step; records in Saga 29 on its types | - |
 | D8 | a per-operation evaluation trace through `xetal-play` | planned | a step of Saga 17, trace and explain | - |
 | D9 | transpose | landed | 3ad1f8e (`o_\`, `t_ranspose`, decision B17) | passes |
@@ -171,7 +171,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | M8 | Float literals with an exponent (the same as D4) | landed | 54fea87 (decision S8) | passes |
 | M9 | a Bool bound to a name cannot be used in arithmetic (the same as D14) | landed | ffd5526 | passes |
 | M13 | a state of several arrays for `p_ower`: train-live packs 99 weights and Adam's two averages into one vector of 298 numbers | landed | Saga 39, tuples (lanes/tuples): a tuple state such as `(w, m, v, k)` goes through `p_ower` (TU9) and the step takes it apart with a pattern parameter, `{ (w, k) -> ... }` (TU3) | passes |
-| M10 | `e_ach` returning an array per item | planned | B14: `e_ach` stays scalar-only; `m_ap` applies a function returning arrays and boxes each result, and mix (turning the boxes back into an array) decided (A9, 2026-11-17): `m_ix`, step 147 (asks-mix) | fails |
+| M10 | `e_ach` returning an array per item | landed | B14: `e_ach` stays scalar-only; `m_ap` applies a function returning arrays and boxes each result, and mix (turning the boxes back into an array) landed (A9, step 147, 2026-11-17): `m_ix` of what `m_ap` gives | passes |
 | M11 | a macro's text cannot name a library by the importer's alias (the same as X14's remaining half) | planned | decided (MC33, 2026-11-17): the macro library's own prefix in an expansion is rewritten to the importer's alias, as MC5 does for `l:`; step 171 (macro-alias) | - |
 | M12 | shapes in types: a matrix's type is `Float`, so code can be well-typed and shape-wrong | declined | T7: array types are rank-erased, a type names only the element type, shapes are checked at run time; T4: no annotations in v0 (`::` signatures later); D-10: one Int type, overflow an error | - |
 | M14 | `xetal_play::run` collects `[]S_HOW` pictures in state shared across threads, so two runs at once take each other's | planned | step 167 (pictures-per-run): the pictures and the replay counters belong to the run (thread-local in xetal-store), so `take_shown` gives only this run's | - |
@@ -200,7 +200,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | G12 | numbers in data files: `[]L_IST` and `[]T_ABLE` give strings only | planned | Saga 37, xtln (step xtln-table: `[]T_ABLE` and a general reader over `.xtln`) | - |
 | G13 | `[]T_ABLE` and `[]L_IST` read a path relative to the working directory, `i_nclude<` relative to the file | planned | decided (QD9, 2026-11-17): `[]T_ABLE`, `[]L_IST` and `[]V_IEW` read a path relative to the file that names it, as `i_nclude<` does; step 196 (data-paths), a breaking change | - |
 | G14 | a clearer message for a half-written library: also say "or define an `l:` name to make this file a library" | partly landed | PN3, PN4 (D121): run on its own the file says `write u:h_elp (the program's) or h:h_elp (a helper)`; imported, `library Half exports nothing; mark its exports with l:` | - |
-| G15 | fast paths for array idioms: raze, hashed membership, mix, linear number parsing, a matrix-product kernel | partly landed | linear number parsing landed (`n_umbers`, ask G9); mix decided (A9, `m_ix`, step 147); the matrix-product kernel in Saga 22 (G8); raze and hashed membership (G10) not yet planned | - |
+| G15 | fast paths for array idioms: raze, hashed membership, mix, linear number parsing, a matrix-product kernel | partly landed | linear number parsing landed (`n_umbers`, ask G9); mix landed (A9, `m_ix`, step 147); hashed membership landed (G10); the matrix-product kernel in Saga 22 (G8); raze and hashed membership (G10) not yet planned | - |
 | G16 | a library that fails to parse is reported at the import as `not-exported` with an empty list | landed | checked 2026-10-07 at 8f006d6: the import reports the library's own error, located in it (`error[bad-quote]: ... at ./L.xtl:1:18`) | - |
 | G17 | `t_able` and `i_nner` slower since the higher-order built-ins became kernels (the regression D11) | landed | Saga 30: 16b710d, 8456e45 | - |
 | G18 | `xetal doc --out` over several programs lists files by name alone, so eleven `play.xtl` look the same in the sidebar | landed | step 088 (D129): the sidebar groups files under their directory relative to the documented files' common root, and the search index and the used-at links name a file by that relative path | - |

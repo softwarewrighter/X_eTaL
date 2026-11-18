@@ -37,7 +37,7 @@ pub fn call<'a>(name: &str, args: &[Value<'a>], span: Span) -> Option<Out<'a>> {
                 .and_then(|k| Ok(to_value(replicate(&k, &a)?)))
         }
         ("c_at", [a, b]) => join(a, b),
-        ("a_mend", [s, pv]) => crate::amend::amend(s, pv),
+        ("a_mend", [s, pv]) => xetal_assemble::amend(s, pv),
         ("r_equireShape", [s, x]) => ints(s).and_then(|s| {
             check_shape(s.data(), &as_array(x))?;
             Ok(x.clone())
@@ -49,6 +49,7 @@ pub fn call<'a>(name: &str, args: &[Value<'a>], span: Span) -> Option<Out<'a>> {
         }
         ("e_nclose", [x]) => Ok(Value::Boxed(std::rc::Rc::new(x.clone()))),
         ("d_isclose", [x]) => disclose(x),
+        ("m_ix", [x]) => xetal_assemble::mix(x),
         ("d_isplay", [x]) => Ok(lines_matrix(&xetal_value::picture(x))),
         _ => return None,
     };

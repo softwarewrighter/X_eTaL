@@ -6,10 +6,10 @@ use xetal_array::{Array, ArrayError};
 use xetal_base::Diagnostic;
 use xetal_value::Value;
 
-use crate::values::{as_array, as_vector, ints, to_value};
+use xetal_value::{as_array, as_vector, to_value};
 
 /// Amend `s` by the tuple `pv` of positions and values.
-pub(crate) fn amend<'a>(s: &Value<'a>, pv: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
+pub fn amend<'a>(s: &Value<'a>, pv: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
     let Value::Tuple(parts) = pv else {
         return Err(Diagnostic::new("type", "a_mend takes (positions, values)"));
     };
@@ -36,4 +36,16 @@ pub(crate) fn amend<'a>(s: &Value<'a>, pv: &Value<'a>) -> Result<Value<'a>, Diag
     }
     let out = Array::new(a.shape().to_vec(), data)?.with_kind(a.kind());
     Ok(to_value(out))
+}
+
+/// Integers (a Bool counts as 1 or 0), keeping the shape.
+fn ints(v: &Value<'_>) -> Result<Array<i64>, Diagnostic> {
+    as_array(v).map(|x| match x {
+        Value::Int(i) => Ok(*i),
+        Value::Bool(b) => Ok(i64::from(*b)),
+        other => Err(Diagnostic::new(
+            "not-an-integer",
+            format!("expected integers, got {other}"),
+        )),
+    })
 }

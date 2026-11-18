@@ -24,7 +24,7 @@ Each notice's text is in `docs/asks.md`.
 - D1 (landed): a long strand of Int literals read in quadratic time. Here: 6010d70 (a long Int strand type-checks in linear time)
 - D2 (partly landed): whole-array arithmetic at about 50 ns per element per operation. Here: elementwise about 8x faster since abb8274; vector kernels in Saga 22 (speed), measured by `just bench` (docs/speed.md)
 - D4 (landed): Float literals with an exponent (`1.5e-7`). Here: 54fea87 (decision S8)
-- D6 (partly landed): nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix). Here: cf834e1 (`m_ap` boxes each result); mix decided (A9, 2026-11-17): `m_ix`, step 147 (asks-mix)
+- D6 (landed): nested arrays: a vector per item, and turning boxes back into a matrix (APL's mix). Here: cf834e1 (`m_ap` boxes each result); mix landed (A9, step 147, 2026-11-17): `m_ix '{ r_ange _r } m_ap 1 2 3` is a 3 by 3 matrix padded with 0
 - D7 (landed): a state of several arrays for `p_ower` (a tuple or record). Here: Saga 39, tuples with patterns (docs/tuples.md, lanes/tuples; with X_eTaL-ML ask M13): a game state `(board, score, rng)` through `p_ower`, taken apart by a pattern in the step; records in Saga 29 on its types
 - D9 (landed): transpose. Here: 3ad1f8e (`o_\`, `t_ranspose`, decision B17)
 - D10 (landed): a vendored build reports the outer repo's commit as its own. Here: 4a31ba9 (`XETAL_BUILD_SHA` overrides the build's commit)

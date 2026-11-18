@@ -339,6 +339,15 @@ Disclose: what a box holds. It opens one box (select one item first).
 > d_isclose e_nclose (1, 2.5)
 
 
+== m_ix
+Mix: an array of boxes as one array, the boxes' axes first and the
+items' after. An item of lower rank gets leading axes of length 1, and
+a shorter one is padded at the end with its kind's fill (0 for
+numbers, a space for characters), so ragged results of `m_ap` become a
+matrix.
+> m_ix '{ r_ange _r } m_ap v
+> m_ix "ab" "cde"
+
 == d_isplay
 Display: any value as APL2's DISPLAY draws it, as a character matrix,
 flat arrays framed too: an arrow along the top, a down arrow for each
