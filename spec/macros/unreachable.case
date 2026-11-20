@@ -1,0 +1,10 @@
+# @ u_nreachable< @ marks a branch that cannot be reached (MC35, Rust's
+# unreachable!): its type is Never, so it stands beside any branch.
+== SOURCE
+u:d_igit := { d -> d < 10 ? d; @ u_nreachable< "a digit is less than 10" }
+u:d_igit 7
+== TYPE
+u:d_igit : Num a => a -> a
+Int
+== RESULT
+7

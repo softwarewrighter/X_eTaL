@@ -1,0 +1,11 @@
+# Reached, @ u_nreachable< stops with error[unreachable] and the
+# message in parentheses, at the call (MC35).
+== SOURCE
+u:d_igit := { d -> d < 10 ? d; @ u_nreachable< "a digit is less than 10" }
+u:d_igit 12
+== ERROR
+error[unreachable]: entered unreachable code (a digit is less than 10)
+ --> -e:1:32
+  |
+1 | u:d_igit := { d -> d < 10 ? d; @ u_nreachable< "a digit is less than 10" }
+  |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

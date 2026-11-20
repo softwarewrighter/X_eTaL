@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-19
 
+- 12:15 `feat` `@ u_nreachable< @` (MC35, step 200, D206; the user): a system macro for a branch that cannot be reached, typed Never, stopping with `error[unreachable]: entered unreachable code` and the message, if any. Spec cases unreachable, unreachable-reached, unreachable-bare; the goldens doc-site-system and system-library-types rebased on purpose; the README lists it.
+- 11:45 `chore` Step 199 (never-type) closed.
 - 11:40 `feat` The `Never` type (T11, step 199, D205; the user): `[]P_ANIC` and `[]S_IGNAL` give Never, a function that only stops (or loops with no way out) is shown returning Never (`u:f_ail : Char -> Never`), and a Never branch fits beside any other. Spec cases never and never-stops; the reference entries.
 - 10:45 `design` `@ u_nreachable< @` decided (MC35, the user): a system macro typed Never for a branch that cannot be reached; step 200 (unreachable-macro), after the Never type. Steps reordered: 199 (never-type) next.
 - 10:35 `chore` Step 197 (truthy-default) closed.

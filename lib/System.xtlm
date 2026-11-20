@@ -161,6 +161,17 @@ s:p_anic< := { @ t -> "[]P_ANIC (" c_at (h:o_rEmpty h:p_ieces t) c_at ")" }
 ## error[panic]
 s:t_odo< := { @ t -> "@ p_anic< " c_at h:q_uote "not yet implemented: " c_at t }
 
+## Stop the program with error[unreachable] and the message "entered
+## unreachable code", with the text on the right in parentheses (or @
+## for none), at the call: a branch that cannot be reached, typed Never
+## so it stands beside any other (Rust's unreachable!). Its right takes
+## text or @, so it declares no takes: line.
+## >> 1 + @ u_nreachable< @
+## error[unreachable]
+s:u_nreachable< := { @ note ->
+  "\"unreachable\" []S_IGNAL " c_at h:q_uote "entered unreachable code" c_at h:w_hy f_ormat note
+}
+
 ### Errors
 
 ## Run the statements on the left under a trap: when they stop with an

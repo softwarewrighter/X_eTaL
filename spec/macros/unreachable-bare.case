@@ -1,0 +1,11 @@
+# With @ on the right, the message is the plain one (MC35).
+== SOURCE
+@ u_nreachable< @
+== TYPE
+Never
+== ERROR
+error[unreachable]: entered unreachable code
+ --> -e:1:1
+  |
+1 | @ u_nreachable< @
+  | ^^^^^^^^^^^^^^^^^
