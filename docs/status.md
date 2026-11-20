@@ -21,7 +21,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Built-in functions | 139 | 0 | 0 |
 | Language decisions | 176 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 516 | 0 | 0 |
+| Spec cases | 517 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -35,7 +35,7 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `+` | `Num a => a -> a -> a` | works | 112 | 3 |
+| `+` | `Num a => a -> a -> a` | works | 113 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 29 | 2 |
 | `*` | `Num a => a -> a -> a` | works | 53 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 11 | 2 |
@@ -79,11 +79,11 @@ conventions (naming, layout) work without a spec case citing them.
 | `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 39 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
 | `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 17 | 1 |
-| `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 18 | 1 |
+| `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 19 | 1 |
 | `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 12 | 1 |
 | `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 5 | 1 |
 | `e_q~` | `(Num a, Truthy b) => a -> a -> b` | works | 2 | 1 |
-| `&` | `(Truthy a, Truthy b) => a -> a -> b` | works | 4 | 1 |
+| `&` | `(Truthy a, Truthy b) => a -> a -> b` | works | 5 | 1 |
 | `|` | `(Truthy a, Truthy b) => a -> a -> b` | works | 3 | 1 |
 | `n_ot` | `(Truthy a, Truthy b) => a -> b` | works | 4 | 1 |
 
@@ -243,8 +243,8 @@ conventions (naming, layout) work without a spec case citing them.
 
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
-| `e_ncode` | `Int -> Int -> Int` | works | 4 | 7 |
-| `d_ecode` | `Num a => a -> a -> a` | works | 5 | 7 |
+| `e_ncode` | `Int -> Int -> Int` | works | 5 | 7 |
+| `d_ecode` | `Num a => a -> a -> a` | works | 6 | 7 |
 
 ### A2-A4: rotate and reverse (leading axis)
 
@@ -325,7 +325,7 @@ conventions (naming, layout) work without a spec case citing them.
 | T7 | Array types are rank-erased, as in APL: every value is an array and a type names only the element type | works | 10 |
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
 | T9 | An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...) | works | 4 |
-| T10 | A comparison's open result type is settled at a top-level definition (X_eTaL-libraries' ask X17): when a (...) | works | 0 |
+| T10 | A comparison's open result type is settled at a top-level definition (X_eTaL-libraries' ask X17): when a (...) | works | 1 |
 | T11 | A `Never` type, as Rust's `!` (the user, 2026-11-17): the type of an expression that never gives a value: (...) | works | 0 |
 | T4 | Type annotations: none in v0 (types are inferred) | works | 1 |
 | M1 | Values are immutable | works | 14 |

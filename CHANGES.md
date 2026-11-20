@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-19
 
+- 10:30 `feat` A function returning a comparison used as a number returns Int (T10, step 197, D204; X_eTaL-libraries' ask X17): Bits' `a_nd` is `Int -> Int -> Int`; a plain condition stays open. A breaking notice for the siblings. Spec case comparison-result-defaults. The type-svg golden rebased on purpose (step 150's three scale names).
+- 09:45 `chore` Step 150 (asks-grid-numbers) closed.
 - 09:40 `feat` Numbers on a grid (QD8, step 150, D203; X_eTaL-games' ask G2): `s []N_GRID m` draws a board with each cell filled from a color scale and its number written in readable ink; a new enumerated type `Scale` (`[]S_CALE`, named `v:GRAY`, `v:HEAT`, `v:DIVERGING` in the Svg library). Spec cases number-grid, reject-number-grid-chars, reject-scale-range; reference entries.
 
 ## 2026-11-18

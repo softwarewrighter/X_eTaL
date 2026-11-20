@@ -37,6 +37,27 @@ impl Unifier {
         Ok(())
     }
 
+    /// Settle a function's result (T10): a variable that appears only in
+    /// the final result of `ty`, not in an argument, and is both a
+    /// number and a condition (a comparison used as a number) is Int,
+    /// as Haskell defaults a numeric type.
+    pub fn settle_result(&mut self, ty: &Type, span: Span) -> Result<(), Diagnostic> {
+        let (mut args, mut result) = (Vec::new(), Vec::new());
+        let mut t = self.resolve(ty);
+        while let Type::Fn(a, b) = t {
+            a.vars(&mut args);
+            t = *b;
+        }
+        t.vars(&mut result);
+        for v in result.into_iter().filter(|v| !args.contains(v)) {
+            let c = self.classes.get(&v).copied().unwrap_or_default();
+            if c.names().eq(["Num", "Truthy"]) || c.names().eq(["Truthy", "Num"]) {
+                self.unify(&Type::Int, &Type::Var(v), span)?;
+            }
+        }
+        Ok(())
+    }
+
     /// The variables of `ty` that are conditions only (`Truthy`, not
     /// `Num`): a top-level value keeps them open (T1).
     pub fn conditions(&self, ty: &Type) -> Vec<TypeVar> {

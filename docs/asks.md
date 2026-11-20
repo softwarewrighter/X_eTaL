@@ -16,11 +16,23 @@ build already does what the ask wants.
 | X_eTaL-demos | 13 | 2 | 3 | 1 | 2 |
 | X_eTaL-ML | 12 | 1 | 6 | 1 | 0 |
 | X_eTaL-games | 14 | 3 | 4 | 1 | 1 |
-| X_eTaL-libraries | 9 | 3 | 3 | 3 | 0 |
+| X_eTaL-libraries | 10 | 3 | 2 | 3 | 0 |
 | X_eTaL-extensions | 4 | 1 | 2 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 52 | 10 | 25 | 8 | 13 |
+| All | 53 | 10 | 24 | 8 | 13 |
+
+## Notice: a function returning a comparison's number is Int (T10)
+
+A top-level function whose result is a comparison's value used as a
+number, such as X_eTaL-libraries' Bits `a_nd`
+(`2 d_ecode (c_ols a) & c_ols b`), used to infer
+`(Num a, Truthy a) => Int -> Int -> a`, leaving its caller to fix the
+type; it is now `Int -> Int -> Int` (T10). Only a variable that is in
+the result alone and is both a number and a condition is settled; a
+function returning a plain condition (`{ x -> x > 0 }`) still gives a
+Bool or an Int as its caller needs (T1). A caller that used such a
+result as a Float writes `f_loat` around the call.
 
 ## Notice: Interactive programs in a page: xetal_play::Interactive, no replay
 
@@ -230,7 +242,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | X14 | a `.xtlm` calling its own library's functions, or naming the importer's alias in its expansion | partly landed | MC23: a `.xtlm` imports its own `.xtl` by path; naming the importer's alias in an expansion is step 171 (macro-alias, with ask M11) | - |
 | X15 | an error a macro reports with `[]R_EJECT` is located by byte range only | planned | Saga 27, readable type errors (step errors-located: every diagnostic with its file, line and column) | - |
 | X16 | `[]U_CHAR` beyond ASCII: it takes codes 0 to 127 | planned | deferred: Unicode text (lang-choices section 15, plan.md Deferred), each deferred item a saga when scheduled | fails |
-| X17 | a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix | planned | decided (T10, 2026-11-17): a result constrained only by Num and Truthy defaults to Int at a top-level definition, so `a_nd` is `Int -> Int -> Int`; step 197 (truthy-default) | - |
+| X17 | a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix | landed | 2026-11-19 (T10, step 197): a top-level function's result variable that is both a number and a condition, and appears in no argument, is settled to Int when the function is generalized, so `a_nd` is `Int -> Int -> Int`; a condition alone stays open (T1) | passes |
 | X18 | a library that does not lex or parse is reported as exporting nothing (`library-exports-nothing`), hiding the real error | landed | step 089 (D130): the renamer reports a lexing error in the library's own file; parse errors already did | golden `names-library-does-not-lex` |
 
 ## X_eTaL-extensions

@@ -22,6 +22,9 @@ impl Infer {
         top: bool,
     ) -> Result<Scheme, Diagnostic> {
         if matches!(value.kind, Kind::Lam { .. }) {
+            if top {
+                self.u.settle_result(t, value.span)?;
+            }
             let scheme = self.u.generalize(t, &self.fixed());
             self.rec.generalized(value.id, &scheme);
             return Ok(scheme);

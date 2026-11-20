@@ -20,3 +20,6 @@ l:c_lipped : Char -> Char -> Char
 l:g_radient : Char -> Box Char -> Char
 l:p_icture : a -> Char -> Char
 l:p_ictureWith : a -> Box Char -> Char
+l:GRAY : Scale
+l:HEAT : Scale
+l:DIVERGING : Scale

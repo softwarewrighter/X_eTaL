@@ -19,6 +19,23 @@
 # repository should act on; it is printed after the summary.
 
 [[notice]]
+title = "a function returning a comparison's number is Int (T10)"
+breaking = true
+since = "step 197, 2026-11-19"
+fix = "a top-level function whose result is a comparison used as a number (`(Num a, Truthy a) => ... -> a`) now returns Int; a caller that used that result as a Float writes `f_loat` around the call."
+text = """
+A top-level function whose result is a comparison's value used as a
+number, such as X_eTaL-libraries' Bits `a_nd`
+(`2 d_ecode (c_ols a) & c_ols b`), used to infer
+`(Num a, Truthy a) => Int -> Int -> a`, leaving its caller to fix the
+type; it is now `Int -> Int -> Int` (T10). Only a variable that is in
+the result alone and is both a number and a condition is settled; a
+function returning a plain condition (`{ x -> x > 0 }`) still gives a
+Bool or an Int as its caller needs (T1). A caller that used such a
+result as a Float writes `f_loat` around the call.
+"""
+
+[[notice]]
 title = "Interactive programs in a page: xetal_play::Interactive, no replay"
 text = """
 A page that runs a program reading lines, keys or events steps it with
@@ -773,9 +790,11 @@ works = ""
 [[ask]]
 id = "X17"
 repo = "X_eTaL-libraries"
+repro = "u:a_nd := { a b -> 2 d_ecode (2 2 2 2 e_ncode a) & 2 2 2 2 e_ncode b }\nf_loat 12 u:a_nd 10"
+works = "8.0"
 ask = "a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix"
-state = "planned"
-here = "decided (T10, 2026-11-17): a result constrained only by Num and Truthy defaults to Int at a top-level definition, so `a_nd` is `Int -> Int -> Int`; step 197 (truthy-default)"
+state = "landed"
+here = "2026-11-19 (T10, step 197): a top-level function's result variable that is both a number and a condition, and appears in no argument, is settled to Int when the function is generalized, so `a_nd` is `Int -> Int -> Int`; a condition alone stays open (T1)"
 
 [[ask]]
 id = "X18"

@@ -1,0 +1,30 @@
+# A top-level function whose result is a comparison's, used only as a
+# number or a condition, returns Int (T10, X_eTaL-libraries' X17): the
+# variable is settled when the definition is generalized. One that
+# also appears in an argument stays open, a condition that is never a
+# number (Truthy alone) stays one, so each use makes it a Bool or an
+# Int, and inside a definition a comparison is still a Bool in a guard
+# and an Int in arithmetic.
+== SOURCE
+u:a_nd := { a b -> 2 d_ecode (2 2 2 2 e_ncode a) & 2 2 2 2 e_ncode b }
+u:p_os := { x -> x > 0 }
+u:s_ame := { x -> x }
+12 u:a_nd 10
+u:p_os 3
+(u:p_os 3) + 1
+u:s_ign := { x -> u:p_os x ? "yes"; "no" }
+u:s_ign 3
+== TYPE
+u:a_nd : Int -> Int -> Int
+u:p_os : (Num a, Truthy b) => a -> b
+u:s_ame : Any a => a -> a
+Int
+Bool
+Int
+u:s_ign : Num a => a -> Char
+Char
+== RESULT
+8
+1
+2
+yes

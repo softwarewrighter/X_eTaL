@@ -7,6 +7,7 @@ the asks that have landed, whose workarounds can go.
 
 ## Breaking changes
 
+- **a function returning a comparison's number is Int (T10)** (step 197, 2026-11-19): a top-level function whose result is a comparison used as a number (`(Num a, Truthy a) => ... -> a`) now returns Int; a caller that used that result as a Float writes `f_loat` around the call.
 - **code strings are checked: say code in ## takes:, write c"..." where code is taken** (423ccdeb, 2026-10-18): a code string `c"..."` whose inside is not X_eTaL (a format string, an equation) is now an error: make it a plain string; `xetal lint --fix` adds or drops the `c` where a macro's `## takes:` says code or text.
 - **write a library's helpers with h:** (1d75a321, 2026-10-07): a library's bare top-level function warns `deprecated-private` and becomes an error after one release: run `xetal migrate FILE` on each library and keep its output (helpers written `h:`).
 - **a name is bound once: write a! for one that changes, _ := for a value you discard** (1a77fe68, 2026-10-09): binding a name twice in one scope is `error[rebind]`: write `_ := ...` for a value kept only for its effect, `s! := ...` for state that changes, or rename a reused temporary.

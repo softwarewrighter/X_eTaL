@@ -7,6 +7,7 @@ the asks that have landed, whose workarounds can go.
 
 ## Breaking changes
 
+- **a function returning a comparison's number is Int (T10)** (step 197, 2026-11-19): a top-level function whose result is a comparison used as a number (`(Num a, Truthy a) => ... -> a`) now returns Int; a caller that used that result as a Float writes `f_loat` around the call.
 - **code strings are checked: say code in ## takes:, write c"..." where code is taken** (423ccdeb, 2026-10-18): a code string `c"..."` whose inside is not X_eTaL (a format string, an equation) is now an error: make it a plain string; `xetal lint --fix` adds or drops the `c` where a macro's `## takes:` says code or text.
 - **write a library's helpers with h:** (1d75a321, 2026-10-07): a library's bare top-level function warns `deprecated-private` and becomes an error after one release: run `xetal migrate FILE` on each library and keep its output (helpers written `h:`).
 - **a name is bound once: write a! for one that changes, _ := for a value you discard** (1a77fe68, 2026-10-09): binding a name twice in one scope is `error[rebind]`: write `_ := ...` for a value kept only for its effect, `s! := ...` for state that changes, or rename a reused temporary.
@@ -32,13 +33,13 @@ Each notice's text is in `docs/asks.md`.
 - X12 (landed): a macro call with nothing on the left: `@ d_bg< "x"`. Here: the macros lane (MC14-MC17, D76): `@` stands for the empty side
 - X13 (landed): a macro reporting its own compile error at the call, with its own message. Here: `[]R_EJECT` (MC20, D76) and the system macro `e_rror<`
 - X14 (partly landed): a `.xtlm` calling its own library's functions, or naming the importer's alias in its expansion. Here: MC23: a `.xtlm` imports its own `.xtl` by path; naming the importer's alias in an expansion is step 171 (macro-alias, with ask M11)
+- X17 (landed): a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix. Here: 2026-11-19 (T10, step 197): a top-level function's result variable that is both a number and a condition, and appears in no argument, is settled to Int when the function is generalized, so `a_nd` is `Int -> Int -> Int`; a condition alone stays open (T1)
 - X18 (landed): a library that does not lex or parse is reported as exporting nothing (`library-exports-nothing`), hiding the real error. Here: step 089 (D130): the renamer reports a lexing error in the library's own file; parse errors already did
 
 ## Waiting here
 
 - X15 (planned): an error a macro reports with `[]R_EJECT` is located by byte range only. Here: Saga 27, readable type errors (step errors-located: every diagnostic with its file, line and column)
 - X16 (planned): `[]U_CHAR` beyond ASCII: it takes codes 0 to 127. Here: deferred: Unicode text (lang-choices section 15, plan.md Deferred), each deferred item a saga when scheduled
-- X17 (planned): a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix. Here: decided (T10, 2026-11-17): a result constrained only by Num and Truthy defaults to Int at a top-level definition, so `a_nd` is `Int -> Int -> Int`; step 197 (truthy-default)
 
 ## Declined
 
