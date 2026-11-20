@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-19
 
+- 11:40 `feat` The `Never` type (T11, step 199, D205; the user): `[]P_ANIC` and `[]S_IGNAL` give Never, a function that only stops (or loops with no way out) is shown returning Never (`u:f_ail : Char -> Never`), and a Never branch fits beside any other. Spec cases never and never-stops; the reference entries.
 - 10:45 `design` `@ u_nreachable< @` decided (MC35, the user): a system macro typed Never for a branch that cannot be reached; step 200 (unreachable-macro), after the Never type. Steps reordered: 199 (never-type) next.
 - 10:35 `chore` Step 197 (truthy-default) closed.
 - 10:30 `feat` A function returning a comparison used as a number returns Int (T10, step 197, D204; X_eTaL-libraries' ask X17): Bits' `a_nd` is `Int -> Int -> Int`; a plain condition stays open. A breaking notice for the siblings. Spec case comparison-result-defaults. The type-svg golden rebased on purpose (step 150's three scale names).

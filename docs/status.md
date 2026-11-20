@@ -19,9 +19,9 @@ conventions (naming, layout) work without a spec case citing them.
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
 | Built-in functions | 139 | 0 | 0 |
-| Language decisions | 176 | 0 | 3 |
+| Language decisions | 177 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 517 | 0 | 0 |
+| Spec cases | 519 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -37,7 +37,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `+` | `Num a => a -> a -> a` | works | 113 | 3 |
 | `-` | `Num a => a -> a -> a` | works | 29 | 2 |
-| `*` | `Num a => a -> a -> a` | works | 53 | 2 |
+| `*` | `Num a => a -> a -> a` | works | 54 | 2 |
 | `^` | `Num a => a -> a -> a` | works | 11 | 2 |
 | `m_ax` | `Num a => a -> a -> a` | works | 5 | 2 |
 | `m_in` | `Num a => a -> a -> a` | works | 1 | 2 |
@@ -78,7 +78,7 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 39 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
-| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 17 | 1 |
+| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 18 | 1 |
 | `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 19 | 1 |
 | `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 12 | 1 |
 | `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 5 | 1 |
@@ -118,8 +118,8 @@ conventions (naming, layout) work without a spec case citing them.
 | `[]N_GET` | `Char -> Char` | works | 1 | 1 |
 | `[]R_EAD` | `Unit -> Char` | works | 0 | 1 |
 | `[]E_RR` | `Char -> Char` | works | 0 | 1 |
-| `[]P_ANIC` | `Any a => Char -> a` | works | 0 | 1 |
-| `[]S_IGNAL` | `Any a => Char -> Char -> a` | works | 13 | 2 |
+| `[]P_ANIC` | `Char -> Never` | works | 2 | 1 |
+| `[]S_IGNAL` | `Char -> Char -> Never` | works | 13 | 2 |
 | `[]W_ARN` | `Any a => a -> Box Char -> a` | works | 8 | 3 |
 | `[]T_RAP` | `Any a => (Unit -> a) -> (Error -> Outcome a) -> a` | works | 11 | 3 |
 | `[]E_NSURE` | `(Any a, Any b) => (Unit -> a) -> (Unit -> b) -> a` | works | 4 | 2 |
@@ -326,7 +326,7 @@ conventions (naming, layout) work without a spec case citing them.
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
 | T9 | An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...) | works | 4 |
 | T10 | A comparison's open result type is settled at a top-level definition (X_eTaL-libraries' ask X17): when a (...) | works | 1 |
-| T11 | A `Never` type, as Rust's `!` (the user, 2026-11-17): the type of an expression that never gives a value: (...) | works | 0 |
+| T11 | A `Never` type, as Rust's `!` (the user, 2026-11-17): the type of an expression that never gives a value: (...) | works | 2 |
 | T4 | Type annotations: none in v0 (types are inferred) | works | 1 |
 | M1 | Values are immutable | works | 14 |
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (...) | works | 3 |
@@ -424,6 +424,7 @@ conventions (naming, layout) work without a spec case citing them.
 | MC26 | `@ d_bg< "expr"` (Rust's `dbg!`) is a system macro: the value of `expr`, after writing `[file:line] expr = (...) | works | 0 |
 | MC27 | (Renamed `c_heck<` by MC34.) `"cond" a_ssert< "message"` (or `@` for no message) reports and goes on: when (...) | works | 1 |
 | MC34 | Checking and asserting are two macros (the user, 2026-11-17; replaces MC27's name): `"cond" c_heck< (...) | works | 0 |
+| MC35 | `@ u_nreachable< @` (Rust's `unreachable!()`; the user, 2026-11-19): a system macro for a branch that (...) | works | 0 |
 | MC28 | `@ f_ormat< "x = {x}"` (Rust's `format!`) interpolates: each `{expr}` holds any expression (it ends at the (...) | works | 0 |
 | MC29 | `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...) | planned | 0 |
 | MC30 | Hygiene is by choice, as in Common Lisp, not automatic as in Scheme (changed with the user, 2026-10-12; (...) | works | 8 |

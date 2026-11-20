@@ -8,7 +8,7 @@ use std::collections::HashSet;
 use xetal_base::Diagnostic;
 use xetal_core::{Expr, Kind};
 
-use xetal_ty::{Scheme, Type, TypeVar, mono};
+use xetal_ty::{Scheme, Type, TypeVar};
 
 use crate::infer::{Global, Infer};
 
@@ -35,7 +35,7 @@ impl Infer {
             let defaulted = self.u.defaulted(t);
             self.u.unify(&defaulted, t, value.span)?;
         }
-        Ok(mono(self.u.resolve(t)))
+        Ok(self.u.never_only(&self.u.resolve(t)))
     }
 
     /// A top-level value whose type holds conditions (`Truthy`, not yet

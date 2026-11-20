@@ -1,0 +1,21 @@
+# Never (T11): what never gives a value. []P_ANIC and []S_IGNAL give it,
+# a function whose result comes only from them (or from nothing, as a
+# loop with no way out) is shown returning Never, and a Never fits
+# beside any other branch, which keeps its own type.
+== SOURCE
+u:f_ail := { m -> []P_ANIC m }
+u:l_oop := { x -> u:l_oop x }
+u:s_afe := { x -> x < 0 ? u:f_ail "negative"; x * 2 }
+u:p_ick := { c x -> c ? x; []P_ANIC "no" }
+u:s_afe 3
+1 u:p_ick "yes"
+== TYPE
+u:f_ail : Char -> Never
+u:l_oop : Any a => a -> Never
+u:s_afe : Num a => a -> a
+u:p_ick : (Truthy a, Any b) => a -> b -> b
+Int
+Char
+== RESULT
+6
+yes

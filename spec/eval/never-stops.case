@@ -1,0 +1,11 @@
+# A Never statement stops the program where it stands (T11).
+== SOURCE
+[]P_ANIC "stop here"
+== TYPE
+Never
+== ERROR
+error[panic]: stop here
+ --> -e:1:1
+  |
+1 | []P_ANIC "stop here"
+  | ^^^^^^^^^^^^^^^^^^^^

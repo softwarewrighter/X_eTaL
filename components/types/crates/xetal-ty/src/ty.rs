@@ -158,7 +158,10 @@ impl fmt::Display for Scheme {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut vars = Vec::new();
         self.ty.vars(&mut vars);
-        let names = letters(&vars);
+        let never = |v: &TypeVar| self.class_of(*v).names().eq(["Never"]);
+        let (nevers, vars): (Vec<TypeVar>, Vec<TypeVar>) = vars.into_iter().partition(never);
+        let mut names = letters(&vars);
+        names.extend(nevers.into_iter().map(|v| (v, "Never".to_string())));
         let mut constraints: Vec<String> = Vec::new();
         for v in &vars {
             let name = names.get(v).cloned().unwrap_or_default();

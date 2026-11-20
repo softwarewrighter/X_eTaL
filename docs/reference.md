@@ -1871,11 +1871,12 @@ text back.
 
 ### `[]P_ANIC`
 
-`Any a => Char -> a`, one argument.
+`Char -> Never`, one argument.
 
 Stop the program with error[panic] and the text as its message (what
-`@ p_anic< "..."` writes). Its result has any type, so it stands where
-any value may.
+`@ p_anic< "..."` writes). Its result is Never, the type of what never
+gives a value, so it stands where any value may; a function that only
+panics is shown returning Never.
 
 ```
       1 + []P_ANIC "stop here"
@@ -1884,12 +1885,13 @@ error[panic]: stop here
 
 ### `[]S_IGNAL`
 
-`Any a => Char -> Char -> a`, two arguments.
+`Char -> Char -> Never`, two arguments.
 
 Stop with an error of your own: the code on the left names the error
 class, as xetal's own codes do (lowercase letters, digits and hyphens),
 and the text on the right is its message. Uncaught, it ends the
-program with exit status 1, like any error. Its result has any type.
+program with exit status 1, like any error. Its result is Never, as
+`[]P_ANIC`'s is.
 
 ```
       "too-wide" []S_IGNAL "the grid is at most 9 wide"

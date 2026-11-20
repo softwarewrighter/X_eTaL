@@ -5,7 +5,8 @@ use std::collections::HashSet;
 
 use xetal_base::{Diagnostic, Span};
 
-use crate::ty::{Type, TypeVar};
+use crate::Classes;
+use crate::ty::{Scheme, Type, TypeVar};
 use crate::unify::Unifier;
 
 impl Unifier {
@@ -53,9 +54,31 @@ impl Unifier {
             let c = self.classes.get(&v).copied().unwrap_or_default();
             if c.names().eq(["Num", "Truthy"]) || c.names().eq(["Truthy", "Num"]) {
                 self.unify(&Type::Int, &Type::Var(v), span)?;
+            } else if c.names().eq(["Any"]) {
+                // A result of any type the caller likes, from no
+                // argument, is never given (T11): the function stops or
+                // runs forever.
+                self.classes
+                    .insert(v, Classes::named("Never").unwrap_or_default());
             }
         }
         Ok(())
+    }
+
+    /// `ty` as a monomorphic value's scheme, quantified only over what
+    /// never gives a value (T11), so it prints `Never` and each use
+    /// fits where it stands.
+    pub fn never_only(&self, ty: &Type) -> Scheme {
+        let mut vars = Vec::new();
+        ty.vars(&mut vars);
+        let never = Classes::named("Never").unwrap_or_default();
+        vars.retain(|v| self.classes.get(v) == Some(&never));
+        let classes = vars.iter().map(|v| (*v, never)).collect();
+        Scheme {
+            vars,
+            classes,
+            ty: ty.clone(),
+        }
     }
 
     /// The variables of `ty` that are conditions only (`Truthy`, not

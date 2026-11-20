@@ -57,6 +57,8 @@ fn atom(tokens: &mut Vec<&str>, vars: &mut Vars, u: &mut Unifier) -> Result<Type
         "Bool" => Type::Bool,
         "Char" => Type::Char,
         "Unit" => Type::Unit,
+        // What never gives a value (T11): a variable only `Never` holds.
+        "Never" => u.fresh_in(Classes::named("Never").unwrap_or_default()),
         name if let Some(e) = xetal_ty::ENUMS.iter().find(|e| **e == name) => Type::Named(e),
         "Box" => Type::Box(Box::new(atom(tokens, vars, u)?)),
         "Outcome" => Type::Outcome(Box::new(atom(tokens, vars, u)?)),

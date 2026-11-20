@@ -9,7 +9,7 @@ struct Class {
     phrase: &'static str,
 }
 
-const TABLE: [Class; 6] = [
+const TABLE: [Class; 7] = [
     Class {
         name: "Num",
         admits: |t| matches!(t, Type::Int | Type::Float),
@@ -61,6 +61,16 @@ const TABLE: [Class; 6] = [
         admits: |t| !matches!(t, Type::Tuple(_)),
         phrase: "an array",
     },
+    // What never gives a value (T11): what only a diverging expression
+    // has constrained (`[]P_ANIC`'s result). It admits every type, and
+    // it is lost when the variable meets one without it, so a branch
+    // that stops fits beside any other; a variable that keeps it to
+    // the end is printed `Never`.
+    Class {
+        name: "Never",
+        admits: |_| true,
+        phrase: "anything",
+    },
 ];
 
 /// The class spelled in signatures for a variable that may be any
@@ -96,8 +106,16 @@ impl Classes {
             .map(|i| Classes(1 << i))
     }
 
+    /// Both sets of classes; `Never` stays only when both have it (a
+    /// variable that met anything but a diverging expression may give
+    /// a value).
     pub fn union(self, other: Classes) -> Classes {
-        Classes(self.0 | other.0)
+        let never = Classes::named("Never").unwrap_or_default().0;
+        match (self.0 & never, other.0 & never) {
+            (0, 0) => Classes(self.0 | other.0),
+            (a, b) if a == b => Classes(self.0 | other.0),
+            _ => Classes((self.0 | other.0) & !never),
+        }
     }
 
     fn rows(self) -> impl Iterator<Item = &'static Class> {
