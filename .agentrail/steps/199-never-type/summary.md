@@ -1,0 +1,1 @@
+Never class in xetal-ty; P_ANIC/S_IGNAL return Never; printing; result rule; spec
