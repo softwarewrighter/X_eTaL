@@ -1,8 +1,9 @@
 number = 150
 slug = "asks-grid-numbers"
-status = "pending"
+status = "completed"
 description = "Implement []G_RID drawing numbers in cells with a chosen, typed colour scale ..."
 role = "production"
 context_files = []
 created_at = "2026-10-03T12:59:23"
-commits = []
+completed_at = "2026-11-19T17:49:45"
+commits = ["f2f3c941f93a3736f1e4c40d983f2a3b6976482b"]
