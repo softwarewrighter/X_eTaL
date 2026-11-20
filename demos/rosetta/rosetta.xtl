@@ -13,7 +13,7 @@
 "st:" u_se< "Stone"
 "v:" u_se< "Svg"
 
-data := "demos/rosetta/data.toml"
+data := "data.toml"
 idioms := data []L_IST "idioms"
 idiomNames := data []L_IST "idiom_names"
 languages := data []L_IST "languages"

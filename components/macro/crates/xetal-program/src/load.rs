@@ -37,6 +37,7 @@ pub(crate) fn lowered(expanded: Result<Sources, Box<MacroError>>) -> Result<Load
         }
     })?;
     let program = xetal_core::lower(sources.combined()).map_err(|d| located(&sources, d))?;
+    xetal_store::set_origins(sources.origins());
     Ok(Loaded { sources, program })
 }
 

@@ -19,6 +19,23 @@
 # repository should act on; it is printed after the summary.
 
 [[notice]]
+title = "data files are found beside the program that names them (QD9)"
+breaking = true
+since = "step 196, 2026-11-19"
+fix = "a `[]T_ABLE` or `[]L_IST` path written from the working directory (`\"games/capitals/world.toml\"`) is written from the program's own folder (`\"world.toml\"`); `-e` text and absolute paths are unchanged."
+text = """
+`[]T_ABLE` and `[]L_IST` find a relative path beside the file that
+names it, as `@ i_nclude<` already did, so a program reads its data
+from any working directory. A program that named its data from the
+repository's root (`"games/capitals/world.toml"`) names it from its
+own folder (`"world.toml"`); `-e` text and absolute paths are as
+before, and `[]N_GET` and `[]N_PUT` stay relative to the working
+directory. A page that puts a data file in xetal-store's memory store
+names it as the program does (the live demo's Rosetta stone now gives
+`data.toml`).
+"""
+
+[[notice]]
 title = "a function returning a comparison's number is Int (T10)"
 breaking = true
 since = "step 197, 2026-11-19"
@@ -581,9 +598,10 @@ here = "Saga 37, xtln (step xtln-table: `[]T_ABLE` and a general reader over `.x
 [[ask]]
 id = "G13"
 repo = "X_eTaL-games"
+golden = "data-path-beside"
 ask = "`[]T_ABLE` and `[]L_IST` read a path relative to the working directory, `i_nclude<` relative to the file"
-state = "planned"
-here = "decided (QD9, 2026-11-17): `[]T_ABLE`, `[]L_IST` and `[]V_IEW` read a path relative to the file that names it, as `i_nclude<` does; step 196 (data-paths), a breaking change"
+state = "landed"
+here = "2026-11-19 (QD9, step 196): `[]T_ABLE` and `[]L_IST` find a relative path beside the file that names it, as `i_nclude<` does (`-e` text from the working directory); a breaking change (golden data-path-beside)"
 
 [[ask]]
 id = "G14"

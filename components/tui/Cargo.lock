@@ -2545,6 +2545,7 @@ dependencies = [
  "xetal-macro",
  "xetal-notations",
  "xetal-sources",
+ "xetal-store",
  "xetal-system",
  "xetal-types",
 ]

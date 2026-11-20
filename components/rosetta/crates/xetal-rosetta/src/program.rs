@@ -1,7 +1,7 @@
 //! The program and its files, built into the page, and the request
 //! that runs it: the worker finds `Stone.xtl` and `Comparison.xtl` in
 //! the files it is given (as `u_se<` looks beside the program) and
-//! reads `demos/rosetta/data.toml` through them too.
+//! reads `data.toml` (beside the program, QD9) through them too.
 
 use xetal_runner::{Mode, Request};
 
@@ -48,7 +48,7 @@ pub fn request() -> Request {
         files: vec![
             ("Stone.xtl".into(), STONE.into()),
             ("Comparison.xtl".into(), COMPARISON.into()),
-            ("demos/rosetta/data.toml".into(), DATA.into()),
+            ("data.toml".into(), DATA.into()),
         ],
     }
 }

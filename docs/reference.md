@@ -1672,7 +1672,10 @@ v .>.     .>-----.   |
 A top-level list of strings in a TOML file, as boxed texts: `"file"
 []L_IST "name"`. Strings only, and nothing in the file is run; a
 missing list, a value that is not a list of strings, or a file that is
-not TOML is error[bad-table], naming the file and the key.
+not TOML is error[bad-table], naming the file and the key. A relative
+path is found beside the file that names it (from the working
+directory for `-e` text, as here), so a program reads its data from
+anywhere.
 
 ```
       "reg/fixtures/table.toml" []L_IST "cols"

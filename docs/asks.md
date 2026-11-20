@@ -15,12 +15,24 @@ build already does what the ask wants.
 | ---------- | ------ | ------------- | ------- | -------- | --- |
 | X_eTaL-demos | 13 | 2 | 3 | 1 | 2 |
 | X_eTaL-ML | 13 | 1 | 5 | 1 | 0 |
-| X_eTaL-games | 14 | 3 | 4 | 1 | 1 |
+| X_eTaL-games | 15 | 3 | 3 | 1 | 1 |
 | X_eTaL-libraries | 11 | 2 | 2 | 3 | 0 |
 | X_eTaL-extensions | 4 | 1 | 2 | 0 | 1 |
 | X_eTaL-gpu | 0 | 0 | 3 | 1 | 4 |
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
-| All | 55 | 9 | 23 | 8 | 13 |
+| All | 56 | 9 | 22 | 8 | 13 |
+
+## Notice: data files are found beside the program that names them (QD9)
+
+`[]T_ABLE` and `[]L_IST` find a relative path beside the file that
+names it, as `@ i_nclude<` already did, so a program reads its data
+from any working directory. A program that named its data from the
+repository's root (`"games/capitals/world.toml"`) names it from its
+own folder (`"world.toml"`); `-e` text and absolute paths are as
+before, and `[]N_GET` and `[]N_PUT` stay relative to the working
+directory. A page that puts a data file in xetal-store's memory store
+names it as the program does (the live demo's Rosetta stone now gives
+`data.toml`).
 
 ## Notice: a function returning a comparison's number is Int (T10)
 
@@ -210,7 +222,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | G10 | `m_ember?` of a long vector against a long vector (207360 against 20000: 13 s) | landed | 2026-11-17 (step 195): `m_ember?` hashes when both sides hold only numbers and characters, keeping `=`'s exact equality (other items, NaN, and Floats beside Ints beyond 2^53 compare as before); 207360 against 20000 takes 0.09 s, from 8.4 s (xetal-search tests/member.rs) | - |
 | G11 | Star Trek's scripted game went from 15 ms to 42 ms since f823212 | new | not yet measured here (under the games' bench allowance); Saga 30's performance gates do not cover it | - |
 | G12 | numbers in data files: `[]L_IST` and `[]T_ABLE` give strings only | planned | Saga 37, xtln (step xtln-table: `[]T_ABLE` and a general reader over `.xtln`) | - |
-| G13 | `[]T_ABLE` and `[]L_IST` read a path relative to the working directory, `i_nclude<` relative to the file | planned | decided (QD9, 2026-11-17): `[]T_ABLE`, `[]L_IST` and `[]V_IEW` read a path relative to the file that names it, as `i_nclude<` does; step 196 (data-paths), a breaking change | - |
+| G13 | `[]T_ABLE` and `[]L_IST` read a path relative to the working directory, `i_nclude<` relative to the file | landed | 2026-11-19 (QD9, step 196): `[]T_ABLE` and `[]L_IST` find a relative path beside the file that names it, as `i_nclude<` does (`-e` text from the working directory); a breaking change (golden data-path-beside) | golden `data-path-beside` |
 | G14 | a clearer message for a half-written library: also say "or define an `l:` name to make this file a library" | partly landed | PN3, PN4 (D121): run on its own the file says `write u:h_elp (the program's) or h:h_elp (a helper)`; imported, `library Half exports nothing; mark its exports with l:` | - |
 | G15 | fast paths for array idioms: raze, hashed membership, mix, linear number parsing, a matrix-product kernel | partly landed | linear number parsing landed (`n_umbers`, ask G9); mix landed (A9, `m_ix`, step 147); hashed membership landed (G10); the matrix-product kernel in Saga 22 (G8); raze and hashed membership (G10) not yet planned | - |
 | G16 | a library that fails to parse is reported at the import as `not-exported` with an empty list | landed | checked 2026-10-07 at 8f006d6: the import reports the library's own error, located in it (`error[bad-quote]: ... at ./L.xtl:1:18`) | - |

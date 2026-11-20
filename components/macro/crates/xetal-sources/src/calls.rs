@@ -58,3 +58,15 @@ impl Sources {
         Some(site)
     }
 }
+
+impl Sources {
+    /// Where each part of the combined text starts and the name of the
+    /// file it was written in, in order (QD9: data paths are found
+    /// beside the file that names them).
+    pub fn origins(&self) -> Vec<(usize, String)> {
+        self.pieces
+            .iter()
+            .map(|p| (p.at, self.name(p.file).to_string()))
+            .collect()
+    }
+}

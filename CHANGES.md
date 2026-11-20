@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-19
 
+- 14:30 `feat` Data files beside the program (QD9, step 196, D208; X_eTaL-games' ask G13): `[]T_ABLE` and `[]L_IST` find a relative path beside the file that names it, so a program reads its data from any directory; the Rosetta stone and the table fixture name their data from their own folders. New golden data-path-beside; a breaking notice for the siblings.
+- 13:25 `chore` Step 171 (macro-alias) closed.
 - 13:20 `feat` A macro names its own library as `m:` (MC33, step 171, D207; asks M11, X14): the text a library macro gives has `m:` written as the alias its caller imported the library under, so a `.xtlm` can call its own `.xtl` half whatever the alias; strings keep `m:`. New golden macro-alias; the README says how.
 - 12:20 `chore` Step 200 (unreachable-macro) closed.
 - 12:15 `feat` `@ u_nreachable< @` (MC35, step 200, D206; the user): a system macro for a branch that cannot be reached, typed Never, stopping with `error[unreachable]: entered unreachable code` and the message, if any. Spec cases unreachable, unreachable-reached, unreachable-bare; the goldens doc-site-system and system-library-types rebased on purpose; the README lists it.

@@ -37,10 +37,11 @@ fn pair(v: &Value<'_>, what: &str) -> Result<(String, String), Diagnostic> {
     }
 }
 
-/// The file parsed as TOML, or an error naming it.
-fn parsed(file: &str) -> Result<toml::Table, Diagnostic> {
-    let source =
-        xetal_store::read(file).map_err(|e| Diagnostic::new("io", format!("[]T_ABLE: {e}")))?;
+/// The file parsed as TOML, or an error naming it; a relative path is
+/// found beside the file that names it, at offset `at` (QD9).
+fn parsed(file: &str, at: usize) -> Result<toml::Table, Diagnostic> {
+    let source = xetal_store::read(&xetal_store::beside(file, at))
+        .map_err(|e| Diagnostic::new("io", format!("[]T_ABLE: {e}")))?;
     source
         .parse::<toml::Table>()
         .map_err(|e| Diagnostic::new("bad-table", format!("{file}: {}", e.message())))
@@ -76,19 +77,27 @@ fn boxed<'a>(texts: impl Iterator<Item = String>) -> Vec<Value<'a>> {
 }
 
 /// `"file" []L_IST "name"`.
-pub(crate) fn list<'a>(file: &Value<'a>, key: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
+pub(crate) fn list<'a>(
+    file: &Value<'a>,
+    key: &Value<'a>,
+    at: usize,
+) -> Result<Value<'a>, Diagnostic> {
     let (file, key) = (text(file)?, text(key)?);
-    let items = strings(&parsed(&file)?, &file, &key)?;
+    let items = strings(&parsed(&file, at)?, &file, &key)?;
     Ok(xetal_value::to_value(xetal_array::Array::vector(boxed(
         items.into_iter(),
     ))))
 }
 
 /// `("file" "name") []T_ABLE ("rows" "cols")`: the cells row by row.
-pub(crate) fn table<'a>(what: &Value<'a>, axes: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
+pub(crate) fn table<'a>(
+    what: &Value<'a>,
+    axes: &Value<'a>,
+    at: usize,
+) -> Result<Value<'a>, Diagnostic> {
     let (file, name) = pair(what, "[]T_ABLE's left")?;
     let (rows, cols) = pair(axes, "[]T_ABLE's right")?;
-    let doc = parsed(&file)?;
+    let doc = parsed(&file, at)?;
     let (rows, cols) = (strings(&doc, &file, &rows)?, strings(&doc, &file, &cols)?);
     let bad = |why: String| Diagnostic::new("bad-table", format!("{file}: {name}: {why}"));
     let table = doc

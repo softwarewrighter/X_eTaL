@@ -20,8 +20,8 @@ pub fn call<'a>(
     span: Span,
 ) -> Option<Result<Value<'a>, Diagnostic>> {
     let result = match (name, args) {
-        ("[]L_IST", [file, key]) => read::list(file, key),
-        ("[]T_ABLE", [what, axes]) => read::table(what, axes),
+        ("[]L_IST", [file, key]) => read::list(file, key, span.start),
+        ("[]T_ABLE", [what, axes]) => read::table(what, axes, span.start),
         _ => return None,
     };
     Some(result.map_err(|d| d.with_span(span)))
