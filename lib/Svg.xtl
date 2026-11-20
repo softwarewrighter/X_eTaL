@@ -196,6 +196,23 @@ l:p_icture := { wh elements ->
 ## <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2" width="2" height="2" role="img"><defs><clipPath/></defs><rect/></svg>
 l:p_ictureWith := { wh parts -> wh l:p_icture "<defs>" c_at (d_isclose 1 s_elect parts) c_at "</defs>" c_at d_isclose 2 s_elect parts }
 
+### Scales
+
+## The gray scale for []N_GRID: the least number light, the greatest
+## dark.
+l:GRAY := []S_CALE 1
+
+## The heat scale for []N_GRID (the one []G_RID colors numbers by): the
+## least number dark purple, the greatest yellow.
+l:HEAT := []S_CALE 2
+
+## The diverging scale for []N_GRID: negative numbers blue, 0 white,
+## positive red, centered on 0.
+## >> "v:" u_se< "Svg"
+## >> t_ally v:DIVERGING []N_GRID -1 0 1
+## 826
+l:DIVERGING := []S_CALE 3
+
 ### Private helpers
 
 ## One character escaped for SVG text and attributes.

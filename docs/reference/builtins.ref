@@ -752,6 +752,11 @@ Color n (1 to 8: black, red, green, yellow, blue, magenta, cyan,
 white), for the Terminal library, which names them (`t:RED`).
 > []C_OLOR 2
 
+== []S_CALE
+Color scale n for `[]N_GRID` (1 gray, 2 heat, 3 diverging), for the
+Svg library, which names them (`v:HEAT`).
+> []S_CALE 3
+
 == []F_G
 Text in a foreground color: the text wrapped in the codes a terminal
 (or the live demo's grid) colors it with; print it to see it. Here,
@@ -924,6 +929,14 @@ colored from the least (dark purple) to the greatest (yellow);
 characters are drawn in their cells. A frame of more than 64 by 64
 numbers is drawn as an image, a pixel per cell.
 > []G_RID 1 0
+
+== []N_GRID
+Numbers on a grid, returned as SVG text: `s []N_GRID m` lays out a
+vector, matrix or frames as `[]G_RID` does, fills each cell from the
+color scale s (gray light to dark, heat dark purple to yellow,
+diverging blue through white to red around 0) and writes its number
+in it, in dark ink on a light fill and light ink on a dark one.
+> ([]S_CALE 1) []N_GRID 0 9
 
 == []P_ATH
 Points as a picture, returned as SVG text: 2 rows, x over y, joined in

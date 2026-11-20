@@ -1775,6 +1775,18 @@ white), for the Terminal library, which names them (`t:RED`).
 RED
 ```
 
+### `[]S_CALE`
+
+`Int -> Scale`, one argument.
+
+Color scale n for `[]N_GRID` (1 gray, 2 heat, 3 diverging), for the
+Svg library, which names them (`v:HEAT`).
+
+```
+      []S_CALE 3
+DIVERGING
+```
+
 ### `[]F_G`
 
 `Color -> Char -> Char`, two arguments.
@@ -2150,6 +2162,28 @@ numbers is drawn as an image, a pixel per cell.
 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24" role="img">
 <rect width="48" height="24" fill="#f8fafc"/>
 <rect x="0" y="0" width="24" height="24" fill="#1f2937"/>
+<path d="M0 0H48M0 24H48M0 0V24M24 0V24M48 0V24" stroke="#cbd5e1" stroke-width="1" fill="none"/>
+</svg>
+```
+
+### `[]N_GRID`
+
+`Num a => Scale -> a -> Char`, two arguments.
+
+Numbers on a grid, returned as SVG text: `s []N_GRID m` lays out a
+vector, matrix or frames as `[]G_RID` does, fills each cell from the
+color scale s (gray light to dark, heat dark purple to yellow,
+diverging blue through white to red around 0) and writes its number
+in it, in dark ink on a light fill and light ink on a dark one.
+
+```
+      ([]S_CALE 1) []N_GRID 0 9
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24" role="img">
+<rect width="48" height="24" fill="#f8fafc"/>
+<rect x="0" y="0" width="24" height="24" fill="#f8fafc"/>
+<text x="12" y="12" font-family="monospace" font-size="11" fill="#1f2937" text-anchor="middle" dominant-baseline="central">0</text>
+<rect x="24" y="0" width="24" height="24" fill="#1f2937"/>
+<text x="36" y="12" font-family="monospace" font-size="11" fill="#f8fafc" text-anchor="middle" dominant-baseline="central">9</text>
 <path d="M0 0H48M0 24H48M0 0V24M24 0V24M48 0V24" stroke="#cbd5e1" stroke-width="1" fill="none"/>
 </svg>
 ```

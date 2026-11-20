@@ -6,6 +6,7 @@
 pub mod anim;
 pub mod model;
 pub mod palette;
+pub mod scales;
 pub mod svg;
 
 pub use model::{Cells, DrawError, Layout};

@@ -3,8 +3,8 @@
 use xetal_base::{Diagnostic, Span};
 use xetal_value::Value;
 
-use crate::draw::{grid, path, show};
-use crate::files::{get, put, read};
+use crate::draw::{grid, path};
+use crate::files::{get, put, read, show};
 use crate::text::{format, numbers};
 
 /// Call the system built-in `name` on its arguments, if it is one.
@@ -39,6 +39,7 @@ pub fn call<'a>(
             xetal_tty::facts().iter().map(|i| Value::Int(*i)).collect(),
         ))),
         ("[]G_RID", [a]) => grid(a).map_err(at),
+        ("[]N_GRID", [Value::Tag(_, s), a]) => crate::draw::numbered(*s, a).map_err(at),
         ("[]P_ATH", [xy]) => path(xy).map_err(at),
         ("[]S_HOW", [svg]) => show(svg).map_err(at),
         _ => return None,

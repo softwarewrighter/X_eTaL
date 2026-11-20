@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-19
+
+- 09:40 `feat` Numbers on a grid (QD8, step 150, D203; X_eTaL-games' ask G2): `s []N_GRID m` draws a board with each cell filled from a color scale and its number written in readable ink; a new enumerated type `Scale` (`[]S_CALE`, named `v:GRAY`, `v:HEAT`, `v:DIVERGING` in the Svg library). Spec cases number-grid, reject-number-grid-chars, reject-scale-range; reference entries.
+
 ## 2026-11-18
 
 - 09:25 `docs` The live demo's screenshot retaken after publishing.

@@ -1,4 +1,4 @@
-//! Text files and the keyboard. These are effects, so a program runs
+//! Text files, the keyboard and showing a picture. These are effects, so a program runs
 //! them only when it is run (never on a keystroke in the editor).
 
 use xetal_base::Diagnostic;
@@ -35,4 +35,12 @@ pub(crate) fn read<'a>() -> Result<Value<'a>, Diagnostic> {
     xetal_store::read_line()
         .map(|line| text(&line))
         .map_err(|e| io(e, "[]R_EAD"))
+}
+
+/// `[]S_HOW svg`: show the picture (numbered files on the command line,
+/// the Draw pane in the browser) and return it.
+pub(crate) fn show<'a>(v: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
+    let svg = chars(v)?;
+    xetal_store::show(&svg).map_err(|e| Diagnostic::new("io", format!("[]S_HOW: {e}")))?;
+    Ok(v.clone())
 }

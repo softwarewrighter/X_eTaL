@@ -7,7 +7,7 @@ use std::rc::Rc;
 
 use xetal_array::Array;
 use xetal_base::{Diagnostic, Span};
-use xetal_value::{COLORS, KEYS, Value, as_array};
+use xetal_value::{COLORS, KEYS, SCALES, Value, as_array};
 
 type Out<'a> = Result<Value<'a>, Diagnostic>;
 
@@ -23,6 +23,7 @@ pub(crate) fn call<'a>(name: &str, args: &[Value<'a>], span: Span) -> Option<Out
             place(rc, span).and_then(|(r, c)| wrap(format!("\x1b[{r};{c}H"), t, ""))
         }
         ("[]C_OLOR", [n]) => tag("Color", COLORS.len(), n, span),
+        ("[]S_CALE", [n]) => tag("Scale", SCALES.len(), n, span),
         ("[]K_NAMED", [n]) => tag("Key", KEYS.len(), n, span),
         ("[]K_CHAR", [Value::Tag(_, k)]) => Ok(text(&key_char(*k))),
         _ => return None,

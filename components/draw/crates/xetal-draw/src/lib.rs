@@ -6,10 +6,12 @@
 //! The pieces (colors, SVG elements, frames) are in `xetal-svg`.
 
 mod grid;
+mod numbered;
 mod path;
 mod raster;
 
 pub use grid::grid;
+pub use numbered::numbered;
 pub use path::path;
 pub use raster::RASTER_CELLS;
 pub use xetal_svg::{Cells, DrawError};

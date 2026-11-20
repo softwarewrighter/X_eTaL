@@ -32,7 +32,7 @@ pub enum Type {
 
 /// The built-in nominal types (QD6, ER2); Saga 29 makes the enumerated
 /// ones ordinary declarations.
-pub const ENUMS: [&str; 4] = ["Color", "Key", "Error", "Event"];
+pub const ENUMS: [&str; 5] = ["Color", "Key", "Error", "Event", "Scale"];
 
 /// A polymorphic type: `forall vars. ty`, with the variables that must
 /// be numbers (`Num`) or usable as conditions (`Truthy`).

@@ -18,10 +18,10 @@ conventions (naming, layout) work without a spec case citing them.
 
 | What | Works | Partial | Planned |
 | ---- | ----- | ------- | ------- |
-| Built-in functions | 137 | 0 | 0 |
-| Language decisions | 174 | 0 | 3 |
+| Built-in functions | 139 | 0 | 0 |
+| Language decisions | 176 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 513 | 0 | 0 |
+| Spec cases | 516 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -142,6 +142,7 @@ conventions (naming, layout) work without a spec case citing them.
 | `[]E_AT` | `Event -> Float` | works | 0 | 1 |
 | `[]E_KEY` | `Event -> Key` | works | 0 | 2 |
 | `[]C_OLOR` | `Int -> Color` | works | 1 | 1 |
+| `[]S_CALE` | `Int -> Scale` | works | 3 | 1 |
 | `[]F_G` | `Color -> Char -> Char` | works | 2 | 1 |
 | `[]B_G` | `Color -> Char -> Char` | works | 0 | 1 |
 | `[]B_OLD` | `Char -> Char` | works | 0 | 1 |
@@ -167,6 +168,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Name | Type | State | Spec cases | Reference examples |
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `[]G_RID` | `Eq a => a -> Char` | works | 2 | 1 |
+| `[]N_GRID` | `Num a => Scale -> a -> Char` | works | 2 | 1 |
 | `[]P_ATH` | `Num a => a -> Char` | works | 2 | 1 |
 | `[]S_HOW` | `Char -> Char` | works | 1 | 1 |
 
@@ -301,7 +303,7 @@ conventions (naming, layout) work without a spec case citing them.
 | TR4 | A train's arity comes from where it is written: `[F G H] x` is monadic, `x [F G H] y` dyadic | works | 0 |
 | TR3 | Longer trains group from the right into forks: `[A B C D E]` is `[A B [C D E]]` | works | 2 |
 | G1 | Branching uses APL dfn-style guards inside lambdas: a statement `condition ? result` returns `result` from (...) | works | 5 |
-| G2 | A guard's condition must be a scalar Bool (or Int 1 / 0, per T1); an array condition is an error | works | 2 |
+| G2 | A guard's condition must be a scalar Bool (or Int 1 / 0, per T1); an array condition is an error | works | 3 |
 | S1 | Binding is `:=` (`x := 3`); `=` is always equality | works | 2 |
 | S2 | A newline separates statements at the top level and inside `{ }`; inside `( )` and `[ ]` it is whitespace | works | 2 |
 | S3 | `;` separates statements on one line (APL's diamond), at the top level and inside `{ }`; it is an error (...) | works | 2 |
@@ -324,6 +326,7 @@ conventions (naming, layout) work without a spec case citing them.
 | T8 | Comparisons: `=` and `!=` work on two values of any one scalar type (numbers compare exactly across Int (...) | works | 4 |
 | T9 | An array remembers the kind of its items (character, number, box) even when it is empty, as APL2's (...) | works | 4 |
 | T10 | A comparison's open result type is settled at a top-level definition (X_eTaL-libraries' ask X17): when a (...) | works | 0 |
+| T11 | A `Never` type, as Rust's `!` (the user, 2026-11-17): the type of an expression that never gives a value: (...) | works | 0 |
 | T4 | Type annotations: none in v0 (types are inferred) | works | 1 |
 | M1 | Values are immutable | works | 14 |
 | M2 | Mutation is an explicit escape hatch: only variables named with a trailing `!` may be reassigned in place (...) | works | 3 |
@@ -393,7 +396,7 @@ conventions (naming, layout) work without a spec case citing them.
 | QD6 | A terminal for interactive programs (asked for by X_eTaL-games): screen control is named, typed system (...) | works | 2 |
 | QD5 | Graphics, decided with the user for the classics lane: programs compute what to draw as ordinary arrays, (...) | works | 5 |
 | QD7 | One static type per quad name: `[]U_CS` is `Char -> Int` (the code of each character) and `[]U_CHAR` is (...) | works | 6 |
-| QD8 | Numbers drawn on a grid (X_eTaL-games' ask G2): `s []N_GRID m` draws a number vector or matrix as (...) | works | 0 |
+| QD8 | Numbers drawn on a grid (X_eTaL-games' ask G2): `s []N_GRID m` draws a number vector or matrix as (...) | works | 3 |
 | QD9 | Paths read by `[]T_ABLE`, `[]L_IST` and `[]V_IEW` resolve against the folder of the file that names them, (...) | works | 0 |
 | MC1 | A macro phase runs between the lexer and the parser | works | 0 |
 | MC2 | A macro is a function-shaped name ending in `<` ("slurp in"): `u_se<` | works | 2 |
@@ -419,7 +422,8 @@ conventions (naming, layout) work without a spec case citing them.
 | MC24 | Which macros are system macros: a macro is a system macro (in `lib/System.xtlm` under `s:`, called (...) | works | 9 |
 | MC25 | The compiler-only system macros, each with `@` for a side that takes nothing: `@ l_ine< @` (the call's (...) | works | 0 |
 | MC26 | `@ d_bg< "expr"` (Rust's `dbg!`) is a system macro: the value of `expr`, after writing `[file:line] expr = (...) | works | 0 |
-| MC27 | `"cond" a_ssert< "message"` (or `@` for no message) reports and goes on: when the condition does not hold (...) | works | 1 |
+| MC27 | (Renamed `c_heck<` by MC34.) `"cond" a_ssert< "message"` (or `@` for no message) reports and goes on: when (...) | works | 1 |
+| MC34 | Checking and asserting are two macros (the user, 2026-11-17; replaces MC27's name): `"cond" c_heck< (...) | works | 0 |
 | MC28 | `@ f_ormat< "x = {x}"` (Rust's `format!`) interpolates: each `{expr}` holds any expression (it ends at the (...) | works | 0 |
 | MC29 | `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...) | planned | 0 |
 | MC30 | Hygiene is by choice, as in Common Lisp, not automatic as in Scheme (changed with the user, 2026-10-12; (...) | works | 8 |

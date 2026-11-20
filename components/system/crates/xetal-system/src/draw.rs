@@ -1,13 +1,13 @@
 //! Graphics (QD5): `[]G_RID` draws an array as a grid and `[]P_ATH`
-//! points as a path, each an SVG document returned as text, and
-//! `[]S_HOW` hands a picture to the host. Drawing is pure;
-//! showing is the one effect.
+//! points as a path, `[]N_GRID` numbers on a grid (QD8), each an SVG
+//! document returned as text. Drawing is pure; showing (`[]S_HOW`) is
+//! an effect, with the files.
 
 use xetal_base::Diagnostic;
 use xetal_draw::Cells;
 use xetal_value::{Value, as_array};
 
-use crate::text::{chars, text};
+use crate::text::text;
 
 /// `[]G_RID a`: a scalar, vector or matrix as a grid of cells, a rank-3
 /// array as frames shown in turn; the SVG as a Char vector.
@@ -19,6 +19,17 @@ pub(crate) fn grid<'a>(v: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
         .map_err(|e| Diagnostic::new(e.code(), format!("[]G_RID: {}", e.message())))
 }
 
+/// `s []N_GRID a`: numbers on a grid, each cell filled from the scale
+/// s and its number written in it (QD8).
+pub(crate) fn numbered<'a>(scale: u32, v: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
+    let a = as_array(v);
+    let v: Vec<f64> = a.data().iter().map(number_of).collect::<Result<_, _>>()?;
+    let texts: Vec<String> = a.data().iter().map(|x| x.to_string()).collect();
+    xetal_draw::numbered(a.shape(), &v, &texts, scale)
+        .map(|svg| text(&svg))
+        .map_err(|e| Diagnostic::new(e.code(), format!("[]N_GRID: {}", e.message())))
+}
+
 /// `[]P_ATH xy`: points, 2 rows (x over y), joined in order and fitted
 /// into the picture; a rank-3 array is frames of such paths.
 pub(crate) fn path<'a>(v: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
@@ -27,14 +38,6 @@ pub(crate) fn path<'a>(v: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
     xetal_draw::path(a.shape(), &coords)
         .map(|svg| text(&svg))
         .map_err(|e| Diagnostic::new(e.code(), format!("[]P_ATH: {}", e.message())))
-}
-
-/// `[]S_HOW svg`: show the picture (numbered files on the command line,
-/// the Draw pane in the browser) and return it.
-pub(crate) fn show<'a>(v: &Value<'a>) -> Result<Value<'a>, Diagnostic> {
-    let svg = chars(v)?;
-    xetal_store::show(&svg).map_err(|e| Diagnostic::new("io", format!("[]S_HOW: {e}")))?;
-    Ok(v.clone())
 }
 
 /// The items as numbers (Bool and Int too) or as characters.

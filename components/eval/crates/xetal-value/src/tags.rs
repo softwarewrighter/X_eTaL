@@ -15,6 +15,9 @@ pub const COLORS: [&str; 8] = [
     "BLACK", "RED", "GREEN", "YELLOW", "BLUE", "MAGENTA", "CYAN", "WHITE",
 ];
 
+/// The color scales of `[]N_GRID` (QD8), index 0 to 2.
+pub const SCALES: [&str; 3] = ["GRAY", "HEAT", "DIVERGING"];
+
 /// The named keys, index 0 to 10.
 pub const KEYS: [&str; 11] = [
     "UP",
@@ -36,7 +39,11 @@ const PRINTING: u32 = 0x100;
 /// The name a value of `ty` with index `i` prints as: its name, or a
 /// printing key's character.
 pub fn name(ty: &str, i: u32) -> String {
-    let table: &[&str] = if ty == "Color" { &COLORS } else { &KEYS };
+    let table: &[&str] = match ty {
+        "Color" => &COLORS,
+        "Scale" => &SCALES,
+        _ => &KEYS,
+    };
     match table.get(i as usize) {
         Some(n) => (*n).to_string(),
         None if ty == "Key" => {

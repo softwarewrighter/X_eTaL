@@ -1,0 +1,9 @@
+# Scale has three values, 1 to 3 (QD8).
+== SOURCE
+[]S_CALE 4
+== ERROR
+error[domain]: Scale has values 1 to 3, not 4
+ --> -e:1:1
+  |
+1 | []S_CALE 4
+  | ^^^^^^^^^^

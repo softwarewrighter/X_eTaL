@@ -44,6 +44,18 @@ pub fn glyph(r: usize, c: usize, ch: char) -> String {
     )
 }
 
+/// Text centered in the cell at row r, column c, in the color `ink`,
+/// small enough for a few digits.
+pub fn label(r: usize, c: usize, text: &str, ink: &str) -> String {
+    let (x, y) = (c * CELL + CELL / 2, r * CELL + CELL / 2);
+    let size = if text.chars().count() > 3 { 8 } else { 11 };
+    let text: String = text.chars().map(escape).collect();
+    format!(
+        "<text x=\"{x}\" y=\"{y}\" font-family=\"monospace\" font-size=\"{size}\" \
+         fill=\"{ink}\" text-anchor=\"middle\" dominant-baseline=\"central\">{text}</text>\n"
+    )
+}
+
 fn escape(ch: char) -> String {
     match ch {
         '&' => "&amp;".into(),

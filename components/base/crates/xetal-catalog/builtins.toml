@@ -121,6 +121,7 @@ entries = [
   ["[]E_AT", 1, "Event -> Float"],
   ["[]E_KEY", 1, "Event -> Key"],
   ["[]C_OLOR", 1, "Int -> Color"],
+  ["[]S_CALE", 1, "Int -> Scale"],
   ["[]F_G", 2, "Color -> Char -> Char"],
   ["[]B_G", 2, "Color -> Char -> Char"],
   ["[]B_OLD", 1, "Char -> Char"],
@@ -146,6 +147,7 @@ entries = [
 rule = "QD5: graphics (pure SVG builders, one effect)"
 entries = [
   ["[]G_RID", 1, "Eq a => a -> Char"],
+  ["[]N_GRID", 2, "Num a => Scale -> a -> Char"],
   ["[]P_ATH", 1, "Num a => a -> Char"],
   ["[]S_HOW", 1, "Char -> Char"],
 ]

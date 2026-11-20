@@ -1,0 +1,13 @@
+# []N_GRID draws numbers; characters are a type error (QD8).
+== SOURCE
+([]S_CALE 1) []N_GRID "ab"
+== ERROR
+error[type-mismatch]: expected a number, found Char
+ --> -e:1:2
+  |
+1 | ([]S_CALE 1) []N_GRID "ab"
+  |  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |  ---------- `[]S_CALE` always gives a Scale
+  |                       ---- a string: a vector of Char
+  = note: `[]N_GRID` has type Num a => Scale -> a -> Char
+  = help: a string is text, not a number: write a number without quotes
