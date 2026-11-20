@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-19
 
+- 13:20 `feat` A macro names its own library as `m:` (MC33, step 171, D207; asks M11, X14): the text a library macro gives has `m:` written as the alias its caller imported the library under, so a `.xtlm` can call its own `.xtl` half whatever the alias; strings keep `m:`. New golden macro-alias; the README says how.
+- 12:20 `chore` Step 200 (unreachable-macro) closed.
 - 12:15 `feat` `@ u_nreachable< @` (MC35, step 200, D206; the user): a system macro for a branch that cannot be reached, typed Never, stopping with `error[unreachable]: entered unreachable code` and the message, if any. Spec cases unreachable, unreachable-reached, unreachable-bare; the goldens doc-site-system and system-library-types rebased on purpose; the README lists it.
 - 11:45 `chore` Step 199 (never-type) closed.
 - 11:40 `feat` The `Never` type (T11, step 199, D205; the user): `[]P_ANIC` and `[]S_IGNAL` give Never, a function that only stops (or loops with no way out) is shown returning Never (`u:f_ail : Char -> Never`), and a Never branch fits beside any other. Spec cases never and never-stops; the reference entries.

@@ -1,0 +1,6 @@
+## Twice's macros. t_wice< writes a call of the library's own d_ouble as
+## m:d_ouble; the call gets whatever alias its caller imports Twice
+## under (MC33). n_amed< gives the name as text, which stays as written.
+"tw:" u_se< "Twice.xtl"
+m:t_wice< := { @ x -> "m:d_ouble " c_at x }
+m:n_amed< := { @ _u -> "\"m:d_ouble\"" }

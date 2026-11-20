@@ -239,7 +239,8 @@ themselves written in X_eTaL in
 `e_rror<`), macro
 libraries of your own (`.xtlm` files: a macro is a function from the
 source text on either side of its call to the source that replaces
-it), and libraries imported with `u_se<`: the
+it; the text names the library's own functions as `m:`, which becomes
+whatever alias the caller imported the library under), and libraries imported with `u_se<`: the
 standard libraries `Stats`, `Combinators` (Smullyan's birds), `Maybe`,
 `TTTML` (a machine that learns tic-tac-toe), `Turtle` (turtle
 graphics as arrays), `Geometry3D` (points in space as arrays:

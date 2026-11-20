@@ -79,3 +79,26 @@ fn twice(code: &str, import: &Import) -> Diagnostic {
     };
     Diagnostic::new(code, message).with_span(import.span)
 }
+
+/// A macro library's text with its own prefix, `m:`, written as the
+/// alias its caller imported it under (MC33, as MC5 does for `l:`):
+/// `m:d_ouble` becomes `w:d_ouble` for a call of `w:t_wice<`. Strings
+/// and comments are tokens of their own and stay as written; text that
+/// does not lex is left for the caller's errors.
+pub(crate) fn aliased(text: String, alias: &str) -> String {
+    let Ok(tokens) = xetal_lex::lex(&text) else {
+        return text;
+    };
+    let mut out = String::with_capacity(text.len());
+    let mut at = 0;
+    for t in tokens {
+        if text[t.span.start..t.span.end].starts_with("m:") {
+            out.push_str(&text[at..t.span.start]);
+            out.push_str(alias);
+            out.push(':');
+            at = t.span.start + 2;
+        }
+    }
+    out.push_str(&text[at..]);
+    out
+}

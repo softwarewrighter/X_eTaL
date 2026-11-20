@@ -44,7 +44,10 @@ impl Macros for Table<'_> {
         };
         let text = self.libs.run_macro(&lib.sources, &run);
         call.fresh.set(run.fresh.get());
-        text
+        match call.ns {
+            Some(alias) => text.map(|t| crate::emit::aliased(t, alias)),
+            None => text,
+        }
     }
 
     fn contract(&self, call: &MacroCall) -> Contract {

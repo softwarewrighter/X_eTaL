@@ -1,0 +1,3 @@
+command = "./target/debug/xetal run reg/fixtures/macro-alias/use.xtl"
+exit_code = 0
+desc = "MC33: a macro library writes its own library's names as m:, rewritten to the alias the caller imported it under; a string keeps m: as written"

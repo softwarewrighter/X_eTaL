@@ -417,10 +417,11 @@ works = "2 4 6"
 
 [[ask]]
 id = "M11"
+golden = "macro-alias"
 repo = "X_eTaL-ML"
 ask = "a macro's text cannot name a library by the importer's alias (the same as X14's remaining half)"
-state = "planned"
-here = "decided (MC33, 2026-11-17): the macro library's own prefix in an expansion is rewritten to the importer's alias, as MC5 does for `l:`; step 171 (macro-alias)"
+state = "landed"
+here = "2026-11-19 (MC33, step 171): a macro's text names its own library as `m:` (`m:d_ouble`), rewritten to the alias the caller imported the library under, as MC5 does for `l:`; strings keep `m:` as written (golden macro-alias). Net can write `m:` where it wrote `nn:`"
 
 [[ask]]
 id = "M12"
@@ -766,10 +767,11 @@ works = "error[too-big]"
 
 [[ask]]
 id = "X14"
+golden = "macro-alias"
 repo = "X_eTaL-libraries"
 ask = "a `.xtlm` calling its own library's functions, or naming the importer's alias in its expansion"
-state = "partly landed"
-here = "MC23: a `.xtlm` imports its own `.xtl` by path; naming the importer's alias in an expansion is step 171 (macro-alias, with ask M11)"
+state = "landed"
+here = "MC23: a `.xtlm` imports its own `.xtl` by path; MC33 (step 171, 2026-11-19): its expansion names that library as `m:`, rewritten to the importer's alias"
 
 [[ask]]
 id = "X15"

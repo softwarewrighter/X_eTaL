@@ -32,7 +32,7 @@ Each notice's text is in `docs/asks.md`.
 - X11 (landed): what a macro may know while it expands (the platform, flags) and an include macro. Here: the macros lane's system macros: `@ c_fg< "cli"`, `@ i_nclude< "file"`, `--cfg NAME` (MC14-MC17, D76; in v0.1.0)
 - X12 (landed): a macro call with nothing on the left: `@ d_bg< "x"`. Here: the macros lane (MC14-MC17, D76): `@` stands for the empty side
 - X13 (landed): a macro reporting its own compile error at the call, with its own message. Here: `[]R_EJECT` (MC20, D76) and the system macro `e_rror<`
-- X14 (partly landed): a `.xtlm` calling its own library's functions, or naming the importer's alias in its expansion. Here: MC23: a `.xtlm` imports its own `.xtl` by path; naming the importer's alias in an expansion is step 171 (macro-alias, with ask M11)
+- X14 (landed): a `.xtlm` calling its own library's functions, or naming the importer's alias in its expansion. Here: MC23: a `.xtlm` imports its own `.xtl` by path; MC33 (step 171, 2026-11-19): its expansion names that library as `m:`, rewritten to the importer's alias
 - X17 (landed): a comparison's result has an open numeric type, so an export built on one infers a type the caller must fix. Here: 2026-11-19 (T10, step 197): a top-level function's result variable that is both a number and a condition, and appears in no argument, is settled to Int when the function is generalized, so `a_nd` is `Int -> Int -> Int`; a condition alone stays open (T1)
 - X18 (landed): a library that does not lex or parse is reported as exporting nothing (`library-exports-nothing`), hiding the real error. Here: step 089 (D130): the renamer reports a lexing error in the library's own file; parse errors already did
 

@@ -1,0 +1,2 @@
+## Twice: a library and its macros, imported under one alias.
+l:d_ouble := { x -> x * 2 }
