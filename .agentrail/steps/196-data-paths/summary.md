@@ -1,0 +1,1 @@
+[]T_ABLE/[]L_IST paths beside naming file via store origins; rosetta and fixture moved; golden; breaking notice; G13 landed
