@@ -1,0 +1,8 @@
+number = 201
+slug = "apl2-decisions"
+status = "pending"
+description = "The user (2026-11-19) agreed to decide APL2's missing primitives as one step,..."
+role = "production"
+context_files = []
+created_at = "2026-11-19T20:00:11"
+commits = []

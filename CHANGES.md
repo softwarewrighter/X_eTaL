@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-19
 
+- 14:50 `plan` APL2's missing primitives to decide in one step (step 201, apl2-decisions): without, enlist, find, grade down, deal, pick, depth proposed; domino and dyadic format to weigh; what is left out on purpose and why.
+- 14:35 `chore` Step 196 (data-paths) closed.
 - 14:30 `feat` Data files beside the program (QD9, step 196, D208; X_eTaL-games' ask G13): `[]T_ABLE` and `[]L_IST` find a relative path beside the file that names it, so a program reads its data from any directory; the Rosetta stone and the table fixture name their data from their own folders. New golden data-path-beside; a breaking notice for the siblings.
 - 13:25 `chore` Step 171 (macro-alias) closed.
 - 13:20 `feat` A macro names its own library as `m:` (MC33, step 171, D207; asks M11, X14): the text a library macro gives has `m:` written as the alias its caller imported the library under, so a `.xtlm` can call its own `.xtl` half whatever the alias; strings keep `m:`. New golden macro-alias; the README says how.
