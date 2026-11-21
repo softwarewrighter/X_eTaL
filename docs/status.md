@@ -21,7 +21,7 @@ conventions (naming, layout) work without a spec case citing them.
 | Built-in functions | 139 | 0 | 0 |
 | Language decisions | 177 | 0 | 3 |
 | Standard libraries | 8 | 0 | 0 |
-| Spec cases | 519 | 0 | 0 |
+| Spec cases | 525 | 0 | 0 |
 
 ## Planned (decided, not yet implemented)
 
@@ -78,8 +78,8 @@ conventions (naming, layout) work without a spec case citing them.
 | ---- | ---- | ----- | ---------- | ------------------ |
 | `=` | `(Eq a, Truthy b) => a -> a -> b` | works | 39 | 2 |
 | `!=` | `(Eq a, Truthy b) => a -> a -> b` | works | 6 | 1 |
-| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 18 | 1 |
-| `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 19 | 1 |
+| `<` | `(Ord a, Truthy b) => a -> a -> b` | works | 21 | 1 |
+| `>` | `(Ord a, Truthy b) => a -> a -> b` | works | 21 | 1 |
 | `<=` | `(Ord a, Truthy b) => a -> a -> b` | works | 12 | 1 |
 | `>=` | `(Ord a, Truthy b) => a -> a -> b` | works | 5 | 1 |
 | `e_q~` | `(Num a, Truthy b) => a -> a -> b` | works | 2 | 1 |
@@ -397,7 +397,7 @@ conventions (naming, layout) work without a spec case citing them.
 | QD5 | Graphics, decided with the user for the classics lane: programs compute what to draw as ordinary arrays, (...) | works | 5 |
 | QD7 | One static type per quad name: `[]U_CS` is `Char -> Int` (the code of each character) and `[]U_CHAR` is (...) | works | 6 |
 | QD8 | Numbers drawn on a grid (X_eTaL-games' ask G2): `s []N_GRID m` draws a number vector or matrix as (...) | works | 3 |
-| QD9 | Paths read by `[]T_ABLE`, `[]L_IST` and `[]V_IEW` resolve against the folder of the file that names them, (...) | works | 0 |
+| QD9 | Paths read by `[]T_ABLE` and `[]L_IST` resolve against the folder of the file that names them, as `@ (...) | works | 0 |
 | MC1 | A macro phase runs between the lexer and the parser | works | 0 |
 | MC2 | A macro is a function-shaped name ending in `<` ("slurp in"): `u_se<` | works | 2 |
 | MC3 | `u_se<` is applied like a dyadic function: `"c:" u_se< "Combinators"` inlines the library with its (...) | works | 2 |
@@ -418,13 +418,13 @@ conventions (naming, layout) work without a spec case citing them.
 | MC19 | System.xtlm is loaded before every file, with no import and no alias: its `s:` macros are called (...) | works | 1 |
 | MC20 | What only the compiler knows comes from a few hooks, quad built-ins usable only in a macro body while a (...) | works | 3 |
 | MC21 | `u_se<` stays built into the compiler and is not declared as an `s:` macro in System.xtlm: what it does (...) | works | 1 |
-| MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 10 |
+| MC22 | A side of a call that takes no argument is written `@`: `@ i_nclude< "data.csv"`, `@ l_ine< @`, `p_rint! @ (...) | works | 11 |
 | MC24 | Which macros are system macros: a macro is a system macro (in `lib/System.xtlm` under `s:`, called (...) | works | 9 |
 | MC25 | The compiler-only system macros, each with `@` for a side that takes nothing: `@ l_ine< @` (the call's (...) | works | 0 |
 | MC26 | `@ d_bg< "expr"` (Rust's `dbg!`) is a system macro: the value of `expr`, after writing `[file:line] expr = (...) | works | 0 |
 | MC27 | (Renamed `c_heck<` by MC34.) `"cond" a_ssert< "message"` (or `@` for no message) reports and goes on: when (...) | works | 1 |
-| MC34 | Checking and asserting are two macros (the user, 2026-11-17; replaces MC27's name): `"cond" c_heck< (...) | works | 0 |
-| MC35 | `@ u_nreachable< @` (Rust's `unreachable!()`; the user, 2026-11-19): a system macro for a branch that (...) | works | 0 |
+| MC34 | Checking and asserting are two macros (the user, 2026-11-17; replaces MC27's name): `"cond" c_heck< (...) | works | 4 |
+| MC35 | `@ u_nreachable< @` (Rust's `unreachable!()`; the user, 2026-11-19): a system macro for a branch that (...) | works | 3 |
 | MC28 | `@ f_ormat< "x = {x}"` (Rust's `format!`) interpolates: each `{expr}` holds any expression (it ends at the (...) | works | 0 |
 | MC29 | `@ p_anic< "bad grid size {n}"` stops the program with `error[panic]`, the message formatted as by (...) | planned | 0 |
 | MC30 | Hygiene is by choice, as in Common Lisp, not automatic as in Scheme (changed with the user, 2026-10-12; (...) | works | 8 |

@@ -1,0 +1,12 @@
+# A failed a_ssert< stops the program with error[assertion], the
+# condition as written and the message, at the call (MC34).
+== SOURCE
+x := 6
+"x > 10" a_ssert< "x is big"
+x
+== ERROR
+error[assertion]: assertion failed: x > 10 (x is big)
+ --> -e:2:1
+  |
+2 | "x > 10" a_ssert< "x is big"
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

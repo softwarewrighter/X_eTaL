@@ -151,7 +151,7 @@ No dates, hosts, commit hashes or absolute paths are pinned (grepped).
 
 - The FAIL lines in `macros-demo-run`, `macros-user-run`,
   `macros-user-expand` and `run-box-macro` are intended: they come from
-  the deliberately false `c"5 = 2 * 2" m:c_heck< "doubling"`
+  the deliberately false `c"5 = 2 * 2" m:t_est< "doubling"`
   (`lib/Macros.xtlm`). They make a search for FAIL noisy; consider
   wording the demo's check output `not ok:`.
 - `macros-run` and `macros-expand` define `u:max_s` as a sum

@@ -1,0 +1,10 @@
+# c_heck< takes the condition as text on its left; @ there is no
+# condition (MC22, MC34).
+== SOURCE
+@ c_heck< "m"
+== ERROR
+error[bad-macro-argument]: c_heck< takes text on its left, not @
+ --> -e:1:1
+  |
+1 | @ c_heck< "m"
+  | ^

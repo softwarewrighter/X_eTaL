@@ -235,7 +235,7 @@ shown with `[]S_HOW`), the system macros (source written for you,
 shown by `xetal expand`, laid out as a program when it is long,
 themselves written in X_eTaL in
 `lib/System.xtlm`: `i_f<`, `u_nless<`, `e_ach<`, `f_ormat<`, `d_bg<`,
-`a_ssert<`, `p_anic<`, `u_nreachable<`, `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`,
+`c_heck<`, `a_ssert<`, `p_anic<`, `u_nreachable<`, `l_ine<`, `f_ile<`, `i_nclude<`, `c_fg<`,
 `e_rror<`), macro
 libraries of your own (`.xtlm` files: a macro is a function from the
 source text on either side of its call to the source that replaces
@@ -407,7 +407,7 @@ Other fonts, checked against the font files:
   your own: write `userlibs/Hello.xtl`, import it, call it
 - [`docs/literate/macros.org`](docs/literate/macros.org) -- macros,
   source that writes source: the system macros (`i_f<`, `u_nless<`,
-  `e_ach<`, `f_ormat<`, `d_bg<`, `a_ssert<`, `p_anic<` and those that
+  `e_ach<`, `f_ormat<`, `d_bg<`, `c_heck<`, `a_ssert<`, `p_anic<` and those that
   ask the compiler), seeing an expansion with `xetal expand`, and macro
   libraries of your own (`.xtlm`)
 - [`docs/literate/life.org`](docs/literate/life.org) -- Conway's Life,

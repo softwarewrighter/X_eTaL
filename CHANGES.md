@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-21
+
+- 10:00 `feat` `c_heck<` reports and goes on, `a_ssert<` stops (MC34, step 198, D209; the user): the reporting macro renamed, and `a_ssert<` now stops with `error[assertion]` as Rust's `assert!` does; `xetal migrate` rewrites old `a_ssert<` to `c_heck<`; the Macros library's `c_heck<` is now `t_est<`. Spec cases check, assert, assert-fails, reject-check-at; golden names-migrate-assert; seven goldens rebased on purpose (the renames); errors.md regenerated; a breaking notice for the siblings (X_eTaL-games has 68 uses).
+
 ## 2026-11-19
 
 - 14:50 `plan` APL2's missing primitives to decide in one step (step 201, apl2-decisions): without, enlist, find, grade down, deal, pick, depth proposed; domino and dyadic format to weigh; what is left out on purpose and why.

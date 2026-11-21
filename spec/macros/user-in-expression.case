@@ -2,7 +2,7 @@
 # parenthesized (MC12).
 == SOURCE
 "x:" u_se< "Macros"
-r := "4 = 2 + 2" x:c_heck< "addition"
+r := "4 = 2 + 2" x:t_est< "addition"
 r
 == EXPAND
 "x:" u_se< "Macros"

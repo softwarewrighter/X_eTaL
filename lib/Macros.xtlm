@@ -36,9 +36,9 @@ m:d_ef< := { name body -> "u:" c_at name c_at " := { " c_at body c_at " }" }
 ## function, given only the condition's value, cannot do.
 ## takes: code text
 ## >> "x:" u_se< "Macros"
-## >> c"5 = 2 * 2" x:c_heck< "doubling"
+## >> c"5 = 2 * 2" x:t_est< "doubling"
 ## FAIL: doubling (5 = 2 * 2)
-m:c_heck< := { cond label -> "{ @ -> (" c_at cond c_at ") ? \"ok: " c_at label c_at "\"; \"FAIL: " c_at label c_at " (" c_at cond c_at ")\" } @" }
+m:t_est< := { cond label -> "{ @ -> (" c_at cond c_at ") ? \"ok: " c_at label c_at "\"; \"FAIL: " c_at label c_at " (" c_at cond c_at ")\" } @" }
 
 ### Names a macro binds
 

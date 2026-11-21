@@ -1,8 +1,8 @@
 command = """
 ./target/debug/xetal eval -e 'x := 6
-"x > 10" a_ssert< "x is big"
-"x > 1" a_ssert< @
-"x < 0" a_ssert< @
+"x > 10" c_heck< "x is big"
+"x > 1" c_heck< @
+"x < 0" c_heck< @
 x' 2>&1"""
 exit_code = 0
-desc = "a failing a_ssert< reports the condition as written, its message and [file:line] on standard error, and the program goes on"
+desc = "a failing c_heck< (MC34) reports the condition as written, its message and [file:line] on standard error, and the program goes on"

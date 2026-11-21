@@ -4,7 +4,7 @@ n := 4
 "n != 0" x:w_hen< "p_rint! 100 / n"
 "s_quare" x:d_ef< "_r * _r"
 u:s_quare 7
-"4 = 2 + 2" x:c_heck< "addition"
-"5 = 2 * 2" x:c_heck< "doubling"'"""
+"4 = 2 + 2" x:t_est< "addition"
+"5 = 2 * 2" x:t_est< "doubling"'"""
 exit_code = 0
 desc = "xetal expand with a macro library of your own (lib/Macros.xtlm): each call replaced by the text its macro gives"

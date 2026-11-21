@@ -266,7 +266,7 @@ const SLOW: &[&str] = &["tttml.xtl", "tttml-train.xtl"];
 /// collection's demos) runs in
 /// the live demo's three ways: Run, Run with Boxed on, and Notebook;
 /// each library it offers checks. A program may write to standard
-/// error on purpose (macros.xtl's a_ssert< does); an `error[` there is
+/// error on purpose (macros.xtl's c_heck< does); an `error[` there is
 /// a regression (Boxed once drew a macro's text as a box, and the
 /// expansion failed to lex). One test, since the Boxed flag is global.
 #[test]

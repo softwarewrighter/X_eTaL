@@ -120,17 +120,30 @@ s:d_bg< := { @ expr ->
 }
 
 ## When the condition on the left does not hold, write
-## assertion failed: cond (message) [file:line] to standard error, the
+## check failed: cond (message) [file:line] to standard error, the
 ## condition as written, and go on; the message on the right may be @
-## for none. The value is @ either way. Unlike Rust's assert!, it never
-## stops the program (p_anic< does). Its right takes text or @, so
-## it declares no takes: line (MC22 checks the sides by type).
-## >> "1 > 2" a_ssert< "one is not more than two"
+## for none. The value is @ either way: it reports and never stops the
+## program (a_ssert< stops). Its right takes text or @, so it declares
+## no takes: line (MC22 checks the sides by type).
+## >> "1 > 2" c_heck< "one is not more than two"
+## @
+s:c_heck< := { cond note ->
+  c := h:t_rim cond
+  line := "check failed: " c_at c c_at (h:w_hy f_ormat note) c_at " [" c_at ([]F_ILE @) c_at ":" c_at (f_ormat []L_INE @) c_at "]"
+  "{ @ -> (" c_at c c_at ") ? @; []E_RR " c_at (h:q_uote line) c_at "; @ } @"
+}
+
+## When the condition on the left does not hold, stop the program with
+## error[assertion]: assertion failed: cond (message), the condition as
+## written, at the call, as Rust's assert! does; the message on the
+## right may be @ for none. When it holds, the value is @. Its right
+## takes text or @, so it declares no takes: line.
+## >> "2 > 1" a_ssert< "two is more than one"
 ## @
 s:a_ssert< := { cond note ->
   c := h:t_rim cond
-  line := "assertion failed: " c_at c c_at (h:w_hy f_ormat note) c_at " [" c_at ([]F_ILE @) c_at ":" c_at (f_ormat []L_INE @) c_at "]"
-  "{ @ -> (" c_at c c_at ") ? @; []E_RR " c_at (h:q_uote line) c_at "; @ } @"
+  line := "assertion failed: " c_at c c_at h:w_hy f_ormat note
+  "{ @ -> (" c_at c c_at ") ? @; \"assertion\" []S_IGNAL " c_at (h:q_uote line) c_at " } @"
 }
 
 ### Text

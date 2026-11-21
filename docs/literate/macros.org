@@ -132,14 +132,14 @@ It writes ~"v = " c_at (f_ormat (v)) c_at ...~. An unclosed ~{~, an
 empty ~{}~ or a lone ~}~ is an error before the program runs, and a type
 error inside a hole is reported where it was written in the string.
 
-** d_bg< and a_ssert<: looking and checking
+** d_bg<, c_heck< and a_ssert<: looking, checking and asserting
 
 ~@ d_bg< "expr"~ gives the value of ~expr~ after writing it, as written,
 with its value and its place, on standard error (Rust's ~dbg!~).
-~"cond" a_ssert< "message"~ (or ~@~ for no message) reports a
-condition that does not hold, as written, and the program goes on;
-unlike Rust's ~assert!~, it never stops the program. Standard error
-shows:
+~"cond" c_heck< "message"~ (or ~@~ for no message) reports a condition
+that does not hold, as written, and the program goes on.
+~"cond" a_ssert< "message"~ stops the program there, as Rust's
+~assert!~ does. Standard error shows:
 
 #+begin_example
 $ xetal eval -e 'x := 6
@@ -148,9 +148,16 @@ y'
 [-e:2] x * 2 = 12
 13
 $ xetal eval -e 'x := 6
-"x > 10" a_ssert< "x is big"'
-assertion failed: x > 10 (x is big) [-e:2]
+"x > 10" c_heck< "x is big"'
+check failed: x > 10 (x is big) [-e:2]
 @
+$ xetal eval -e 'x := 6
+"x > 10" a_ssert< "x is big"'
+error[assertion]: assertion failed: x > 10 (x is big)
+ --> -e:2:1
+  |
+2 | "x > 10" a_ssert< "x is big"
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #+end_example
 
 ** p_anic<: stopping
@@ -227,8 +234,8 @@ one prefix). Its macros are called with that prefix:
 "m:" u_se< "Macros"
 "s_quare" m:d_ef< "_r * _r"
 u:s_quare 7
-"4 = 2 + 2" m:c_heck< "addition"
-"5 = 2 * 2" m:c_heck< "doubling"
+"4 = 2 + 2" m:t_est< "addition"
+"5 = 2 * 2" m:t_est< "doubling"
 #+end_src
 
 #+RESULTS:
@@ -236,7 +243,7 @@ u:s_quare 7
 : ok: addition
 : FAIL: doubling (5 = 2 * 2)
 
-~m:d_ef<~ made a function from a name given as text. ~m:c_heck<~ shows
+~m:d_ef<~ made a function from a name given as text. ~m:t_est<~ shows
 its condition as it was written, which a function, given only the
 condition's value, could not: it wrote
 ~{ @ -> (5 = 2 * 2) ? "ok: doubling"; "FAIL: doubling (5 = 2 * 2)" } @~.
@@ -261,7 +268,7 @@ does:
 #+begin_example
 "x:" u_se< "Macros"
 "a" x:n_ope< "b"
-error[not-exported]: x:n_ope< is not defined by that macro library; it defines w_hen<, d_ef<, c_heck<
+error[not-exported]: x:n_ope< is not defined by that macro library; it defines w_hen<, d_ef<, t_est<
 #+end_example
 
 Macros are defined only in macro libraries, as ~m:~ names ending in ~<~:

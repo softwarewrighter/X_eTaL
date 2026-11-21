@@ -2,8 +2,9 @@
 //! `h:` (PN2), with every use that refers to them; a lambda's own local
 //! of the same name and bare variables are left alone; inside a format
 //! template (`f_ormat<`, `p_anic<`, `t_odo<`) the code in braces is
-//! renamed too. Only the names change, so the file parses as before
-//! apart from them (rule 10).
+//! renamed too; and an `a_ssert<` written before MC34 (it reported and
+//! went on) becomes `c_heck<`, which still does. Only the names change,
+//! so the file parses as before apart from them (rule 10).
 
 use std::collections::HashSet;
 
@@ -32,6 +33,12 @@ pub fn migrate(text: &str) -> Result<String, Diagnostic> {
         if matches!(t.kind, TokenKind::Str(_)) && i > 0 && formats(&tokens[i - 1].kind) {
             out.push_str(&text[at..t.span.start]);
             out.push_str(&holes(&text[t.span.start..t.span.end], &helpers));
+            at = t.span.end;
+            continue;
+        }
+        if matches!(&t.kind, TokenKind::Func(f) if f.ns.is_none() && f.spelled() == "a_ssert<") {
+            out.push_str(&text[at..t.span.start]);
+            out.push_str("c_heck<");
             at = t.span.end;
             continue;
         }

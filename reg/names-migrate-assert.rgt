@@ -1,0 +1,3 @@
+command = "./target/debug/xetal migrate reg/fixtures/names/OldAssert.xtl"
+exit_code = 0
+desc = "MC34: xetal migrate writes an a_ssert< written before it stopped as c_heck<, which still reports and goes on; text in strings and comments is left alone"

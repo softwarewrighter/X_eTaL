@@ -1,0 +1,7 @@
+# Written before MC34: a_ssert< reported and went on, as c_heck< does
+# now, so migrate writes c_heck<; a name or a string holding the word is
+# left alone.
+x := 6
+"x > 1" c_heck< "x is more than one"
+_ := p_rint! "a_ssert< in a string"
+x

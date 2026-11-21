@@ -7,6 +7,7 @@ the asks that have landed, whose workarounds can go.
 
 ## Breaking changes
 
+- **a_ssert< stops; c_heck< reports and goes on (MC34)** (step 198, 2026-11-21): run `xetal migrate FILE` on each program and library: it writes every `a_ssert<` as `c_heck<`, which behaves as `a_ssert<` did; then write `a_ssert<` again where a failure should stop the program. X_eTaL-games: 68 uses in the 21 scripted games' 'What the game guarantees' blocks; `a_ssert<` fits their intent, since a broken guarantee makes the rest of the script meaningless and the tests fail either way. The standard library's `x:c_heck<` (lib/Macros.xtlm) is now `x:t_est<`.
 - **data files are found beside the program that names them (QD9)** (step 196, 2026-11-19): a `[]T_ABLE` or `[]L_IST` path written from the working directory (`"games/capitals/world.toml"`) is written from the program's own folder (`"world.toml"`); `-e` text and absolute paths are unchanged.
 - **a function returning a comparison's number is Int (T10)** (step 197, 2026-11-19): a top-level function whose result is a comparison used as a number (`(Num a, Truthy a) => ... -> a`) now returns Int; a caller that used that result as a Float writes `f_loat` around the call.
 - **code strings are checked: say code in ## takes:, write c"..." where code is taken** (423ccdeb, 2026-10-18): a code string `c"..."` whose inside is not X_eTaL (a format string, an equation) is now an error: make it a plain string; `xetal lint --fix` adds or drops the `c` where a macro's `## takes:` says code or text.

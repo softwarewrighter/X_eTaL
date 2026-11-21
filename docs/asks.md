@@ -22,6 +22,19 @@ build already does what the ask wants.
 | X_eTaL-fpga | 0 | 0 | 4 | 1 | 5 |
 | All | 56 | 9 | 22 | 8 | 13 |
 
+## Notice: a_ssert< stops; c_heck< reports and goes on (MC34)
+
+`"cond" a_ssert< "message"` now stops the program when the condition
+does not hold, as Rust's `assert!` does: `error[assertion]: assertion
+failed: cond (message)` at the call. The macro that reported on
+standard error and went on is `c_heck<` (`check failed: cond (message)
+[file:line]`). `xetal migrate FILE` rewrites every `a_ssert<` to
+`c_heck<`, so a migrated program behaves as before; choose `a_ssert<`
+again where a failure should stop. Uses found 2026-11-17: X_eTaL-games
+68 (each scripted game's guarantees); X_eTaL-libraries and X_eTaL-gpu
+name it in their docs only. The standard macro library's labeled check
+(`x:c_heck<` after `"x:" u_se< "Macros"`) is renamed `x:t_est<`.
+
 ## Notice: data files are found beside the program that names them (QD9)
 
 `[]T_ABLE` and `[]L_IST` find a relative path beside the file that
@@ -155,6 +168,12 @@ program cannot use it. A survey on 2026-10-08 counted about 210 such
 bindings in the siblings: X_eTaL-extensions 93, X_eTaL-games 85,
 X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 
+## To look at
+
+- M1: landed, but its repro fails
+- X1: landed, but its repro fails
+- E2: landed, but its repro fails
+
 ## X_eTaL-demos
 
 | # | Ask | State | Here | Repro |
@@ -185,7 +204,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 
 | # | Ask | State | Here | Repro |
 | - | --- | ----- | ---- | ----- |
-| M1 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | passes |
+| M1 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | fails |
 | M2 | `xetal expand FILE`: the source after macro expansion (the same as X2) | landed | `xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61) | golden `macros-user-expand` |
 | M3 | `'+ '* i_nner`: about 700 ns per multiply-add at abb8274 (the regression D11) | landed | 16b710d: `i_nner` with built-in operands is computed at once, 0 transitions and 0.25 allocations per multiply-add (docs/speed.md) | - |
 | M4 | grade per row, top-k along an axis (the same as D13) | landed | as `g_rade_2`: by A6 an axis subscript moves axis 2 to the front, so `g_rade_2 M` grades the columns as items (it gives `2 3 1`); 2026-11-17 (A10, step 148): the rank form `k 'f r_ank x` applies f to each rank-k cell, so `1 'g_rade r_ank M` grades each row | passes |
@@ -238,7 +257,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 
 | # | Ask | State | Here | Repro |
 | - | --- | ----- | ---- | ----- |
-| X1 | `.xtlm` macro libraries: user-defined macros imported with `u_se<` | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | passes |
+| X1 | `.xtlm` macro libraries: user-defined macros imported with `u_se<` | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | fails |
 | X2 | seeing the source after macro expansion, with a bounded expansion depth | landed | `xetal expand FILE` (or `-e`): the program after expansion; expansion stops at a depth of 32 (MC17, D61) | golden `macros-user-expand` |
 | X3 | errors of one's own: assert, raise and catch | partly landed | raise: `[]S_IGNAL` (ER1, D85); catch: `[]T_RAP` with `[]R_ECOVER`, `[]R_ETRY`, `[]H_ALT`, and `[]E_NSURE` (ER2, D89); go on: `default []W_ARN "code" "message"` and `[]C_ONTINUE` (ER3, D90); the macros `t_ry<`, `c_atch<`, `f_inally<`, `r_ecover<`, `r_etry<`, `h_alt<`, `c_ontinue<` (ER4, D91); assert is Saga 33 | passes |
 | X4 | character codes `[]U_CS`, and the quad values `[]A`, `[]D`, `[]TS` | landed | `[]U_CS` (and its inverse `[]U_CHAR`, QD7), `[]A`, `[]D`, `[]AV`, `[]IO` (D75), `[]TS` local time (D84): the quads lane | passes |
@@ -262,7 +281,7 @@ X_eTaL-gpu 17, X_eTaL-ML 10, X_eTaL-libraries 10, X_eTaL-demos 3.
 | # | Ask | State | Here | Repro |
 | - | --- | ----- | ---- | ----- |
 | E1 | a native hook: X_eTaL code calling a function in a native library (`[]S_VO`) | planned | Saga 23, host bindings and native packages (may start from this repo's ABI V1) | - |
-| E2 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | passes |
+| E2 | `.xtlm` macro libraries (the same as X1) | landed | the macros lane: `.xtlm` libraries found with `u_se<`, `m:n_ame<` macros run when the program is expanded (MC10-MC12, MC23); the example `lib/Macros.xtlm` | fails |
 | E3 | the CLI as a library: a host entry point so a host can be `xetal` with its own store | landed | step 145 (cli-library): the crate `xetal-command` (components/cli): `parse` reads the arguments as the binary does, `run` runs a command against a `Host` (its files through the `Files` trait, its output and error streams, a seed); the `xetal` binary is a thin shell over it, and the browser's terminal uses it too | - |
 | E4 | the time: a quad for the current time and a monotonic or CPU clock | partly landed | `[]TS` (the local time stamp) and `[]D_L` (a delay), through the host's clock (D84, quads lane step 2); no monotonic or CPU clock (APL's quad AI) yet, not planned | passes |
 | E5 | an error in a library function also names the program line that called it | planned | Saga 27, readable type errors | - |

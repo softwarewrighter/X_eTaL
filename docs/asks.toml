@@ -19,6 +19,24 @@
 # repository should act on; it is printed after the summary.
 
 [[notice]]
+title = "a_ssert< stops; c_heck< reports and goes on (MC34)"
+breaking = true
+since = "step 198, 2026-11-21"
+fix = "run `xetal migrate FILE` on each program and library: it writes every `a_ssert<` as `c_heck<`, which behaves as `a_ssert<` did; then write `a_ssert<` again where a failure should stop the program. X_eTaL-games: 68 uses in the 21 scripted games' 'What the game guarantees' blocks; `a_ssert<` fits their intent, since a broken guarantee makes the rest of the script meaningless and the tests fail either way. The standard library's `x:c_heck<` (lib/Macros.xtlm) is now `x:t_est<`."
+text = """
+`"cond" a_ssert< "message"` now stops the program when the condition
+does not hold, as Rust's `assert!` does: `error[assertion]: assertion
+failed: cond (message)` at the call. The macro that reported on
+standard error and went on is `c_heck<` (`check failed: cond (message)
+[file:line]`). `xetal migrate FILE` rewrites every `a_ssert<` to
+`c_heck<`, so a migrated program behaves as before; choose `a_ssert<`
+again where a failure should stop. Uses found 2026-11-17: X_eTaL-games
+68 (each scripted game's guarantees); X_eTaL-libraries and X_eTaL-gpu
+name it in their docs only. The standard macro library's labeled check
+(`x:c_heck<` after `"x:" u_se< "Macros"`) is renamed `x:t_est<`.
+"""
+
+[[notice]]
 title = "data files are found beside the program that names them (QD9)"
 breaking = true
 since = "step 196, 2026-11-19"

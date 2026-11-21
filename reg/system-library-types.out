@@ -7,6 +7,7 @@ s:i_nclude< : Unit -> Char -> Char
 s:c_fg< : Unit -> Char -> Char
 s:e_rror< : Char -> Char -> Char
 s:d_bg< : Unit -> Char -> Char
+s:c_heck< : Char -> a -> Char
 s:a_ssert< : Char -> a -> Char
 s:f_ormat< : Unit -> Char -> Char
 s:p_anic< : Unit -> Char -> Char
