@@ -12,6 +12,8 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-21
 
+- 10:40 `docs` The live demo's screenshot retaken after publishing.
+- 10:05 `chore` Step 198 (assert-check) closed.
 - 10:00 `feat` `c_heck<` reports and goes on, `a_ssert<` stops (MC34, step 198, D209; the user): the reporting macro renamed, and `a_ssert<` now stops with `error[assertion]` as Rust's `assert!` does; `xetal migrate` rewrites old `a_ssert<` to `c_heck<`; the Macros library's `c_heck<` is now `t_est<`. Spec cases check, assert, assert-fails, reject-check-at; golden names-migrate-assert; seven goldens rebased on purpose (the renames); errors.md regenerated; a breaking notice for the siblings (X_eTaL-games has 68 uses).
 
 ## 2026-11-19
