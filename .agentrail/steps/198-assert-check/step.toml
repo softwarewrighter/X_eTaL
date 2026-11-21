@@ -1,8 +1,9 @@
 number = 198
 slug = "assert-check"
-status = "pending"
+status = "completed"
 description = "MC34 (the user, 2026-11-17): rename MC27's reporting macro to c_heck< (lib/Sy..."
 role = "production"
 context_files = []
 created_at = "2026-11-18T07:50:24"
-commits = []
+completed_at = "2026-11-21T12:25:05"
+commits = ["e5db83533818d99155ed719009a118740d19433b"]
