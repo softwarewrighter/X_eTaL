@@ -1,8 +1,9 @@
 number = 201
 slug = "apl2-decisions"
-status = "pending"
+status = "completed"
 description = "The user (2026-11-19) agreed to decide APL2's missing primitives as one step,..."
 role = "production"
 context_files = []
 created_at = "2026-11-19T20:00:11"
-commits = []
+completed_at = "2026-11-24T09:09:59"
+commits = ["c061be10410ec94231d1ddc75932bc8d0d687d1d"]
