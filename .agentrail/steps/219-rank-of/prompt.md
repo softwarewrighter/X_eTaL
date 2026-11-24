@@ -1,0 +1,1 @@
+Implement B30 test-first (the user, 2026-11-24): r_ankOf v, the number of axes (0 for a scalar), Any a => a -> Int; builtins.toml row, spec cases (scalar 0, r_avel 42 is 1, a rank-3 reshape 3, a nested vector 1, a tuple rejected), the idioms entry Rank (t_ally s_hape v) pointed at it, README's shape section; D-entry.

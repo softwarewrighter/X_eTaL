@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-24
 
+- 11:18 `design` `r_ankOf v`, the number of an array's axes (B30, the user), a built-in beside `d_epth`; step 219.
 - 09:31 `plan` A hint for a one-argument built-in written with two (step 214: `1 2 r_avel 3 4` should point at `c_at`), and Saga 45, the expression explorer (the user): typed as written, shown rendered, run again after each edit, subexpressions and their values highlighted, a tree view of trains; in this repository as components/explore, the live demo first (steps 215 to 218).
 - 09:17 `build` Two scripts for studying a video (the user): `scripts/video-text.sh` fetches its description, chapters, details and English captions (as timestamped text) without the video; `scripts/video-get.sh` downloads it (at most 1080p) and extracts frames with ffmpeg, every N seconds or at scene changes, optionally for a part only, named by time. Both write to work/video/<id>/ and need yt-dlp.
 - 09:09 `chore` Step 201 (apl2-decisions) closed.
