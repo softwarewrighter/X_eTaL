@@ -14,6 +14,14 @@ u:d_ivisors r_ange 12
 u:p_rimes := { n -> a := r_ange n; (w_here 2 = u:d_ivisors a) s_elect a }
 u:p_rimes 50
 
+# The same as one train, as APL writes it point-free: the fork
+# `[i_d 'm_od t_able i_d]` is the remainder table of a value with itself,
+# the hook `[mask r_eplicate i_d]` keeps the numbers the mask marks, and
+# the atop `[... r_ange]` makes the numbers first. A train holds functions
+# only, so the comparisons with 2 and 0 go in a short lambda.
+u:p_rimesTrain := [[[{ 2 = '+ r_/_2 0 = _r } [i_d 'm_od t_able i_d]] r_eplicate i_d] r_ange]
+u:p_rimesTrain 50
+
 # Perfect numbers are the sum of their divisors other than themselves:
 # the divisors themselves, by the same table.
 u:p_roperSum := { n -> a := r_ange n - 1; '+ r_/ (w_here 0 = n m_od a) s_elect a }

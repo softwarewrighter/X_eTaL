@@ -1,0 +1,1 @@
+Add the train form of PRIMES to demos/classics/primes.xtl (the user, 2026-11-23): a fork for the remainder table, a hook with r_eplicate, an atop with r_ange; rebase run-classics-primes.

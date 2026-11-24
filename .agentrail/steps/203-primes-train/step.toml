@@ -1,0 +1,8 @@
+number = 203
+slug = "primes-train"
+status = "pending"
+description = "Add the train form of PRIMES to demos/classics/primes.xtl (the user, 2026-11-..."
+role = "production"
+context_files = []
+created_at = "2026-11-23T21:32:57"
+commits = []
