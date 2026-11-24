@@ -1,0 +1,1 @@
+Saga 45 step 2: the expression tree model, each node with its partial value; trains drawn by shape (fork, atop, hook; TR5 and TR6 once landed); layout as SVG (xetal-svg) and as text for the terminal; goldens.

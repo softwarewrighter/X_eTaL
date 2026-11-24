@@ -1,0 +1,8 @@
+number = 215
+slug = "explore-core"
+status = "pending"
+description = "Saga 45 step 1 (docs/plan.md): an expression's nodes with spans, values, type..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T09:27:05"
+commits = []

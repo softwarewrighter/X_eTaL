@@ -1,0 +1,1 @@
+Saga 45 step 4: xetal explore, the same in the terminal on the editor's panes (xetal-panes, xetal-keys): debounced re-run, highlighting, tree toggle; goldens for its non-interactive output.

@@ -1,0 +1,8 @@
+number = 217
+slug = "explore-web"
+status = "pending"
+description = "Saga 45 step 3: an Explore mode in the live demo: typed ASCII in, rendered vi..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T09:27:05"
+commits = []

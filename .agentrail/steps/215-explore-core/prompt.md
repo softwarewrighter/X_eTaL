@@ -1,0 +1,1 @@
+Saga 45 step 1 (docs/plan.md): an expression's nodes with spans, values, types and shapes from one run within a step budget, as data, over xetal-debug (Saga 43's debug-core); new component components/explore; tests in tests/.

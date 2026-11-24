@@ -1,0 +1,1 @@
+Saga 45 step 3: an Explore mode in the live demo: typed ASCII in, rendered view, re-run about 300 ms after typing stops within a budget (last good result kept beside an error), hover/select a subexpression to see its value and select a value to mark its expression, the tree view toggle; ui-check scenario; publish.

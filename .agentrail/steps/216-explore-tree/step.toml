@@ -1,0 +1,8 @@
+number = 216
+slug = "explore-tree"
+status = "pending"
+description = "Saga 45 step 2: the expression tree model, each node with its partial value; ..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T09:27:05"
+commits = []

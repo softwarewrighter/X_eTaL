@@ -785,6 +785,49 @@ web-release:
     17. The leetcode lane goes on in parallel (the classics, trains and
     transpose lanes are done and archived).
 
+## Saga 45 -- the expression explorer (the user, 2026-11-24)
+
+An interactive tool for exploring an X_eTaL expression, asked for by
+the user after code_report's "Why I Love APL and Tacit Programming"
+(its train trees at 5:40). It lives in this repository, as a new
+component `components/explore`, not in a separate X_eTaL-tools
+repository: it reads the internal crates (view, render, core, step,
+debug) that change with each language step, so a change such as
+TR5 or TR6 and its tree view land in one commit, pinned by the same
+goldens, as `xetal edit`, `dap`, `doc` and `lint` are.
+
+What it does:
+
+- Typed as written (ASCII), shown as rendered (the view model, as
+  `xetal edit` and the live demo do).
+- Run again shortly after each edit (about 300 ms after typing stops),
+  within a step budget, so a long loop cannot freeze it; the last
+  good result stays shown beside a new error.
+- Subexpressions and their partial results: hover or select a part
+  of the expression to see its value (with type and shape, as the
+  debugger's views draw it), or select a value to mark the
+  expression that made it; the values come from the steppable
+  evaluator through `xetal-debug` (Saga 43), mapped by span.
+- A tree view, shown or hidden by a toggle: the expression as a tree,
+  each node with its partial value; a train is drawn by its shape
+  (fork, atop, hook, and TR5's constant and TR6's selfie and commute
+  once they land), as Dyalog's and TinyAPL's train trees are.
+
+Steps (after Saga 43's debug-core, which they build on):
+
+1. explore-core: an expression's nodes with spans, values, types and
+   shapes, one run within a budget, as data (no display).
+2. explore-tree: the tree model, trains by shape, with its layout
+   (an SVG through xetal-svg, text for the terminal).
+3. explore-web: an Explore mode in the live demo: the debounced
+   re-run, highlighting both ways, the tree toggle.
+4. explore-tui: `xetal explore`, the same in the terminal on the
+   editor's panes.
+
+The live demo comes first: it reaches the videos' audience, and the
+videos can record it (the planned `t-trains` episode animates trains
+with its tree view).
+
 ## Saga 30 -- the higher-order speed regression (soon)
 
 X_eTaL-demos found it re-vendoring from 06d39fa to abb8274 (their
