@@ -1,8 +1,9 @@
 number = 203
 slug = "primes-train"
-status = "pending"
+status = "completed"
 description = "Add the train form of PRIMES to demos/classics/primes.xtl (the user, 2026-11-..."
 role = "production"
 context_files = []
 created_at = "2026-11-23T21:32:57"
-commits = []
+completed_at = "2026-11-23T21:33:17"
+commits = ["d259ebfcaedab621035f57fa59832a4f96a70a99"]
