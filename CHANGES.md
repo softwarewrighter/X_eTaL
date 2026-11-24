@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-24
 
+- 09:17 `build` Two scripts for studying a video (the user): `scripts/video-text.sh` fetches its description, chapters, details and English captions (as timestamped text) without the video; `scripts/video-get.sh` downloads it (at most 1080p) and extracts frames with ffmpeg, every N seconds or at scene changes, optionally for a part only, named by time. Both write to work/video/<id>/ and need yt-dlp.
 - 09:09 `chore` Step 201 (apl2-decisions) closed.
 - 09:09 `design` APL2's missing primitives and two train shapes decided (step 201, D210; the user): `w_ithout`, `e_nlist`, `f_ind`, `g_radeDown`, `d_eal!`, `p_ick`, `d_epth` (B22 to B28), what is left out and why (B29), a value in a fork's left slot (TR5) and a one-element train as selfie and commute (TR6). Steps 204 to 212 implement them; step 213 decides domino and dyadic format with the user.
 
