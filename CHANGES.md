@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-23
 
+- 21:54 `plan` Two train shapes join step 201 (the user): a constant in a fork's left slot, and a one-element train as selfie and commute (`[F] x` is `x F x`, `x [F] y` is `y F x`); the brainstorm, with the spellings set aside (`s_elfie`, `r_eflex`, `:)`, `:~`, `:s_`), in docs/combinators-macros-and-trains.md.
 - 21:45 `docs` The live demo's screenshot retaken after publishing.
 - 21:35 `chore` Step 203 (primes-train) closed.
 - 21:33 `demo` The primes demo gains the train form of APL's PRIMES (the user): `[[[{ 2 = '+ r_/_2 0 = _r } [i_d 'm_od t_able i_d]] r_eplicate i_d] r_ange]`, a fork for the remainder table, a hook with `r_eplicate` and an atop with `r_ange`; golden run-classics-primes rebased on purpose (one more line). Step 203 added.

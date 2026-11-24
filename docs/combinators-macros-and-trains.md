@@ -93,6 +93,63 @@ Cons:
   drops an argument never evaluates it. A careful macro binds
   arguments once (`{ v -> f_ v v } (x)`).
 
+## Proposed: two more train shapes (step 201)
+
+Brainstormed with the user (2026-11-23) while writing APL's PRIMES,
+`(2=+/[1]0=(iota N)jot.|iota N)/iota N`, as one train. Today it needs a
+lambda for the comparisons and a fork for the self table (it runs, in
+demos/classics/primes.xtl):
+
+```
+[[[{ 2 = '+ r_/_2 0 = _r } [i_d 'm_od t_able i_d]] r_eplicate i_d] r_ange]
+```
+
+Two gaps show, and step 201 decides both, to be written test-first
+once decided (each with its rejection tests, rules 8 and 9):
+
+1. **A constant in a fork's left slot** (Dyalog and J allow it): in
+   `[A g h]` with A a value, `[A g h] x` is `A g (h x)`, and dyadically
+   `x [A g h] y` is `A g (x h y)`. Today a value in a train is
+   `error[bad-train]: a train holds functions only`, so `2 =` has to be
+   wrapped as `{ 2 = _r }` or named (`u:t_wo := ('=)_ 2`). Class still
+   comes from tokens: a number, a string or a value name is a value,
+   so the reading is never ambiguous. A constant in the right or middle
+   slot stays an error.
+2. **A one-element train is selfie and commute**, as APL's commute
+   operator (U+2368) is both: `[F] x` is `x F x` (the Warbler) and
+   `x [F] y` is `y F x` (the Cardinal, as `s_wap`). Today `[F]` is
+   `error[bad-train]: a train needs at least two functions`, so the
+   slot is free. It needs no new name or token, and it takes a derived
+   function as it is: `['m_od t_able] r_ange 5` is the remainder
+   table. The display may draw it with the commute glyph. `[]` and a
+   bracketed value (`[3]`) stay errors.
+
+With both, PRIMES reads close to the APL:
+
+```
+[[2 = '+ r_/_2 0 = ['m_od t_able]] r_eplicate i_d] r_ange
+```
+
+Considered and set aside:
+
+- A built-in name (`s_elfie`, `r_eflex`, J's word, `w_arbler`): a
+  higher-order built-in takes its function first, and a derived
+  function such as `'m_od t_able` cannot be passed as one, so
+  `'{ _l m_od t_able _r } r_eflex` is no shorter than the fork it
+  replaces. `s_elf` is also the conventional lazy self parameter
+  (`{ ~s_elf n -> ... }`).
+- `:)` (a face, like the APL glyph): lexes without a clash, but an
+  unbalanced parenthesis in source breaks every tool that counts
+  brackets (editors, the formatter, macro text).
+- `:~` (a tilde with two dots, which is what the glyph is): close to
+  `~`, the lazy parameter mark.
+- `:s_` and a `:x_` family: reads as a namespaced name whose namespace
+  was dropped (`x :s_` and `x:s_` would differ only by a space), and
+  it would be a third system namespace beside `[]` and the built-ins.
+- Atop chains without nesting (BQN's `[F G H K]` with a compose mark):
+  mostly unneeded once constants may stand in a fork, since the
+  constants caused most of the nesting.
+
 ## What cannot be done, and why
 
 | Cannot | Library | Train | Macro | Why |
@@ -118,8 +175,8 @@ arguments are written at the call.
 | KI, Kite | `KI x y = y` | `r_ight` | `x [... r_ight] y` slot | K applied to I | inline |
 | B, Bluebird | `B f g x = f (g x)` | `c_ompose` | atop `[f_ g_] x` | `c:B_` | inline |
 | B1, Blackbird | `B1 f g x y = f (g x y)` | | dyadic atop `x [f_ g_] y` | `c:B_1` | inline |
-| C, Cardinal | `C f x y = f y x` | `s_wap` | | `c:C_` | inline (swaps the text) |
-| W, Warbler | `W f x = f x x` | | `[i_d f_ i_d] x` | `c:W_` | inline, binding x once |
+| C, Cardinal | `C f x y = f y x` | `s_wap` | proposed: `x [f_] y` | `c:C_` | inline (swaps the text) |
+| W, Warbler | `W f x = f x x` | | `[i_d f_ i_d] x`, proposed: `[f_] x` | `c:W_` | inline, binding x once |
 | S, Starling | `S f g x = f x (g x)` | | hook `[i_d f_ g_] x` | `c:S_` | inline, binding x once |
 | Phoenix (S') | `Phi f g h x = f (g x) (h x)` | | fork `[g_ f_ h_] x` | `c:P_hi` | inline |
 | Psi | `Psi f g x y = f (g x) (g y)` | | | `c:P_si` | inline |
