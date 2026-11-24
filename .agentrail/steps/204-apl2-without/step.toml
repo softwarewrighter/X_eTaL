@@ -1,0 +1,8 @@
+number = 204
+slug = "apl2-without"
+status = "pending"
+description = "Implement B22 test-first: x w_ithout y, the major cells of x not in y (Eq a =..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T09:09:17"
+commits = []

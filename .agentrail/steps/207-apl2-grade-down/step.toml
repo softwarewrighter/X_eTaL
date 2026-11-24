@@ -1,0 +1,8 @@
+number = 207
+slug = "apl2-grade-down"
+status = "pending"
+description = "Implement B25 test-first: g_radeDown x, stable descending grade (Ord a => a -..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T09:09:17"
+commits = []

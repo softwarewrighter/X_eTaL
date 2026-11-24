@@ -1,0 +1,1 @@
+Implement TR5 test-first: a value in a fork's left slot, [A g h] x is A g (h x), x [A g h] y is A g (x h y); a value in a middle or right slot or an atop stays bad-train (rejection cases); normalization-equivalence case against the lambda; update docs/combinators-macros-and-trains.md and the trains literate doc; D-entry.

@@ -1,0 +1,8 @@
+number = 209
+slug = "apl2-pick"
+status = "pending"
+description = "Implement B27 test-first: i p_ick v, the item at index i (one Int per axis) d..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T09:09:17"
+commits = []

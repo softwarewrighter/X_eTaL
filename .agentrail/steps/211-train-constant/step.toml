@@ -1,0 +1,8 @@
+number = 211
+slug = "train-constant"
+status = "pending"
+description = "Implement TR5 test-first: a value in a fork's left slot, [A g h] x is A g (h ..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T09:09:17"
+commits = []

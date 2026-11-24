@@ -1,0 +1,8 @@
+number = 205
+slug = "apl2-enlist"
+status = "pending"
+description = "Implement B23 test-first: e_nlist v, the items of every box raveled and joine..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T09:09:17"
+commits = []

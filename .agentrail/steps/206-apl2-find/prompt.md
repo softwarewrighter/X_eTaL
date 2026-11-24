@@ -1,0 +1,1 @@
+Implement B24 test-first: p f_ind x, 1 where p begins in x (Eq a => a -> a -> Int), overlapping occurrences marked, vectors and matrices; spec cases and a rejection; D-entry.

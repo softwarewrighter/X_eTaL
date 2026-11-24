@@ -1,0 +1,1 @@
+Decide with the user (B29 left them open): domino (matrix inverse and least squares; B20 leans built-in for accuracy; X_eTaL-ML would use it) and dyadic format (width and precision). Propose spellings and types, record in docs/lang-choices.md and design.md, then add an implementation step each.

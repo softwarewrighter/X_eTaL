@@ -1,0 +1,8 @@
+number = 208
+slug = "apl2-deal"
+status = "pending"
+description = "Implement B26 test-first: n d_eal! m, n distinct Ints from r_ange m in random..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T09:09:17"
+commits = []

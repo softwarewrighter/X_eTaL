@@ -1,0 +1,8 @@
+number = 206
+slug = "apl2-find"
+status = "pending"
+description = "Implement B24 test-first: p f_ind x, 1 where p begins in x (Eq a => a -> a ->..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T09:09:17"
+commits = []

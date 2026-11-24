@@ -1,0 +1,1 @@
+Implement TR6 test-first: a one-element train, [F] x is x F x and x [F] y is y F x, F any train element (a derived function too); [] and [3] stay errors (rejection cases); display may draw the commute glyph; then rewrite PRIMES in demos/classics/primes.xtl as [[2 = '+ r_/_2 0 = ['m_od t_able]] r_eplicate i_d] r_ange (needs step 211) and rebase run-classics-primes; D-entry.

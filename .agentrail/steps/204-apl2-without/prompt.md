@@ -1,0 +1,1 @@
+Implement B22 test-first: x w_ithout y, the major cells of x not in y (Eq a => a -> a -> a), through xetal-search's hashed membership; builtins.toml row, spec cases (vectors, matrices, chars, empty, a rejection), README/idioms if fitting, D-entry.

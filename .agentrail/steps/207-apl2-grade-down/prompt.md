@@ -1,0 +1,1 @@
+Implement B25 test-first: g_radeDown x, stable descending grade (Ord a => a -> Int), beside g_rade; spec cases (ties keep order, chars, matrices) and a rejection; D-entry.

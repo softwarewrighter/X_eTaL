@@ -1,0 +1,8 @@
+number = 210
+slug = "apl2-depth"
+status = "pending"
+description = "Implement B28 test-first: d_epth v (Any a => a -> Int): 0 simple scalar, 1 si..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T09:09:17"
+commits = []

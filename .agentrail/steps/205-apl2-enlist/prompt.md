@@ -1,0 +1,1 @@
+Implement B23 test-first: e_nlist v, the items of every box raveled and joined (Any a => Box a -> a), one level; empty keeps the kind (T9); spec cases and a rejection; point X_eTaL-games' G15 (raze) at it in docs/asks.toml; D-entry.

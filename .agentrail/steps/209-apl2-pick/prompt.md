@@ -1,0 +1,1 @@
+Implement B27 test-first: i p_ick v, the item at index i (one Int per axis) disclosed (Any a => Int -> Box a -> a), error[index] out of range; a path is picks in a row; spec cases and a rejection; D-entry.

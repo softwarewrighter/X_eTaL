@@ -1,0 +1,1 @@
+Implement B26 test-first: n d_eal! m, n distinct Ints from r_ange m in random order, an effect seeded like r_oll!; error[domain] for n > m or negatives; spec cases with --seed and goldens; D-entry.

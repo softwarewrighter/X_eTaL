@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-24
+
+- 09:09 `design` APL2's missing primitives and two train shapes decided (step 201, D210; the user): `w_ithout`, `e_nlist`, `f_ind`, `g_radeDown`, `d_eal!`, `p_ick`, `d_epth` (B22 to B28), what is left out and why (B29), a value in a fork's left slot (TR5) and a one-element train as selfie and commute (TR6). Steps 204 to 212 implement them; step 213 decides domino and dyadic format with the user.
+
 ## 2026-11-23
 
 - 21:54 `plan` Two train shapes join step 201 (the user): a constant in a fork's left slot, and a one-element train as selfie and commute (`[F] x` is `x F x`, `x [F] y` is `y F x`); the brainstorm, with the spellings set aside (`s_elfie`, `r_eflex`, `:)`, `:~`, `:s_`), in docs/combinators-macros-and-trains.md.

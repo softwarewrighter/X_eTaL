@@ -1,0 +1,8 @@
+number = 212
+slug = "train-selfie"
+status = "pending"
+description = "Implement TR6 test-first: a one-element train, [F] x is x F x and x [F] y is ..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T09:09:17"
+commits = []
