@@ -1,0 +1,8 @@
+number = 222
+slug = "desktop-release"
+status = "pending"
+description = "Saga 46 step 3: macOS app bundle and Linux binary (signing noted), just deskt..."
+role = "production"
+context_files = []
+created_at = "2026-11-25T20:52:41"
+commits = []

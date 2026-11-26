@@ -828,6 +828,32 @@ The live demo comes first: it reaches the videos' audience, and the
 videos can record it (the planned `t-trains` episode animates trains
 with its tree view).
 
+## Saga 46 -- the desktop app (the user, 2026-11-25)
+
+The live demo as a desktop application: its own window, no browser
+tab, the same Yew page (rendered as you type, types, Run, the
+terminal, the notebook), and the computer's own files in place of the
+browser's storage. Rust only (no Node, as every page here): `wry` (the
+system's web view: WebKit on macOS and Linux, WebView2 on Windows) and
+`tao` for the window, not Tauri's CLI, in a new component
+`components/desktop` with its own binary, `xetal-desktop [FILE]`, so
+the CLI stays small. The page is the live demo's `dist`, built by
+trunk and served to the web view from the binary itself through a
+custom protocol (nothing on the network).
+
+Steps (at the end of the queue, the user kept the order):
+
+1. desktop-shell: the window showing the embedded live demo, its run
+   worker working under the custom protocol (the first risk to settle:
+   a worker's script must come from the page's own origin), the
+   window's title and size remembered; a headless smoke test.
+2. desktop-files: Open and Save on the disk (a native dialog, through
+   the web view's IPC to Rust), `xetal-desktop FILE` opening a file,
+   reloading when it changes on disk, libraries and data files beside
+   it found as the CLI finds them (QD9).
+3. desktop-release: a macOS app bundle and a Linux binary (signing
+   noted, not done), `just desktop`, docs/desktop.md, the README.
+
 ## Saga 30 -- the higher-order speed regression (soon)
 
 X_eTaL-demos found it re-vendoring from 06d39fa to abb8274 (their

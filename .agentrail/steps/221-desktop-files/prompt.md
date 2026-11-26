@@ -1,0 +1,1 @@
+Saga 46 step 2: Open and Save on disk through the web view's IPC (native dialogs), xetal-desktop FILE opens a file, reload on change on disk, libraries and data beside the file found as the CLI does (QD9); tests for the Rust side.

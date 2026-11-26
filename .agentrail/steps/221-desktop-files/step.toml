@@ -1,0 +1,8 @@
+number = 221
+slug = "desktop-files"
+status = "pending"
+description = "Saga 46 step 2: Open and Save on disk through the web view's IPC (native dial..."
+role = "production"
+context_files = []
+created_at = "2026-11-25T20:52:41"
+commits = []

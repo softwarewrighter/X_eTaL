@@ -1,0 +1,8 @@
+number = 220
+slug = "desktop-shell"
+status = "pending"
+description = "Saga 46 step 1 (docs/plan.md): components/desktop, binary xetal-desktop: a ta..."
+role = "production"
+context_files = []
+created_at = "2026-11-25T20:52:41"
+commits = []

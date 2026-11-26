@@ -1,0 +1,1 @@
+Saga 46 step 3: macOS app bundle and Linux binary (signing noted), just desktop, docs/desktop.md, README section; CHANGES.

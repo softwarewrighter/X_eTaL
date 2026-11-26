@@ -12,6 +12,7 @@ saga planning and reordering, `release` milestone release,
 
 ## 2026-11-25
 
+- 20:52 `plan` Saga 46, the desktop app (the user): the live demo in its own window (wry and tao, Rust only), the computer's files in place of the browser's storage; steps 220 to 222 at the end of the queue.
 - 19:19 `docs` The live demo's screenshot retaken after publishing.
 - 18:39 `chore` Step 202 (lazy-range) closed.
 - 18:39 `feat` A range kept as a progression (step 202, D211; the user): `r_ange` and `o_ffsets` give start, step and count, kept through take, drop, reverse, an Int shift or scale, count, shape, first, sum, select, membership and index, so `-5 t_ake r_ange 1000000000` runs in a few megabytes where it was `too-large`; anything else makes the items, `too-large` past the limit as before. New crates xetal-progression and xetal-range; a property test checks each kept operation against the built-in on the items; spec cases range-kept, reject-range-too-large, reject-range-shown-too-large; no spec case or golden changed.

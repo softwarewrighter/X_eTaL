@@ -1,0 +1,1 @@
+Saga 46 step 1 (docs/plan.md): components/desktop, binary xetal-desktop: a tao window with a wry web view showing the live demo's trunk dist embedded in the binary, served by a custom protocol; make the run worker work there (its script from the page's own origin); remember window size; a smoke test. Rust only, no Node or Tauri CLI.
