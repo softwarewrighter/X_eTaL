@@ -1,0 +1,1 @@
+Ranges kept as progressions (xetal-progression, xetal-range); huge ranges run in MB; no output changed.

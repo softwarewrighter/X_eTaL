@@ -1,8 +1,9 @@
 number = 202
 slug = "lazy-range"
-status = "pending"
+status = "completed"
 description = "The user (2026-11-19): -5 t_ake r_ange 1000000000 fails with error[too-large]..."
 role = "production"
 context_files = []
 created_at = "2026-11-20T11:25:43"
-commits = []
+completed_at = "2026-11-25T18:39:02"
+commits = ["94d1be6893ce7e716679bb88aa7acb6d6113136a"]
