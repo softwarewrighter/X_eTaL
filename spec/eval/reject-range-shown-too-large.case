@@ -1,0 +1,9 @@
+# Printing a range past the largest array needs its items: too large.
+== SOURCE
+r_ange 1000000000
+== ERROR
+error[too-large]: an array may hold at most 268435456 items
+ --> -e:1:1
+  |
+1 | r_ange 1000000000
+  | ^^^^^^^^^^^^^^^^^

@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-prim", "crates/xetal-step", "crates/xetal-kernel", "crates/xetal-frame"]
+members = ["crates/xetal-prim", "crates/xetal-step", "crates/xetal-kernel", "crates/xetal-frame", "crates/xetal-range"]
 
 [workspace.package]
 version = "0.1.0"
@@ -16,6 +16,7 @@ xetal-frame = { path = "crates/xetal-frame" }
 xetal-prim = { path = "crates/xetal-prim" }
 xetal-step = { path = "crates/xetal-step" }
 xetal-kernel = { path = "crates/xetal-kernel" }
+xetal-range = { path = "crates/xetal-range" }
 xetal-catalog = { path = "../base/crates/xetal-catalog" }
 xetal-ast = { path = "../syntax/crates/xetal-ast" }
 xetal-ir = { path = "../core/crates/xetal-ir" }
@@ -28,6 +29,7 @@ xetal-core = { path = "../core/crates/xetal-core" }
 xetal-ty = { path = "../types/crates/xetal-ty" }
 xetal-types = { path = "../types/crates/xetal-types" }
 xetal-array = { path = "../eval/crates/xetal-array" }
+xetal-progression = { path = "../eval/crates/xetal-progression" }
 xetal-value = { path = "../eval/crates/xetal-value" }
 xetal-arith = { path = "../eval/crates/xetal-arith" }
 xetal-struct = { path = "../eval/crates/xetal-struct" }

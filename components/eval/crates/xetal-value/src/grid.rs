@@ -15,6 +15,7 @@ fn kind(v: &Value<'_>) -> &'static str {
         Value::Tag(ty, _) => ty,
         Value::Unit => "Unit",
         Value::Array(_) => "Array",
+        Value::Range(_) => "Array",
         Value::Boxed(_) => "Box",
         Value::Closure(_) | Value::Prim(_) => "function",
         Value::Error(_) => "Error",

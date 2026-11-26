@@ -50,7 +50,9 @@ impl<'a> Machine<'a, '_> {
             Kont::PrimArg { p, span } => self.prim(&p, v, span),
             Kont::UnitBody { body, env, span } => self.unit_body(v, body, env, span),
             Kont::Called { .. } => Ok(Control::Return(v)),
-            Kont::Kernel { kernel, span } => self.drive(kernel, Some(v), span),
+            Kont::Kernel { kernel, span } => {
+                self.drive(kernel, Some(xetal_range::dense_one(v, span)?), span)
+            }
             _ => Err(Diagnostic::new("internal", "a frame out of place")),
         }
     }

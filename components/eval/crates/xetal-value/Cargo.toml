@@ -11,4 +11,5 @@ repository.workspace = true
 xetal-base.workspace = true
 xetal-core.workspace = true
 xetal-array.workspace = true
+xetal-progression.workspace = true
 xetal-grid.workspace = true

@@ -1,0 +1,36 @@
+# A range far past the largest array (MAX_ITEMS, 2^28 items) is kept as
+# its start, step and count (step 202), so taking from either end,
+# dropping, reversing, shifting and scaling by an Int, counting, its
+# shape, its first item, its sum, selecting, membership and finding an
+# Int cost nothing; the results are the same as on the items.
+== SOURCE
+-5 t_ake r_ange 1000000000
+a := r_ange 1000000000
+t_ally a
+s_hape a
+f_irst a
+'+ r_/ a
+3 t_ake 10 + 2 * a
+-2 t_ake 1 - a
+3 t_ake r_ev a
+-3 t_ake o_ffsets 1000000000
+-2 t_ake 999999995 d_rop a
+1000000000 m_ember? a
+0 m_ember? a
+a i_ndexOf 999999999
+(r_ange 3) s_elect r_ev a
+== RESULT
+999999996 999999997 999999998 999999999 1000000000
+1000000000
+1000000000
+1
+500000000500000000
+12 14 16
+-999999998 -999999999
+1000000000 999999999 999999998
+999999997 999999998 999999999
+999999999 1000000000
+1
+0
+999999999
+1000000000 999999999 999999998

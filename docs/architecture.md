@@ -132,6 +132,8 @@ components/
                            xetal-elab (number-type elaboration),
                            xetal-types (inference, checking)
   eval/                    xetal-array (dense arrays, layout),
+                           xetal-progression (a range kept as start,
+                           step and count until its items are needed),
                            xetal-value (runtime values, printing),
                            xetal-arith (scalar rules, scalar extension),
                            xetal-struct (structural built-ins), xetal-assemble (amend and mix),
@@ -147,7 +149,9 @@ components/
                            higher-order built-ins as kernels: each call
                            of an operand is a step of the machine),
                            xetal-prim (the first-order built-ins
-                           called on values)
+                           called on values), xetal-range (the
+                           built-ins that keep a range a progression,
+                           and where one is made into its items)
   hof/                     xetal-hof (higher-order built-ins: reduce,
                            scan, power, rank, dispatch; each a kernel whose
                            operand calls the evaluator makes), xetal-map
@@ -288,6 +292,12 @@ eval -> array
 
 - `xetal-array` knows nothing about syntax; the evaluator maps
   `PrimId` to kernels.
+- A range (`r_ange`, `o_ffsets`) is a `Value::Range`, a progression,
+  invisible to the language: `xetal-range` keeps it one through take,
+  drop, reverse, an Int shift or scale, count, shape, first, sum,
+  select, membership and index, and makes it items (`dense`) where
+  anything else needs them: every other built-in, an array's items, a
+  guard, a kernel's operand result and a printed value (D211).
 - The evaluator never sees surface syntax or source spelling.
 - Each crate owns its own error type; all convert to
   `xetal_base::Diagnostic` (code, message, primary span, notes).

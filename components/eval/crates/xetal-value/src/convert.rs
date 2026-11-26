@@ -10,6 +10,7 @@ use crate::Value;
 pub fn as_array<'a>(v: &Value<'a>) -> Array<Value<'a>> {
     match v {
         Value::Array(a) => (**a).clone(),
+        Value::Range(p) => crate::range_array(p).unwrap_or_else(|_| Array::vector(Vec::new())),
         s => Array::scalar(s.clone()).with_kind(kind_of(s)),
     }
 }
@@ -18,7 +19,7 @@ pub fn as_array<'a>(v: &Value<'a>) -> Array<Value<'a>> {
 pub fn kind_of(v: &Value<'_>) -> Kind {
     match v {
         Value::Char(_) => Kind::Char,
-        Value::Boxed(_) | Value::Array(_) => Kind::Box,
+        Value::Boxed(_) | Value::Array(_) | Value::Range(_) => Kind::Box,
         _ => Kind::Number,
     }
 }
@@ -27,6 +28,7 @@ pub fn kind_of(v: &Value<'_>) -> Kind {
 pub fn as_vector<'a>(v: &Value<'a>) -> Array<Value<'a>> {
     match v {
         Value::Array(a) => (**a).clone(),
+        Value::Range(p) => crate::range_array(p).unwrap_or_else(|_| Array::vector(Vec::new())),
         s => Array::vector(vec![s.clone()]).with_kind(kind_of(s)),
     }
 }
@@ -56,4 +58,13 @@ fn cell<'a>(shape: &[usize], items: &[Value<'a>]) -> Array<Value<'a>> {
         Ok(a) => a,
         Err(_) => Array::vector(items.to_vec()),
     }
+}
+
+/// A range's items as an Int vector (step 202), if an array may hold them.
+pub fn range_array<'a>(
+    p: &xetal_progression::Progression,
+) -> Result<Array<Value<'a>>, xetal_array::ArrayError> {
+    Ok(Array::vector(
+        p.items()?.into_iter().map(Value::Int).collect(),
+    ))
 }

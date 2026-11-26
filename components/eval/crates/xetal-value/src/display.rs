@@ -42,6 +42,16 @@ impl fmt::Display for Value<'_> {
             Value::Error(e) => write!(f, "error[{}]: {}", e.code, e.message),
             Value::Outcome(_) => f.write_str("<outcome>"),
             Value::Tuple(parts) => f.write_str(&tuple_text(parts)),
+            Value::Range(p) => match crate::range_array(p) {
+                Ok(a) => write!(f, "{}", Value::Array(std::rc::Rc::new(a))),
+                Err(_) => write!(
+                    f,
+                    "<{} items from {} by {}>",
+                    p.count(),
+                    p.start(),
+                    p.step()
+                ),
+            },
         }
     }
 }

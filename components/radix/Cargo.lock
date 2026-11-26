@@ -521,6 +521,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-progression"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+]
+
+[[package]]
 name = "xetal-radix"
 version = "0.1.0"
 dependencies = [
@@ -554,6 +561,7 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-grid",
+ "xetal-progression",
 ]
 
 [[package]]

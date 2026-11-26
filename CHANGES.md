@@ -10,6 +10,10 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-25
+
+- 18:39 `feat` A range kept as a progression (step 202, D211; the user): `r_ange` and `o_ffsets` give start, step and count, kept through take, drop, reverse, an Int shift or scale, count, shape, first, sum, select, membership and index, so `-5 t_ake r_ange 1000000000` runs in a few megabytes where it was `too-large`; anything else makes the items, `too-large` past the limit as before. New crates xetal-progression and xetal-range; a property test checks each kept operation against the built-in on the items; spec cases range-kept, reject-range-too-large, reject-range-shown-too-large; no spec case or golden changed.
+
 ## 2026-11-24
 
 - 11:18 `design` `r_ankOf v`, the number of an array's axes (B30, the user), a built-in beside `d_epth`; step 219.

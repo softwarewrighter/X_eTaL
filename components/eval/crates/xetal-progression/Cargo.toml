@@ -1,0 +1,11 @@
+[package]
+name = "xetal-progression"
+description = "An arithmetic progression kept as start, step and count: what a range is until its items are needed (step 202)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-array.workspace = true

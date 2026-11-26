@@ -55,6 +55,10 @@ impl<'a> Machine<'a, '_> {
                 args,
             }))));
         }
+        if let Some(v) = xetal_range::call(p.name, &args) {
+            return Ok(Control::Return(v));
+        }
+        let args = xetal_range::dense_args(args, span)?;
         if let Some(wants) = Wants::of(p.name)
             && let Some(control) = self.typed_line(p, &args, span, wants)
         {

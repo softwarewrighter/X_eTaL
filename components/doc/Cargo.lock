@@ -1033,6 +1033,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-progression"
+version = "0.1.0"
+dependencies = [
+ "xetal-array",
+]
+
+[[package]]
 name = "xetal-quad"
 version = "0.1.0"
 dependencies = [
@@ -1049,6 +1056,17 @@ version = "0.1.0"
 dependencies = [
  "xetal-array",
  "xetal-base",
+ "xetal-value",
+]
+
+[[package]]
+name = "xetal-range"
+version = "0.1.0"
+dependencies = [
+ "xetal-arith",
+ "xetal-array",
+ "xetal-base",
+ "xetal-progression",
  "xetal-value",
 ]
 
@@ -1163,6 +1181,7 @@ dependencies = [
  "xetal-kernel",
  "xetal-lex",
  "xetal-prim",
+ "xetal-range",
  "xetal-value",
 ]
 
@@ -1288,6 +1307,7 @@ dependencies = [
  "xetal-base",
  "xetal-core",
  "xetal-grid",
+ "xetal-progression",
 ]
 
 [[package]]

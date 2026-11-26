@@ -3,7 +3,6 @@
 
 use std::rc::Rc;
 
-use xetal_arith::truth;
 use xetal_array::Array;
 use xetal_base::Diagnostic;
 use xetal_core::Item;
@@ -77,22 +76,20 @@ impl<'a> Machine<'a, '_> {
                 other,
                 env,
                 span,
-            } => Control::Eval(if truth(&v, span)? { then } else { other }, env),
+            } => {
+                let branch = [other, then][usize::from(xetal_range::guard(v, span)?)];
+                Control::Eval(branch, env)
+            }
             Kont::Array {
                 items,
                 tuple,
                 left,
                 done,
                 env,
-            } => self.array((items, tuple), left, done, env, v),
+            } => self.array((items, tuple), left, done, env, v)?,
             Kont::Part { index, span } => match v {
                 Value::Tuple(parts) if index < parts.len() => Control::Return(parts[index].clone()),
-                _ => {
-                    return Err(
-                        Diagnostic::new("internal", "a pattern's value is not a tuple")
-                            .with_span(span),
-                    );
-                }
+                _ => return Err(err("internal", span, "a pattern's value is not a tuple")),
             },
             _ => return Err(Diagnostic::new("internal", "a frame out of place")),
         })
@@ -106,15 +103,20 @@ impl<'a> Machine<'a, '_> {
         mut done: Vec<Value<'a>>,
         env: xetal_value::Env<'a>,
         v: Value<'a>,
-    ) -> Control<'a> {
+    ) -> Result<Control<'a>, Diagnostic> {
+        let v = if tuple {
+            v
+        } else {
+            xetal_range::dense_one(v, items[left].span)?
+        };
         done.push(v);
         if left == 0 {
             done.reverse();
-            return Control::Return(if tuple {
+            return Ok(Control::Return(if tuple {
                 Value::Tuple(done.into())
             } else {
                 Value::Array(Rc::new(Array::vector(done)))
-            });
+            }));
         }
         let next = &items[left - 1];
         let k = Kont::Array {
@@ -125,7 +127,7 @@ impl<'a> Machine<'a, '_> {
             env: env.clone(),
         };
         self.state.stack.push(k);
-        Control::Eval(next, env)
+        Ok(Control::Eval(next, env))
     }
 
     /// After a binding: its body, or at the top level the next item
@@ -183,6 +185,7 @@ impl<'a> Machine<'a, '_> {
 
     /// A top-level value: printed, or given to the keeper.
     fn show(&mut self, v: &Value<'a>, span: xetal_base::Span) -> Result<Control<'a>, Diagnostic> {
+        let v = &xetal_range::dense_one(v.clone(), span)?;
         match self.keep.as_mut() {
             Some(keep) => keep(v),
             None => writeln!(self.out, "{}", xetal_value::printed(v))

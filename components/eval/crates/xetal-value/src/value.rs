@@ -18,6 +18,10 @@ pub enum Value<'a> {
     Unit,
     /// An array of rank 1 or more (a scalar is never an `Array`).
     Array(Rc<Array<Value<'a>>>),
+    /// An Int vector kept as a progression (`r_ange`, `o_ffsets`): the
+    /// same value as its items, which an operation that needs them
+    /// makes (`dense`); invisible to the language.
+    Range(xetal_progression::Progression),
     /// An enclosed item of a nested array (A7, B14): a scalar holding a
     /// value, which may itself be an array.
     Boxed(Rc<Value<'a>>),

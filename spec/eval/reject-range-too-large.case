@@ -1,0 +1,10 @@
+# An operation that needs every item of a range past the largest array
+# (rotate here) is too large there, as it was where the range was made.
+== SOURCE
+1 o_- r_ange 1000000000
+== ERROR
+error[too-large]: an array may hold at most 268435456 items
+ --> -e:1:1
+  |
+1 | 1 o_- r_ange 1000000000
+  | ^^^^^^^^^^^^^^^^^^^^^^^

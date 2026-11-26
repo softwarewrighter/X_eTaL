@@ -1,0 +1,19 @@
+[package]
+name = "xetal-range"
+description = "Built-ins that keep a range a progression (step 202): take, drop, reverse, shift, scale, sum, select, member, index"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-array.workspace = true
+xetal-progression.workspace = true
+xetal-value.workspace = true
+xetal-base.workspace = true
+xetal-arith.workspace = true
+
+[dev-dependencies]
+xetal-prim.workspace = true
+proptest.workspace = true
