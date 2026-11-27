@@ -1,8 +1,9 @@
 number = 213
 slug = "domino-format-decide"
-status = "pending"
+status = "completed"
 description = "Decide with the user (B29 left them open): domino (matrix inverse and least s..."
 role = "production"
 context_files = []
 created_at = "2026-11-24T09:09:17"
-commits = []
+completed_at = "2026-11-26T18:39:16"
+commits = ["8ff13167be07981ef06b0de7ca20667ca96600ce"]

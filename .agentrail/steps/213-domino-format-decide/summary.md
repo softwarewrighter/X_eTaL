@@ -1,0 +1,1 @@
+Decided with the user as recommended: domino as i_nverse and s_olve (B31), dyadic format as wd f_ixed v (B32); D212; steps 223 and 224 added
