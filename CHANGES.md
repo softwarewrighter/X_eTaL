@@ -10,6 +10,11 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-26
+
+- 18:39 `chore` Step 213 (domino-format-decide) closed.
+- 18:39 `design` Domino and dyadic format decided (step 213, D212; the user, as recommended): `i_nverse m` and `b s_olve a`, least squares when a is tall, built in for accuracy (B31, step 223); `wd f_ixed v`, width and decimals, a negative decimal count for scientific notation, `*` when a number does not fit (B32, step 224).
+
 ## 2026-11-25
 
 - 20:52 `plan` Saga 46, the desktop app (the user): the live demo in its own window (wry and tao, Rust only), the computer's files in place of the browser's storage; steps 220 to 222 at the end of the queue.
