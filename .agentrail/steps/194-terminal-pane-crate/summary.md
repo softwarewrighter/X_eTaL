@@ -1,0 +1,1 @@
+xetal-terminal crate: Terminal component (src, files, seed, restart), body/picture drawing the live demo's output pane, picture clicks as click X Y, transcript with tests, terminal.css; docs/terminal.md; G23 landed; published, ui-check green but for the expected site-vs-main line

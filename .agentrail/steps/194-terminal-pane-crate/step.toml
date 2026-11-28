@@ -1,8 +1,9 @@
 number = 194
 slug = "terminal-pane-crate"
-status = "pending"
+status = "completed"
 description = "X_eTaL-games' ask G23 (their docs/xetal-asks.md, 'A terminal pane a page can ..."
 role = "production"
 context_files = []
 created_at = "2026-11-17T16:43:27"
-commits = []
+completed_at = "2026-11-27T17:46:10"
+commits = ["c8ee8bb9e81667f031637b3c5671ac23849fb32d"]
