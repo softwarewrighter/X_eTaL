@@ -1,0 +1,18 @@
+[package]
+name = "xetal-terminal"
+description = "The terminal pane: a program's output on a cell grid, typed lines, keys, events and pictures, as a Yew component a page can take (G23)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-play.workspace = true
+xetal-runner.workspace = true
+xetal-typing.workspace = true
+xetal-screen.workspace = true
+yew.workspace = true
+js-sys.workspace = true
+web-sys.workspace = true
+wasm-bindgen.workspace = true

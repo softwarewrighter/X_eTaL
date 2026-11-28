@@ -85,3 +85,38 @@ xetal_tty::install(Arc::new(xetal_tty::Forward { error: on_error, facts: [24, 80
 
 `Interactive::notebook` runs the same program a statement at a time,
 giving the page each statement's source before it runs.
+
+## The terminal pane: xetal-terminal
+
+A page that wants the live demo's terminal as it is takes the crate
+`xetal-terminal` (in `components/web/crates/xetal-terminal`), the very
+pane the live demo's output uses. Its `Terminal` component runs a
+program in a worker as soon as it is shown:
+
+```rust
+use xetal_terminal::Terminal;
+
+html! {
+    <Terminal src={PLAY} files={vec![("Rules.xtl".into(), RULES.into())]}
+        seed={7} restart={*restarts} />
+}
+```
+
+- `src` is the program; `files` its libraries and data files, by name,
+  as `xetal-store` holds them; `seed` the seed for `r_oll!`; changing
+  `restart` (or any of the others) runs it again from the start.
+- Output is drawn on a cell grid of 24 rows by 80 columns once the
+  program places or colors text, so `[]A_T`, `[]C_LS` and `[]F_G` work.
+- While the program waits, the pane takes the keyboard: a typed line
+  for `[]R_EAD` (Enter gives it, Ctrl-C stops the run), one key for
+  `[]K_EY`, and for `[]E_VENT` keys as `key NAME`, clock ticks, and a
+  click on a picture as `click X Y` in the picture's own pixels.
+- `[]S_HOW` pictures appear in place, under the output.
+- `xetal_terminal::transcript(&output)` gives what the pane shows as
+  text (the grid's rows when text was placed), for tests.
+
+Its stylesheet is `terminal.css` beside the crate, scoped to
+`.xetal-terminal`; link it from the page's `index.html` with
+`<link data-trunk rel="css" href=".../xetal-terminal/terminal.css" />`.
+The page also builds the worker that runs programs, as the live
+demo's `index.html` does (`xetal-runner`, `data-type="worker"`).

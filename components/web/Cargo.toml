@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members = ["crates/xetal-play", "crates/xetal-chrome", "crates/xetal-layout", "crates/xetal-runner", "crates/xetal-web", "crates/xetal-typing", "crates/xetal-webclock", "crates/xetal-suggest", "crates/xetal-webtui", "crates/xetal-collection"]
+members = ["crates/xetal-play", "crates/xetal-chrome", "crates/xetal-layout", "crates/xetal-runner", "crates/xetal-web", "crates/xetal-typing", "crates/xetal-webclock", "crates/xetal-suggest", "crates/xetal-webtui", "crates/xetal-collection", "crates/xetal-terminal"]
 
 [workspace.package]
 version = "0.1.0"
@@ -48,6 +48,7 @@ ratatui = { version = "0.30", default-features = false, features = ["all-widgets
 xetal-complete = { path = "../complete/crates/xetal-complete" }
 xetal-layout = { path = "crates/xetal-layout" }
 xetal-runner = { path = "crates/xetal-runner" }
+xetal-terminal = { path = "crates/xetal-terminal" }
 xetal-libs = { path = "../macro/crates/xetal-libs" }
 xetal-store = { path = "../base/crates/xetal-store" }
 xetal-eval = { path = "../eval/crates/xetal-eval" }
@@ -65,5 +66,5 @@ xetal-macro = { path = "../macro/crates/xetal-macro" }
 yew = { version = "0.21", features = ["csr"] }
 wasm-bindgen = "0.2"
 js-sys = "0.3"
-web-sys = { version = "0.3", features = ["Element", "HtmlElement", "Document", "NodeList", "HtmlTextAreaElement", "KeyboardEvent", "Window", "Storage", "PointerEvent", "DomRect", "DedicatedWorkerGlobalScope", "MessageEvent", "Worker", "ErrorEvent", "Location", "Blob", "BlobPropertyBag", "Url"] }
+web-sys = { version = "0.3", features = ["Element", "HtmlElement", "Document", "NodeList", "HtmlTextAreaElement", "KeyboardEvent", "Window", "Storage", "PointerEvent", "DomRect", "DedicatedWorkerGlobalScope", "MessageEvent", "Worker", "ErrorEvent", "Location", "Blob", "BlobPropertyBag", "Url", "HtmlImageElement", "MouseEvent"] }
 console_error_panic_hook = "0.1"

@@ -88,17 +88,8 @@ pub(crate) fn rendered(text: &str, current: Pane, focus: Callback<Pane>, drawn: 
 }
 
 /// The types, or after a run its output (scrolled to the end by the
-/// app, so the newest output shows).
-/// A picture a run showed (`[]S_HOW`), as an image: an SVG data URL, so
-/// its animation plays and nothing in it runs as script.
-fn picture(svg: &str) -> Html {
-    let url = format!(
-        "data:image/svg+xml;charset=utf-8,{}",
-        js_sys::encode_uri_component(svg)
-    );
-    html! { <span class="picture"><img src={url} alt="a picture the program showed"/></span> }
-}
-
+/// app, so the newest output shows); a plain run drawn by the terminal
+/// pane (`xetal-terminal`).
 pub(crate) fn output(
     text: &str,
     runs: &Runs,
@@ -109,7 +100,6 @@ pub(crate) fn output(
     typing: &xetal_typing::Typing,
 ) -> Html {
     let o = &runs.output;
-    let input = (o.waiting && !o.wants_key).then(|| xetal_typing::typed_line(typing));
     let lint = lint.filter(|_| o.run.is_none());
     let title = match (&o.run, o.running, o.cells.is_empty()) {
         (None, ..) if lint.is_some() => "Lint".to_string(),
@@ -134,12 +124,11 @@ pub(crate) fn output(
             }) }</pre>
         },
         (None, None) => html! { <pre tabindex="0">{ check(text).join("\n") }</pre> },
-        (Some(r), _) if o.cells.is_empty() => html! {
-            <pre tabindex="0" ref={printed.clone()}>{ xetal_typing::screen(&r.out).unwrap_or_else(|| html! { { &r.out } }) }{ input }<span class="c-error">{ &r.err }</span>
-                { for r.pictures.iter().map(|svg| picture(svg)) }</pre>
+        (Some(_), _) if o.cells.is_empty() => html! {
+            <pre class="xetal-terminal" tabindex="0" ref={printed.clone()}>{ xetal_terminal::body(runs, typing) }</pre>
         },
         (Some(r), _) => html! {
-            <pre tabindex="0" ref={printed.clone()}>{ notebook(runs) }<span class="c-error">{ &r.err }</span></pre>
+            <pre class="xetal-terminal" tabindex="0" ref={printed.clone()}>{ notebook(runs) }<span class="c-error">{ &r.err }</span></pre>
         },
     };
     frame(&title, Pane::Output, current, focus, body)
@@ -165,7 +154,7 @@ fn notebook(runs: &Runs) -> Html {
             <>
                 <span class={classes!("statement", here.then_some("current"))}>{ for spans }</span>
                 { o.out_of(cell) }
-                { for o.pictures_of(cell).iter().map(|svg| picture(svg)) }
+                { for o.pictures_of(cell).iter().map(|svg| xetal_terminal::picture(svg, None)) }
             </>
         }
     });

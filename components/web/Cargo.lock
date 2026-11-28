@@ -3769,6 +3769,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "xetal-terminal"
+version = "0.1.0"
+dependencies = [
+ "js-sys",
+ "wasm-bindgen",
+ "web-sys",
+ "xetal-play",
+ "xetal-runner",
+ "xetal-screen",
+ "xetal-typing",
+ "yew",
+]
+
+[[package]]
 name = "xetal-token"
 version = "0.1.0"
 dependencies = [
@@ -3869,6 +3883,7 @@ dependencies = [
  "xetal-runner",
  "xetal-store",
  "xetal-suggest",
+ "xetal-terminal",
  "xetal-typing",
  "xetal-webclock",
  "xetal-webtui",

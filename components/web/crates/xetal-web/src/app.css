@@ -110,8 +110,6 @@ body:has(#plain-brackets:checked) :is(.c-depth0, .c-depth1, .c-depth2, .c-depth3
 /* The lint report (Lint): a warning, and the notes and the count. */
 .c-warning { color: #e8c76b; } .c-note { color: var(--doc); }
 
-.pane pre .picture { display: block; margin: 8px 0; }
-.pane pre .picture img { max-width: 100%; max-height: 420px; background: #fff; border-radius: 4px; }
 /* While a run goes on: a spinner in the output pane's title, and Run
    shown as a red Stop. */
 .panes.running .output h2::after {
@@ -197,27 +195,4 @@ footer .sep { opacity: 0.6; }
 .open-menu .count { color: var(--dim); font-size: 12px; }
 .toolbar .open-menu .item { padding: 5px 10px 5px 30px; font-size: 14px; }
 
-/* The terminal: the line being typed for a waiting program, its cursor
-   a block on the character under it. */
-.pane pre .typing { color: var(--bright); }
-.pane pre .typing .cursor { background: var(--bright); color: var(--bg); }
-.pane.output pre:focus { outline: none; }
-
-/* The terminal's grid (QD6): a program's placed and styled text. */
-.pane pre .grid .bold { font-weight: 700; }
-.pane pre .grid .fg-black { color: #3b3f4b; }
-.pane pre .grid .fg-red { color: #ff6b6b; }
-.pane pre .grid .fg-green { color: #5fd37a; }
-.pane pre .grid .fg-yellow { color: #ffd21f; }
-.pane pre .grid .fg-blue { color: #5b9cff; }
-.pane pre .grid .fg-magenta { color: #d25fd2; }
-.pane pre .grid .fg-cyan { color: #22b8c8; }
-.pane pre .grid .fg-white { color: #ffffff; }
-.pane pre .grid .bg-black { background: #000000; }
-.pane pre .grid .bg-red { background: #8a1f1f; }
-.pane pre .grid .bg-green { background: #1f6a32; }
-.pane pre .grid .bg-yellow { background: #7a6400; }
-.pane pre .grid .bg-blue { background: #1f3f8a; }
-.pane pre .grid .bg-magenta { background: #6a1f6a; }
-.pane pre .grid .bg-cyan { background: #135f68; }
-.pane pre .grid .bg-white { background: #c8ccd4; color: #16181d; }
+/* The terminal pane's own rules: xetal-terminal/terminal.css. */

@@ -1,0 +1,25 @@
+/* The terminal pane (xetal-terminal): scoped to .xetal-terminal; the
+   page's --bright and --bg are used when it sets them. */
+.xetal-terminal .picture { display: block; margin: 8px 0; }
+.xetal-terminal .picture img { max-width: 100%; max-height: 420px; background: #fff; border-radius: 4px; }
+.xetal-terminal .typing { color: var(--bright, #ffd21f); }
+.xetal-terminal .typing .cursor { background: var(--bright, #ffd21f); color: var(--bg, #16181d); }
+.xetal-terminal:focus { outline: none; }
+.xetal-terminal .c-error { color: #ff6b6b; }
+.xetal-terminal .grid .bold { font-weight: 700; }
+.xetal-terminal .grid .fg-black { color: #3b3f4b; }
+.xetal-terminal .grid .fg-red { color: #ff6b6b; }
+.xetal-terminal .grid .fg-green { color: #5fd37a; }
+.xetal-terminal .grid .fg-yellow { color: #ffd21f; }
+.xetal-terminal .grid .fg-blue { color: #5b9cff; }
+.xetal-terminal .grid .fg-magenta { color: #d25fd2; }
+.xetal-terminal .grid .fg-cyan { color: #22b8c8; }
+.xetal-terminal .grid .fg-white { color: #ffffff; }
+.xetal-terminal .grid .bg-black { background: #000000; }
+.xetal-terminal .grid .bg-red { background: #8a1f1f; }
+.xetal-terminal .grid .bg-green { background: #1f6a32; }
+.xetal-terminal .grid .bg-yellow { background: #7a6400; }
+.xetal-terminal .grid .bg-blue { background: #1f3f8a; }
+.xetal-terminal .grid .bg-magenta { background: #6a1f6a; }
+.xetal-terminal .grid .bg-cyan { background: #135f68; }
+.xetal-terminal .grid .bg-white { background: #c8ccd4; color: #16181d; }

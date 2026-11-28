@@ -10,6 +10,11 @@ documentation, `design` a language decision recorded, `plan`
 saga planning and reordering, `release` milestone release,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-27
+
+- 17:18 `chore` Step 194 (terminal-pane-crate) closed.
+- 17:18 `feat` The terminal pane as a crate a page can take (step 194; X_eTaL-games' ask G23): `xetal-terminal`, its `Terminal` component (a program, its files, a seed, restart) and `terminal.css` scoped to `.xetal-terminal`; the live demo's output pane is drawn by it (no second pane); a click on a picture while a program waits for an event is `click X Y` in the picture's pixels; `transcript` gives the pane as text, with tests; docs/terminal.md says how a page uses it.
+
 ## 2026-11-26
 
 - 18:39 `chore` Step 213 (domino-format-decide) closed.
